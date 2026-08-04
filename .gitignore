@@ -1,0 +1,28 @@
+﻿# Media & heavy derived artifacts (keep on disk, not in git)
+*.mp4
+*.mp3
+*.wav
+*.jpg
+*.jpeg
+*.png
+*.ass
+# Per-project derived/temp output
+projects/*/_work/
+projects/*/_clipcache/
+projects/*/frames/
+projects/*/narration/_cache.json
+projects/*/transcript.partial.jsonl
+projects/*/audio16k.wav
+# Python
+__pycache__/
+*.pyc
+# Stray logs
+*.log
+# Backups
+pipeline_backup_*/
+*_backup
+# local work
+projects/
+transcript*.txt
+transcript*.json3
+

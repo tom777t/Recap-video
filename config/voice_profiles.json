@@ -1,0 +1,26 @@
+{
+  "_comment": "Voice calibration profiles for capacity-aware narration (Mức 3). Rates measured empirically from real TTS output, not guessed. words_per_sec is the AGGREGATE narrated rate (total words / total speaking seconds). words_per_sec_conservative = mean - 0.5*std, used for max-capacity word ceilings so a fit line never overruns. Calibrate with: python -m pipeline.calibration --project <p> --voice <id>.",
+  "profiles": {
+    "en-US-AndrewMultilingualNeural_+22%": {
+      "voice_id": "en-US-AndrewMultilingualNeural",
+      "rate_adjustment": "+22%",
+      "words_per_sec": 3.5,
+      "words_per_sec_conservative": 3.3,
+      "syllables_per_sec": 4.74,
+      "pause_overhead_sec": 0.18,
+      "calibration": {
+        "source": "joker2019 narration lines 1-78 (Andrew Multilingual Neural, +22%)",
+        "samples": 75,
+        "words_per_sec_mean": 3.518,
+        "words_per_sec_std": 0.426,
+        "words_per_sec_min": 2.59,
+        "words_per_sec_max": 4.34,
+        "syllables_per_sec_mean": 4.749,
+        "syllables_per_sec_std": 0.368,
+        "total_words": 1779,
+        "total_speaking_sec": 508.2,
+        "measured_date": "2026-06-20"
+      }
+    }
+  }
+}
