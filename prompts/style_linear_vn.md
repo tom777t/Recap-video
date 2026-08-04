@@ -1,3 +1,4 @@
+> **Read `docs/RULES.md` before writing anything.** It holds the editorial rules derived from previous films. Where it conflicts with the general guidance below, RULES.md wins. Candidate rules not yet confirmed live in `docs/GATE_CANDIDATES.md` — do not apply those unless told to.
 # Recap Narration Style Guide — LINEAR mode (kể tuyến tính)
 
 > **SIBLING FILE.** This is the "linear" counterpart to `recap_style.md` (the

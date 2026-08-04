@@ -1,3 +1,4 @@
+> **Read `docs/RULES.md` before writing anything.** It holds the editorial rules derived from previous films. Where it conflicts with the general guidance below, RULES.md wins. Candidate rules not yet confirmed live in `docs/GATE_CANDIDATES.md` — do not apply those unless told to.
 # Recap Narration Style Guide (v3 — built for views)
 
 > **THE FULL QUALITY BAR IS IN `SHIP_CHECKLIST.md` (criteria A-V).** A recap is
