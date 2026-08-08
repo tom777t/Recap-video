@@ -255,6 +255,29 @@ def validate_draft(project: str, *, write_state: bool = False,
                       f"({100*n_action/n_total:.0f}% action, "
                       f"{100*(n_total-n_action)/n_total:.0f}% dialogue)")
 
+    # ---- duplicate line ids -------------------------------------------------
+    # HARD failure. Line ids are the key for the TTS filename (line_041.mp3),
+    # the render's by_id lookup, every gate message and every QA note. Two lines
+    # sharing an id means the second silently overwrites the first's audio and
+    # BOTH render with the same voiceover - which is how a late-film line ended
+    # up narrating an early scene in Shutter Island, spoiling the twist 36
+    # seconds in while every gate stayed green.
+    _seen: dict = {}
+    _dupes: list = []
+    for _ln in draft["lines"]:
+        _k = str(_ln.get("id"))
+        if _k in _seen:
+            _dupes.append((_k, _seen[_k], _ln.get("clip_start")))
+        else:
+            _seen[_k] = _ln.get("clip_start")
+    if _dupes:
+        console.print("[red][DUPLICATE-ID][/] line ids must be unique:")
+        for _k, _first, _second in _dupes:
+            console.print(f"    id {_k}: {_first} and {_second}")
+        console.print("[red]  Renumber one of them. Rendering with duplicate ids "
+                      "gives both lines the same narration audio.[/]")
+        sys.exit(1)
+
     # quality linter (clarity / read-aloud / names / action-setup / visual-memory)
     _lint_script(pdir, draft, src_dur, pool_meta, explicit_times)
 
@@ -465,7 +488,8 @@ def _load_shot_index(pdir):
             continue
         try:
             out.append((parse_ts(cs), parse_ts(ce),
-                        set(s.get("depicts") or []), s.get("family")))
+                        set(s.get("depicts") or []), s.get("family"),
+                        s.get("id") or f"clip:{cs}"))
         except Exception:
             continue
     out.sort(key=lambda x: x[0])
@@ -551,7 +575,7 @@ def _lint_script(pdir, draft, src_dur, pool_meta=None, explicit_times=None):
         if cs and shot_index:
             try:
                 t = parse_ts(cs)
-                for a, b, sdep, _fam in shot_index:
+                for a, b, sdep, _fam, _sid in shot_index:
                     if a <= t < b:
                         dep |= sdep
                         break
@@ -590,7 +614,7 @@ def _lint_script(pdir, draft, src_dur, pool_meta=None, explicit_times=None):
     # Never silently no-op: if nothing carries `depicts`, action detection is
     # running on family names and hold>=5s alone, and the gate is much weaker
     # than it looks. Say so rather than reporting a clean pass.
-    _has_depicts = any(dep for _, _, dep, _ in shot_index) or any(
+    _has_depicts = any(dep for _, _, dep, _, _ in shot_index) or any(
         (v or {}).get("depicts") for v in pool_meta.values() if isinstance(v, dict))
     if lines and not _has_depicts:
         warns.append("[ACTION-SETUP] no `depicts` tags on any shot or pool entry "
@@ -808,6 +832,125 @@ def beat_times(project) -> dict:
         "by_id": {bid: secs for bid, secs in ordered},
         "problems": problems,
     }
+
+
+def _fld(obj, key, default=None):
+    """Read a field from either a dict or a schemas dataclass.
+
+    `validate_draft` hands raw JSON dicts around; `_run_phase1_audits` hands
+    parsed Draft/Line dataclasses. Both call into here, so neither shape may be
+    assumed - an earlier version used .get() only, tested fine against a JSON
+    fixture, and crashed the whole audit on the real pipeline.
+    """
+    if isinstance(obj, dict):
+        return obj.get(key, default)
+    return getattr(obj, key, default)
+
+
+def _lines_of(d):
+    return _fld(d, "lines", None) or []
+
+
+def binding_integrity(pdir, d) -> dict:
+    """Report-only (stage 1). Which lines are bound to a catalogued shot?
+
+    A line may declare `shot_id`; if it does, the id must exist and the line's
+    clip window must sit inside that shot's window. If it does not, the shot is
+    inferred from the timestamp - and a line whose clip_start falls in no
+    catalogued window is FREE: nothing in shots.json stands behind it, so
+    binding_audit / continuity_check / tag_audit have nothing to compare it to.
+
+    Measured 2026-08-08: John Wick 0/91 free, Interstellar 0/106, Spider-Man
+    19/76, Shutter Island 27/58. The free ones appear where the act-by-act
+    enrichment pass (RULES A1) added lines without extending the catalogue.
+
+    Returns {"total", "bound", "free", "free_ids", "bad_ref"}.
+    """
+    idx = _load_shot_index(pdir)
+    out = {"total": 0, "bound": 0, "free": 0, "free_ids": [], "bad_ref": []}
+    if not idx:
+        return out
+    by_id = {sid: (a, b) for a, b, _d, _f, sid in idx}
+
+    for ln in _lines_of(d):
+        # pool / montage lines already reference a catalogue label by name
+        if _fld(ln, "pool") or _fld(ln, "montage"):
+            continue
+        cs = _fld(ln, "clip_start")
+        if not cs:
+            continue
+        out["total"] += 1
+        try:
+            t = parse_ts(cs)
+        except Exception:
+            out["free"] += 1
+            out["free_ids"].append(str(_fld(ln, "id")))
+            continue
+
+        sid = _fld(ln, "shot_id")
+        if sid:
+            win = by_id.get(str(sid))
+            if not win:
+                out["bad_ref"].append(
+                    f"line {_fld(ln, 'id')}: shot_id {sid!r} not in catalogue")
+            elif not (win[0] - 0.6 <= t < win[1]):
+                out["bad_ref"].append(
+                    f"line {_fld(ln, 'id')}: clip_start {cs} is outside shot {sid}")
+            else:
+                out["bound"] += 1
+                continue
+
+        if any(a - 0.6 <= t < b for a, b, _d, _f, _s in idx):
+            out["bound"] += 1
+        else:
+            out["free"] += 1
+            out["free_ids"].append(str(_fld(ln, "id")))
+    return out
+
+
+def catalogue_density(project, pdir) -> dict:
+    """Is the catalogue rich enough to TELL the story, beat by beat?
+
+    Not a shots-per-line ratio - shots per BEAT. The beat map is the human's own
+    declaration of what the film's content is, so "enough footage to recap the
+    content" is measurable against it: a beat with no catalogued shot cannot be
+    shown at all, and a beat with one shot can only be shown one way.
+
+    Why this is the preventive half of BINDING-INTEGRITY: a thin catalogue is
+    what pushes the enrichment pass into inventing windows. Measured shots/beat
+    - John Wick 3.07 and Interstellar 2.97 (both 0% free lines), Spider-Man 2.65
+    (25% free), Shutter Island 1.11 (47% free).
+
+    PROVISIONAL: four films. The global ratio alone does NOT separate Spider-Man
+    from the healthy two - the per-beat list below is the signal that does, and
+    the band should be re-derived after two more films.
+
+    No-ops (and says so) without a beat map or without shots.json.
+    """
+    idx = _load_shot_index(pdir)
+    bt = beat_times(project)
+    bounds = bt.get("ordered") or []
+    out = {"ok": False, "reason": "", "shots": len(idx), "beats": len(bounds),
+           "ratio": 0.0, "empty": [], "thin": []}
+    if not idx:
+        out["reason"] = "no shots.json - cannot measure"
+        return out
+    if len(bounds) < 2:
+        out["reason"] = "no usable beat map - cannot measure"
+        return out
+
+    dur = _film_duration(project) or (bounds[-1][1] + 600.0)
+    edges = [(bid, s, (bounds[i + 1][1] if i + 1 < len(bounds) else dur))
+             for i, (bid, s) in enumerate(bounds)]
+    for bid, a, b in edges:
+        n = sum(1 for s, _e, _d, _f, _i in idx if a <= s < b)
+        if n == 0:
+            out["empty"].append(str(bid))
+        elif n == 1:
+            out["thin"].append(str(bid))
+    out["ratio"] = len(idx) / max(1, len(bounds))
+    out["ok"] = True
+    return out
 
 
 def beat_coverage(project, d) -> dict:
@@ -1198,10 +1341,19 @@ def _run_phase1_audits(project, pdir):
         console.print(f"[yellow]skeleton.json present but invalid: {e}[/]")
         skel = None
     try:
-        shots_by_id, pool_families = schemas.load_shots(project)
+        shots_by_id, pool_families, shot_problems = schemas.load_shots(project)
     except Exception as e:
-        console.print(f"[yellow]footage parse issue: {e}[/]")
-        shots_by_id, pool_families = {}, {}
+        console.print(f"[red]footage could not be loaded at all: {e}[/]")
+        shots_by_id, pool_families, shot_problems = {}, {}, [str(e)]
+    # A dropped entry is invisible footage: every audit below runs on what
+    # loaded, so a clean result means nothing until this list is empty. Loud,
+    # red, and repeated in the summary - never a single yellow line that scrolls
+    # past while the report underneath says "clean".
+    for _p in shot_problems:
+        console.print(f"[red][FOOTAGE-DROPPED][/] {_p}")
+    if shot_problems:
+        console.print(f"[red]  {len(shot_problems)} footage entr(ies) were skipped - "
+                      f"the audits below are DEGRADED and cannot certify clean.[/]")
     names = schemas.load_names(project)
     cov = coverage_audit(d, skel) if skel is not None else []
     bind = binding_audit(d, shots_by_id, pool_families, names)
@@ -1371,6 +1523,51 @@ def _run_phase1_audits(project, pdir):
         console.print(msg)
     for _prob in bc.get("ts_problems", []):
         console.print(f"[red][BEAT-MAP][/] {_prob}")
+
+    # ---- BINDING-INTEGRITY (stage 1: report only, never blocks) -------------
+    pdir = config.project_dir(project)
+    if style == "linear":
+        bi = binding_integrity(pdir, d)
+        if bi["total"]:
+            if bi["free"]:
+                ids = ", ".join(bi["free_ids"][:20])
+                console.print(
+                    f"[yellow][BINDING-INTEGRITY][/] {bi['free']}/{bi['total']} "
+                    f"explicit-window line(s) are bound to NO catalogued shot: {ids}"
+                    f"{' ...' if len(bi['free_ids']) > 20 else ''}")
+                console.print(
+                    "    Nothing in shots.json stands behind these, so the footage "
+                    "audits cannot check them at all. Split or add catalogue entries "
+                    "rather than pointing a line at a bare timestamp.")
+                console.print("    [dim](report only for now - this does not block)[/]")
+            else:
+                console.print(f"[bold][BINDING-INTEGRITY][/] all {bi['bound']} "
+                              f"explicit-window line(s) land on a catalogued shot")
+        for _br in bi["bad_ref"]:
+            console.print(f"[red][BINDING-INTEGRITY][/] {_br}")
+
+        # ---- CATALOGUE-DENSITY ---------------------------------------------
+        cd = catalogue_density(project, pdir)
+        if not cd["ok"]:
+            console.print(f"[dim][CATALOGUE-DENSITY] not measured: {cd['reason']}[/]")
+        else:
+            msg = (f"[CATALOGUE-DENSITY] {cd['shots']} shots / {cd['beats']} beats "
+                   f"= {cd['ratio']:.2f} per beat")
+            if cd["empty"]:
+                console.print(f"[yellow][/]{msg}")
+                console.print(f"    [yellow]{len(cd['empty'])} beat(s) have NO shot "
+                              f"catalogued: {', '.join(cd['empty'][:15])}[/] - these "
+                              f"cannot be shown at all; the draft will have to invent "
+                              f"windows for them.")
+            elif cd["thin"]:
+                console.print(f"[bold]{msg}[/]")
+                console.print(f"    [dim]{len(cd['thin'])} beat(s) have only one shot: "
+                              f"{', '.join(cd['thin'][:15])} - one way to show them.[/]")
+            else:
+                console.print(f"[bold]{msg}[/] [dim]- every beat has >=2 shots[/]")
+            console.print("    [dim]band PROVISIONAL (4 films): the per-beat list is "
+                          "the signal, the ratio alone does not separate a healthy "
+                          "catalogue from a thin one.[/]")
 
     # ---- SET-PIECE COVERAGE (linear, SCRIPT stage ONLY) ----------------------
     # A followability-critical fight needs no long unnarrated stretch. Measures

@@ -1,3 +1,5 @@
+
+
 """
 schemas.py — Phase 1 machine-readable contracts (stdlib dataclasses, no Pydantic).
 
@@ -505,10 +507,21 @@ def load_shots(project: str):
       - pool_families: dict[str, list[Shot]]  (broll family -> its shots, for set-union)
     Footage is resolved from the EXISTING broll.json "pool" dict and inline
     clip_start/clip_end on draft lines. shots.json is optional extra detail.
+
+    Returns (shots_by_id, pool_families, problems).
+
+    `problems` is a list of per-entry error strings. It used to be that ONE bad
+    entry raised out of this function, the caller swallowed the exception and
+    substituted empty dicts, and every downstream footage audit then ran on
+    nothing and reported "clean". A single `depicts: ['object']` in Shutter
+    Island hid all 31 shots that way for the life of the project. So a bad entry
+    is now skipped and recorded; the rest still load, and the caller is expected
+    to surface `problems` and refuse to certify the audit clean.
     """
     pdir = config.project_dir(project)
     shots_by_id: dict = {}
     pool_families: dict = {}
+    problems: list = []
 
     # 1) broll.json pool entries
     bp = pdir / "broll.json"
@@ -519,22 +532,24 @@ def load_shots(project: str):
             for label, meta in pool.items():
                 if not isinstance(meta, dict):
                     continue
-                sh = Shot(
-                    id=label, source="broll",
-                    time_start=meta.get("start"), time_end=meta.get("end"),
-                    chars=meta.get("chars", []),
-                    depicts=meta.get("depicts", []),
-                    action=meta.get("action", meta.get("note", "")),
-                    family=meta.get("family"),
-                    strength=meta.get("strength", "hero" if meta.get("hero") else None),
-                )
+                try:
+                    sh = Shot(
+                        id=label, source="broll",
+                        time_start=meta.get("start"), time_end=meta.get("end"),
+                        chars=meta.get("chars", []),
+                        depicts=meta.get("depicts", []),
+                        action=meta.get("action", meta.get("note", "")),
+                        family=meta.get("family"),
+                        strength=meta.get("strength", "hero" if meta.get("hero") else None),
+                    )
+                except Exception as e:
+                    problems.append(f"broll pool entry {label!r}: {e}")
+                    continue
                 shots_by_id[label] = sh
                 if sh.family:
                     pool_families.setdefault(sh.family, []).append(sh)
-        except SchemaError:
-            raise
-        except Exception:
-            pass
+        except Exception as e:
+            problems.append(f"broll.json unreadable: {e}")
 
     # 2) optional shots.json (extra catalogue, e.g. for explicit scenes)
     sp = pdir / "shots.json"
@@ -542,14 +557,16 @@ def load_shots(project: str):
         try:
             sd = _read_json(sp)
             for s in sd.get("shots", []):
-                sh = Shot(**_drop_unknown(Shot, {**s, "source": s.get("source", "shots")}))
+                try:
+                    sh = Shot(**_drop_unknown(Shot, {**s, "source": s.get("source", "shots")}))
+                except Exception as e:
+                    problems.append(f"shots.json entry {s.get('id', '?')}: {e}")
+                    continue
                 shots_by_id[sh.id] = sh
-        except SchemaError:
-            raise
-        except Exception:
-            pass
+        except Exception as e:
+            problems.append(f"shots.json unreadable: {e}")
 
-    return shots_by_id, pool_families
+    return shots_by_id, pool_families, problems
 
 
 def estimate_narration_seconds(words: int) -> float:
@@ -643,3 +660,6 @@ def parse_ts(ts: str) -> float:
         parts.insert(0, 0.0)
     h, m, s = parts[-3], parts[-2], parts[-1]
     return h * 3600 + m * 60 + s
+
+
+

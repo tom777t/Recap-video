@@ -1,3 +1,5 @@
+
+
 """
 validator_report.py - format Phase 1 audit results for the agent.
 
@@ -100,8 +102,18 @@ def format_validator_report(coverage_gaps, binding_result, continuity_issues,
         lines.append(f"  [yellow]0 verified mismatches - but {unver} lines unverified. "
                      f"Tag remaining footage to complete the audit.[/]")
         warn = True
+    elif vmis == 0 and unver == 0 and vmatch == 0:
+        # Nothing was checked. Saying "all verified" here is the worst output
+        # this report can produce: it is read as a pass. binding_audit only
+        # examines lines carrying a `claim`, and across every project so far
+        # that count is zero, so this branch fired on every film while the
+        # audit had looked at nothing.
+        lines.append("  [yellow]NOTHING VERIFIED - 0 lines carry a `claim`, so the "
+                     "binding audit checked nothing. This is not a pass.[/]")
+        warn = True
     elif vmis == 0 and unver == 0:
-        lines.append("  [green]all visual lines verified - footage matches the narration[/]")
+        lines.append(f"  [green]all {vmatch} visual line(s) verified - "
+                     f"footage matches the narration[/]")
     # list the real mismatches (not the unverified noise)
     for b in bissues:
         if b.issue == "UNVERIFIED":
@@ -171,3 +183,6 @@ def format_validator_report(coverage_gaps, binding_result, continuity_issues,
         sev = "clean"
 
     return lines, sev
+
+
+

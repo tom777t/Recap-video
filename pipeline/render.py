@@ -1,3 +1,5 @@
+
+
 """
 Render step: turn draft.json + narration audio into final.mp4.
 
@@ -522,6 +524,20 @@ def render(project: str, draft: dict,
     ffp = config.ffprobe()
 
     by_id = {n[0]: n for n in narration}
+    # Last line of defence before anything is baked into an mp4. draft-stage
+    # gates validate draft.json; this checks what the RENDER actually holds.
+    # If two lines share an id, `narration` has two entries and this dict has
+    # one - both lines then play the same audio, and no earlier gate can see it
+    # because the draft text was in the right order all along.
+    if len(by_id) != len(narration):
+        _seen, _dupes = set(), []
+        for _n in narration:
+            (_dupes.append(_n[0]) if _n[0] in _seen else _seen.add(_n[0]))
+        console.print(f"[red]Duplicate line id(s) in narration: {sorted(set(_dupes))}. "
+                      f"{len(narration)} lines but only {len(by_id)} audio files - "
+                      f"the duplicates would share one voiceover. Renumber and "
+                      f"re-run `draft` before rendering.[/]")
+        sys.exit(1)
 
     # load the action B-roll pool (if any) so lines can use "pool": "A4"
     from pipeline import broll as brollmod
@@ -976,3 +992,6 @@ def _render_with_music(ff: str, av: Path, music: Path, ass_filter: str | None,
         str(final),
     ]
     _run(cmd, "final encode with music")
+
+
+
