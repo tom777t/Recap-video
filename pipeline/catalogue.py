@@ -1,3 +1,5 @@
+
+
 """
 catalogue.py — Mức 3 capacity-aware shot catalogue helpers.
 
@@ -211,7 +213,8 @@ def parse_beats(project: str) -> dict:
     pdir = config.project_dir(project)
     bp = pdir / "beats_proposal.md"
     out = {"tier": None, "tier_inferred": None, "target_runtime": None,
-           "beats": [], "declared_motifs": [], "style": "review"}
+           "beats": [], "declared_motifs": [], "style": "review",
+           "ts_format": None}
     if not bp.exists():
         return out
     text = bp.read_text(encoding="utf-8-sig")
@@ -225,6 +228,16 @@ def parse_beats(project: str) -> dict:
     if ms:
         cand = ms.group(1).strip().lower()
         out["style"] = "linear" if cand in ("linear", "linear_vn") else "review"
+
+    # ts_format: how to read a 2-part beat timestamp 'A:B' ("HH:MM" or "MM:SS").
+    # Absent -> draft.beat_times falls back to HH:MM, the convention of every
+    # linear proposal written so far. Declaring it removes the guess entirely.
+    mf = _re.search(r"^\s*ts_format\s*:\s*([A-Za-z:]+)", text,
+                    _re.IGNORECASE | _re.MULTILINE)
+    if mf:
+        cand = mf.group(1).strip().upper()
+        if cand in ("HH:MM", "MM:SS"):
+            out["ts_format"] = cand
 
     m = _re.search(r"^\s*depth_target\s*:\s*([a-z_]+)", text, _re.IGNORECASE | _re.MULTILINE)
     if m:
@@ -577,3 +590,6 @@ if __name__ == "__main__":
         _sys.exit(print_coverage_report(args.project, strict=args.strict))
     r = enrich_shots(args.project, force=args.force, write=not args.dry_run)
     print(f"shots: {r['n_shots']}  enriched: {r['n_enriched']}")
+
+
+

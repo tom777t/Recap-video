@@ -1,3 +1,5 @@
+
+
 """
 The semi-auto checkpoint.
 
@@ -294,6 +296,10 @@ def outline_ready(audit: dict) -> tuple:
     max_run = bc.get("max_consecutive_uncovered", 0)
     checks = {
         "beats_present":        beats > 0,
+        # A beat map that failed validation is an UNKNOWN, not a weak signal:
+        # every number below it (coverage, reveal landings, set-piece ranges)
+        # is computed from timestamps we cannot vouch for. Block promotion.
+        "beat_map_trusted":     not bc.get("ts_problems"),
         "no_skipped_chunk":     beats > 0 and max_run < 2,
         "no_binding_mismatch":  audit.get("binding_mismatch", 1) == 0,
         "no_unverified":        audit.get("binding_unverified", 1) == 0,
@@ -315,7 +321,10 @@ def outline_ready(audit: dict) -> tuple:
         if gaps:
             gap_note = " | skipped chunks: " + "; ".join(
                 "+".join(str(x) for x in g) for g in gaps)
-        reason = "not ready: " + failed + gap_note
+        ts_note = ""
+        if bc.get("ts_problems"):
+            ts_note = " | beat map: " + "; ".join(bc["ts_problems"])
+        reason = "not ready: " + failed + gap_note + ts_note
     return ready, reason
 
 
@@ -370,27 +379,103 @@ _FORMAL = [
     r"\butilize\b", r"\bthereafter\b", r"\bwhom\b", r"\balbeit\b",
     r"\bnevertheless\b", r"\bcommences\b",
 ]
+# Generic action TOKENS, matched against the parts of a family name
+# ("warehouse_shootout" -> {"warehouse", "shootout"} -> action). This is a
+# FALLBACK; the primary signal is `depicts: action` on the shot or pool entry.
+#
+# Film-specific family names must never be added here. The previous version
+# listed pennywise_attack / losers_fight / bowers_bully (IT 2017) as global
+# constants, which meant the gate went silent on any film whose tagger named
+# families differently - a gate that looks alive and is not. RULES.md B5: a
+# right rule applied too narrowly. Token matching generalises it instead.
 _ACTION_FAMILIES = {
-    "explosion", "forest_fight", "apartment_fight", "gunfight", "bombmaking",
-    "chase", "fight", "shootout", "attack", "ambush", "raid", "breach",
-    "escape", "battle", "brawl", "jungle_fight", "skydive", "pennywise_attack",
-    "pennywise_climax", "losers_fight", "bowers_bully",
+    "explosion", "gunfight", "bombmaking", "chase", "fight", "shootout",
+    "attack", "ambush", "raid", "breach", "escape", "battle", "brawl",
+    "skydive", "standoff", "duel", "siege", "pursuit",
 }
+
+
+def _is_action_family(fam) -> bool:
+    """True when any token of a family name is a generic action word."""
+    if not fam:
+        return False
+    toks = set(str(fam).lower().replace("-", "_").replace(" ", "_").split("_"))
+    return bool(toks & _ACTION_FAMILIES)
+# Setup cues: a line sets up an action beat when it establishes WHO / WHY /
+# TRIGGER / STAKES. Deliberately narrow - causal and intentional markers only.
+#
+# Removed from the previous version, and why:
+#   when, once, after, meanwhile, however, unfortunately
+#       -> bare temporal/discourse words. "When Peter turns around, the building
+#          explodes" establishes nothing; it just orders two events.
+#   attacks, corners, finds
+#       -> these ARE the action (or the discovery), not its setup.
+#   in order to
+#       -> also listed in _FORMAL, so one phrase both earned a warning and
+#          cleared this gate.
+# The "any known character name appears" clause was dropped from _has_setup for
+# the same reason: naming someone is not establishing why they are fighting.
 _SETUP_CUES = [
-    r"\bbecause\b", r"\bafter\b", r"\bas a result\b", r"\bin response\b",
-    r"\bso (?:he|she|they|now|that)\b", r"\bnow that\b", r"\bonce\b",
-    r"\bwhen\b", r"\bfollowing\b", r"\bmeanwhile\b", r"\bhowever\b",
-    r"\bunfortunately\b", r"\bin order to\b", r"\btracks?\b", r"\bcorners?\b",
-    r"\bwants?\b", r"\bdecides?\b", r"\bhunts?\b", r"\bfinds?\b",
-    r"\bdiscovers?\b", r"\bgoes? after\b", r"\bcomes? for\b",
-    r"\bthreatens?\b", r"\bdemands?\b", r"\brefuses?\b", r"\bsets? off\b",
-    r"\bconfronts?\b", r"\battacks?\b", r"\bso he\b", r"\bso she\b", r"\bso they\b",
+    r"\bbecause\b", r"\bas a result\b", r"\bin response\b",
+    r"\bso (?:he|she|they|now|that)\b", r"\bnow that\b",
+    r"\bwants? to\b", r"\bneeds? to\b", r"\bdecides?\b", r"\bplans?\b",
+    r"\bintends?\b", r"\bsets? out\b", r"\bsets? off\b",
+    r"\bhunts?\b", r"\btracks? (?:down|him|her|them|it)\b",
+    r"\bgoes? after\b", r"\bcomes? for\b", r"\bconfronts?\b",
+    r"\bthreatens?\b", r"\bdemands?\b", r"\brefuses?\b", r"\bwarns?\b",
+    r"\bif (?:he|she|they)\b",
+    r"\bbefore (?:he|she|they|it)\b",
 ]
+
+# NOTE - a purpose-infinitive regex was tried here and REMOVED. Measured over
+# Interstellar + John Wick it fired 12 times and matched a real purpose clause
+# roughly twice: it cleared action beats on the strength of "to be", "to die",
+# "to every", "to hope", "to ash", "to do". Worse, it silenced the gate
+# completely (34 warnings -> 1 across four films) including a verified real
+# miss, Interstellar L73, cleared by "to hope" three lines earlier in an
+# unrelated scene about Murph.
+#
+# Two attempts at a cleverer pattern both failed in opposite directions - an
+# enumerated verb list was too narrow, a structural match too broad. Setup is a
+# meaning, not a string, and the honest reading of the data is that a text cue
+# cannot decide it. What CAN decide it is a human tag: `depicts: setup` is
+# already in the controlled vocabulary and shots are tagged 100%. See
+# docs/GATE_CANDIDATES.md.
+
+
+def _load_shot_index(pdir):
+    """[(start_sec, end_sec, depicts:set, family)] from shots.json, time-sorted.
+
+    Lets the ACTION-SETUP gate classify lines bound to an EXPLICIT window. Pool
+    and montage lines are classified from pool_meta; before this existed, every
+    explicit-window line - the majority in a linear project - fell straight
+    through to the hold>=5s fallback.
+    """
+    out = []
+    sp = pdir / "shots.json"
+    if not sp.exists():
+        return out
+    try:
+        shots = json.loads(sp.read_text(encoding="utf-8-sig")).get("shots", [])
+    except Exception:
+        return out
+    for s in shots:
+        cs, ce = s.get("clip_start"), s.get("clip_end")
+        if not cs or not ce:
+            continue
+        try:
+            out.append((parse_ts(cs), parse_ts(ce),
+                        set(s.get("depicts") or []), s.get("family")))
+        except Exception:
+            continue
+    out.sort(key=lambda x: x[0])
+    return out
 
 
 def _lint_script(pdir, draft, src_dur, pool_meta=None, explicit_times=None):
     pool_meta = pool_meta or {}
     explicit_times = explicit_times or []
+    shot_index = _load_shot_index(pdir)
     warns: list = []
 
     # --- [NAME]: invented-name guard via names.json ----------------------
@@ -455,34 +540,114 @@ def _lint_script(pdir, draft, src_dur, pool_meta=None, explicit_times=None):
         return {pool_meta.get(l, {}).get("family")
                 for l in labs if l and isinstance(l, str)}
 
+    def _depicts_of(ln):
+        """Union of `depicts` from the pool entries AND the shot this line is
+        bound to. Either source is enough; both are often present."""
+        dep = set()
+        for lab in (ln.get("montage") or ([ln["pool"]] if ln.get("pool") else [])):
+            if isinstance(lab, str):
+                dep |= set((pool_meta.get(lab, {}) or {}).get("depicts") or [])
+        cs = ln.get("clip_start")
+        if cs and shot_index:
+            try:
+                t = parse_ts(cs)
+                for a, b, sdep, _fam in shot_index:
+                    if a <= t < b:
+                        dep |= sdep
+                        break
+            except Exception:
+                pass
+        return dep
+
     def _is_action(ln):
-        if _families_of(ln) & _ACTION_FAMILIES:
+        # 1. explicit tag - the only signal that generalises across films
+        if "action" in _depicts_of(ln):
             return True
+        # 2. family name containing a generic action token
+        if any(_is_action_family(f) for f in _families_of(ln) if f):
+            return True
+        # 3. long hold (weakest fallback; a long hold is often a fight beat)
         try:
             return float(ln.get("hold", 0) or 0) >= 5.0
         except (TypeError, ValueError):
             return False
 
-    def _has_setup(text):
-        low = text.lower()
-        for pat in _SETUP_CUES:
-            if _re.search(pat, low):
-                return True
-        for nm in known:
-            if nm and len(nm) > 2 and _re.search(rf"\b{_re.escape(nm)}\b", low):
-                return True
-        return False
+    def _has_setup(ln):
+        """Setup = a narrow causal cue in the NARRATION. Nothing else.
 
+        `depicts: setup` was tried here as an authoritative signal and removed.
+        Two reasons, both measured: shots are tagged ~100%, so some shot in any
+        4-line window carries `setup` and the gate cleared everything (34 -> 2
+        across four films, losing the verified real miss at Interstellar L73);
+        and it is the wrong object anyway - `depicts` describes the FOOTAGE,
+        while this rule is about whether the NARRATION established who and why.
+        A setup-looking shot next to a fight proves nothing about what the
+        viewer was told.
+        """
+        low = (ln.get("narration") or "").lower()
+        return any(_re.search(pat, low) for pat in _SETUP_CUES)
+
+    # Never silently no-op: if nothing carries `depicts`, action detection is
+    # running on family names and hold>=5s alone, and the gate is much weaker
+    # than it looks. Say so rather than reporting a clean pass.
+    _has_depicts = any(dep for _, _, dep, _ in shot_index) or any(
+        (v or {}).get("depicts") for v in pool_meta.values() if isinstance(v, dict))
+    if lines and not _has_depicts:
+        warns.append("[ACTION-SETUP] no `depicts` tags on any shot or pool entry "
+                     "- action detection fell back to family names and hold>=5s. "
+                     "Tag shots.json/broll.json to make this gate real.")
+
+    # Setup -> Action -> Consequence is a rule about a BEAT, not about every
+    # line. Inside a sustained sequence the middle lines ARE the Action; making
+    # each of them re-establish why would be padding, and the opening setup
+    # falls out of a 4-line window by the fifth line anyway. So only the line
+    # that OPENS an action run is checked. (Measured: Interstellar fired 9 times
+    # across lines 73-81 for what is one docking beat.)
+    # Known limit: a long sequence that shifts to a new sub-beat needing fresh
+    # setup is not caught. That is the Stage-7 watch's job.
+    action_flags = [_is_action(x) for x in lines]
+
+    hits = []
     for i, ln in enumerate(lines):
-        if not _is_action(ln) or ln.get("setup_ok") or ln.get("delivery") in ("hook", "intro"):
+        if not action_flags[i] or ln.get("setup_ok") or ln.get("delivery") in ("hook", "intro"):
             continue
+        if i > 0 and action_flags[i - 1]:
+            continue                      # mid-run: not a new action beat
         window = lines[max(0, i - 4):i]
-        if any(_has_setup(p.get("narration", "")) for p in window) or _has_setup(ln.get("narration", "")):
+        if any(_has_setup(p) for p in window) or _has_setup(ln):
             continue
-        fams = sorted(f for f in _families_of(ln) if f) or ["hold>=5s"]
-        warns.append(f"[ACTION-SETUP] line {ln['id']}: action beat ({', '.join(fams)}) "
-                     f"has no setup in the prior 4 lines - establish who/why/trigger/"
-                     f"stakes BEFORE it (Setup -> Action -> Consequence).")
+        fams = sorted(f for f in _families_of(ln) if f)
+        if not fams:
+            fams = ["depicts:action"] if "action" in _depicts_of(ln) else ["hold>=5s"]
+        hits.append((ln["id"], ", ".join(fams)))
+
+    # Stage-aware, like DRAFT-TARGET and SET-PIECE. An OUTLINE is deliberately
+    # thin - setup lines are density, and density arrives with enrichment - so
+    # flagging every unset-up action beat at outline stage is a false alarm on a
+    # draft that is doing exactly what it is meant to do. Still reported as a
+    # count, never silently dropped: an outline with a lot of these is telling
+    # you where the enrichment pass has to go.
+    _stage = "script"
+    try:
+        from pipeline import state as _state2
+        from pipeline import catalogue as _cat3
+        _proj = pdir.name
+        if _cat3.parse_beats(_proj).get("style") == "linear":
+            _stage = _state2.get_stage(_proj)
+    except Exception:
+        _stage = "script"
+
+    if hits and _stage == "script":
+        for lid, fams in hits:
+            warns.append(f"[ACTION-SETUP] line {lid}: action beat ({fams}) "
+                         f"has no setup in the prior 4 lines - establish who/why/"
+                         f"trigger/stakes BEFORE it (Setup -> Action -> Consequence).")
+    elif hits:
+        ids = ", ".join(str(lid) for lid, _ in hits[:12])
+        warns.append(f"[ACTION-SETUP] outline stage - {len(hits)} action beat(s) "
+                     f"open without setup: {ids}"
+                     f"{' ...' if len(hits) > 12 else ''}. Not a failure at this "
+                     f"stage; this is the list the enrichment pass should cover.")
 
     # --- [VISUAL-MEMORY]: proximity hint on untagged explicit clips ------
     untagged = sorted((t, lid) for (lid, t, vis) in explicit_times if not vis)
@@ -513,15 +678,30 @@ def _lint_script(pdir, draft, src_dur, pool_meta=None, explicit_times=None):
 # Phase 1 audits (coverage / binding / continuity) -- additive, non-blocking.
 # skeleton.json is RECOMMENDED, not required. Never hard-fails. ASCII output.
 # --------------------------------------------------------------------------- #
-def _beat_ts_seconds(ts):
-    """Parse a beats_proposal.md beat timestamp to seconds.
+# --- beat-map timestamps --------------------------------------------------- #
+# A 2-part beat timestamp 'A:B' is AMBIGUOUS. Every linear beats_proposal so far
+# means A hours + B minutes; MM:SS is the natural instinct and is exactly what
+# parse_ts() assumes for the line clip_starts in this same file. The two
+# readings differ by 60x on identical-looking text.
+#
+# THREE gates read these numbers - beat-coverage, REVEAL-TIMING and SET-PIECE -
+# and the stage machine promotes OUTLINE -> SCRIPT off the first one. A silently
+# misread beat map corrupts all three at once and nothing complains.
+#
+# So the format is never guessed:
+#   * declare it in the beats_proposal header:   ts_format: HH:MM   (or MM:SS)
+#   * absent -> HH:MM, the convention of the existing proposals
+#   * a 3-part 'A:B:C' is always HH:MM:SS regardless of the declaration
+# and the resolved map is validated before any gate uses it (see beat_times).
+_BEAT_TS_FORMATS = ("HH:MM", "MM:SS")
+_BEAT_TS_DEFAULT = "HH:MM"
 
-    Beat maps are written in HH:MM (hours:minutes) shorthand - e.g. '00:01' is
-    1 minute in, '02:39' is 2h39m - NOT the MM:SS that draft.parse_ts assumes
-    for a 2-part string. Verified consistent (no anomalies) across all linear
-    proposals: a 2-part 'A:B' = A hours + B minutes; a 3-part 'A:B:C' = the usual
-    HH:MM:SS. LINE clip_starts are real HH:MM:SS and still use parse_ts.
-    Returns float seconds, or None if unparseable.
+
+def _beat_ts_seconds(ts, fmt=_BEAT_TS_DEFAULT):
+    """Parse ONE beat timestamp to seconds under an explicit format.
+
+    fmt applies only to 2-part 'A:B'. 3-part is always HH:MM:SS; a bare number
+    is minutes (coarse). Returns float seconds, or None if unparseable.
     """
     ts = str(ts).strip()
     if ":" not in ts:
@@ -535,10 +715,99 @@ def _beat_ts_seconds(ts):
     except Exception:
         return None
     if len(parts) == 2:
-        return nums[0] * 3600 + nums[1] * 60          # HH:MM
+        if fmt == "MM:SS":
+            return nums[0] * 60 + nums[1]
+        return nums[0] * 3600 + nums[1] * 60           # HH:MM
     if len(parts) >= 3:
         return nums[-3] * 3600 + nums[-2] * 60 + nums[-1]   # HH:MM:SS
     return None
+
+
+def _film_duration(project):
+    """Film runtime in seconds from transcript.json, or None when unavailable."""
+    try:
+        tj = config.project_dir(project) / "transcript.json"
+        if not tj.exists():
+            return None
+        dur = json.loads(tj.read_text(encoding="utf-8-sig")).get("duration")
+        return float(dur) if dur else None
+    except Exception:
+        return None
+
+
+def beat_times(project) -> dict:
+    """Resolve a project's beat map to seconds ONCE, with validation.
+
+    Returns {
+      "fmt":      "HH:MM" | "MM:SS",   # format actually used
+      "declared": bool,                # True when ts_format: was in the header
+      "ordered":  [(beat_id, secs)],   # sorted by time
+      "by_id":    {beat_id: secs},
+      "problems": [str],               # non-empty -> DO NOT TRUST the numbers
+    }
+
+    Validation, run whenever there are >=2 dated beats:
+      1. strictly increasing in WRITTEN order. A beat map is authored in film
+         order, so one beat edited in the other convention breaks this before
+         anything else does.
+      2. no beat past the end of the film (transcript.json duration, +2% slack).
+         Skipped when transcript.json is absent.
+
+    A failing beat map is not a weaker signal - it is an unknown one. Callers
+    must surface `problems` rather than quietly carrying on with the numbers.
+    """
+    from pipeline import catalogue as _cat
+    binfo = _cat.parse_beats(project)
+    declared = binfo.get("ts_format")
+    fmt = declared if declared in _BEAT_TS_FORMATS else _BEAT_TS_DEFAULT
+    other = "MM:SS" if fmt == "HH:MM" else "HH:MM"
+
+    written = []          # (beat_id, secs, raw_ts) in WRITTEN order
+    unparsed = []
+    problems = []
+    for b in binfo.get("beats", []):
+        ts = b.get("ts")
+        if not b.get("id") or not ts:
+            continue
+        secs = _beat_ts_seconds(ts, fmt)
+        if secs is None:
+            unparsed.append(f"{b.get('id')} ({ts})")
+            continue
+        written.append((b.get("id"), secs, ts))
+
+    if unparsed:
+        problems.append("beat timestamps that do not parse: " + ", ".join(unparsed[:5])
+                        + (" ..." if len(unparsed) > 5 else ""))
+
+    # 1. monotonic in written order
+    for (pid, psec, pts), (cid, csec, cts) in zip(written, written[1:]):
+        if csec <= psec:
+            problems.append(
+                f"beat map is not in increasing film order: {cid} ({cts}) comes "
+                f"after {pid} ({pts}) but reads as earlier under {fmt}. If this "
+                f"map is written in {other}, add 'ts_format: {other}' to the "
+                f"beats_proposal.md header.")
+            break
+
+    # 2. inside the film
+    dur = _film_duration(project)
+    if dur:
+        over = [f"{bid} ({ts})" for bid, secs, ts in written if secs > dur * 1.02]
+        if over:
+            problems.append(
+                f"beat timestamps land past the end of the film "
+                f"({dur / 60:.1f} min) when read as {fmt}: "
+                + ", ".join(over[:5]) + (" ..." if len(over) > 5 else "")
+                + f". A beat map written in {other} is the usual cause.")
+
+    ordered = sorted(((bid, secs) for bid, secs, _ in written), key=lambda x: x[1])
+    return {
+        "fmt": fmt,
+        "declared": declared in _BEAT_TS_FORMATS,
+        "ordered": ordered,
+        "by_id": {bid: secs for bid, secs in ordered},
+        "problems": problems,
+    }
 
 
 def beat_coverage(project, d) -> dict:
@@ -552,23 +821,11 @@ def beat_coverage(project, d) -> dict:
     Gate report AND stage machine both read these numbers (single source).
     Returns {"beats": 0, ...} when no beats have parseable timestamps.
     """
-    from pipeline import catalogue as _cat
-    binfo = _cat.parse_beats(project)
-    beats = binfo.get("beats", [])
-    result = {"beats": 0, "covered": 0, "uncovered": [], "counts": {}}
-    if not beats:
-        return result
-
-    # beat boundaries from their 'ts' strings (HH:MM beat-map shorthand)
-    bounds = []
-    for b in beats:
-        ts = b.get("ts")
-        if not ts:
-            continue
-        secs = _beat_ts_seconds(ts)
-        if secs is not None:
-            bounds.append((b.get("id"), secs))
-    bounds.sort(key=lambda x: x[1])
+    bt = beat_times(project)
+    result = {"beats": 0, "covered": 0, "uncovered": [], "counts": {},
+              "ts_format": bt["fmt"], "ts_declared": bt["declared"],
+              "ts_problems": bt["problems"]}
+    bounds = bt["ordered"]
     if not bounds:
         return result
 
@@ -658,14 +915,9 @@ def parse_reveal_map(project) -> list:
         return []
     block = m.group(1)
 
-    # beat-id -> seconds, from the same beat list beat_coverage uses (HH:MM)
-    beat_sec = {}
-    for b in _cat.parse_beats(project).get("beats", []):
-        ts = b.get("ts")
-        if b.get("id") and ts:
-            s = _beat_ts_seconds(ts)
-            if s is not None:
-                beat_sec[str(b["id"]).upper()] = s
+    # beat-id -> seconds, from the ONE validated resolution (see beat_times)
+    beat_sec = {str(bid).upper(): s
+                for bid, s in beat_times(project)["by_id"].items()}
 
     INF = float("inf")
     always = {"mid-credits", "midcredits", "stinger", "none", "credits"}
@@ -773,14 +1025,9 @@ def parse_set_pieces(project) -> list:
         return []
     block = m.group(1)
 
-    # beat-id -> seconds, from the same beat list beat_coverage uses (HH:MM)
-    beat_sec = {}
-    for b in _cat.parse_beats(project).get("beats", []):
-        ts = b.get("ts")
-        if b.get("id") and ts:
-            s = _beat_ts_seconds(ts)
-            if s is not None:
-                beat_sec[str(b["id"]).upper()] = s
+    # beat-id -> seconds, from the ONE validated resolution (see beat_times)
+    beat_sec = {str(bid).upper(): s
+                for bid, s in beat_times(project)["by_id"].items()}
 
     def _resolve(ref):
         ref = ref.strip()
@@ -1112,11 +1359,18 @@ def _run_phase1_audits(project, pdir):
     # machine uses; surfaced here for visibility.
     bc = beat_coverage(project, d) if style == "linear" else {"beats": 0}
     if bc.get("beats"):
+        # Always say WHICH timestamp convention produced these numbers, and
+        # whether it was declared or assumed - the gate must never be silent
+        # about the assumption it is standing on.
+        src_note = "declared" if bc.get("ts_declared") else "assumed"
         msg = (f"[bold][BEAT-COVERAGE][/] {bc['covered']}/{bc['beats']} "
-               f"beats have >=1 bound line")
+               f"beats have >=1 bound line "
+               f"[dim](beat ts read as {bc.get('ts_format')}, {src_note})[/]")
         if bc["uncovered"]:
             msg += f"; uncovered: {', '.join(map(str, bc['uncovered'][:10]))}"
         console.print(msg)
+    for _prob in bc.get("ts_problems", []):
+        console.print(f"[red][BEAT-MAP][/] {_prob}")
 
     # ---- SET-PIECE COVERAGE (linear, SCRIPT stage ONLY) ----------------------
     # A followability-critical fight needs no long unnarrated stretch. Measures
@@ -1323,3 +1577,6 @@ def _draft_target_report(project, d, cmap):
                 console.print(f"    [yellow][DRAFT-OVERFILL][/] fill {fill*100:.0f}% "
                               f"exceeds {int(over*100)}% - lines are near capacity; "
                               f"expect slow-motion across many shots.")
+
+
+
