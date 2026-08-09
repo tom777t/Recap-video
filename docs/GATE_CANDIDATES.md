@@ -1,6 +1,6 @@
 # Gate & Rule Candidates — Recap Vid (linear pipeline)
 
-**Cập nhật: 2026-08-04** — pass reconcile sau Shutter Island. Hai ứng viên lớn của bản trước (reveal-timing, set-piece coverage) nay đã implement xong và được chuyển ra khỏi danh sách.
+**Cập nhật: 2026-08-08** — sau buổi sửa gate + render QA Shutter Island. Nhóm D (gate đang sai) đã xử xong và chuyển lên mục ĐÃ LÀM; thêm hai gate mới; thêm hai lớp lỗi chưa từng có tên.
 
 > **Không áp dụng bất cứ mục nào trong file này trừ khi được bảo rõ.** Đây là ứng viên chưa chốt. Luật đang chạy nằm ở `docs/RULES.md` Phần A.
 
@@ -12,7 +12,12 @@
 - **Drift-tagging (B1 cũ)** — đã thành rule A5 + A6. Kiểm chứng: 3 Peter không lẫn. ✅
 - **Outline/Script stage machine** — `pipeline/state.py` + `outline_ready()`, promote một chiều qua `--promote`. Zero regression. ✅
 - **A1. Gate REVEAL-TIMING** — ✅ **đã implement**. Đọc reveal-map trong `beats_proposal.md`, check không term reveal nào xuất hiện trước beat landing của nó. Luôn chạy (spoiler là sai kể cả trong outline). **Kiểm chứng Shutter Island: 0 hit qua 6 reveal — phim khó nhất về spoiler tới giờ.** ⚠️ Giới hạn đã biết: gate đếm **term**, không bắt được **ám chỉ** — xem `RULES.md` B11.
-- **A-NEW. Gate SET-PIECE COVERAGE** — ✅ **đã implement** 2026-07-21. Trong mỗi range set-piece người đã xác nhận + dense-verify, không gap nào giữa hai line liên tiếp được vượt max-gap. Chỉ chạy ở stage SCRIPT, soft-only. Bài học chính: ngưỡng cố định copy từ phim này sẽ false-fire ở phim khác (90s đúng cho John Wick, sai cho Spider-Man) → chuyển sang tier-relative. Range không đánh dấu thì không bao giờ bị đo. ⚠️ **v1 PROVISIONAL** — xem D3 bên dưới.
+- **BINDING-INTEGRITY** — ✅ **đã implement 2026-08-08**, bậc 1 (report-only). Đếm line có `clip_start` không ứng với mục nào trong catalogue. Đo được: interstellar 0/106, johnwick 0/91, spiderman 19/76, shutterisland 27/58. Line `pool`/`montage` được miễn (label đã là id). ⚠️ Bậc 2 (chặn promote) và bậc 3 (fail cứng, chỉ cho project mới) CHƯA bật — chờ một phim chạy trọn bậc 1. Thiết kế đầy đủ: `docs/DESIGN_binding_integrity.md`
+- **CATALOGUE-DENSITY** — ✅ **đã implement 2026-08-08**. Đếm shot trong catalogue theo TỪNG BEAT; báo beat không có shot nào (không thể kể) và beat chỉ có 1 shot. Đo được beat rỗng: interstellar 0, johnwick 2 (B29, B30), spiderman 2 (B04, B17), shutterisland 5. **Tìm ra nguyên nhân gốc của John Wick ending gap**: B29/B30 bị beat-coverage báo hụt bấy lâu không phải vì draft quên viết mà vì không có footage nào được catalogue. ⚠️ Dải ngưỡng tỉ lệ shot/beat đã bị BỎ có chủ ý — 3.07 có beat rỗng còn 2.97 thì không, tức con số tổng không mang thông tin. Chỉ danh sách per-beat là tín hiệu
+- **Sửa audit báo xanh giả** — ✅ 2026-08-08. `load_shots` cô lập từng entry hỏng thay vì abort (trước: một tag sai ⇒ mất sạch 31 shot ⇒ mọi audit chạy trên dict rỗng ⇒ in "clean"); caller in `[FOOTAGE-DROPPED]` đỏ và tuyên bố audit DEGRADED; `binding_audit` không còn in "all visual lines verified" khi verified = 0; id trùng fail cứng ở cả `draft` lẫn `render`
+- **D1 timestamp beat map** — ✅ 2026-08-08. Quy ước khai trong header `ts_format:`, không đoán nữa; beat map được validate (đơn điệu tăng + không vượt runtime) trước khi ba gate dùng; map hỏng chặn promote
+- **D2 ACTION-SETUP** — ✅ 2026-08-08 sau 4 vòng. `_ACTION_FAMILIES` match theo token thay vì tên riêng từng phim; đọc `depicts: action`; kiểm theo RUN chứ không theo line; cue list hẹp. ⚠️ **Nhánh SCRIPT stage chưa validate trên phim nào** — 3/4 project ở outline, Shutter Island không có action. Chờ phim action tiếp theo
+- **A-NEW. Gate SET-PIECE COVERAGE** — ✅ **đã implement** 2026-07-21. Trong mỗi range set-piece người đã xác nhận + dense-verify, không gap nào giữa hai line liên tiếp được vượt max-gap. Chỉ chạy ở stage SCRIPT, soft-only. Bài học chính: ngưỡng cố định copy từ phim này sẽ false-fire ở phim khác (90s đúng cho John Wick, sai cho Spider-Man) → chuyển sang tier-relative. Range không đánh dấu thì không bao giờ bị đo. ⚠️ **v1 PROVISIONAL** — xem F1 bên dưới.
 
 ---
 
@@ -60,56 +65,27 @@ Bản trước xếp drift vào "không vá được bằng chữ". Vẫn đúng
 
 ---
 
-## NHÓM D — GATE ĐÃ CÓ NHƯNG ĐANG SAI
+## NHÓM D — LỚP LỖI MỚI, CHƯA CÓ GATE
 
-*Phát hiện trong pass đọc code 2026-08-04. Đây không phải ứng viên — là lỗi ở thứ đang chạy. Ưu tiên cao hơn mọi mục ở trên: một gate sai còn tệ hơn không có gate.*
+*Phát hiện 2026-08-08. Không phải bug lẻ — là hai khoảng trống mà mọi gate hiện tại đều không phủ.*
 
-### D1. Hai quy ước timestamp xung khắc trong cùng một file ⚠️ nghiêm trọng nhất
+### D-GREEN. Audit mất input rồi báo "clean"
 
-Trong `pipeline/draft.py`:
+Một component không đọc được input của nó **không được phép thoái hoá thành một component báo thành công**. Đã sửa hai ca cụ thể (load_shots, binding_audit — xem mục ĐÃ LÀM), nhưng lớp lỗi thì còn: bất kỳ audit nào cũng cần trả lời được "tôi đã kiểm bao nhiêu đơn vị" chứ không chỉ "tôi tìm thấy bao nhiêu lỗi".
 
-```python
-parse_ts("02:39")          # -> 159.0   (MM:SS)
-_beat_ts_seconds("02:39")  # -> 9540.0  (HH:MM)
-```
+**Ứng viên**: mọi audit in ra mẫu số của chính nó. `tag_audit` kiểm N shot, `continuity_check` kiểm N cặp, `beat_coverage` kiểm N beat. Mẫu số = 0 thì không bao giờ được in màu xanh.
 
-Sai lệch **60 lần** trên hai chuỗi trông giống hệt nhau. Có ghi chú trong docstring, nhưng `beat_coverage()` nuôi thẳng vào `outline_ready()` → `_stage_machine()` → quyết định promote sang SCRIPT. Một beat map viết nhầm quy ước sẽ báo coverage sai mà không có gì kêu.
+### D-RENDER. Gate kiểm draft, render tạo ra thứ khác
 
-**Fix:** bắt buộc `HH:MM:SS` đủ 3 phần ở mọi nơi; reject chuỗi 2 phần thay vì đoán.
+**Toàn bộ gate hiện tại đứng TRƯỚC render.** Không cái nào kiểm cái thật sự phát ra loa. Bug id trùng lọt qua đúng khe này: draft.json đúng thứ tự, REVEAL-TIMING xanh, nhưng hai line dùng chung một file audio nên twist lộ ở giây 36.
 
-### D2. `_ACTION_FAMILIES` hardcode tên family của từng phim
+Đã có hai chốt (fail khi id trùng ở draft và ở render). Còn thiếu một lớp kiểm sau render:
 
-```python
-"pennywise_attack", "pennywise_climax", "losers_fight", "bowers_bully"
-```
+- số file audio == số line có narration
+- số clip đã dựng == số line
+- tổng runtime khớp ước tính trong khoảng dung sai
 
-Đây là family của IT 2017 nằm trong hằng số toàn cục. Phim mới tag family là `warehouse_shootout` → `_is_action()` trả False → gate `[ACTION-SETUP]` **im lặng hoàn toàn** (chỉ còn fallback `hold>=5s`). Gate trông như đang chạy mà không chạy.
-
-Đồng thời `_SETUP_CUES` rộng đến mức gần như không thể fail: `when`, `once`, `after`, `finds`, `wants`, cộng "chứa bất kỳ tên nào trong names.json" — gần như mọi câu tiếng Anh có tên nhân vật đều pass.
-
-**Chẩn đoán theo B5:** cùng một rule bị áp **quá hẹp** (phát hiện action) và **quá rộng** (công nhận setup) cùng lúc.
-**Fix:** đọc `depicts: action` từ `shots.json` thay cho danh sách tên; siết `_SETUP_CUES` lại.
-
-### D3. SET-PIECE max-gap còn tự tham chiếu (v1 provisional)
-
-Ngưỡng = `max(240s, 3 × median gap của chính recap đó)`. Một recap thưa đều sẽ tự đẩy median lên và tự nới lỏng gate. Đã tự flag trong code + `lessons.md` 2026-07-21.
-
-**Hướng chốt:** lấy reference từ **runtime band của tier** thay vì median của chính draft — đó là cách duy nhất phá được self-reference. `min(3×median, ceiling)` chỉ giới hạn thiệt hại. Cần phim thứ hai để chốt số.
-
-### D4. Capacity math dùng sai TTS rate
-
-Cả 4 chỗ gọi `get_profile()` (`draft.py:1214`, `catalogue.py:75/120/146/492`) đều hardcode `DEFAULT_TTS_RATE` = `+22%`. Nhưng line `sad` chạy `+6%`, `mystery` `+10%` — thực tế đọc chậm hơn ước tính ~15%. Line được tính là "vừa khít" shot sẽ **tràn**. Đây đúng loại lỗi `BindingViolation` sinh ra để bắt, nhưng nó đang bắt bằng số liệu sai.
-
-**Fix:** truyền rate thật của từng line; calibrate thêm profile cho `+30%` và `+10%`.
-
-### D5. Giá trị chết trong config
-
-- `TTS_DELIVERY["normal"]["rate"] = "+16%"` không bao giờ dùng — `_delivery_for()` luôn ghi đè bằng `base_rate` (`+22%`). Comment "slowed from +24" đang mô tả một con số không tồn tại.
-- `DEFAULT_TARGET_MINUTES = 20` không được tham chiếu ở đâu, và mâu thuẫn với `DEPTH_TIERS` (9–17 phút).
-
-### D6. README.md lỗi thời
-
-Vẫn mô tả flow 3 lệnh `ingest → draft → render`, trong khi thực tế là 9 bước. Cũng ghi "burned-in captions" trong khi `DEFAULT_CAPTIONS = False`. **Đây là file đầu tiên OpenCode đọc** — README sai làm hỏng cả session.
+Rẻ, và bắt được cả lớp "render lệch draft" chứ không riêng id trùng.
 
 ---
 
@@ -125,12 +101,40 @@ Hệ quả: lúc RENDER QA thấy chỗ lệch ở phút 7:32 thì phải mò ng
 
 ---
 
+## NHÓM F — BUG ENGINE CÒN LẠI (chưa sửa)
+
+*Phát hiện trong pass đọc code 04/08. D1 và D2 đã xong; bốn cái này thì chưa.*
+
+### F1. SET-PIECE max-gap còn tự tham chiếu (D3 cũ)
+Ngưỡng = `max(240s, 3 × median gap của chính recap đó)`. Recap thưa đều sẽ tự đẩy median lên và tự nới lỏng gate. Hướng chốt: lấy reference từ **runtime band của tier** thay vì median của chính draft. Cần phim thứ hai để chốt số.
+
+### F2. Capacity math dùng sai TTS rate (D4 cũ)
+Bốn chỗ gọi `get_profile()` (`draft.py`, `catalogue.py`) đều hardcode `DEFAULT_TTS_RATE` = `+22%`, nhưng line `sad` chạy `+6%`, `mystery` `+10%` — đọc chậm hơn ước tính ~15%, nên line "vừa khít" sẽ tràn. Fix: truyền rate thật của từng line; calibrate thêm profile cho `+30%` và `+10%`.
+
+### F3. Giá trị chết trong config (D5 cũ)
+`TTS_DELIVERY["normal"]["rate"] = "+16%"` không bao giờ dùng (`_delivery_for()` luôn ghi đè bằng `base_rate`). `DEFAULT_TARGET_MINUTES = 20` không được tham chiếu ở đâu và mâu thuẫn với `DEPTH_TIERS`.
+
+### F4. README.md lỗi thời (D6 cũ)
+Vẫn mô tả flow 3 lệnh `ingest → draft → render` trong khi thực tế là 9 bước; ghi "burned-in captions" trong khi `DEFAULT_CAPTIONS = False`. **Đây là file đầu tiên OpenCode đọc.**
+
+### F5. Quy ước id sub-line sinh ra va chạm
+`<cha><n>` khiến `4` + `1` = `41`, mà `41` cũng là line sau `40`. Đã có chốt fail cứng, nhưng gốc chưa sửa — cần dạng id không thể đụng (`4b`, `4.1`, hoặc id không mang thứ tự).
+
+### F6. `parse_ts` định nghĩa trùng ở 3 nơi
+`draft.py`, `catalogue.py`, `schemas.py`. Ba bản có thể lệch nhau lúc nào không biết.
+
+---
+
 ## ƯU TIÊN NẾU LÀM TIẾP
 
-1. **D1 + D2** — gate đang cho kết quả sai. Sửa trước mọi thứ khác.
-2. **D6** — README, rẻ, chặn hiểu nhầm cho mọi session sau.
-3. **E1** — `timeline.json`, ~5 dòng, mở đường cho C-DRIFT.
-4. **A-AMB** — sau khi Shutter Island QA xác nhận R6.
-5. **B2 + B-NEW** — rule, ghi nhanh, không đụng engine.
-6. **C-DRIFT** — khối lớn nhất, nhưng là thứ duy nhất đụng vào nút thắt thật (công người mỗi phim).
-7. **D3 + D4** — cần phim thứ hai / cần calibrate thêm.
+1. **F4 (README)** — rẻ nhất, chặn hiểu nhầm cho mọi session sau.
+2. **D-RENDER** — lớp kiểm sau render (đếm audio/clip/runtime). Rẻ, phủ cả một lớp lỗi.
+3. **E1 `timeline.json`** — ~5 dòng, mở đường cho C-DRIFT và cho QA nói được "line 36" thay vì "khoảng phút 7".
+4. **A-AMB** — sau khi có nhận định về câu kết Shutter Island.
+5. **BINDING-INTEGRITY bậc 2** — sau khi một phim mới chạy trọn bậc 1.
+6. **F5 (id sub-line)** — sửa gốc, không chỉ chốt lưới.
+7. **B2 + B-NEW** — rule, ghi nhanh, không đụng engine.
+8. **F1, F2, F3** — cần phim thứ hai / cần calibrate thêm.
+9. **C-DRIFT** — khối lớn nhất, nhưng là thứ duy nhất đụng vào nút thắt thật (công người mỗi phim).
+
+**Chưa validate được, đừng quên:** nhánh SCRIPT stage của ACTION-SETUP (chờ phim action), và bậc 2/3 của BINDING-INTEGRITY.

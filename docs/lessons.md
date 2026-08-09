@@ -1505,3 +1505,168 @@ mirrors DRAFT-TARGET). Soft-only (escalate sev, never downgrade a hard). This
 completes the clean three-way stage split: beat-coverage + REVEAL-TIMING are always-on
 (a hole/spoiler is wrong even in an outline); SET-PIECE + DRAFT-TARGET are script-only
 (density is only expected once enriching).
+
+
+## 2026-08-08 - Shutter Island render QA + audit-integrity session
+
+Started as "fix two gates that give wrong answers", turned into finding that most of
+the footage audit had never checked anything. Six lessons; two of them are classes of
+failure with no name in RULES.md yet.
+
+### An audit that loses its input reports "clean"
+
+`schemas.load_shots()` raised on the FIRST bad entry. The caller caught it, printed one
+yellow `footage parse issue` line, and substituted `shots_by_id, pool_families = {}, {}`
+- empty, not partial. Everything downstream then ran on nothing: `binding_audit`,
+`continuity_check` and `tag_audit` all took an empty dict, found no problems in it, and
+the report printed `clean - all tagged clips within discipline`.
+
+Shutter Island had one shot tagged `depicts: ['object']`, which is not in the controlled
+vocabulary. That single wrong word hid all 31 shots for the entire life of the project.
+Every "binding 0 mismatch / continuity 0 / tags 0" ever printed for that film was a
+report about an empty set.
+
+Fixing the tag made the audit run for the first time and it immediately found a real
+`TAG_TOO_GENEROUS` issue that had been sitting there all along.
+
+The general shape: **a component that cannot read its input must not degrade into a
+component that reports success.** The failure has to be louder than the success, because
+the reader's default reading of a clean report is "checked and fine". Now: bad entries
+are skipped individually with the rest still loading, each one printed in red as
+`[FOOTAGE-DROPPED]`, and the run states that the audits below are DEGRADED and cannot
+certify clean.
+
+Same class, different mechanism, found the same day: `binding_audit` only examines lines
+carrying a `claim`. That count is **zero on every project we have ever made**. It
+verified nothing, then printed `all visual lines verified - footage matches the
+narration`. It now prints `NOTHING VERIFIED - 0 lines carry a claim, so the binding
+audit checked nothing. This is not a pass.`
+
+This also retroactively invalidates a decision. Shutter Island's catalogue was left at
+31 shots against 58 draft lines, and the tidy-up was skipped on the grounds that
+"binding is still clean". That green was empty, and the 31-vs-58 gap was not a cosmetic
+fill metric - it was the drift warning.
+
+### Every gate stands in FRONT of the render
+
+`draft.json` had two lines with id `41`: a sub-line of 4 (the `<parent><n>` naming
+convention) and the line that naturally follows 40. `tts.py` writes
+`narration/line_{id:03d}.mp3` and keys its manifest by `str(id)`, so the second line
+overwrote the first's audio. `render.py` then builds `by_id = {n[0]: n for n in
+narration}` - last wins again. **Both lines rendered with the second line's voiceover.**
+
+The result: at 00:36 of the finished video, over footage of the marshals handing over
+their guns, the narrator said a line from 02:04:00 of the film - one that implies Teddy
+has been through this before, i.e. that he is a patient. The twist leaked 36 seconds in.
+
+REVEAL-TIMING was green, and it was not wrong. It reads the order of the WORDS in
+draft.json, where that line sits correctly at minute 8. The corruption happened after
+the gate ran.
+
+Every gate we have validates the draft. None of them look at what actually comes out of
+the speaker. That gap is a whole class, not one bug. Two guards added: duplicate ids are
+a hard failure at `draft`, and `render` re-checks `len(by_id) == len(narration)`
+immediately before building anything - the second one is deliberately placed AFTER TTS,
+where a draft-stage gate cannot see.
+
+The naming convention itself is the root cause and is still unfixed: `4` + `1` = `41`,
+and `41` is also the line after `40`. Sub-line ids need a form that cannot collide.
+
+### An empty beat in the catalogue predicts an uncovered beat in the draft
+
+New CATALOGUE-DENSITY gate counts, per beat, how many shots the catalogue has in that
+beat's time range. On John Wick it reported **B29 and B30 have NO shot catalogued** -
+and B29+B30 are exactly the two beats beat-coverage has been reporting as uncovered,
+blocking promotion, since the John Wick session.
+
+The gap was never a drafting oversight. There was no footage catalogued for those beats,
+so no draft could ever have covered them. A long-standing unresolved symptom got its
+root cause from an unrelated new measurement. Spider-Man shows the same: B04 is both
+empty in the catalogue and in beat-coverage's uncovered list.
+
+Two gates measuring different things and corroborating each other is the strongest
+signal we have had that a metric is real rather than self-invented.
+
+### A thin catalogue is what pushes enrichment into inventing windows
+
+Measured across all four linear projects - lines whose `clip_start` corresponds to no
+catalogued shot at all:
+
+| film | shots | lines | shots/beat | empty beats | free lines |
+|---|---|---|---|---|---|
+| John Wick | 92 | 91 | 3.07 | 2 | 0 |
+| Interstellar | 101 | 106 | 2.97 | 0 | 0 |
+| Spider-Man NWH | 69 | 76 | 2.65 | 2 | 19 (25%) |
+| Shutter Island | 31 | 58 | 1.11 | 5 | 27 (47%) |
+
+For Shutter Island, 58 - 31 = 27 exactly. Each catalogued shot got one line, and the 27
+lines added by the act-by-act enrichment pass (A1) had nowhere to bind, so they invented
+timestamps. Nothing in shots.json stands behind them, which means the footage audits
+have nothing to compare them against - they are unverifiable by construction, not by
+gate failure. The whole Act 3 twist block (34, 36, 361, 362, 371, 372, 373, 39, 391) is
+free, because that is where enrichment was heaviest.
+
+So enrichment is not just "write more lines". It is **write more lines AND extend the
+catalogue**, and the second half has been silently skipped every time.
+
+Note what the ratio alone does NOT do: 3.07 has empty beats and 2.97 does not. The
+per-beat list is the signal; the global number carries no information, so the threshold
+band originally drafted for it was dropped rather than shipped as decoration.
+
+### B5 predicts the mistakes of whoever is holding it
+
+ACTION-SETUP took four rounds and three of them were wrong in the same shape.
+
+The gate was dead - zero warnings across all four films, including John Wick - because
+`_ACTION_FAMILIES` hardcoded IT 2017's family names (`pennywise_attack`, `losers_fight`).
+Classic B5: a right rule scoped too narrowly. But then, fixing it:
+
+- **v1** replaced the setup cue with an enumerated verb list `to (stop|save|reach|...)`.
+  That is the exact same mistake one level down. It cleared nothing when a line said
+  "to rescue Cooper" or "to recover the data". 15 warnings on Interstellar, 7 of them
+  false on hand inspection.
+- **v2** replaced the list with a "structural" regex `to <lowercase word>`. Too broad -
+  it cleared beats on "to be", "to die", "to every", "to hope", "to ash". The gate went
+  from 34 warnings to 1 across four films, losing Interstellar L73, a real miss verified
+  by hand. **A gate that reports clean is worse than one that is noisy.**
+- **v3** made `depicts: setup` authoritative. Shots are tagged ~100%, so some shot in any
+  4-line window carries it, and it cleared everything again. Worse, it is the wrong
+  object entirely: `depicts` describes the FOOTAGE, while the rule is about whether the
+  NARRATION established who and why.
+- **v4** kept only the narrow causal cue list plus run-awareness (only the line that
+  OPENS an action run needs setup - Setup->Action->Consequence is a rule about a beat,
+  not about every line). Interstellar 7 including L73, John Wick 2 of 11 run openings,
+  Spider-Man 1, Shutter Island 0.
+
+Three failures, one shape: **reaching for a cheap, abundant signal in place of
+understanding the sentence.** Setup is a meaning, not a string. B5 does not only describe
+old mistakes in the codebase; it predicted the mistakes made while fixing them.
+
+Two process lessons follow. First, **set the failure criterion before writing code** -
+"if this gate comes out the same colour on all four films, do not ship it" is what
+finally settled BINDING-INTEGRITY in one round instead of four. Second, when Claude
+patches something quickly, make it state what it checked AROUND the patch: the
+`depicts: ['object']` fix was correct in isolation but carried the neighbouring
+three-tag problem straight through untouched.
+
+### Testing the right function against the wrong data shape
+
+`binding_integrity` was written with `d.get("lines")` and smoke-tested against a fixture
+loaded with `json.load` - which is a dict, so it passed. The real pipeline hands
+`_run_phase1_audits` a parsed `Draft` dataclass. `AttributeError`, whole command dead.
+
+It survived two rounds undetected because the output was being read through a
+`Select-String` filter that did not match `Traceback`. Twice the conclusion was "the code
+did not get copied" while the code was in place and crashing. **Any filter over pipeline
+output must include `Traceback|Error`**, and the first run after a change should be
+unfiltered.
+
+### Refuted: the catalogue is NOT cut from the transcript
+
+Recorded so nobody re-derives it. One Shutter Island shot carried the note `(~833s)`,
+which looked like the clip boundaries had been taken from transcript timings rather than
+from visual cuts - which would mean rule A3 ("anchor to the moment the narration
+describes") had nothing honest to anchor to. Measured: shot boundaries landing on a
+transcript segment edge are 27% / 22% / 5% / 31% across the four films. **All four are
+cut from the picture.** The conclusion had been generalised from n=1. The composite shot
+at `00:13:55` is a local tagging fault, not a systemic cutting method.
