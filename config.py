@@ -1,3 +1,5 @@
+
+
 """
 Central configuration + tool discovery for the recap pipeline.
 
@@ -24,7 +26,8 @@ PROMPTS_DIR = ROOT / "prompts"
 # Defaults (override most of these with CLI flags)
 # --------------------------------------------------------------------------- #
 DEFAULT_WHISPER_MODEL = "small"      # tiny | base | small | medium | large-v3
-DEFAULT_TARGET_MINUTES = 20          # target final recap length
+# (DEFAULT_TARGET_MINUTES removed 2026-08-09 - it was referenced nowhere and
+#  contradicted DEPTH_TIERS, which is the real source of target runtime.)
 DEFAULT_TTS_VOICE = "en-US-AndrewMultilingualNeural"  # natural male US voice
 DEFAULT_TTS_RATE = "+22%"            # brisk "review phim" delivery = hooks the viewer
 
@@ -158,7 +161,10 @@ MAX_FAMILY_USES = 2    # each VISUAL FAMILY (fin/explosion/chase...) at most 2x
 # of these keys, or override rate/pitch/volume directly.
 # --------------------------------------------------------------------------- #
 TTS_DELIVERY = {
-    "normal":  {"rate": "+16%", "pitch": "+0Hz",  "volume": "+0%"},  # slowed from +24 (middle felt too fast)
+    # NOTE: "normal" carries no rate. _delivery_for() always overrides it with
+    # base_rate (DEFAULT_TTS_RATE, +22%), so a rate here was dead - the "+16%"
+    # that used to sit on this line never reached a single rendered word.
+    "normal":  {"pitch": "+0Hz",  "volume": "+0%"},
     "hook":    {"rate": "+30%", "pitch": "+2Hz",  "volume": "+8%"},  # energetic open
     "tense":   {"rate": "+26%", "pitch": "+3Hz",  "volume": "+8%"},  # slowed from +34 (action/urgency)
     "mystery": {"rate": "+10%", "pitch": "-3Hz",  "volume": "-2%"},  # hushed, slow
@@ -277,3 +283,6 @@ def ensure_project(name: str) -> Path:
     d = project_dir(name)
     (d / "narration").mkdir(parents=True, exist_ok=True)
     return d
+
+
+

@@ -489,15 +489,58 @@ def load_draft(project: str) -> Draft:
 
 
 def load_names(project: str) -> set:
+    """Character names, lowercased. Accepts both the flat and the cast form.
+
+    Flat (old, still valid):   {"names": ["Teddy Daniels", "Dr. Cawley"]}
+    Cast (new):                {"names": [{"character": "Teddy Daniels",
+                                           "actor": "Leonardo DiCaprio"}, ...]}
+
+    The `actor` field exists because PRE-CATALOGUE (RULES A7) already reads the
+    Wikipedia *Cast* section, which maps actors to characters - and then names.json
+    threw the actor half away. That is the one piece of data that lets anything
+    put a name to a face, so it is now kept. Reading it is optional; nothing
+    breaks if a project only has the flat form.
+    """
     p = config.project_dir(project) / "names.json"
     if not p.exists():
         return set()
     try:
         nd = _read_json(p)
         names = nd.get("names", nd) if isinstance(nd, dict) else nd
-        return {str(n).strip().lower() for n in names}
+        out = set()
+        for n in names:
+            if isinstance(n, dict):
+                c = n.get("character") or n.get("name")
+                if c:
+                    out.add(str(c).strip().lower())
+            elif n:
+                out.add(str(n).strip().lower())
+        return out
     except Exception:
         return set()
+
+
+def load_cast(project: str) -> dict:
+    """{character: actor} from names.json, or {} when the file has no actors.
+
+    Consumers: anything that has to identify a face. Empty is a normal answer -
+    the flat names.json form carries no actors, and most projects still use it.
+    """
+    p = config.project_dir(project) / "names.json"
+    if not p.exists():
+        return {}
+    try:
+        nd = _read_json(p)
+        names = nd.get("names", nd) if isinstance(nd, dict) else nd
+        out = {}
+        for n in names:
+            if isinstance(n, dict):
+                c, a = n.get("character") or n.get("name"), n.get("actor")
+                if c and a:
+                    out[str(c).strip()] = str(a).strip()
+        return out
+    except Exception:
+        return {}
 
 
 def load_shots(project: str):

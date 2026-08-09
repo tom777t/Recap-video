@@ -22,6 +22,7 @@ Then:
 """
 from __future__ import annotations
 
+import json
 import subprocess
 import sys
 from pathlib import Path
@@ -775,7 +776,12 @@ def render(project: str, draft: dict,
         boundaries.append(cursor)  # absolute start time of this clip
 
         # caption window: narration starts at clip start, lasts narr_dur
-        timeline.append({"start": cursor, "end": cursor + narr_dur, "text": ln["narration"]})
+        # `id` / `clip_*` are carried for timeline.json (see below); build_ass
+        # ignores the extra keys.
+        timeline.append({"start": cursor, "end": cursor + narr_dur,
+                         "text": ln["narration"], "id": lid,
+                         "clip_start": ln.get("clip_start"),
+                         "clip_end": ln.get("clip_end")})
         cursor += clip_len - XFADE
 
         held = f" +hold{hold:.0f}s" if hold else ""
@@ -852,6 +858,48 @@ def render(project: str, draft: dict,
                           f"{freed/(1024*1024):.0f} MB). Use --keep-temp to keep it.[/]")
         except OSError as e:
             console.print(f"[yellow]Could not remove {work.name}/: {e}[/]")
+
+    # ----- timeline.json + post-render checks --------------------------------
+    # Written on EVERY render, captions on or off. Until now the only record of
+    # where a line lands in the finished video was the .ass file, which stores
+    # caption TEXT and no line id - so a QA note could only ever say "something
+    # is off around minute 7" instead of "line 36 drifts".
+    try:
+        tl = [{"id": t.get("id"),
+               "out_start": round(t["start"], 3),
+               "out_end": round(t["end"], 3),
+               "clip_start": t.get("clip_start"),
+               "clip_end": t.get("clip_end")} for t in timeline]
+        (pdir / "timeline.json").write_text(
+            json.dumps({"project": project, "total_duration": round(total_dur, 3),
+                        "lines": tl}, ensure_ascii=False, indent=2),
+            encoding="utf-8")
+        console.print(f"[dim]Wrote timeline.json ({len(tl)} lines) - "
+                      f"maps each line id to its position in final.mp4.[/]")
+    except Exception as e:
+        console.print(f"[yellow]Could not write timeline.json: {e}[/]")
+
+    # Every gate in this pipeline validates draft.json. None of them look at what
+    # the render actually produced. That gap let a duplicate line id put a
+    # late-film voiceover over an early scene while every gate stayed green.
+    # These three counts are cheap and cover the whole class.
+    problems = []
+    if len(clips) != len(narration):
+        problems.append(f"{len(narration)} narration line(s) but {len(clips)} clip(s) built")
+    if len(timeline) != len(clips):
+        problems.append(f"{len(clips)} clip(s) but {len(timeline)} timeline entr(ies)")
+    est = sum(d for _f, d in clips) - XFADE * max(0, len(clips) - 1)
+    if est > 0 and abs(total_dur - est) / est > 0.05:
+        problems.append(f"runtime {total_dur/60:.1f} min is >5% off the "
+                        f"expected {est/60:.1f} min from the clip durations")
+    if problems:
+        console.print("[red][RENDER-CHECK][/] the render does not match the draft:")
+        for pr in problems:
+            console.print(f"    {pr}")
+        console.print("[red]  final.mp4 was still written - inspect it before publishing.[/]")
+    else:
+        console.print(f"[dim][RENDER-CHECK] {len(clips)} lines in, {len(clips)} clips out, "
+                      f"runtime within 5% of expected.[/]")
 
     console.print(f"\n[bold green]Done![/] Final video: {final}")
     return final

@@ -138,3 +138,127 @@ Vẫn mô tả flow 3 lệnh `ingest → draft → render` trong khi thực tế
 9. **C-DRIFT** — khối lớn nhất, nhưng là thứ duy nhất đụng vào nút thắt thật (công người mỗi phim).
 
 **Chưa validate được, đừng quên:** nhánh SCRIPT stage của ACTION-SETUP (chờ phim action), và bậc 2/3 của BINDING-INTEGRITY.
+
+
+# PHẦN THÊM cho `docs/GATE_CANDIDATES.md` — 2026-08-09
+
+*Nối vào cuối file, TRƯỚC mục "ƯU TIÊN NẾU LÀM TIẾP". Rồi cập nhật danh sách ưu tiên theo bản ở cuối tài liệu này.*
+
+---
+
+## NHÓM G — TỪ LOẠT THÍ NGHIỆM 09/08
+
+*Ba thí nghiệm, đều đo trên dữ liệu thật của 4 phim. Không cái nào đã implement.*
+
+### G-SNAP. Lưới snap từ cú cắt hình ⭐ đã chứng minh, rẻ nhất
+
+**Là gì:** dùng PySceneDetect quét `source.mp4` một lần, cache danh sách cú cắt vào `_cuts.json`. Gate cảnh báo khi biên một shot trong catalogue cách mọi cú cắt quá ~2 giây.
+
+**Bằng chứng (Shutter Island, 62 mốc tay vs 1906 cú cắt):**
+
+| khoảng cách tới cú cắt gần nhất | số mốc |
+|---|---|
+| < 1s | 39% |
+| 1–3s | 48% |
+| 3–10s | 13% |
+| > 10s | **0%** |
+
+Lệch lớn nhất 6.6s. **Máy không bỏ sót cảnh nào** — 8 mốc bị coi là "máy trượt" ở lần đo đầu thực ra chỉ là mốc tay ước chừng lệch vài giây.
+
+**Vì sao đáng làm:** 87% mốc đã sát cú cắt sẵn, nên snap **không làm méo catalogue** — nó chỉ nắn 13% còn lệch. Rủi ro gần bằng không.
+
+**Nó sửa được gì:** một cửa sổ bắt đầu lệch 6 giây so với cú cắt nghĩa là **6 giây đầu clip vẫn đang chiếu cảnh trước**. Ca tệ nhất đo được là `clip:01:52:40.0` (line 37 — Chuck xưng tên thật), lệch 6.0s ở start và 6.6s ở end, ngay trên một reveal. Đây là drift nhẹ, không ai để ý, và hoàn toàn chặn được bằng máy.
+
+**Lợi ích kèm theo:** cả 5 beat rỗng của Shutter Island đều có 23–54 cú cắt ứng viên nằm trong khoảng. Khi `CATALOGUE-DENSITY` báo beat rỗng, người mở rộng catalogue sẽ có sẵn danh sách biên hợp lệ thay vì phải tự bịa mốc.
+
+**Chi phí:** quét ~11 phút mỗi phim, một lần, có cache. `pip install scenedetect`.
+
+**Trạng thái:** sẵn sàng code. Script đo đã có: `diag_scenedetect.py`, `diag_snapgrid.py`.
+
+---
+
+### G-AXIS. `shots.json` đang trộn hai trục thông tin ⭐ phát hiện có giá trị nhất
+
+**Là gì:** hai trường `depicts` và `chars` mỗi trường đang gánh **hai loại thông tin khác hẳn nhau** — thứ máy nhìn thấy được, và thứ chỉ người biết truyện mới biết.
+
+| trường | trục NHÌN THẤY (máy làm được) | trục TRUYỆN (người quyết) |
+|---|---|---|
+| `depicts` | `dialogue`, `action`, `establishing`, `montage` | `emotion`, `reveal`, `setup`, `aftermath`, `discovery` |
+| `chars` | ai đang trên khung hình (theo mặt) | người đó **là ai** tại thời điểm đó trong truyện |
+
+**Bằng chứng — `depicts`:** 20 shot chấm mù, chỉ 4 khớp hoàn toàn nhưng 13 có chung ≥1 tag. Trong 12 lần nhầm, **6 lần có `emotion` ở phía người tag**. `emotion` không nằm trong pixel — một người đàn ông hút thuốc trong phòng đỏ là `emotion` với ai biết đó là Dolores đã chết, và là `dialogue` với ai chỉ thấy hai người đang nói chuyện.
+
+**Bằng chứng — `chars`, và đây là ca minh hoạ hoàn hảo:**
+
+```
+shot17   người tag: andrew laeddis, dr. cawley, dr. sheehan
+         model:     teddy daniels,  dr. cawley, chuck aule
+```
+
+`Andrew Laeddis` **là** `Teddy Daniels`. `Dr. Sheehan` **là** `Chuck Aule`. Sau mốc reveal, người tag chuyển sang tên thật; model nhìn mặt nên dùng tên trước reveal. Cả hai đều đúng.
+
+Soi hết 11 ca bị chấm là "bịa thêm": **không có ca nào là bịa.** 7 ca là cùng người khác tên vì twist (bị phạt hai lần — vừa "bịa" vừa "sót"), 2 ca là nhân vật có mặt thật mà người tag chỉ ghi nhân vật trọng tâm. Độ chính xác thật gần 100%, không phải 67% như script chấm báo.
+
+**Vì sao quan trọng:** việc chọn gọi "Teddy" hay "Laeddis" ở một thời điểm **chính là quyết định biên tập về việc khán giả đã biết tới đâu** — đúng thứ reveal-map sinh ra để quản. Không vision model nào đoán được, và không nên đoán.
+
+**Đề xuất:** tách `chars` thành hai tầng.
+
+- **Tầng mặt** — ai có mặt trên khung hình. Máy tag, chính xác cao. Đây là nền để `binding_audit` cuối cùng chạy được thật: so **mặt** với **lời**, không đòi model biết cú lật.
+- **Tầng truyện** — gọi họ là gì tại thời điểm đó. Người quyết, gắn với reveal-map.
+
+Tương tự với `depicts`: máy đề xuất trục nhìn thấy, người xác nhận và thêm trục chức năng.
+
+**Trạng thái:** cần thiết kế. Chạm schema `shots.json`, nên phải qua quy trình duyệt như BINDING-INTEGRITY.
+
+---
+
+### G-CAST. `names.json` vứt mất tên diễn viên
+
+**Là gì:** rule A7 bảo đọc mục **Cast** trên Wikipedia — mục đó có ánh xạ *"Leonardo DiCaprio as Teddy Daniels"*. Nhưng `names.json` chỉ giữ tên nhân vật + vai trò, bỏ phần tên diễn viên.
+
+**Hệ quả:** pipeline đọc rồi ném đi đúng mẩu dữ liệu duy nhất cho phép nhận mặt. Vòng 2 thí nghiệm cho model đọc `names.json` — nó không giúp được gì, vì biết "McPherson là phó quản giáo hộ tống hai marshal" vẫn không cho biết mặt ông ấy trông thế nào.
+
+**Đo được:** thêm `cast.json` (diễn viên↔nhân vật) ở vòng 3 giúp model đặt tên được thêm 2 shot. Ít, nhưng đúng hướng — và bị che bởi lỗi bộ đề ở G-AXIS nên chưa đo được mức thật.
+
+**Đề xuất:** thêm trường `actor` vào `names.json`. Thay đổi schema nhỏ, dữ liệu đã có sẵn ở bước A7, chỉ là chưa lưu.
+
+**Trạng thái:** rẻ, làm được ngay, nhưng nên làm CÙNG G-AXIS vì cả hai đụng cùng chỗ.
+
+---
+
+### G-FRAME. Lấy mẫu 3 frame là chưa đủ
+
+**Là gì:** bộ đề trích đúng 3 frame mỗi shot ở vị trí cố định (đầu +0.5s, giữa, cuối −0.5s).
+
+**Vấn đề đo được:** phần lớn ca "sót" là nhân vật xuất hiện ở giữa cửa sổ 20–30 giây mà không rơi vào frame nào. Và bốn ca model giữ `(khong ro)` đều cùng lý do — mặt tối, quay đi, ánh lửa — chứ không phải thiếu dữ liệu.
+
+**Đề xuất:** trích 8–10 frame rồi chọn frame sáng nhất / rõ mặt nhất, thay vì lấy vị trí cố định.
+
+**Trạng thái:** chỉ là chuyện của công cụ thí nghiệm, chưa đụng pipeline. Làm khi nào chạy vòng đo tiếp.
+
+---
+
+### Bài học về CÁCH ĐO, đáng nhớ hơn cả ba mục trên
+
+Cả ba vòng thí nghiệm đều cho số thấp (`depicts` 20% khớp hẳn, `chars` 67% chính xác) và cả ba lần con số đó **sai** — vì ground truth thô hơn thứ đang được chấm, chứ không phải vì model kém.
+
+Chỉ khi in ra **từng ca lệch cụ thể** mới thấy được. Số tổng hợp giấu mất chuyện `Laeddis = Teddy`.
+
+> **Trước khi tin một điểm số, hãy đọc mấy ca mà nó cho là sai.** Một thước đo không giải thích được cái nó phạt là một thước đo chưa dùng được.
+
+---
+
+## ƯU TIÊN NẾU LÀM TIẾP *(thay cho danh sách cũ)*
+
+1. **F4 (README)** — rẻ nhất, chặn hiểu nhầm cho mọi session sau.
+2. **G-SNAP** — đã chứng minh trên dữ liệu thật, rủi ro gần bằng không, đóng được một nguồn drift.
+3. **D-RENDER** — lớp kiểm sau render (đếm audio/clip/runtime). Rẻ, phủ cả một lớp lỗi.
+4. **E1 `timeline.json`** — ~5 dòng, cho QA nói được "line 36" thay vì "khoảng phút 7".
+5. **G-AXIS + G-CAST** — đi cùng nhau. Đây là thứ mở khoá tag máy VÀ làm `binding_audit` có nghĩa. Cần thiết kế trước.
+6. **A-AMB** — sau khi có nhận định về câu kết Shutter Island.
+7. **BINDING-INTEGRITY bậc 2** — sau khi một phim mới chạy trọn bậc 1.
+8. **F5 (id sub-line)** — sửa gốc, không chỉ chốt lưới.
+9. **B2 + B-NEW** — rule, ghi nhanh, không đụng engine.
+10. **F1, F2, F3** — cần phim thứ hai / cần calibrate thêm.
+
+**Chưa validate được, đừng quên:** nhánh SCRIPT stage của ACTION-SETUP (chờ phim action), và bậc 2/3 của BINDING-INTEGRITY.

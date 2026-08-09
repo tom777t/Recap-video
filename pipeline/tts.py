@@ -1,3 +1,5 @@
+
+
 """
 Produce per-line narration audio.
 
@@ -79,8 +81,11 @@ def _delivery_for(ln: dict, base_rate: str) -> dict:
     """
     preset_name = ln.get("delivery", config.DEFAULT_DELIVERY)
     preset = dict(config.TTS_DELIVERY.get(preset_name, config.TTS_DELIVERY["normal"]))
-    # if the line uses the plain default preset, honour the CLI/base rate
-    if preset_name == "normal":
+    # "normal" carries no rate of its own - the CLI/base rate is the rate.
+    # Also covers an UNKNOWN preset name, which falls back to the "normal" dict
+    # above: without this it would reach the caller with no "rate" key at all
+    # and raise a KeyError on the first line that used it.
+    if preset_name == "normal" or "rate" not in preset:
         preset["rate"] = base_rate
     # explicit per-line overrides win
     for k in ("rate", "pitch", "volume"):
@@ -184,3 +189,6 @@ def collect_mine(project: str, draft: dict) -> list[tuple[int, Path, float]]:
 
     console.print(f"[green]Found all {len(results)} recordings.[/]")
     return results
+
+
+
