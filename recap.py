@@ -1,3 +1,5 @@
+
+
 """
 recap.py — turn a long video into a short, punchy recap/review video.
 
@@ -76,6 +78,23 @@ def cmd_frames(args):
 def cmd_analyze(args):
     from pipeline import frames
     frames.analyze(args.project, every=args.every)
+
+
+def cmd_cuts(args):
+    from pipeline import cuts as cutsmod
+    existing = cutsmod.load_cuts(args.project)
+    if existing and not args.rescan:
+        print(f"{len(existing)} cuts already cached in _cuts.json "
+              f"(use --rescan to redo the ~11 minute scan)")
+        return
+    print("scanning source.mp4 for scene cuts (a 2h film takes ~11 minutes)...")
+    got = cutsmod.detect_cuts(args.project, threshold=args.threshold)
+    if got is None:
+        print("could not scan: source.mp4 missing, or scenedetect not installed "
+              "(pip install scenedetect)")
+        return
+    print(f"\ncached {len(got)} cuts -> {cutsmod.cache_path(args.project)}")
+    print("`recap.py draft` will now report [SNAP-GRID].")
 
 
 def cmd_broll(args):
@@ -254,6 +273,13 @@ def main():
     pa.add_argument("--every", type=float, default=5.0)
     pa.set_defaults(func=cmd_analyze)
 
+    pcu = sub.add_parser("cuts", help="detect scene cuts once, cache them for SNAP-GRID")
+    pcu.add_argument("--project", required=True)
+    pcu.add_argument("--rescan", action="store_true", help="redo the scan even if cached")
+    pcu.add_argument("--threshold", type=float, default=27.0,
+                     help="ContentDetector sensitivity; lower finds more cuts")
+    pcu.set_defaults(func=cmd_cuts)
+
     pb = sub.add_parser("broll", help="create/inspect the action B-roll pool")
     pb.add_argument("--project", required=True)
     pb.add_argument("--scaffold", action="store_true", help="write a starter broll.json")
@@ -318,3 +344,6 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
+

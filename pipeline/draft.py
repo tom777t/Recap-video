@@ -1569,6 +1569,29 @@ def _run_phase1_audits(project, pdir):
                           "the signal, the ratio alone does not separate a healthy "
                           "catalogue from a thin one.[/]")
 
+        # ---- SNAP-GRID: do catalogue boundaries land on real visual cuts? ----
+        from pipeline import cuts as _cuts
+        sg = _cuts.snap_report(project, _load_shot_index(pdir))
+        if not sg["measured"]:
+            console.print(f"[dim][SNAP-GRID] not measured: {sg['reason']}[/]")
+        elif sg["off"]:
+            pct = 100.0 * sg["off"] / sg["total"]
+            console.print(f"[yellow][SNAP-GRID][/] {sg['off']}/{sg['total']} boundaries "
+                          f"({pct:.0f}%) sit more than {sg['tolerance']:.0f}s from any "
+                          f"detected cut - those clips open or close mid-scene.")
+            # NB: no loop variable here may be named `d` - that is the Draft
+            # object for this whole function, and shadowing it breaks every
+            # audit that runs after this block.
+            for _sid, _kind, _t, _dist in sg["offenders"][:8]:
+                console.print(f"    {int(_t)//60:02d}:{int(_t)%60:02d}  {_kind:<5} "
+                              f"off by {_dist:5.1f}s   {_sid}")
+            if len(sg["offenders"]) > 8:
+                console.print(f"    ... and {len(sg['offenders']) - 8} more")
+        else:
+            console.print(f"[bold][SNAP-GRID][/] all {sg['total']} boundaries land "
+                          f"within {sg['tolerance']:.0f}s of a real cut "
+                          f"[dim]({sg['cuts']} cuts detected)[/]")
+
     # ---- SET-PIECE COVERAGE (linear, SCRIPT stage ONLY) ----------------------
     # A followability-critical fight needs no long unnarrated stretch. Measures
     # ONLY human-confirmed, dense-verified set-piece ranges (never a quiet scene
