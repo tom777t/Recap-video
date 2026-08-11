@@ -80,6 +80,13 @@ def cmd_analyze(args):
     frames.analyze(args.project, every=args.every)
 
 
+def cmd_verify(args):
+    from pipeline import verify as verifymod
+    n = verifymod.verify(args.project, model_size=args.model)
+    if n > 0:
+        sys.exit(1)
+
+
 def cmd_cuts(args):
     from pipeline import cuts as cutsmod
     existing = cutsmod.load_cuts(args.project)
@@ -272,6 +279,12 @@ def main():
     pa.add_argument("--project", required=True)
     pa.add_argument("--every", type=float, default=5.0)
     pa.set_defaults(func=cmd_analyze)
+
+    pvf = sub.add_parser("verify",
+                         help="transcribe final.mp4 and check it says what draft.json says")
+    pvf.add_argument("--project", required=True)
+    pvf.add_argument("--model", default="small", help="whisper model for the check")
+    pvf.set_defaults(func=cmd_verify)
 
     pcu = sub.add_parser("cuts", help="detect scene cuts once, cache them for SNAP-GRID")
     pcu.add_argument("--project", required=True)
