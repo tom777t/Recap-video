@@ -1,0 +1,1942 @@
+{
+  "_comment": "Interstellar (2014) shot catalogue. Stage 2 ACT 1 ONLY (Earth / the ghost / leaving, 00:01-00:46). Acts 2-3 to be catalogued Day N+5. Every shot FRAME-VERIFIED (frames/verify/act1/). depth_target: fuller_recap (aim 90-110 shots across 34 beats). depicts vocabulary per TAGGING_GUIDE; beat field links each shot to beats_proposal.md. TWIST-HOLD: Act 1 presents the 'ghost' as an unexplained anomaly - narration must NOT reveal it is Cooper (payoff held to B29-B30). DARK flag set on dim night/backlit shots for render exposure-lift. Muc 3 capacity fields auto-populated by catalogue.py enrich_shots.",
+  "project": "interstellar2014",
+  "film_title": "Interstellar",
+  "shots": [
+    {
+      "id": "clip:00:03:22.0",
+      "beat": 1,
+      "clip_start": "00:03:22.0",
+      "clip_end": "00:03:31.0",
+      "chars": [],
+      "depicts": [
+        "establishing",
+        "setup"
+      ],
+      "censor": "none",
+      "action": "documentary-style talking-head: an old-timer recalls the dying world ('he was a farmer like everybody else') - the future-history framing device (FRAME-VERIFIED 00:03:22)",
+      "raw_duration_sec": 9.0,
+      "max_play_duration_sec": 9.9,
+      "max_narration_words_en": 40,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:03:40.0",
+      "beat": 1,
+      "clip_start": "00:03:40.0",
+      "clip_end": "00:03:51.7",
+      "chars": [
+        "Donald",
+        "Tom",
+        "Murph"
+      ],
+      "depicts": [
+        "establishing",
+        "setup"
+      ],
+      "censor": "none",
+      "action": "the farmhouse breakfast table - Grandpa Donald serves, Tom and young Murph eat; the dust-bowl home life established (FRAME-VERIFIED 00:03:40)",
+      "raw_duration_sec": 11.7,
+      "max_play_duration_sec": 12.87,
+      "max_narration_words_en": 53,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:04:07.0",
+      "beat": 1,
+      "clip_start": "00:04:07.0",
+      "clip_end": "00:04:16.0",
+      "chars": [
+        "Cooper"
+      ],
+      "depicts": [
+        "setup"
+      ],
+      "censor": "none",
+      "action": "Cooper (ex-pilot turned corn farmer) in the farmhouse, morning light - the protagonist introduced (FRAME-VERIFIED 00:04:07)",
+      "raw_duration_sec": 9.0,
+      "max_play_duration_sec": 9.9,
+      "max_narration_words_en": 40,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:02:10.0",
+      "beat": 1,
+      "clip_start": "00:02:10.0",
+      "clip_end": "00:02:22.0",
+      "chars": [
+        "Cooper"
+      ],
+      "depicts": [
+        "emotion"
+      ],
+      "censor": "none",
+      "action": "DARK: Cooper wakes sweating from a crashing-spacecraft dream - the pilot he used to be still haunts him (FRAME-VERIFIED 00:02:10; dim night interior - exposure-lift)",
+      "exposure_lift": 0.18,
+      "raw_duration_sec": 12.0,
+      "max_play_duration_sec": 13.2,
+      "max_narration_words_en": 54,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:14:54.0",
+      "beat": 2,
+      "clip_start": "00:14:54.0",
+      "clip_end": "00:15:03.0",
+      "chars": [
+        "Cooper"
+      ],
+      "depicts": [
+        "setup"
+      ],
+      "censor": "none",
+      "action": "Cooper stands before Murph's tall BOOKSHELF, books fallen on the floor - the 'ghost' knocks them off; he studies the anomaly (FRAME-VERIFIED 00:14:54; the bookshelf motif that anchors the whole film - do NOT reveal it is him)",
+      "raw_duration_sec": 9.0,
+      "max_play_duration_sec": 9.9,
+      "max_narration_words_en": 40,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:15:20.0",
+      "beat": 2,
+      "clip_start": "00:15:20.0",
+      "clip_end": "00:15:29.0",
+      "chars": [
+        "Cooper",
+        "Murph"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "censor": "none",
+      "action": "Cooper tells Murph to be scientific about her 'ghost' - record it, chart it, don't fear it (FRAME-VERIFIED ~00:15:20)",
+      "raw_duration_sec": 9.0,
+      "max_play_duration_sec": 9.0,
+      "max_narration_words_en": 40,
+      "extendable": false,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:20:35.0",
+      "beat": 2,
+      "clip_start": "00:20:35.0",
+      "clip_end": "00:20:46.7",
+      "chars": [
+        "Murph"
+      ],
+      "depicts": [
+        "setup"
+      ],
+      "censor": "none",
+      "action": "DARK: young Murph stands in her dim bedroom doorway at night, blanket wrapped around her, unnerved by the presence in her room (FRAME-VERIFIED 00:20:35; night interior - exposure-lift)",
+      "exposure_lift": 0.18,
+      "raw_duration_sec": 11.7,
+      "max_play_duration_sec": 12.87,
+      "max_narration_words_en": 53,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:05:20.0",
+      "beat": 3,
+      "clip_start": "00:05:20.0",
+      "clip_end": "00:05:29.0",
+      "chars": [
+        "Tom",
+        "Murph"
+      ],
+      "depicts": [
+        "reaction"
+      ],
+      "censor": "none",
+      "action": "Tom and young Murph in the truck cab, Murph grinning and pointing with delight during the drone chase - the family's joy in the pursuit (FRAME-VERIFIED 00:05:20; the reaction beat of the chase)",
+      "raw_duration_sec": 9.0,
+      "max_play_duration_sec": 9.0,
+      "max_narration_words_en": 40,
+      "extendable": false,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:08:33.0",
+      "beat": 3,
+      "clip_start": "00:08:33.0",
+      "clip_end": "00:08:42.0",
+      "chars": [],
+      "depicts": [
+        "establishing",
+        "setup"
+      ],
+      "censor": "none",
+      "action": "wide shot: the solar-powered Indian surveillance drone glides over the reservoir and bluffs under a wide sky - the flight Cooper misses (FRAME-VERIFIED 00:08:33)",
+      "raw_duration_sec": 9.0,
+      "max_play_duration_sec": 9.9,
+      "max_narration_words_en": 40,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:09:00.0",
+      "beat": 3,
+      "clip_start": "00:09:00.0",
+      "clip_end": "00:09:07.0",
+      "chars": [
+        "Cooper",
+        "Tom",
+        "Murph"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "censor": "none",
+      "action": "Cooper brings the drone down and the family gathers over it - the ex-pilot lights up handling the aircraft (FRAME-VERIFIED ~00:09:00)",
+      "raw_duration_sec": 7.0,
+      "max_play_duration_sec": 7.0,
+      "max_narration_words_en": 31,
+      "extendable": false,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:09:56.0",
+      "beat": 4,
+      "clip_start": "00:09:56.0",
+      "clip_end": "00:10:03.0",
+      "chars": [
+        "Cooper",
+        "Murph"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "censor": "none",
+      "action": "Cooper drives Murph to the school conference, her notebook on her lap - father and daughter close (FRAME-VERIFIED 00:09:56)",
+      "raw_duration_sec": 7.0,
+      "max_play_duration_sec": 7.0,
+      "max_narration_words_en": 31,
+      "extendable": false,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:11:30.0",
+      "beat": 4,
+      "clip_start": "00:11:30.0",
+      "clip_end": "00:11:42.3",
+      "chars": [
+        "Cooper"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "censor": "none",
+      "action": "at the school: Cooper reacts to being told the textbooks now teach the Apollo landings were faked - a world that has stopped looking up (FRAME-VERIFIED ~00:11:30)",
+      "raw_duration_sec": 12.3,
+      "max_play_duration_sec": 12.3,
+      "max_narration_words_en": 56,
+      "extendable": false,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:15:44.0",
+      "beat": 5,
+      "clip_start": "00:15:44.0",
+      "clip_end": "00:15:53.0",
+      "chars": [
+        "Cooper"
+      ],
+      "depicts": [
+        "setup"
+      ],
+      "censor": "none",
+      "action": "DARK: Cooper crouches outside at night over the dust/compass anomaly - the unseen force is trying to say something (FRAME-VERIFIED 00:15:44; night exterior - exposure-lift)",
+      "exposure_lift": 0.18,
+      "raw_duration_sec": 9.0,
+      "max_play_duration_sec": 9.9,
+      "max_narration_words_en": 40,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:16:20.0",
+      "beat": 5,
+      "clip_start": "00:16:20.0",
+      "clip_end": "00:16:29.0",
+      "chars": [
+        "Cooper",
+        "Donald"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "censor": "none",
+      "action": "Cooper and Grandpa Donald talk on the porch - 'we used to look up and wonder; now we look down and worry'; Cooper was born too late for exploration (FRAME-VERIFIED ~00:16:20)",
+      "raw_duration_sec": 9.0,
+      "max_play_duration_sec": 9.0,
+      "max_narration_words_en": 40,
+      "extendable": false,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:20:50.0",
+      "beat": 6,
+      "clip_start": "00:20:50.0",
+      "clip_end": "00:20:59.0",
+      "chars": [
+        "Cooper",
+        "Murph"
+      ],
+      "depicts": [
+        "discovery"
+      ],
+      "censor": "none",
+      "action": "DARK: dust settles in sharp lines across Murph's bedroom floor - Cooper realizes it is a message left by gravity, not random (FRAME-VERIFIED ~00:20:50; DUST motif; dim interior - exposure-lift; do NOT reveal the source)",
+      "exposure_lift": 0.18,
+      "raw_duration_sec": 9.0,
+      "max_play_duration_sec": 9.0,
+      "max_narration_words_en": 40,
+      "extendable": false,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:21:30.0",
+      "beat": 6,
+      "clip_start": "00:21:30.0",
+      "clip_end": "00:21:39.0",
+      "chars": [
+        "Cooper"
+      ],
+      "depicts": [
+        "discovery"
+      ],
+      "censor": "none",
+      "action": "Cooper reads the dust pattern as BINARY - thick lines and thin lines resolve into coordinates (FRAME-VERIFIED ~00:21:30; GRAVITY-as-language, loop seed held)",
+      "raw_duration_sec": 9.0,
+      "max_play_duration_sec": 9.0,
+      "max_narration_words_en": 40,
+      "extendable": false,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:22:28.0",
+      "beat": 6,
+      "clip_start": "00:22:28.0",
+      "clip_end": "00:22:37.0",
+      "chars": [
+        "Cooper"
+      ],
+      "depicts": [
+        "transition"
+      ],
+      "censor": "none",
+      "action": "Cooper moves through the dim farmhouse, coordinates in hand, deciding to follow them (FRAME-VERIFIED 00:22:28; dim interior)",
+      "exposure_lift": 0.18,
+      "raw_duration_sec": 9.0,
+      "max_play_duration_sec": 9.9,
+      "max_narration_words_en": 40,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:24:40.0",
+      "beat": 7,
+      "clip_start": "00:24:40.0",
+      "clip_end": "00:24:49.0",
+      "chars": [
+        "Cooper"
+      ],
+      "depicts": [
+        "setup"
+      ],
+      "censor": "none",
+      "action": "DARK: Cooper caught at a floodlit fence at the coordinates - a hidden facility; he is seized by security (FRAME-VERIFIED 00:24:40; backlit night - exposure-lift)",
+      "exposure_lift": 0.18,
+      "raw_duration_sec": 9.0,
+      "max_play_duration_sec": 9.9,
+      "max_narration_words_en": 40,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:25:30.0",
+      "beat": 7,
+      "clip_start": "00:25:30.0",
+      "clip_end": "00:25:39.0",
+      "chars": [
+        "Cooper",
+        "TARS"
+      ],
+      "depicts": [
+        "reveal"
+      ],
+      "censor": "none",
+      "action": "the blocky robot TARS looms over the detained Cooper - the facility is guarded by walking machines (FRAME-VERIFIED ~00:25:30)",
+      "raw_duration_sec": 9.0,
+      "max_play_duration_sec": 9.0,
+      "max_narration_words_en": 40,
+      "extendable": false,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:26:35.0",
+      "beat": 7,
+      "clip_start": "00:26:35.0",
+      "clip_end": "00:26:44.0",
+      "chars": [
+        "Cooper",
+        "Amelia Brand"
+      ],
+      "depicts": [
+        "reveal"
+      ],
+      "censor": "none",
+      "action": "Amelia Brand leads Cooper down a corridor past door 'B1-05' - the secret is NASA (FRAME-VERIFIED 00:26:35)",
+      "raw_duration_sec": 9.0,
+      "max_play_duration_sec": 9.0,
+      "max_narration_words_en": 40,
+      "extendable": false,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:27:13.0",
+      "beat": 8,
+      "clip_start": "00:27:13.0",
+      "clip_end": "00:27:24.7",
+      "chars": [
+        "Cooper",
+        "Professor Brand"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "censor": "none",
+      "action": "Professor Brand explains the Blight and the dying air - humanity is running out of time on Earth (FRAME-VERIFIED ~00:27:13)",
+      "raw_duration_sec": 11.7,
+      "max_play_duration_sec": 11.7,
+      "max_narration_words_en": 53,
+      "extendable": false,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:29:55.0",
+      "beat": 8,
+      "clip_start": "00:29:55.0",
+      "clip_end": "00:30:04.0",
+      "chars": [
+        "Professor Brand",
+        "Cooper"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "censor": "none",
+      "action": "Professor Brand: 'we're not meant to save the world, we're meant to leave it' - the Lazarus missions and the Endurance introduced (FRAME-VERIFIED ~00:29:55)",
+      "raw_duration_sec": 9.0,
+      "max_play_duration_sec": 9.0,
+      "max_narration_words_en": 40,
+      "extendable": false,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:31:27.0",
+      "beat": 9,
+      "clip_start": "00:31:27.0",
+      "clip_end": "00:31:36.0",
+      "chars": [
+        "Cooper"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "censor": "none",
+      "action": "Cooper hears how a WORMHOLE appeared near Saturn - placed by 'them' - opening a path to distant survivable worlds (FRAME-VERIFIED 00:31:27)",
+      "raw_duration_sec": 9.0,
+      "max_play_duration_sec": 9.0,
+      "max_narration_words_en": 40,
+      "extendable": false,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:33:44.0",
+      "beat": 9,
+      "clip_start": "00:33:44.0",
+      "clip_end": "00:33:56.0",
+      "chars": [
+        "Professor Brand"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "censor": "none",
+      "action": "Professor Brand in the boardroom, astronaut photos behind him, lays out PLAN A (solve gravity, lift everyone) vs PLAN B (5,000 embryos, start over) (FRAME-VERIFIED 00:33:44; the secret that Plan A is a lie is held back)",
+      "raw_duration_sec": 12.0,
+      "max_play_duration_sec": 12.0,
+      "max_narration_words_en": 54,
+      "extendable": false,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:35:20.0",
+      "beat": 9,
+      "clip_start": "00:35:20.0",
+      "clip_end": "00:35:32.3",
+      "chars": [
+        "Cooper"
+      ],
+      "depicts": [
+        "reaction"
+      ],
+      "censor": "none",
+      "action": "Cooper agrees to pilot the mission - a chance to save his children even if it means leaving them (FRAME-VERIFIED ~00:35:20)",
+      "raw_duration_sec": 12.3,
+      "max_play_duration_sec": 12.3,
+      "max_narration_words_en": 56,
+      "extendable": false,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:36:54.0",
+      "beat": 10,
+      "clip_start": "00:36:54.0",
+      "clip_end": "00:37:03.0",
+      "chars": [
+        "Cooper",
+        "Donald"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "censor": "none",
+      "action": "Cooper tells Grandpa Donald he is leaving - 'mankind was born on Earth; it was never meant to die here' (FRAME-VERIFIED ~00:36:54)",
+      "raw_duration_sec": 9.0,
+      "max_play_duration_sec": 9.0,
+      "max_narration_words_en": 40,
+      "extendable": false,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:37:29.0",
+      "beat": 10,
+      "clip_start": "00:37:29.0",
+      "clip_end": "00:37:38.0",
+      "chars": [
+        "Cooper"
+      ],
+      "depicts": [
+        "setup"
+      ],
+      "censor": "none",
+      "action": "Cooper in Murph's room before he leaves - the blue scholar's-globe on her shelf, the watch about to change hands (FRAME-VERIFIED 00:37:29; the WATCH motif)",
+      "raw_duration_sec": 9.0,
+      "max_play_duration_sec": 9.9,
+      "max_narration_words_en": 40,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:38:57.0",
+      "beat": 10,
+      "clip_start": "00:38:57.0",
+      "clip_end": "00:39:07.0",
+      "chars": [
+        "Cooper",
+        "Murph"
+      ],
+      "depicts": [
+        "emotion"
+      ],
+      "censor": "none",
+      "action": "Cooper holds a crying young Murph and gives her his WATCH, promising he'll come back - she refuses to say goodbye (FRAME-VERIFIED 00:38:57; the emotional core of Act 1 - the WATCH and the promise the loop will keep)",
+      "narration_silence_seconds": 6.0
+    },
+    {
+      "id": "clip:00:41:37.0",
+      "beat": 10,
+      "clip_start": "00:41:37.0",
+      "clip_end": "00:41:49.0",
+      "chars": [
+        "Cooper",
+        "Tom"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "censor": "none",
+      "action": "Cooper leans from the truck to say goodbye to a stoic Tom on the dusty road, then drives away from the farm (FRAME-VERIFIED 00:41:37)",
+      "raw_duration_sec": 12.0,
+      "max_play_duration_sec": 12.0,
+      "max_narration_words_en": 54,
+      "extendable": false,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:42:16.0",
+      "beat": 10,
+      "clip_start": "00:42:16.0",
+      "clip_end": "00:42:25.0",
+      "chars": [
+        "Cooper"
+      ],
+      "depicts": [
+        "emotion"
+      ],
+      "censor": "none",
+      "action": "Cooper drives away alone, tears streaking his face, checking the empty passenger seat - leaving his children behind (FRAME-VERIFIED 00:42:16; LOVE / the family left behind)",
+      "raw_duration_sec": 9.0,
+      "max_play_duration_sec": 9.9,
+      "max_narration_words_en": 40,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:43:30.0",
+      "beat": 11,
+      "clip_start": "00:43:30.0",
+      "clip_end": "00:43:39.0",
+      "chars": [
+        "Cooper"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "censor": "none",
+      "action": "inside the Ranger cockpit during launch - helmeted Cooper rides the roaring ascent, sky and cloud through the canopy (FRAME-VERIFIED 00:43:30; the ascent, finally looking up)",
+      "raw_duration_sec": 9.0,
+      "max_play_duration_sec": 9.0,
+      "max_narration_words_en": 40,
+      "extendable": false,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:44:30.0",
+      "beat": 11,
+      "clip_start": "00:44:30.0",
+      "clip_end": "00:44:39.0",
+      "chars": [],
+      "depicts": [
+        "action"
+      ],
+      "censor": "none",
+      "action": "the rocket stages and climbs through the upper atmosphere - Earth falling away below (FRAME-VERIFIED ~00:44:30; the launch peak)",
+      "raw_duration_sec": 9.0,
+      "max_play_duration_sec": 9.0,
+      "max_narration_words_en": 40,
+      "extendable": false,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:45:30.0",
+      "beat": 11,
+      "clip_start": "00:45:30.0",
+      "clip_end": "00:45:37.0",
+      "chars": [
+        "Romilly"
+      ],
+      "depicts": [
+        "setup"
+      ],
+      "censor": "none",
+      "action": "Romilly, suited at a launch console, rides up alongside Cooper - a crewmate introduced on the way out (FRAME-VERIFIED 00:45:30)",
+      "raw_duration_sec": 7.0,
+      "max_play_duration_sec": 7.7,
+      "max_narration_words_en": 31,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:46:30.0",
+      "beat": 12,
+      "clip_start": "00:46:30.0",
+      "clip_end": "00:46:39.0",
+      "chars": [],
+      "depicts": [
+        "establishing",
+        "setup"
+      ],
+      "censor": "none",
+      "action": "the Endurance ring-ship turns above Earth as the Ranger approaches to dock - the vessel that will carry the crew introduced (FRAME-VERIFIED 00:46:30)",
+      "raw_duration_sec": 9.0,
+      "max_play_duration_sec": 9.9,
+      "max_narration_words_en": 40,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:48:00.0",
+      "beat": 12,
+      "clip_start": "00:48:00.0",
+      "clip_end": "00:48:09.0",
+      "chars": [
+        "Amelia Brand",
+        "Doyle"
+      ],
+      "depicts": [
+        "setup"
+      ],
+      "censor": "none",
+      "action": "Amelia Brand and Doyle, suited, move through the Endurance as the crew settles in for the long cruise (FRAME-VERIFIED 00:48:00)",
+      "raw_duration_sec": 9.0,
+      "max_play_duration_sec": 9.9,
+      "max_narration_words_en": 40,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:50:35.0",
+      "beat": 12,
+      "clip_start": "00:50:35.0",
+      "clip_end": "00:50:44.0",
+      "chars": [
+        "Cooper",
+        "Amelia Brand",
+        "Romilly"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "censor": "none",
+      "action": "the crew talks over the mission and the Lazarus scouts - Dr. Mann 'the best of us', Edmunds, and the worlds ahead (FRAME-VERIFIED ~00:50:35)",
+      "raw_duration_sec": 9.0,
+      "max_play_duration_sec": 9.0,
+      "max_narration_words_en": 40,
+      "extendable": false,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:57:12.0",
+      "beat": 13,
+      "clip_start": "00:57:12.0",
+      "clip_end": "00:57:21.0",
+      "chars": [
+        "Romilly"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "censor": "none",
+      "action": "Romilly explains how a wormhole bends space - a sphere, not a hole - the tunnel to the far galaxy on the cockpit screens (FRAME-VERIFIED 00:57:12; GRAVITY / spacetime bending)",
+      "raw_duration_sec": 9.0,
+      "max_play_duration_sec": 9.0,
+      "max_narration_words_en": 40,
+      "extendable": false,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:59:00.0",
+      "beat": 13,
+      "clip_start": "00:59:00.0",
+      "clip_end": "00:59:08.0",
+      "chars": [],
+      "depicts": [
+        "reveal"
+      ],
+      "censor": "none",
+      "action": "the wormhole sphere hangs in black space between the Endurance modules - the passage to another galaxy (FRAME-VERIFIED 00:59:00; iconic)",
+      "narration_silence_seconds": 7.0
+    },
+    {
+      "id": "clip:01:00:20.0",
+      "beat": 13,
+      "clip_start": "01:00:20.0",
+      "clip_end": "01:00:29.0",
+      "chars": [
+        "Cooper",
+        "Amelia Brand"
+      ],
+      "depicts": [
+        "reaction"
+      ],
+      "censor": "none",
+      "action": "the crew braces in awe as the Endurance passes through the wormhole, spacetime rippling around them (FRAME-VERIFIED ~01:00:20)",
+      "raw_duration_sec": 9.0,
+      "max_play_duration_sec": 9.0,
+      "max_narration_words_en": 40,
+      "extendable": false,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:02:08.0",
+      "beat": 14,
+      "clip_start": "01:02:08.0",
+      "clip_end": "01:02:17.0",
+      "chars": [
+        "Cooper",
+        "Amelia Brand",
+        "Romilly"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "censor": "none",
+      "action": "in the Endurance the crew weighs the candidate worlds around Gargantua - and the terrible cost of Miller's planet: one hour there is seven years back home (FRAME-VERIFIED 01:02:08; TIME the true antagonist)",
+      "raw_duration_sec": 9.0,
+      "max_play_duration_sec": 9.0,
+      "max_narration_words_en": 40,
+      "extendable": false,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:03:30.0",
+      "beat": 14,
+      "clip_start": "01:03:30.0",
+      "clip_end": "01:03:39.0",
+      "chars": [],
+      "depicts": [
+        "establishing",
+        "setup"
+      ],
+      "censor": "none",
+      "action": "Gargantua, the vast black hole, glows against the dark - the accretion disk ringing a pit of gravity (FRAME-VERIFIED ~01:03:30; GRAVITY)",
+      "raw_duration_sec": 9.0,
+      "max_play_duration_sec": 9.9,
+      "max_narration_words_en": 40,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:05:23.0",
+      "beat": 14,
+      "clip_start": "01:05:23.0",
+      "clip_end": "01:05:32.0",
+      "chars": [
+        "Cooper"
+      ],
+      "depicts": [
+        "reaction"
+      ],
+      "censor": "none",
+      "action": "Cooper studies Gargantua from the ship, weighing years against hours before the descent (FRAME-VERIFIED ~01:05:23)",
+      "raw_duration_sec": 9.0,
+      "max_play_duration_sec": 9.0,
+      "max_narration_words_en": 40,
+      "extendable": false,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:06:25.0",
+      "beat": 15,
+      "clip_start": "01:06:25.0",
+      "clip_end": "01:06:34.0",
+      "chars": [
+        "Cooper"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "censor": "none",
+      "action": "Cooper, helmeted in the Ranger, pilots the tense descent toward Miller's ocean planet (FRAME-VERIFIED 01:06:25)",
+      "raw_duration_sec": 9.0,
+      "max_play_duration_sec": 9.0,
+      "max_narration_words_en": 40,
+      "extendable": false,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:07:10.0",
+      "beat": 15,
+      "clip_start": "01:07:10.0",
+      "clip_end": "01:07:19.0",
+      "chars": [
+        "Amelia Brand"
+      ],
+      "depicts": [
+        "setup"
+      ],
+      "censor": "none",
+      "action": "Amelia braces beside Cooper as the Ranger drops through Miller's atmosphere, the clock already burning years (FRAME-VERIFIED ~01:07:10; TIME pressure)",
+      "raw_duration_sec": 9.0,
+      "max_play_duration_sec": 9.9,
+      "max_narration_words_en": 40,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:08:17.0",
+      "beat": 16,
+      "clip_start": "01:08:17.0",
+      "clip_end": "01:08:24.0",
+      "chars": [
+        "Amelia Brand"
+      ],
+      "depicts": [
+        "setup"
+      ],
+      "censor": "none",
+      "action": "the Ranger sits in shin-deep water under a grey sky - Miller's planet is one endless shallow ocean; Amelia climbs out (FRAME-VERIFIED 01:08:17; water vs dust)",
+      "raw_duration_sec": 7.0,
+      "max_play_duration_sec": 7.7,
+      "max_narration_words_en": 31,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:09:56.0",
+      "beat": 16,
+      "clip_start": "01:09:56.0",
+      "clip_end": "01:10:04.5",
+      "chars": [],
+      "depicts": [
+        "establishing",
+        "setup"
+      ],
+      "censor": "none",
+      "action": "an astronaut wades across the vast shallow sea toward the wreck of Miller's craft - no land, only water to the horizon (FRAME-VERIFIED 01:09:56)",
+      "raw_duration_sec": 8.5,
+      "max_play_duration_sec": 9.35,
+      "max_narration_words_en": 38,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:10:05.0",
+      "beat": 16,
+      "clip_start": "01:10:05.0",
+      "clip_end": "01:10:14.0",
+      "chars": [
+        "Cooper"
+      ],
+      "depicts": [
+        "reaction"
+      ],
+      "censor": "none",
+      "action": "Cooper's face turns from the wreckage to the horizon in dawning horror - 'those aren't mountains, they're waves' (FRAME-VERIFIED 01:10:05; the wave motif landing)",
+      "raw_duration_sec": 9.0,
+      "max_play_duration_sec": 9.0,
+      "max_narration_words_en": 40,
+      "extendable": false,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:10:35.0",
+      "beat": 17,
+      "clip_start": "01:10:35.0",
+      "clip_end": "01:10:44.0",
+      "chars": [],
+      "depicts": [
+        "action"
+      ],
+      "censor": "none",
+      "action": "a mountain-high wave rises across the whole horizon and bears down on the tiny figures - the water planet's killing tide (FRAME-VERIFIED ~01:10:35; the WAVE, iconic peril)",
+      "raw_duration_sec": 9.0,
+      "max_play_duration_sec": 9.0,
+      "max_narration_words_en": 40,
+      "extendable": false,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:11:10.0",
+      "beat": 17,
+      "clip_start": "01:11:10.0",
+      "clip_end": "01:11:19.0",
+      "chars": [
+        "TARS"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "censor": "none",
+      "action": "TARS strides through the surging water to drag the crew back as the wave closes in - Doyle is caught and lost (FRAME-VERIFIED 01:11:10; Doyle killed - cost of TIME)",
+      "raw_duration_sec": 9.0,
+      "max_play_duration_sec": 9.0,
+      "max_narration_words_en": 40,
+      "extendable": false,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:12:30.0",
+      "beat": 17,
+      "clip_start": "01:12:30.0",
+      "clip_end": "01:12:39.0",
+      "chars": [
+        "Cooper",
+        "Amelia Brand"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "censor": "none",
+      "action": "the flooded Ranger's engines fight to restart as the next wave rears; Cooper and Amelia barely blast clear of the water (FRAME-VERIFIED ~01:12:30)",
+      "raw_duration_sec": 9.0,
+      "max_play_duration_sec": 9.0,
+      "max_narration_words_en": 40,
+      "extendable": false,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:16:00.0",
+      "beat": 17,
+      "clip_start": "01:16:00.0",
+      "clip_end": "01:16:09.0",
+      "chars": [
+        "Amelia Brand"
+      ],
+      "depicts": [
+        "emotion"
+      ],
+      "censor": "none",
+      "action": "Amelia, shaken and silent after the escape, grieves Doyle - the planet cost a life and precious time (FRAME-VERIFIED 01:16:00; the reaction to Doyle's death)",
+      "raw_duration_sec": 9.0,
+      "max_play_duration_sec": 9.9,
+      "max_narration_words_en": 40,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:17:36.0",
+      "beat": 18,
+      "clip_start": "01:17:36.0",
+      "clip_end": "01:17:45.0",
+      "chars": [
+        "Cooper",
+        "Amelia Brand"
+      ],
+      "depicts": [
+        "transition"
+      ],
+      "censor": "none",
+      "action": "Cooper and Amelia return to the Endurance out of their suits, dreading how much time has passed (FRAME-VERIFIED 01:17:36; TIME / aging)",
+      "raw_duration_sec": 9.0,
+      "max_play_duration_sec": 9.9,
+      "max_narration_words_en": 40,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:17:50.0",
+      "beat": 18,
+      "clip_start": "01:17:50.0",
+      "clip_end": "01:17:59.0",
+      "chars": [
+        "Romilly"
+      ],
+      "depicts": [
+        "reveal"
+      ],
+      "censor": "none",
+      "action": "Romilly has waited alone on the ship for 23 years while they spent hours below - grey and aged, he greets them (FRAME-VERIFIED ~01:17:50; the years-stolen reveal)",
+      "raw_duration_sec": 9.0,
+      "max_play_duration_sec": 9.0,
+      "max_narration_words_en": 40,
+      "extendable": false,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:18:44.0",
+      "beat": 19,
+      "clip_start": "01:18:44.0",
+      "clip_end": "01:18:54.0",
+      "chars": [
+        "Cooper"
+      ],
+      "depicts": [
+        "emotion"
+      ],
+      "censor": "none",
+      "action": "Cooper watches decades of backed-up messages from home, tears streaming - his children have grown up in the years Miller's planet stole (FRAME-VERIFIED 01:18:44; the emotional peak of Act 2 - LOVE across time)",
+      "narration_silence_seconds": 8.0
+    },
+    {
+      "id": "clip:01:20:30.0",
+      "beat": 19,
+      "clip_start": "01:20:30.0",
+      "clip_end": "01:20:41.7",
+      "chars": [
+        "Tom"
+      ],
+      "depicts": [
+        "setup"
+      ],
+      "censor": "none",
+      "action": "on the message screen a grown Tom reports the years passing - marriage, a son, Grandpa Donald's death - a life lived without his father (FRAME-VERIFIED ~01:20:30)",
+      "raw_duration_sec": 11.7,
+      "max_play_duration_sec": 12.87,
+      "max_narration_words_en": 53,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:21:44.0",
+      "beat": 19,
+      "clip_start": "01:21:44.0",
+      "clip_end": "01:21:53.0",
+      "chars": [
+        "Cooper",
+        "Murph"
+      ],
+      "depicts": [
+        "emotion"
+      ],
+      "censor": "none",
+      "action": "adult Murph appears on the screen - now the age Cooper was when he left - asking why he still hasn't come back (FRAME-VERIFIED 01:21:44; the daughter grown, the promise unkept)",
+      "raw_duration_sec": 9.0,
+      "max_play_duration_sec": 9.9,
+      "max_narration_words_en": 40,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:22:56.0",
+      "beat": 20,
+      "clip_start": "01:22:56.0",
+      "clip_end": "01:23:11.0",
+      "chars": [
+        "Professor Brand"
+      ],
+      "depicts": [
+        "setup"
+      ],
+      "censor": "none",
+      "action": "on Earth the aging Professor Brand still labours over the gravity equation with the grown Murph at his side (FRAME-VERIFIED 01:22:56; the Earth timeline catches up)",
+      "raw_duration_sec": 15.0,
+      "max_play_duration_sec": 16.5,
+      "max_narration_words_en": 68,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:25:33.0",
+      "beat": 21,
+      "clip_start": "01:25:33.0",
+      "clip_end": "01:25:42.0",
+      "chars": [
+        "Amelia Brand",
+        "Cooper"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "censor": "none",
+      "action": "Amelia argues that love is a real force that reaches across space and time - but the crew chooses Mann's planet over Edmunds' (FRAME-VERIFIED ~01:25:33; LOVE as the film's thesis)",
+      "raw_duration_sec": 9.0,
+      "max_play_duration_sec": 9.0,
+      "max_narration_words_en": 40,
+      "extendable": false,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:26:20.0",
+      "beat": 21,
+      "clip_start": "01:26:20.0",
+      "clip_end": "01:26:29.0",
+      "chars": [
+        "Amelia Brand"
+      ],
+      "depicts": [
+        "emotion"
+      ],
+      "censor": "none",
+      "action": "Amelia, alone in her seat, quietly insists love is the one thing that transcends time and space - maybe it is data we're not yet meant to understand (FRAME-VERIFIED 01:26:20; LOVE thesis, a held plea)",
+      "raw_duration_sec": 9.0,
+      "max_play_duration_sec": 9.9,
+      "max_narration_words_en": 40,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:27:40.0",
+      "beat": 21,
+      "clip_start": "01:27:40.0",
+      "clip_end": "01:27:49.0",
+      "chars": [
+        "Cooper"
+      ],
+      "depicts": [
+        "reaction"
+      ],
+      "censor": "none",
+      "action": "Cooper weighs Amelia's plea against cold odds and chooses the data - Mann's planet over her heart's pull toward Edmunds (FRAME-VERIFIED ~01:27:40)",
+      "raw_duration_sec": 9.0,
+      "max_play_duration_sec": 9.0,
+      "max_narration_words_en": 40,
+      "extendable": false,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:29:26.0",
+      "beat": 22,
+      "clip_start": "01:29:26.0",
+      "clip_end": "01:29:37.7",
+      "chars": [],
+      "depicts": [
+        "establishing",
+        "setup"
+      ],
+      "censor": "none",
+      "action": "back on Earth the cornfields burn along a line of fire under a wide sky - the blight is winning, the world running out (FRAME-VERIFIED 01:29:26; CORNFIELD motif, the dying Earth)",
+      "raw_duration_sec": 11.7,
+      "max_play_duration_sec": 12.87,
+      "max_narration_words_en": 53,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:31:26.0",
+      "beat": 22,
+      "clip_start": "01:31:26.0",
+      "clip_end": "01:31:35.0",
+      "chars": [
+        "Murph",
+        "Professor Brand",
+        "Getty"
+      ],
+      "depicts": [
+        "setup"
+      ],
+      "censor": "none",
+      "action": "at the NASA medical center the dying Professor Brand is wheeled in; adult Murph and Getty attend him (FRAME-VERIFIED 01:31:26; the deathbed scene)",
+      "raw_duration_sec": 9.0,
+      "max_play_duration_sec": 9.9,
+      "max_narration_words_en": 40,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:32:30.0",
+      "beat": 22,
+      "clip_start": "01:32:30.0",
+      "clip_end": "01:32:42.0",
+      "chars": [
+        "Professor Brand",
+        "Murph"
+      ],
+      "depicts": [
+        "reveal"
+      ],
+      "censor": "none",
+      "action": "Professor Brand confesses on his deathbed - Plan A was a lie; the equation could never close without data from inside a black hole (FRAME-VERIFIED ~01:32:30; the betrayal reveal - NOT the loop)",
+      "raw_duration_sec": 12.0,
+      "max_play_duration_sec": 12.0,
+      "max_narration_words_en": 54,
+      "extendable": false,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:34:07.0",
+      "beat": 22,
+      "clip_start": "01:34:07.0",
+      "clip_end": "01:34:16.0",
+      "chars": [
+        "Murph"
+      ],
+      "depicts": [
+        "reaction"
+      ],
+      "censor": "none",
+      "action": "DARK: adult Murph reels at the truth - NASA never meant to save the people on Earth, only the embryos; 'you left us here to starve' (FRAME-VERIFIED 01:34:07; dim interior - exposure-lift)",
+      "exposure_lift": 0.18,
+      "raw_duration_sec": 9.0,
+      "max_play_duration_sec": 9.0,
+      "max_narration_words_en": 40,
+      "extendable": false,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:38:21.0",
+      "beat": 23,
+      "clip_start": "01:38:21.0",
+      "clip_end": "01:38:30.0",
+      "chars": [
+        "Cooper",
+        "Amelia Brand",
+        "Romilly"
+      ],
+      "depicts": [
+        "establishing",
+        "setup"
+      ],
+      "censor": "none",
+      "action": "the crew reaches Dr. Mann's frozen cloud-world and finds his pods among the ice - hope of a survivable planet (FRAME-VERIFIED ~01:38:21; the ice wasteland)",
+      "raw_duration_sec": 9.0,
+      "max_play_duration_sec": 9.9,
+      "max_narration_words_en": 40,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:38:51.0",
+      "beat": 23,
+      "clip_start": "01:38:51.0",
+      "clip_end": "01:39:00.0",
+      "chars": [
+        "Mann",
+        "Cooper"
+      ],
+      "depicts": [
+        "reveal"
+      ],
+      "censor": "none",
+      "action": "Dr. Mann wakes from hibernation, weeping with relief - 'the best of us', found alive at the edge of the galaxy (FRAME-VERIFIED 01:38:51; Mann revealed alive)",
+      "raw_duration_sec": 9.0,
+      "max_play_duration_sec": 9.0,
+      "max_narration_words_en": 40,
+      "extendable": false,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:41:00.0",
+      "beat": 23,
+      "clip_start": "01:41:00.0",
+      "clip_end": "01:41:09.0",
+      "chars": [
+        "Cooper",
+        "Amelia Brand"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "censor": "none",
+      "action": "Cooper and Amelia listen as Mann describes his frozen world and the promise of life beneath the ice (FRAME-VERIFIED 01:41:00)",
+      "raw_duration_sec": 9.0,
+      "max_play_duration_sec": 9.0,
+      "max_narration_words_en": 40,
+      "extendable": false,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:45:09.0",
+      "beat": 20,
+      "clip_start": "01:45:09.0",
+      "clip_end": "01:45:18.0",
+      "chars": [
+        "Murph"
+      ],
+      "depicts": [
+        "discovery"
+      ],
+      "censor": "none",
+      "action": "on Earth adult Murph returns to her childhood room and the bookshelf, sensing the 'ghost' was a person trying to tell her something (FRAME-VERIFIED ~01:45:09; the BOOKSHELF callback - loop still hidden)",
+      "raw_duration_sec": 9.0,
+      "max_play_duration_sec": 9.0,
+      "max_narration_words_en": 40,
+      "extendable": false,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:49:39.0",
+      "beat": 20,
+      "clip_start": "01:49:39.0",
+      "clip_end": "01:49:47.0",
+      "chars": [
+        "Murph"
+      ],
+      "depicts": [
+        "setup"
+      ],
+      "censor": "none",
+      "action": "adult Murph stands before the towering bookshelf in her old room - the answer has been waiting here all along (FRAME-VERIFIED 01:49:39; BOOKSHELF motif)",
+      "raw_duration_sec": 8.0,
+      "max_play_duration_sec": 8.8,
+      "max_narration_words_en": 36,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:50:30.0",
+      "beat": 24,
+      "clip_start": "01:50:30.0",
+      "clip_end": "01:50:39.0",
+      "chars": [
+        "Cooper",
+        "Mann"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "censor": "none",
+      "action": "on the ice expedition Mann turns on Cooper - a struggle on the frozen ridge (FRAME-VERIFIED ~01:50:30; the betrayal begins)",
+      "raw_duration_sec": 9.0,
+      "max_play_duration_sec": 9.0,
+      "max_narration_words_en": 40,
+      "extendable": false,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:52:00.0",
+      "beat": 24,
+      "clip_start": "01:52:00.0",
+      "clip_end": "01:52:09.0",
+      "chars": [
+        "Cooper",
+        "Mann"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "censor": "none",
+      "action": "Mann cracks Cooper's helmet faceplate and confesses he faked all his data - there is no habitable surface; he leaves Cooper to die (FRAME-VERIFIED 01:52:00; the cracked visor)",
+      "raw_duration_sec": 9.0,
+      "max_play_duration_sec": 9.0,
+      "max_narration_words_en": 40,
+      "extendable": false,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:55:27.0",
+      "beat": 24,
+      "clip_start": "01:55:27.0",
+      "clip_end": "01:55:36.0",
+      "chars": [
+        "Mann"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "censor": "none",
+      "action": "Mann in his suit flees across the ice toward a Ranger, abandoning Cooper - 'you were never tested like I was' (FRAME-VERIFIED 01:55:27; the coward's survival)",
+      "raw_duration_sec": 9.0,
+      "max_play_duration_sec": 9.0,
+      "max_narration_words_en": 40,
+      "extendable": false,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:57:30.0",
+      "beat": 25,
+      "clip_start": "01:57:30.0",
+      "clip_end": "01:57:39.0",
+      "chars": [
+        "Amelia Brand",
+        "Cooper"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "censor": "none",
+      "action": "Amelia races the Ranger to Cooper and CASE hauls him to safety as his air runs out - 'you're not alone' (FRAME-VERIFIED ~01:57:30; LOVE / rescue)",
+      "raw_duration_sec": 9.0,
+      "max_play_duration_sec": 9.0,
+      "max_narration_words_en": 40,
+      "extendable": false,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:02:00:49.0",
+      "beat": 25,
+      "clip_start": "02:00:49.0",
+      "clip_end": "02:00:58.0",
+      "chars": [],
+      "depicts": [
+        "action"
+      ],
+      "censor": "none",
+      "action": "Mann's booby-trapped robot KIPP detonates as Romilly opens it - the blast kills Romilly and rips the base (FRAME-VERIFIED ~02:00:49; Romilly's death)",
+      "raw_duration_sec": 9.0,
+      "max_play_duration_sec": 9.0,
+      "max_narration_words_en": 40,
+      "extendable": false,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:02:02:30.0",
+      "beat": 25,
+      "clip_start": "02:02:30.0",
+      "clip_end": "02:02:39.0",
+      "chars": [
+        "Cooper",
+        "Amelia Brand"
+      ],
+      "depicts": [
+        "reaction"
+      ],
+      "censor": "none",
+      "action": "Cooper and Amelia race their Ranger to catch Mann before he steals the Endurance in orbit (FRAME-VERIFIED ~02:02:30)",
+      "raw_duration_sec": 9.0,
+      "max_play_duration_sec": 9.0,
+      "max_narration_words_en": 40,
+      "extendable": false,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:02:03:46.0",
+      "beat": 26,
+      "clip_start": "02:03:46.0",
+      "clip_end": "02:03:55.0",
+      "chars": [
+        "Mann"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "censor": "none",
+      "action": "Mann attempts a forced manual docking against warnings; the hatch blows and the decompression kills him, tearing open the Endurance (FRAME-VERIFIED 02:03:46; Mann's death)",
+      "raw_duration_sec": 9.0,
+      "max_play_duration_sec": 9.0,
+      "max_narration_words_en": 40,
+      "extendable": false,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:02:05:30.0",
+      "beat": 26,
+      "clip_start": "02:05:30.0",
+      "clip_end": "02:05:39.0",
+      "chars": [],
+      "depicts": [
+        "action"
+      ],
+      "censor": "none",
+      "action": "the crippled Endurance tumbles, venting and spinning, as it falls toward Gargantua's pull (FRAME-VERIFIED ~02:05:30)",
+      "raw_duration_sec": 9.0,
+      "max_play_duration_sec": 9.0,
+      "max_narration_words_en": 40,
+      "extendable": false,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:02:06:37.0",
+      "beat": 26,
+      "clip_start": "02:06:37.0",
+      "clip_end": "02:06:46.0",
+      "chars": [
+        "Cooper"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "censor": "none",
+      "action": "Cooper matches the Endurance's savage spin in his Ranger, jaw set, to dock the wounded ship by hand - 'this is no time for caution' (FRAME-VERIFIED 02:06:37; the docking spin, human skill vs the void)",
+      "raw_duration_sec": 9.0,
+      "max_play_duration_sec": 9.0,
+      "max_narration_words_en": 40,
+      "extendable": false,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:02:08:30.0",
+      "beat": 26,
+      "clip_start": "02:08:30.0",
+      "clip_end": "02:08:39.0",
+      "chars": [
+        "Cooper",
+        "Amelia Brand"
+      ],
+      "depicts": [
+        "aftermath",
+        "reaction"
+      ],
+      "censor": "none",
+      "action": "the docking holds; a battered Cooper and Amelia steady the stabilized Endurance, alive but far off course near Gargantua (FRAME-VERIFIED ~02:08:30)",
+      "raw_duration_sec": 9.0,
+      "max_play_duration_sec": 9.0,
+      "max_narration_words_en": 40,
+      "extendable": false,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:02:12:40.0",
+      "beat": 27,
+      "clip_start": "02:12:40.0",
+      "clip_end": "02:12:47.0",
+      "chars": [
+        "Cooper"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "censor": "none",
+      "action": "Cooper, helmeted, lays out the last gamble - slingshot around Gargantua to reach Edmunds' planet, but the ship is too heavy to make it (FRAME-VERIFIED 02:12:40)",
+      "raw_duration_sec": 7.0,
+      "max_play_duration_sec": 7.0,
+      "max_narration_words_en": 31,
+      "extendable": false,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:02:13:38.0",
+      "beat": 27,
+      "clip_start": "02:13:38.0",
+      "clip_end": "02:13:47.0",
+      "chars": [
+        "Cooper",
+        "Amelia Brand"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "censor": "none",
+      "action": "'Newton's third law - the only way humans have ever figured out of getting somewhere is to leave something behind'; they must shed mass into the black hole (FRAME-VERIFIED ~02:13:38; sacrifice / leaving something behind)",
+      "raw_duration_sec": 9.0,
+      "max_play_duration_sec": 9.0,
+      "max_narration_words_en": 40,
+      "extendable": false,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:02:15:26.0",
+      "beat": 27,
+      "clip_start": "02:15:26.0",
+      "clip_end": "02:15:35.0",
+      "chars": [
+        "TARS"
+      ],
+      "depicts": [
+        "setup"
+      ],
+      "censor": "none",
+      "action": "TARS is set to detach into Gargantua to lighten the craft - the robot's data may still radio back from inside (FRAME-VERIFIED 02:15:26)",
+      "raw_duration_sec": 9.0,
+      "max_play_duration_sec": 9.9,
+      "max_narration_words_en": 40,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:02:16:20.0",
+      "beat": 28,
+      "clip_start": "02:16:20.0",
+      "clip_end": "02:16:29.0",
+      "chars": [],
+      "depicts": [
+        "action"
+      ],
+      "censor": "none",
+      "action": "the Endurance fires the powered slingshot burn hard around the black hole, using Gargantua's gravity as a catapult (FRAME-VERIFIED ~02:16:20; GRAVITY / the slingshot)",
+      "raw_duration_sec": 9.0,
+      "max_play_duration_sec": 9.0,
+      "max_narration_words_en": 40,
+      "extendable": false,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:02:17:12.0",
+      "beat": 28,
+      "clip_start": "02:17:12.0",
+      "clip_end": "02:17:21.0",
+      "chars": [
+        "Cooper"
+      ],
+      "depicts": [
+        "emotion"
+      ],
+      "censor": "none",
+      "action": "Cooper secretly detaches his own Ranger too, sacrificing himself into Gargantua so Amelia's craft can reach Plan B - 'see you on the other side' (FRAME-VERIFIED 02:17:12; LOVE and sacrifice)",
+      "raw_duration_sec": 9.0,
+      "max_play_duration_sec": 9.9,
+      "max_narration_words_en": 40,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:02:17:45.0",
+      "beat": 28,
+      "clip_start": "02:17:45.0",
+      "clip_end": "02:17:54.0",
+      "chars": [
+        "Amelia Brand"
+      ],
+      "depicts": [
+        "reaction"
+      ],
+      "censor": "none",
+      "action": "Amelia realizes Cooper has let go, her craft flung on toward Edmunds' world without him (FRAME-VERIFIED ~02:17:45)",
+      "raw_duration_sec": 9.0,
+      "max_play_duration_sec": 9.0,
+      "max_narration_words_en": 40,
+      "extendable": false,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:02:18:04.0",
+      "beat": 28,
+      "clip_start": "02:18:04.0",
+      "clip_end": "02:18:13.0",
+      "chars": [
+        "Cooper"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "censor": "none",
+      "action": "Cooper's Ranger crosses Gargantua's event horizon into blinding light, then is torn apart as he falls into the black hole (FRAME-VERIFIED 02:18:04; crossing the event horizon)",
+      "raw_duration_sec": 9.0,
+      "max_play_duration_sec": 9.0,
+      "max_narration_words_en": 40,
+      "extendable": false,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:02:22:44.0",
+      "beat": 29,
+      "clip_start": "02:22:44.0",
+      "clip_end": "02:22:54.0",
+      "chars": [
+        "Cooper"
+      ],
+      "depicts": [
+        "reveal"
+      ],
+      "censor": "none",
+      "action": "Cooper falls into the TESSERACT - a vast five-dimensional construct of endless repeating bookshelves, every moment of Murph's bedroom laid out across time (FRAME-VERIFIED 02:22:44; the iconic tesseract - the loop's answer, still unspoken)",
+      "narration_silence_seconds": 9.0
+    },
+    {
+      "id": "clip:02:24:00.0",
+      "beat": 29,
+      "clip_start": "02:24:00.0",
+      "clip_end": "02:24:12.0",
+      "chars": [
+        "Cooper"
+      ],
+      "depicts": [
+        "discovery"
+      ],
+      "censor": "none",
+      "action": "Cooper reaches through the shelves and sees Murph's room from behind - he can touch it only through gravity, nudging the books (FRAME-VERIFIED ~02:24:00; the BOOKSHELF from the other side)",
+      "raw_duration_sec": 12.0,
+      "max_play_duration_sec": 12.0,
+      "max_narration_words_en": 54,
+      "extendable": false,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:02:26:13.0",
+      "beat": 30,
+      "clip_start": "02:26:13.0",
+      "clip_end": "02:26:22.0",
+      "chars": [
+        "Cooper"
+      ],
+      "depicts": [
+        "reveal"
+      ],
+      "censor": "none",
+      "action": "the loop closes: Cooper realizes HE is the 'ghost' - he knocked the books, he spelled STAY, he sent the coordinates; he was in Murph's room all along (FRAME-VERIFIED 02:26:13; THE TWIST PAYOFF - reveal only here, never before)",
+      "raw_duration_sec": 9.0,
+      "max_play_duration_sec": 9.0,
+      "max_narration_words_en": 40,
+      "extendable": false,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:02:26:40.0",
+      "beat": 30,
+      "clip_start": "02:26:40.0",
+      "clip_end": "02:26:49.0",
+      "chars": [
+        "Murph"
+      ],
+      "depicts": [
+        "reveal"
+      ],
+      "censor": "none",
+      "action": "from the other side of the shelf, young Murph's hand pushes the books - the Act 1 'ghost' shown at last to be Cooper reaching back through time (FRAME-VERIFIED 02:26:40; the BOOKSHELF loop proven, both sides of the same moment)",
+      "raw_duration_sec": 9.0,
+      "max_play_duration_sec": 9.0,
+      "max_narration_words_en": 40,
+      "extendable": false,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:02:27:30.0",
+      "beat": 30,
+      "clip_start": "02:27:30.0",
+      "clip_end": "02:27:39.0",
+      "chars": [
+        "Cooper"
+      ],
+      "depicts": [
+        "discovery"
+      ],
+      "censor": "none",
+      "action": "Cooper grasps that love, not chance, drew him here - the unknown builders made the tesseract so he could reach his daughter across time (FRAME-VERIFIED ~02:27:30; LOVE across time, GRAVITY as language)",
+      "raw_duration_sec": 9.0,
+      "max_play_duration_sec": 9.0,
+      "max_narration_words_en": 40,
+      "extendable": false,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:02:28:45.0",
+      "beat": 31,
+      "clip_start": "02:28:45.0",
+      "clip_end": "02:28:54.0",
+      "chars": [
+        "Cooper"
+      ],
+      "depicts": [
+        "emotion"
+      ],
+      "censor": "none",
+      "action": "with TARS's quantum data in hand, Cooper realizes with love and grief how to send it back - gravity can carry a message across time to the grown Murph (FRAME-VERIFIED 02:28:45; his emotional realization)",
+      "raw_duration_sec": 9.0,
+      "max_play_duration_sec": 9.9,
+      "max_narration_words_en": 40,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:02:30:40.0",
+      "beat": 31,
+      "clip_start": "02:30:40.0",
+      "clip_end": "02:30:49.0",
+      "chars": [
+        "Cooper"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "censor": "none",
+      "action": "Cooper encodes the black-hole data into the ticking second hand of the WATCH he gave Murph - Morse code pulsed through gravity, 'love is the key' (FRAME-VERIFIED 02:30:40; THE WATCH pays off the whole loop)",
+      "raw_duration_sec": 9.0,
+      "max_play_duration_sec": 9.0,
+      "max_narration_words_en": 40,
+      "extendable": false,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:02:31:14.0",
+      "beat": 32,
+      "clip_start": "02:31:14.0",
+      "clip_end": "02:31:23.0",
+      "chars": [
+        "Murph"
+      ],
+      "depicts": [
+        "discovery"
+      ],
+      "censor": "none",
+      "action": "DARK: on Earth the grown Murph returns for the watch, feels the ghost was her father, and reads the ticking data - 'Eureka' (FRAME-VERIFIED ~02:31:14; the equation solved; dim interior - exposure-lift)",
+      "exposure_lift": 0.18,
+      "raw_duration_sec": 9.0,
+      "max_play_duration_sec": 9.0,
+      "max_narration_words_en": 40,
+      "extendable": false,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:02:32:30.0",
+      "beat": 32,
+      "clip_start": "02:32:30.0",
+      "clip_end": "02:32:39.0",
+      "chars": [
+        "Murph"
+      ],
+      "depicts": [
+        "emotion"
+      ],
+      "censor": "none",
+      "action": "Murph, now old, is embraced by her family in the open air - she solved gravity and saved humanity, the loop between father and daughter complete (FRAME-VERIFIED 02:32:30; LOVE completing the loop)",
+      "raw_duration_sec": 9.0,
+      "max_play_duration_sec": 9.9,
+      "max_narration_words_en": 40,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:02:34:03.0",
+      "beat": 33,
+      "clip_start": "02:34:03.0",
+      "clip_end": "02:34:12.0",
+      "chars": [
+        "Cooper"
+      ],
+      "depicts": [
+        "transition"
+      ],
+      "censor": "none",
+      "action": "the tesseract collapses and spits Cooper back out into space - a hand reaches for him near Saturn (FRAME-VERIFIED ~02:34:03)",
+      "raw_duration_sec": 9.0,
+      "max_play_duration_sec": 9.9,
+      "max_narration_words_en": 40,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:02:35:28.0",
+      "beat": 33,
+      "clip_start": "02:35:28.0",
+      "clip_end": "02:35:37.0",
+      "chars": [
+        "Cooper"
+      ],
+      "depicts": [
+        "reveal"
+      ],
+      "censor": "none",
+      "action": "Cooper wakes in a hospital bed - he is 124 years old, rescued and alive aboard a vast space habitat that humanity built (FRAME-VERIFIED 02:35:28; TIME survived)",
+      "raw_duration_sec": 9.0,
+      "max_play_duration_sec": 9.0,
+      "max_narration_words_en": 40,
+      "extendable": false,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:02:38:29.0",
+      "beat": 33,
+      "clip_start": "02:38:29.0",
+      "clip_end": "02:38:38.0",
+      "chars": [
+        "Cooper"
+      ],
+      "depicts": [
+        "establishing",
+        "setup"
+      ],
+      "censor": "none",
+      "action": "Cooper walks through a perfect replica of his old farmhouse inside Cooper Station - home remade in orbit, the station named for Murph, not him (FRAME-VERIFIED 02:38:29; home remade)",
+      "raw_duration_sec": 9.0,
+      "max_play_duration_sec": 9.9,
+      "max_narration_words_en": 40,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:02:40:30.0",
+      "beat": 34,
+      "clip_start": "02:40:30.0",
+      "clip_end": "02:40:40.0",
+      "chars": [
+        "Cooper",
+        "Murph"
+      ],
+      "depicts": [
+        "emotion"
+      ],
+      "censor": "none",
+      "action": "Cooper reaches the deathbed of his daughter Murph, now old and dying, surrounded by her family - father and child reunited at last, on opposite ends of a lifetime (FRAME-VERIFIED 02:40:30; the reunion, LOVE across time fulfilled)",
+      "narration_silence_seconds": 8.0
+    },
+    {
+      "id": "clip:02:41:30.0",
+      "beat": 34,
+      "clip_start": "02:41:30.0",
+      "clip_end": "02:41:48.1",
+      "chars": [
+        "Cooper",
+        "Murph"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "censor": "none",
+      "action": "old Murph tells Cooper no parent should watch their child die - he should go; she sends him on to find Amelia Brand (FRAME-VERIFIED 02:41:30; she releases him)",
+      "raw_duration_sec": 18.1,
+      "max_play_duration_sec": 18.1,
+      "max_narration_words_en": 83,
+      "extendable": false,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:02:43:30.0",
+      "beat": 34,
+      "clip_start": "02:43:30.0",
+      "clip_end": "02:43:50.2",
+      "chars": [
+        "Cooper"
+      ],
+      "depicts": [
+        "transition"
+      ],
+      "censor": "none",
+      "action": "DARK: Cooper slips away through the station hangar toward a ship - choosing to go find Amelia, alone on Edmunds' planet setting up the colony (FRAME-VERIFIED 02:43:30; the ambiguous hopeful ending - stated as his choice, NOT a guaranteed reunion; dim hangar - exposure-lift)",
+      "exposure_lift": 0.18,
+      "raw_duration_sec": 20.2,
+      "max_play_duration_sec": 22.22,
+      "max_narration_words_en": 92,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    }
+  ]
+}

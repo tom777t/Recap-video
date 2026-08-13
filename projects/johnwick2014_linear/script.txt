@@ -1,0 +1,276 @@
+TITLE: John Wick: The Man They Sent to Kill the Boogeyman
+Lines: 91   Words: 3106   Est. narration: 18.3 min   Target: 15 min
+============================================================
+
+[  1] (00:00:54.0 -> 00:01:05.0)  <hook>
+      A black SUV careens out of the dark and slams to a stop outside a warehouse. A man spills out of the wreck onto the wet concrete, bleeding badly, barely able to stand. Whoever he is, he is dying.
+
+[  2] (00:01:20.0 -> 00:01:31.0)  <hook>
+      He slumps against a low wall, one hand pressed to the wound, and with the last of his strength he pulls out his phone. Not to call for help. To look at something.
+
+[  3] (00:01:40.0 -> 00:01:56.0)  <hook>
+      On the screen, a video of his late wife. This is John Wick, and this is how his story ends. To understand how a grieving widower ended up bleeding out in a parking lot, we have to go back to the day everything he had left was taken from him.
+
+[  4] (00:02:24.0 -> 00:02:35.0)  <normal>
+      This is Serabudabu, walking you through John Wick, start to finish. And here is what people forget: it doesn't begin with a gun. It begins with a quiet house, and a man losing the one person who mattered.
+
+[  5] (00:03:08.0 -> 00:03:36.0)  <emotion>
+      John's wife, Helen, is dying of a long illness. There is no fighting it, no last-minute miracle. He simply sits at her bedside to the very end, holding her hand as the machines fade and she slips away. Everything they built together, the whole quiet life, goes with her. And in that hospital room, you can see it: this man is completely, utterly lost.
+
+[  6] (00:03:52.0 -> 00:04:00.0)  <emotion>
+      And then the room empties, and he is alone with it. A single tear, and nothing left to say.
+
+[  7] (00:04:16.0 -> 00:04:28.0)  <emotion>
+      The day of the funeral, cold rain drums on a field of black umbrellas as Helen's casket is lowered into the ground. John stands at the front of it all, hollow.
+
+[  8] (00:04:48.0 -> 00:05:20.0)  <emotion>
+      An older man steps under his umbrella at the graveside. This is Marcus, an old friend from a life John left behind, and he has come for one reason: to check on a friend. They barely exchange a few words. But hold on to Marcus. That quiet, understated loyalty you're seeing right now is going to matter enormously. It is going to cost him everything before this story is done.
+
+[  9] (00:05:45.0 -> 00:06:00.0)  <emotion>
+      Then the mourners drift away, and John is left standing alone among the headstones in the rain. A man with nothing, and no one left to go home to.
+
+[ 10] (00:06:33.0 -> 00:06:45.0)  <normal>
+      That night, back at his empty house, a delivery van pulls up. A courier hands him a crate he wasn't expecting, and drives off into the dark.
+
+[ 11] (00:06:52.0 -> 00:07:12.0)  <emotion>
+      Tucked inside is a handwritten letter. Even as she was dying, Helen had planned one last gift for him. She knew that if he was left alone, he would have nothing to hold on to. So she gave him something to love, something to pull him back toward living.
+
+[ 12] (00:08:02.0 -> 00:08:22.0)  <emotion>
+      The gift is a puppy. A tiny beagle named Daisy, with a note that reads: so you have something to love. John lifts her out of the crate, and for the first time since the funeral, you can see the grief loosen its grip on him, just a little.
+
+[ 13] (00:08:48.0 -> 00:09:12.0)  <emotion>
+      The next morning, Daisy clambers onto the bed and wakes him up, licking his face until he can't help but smile. It is a small thing, a puppy and a man in a big empty house. But it is the first real breath of peace he has taken since Helen died.
+
+[ 14] (00:09:36.0 -> 00:09:52.0)  <normal>
+      He falls into a routine. Coffee in the morning, two cereal bowls on the floor, one for him and one for her, the puppy underfoot in the kitchen. For a few days, John gets to feel almost like an ordinary man again.
+
+[ 15] (00:10:08.0 -> 00:10:36.0)  <normal>
+      One morning he rolls his pride and joy out of the garage. A gleaming 1969 Mustang, the kind of car a man keeps because it means something to him. With Daisy riding shotgun, he pulls out onto the road for a drive. This car, this ordinary morning, is about to trigger everything.
+
+[ 16] (00:10:44.0 -> 00:11:08.0)  <tense>
+      At a gas station, a hooded young man circles the Mustang, admiring it a little too hungrily. This is Iosef Tarasov, a spoiled, reckless kid whose wounded ego is about to burn John's whole world down.
+
+[ 17] (00:11:20.0 -> 00:11:48.0)  <tense>
+      Iosef demands to buy the car, like the answer is already yes. John calmly tells him it's not for sale, and walks away. That tiny dent in a rich kid's pride is the spark that lights the whole fuse.
+
+[ 18] (00:12:04.0 -> 00:12:18.0)  <tense>
+      John drives off without a second thought. But Iosef is left humiliated in front of his crew, and he is about to make the worst mistake of his life.
+
+[ 19] (00:12:44.0 -> 00:13:16.0)  <normal>
+      Later, John opens the Mustang up on an empty airfield, tearing down the runway in the low sun. For a moment, no grief, no past, just speed and freedom. It is the last carefree moment he will get.
+
+[ 20] (00:13:32.0 -> 00:14:02.0)  <tense>
+      That night, John and Daisy are asleep in the dark house. What he doesn't know is that Iosef followed him home from that gas station, and did not come alone. This is the last still moment before it all shatters.
+
+[ 21] (00:14:14.0 -> 00:14:38.0)  <tense>
+      Iosef and his men smash their way in. This time John is the one on the ground: they overpower him and beat him unconscious on his own floor. And when the puppy won't stop barking, they kill Daisy to silence her. Then they take the Mustang and leave John there, broken, for dead.
+
+[ 22] (00:15:02.0 -> 00:15:18.0)  <emotion>
+      He lies motionless in the wreckage of his living room. In a single night, the last gift Helen gave him, the last thing tethering him to a normal life, has been ripped away. They took the puppy. They took the car. They took his peace.
+
+[ 23] (00:15:36.0 -> 00:15:44.0)  <emotion>
+      He wakes at dawn, bloodied and alone in the wreckage of the life he was trying to rebuild.
+
+[ 24] (00:15:48.0 -> 00:16:00.0)  <emotion>
+      
+
+[ 25] (00:16:12.0 -> 00:16:22.0)  <emotion>
+      Afterward he stands at the water's edge at dawn, the same view where he mourned Helen. But the grief on his face has hardened into something colder. Something in John Wick has just closed for good.
+
+[ 26] (00:18:06.0 -> 00:18:46.0)  <normal>
+      Iosef takes the stolen Mustang to a chop shop for new plates. But the owner, a man named Aurelio, takes one look and goes cold. He knows exactly whose car it is.
+
+[ 27] (00:18:48.0 -> 00:19:20.0)  <normal>
+      So he punches the son of a crime boss square in the face and throws him out. You stole John Wick's car, he snaps, and you killed his dog. It is the first time we feel the sheer weight of that name.
+
+[ 28] (00:20:26.0 -> 00:20:44.0)  <tense>
+      Word gets back to Iosef's father, Viggo Tarasov, head of the crime family that runs this city. And here is the tell: when Viggo phones Aurelio, he isn't furious that his son was hit. He is afraid, because he already suspects who the car belonged to.
+
+[ 29] (00:21:41.0 -> 00:22:21.0)  <tense>
+      Viggo grabs his son by the collar. It is not what you did, son, he tells him. It's who you did it to. Iosef thinks he robbed a nobody. So Viggo explains exactly who that nobody is.
+
+[ 30] (00:23:20.0 -> 00:23:44.0)  <reveal>
+      Then he explains. John was once their own man, an assassin so feared they called him Baba Yaga, the boogeyman. He was the one they sent to kill the boogeyman. He left it all behind for Helen. Now his grief has been turned into rage.
+
+[ 31] (00:24:06.0 -> 00:24:26.0)  <tense>
+      Meanwhile, in his empty house, John takes a sledgehammer to his own concrete floor, breaking through the foundation of the ordinary life he built.
+
+[ 32] (00:26:24.0 -> 00:26:40.0)  <reveal>
+      Buried underneath is a case. He opens it, and there it all is: stacks of gold coins and a fitted arsenal of weapons. The old life he swore off for Helen, sealed in concrete, waiting exactly where he left it.
+
+[ 33] (00:26:44.0 -> 00:27:16.0)  <tense>
+      Viggo even calls John himself, offering condolences and urging him to let this go. It is almost civil. But they both know the choice was made the moment Daisy died.
+
+[ 34] (00:27:52.0 -> 00:28:20.0)  <tense>
+      He showers off the blood, the old scars and tattoos of his trade across his back, and dresses in a crisp black suit. The grieving widower is gone. The boogeyman is back, and he is coming for all of them.
+
+[ 35] (00:29:04.0 -> 00:29:20.0)  <tense>
+      Knowing John is coming, Viggo decides not to wait for it. He sends a full squad of a dozen armed men to John's house that very night, to end this before it starts.
+
+[ 36] (00:29:20.0 -> 00:29:36.0)  <tense>
+      They pour into the house, masked and armed. But this is not the sleeping man they beat a few nights ago. This time, John is ready.
+
+[ 37] (00:29:37.0 -> 00:30:09.0)  <tense>
+      And what follows is the film's calling card. He moves through them with terrifying calm, every shot placed and precise, close-range gunplay choreographed like martial arts. This is the first time we truly see what he is.
+
+[ 38] (00:30:20.0 -> 00:30:48.0)  <tense>
+      He hunts the survivors room to room. They came as the predators; now they are the prey, trapped in the home they invaded.
+
+[ 39] (00:30:48.0 -> 00:31:12.0)  <tense>
+      When the guns run dry, he takes the last men apart with his bare hands. No rage in it, which somehow makes it worse. Just cold, absolute purpose.
+
+[ 40] (00:31:12.0 -> 00:31:36.0)  <tense>
+      Minutes later he rises alone in the wreckage. A dozen trained killers, sent to end him, all gone.
+
+[ 41] (00:31:48.0 -> 00:32:12.0)  <normal>
+      A patrol officer shows up about a noise complaint, glances past John at the bodies on the floor, and doesn't reach for his radio. He just asks, quietly, if John is working again, and wishes him a good night. That one exchange tells you everything about who John used to be.
+
+[ 42] (00:32:40.0 -> 00:33:12.0)  <normal>
+      He calls in a dinner reservation for twelve and counts out gold coins. This is our first glimpse of the hidden world underneath: a secret economy of assassins, run on gold coins, where a dinner reservation means something very specific.
+
+[ 43] (00:33:16.0 -> 00:34:24.0)  <normal>
+      Soon a soft-spoken man named Charlie arrives with a cleanup crew and calmly hauls away the bodies, like a catering team clearing a party. In John's old world, there is a discreet machine for exactly this.
+
+[ 44] (00:34:34.0 -> 00:35:14.0)  <tense>
+      When Viggo learns his squad is dead and John is still coming, he puts a two-million-dollar open contract on John's head. In one phone call, he turns the entire underworld against him. Now every professional in the city is a threat.
+
+[ 45] (00:35:16.0 -> 00:35:36.0)  <normal>
+      One of the assassins who takes that contract is Marcus, the old friend from the funeral. We meet him in his own home, a quiet, careful man.
+
+[ 46] (00:36:00.0 -> 00:36:24.0)  <tense>
+      Marcus accepts the job. Consider it done, he tells Viggo, and takes the money. But watch him closely, because his real intentions are his own, and they are not what Viggo thinks he is buying.
+
+[ 47] (00:36:56.0 -> 00:37:36.0)  <tense>
+      Because instead of hunting John, Marcus sets up on a rooftop with a sniper rifle and watches over him, a silent guardian angel. He took the money, but he is using it to protect his old friend. Remember that. It comes back around.
+
+[ 48] (00:37:43.0 -> 00:38:00.0)  <normal>
+      John drives to a place called the Continental and steps out in his suit. It looks like an elegant old hotel, and in a way it is. But it is a hotel built exclusively for assassins, a neutral ground in the middle of their war.
+
+[ 49] (00:38:24.0 -> 00:39:12.0)  <normal>
+      Inside, he checks in among other killers, including a sharp-eyed woman named Ms. Perkins, and we learn the code this world runs on. Gold coins are the currency. And one law towers above all: no business, no killing, is ever conducted on Continental grounds. Break that rule, and the punishment is absolute. Hold on to that, because it matters later.
+
+[ 50] (00:39:36.0 -> 00:40:00.0)  <tense>
+      Up in his room, he methodically lays out his weapons on the bed, preparing, then heads back down and out into the night. He knows who he is after, and the hunt for Iosef is on.
+
+[ 51] (00:41:19.0 -> 00:42:06.0)  <normal>
+      An old associate named Winston, who runs the Continental, warns him about diving back into this pond. But he points him at his target anyway: Iosef is holed up at a nightclub called the Red Circle.
+
+[ 52] (00:45:34.0 -> 00:45:58.0)  <tense>
+      John tracks Iosef to a nightclub called the Red Circle. If the house fight was cold and quiet, this is the opposite: a pounding club drenched in red neon, with Iosef somewhere in the crowd, ringed by bodyguards.
+
+[ 53] (00:46:30.0 -> 00:47:20.0)  <tense>
+      Iosef is lounging in the club's private bathhouse, cocky and untouchable, when his men spot John closing in. Are you scared of the boogeyman, someone taunts him. He should be.
+
+[ 54] (00:48:02.5 -> 00:48:30.5)  <tense>
+      It starts quiet, in the steam of the baths, John drowning the first bodyguard under the water. Then the alarm goes up.
+
+[ 55] (00:49:20.0 -> 00:50:00.0)  <tense>
+      And it becomes open war. John carves through wave after wave of guards, gun and fist, punching down the club's red-lit corridors toward Iosef.
+
+[ 56] (00:51:12.0 -> 00:51:48.0)  <tense>
+      Bleeding and taking hits, he fights straight across the packed dancefloor, oblivious partygoers dancing as the gunfire is swallowed by the music.
+
+[ 57] (00:51:50.0 -> 00:52:50.0)  <tense>
+      He finishes the last of them in the VIP booths, tearing through every man between him and his target.
+
+[ 58] (00:53:28.0 -> 00:54:00.0)  <tense>
+      But he is a step too slow. In the confusion, Iosef bolts out a back exit and speeds away into the night. After all of that, John is left standing in the wreckage, wounded and denied the one kill he came for.
+
+[ 59] (00:54:44.0 -> 00:55:00.0)  <emotion>
+      Outside, bloodied, he makes a call. Relentless, but hurt, and the boy has gotten away.
+
+[ 60] (00:55:46.0 -> 00:56:42.0)  <normal>
+      He limps back to the Continental, where the house doctor stitches up his gunshot wound. For a moment, John is safe, resting behind the one rule that protects everyone here.
+
+[ 61] (00:57:40.0 -> 00:58:28.0)  <tense>
+      But that safety is an illusion. Tempted by the bounty, Ms. Perkins breaks the Continental's sacred rule, slipping into his room with a silenced pistol. A vicious, close-quarters brawl explodes across the room.
+
+[ 62] (00:58:48.0 -> 00:59:20.0)  <tense>
+      John is faster. He overpowers her and takes her alive, deliberately, because she has just broken the code on Continental grounds, and everyone will know it.
+
+[ 63] (01:00:00.0 -> 01:00:44.0)  <tense>
+      First he gets something out of her. Do you really want to die here, he asks, and she breaks, giving up a church that Viggo uses to stash his money and secrets. Now John knows where to hit him where it hurts.
+
+[ 64] (01:01:28.0 -> 01:01:56.0)  <tense>
+      John raids the church, cutting down Viggo's guards among the pews. He isn't just chasing Iosef anymore; he is coming for everything the Tarasovs have.
+
+[ 65] (01:02:24.0 -> 01:03:08.0)  <tense>
+      He forces open a hidden vault. Inside is Viggo's real power: not just cash, but the blackmail and leverage he holds over the whole city.
+
+[ 66] (01:03:08.0 -> 01:03:20.0)  <tense>
+      And then, instead of taking any of it, he burns it all to ash. The message is clear: I am not here to rob you. I am here to destroy you.
+
+[ 67] (01:04:51.0 -> 01:05:12.0)  <tense>
+      But it costs him. The moment he steps outside, Viggo's men are waiting, and they swarm him on the open street.
+
+[ 68] (01:05:20.0 -> 01:06:00.0)  <tense>
+      It becomes a running gunfight in the rain, but wounded and outnumbered in the open, John is finally overwhelmed. For the first time, the numbers win. He is knocked out and dragged away.
+
+[ 69] (01:07:12.0 -> 01:09:32.0)  <normal>
+      He wakes tied to a chair, face to face with Viggo. Instead of just killing him, Viggo talks, an almost intimate scene between two men from the same brutal world. People don't change, he says. Times do. There is real respect between them, which only makes what comes next more tragic.
+
+[ 70] (01:10:44.0 -> 01:11:12.0)  <tense>
+      As Viggo's man moves in to finish him, a rifle shot cracks out of nowhere and drops the executioner. It is Marcus, still up on his rooftop, still watching over his friend from a distance. That single shot buys John the split second he needs to break free.
+
+[ 71] (01:11:12.0 -> 01:12:44.0)  <tense>
+      Freed and furious, John fights his way out through the warehouse, carving through Viggo's men and walking back into the daylight alone.
+
+[ 72] (01:13:12.0 -> 01:14:00.0)  <tense>
+      He runs down a fleeing man and forces Iosef's location out of him at gunpoint. He is close now. But before he goes to finish it, the film gives us one last quiet moment, and it is the one that hurts the most.
+
+[ 73] (01:18:24.0 -> 01:19:08.0)  <emotion>
+      John meets Marcus under a bridge. Two old friends, standing in the grey light, sharing a few plain words the way men like them do. There is warmth here, and history, and a quiet gratitude John never quite says out loud. Neither of them knows they are saying goodbye.
+
+[ 74] (01:19:40.0 -> 01:20:32.0)  <emotion>
+      But Viggo has figured out who has been protecting John. When Marcus gets home, killers are already waiting for him in the dark. John, driving away, senses something is wrong and calls to warn him. And here is the cruelty of it: he can only listen down the phone as his friend quietly realizes he is already trapped, with no way out.
+
+[ 75] (01:20:40.0 -> 01:21:40.0)  <emotion>
+      They work him over, beating him for the crime of protecting his friend, trying to make him talk. And Marcus, this quiet, decent old professional, takes every blow and gives them nothing. He made his choice back at that graveside, and he does not regret it, even now.
+
+[ 76] (01:21:58.0 -> 01:22:22.0)  <emotion>
+      And then Ms. Perkins, spared once already, puts a gun to Marcus and executes him, with Viggo standing right there watching. Marcus dies for one thing only: his loyalty to John. In a film full of faceless henchmen, this is the death that lands, because it is the one that costs John something real. He has just lost the last friend he had left in the world.
+
+[ 77] (01:23:12.0 -> 01:23:36.0)  <emotion>
+      
+
+[ 78] (01:24:00.0 -> 01:24:24.0)  <tense>
+      And this world does not forget a broken rule. For violating the code, Ms. Perkins is cornered and executed by the very organization she served. Not even the killers are above the law.
+
+[ 79] (01:24:24.0 -> 01:24:44.0)  <tense>
+      Marcus's death burns away whatever restraint John had left. He phones Viggo, grief turned to cold, final purpose. And Winston quietly tells him where Viggo is trying to run.
+
+[ 80] (01:26:24.0 -> 01:27:00.0)  <tense>
+      John catches them at a rain-soaked shipyard, where Viggo's convoy is racing for a waiting helicopter. He hits them head-on, a firefight tearing across the docks. I knew he'd come, Viggo says. Of course he did.
+
+[ 81] (01:27:12.0 -> 01:27:40.0)  <tense>
+      He reaches Iosef, trapped in a car, and finally does what he came to do. The whole chain of it, the stolen Mustang, the murdered puppy, Helen's last gift, ends right here, as Viggo watches his own son die.
+
+[ 82] (01:27:44.0 -> 01:28:44.0)  <tense>
+      With his son dead and his empire in ashes, Viggo runs. John chases him down in a savage car battle through the rain-slicked docks.
+
+[ 83] (01:28:48.0 -> 01:29:12.0)  <tense>
+      The chase ends in a crash. Both men drag themselves from the wreck, spent and bleeding.
+
+[ 84] (01:29:12.0 -> 01:29:36.0)  <tense>
+      In the pouring rain, out of guns and bullets, they square off. Just the two of them now, stripped down to nothing but will.
+
+[ 85] (01:29:36.0 -> 01:30:24.0)  <tense>
+      They collide in the downpour, two exhausted men trading blows until they hit the wet ground. No style left, only will.
+
+[ 86] (01:30:24.0 -> 01:31:12.0)  <tense>
+      Viggo pulls a knife. John catches it, turns it, and the fight grinds toward its end.
+
+[ 87] (01:31:36.0 -> 01:32:00.0)  <tense>
+      
+
+[ 88] (01:32:00.0 -> 01:32:24.0)  <emotion>
+      John stands alone in the rain, gravely wounded. He has won. And he is completely hollowed out.
+
+[ 89] (01:32:50.0 -> 01:34:02.0)  <emotion>
+      He breaks into an animal clinic and stitches his own wounds shut, alone in the dark. Alone again, the way he started, but alive.
+
+[ 90] (01:34:04.0 -> 01:34:24.0)  <emotion>
+      And then, in the kennels, he stops. He opens a cage and frees a dog. Just like Daisy, a choice to have something to protect again. A reason to keep going.
+
+[ 91] (01:34:24.0 -> 01:34:38.0)  <emotion>
+      

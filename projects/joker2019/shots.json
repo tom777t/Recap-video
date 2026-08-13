@@ -1,0 +1,1254 @@
+{
+  "_comment": "Stage 2 footage catalogue for Joker (2019) - REBUILT v2 (2026-06-18). All timestamps FRAME-VERIFIED per shot against source.mp4 (Phase 1A-1E, lessons.md 2026-06-18). v1 catalogue had ~14 mis-anchored beats (transcript-anchored without per-shot frame verify); v2 re-anchors every beat from extracted zoom frames in frames/verify/. Beats are SOURCE-TIME chronological and scene-grouped (beat = scene group; multiple shots may share a beat). SC reorder: Penny smother (01:21, beat 25) precedes the Joker transformation (01:24-01:31, beat 26) in source - draft U13/U14 reordered to match. NEW beat 27 = detective subway chase (01:33, 2 shots). depicts/chars describe what the timestamp ACTUALLY shows. S7 whole-frame / S8 partial-region censor on localized violence. Censor net reduced 13->10: dropped alley (no graphic content) + third-man-stalk (mild); Murray headshot downgraded blur_heavy->blur; Penny-smother + Wayne-murder regions tightened. S9 silence: bathroom dance (00:34:50), stairway dance (01:30:45), Joker-on-car (01:51:15). UNRELIABLE NARRATOR (alpha): Murray daydream (beat 8) + Sophie (beats 10/21/22) tagged REAL; beat 29 is the explicit Sophie-imagined reveal; beat 58 leaves framing ambiguous. No pre-leak before beat 29.",
+  "not_found": [],
+  "shots": [
+    {
+      "id": "clip:00:01:10.0",
+      "beat": 1,
+      "clip_start": "00:01:10.0",
+      "clip_end": "00:01:20.8",
+      "chars": [
+        "Arthur"
+      ],
+      "depicts": [
+        "setup"
+      ],
+      "censor": "none",
+      "action": "Arthur in clown makeup at a mirror, forcing his face into a smile with his fingers while tears run down (FRAME-VERIFIED 00:01:10)",
+      "raw_duration_sec": 10.8,
+      "max_play_duration_sec": 11.88,
+      "max_narration_words_en": 49,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:01:21.0",
+      "beat": 1,
+      "clip_start": "00:01:21.0",
+      "clip_end": "00:01:31.8",
+      "chars": [
+        "Arthur"
+      ],
+      "depicts": [
+        "reveal"
+      ],
+      "censor": "none",
+      "action": "Arthur in clown makeup at a mirror, forcing his face into a smile with his fingers while tears run down (FRAME-VERIFIED 00:01:10)",
+      "raw_duration_sec": 10.8,
+      "max_play_duration_sec": 10.8,
+      "max_narration_words_en": 49,
+      "extendable": false,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:02:20.6",
+      "beat": 2,
+      "clip_start": "00:02:20.6",
+      "clip_end": "00:02:29.1",
+      "chars": [],
+      "depicts": [
+        "setup"
+      ],
+      "action": "decaying Gotham street - garbage piled high on the sidewalks, grimy theater marquee, going-out-of-business signs (FRAME-VERIFIED 00:02:15)",
+      "raw_duration_sec": 8.5,
+      "max_play_duration_sec": 9.35,
+      "max_narration_words_en": 38,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:02:50.0",
+      "beat": 3,
+      "clip_start": "00:02:50.0",
+      "clip_end": "00:02:54.5",
+      "chars": [
+        "Arthur"
+      ],
+      "depicts": [
+        "reaction"
+      ],
+      "censor": "none",
+      "action": "Arthur runs down a garbage-strewn alley in clown costume after the teens who stole his sign (FRAME-VERIFIED 00:02:52; no graphic violence - censor DROPPED v2)",
+      "raw_duration_sec": 4.5,
+      "max_play_duration_sec": 4.5,
+      "max_narration_words_en": 20,
+      "extendable": false,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:02:57.0",
+      "beat": 3,
+      "clip_start": "00:02:57.0",
+      "clip_end": "00:03:06.5",
+      "chars": [
+        "Arthur"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "censor": "none",
+      "action": "teenagers beat Arthur in the graffiti alley (FRAME-VERIFIED 00:03:03)",
+      "raw_duration_sec": 9.5,
+      "max_play_duration_sec": 9.5,
+      "max_narration_words_en": 43,
+      "extendable": false,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:05:50.0",
+      "beat": 4,
+      "clip_start": "00:05:50.0",
+      "clip_end": "00:05:57.9",
+      "chars": [
+        "Arthur"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "action": "Arthur meets his social worker in her cluttered city office (DRUGS/DEPRESSION posters, files); she reviews his medications and joke journal (FRAME-VERIFIED 00:05:50)",
+      "raw_duration_sec": 7.9,
+      "max_play_duration_sec": 7.9,
+      "max_narration_words_en": 35,
+      "extendable": false,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:06:18.0",
+      "beat": 4,
+      "clip_start": "00:06:18.0",
+      "clip_end": "00:06:30.0",
+      "chars": [
+        "Arthur"
+      ],
+      "depicts": [
+        "discovery"
+      ],
+      "censor": "none",
+      "action": "close-up of Arthur's handwritten journal/joke-diary; the social worker reads his private writing, the line 'I just hope my death makes more cents than my life' visible (FRAME-VERIFIED 00:06:18 - journal close-up)",
+      "raw_duration_sec": 12.0,
+      "max_play_duration_sec": 12.0,
+      "max_narration_words_en": 54,
+      "extendable": false,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:07:15.8",
+      "beat": 4,
+      "clip_start": "00:07:15.8",
+      "clip_end": "00:07:25.3",
+      "chars": [
+        "Arthur"
+      ],
+      "depicts": [
+        "dialogue",
+        "reaction"
+      ],
+      "action": "the social worker session continues - Arthur in close-up as she tells him the city is cutting the program and his medication (FRAME-VERIFIED 00:07:00)",
+      "raw_duration_sec": 9.5,
+      "max_play_duration_sec": 9.5,
+      "max_narration_words_en": 43,
+      "extendable": false,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:08:40.0",
+      "beat": 5,
+      "clip_start": "00:08:40.0",
+      "clip_end": "00:08:51.6",
+      "chars": [
+        "Arthur"
+      ],
+      "depicts": [
+        "setup"
+      ],
+      "censor": "none",
+      "action": "on a city bus, Arthur's uncontrollable laughing fit takes him - hand clamped over his mouth - as a mother and strangers stare (FRAME-VERIFIED 00:08:40)",
+      "raw_duration_sec": 11.6,
+      "max_play_duration_sec": 12.76,
+      "max_narration_words_en": 52,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:08:54.5",
+      "beat": 5,
+      "clip_start": "00:08:54.5",
+      "clip_end": "00:09:04.9",
+      "chars": [
+        "Arthur"
+      ],
+      "depicts": [
+        "reaction"
+      ],
+      "censor": "none",
+      "action": "on a city bus, Arthur's uncontrollable laughing fit takes him - hand clamped over his mouth - as a mother and strangers stare (FRAME-VERIFIED 00:08:40)",
+      "raw_duration_sec": 10.4,
+      "max_play_duration_sec": 10.4,
+      "max_narration_words_en": 47,
+      "extendable": false,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:12:00.0",
+      "beat": 6,
+      "clip_start": "00:12:00.0",
+      "clip_end": "00:12:09.9",
+      "chars": [
+        "Arthur",
+        "Penny"
+      ],
+      "depicts": [
+        "emotion",
+        "setup"
+      ],
+      "action": "at home Arthur cares for his mother Penny, the two of them in their small apartment watching television together (FRAME-VERIFIED 00:12:00 - Penny at home)",
+      "raw_duration_sec": 9.9,
+      "max_play_duration_sec": 10.89,
+      "max_narration_words_en": 45,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:12:40.0",
+      "beat": 6,
+      "clip_start": "00:12:40.0",
+      "clip_end": "00:12:54.4",
+      "chars": [
+        "Arthur",
+        "Penny"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "action": "Penny insists Arthur should smile and tells him he was born to spread joy",
+      "raw_duration_sec": 14.4,
+      "max_play_duration_sec": 14.4,
+      "max_narration_words_en": 65,
+      "extendable": false,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:13:20.0",
+      "beat": 7,
+      "clip_start": "00:13:20.0",
+      "clip_end": "00:13:27.1",
+      "chars": [
+        "Arthur",
+        "Murray"
+      ],
+      "depicts": [
+        "setup"
+      ],
+      "action": "in the daydream Arthur stands in the Murray show studio audience as the crowd applauds him (FRAME-VERIFIED 00:13:20)",
+      "raw_duration_sec": 7.1,
+      "max_play_duration_sec": 7.81,
+      "max_narration_words_en": 32,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:14:30.0",
+      "beat": 7,
+      "clip_start": "00:14:30.0",
+      "clip_end": "00:14:44.4",
+      "chars": [
+        "Arthur",
+        "Murray"
+      ],
+      "depicts": [
+        "reveal"
+      ],
+      "action": "Arthur imagines Murray calling him out of the studio audience and embracing him like a father, the crowd applauding (FRAME-VERIFIED 00:14:30 - daydream/audience embrace)",
+      "raw_duration_sec": 14.4,
+      "max_play_duration_sec": 14.4,
+      "max_narration_words_en": 65,
+      "extendable": false,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:15:10.0",
+      "beat": 7,
+      "clip_start": "00:15:10.0",
+      "clip_end": "00:15:21.2",
+      "chars": [
+        "Arthur",
+        "Murray"
+      ],
+      "depicts": [
+        "reveal"
+      ],
+      "action": "in the daydream Murray speaks warmly to Arthur, the fantasy of being wanted by someone who matters (FRAME-VERIFIED 00:15:10)",
+      "raw_duration_sec": 11.2,
+      "max_play_duration_sec": 11.2,
+      "max_narration_words_en": 51,
+      "extendable": false,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:19:50.0",
+      "beat": 8,
+      "clip_start": "00:19:50.0",
+      "clip_end": "00:19:58.0",
+      "chars": [
+        "Sophie",
+        "Arthur"
+      ],
+      "depicts": [
+        "setup"
+      ],
+      "censor": "none",
+      "action": "Arthur meets Sophie in the building elevator/hallway (FRAME-VERIFIED 00:19:50)",
+      "raw_duration_sec": 8.0,
+      "max_play_duration_sec": 8.8,
+      "max_narration_words_en": 36,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:20:05.0",
+      "beat": 8,
+      "clip_start": "00:20:05.0",
+      "clip_end": "00:20:21.0",
+      "chars": [
+        "Sophie",
+        "Arthur"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "censor": "none",
+      "action": "Sophie does the gun-to-head gesture in the elevator; Arthur lights up (FRAME-VERIFIED 00:20:10)",
+      "raw_duration_sec": 16.0,
+      "max_play_duration_sec": 16.0,
+      "max_narration_words_en": 73,
+      "extendable": false,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:20:25.0",
+      "beat": 8,
+      "clip_start": "00:20:25.0",
+      "clip_end": "00:20:38.0",
+      "chars": [
+        "Arthur",
+        "Sophie"
+      ],
+      "depicts": [
+        "emotion"
+      ],
+      "censor": "none",
+      "action": "Arthur walks the hallway smiling after meeting Sophie (FRAME-VERIFIED 00:20:35)",
+      "raw_duration_sec": 13.0,
+      "max_play_duration_sec": 14.3,
+      "max_narration_words_en": 59,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:23:10.0",
+      "beat": 9,
+      "clip_start": "00:23:10.0",
+      "clip_end": "00:23:17.0",
+      "chars": [
+        "Arthur",
+        "Sophie"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "censor": "none",
+      "action": "Arthur meets his neighbor Sophie in the apartment building, drawn to her",
+      "raw_duration_sec": 7.0,
+      "max_play_duration_sec": 7.0,
+      "max_narration_words_en": 31,
+      "extendable": false,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:23:18.0",
+      "beat": 8,
+      "clip_start": "00:23:18.0",
+      "clip_end": "00:23:33.0",
+      "chars": [
+        "Arthur"
+      ],
+      "depicts": [
+        "reaction"
+      ],
+      "censor": "none",
+      "action": "Arthur sits with the loaded gun, uneasy (FRAME-VERIFIED 00:23:18)",
+      "raw_duration_sec": 15.0,
+      "max_play_duration_sec": 15.0,
+      "max_narration_words_en": 68,
+      "extendable": false,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:28:18.0",
+      "beat": 10,
+      "clip_start": "00:28:18.0",
+      "clip_end": "00:28:23.9",
+      "chars": [
+        "Arthur"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "action": "Arthur in clown-doctor makeup and white coat entertains a ward of sick children, singing and clowning for them (FRAME-VERIFIED 00:28:43 - hospital children ward)",
+      "raw_duration_sec": 5.9,
+      "max_play_duration_sec": 5.9,
+      "max_narration_words_en": 26,
+      "extendable": false,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:28:46.0",
+      "beat": 10,
+      "clip_start": "00:28:46.0",
+      "clip_end": "00:28:54.7",
+      "chars": [
+        "Arthur"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "action": "the hidden gun slips from his costume in front of the children; the gig ends in humiliation (FRAME-VERIFIED near 00:28:46; scene cuts to firing phone-call at 00:28:50)",
+      "raw_duration_sec": 8.7,
+      "max_play_duration_sec": 8.7,
+      "max_narration_words_en": 39,
+      "extendable": false,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:32:18.0",
+      "beat": 12,
+      "clip_start": "00:32:18.0",
+      "clip_end": "00:32:27.5",
+      "chars": [
+        "Arthur"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "action": "Arthur shoots the first two attackers point-blank in the subway car (FRAME-VERIFIED 00:32:18 - actual shooting; v1 had 00:31:55 face close-up)",
+      "censor": "blur",
+      "censor_region": {
+        "x": 760,
+        "y": 360,
+        "width": 420,
+        "height": 360
+      },
+      "raw_duration_sec": 9.5,
+      "max_play_duration_sec": 9.5,
+      "max_narration_words_en": 43,
+      "extendable": false,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:32:32.0",
+      "beat": 12,
+      "clip_start": "00:32:32.0",
+      "clip_end": "00:32:40.0",
+      "chars": [
+        "Arthur"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "censor": "blur",
+      "action": "Arthur hunts and shoots the third fleeing businessman on the subway (FRAME-VERIFIED 00:32:32)",
+      "raw_duration_sec": 8.0,
+      "max_play_duration_sec": 8.0,
+      "max_narration_words_en": 36,
+      "extendable": false,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:33:27.0",
+      "beat": 12,
+      "clip_start": "00:33:27.0",
+      "clip_end": "00:33:38.2",
+      "chars": [
+        "Arthur"
+      ],
+      "depicts": [
+        "action",
+        "transition"
+      ],
+      "action": "Arthur corners the wounded man on the '9 Avenue' platform and executes him, blood trail on the floor (FRAME-VERIFIED 00:33:27)",
+      "censor": "blur",
+      "raw_duration_sec": 11.2,
+      "max_play_duration_sec": 11.2,
+      "max_narration_words_en": 51,
+      "extendable": false,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:34:50.0",
+      "beat": 13,
+      "clip_start": "00:34:50.0",
+      "clip_end": "00:34:56.0",
+      "chars": [
+        "Arthur"
+      ],
+      "depicts": [
+        "emotion"
+      ],
+      "action": "Arthur hides in a dim green-tiled public restroom and begins a slow, involuntary, graceful dance as something inside him settles (FRAME-VERIFIED 00:34:50)",
+      "narration_silence_seconds": 22.0
+    },
+    {
+      "id": "clip:00:36:10.0",
+      "beat": 14,
+      "clip_start": "00:36:10.0",
+      "clip_end": "00:36:20.4",
+      "chars": [],
+      "depicts": [
+        "reaction",
+        "reveal"
+      ],
+      "action": "the city reacts to the subway killings - news coverage of a killer in a clown mask, clown graffiti spreading",
+      "raw_duration_sec": 10.4,
+      "max_play_duration_sec": 10.4,
+      "max_narration_words_en": 47,
+      "extendable": false,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:40:10.0",
+      "beat": 15,
+      "clip_start": "00:40:10.0",
+      "clip_end": "00:40:20.8",
+      "chars": [
+        "Arthur",
+        "Sophie"
+      ],
+      "depicts": [
+        "dialogue",
+        "emotion"
+      ],
+      "action": "Arthur and Sophie share an easy, intimate evening together, the relationship blossoming",
+      "raw_duration_sec": 10.8,
+      "max_play_duration_sec": 10.8,
+      "max_narration_words_en": 49,
+      "extendable": false,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:42:40.0",
+      "beat": 16,
+      "clip_start": "00:42:40.0",
+      "clip_end": "00:42:49.5",
+      "chars": [
+        "Arthur"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "action": "Arthur takes the stage at an open-mic comedy night, but his laughing fit derails the set",
+      "raw_duration_sec": 9.5,
+      "max_play_duration_sec": 9.5,
+      "max_narration_words_en": 43,
+      "extendable": false,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:49:10.0",
+      "beat": 18,
+      "clip_start": "00:49:10.0",
+      "clip_end": "00:49:20.8",
+      "chars": [
+        "Arthur",
+        "Penny"
+      ],
+      "depicts": [
+        "reveal",
+        "discovery"
+      ],
+      "action": "Arthur reads Penny's letter and confronts her: she claims Thomas Wayne is his secret father",
+      "raw_duration_sec": 10.8,
+      "max_play_duration_sec": 10.8,
+      "max_narration_words_en": 49,
+      "extendable": false,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:50:23.5",
+      "beat": 18,
+      "clip_start": "00:50:23.5",
+      "clip_end": "00:50:34.3",
+      "chars": [
+        "Arthur",
+        "Penny"
+      ],
+      "depicts": [
+        "dialogue",
+        "reaction"
+      ],
+      "action": "Penny recalls her love for Thomas Wayne, calling him a great and powerful man",
+      "raw_duration_sec": 10.8,
+      "max_play_duration_sec": 10.8,
+      "max_narration_words_en": 49,
+      "extendable": false,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:53:40.0",
+      "beat": 19,
+      "clip_start": "00:53:40.0",
+      "clip_end": "00:53:47.1",
+      "chars": [
+        "Arthur",
+        "Bruce",
+        "Alfred"
+      ],
+      "depicts": [
+        "dialogue",
+        "action"
+      ],
+      "action": "Arthur visits Wayne Manor, meeting young Bruce at the gate before Alfred turns him away (FRAME-VERIFIED 00:53:40 - gate/bars)",
+      "raw_duration_sec": 7.1,
+      "max_play_duration_sec": 7.1,
+      "max_narration_words_en": 32,
+      "extendable": false,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:00:00.0",
+      "beat": 17,
+      "clip_start": "01:00:00.0",
+      "clip_end": "01:00:09.5",
+      "chars": [
+        "Arthur",
+        "Murray"
+      ],
+      "depicts": [
+        "reveal"
+      ],
+      "censor": "none",
+      "action": "Arthur watches the Murray show play his stand-up tape and mock him, on a wall TV (FRAME-VERIFIED 01:00:00)",
+      "raw_duration_sec": 9.5,
+      "max_play_duration_sec": 9.5,
+      "max_narration_words_en": 43,
+      "extendable": false,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:05:30.4",
+      "beat": 20,
+      "clip_start": "01:05:30.4",
+      "clip_end": "01:05:40.8",
+      "chars": [
+        "Arthur",
+        "Thomas Wayne",
+        "Wayne"
+      ],
+      "depicts": [
+        "reveal",
+        "dialogue"
+      ],
+      "action": "Arthur corners Thomas Wayne at the benefit; Wayne denies being his father and says Penny adopted him",
+      "raw_duration_sec": 10.4,
+      "max_play_duration_sec": 10.4,
+      "max_narration_words_en": 47,
+      "extendable": false,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:06:30.0",
+      "beat": 21,
+      "clip_start": "01:06:30.0",
+      "clip_end": "01:06:39.9",
+      "chars": [
+        "Arthur",
+        "Sophie"
+      ],
+      "depicts": [
+        "reveal",
+        "transition"
+      ],
+      "action": "Arthur lets himself into Sophie's apartment; she does not recognize him - their whole romance was in his head",
+      "raw_duration_sec": 9.9,
+      "max_play_duration_sec": 9.9,
+      "max_narration_words_en": 45,
+      "extendable": false,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:07:30.0",
+      "beat": 22,
+      "clip_start": "01:07:30.0",
+      "clip_end": "01:07:38.8",
+      "chars": [
+        "Arthur",
+        "Sophie"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "censor": "none",
+      "action": "Sophie, frightened by the stranger in her home, asks him to leave as the delusion collapses",
+      "raw_duration_sec": 8.8,
+      "max_play_duration_sec": 8.8,
+      "max_narration_words_en": 40,
+      "extendable": false,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:07:39.0",
+      "beat": 22,
+      "clip_start": "01:07:39.0",
+      "clip_end": "01:07:47.8",
+      "chars": [
+        "Arthur",
+        "Sophie"
+      ],
+      "depicts": [
+        "reveal"
+      ],
+      "censor": "none",
+      "action": "Sophie, frightened by the stranger in her home, asks him to leave as the delusion collapses",
+      "raw_duration_sec": 8.8,
+      "max_play_duration_sec": 8.8,
+      "max_narration_words_en": 40,
+      "extendable": false,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:11:04.6",
+      "beat": 23,
+      "clip_start": "01:11:04.6",
+      "clip_end": "01:11:18.2",
+      "chars": [
+        "Arthur"
+      ],
+      "depicts": [
+        "discovery"
+      ],
+      "action": "at Arkham, a clerk shows Arthur Penny's file: he was adopted, and abused as a child while she stood by",
+      "raw_duration_sec": 13.6,
+      "max_play_duration_sec": 13.6,
+      "max_narration_words_en": 62,
+      "extendable": false,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:13:30.0",
+      "beat": 23,
+      "clip_start": "01:13:30.0",
+      "clip_end": "01:13:42.4",
+      "chars": [
+        "Arthur"
+      ],
+      "depicts": [
+        "reaction",
+        "discovery"
+      ],
+      "action": "Arthur clutches the file and breaks down, the last thread of his identity unraveling (FRAME-VERIFIED 01:13:30)",
+      "raw_duration_sec": 12.4,
+      "max_play_duration_sec": 12.4,
+      "max_narration_words_en": 56,
+      "extendable": false,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:17:48.0",
+      "beat": 24,
+      "clip_start": "01:17:48.0",
+      "clip_end": "01:17:52.0",
+      "chars": [
+        "Arthur"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "censor": "none",
+      "action": "Arthur's old coworkers Randall and Gary visit his apartment (FRAME-VERIFIED 01:17:48 - apartment setting)",
+      "raw_duration_sec": 4.0,
+      "max_play_duration_sec": 4.0,
+      "max_narration_words_en": 17,
+      "extendable": false,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:18:00.0",
+      "beat": 24,
+      "clip_start": "01:18:00.0",
+      "clip_end": "01:18:07.9",
+      "chars": [
+        "Arthur",
+        "Randall"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "action": "Arthur suddenly attacks Randall, stabbing him repeatedly against the wall",
+      "censor": "blur",
+      "censor_region": {
+        "x": 700,
+        "y": 200,
+        "width": 560,
+        "height": 620
+      },
+      "raw_duration_sec": 7.9,
+      "max_play_duration_sec": 7.9,
+      "max_narration_words_en": 35,
+      "extendable": false,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:18:30.0",
+      "beat": 24,
+      "clip_start": "01:18:30.0",
+      "clip_end": "01:18:39.5",
+      "chars": [
+        "Arthur",
+        "Randall"
+      ],
+      "depicts": [
+        "reaction"
+      ],
+      "action": "Arthur slams Randall's head into the wall in a frenzy of violence",
+      "censor": "blur",
+      "raw_duration_sec": 9.5,
+      "max_play_duration_sec": 9.5,
+      "max_narration_words_en": 43,
+      "extendable": false,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:18:55.0",
+      "beat": 24,
+      "clip_start": "01:18:55.0",
+      "clip_end": "01:19:02.1",
+      "chars": [
+        "Arthur",
+        "Gary"
+      ],
+      "depicts": [
+        "aftermath",
+        "emotion"
+      ],
+      "action": "trembling Gary is spared; Arthur unlocks the door and lets him go into the hall (FRAME-VERIFIED 01:18:55 / 01:29 area was v1 mislabel)",
+      "raw_duration_sec": 7.1,
+      "max_play_duration_sec": 7.81,
+      "max_narration_words_en": 32,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:21:00.0",
+      "beat": 25,
+      "clip_start": "01:21:00.0",
+      "clip_end": "01:21:09.9",
+      "chars": [
+        "Arthur",
+        "Penny"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "action": "Arthur sits at his hospitalized mother's bedside, telling her he used to think his life was a tragedy (FRAME-VERIFIED 01:21:10 - real Penny hospital; v1 had 01:29 Randall aftermath)",
+      "raw_duration_sec": 9.9,
+      "max_play_duration_sec": 9.9,
+      "max_narration_words_en": 45,
+      "extendable": false,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:21:25.0",
+      "beat": 25,
+      "clip_start": "01:21:25.0",
+      "clip_end": "01:21:30.5",
+      "chars": [
+        "Arthur",
+        "Penny"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "action": "Arthur takes a pillow and smothers Penny in her hospital bed (FRAME-VERIFIED 01:21:35 - monitor/ventilator room)",
+      "censor": "blur",
+      "censor_region": {
+        "x": 820,
+        "y": 360,
+        "width": 420,
+        "height": 240
+      },
+      "raw_duration_sec": 5.5,
+      "max_play_duration_sec": 5.5,
+      "max_narration_words_en": 24,
+      "extendable": false,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:24:30.0",
+      "beat": 26,
+      "clip_start": "01:24:30.0",
+      "clip_end": "01:24:37.1",
+      "chars": [
+        "Arthur"
+      ],
+      "depicts": [
+        "transition"
+      ],
+      "action": "Arthur dyes his hair green and paints his face into the Joker, transforming at the lit dressing-room mirror (FRAME-VERIFIED 01:24:30 - real transformation; v1 had 01:20 Penny hospital)",
+      "raw_duration_sec": 7.1,
+      "max_play_duration_sec": 7.81,
+      "max_narration_words_en": 32,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:26:30.0",
+      "beat": 26,
+      "clip_start": "01:26:30.0",
+      "clip_end": "01:26:39.5",
+      "chars": [
+        "Arthur"
+      ],
+      "depicts": [
+        "emotion"
+      ],
+      "action": "Arthur studies his finished Joker face in the mirror, calm and certain for the first time (FRAME-VERIFIED 01:26:30)",
+      "raw_duration_sec": 9.5,
+      "max_play_duration_sec": 10.45,
+      "max_narration_words_en": 43,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:30:45.0",
+      "beat": 26,
+      "clip_start": "01:30:45.0",
+      "clip_end": "01:30:51.0",
+      "chars": [
+        "Arthur"
+      ],
+      "depicts": [
+        "emotion"
+      ],
+      "action": "in full costume the Joker dances triumphantly down the long Bronx public staircase (FRAME-VERIFIED 01:30:45 - real stairway dance; v1 had 01:20:30 Penny hospital)",
+      "narration_silence_seconds": 22.0
+    },
+    {
+      "id": "clip:01:33:00.0",
+      "beat": 27,
+      "clip_start": "01:33:00.0",
+      "clip_end": "01:33:07.5",
+      "chars": [
+        "Arthur",
+        "Garrity",
+        "Burke"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "action": "two detectives corner the Joker on a subway car as a clown-masked rioter grapples nearby (FRAME-VERIFIED 01:33:00 - real detective chase; v1 had 01:27 transformation)",
+      "raw_duration_sec": 7.5,
+      "max_play_duration_sec": 7.5,
+      "max_narration_words_en": 34,
+      "extendable": false,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:35:19.2",
+      "beat": 28,
+      "clip_start": "01:35:19.2",
+      "clip_end": "01:35:30.4",
+      "chars": [
+        "Arthur",
+        "Murray"
+      ],
+      "depicts": [
+        "setup",
+        "discovery"
+      ],
+      "action": "booked as a guest, the Joker waits backstage at the Murray show (Murray Franklin green room), calm and ready (FRAME-VERIFIED 01:35:00)",
+      "raw_duration_sec": 11.2,
+      "max_play_duration_sec": 11.2,
+      "max_narration_words_en": 51,
+      "extendable": false,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:38:40.0",
+      "beat": 29,
+      "clip_start": "01:38:40.0",
+      "clip_end": "01:38:45.5",
+      "chars": [
+        "Arthur",
+        "Murray"
+      ],
+      "depicts": [
+        "reveal",
+        "dialogue"
+      ],
+      "action": "the Joker makes his entrance on live television, kissing a producer and greeting Murray",
+      "raw_duration_sec": 5.5,
+      "max_play_duration_sec": 5.5,
+      "max_narration_words_en": 24,
+      "extendable": false,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:41:10.0",
+      "beat": 30,
+      "clip_start": "01:41:10.0",
+      "clip_end": "01:41:16.3",
+      "chars": [
+        "Arthur",
+        "Murray"
+      ],
+      "depicts": [
+        "dialogue",
+        "reveal"
+      ],
+      "action": "on air the Joker confesses to killing the three men on the subway",
+      "raw_duration_sec": 6.3,
+      "max_play_duration_sec": 6.3,
+      "max_narration_words_en": 28,
+      "extendable": false,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:44:16.5",
+      "beat": 31,
+      "clip_start": "01:44:16.5",
+      "clip_end": "01:44:29.7",
+      "chars": [
+        "Arthur",
+        "Murray"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "action": "the Joker delivers his rant about a society that abandoned him, turning on Murray",
+      "raw_duration_sec": 13.2,
+      "max_play_duration_sec": 13.2,
+      "max_narration_words_en": 60,
+      "extendable": false,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:44:40.0",
+      "beat": 31,
+      "clip_start": "01:44:40.0",
+      "clip_end": "01:44:45.0",
+      "chars": [
+        "Arthur",
+        "Murray"
+      ],
+      "depicts": [
+        "reaction"
+      ],
+      "action": "Murray scolds the Joker on air, calling him self-pitying, the studio turning cold",
+      "raw_duration_sec": 5.0,
+      "max_play_duration_sec": 5.0,
+      "max_narration_words_en": 22,
+      "extendable": false,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:45:00.0",
+      "beat": 32,
+      "clip_start": "01:45:00.0",
+      "clip_end": "01:45:05.9",
+      "chars": [
+        "Arthur",
+        "Murray"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "action": "the Joker says you get what you deserve and pulls the gun on Murray",
+      "raw_duration_sec": 5.9,
+      "max_play_duration_sec": 5.9,
+      "max_narration_words_en": 26,
+      "extendable": false,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:45:40.0",
+      "beat": 32,
+      "clip_start": "01:45:40.0",
+      "clip_end": "01:45:50.8",
+      "chars": [
+        "Arthur"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "action": "the Joker calmly addresses the camera as the broadcast cuts to chaos",
+      "censor": "blur",
+      "raw_duration_sec": 10.8,
+      "max_play_duration_sec": 10.8,
+      "max_narration_words_en": 49,
+      "extendable": false,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:47:10.0",
+      "beat": 33,
+      "clip_start": "01:47:10.0",
+      "clip_end": "01:47:18.3",
+      "chars": [
+        "Arthur"
+      ],
+      "depicts": [
+        "establishing",
+        "action"
+      ],
+      "action": "Gotham erupts - clown-masked rioters flood the streets, fires burning, the city celebrating the chaos the Joker sparked",
+      "raw_duration_sec": 8.3,
+      "max_play_duration_sec": 8.3,
+      "max_narration_words_en": 37,
+      "extendable": false,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:47:35.0",
+      "beat": 33,
+      "clip_start": "01:47:35.0",
+      "clip_end": "01:47:44.0",
+      "chars": [
+        "Arthur"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "action": "masked crowds smash and burn through the streets as news reports the city is on fire",
+      "raw_duration_sec": 9.0,
+      "max_play_duration_sec": 9.0,
+      "max_narration_words_en": 40,
+      "extendable": false,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:48:30.0",
+      "beat": 34,
+      "clip_start": "01:48:30.0",
+      "clip_end": "01:48:37.5",
+      "chars": [],
+      "depicts": [
+        "setup",
+        "transition"
+      ],
+      "action": "a clown-masked gunman approaches the Wayne family's car window in an alley as fires burn (FRAME-VERIFIED 01:48:30)",
+      "raw_duration_sec": 7.5,
+      "max_play_duration_sec": 8.25,
+      "max_narration_words_en": 34,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:49:50.0",
+      "beat": 34,
+      "clip_start": "01:49:50.0",
+      "clip_end": "01:49:58.0",
+      "chars": [
+        "Bruce",
+        "Thomas Wayne",
+        "Wayne"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "censor": "blur",
+      "action": "the gunman corners Thomas and Martha Wayne with young Bruce outside the theater, then shoots the parents dead - leaving Bruce alive between their bodies, the birth of Batman (FRAME-VERIFIED 01:49:50 family + 01:50:00 gunman confrontation; v1 had 01:48:40 riot footage)",
+      "raw_duration_sec": 8.0,
+      "max_play_duration_sec": 8.0,
+      "max_narration_words_en": 36,
+      "extendable": false,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:50:00.0",
+      "beat": 9,
+      "clip_start": "01:50:00.0",
+      "clip_end": "01:50:07.0",
+      "chars": [],
+      "depicts": [
+        "reaction"
+      ],
+      "censor": "none",
+      "action": "(C2 sub-shot for L71)",
+      "raw_duration_sec": 7.0,
+      "max_play_duration_sec": 7.0,
+      "max_narration_words_en": 31,
+      "extendable": false,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:51:15.0",
+      "beat": 35,
+      "clip_start": "01:51:15.0",
+      "clip_end": "01:51:28.0",
+      "chars": [
+        "Arthur"
+      ],
+      "depicts": [
+        "reveal"
+      ],
+      "action": "rioters pull the Joker onto a wrecked police car; he rises, arms spread, and smears a blood smile as the crowd roars (FRAME-VERIFIED 01:51:15 - real Joker-on-car; v1 had 01:49:30 Wayne family)",
+      "narration_silence_seconds": 13.0
+    },
+    {
+      "id": "clip:01:53:15.0",
+      "beat": 36,
+      "clip_start": "01:53:15.0",
+      "clip_end": "01:53:27.8",
+      "chars": [
+        "Arthur"
+      ],
+      "depicts": [
+        "dialogue",
+        "reveal"
+      ],
+      "action": "back in Arkham, handcuffed and smoking, the Joker laughs at a joke and tells the therapist she would not get it (FRAME-VERIFIED 01:53:15 - real Arkham ending; v1 had 01:52:30 Joker-on-car)",
+      "raw_duration_sec": 12.8,
+      "max_play_duration_sec": 12.8,
+      "max_narration_words_en": 58,
+      "extendable": false,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:54:50.0",
+      "beat": 37,
+      "clip_start": "01:54:50.0",
+      "clip_end": "01:55:04.8",
+      "chars": [
+        "Arthur"
+      ],
+      "depicts": [
+        "emotion",
+        "transition"
+      ],
+      "action": "the Joker walks the bright white asylum corridor, leaving a trail of bloody footprints (FRAME-VERIFIED 01:54:50)",
+      "raw_duration_sec": 14.8,
+      "max_play_duration_sec": 16.28,
+      "max_narration_words_en": 67,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:55:18.0",
+      "beat": 37,
+      "clip_start": "01:55:18.0",
+      "clip_end": "01:55:30.0",
+      "chars": [
+        "Arthur"
+      ],
+      "depicts": [
+        "reveal"
+      ],
+      "censor": "none",
+      "action": "the bright white Arkham corridor with a trail of bloody footprints leading away down the hall toward the window - the Joker walking off (FRAME-VERIFIED 01:55:18 - bloody footprints)",
+      "raw_duration_sec": 12.0,
+      "max_play_duration_sec": 12.0,
+      "max_narration_words_en": 54,
+      "extendable": false,
+      "stretch_tolerance": 1.1
+    }
+  ]
+}

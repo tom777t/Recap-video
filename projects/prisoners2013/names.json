@@ -1,0 +1,30 @@
+{
+  "_comment": "Canonical character names for Prisoners (2013). Use these exact strings in shots.json chars[]. No diminutives, no role descriptions.",
+  "characters": [
+    "Keller",
+    "Grace",
+    "Ralph",
+    "Anna",
+    "Franklin",
+    "Nancy",
+    "Joy",
+    "Loki",
+    "Alex",
+    "Holly",
+    "Bob"
+  ],
+  "aliases": {
+    "Keller Dover": "Keller",
+    "Grace Dover": "Grace",
+    "Ralph Dover": "Ralph",
+    "Anna Dover": "Anna",
+    "Franklin Birch": "Franklin",
+    "Nancy Birch": "Nancy",
+    "Joy Birch": "Joy",
+    "Detective Loki": "Loki",
+    "Alex Jones": "Alex",
+    "Holly Jones": "Holly",
+    "Bob Taylor": "Bob",
+    "Captain Richards": "Richards"
+  }
+}

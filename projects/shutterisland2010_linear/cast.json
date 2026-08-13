@@ -1,0 +1,16 @@
+{
+  "note": "Cast mapping from the Wikipedia Cast section. Experiment input for vision tagging - not a pipeline artefact yet.",
+  "cast": [
+    {"actor": "Leonardo DiCaprio",  "character": "Teddy Daniels"},
+    {"actor": "Mark Ruffalo",       "character": "Chuck Aule"},
+    {"actor": "Ben Kingsley",       "character": "Dr. John Cawley"},
+    {"actor": "Max von Sydow",      "character": "Dr. Jeremiah Naehring"},
+    {"actor": "Michelle Williams",  "character": "Dolores Chanal"},
+    {"actor": "Emily Mortimer",     "character": "Rachel Solando"},
+    {"actor": "Patricia Clarkson",  "character": "Dr. Rachel Solando"},
+    {"actor": "Jackie Earle Haley", "character": "George Noyce"},
+    {"actor": "John Carroll Lynch", "character": "Deputy Warden McPherson"},
+    {"actor": "Ted Levine",         "character": "The Warden"},
+    {"actor": "Elias Koteas",       "character": "Andrew Laeddis"}
+  ]
+}

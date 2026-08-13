@@ -1,0 +1,1338 @@
+{
+  "_comment": "Spider-Man: No Way Home (2021) shot catalogue. Stage 2 ACT 1 ONLY (exposed identity -> arrest/Murdock -> MIT rejection -> the Sanctum forget-spell + its corruption -> the plea in the car, ending JUST BEFORE Doc Ock's tentacle attack which begins Act 2/R1). ALL timestamps are FILE times = theatrical + ~60s (the excluded bonus intro runs file 0:00.8-~0:59; film proper starts file ~00:01:00). Every shot FRAME-VERIFIED against source.mp4 strips. depth_target: fuller_recap (aim 90-110 shots overall). SPOILER DISCIPLINE: Act 1 catalogue is CLEAN of R1-R7 - NO villains, NO Maguire/Garfield Peters, NO multiverse visuals appear or are referenced here (they exist only in later footage). The only Spider-Man in Act 1 is THIS-universe Peter Parker (Tom Holland, MCU Integrated red/black suit); no three-Peter drift risk yet (that starts ~B19). Cold-open hook (B01) = the exposed-identity broadcast/mobbing, NOT the actor intro. CENSOR: none needed in Act 1 (no graphic content).",
+  "project": "spidermannowayhome2021_linear",
+  "film_title": "Spider-Man: No Way Home",
+  "shots": [
+    {
+      "id": "clip:00:01:47.0",
+      "beat": 1,
+      "action": "COLD-OPEN HOOK: Mysterio's damning broadcast plays - Beck's final message accusing Spider-Man, the video that framed Peter for his murder (FRAME-VERIFIED file 00:01:47/48; theatrical ~0:47)",
+      "chars": [
+        "Mysterio"
+      ],
+      "depicts": [
+        "establishing"
+      ],
+      "clip_start": "00:01:47.0",
+      "clip_end": "00:02:05.0",
+      "censor": "none",
+      "extendable": true,
+      "raw_duration_sec": 18.0,
+      "stretch_tolerance": 1.1,
+      "max_narration_words_en": 66
+    },
+    {
+      "id": "clip:00:02:28.0",
+      "beat": 1,
+      "action": "HOOK: the broadcast reveals Spider-Man's identity as Peter Parker; on the street the public mobs him, a crowd closes in around the masked Peter (FRAME-VERIFIED file 00:02:28-00:02:35)",
+      "chars": [
+        "Peter Parker"
+      ],
+      "depicts": [
+        "establishing",
+        "reaction"
+      ],
+      "clip_start": "00:02:28.0",
+      "clip_end": "00:02:44.0",
+      "censor": "none",
+      "extendable": true,
+      "raw_duration_sec": 16.0,
+      "stretch_tolerance": 1.1,
+      "max_narration_words_en": 58
+    },
+    {
+      "id": "clip:00:03:12.0",
+      "beat": 1,
+      "action": "Peter grabs MJ and swings them away from the chaos to safety; he pulls her close on a bridge/overpass structure (FRAME-VERIFIED file 00:03:12-00:03:28; Peter in MCU Integrated suit)",
+      "chars": [
+        "Peter Parker",
+        "MJ"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "clip_start": "00:03:12.0",
+      "clip_end": "00:03:30.0",
+      "censor": "none",
+      "extendable": false,
+      "raw_duration_sec": 18.0,
+      "stretch_tolerance": 1.05,
+      "max_narration_words_en": 66
+    },
+    {
+      "id": "clip:00:06:00.0",
+      "beat": 2,
+      "action": "The Daily Bugle firestorm: 'WANTED FOR MURDER' / 'LOCK PETER UP' headlines and street posters - the public turns on Peter (FRAME-VERIFIED file ~00:06:12 montage)",
+      "chars": [],
+      "depicts": [
+        "establishing"
+      ],
+      "clip_start": "00:06:00.0",
+      "clip_end": "00:06:18.0",
+      "censor": "none",
+      "extendable": true,
+      "raw_duration_sec": 18.0,
+      "stretch_tolerance": 1.1,
+      "max_narration_words_en": 66
+    },
+    {
+      "id": "clip:00:06:40.0",
+      "beat": 2,
+      "action": "The Department of Damage Control raids Peter's home and arrests him; agents breach, a badge is shown (FRAME-VERIFIED file 00:06:40-00:06:55)",
+      "chars": [
+        "Peter Parker"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "clip_start": "00:06:40.0",
+      "clip_end": "00:07:00.0",
+      "censor": "none",
+      "extendable": true,
+      "raw_duration_sec": 20.0,
+      "stretch_tolerance": 1.1,
+      "max_narration_words_en": 74
+    },
+    {
+      "id": "clip:00:07:00.0",
+      "beat": 2,
+      "action": "In custody: Peter at a Damage Control interrogation table; MJ is questioned separately behind glass - the whole group hauled in (FRAME-VERIFIED file 00:07:00-00:07:45)",
+      "chars": [
+        "Peter Parker",
+        "MJ"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "clip_start": "00:07:00.0",
+      "clip_end": "00:07:24.0",
+      "censor": "none",
+      "extendable": true,
+      "raw_duration_sec": 24.0,
+      "stretch_tolerance": 1.1,
+      "max_narration_words_en": 88
+    },
+    {
+      "id": "clip:00:08:10.0",
+      "beat": 2,
+      "action": "Lawyer Matt Murdock arrives and gets Peter's charges dropped (brief cameo - name minimally) (FRAME-VERIFIED file 00:08:10/00:10:40, Charlie Cox at the table + close-up)",
+      "chars": [
+        "Matt Murdock",
+        "Peter Parker"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "clip_start": "00:08:10.0",
+      "clip_end": "00:08:30.0",
+      "censor": "none",
+      "extendable": true,
+      "raw_duration_sec": 20.0,
+      "stretch_tolerance": 1.1,
+      "max_narration_words_en": 74
+    },
+    {
+      "id": "clip:00:12:10.0",
+      "beat": 2,
+      "action": "Free but hounded: Peter (Integrated suit) and Aunt May on the street amid the ongoing publicity storm (FRAME-VERIFIED file ~00:12:10-00:12:40)",
+      "chars": [
+        "Peter Parker",
+        "May Parker"
+      ],
+      "depicts": [
+        "establishing",
+        "reaction"
+      ],
+      "clip_start": "00:12:10.0",
+      "clip_end": "00:12:28.0",
+      "censor": "none",
+      "extendable": true,
+      "raw_duration_sec": 18.0,
+      "stretch_tolerance": 1.1,
+      "max_narration_words_en": 66
+    },
+    {
+      "id": "clip:00:20:55.0",
+      "beat": 6,
+      "action": "A quiet breath / normal-life stakes: Peter and MJ lie together on a rooftop, dreaming about starting over at MIT together - 'a fresh start' (FRAME-VERIFIED file 00:20:55-00:21:35; leads directly into the MIT letters)",
+      "chars": [
+        "Peter Parker",
+        "MJ"
+      ],
+      "depicts": [
+        "emotion"
+      ],
+      "clip_start": "00:20:55.0",
+      "clip_end": "00:21:19.0",
+      "censor": "none",
+      "extendable": true,
+      "raw_duration_sec": 24.0,
+      "stretch_tolerance": 1.1,
+      "max_narration_words_en": 88
+    },
+    {
+      "id": "clip:00:21:35.0",
+      "beat": 6,
+      "action": "Peter and MJ hold hands on the rooftop, sealing the 'we'll all be together in Boston' dream just before reality hits (FRAME-VERIFIED file ~00:21:35-00:22:00)",
+      "chars": [
+        "Peter Parker",
+        "MJ"
+      ],
+      "depicts": [
+        "emotion"
+      ],
+      "clip_start": "00:21:35.0",
+      "clip_end": "00:21:55.0",
+      "censor": "none",
+      "extendable": true,
+      "raw_duration_sec": 20.0,
+      "stretch_tolerance": 1.1,
+      "max_narration_words_en": 74
+    },
+    {
+      "id": "clip:00:23:40.0",
+      "beat": 2,
+      "action": "The gut-punch: at the diner, MJ (in her work uniform), Peter and Ned open and react to their MIT rejection letters - the scandal cost them their futures (FRAME-VERIFIED file 00:23:40-00:24:20)",
+      "chars": [
+        "MJ",
+        "Peter Parker",
+        "Ned"
+      ],
+      "depicts": [
+        "emotion",
+        "dialogue"
+      ],
+      "clip_start": "00:23:40.0",
+      "clip_end": "00:24:04.0",
+      "censor": "none",
+      "extendable": true,
+      "raw_duration_sec": 24.0,
+      "stretch_tolerance": 1.1,
+      "max_narration_words_en": 88
+    },
+    {
+      "id": "clip:00:25:40.0",
+      "beat": 3,
+      "action": "Desperate for a fix, Peter walks up to the New York Sanctum (exterior establishing) (FRAME-VERIFIED file ~00:25:40)",
+      "chars": [
+        "Peter Parker"
+      ],
+      "depicts": [
+        "establishing"
+      ],
+      "clip_start": "00:25:40.0",
+      "clip_end": "00:25:58.0",
+      "censor": "none",
+      "extendable": true,
+      "raw_duration_sec": 18.0,
+      "stretch_tolerance": 1.1,
+      "max_narration_words_en": 66
+    },
+    {
+      "id": "clip:00:26:00.0",
+      "beat": 3,
+      "action": "Inside the Sanctum, Wong is dealing with a Siberia-gateway blizzard; Peter arrives to ask for help. Introduce Wong (FRAME-VERIFIED file 00:26:00-00:26:40)",
+      "chars": [
+        "Peter Parker",
+        "Wong"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "clip_start": "00:26:00.0",
+      "clip_end": "00:26:24.0",
+      "censor": "none",
+      "extendable": true,
+      "raw_duration_sec": 24.0,
+      "stretch_tolerance": 1.1,
+      "max_narration_words_en": 88
+    },
+    {
+      "id": "clip:00:28:20.0",
+      "beat": 3,
+      "action": "Dr. Stephen Strange agrees to help - Peter asks him to make the world forget he is Spider-Man. Introduce Strange (FRAME-VERIFIED file ~00:28:20, Cumberbatch close-up)",
+      "chars": [
+        "Doctor Strange",
+        "Peter Parker"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "clip_start": "00:28:20.0",
+      "clip_end": "00:28:40.0",
+      "censor": "none",
+      "extendable": true,
+      "raw_duration_sec": 20.0,
+      "stretch_tolerance": 1.1,
+      "max_narration_words_en": 74
+    },
+    {
+      "id": "clip:00:28:50.0",
+      "beat": 4,
+      "action": "In the undercroft Strange begins casting the forget-spell; glowing runes stream out around him (FRAME-VERIFIED file 00:28:50-00:29:30)",
+      "chars": [
+        "Doctor Strange",
+        "Peter Parker"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "clip_start": "00:28:50.0",
+      "clip_end": "00:29:14.0",
+      "censor": "none",
+      "extendable": true,
+      "raw_duration_sec": 24.0,
+      "stretch_tolerance": 1.1,
+      "max_narration_words_en": 88
+    },
+    {
+      "id": "clip:00:29:40.0",
+      "beat": 4,
+      "action": "Peter keeps interrupting mid-spell ('wait, let MJ remember... and Ned... and May'), CORRUPTING it - the mistake that breaks everything (FRAME-VERIFIED file 00:29:40-00:30:20)",
+      "chars": [
+        "Peter Parker",
+        "Doctor Strange"
+      ],
+      "depicts": [
+        "dialogue",
+        "action"
+      ],
+      "clip_start": "00:29:40.0",
+      "clip_end": "00:30:04.0",
+      "censor": "none",
+      "extendable": false,
+      "raw_duration_sec": 24.0,
+      "stretch_tolerance": 1.05,
+      "max_narration_words_en": 88
+    },
+    {
+      "id": "clip:00:30:20.0",
+      "beat": 4,
+      "action": "Strange violently contains the corrupted spell, wrenching the energy back into a box; Peter is thrown clear. The spell is stopped - but damage is done (FRAME-VERIFIED file 00:30:20-00:31:15)",
+      "chars": [
+        "Doctor Strange",
+        "Peter Parker"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "clip_start": "00:30:20.0",
+      "clip_end": "00:30:44.0",
+      "censor": "none",
+      "extendable": false,
+      "raw_duration_sec": 24.0,
+      "stretch_tolerance": 1.05,
+      "max_narration_words_en": 88
+    },
+    {
+      "id": "clip:00:32:40.0",
+      "beat": 5,
+      "action": "At Strange's suggestion Peter chases the MIT administrator to plead MJ's and Ned's case; he swings across the city after her (FRAME-VERIFIED file ~00:33:20 Peter swinging)",
+      "_catalogue_note": "ACT-1 END NEAR HERE: Act 2 (R1) begins at file ~00:35:05 with the highway attack. Do NOT catalogue past ~00:35:00 in Act 1.",
+      "chars": [
+        "Peter Parker"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "clip_start": "00:33:12.0",
+      "clip_end": "00:33:30.0",
+      "censor": "none",
+      "extendable": false,
+      "raw_duration_sec": 18.0,
+      "stretch_tolerance": 1.05,
+      "max_narration_words_en": 66
+    },
+    {
+      "id": "clip:00:33:50.0",
+      "beat": 5,
+      "action": "Peter reaches the administrator's car and pleads his friends' case with her - the last clean Act 1 beat (FRAME-VERIFIED file 00:33:50-00:35:00)",
+      "chars": [
+        "Peter Parker"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "clip_start": "00:33:50.0",
+      "clip_end": "00:34:14.0",
+      "censor": "none",
+      "extendable": true,
+      "raw_duration_sec": 24.0,
+      "stretch_tolerance": 1.1,
+      "max_narration_words_en": 88
+    },
+    {
+      "id": "clip:00:35:05.0",
+      "beat": 7,
+      "action": "[R1 - first villain] On the highway, mechanical tentacles tear a car apart and rip at Peter's Iron Spider nanotech - the attack that opens the multiverse trouble (FRAME-VERIFIED file 00:35:05-00:35:30; Peter on car + tentacle arms)",
+      "chars": [
+        "Peter Parker"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "clip_start": "00:35:05.0",
+      "clip_end": "00:35:29.0",
+      "censor": "none",
+      "extendable": false,
+      "raw_duration_sec": 24.0,
+      "stretch_tolerance": 1.05,
+      "max_narration_words_en": 88
+    },
+    {
+      "id": "clip:00:38:20.0",
+      "beat": 8,
+      "action": "[R1] Doctor Octopus revealed - Otto Octavius (unmasked, gray-haired, four AI tentacles) has Peter cornered; the stolen nanotech bonds to his arms and lets Peter seize control of them (FRAME-VERIFIED file 00:38:20/00:38:34, Molina clear at ~00:38:34)",
+      "chars": [
+        "Doctor Octopus"
+      ],
+      "depicts": [
+        "reveal"
+      ],
+      "clip_start": "00:38:20.0",
+      "clip_end": "00:38:44.0",
+      "censor": "none",
+      "extendable": false,
+      "raw_duration_sec": 24.0,
+      "stretch_tolerance": 1.05,
+      "max_narration_words_en": 88
+    },
+    {
+      "id": "clip:00:39:40.0",
+      "beat": 8,
+      "action": "[R1] Peter, now controlling the tentacles, battles Doc Ock to a standstill on the highway; Strange teleports Peter back to the Sanctum (FRAME-VERIFIED file ~00:39:40-00:40:10, Peter vs Ock)",
+      "chars": [
+        "Peter Parker",
+        "Doctor Octopus"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "clip_start": "00:39:40.0",
+      "clip_end": "00:40:04.0",
+      "censor": "none",
+      "extendable": false,
+      "raw_duration_sec": 24.0,
+      "stretch_tolerance": 1.05,
+      "max_narration_words_en": 88
+    },
+    {
+      "id": "clip:00:41:20.0",
+      "beat": 10,
+      "action": "[R1 - the cause named] At the Sanctum, Strange explains: Peter's botched spell pulled in people from other universes who know Spider-Man's identity - the multiverse is real. Doc Ock is locked in a cell (FRAME-VERIFIED file 00:41:20-00:42:00, Peter + Strange)",
+      "chars": [
+        "Peter Parker",
+        "Doctor Strange"
+      ],
+      "depicts": [
+        "dialogue",
+        "reveal"
+      ],
+      "clip_start": "00:41:20.0",
+      "clip_end": "00:41:44.0",
+      "censor": "none",
+      "extendable": true,
+      "raw_duration_sec": 24.0,
+      "stretch_tolerance": 1.1,
+      "max_narration_words_en": 88
+    },
+    {
+      "id": "clip:00:44:00.0",
+      "beat": 10,
+      "action": "Strange orders Peter, MJ and Ned to find and capture the other-universe visitors before reality tears; he mentions a green figure he already chased into the sewers (teaser only - the figure is not shown here and is NOT to be named at this beat; its reveal is held to a later act) (FRAME-VERIFIED file ~00:44:00-00:44:40, Strange + Peter/MJ/Ned)",
+      "chars": [
+        "Doctor Strange",
+        "Peter Parker",
+        "MJ",
+        "Ned"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "clip_start": "00:44:00.0",
+      "clip_end": "00:44:24.0",
+      "censor": "none",
+      "extendable": true,
+      "raw_duration_sec": 24.0,
+      "stretch_tolerance": 1.1,
+      "max_narration_words_en": 88
+    },
+    {
+      "id": "clip:00:46:00.0",
+      "beat": 10,
+      "action": "[R1] Doc Ock is named - 'Dr. Otto Octavius' - in the Sanctum undercroft where the team sets up to track the visitors (FRAME-VERIFIED file ~00:46:03, undercroft + Ock cell)",
+      "chars": [
+        "Doctor Octopus",
+        "Peter Parker"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "clip_start": "00:45:45.0",
+      "clip_end": "00:46:09.0",
+      "censor": "none",
+      "extendable": true,
+      "raw_duration_sec": 24.0,
+      "stretch_tolerance": 1.1,
+      "max_narration_words_en": 88
+    },
+    {
+      "id": "clip:00:47:30.0",
+      "beat": 11,
+      "action": "A disturbance at a military research facility outside the city draws the team; in dialogue Strange recognizes the bridge attacker's name - Norman Osborn, a scientist thought long dead (named, not yet shown) (FRAME-VERIFIED file ~00:47:30-00:48:10, undercroft research)",
+      "chars": [
+        "Peter Parker",
+        "MJ",
+        "Ned"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "clip_start": "00:47:30.0",
+      "clip_end": "00:47:54.0",
+      "censor": "none",
+      "extendable": true,
+      "raw_duration_sec": 24.0,
+      "stretch_tolerance": 1.1,
+      "max_narration_words_en": 88
+    },
+    {
+      "id": "clip:00:50:00.0",
+      "beat": 11,
+      "action": "[R1] Electro revealed - Max Dillon, a crackling blue electrical figure, draws power from the grid on the wooded hillside/pylons; Peter faces him ('this guy's blue... from another universe') (FRAME-VERIFIED file 00:50:00/00:51:30, Electro arcs + pylons)",
+      "chars": [
+        "Electro"
+      ],
+      "depicts": [
+        "reveal"
+      ],
+      "clip_start": "00:50:00.0",
+      "clip_end": "00:50:24.0",
+      "censor": "none",
+      "extendable": false,
+      "raw_duration_sec": 24.0,
+      "stretch_tolerance": 1.05,
+      "max_narration_words_en": 88
+    },
+    {
+      "id": "clip:00:51:00.0",
+      "beat": 11,
+      "action": "[R1] Sandman revealed - Flint Marko, a shifting sand-and-earth giant, forms in the woods and briefly helps Peter fight the electrical menace (FRAME-VERIFIED file ~00:51:00-00:53:20, Marko sand figure with Peter)",
+      "chars": [
+        "Sandman",
+        "Peter Parker"
+      ],
+      "depicts": [
+        "reveal"
+      ],
+      "clip_start": "00:52:40.0",
+      "clip_end": "00:53:04.0",
+      "censor": "none",
+      "extendable": false,
+      "raw_duration_sec": 24.0,
+      "stretch_tolerance": 1.05,
+      "max_narration_words_en": 88
+    },
+    {
+      "id": "clip:00:53:30.0",
+      "beat": 11,
+      "action": "[R1] Lizard revealed - Dr. Curt Connors, a green reptilian creature, appears in the dark facility; Ock identifies him ('Connors... turned himself into a lizard') (FRAME-VERIFIED file ~00:53:30-00:54:00, Lizard figure in shadow)",
+      "chars": [
+        "Lizard"
+      ],
+      "depicts": [
+        "reveal"
+      ],
+      "clip_start": "00:53:30.0",
+      "clip_end": "00:53:50.0",
+      "censor": "none",
+      "extendable": false,
+      "raw_duration_sec": 20.0,
+      "stretch_tolerance": 1.05,
+      "max_narration_words_en": 74
+    },
+    {
+      "id": "clip:00:54:00.0",
+      "beat": 11,
+      "action": "[R1] Max Dillon / Electro seen clearly, unmasked (Jamie Foxx) - Electro and the others are subdued and taken back to the Sanctum cells (FRAME-VERIFIED file ~00:54:20, Electro unmasked in jacket)",
+      "chars": [
+        "Electro"
+      ],
+      "depicts": [
+        "reaction"
+      ],
+      "clip_start": "00:54:10.0",
+      "clip_end": "00:54:30.0",
+      "censor": "none",
+      "extendable": true,
+      "raw_duration_sec": 20.0,
+      "stretch_tolerance": 1.1,
+      "max_narration_words_en": 74
+    },
+    {
+      "id": "clip:00:55:12.0",
+      "beat": 12,
+      "action": "[Osborn's inner struggle - the man losing to his darker self] Alone in an alley in the Oscorp Goblin armor, Norman Osborn (Dafoe) is tormented by his other self's voice ('you can't escape yourself... hiding from who you truly are'). This is Osborn THE MAN struggling and losing ground - the split dramatized, but the persona is NOT yet in full control (that takeover is held to 01:19:45) (FRAME-VERIFIED file 00:55:12-00:55:36; Dafoe tormented, green armor, no takeover yet)",
+      "chars": [
+        "Norman Osborn"
+      ],
+      "depicts": [
+        "emotion"
+      ],
+      "clip_start": "00:55:12.0",
+      "clip_end": "00:55:32.0",
+      "censor": "none",
+      "extendable": true,
+      "raw_duration_sec": 20.0,
+      "stretch_tolerance": 1.1,
+      "max_narration_words_en": 74
+    },
+    {
+      "id": "clip:00:56:08.0",
+      "beat": 12,
+      "action": "[R1] Norman Osborn appears in person - a lost, frightened old man (Willem Dafoe, green cardigan) who wandered into May's shelter seeking Spider-Man's help. He confesses 'sometimes I'm not myself... someone else is in control' (his split personality is SET UP here; his other, violent self does NOT appear on screen yet - that reveal is held to a later act) (FRAME-VERIFIED file 00:56:08-00:56:40)",
+      "chars": [
+        "Norman Osborn",
+        "Peter Parker"
+      ],
+      "depicts": [
+        "dialogue",
+        "reveal"
+      ],
+      "clip_start": "00:56:08.0",
+      "clip_end": "00:56:32.0",
+      "censor": "none",
+      "extendable": true,
+      "raw_duration_sec": 24.0,
+      "stretch_tolerance": 1.1,
+      "max_narration_words_en": 88
+    },
+    {
+      "id": "clip:00:57:40.0",
+      "beat": 12,
+      "action": "At the shelter, May urges Peter to see the villains as people who can be helped, not just sent back; Peter begins to waver (FRAME-VERIFIED file ~00:57:40-00:58:00, Peter + May + Norman)",
+      "chars": [
+        "Peter Parker",
+        "May Parker",
+        "Norman Osborn"
+      ],
+      "depicts": [
+        "dialogue",
+        "emotion"
+      ],
+      "clip_start": "00:57:36.0",
+      "clip_end": "00:58:00.0",
+      "censor": "none",
+      "extendable": true,
+      "raw_duration_sec": 24.0,
+      "stretch_tolerance": 1.1,
+      "max_narration_words_en": 88
+    },
+    {
+      "id": "clip:01:00:20.0",
+      "beat": 13,
+      "action": "[R2 - the death-fates realization] Comparing notes in the Sanctum cells, the villains realize they were each yanked from their own universes at the moment of their deaths - Otto Octavius drowned, Osborn was killed in his world, Max Dillon dissolved into the grid. The chilling reveal that curing them might save their lives (FRAME-VERIFIED file 01:00:20-01:01:00; Octavius + Dillon + Peter)",
+      "chars": [
+        "Doctor Octopus",
+        "Electro",
+        "Peter Parker"
+      ],
+      "depicts": [
+        "dialogue",
+        "reveal"
+      ],
+      "clip_start": "01:00:20.0",
+      "clip_end": "01:00:44.0",
+      "censor": "none",
+      "extendable": true,
+      "raw_duration_sec": 24.0,
+      "stretch_tolerance": 1.1,
+      "max_narration_words_en": 88
+    },
+    {
+      "id": "clip:01:02:00.0",
+      "beat": 14,
+      "action": "Strange readies the relic to reverse the spell and send them all home; Peter argues they should CURE the villains first so they don't return to die. Strange refuses - 'it's their fate' (FRAME-VERIFIED file ~01:02:00-01:02:40, Peter + Strange, the glowing relic box)",
+      "chars": [
+        "Peter Parker",
+        "Doctor Strange"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "clip_start": "01:02:00.0",
+      "clip_end": "01:02:24.0",
+      "censor": "none",
+      "extendable": true,
+      "raw_duration_sec": 24.0,
+      "stretch_tolerance": 1.1,
+      "max_narration_words_en": 88
+    },
+    {
+      "id": "clip:01:04:00.0",
+      "beat": 14,
+      "action": "Peter steals the relic and battles Strange, trapping him in the Mirror Dimension (folding, geometric cityscape) to buy time for his plan (FRAME-VERIFIED file 01:04:00-01:05:30; Peter vs Strange in the Mirror Dimension)",
+      "chars": [
+        "Peter Parker",
+        "Doctor Strange"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "clip_start": "01:04:20.0",
+      "clip_end": "01:04:44.0",
+      "censor": "none",
+      "extendable": false,
+      "raw_duration_sec": 24.0,
+      "stretch_tolerance": 1.05,
+      "max_narration_words_en": 88
+    },
+    {
+      "id": "clip:01:11:00.0",
+      "beat": 15,
+      "action": "Peter takes the villains to Happy Hogan's apartment; Happy is separately hounded by Damage Control. Peter improvises a lab to build cures (FRAME-VERIFIED file ~01:11:00 Happy + lawyer, 01:11:50 Peter arrives with the group)",
+      "chars": [
+        "Peter Parker",
+        "Happy"
+      ],
+      "depicts": [
+        "establishing",
+        "dialogue"
+      ],
+      "clip_start": "01:11:00.0",
+      "clip_end": "01:11:24.0",
+      "censor": "none",
+      "extendable": true,
+      "raw_duration_sec": 24.0,
+      "stretch_tolerance": 1.1,
+      "max_narration_words_en": 88
+    },
+    {
+      "id": "clip:01:12:50.0",
+      "beat": 15,
+      "action": "Peter uses Stark fabricator tech to build a chip that cures Doc Ock - Otto Octavius is freed of the tentacles' control and becomes himself again ('those voices in my head... gone'). The plan works (FRAME-VERIFIED file 01:12:50/01:15:40-01:16:00; Octavius cured, calm, with Peter)",
+      "chars": [
+        "Doctor Octopus",
+        "Peter Parker"
+      ],
+      "depicts": [
+        "action",
+        "emotion"
+      ],
+      "clip_start": "01:15:40.0",
+      "clip_end": "01:16:04.0",
+      "censor": "none",
+      "extendable": true,
+      "raw_duration_sec": 24.0,
+      "stretch_tolerance": 1.1,
+      "max_narration_words_en": 88
+    },
+    {
+      "id": "clip:01:17:06.0",
+      "beat": 16,
+      "action": "[Osborn -> Goblin TRANSITION begins] Still the calm man, Norman Osborn stands ready to be cured ('you're about to become whole again, no more darker half') - his LAST moment as himself (FRAME-VERIFIED file 01:17:06-01:17:30; Dafoe, still the frightened man, NOT yet the persona)",
+      "chars": [
+        "Norman Osborn",
+        "Peter Parker"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "clip_start": "01:17:06.0",
+      "clip_end": "01:17:30.0",
+      "censor": "none",
+      "extendable": true,
+      "raw_duration_sec": 24.0,
+      "stretch_tolerance": 1.1,
+      "max_narration_words_en": 88
+    },
+    {
+      "id": "clip:01:19:45.0",
+      "beat": 16,
+      "action": "[R - the Goblin TAKEOVER lands here] The violent persona seizes control - 'Norman's on sabbatical, huh?' The Green Goblin is now in command of Osborn's body, mocking Peter. This is the exact transition point; before this file-time Osborn is only the man, after it he is the Goblin (FRAME-VERIFIED file 01:19:45-01:20:10; Dafoe's Goblin sneer)",
+      "chars": [
+        "Green Goblin",
+        "Peter Parker"
+      ],
+      "depicts": [
+        "reveal",
+        "dialogue"
+      ],
+      "clip_start": "01:19:45.0",
+      "clip_end": "01:20:09.0",
+      "censor": "none",
+      "extendable": false,
+      "raw_duration_sec": 24.0,
+      "stretch_tolerance": 1.05,
+      "max_narration_words_en": 88
+    },
+    {
+      "id": "clip:01:20:30.0",
+      "beat": 16,
+      "action": "The Goblin turns the other villains against Peter and unleashes chaos in the apartment; a brutal fight erupts as the building is torn apart (FRAME-VERIFIED file ~01:20:30-01:21:20; Goblin + Peter, apartment destruction)",
+      "chars": [
+        "Green Goblin",
+        "Peter Parker"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "clip_start": "01:20:30.0",
+      "clip_end": "01:20:54.0",
+      "censor": "none",
+      "extendable": false,
+      "raw_duration_sec": 24.0,
+      "stretch_tolerance": 1.05,
+      "max_narration_words_en": 88
+    },
+    {
+      "id": "clip:01:24:40.0",
+      "beat": 17,
+      "action": "[R3 - MAY'S DEATH, the film's emotional core] In the wrecked apartment, Peter pulls a mortally wounded May from the rubble and cradles her (FRAME-VERIFIED file 01:24:40-01:25:20; Peter holding May, fire behind)",
+      "chars": [
+        "Peter Parker",
+        "May Parker"
+      ],
+      "depicts": [
+        "emotion"
+      ],
+      "clip_start": "01:24:40.0",
+      "clip_end": "01:25:04.0",
+      "censor": "none",
+      "extendable": true,
+      "raw_duration_sec": 24.0,
+      "stretch_tolerance": 1.1,
+      "max_narration_words_en": 88
+    },
+    {
+      "id": "clip:01:26:10.0",
+      "beat": 17,
+      "action": "[R3] May's last words to Peter: 'With great power, there must also come great responsibility.' The film's thematic heart, spoken by May in place of Uncle Ben (FRAME-VERIFIED file 01:26:10-01:26:40; May + Peter close, her final moment)",
+      "chars": [
+        "May Parker",
+        "Peter Parker"
+      ],
+      "depicts": [
+        "emotion",
+        "dialogue"
+      ],
+      "clip_start": "01:26:10.0",
+      "clip_end": "01:26:34.0",
+      "censor": "none",
+      "extendable": false,
+      "raw_duration_sec": 24.0,
+      "stretch_tolerance": 1.05,
+      "max_narration_words_en": 88
+    },
+    {
+      "id": "clip:01:27:00.0",
+      "beat": 17,
+      "action": "[R3] May dies in Peter's arms; his face collapses in grief and disbelief as he realizes she is gone (FRAME-VERIFIED file 01:27:00-01:27:20; Peter's devastated close-up)",
+      "chars": [
+        "Peter Parker",
+        "May Parker"
+      ],
+      "depicts": [
+        "emotion"
+      ],
+      "clip_start": "01:27:00.0",
+      "clip_end": "01:27:20.0",
+      "censor": "none",
+      "extendable": true,
+      "raw_duration_sec": 20.0,
+      "stretch_tolerance": 1.1,
+      "max_narration_words_en": 74
+    },
+    {
+      "id": "clip:01:29:00.0",
+      "beat": 17,
+      "action": "[R3 - SILENCE BEAT candidate] The still, quiet aftermath: May's body in the rubble as sirens and Happy arrive; Peter kneeling, the world gone quiet around him. Let this image breathe (FRAME-VERIFIED file ~01:29:00-01:29:40; wide of May + Peter, then the fire/emergency exterior). narration_silence candidate ~5-8s.",
+      "chars": [
+        "Peter Parker",
+        "May Parker"
+      ],
+      "depicts": [
+        "emotion"
+      ],
+      "clip_start": "01:29:20.0",
+      "clip_end": "01:29:40.0",
+      "censor": "none",
+      "extendable": true,
+      "narration_silence_seconds": 6,
+      "raw_duration_sec": 20.0,
+      "stretch_tolerance": 1.1,
+      "max_narration_words_en": 74
+    },
+    {
+      "id": "clip:01:31:30.0",
+      "beat": 18,
+      "action": "Grief-stricken and ready to just send the villains home to die, Peter (Holland, Integrated suit) withdraws. Ned discovers he can open PORTALS with Strange's sling ring; he and MJ try to find Peter (FRAME-VERIFIED file ~01:31:30-01:32:10; Ned + MJ at Ned's house, NO other Peter present yet - R4 not leaked)",
+      "chars": [
+        "Ned",
+        "MJ"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "clip_start": "01:31:30.0",
+      "clip_end": "01:31:54.0",
+      "censor": "none",
+      "extendable": true,
+      "raw_duration_sec": 24.0,
+      "stretch_tolerance": 1.1,
+      "max_narration_words_en": 88
+    },
+    {
+      "id": "clip:01:32:25.0",
+      "beat": 19,
+      "action": "[R4 - THE HEADLINE REVEAL, stage 1 - PRECISE LANDING] Ned's portal opens and an ALTERNATE Spider-Man steps through into the house. This is PETER-THREE (Andrew Garfield): bright-red Amazing suit with bold black web-line pattern, lean/narrow face; he unmasks, wary ('Who the hell are you? I'm Peter Parker... I am Spider-Man in my world'). NOTHING before this frame (file 01:32:25) hints another Peter exists (FRAME-VERIFIED first appearance file 01:32:25-01:32:31)",
+      "chars": [
+        "Peter-Three (Garfield)",
+        "Ned",
+        "MJ"
+      ],
+      "depicts": [
+        "reveal"
+      ],
+      "clip_start": "01:32:25.0",
+      "clip_end": "01:32:49.0",
+      "censor": "none",
+      "extendable": false,
+      "raw_duration_sec": 24.0,
+      "stretch_tolerance": 1.05,
+      "max_narration_words_en": 88
+    },
+    {
+      "id": "clip:01:33:20.0",
+      "beat": 19,
+      "action": "[R4] Ned and MJ test Peter-Three (Garfield) - 'prove it / crawl around / the tingle thing' - the talkative, quippy alternate Peter in the Amazing red suit sticks to Lola's ceiling (FRAME-VERIFIED file ~01:33:20-01:34:00; Garfield in kitchen, web-line suit, lean face)",
+      "chars": [
+        "Peter-Three (Garfield)",
+        "Ned",
+        "MJ"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "clip_start": "01:33:20.0",
+      "clip_end": "01:33:44.0",
+      "censor": "none",
+      "extendable": true,
+      "raw_duration_sec": 24.0,
+      "stretch_tolerance": 1.1,
+      "max_narration_words_en": 88
+    },
+    {
+      "id": "clip:01:35:15.0",
+      "beat": 19,
+      "action": "[R4 - stage 2] Ned opens another portal and a SECOND alternate arrives: PETER-TWO (Tobey Maguire), older and broader-faced, arriving out-of-suit in a casual plaid shirt ('You're Peter' / 'Yeah'). Now two alternate Peters are present (FRAME-VERIFIED file 01:35:15-01:35:40; Maguire unmasked, older face, casual clothes)",
+      "chars": [
+        "Peter-Two (Maguire)",
+        "Ned",
+        "MJ"
+      ],
+      "depicts": [
+        "reveal"
+      ],
+      "clip_start": "01:35:15.0",
+      "clip_end": "01:35:39.0",
+      "censor": "none",
+      "extendable": false,
+      "raw_duration_sec": 24.0,
+      "stretch_tolerance": 1.05,
+      "max_narration_words_en": 88
+    },
+    {
+      "id": "clip:01:37:00.0",
+      "beat": 19,
+      "action": "The three Peters meet on a rooftop; Peter-Three (Garfield) and Peter-Two (Maguire) find Peter-One (Holland), who is mourning May and ready to send the villains home to die (FRAME-VERIFIED file ~01:37:00; DRIFT: Holland younger/Integrated red-black suit, Garfield bright-red web-line suit, Maguire older/casual - all three distinguishable here)",
+      "chars": [
+        "Peter-One (Holland)",
+        "Peter-Two (Maguire)",
+        "Peter-Three (Garfield)",
+        "MJ"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "clip_start": "01:37:00.0",
+      "clip_end": "01:37:24.0",
+      "censor": "none",
+      "extendable": true,
+      "raw_duration_sec": 24.0,
+      "stretch_tolerance": 1.1,
+      "max_narration_words_en": 88
+    },
+    {
+      "id": "clip:01:39:44.0",
+      "beat": 19,
+      "action": "[emotional] Peter-Three (Garfield) shares his loss to lift Peter-One: 'I lost Gwen. She was my MJ. I couldn't save her.' - and warns against becoming bitter like he did. IDENTITY LOCKED by the Gwen line = Garfield (FRAME-VERIFIED file 01:39:44-01:40:20; Garfield unmasked, Amazing suit)",
+      "chars": [
+        "Peter-Three (Garfield)",
+        "Peter-One (Holland)"
+      ],
+      "depicts": [
+        "emotion",
+        "dialogue"
+      ],
+      "clip_start": "01:39:44.0",
+      "clip_end": "01:40:08.0",
+      "censor": "none",
+      "extendable": true,
+      "raw_duration_sec": 24.0,
+      "stretch_tolerance": 1.1,
+      "max_narration_words_en": 88
+    },
+    {
+      "id": "clip:01:42:00.0",
+      "beat": 20,
+      "action": "The three Peters bond ('I always wanted brothers') and compare notes - including the famous web-shooter difference: Maguire's organic webbing vs the others' mechanical shooters. They develop cures for the villains (FRAME-VERIFIED file ~01:42:00-01:46:00; DRIFT: Maguire = organic web-shooters cue, Garfield/Holland = cartridge shooters)",
+      "chars": [
+        "Peter-One (Holland)",
+        "Peter-Two (Maguire)",
+        "Peter-Three (Garfield)"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "clip_start": "01:46:00.0",
+      "clip_end": "01:46:24.0",
+      "censor": "none",
+      "extendable": true,
+      "raw_duration_sec": 24.0,
+      "stretch_tolerance": 1.1,
+      "max_narration_words_en": 88
+    },
+    {
+      "id": "clip:01:48:07.0",
+      "beat": 20,
+      "action": "Peter-One (Holland) broadcasts a challenge to lure the villains to the Statue of Liberty - 'a place that represents second chances' - where the three will cure them (FRAME-VERIFIED file 01:48:07-01:48:40; Holland Integrated suit, Statue establishing)",
+      "chars": [
+        "Peter-One (Holland)"
+      ],
+      "depicts": [
+        "establishing",
+        "dialogue"
+      ],
+      "clip_start": "01:48:07.0",
+      "clip_end": "01:48:31.0",
+      "censor": "none",
+      "extendable": true,
+      "raw_duration_sec": 24.0,
+      "stretch_tolerance": 1.1,
+      "max_narration_words_en": 88
+    },
+    {
+      "id": "clip:01:48:36.0",
+      "beat": 21,
+      "action": "[STATUE BATTLE begins - S6 action] The villains arrive; the three Peters take position on the Statue scaffolding. Peter-Three (Garfield, bright-red web-line suit) is clearly identifiable here on the scaffolding (FRAME-VERIFIED file 01:48:10/01:48:36; Garfield suit)",
+      "chars": [
+        "Peter-Three (Garfield)"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "clip_start": "01:48:36.0",
+      "clip_end": "01:49:00.0",
+      "censor": "none",
+      "extendable": false,
+      "raw_duration_sec": 24.0,
+      "stretch_tolerance": 1.05,
+      "max_narration_words_en": 88
+    },
+    {
+      "id": "clip:01:55:00.0",
+      "beat": 21,
+      "action": "[STATUE BATTLE - S6] The three Peters fight the villains across the Statue scaffolding, learning to coordinate ('stop arguing, both of you'; 'I don't know how to work as a team'). DRIFT-AMBIGUOUS: fast masked intercutting - individual Peter identity per micro-shot is NOT frame-certain here; tagged as all three present. FLAG for render-time per-shot re-verification before binding any line that names ONE specific Peter to this window (FRAME-VERIFIED as a three-Peter battle sequence file ~01:55:00-01:56:00)",
+      "chars": [
+        "Peter-One (Holland)",
+        "Peter-Two (Maguire)",
+        "Peter-Three (Garfield)"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "clip_start": "01:55:00.0",
+      "clip_end": "01:55:24.0",
+      "censor": "none",
+      "extendable": false,
+      "_drift_note": "AMBIGUOUS-INTERCUT: do not bind a single-Peter narration line to this shot without re-checking frames; suit-shade is the only cue and motion blur obscures it.",
+      "raw_duration_sec": 24.0,
+      "stretch_tolerance": 1.05,
+      "max_narration_words_en": 88
+    },
+    {
+      "id": "clip:01:56:00.0",
+      "beat": 21,
+      "action": "[STATUE BATTLE - S6] Peter-One (Holland) unmasked mid-battle, younger face, rallying the team to pick targets one at a time (FRAME-VERIFIED file ~01:56:00; Holland younger unmasked face - positively identified)",
+      "chars": [
+        "Peter-One (Holland)"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "clip_start": "01:56:00.0",
+      "clip_end": "01:56:20.0",
+      "censor": "none",
+      "extendable": true,
+      "raw_duration_sec": 20.0,
+      "stretch_tolerance": 1.1,
+      "max_narration_words_en": 74
+    },
+    {
+      "id": "clip:01:58:10.0",
+      "beat": 21,
+      "action": "[STATUE BATTLE - S6] Electro (Jamie Foxx), crackling yellow lightning, is a central threat drawing on an arc reactor; the Peters work to strip his power. Villain positively identified (Foxx unmasked in the lightning) (FRAME-VERIFIED file ~01:58:10; Electro)",
+      "chars": [
+        "Electro"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "clip_start": "01:58:10.0",
+      "clip_end": "01:58:34.0",
+      "censor": "none",
+      "extendable": false,
+      "raw_duration_sec": 24.0,
+      "stretch_tolerance": 1.05,
+      "max_narration_words_en": 88
+    },
+    {
+      "id": "clip:02:00:00.0",
+      "beat": 22,
+      "action": "Ned frees Strange from the Mirror Dimension; the strengthened Goblin then unleashes the contained spell - the barriers between universes tear open and countless other Spider-Man-identity-knowers begin bleeding through the sky ('are there people in the sky?'). Strange strains to hold them back (FRAME-VERIFIED file ~02:00:00-02:00:40; Strange freed + torn sky)",
+      "chars": [
+        "Doctor Strange",
+        "Green Goblin"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "clip_start": "02:00:00.0",
+      "clip_end": "02:00:24.0",
+      "censor": "none",
+      "extendable": false,
+      "raw_duration_sec": 24.0,
+      "stretch_tolerance": 1.05,
+      "max_narration_words_en": 88
+    },
+    {
+      "id": "clip:02:06:10.0",
+      "beat": 23,
+      "action": "The Goblin knocks MJ off the collapsing scaffolding and she plunges toward the harbor - the exact danger that once killed Gwen Stacy in Peter-Three's world (FRAME-VERIFIED file 02:06:10-02:06:30; MJ falling, scaffold collapse). Sets up the R5 payoff",
+      "chars": [
+        "MJ",
+        "Green Goblin"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "clip_start": "02:06:10.0",
+      "clip_end": "02:06:30.0",
+      "censor": "none",
+      "extendable": false,
+      "raw_duration_sec": 20.0,
+      "stretch_tolerance": 1.05,
+      "max_narration_words_en": 74
+    },
+    {
+      "id": "clip:02:07:40.0",
+      "beat": 23,
+      "action": "[R5 - THE EMOTIONAL PAYOFF] Peter-Three (Garfield) dives and CATCHES MJ out of the air - saving her exactly as he once FAILED to save Gwen. He lands with her, overcome ('nice catch'). IDENTITY POSITIVELY VERIFIED: Garfield unmasked, bright-red Amazing web-line suit, lean face (FRAME-VERIFIED file 02:07:40-02:08:00; the catch pays off the Gwen loss planted at B19)",
+      "chars": [
+        "Peter-Three (Garfield)",
+        "MJ"
+      ],
+      "depicts": [
+        "emotion",
+        "action"
+      ],
+      "clip_start": "02:07:40.0",
+      "clip_end": "02:08:04.0",
+      "censor": "none",
+      "extendable": true,
+      "raw_duration_sec": 24.0,
+      "stretch_tolerance": 1.1,
+      "max_narration_words_en": 88
+    },
+    {
+      "id": "clip:02:08:40.0",
+      "beat": 23,
+      "action": "[GOBLIN FINALE - drift-ambiguous fast intercut] An enraged Peter-One (Holland) nearly beats the Goblin to death; Peter-Two (Maguire) stops his hand, and Peter-Three (Garfield) hands over the cure. DRIFT-AMBIGUOUS in the fast masked cuts of the struggle - tagged all three present; positively identifiable beats: Holland unmasked bloodied, Dafoe as Goblin. FLAG for per-shot re-check before binding a single-Peter line (FRAME-VERIFIED file ~02:08:40-02:09:20; Holland + Goblin clear, Maguire/Garfield intervene)",
+      "chars": [
+        "Peter-One (Holland)",
+        "Peter-Two (Maguire)",
+        "Peter-Three (Garfield)",
+        "Green Goblin"
+      ],
+      "depicts": [
+        "action",
+        "emotion"
+      ],
+      "clip_start": "02:08:40.0",
+      "clip_end": "02:09:04.0",
+      "censor": "none",
+      "extendable": false,
+      "_drift_note": "AMBIGUOUS-INTERCUT: Holland (bloodied, unmasked) and the Goblin (Dafoe) are certain; which alt-Peter grabs/injects in a given micro-cut is blur-ambiguous. Do not bind a line naming ONLY Maguire or ONLY Garfield to this window without a frame re-check.",
+      "raw_duration_sec": 24.0,
+      "stretch_tolerance": 1.05,
+      "max_narration_words_en": 88
+    },
+    {
+      "id": "clip:02:09:30.0",
+      "beat": 23,
+      "action": "The cure restores Norman Osborn - the Goblin persona is purged and Osborn, himself again, is horrified ('what have I done?'). Osborn the man returns (FRAME-VERIFIED file ~02:09:30-02:10:00; Dafoe, the frightened man again, not the Goblin)",
+      "chars": [
+        "Norman Osborn",
+        "Peter-One (Holland)"
+      ],
+      "depicts": [
+        "emotion"
+      ],
+      "clip_start": "02:09:30.0",
+      "clip_end": "02:09:54.0",
+      "censor": "none",
+      "extendable": true,
+      "raw_duration_sec": 24.0,
+      "stretch_tolerance": 1.1,
+      "max_narration_words_en": 88
+    },
+    {
+      "id": "clip:02:10:30.0",
+      "beat": 24,
+      "action": "[R6 SETUP] With the sky tearing and countless universe-visitors pouring in, Peter-One realizes the only fix is to make EVERYONE forget he exists. He asks Strange to cast it, knowing it means everyone he loves will lose all memory of him ('it would be as though you'd never existed') (FRAME-VERIFIED file 02:10:30-02:11:10; Peter-One + Strange)",
+      "chars": [
+        "Peter-One (Holland)",
+        "Doctor Strange"
+      ],
+      "depicts": [
+        "dialogue",
+        "emotion"
+      ],
+      "clip_start": "02:10:30.0",
+      "clip_end": "02:10:54.0",
+      "censor": "none",
+      "extendable": true,
+      "raw_duration_sec": 24.0,
+      "stretch_tolerance": 1.1,
+      "max_narration_words_en": 88
+    },
+    {
+      "id": "clip:02:13:20.0",
+      "beat": 25,
+      "action": "[R6 - the gut-punch, EMOTIONAL CORE] Peter says goodbye to MJ and Ned before the spell; he promises MJ he will find her and remind her who he is ('I'll come find you'). Their last moment together as people who know him (FRAME-VERIFIED file 02:13:20-02:14:00; Peter-One + MJ face to face, then embrace)",
+      "chars": [
+        "Peter-One (Holland)",
+        "MJ"
+      ],
+      "depicts": [
+        "emotion",
+        "dialogue"
+      ],
+      "clip_start": "02:13:20.0",
+      "clip_end": "02:13:44.0",
+      "censor": "none",
+      "extendable": true,
+      "raw_duration_sec": 24.0,
+      "stretch_tolerance": 1.1,
+      "max_narration_words_en": 88
+    },
+    {
+      "id": "clip:02:14:40.0",
+      "beat": 25,
+      "action": "[R6] Peter embraces MJ one last time and Strange casts the spell - the whole world forgets Peter Parker; the alternate Peters and villains return to their universes (FRAME-VERIFIED file 02:14:40-02:15:10; Peter + MJ embrace at sunset, Strange casting)",
+      "chars": [
+        "Peter-One (Holland)",
+        "MJ",
+        "Doctor Strange"
+      ],
+      "depicts": [
+        "emotion"
+      ],
+      "clip_start": "02:14:40.0",
+      "clip_end": "02:15:04.0",
+      "censor": "none",
+      "extendable": false,
+      "raw_duration_sec": 24.0,
+      "stretch_tolerance": 1.05,
+      "max_narration_words_en": 88
+    },
+    {
+      "id": "clip:02:18:00.0",
+      "beat": 26,
+      "action": "[R6 aftermath - SILENCE BEAT] Two weeks later: Peter comes to the coffee shop to reintroduce himself to MJ (in her uniform) - but seeing her happy and unburdened, he decides NOT to. She does not remember him. The quiet devastation of the ending - let it breathe (FRAME-VERIFIED file 02:18:00-02:18:50; MJ serving, Peter's decision). narration_silence candidate ~6-8s",
+      "chars": [
+        "Peter-One (Holland)",
+        "MJ"
+      ],
+      "depicts": [
+        "emotion"
+      ],
+      "clip_start": "02:18:20.0",
+      "clip_end": "02:18:44.0",
+      "censor": "none",
+      "extendable": true,
+      "narration_silence_seconds": 7,
+      "raw_duration_sec": 24.0,
+      "stretch_tolerance": 1.1,
+      "max_narration_words_en": 88
+    },
+    {
+      "id": "clip:02:21:00.0",
+      "beat": 26,
+      "action": "At May's grave, Peter has a conversation with an unknowing Happy (who no longer remembers Peter but knew May 'through Spider-Man'); it steadies him (FRAME-VERIFIED file 02:21:00-02:21:40; Peter + Happy at the grave, winter)",
+      "chars": [
+        "Peter-One (Holland)",
+        "Happy"
+      ],
+      "depicts": [
+        "emotion",
+        "dialogue"
+      ],
+      "clip_start": "02:21:00.0",
+      "clip_end": "02:21:24.0",
+      "censor": "none",
+      "extendable": true,
+      "raw_duration_sec": 24.0,
+      "stretch_tolerance": 1.1,
+      "max_narration_words_en": 88
+    },
+    {
+      "id": "clip:02:23:20.0",
+      "beat": 26,
+      "action": "Peter sews a simple homemade suit in a small apartment, then swings back out over the city. (window re-anchored 2026-08-11: the old window had drifted into the end credits; frame-checked)",
+      "chars": [
+        "Peter-One (Holland)"
+      ],
+      "depicts": [
+        "emotion",
+        "action"
+      ],
+      "clip_start": "02:23:25.0",
+      "clip_end": "02:24:10.0",
+      "censor": "none",
+      "extendable": true,
+      "raw_duration_sec": 24.0,
+      "stretch_tolerance": 1.1,
+      "max_narration_words_en": 88
+    },
+    {
+      "id": "clip:02:27:40.0",
+      "beat": 27,
+      "action": "[R7 - MID-CREDITS STINGER, held to the very end] In a tropical bar, Eddie Brock (Tom Hardy) - pulled in briefly by the spell - hears about the Avengers and Thanos, then is yanked back to his own universe, unknowingly leaving a small piece of the Venom symbiote behind on the bar. A cameo button, NOT part of the main story (FRAME-VERIFIED file ~02:27:40-02:28:30; Hardy at the bar, black symbiote blob remains)",
+      "chars": [
+        "Eddie Brock"
+      ],
+      "depicts": [
+        "reveal"
+      ],
+      "clip_start": "02:27:40.0",
+      "clip_end": "02:28:04.0",
+      "censor": "none",
+      "extendable": true,
+      "raw_duration_sec": 24.0,
+      "stretch_tolerance": 1.1,
+      "max_narration_words_en": 88
+    }
+  ]
+}

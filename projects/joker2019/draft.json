@@ -1,0 +1,1329 @@
+{
+  "_comment": "Stage 4 draft (Medium Register B) for Joker (2019) - REBUILT v2 (2026-06-18). All clip bindings re-anchored to frame-verified shots.json v2. SC REORDER: U13=Penny smother (01:21, source precedes transformation), U14=Becoming Joker transformation+stairway-dance (01:24-01:31), NEW U15=detective subway chase (01:33). Old U15-U19+U_outro renumbered U16-U20+U_outro. Silence lines: L24 bathroom (00:34:50), L42 stairway (01:30:45), L56 Joker-on-car (01:51:15). UNRELIABLE NARRATOR preserved: Sophie real pre-U10; U10 explicit reveal; U20 Arkham ambiguity. NOTE: detective-chase line L43 currently reads as a transition; Phase 3 may split long lines. v1 had ~14 mis-anchored bindings from transcript-only catalogue; v2 every binding frame-verified.",
+  "project": "joker2019",
+  "lines": [
+    {
+      "id": 1,
+      "line_id": "L01",
+      "unit_id": "U01",
+      "covers": [
+        "3"
+      ],
+      "clip_start": "00:02:50.0",
+      "clip_end": "00:02:54.5",
+      "narration": "A broken man in clown makeup, beaten in an alley and laughed at by the city.",
+      "claim": {
+        "type": "reaction",
+        "requires_visual": true,
+        "subject": "Arthur"
+      },
+      "narrative_jump": true
+    },
+    {
+      "id": 2,
+      "line_id": "L02",
+      "unit_id": "U01",
+      "covers": [
+        "5"
+      ],
+      "clip_start": "00:08:40.0",
+      "clip_end": "00:08:51.6",
+      "narration": "All he wants is to be seen. This is the story of what a society can make, when it looks away from the people it has already broken.",
+      "claim": {
+        "type": "setup",
+        "requires_visual": true,
+        "subject": "Arthur"
+      }
+    },
+    {
+      "id": 3,
+      "line_id": "L03",
+      "unit_id": "U01",
+      "covers": [
+        "12"
+      ],
+      "clip_start": "00:32:18.0",
+      "clip_end": "00:32:27.5",
+      "narration": "I'm Serabudabu, and today we're going inside Joker - twenty-nineteen, Todd Phillips' portrait of one man's slow collapse.",
+      "claim": {
+        "type": "action",
+        "requires_visual": true,
+        "subject": "Arthur"
+      },
+      "narrative_jump": true
+    },
+    {
+      "id": 4,
+      "line_id": "L04",
+      "unit_id": "U02",
+      "covers": [
+        "1"
+      ],
+      "clip_start": "00:01:10.0",
+      "clip_end": "00:01:20.8",
+      "narration": "Arthur Fleck scrapes by as a party clown. We meet him at a mirror, forcing a smile up with his fingers while a single tear cuts through the paint.",
+      "claim": {
+        "type": "setup",
+        "requires_visual": true,
+        "subject": "Arthur"
+      }
+    },
+    {
+      "id": 5,
+      "line_id": "L05",
+      "unit_id": "U02",
+      "covers": [
+        "1"
+      ],
+      "clip_start": "00:01:21.0",
+      "clip_end": "00:01:31.8",
+      "narration": "He carries a condition that makes him laugh uncontrollably when he is frightened or in pain - the very opposite of joy, a laugh that sounds like choking.",
+      "claim": {
+        "type": "reveal",
+        "requires_visual": true,
+        "subject": "Arthur"
+      }
+    },
+    {
+      "id": 6,
+      "line_id": "L06",
+      "unit_id": "U02",
+      "covers": [
+        "2"
+      ],
+      "clip_start": "00:02:20.6",
+      "clip_end": "00:02:29.1",
+      "narration": "This is Gotham City, the early eighties. A garbage strike has buried the streets, super-rats roam the gutters, and a sick, angry city is quietly turning on itself.",
+      "claim": {
+        "type": "setup",
+        "requires_visual": true
+      }
+    },
+    {
+      "id": 7,
+      "line_id": "L07",
+      "unit_id": "U02",
+      "covers": [
+        "3"
+      ],
+      "clip_start": "00:02:57.0",
+      "clip_end": "00:03:06.5",
+      "narration": "On the street, teenagers steal his sign and lure him into an alley, where they beat him on the ground for fun and leave him in the trash.",
+      "claim": {
+        "type": "action",
+        "requires_visual": true,
+        "subject": "Arthur"
+      }
+    },
+    {
+      "id": 8,
+      "line_id": "L08",
+      "unit_id": "U03",
+      "covers": [
+        "4"
+      ],
+      "clip_start": "00:05:50.0",
+      "clip_end": "00:05:57.9",
+      "narration": "Once a week a city social worker checks on him. She tracks his seven medications and asks, wearily, the same questions she always does.",
+      "claim": {
+        "type": "dialogue",
+        "requires_visual": true,
+        "subject": "Arthur"
+      }
+    },
+    {
+      "id": 9,
+      "line_id": "L09",
+      "unit_id": "U03",
+      "covers": [
+        "4"
+      ],
+      "clip_start": "00:06:18.0",
+      "clip_end": "00:06:30.0",
+      "narration": "She reads his journal aloud - a joke book that doubles as a diary, where punchlines sit beside something far darker.",
+      "claim": {
+        "type": "discovery",
+        "requires_visual": true,
+        "subject": "Arthur"
+      }
+    },
+    {
+      "id": 10,
+      "line_id": "L10",
+      "unit_id": "U03",
+      "covers": [
+        "4"
+      ],
+      "clip_start": "00:06:18.0",
+      "clip_end": "00:06:30.0",
+      "narration": "One scrawled line says it all: I just hope my death makes more cents than my life. He has already imagined the end; he is only waiting.",
+      "claim": {
+        "type": "discovery",
+        "requires_visual": true,
+        "subject": "Arthur"
+      }
+    },
+    {
+      "id": 11,
+      "line_id": "L11",
+      "unit_id": "U03",
+      "covers": [
+        "4"
+      ],
+      "clip_start": "00:07:15.8",
+      "clip_end": "00:07:25.3",
+      "narration": "Then the worker tells him the city has cut their funding. The sessions are over, and so is his access to medication.",
+      "claim": {
+        "type": "dialogue",
+        "requires_visual": true,
+        "subject": "Arthur"
+      }
+    },
+    {
+      "id": 12,
+      "line_id": "L12",
+      "unit_id": "U03",
+      "covers": [
+        "4"
+      ],
+      "clip_start": "00:07:15.8",
+      "clip_end": "00:07:25.3",
+      "narration": "The one thin support holding him together is pulled away, quietly, by people who will never see his face again. Nobody listens, she says. Nobody ever does.",
+      "claim": {
+        "type": "reaction",
+        "requires_visual": true,
+        "subject": "Arthur"
+      }
+    },
+    {
+      "id": 13,
+      "line_id": "L13",
+      "unit_id": "U03",
+      "covers": [
+        "5"
+      ],
+      "clip_start": "00:08:54.5",
+      "clip_end": "00:09:04.9",
+      "narration": "On the bus one day, a laughing fit seizes him completely, and strangers stare as he chokes on a sound he cannot stop or explain.",
+      "claim": {
+        "type": "reaction",
+        "requires_visual": true,
+        "subject": "Arthur"
+      }
+    },
+    {
+      "id": 14,
+      "line_id": "L14",
+      "unit_id": "U03",
+      "covers": [
+        "6"
+      ],
+      "clip_start": "00:12:00.0",
+      "clip_end": "00:12:09.9",
+      "narration": "At home he cares for his frail mother, Penny. He bathes her, feeds her, and they watch television together like a closed little world of two.",
+      "claim": {
+        "type": "emotion",
+        "requires_visual": true,
+        "subject": "Arthur"
+      }
+    },
+    {
+      "id": 15,
+      "line_id": "L15",
+      "unit_id": "U03",
+      "covers": [
+        "6"
+      ],
+      "clip_start": "00:12:40.0",
+      "clip_end": "00:12:54.4",
+      "narration": "Penny calls him Happy and insists he was put on earth to spread joy. She raised him to wear a smile no matter what - the mask he has never been allowed to set down.",
+      "claim": {
+        "type": "dialogue",
+        "requires_visual": true,
+        "subject": "Penny"
+      }
+    },
+    {
+      "id": 16,
+      "line_id": "L16",
+      "unit_id": "U04",
+      "covers": [
+        "6"
+      ],
+      "clip_start": "00:12:00.0",
+      "clip_end": "00:12:09.9",
+      "narration": "Every night they watch the Murray Franklin show, Arthur's favorite - a warm, glittering world that feels like the family he never had.",
+      "claim": {
+        "type": "setup",
+        "requires_visual": true,
+        "subject": "Arthur"
+      }
+    },
+    {
+      "id": 17,
+      "line_id": "L17",
+      "unit_id": "U04",
+      "covers": [
+        "7"
+      ],
+      "clip_start": "00:13:20.0",
+      "clip_end": "00:13:27.1",
+      "narration": "Murray is everything Arthur is not: admired, listened to, loved without having to beg for it.",
+      "claim": {
+        "type": "setup",
+        "requires_visual": true,
+        "subject": "Murray"
+      }
+    },
+    {
+      "id": 18,
+      "line_id": "L18",
+      "unit_id": "U04",
+      "covers": [
+        "7"
+      ],
+      "clip_start": "00:14:30.0",
+      "clip_end": "00:14:44.4",
+      "narration": "He drifts into a daydream. Murray calls him out of the audience, embraces him like a father, and says he would give it all up for a son like him.",
+      "claim": {
+        "type": "reveal",
+        "requires_visual": true,
+        "subject": "Arthur"
+      }
+    },
+    {
+      "id": 19,
+      "line_id": "L19",
+      "unit_id": "U04",
+      "covers": [
+        "7"
+      ],
+      "clip_start": "00:15:10.0",
+      "clip_end": "00:15:21.2",
+      "narration": "It is a fantasy about one simple thing - to be seen, and wanted, by someone who matters. The whole tragedy is folded into that small wish.",
+      "claim": {
+        "type": "reveal",
+        "requires_visual": true,
+        "subject": "Arthur"
+      }
+    },
+    {
+      "id": 20,
+      "line_id": "L20",
+      "unit_id": "U05",
+      "covers": [
+        "8"
+      ],
+      "clip_start": "00:23:10.0",
+      "clip_end": "00:23:17.0",
+      "narration": "At work, the clown Randall slips Arthur a gun for protection - now Arthur holds it at home, a loaded thing that will not stay hidden.",
+      "claim": {
+        "type": "action",
+        "requires_visual": true,
+        "subject": "Arthur"
+      }
+    },
+    {
+      "id": 21,
+      "line_id": "L21",
+      "unit_id": "U05",
+      "covers": [
+        "8"
+      ],
+      "clip_start": "00:23:18.0",
+      "clip_end": "00:23:33.0",
+      "narration": "Arthur takes it, uneasy. In a world that keeps hurting him, even a small piece of power feels, for a moment, like safety.",
+      "claim": {
+        "type": "reaction",
+        "requires_visual": true,
+        "subject": "Arthur"
+      }
+    },
+    {
+      "id": 22,
+      "line_id": "L22",
+      "unit_id": "U05",
+      "covers": [
+        "9"
+      ],
+      "clip_start": "00:19:50.0",
+      "clip_end": "00:19:58.0",
+      "narration": "In his building he meets Sophie, a single mother down the hall - the first person in a long time who looks at him without flinching.",
+      "claim": {
+        "type": "setup",
+        "requires_visual": true,
+        "subject": "Sophie"
+      },
+      "narrative_jump": true
+    },
+    {
+      "id": 23,
+      "line_id": "L23",
+      "unit_id": "U05",
+      "covers": [
+        "9"
+      ],
+      "clip_start": "00:20:05.0",
+      "clip_end": "00:20:21.0",
+      "narration": "She is sharp and warm, and when she mimes a gun to her own head about their grim building, Arthur lights up. Here, at last, is someone who seems to get him.",
+      "claim": {
+        "type": "dialogue",
+        "requires_visual": true,
+        "subject": "Sophie"
+      }
+    },
+    {
+      "id": 24,
+      "line_id": "L24",
+      "unit_id": "U05",
+      "covers": [
+        "9"
+      ],
+      "clip_start": "00:20:25.0",
+      "clip_end": "00:20:38.0",
+      "narration": "In a life this lonely, she becomes his one fragile thread of hope - hold on to that.",
+      "claim": {
+        "type": "emotion",
+        "requires_visual": true,
+        "subject": "Arthur"
+      }
+    },
+    {
+      "id": 25,
+      "line_id": "L25",
+      "unit_id": "U06",
+      "covers": [
+        "10"
+      ],
+      "clip_start": "00:28:18.0",
+      "clip_end": "00:28:23.9",
+      "narration": "Arthur entertains a ward of sick children, doing his best to make them laugh.",
+      "claim": {
+        "type": "action",
+        "requires_visual": true,
+        "subject": "Arthur"
+      }
+    },
+    {
+      "id": 26,
+      "line_id": "L26",
+      "unit_id": "U06",
+      "covers": [
+        "10"
+      ],
+      "clip_start": "00:28:46.0",
+      "clip_end": "00:28:54.7",
+      "narration": "But the gun slips from his costume and clatters onto the floor in front of everyone. He is fired on the spot, humiliated again.",
+      "claim": {
+        "type": "action",
+        "requires_visual": true,
+        "subject": "Arthur"
+      }
+    },
+    {
+      "id": 27,
+      "line_id": "L27",
+      "unit_id": "U06",
+      "covers": [
+        "11"
+      ],
+      "clip_start": "00:30:39.0",
+      "clip_end": "00:30:47.4",
+      "narration": "Late that night on the subway, three drunk Wall Street men corner him and begin to torment him for sport.",
+      "claim": {
+        "type": "action",
+        "requires_visual": true
+      },
+      "montage": [
+        {
+          "clip_start": "00:30:39.0",
+          "clip_end": "00:30:41.8",
+          "play_duration": 1.94
+        },
+        {
+          "clip_start": "00:30:41.8",
+          "clip_end": "00:30:44.0",
+          "play_duration": 1.524
+        },
+        {
+          "clip_start": "00:30:44.0",
+          "clip_end": "00:30:47.4",
+          "play_duration": 2.356
+        }
+      ],
+      "total_visual_duration": 5.82
+    },
+    {
+      "id": 28,
+      "line_id": "L28",
+      "unit_id": "U07",
+      "covers": [
+        "11"
+      ],
+      "clip_start": "00:31:05.0",
+      "clip_end": "00:31:12.6",
+      "narration": "His laughter erupts at the worst possible moment, and the men close in to beat him.",
+      "claim": {
+        "type": "action",
+        "requires_visual": true
+      },
+      "montage": [
+        {
+          "clip_start": "00:31:04.0",
+          "clip_end": "00:31:08.2",
+          "play_duration": 2.116
+        },
+        {
+          "clip_start": "00:31:08.2",
+          "clip_end": "00:31:10.2",
+          "play_duration": 1.007
+        },
+        {
+          "clip_start": "00:31:10.2",
+          "clip_end": "00:31:12.6",
+          "play_duration": 1.209
+        }
+      ],
+      "total_visual_duration": 4.332
+    },
+    {
+      "id": 29,
+      "line_id": "L29",
+      "unit_id": "U07",
+      "covers": [
+        "12"
+      ],
+      "clip_start": "00:32:32.0",
+      "clip_end": "00:32:40.0",
+      "narration": "And Arthur shoots them. Two go down in the car; then he hunts the last man up the stairs and finishes him in cold blood.",
+      "claim": {
+        "type": "action",
+        "requires_visual": true,
+        "subject": "Arthur"
+      },
+      "montage": [
+        {
+          "clip_start": "00:32:32.0",
+          "clip_end": "00:32:34.0",
+          "play_duration": 1.623
+        },
+        {
+          "clip_start": "00:32:34.0",
+          "clip_end": "00:32:37.0",
+          "play_duration": 2.434
+        },
+        {
+          "clip_start": "00:32:37.0",
+          "clip_end": "00:32:40.0",
+          "play_duration": 2.435
+        }
+      ],
+      "total_visual_duration": 6.492
+    },
+    {
+      "id": 30,
+      "line_id": "L30",
+      "unit_id": "U07",
+      "covers": [
+        "12"
+      ],
+      "clip_start": "00:33:27.0",
+      "clip_end": "00:33:38.2",
+      "narration": "For the first time in his life, he has taken control. He flees into a public bathroom - and what happens next is the film's quiet hinge.",
+      "claim": {
+        "type": "transition",
+        "requires_visual": true,
+        "subject": "Arthur"
+      }
+    },
+    {
+      "id": 31,
+      "line_id": "L31",
+      "unit_id": "U08",
+      "covers": [
+        "13"
+      ],
+      "clip_start": "00:34:50.0",
+      "clip_end": "00:34:56.0",
+      "narration": "",
+      "narration_silence_seconds": 22.0
+    },
+    {
+      "id": 32,
+      "line_id": "L32",
+      "unit_id": "U09",
+      "covers": [
+        "14"
+      ],
+      "clip_start": "00:36:10.0",
+      "clip_end": "00:36:20.4",
+      "narration": "The killings electrify Gotham. A masked clown who gunned down three Wall Street men becomes a folk hero to a city sick of the rich.",
+      "claim": {
+        "type": "reveal",
+        "requires_visual": true
+      }
+    },
+    {
+      "id": 33,
+      "line_id": "L33",
+      "unit_id": "U09",
+      "covers": [
+        "15"
+      ],
+      "clip_start": "00:40:10.0",
+      "clip_end": "00:40:20.8",
+      "narration": "Sophie comes to Arthur, and the two fall into an easy intimacy. For a while, his fantasy and his life seem to finally line up.",
+      "claim": {
+        "type": "emotion",
+        "requires_visual": true,
+        "subject": "Arthur"
+      }
+    },
+    {
+      "id": 34,
+      "line_id": "L34",
+      "unit_id": "U09",
+      "covers": [
+        "16"
+      ],
+      "clip_start": "00:42:40.0",
+      "clip_end": "00:42:49.5",
+      "narration": "He finally lands a stand-up spot - but on stage, the laughing fit wrecks the set, and the room turns on him.",
+      "claim": {
+        "type": "action",
+        "requires_visual": true,
+        "subject": "Arthur"
+      }
+    },
+    {
+      "id": 35,
+      "line_id": "L35",
+      "unit_id": "U09",
+      "covers": [
+        "17"
+      ],
+      "clip_start": "01:00:00.0",
+      "clip_end": "01:00:09.5",
+      "narration": "Worse, Murray plays the tape on his show and mocks Arthur for a laughing studio audience - his idol, humiliating him on national television.",
+      "claim": {
+        "type": "reveal",
+        "requires_visual": true,
+        "subject": "Murray"
+      },
+      "narrative_jump": true
+    },
+    {
+      "id": 36,
+      "line_id": "L36",
+      "unit_id": "U10",
+      "covers": [
+        "18"
+      ],
+      "clip_start": "00:49:10.0",
+      "clip_end": "00:49:20.8",
+      "narration": "Then Arthur finds a letter his mother wrote, never sent. In it, Penny claims that Thomas Wayne - the billionaire now running for mayor - is Arthur's secret father.",
+      "claim": {
+        "type": "discovery",
+        "requires_visual": true,
+        "subject": "Arthur"
+      }
+    },
+    {
+      "id": 37,
+      "line_id": "L37",
+      "unit_id": "U10",
+      "covers": [
+        "18"
+      ],
+      "clip_start": "00:50:23.5",
+      "clip_end": "00:50:34.3",
+      "narration": "She writes of Wayne as a great and powerful man she once loved, when she worked in his household years ago.",
+      "claim": {
+        "type": "dialogue",
+        "requires_visual": true,
+        "subject": "Penny"
+      }
+    },
+    {
+      "id": 38,
+      "line_id": "L38",
+      "unit_id": "U10",
+      "covers": [
+        "18"
+      ],
+      "clip_start": "00:50:23.5",
+      "clip_end": "00:50:34.3",
+      "narration": "There were letters, she says - many of them, over many years, none ever answered. For Arthur it lands like a lifeline: maybe he belongs to someone after all.",
+      "claim": {
+        "type": "reaction",
+        "requires_visual": true,
+        "subject": "Arthur"
+      }
+    },
+    {
+      "id": 39,
+      "line_id": "L39",
+      "unit_id": "U10",
+      "covers": [
+        "19"
+      ],
+      "clip_start": "00:53:40.0",
+      "clip_end": "00:53:47.1",
+      "narration": "He travels to Wayne Manor, meeting a young Bruce through the gate before Alfred coldly turns him away.",
+      "claim": {
+        "type": "action",
+        "requires_visual": true,
+        "subject": "Arthur"
+      }
+    },
+    {
+      "id": 40,
+      "line_id": "L40",
+      "unit_id": "U10",
+      "covers": [
+        "20"
+      ],
+      "clip_start": "01:05:30.4",
+      "clip_end": "01:05:40.8",
+      "narration": "When he finally corners Thomas Wayne in a theater bathroom, the answer is brutal: Wayne denies everything, says Penny adopted him, and calls her delusional.",
+      "claim": {
+        "type": "dialogue",
+        "requires_visual": true,
+        "subject": "Wayne"
+      }
+    },
+    {
+      "id": 41,
+      "line_id": "L41",
+      "unit_id": "U10",
+      "covers": [
+        "21"
+      ],
+      "clip_start": "01:06:30.0",
+      "clip_end": "01:06:39.9",
+      "narration": "Reeling, Arthur lets himself into Sophie's apartment - and the floor drops out from under the whole film.",
+      "claim": {
+        "type": "transition",
+        "requires_visual": true,
+        "subject": "Arthur"
+      }
+    },
+    {
+      "id": 42,
+      "line_id": "L42",
+      "unit_id": "U10",
+      "covers": [
+        "22"
+      ],
+      "clip_start": "01:07:30.0",
+      "clip_end": "01:07:38.8",
+      "narration": "Sophie was never his. She is a frightened stranger, asking the intruder in her home to leave, while she shields her child.",
+      "claim": {
+        "type": "dialogue",
+        "requires_visual": true,
+        "subject": "Sophie"
+      }
+    },
+    {
+      "id": 43,
+      "line_id": "L43",
+      "unit_id": "U10",
+      "covers": [
+        "22"
+      ],
+      "clip_start": "01:07:39.0",
+      "clip_end": "01:07:47.8",
+      "narration": "Every tender moment we watched between them happened only in Arthur's mind. The relationship that anchored him, that anchored us, was a delusion all along.",
+      "claim": {
+        "type": "reveal",
+        "requires_visual": true,
+        "subject": "Arthur"
+      }
+    },
+    {
+      "id": 44,
+      "line_id": "L44",
+      "unit_id": "U11",
+      "covers": [
+        "23"
+      ],
+      "clip_start": "01:11:04.6",
+      "clip_end": "01:11:18.2",
+      "narration": "Desperate for the truth, Arthur talks his way into Arkham State Hospital and steals his mother's old case file.",
+      "claim": {
+        "type": "discovery",
+        "requires_visual": true,
+        "subject": "Arthur"
+      }
+    },
+    {
+      "id": 45,
+      "line_id": "L45",
+      "unit_id": "U11",
+      "covers": [
+        "23"
+      ],
+      "clip_start": "01:11:04.6",
+      "clip_end": "01:11:18.2",
+      "narration": "The papers say he was adopted thirty years ago. As a small child he was chained to a radiator, starved, and beaten - while Penny stood by and let it happen.",
+      "claim": {
+        "type": "discovery",
+        "requires_visual": true,
+        "subject": "Arthur"
+      }
+    },
+    {
+      "id": 46,
+      "line_id": "L46",
+      "unit_id": "U11",
+      "covers": [
+        "23"
+      ],
+      "clip_start": "01:13:30.0",
+      "clip_end": "01:13:42.4",
+      "narration": "The head trauma from that abuse, the file says, is the source of his uncontrollable laugh. His mother's own records note a history of delusion and psychosis.",
+      "claim": {
+        "type": "discovery",
+        "requires_visual": true,
+        "subject": "Arthur"
+      }
+    },
+    {
+      "id": 47,
+      "line_id": "L47",
+      "unit_id": "U11",
+      "covers": [
+        "23"
+      ],
+      "clip_start": "01:13:30.0",
+      "clip_end": "01:13:42.4",
+      "narration": "And if Sophie was never real, we can no longer trust anything we have been shown - and neither can he. Every certainty about who he is quietly comes apart.",
+      "claim": {
+        "type": "reaction",
+        "requires_visual": true,
+        "subject": "Arthur"
+      }
+    },
+    {
+      "id": 48,
+      "line_id": "L48",
+      "unit_id": "U12",
+      "covers": [
+        "24"
+      ],
+      "clip_start": "01:17:48.0",
+      "clip_end": "01:17:52.0",
+      "narration": "His old coworkers Randall and Gary come to check on him after the firing.",
+      "claim": {
+        "type": "dialogue",
+        "requires_visual": true,
+        "subject": "Arthur"
+      }
+    },
+    {
+      "id": 49,
+      "line_id": "L49",
+      "unit_id": "U12",
+      "covers": [
+        "24"
+      ],
+      "clip_start": "01:18:00.0",
+      "clip_end": "01:18:07.9",
+      "narration": "Arthur kills Randall - cold, sudden, without the laughter this time. A choice, not a fit.",
+      "claim": {
+        "type": "action",
+        "requires_visual": true,
+        "subject": "Arthur"
+      }
+    },
+    {
+      "id": 50,
+      "line_id": "L50",
+      "unit_id": "U12",
+      "covers": [
+        "24"
+      ],
+      "clip_start": "01:18:30.0",
+      "clip_end": "01:18:39.5",
+      "narration": "He lets the small, kind Gary go unharmed, and the gentleness of that mercy is somehow the most frightening thing of all.",
+      "claim": {
+        "type": "reaction",
+        "requires_visual": true,
+        "subject": "Arthur"
+      }
+    },
+    {
+      "id": 51,
+      "line_id": "L51",
+      "unit_id": "U12",
+      "covers": [
+        "24"
+      ],
+      "clip_start": "01:18:55.0",
+      "clip_end": "01:19:02.1",
+      "narration": "It is the first life he takes by choice, and it does not shake him. Something in him has gone quiet and certain.",
+      "claim": {
+        "type": "emotion",
+        "requires_visual": true,
+        "subject": "Arthur"
+      }
+    },
+    {
+      "id": 52,
+      "line_id": "L52",
+      "unit_id": "U13",
+      "covers": [
+        "25"
+      ],
+      "clip_start": "01:21:00.0",
+      "clip_end": "01:21:09.9",
+      "narration": "Then he visits his mother in the hospital, sits at her bedside, and tells her she gave him a terrible life and a lie to live inside.",
+      "claim": {
+        "type": "dialogue",
+        "requires_visual": true,
+        "subject": "Arthur"
+      }
+    },
+    {
+      "id": 53,
+      "line_id": "L53",
+      "unit_id": "U13",
+      "covers": [
+        "25"
+      ],
+      "clip_start": "01:21:25.0",
+      "clip_end": "01:21:30.5",
+      "narration": "Quietly, he smothers her with a pillow. The last tie to who Arthur Fleck was is gone.",
+      "claim": {
+        "type": "action",
+        "requires_visual": true,
+        "subject": "Arthur"
+      }
+    },
+    {
+      "id": 54,
+      "line_id": "L54",
+      "unit_id": "U14",
+      "covers": [
+        "26"
+      ],
+      "clip_start": "01:24:30.0",
+      "clip_end": "01:24:37.1",
+      "narration": "He dyes his hair green and paints the face we have been waiting for. Arthur Fleck is disappearing, and something new is stepping forward.",
+      "claim": {
+        "type": "transition",
+        "requires_visual": true,
+        "subject": "Arthur"
+      }
+    },
+    {
+      "id": 55,
+      "line_id": "L55",
+      "unit_id": "U14",
+      "covers": [
+        "26"
+      ],
+      "clip_start": "01:26:30.0",
+      "clip_end": "01:26:39.5",
+      "narration": "For the first time, the face in the mirror looks certain. Arthur dances down a long flight of stairs as if gravity has finally let him go.",
+      "claim": {
+        "type": "emotion",
+        "requires_visual": true,
+        "subject": "Arthur"
+      }
+    },
+    {
+      "id": 56,
+      "line_id": "L56",
+      "unit_id": "U14",
+      "covers": [
+        "26"
+      ],
+      "clip_start": "01:30:45.0",
+      "clip_end": "01:30:51.0",
+      "narration": "",
+      "narration_silence_seconds": 22.0
+    },
+    {
+      "id": 57,
+      "line_id": "L57",
+      "unit_id": "U15",
+      "covers": [
+        "27"
+      ],
+      "clip_start": "01:33:00.0",
+      "clip_end": "01:33:07.5",
+      "narration": "Two detectives corner him on a subway car packed with rioters in clown masks.",
+      "claim": {
+        "type": "action",
+        "requires_visual": true,
+        "subject": "Arthur"
+      }
+    },
+    {
+      "id": 58,
+      "line_id": "L58",
+      "unit_id": "U15",
+      "covers": [
+        "27"
+      ],
+      "clip_start": "01:33:25.0",
+      "clip_end": "01:33:35.5",
+      "narration": "He pulls on a mask of his own and melts into the crowd, slipping away in the chaos he helped create.",
+      "claim": {
+        "type": "action",
+        "requires_visual": true,
+        "subject": "Arthur"
+      },
+      "montage": [
+        {
+          "clip_start": "01:33:25.6",
+          "clip_end": "01:33:28.5",
+          "play_duration": 1.539
+        },
+        {
+          "clip_start": "01:33:28.7",
+          "clip_end": "01:33:32.1",
+          "play_duration": 1.804
+        },
+        {
+          "clip_start": "01:33:32.1",
+          "clip_end": "01:33:35.5",
+          "play_duration": 1.805
+        }
+      ],
+      "total_visual_duration": 5.148
+    },
+    {
+      "id": 59,
+      "line_id": "L59",
+      "unit_id": "U16",
+      "covers": [
+        "28"
+      ],
+      "clip_start": "01:35:19.2",
+      "clip_end": "01:35:30.4",
+      "narration": "Then an invitation arrives he could never have dreamed of. The Murray show wants the laughing clown as a guest - to put him on air and laugh at him.",
+      "claim": {
+        "type": "discovery",
+        "requires_visual": true,
+        "subject": "Arthur"
+      }
+    },
+    {
+      "id": 60,
+      "line_id": "L60",
+      "unit_id": "U16",
+      "covers": [
+        "29"
+      ],
+      "clip_start": "01:38:40.0",
+      "clip_end": "01:38:45.5",
+      "narration": "He arrives as the Joker, and asks Murray to introduce him by that name.",
+      "claim": {
+        "type": "dialogue",
+        "requires_visual": true,
+        "subject": "Arthur"
+      }
+    },
+    {
+      "id": 61,
+      "line_id": "L61",
+      "unit_id": "U16",
+      "covers": [
+        "30"
+      ],
+      "clip_start": "01:41:10.0",
+      "clip_end": "01:41:16.3",
+      "narration": "On live television, in front of the whole city, he confesses to the subway killings.",
+      "claim": {
+        "type": "reveal",
+        "requires_visual": true,
+        "subject": "Arthur"
+      }
+    },
+    {
+      "id": 62,
+      "line_id": "L62",
+      "unit_id": "U16",
+      "covers": [
+        "31"
+      ],
+      "clip_start": "01:44:16.5",
+      "clip_end": "01:44:29.7",
+      "narration": "And here the film says its hardest thing out loud. Arthur asks what a society expects when it abandons people and grinds them down - then acts shocked at what they become.",
+      "claim": {
+        "type": "dialogue",
+        "requires_visual": true,
+        "subject": "Arthur"
+      }
+    },
+    {
+      "id": 63,
+      "line_id": "L63",
+      "unit_id": "U16",
+      "covers": [
+        "31"
+      ],
+      "clip_start": "01:44:16.5",
+      "clip_end": "01:44:29.7",
+      "narration": "If it were me dying on the sidewalk, he says, you'd walk right over me. The rich are decent; the rest are disposable - and everybody just screams at each other.",
+      "claim": {
+        "type": "dialogue",
+        "requires_visual": true,
+        "subject": "Arthur"
+      }
+    },
+    {
+      "id": 64,
+      "line_id": "L64",
+      "unit_id": "U16",
+      "covers": [
+        "31"
+      ],
+      "clip_start": "01:44:40.0",
+      "clip_end": "01:44:45.0",
+      "narration": "The recognition he begged for all his life, he now seizes by force, in front of millions.",
+      "claim": {
+        "type": "reaction",
+        "requires_visual": true,
+        "subject": "Arthur"
+      }
+    },
+    {
+      "id": 65,
+      "line_id": "L65",
+      "unit_id": "U17",
+      "covers": [
+        "32"
+      ],
+      "clip_start": "01:45:00.0",
+      "clip_end": "01:45:05.9",
+      "narration": "Murray scolds him for self-pity and tells him he will get exactly what he deserves.",
+      "claim": {
+        "type": "dialogue",
+        "requires_visual": true,
+        "subject": "Murray"
+      }
+    },
+    {
+      "id": 66,
+      "line_id": "L66",
+      "unit_id": "U17",
+      "covers": [
+        "32"
+      ],
+      "clip_start": "01:45:40.0",
+      "clip_end": "01:45:50.8",
+      "narration": "So the Joker shows him what that means. He shoots Murray dead on live television, then turns calmly to the lens and wishes the city a good night.",
+      "claim": {
+        "type": "action",
+        "requires_visual": true,
+        "subject": "Arthur"
+      }
+    },
+    {
+      "id": 67,
+      "line_id": "L67",
+      "unit_id": "U18",
+      "covers": [
+        "33"
+      ],
+      "clip_start": "01:47:10.0",
+      "clip_end": "01:47:18.3",
+      "narration": "The broadcast lights the fuse. Gotham erupts - masked rioters flood the streets, smashing and burning the city that ignored them.",
+      "claim": {
+        "type": "action",
+        "requires_visual": true
+      }
+    },
+    {
+      "id": 68,
+      "line_id": "L68",
+      "unit_id": "U18",
+      "covers": [
+        "33"
+      ],
+      "clip_start": "01:47:35.0",
+      "clip_end": "01:47:44.0",
+      "narration": "Arthur, arrested in the chaos, is pulled from the wreck and lifted up by the mob like a saint of the gutter.",
+      "claim": {
+        "type": "action",
+        "requires_visual": true,
+        "subject": "Arthur"
+      }
+    },
+    {
+      "id": 69,
+      "line_id": "L69",
+      "unit_id": "U18",
+      "covers": [
+        "34"
+      ],
+      "clip_start": "01:48:30.0",
+      "clip_end": "01:48:37.5",
+      "narration": "And in an alley behind a theater, the riot reaches the one family Gotham always treated as untouchable.",
+      "claim": {
+        "type": "transition",
+        "requires_visual": true
+      }
+    },
+    {
+      "id": 70,
+      "line_id": "L70",
+      "unit_id": "U18",
+      "covers": [
+        "34"
+      ],
+      "clip_start": "01:49:50.0",
+      "clip_end": "01:49:58.0",
+      "narration": "A clown-masked gunman shoots Thomas Wayne and his wife dead on the wet pavement, her pearls scattering across the ground.",
+      "claim": {
+        "type": "action",
+        "requires_visual": true,
+        "subject": "Wayne"
+      }
+    },
+    {
+      "id": 71,
+      "line_id": "L71",
+      "unit_id": "U18",
+      "covers": [
+        "34"
+      ],
+      "clip_start": "01:50:00.0",
+      "clip_end": "01:50:07.0",
+      "narration": "He leaves their young son Bruce alive between his parents bodies. Out of the chaos Arthur unleashed, another legend is born in the dark.",
+      "claim": {
+        "type": "reaction",
+        "requires_visual": true
+      }
+    },
+    {
+      "id": 72,
+      "line_id": "L72",
+      "unit_id": "U19",
+      "covers": [
+        "35"
+      ],
+      "clip_start": "01:51:15.0",
+      "clip_end": "01:51:28.0",
+      "narration": "The rioters drag the Joker up onto a wrecked police car. Bloodied and dazed, he rises to find a whole city that finally, monstrously, sees him.",
+      "claim": {
+        "type": "reveal",
+        "requires_visual": true,
+        "subject": "Arthur"
+      }
+    },
+    {
+      "id": 73,
+      "line_id": "L73",
+      "unit_id": "U19",
+      "covers": [
+        "35"
+      ],
+      "clip_start": "01:51:15.0",
+      "clip_end": "01:51:28.0",
+      "narration": "",
+      "narration_silence_seconds": 13.0
+    },
+    {
+      "id": 74,
+      "line_id": "L74",
+      "unit_id": "U20",
+      "covers": [
+        "36"
+      ],
+      "clip_start": "01:53:14.0",
+      "clip_end": "01:53:21.0",
+      "narration": "We end with the Joker back in Arkham, talking quietly to a doctor, laughing at a joke he says she would not understand.",
+      "claim": {
+        "type": "dialogue",
+        "requires_visual": true,
+        "subject": "Arthur"
+      },
+      "montage": [
+        {
+          "clip_start": "01:53:14.0",
+          "clip_end": "01:53:17.1",
+          "play_duration": 2.705
+        },
+        {
+          "clip_start": "01:53:17.1",
+          "clip_end": "01:53:19.8",
+          "play_duration": 2.356
+        },
+        {
+          "clip_start": "01:53:19.8",
+          "clip_end": "01:53:21.0",
+          "play_duration": 1.047
+        }
+      ],
+      "total_visual_duration": 6.108
+    },
+    {
+      "id": 75,
+      "line_id": "L75",
+      "unit_id": "U20",
+      "covers": [
+        "36"
+      ],
+      "clip_start": "01:53:15.0",
+      "clip_end": "01:53:27.8",
+      "narration": "The film never tells us how much of what we saw was real and how much lived only in his head - and it refuses to. That uncertainty is the whole point.",
+      "claim": {
+        "type": "reveal",
+        "requires_visual": true,
+        "subject": "Arthur"
+      }
+    },
+    {
+      "id": 76,
+      "line_id": "L76",
+      "unit_id": "U20",
+      "covers": [
+        "37"
+      ],
+      "clip_start": "01:55:18.0",
+      "clip_end": "01:55:30.0",
+      "narration": "He walks away down a bright corridor, and a trail of fresh bloody footprints follows him out. We are left to wonder what he has just done, and where this ends.",
+      "claim": {
+        "type": "reveal",
+        "requires_visual": true,
+        "subject": "Arthur"
+      }
+    },
+    {
+      "id": 77,
+      "line_id": "L77",
+      "unit_id": "U_outro",
+      "covers": [
+        "37"
+      ],
+      "clip_start": "01:54:50.0",
+      "clip_end": "01:55:04.8",
+      "narration": "Joker is a portrait of a man failed at every turn, and a warning about a world that creates its own monsters and then recoils from them.",
+      "claim": {
+        "type": "transition",
+        "requires_visual": true,
+        "subject": "Arthur"
+      }
+    },
+    {
+      "id": 78,
+      "line_id": "L78",
+      "unit_id": "U_outro",
+      "covers": [
+        "37"
+      ],
+      "clip_start": "01:54:50.0",
+      "clip_end": "01:55:04.8",
+      "narration": "It does not excuse him - it asks us to look. Thanks for watching: if this one hit you, hit like and subscribe for more deep dives like this.",
+      "claim": {
+        "type": "narration",
+        "requires_visual": false,
+        "subject": "Arthur"
+      }
+    }
+  ]
+}

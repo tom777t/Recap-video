@@ -1,0 +1,345 @@
+TITLE: Parasite
+Lines: 114   Words: 3364   Est. narration: 19.8 min   Target: 12 min
+============================================================
+
+[  1] (00:00:50.0 -> 00:01:02.0)  <normal>
+      It begins with socks drying at a half-buried window, a poor family living with their eyes at street level.
+
+[  2] (00:01:50.0 -> 00:02:00.0)  <normal>
+      A poor family in a cramped Seoul basement. A rich family in a glass house on the hill. This is the story of how one of them quietly moved into the other.
+
+[  3] (00:32:35.0 -> 00:32:47.0)  <normal>
+      One forged document at a time, the Kim family takes over the wealthy Parks' household - four of them posing as strangers who have never met. It works perfectly, which is exactly the problem.
+
+[  4] (00:53:35.0 -> 00:53:47.0)  <normal>
+      It is a sharp, funny class fable - until the day it turns into something nobody in either house could ever have planned for. I am Serabudabu, and today we go deep inside Parasite.
+
+[  5] (00:01:50.0 -> 00:02:00.0)  <normal>
+      We open in a half-underground flat in Seoul, where the Kim family lives at street level with the gutter. Ki-woo lifts his phone to the ceiling, hunting for a sliver of a neighbour's wi-fi.
+
+[  6] (00:03:55.0 -> 00:04:02.0)  <normal>
+      When the street is fumigated, the father leaves the windows open to let the free poison kill their bugs - too broke to be proud about it.
+
+[  7] (00:05:00.0 -> 00:05:12.0)  <normal>
+      A drunk wanders up to street level and relieves himself right against their window, and the family can only watch - powerless even inside their own home.
+
+[  8] (00:06:00.0 -> 00:06:11.0)  <normal>
+      When the street outside is fumigated, the father tells everyone to leave the windows wide open and let the free poison drift in to kill their bugs - they are far too broke to be proud about a thing like that.
+
+[  9] (00:07:18.0 -> 00:07:30.0)  <normal>
+      Then Ki-woo's old college friend Min drops by, carrying an unusual gift: a scholar's rock, a smooth grey viewing stone the wealthy like to keep on a shelf because it is supposed to draw money and good fortune into the home.
+
+[ 10] (00:08:10.0 -> 00:08:22.0)  <normal>
+      This stone, Min says, will cling to the family and pull wealth toward them. Ki-woo holds it like a promise, and can hardly bring himself to put it down.
+
+[ 11] (00:08:50.0 -> 00:09:00.0)  <normal>
+      Min is going abroad to study, and he passes Ki-woo a golden opportunity - his own tutoring job, teaching English to the teenage daughter of a wealthy family up the hill, the Parks.
+
+[ 12] (00:09:45.0 -> 00:09:56.0)  <normal>
+      Over street-stall soju, Min half-confesses he is in love with the girl Ki-woo will tutor, and says he trusts only his poor friend not to chase a rich man's daughter behind his back.
+
+[ 13] (00:11:25.0 -> 00:11:35.0)  <normal>
+      There is just one small snag: Ki-woo never actually finished university. So his sister Ki-jung sits down at the laptop and forges him a flawless enrolment certificate in minutes. In this household, deception is the one true family trade.
+
+[ 14] (00:12:00.0 -> 00:12:02.5)  <normal>
+      Her forgery is flawless.
+
+[ 15] (00:13:00.0 -> 00:13:12.0)  <normal>
+      He climbs a long flight of clean stone steps, up through walls of perfectly manicured bamboo, to a sleek modernist house of glass and light and open sky - a world impossibly far from the dim basement he just climbed out of.
+
+[ 16] (00:13:40.0 -> 00:13:52.0)  <normal>
+      Inside, a clean bright staircase climbs upward into the light. Notice the geography: in the rich house, the stairs always go up.
+
+[ 17] (00:14:30.0 -> 00:14:34.0)  <normal>
+      Calling himself Kevin, he charms Mrs Park, the warm and trusting lady of the house.
+
+[ 18] (00:15:20.0 -> 00:15:32.0)  <normal>
+      Mrs Park watches the lesson from the doorway, anxious and easily impressed - exactly the kind of audience a confident liar could ask for.
+
+[ 19] (00:16:10.0 -> 00:16:20.0)  <normal>
+      He bluffs his way clean through the very first English lesson with the daughter, Da-hye, running entirely on pure nerve and confidence and not one single shred of real qualification.
+
+[ 20] (00:16:40.0 -> 00:16:46.0)  <normal>
+      The lesson is really a performance of swagger - and the lonely teenage girl is visibly, instantly charmed by her new tutor.
+
+[ 21] (00:17:00.0 -> 00:17:04.7)  <normal>
+      He teaches Da-hye to attack each test like a bulldozer.
+
+[ 22] (00:17:55.0 -> 00:18:05.0)  <normal>
+      He meets the Parks' hyperactive young son, Da-song - a boy who plays at being a cowboy and an Indian, and whom the family treats as a fragile little artistic genius.
+
+[ 23] (00:18:10.0 -> 00:18:19.5)  <normal>
+      Their young son Da-song tears around the house in a toy headdress, a wild little prince his mother adores and cannot begin to control.
+
+[ 24] (00:18:30.0 -> 00:18:42.0)  <normal>
+      And he overhears Mrs Park confide that she is at her wits' end - she cannot find a single art teacher anywhere who can handle her wild, troubled little boy. It is exactly the opening Ki-woo has been waiting for.
+
+[ 25] (00:19:20.0 -> 00:19:28.0)  <normal>
+      She frets endlessly over the boy's strange, frantic drawings, certain they must hide some deep and special wound.
+
+[ 26] (00:19:55.0 -> 00:20:07.0)  <normal>
+      So Ki-woo recommends a brilliant, impossibly hard-to-book art therapist named Jessica - who is secretly his own sister, Ki-jung. The two of them will look each other dead in the eye and pretend to be complete strangers who have never once met.
+
+[ 27] (00:22:30.0 -> 00:22:42.0)  <normal>
+      Jessica reads the boy's chaotic scribbles as a desperate cry for help, inventing an entire wounded psychology on the spot - a black box of trauma only she can open - and selling every word of it without a flicker of doubt.
+
+[ 28] (00:26:20.0 -> 00:26:29.0)  <normal>
+      She names a fee that should be outrageous, and the grateful mother simply agrees.
+
+[ 29] (00:26:40.0 -> 00:26:52.0)  <normal>
+      Ki-jung sweeps in and improvises an avalanche of impressive, invented art-therapy jargon about the boy's hidden trauma, his secret darkness, the black box buried deep inside his childish drawings. The completely dazzled mother hires her at a premium on the spot.
+
+[ 30] (00:29:00.0 -> 00:29:03.0)  <normal>
+      Next they come for the chauffeur.
+
+[ 31] (00:29:30.0 -> 00:29:42.0)  <normal>
+      And on the way home she quietly slips a pair of her own underwear down beneath the back seat of his spotless company car - a tiny, planted lie just waiting to be discovered by the wrong eyes.
+
+[ 32] (00:30:00.0 -> 00:30:12.0)  <normal>
+      Alone in the back of Mr Park's chauffeured car at night, calm as still water, Ki-jung quietly sets the small, cruel trap that will cost a decent and entirely innocent man his job and his good name.
+
+[ 33] (00:32:35.0 -> 00:32:47.0)  <normal>
+      The Parks find it, assume their young chauffeur has been having sex in the company car, and fire him in disgust - which lets Ki-woo gently suggest a replacement: his own father.
+
+[ 34] (00:33:40.0 -> 00:33:52.0)  <normal>
+      The loyal young driver is dismissed in an afternoon, without a hearing or a second thought - down here, the poor are endlessly, casually replaceable.
+
+[ 35] (00:37:00.0 -> 00:37:12.0)  <normal>
+      Ki-taek wins the wheel by performing the exact calm, devoted, faintly invisible servant that Mr Park wants to believe in.
+
+[ 36] (00:37:50.0 -> 00:37:55.0)  <normal>
+      And just like that, the father becomes their driver.
+
+[ 37] (00:39:55.0 -> 00:40:05.0)  <normal>
+      Only the loyal old housekeeper Moon-gwang now stands in their way - she came with the house and serves it better than anyone. But the Kims discover she is hiding one dangerous secret: a severe, life-threatening allergy to peaches.
+
+[ 38] (00:40:30.0 -> 00:40:37.0)  <normal>
+      The family maps out the housekeeper's downfall like a heist crew, circling her one fatal weakness.
+
+[ 39] (00:42:30.0 -> 00:42:40.0)  <normal>
+      So they secretly dust peach fuzz onto her behind her back, trigger a violent coughing fit, and then carefully stage the whole thing - bloody tissues and all - to convince the squeamish Parks that their housekeeper has tuberculosis.
+
+[ 40] (00:44:40.0 -> 00:44:52.0)  <normal>
+      Terrified that their housekeeper is contagious, the Parks let her go without a second thought. The con is complete: all four Kims now work inside the house, drawing four good salaries, while still carefully pretending to be unrelated strangers.
+
+[ 41] (00:45:00.0 -> 00:45:12.0)  <normal>
+      And the housekeeper is cast out, coughing and pleading at the gate - the last loyal servant of the old house, swept away by a lie.
+
+[ 42] (00:51:30.0 -> 00:51:42.0)  <normal>
+      Father, mother, son and daughter - all four of them now move through the very same house every single day, addressing one another as polite strangers. One family wearing four separate disguises, quietly feeding off a single rich household.
+
+[ 43] (00:53:35.0 -> 00:53:47.0)  <normal>
+      Their golden moment finally arrives when the entire Park family packs up and heads off on a birthday camping trip for the boy, leaving the great glass house completely, gloriously empty behind them.
+
+[ 44] (00:54:00.0 -> 00:54:12.0)  <normal>
+      The Kims drift through the great empty rooms, testing the silence, barely able to believe that so much space could belong to one family.
+
+[ 45] (00:55:00.0 -> 00:55:02.5)  <normal>
+      The Parks drive off for the camping trip.
+
+[ 46] (00:56:40.0 -> 00:56:52.0)  <normal>
+      The Kims move in like the owners they pretend to be - sprawling across the vast living room, soaking in the marble bath, drinking the Parks' expensive whiskey as the rain falls soft and pleasant on the perfect garden outside.
+
+[ 47] (00:57:30.0 -> 00:57:42.0)  <normal>
+      The Kims sprawl across the garden in the warm summer rain, drinking the good whiskey, and for one long golden evening the invisible wall between servant and master seems to quietly dissolve away into nothing at all.
+
+[ 48] (00:58:30.0 -> 00:58:42.0)  <normal>
+      They sink into the rich family's deep bath and slip, just for an evening, into the soft warm life of people who never have to worry.
+
+[ 49] (01:00:50.0 -> 01:01:02.0)  <normal>
+      For one drunken night they believe the house is theirs. The lady is so nice, one says - and the mother answers that she is nice because she is rich. Money, she says, is an iron that smooths every crease.
+
+[ 50] (01:02:00.0 -> 01:02:12.0)  <normal>
+      Chung-sook teases that if the Parks walked through the door right now, her husband would scuttle straight into the shadows like a cockroach - and they all laugh, because the joke lands a little too close to the truth.
+
+[ 51] (01:03:00.0 -> 01:03:12.0)  <normal>
+      And then, late that night, the doorbell rings. Standing out in the pouring rain is Moon-gwang, the old housekeeper they schemed to get fired, desperately begging to be let back inside just for a moment - she says she left something important behind, down in the basement.
+
+[ 52] (01:05:00.0 -> 01:05:12.0)  <normal>
+      She hurries down to the cellar and drags aside a heavy storage shelf. And behind it is a door that no one in this family was ever meant to find - and a narrow staircase plunging straight down into the dark.
+
+[ 53] (01:06:25.0 -> 01:06:37.0)  <normal>
+      Moon-gwang vanishes down the hidden stair into the black. A baffled Chung-sook grabs a phone for a light and follows her down into it, with absolutely no idea of the thing that has been waiting all this time at the bottom.
+
+[ 54] (01:07:00.0 -> 01:07:12.0)  <normal>
+      Deep beneath the beautiful house, hidden behind that door, lies a secret bunker the architect built and quietly told no one about. And living down in it, in the dark, for years, has been Moon-gwang's own husband.
+
+[ 55] (01:07:30.0 -> 01:07:42.0)  <normal>
+      The bunker is a whole hidden world - shelves and wires and salvaged junk, an entire life lived for years in the dark beneath the family's feet.
+
+[ 56] (01:08:30.0 -> 01:08:42.0)  <normal>
+      His name is Geun-sae. Hiding from the loan sharks who would kill him, he has survived down in that concrete tomb in total secret for years, fed scraps by his wife, quietly worshipping the rich man upstairs who never once knew that he existed.
+
+[ 57] (01:08:50.0 -> 01:09:02.0)  <normal>
+      For four years Moon-gwang has crept down here to keep her husband alive, smuggling food past the family who thought they knew their own home.
+
+[ 58] (01:09:50.0 -> 01:10:02.0)  <normal>
+      He eats alone in the gloom beside a panel of blinking lights, a man who has somehow made a strange home out of a tomb. The Kims, it turns out, are not the only parasites living quietly inside this house.
+
+[ 59] (01:11:00.0 -> 01:11:12.0)  <normal>
+      The two desperate poor families collide down in that cellar, and it turns ugly fast. Moon-gwang films the Kims on her phone and threatens to send the proof straight up to Mrs Park. In a single instant, the con artists become the ones being blackmailed.
+
+[ 60] (01:12:30.0 -> 01:12:42.0)  <normal>
+      It becomes a frantic scramble for that phone - two families who have nothing left, clawing and wrestling on the cellar floor over the one secret that could ruin them both. There is no solidarity at the bottom; only desperation.
+
+[ 61] (01:13:30.0 -> 01:13:42.0)  <normal>
+      Both poor families end up tumbling down the bunker stairs locked together in a heap, kicking and clawing, every last shred of dignity stripped away - two households who have nothing, fighting over the scraps of the one who has everything.
+
+[ 62] (01:15:30.0 -> 01:15:42.0)  <normal>
+      The Kims freeze over the phone - the rich family's cheerful little whim has, in a heartbeat, become their full-blown emergency.
+
+[ 63] (01:15:50.0 -> 01:16:02.0)  <normal>
+      Then comes the worst possible phone call. The very same rain has flooded the campsite, the trip is cancelled, and Mrs Park cheerfully announces the whole family will be pulling up to the house in just eight minutes.
+
+[ 64] (01:16:10.0 -> 01:16:22.0)  <normal>
+      And on the phone, Mrs Park breezily adds an order for a hot bowl of the boy's favourite beef noodles, with absolutely no idea of the desperate, sweating chaos that she is about to drive her whole family home into.
+
+[ 65] (01:17:15.0 -> 01:17:25.0)  <normal>
+      Sudden panic. The Kims overpower Moon-gwang and her husband, drag them back down the stairs into the bunker, and then tear frantically through the house, scrubbing away every last trace that they were ever there.
+
+[ 66] (01:17:45.0 -> 01:17:57.0)  <normal>
+      The Kims race through the great house hiding bottles, plumping cushions, wiping every surface, frantically scrubbing away each last trace of their stolen evening before the family's headlights finally swing into the drive.
+
+[ 67] (01:18:30.0 -> 01:18:38.5)  <normal>
+      And Chung-sook, the family's brand-new housekeeper, calmly cooks the boy his luxury beef noodles on demand - while her husband and children lie hidden under the table at her feet.
+
+[ 68] (01:20:00.0 -> 01:20:09.0)  <normal>
+      The Parks arrive before they can escape. Ki-taek, Ki-woo and Ki-jung dive under the low living-room table and freeze, trapped, as the unsuspecting family settles onto the couch just above their heads.
+
+[ 69] (01:21:30.0 -> 01:21:38.0)  <normal>
+      They have to lie absolutely still for hours, holding their breath in the dark, forced to listen to the rich couple's intimate pillow talk just inches away.
+
+[ 70] (01:27:30.0 -> 01:27:42.0)  <normal>
+      And there, pinned flat to the floor just inches away, they overhear Mr Park talking quietly about Ki-taek - about his smell. That particular odour, he says, of people who ride the subway. A smell that creeps up on you, and quietly crosses the line.
+
+[ 71] (01:27:30.0 -> 01:27:42.0)  <normal>
+      It is said almost gently, as a small private joke between husband and wife. But Ki-taek, lying in the dark beneath them, hears exactly where that line is drawn - and that no amount of clever lying will ever move him to the other side of it.
+
+[ 72] (01:28:20.0 -> 01:28:32.0)  <normal>
+      Under the table, Ki-taek hears himself quietly reduced to a smell, a thing that crosses a line - and something behind his eyes goes very still.
+
+[ 73] (01:31:30.0 -> 01:31:43.0)  <normal>
+      When the house finally falls asleep, the three of them creep out into the storm and begin the long journey down - stairway after stairway, tunnel after tunnel, descending out of the world of the rich and back down into the gutter the city has decided they belong in.
+
+[ 74] (01:32:10.0 -> 01:32:22.0)  <normal>
+      The descent seems to have no bottom - down stairs, down ramps, down and down into the drowning low city, the whole world tilting toward the gutter.
+
+[ 75] (01:33:18.0 -> 01:33:36.0)  <normal>
+      
+
+[ 76] (01:34:00.0 -> 01:34:12.0)  <normal>
+      Down and down they go through the drowning streets, descending out of the heights of the rich. The same gentle rain that was pleasant music on the Parks' lawn is, down here at the bottom, a rising flood swallowing the homes of the poor.
+
+[ 77] (01:35:00.0 -> 01:35:13.0)  <normal>
+      They arrive at a whole neighbourhood drowning in filthy brown water. The very same rain that was a pleasant patter on the Parks' lawn up on the hill is, down here at the bottom of the city, a slow-motion catastrophe swallowing entire streets.
+
+[ 78] (01:36:30.0 -> 01:36:43.0)  <normal>
+      Sewage erupts up out of their toilet in a black fountain; everything the family owns is ruined in minutes. Ki-jung climbs up and perches on the overflowing bowl to light a cigarette, far too exhausted by now to even be horrified by any of it.
+
+[ 79] (01:37:00.0 -> 01:37:12.0)  <normal>
+      They wade through their ruined home in the dark, salvaging the few small things the filthy water has not already swallowed.
+
+[ 80] (01:39:30.0 -> 01:39:43.0)  <normal>
+      That night they sleep on the floor of a packed emergency gymnasium - just three more anonymous bodies among the hundreds the same single storm washed out of their homes - while up on the hill, the Parks sleep dry, warm, and entirely untouched by any of it.
+
+[ 81] (01:40:00.0 -> 01:40:12.0)  <normal>
+      In the crowded shelter Ki-taek quietly tells his son his new philosophy of survival: the only plan that can never fail is to have no plan at all - because if you never plan for anything, then nothing can ever go wrong.
+
+[ 82] (01:40:30.0 -> 01:40:42.0)  <normal>
+      In the crowded shelter Ki-taek lies awake on the floor, a man who has finally run all the way out of plans, and out of hope.
+
+[ 83] (01:43:00.0 -> 01:43:10.0)  <normal>
+      The very next morning, Mrs Park - utterly delighted by the clear blue skies the very same storm has left behind - decides on a cheerful whim to throw a last-minute garden party for her son.
+
+[ 84] (01:44:00.0 -> 01:44:08.0)  <normal>
+      The next morning Mrs Park phones round her wealthy friends, gathering them for an impromptu garden party in hours.
+
+[ 85] (01:45:30.0 -> 01:45:42.0)  <normal>
+      Summoned straight from the gymnasium floor, the Kims smile and serve canapes to a garden full of the cheerful, comfortable rich.
+
+[ 86] (01:46:00.0 -> 01:46:12.0)  <normal>
+      And so the exhausted Kims are summoned straight from the gymnasium floor to wait on the wealthy at their play, plastering on smiles to serve canapes to a laughing crowd in the very garden sitting directly on top of the family's buried secret.
+
+[ 87] (01:47:00.0 -> 01:47:12.0)  <normal>
+      Mr Park, meanwhile, casually dresses Ki-taek up in a feathered headdress to play a savage for the children's little game - the silly costume one more small, careless humiliation that the rich never even notice they are handing out.
+
+[ 88] (01:48:15.0 -> 01:48:23.0)  <normal>
+      Is this part of the job, Ki-taek asks quietly. Think of it as overtime, he is told.
+
+[ 89] (01:51:00.0 -> 01:51:06.0)  <normal>
+      But far below, Geun-sae - broken by his wife's death - climbs the bunker stairs toward the light.
+
+[ 90] (01:51:30.0 -> 01:51:42.0)  <normal>
+      Ki-jung lifts the lit birthday cake and carries it out across the bright green lawn toward the waiting guests.
+
+[ 91] (01:52:05.0 -> 01:52:11.0)  <normal>
+      Ki-jung carries the birthday cake out across the lawn.
+
+[ 92] (01:53:18.0 -> 01:53:23.0)  <normal>
+      And the bunker erupts. He bursts into the daylight and stabs Ki-jung.
+
+[ 93] (01:53:40.0 -> 01:53:42.0)  <normal>
+      Ki-taek freezes, blood on his hand.
+
+[ 94] (01:53:55.0 -> 01:53:57.0)  <normal>
+      She goes down on the grass, bleeding.
+
+[ 95] (01:54:10.0 -> 01:54:19.0)  <normal>
+      The elegant garden party collapses into blood and screaming chaos; the little boy faints clean away at the sight, and Ki-taek's wife throws herself at the intruder and wrestles him down onto the lawn.
+
+[ 96] (01:54:25.0 -> 01:54:28.7)  <normal>
+      Mr Park pinches his nose against the dying man's smell.
+
+[ 97] (01:54:40.0 -> 01:54:48.0)  <normal>
+      Then Mr Park recoils from the dying man's smell - and that flinch is the line crossed one last time. Something breaks, and Ki-taek kills him.
+
+[ 98] (01:55:00.0 -> 01:55:06.0)  <normal>
+      That single flinch is the line, crossed one final time. Something in Ki-taek gives way, and he drives the knife home.
+
+[ 99] (01:55:30.0 -> 01:55:42.0)  <normal>
+      When the screaming finally stops, the bright sunny garden is left a scene of carnage, scattered with the bodies and the wreckage of two ruined families - and somewhere in the running, panicking crowd, Ki-taek has simply, completely vanished.
+
+[100] (01:55:50.0 -> 01:56:02.0)  <normal>
+      Ki-woo lies bleeding in the grass while the screaming party scatters around him, the bright afternoon coming apart at the seams.
+
+[101] (01:56:15.0 -> 01:56:23.0)  <normal>
+      The few survivors are left standing dazed among the overturned tables and the blood, the beautiful party transformed in a single afternoon into the end of everything.
+
+[102] (01:56:30.0 -> 01:56:35.0)  <normal>
+      His daughter dead, his son near death - the family destroyed in one bright afternoon.
+
+[103] (01:57:00.0 -> 01:57:06.0)  <normal>
+      Ki-woo survives, but the head wound leaves him laughing helplessly at nothing, and he and his mother are led away under guard.
+
+[104] (01:57:10.0 -> 01:57:19.0)  <normal>
+      He wakes in a hospital bed with a head wound that has left him laughing helplessly at nothing at all.
+
+[105] (01:58:50.0 -> 01:58:56.0)  <normal>
+      He climbs the slum stairways back up toward the house, drawn to it again and again like a moth.
+
+[106] (01:59:05.0 -> 01:59:15.0)  <normal>
+      And one cold night he sees it - the lights of the house flickering on and off in Morse code. He reads them, and understands: his father never escaped at all.
+
+[107] (01:59:20.0 -> 01:59:33.0)  <normal>
+      Weeks later, the two survivors are quietly convicted of fraud and put on probation. The Parks move out of the cursed house, a wealthy German family moves in, and Ki-woo's father simply remains missing - completely, utterly gone.
+
+[108] (02:00:00.0 -> 02:00:13.0)  <normal>
+      Quieter now, and badly scarred, Ki-woo keeps climbing back up to a hillside high above the old house, again and again and again, just to watch it from a distance and search for any small sign of the father who disappeared into thin air.
+
+[109] (02:00:30.0 -> 02:00:33.0)  <normal>
+      He drifts through the cold city, emptier now.
+
+[110] (02:01:30.0 -> 02:01:42.0)  <normal>
+      His father has taken Geun-sae's place, hiding in that very same bunker beneath a brand-new family who have no idea he is there at all. So Ki-woo pours everything he has into a letter back down into the dark.
+
+[111] (02:02:00.0 -> 02:02:12.0)  <normal>
+      Every single night now he sits and writes another letter down into that darkness, telling his trapped father all about the plan that is coming - the money he will make, the day, somehow, he will finally set him free.
+
+[112] (02:05:00.0 -> 02:05:04.5)  <normal>
+      In the daydream he buys the house, and the keys are his.
+
+[113] (02:05:40.0 -> 02:05:53.0)  <normal>
+      So Ki-woo writes his father a letter, and he makes a plan. He will study, and work, and earn a great deal of money, and one day he will simply buy that house - so that his father can walk up out of the dark and into the sun.
+
+[114] (02:06:25.0 -> 02:06:43.0)  <normal>
+      

@@ -1,0 +1,506 @@
+{
+  "title": "They Killed His Daughter — So a Quiet Old Man Hunted Them All",
+  "target_minutes": 10,
+  "voice": "tts",
+  "lines": [
+    {
+      "id": 1,
+      "narration": "These men set off a bomb that killed a quiet old man's daughter. They thought he was nobody. It's the last mistake they'll ever make.",
+      "pool": "P2",
+      "delivery": "hook",
+      "hold": 6.0
+    },
+    {
+      "id": 2,
+      "narration": "Because this harmless little restaurant owner is about to hunt down every single person responsible — and what he's hiding will terrify an entire government.",
+      "pool": "P3",
+      "delivery": "tense",
+      "hold": 5.0
+    },
+    {
+      "id": 3,
+      "narration": "This is Serabudabu. Today I'm breaking down a revenge thriller that hides a brutal secret — and yes, that's Jackie Chan, in one of his darkest roles ever.",
+      "clip_start": "00:00:40.0",
+      "clip_end": "00:00:47.0",
+      "delivery": "intro"
+    },
+    {
+      "id": 4,
+      "narration": "His name is Quan. A widowed restaurant owner in London who lives for one person — his teenage daughter, Fan.",
+      "pool": "P1",
+      "delivery": "sad"
+    },
+    {
+      "id": 5,
+      "narration": "We meet them in the car on the way to buy a dress. She's excited about a school dance. He's the protective dad, asking about the boy taking her.",
+      "clip_start": "00:00:52.0",
+      "clip_end": "00:01:00.0",
+      "delivery": "normal"
+    },
+    {
+      "id": 6,
+      "narration": "It's a small, ordinary, beautiful moment. Which is exactly why what happens next hits so hard.",
+      "clip_start": "00:01:24.0",
+      "clip_end": "00:01:30.0",
+      "delivery": "sad"
+    },
+    {
+      "id": 7,
+      "narration": "She runs into the shop ahead of him. And that's when the bomb goes off. She's everything he has left, and in one second, she's gone.",
+      "clip_start": "00:00:55.0",
+      "clip_end": "00:01:02.0",
+      "delivery": "sad"
+    },
+    {
+      "id": 8,
+      "narration": "The attack was claimed by a group calling itself the Authentic IRA. Twelve dead. The whole city in panic.",
+      "pool": "P3",
+      "delivery": "tense"
+    },
+    {
+      "id": 9,
+      "narration": "The police have nothing. No suspects, no leads, just a name they've never heard before and a body count climbing by the hour.",
+      "clip_start": "00:04:21.0",
+      "clip_end": "00:04:28.0",
+      "delivery": "tense"
+    },
+    {
+      "id": 10,
+      "narration": "And in the middle of it sits Quan, in a police station, asking the only thing that matters to him. Who did this. The answer is always the same — we don't know.",
+      "clip_start": "00:05:51.0",
+      "clip_end": "00:05:58.0",
+      "delivery": "sad"
+    },
+    {
+      "id": 11,
+      "narration": "Days pass. The grief hardens into something colder. If the law won't give him names, he'll get them himself.",
+      "clip_start": "00:24:20.0",
+      "clip_end": "00:24:26.0",
+      "delivery": "mystery"
+    },
+    {
+      "id": 12,
+      "narration": "But to understand who can give Quan those names, we have to meet the other side of this story. Because the bombers attacked under the name of an old IRA network — and one man is tied to that network's past. Liam Hennessy, Northern Ireland's deputy minister, played by Pierce Brosnan.",
+      "clip_start": "00:10:36.0",
+      "clip_end": "00:10:43.0",
+      "delivery": "normal"
+    },
+    {
+      "id": 13,
+      "narration": "Hennessy is a former IRA man gone respectable. He swears he had nothing to do with the bombing, and he's leaning on his old contacts to find who did.",
+      "clip_start": "00:10:48.0",
+      "clip_end": "00:10:56.0",
+      "delivery": "normal"
+    },
+    {
+      "id": 14,
+      "narration": "But Hennessy is playing a dangerous game. To find the bombers, he has to deal with the same violent men he spent decades pretending he left behind.",
+      "clip_start": "00:11:00.0",
+      "clip_end": "00:11:07.0",
+      "delivery": "mystery"
+    },
+    {
+      "id": 15,
+      "narration": "The government leans on him hard. Stop these attacks, or the fragile peace that took twenty years to build comes crashing down.",
+      "clip_start": "00:10:56.0",
+      "clip_end": "00:11:00.0",
+      "delivery": "tense"
+    },
+    {
+      "id": 16,
+      "narration": "So the press, the public, and the police all turn to him. If anyone can name the men behind these bombs, it's Hennessy.",
+      "clip_start": "00:10:43.0",
+      "clip_end": "00:10:50.0",
+      "delivery": "normal"
+    },
+    {
+      "id": 17,
+      "narration": "And that's exactly why Quan comes looking for him. Still chasing names weeks later, he travels to Belfast, walks into Hennessy's office, and asks one simple question. Give me the names of the men who killed my daughter.",
+      "clip_start": "00:24:20.0",
+      "clip_end": "00:24:28.0",
+      "delivery": "tense"
+    },
+    {
+      "id": 18,
+      "narration": "Hennessy brushes him off. A grieving old man, harmless, easy to ignore. That is the biggest mistake of his life.",
+      "clip_start": "00:25:00.0",
+      "clip_end": "00:25:07.0",
+      "delivery": "mystery"
+    },
+    {
+      "id": 19,
+      "narration": "Quan offers him money for the names. He's told to go home and grieve. He's told the police are handling it. He's told, politely, to disappear.",
+      "clip_start": "00:24:28.0",
+      "clip_end": "00:24:36.0",
+      "delivery": "normal"
+    },
+    {
+      "id": 20,
+      "narration": "What none of them understand is that this man has already lost everything once before. He has nothing left to be afraid of.",
+      "clip_start": "00:25:08.0",
+      "clip_end": "00:25:15.0",
+      "delivery": "sad"
+    },
+    {
+      "id": 21,
+      "narration": "Because Quan keeps coming back. Again and again. And every time he's told no, he leaves a small homemade bomb behind to make his point.",
+      "clip_start": "00:46:05.0",
+      "clip_end": "00:46:12.0",
+      "delivery": "tense"
+    },
+    {
+      "id": 22,
+      "narration": "First he blows up the bathroom of Hennessy's office. A warning. Nobody hurt — yet. Just a message: I can reach you anywhere.",
+      "clip_start": "00:43:24.0",
+      "clip_end": "00:43:31.0",
+      "delivery": "tense"
+    },
+    {
+      "id": 23,
+      "narration": "Hennessy's men scramble to find this mystery bomber, never imagining it's the frail-looking foreigner they laughed out of the office.",
+      "clip_start": "00:43:34.0",
+      "clip_end": "00:43:41.0",
+      "delivery": "mystery"
+    },
+    {
+      "id": 24,
+      "narration": "Suddenly the politician realizes this quiet man is a problem he cannot threaten, bribe, or scare away.",
+      "clip_start": "00:43:32.0",
+      "clip_end": "00:43:38.0",
+      "delivery": "mystery"
+    },
+    {
+      "id": 25,
+      "narration": "Hennessy tries everything. He offers Quan money. He sends thugs to beat him. He has him arrested. Nothing works. Quan just gets back up.",
+      "clip_start": "00:25:00.0",
+      "clip_end": "00:25:08.0",
+      "delivery": "tense"
+    },
+    {
+      "id": 26,
+      "narration": "Every threat Hennessy makes, Quan answers with another bomb. Small, precise, impossible to ignore. The hunter is being hunted in his own home.",
+      "clip_start": "00:43:24.0",
+      "clip_end": "00:43:30.0",
+      "delivery": "tense"
+    },
+    {
+      "id": 27,
+      "narration": "And here's the question that drives the whole movie. Who exactly is Quan?",
+      "clip_start": "00:00:38.0",
+      "clip_end": "00:00:43.0",
+      "delivery": "mystery",
+      "hold": 4.0
+    },
+    {
+      "id": 28,
+      "narration": "Hennessy pulls Quan's classified file. And the history inside it turns his blood cold.",
+      "clip_start": "00:56:35.0",
+      "clip_end": "00:56:43.0",
+      "delivery": "mystery"
+    },
+    {
+      "id": 29,
+      "narration": "The file lays out his whole past. Years ago, fleeing across the sea as a refugee, pirates boarded their boat. They took Quan's two older daughters, and he couldn't save them.",
+      "clip_start": "00:56:45.0",
+      "clip_end": "00:56:55.0",
+      "delivery": "sad",
+      "hold": 4.0,
+      "flashback": true
+    },
+    {
+      "id": 30,
+      "narration": "His wife died too. Fan was the only one he managed to protect. The one reason he kept living. And now she's been taken from him as well.",
+      "clip_start": "00:56:30.0",
+      "clip_end": "00:56:37.0",
+      "delivery": "sad"
+    },
+    {
+      "id": 31,
+      "narration": "Before all that, Quan was a soldier. US special forces. A trained killer who buried that life to raise his last daughter in peace.",
+      "clip_start": "01:34:10.0",
+      "clip_end": "01:34:17.0",
+      "delivery": "tense",
+      "flashback": true
+    },
+    {
+      "id": 32,
+      "narration": "Now that daughter is gone too. And the old soldier they thought was harmless is the deadliest man in the country.",
+      "clip_start": "00:55:15.0",
+      "clip_end": "00:55:22.0",
+      "delivery": "tense"
+    },
+    {
+      "id": 33,
+      "narration": "Fed up, Hennessy sends a team of armed men to a remote farmhouse to kill Quan once and for all. But Quan saw them coming. He gets there first and disappears into the woods around the property, waiting in the rain.",
+      "pool": "P11",
+      "delivery": "tense",
+      "note": "T4 fix: establish WHY they're at the farmhouse + Quan ambush setup before the fight"
+    },
+    {
+      "id": 34,
+      "narration": "Big mistake. On his own ground, in the rain and the mud, Quan turns the hunters into the hunted.",
+      "montage": [
+        "P6",
+        "P7"
+      ],
+      "delivery": "tense",
+      "hold": 8.0,
+      "note": "forest fight montage hold"
+    },
+    {
+      "id": 35,
+      "narration": "He takes them apart one by one, leaves the last man alive, and sends Hennessy a message. Give me names, or this never stops.",
+      "clip_start": "00:55:25.0",
+      "clip_end": "00:55:32.0",
+      "delivery": "tense"
+    },
+    {
+      "id": 36,
+      "narration": "It's a stunning sequence — an old man using the land itself as a weapon, picking off trained gunmen who never see him coming.",
+      "clip_start": "00:55:40.0",
+      "clip_end": "00:55:47.0",
+      "delivery": "tense"
+    },
+    {
+      "id": 37,
+      "narration": "Hennessy finally understands. He isn't dealing with a victim. He's dealing with a ghost from a war he thought was long over.",
+      "clip_start": "00:47:30.0",
+      "clip_end": "00:47:37.0",
+      "delivery": "mystery"
+    },
+    {
+      "id": 38,
+      "narration": "With Quan squeezing him from the outside, Hennessy starts digging into who's really behind the bombs — and what he uncovers changes everything. The attacks were never really about politics.",
+      "clip_start": "00:44:41.0",
+      "clip_end": "00:44:48.0",
+      "delivery": "mystery"
+    },
+    {
+      "id": 39,
+      "narration": "The real plot is rotting from the inside. As he traces the threads, every single lead points somewhere he doesn't want to look — his own side.",
+      "clip_start": "00:44:35.0",
+      "clip_end": "00:44:41.0",
+      "delivery": "mystery"
+    },
+    {
+      "id": 40,
+      "narration": "Because the Authentic IRA isn't some foreign enemy. It's a rogue cell, and the trail leads straight back into Hennessy's own circle.",
+      "pool": "P4",
+      "delivery": "tense"
+    },
+    {
+      "id": 41,
+      "narration": "The people running it want him to use his political power to free a list of wanted IRA fugitives. The bombs are blackmail, aimed at him.",
+      "clip_start": "00:11:12.0",
+      "clip_end": "00:11:19.0",
+      "delivery": "mystery",
+      "flashback": true
+    },
+    {
+      "id": 42,
+      "narration": "And Hennessy's secret mistress, the one he trusted in his own bed? She's feeding the cell his every move. The betrayal is total.",
+      "clip_start": "00:54:00.0",
+      "clip_end": "00:54:07.0",
+      "delivery": "tense"
+    },
+    {
+      "id": 43,
+      "narration": "People close to Hennessy have been planning these attacks. Using his name, his network, his secrets, to drag the country back to war.",
+      "clip_start": "00:46:30.0",
+      "clip_end": "00:46:37.0",
+      "delivery": "mystery"
+    },
+    {
+      "id": 44,
+      "narration": "Hennessy is caught in the middle — hunted by Quan on one side, betrayed by his own people on the other.",
+      "clip_start": "00:45:00.0",
+      "clip_end": "00:45:07.0",
+      "delivery": "tense"
+    },
+    {
+      "id": 45,
+      "narration": "Slowly, he pieces it together. The people he trusted most have been lying to his face, running a private war behind his back.",
+      "clip_start": "00:47:30.0",
+      "clip_end": "00:47:37.0",
+      "delivery": "mystery"
+    },
+    {
+      "id": 46,
+      "narration": "They wanted the old days back — the bombs, the fear, the power. And they were willing to sacrifice anyone, including innocent kids, to get there.",
+      "clip_start": "00:45:40.0",
+      "clip_end": "00:45:47.0",
+      "delivery": "tense"
+    },
+    {
+      "id": 47,
+      "narration": "Quan doesn't care about their politics. He only cares that one of these people built the bomb that killed his daughter. And he is closing in.",
+      "clip_start": "00:55:15.0",
+      "clip_end": "00:55:22.0",
+      "delivery": "tense"
+    },
+    {
+      "id": 48,
+      "narration": "And the bombers aren't finished. With the heat rising, they decide to make one final, devastating statement.",
+      "clip_start": "00:45:50.0",
+      "clip_end": "00:45:57.0",
+      "delivery": "tense"
+    },
+    {
+      "id": 49,
+      "narration": "They build their most dangerous device yet — a bomb small enough to hide inside an ordinary laptop, smuggled past airport security.",
+      "pool": "P4",
+      "delivery": "tense"
+    },
+    {
+      "id": 50,
+      "narration": "Their target this time isn't a building. It's a passenger plane, packed with innocent people, set to drop out of the sky over the city.",
+      "clip_start": "00:45:57.0",
+      "clip_end": "00:46:04.0",
+      "delivery": "tense"
+    },
+    {
+      "id": 51,
+      "narration": "If it works, dozens more die and the whole country is plunged back into chaos. Everything Hennessy spent his life protecting, gone.",
+      "clip_start": "00:46:15.0",
+      "clip_end": "00:46:22.0",
+      "delivery": "tense"
+    },
+    {
+      "id": 52,
+      "narration": "But Quan has been hunting them the whole time. He beats a name out of Hennessy's people and traces the bomb-maker's supply runs. That trail leads him to a flat in London — the cell's hideout, where they're building the device.",
+      "clip_start": "00:46:30.0",
+      "clip_end": "00:46:37.0",
+      "delivery": "mystery",
+      "note": "SETUP for apartment raid: how Quan finds them (was missing - U audit)"
+    },
+    {
+      "id": 53,
+      "narration": "So while the bombers think they're hidden, the deadliest man in the country is already at their door. He corners the cell in that apartment — and the old soldier stops holding back.",
+      "clip_start": "01:27:35.0",
+      "clip_end": "01:27:42.0",
+      "delivery": "tense"
+    },
+    {
+      "id": 54,
+      "narration": "What follows is savage. Fists, furniture, gunfire — one man dismantling a room full of armed killers.",
+      "montage": [
+        "P8",
+        "P9",
+        "P10"
+      ],
+      "delivery": "tense",
+      "hold": 8.0,
+      "note": "climax montage hold"
+    },
+    {
+      "id": 55,
+      "narration": "There's no fancy choreography here, no showing off. It's desperate, ugly, and terrifyingly efficient — a man who has nothing left to lose.",
+      "clip_start": "01:29:20.0",
+      "clip_end": "01:29:27.0",
+      "delivery": "tense"
+    },
+    {
+      "id": 56,
+      "narration": "He beats the truth out of them. The flight number. The passenger's name. The bomb hidden in that laptop, minutes from going off.",
+      "clip_start": "01:31:56.0",
+      "clip_end": "01:32:06.0",
+      "delivery": "tense"
+    },
+    {
+      "id": 57,
+      "narration": "He gets the warning out just in time. The plane is saved. Hundreds of lives that would have vanished — spared by the quiet old man everyone underestimated.",
+      "clip_start": "01:33:39.0",
+      "clip_end": "01:33:46.0",
+      "delivery": "normal",
+      "hold": 4.0
+    },
+    {
+      "id": 58,
+      "narration": "With the plane saved, the authorities close in on the truth. They trace the calls, the locations, the money — and it all points back to Hennessy's people.",
+      "clip_start": "01:35:18.0",
+      "clip_end": "01:35:25.0",
+      "delivery": "tense"
+    },
+    {
+      "id": 59,
+      "narration": "The rot inside his circle is dragged into the light. The mastermind, the mole, the lover pulling the strings — all of it exposed.",
+      "clip_start": "01:35:06.0",
+      "clip_end": "01:35:14.0",
+      "delivery": "tense"
+    },
+    {
+      "id": 60,
+      "narration": "Hennessy survives, but he's finished. Quietly owned by the authorities, his secrets used as a leash for the rest of his career.",
+      "clip_start": "01:35:26.0",
+      "clip_end": "01:35:34.0",
+      "delivery": "mystery"
+    },
+    {
+      "id": 61,
+      "narration": "Everyone who underestimated the quiet old man paid for it. The bombers, the schemers, the politician who waved him away in his office.",
+      "clip_start": "01:38:11.0",
+      "clip_end": "01:38:18.0",
+      "delivery": "tense"
+    },
+    {
+      "id": 62,
+      "narration": "All of it, because they looked at a grieving father and saw nobody worth fearing.",
+      "clip_start": "01:34:50.0",
+      "clip_end": "01:34:57.0",
+      "delivery": "mystery"
+    },
+    {
+      "id": 63,
+      "narration": "And the one who built the bomb that killed Fan? Quan makes sure that person never walks away. The debt is paid in full.",
+      "clip_start": "01:31:00.0",
+      "clip_end": "01:31:07.0",
+      "delivery": "tense"
+    },
+    {
+      "id": 64,
+      "narration": "As for Quan, he got what he came for. The names. The justice. The end of the men who took his little girl.",
+      "pool": "P11",
+      "delivery": "sad",
+      "hold": 4.0
+    },
+    {
+      "id": 65,
+      "narration": "What makes this film hit so hard is the contrast. Jackie Chan, famous for fun, acrobatic fights, plays Quan almost silent — heartbroken, exhausted, terrifying.",
+      "clip_start": "00:55:15.0",
+      "clip_end": "00:55:22.0",
+      "delivery": "normal",
+      "flashback": true
+    },
+    {
+      "id": 66,
+      "narration": "And Pierce Brosnan flips his usual hero image completely — a charming politician who is, underneath, a coward drowning in his own lies.",
+      "clip_start": "00:47:40.0",
+      "clip_end": "00:47:47.0",
+      "delivery": "normal",
+      "flashback": true
+    },
+    {
+      "id": 67,
+      "narration": "It's not really an action movie. It's a tragedy about two men haunted by violence — one who can't escape his past, and one whose past is the only weapon he has left.",
+      "clip_start": "00:45:00.0",
+      "clip_end": "00:45:07.0",
+      "delivery": "sad",
+      "flashback": true
+    },
+    {
+      "id": 68,
+      "narration": "And in the end there's no triumph on Quan's face. Just a hollow quiet. Revenge gave him an answer — it could never give him his daughter back.",
+      "clip_start": "00:00:35.0",
+      "clip_end": "00:00:42.0",
+      "delivery": "sad",
+      "flashback": true
+    },
+    {
+      "id": 69,
+      "narration": "That's the story. A reminder to never underestimate a quiet man with nothing left to lose. If it gripped you, like, subscribe to Serabudabu, and tell me what to recap next.",
+      "pool": "P2",
+      "delivery": "outro",
+      "hold": 4.0
+    }
+  ]
+}

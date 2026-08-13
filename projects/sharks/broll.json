@@ -1,0 +1,22 @@
+{
+  "pool": {
+    "A2": {"start": 301.0, "end": 304.5, "hero": false, "quality": "strong", "note": "gore - severed limb in hands"},
+    "A3": {"start": 295.0, "end": 301.0, "hero": false, "quality": "strong", "note": "girl screaming, bloody"},
+    "A4": {"start": 305.0, "end": 308.5, "hero": true, "quality": "best", "note": "shark surfacing, jaws open"},
+    "A5": {"start": 308.0, "end": 325.0, "hero": false, "quality": "good", "note": "thrashing / drowning splashes"},
+    "A6": {"start": 330.0, "end": 355.0, "hero": false, "quality": "good", "note": "dorsal fin + floating remains"},
+    "A7": {"start": 1745.0, "end": 1749.0, "hero": true, "quality": "clean", "note": "clean dorsal fin at sunset (29:05)"},
+    "A8": {"start": 3010.0, "end": 3020.0, "hero": false, "quality": "good", "note": "diver descending silhouette (50:10)"},
+    "A9": {"start": 3090.0, "end": 3160.0, "hero": true, "quality": "good", "note": "diver + shark underwater (51:30)"},
+    "A10": {"start": 3285.0, "end": 3297.0, "hero": false, "quality": "good", "note": "diver passing shark (54:45)"},
+    "A11": {"start": 3245.0, "end": 3265.0, "hero": false, "quality": "good", "note": "shark hits boat / prop in mouth (54:05)"},
+    "A12": {"start": 3685.0, "end": 3718.0, "hero": true, "quality": "best", "note": "explosion + sharks airborne (1:01:25)"},
+    "A13": {"start": 3030.0, "end": 3040.0, "hero": false, "quality": "ok", "note": "scenic lake establisher (50:30)"},
+    "A14": {"start": 2190.0, "end": 2200.0, "hero": false, "quality": "clean", "note": "shark fins silhouetted at sunset (36:30-36:40)"},
+    "A15": {"start": 2185.0, "end": 2190.0, "hero": false, "quality": "good", "note": "sunset lake glow (36:25)"},
+    "A16": {"start": 2630.0, "end": 2634.0, "hero": false, "quality": "good", "note": "dorsal fin crossing water (43:50)"},
+    "A17": {"start": 3455.0, "end": 3460.0, "hero": false, "quality": "good", "note": "shark hits boat motor, water explosion (57:35)"},
+    "A18": {"start": 3505.0, "end": 3515.0, "hero": false, "quality": "ok", "note": "marina / boat establisher (58:25)"},
+    "A19": {"start": 795.0, "end": 799.0, "hero": false, "quality": "ok", "note": "dock / jetty establisher (13:15)"}
+  }
+}

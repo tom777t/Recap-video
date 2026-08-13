@@ -1,0 +1,1042 @@
+{
+  "title": "7 Bullied Kids vs. a Shape-Shifting Clown That Eats Your Fear",
+  "target_minutes": 14,
+  "voice": "tts",
+  "lines": [
+    {
+      "id": 1,
+      "narration": "A little boy chases a paper boat into the rain — and a clown is waiting for him in the sewer. What happens next is the reason a whole town lives in fear.",
+      "pool": "P1",
+      "delivery": "hook",
+      "hold": 5.0,
+      "setup_ok": true,
+      "unit_id": "U01",
+      "covers": [
+        "paper boat into the rain / clown in the sewer"
+      ],
+      "claim": {
+        "type": "setup",
+        "requires_visual": true,
+        "subject": "Pennywise"
+      }
+    },
+    {
+      "id": 2,
+      "narration": "Because this is no ordinary clown. It can become whatever scares you most — and all it needs is for you to be afraid.",
+      "pool": "P2",
+      "delivery": "tense",
+      "hold": 5.0,
+      "setup_ok": true,
+      "unit_id": "U01",
+      "covers": [
+        "it becomes whatever scares you"
+      ],
+      "claim": {
+        "type": "reveal",
+        "requires_visual": true,
+        "subject": "Pennywise"
+      }
+    },
+    {
+      "id": 3,
+      "narration": "This is Serabudabu. Today I'm breaking down IT — the 2017 horror hit where seven bullied kids take on a monster that's been hunting their town for centuries.",
+      "clip_start": "00:42:35.0",
+      "clip_end": "00:42:43.0",
+      "delivery": "intro",
+      "unit_id": "U02",
+      "covers": [
+        "channel intro + film title"
+      ],
+      "claim": {
+        "type": "narration",
+        "requires_visual": false
+      },
+      "narrative_jump": true
+    },
+    {
+      "id": 4,
+      "narration": "It opens in the small town of Derry, Maine, on a rainy afternoon. A boy named Georgie begs his big brother Bill to make him a paper boat so he can play out in the storm.",
+      "clip_start": "00:01:38.0",
+      "clip_end": "00:01:46.0",
+      "delivery": "sad",
+      "unit_id": "U03",
+      "covers": [
+        "Georgie + paper boat in the storm"
+      ],
+      "claim": {
+        "type": "setup",
+        "requires_visual": true,
+        "subject": "Georgie"
+      },
+      "narrative_jump": true
+    },
+    {
+      "id": 5,
+      "narration": "The boat races down the gutter and disappears into a storm drain. And when little Georgie kneels down to reach for it, a pair of yellow eyes and a wide grin are staring back at him from the dark.",
+      "pool": "P3",
+      "delivery": "mystery",
+      "hold": 4.0,
+      "unit_id": "U03",
+      "covers": [
+        "boat into the storm drain",
+        "Pennywise in the drain"
+      ],
+      "claim": {
+        "type": "reveal",
+        "requires_visual": true,
+        "subject": "Pennywise"
+      }
+    },
+    {
+      "id": 6,
+      "narration": "The clown calls himself Pennywise. He's playful, he's funny, and he promises to hand the boat right back. But the second Georgie reaches in, he bites down and drags the boy into the sewer. Just like that, he's gone.",
+      "clip_start": "00:08:09.0",
+      "clip_end": "00:08:17.0",
+      "delivery": "tense",
+      "unit_id": "U03",
+      "covers": [
+        "Georgie dragged into the sewer"
+      ],
+      "claim": {
+        "type": "action",
+        "requires_visual": true,
+        "subject": "Pennywise"
+      },
+      "narrative_jump": true
+    },
+    {
+      "id": 7,
+      "narration": "Georgie is never found. And here's the chilling part — in Derry, that's normal. Kids vanish here at six times the rate of any other town, and somehow the adults barely seem to notice or care.",
+      "clip_start": "00:06:40.0",
+      "clip_end": "00:06:48.0",
+      "delivery": "mystery",
+      "unit_id": "U04",
+      "covers": [
+        "kids vanish in Derry; adults don't react"
+      ],
+      "claim": {
+        "type": "narration",
+        "requires_visual": false
+      },
+      "narrative_jump": true
+    },
+    {
+      "id": 8,
+      "narration": "Months later, Bill still can't accept his brother is dead. He's convinced Georgie is out there somewhere, waiting to be found — and that desperate hope is about to drag his whole friend group into a nightmare.",
+      "clip_start": "00:10:44.0",
+      "clip_end": "00:10:52.0",
+      "delivery": "sad",
+      "unit_id": "U05",
+      "covers": [
+        "Bill can't accept Georgie is dead; pulls the group in"
+      ],
+      "claim": {
+        "type": "emotion",
+        "requires_visual": true,
+        "subject": "Bill"
+      },
+      "narrative_jump": true
+    },
+    {
+      "id": 9,
+      "narration": "Bill runs with a tight little group of outcasts who proudly call themselves the Losers Club. And to understand this story, you really need to meet them — because every one of these kids is carrying their own private fear.",
+      "pool": "P4",
+      "delivery": "normal",
+      "unit_id": "U06",
+      "covers": [
+        "Bill - leader, stutter, Georgie guilt"
+      ],
+      "claim": {
+        "type": "setup",
+        "requires_visual": true
+      }
+    },
+    {
+      "id": 10,
+      "narration": "First is Bill himself, who leads the group with a quiet bravery — even with a heavy stutter the bullies never let him forget. His guilt over Georgie drives everything. He blames himself for sending his little brother out that day.",
+      "clip_start": "00:11:14.0",
+      "clip_end": "00:11:22.0",
+      "delivery": "normal",
+      "unit_id": "U06",
+      "covers": [
+        "Bill - leader, stutter, Georgie guilt"
+      ],
+      "claim": {
+        "type": "reaction",
+        "requires_visual": true,
+        "subject": "Bill"
+      },
+      "narrative_jump": true
+    },
+    {
+      "id": 11,
+      "narration": "Then Richie — the loudmouth in thick glasses who fires off a filthy joke every few seconds. The constant trash talk is how he hides just how terrified he really is.",
+      "clip_start": "00:11:50.0",
+      "clip_end": "00:11:58.0",
+      "delivery": "normal",
+      "unit_id": "U06",
+      "covers": [
+        "Richie - loudmouth, glasses"
+      ],
+      "claim": {
+        "type": "reaction",
+        "requires_visual": true,
+        "subject": "Richie"
+      },
+      "narrative_jump": true
+    },
+    {
+      "id": 12,
+      "narration": "Eddie is the germophobe, always clutching an inhaler, convinced he's sick. His overbearing mother has spent years feeding him fake illnesses, just to keep him scared and dependent on her.",
+      "clip_start": "00:11:35.0",
+      "clip_end": "00:11:43.0",
+      "delivery": "normal",
+      "unit_id": "U06",
+      "covers": [
+        "Eddie - germophobe, controlling mom"
+      ],
+      "claim": {
+        "type": "reaction",
+        "requires_visual": true,
+        "subject": "Eddie"
+      },
+      "narrative_jump": true
+    },
+    {
+      "id": 13,
+      "narration": "Stanley is the rabbi's son — careful, anxious, dreading his bar mitzvah. He's the one who most desperately wants all of this to not be real.",
+      "clip_start": "00:12:20.0",
+      "clip_end": "00:12:28.0",
+      "delivery": "normal",
+      "unit_id": "U06",
+      "covers": [
+        "Stanley - rabbi's anxious son"
+      ],
+      "claim": {
+        "type": "reaction",
+        "requires_visual": true,
+        "subject": "Stanley"
+      },
+      "narrative_jump": true
+    },
+    {
+      "id": 14,
+      "narration": "Then two more drift in. Mike is a homeschooled farm kid, an orphan raised by his grandfather, kept at arm's length by a town that treats him as an outsider.",
+      "clip_start": "00:13:00.0",
+      "clip_end": "00:13:08.0",
+      "delivery": "normal",
+      "unit_id": "U06",
+      "covers": [
+        "Mike - homeschooled orphan, outsider"
+      ],
+      "claim": {
+        "type": "reaction",
+        "requires_visual": true,
+        "subject": "Mike"
+      },
+      "narrative_jump": true
+    },
+    {
+      "id": 15,
+      "narration": "And Ben — the chubby new kid, painfully shy, a history obsessive who'd rather hide in the library than face the bullies. He's the one who first starts digging into what's really wrong with Derry.",
+      "clip_start": "00:27:30.0",
+      "clip_end": "00:27:38.0",
+      "delivery": "normal",
+      "unit_id": "U06",
+      "covers": [
+        "Ben - new kid, history nerd"
+      ],
+      "claim": {
+        "type": "reaction",
+        "requires_visual": true,
+        "subject": "Ben"
+      },
+      "narrative_jump": true
+    },
+    {
+      "id": 16,
+      "narration": "Last is Beverly — the only girl in the group, hounded by a vicious rumor at school and trapped with an abusive father at home. The whole town writes these kids off as losers. That bond is the only thing that will save them.",
+      "clip_start": "00:42:13.0",
+      "clip_end": "00:42:21.0",
+      "delivery": "normal",
+      "unit_id": "U06",
+      "covers": [
+        "Beverly - only girl, abusive father, rumor"
+      ],
+      "claim": {
+        "type": "reaction",
+        "requires_visual": true,
+        "subject": "Beverly"
+      },
+      "narrative_jump": true
+    },
+    {
+      "id": 17,
+      "narration": "Because once Bill starts hunting for Georgie, the clown turns its hungry attention to all of them. And here's the rule that makes Pennywise so terrifying.",
+      "clip_start": "00:13:15.0",
+      "clip_end": "00:13:23.0",
+      "delivery": "tense",
+      "unit_id": "U07",
+      "covers": [
+        "it finds your worst fear and becomes it"
+      ],
+      "claim": {
+        "type": "transition",
+        "requires_visual": false
+      },
+      "narrative_jump": true
+    },
+    {
+      "id": 18,
+      "narration": "It reaches into your head and finds the single thing you're most afraid of. Then it becomes that thing. So every kid ends up hunted by their own personal nightmare.",
+      "pool": "P2",
+      "delivery": "mystery",
+      "unit_id": "U07",
+      "covers": [
+        "it finds your worst fear and becomes it"
+      ],
+      "claim": {
+        "type": "reveal",
+        "requires_visual": true,
+        "subject": "Pennywise"
+      }
+    },
+    {
+      "id": 19,
+      "narration": "For Beverly, it starts in her bathroom. A voice whispers up out of the sink, claiming to be one of the missing kids. Then the drain erupts, drowning the whole room in blood that only she can see.",
+      "clip_start": "00:42:00.0",
+      "clip_end": "00:42:08.0",
+      "delivery": "tense",
+      "visual": "bev_sink",
+      "unit_id": "U08",
+      "covers": [
+        "Beverly - blood from the sink"
+      ],
+      "claim": {
+        "type": "action",
+        "requires_visual": true,
+        "subject": "Beverly"
+      },
+      "narrative_jump": true
+    },
+    {
+      "id": 20,
+      "narration": "For Eddie the germophobe, it takes the form of a rotting, oozing leper. The diseased man staggers after him through an abandoned house, begging to touch him — every sickness Eddie has ever feared, given a face.",
+      "clip_start": "01:23:45.0",
+      "clip_end": "01:23:53.0",
+      "delivery": "tense",
+      "unit_id": "U08",
+      "covers": [
+        "Eddie - the leper"
+      ],
+      "claim": {
+        "type": "action",
+        "requires_visual": true,
+        "subject": "Eddie"
+      },
+      "narrative_jump": true
+    },
+    {
+      "id": 21,
+      "narration": "For Stanley, it's the grotesque woman from a painting in his father's study. She peels herself off the canvas and lurches at him in the dark. Her face is stretched and wrong, her mouth gaping far too wide as she reaches for him.",
+      "clip_start": "01:22:18.0",
+      "clip_end": "01:22:26.0",
+      "delivery": "tense",
+      "unit_id": "U08",
+      "covers": [
+        "Stanley - the painting woman"
+      ],
+      "claim": {
+        "type": "reveal",
+        "requires_visual": true,
+        "subject": "Stanley"
+      },
+      "narrative_jump": true
+    },
+    {
+      "id": 22,
+      "narration": "For Ben, alone in the town library, the clown appears holding a fistful of balloons. Then it shows him a headless boy stumbling through the stacks — a warning of what Derry does to its children.",
+      "clip_start": "00:28:00.0",
+      "clip_end": "00:28:08.0",
+      "delivery": "tense",
+      "visual": "library_scare",
+      "unit_id": "U08",
+      "covers": [
+        "Ben - library / headless boy"
+      ],
+      "claim": {
+        "type": "reveal",
+        "requires_visual": true,
+        "subject": "Ben"
+      },
+      "narrative_jump": true
+    },
+    {
+      "id": 23,
+      "narration": "Even Mike, who isn't in the group yet, gets his own waking nightmare: his parents burning alive behind a locked door, their hands clawing at the glass. It's the fire that orphaned him, replaying the guilt he can never outrun.",
+      "clip_start": "01:30:00.0",
+      "clip_end": "01:30:08.0",
+      "delivery": "sad",
+      "unit_id": "U08",
+      "covers": [
+        "Mike - parents burning"
+      ],
+      "claim": {
+        "type": "emotion",
+        "requires_visual": true,
+        "subject": "Mike"
+      },
+      "narrative_jump": true
+    },
+    {
+      "id": 24,
+      "narration": "And for Bill, the clown saves its cruelest trick. It wears Georgie's face and voice, dangling the impossible hope that his little brother might still be alive — just to torture him.",
+      "clip_start": "00:08:30.0",
+      "clip_end": "00:08:38.0",
+      "delivery": "sad",
+      "unit_id": "U08",
+      "covers": [
+        "Bill - the clown wears Georgie"
+      ],
+      "claim": {
+        "type": "reveal",
+        "requires_visual": true,
+        "subject": "Pennywise"
+      },
+      "narrative_jump": true
+    },
+    {
+      "id": 25,
+      "narration": "At first, each kid thinks they're losing their mind alone. But when they finally compare notes, the horrifying truth clicks into place — they are all being stalked by the exact same thing.",
+      "clip_start": "01:04:30.0",
+      "clip_end": "01:04:38.0",
+      "delivery": "mystery",
+      "unit_id": "U09",
+      "covers": [
+        "they compare notes - same thing hunts them all"
+      ],
+      "claim": {
+        "type": "discovery",
+        "requires_visual": true
+      },
+      "narrative_jump": true
+    },
+    {
+      "id": 26,
+      "narration": "So Ben does what Ben does best. He buries himself in the town's old records and finds a pattern nobody talks about. Roughly every twenty-seven years, a wave of Derry's children vanishes in a single horrific year.",
+      "clip_start": "00:27:05.0",
+      "clip_end": "00:27:13.0",
+      "delivery": "mystery",
+      "visual": "library_research",
+      "unit_id": "U09",
+      "covers": [
+        "Ben's research - 27-year cycle, town forgets"
+      ],
+      "claim": {
+        "type": "discovery",
+        "requires_visual": true,
+        "subject": "Ben"
+      },
+      "narrative_jump": true
+    },
+    {
+      "id": 27,
+      "narration": "An explosion at an ironworks. A whole street of kids gone. A massacre at a bar. Each time it's written off as an accident or a crime — and each time, the town simply moves on and forgets, as if something wants it forgotten.",
+      "clip_start": "00:27:20.0",
+      "clip_end": "00:27:28.0",
+      "delivery": "mystery",
+      "unit_id": "U09",
+      "covers": [
+        "Ben's research - 27-year cycle, town forgets"
+      ],
+      "claim": {
+        "type": "narration",
+        "requires_visual": false
+      },
+      "narrative_jump": true
+    },
+    {
+      "id": 28,
+      "narration": "Mike adds the last, awful piece. He's pieced together the town's bloody history and realized it isn't a clown at all. Pennywise is just the costume an ancient, shapeless thing likes to wear — something that wakes, feeds, and goes back to sleep.",
+      "clip_start": "01:09:05.0",
+      "clip_end": "01:09:13.0",
+      "delivery": "mystery",
+      "unit_id": "U09",
+      "covers": [
+        "Mike - it isn't a clown, ancient thing"
+      ],
+      "claim": {
+        "type": "discovery",
+        "requires_visual": true,
+        "subject": "Mike"
+      },
+      "narrative_jump": true
+    },
+    {
+      "id": 29,
+      "narration": "But the clown isn't the only danger stalking them. Henry Bowers — an older, knife-carrying bully and the son of the town's cruel sheriff — hunts the Losers down and beats on them like it's a sport.",
+      "pool": "P5",
+      "delivery": "tense",
+      "unit_id": "U10",
+      "covers": [
+        "Henry Bowers - knife bully, sheriff's son"
+      ],
+      "claim": {
+        "type": "action",
+        "requires_visual": true,
+        "subject": "Bowers"
+      }
+    },
+    {
+      "id": 30,
+      "narration": "Bowers is so vicious he once carved his initial into Ben's stomach with a knife just for running from him. He and his gang corner the kids over and over.",
+      "clip_start": "00:29:30.0",
+      "clip_end": "00:29:38.0",
+      "delivery": "tense",
+      "visual": "bowers_bully",
+      "unit_id": "U10",
+      "covers": [
+        "Henry Bowers - knife bully, sheriff's son"
+      ],
+      "claim": {
+        "type": "action",
+        "requires_visual": true,
+        "subject": "Bowers"
+      },
+      "narrative_jump": true
+    },
+    {
+      "id": 31,
+      "narration": "Then, in a brutal showdown at the river, the Losers fight back for the first time and drive the gang off with a hail of rocks. But they've just made a dangerous enemy even angrier — and the clown is watching, ready to use that rage.",
+      "clip_start": "01:05:45.0",
+      "clip_end": "01:05:53.0",
+      "delivery": "tense",
+      "unit_id": "U10",
+      "covers": [
+        "rock fight at the river",
+        "clown feeds Bowers' rage"
+      ],
+      "claim": {
+        "type": "action",
+        "requires_visual": true
+      },
+      "narrative_jump": true
+    },
+    {
+      "id": 32,
+      "narration": "Surrounded on every side, the Losers make the choice that defines them. If the clown grows stronger whenever they're alone and afraid, then they'll stop running — and face it together.",
+      "pool": "P4",
+      "delivery": "normal",
+      "unit_id": "U11",
+      "covers": [
+        "decide to face it together"
+      ],
+      "claim": {
+        "type": "setup",
+        "requires_visual": true
+      }
+    },
+    {
+      "id": 33,
+      "narration": "For one golden summer, that bond becomes everything. They swim at the quarry, they laugh, they patch each other up — a pack of outcasts who finally, for once, don't feel alone in the world.",
+      "clip_start": "00:42:35.0",
+      "clip_end": "00:42:43.0",
+      "delivery": "sad",
+      "visual": "quarry_swim",
+      "unit_id": "U11",
+      "covers": [
+        "quarry bonding / belonging"
+      ],
+      "claim": {
+        "type": "emotion",
+        "requires_visual": true
+      },
+      "narrative_jump": true
+    },
+    {
+      "id": 34,
+      "narration": "Ben quietly falls for Beverly, writing her an anonymous love poem. Beverly, drawn to Bill, becomes the fierce heart of the group. For a few weeks, they get to just be kids — which is exactly what makes the stakes hurt.",
+      "clip_start": "00:43:20.0",
+      "clip_end": "00:43:28.0",
+      "delivery": "sad",
+      "unit_id": "U11",
+      "covers": [
+        "quarry bonding / belonging"
+      ],
+      "claim": {
+        "type": "emotion",
+        "requires_visual": true,
+        "subject": "Ben"
+      },
+      "narrative_jump": true
+    },
+    {
+      "id": 35,
+      "narration": "And Beverly is the bravest of them, because she's already lived with a monster. Her father controls her, watches her, terrifies her at home every single day. So a clown in a sewer can't break her the way it breaks the boys. Remember that — it matters at the end.",
+      "clip_start": "01:03:20.0",
+      "clip_end": "01:03:28.0",
+      "delivery": "sad",
+      "unit_id": "U11",
+      "covers": [
+        "Beverly is the brave heart (her father)"
+      ],
+      "claim": {
+        "type": "emotion",
+        "requires_visual": true,
+        "subject": "Beverly"
+      },
+      "narrative_jump": true
+    },
+    {
+      "id": 36,
+      "narration": "But friendship alone won't kill this thing. If they want their town and their missing friends back, they first have to find where the clown actually lives.",
+      "clip_start": "01:58:05.0",
+      "clip_end": "01:58:13.0",
+      "delivery": "normal",
+      "unit_id": "U12",
+      "covers": [
+        "trace it to the Neibolt well into the sewers"
+      ],
+      "claim": {
+        "type": "transition",
+        "requires_visual": false
+      },
+      "narrative_jump": true
+    },
+    {
+      "id": 37,
+      "narration": "They trace every disappearance to one place — a rotting, abandoned house on Neibolt Street. A well in its backyard drops straight down into the sewers, and they're certain that's where the clown drags everyone it takes.",
+      "clip_start": "01:57:00.0",
+      "clip_end": "01:57:07.0",
+      "delivery": "mystery",
+      "unit_id": "U12",
+      "covers": [
+        "trace it to the Neibolt well into the sewers"
+      ],
+      "claim": {
+        "type": "transition",
+        "requires_visual": true
+      },
+      "narrative_jump": true
+    },
+    {
+      "id": 38,
+      "narration": "Bill is convinced Georgie could still be alive down there. So the group works up their courage and steps inside the Neibolt house — and the moment they do, the place starts twisting reality around them.",
+      "clip_start": "01:42:25.0",
+      "clip_end": "01:42:33.0",
+      "delivery": "tense",
+      "unit_id": "U13",
+      "covers": [
+        "enter Neibolt for Georgie"
+      ],
+      "claim": {
+        "type": "action",
+        "requires_visual": true,
+        "subject": "Bill"
+      },
+      "narrative_jump": true
+    },
+    {
+      "id": 39,
+      "narration": "The clown splits them up and hits each kid with a fresh hallucination. Eddie falls and snaps his arm. Richie stumbles into a room full of clown dolls, and there he finds his own face on a missing-child poster, screaming that he's next.",
+      "clip_start": "01:21:30.0",
+      "clip_end": "01:21:38.0",
+      "delivery": "tense",
+      "visual": "pennywise_attack",
+      "unit_id": "U13",
+      "covers": [
+        "clown splits them, Eddie's arm, Richie's dolls"
+      ],
+      "claim": {
+        "type": "action",
+        "requires_visual": true,
+        "subject": "Pennywise"
+      },
+      "narrative_jump": true
+    },
+    {
+      "id": 40,
+      "narration": "Then Pennywise drops the act and attacks for real, nearly killing Eddie right in front of them. It's Beverly who saves them. She drives an iron rod straight through the clown's skull, and for the first time they see it bleed and recoil. This thing can be hurt.",
+      "clip_start": "01:58:20.0",
+      "clip_end": "01:58:28.0",
+      "delivery": "tense",
+      "unit_id": "U13",
+      "covers": [
+        "Pennywise attacks; Beverly stabs it - it bleeds"
+      ],
+      "claim": {
+        "type": "action",
+        "requires_visual": true,
+        "subject": "Pennywise"
+      },
+      "narrative_jump": true
+    },
+    {
+      "id": 41,
+      "narration": "But surviving Neibolt nearly destroys the group. Eddie's furious mother blames them for his broken arm and drags him away. The fear they swore to fight together has them shaking and pointing fingers.",
+      "clip_start": "01:31:30.0",
+      "clip_end": "01:31:38.0",
+      "delivery": "sad",
+      "visual": "eddie_arm",
+      "unit_id": "U14",
+      "covers": [
+        "blame + fear fracture the group"
+      ],
+      "claim": {
+        "type": "reaction",
+        "requires_visual": true,
+        "subject": "Eddie"
+      },
+      "narrative_jump": true
+    },
+    {
+      "id": 42,
+      "narration": "Stanley snaps at Bill — he's tired of nearly dying for a brother who's already gone. The others agree it's safer to just walk away and forget any of it ever happened.",
+      "clip_start": "01:21:42.0",
+      "clip_end": "01:21:50.0",
+      "delivery": "sad",
+      "unit_id": "U14",
+      "covers": [
+        "blame + fear fracture the group"
+      ],
+      "claim": {
+        "type": "dialogue",
+        "requires_visual": true,
+        "subject": "Stanley"
+      },
+      "narrative_jump": true
+    },
+    {
+      "id": 43,
+      "narration": "And so the Losers fall apart, scattering back to their separate, lonely lives. Which is exactly what the clown wanted — because divided and scared, each kid alone is easy prey.",
+      "clip_start": "01:23:05.0",
+      "clip_end": "01:23:13.0",
+      "delivery": "sad",
+      "unit_id": "U14",
+      "covers": [
+        "they scatter - what the clown wanted"
+      ],
+      "claim": {
+        "type": "emotion",
+        "requires_visual": true
+      },
+      "narrative_jump": true
+    },
+    {
+      "id": 44,
+      "narration": "Worse, the clown's whispers finally push Henry Bowers over the edge. It convinces him the Losers are to blame for everything. So he murders his own abusive father and becomes a knife-wielding killer doing the monster's work.",
+      "clip_start": "01:06:10.0",
+      "clip_end": "01:06:18.0",
+      "delivery": "tense",
+      "unit_id": "U15",
+      "covers": [
+        "clown pushes Bowers to kill his father, hunt them"
+      ],
+      "claim": {
+        "type": "action",
+        "requires_visual": true,
+        "subject": "Bowers"
+      },
+      "narrative_jump": true
+    },
+    {
+      "id": 45,
+      "narration": "And then Pennywise makes its boldest move. It targets Beverly — the bravest of them all — at her apartment, where her father has just cornered her in a rage.",
+      "clip_start": "01:59:55.0",
+      "clip_end": "02:00:03.0",
+      "delivery": "tense",
+      "unit_id": "U16",
+      "covers": [
+        "clown targets Beverly at home"
+      ],
+      "claim": {
+        "type": "action",
+        "requires_visual": true,
+        "subject": "Beverly"
+      },
+      "narrative_jump": true
+    },
+    {
+      "id": 46,
+      "narration": "Beverly fights her father off, but the clown is waiting. It hits her with its deadlights — a hypnotic, glowing light that floods her with terror and freezes her body. She's left conscious, but unable to move.",
+      "clip_start": "01:59:10.0",
+      "clip_end": "01:59:18.0",
+      "delivery": "tense",
+      "unit_id": "U16",
+      "covers": [
+        "deadlights trance"
+      ],
+      "claim": {
+        "type": "reveal",
+        "requires_visual": true,
+        "subject": "Beverly"
+      },
+      "narrative_jump": true
+    },
+    {
+      "id": 47,
+      "narration": "Then it carries her down into its lair and leaves her floating in the air, trapped between life and death. Taking the one Loser who was never afraid is the wake-up call the boys finally needed.",
+      "clip_start": "01:59:39.0",
+      "clip_end": "01:59:47.0",
+      "delivery": "tense",
+      "unit_id": "U16",
+      "covers": [
+        "taken into the lair; the wake-up call"
+      ],
+      "claim": {
+        "type": "action",
+        "requires_visual": true,
+        "subject": "Pennywise"
+      },
+      "narrative_jump": true
+    },
+    {
+      "id": 48,
+      "narration": "Hearing Beverly is gone, the boys realize the lesson they keep forgetting — split up, the clown kills them one at a time. Together, they stand a chance. So they track each other down and regroup.",
+      "clip_start": "01:40:45.0",
+      "clip_end": "01:40:53.0",
+      "delivery": "tense",
+      "visual": "reunion_bikes",
+      "unit_id": "U17",
+      "covers": [
+        "regroup - together or die"
+      ],
+      "claim": {
+        "type": "reaction",
+        "requires_visual": true
+      },
+      "narrative_jump": true
+    },
+    {
+      "id": 49,
+      "narration": "They ride back to the Neibolt house as one and climb down the well into the sewers after her. What they find at the bottom is a towering cistern, and floating in the air above it are the bodies of every child the clown has ever taken.",
+      "clip_start": "01:41:30.0",
+      "clip_end": "01:41:38.0",
+      "delivery": "sad",
+      "unit_id": "U17",
+      "covers": [
+        "regroup - together or die"
+      ],
+      "claim": {
+        "type": "action",
+        "requires_visual": true
+      },
+      "narrative_jump": true
+    },
+    {
+      "id": 50,
+      "narration": "And among all those floating children, at last, Bill finds his brother. Georgie's body, drifting in the dark. The hope that kept him going this whole time finally, brutally dies.",
+      "clip_start": "01:53:16.0",
+      "clip_end": "01:53:21.0",
+      "delivery": "sad",
+      "visual": "cistern",
+      "unit_id": "U17",
+      "covers": [
+        "cistern of floating bodies",
+        "Bill finds Georgie's body"
+      ],
+      "claim": {
+        "type": "discovery",
+        "requires_visual": true,
+        "subject": "Bill"
+      },
+      "narrative_jump": true
+    },
+    {
+      "id": 51,
+      "narration": "Then the clown plays its final, cruelest card. It takes Georgie's form one last time and walks toward Bill, begging him to come closer. It's a test of whether grief can make him drop his guard and die.",
+      "clip_start": "01:55:01.0",
+      "clip_end": "01:55:09.0",
+      "delivery": "tense",
+      "unit_id": "U18",
+      "covers": [
+        "the Georgie test - Bill lets go"
+      ],
+      "claim": {
+        "type": "reveal",
+        "requires_visual": true,
+        "subject": "Pennywise"
+      },
+      "narrative_jump": true
+    },
+    {
+      "id": 52,
+      "narration": "But Bill sees through it. Sobbing, he tells the thing wearing Georgie's face that his brother is dead — and that he isn't afraid of it anymore. He shoots it point-blank, and the whole group turns to fight.",
+      "pool": "P7",
+      "delivery": "tense",
+      "hold": 6.0,
+      "unit_id": "U18",
+      "covers": [
+        "the Georgie test - Bill lets go"
+      ],
+      "claim": {
+        "type": "action",
+        "requires_visual": true,
+        "subject": "Bill"
+      }
+    },
+    {
+      "id": 53,
+      "narration": "First they have to wake Beverly, still frozen in the deadlights. Ben is the shy new kid who wrote her that poem and has quietly loved her this whole time. He leans in and kisses her, and that small act of love pulls her back.",
+      "clip_start": "02:02:29.0",
+      "clip_end": "02:02:37.0",
+      "delivery": "sad",
+      "unit_id": "U18",
+      "covers": [
+        "Ben's kiss wakes Beverly"
+      ],
+      "claim": {
+        "type": "action",
+        "requires_visual": true,
+        "subject": "Ben"
+      },
+      "narrative_jump": true
+    },
+    {
+      "id": 54,
+      "narration": "And here's how you actually beat a thing that eats fear. The Losers stop running. They plant their feet, stand shoulder to shoulder, and fight back with everything they have.",
+      "pool": "P8",
+      "delivery": "tense",
+      "hold": 6.0,
+      "unit_id": "U18",
+      "covers": [
+        "they refuse fear and fight together"
+      ],
+      "claim": {
+        "type": "action",
+        "requires_visual": true
+      }
+    },
+    {
+      "id": 55,
+      "narration": "When the clown tries to peel them off one by one, they refuse to scatter. Eddie jams a metal rod down its throat, Richie smashes a bat across its face, and even trembling Stanley stands his ground instead of breaking.",
+      "clip_start": "01:59:00.0",
+      "clip_end": "01:59:08.0",
+      "delivery": "tense",
+      "unit_id": "U18",
+      "covers": [
+        "they refuse fear and fight together"
+      ],
+      "claim": {
+        "type": "action",
+        "requires_visual": true
+      },
+      "narrative_jump": true
+    },
+    {
+      "id": 56,
+      "narration": "Then they realize its true weakness. It couldn't kill Beverly because in that moment she simply wasn't afraid of it. So they choke down their own terror, throw it right back in the clown's face, and beat it down together.",
+      "clip_start": "02:00:10.0",
+      "clip_end": "02:00:18.0",
+      "delivery": "tense",
+      "unit_id": "U18",
+      "covers": [
+        "weakness - not afraid; they beat it down",
+        "it shrinks and flees"
+      ],
+      "claim": {
+        "type": "action",
+        "requires_visual": true
+      },
+      "narrative_jump": true
+    },
+    {
+      "id": 57,
+      "narration": "Shrinking and starving without their fear to feed on, the creature finally breaks. It retreats deep underground, down into the dark, to sleep off its wounds and heal.",
+      "pool": "P9",
+      "delivery": "tense",
+      "hold": 5.0,
+      "unit_id": "U18",
+      "covers": [
+        "it shrinks and flees"
+      ],
+      "claim": {
+        "type": "action",
+        "requires_visual": true,
+        "subject": "Pennywise"
+      }
+    },
+    {
+      "id": 58,
+      "narration": "It isn't truly dead, and the kids know it. So standing over the well, they cut their palms and swear a blood oath. If the clown ever returns, they will come back too, and finish it for good.",
+      "clip_start": "02:05:00.0",
+      "clip_end": "02:05:08.0",
+      "delivery": "mystery",
+      "unit_id": "U19",
+      "covers": [
+        "blood oath to return"
+      ],
+      "claim": {
+        "type": "action",
+        "requires_visual": true
+      },
+      "narrative_jump": true
+    },
+    {
+      "id": 59,
+      "narration": "Because the legend is clear — it always comes back to Derry, every twenty-seven years. This victory is only temporary; it's a promise waiting to be kept.",
+      "clip_start": "02:04:54.0",
+      "clip_end": "02:05:00.0",
+      "delivery": "tense",
+      "unit_id": "U19",
+      "covers": [
+        "it comes back every 27 years"
+      ],
+      "claim": {
+        "type": "narration",
+        "requires_visual": false
+      },
+      "narrative_jump": true
+    },
+    {
+      "id": 60,
+      "narration": "What makes IT more than a monster movie is the heart under the horror. It's really about scared, bullied, broken kids who only become unstoppable the moment they stop facing their fears alone.",
+      "clip_start": "02:02:09.0",
+      "clip_end": "02:02:17.0",
+      "delivery": "sad",
+      "unit_id": "U20",
+      "covers": [
+        "theme - unstoppable together"
+      ],
+      "claim": {
+        "type": "narration",
+        "requires_visual": false
+      },
+      "narrative_jump": true
+    },
+    {
+      "id": 61,
+      "narration": "Bill finally lets Georgie go. Beverly escapes her father for a safer life. And the Losers survived the most terrifying thing imaginable — only because they had each other.",
+      "clip_start": "02:07:09.0",
+      "clip_end": "02:07:17.0",
+      "delivery": "sad",
+      "unit_id": "U20",
+      "covers": [
+        "Bill+Beverly goodbye"
+      ],
+      "claim": {
+        "type": "emotion",
+        "requires_visual": true,
+        "subject": "Bill"
+      },
+      "narrative_jump": true
+    },
+    {
+      "id": 62,
+      "narration": "That's the story. A reminder that the thing in the dark loses its power the moment you stop facing it alone. If it gripped you, smash that like, subscribe to Serabudabu, and tell me what to recap next.",
+      "clip_start": "00:42:48.0",
+      "clip_end": "00:42:55.0",
+      "delivery": "outro",
+      "flashback": true,
+      "unit_id": "U20",
+      "covers": [
+        "channel sign-off"
+      ],
+      "claim": {
+        "type": "narration",
+        "requires_visual": false
+      },
+      "narrative_jump": true
+    }
+  ]
+}

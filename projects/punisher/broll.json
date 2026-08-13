@@ -1,0 +1,16 @@
+{
+  "pool": {
+    "P1": {"start": 30.0, "end": 90.0, "family": "father_daughter", "hero": false, "quality": "good", "note": "Quan driving daughter, warm car scene (0:30-1:30)"},
+    "P2": {"start": 154.0, "end": 160.0, "family": "explosion", "hero": true, "quality": "best", "note": "the Knightsbridge bomb explodes, fireball (2:34)"},
+    "P3": {"start": 160.0, "end": 175.0, "family": "aftermath", "hero": false, "quality": "good", "note": "bombing aftermath, bodies, smoke (2:40-2:55)"},
+    "P4": {"start": 2745.0, "end": 2760.0, "family": "bombmaking", "hero": false, "quality": "good", "note": "bombers build a device, tubes + microchip (45:45)"},
+    "P5": {"start": 2760.0, "end": 2785.0, "family": "bombmaking", "hero": false, "quality": "good", "note": "Quan builds his own bomb at a workbench (46:00)"},
+    "P6": {"start": 3290.0, "end": 3320.0, "family": "forest_fight", "hero": true, "quality": "best", "note": "Quan's rainy forest ambush/fight, muddy (54:50-55:20)"},
+    "P7": {"start": 3340.0, "end": 3360.0, "family": "forest_fight", "hero": false, "quality": "good", "note": "forest fight in the rain, hand-to-hand (55:40)"},
+    "P8": {"start": 5320.0, "end": 5340.0, "family": "apartment_fight", "hero": true, "quality": "best", "note": "climactic apartment fight, bodies thrown (1:28:40)"},
+    "P9": {"start": 5345.0, "end": 5360.0, "family": "gunfight", "hero": false, "quality": "good", "note": "apartment gun battle (1:29:00-1:29:20)"},
+    "P10": {"start": 5360.0, "end": 5390.0, "family": "apartment_fight", "hero": false, "quality": "good", "note": "hand-to-hand brawl, Quan vs bombers (1:29:20-1:29:50)"},
+    "P11": {"start": 3300.0, "end": 3315.0, "family": "quan_solo", "hero": false, "quality": "good", "note": "Quan alone in the rain, determined (55:00)"},
+    "P12": {"start": 270.0, "end": 285.0, "family": "city", "hero": false, "quality": "ok", "note": "London street / news of attack (4:30)"}
+  }
+}

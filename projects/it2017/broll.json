@@ -1,0 +1,14 @@
+{
+  "pool": {
+    "P1": {"start": 386.0, "end": 396.0, "family": "georgie_drain", "hero": true, "quality": "best", "chars": ["Georgie", "Pennywise"], "depicts": ["setup", "reveal"], "note": "Georgie in yellow raincoat at the storm drain (6:26-6:36)"},
+    "P2": {"start": 450.0, "end": 462.0, "family": "pennywise_sewer", "hero": true, "quality": "best", "chars": ["Pennywise"], "depicts": ["reveal"], "note": "Pennywise's face glowing in the dark sewer (7:30-7:42)"},
+    "P3": {"start": 525.0, "end": 535.0, "family": "georgie_drain", "hero": false, "quality": "good", "chars": ["Georgie", "Pennywise"], "depicts": ["reveal"], "note": "Georgie reaching, the paper boat at the drain (8:45-8:55)"},
+    "P4": {"start": 3920.0, "end": 3930.0, "family": "losers_group", "hero": false, "quality": "good", "chars": ["Bill", "Richie", "Eddie", "Stanley", "Mike", "Ben", "Beverly"], "depicts": ["setup"], "note": "the Losers Club kids together by the street (1:05:20)"},
+    "P5": {"start": 3930.0, "end": 3940.0, "family": "bowers_bully", "hero": false, "quality": "good", "chars": ["Bowers", "Mike"], "depicts": ["action"], "note": "Bowers gang attacks Mike, the rock fight (1:05:30)"},
+    "P6": {"start": 2555.0, "end": 2568.0, "family": "quarry_swim", "hero": false, "quality": "good", "chars": ["Bill", "Beverly", "Richie", "Eddie", "Stanley", "Mike", "Ben"], "depicts": ["emotion"], "note": "the Losers swim at the quarry, summer (42:35-42:48)"},
+    "P7": {"start": 7035.0, "end": 7045.0, "family": "pennywise_climax", "hero": true, "quality": "best", "chars": ["Pennywise", "Bill"], "depicts": ["action"], "note": "Pennywise's clown face in the lair, climax (1:57:15-1:57:25)"},
+    "P8": {"start": 7110.0, "end": 7120.0, "family": "losers_fight", "hero": false, "quality": "good", "chars": ["Bill", "Beverly", "Richie", "Eddie", "Stanley", "Mike", "Ben"], "depicts": ["action"], "note": "the Losers stand against Pennywise in the lair (1:58:30)"},
+    "P9": {"start": 7165.0, "end": 7175.0, "family": "pennywise_climax", "hero": false, "quality": "good", "chars": ["Pennywise"], "depicts": ["action"], "note": "Pennywise snarling, cornered, the kids fight back (1:59:25)"},
+    "P10": {"start": 2520.0, "end": 2528.0, "family": "bev_sink", "hero": false, "quality": "good", "chars": ["Beverly"], "depicts": ["action"], "note": "Beverly's hair in the bathroom sink (42:00-42:08)"}
+  }
+}

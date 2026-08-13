@@ -1,0 +1,54 @@
+STORY SKELETON — Chinese Zodiac (CZ12 / Armour of God 3, 2012)
+Stage 6A audit. Beats only; validate STRUCTURE before writing prose.
+
+THE QUESTION CHAIN (each beat answers the prior question, opens the next):
+
+HOOK: A man freefalls toward an erupting volcano with no parachute — to save
+      a chunk of bronze.                                  -> Why would anyone do that?
+1. INCITING: China's 12 looted zodiac heads are worth millions. MP Corporation
+   hires JC, the world's best treasure hunter, to grab the missing ones.
+                                                          -> Can he actually get them?
+2. PROOF / HEIST 1 (castle): JC infiltrates a French chateau, steals the rooster
+   head, escapes the wingsuit drop + hedge-maze chase.    -> Who's he stealing from?
+3. THE OWNER: The castle belongs to Katherine, a bankrupt aristocrat whose
+   ancestor looted that very palace in 1860 — and then vanished at sea.
+                                                          -> Where did he vanish?
+4. THE CONSCIENCE: Coco, a Chinese activist on JC's trail, confronts him: these
+   aren't loot to sell, they're stolen history.           -> Will JC keep selling them?
+5. THE TRAIL: Katherine's ancestor's lost ship "Indestructible" points to a
+   remote island. JC's team sails there hunting his treasure.  -> What's on the island?
+6. ISLAND / PIRATES: Pirates (the Vulture) ambush them; a jungle brawl; they find
+   the wreck, the ancestor's bones — and 8 tons of gold.  -> Does greed win, or conscience?
+7. THE TURN: Surrounded by stolen-treasure guilt (Katherine's + Coco's), JC
+   decides to give the heads back to China, not MP.       -> How will MP retaliate?
+8. ESCALATION: MP, furious, stages a stunt: dump the last dragon head into an
+   active volcano live on air unless the world pays.      -> Can JC save it in time?
+9. CLIMAX (skydive/volcano): JC skydives WITHOUT a parachute, fights for the
+   dragon head over the lava, and recovers it.            -> What happens to MP?
+10. RESOLUTION: MP's Morgan + son are arrested (the stolen Roses painting found);
+    JC anonymously mails every looted relic back to its home nation; treasures
+    repatriated worldwide.                                -> (closes the loop the hook opened)
+
+STRUCTURAL AUDIT (the 5 questions):
+1. Does every beat cause the next? YES — heist -> owner -> her guilt + Coco's
+   pressure -> the trail to the island -> gold tempts -> conscience turns him ->
+   MP retaliates -> climax -> justice. Each is a consequence, not a list.
+2. Any beat present ONLY because it's in the movie? The David/Bonnie marriage
+   subplot and Professor Guan kidnapping are minor — INCLUDE only as quick texture,
+   not as beats. The 1860 sacking flashback EARNS its place (it's the WHY behind
+   the whole moral spine), so keep it, but brief.
+3. Missing transition? Risk at 6->7 (gold found -> gives it back): must SHOW the
+   turn is caused (Katherine's vanished-ancestor guilt + Coco's challenge), not
+   just announced. And 7->8: MP must learn JC is betraying them before the volcano
+   stunt. Add setup lines for both.
+4. Would a first-timer get A->B each time? Yes IF: name JC's job up front (beat 1),
+   name Coco's motive (beat 4) before she changes him (beat 7), and establish the
+   island comes FROM the ancestor's ship (beat 5) before the pirates (beat 6).
+5. Each beat answer a Q and open a new one? Yes — see the chain above; the hook's
+   "why jump?" is only paid off at beat 9, pulling the viewer the whole way.
+
+ACTION SET-PIECES (must be Setup -> Action -> Consequence, families capped <=2):
+- castle_wingsuit + hedge_maze (beat 2): setup = the rooster-head heist target.
+- jungle_fight (beat 6): setup = pirates ambush the team for the gold.
+- skydive + volcano_lava (beat 9): setup = MP's "dump it in the volcano" threat.
+Each family used <=2; no knife/repeat-style families here. Verdict: SKELETON FLOWS.

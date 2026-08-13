@@ -1,0 +1,830 @@
+{
+  "_comment": "Explicit-clip footage catalogue for Gone Girl (2014). id='clip:<HH:MM:SS.s>'. depicts/chars describe what the timestamp ACTUALLY shows on screen (verified from frame montages + transcript), not what narration claims. One clip=one primary moment; single-tag where possible (1-2 max, see docs/TAGGING_GUIDE.md S1-S5). S6 action coverage (4+ shots) on B17 staging, B22 robbery, B29 Desi murder. S7 censor flags on B28/B29/B30/B34. TWIST: shots are in source-time order; beats 1-15 are Amy-as-victim, beat 16 is the reveal, 16-36 Amy-as-orchestrator. Catalogued content-first; beat-list timestamps verified against transcript+frames.",
+  "not_found": [],
+  "shots": [
+    {
+      "id": "clip:00:00:24.0",
+      "beat": 1,
+      "clip_start": "00:00:24.0",
+      "clip_end": "00:00:30.0",
+      "chars": [
+        "Nick",
+        "Amy"
+      ],
+      "depicts": [
+        "emotion"
+      ],
+      "action": "opening - Amy rests her head against Nick as he muses in voiceover about his wife"
+    },
+    {
+      "id": "clip:00:02:27.0",
+      "beat": 2,
+      "clip_start": "00:02:27.0",
+      "clip_end": "00:02:33.0",
+      "chars": [
+        "Nick",
+        "Margo"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "action": "Nick visits The Bar and talks with his twin sister Margo on the morning of his anniversary"
+    },
+    {
+      "id": "clip:00:03:40.0",
+      "beat": 3,
+      "clip_start": "00:03:40.0",
+      "clip_end": "00:03:45.0",
+      "chars": [
+        "Nick",
+        "Amy"
+      ],
+      "depicts": [
+        "setup"
+      ],
+      "action": "flashback - Nick first meets Amy at a crowded New York party, instant chemistry"
+    },
+    {
+      "id": "clip:00:06:03.0",
+      "beat": 3,
+      "clip_start": "00:06:03.0",
+      "clip_end": "00:06:09.0",
+      "chars": [
+        "Nick",
+        "Amy"
+      ],
+      "depicts": [
+        "emotion"
+      ],
+      "action": "flashback - Nick and Amy kiss on the street in the sugar-storm, early romance"
+    },
+    {
+      "id": "clip:00:08:35.0",
+      "beat": 4,
+      "clip_start": "00:08:35.0",
+      "clip_end": "00:08:41.0",
+      "chars": [
+        "Nick"
+      ],
+      "depicts": [
+        "discovery"
+      ],
+      "action": "Nick comes home to find the front door open and the living room overturned - signs of a struggle"
+    },
+    {
+      "id": "clip:00:09:32.0",
+      "beat": 5,
+      "clip_start": "00:09:32.0",
+      "clip_end": "00:09:37.0",
+      "chars": [
+        "Nick",
+        "Boney",
+        "Gilpin"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "action": "Detective Boney and Officer Gilpin arrive and Nick reports his wife missing"
+    },
+    {
+      "id": "clip:00:11:06.0",
+      "beat": 5,
+      "clip_start": "00:11:06.0",
+      "clip_end": "00:11:11.0",
+      "chars": [
+        "Boney",
+        "Gilpin"
+      ],
+      "depicts": [
+        "discovery"
+      ],
+      "action": "police walk the disordered house, photographing the staged-looking crime scene"
+    },
+    {
+      "id": "clip:00:12:00.0",
+      "beat": 6,
+      "clip_start": "00:12:00.0",
+      "clip_end": "00:12:05.0",
+      "chars": [
+        "Nick",
+        "Amy"
+      ],
+      "depicts": [
+        "setup"
+      ],
+      "action": "flashback - the Amazing Amy book-launch party celebrating Amy's parents' children's series"
+    },
+    {
+      "id": "clip:00:13:46.0",
+      "beat": 6,
+      "clip_start": "00:13:46.0",
+      "clip_end": "00:13:51.0",
+      "chars": [
+        "Amy",
+        "Rand",
+        "Marybeth"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "action": "at the party Amy's parents discuss how their Amazing Amy books mirror and outdo their real daughter"
+    },
+    {
+      "id": "clip:00:15:18.0",
+      "beat": 7,
+      "clip_start": "00:15:18.0",
+      "clip_end": "00:15:23.0",
+      "chars": [
+        "Nick",
+        "Boney",
+        "Gilpin"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "action": "first formal police interview - Boney probes how little Nick knows about his wife's daily life"
+    },
+    {
+      "id": "clip:00:27:08.0",
+      "beat": 8,
+      "clip_start": "00:27:08.0",
+      "clip_end": "00:27:13.0",
+      "chars": [
+        "Boney",
+        "Gilpin",
+        "Nick"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "action": "police raise Amy's obsessive ex Desi Collings and a past restraining order as a lead"
+    },
+    {
+      "id": "clip:00:28:06.0",
+      "beat": 9,
+      "clip_start": "00:28:06.0",
+      "clip_end": "00:28:11.0",
+      "chars": [
+        "Nick",
+        "Boney"
+      ],
+      "depicts": [
+        "discovery"
+      ],
+      "action": "Boney shows Nick the first clue from Amy's anniversary treasure hunt found in her study"
+    },
+    {
+      "id": "clip:00:31:34.0",
+      "beat": 10,
+      "clip_start": "00:31:34.0",
+      "clip_end": "00:31:40.0",
+      "chars": [
+        "Nick",
+        "Amy"
+      ],
+      "depicts": [
+        "emotion"
+      ],
+      "action": "flashback - newlywed Nick and Amy in bed promising never to become a bitter married couple"
+    },
+    {
+      "id": "clip:00:33:38.0",
+      "beat": 10,
+      "clip_start": "00:33:38.0",
+      "clip_end": "00:33:43.0",
+      "chars": [
+        "Nick",
+        "Amy"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "action": "flashback - the marriage sours over money as Amy confronts Nick about the drained trust fund"
+    },
+    {
+      "id": "clip:00:35:09.0",
+      "beat": 11,
+      "clip_start": "00:35:09.0",
+      "clip_end": "00:35:14.0",
+      "chars": [
+        "Nick"
+      ],
+      "depicts": [
+        "transition"
+      ],
+      "action": "Nick works the volunteer search headquarters, shaking hands with the mayor amid the Find Amy effort"
+    },
+    {
+      "id": "clip:00:54:00.0",
+      "beat": 12,
+      "clip_start": "00:54:00.0",
+      "clip_end": "00:54:05.0",
+      "chars": [
+        "Nick"
+      ],
+      "depicts": [
+        "setup"
+      ],
+      "action": "a candlelight vigil and press conference for the missing Amy, the town rallying behind the search"
+    },
+    {
+      "id": "clip:00:56:40.0",
+      "beat": 13,
+      "clip_start": "00:56:40.0",
+      "clip_end": "00:56:45.0",
+      "chars": [
+        "Nick",
+        "Noelle"
+      ],
+      "depicts": [
+        "reveal"
+      ],
+      "action": "at the vigil Amy's friend Noelle publicly reveals that Amy was six weeks pregnant"
+    },
+    {
+      "id": "clip:00:57:34.0",
+      "beat": 13,
+      "clip_start": "00:57:34.0",
+      "clip_end": "00:57:39.0",
+      "chars": [
+        "Nick",
+        "Boney"
+      ],
+      "depicts": [
+        "reaction"
+      ],
+      "action": "Boney confronts Nick with the pregnancy news, his stunned denial deepening suspicion"
+    },
+    {
+      "id": "clip:00:58:45.0",
+      "beat": 14,
+      "clip_start": "00:58:45.0",
+      "clip_end": "00:58:50.0",
+      "chars": [
+        "Nick",
+        "Boney",
+        "Gilpin"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "action": "interrogation - police lay out the staged scene, mopped-up blood, debt and inflated life insurance"
+    },
+    {
+      "id": "clip:01:00:46.0",
+      "beat": 15,
+      "clip_start": "01:00:46.0",
+      "clip_end": "01:00:51.0",
+      "chars": [
+        "Nick",
+        "Gilpin"
+      ],
+      "depicts": [
+        "reveal"
+      ],
+      "action": "the detectives reveal Nick's secret affair with a young woman, establishing his motive"
+    },
+    {
+      "id": "clip:01:06:32.0",
+      "beat": 16,
+      "clip_start": "01:06:32.0",
+      "clip_end": "01:06:35.5",
+      "chars": [
+        "Amy"
+      ],
+      "depicts": [
+        "reveal"
+      ],
+      "action": "TWIST - Amy is alive, calmly driving in sunglasses in bright daylight (profile), revealing she faked her death (brighter, face-clear; rebound from dark 01:06:00 per QA)"
+    },
+    {
+      "id": "clip:01:06:37.0",
+      "beat": 16,
+      "clip_start": "01:06:37.0",
+      "clip_end": "01:06:41.5",
+      "chars": [
+        "Amy"
+      ],
+      "depicts": [
+        "reveal"
+      ],
+      "action": "TWIST - Amy alive, driving in bright daylight into a near-frontal close-up, composed and unbothered - the grieving wife was a performance"
+    },
+    {
+      "id": "clip:01:07:02.0",
+      "beat": 17,
+      "clip_start": "01:07:02.0",
+      "clip_end": "01:07:07.0",
+      "chars": [
+        "Amy"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "action": "planning flashback - Amy secretly steals the pregnant neighbor's urine to fake a pregnancy record"
+    },
+    {
+      "id": "clip:01:08:14.0",
+      "beat": 17,
+      "clip_start": "01:08:14.0",
+      "clip_end": "01:08:19.0",
+      "chars": [
+        "Amy"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "action": "planning flashback - Amy meticulously stages the home crime scene the morning of the anniversary"
+    },
+    {
+      "id": "clip:01:08:37.0",
+      "beat": 17,
+      "clip_start": "01:08:37.0",
+      "clip_end": "01:08:42.0",
+      "chars": [
+        "Amy"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "action": "planning flashback - Amy cuts herself to bleed across the kitchen, then poorly mops it up to mislead police"
+    },
+    {
+      "id": "clip:01:09:11.0",
+      "beat": 17,
+      "clip_start": "01:09:11.0",
+      "clip_end": "01:09:16.0",
+      "chars": [
+        "Amy"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "action": "planning flashback - Amy writes a false diary of abuse and burns it just enough for the police to find"
+    },
+    {
+      "id": "clip:01:10:26.0",
+      "beat": 18,
+      "clip_start": "01:10:26.0",
+      "clip_end": "01:10:32.0",
+      "chars": [
+        "Amy"
+      ],
+      "depicts": [
+        "reveal"
+      ],
+      "action": "Amy's Cool Girl monologue begins - she explains the effortless persona she performed to win Nick"
+    },
+    {
+      "id": "clip:01:12:01.0",
+      "beat": 18,
+      "clip_start": "01:12:01.0",
+      "clip_end": "01:12:06.0",
+      "chars": [
+        "Amy"
+      ],
+      "depicts": [
+        "reveal"
+      ],
+      "action": "Amy lays out how Nick's laziness and affair drove her to frame him so he would pay for it"
+    },
+    {
+      "id": "clip:01:13:35.0",
+      "beat": 19,
+      "clip_start": "01:13:35.0",
+      "clip_end": "01:13:40.0",
+      "chars": [
+        "Nick",
+        "Margo"
+      ],
+      "depicts": [
+        "discovery"
+      ],
+      "action": "Nick and Margo decode the treasure-hunt clues and realize Amy is framing him for her murder"
+    },
+    {
+      "id": "clip:01:15:40.0",
+      "beat": 19,
+      "clip_start": "01:15:40.0",
+      "clip_end": "01:15:45.0",
+      "chars": [
+        "Amy",
+        "Greta"
+      ],
+      "depicts": [
+        "setup"
+      ],
+      "action": "Amy, disguised in dyed hair and glasses, settles into a backwoods motel and meets neighbor Greta"
+    },
+    {
+      "id": "clip:01:21:01.0",
+      "beat": 20,
+      "clip_start": "01:21:01.0",
+      "clip_end": "01:21:06.0",
+      "chars": [
+        "Nick",
+        "Tanner"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "action": "Nick hires high-profile defense attorney Tanner Bolt to fight the tightening case against him"
+    },
+    {
+      "id": "clip:01:24:27.0",
+      "beat": 21,
+      "clip_start": "01:24:27.0",
+      "clip_end": "01:24:32.0",
+      "chars": [
+        "Nick"
+      ],
+      "depicts": [
+        "reaction"
+      ],
+      "action": "cable-news shows brand Nick a wife-killer after the pregnancy leaks, turning public opinion against him"
+    },
+    {
+      "id": "clip:01:34:27.0",
+      "beat": 22,
+      "clip_start": "01:34:27.0",
+      "clip_end": "01:34:32.0",
+      "chars": [
+        "Amy",
+        "Greta",
+        "Jeff"
+      ],
+      "depicts": [
+        "discovery"
+      ],
+      "action": "Greta spots Amy's hidden cash wad - 'Miss Moneybags' - at the motel pool, exposing her"
+    },
+    {
+      "id": "clip:01:38:07.0",
+      "beat": 22,
+      "clip_start": "01:38:07.0",
+      "clip_end": "01:38:12.0",
+      "chars": [
+        "Amy",
+        "Jeff"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "action": "Jeff demands the money while Amy stalls, the robbery turning threatening in her motel room"
+    },
+    {
+      "id": "clip:01:38:32.0",
+      "beat": 22,
+      "clip_start": "01:38:32.0",
+      "clip_end": "01:38:37.0",
+      "chars": [
+        "Amy",
+        "Greta",
+        "Jeff"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "action": "Greta and Jeff strike Amy and ransack her room, taking nearly all of her escape money"
+    },
+    {
+      "id": "clip:01:38:42.0",
+      "beat": 22,
+      "clip_start": "01:38:42.0",
+      "clip_end": "01:38:47.0",
+      "chars": [
+        "Amy"
+      ],
+      "depicts": [
+        "aftermath"
+      ],
+      "action": "robbed and broke, Amy is left alone, her self-funded plan suddenly collapsing"
+    },
+    {
+      "id": "clip:01:41:59.0",
+      "beat": 23,
+      "clip_start": "01:41:59.0",
+      "clip_end": "01:42:04.0",
+      "chars": [
+        "Amy",
+        "Desi"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "action": "out of options, Amy contacts her wealthy ex Desi and tearfully asks him to take her in"
+    },
+    {
+      "id": "clip:01:46:41.0",
+      "beat": 24,
+      "clip_start": "01:46:41.0",
+      "clip_end": "01:46:46.0",
+      "chars": [
+        "Amy",
+        "Desi"
+      ],
+      "depicts": [
+        "setup"
+      ],
+      "action": "Desi installs Amy in his secluded, camera-rigged lake house, a gilded cage of comfort"
+    },
+    {
+      "id": "clip:01:49:26.0",
+      "beat": 24,
+      "clip_start": "01:49:26.0",
+      "clip_end": "01:49:31.0",
+      "chars": [
+        "Amy",
+        "Desi"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "action": "Desi presses Amy to look like herself again, his control over her quietly growing"
+    },
+    {
+      "id": "clip:01:50:47.0",
+      "beat": 25,
+      "clip_start": "01:50:47.0",
+      "clip_end": "01:50:53.0",
+      "chars": [
+        "Nick",
+        "Sharon"
+      ],
+      "depicts": [
+        "setup"
+      ],
+      "action": "Nick sits across from Sharon Schieber on her TV special set as the exclusive interview begins"
+    },
+    {
+      "id": "clip:01:51:07.0",
+      "beat": 25,
+      "clip_start": "01:51:07.0",
+      "clip_end": "01:51:13.0",
+      "chars": [
+        "Nick"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "action": "Nick performs calculated remorse on camera, confessing his affair and shame to win back public sympathy"
+    },
+    {
+      "id": "clip:01:51:10.0",
+      "beat": 25,
+      "clip_start": "01:51:10.0",
+      "clip_end": "01:51:16.0",
+      "chars": [
+        "Amy",
+        "Desi"
+      ],
+      "depicts": [
+        "reaction"
+      ],
+      "action": "Amy and Desi watch the broadcast at the lake house, Amy studying Nick's performance"
+    },
+    {
+      "id": "clip:01:57:00.0",
+      "beat": 26,
+      "clip_start": "01:57:00.0",
+      "clip_end": "01:57:06.0",
+      "chars": [
+        "Boney"
+      ],
+      "depicts": [
+        "discovery"
+      ],
+      "action": "Boney lays out evidence and a map folder at the police station, the procedural case tightening"
+    },
+    {
+      "id": "clip:01:57:30.0",
+      "beat": 26,
+      "clip_start": "01:57:30.0",
+      "clip_end": "01:57:36.0",
+      "chars": [
+        "Nick",
+        "Tanner"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "action": "Nick sits under pressure beside Tanner as the detectives press him across the interview table"
+    },
+    {
+      "id": "clip:01:59:19.0",
+      "beat": 27,
+      "clip_start": "01:59:19.0",
+      "clip_end": "01:59:24.0",
+      "chars": [
+        "Amy",
+        "Desi"
+      ],
+      "depicts": [
+        "setup"
+      ],
+      "action": "moved by Nick's TV plea, Amy resolves to return home and begins planning to remove Desi"
+    },
+    {
+      "id": "clip:02:03:57.0",
+      "beat": 28,
+      "clip_start": "02:03:57.0",
+      "clip_end": "02:04:03.0",
+      "chars": [
+        "Amy",
+        "Desi"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "action": "Amy seduces Desi in the lake-house bedroom as the final step of her plan",
+      "censor": "blur"
+    },
+    {
+      "id": "clip:02:04:42.0",
+      "beat": 29,
+      "clip_start": "02:04:42.0",
+      "clip_end": "02:04:47.0",
+      "chars": [
+        "Amy",
+        "Desi"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "action": "Desi over Amy on the bed moments before the attack",
+      "censor": "blur"
+    },
+    {
+      "id": "clip:02:04:47.0",
+      "beat": 29,
+      "clip_start": "02:04:47.0",
+      "clip_end": "02:04:55.0",
+      "chars": [
+        "Amy",
+        "Desi"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "action": "Amy slits Desi's throat with a box cutter mid-act, blood spraying across the bed",
+      "censor": "blur_heavy"
+    },
+    {
+      "id": "clip:02:04:55.0",
+      "beat": 29,
+      "clip_start": "02:04:55.0",
+      "clip_end": "02:05:05.0",
+      "chars": [
+        "Amy",
+        "Desi"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "action": "blood pours over the bed as Desi convulses and Amy holds him down",
+      "censor": "blur_heavy"
+    },
+    {
+      "id": "clip:02:05:05.0",
+      "beat": 29,
+      "clip_start": "02:05:05.0",
+      "clip_end": "02:05:20.0",
+      "chars": [
+        "Desi"
+      ],
+      "depicts": [
+        "aftermath"
+      ],
+      "action": "Desi lies dead and bloodied on the soaked bed",
+      "censor": "blur_heavy"
+    },
+    {
+      "id": "clip:02:05:27.0",
+      "beat": 30,
+      "clip_start": "02:05:27.0",
+      "clip_end": "02:05:33.0",
+      "chars": [
+        "Amy"
+      ],
+      "depicts": [
+        "aftermath"
+      ],
+      "action": "Amy sits up drenched in blood in her red slip beside the body, then rises to leave",
+      "censor": "blur_light"
+    },
+    {
+      "id": "clip:02:06:15.0",
+      "beat": 31,
+      "clip_start": "02:06:15.0",
+      "clip_end": "02:06:20.0",
+      "chars": [
+        "Amy",
+        "Nick"
+      ],
+      "depicts": [
+        "reveal"
+      ],
+      "action": "bloodied and dazed, Amy returns home in a media frenzy and collapses into Nick's arms"
+    },
+    {
+      "id": "clip:02:07:03.0",
+      "beat": 32,
+      "clip_start": "02:07:03.0",
+      "clip_end": "02:07:08.0",
+      "chars": [
+        "Amy",
+        "Boney",
+        "Gilpin"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "action": "at the hospital Amy gives police a fabricated account of being kidnapped and assaulted by Desi"
+    },
+    {
+      "id": "clip:02:09:29.0",
+      "beat": 33,
+      "clip_start": "02:09:29.0",
+      "clip_end": "02:09:34.0",
+      "chars": [
+        "Boney",
+        "Amy",
+        "Nick"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "action": "Boney voices doubt - how did a bound captive get a box cutter - but Amy's airtight story holds"
+    },
+    {
+      "id": "clip:02:12:21.0",
+      "beat": 34,
+      "clip_start": "02:12:21.0",
+      "clip_end": "02:12:26.0",
+      "chars": [
+        "Nick",
+        "Amy"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "action": "alone at home Amy makes Nick strip to prove no wire, then admits she murdered Desi",
+      "censor": "blur_light"
+    },
+    {
+      "id": "clip:02:13:38.0",
+      "beat": 35,
+      "clip_start": "02:13:38.0",
+      "clip_end": "02:13:43.0",
+      "chars": [
+        "Nick"
+      ],
+      "depicts": [
+        "reaction"
+      ],
+      "action": "Nick realizes he is trapped with Amy, who controls the narrative and his fate"
+    },
+    {
+      "id": "clip:02:16:16.0",
+      "beat": 35,
+      "clip_start": "02:16:16.0",
+      "clip_end": "02:16:21.0",
+      "chars": [
+        "Nick",
+        "Margo"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "action": "Nick tells Margo that Amy confessed the murder, and that Amy is now pregnant - he cannot leave"
+    },
+    {
+      "id": "clip:02:23:34.0",
+      "beat": 36,
+      "clip_start": "02:23:34.0",
+      "clip_end": "02:23:39.0",
+      "chars": [
+        "Nick",
+        "Amy"
+      ],
+      "depicts": [
+        "emotion"
+      ],
+      "action": "Nick and Amy sit together announcing the coming baby, the perfect public couple"
+    },
+    {
+      "id": "clip:02:24:18.0",
+      "beat": 36,
+      "clip_start": "02:24:18.0",
+      "clip_end": "02:24:28.0",
+      "chars": [
+        "Nick",
+        "Amy"
+      ],
+      "depicts": [
+        "emotion"
+      ],
+      "action": "Amy stares into the camera as Nick's opening lines return - what have we done to each other"
+    }
+  ]
+}

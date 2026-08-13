@@ -1,0 +1,1828 @@
+{
+  "_comment": "Parasite (2019) recap draft. English Medium Register B. Twist-hold hook. Climax restraint. Ending ambiguity preserved. Every line bound to a frame-verified shot, capacity-aware.",
+  "project": "parasite2019",
+  "title": "Parasite",
+  "target_minutes": 12,
+  "lines": [
+    {
+      "id": 1,
+      "line_id": "L01",
+      "unit_id": "U01",
+      "covers": [
+        "1"
+      ],
+      "clip_start": "00:00:50.0",
+      "clip_end": "00:01:02.0",
+      "narration": "It begins with socks drying at a half-buried window, a poor family living with their eyes at street level.",
+      "claim": {
+        "type": "setup",
+        "requires_visual": true,
+        "subject": "Ki-woo"
+      },
+      "narrative_jump": true
+    },
+    {
+      "id": 2,
+      "line_id": "L02",
+      "unit_id": "U01",
+      "covers": [
+        "1"
+      ],
+      "clip_start": "00:01:50.0",
+      "clip_end": "00:02:00.0",
+      "narration": "A poor family in a cramped Seoul basement. A rich family in a glass house on the hill. This is the story of how one of them quietly moved into the other.",
+      "claim": {
+        "type": "setup",
+        "requires_visual": true,
+        "subject": "Ki-woo"
+      },
+      "narrative_jump": true
+    },
+    {
+      "id": 3,
+      "line_id": "L03",
+      "unit_id": "U01",
+      "covers": [
+        "6"
+      ],
+      "clip_start": "00:32:35.0",
+      "clip_end": "00:32:47.0",
+      "narration": "One forged document at a time, the Kim family takes over the wealthy Parks' household - four of them posing as strangers who have never met. It works perfectly, which is exactly the problem.",
+      "claim": {
+        "type": "reveal",
+        "requires_visual": true
+      },
+      "narrative_jump": true
+    },
+    {
+      "id": 4,
+      "line_id": "L04",
+      "unit_id": "U01",
+      "covers": [
+        "23"
+      ],
+      "clip_start": "00:53:35.0",
+      "clip_end": "00:53:47.0",
+      "narration": "It is a sharp, funny class fable - until the day it turns into something nobody in either house could ever have planned for. I am Serabudabu, and today we go deep inside Parasite.",
+      "claim": {
+        "type": "transition",
+        "requires_visual": true
+      },
+      "narrative_jump": true
+    },
+    {
+      "id": 5,
+      "line_id": "L05",
+      "unit_id": "U02",
+      "covers": [
+        "1"
+      ],
+      "clip_start": "00:01:50.0",
+      "clip_end": "00:02:00.0",
+      "narration": "We open in a half-underground flat in Seoul, where the Kim family lives at street level with the gutter. Ki-woo lifts his phone to the ceiling, hunting for a sliver of a neighbour's wi-fi.",
+      "claim": {
+        "type": "setup",
+        "requires_visual": true,
+        "subject": "Ki-woo"
+      }
+    },
+    {
+      "id": 6,
+      "line_id": "L06",
+      "unit_id": "U02",
+      "covers": [
+        "1"
+      ],
+      "clip_start": "00:03:55.0",
+      "clip_end": "00:04:02.0",
+      "narration": "When the street is fumigated, the father leaves the windows open to let the free poison kill their bugs - too broke to be proud about it.",
+      "claim": {
+        "type": "setup",
+        "requires_visual": true,
+        "subject": "Ki-taek"
+      }
+    },
+    {
+      "id": 7,
+      "line_id": "L07",
+      "unit_id": "U02",
+      "covers": [
+        "1"
+      ],
+      "clip_start": "00:05:00.0",
+      "clip_end": "00:05:12.0",
+      "narration": "A drunk wanders up to street level and relieves himself right against their window, and the family can only watch - powerless even inside their own home.",
+      "claim": {
+        "type": "setup",
+        "requires_visual": true,
+        "subject": "Ki-taek"
+      }
+    },
+    {
+      "id": 8,
+      "line_id": "L08",
+      "unit_id": "U02",
+      "covers": [
+        "1"
+      ],
+      "clip_start": "00:06:00.0",
+      "clip_end": "00:06:11.0",
+      "narration": "When the street outside is fumigated, the father tells everyone to leave the windows wide open and let the free poison drift in to kill their bugs - they are far too broke to be proud about a thing like that.",
+      "claim": {
+        "type": "setup",
+        "requires_visual": true,
+        "subject": "Ki-taek"
+      }
+    },
+    {
+      "id": 9,
+      "line_id": "L09",
+      "unit_id": "U03",
+      "covers": [
+        "2"
+      ],
+      "clip_start": "00:07:18.0",
+      "clip_end": "00:07:30.0",
+      "narration": "Then Ki-woo's old college friend Min drops by, carrying an unusual gift: a scholar's rock, a smooth grey viewing stone the wealthy like to keep on a shelf because it is supposed to draw money and good fortune into the home.",
+      "claim": {
+        "type": "reveal",
+        "requires_visual": true,
+        "subject": "Min"
+      }
+    },
+    {
+      "id": 10,
+      "line_id": "L10",
+      "unit_id": "U03",
+      "covers": [
+        "2"
+      ],
+      "clip_start": "00:08:10.0",
+      "clip_end": "00:08:22.0",
+      "narration": "This stone, Min says, will cling to the family and pull wealth toward them. Ki-woo holds it like a promise, and can hardly bring himself to put it down.",
+      "claim": {
+        "type": "setup",
+        "requires_visual": true,
+        "subject": "Ki-woo"
+      }
+    },
+    {
+      "id": 11,
+      "line_id": "L11",
+      "unit_id": "U03",
+      "covers": [
+        "2"
+      ],
+      "clip_start": "00:08:50.0",
+      "clip_end": "00:09:00.0",
+      "narration": "Min is going abroad to study, and he passes Ki-woo a golden opportunity - his own tutoring job, teaching English to the teenage daughter of a wealthy family up the hill, the Parks.",
+      "claim": {
+        "type": "dialogue",
+        "requires_visual": true,
+        "subject": "Min"
+      }
+    },
+    {
+      "id": 12,
+      "line_id": "L12",
+      "unit_id": "U03",
+      "covers": [
+        "2"
+      ],
+      "clip_start": "00:09:45.0",
+      "clip_end": "00:09:56.0",
+      "narration": "Over street-stall soju, Min half-confesses he is in love with the girl Ki-woo will tutor, and says he trusts only his poor friend not to chase a rich man's daughter behind his back.",
+      "claim": {
+        "type": "dialogue",
+        "requires_visual": true,
+        "subject": "Min"
+      }
+    },
+    {
+      "id": 13,
+      "line_id": "L13",
+      "unit_id": "U03",
+      "covers": [
+        "3"
+      ],
+      "clip_start": "00:11:25.0",
+      "clip_end": "00:11:35.0",
+      "narration": "There is just one small snag: Ki-woo never actually finished university. So his sister Ki-jung sits down at the laptop and forges him a flawless enrolment certificate in minutes. In this household, deception is the one true family trade.",
+      "claim": {
+        "type": "action",
+        "requires_visual": true,
+        "subject": "Ki-jung"
+      }
+    },
+    {
+      "id": 14,
+      "line_id": "L14",
+      "unit_id": "U03",
+      "covers": [
+        "3"
+      ],
+      "clip_start": "00:12:00.0",
+      "clip_end": "00:12:02.5",
+      "narration": "Her forgery is flawless.",
+      "claim": {
+        "type": "action",
+        "requires_visual": true,
+        "subject": "Ki-jung"
+      }
+    },
+    {
+      "id": 15,
+      "line_id": "L15",
+      "unit_id": "U04",
+      "covers": [
+        "4"
+      ],
+      "clip_start": "00:13:00.0",
+      "clip_end": "00:13:12.0",
+      "narration": "He climbs a long flight of clean stone steps, up through walls of perfectly manicured bamboo, to a sleek modernist house of glass and light and open sky - a world impossibly far from the dim basement he just climbed out of.",
+      "claim": {
+        "type": "transition",
+        "requires_visual": true,
+        "subject": "Ki-woo"
+      }
+    },
+    {
+      "id": 16,
+      "line_id": "L16",
+      "unit_id": "U04",
+      "covers": [
+        "4"
+      ],
+      "clip_start": "00:13:40.0",
+      "clip_end": "00:13:52.0",
+      "narration": "Inside, a clean bright staircase climbs upward into the light. Notice the geography: in the rich house, the stairs always go up.",
+      "claim": {
+        "type": "transition",
+        "requires_visual": true,
+        "subject": "Ki-woo"
+      }
+    },
+    {
+      "id": 17,
+      "line_id": "L17",
+      "unit_id": "U04",
+      "covers": [
+        "4"
+      ],
+      "clip_start": "00:14:30.0",
+      "clip_end": "00:14:34.0",
+      "narration": "Calling himself Kevin, he charms Mrs Park, the warm and trusting lady of the house.",
+      "claim": {
+        "type": "dialogue",
+        "requires_visual": true,
+        "subject": "Ki-woo"
+      }
+    },
+    {
+      "id": 18,
+      "line_id": "L18",
+      "unit_id": "U04",
+      "covers": [
+        "4"
+      ],
+      "clip_start": "00:15:20.0",
+      "clip_end": "00:15:32.0",
+      "narration": "Mrs Park watches the lesson from the doorway, anxious and easily impressed - exactly the kind of audience a confident liar could ask for.",
+      "claim": {
+        "type": "dialogue",
+        "requires_visual": true,
+        "subject": "Yeon-kyo"
+      }
+    },
+    {
+      "id": 19,
+      "line_id": "L19",
+      "unit_id": "U04",
+      "covers": [
+        "4"
+      ],
+      "clip_start": "00:16:10.0",
+      "clip_end": "00:16:20.0",
+      "narration": "He bluffs his way clean through the very first English lesson with the daughter, Da-hye, running entirely on pure nerve and confidence and not one single shred of real qualification.",
+      "claim": {
+        "type": "dialogue",
+        "requires_visual": true,
+        "subject": "Ki-woo"
+      }
+    },
+    {
+      "id": 20,
+      "line_id": "L20",
+      "unit_id": "U04",
+      "covers": [
+        "4"
+      ],
+      "clip_start": "00:16:40.0",
+      "clip_end": "00:16:46.0",
+      "narration": "The lesson is really a performance of swagger - and the lonely teenage girl is visibly, instantly charmed by her new tutor.",
+      "claim": {
+        "type": "dialogue",
+        "requires_visual": true,
+        "subject": "Ki-woo"
+      }
+    },
+    {
+      "id": 21,
+      "line_id": "L21",
+      "unit_id": "U04",
+      "covers": [
+        "4"
+      ],
+      "clip_start": "00:17:00.0",
+      "clip_end": "00:17:04.7",
+      "narration": "He teaches Da-hye to attack each test like a bulldozer.",
+      "claim": {
+        "type": "dialogue",
+        "requires_visual": true,
+        "subject": "Ki-woo"
+      }
+    },
+    {
+      "id": 22,
+      "line_id": "L22",
+      "unit_id": "U05",
+      "covers": [
+        "5"
+      ],
+      "clip_start": "00:17:55.0",
+      "clip_end": "00:18:05.0",
+      "narration": "He meets the Parks' hyperactive young son, Da-song - a boy who plays at being a cowboy and an Indian, and whom the family treats as a fragile little artistic genius.",
+      "claim": {
+        "type": "setup",
+        "requires_visual": true,
+        "subject": "Yeon-kyo"
+      }
+    },
+    {
+      "id": 23,
+      "line_id": "L23",
+      "unit_id": "U05",
+      "covers": [
+        "5"
+      ],
+      "clip_start": "00:18:10.0",
+      "clip_end": "00:18:19.5",
+      "narration": "Their young son Da-song tears around the house in a toy headdress, a wild little prince his mother adores and cannot begin to control.",
+      "claim": {
+        "type": "setup",
+        "requires_visual": true,
+        "subject": "Da-song"
+      }
+    },
+    {
+      "id": 24,
+      "line_id": "L24",
+      "unit_id": "U05",
+      "covers": [
+        "5"
+      ],
+      "clip_start": "00:18:30.0",
+      "clip_end": "00:18:42.0",
+      "narration": "And he overhears Mrs Park confide that she is at her wits' end - she cannot find a single art teacher anywhere who can handle her wild, troubled little boy. It is exactly the opening Ki-woo has been waiting for.",
+      "claim": {
+        "type": "dialogue",
+        "requires_visual": true,
+        "subject": "Yeon-kyo"
+      }
+    },
+    {
+      "id": 25,
+      "line_id": "L25",
+      "unit_id": "U05",
+      "covers": [
+        "5"
+      ],
+      "clip_start": "00:19:20.0",
+      "clip_end": "00:19:28.0",
+      "narration": "She frets endlessly over the boy's strange, frantic drawings, certain they must hide some deep and special wound.",
+      "claim": {
+        "type": "reveal",
+        "requires_visual": true,
+        "subject": "Yeon-kyo"
+      }
+    },
+    {
+      "id": 26,
+      "line_id": "L26",
+      "unit_id": "U05",
+      "covers": [
+        "5"
+      ],
+      "clip_start": "00:19:55.0",
+      "clip_end": "00:20:07.0",
+      "narration": "So Ki-woo recommends a brilliant, impossibly hard-to-book art therapist named Jessica - who is secretly his own sister, Ki-jung. The two of them will look each other dead in the eye and pretend to be complete strangers who have never once met.",
+      "claim": {
+        "type": "action",
+        "requires_visual": true,
+        "subject": "Ki-woo"
+      }
+    },
+    {
+      "id": 27,
+      "line_id": "L27",
+      "unit_id": "U05",
+      "covers": [
+        "5"
+      ],
+      "clip_start": "00:22:30.0",
+      "clip_end": "00:22:42.0",
+      "narration": "Jessica reads the boy's chaotic scribbles as a desperate cry for help, inventing an entire wounded psychology on the spot - a black box of trauma only she can open - and selling every word of it without a flicker of doubt.",
+      "claim": {
+        "type": "dialogue",
+        "requires_visual": true,
+        "subject": "Ki-jung"
+      }
+    },
+    {
+      "id": 28,
+      "line_id": "L28",
+      "unit_id": "U05",
+      "covers": [
+        "5"
+      ],
+      "clip_start": "00:26:20.0",
+      "clip_end": "00:26:29.0",
+      "narration": "She names a fee that should be outrageous, and the grateful mother simply agrees.",
+      "claim": {
+        "type": "dialogue",
+        "requires_visual": true,
+        "subject": "Ki-jung"
+      }
+    },
+    {
+      "id": 29,
+      "line_id": "L29",
+      "unit_id": "U05",
+      "covers": [
+        "5"
+      ],
+      "clip_start": "00:26:40.0",
+      "clip_end": "00:26:52.0",
+      "narration": "Ki-jung sweeps in and improvises an avalanche of impressive, invented art-therapy jargon about the boy's hidden trauma, his secret darkness, the black box buried deep inside his childish drawings. The completely dazzled mother hires her at a premium on the spot.",
+      "claim": {
+        "type": "dialogue",
+        "requires_visual": true,
+        "subject": "Ki-jung"
+      }
+    },
+    {
+      "id": 30,
+      "line_id": "L30",
+      "unit_id": "U06",
+      "covers": [
+        "6"
+      ],
+      "clip_start": "00:29:00.0",
+      "clip_end": "00:29:03.0",
+      "narration": "Next they come for the chauffeur.",
+      "claim": {
+        "type": "setup",
+        "requires_visual": true,
+        "subject": "Ki-jung"
+      }
+    },
+    {
+      "id": 31,
+      "line_id": "L31",
+      "unit_id": "U06",
+      "covers": [
+        "6"
+      ],
+      "clip_start": "00:29:30.0",
+      "clip_end": "00:29:42.0",
+      "narration": "And on the way home she quietly slips a pair of her own underwear down beneath the back seat of his spotless company car - a tiny, planted lie just waiting to be discovered by the wrong eyes.",
+      "claim": {
+        "type": "setup",
+        "requires_visual": true,
+        "subject": "Ki-jung"
+      }
+    },
+    {
+      "id": 32,
+      "line_id": "L32",
+      "unit_id": "U06",
+      "covers": [
+        "6"
+      ],
+      "clip_start": "00:30:00.0",
+      "clip_end": "00:30:12.0",
+      "narration": "Alone in the back of Mr Park's chauffeured car at night, calm as still water, Ki-jung quietly sets the small, cruel trap that will cost a decent and entirely innocent man his job and his good name.",
+      "claim": {
+        "type": "setup",
+        "requires_visual": true,
+        "subject": "Ki-jung"
+      }
+    },
+    {
+      "id": 33,
+      "line_id": "L33",
+      "unit_id": "U06",
+      "covers": [
+        "6"
+      ],
+      "clip_start": "00:32:35.0",
+      "clip_end": "00:32:47.0",
+      "narration": "The Parks find it, assume their young chauffeur has been having sex in the company car, and fire him in disgust - which lets Ki-woo gently suggest a replacement: his own father.",
+      "claim": {
+        "type": "reveal",
+        "requires_visual": true,
+        "subject": "Dong-ik"
+      }
+    },
+    {
+      "id": 34,
+      "line_id": "L34",
+      "unit_id": "U06",
+      "covers": [
+        "6"
+      ],
+      "clip_start": "00:33:40.0",
+      "clip_end": "00:33:52.0",
+      "narration": "The loyal young driver is dismissed in an afternoon, without a hearing or a second thought - down here, the poor are endlessly, casually replaceable.",
+      "claim": {
+        "type": "reveal",
+        "requires_visual": true,
+        "subject": "Dong-ik"
+      }
+    },
+    {
+      "id": 35,
+      "line_id": "L35",
+      "unit_id": "U06",
+      "covers": [
+        "6"
+      ],
+      "clip_start": "00:37:00.0",
+      "clip_end": "00:37:12.0",
+      "narration": "Ki-taek wins the wheel by performing the exact calm, devoted, faintly invisible servant that Mr Park wants to believe in.",
+      "claim": {
+        "type": "dialogue",
+        "requires_visual": true,
+        "subject": "Ki-taek"
+      }
+    },
+    {
+      "id": 36,
+      "line_id": "L36",
+      "unit_id": "U06",
+      "covers": [
+        "6"
+      ],
+      "clip_start": "00:37:50.0",
+      "clip_end": "00:37:55.0",
+      "narration": "And just like that, the father becomes their driver.",
+      "claim": {
+        "type": "dialogue",
+        "requires_visual": true,
+        "subject": "Ki-taek"
+      }
+    },
+    {
+      "id": 37,
+      "line_id": "L37",
+      "unit_id": "U06",
+      "covers": [
+        "7"
+      ],
+      "clip_start": "00:39:55.0",
+      "clip_end": "00:40:05.0",
+      "narration": "Only the loyal old housekeeper Moon-gwang now stands in their way - she came with the house and serves it better than anyone. But the Kims discover she is hiding one dangerous secret: a severe, life-threatening allergy to peaches.",
+      "claim": {
+        "type": "setup",
+        "requires_visual": true,
+        "subject": "Ki-taek"
+      }
+    },
+    {
+      "id": 38,
+      "line_id": "L38",
+      "unit_id": "U06",
+      "covers": [
+        "7"
+      ],
+      "clip_start": "00:40:30.0",
+      "clip_end": "00:40:37.0",
+      "narration": "The family maps out the housekeeper's downfall like a heist crew, circling her one fatal weakness.",
+      "claim": {
+        "type": "setup",
+        "requires_visual": true,
+        "subject": "Ki-taek"
+      }
+    },
+    {
+      "id": 39,
+      "line_id": "L39",
+      "unit_id": "U06",
+      "covers": [
+        "7"
+      ],
+      "clip_start": "00:42:30.0",
+      "clip_end": "00:42:40.0",
+      "narration": "So they secretly dust peach fuzz onto her behind her back, trigger a violent coughing fit, and then carefully stage the whole thing - bloody tissues and all - to convince the squeamish Parks that their housekeeper has tuberculosis.",
+      "claim": {
+        "type": "action",
+        "requires_visual": true,
+        "subject": "Ki-jung"
+      }
+    },
+    {
+      "id": 40,
+      "line_id": "L40",
+      "unit_id": "U06",
+      "covers": [
+        "8"
+      ],
+      "clip_start": "00:44:40.0",
+      "clip_end": "00:44:52.0",
+      "narration": "Terrified that their housekeeper is contagious, the Parks let her go without a second thought. The con is complete: all four Kims now work inside the house, drawing four good salaries, while still carefully pretending to be unrelated strangers.",
+      "claim": {
+        "type": "dialogue",
+        "requires_visual": true,
+        "subject": "Ki-taek"
+      }
+    },
+    {
+      "id": 41,
+      "line_id": "L41",
+      "unit_id": "U06",
+      "covers": [
+        "7"
+      ],
+      "clip_start": "00:45:00.0",
+      "clip_end": "00:45:12.0",
+      "narration": "And the housekeeper is cast out, coughing and pleading at the gate - the last loyal servant of the old house, swept away by a lie.",
+      "claim": {
+        "type": "reveal",
+        "requires_visual": true,
+        "subject": "Moon-gwang"
+      }
+    },
+    {
+      "id": 42,
+      "line_id": "L42",
+      "unit_id": "U06",
+      "covers": [
+        "8"
+      ],
+      "clip_start": "00:51:30.0",
+      "clip_end": "00:51:42.0",
+      "narration": "Father, mother, son and daughter - all four of them now move through the very same house every single day, addressing one another as polite strangers. One family wearing four separate disguises, quietly feeding off a single rich household.",
+      "claim": {
+        "type": "reveal",
+        "requires_visual": true,
+        "subject": "Ki-taek"
+      }
+    },
+    {
+      "id": 43,
+      "line_id": "L43",
+      "unit_id": "U07",
+      "covers": [
+        "9"
+      ],
+      "clip_start": "00:53:35.0",
+      "clip_end": "00:53:47.0",
+      "narration": "Their golden moment finally arrives when the entire Park family packs up and heads off on a birthday camping trip for the boy, leaving the great glass house completely, gloriously empty behind them.",
+      "claim": {
+        "type": "transition",
+        "requires_visual": true,
+        "subject": "Yeon-kyo"
+      }
+    },
+    {
+      "id": 44,
+      "line_id": "L44",
+      "unit_id": "U07",
+      "covers": [
+        "9"
+      ],
+      "clip_start": "00:54:00.0",
+      "clip_end": "00:54:12.0",
+      "narration": "The Kims drift through the great empty rooms, testing the silence, barely able to believe that so much space could belong to one family.",
+      "claim": {
+        "type": "emotion",
+        "requires_visual": true,
+        "subject": "Ki-jung"
+      }
+    },
+    {
+      "id": 45,
+      "line_id": "L45",
+      "unit_id": "U07",
+      "covers": [
+        "9"
+      ],
+      "clip_start": "00:55:00.0",
+      "clip_end": "00:55:02.5",
+      "narration": "The Parks drive off for the camping trip.",
+      "claim": {
+        "type": "transition",
+        "requires_visual": true,
+        "subject": "Yeon-kyo"
+      }
+    },
+    {
+      "id": 46,
+      "line_id": "L46",
+      "unit_id": "U07",
+      "covers": [
+        "9"
+      ],
+      "clip_start": "00:56:40.0",
+      "clip_end": "00:56:52.0",
+      "narration": "The Kims move in like the owners they pretend to be - sprawling across the vast living room, soaking in the marble bath, drinking the Parks' expensive whiskey as the rain falls soft and pleasant on the perfect garden outside.",
+      "claim": {
+        "type": "emotion",
+        "requires_visual": true,
+        "subject": "Ki-taek"
+      }
+    },
+    {
+      "id": 47,
+      "line_id": "L47",
+      "unit_id": "U07",
+      "covers": [
+        "9"
+      ],
+      "clip_start": "00:57:30.0",
+      "clip_end": "00:57:42.0",
+      "narration": "The Kims sprawl across the garden in the warm summer rain, drinking the good whiskey, and for one long golden evening the invisible wall between servant and master seems to quietly dissolve away into nothing at all.",
+      "claim": {
+        "type": "emotion",
+        "requires_visual": true,
+        "subject": "Ki-taek"
+      }
+    },
+    {
+      "id": 48,
+      "line_id": "L48",
+      "unit_id": "U07",
+      "covers": [
+        "9"
+      ],
+      "clip_start": "00:58:30.0",
+      "clip_end": "00:58:42.0",
+      "narration": "They sink into the rich family's deep bath and slip, just for an evening, into the soft warm life of people who never have to worry.",
+      "claim": {
+        "type": "emotion",
+        "requires_visual": true,
+        "subject": "Ki-taek"
+      }
+    },
+    {
+      "id": 49,
+      "line_id": "L49",
+      "unit_id": "U07",
+      "covers": [
+        "10"
+      ],
+      "clip_start": "01:00:50.0",
+      "clip_end": "01:01:02.0",
+      "narration": "For one drunken night they believe the house is theirs. The lady is so nice, one says - and the mother answers that she is nice because she is rich. Money, she says, is an iron that smooths every crease.",
+      "claim": {
+        "type": "dialogue",
+        "requires_visual": true,
+        "subject": "Ki-taek"
+      }
+    },
+    {
+      "id": 50,
+      "line_id": "L50",
+      "unit_id": "U07",
+      "covers": [
+        "10"
+      ],
+      "clip_start": "01:02:00.0",
+      "clip_end": "01:02:12.0",
+      "narration": "Chung-sook teases that if the Parks walked through the door right now, her husband would scuttle straight into the shadows like a cockroach - and they all laugh, because the joke lands a little too close to the truth.",
+      "claim": {
+        "type": "dialogue",
+        "requires_visual": true,
+        "subject": "Chung-sook"
+      }
+    },
+    {
+      "id": 51,
+      "line_id": "L51",
+      "unit_id": "U08",
+      "covers": [
+        "11"
+      ],
+      "clip_start": "01:03:00.0",
+      "clip_end": "01:03:12.0",
+      "narration": "And then, late that night, the doorbell rings. Standing out in the pouring rain is Moon-gwang, the old housekeeper they schemed to get fired, desperately begging to be let back inside just for a moment - she says she left something important behind, down in the basement.",
+      "claim": {
+        "type": "reveal",
+        "requires_visual": true,
+        "subject": "Moon-gwang"
+      }
+    },
+    {
+      "id": 52,
+      "line_id": "L52",
+      "unit_id": "U09",
+      "covers": [
+        "12"
+      ],
+      "clip_start": "01:05:00.0",
+      "clip_end": "01:05:12.0",
+      "narration": "She hurries down to the cellar and drags aside a heavy storage shelf. And behind it is a door that no one in this family was ever meant to find - and a narrow staircase plunging straight down into the dark.",
+      "claim": {
+        "type": "discovery",
+        "requires_visual": true,
+        "subject": "Moon-gwang"
+      }
+    },
+    {
+      "id": 53,
+      "line_id": "L53",
+      "unit_id": "U10",
+      "covers": [
+        "12"
+      ],
+      "clip_start": "01:06:25.0",
+      "clip_end": "01:06:37.0",
+      "narration": "Moon-gwang vanishes down the hidden stair into the black. A baffled Chung-sook grabs a phone for a light and follows her down into it, with absolutely no idea of the thing that has been waiting all this time at the bottom.",
+      "claim": {
+        "type": "transition",
+        "requires_visual": true,
+        "subject": "Moon-gwang"
+      }
+    },
+    {
+      "id": 54,
+      "line_id": "L54",
+      "unit_id": "U10",
+      "covers": [
+        "13"
+      ],
+      "clip_start": "01:07:00.0",
+      "clip_end": "01:07:12.0",
+      "narration": "Deep beneath the beautiful house, hidden behind that door, lies a secret bunker the architect built and quietly told no one about. And living down in it, in the dark, for years, has been Moon-gwang's own husband.",
+      "claim": {
+        "type": "reveal",
+        "requires_visual": true,
+        "subject": "Geun-sae"
+      }
+    },
+    {
+      "id": 55,
+      "line_id": "L55",
+      "unit_id": "U10",
+      "covers": [
+        "13"
+      ],
+      "clip_start": "01:07:30.0",
+      "clip_end": "01:07:42.0",
+      "narration": "The bunker is a whole hidden world - shelves and wires and salvaged junk, an entire life lived for years in the dark beneath the family's feet.",
+      "claim": {
+        "type": "reveal",
+        "requires_visual": true,
+        "subject": "Geun-sae"
+      }
+    },
+    {
+      "id": 56,
+      "line_id": "L56",
+      "unit_id": "U10",
+      "covers": [
+        "13"
+      ],
+      "clip_start": "01:08:30.0",
+      "clip_end": "01:08:42.0",
+      "narration": "His name is Geun-sae. Hiding from the loan sharks who would kill him, he has survived down in that concrete tomb in total secret for years, fed scraps by his wife, quietly worshipping the rich man upstairs who never once knew that he existed.",
+      "claim": {
+        "type": "emotion",
+        "requires_visual": true,
+        "subject": "Geun-sae"
+      }
+    },
+    {
+      "id": 57,
+      "line_id": "L57",
+      "unit_id": "U10",
+      "covers": [
+        "13"
+      ],
+      "clip_start": "01:08:50.0",
+      "clip_end": "01:09:02.0",
+      "narration": "For four years Moon-gwang has crept down here to keep her husband alive, smuggling food past the family who thought they knew their own home.",
+      "claim": {
+        "type": "emotion",
+        "requires_visual": true,
+        "subject": "Moon-gwang"
+      }
+    },
+    {
+      "id": 58,
+      "line_id": "L58",
+      "unit_id": "U10",
+      "covers": [
+        "13"
+      ],
+      "clip_start": "01:09:50.0",
+      "clip_end": "01:10:02.0",
+      "narration": "He eats alone in the gloom beside a panel of blinking lights, a man who has somehow made a strange home out of a tomb. The Kims, it turns out, are not the only parasites living quietly inside this house.",
+      "claim": {
+        "type": "reveal",
+        "requires_visual": true,
+        "subject": "Geun-sae"
+      }
+    },
+    {
+      "id": 59,
+      "line_id": "L59",
+      "unit_id": "U11",
+      "covers": [
+        "14"
+      ],
+      "clip_start": "01:11:00.0",
+      "clip_end": "01:11:12.0",
+      "narration": "The two desperate poor families collide down in that cellar, and it turns ugly fast. Moon-gwang films the Kims on her phone and threatens to send the proof straight up to Mrs Park. In a single instant, the con artists become the ones being blackmailed.",
+      "claim": {
+        "type": "action",
+        "requires_visual": true,
+        "subject": "Moon-gwang"
+      }
+    },
+    {
+      "id": 60,
+      "line_id": "L60",
+      "unit_id": "U11",
+      "covers": [
+        "14"
+      ],
+      "clip_start": "01:12:30.0",
+      "clip_end": "01:12:42.0",
+      "narration": "It becomes a frantic scramble for that phone - two families who have nothing left, clawing and wrestling on the cellar floor over the one secret that could ruin them both. There is no solidarity at the bottom; only desperation.",
+      "claim": {
+        "type": "action",
+        "requires_visual": true,
+        "subject": "Geun-sae"
+      }
+    },
+    {
+      "id": 61,
+      "line_id": "L61",
+      "unit_id": "U11",
+      "covers": [
+        "14"
+      ],
+      "clip_start": "01:13:30.0",
+      "clip_end": "01:13:42.0",
+      "narration": "Both poor families end up tumbling down the bunker stairs locked together in a heap, kicking and clawing, every last shred of dignity stripped away - two households who have nothing, fighting over the scraps of the one who has everything.",
+      "claim": {
+        "type": "action",
+        "requires_visual": true,
+        "subject": "Geun-sae"
+      }
+    },
+    {
+      "id": 62,
+      "line_id": "L62",
+      "unit_id": "U12",
+      "covers": [
+        "15"
+      ],
+      "clip_start": "01:15:30.0",
+      "clip_end": "01:15:42.0",
+      "narration": "The Kims freeze over the phone - the rich family's cheerful little whim has, in a heartbeat, become their full-blown emergency.",
+      "claim": {
+        "type": "reaction",
+        "requires_visual": true,
+        "subject": "Chung-sook"
+      }
+    },
+    {
+      "id": 63,
+      "line_id": "L63",
+      "unit_id": "U12",
+      "covers": [
+        "15"
+      ],
+      "clip_start": "01:15:50.0",
+      "clip_end": "01:16:02.0",
+      "narration": "Then comes the worst possible phone call. The very same rain has flooded the campsite, the trip is cancelled, and Mrs Park cheerfully announces the whole family will be pulling up to the house in just eight minutes.",
+      "claim": {
+        "type": "dialogue",
+        "requires_visual": true,
+        "subject": "Chung-sook"
+      }
+    },
+    {
+      "id": 64,
+      "line_id": "L64",
+      "unit_id": "U12",
+      "covers": [
+        "15"
+      ],
+      "clip_start": "01:16:10.0",
+      "clip_end": "01:16:22.0",
+      "narration": "And on the phone, Mrs Park breezily adds an order for a hot bowl of the boy's favourite beef noodles, with absolutely no idea of the desperate, sweating chaos that she is about to drive her whole family home into.",
+      "claim": {
+        "type": "reaction",
+        "requires_visual": true,
+        "subject": "Yeon-kyo"
+      }
+    },
+    {
+      "id": 65,
+      "line_id": "L65",
+      "unit_id": "U12",
+      "covers": [
+        "16"
+      ],
+      "clip_start": "01:17:15.0",
+      "clip_end": "01:17:25.0",
+      "narration": "Sudden panic. The Kims overpower Moon-gwang and her husband, drag them back down the stairs into the bunker, and then tear frantically through the house, scrubbing away every last trace that they were ever there.",
+      "claim": {
+        "type": "action",
+        "requires_visual": true,
+        "subject": "Ki-taek"
+      }
+    },
+    {
+      "id": 66,
+      "line_id": "L66",
+      "unit_id": "U12",
+      "covers": [
+        "16"
+      ],
+      "clip_start": "01:17:45.0",
+      "clip_end": "01:17:57.0",
+      "narration": "The Kims race through the great house hiding bottles, plumping cushions, wiping every surface, frantically scrubbing away each last trace of their stolen evening before the family's headlights finally swing into the drive.",
+      "claim": {
+        "type": "action",
+        "requires_visual": true,
+        "subject": "Ki-taek"
+      }
+    },
+    {
+      "id": 67,
+      "line_id": "L67",
+      "unit_id": "U12",
+      "covers": [
+        "17"
+      ],
+      "clip_start": "01:18:30.0",
+      "clip_end": "01:18:38.5",
+      "narration": "And Chung-sook, the family's brand-new housekeeper, calmly cooks the boy his luxury beef noodles on demand - while her husband and children lie hidden under the table at her feet.",
+      "claim": {
+        "type": "dialogue",
+        "requires_visual": true,
+        "subject": "Chung-sook"
+      }
+    },
+    {
+      "id": 68,
+      "line_id": "L68",
+      "unit_id": "U12",
+      "covers": [
+        "17"
+      ],
+      "clip_start": "01:20:00.0",
+      "clip_end": "01:20:09.0",
+      "narration": "The Parks arrive before they can escape. Ki-taek, Ki-woo and Ki-jung dive under the low living-room table and freeze, trapped, as the unsuspecting family settles onto the couch just above their heads.",
+      "claim": {
+        "type": "action",
+        "requires_visual": true,
+        "subject": "Ki-taek"
+      }
+    },
+    {
+      "id": 69,
+      "line_id": "L69",
+      "unit_id": "U12",
+      "covers": [
+        "17"
+      ],
+      "clip_start": "01:21:30.0",
+      "clip_end": "01:21:38.0",
+      "narration": "They have to lie absolutely still for hours, holding their breath in the dark, forced to listen to the rich couple's intimate pillow talk just inches away.",
+      "claim": {
+        "type": "emotion",
+        "requires_visual": true,
+        "subject": "Ki-taek"
+      }
+    },
+    {
+      "id": 70,
+      "line_id": "L70",
+      "unit_id": "U13",
+      "covers": [
+        "18"
+      ],
+      "clip_start": "01:27:30.0",
+      "clip_end": "01:27:42.0",
+      "narration": "And there, pinned flat to the floor just inches away, they overhear Mr Park talking quietly about Ki-taek - about his smell. That particular odour, he says, of people who ride the subway. A smell that creeps up on you, and quietly crosses the line.",
+      "claim": {
+        "type": "dialogue",
+        "requires_visual": true,
+        "subject": "Dong-ik"
+      }
+    },
+    {
+      "id": 71,
+      "line_id": "L71",
+      "unit_id": "U13",
+      "covers": [
+        "18"
+      ],
+      "clip_start": "01:27:30.0",
+      "clip_end": "01:27:42.0",
+      "narration": "It is said almost gently, as a small private joke between husband and wife. But Ki-taek, lying in the dark beneath them, hears exactly where that line is drawn - and that no amount of clever lying will ever move him to the other side of it.",
+      "claim": {
+        "type": "reaction",
+        "requires_visual": true,
+        "subject": "Ki-taek"
+      }
+    },
+    {
+      "id": 72,
+      "line_id": "L72",
+      "unit_id": "U13",
+      "covers": [
+        "18"
+      ],
+      "clip_start": "01:28:20.0",
+      "clip_end": "01:28:32.0",
+      "narration": "Under the table, Ki-taek hears himself quietly reduced to a smell, a thing that crosses a line - and something behind his eyes goes very still.",
+      "claim": {
+        "type": "reaction",
+        "requires_visual": true,
+        "subject": "Ki-taek"
+      }
+    },
+    {
+      "id": 73,
+      "line_id": "L73",
+      "unit_id": "U14",
+      "covers": [
+        "19"
+      ],
+      "clip_start": "01:31:30.0",
+      "clip_end": "01:31:43.0",
+      "narration": "When the house finally falls asleep, the three of them creep out into the storm and begin the long journey down - stairway after stairway, tunnel after tunnel, descending out of the world of the rich and back down into the gutter the city has decided they belong in.",
+      "claim": {
+        "type": "transition",
+        "requires_visual": true,
+        "subject": "Ki-taek"
+      }
+    },
+    {
+      "id": 74,
+      "line_id": "L74",
+      "unit_id": "U14",
+      "covers": [
+        "19"
+      ],
+      "clip_start": "01:32:10.0",
+      "clip_end": "01:32:22.0",
+      "narration": "The descent seems to have no bottom - down stairs, down ramps, down and down into the drowning low city, the whole world tilting toward the gutter.",
+      "claim": {
+        "type": "transition",
+        "requires_visual": true,
+        "subject": "Ki-taek"
+      }
+    },
+    {
+      "id": 75,
+      "line_id": "L75",
+      "unit_id": "U14",
+      "covers": [
+        "19"
+      ],
+      "clip_start": "01:33:18.0",
+      "clip_end": "01:33:36.0",
+      "narration": "",
+      "narration_silence_seconds": 18.0
+    },
+    {
+      "id": 76,
+      "line_id": "L76",
+      "unit_id": "U14",
+      "covers": [
+        "19"
+      ],
+      "clip_start": "01:34:00.0",
+      "clip_end": "01:34:12.0",
+      "narration": "Down and down they go through the drowning streets, descending out of the heights of the rich. The same gentle rain that was pleasant music on the Parks' lawn is, down here at the bottom, a rising flood swallowing the homes of the poor.",
+      "claim": {
+        "type": "transition",
+        "requires_visual": true,
+        "subject": "Ki-taek"
+      }
+    },
+    {
+      "id": 77,
+      "line_id": "L77",
+      "unit_id": "U15",
+      "covers": [
+        "20"
+      ],
+      "clip_start": "01:35:00.0",
+      "clip_end": "01:35:13.0",
+      "narration": "They arrive at a whole neighbourhood drowning in filthy brown water. The very same rain that was a pleasant patter on the Parks' lawn up on the hill is, down here at the bottom of the city, a slow-motion catastrophe swallowing entire streets.",
+      "claim": {
+        "type": "setup",
+        "requires_visual": true
+      }
+    },
+    {
+      "id": 78,
+      "line_id": "L78",
+      "unit_id": "U15",
+      "covers": [
+        "20"
+      ],
+      "clip_start": "01:36:30.0",
+      "clip_end": "01:36:43.0",
+      "narration": "Sewage erupts up out of their toilet in a black fountain; everything the family owns is ruined in minutes. Ki-jung climbs up and perches on the overflowing bowl to light a cigarette, far too exhausted by now to even be horrified by any of it.",
+      "claim": {
+        "type": "reveal",
+        "requires_visual": true,
+        "subject": "Ki-jung"
+      }
+    },
+    {
+      "id": 79,
+      "line_id": "L79",
+      "unit_id": "U15",
+      "covers": [
+        "20"
+      ],
+      "clip_start": "01:37:00.0",
+      "clip_end": "01:37:12.0",
+      "narration": "They wade through their ruined home in the dark, salvaging the few small things the filthy water has not already swallowed.",
+      "claim": {
+        "type": "reveal",
+        "requires_visual": true,
+        "subject": "Ki-jung"
+      }
+    },
+    {
+      "id": 80,
+      "line_id": "L80",
+      "unit_id": "U15",
+      "covers": [
+        "20"
+      ],
+      "clip_start": "01:39:30.0",
+      "clip_end": "01:39:43.0",
+      "narration": "That night they sleep on the floor of a packed emergency gymnasium - just three more anonymous bodies among the hundreds the same single storm washed out of their homes - while up on the hill, the Parks sleep dry, warm, and entirely untouched by any of it.",
+      "claim": {
+        "type": "emotion",
+        "requires_visual": true,
+        "subject": "Ki-taek"
+      }
+    },
+    {
+      "id": 81,
+      "line_id": "L81",
+      "unit_id": "U15",
+      "covers": [
+        "20"
+      ],
+      "clip_start": "01:40:00.0",
+      "clip_end": "01:40:12.0",
+      "narration": "In the crowded shelter Ki-taek quietly tells his son his new philosophy of survival: the only plan that can never fail is to have no plan at all - because if you never plan for anything, then nothing can ever go wrong.",
+      "claim": {
+        "type": "emotion",
+        "requires_visual": true,
+        "subject": "Ki-taek"
+      }
+    },
+    {
+      "id": 82,
+      "line_id": "L82",
+      "unit_id": "U15",
+      "covers": [
+        "20"
+      ],
+      "clip_start": "01:40:30.0",
+      "clip_end": "01:40:42.0",
+      "narration": "In the crowded shelter Ki-taek lies awake on the floor, a man who has finally run all the way out of plans, and out of hope.",
+      "claim": {
+        "type": "emotion",
+        "requires_visual": true,
+        "subject": "Ki-taek"
+      }
+    },
+    {
+      "id": 83,
+      "line_id": "L83",
+      "unit_id": "U16",
+      "covers": [
+        "21"
+      ],
+      "clip_start": "01:43:00.0",
+      "clip_end": "01:43:10.0",
+      "narration": "The very next morning, Mrs Park - utterly delighted by the clear blue skies the very same storm has left behind - decides on a cheerful whim to throw a last-minute garden party for her son.",
+      "claim": {
+        "type": "setup",
+        "requires_visual": true,
+        "subject": "Yeon-kyo"
+      }
+    },
+    {
+      "id": 84,
+      "line_id": "L84",
+      "unit_id": "U16",
+      "covers": [
+        "21"
+      ],
+      "clip_start": "01:44:00.0",
+      "clip_end": "01:44:08.0",
+      "narration": "The next morning Mrs Park phones round her wealthy friends, gathering them for an impromptu garden party in hours.",
+      "claim": {
+        "type": "setup",
+        "requires_visual": true,
+        "subject": "Yeon-kyo"
+      }
+    },
+    {
+      "id": 85,
+      "line_id": "L85",
+      "unit_id": "U16",
+      "covers": [
+        "21"
+      ],
+      "clip_start": "01:45:30.0",
+      "clip_end": "01:45:42.0",
+      "narration": "Summoned straight from the gymnasium floor, the Kims smile and serve canapes to a garden full of the cheerful, comfortable rich.",
+      "claim": {
+        "type": "setup",
+        "requires_visual": true,
+        "subject": "Ki-taek"
+      }
+    },
+    {
+      "id": 86,
+      "line_id": "L86",
+      "unit_id": "U16",
+      "covers": [
+        "21"
+      ],
+      "clip_start": "01:46:00.0",
+      "clip_end": "01:46:12.0",
+      "narration": "And so the exhausted Kims are summoned straight from the gymnasium floor to wait on the wealthy at their play, plastering on smiles to serve canapes to a laughing crowd in the very garden sitting directly on top of the family's buried secret.",
+      "claim": {
+        "type": "setup",
+        "requires_visual": true,
+        "subject": "Ki-taek"
+      }
+    },
+    {
+      "id": 87,
+      "line_id": "L87",
+      "unit_id": "U16",
+      "covers": [
+        "21"
+      ],
+      "clip_start": "01:47:00.0",
+      "clip_end": "01:47:12.0",
+      "narration": "Mr Park, meanwhile, casually dresses Ki-taek up in a feathered headdress to play a savage for the children's little game - the silly costume one more small, careless humiliation that the rich never even notice they are handing out.",
+      "claim": {
+        "type": "dialogue",
+        "requires_visual": true,
+        "subject": "Ki-taek"
+      }
+    },
+    {
+      "id": 88,
+      "line_id": "L88",
+      "unit_id": "U16",
+      "covers": [
+        "21"
+      ],
+      "clip_start": "01:48:15.0",
+      "clip_end": "01:48:23.0",
+      "narration": "Is this part of the job, Ki-taek asks quietly. Think of it as overtime, he is told.",
+      "claim": {
+        "type": "dialogue",
+        "requires_visual": true,
+        "subject": "Ki-taek"
+      }
+    },
+    {
+      "id": 89,
+      "line_id": "L89",
+      "unit_id": "U17",
+      "covers": [
+        "23"
+      ],
+      "clip_start": "01:51:00.0",
+      "clip_end": "01:51:06.0",
+      "narration": "But far below, Geun-sae - broken by his wife's death - climbs the bunker stairs toward the light.",
+      "claim": {
+        "type": "action",
+        "requires_visual": true,
+        "subject": "Geun-sae"
+      },
+      "narrative_jump": true
+    },
+    {
+      "id": 90,
+      "line_id": "L90",
+      "unit_id": "U16",
+      "covers": [
+        "22"
+      ],
+      "clip_start": "01:51:30.0",
+      "clip_end": "01:51:42.0",
+      "narration": "Ki-jung lifts the lit birthday cake and carries it out across the bright green lawn toward the waiting guests.",
+      "claim": {
+        "type": "action",
+        "requires_visual": true,
+        "subject": "Ki-jung"
+      }
+    },
+    {
+      "id": 91,
+      "line_id": "L91",
+      "unit_id": "U16",
+      "covers": [
+        "22"
+      ],
+      "clip_start": "01:52:05.0",
+      "clip_end": "01:52:11.0",
+      "narration": "Ki-jung carries the birthday cake out across the lawn.",
+      "claim": {
+        "type": "action",
+        "requires_visual": true,
+        "subject": "Ki-jung"
+      }
+    },
+    {
+      "id": 92,
+      "line_id": "L92",
+      "unit_id": "U17",
+      "covers": [
+        "23"
+      ],
+      "clip_start": "01:53:18.0",
+      "clip_end": "01:53:23.0",
+      "narration": "And the bunker erupts. He bursts into the daylight and stabs Ki-jung.",
+      "claim": {
+        "type": "action",
+        "requires_visual": true,
+        "subject": "Geun-sae"
+      }
+    },
+    {
+      "id": 93,
+      "line_id": "L93",
+      "unit_id": "U17",
+      "covers": [
+        "23"
+      ],
+      "clip_start": "01:53:40.0",
+      "clip_end": "01:53:42.0",
+      "narration": "Ki-taek freezes, blood on his hand.",
+      "claim": {
+        "type": "reaction",
+        "requires_visual": true,
+        "subject": "Ki-taek"
+      }
+    },
+    {
+      "id": 94,
+      "line_id": "L94",
+      "unit_id": "U17",
+      "covers": [
+        "23"
+      ],
+      "clip_start": "01:53:55.0",
+      "clip_end": "01:53:57.0",
+      "narration": "She goes down on the grass, bleeding.",
+      "claim": {
+        "type": "reveal",
+        "requires_visual": true,
+        "subject": "Ki-jung"
+      }
+    },
+    {
+      "id": 95,
+      "line_id": "L95",
+      "unit_id": "U17",
+      "covers": [
+        "23"
+      ],
+      "clip_start": "01:54:10.0",
+      "clip_end": "01:54:19.0",
+      "narration": "The elegant garden party collapses into blood and screaming chaos; the little boy faints clean away at the sight, and Ki-taek's wife throws herself at the intruder and wrestles him down onto the lawn.",
+      "claim": {
+        "type": "reveal",
+        "requires_visual": true,
+        "subject": "Geun-sae"
+      }
+    },
+    {
+      "id": 96,
+      "line_id": "L96",
+      "unit_id": "U18",
+      "covers": [
+        "24"
+      ],
+      "clip_start": "01:54:25.0",
+      "clip_end": "01:54:28.7",
+      "narration": "Mr Park pinches his nose against the dying man's smell.",
+      "claim": {
+        "type": "reaction",
+        "requires_visual": true,
+        "subject": "Dong-ik"
+      }
+    },
+    {
+      "id": 97,
+      "line_id": "L97",
+      "unit_id": "U18",
+      "covers": [
+        "24"
+      ],
+      "clip_start": "01:54:40.0",
+      "clip_end": "01:54:48.0",
+      "narration": "Then Mr Park recoils from the dying man's smell - and that flinch is the line crossed one last time. Something breaks, and Ki-taek kills him.",
+      "claim": {
+        "type": "action",
+        "requires_visual": true,
+        "subject": "Ki-taek"
+      }
+    },
+    {
+      "id": 98,
+      "line_id": "L98",
+      "unit_id": "U18",
+      "covers": [
+        "24"
+      ],
+      "clip_start": "01:55:00.0",
+      "clip_end": "01:55:06.0",
+      "narration": "That single flinch is the line, crossed one final time. Something in Ki-taek gives way, and he drives the knife home.",
+      "claim": {
+        "type": "action",
+        "requires_visual": true,
+        "subject": "Ki-taek"
+      }
+    },
+    {
+      "id": 99,
+      "line_id": "L99",
+      "unit_id": "U18",
+      "covers": [
+        "25"
+      ],
+      "clip_start": "01:55:30.0",
+      "clip_end": "01:55:42.0",
+      "narration": "When the screaming finally stops, the bright sunny garden is left a scene of carnage, scattered with the bodies and the wreckage of two ruined families - and somewhere in the running, panicking crowd, Ki-taek has simply, completely vanished.",
+      "claim": {
+        "type": "reveal",
+        "requires_visual": true,
+        "subject": "Ki-woo"
+      }
+    },
+    {
+      "id": 100,
+      "line_id": "L100",
+      "unit_id": "U18",
+      "covers": [
+        "25"
+      ],
+      "clip_start": "01:55:50.0",
+      "clip_end": "01:56:02.0",
+      "narration": "Ki-woo lies bleeding in the grass while the screaming party scatters around him, the bright afternoon coming apart at the seams.",
+      "claim": {
+        "type": "reveal",
+        "requires_visual": true,
+        "subject": "Ki-woo"
+      }
+    },
+    {
+      "id": 101,
+      "line_id": "L101",
+      "unit_id": "U18",
+      "covers": [
+        "25"
+      ],
+      "clip_start": "01:56:15.0",
+      "clip_end": "01:56:23.0",
+      "narration": "The few survivors are left standing dazed among the overturned tables and the blood, the beautiful party transformed in a single afternoon into the end of everything.",
+      "claim": {
+        "type": "reveal",
+        "requires_visual": true,
+        "subject": "Ki-woo"
+      }
+    },
+    {
+      "id": 102,
+      "line_id": "L102",
+      "unit_id": "U18",
+      "covers": [
+        "25"
+      ],
+      "clip_start": "01:56:30.0",
+      "clip_end": "01:56:35.0",
+      "narration": "His daughter dead, his son near death - the family destroyed in one bright afternoon.",
+      "claim": {
+        "type": "reveal",
+        "requires_visual": true,
+        "subject": "Ki-woo"
+      }
+    },
+    {
+      "id": 103,
+      "line_id": "L103",
+      "unit_id": "U19",
+      "covers": [
+        "26"
+      ],
+      "clip_start": "01:57:00.0",
+      "clip_end": "01:57:06.0",
+      "narration": "Ki-woo survives, but the head wound leaves him laughing helplessly at nothing, and he and his mother are led away under guard.",
+      "claim": {
+        "type": "transition",
+        "requires_visual": true,
+        "subject": "Ki-woo"
+      }
+    },
+    {
+      "id": 104,
+      "line_id": "L104",
+      "unit_id": "U19",
+      "covers": [
+        "26"
+      ],
+      "clip_start": "01:57:10.0",
+      "clip_end": "01:57:19.0",
+      "narration": "He wakes in a hospital bed with a head wound that has left him laughing helplessly at nothing at all.",
+      "claim": {
+        "type": "transition",
+        "requires_visual": true,
+        "subject": "Ki-woo"
+      }
+    },
+    {
+      "id": 105,
+      "line_id": "L105",
+      "unit_id": "U19",
+      "covers": [
+        "27"
+      ],
+      "clip_start": "01:58:50.0",
+      "clip_end": "01:58:56.0",
+      "narration": "He climbs the slum stairways back up toward the house, drawn to it again and again like a moth.",
+      "claim": {
+        "type": "transition",
+        "requires_visual": true,
+        "subject": "Ki-woo"
+      }
+    },
+    {
+      "id": 106,
+      "line_id": "L106",
+      "unit_id": "U19",
+      "covers": [
+        "27"
+      ],
+      "clip_start": "01:59:05.0",
+      "clip_end": "01:59:15.0",
+      "narration": "And one cold night he sees it - the lights of the house flickering on and off in Morse code. He reads them, and understands: his father never escaped at all.",
+      "claim": {
+        "type": "discovery",
+        "requires_visual": true,
+        "subject": "Ki-woo"
+      },
+      "narrative_jump": true
+    },
+    {
+      "id": 107,
+      "line_id": "L107",
+      "unit_id": "U19",
+      "covers": [
+        "26"
+      ],
+      "clip_start": "01:59:20.0",
+      "clip_end": "01:59:33.0",
+      "narration": "Weeks later, the two survivors are quietly convicted of fraud and put on probation. The Parks move out of the cursed house, a wealthy German family moves in, and Ki-woo's father simply remains missing - completely, utterly gone.",
+      "claim": {
+        "type": "transition",
+        "requires_visual": true,
+        "subject": "Ki-woo"
+      }
+    },
+    {
+      "id": 108,
+      "line_id": "L108",
+      "unit_id": "U19",
+      "covers": [
+        "26"
+      ],
+      "clip_start": "02:00:00.0",
+      "clip_end": "02:00:13.0",
+      "narration": "Quieter now, and badly scarred, Ki-woo keeps climbing back up to a hillside high above the old house, again and again and again, just to watch it from a distance and search for any small sign of the father who disappeared into thin air.",
+      "claim": {
+        "type": "emotion",
+        "requires_visual": true,
+        "subject": "Ki-woo"
+      }
+    },
+    {
+      "id": 109,
+      "line_id": "L109",
+      "unit_id": "U19",
+      "covers": [
+        "26"
+      ],
+      "clip_start": "02:00:30.0",
+      "clip_end": "02:00:33.0",
+      "narration": "He drifts through the cold city, emptier now.",
+      "claim": {
+        "type": "emotion",
+        "requires_visual": true,
+        "subject": "Ki-woo"
+      }
+    },
+    {
+      "id": 110,
+      "line_id": "L110",
+      "unit_id": "U19",
+      "covers": [
+        "28"
+      ],
+      "clip_start": "02:01:30.0",
+      "clip_end": "02:01:42.0",
+      "narration": "His father has taken Geun-sae's place, hiding in that very same bunker beneath a brand-new family who have no idea he is there at all. So Ki-woo pours everything he has into a letter back down into the dark.",
+      "claim": {
+        "type": "reveal",
+        "requires_visual": true,
+        "subject": "Ki-woo"
+      }
+    },
+    {
+      "id": 111,
+      "line_id": "L111",
+      "unit_id": "U19",
+      "covers": [
+        "28"
+      ],
+      "clip_start": "02:02:00.0",
+      "clip_end": "02:02:12.0",
+      "narration": "Every single night now he sits and writes another letter down into that darkness, telling his trapped father all about the plan that is coming - the money he will make, the day, somehow, he will finally set him free.",
+      "claim": {
+        "type": "reveal",
+        "requires_visual": true,
+        "subject": "Ki-woo"
+      }
+    },
+    {
+      "id": 112,
+      "line_id": "L112",
+      "unit_id": "U20",
+      "covers": [
+        "28"
+      ],
+      "clip_start": "02:05:00.0",
+      "clip_end": "02:05:04.5",
+      "narration": "In the daydream he buys the house, and the keys are his.",
+      "claim": {
+        "type": "reveal",
+        "requires_visual": true,
+        "subject": "Ki-woo"
+      }
+    },
+    {
+      "id": 113,
+      "line_id": "L113",
+      "unit_id": "U20",
+      "covers": [
+        "28"
+      ],
+      "clip_start": "02:05:40.0",
+      "clip_end": "02:05:53.0",
+      "narration": "So Ki-woo writes his father a letter, and he makes a plan. He will study, and work, and earn a great deal of money, and one day he will simply buy that house - so that his father can walk up out of the dark and into the sun.",
+      "claim": {
+        "type": "reveal",
+        "requires_visual": true,
+        "subject": "Ki-woo"
+      },
+      "narrative_jump": true
+    },
+    {
+      "id": 114,
+      "line_id": "L114",
+      "unit_id": "U20",
+      "covers": [
+        "28"
+      ],
+      "clip_start": "02:06:25.0",
+      "clip_end": "02:06:43.0",
+      "narration": "",
+      "narration_silence_seconds": 13.0
+    }
+  ]
+}

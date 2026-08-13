@@ -1,0 +1,21 @@
+{
+  "pool": {
+    "B1": {"start": 5.0, "end": 20.0, "hero": true, "quality": "best", "note": "helicopters over desert/mountains (0:05-0:20)"},
+    "B2": {"start": 89.0, "end": 99.0, "hero": false, "quality": "good", "note": "refinery wide, no credit text (1:29-1:39)"},
+    "B3": {"start": 70.0, "end": 80.0, "hero": false, "quality": "good", "note": "soldiers running, combat at refinery (1:10-1:20)"},
+    "B4": {"start": 115.0, "end": 125.0, "hero": false, "quality": "good", "note": "car chase through refinery (1:55-2:05)"},
+    "B5": {"start": 130.0, "end": 145.0, "hero": false, "quality": "good", "note": "armored vehicles, mercenaries in desert (2:10-2:25)"},
+    "B13": {"start": 995.0, "end": 1010.0, "hero": false, "quality": "good", "note": "bus convoy driving through desert (16:35-16:50)"},
+    "B14": {"start": 1015.0, "end": 1035.0, "hero": true, "quality": "best", "note": "convoy hit by massive sandstorm (16:55-17:15)"},
+    "B15": {"start": 3635.0, "end": 3650.0, "hero": false, "quality": "good", "note": "night village hand-to-hand fight (1:00:35-1:00:50)"},
+    "B16": {"start": 3695.0, "end": 3705.0, "hero": true, "quality": "best", "note": "big fireball explosion at night (1:01:35)"},
+    "B17": {"start": 3720.0, "end": 3730.0, "hero": false, "quality": "good", "note": "night gunfight, assault rifles (1:02:00)"},
+    "B6": {"start": 4880.0, "end": 4900.0, "hero": true, "quality": "best", "note": "desert car chase, trucks flying off ramps (1:21:20-1:21:40)"},
+    "B7": {"start": 4955.0, "end": 4975.0, "hero": true, "quality": "best", "note": "truck jump airborne (1:22:35-1:22:55)"},
+    "B8": {"start": 4985.0, "end": 5005.0, "hero": false, "quality": "good", "note": "vehicles crashing/rolling in desert dust (1:23:05-1:23:25)"},
+    "B9": {"start": 5010.0, "end": 5020.0, "hero": false, "quality": "good", "note": "flipped car, survivors in desert (1:23:30)"},
+    "B10": {"start": 5400.0, "end": 5420.0, "hero": true, "quality": "best", "note": "car tumbling off cliff down rocks (1:30:00-1:30:20)"},
+    "B11": {"start": 5490.0, "end": 5505.0, "hero": false, "quality": "good", "note": "cliffside struggle / hanging off edge (1:31:30-1:31:45)"},
+    "B12": {"start": 5560.0, "end": 5575.0, "hero": false, "quality": "good", "note": "bloodied survivors, canyon rescue (1:32:40)"}
+  }
+}

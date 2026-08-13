@@ -1,0 +1,617 @@
+{
+  "title": "Spider-Man: No Way Home - The Boy Who Chose to Be Forgotten",
+  "target_minutes": 16,
+  "voice": "tts",
+  "lines": [
+    {
+      "id": 1,
+      "narration": "One broadcast, and a teenager's whole life detonates. On every screen in the world, a dead man's final message plays. It's a hero the public loved, gasping out an accusation with his last breath. Spider-Man, he says, murdered him. And people believe it.",
+      "clip_start": "00:01:47.0",
+      "clip_end": "00:02:05.0",
+      "delivery": "hook",
+      "note": "B01 hook - Mysterio broadcast (leak NOTHING: no villains/multiverse/other Peters/May)"
+    },
+    {
+      "id": 2,
+      "narration": "And then the video drops the real bomb - his name. The most famous hero in New York is just a kid named Peter Parker. In seconds his face is everywhere, and a city that cheered him yesterday closes in around him, phones raised, screaming his name.",
+      "clip_start": "00:02:28.0",
+      "clip_end": "00:02:44.0",
+      "delivery": "hook",
+      "note": "B01 hook - identity exposed, mobbed"
+    },
+    {
+      "id": 3,
+      "narration": "He grabs his girlfriend and swings them both out of the crush. This is Peter, and this is MJ - the person he'd do anything to protect. But there's no swinging away from this one. Their quiet, ordinary life is already gone, and they can feel it slipping.",
+      "clip_start": "00:03:12.0",
+      "clip_end": "00:03:30.0",
+      "delivery": "tense",
+      "note": "B01 - swing to safety, name Peter + MJ"
+    },
+    {
+      "id": 4,
+      "narration": "Let me take you back to where it all begins. Overnight, Peter Parker goes from friendly neighborhood hero to the most hated name in the country. Every headline brands him a murderer, every screen demands he be locked up. He hasn't done a thing wrong - and it doesn't matter.",
+      "clip_start": "00:06:00.0",
+      "clip_end": "00:06:18.0",
+      "delivery": "normal",
+      "note": "B02 pivot to chronological - Daily Bugle firestorm"
+    },
+    {
+      "id": 5,
+      "narration": "It gets worse fast. A government agency smashes down his door and arrests him for a murder he didn't commit. And they don't stop at Peter - they haul in everyone standing near him, as if loving him were a crime too.",
+      "clip_start": "00:06:40.0",
+      "clip_end": "00:07:00.0",
+      "delivery": "tense",
+      "note": "B02 arrest"
+    },
+    {
+      "id": 6,
+      "narration": "Peter, MJ, and his best friend Ned all end up in cold interrogation rooms, grilled like suspects. They're teenagers who did nothing but stand beside him - and now the whole system is treating that friendship as evidence. The message is clear: knowing Peter Parker is dangerous.",
+      "clip_start": "00:07:00.0",
+      "clip_end": "00:07:24.0",
+      "delivery": "normal",
+      "note": "B02 custody, name Ned"
+    },
+    {
+      "id": 7,
+      "narration": "A sharp, calm lawyer steps in and, with a single move, gets every charge dropped. On paper, at least, Peter is a free man again. But paper is the only place this is over.",
+      "clip_start": "00:10:40.0",
+      "clip_end": "00:11:00.0",
+      "delivery": "normal",
+      "note": "B02 Murdock cameo - name minimally"
+    },
+    {
+      "id": 8,
+      "narration": "Because free doesn't mean safe. Everywhere Peter and his Aunt May go, cameras swarm and strangers shout. May tries to hold him steady through it. But the truth is sinking in for both of them - you can't un-tell the world a secret. There's no walking this back.",
+      "clip_start": "00:11:50.0",
+      "clip_end": "00:12:08.0",
+      "delivery": "normal",
+      "note": "B02 hounded, name May (as ally, NO death hint)"
+    },
+    {
+      "id": 9,
+      "narration": "For one quiet moment, they let themselves dream anyway. Peter and MJ lie back on a rooftop above the noise and picture a way out. College together, across the country. A clean start, somewhere nobody knows their faces. All of them, Ned too, in the same new city. Just an ordinary future.",
+      "clip_start": "00:20:55.0",
+      "clip_end": "00:21:19.0",
+      "delivery": "emotion",
+      "note": "B06 normal-life stakes"
+    },
+    {
+      "id": 10,
+      "narration": "Just the two of them, hands laced together, holding on to a future they can almost touch. Hold on to this image of them - happy, hopeful, certain it'll all work out. It's the last calm they'll get.",
+      "clip_start": "00:21:35.0",
+      "clip_end": "00:21:55.0",
+      "delivery": "emotion",
+      "note": "B06 rooftop hands"
+    },
+    {
+      "id": 11,
+      "narration": "Then the letters come, and the dream dies on the spot. MIT rejects all three of them - not for their grades, but because of the scandal clinging to Peter's name. MJ and Ned were brilliant enough to get in on their own. Being his friends is what cost them their futures, and Peter knows it.",
+      "clip_start": "00:23:40.0",
+      "clip_end": "00:24:04.0",
+      "delivery": "emotion",
+      "note": "B02 MIT rejection"
+    },
+    {
+      "id": 12,
+      "narration": "Drowning in guilt over what his secret has done to them, Peter goes looking for a fix only he could reach. It's the New York Sanctum, the strange, ancient home of the world's sorcerers. If anyone can rewrite this mess, it's the people who bend reality for a living.",
+      "clip_start": "00:25:40.0",
+      "clip_end": "00:25:58.0",
+      "delivery": "normal",
+      "note": "B03 Sanctum establishing"
+    },
+    {
+      "id": 13,
+      "narration": "Inside he finds Wong, the Sorcerer Supreme, busy fighting off a blizzard leaking in from another realm. Peter lays out his impossible ask. He wants a way to make the whole world forget his secret. Forget that Peter Parker was ever Spider-Man, and give his loved ones their lives back.",
+      "clip_start": "00:26:00.0",
+      "clip_end": "00:26:24.0",
+      "delivery": "normal",
+      "note": "B03 Wong intro"
+    },
+    {
+      "id": 14,
+      "narration": "Doctor Strange, master of the mystic arts, hears him out - and against his better judgment, agrees to help. There's an old spell that can do exactly what Peter wants: make every living person forget that Peter Parker is Spider-Man. A clean slate for everyone he loves.",
+      "clip_start": "00:28:20.0",
+      "clip_end": "00:28:40.0",
+      "delivery": "normal",
+      "note": "B03 Strange intro + the plan"
+    },
+    {
+      "id": 15,
+      "narration": "Deep in the Sanctum's undercroft, Strange begins to weave it. Glowing runes spiral out of his hands and into the dark, the forgetting spell taking shape around them both. It's working - the whole world is about to let Peter go.",
+      "clip_start": "00:28:50.0",
+      "clip_end": "00:29:14.0",
+      "delivery": "tense",
+      "note": "B04 spell begins"
+    },
+    {
+      "id": 16,
+      "narration": "But Peter can't leave it alone. Wait - let MJ still remember me. And Ned. And May. Each time he blurts out another name, Strange has to twist the spell mid-cast to obey. And a spell like this was never meant to be rewritten on the fly. It starts to buck and roar out of control.",
+      "clip_start": "00:29:40.0",
+      "clip_end": "00:30:04.0",
+      "delivery": "tense",
+      "note": "B04 corruption - the mistake"
+    },
+    {
+      "id": 17,
+      "narration": "Strange barely manages to wrestle the raging magic back into a box and slam it shut. He's furious - the spell got corrupted, he warns, and something like that could be dangerous. But he seals it away, and the crisis seems to pass. For now, it looks contained. It is not.",
+      "clip_start": "00:30:20.0",
+      "clip_end": "00:30:44.0",
+      "delivery": "tense",
+      "note": "B04 contained (foreshadow the trouble WITHOUT naming what)"
+    },
+    {
+      "id": 18,
+      "narration": "Strange points out there was a simpler fix all along: just call the school and actually plead his friends' case. Embarrassed he didn't think of it, Peter races across the city, swinging block after block to catch the MIT administrator before she leaves town.",
+      "clip_start": "00:33:12.0",
+      "clip_end": "00:33:30.0",
+      "delivery": "normal",
+      "note": "B05 chase"
+    },
+    {
+      "id": 19,
+      "narration": "He catches her car out on the highway and pours his heart out. He begs her to look past the headlines and give MJ and Ned the fair shot they earned. She actually listens. And for one fragile second, with a little hope back on the table, things almost feel normal again.",
+      "clip_start": "00:33:50.0",
+      "clip_end": "00:34:14.0",
+      "delivery": "normal",
+      "note": "B05 the plea - last calm beat before R1"
+    },
+    {
+      "id": 20,
+      "narration": "Then metal shrieks through the traffic. Huge mechanical arms punch out of nowhere, flinging cars like toys. They snatch Peter out of the air and slam him into the pavement. And whatever this thing is, it knows him. It calls him Peter, like an old enemy picking up an old fight.",
+      "clip_start": "00:35:05.0",
+      "clip_end": "00:35:29.0",
+      "delivery": "tense",
+      "note": "B07 R1 opens - villain NOT yet named"
+    },
+    {
+      "id": 201,
+      "clip_start": "00:36:20.0",
+      "clip_end": "00:36:40.0",
+      "delivery": "tense",
+      "narration": "Doc Ock's arms rip the bridge apart, hurling cars and buses. Peter can barely fight back - he's too busy catching people before they fall.",
+      "note": "NEW stage - highway chaos"
+    },
+    {
+      "id": 21,
+      "narration": "The attacker is Doctor Octopus. He's a scientist with four deadly robotic tentacles fused to his spine, each one moving with a mind of its own. He has Peter cornered and helpless. But Peter's high-tech suit fights back on its own, latching onto the metal arms. Suddenly it's Peter controlling the tentacles - and the fight turns.",
+      "clip_start": "00:38:20.0",
+      "clip_end": "00:38:40.0",
+      "delivery": "reveal",
+      "note": "B08 R1 Doc Ock revealed at his beat"
+    },
+    {
+      "id": 202,
+      "clip_start": "00:38:40.0",
+      "clip_end": "00:39:00.0",
+      "delivery": "tense",
+      "narration": "The tentacles pin him and he's losing - until his suit's nanotech crawls onto the metal arms and turns them red. The weapons that were killing him are now his to command.",
+      "note": "RE-ANCHORED to nanotech turn (verified nano-covered arms 2320-2340, 'new device detected'); placed after Ock intro id21"
+    },
+    {
+      "id": 22,
+      "narration": "The two batter each other to a bloody standstill, neither able to win. Then Strange steps in from a distance. With a flick of magic, he opens a portal and yanks Peter clean off the highway. The doctor and his tentacles are left behind, trapped and raging.",
+      "clip_start": "00:40:20.0",
+      "clip_end": "00:40:44.0",
+      "delivery": "tense",
+      "note": "B08 Ock fight, teleport"
+    },
+    {
+      "id": 23,
+      "narration": "Back at the Sanctum, Strange lays out the terrible truth. That corrupted spell didn't just fizzle out. It cracked open the multiverse - the idea that ours is only one of countless parallel worlds. And it started dragging people through. Specifically, people from other universes who know Spider-Man's secret identity. Peter's mistake tore a hole in reality itself.",
+      "clip_start": "00:41:20.0",
+      "clip_end": "00:41:44.0",
+      "delivery": "reveal",
+      "note": "B10 R1 multiverse cause named (villains only)"
+    },
+    {
+      "id": 24,
+      "narration": "So Strange hands them a mission. Peter, MJ, and Ned have to hunt down every visitor and capture them. Each one has to be caught before the tear in reality grows any wider. The clock is ticking, and the team has no idea how many strangers slipped through.",
+      "clip_start": "00:44:00.0",
+      "clip_end": "00:44:24.0",
+      "delivery": "normal",
+      "note": "B10 the hunt (green-figure teaser NOT named)"
+    },
+    {
+      "id": 25,
+      "narration": "Doctor Octopus is the first, already locked in a cell deep beneath the Sanctum. But Strange warns there are more of them out there. So the hunt begins. Peter, MJ, and Ned start scouring the city for anything strange - and it doesn't take long.",
+      "clip_start": "00:45:45.0",
+      "clip_end": "00:46:09.0",
+      "delivery": "normal",
+      "note": "B10 Ock named/celled"
+    },
+    {
+      "id": 26,
+      "narration": "A report of a disturbance at a research facility outside the city catches their attention. Something is loose out in the dark woods. Peter suits up and heads out to investigate, MJ and Ned feeding him directions from home. And the next visitors are already waiting for him.",
+      "clip_start": "00:49:00.0",
+      "clip_end": "00:49:24.0",
+      "delivery": "tense",
+      "note": "B11 facility (Osborn named-in-dialogue only, NOT shown)"
+    },
+    {
+      "id": 27,
+      "narration": "The first is Electro. He's a man made of pure energy, crackling with blue lightning, feeding on the city's power lines. The more electricity he drains, the stronger and more dangerous he gets. And he is thrilled to have a Spider-Man to fight.",
+      "clip_start": "00:50:00.0",
+      "clip_end": "00:50:24.0",
+      "delivery": "reveal",
+      "note": "B11 R1 Electro revealed"
+    },
+    {
+      "id": 28,
+      "narration": "Then the ground itself rises up. This is Sandman - a towering giant of shifting, living sand, able to reshape his whole body at will. For a moment he actually fights alongside Peter against the electric storm. But Peter is quickly learning these visitors are unpredictable, and none of them can be trusted for long.",
+      "clip_start": "00:51:12.0",
+      "clip_end": "00:51:36.0",
+      "delivery": "reveal",
+      "note": "B11 R1 Sandman revealed"
+    },
+    {
+      "id": 29,
+      "narration": "And something else lurks in the shadows - the Lizard. Once a brilliant scientist, now a hulking reptilian monster. That makes four strangers from other universes: Doctor Octopus, Electro, Sandman, and the Lizard. All of them villains, and all of them already know Spider-Man's face.",
+      "clip_start": "00:53:30.0",
+      "clip_end": "00:53:50.0",
+      "delivery": "reveal",
+      "note": "B11 R1 Lizard revealed"
+    },
+    {
+      "id": 30,
+      "narration": "It's a brutal, messy fight, but Peter holds his own. One by one he subdues Electro and the others. With Strange's help, the team hauls them back to the cells beneath the Sanctum. Four down - and Peter thinks the worst is behind him.",
+      "clip_start": "00:54:10.0",
+      "clip_end": "00:54:30.0",
+      "delivery": "normal",
+      "note": "B11 subdued"
+    },
+    {
+      "id": 31,
+      "narration": "But there's one more visitor, and he's different. In a dark alley, a shattered green mask lies on the ground, smashed to pieces. Its owner, a frightened old man, has just fought back against something inside himself and won - for now. He looks less like a monster than a man torn in two.",
+      "clip_start": "00:55:12.0",
+      "clip_end": "00:55:32.0",
+      "delivery": "emotion",
+      "note": "B09/B12 Osborn struggle - the MAN, no Goblin named"
+    },
+    {
+      "id": 32,
+      "narration": "His name is Norman Osborn. Lost and confused, he wanders into the shelter where May works, looking for Spider-Man. He isn't there to fight - he's there to beg for help. Sometimes, he admits quietly, he isn't himself. Sometimes he blacks out, and can't remember what he's done.",
+      "clip_start": "00:56:08.0",
+      "clip_end": "00:56:32.0",
+      "delivery": "emotion",
+      "note": "B12 Osborn the man (split SET UP, no takeover)"
+    },
+    {
+      "id": 33,
+      "narration": "It's May who changes how Peter sees all of this. These aren't just monsters to lock in a cell, she tells him. They're sick, broken people - and maybe they can actually be helped, even cured. Sending them home to whatever they came from isn't the only answer. And slowly, Peter starts to listen.",
+      "clip_start": "00:57:36.0",
+      "clip_end": "00:58:00.0",
+      "delivery": "normal",
+      "note": "B12 May's compassion"
+    },
+    {
+      "id": 34,
+      "narration": "Then comes a chilling discovery. Down in the cells, the visitors start comparing their stories. And they realize something they all have in common. Each of them was ripped out of his own world at the exact moment he was about to die. The spell didn't just pull them across universes. It snatched them a heartbeat before their deaths.",
+      "clip_start": "01:00:20.0",
+      "clip_end": "01:00:44.0",
+      "delivery": "reveal",
+      "note": "B13 R2 death-fates realization"
+    },
+    {
+      "id": 35,
+      "narration": "This changes everything for Peter. Strange just wants to send them all straight back - fate is fate, and it's not their problem. But Peter can't accept that. If he sends these men home now, he's sending them home to die. So he makes a choice. He wants to cure them first, and give them a chance to survive their own stories.",
+      "clip_start": "01:02:00.0",
+      "clip_end": "01:02:24.0",
+      "delivery": "tense",
+      "note": "B14 the moral split"
+    },
+    {
+      "id": 36,
+      "narration": "So Peter does the unthinkable. He turns on Strange. He steals the box holding the spell, and in a wild chase through a folding, shifting Mirror Dimension, he traps the sorcerer inside it. It buys him time. Time to try and save the very men who were sent to kill him.",
+      "clip_start": "01:05:30.0",
+      "clip_end": "01:05:54.0",
+      "delivery": "tense",
+      "note": "B14 steal spell, trap Strange"
+    },
+    {
+      "id": 37,
+      "narration": "Peter smuggles the villains to a safe hideout - the apartment of his friend Happy Hogan. He turns the place into a makeshift lab. Using Stark technology, he races to build a personal cure for each of them, one by one. It's a wildly dangerous plan, and he's betting everything on the idea that these monsters can be saved.",
+      "clip_start": "01:11:00.0",
+      "clip_end": "01:11:24.0",
+      "delivery": "normal",
+      "note": "B15 Happy apartment, name Happy"
+    },
+    {
+      "id": 38,
+      "narration": "And the first cure works. It turns out a chip on Doctor Octopus's neck had been controlling him for years. Peter repairs it, and the tentacles fall still. The real man underneath - Otto, calm and decent and himself again - finally comes back. He's grateful, almost gentle. It's living proof that Peter was right.",
+      "clip_start": "01:15:40.0",
+      "clip_end": "01:16:04.0",
+      "delivery": "emotion",
+      "note": "B15 Ock cured"
+    },
+    {
+      "id": 39,
+      "narration": "Norman Osborn is next in line. He's still the gentle, frightened man who begged for help at the shelter. He steps forward willingly, ready to finally be rid of the voice in his head. For the first time, he looks hopeful. He just wants to be himself again.",
+      "clip_start": "01:17:06.0",
+      "clip_end": "01:17:30.0",
+      "delivery": "tense",
+      "note": "B16 Osborn's last moment as the man"
+    },
+    {
+      "id": 40,
+      "narration": "Then, in a single instant, everything changes. The gentle man's face twists. His voice drops into a cruel, gleeful snarl. Norman is gone - and something monstrous is looking out through his eyes. This is the Green Goblin. And he has no intention of being cured.",
+      "clip_start": "01:19:45.0",
+      "clip_end": "01:20:09.0",
+      "delivery": "reveal",
+      "note": "B16 GOBLIN TAKEOVER lands here - persona named for first time"
+    },
+    {
+      "id": 41,
+      "narration": "The Goblin is pure chaos. He turns the other villains against Peter, and unleashes them. He tears the apartment apart with brutal glee, laughing as he goes. In a single heartbeat, Peter's rescue mission collapses into a nightmare. He's outnumbered, and losing.",
+      "clip_start": "01:21:10.0",
+      "clip_end": "01:21:34.0",
+      "delivery": "tense",
+      "note": "B16 chaos"
+    },
+    {
+      "id": 411,
+      "clip_start": "01:22:28.0",
+      "clip_end": "01:22:42.0",
+      "delivery": "tense",
+      "narration": "The Goblin comes at Peter himself, savage and fast, driving him back and hurling him through the glass. Peter's fighting three enemies at once and losing ground.",
+      "note": "Window tightened to 4948-4962 (Peter thrown through glass); dropped May-hallway drift"
+    },
+    {
+      "id": 412,
+      "clip_start": "01:23:40.0",
+      "clip_end": "01:24:00.0",
+      "delivery": "tense",
+      "narration": "The whole floor caves in. The villains scatter into the night, and Peter drags himself up out of the wreckage, alone.",
+      "note": "RE-WORDED to match footage (wrecked apartment, villains gone); bridges to id42 without duplicating the May find"
+    },
+    {
+      "id": 42,
+      "narration": "When the dust settles, Peter digs through the rubble and finds May. He pulls her free, relieved. At first she seems okay. They're both shaken, both smiling, telling each other they're alright. And then he sees the wound. May is hurt - badly.",
+      "clip_start": "01:25:40.0",
+      "clip_end": "01:26:04.0",
+      "delivery": "emotion",
+      "note": "B17 R3 May's death - EMOTIONAL CORE, do not compress"
+    },
+    {
+      "id": 43,
+      "narration": "He holds her, promising it'll be okay, that help is coming. She looks up at him, calm, and tells him he did the right thing. Then she speaks the words she needs him to hear. With great power, there must also come great responsibility.",
+      "clip_start": "01:26:10.0",
+      "clip_end": "01:26:34.0",
+      "delivery": "emotion",
+      "note": "B17 R3 the line"
+    },
+    {
+      "id": 44,
+      "narration": "And then she's gone. She slips away right there in his arms, in the ruins of the apartment. Peter can't believe it. He begs her to wake up, to just talk to him. But May is dead. She raised him, she was the last of his family - and the men he tried to save did this.",
+      "clip_start": "01:27:00.0",
+      "clip_end": "01:27:20.0",
+      "delivery": "emotion",
+      "note": "B17 R3 May dies"
+    },
+    {
+      "id": 45,
+      "narration": "",
+      "clip_start": "01:29:20.0",
+      "clip_end": "01:29:40.0",
+      "delivery": "emotion",
+      "narration_silence_seconds": 6,
+      "note": "B17 SILENCE 6s - May's body, the quiet aftermath (rhymes with the ending). LEAVE UNFILLED."
+    },
+    {
+      "id": 46,
+      "narration": "Hollowed out by grief, Peter is ready to give up. He decides he'll just send the villains home to die after all. Meanwhile MJ and Ned are desperate to reach him. And then Ned discovers something wild - using Strange's sling ring, he can open glowing portals of his own. So the two of them start searching for their friend.",
+      "clip_start": "01:31:30.0",
+      "clip_end": "01:31:54.0",
+      "delivery": "tense",
+      "note": "B18 Ned portals - NO other Peter yet (R4 not leaked)"
+    },
+    {
+      "id": 47,
+      "narration": "Ned opens a portal to find Peter - and someone else steps through instead. It's a Spider-Man. But not their Peter. This one is leaner, a little older, in a completely different suit. He's just as confused as they are. Then he pulls off his mask, and stuns them all - he's Peter Parker too, from another universe entirely. We'll call him Peter-Three.",
+      "clip_start": "01:32:25.0",
+      "clip_end": "01:32:49.0",
+      "delivery": "reveal",
+      "note": "B19 R4 stage 1 - Garfield lands at exact beat. Specific tag Peter-Three."
+    },
+    {
+      "id": 48,
+      "narration": "MJ and Ned aren't sure whether to trust him. So Peter-Three proves it the only way he can - crawling straight up the wall and sticking to the ceiling. He's wary, quick with a joke, and clearly the real thing. Just a version of Peter from a different world entirely.",
+      "clip_start": "01:33:20.0",
+      "clip_end": "01:33:44.0",
+      "delivery": "normal",
+      "note": "B19 Peter-Three tested - specific tag"
+    },
+    {
+      "id": 49,
+      "narration": "Then Ned opens one more portal, and a second stranger steps out. This one is older still, warm and gentle, with tired eyes that have seen a lot. And yes - he's another Peter Parker, from yet another universe. We'll call him Peter-Two. Somehow, there are now three of them.",
+      "clip_start": "01:35:15.0",
+      "clip_end": "01:35:39.0",
+      "delivery": "reveal",
+      "note": "B19 R4 stage 2 - Maguire. Specific tag Peter-Two."
+    },
+    {
+      "id": 50,
+      "narration": "Together, the two visitors help track down our Peter - Peter-One - still shattered by May's death. And there they stand. Three versions of the same hero, from three different worlds, in one room. Two of them have lived through exactly the kind of loss Peter-One is drowning in right now.",
+      "clip_start": "01:37:00.0",
+      "clip_end": "01:37:24.0",
+      "delivery": "emotion",
+      "note": "B19 three Peters meet - all three specifically named"
+    },
+    {
+      "id": 51,
+      "narration": "Peter-Three opens up to try and lift him. In his world, he once lost the love of his life - a girl named Gwen. She fell, and he couldn't catch her in time. That failure nearly hollowed him out and turned him bitter and angry. So he understands Peter-One's pain completely. And he begs him not to lose himself the way he almost did.",
+      "clip_start": "01:39:44.0",
+      "clip_end": "01:40:08.0",
+      "delivery": "emotion",
+      "note": "B19 Garfield Gwen - identity-locked, plants R5 payoff"
+    },
+    {
+      "id": 52,
+      "narration": "Slowly, the three of them become something like brothers. They trade war stories and compare their powers, marveling at each other's quirks. And they get to work. Together, the three Peters start building a cure for every single villain, turning grief into a plan.",
+      "clip_start": "01:46:00.0",
+      "clip_end": "01:46:24.0",
+      "delivery": "normal",
+      "note": "B20 bonding - all three, web-shooter cue"
+    },
+    {
+      "id": 53,
+      "narration": "Peter-One sets the trap himself. Over a public broadcast, he challenges the villains to meet him at the Statue of Liberty. It's a place, he says, that stands for second chances. It's bait they can't resist. And it's where the three Peters plan to cure them all, once and for all.",
+      "clip_start": "01:48:07.0",
+      "clip_end": "01:48:31.0",
+      "delivery": "tense",
+      "note": "B20 Statue challenge - Peter-One specific"
+    },
+    {
+      "id": 54,
+      "narration": "The villains close in and the Peters take position across the monument. Peter-Three swings up high on the scaffolding, ready. The fight for everyone's second chance begins.",
+      "clip_start": "01:48:36.0",
+      "clip_end": "01:49:00.0",
+      "delivery": "tense",
+      "note": "Wording softened ('battle explodes'->positioning); footage is pre-battle positioning"
+    },
+    {
+      "id": 55,
+      "narration": "At first it's pure chaos. Three heroes who've never worked together keep getting in each other's way, tripping over their own plan. Then Peter-One takes charge and rallies them. One target at a time, moving as a team. Finally, the three Spider-Men start to click.",
+      "clip_start": "01:56:00.0",
+      "clip_end": "01:56:20.0",
+      "delivery": "tense",
+      "note": "B21 Peter-One rallies (CLEAR shot; NOT the 1:55 drift-flag)"
+    },
+    {
+      "id": 551,
+      "clip_start": "01:57:00.0",
+      "clip_end": "01:57:24.0",
+      "delivery": "tense",
+      "narration": "Working together at last, the three Peters split the targets - each taking on a villain he understands.",
+      "note": "NEW stage - three Peters as a team"
+    },
+    {
+      "id": 56,
+      "narration": "The deadliest villain is Electro, supercharged by a stolen power source and hurling lightning across the harbor - too strong to touch. So the three Peters hit him at once and tear the reactor off his chest. The power dies, and Electro drops.",
+      "clip_start": "02:00:18.0",
+      "clip_end": "02:00:55.0",
+      "delivery": "tense",
+      "note": "MERGED id56+id562 into one escalating takedown (verified 7218-7255)"
+    },
+    {
+      "id": 561,
+      "clip_start": "02:00:56.0",
+      "clip_end": "02:01:15.0",
+      "delivery": "tense",
+      "narration": "And one by one the others turn back too - the Lizard becomes Dr. Connors, a man again.",
+      "note": "RE-ANCHORED after Electro takedown to Lizard cure (green mist 7262); Electro de-power now covered by merged id56"
+    },
+    {
+      "id": 57,
+      "narration": "Ned's portal finally brings Doctor Strange back into the fight. He arrives ready to attack - until the Peters stop him, showing him their plan is already working. The villains are being cured, not killed.",
+      "clip_start": "02:01:18.0",
+      "clip_end": "02:01:42.0",
+      "delivery": "tense",
+      "note": "RE-ANCHORED to Strange return (7282); dropped 'sky splits/figures pour' (that beat is later, out of scope here)"
+    },
+    {
+      "id": 58,
+      "narration": "The Goblin lashes out at Peter's weak spot, sending MJ tumbling off the crumbling structure. She plunges toward the dark water far below, and Peter-One is too far to reach her.",
+      "clip_start": "02:04:15.0",
+      "clip_end": "02:04:31.0",
+      "delivery": "tense",
+      "note": "RE-ANCHORED ~2min from old 02:06:10; real fall verified 7455-7470"
+    },
+    {
+      "id": 59,
+      "narration": "But Peter-Three is already diving. He shoots a web and snatches MJ clean out of the air - the catch he could never make before.",
+      "clip_start": "02:04:31.0",
+      "clip_end": "02:04:44.0",
+      "delivery": "tense",
+      "note": "RE-ANCHORED + SPLIT (catch action); real catch verified 7472-7484"
+    },
+    {
+      "id": 592,
+      "clip_start": "02:04:44.0",
+      "clip_end": "02:04:58.0",
+      "delivery": "emotion",
+      "narration": "Years ago, in his world, a girl named Gwen fell and he was a fraction too slow. That failure hollowed him out. Now, holding MJ safe, you can see decades of guilt lift off his shoulders.",
+      "note": "NEW - Gwen callback (payoff of id51); split from id59 to give the emotional beat its own calm window"
+    },
+    {
+      "id": 60,
+      "narration": "Blind with grief, Peter-One nearly kills the Goblin with his bare hands. The other two pull him back from the edge - and together they force the cure into him. The monster's snarl fades, and Norman Osborn comes back to himself, staring at the destruction, barely able to understand what his other half has done.",
+      "clip_start": "02:08:50.0",
+      "clip_end": "02:09:48.0",
+      "delivery": "emotion",
+      "note": "MERGED id591+id60 (same beat per dense scan); near-kill kept COLLECTIVE (no single-Peter ID on ambiguous cut); verified 7730-7788"
+    },
+    {
+      "id": 61,
+      "narration": "But the danger isn't over. The sky is still torn open, and strangers keep pouring through. They're all here for one reason - they all know the name Peter Parker. And our Peter-One realizes there's only one way to close the door for good. He turns to Strange with an impossible request. Make the whole world forget that Peter Parker ever existed.",
+      "clip_start": "02:10:30.0",
+      "clip_end": "02:10:54.0",
+      "delivery": "emotion",
+      "note": "B24 R6 setup - the erasure decision. Peter-One specific."
+    },
+    {
+      "id": 62,
+      "narration": "It means everyone he loves will forget him. So Peter goes to say goodbye to MJ while she still knows who he is. He can barely get the words out. He makes her a promise: he'll come and find her, and remind her of everything. She's crying, telling him she'll figure it out even if he doesn't. He swears to her he'll make it right.",
+      "clip_start": "02:13:20.0",
+      "clip_end": "02:13:44.0",
+      "delivery": "emotion",
+      "note": "B25 R6 goodbye - EMOTIONAL CORE, do not compress"
+    },
+    {
+      "id": 63,
+      "narration": "One last embrace, and Peter gives Strange the signal. The sorcerer casts the spell. All across the world, in a single quiet moment, every mind lets go of Peter Parker. The visitors slip back to their own universes. And everyone who ever loved him - MJ, Ned, all of them - simply forgets he was ever there.",
+      "clip_start": "02:14:40.0",
+      "clip_end": "02:15:04.0",
+      "delivery": "emotion",
+      "note": "B25 R6 erasure cast"
+    },
+    {
+      "id": 64,
+      "narration": "Two weeks later, Peter keeps his promise and comes to find MJ. He stands at the counter, rehearsing the words, ready to make her remember everything.",
+      "clip_start": "02:17:40.0",
+      "clip_end": "02:18:04.0",
+      "delivery": "emotion",
+      "note": "B26 NEW - Peter approaches the counter (coffee-shop coverage, before the silence)"
+    },
+    {
+      "id": 641,
+      "narration": "",
+      "clip_start": "02:18:20.0",
+      "clip_end": "02:18:44.0",
+      "delivery": "emotion",
+      "narration_silence_seconds": 7,
+      "note": "B26 SILENCE 7s - coffee shop, MJ doesn't remember. LEAVE UNFILLED. (rhymes with May's silence)"
+    },
+    {
+      "id": 642,
+      "narration": "He watches her - happy, safe, a whole clean future ahead of her. Then he orders a coffee, says nothing, and lets her keep it.",
+      "clip_start": "02:19:00.0",
+      "clip_end": "02:19:24.0",
+      "delivery": "emotion",
+      "note": "B26 NEW - the choice, image carries it (after the silence)"
+    },
+    {
+      "id": 65,
+      "narration": "Later, Peter visits May's grave in the falling snow. Happy is there too - though he no longer remembers Peter at all. They talk like gentle strangers, Happy sharing how much May meant to him. Peter says nothing about who he is. But the quiet kindness of the moment steadies him, and gives him the strength to carry on.",
+      "clip_start": "02:21:00.0",
+      "clip_end": "02:21:24.0",
+      "delivery": "emotion",
+      "note": "B26 grave/Happy - the quiet devastation (bound to grave shot after the silence)"
+    },
+    {
+      "id": 66,
+      "narration": "Back in a tiny apartment, Peter sews himself a simple new suit by hand. No high-tech gadgets, no famous name, no one left who knows his face. Then he swings back out over the city to keep doing the job. He's truly alone now. Just a kid who chose to carry all of this himself, so that everyone he loved could be safe and free. A friendly neighborhood Spider-Man, at last.",
+      "clip_start": "02:23:25.0",
+      "clip_end": "02:24:10.0",
+      "delivery": "emotion",
+      "note": "B26 new suit, closing image"
+    },
+    {
+      "id": 67,
+      "narration": "Oh, and one more thing. In a sunny bar far away, another visitor the spell had briefly pulled in is getting caught up on this universe's heroes. Then he gets whisked back home too. But he leaves behind a tiny, living piece of something - a strange black goo, sitting on the bar. What is it? Well, that's a story for another day.",
+      "clip_start": "02:27:40.0",
+      "clip_end": "02:28:04.0",
+      "delivery": "reveal",
+      "note": "B27 R7 Venom mid-credits - held to the very end, no earlier hint"
+    }
+  ]
+}

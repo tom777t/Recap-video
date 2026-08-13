@@ -1,0 +1,250 @@
+{
+  "_comment": "Parasite (2019) recap skeleton. 20 units covering 28 beats. Register B (Medium). Hook U01 = viral cold-open teasing the class-parasite premise WITHOUT the bunker twist (twist-hold). Climax units U17-U18 use G4 restraint (descriptive, not over-dramatized violence). U20 outro preserves the ending ambiguity (Ki-woo's letter as maybe-dream - Joker U19/U20 pattern). Target ~2100 words / ~12 min at the calibrated Andrew +22% rate (3.5 w/s). must_cover lists the beat numbers each unit covers.",
+  "project": "parasite2019",
+  "film_title": "Parasite",
+  "predicted_runtime_min": 16.5,
+  "target_total_words": 3364,
+  "units": [
+    {
+      "id": "U01",
+      "label": "Hook - two families, one house",
+      "tier": "DEEP",
+      "tier_label": "CRITICAL",
+      "target_words": 119,
+      "why": "Viral cold-open: a poor family cons its way into a rich family's home, one job at a time. Tease the class-parasite premise + a question hook + channel intro. NO bunker/Geun-sae reveal, NO ending. All hook lines narrative_jump=true.",
+      "must_cover": [
+        "1",
+        "6",
+        "23"
+      ],
+      "narrative_jump": true,
+      "tolerance": 0.3
+    },
+    {
+      "id": "U02",
+      "label": "The Kims in the semi-basement",
+      "tier": "STANDARD",
+      "target_words": 129,
+      "why": "Establish the poor Kim family: phone-hunting for wifi, folding pizza boxes, fumigation gas - life at the bottom.",
+      "must_cover": [
+        "1"
+      ],
+      "tolerance": 0.3
+    },
+    {
+      "id": "U03",
+      "label": "Min and the scholar's rock",
+      "tier": "STANDARD",
+      "target_words": 179,
+      "why": "Ki-woo's friend Min gives the lucky 'scholar's rock' and hands off the tutoring job at the rich Parks' house - the door opens.",
+      "must_cover": [
+        "2",
+        "3"
+      ],
+      "tolerance": 0.3
+    },
+    {
+      "id": "U04",
+      "label": "Into the Park house",
+      "tier": "STANDARD",
+      "target_words": 165,
+      "why": "Ki-woo ascends to the modernist Park house, becomes 'Kevin' the tutor, charms Mrs Park and Da-hye.",
+      "must_cover": [
+        "4"
+      ],
+      "tolerance": 0.3
+    },
+    {
+      "id": "U05",
+      "label": "Con #2 - Jessica",
+      "tier": "STANDARD",
+      "target_words": 252,
+      "why": "Ki-woo plants his sister Ki-jung as the elite art therapist 'Jessica' for Da-song; she dazzles with invented jargon.",
+      "must_cover": [
+        "5"
+      ],
+      "tolerance": 0.3
+    },
+    {
+      "id": "U06",
+      "label": "Cons #3 and #4 - the takeover",
+      "tier": "DEEP",
+      "target_words": 365,
+      "why": "The underwear ruse ousts the driver so Ki-taek takes the wheel; the peach-allergy / fake-TB scheme ousts the loyal housekeeper Moon-gwang. All four Kims now embedded under false identities.",
+      "must_cover": [
+        "6",
+        "7",
+        "8"
+      ],
+      "tolerance": 0.3
+    },
+    {
+      "id": "U07",
+      "label": "The house to themselves",
+      "tier": "STANDARD",
+      "target_words": 247,
+      "why": "The Parks leave for a camping trip; the Kims sprawl through the empty mansion, drinking, pretending it is theirs - the class fantasy.",
+      "must_cover": [
+        "9",
+        "10"
+      ],
+      "tolerance": 0.3
+    },
+    {
+      "id": "U08",
+      "label": "The doorbell",
+      "tier": "STANDARD",
+      "target_words": 47,
+      "why": "Late at night the ousted housekeeper Moon-gwang returns, begging to fetch something from the basement.",
+      "must_cover": [
+        "11"
+      ],
+      "tolerance": 0.3
+    },
+    {
+      "id": "U09",
+      "label": "The hidden door",
+      "tier": "DEEP",
+      "tier_label": "TWIST",
+      "target_words": 41,
+      "why": "TWIST PIVOT. Moon-gwang opens a concealed door behind the shelving, revealing a stairwell descending underground. Tag the moment; let the reveal land.",
+      "must_cover": [
+        "12"
+      ],
+      "tolerance": 0.3
+    },
+    {
+      "id": "U10",
+      "label": "The man in the bunker",
+      "tier": "DEEP",
+      "tier_label": "TWIST",
+      "target_words": 214,
+      "why": "Geun-sae, Moon-gwang's husband, has hidden in a secret bunker for years, living off the Parks unseen - a second parasite family already inside the house.",
+      "must_cover": [
+        "12",
+        "13"
+      ],
+      "tolerance": 0.3
+    },
+    {
+      "id": "U11",
+      "label": "Two families collide",
+      "tier": "DEEP",
+      "target_words": 126,
+      "why": "The poor families discover each other; Moon-gwang films the Kims and threatens to expose them - mutual blackmail, the floor dropping out.",
+      "must_cover": [
+        "14"
+      ],
+      "tolerance": 0.3
+    },
+    {
+      "id": "U12",
+      "label": "The Parks come home",
+      "tier": "DEEP",
+      "target_words": 256,
+      "why": "The rain ends the trip; the Parks return in minutes. The Kims subdue the couple back into the bunker, scramble to erase all trace, and hide under the table as the family settles above.",
+      "must_cover": [
+        "15",
+        "16",
+        "17"
+      ],
+      "tolerance": 0.3
+    },
+    {
+      "id": "U13",
+      "label": "The smell that crosses the line",
+      "tier": "DEEP",
+      "target_words": 118,
+      "why": "From under the table the Kims hear Mr Park describe Ki-taek's 'smell' crossing a line - the class insult that will detonate later. Cultural weight, no over-statement.",
+      "must_cover": [
+        "18"
+      ],
+      "tolerance": 0.3
+    },
+    {
+      "id": "U14",
+      "label": "The descent and the flood",
+      "tier": "DEEP",
+      "target_words": 120,
+      "why": "The Kims flee through the storm, down the city's stairways, back to their drowning semi-basement. The wordless vertical descent (SILENCE shot). The class chasm made literal.",
+      "must_cover": [
+        "19"
+      ],
+      "tolerance": 0.3
+    },
+    {
+      "id": "U15",
+      "label": "Everything underwater",
+      "tier": "STANDARD",
+      "target_words": 225,
+      "why": "Sewage floods their home; their belongings are destroyed; the family sleeps among refugees in a gymnasium shelter.",
+      "must_cover": [
+        "20"
+      ],
+      "tolerance": 0.3
+    },
+    {
+      "id": "U16",
+      "label": "The birthday party",
+      "tier": "STANDARD",
+      "target_words": 203,
+      "why": "The next day Mrs Park throws an impromptu garden party; the exhausted Kims are summoned to serve the rich at play.",
+      "must_cover": [
+        "21",
+        "22"
+      ],
+      "tolerance": 0.3
+    },
+    {
+      "id": "U17",
+      "label": "The eruption",
+      "tier": "DEEP",
+      "tier_label": "CLIMAX",
+      "target_words": 77,
+      "why": "G4 RESTRAINT. Geun-sae bursts from the bunker and the party becomes a massacre - the stabbing in the garden, the chaos. Descriptive, not lurid.",
+      "must_cover": [
+        "23"
+      ],
+      "tolerance": 0.3
+    },
+    {
+      "id": "U18",
+      "label": "The line is crossed",
+      "tier": "DEEP",
+      "tier_label": "CLIMAX",
+      "target_words": 159,
+      "why": "The smell line detonates: Ki-taek snaps and kills Mr Park, then vanishes. The aftermath - the family destroyed. Restraint.",
+      "must_cover": [
+        "24",
+        "25"
+      ],
+      "tolerance": 0.3
+    },
+    {
+      "id": "U19",
+      "label": "After - the letter",
+      "tier": "DEEP",
+      "target_words": 261,
+      "why": "Weeks later, a scarred Ki-woo and his mother are convicted; from a hillside he sees the house blink in Morse code and realises his father now hides in the bunker. He writes a letter promising to buy the house one day.",
+      "must_cover": [
+        "26",
+        "27",
+        "28"
+      ],
+      "tolerance": 0.3
+    },
+    {
+      "id": "U20",
+      "label": "Outro - the plan",
+      "tier": "DEEP",
+      "tier_label": "OUTRO",
+      "target_words": 61,
+      "why": "Preserve the ambiguity. The dreamed reunion cuts back to the same basement window and the snow - the plan that never fails because there is no plan. Thematic close + CTA. Do NOT state the dream as achievable.",
+      "must_cover": [
+        "28"
+      ],
+      "narrative_jump": true,
+      "tolerance": 0.3
+    }
+  ]
+}

@@ -1,0 +1,177 @@
+TITLE: Shutter Island: The Case That Was Never Real
+Lines: 58   Words: 1882   Est. narration: 11.1 min   Target: 11 min
+============================================================
+
+[  1] (00:02:15.0 -> 00:02:37.0)  <hook>
+      Out of a wall of fog, a ferry carries two men toward an island you can only leave when they let you. At the sink, one passenger is bent double, fighting off seasickness, telling himself to pull it together.
+
+[  2] (00:03:00.0 -> 00:03:22.0)  <hook>
+      This is U.S. Marshal Teddy Daniels. Beside him is his new partner, Chuck Aule. They have been sent to Ashecliffe, a hospital for the criminally insane, to find a patient who has vanished without a trace.
+
+[  3] (00:04:50.0 -> 00:05:12.0)  <normal>
+      At the dock, Deputy Warden McPherson is waiting with a wall of armed guards who watch the two marshals a little too closely. A storm is rolling in behind them, and it will soon cut the island off from the mainland completely.
+
+[  4] (00:06:50.0 -> 00:07:06.0)  <normal>
+      They drive up through the grounds toward the wards, an orderly pointing out the buildings as they pass.
+
+[ 41] (00:07:20.0 -> 00:07:40.0)  <normal>
+      But before they can go any further, the staff make the two marshals hand over their guns. Whatever is happening here, they are on the hospital's terms now.
+
+[  5] (00:08:30.0 -> 00:08:52.0)  <normal>
+      The hospital sits in an old Civil War fort, its worst patients kept behind the walls of Ward C. It is the kind of place, Cawley admits, that exists in the space between medicine and a prison.
+
+[ 51] (00:09:40.0 -> 00:09:57.0)  <normal>
+      The lead psychiatrist, Dr. Cawley, lays out the case. A patient named Rachel Solando has disappeared overnight, straight out of a locked cell.
+
+[  6] (00:10:05.0 -> 00:10:24.0)  <normal>
+      She got past locked doors and three checkpoints without a single guard seeing her go. As Cawley puts it, it is as if she evaporated through the walls.
+
+[  7] (00:12:25.0 -> 00:12:47.0)  <normal>
+      Rachel is here because she drowned her own three children. Her mind has buried it so completely that she still believes they are alive and waiting at home for her. To her, the crime simply never happened.
+
+[  8] (00:13:55.0 -> 00:14:12.0)  <normal>
+      In her empty room, the only trace she left is a note hidden behind a tile. It reads: the law of four, and a question - who is sixty-seven?
+
+[  9] (00:14:20.0 -> 00:14:40.0)  <normal>
+      Cawley says the hospital holds exactly sixty-six patients. There is no sixty-seventh. The number should mean nothing at all - and yet it lodges in Teddy's mind.
+
+[ 10] (00:17:00.0 -> 00:17:20.0)  <normal>
+      From the start, the staff give Teddy almost nothing. Rachel's own doctor left on vacation the morning she vanished. No one will hand over personnel files, and with the storm, the phones are dead.
+
+[ 11] (00:20:10.0 -> 00:20:28.0)  <normal>
+      That evening, over drinks, the coldly polite Dr. Naehring studies Teddy like a specimen. He asks, almost idly, whether Teddy is a man of violence.
+
+[112] (00:24:00.0 -> 00:24:24.0)  <normal>
+      Teddy pushes back hard and demands the personnel files again - and again Cawley refuses. Every polite conversation on this island seems built to measure him rather than help him. Something here is being protected.
+
+[ 12] (00:27:45.0 -> 00:28:03.0)  <emotion>
+      Alone that night, Teddy dreams of his wife, Dolores. She died in an apartment fire two years ago, and the loss has hollowed him out.
+
+[ 13] (00:28:10.0 -> 00:28:30.0)  <emotion>
+      In the dream she turns to ash and water in his arms and tells him she is still here, on the island. The grief is the thing he carries into every room.
+
+[ 14] (00:32:30.0 -> 00:32:50.0)  <normal>
+      The next day he interviews patients, hunting for anyone who saw Rachel. Their answers circle and contradict, as if the whole ward has been coached to waste his time.
+
+[141] (00:33:20.0 -> 00:33:42.0)  <normal>
+      Then one woman answers his questions calmly - and the moment a guard looks away, she takes his notepad and writes a single word: run.
+
+[ 15] (00:38:00.0 -> 00:38:18.0)  <emotion>
+      And then Teddy admits to Chuck why he really took this assignment. Two years ago, the arsonist who set the fire that killed his wife was named Andrew Laeddis.
+
+[ 16] (00:38:24.0 -> 00:38:46.0)  <emotion>
+      Laeddis was committed to a mental hospital and then dropped out of the records entirely. Teddy is convinced he is locked up somewhere on this island, and he took this case to find him.
+
+[ 17] (00:42:00.0 -> 00:42:20.0)  <emotion>
+      His mind keeps dragging him backward. Teddy was a soldier who helped liberate Dachau, and the frozen bodies and the executions he saw there never left him.
+
+[171] (00:43:00.0 -> 00:43:20.0)  <emotion>
+      Between the war and his grief, Teddy is a man held together by will alone. On this island, everything seems designed to test exactly where he might break.
+
+[ 18] (00:44:30.0 -> 00:44:54.0)  <normal>
+      There is a second reason he wanted this case. Teddy has heard that Ashecliffe experiments on its patients, and that a man named George Noyce came out of here with a story no one would believe. Finding Laeddis and exposing the hospital have become the same mission.
+
+[ 19] (00:51:10.0 -> 00:51:32.0)  <normal>
+      Then Cawley drops a surprise: Rachel has been found, wandering the grounds, unharmed. But the interview curdles. Her answers do not add up, and all at once she turns on Teddy in a fury.
+
+[ 20] (00:52:00.0 -> 00:52:20.0)  <normal>
+      As it falls apart, a blinding migraine drops Teddy where he stands. He is losing his footing on this island, and some part of him knows it.
+
+[192] (00:56:30.0 -> 00:56:52.0)  <normal>
+      The headaches are getting worse, the dreams sharper, the island stranger. The harder Teddy tries to run the investigation, the less certain he is of anything he sees.
+
+[ 21] (01:00:30.0 -> 01:00:54.0)  <emotion>
+      He collapses into another nightmare of Dolores, ringed by fire and drifting ash. She whispers that Laeddis is still out there, that Teddy has to find him and make him pay. When he wakes, he cannot be sure how much of the last day was real.
+
+[ 22] (01:04:15.0 -> 01:04:34.0)  <normal>
+      That night the storm knocks out the island's power, and the locks and fences go dead with it. Teddy takes the chance he has been waiting for and pulls Chuck toward Ward C.
+
+[ 23] (01:04:40.0 -> 01:04:58.0)  <normal>
+      Ward C is the barred building where the most dangerous patients are kept - and where Teddy is certain Laeddis is hidden away.
+
+[ 24] (01:06:05.0 -> 01:06:26.0)  <normal>
+      Inside, it is chaos in the dark. Patients are loose in the corridors, and one inmate rushes Teddy and nearly kills him before he can break free.
+
+[ 25] (01:12:00.0 -> 01:12:22.0)  <emotion>
+      In one cell, a badly burned inmate seems to know him, and taunts him from the shadows: this is about you. Teddy tells himself the patient is just raving - but the ground under what is real has started to shift.
+
+[ 26] (01:15:55.0 -> 01:16:14.0)  <emotion>
+      Deeper in the ward he finds George Noyce - the patient from the rumors - scarred and locked in a cage. But Noyce is terrified of him, and what he says makes no sense.
+
+[ 27] (01:16:20.0 -> 01:16:42.0)  <emotion>
+      The doctors have already won, Noyce tells him. This whole thing is a game, and it is built around Teddy. And whatever he does, he must not trust his own partner.
+
+[ 28] (01:18:00.0 -> 01:18:20.0)  <emotion>
+      Teddy pushes on toward the lighthouse on the far cliffs, convinced the answers are inside it. But out on the rocks, he and Chuck get separated in the wind and the dark.
+
+[281] (01:19:00.0 -> 01:19:22.0)  <emotion>
+      When Teddy looks down, he is certain he sees Chuck's broken body on the rocks far below. The one man he trusted here is gone, and now he is truly alone.
+
+[ 29] (01:23:30.0 -> 01:23:50.0)  <normal>
+      Climbing down after him, he instead finds a woman hiding in a cave, who says she is the real Rachel Solando. She was a doctor here, she tells him, until she learned the truth.
+
+[ 30] (01:25:00.0 -> 01:25:22.0)  <normal>
+      Ashecliffe drugs its patients, she says, and operates on their minds, and makes people disappear. And she warns him that they are already poisoning him - through his cigarettes, his food, his pills.
+
+[302] (01:27:00.0 -> 01:27:24.0)  <emotion>
+      It is the most frightening version of everything Teddy already feared. If she is right, then nothing he has seen on this island can be trusted - and neither can his own mind. He leaves the cave more certain, and more lost, than ever.
+
+[ 31] (01:36:40.846 -> 01:36:58.197)  <emotion>
+      When Teddy makes it back to the hospital, the ground drops out from under him. Cawley calmly tells him he arrived on Shutter Island alone. There was no Marshal named Chuck. There never was a partner.
+
+[ 32] (01:38:40.0 -> 01:39:02.0)  <normal>
+      For the first time, Teddy has no answer. He fights off an attempt to sedate him and runs for the lighthouse. Behind its walls, he is sure, he will finally find the operating tables and the proof they have been hiding.
+
+[321] (01:40:50.0 -> 01:41:12.0)  <emotion>
+      One more vision of Dolores steadies him - hold on to me, she seems to say, and finish this. He crosses the last stretch of rock alone and steps through the lighthouse door.
+
+[ 33] (01:45:50.0 -> 01:46:08.0)  <emotion>
+      Inside, there is no laboratory. There is only Dr. Cawley, sitting quietly, waiting for him.
+
+[ 34] (01:46:15.0 -> 01:46:40.0)  <emotion>
+      And Cawley tells him something he cannot accept. He has been a patient on this island for two years. He is not being poisoned at all - he is in withdrawal from the medication he stopped taking.
+
+[ 35] (01:50:00.0 -> 01:50:18.0)  <emotion>
+      Then Cawley shows him the board. Edward Daniels is an anagram of Andrew Laeddis. Rachel Solando is an anagram of his wife, Dolores Chanal.
+
+[ 36] (01:50:24.0 -> 01:50:38.0)  <emotion>
+      The arsonist Teddy came here to hunt is Teddy himself.
+
+[361] (01:50:42.0 -> 01:50:58.0)  <emotion>
+      The missing patient, the one from the note - number sixty-seven - is him.
+
+[362] (01:51:05.0 -> 01:51:28.0)  <emotion>
+      And the whole investigation was never real. Every doctor, every guard, every locked door was an elaborate role-play, staged by the hospital to lead him to this moment.
+
+[ 37] (01:52:40.0 -> 01:53:02.0)  <emotion>
+      And the partner who has been at his side the whole time steps forward and gives his real name: Dr. Lester Sheehan, the psychiatrist who has been treating Teddy for two years.
+
+[371] (01:53:40.0 -> 01:54:04.0)  <emotion>
+      The gun Teddy had been carrying turns out to be a toy. There is no case, no conspiracy, no lighthouse full of victims - only a patient and the doctors who have spent two years trying to reach him.
+
+[372] (01:54:20.0 -> 01:54:44.0)  <emotion>
+      Cawley explains why they went this far. The staff let Teddy live out his fantasy to the very end, playing every role in it. The hope was that if he chased the lie all the way down, he might finally wake from it himself.
+
+[373] (01:55:00.0 -> 01:55:24.0)  <emotion>
+      It was a last resort, and a risky one. The alternative the hospital keeps for patients like him is a surgery that would quietly erase who he is. That is the fate now waiting, if the truth does not hold.
+
+[ 38] (01:56:00.0 -> 01:56:20.0)  <emotion>
+      And the truth he could not live with comes back. There was a fire, but it did not kill his family. His wife was deeply ill, and one terrible day she drowned their three children.
+
+[ 39] (01:58:00.0 -> 01:58:24.0)  <emotion>
+      Teddy could not carry being the husband who came home to that. So his mind built someone else entirely - a heroic Marshal chasing a stranger named Laeddis - so that he would never have to be Laeddis himself.
+
+[391] (02:00:00.0 -> 02:00:24.0)  <emotion>
+      Everything on the island falls into place - the missing patient, the coded note, the storm, the war. Each was a piece his mind had arranged to keep the truth at arm's length, and to give his grief somewhere to go.
+
+[ 40] (02:03:20.0 -> 02:03:46.0)  <emotion>
+      For a moment, it works. Teddy breaks down, and then goes quiet, and finally speaks the whole true story back to the doctors in his own words. He knows who he is. He knows what happened. He is, for the first time in two years, awake.
+
+[ 44] (02:04:00.0 -> 02:04:24.0)  <normal>
+      They are relieved - but Cawley warns that they have reached this point with him once before, and lost him. If he slips back this time, there will be no more chances. They will lobotomize him.
+
+[ 42] (02:07:25.0 -> 02:07:49.0)  <emotion>
+      The next morning, Teddy sits on the hospital steps beside the doctor who had been Chuck. He turns to him, calls him Chuck once more, and says quietly that they need to get off this rock before the others catch on.
+
+[ 43] (02:09:15.0 -> 02:09:37.0)  <emotion>
+      Then he says one last thing - which would be worse: to live as a monster, or to die as a good man? He stands, and walks toward the lighthouse with the orderlies who have come to take him.

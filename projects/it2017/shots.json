@@ -1,0 +1,667 @@
+{
+  "_comment": "Explicit-clip footage catalogue for IT 2017. id = 'clip:<clip_start>' so the binding audit can resolve each draft line's footage. depicts/chars describe what the timestamp ACTUALLY shows on screen (verified from frame montages), not what the narration claims - so the audit can catch mismatches.",
+  "shots": [
+    {
+      "id": "clip:00:01:38.0",
+      "time_start": 98,
+      "chars": [
+        "Georgie",
+        "Bill"
+      ],
+      "depicts": [
+        "setup",
+        "dialogue"
+      ],
+      "action": "Georgie asks Bill for the paper boat"
+    },
+    {
+      "id": "clip:00:06:40.0",
+      "time_start": 400,
+      "chars": [],
+      "depicts": [
+        "establishing",
+        "transition"
+      ],
+      "action": "Derry town / missing-kids context"
+    },
+    {
+      "id": "clip:00:08:09.0",
+      "time_start": 489,
+      "chars": [
+        "Pennywise",
+        "Georgie"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "action": "Pennywise talks to Georgie then attacks at the drain"
+    },
+    {
+      "id": "clip:00:08:30.0",
+      "time_start": 510,
+      "chars": [
+        "Georgie",
+        "Pennywise"
+      ],
+      "depicts": [
+        "reveal"
+      ],
+      "action": "the drain / Georgie taken"
+    },
+    {
+      "id": "clip:00:10:44.0",
+      "time_start": 644,
+      "chars": [
+        "Bill"
+      ],
+      "depicts": [
+        "emotion",
+        "reaction"
+      ],
+      "action": "Bill grieving, won't accept Georgie is dead"
+    },
+    {
+      "id": "clip:00:11:14.0",
+      "time_start": 674,
+      "chars": [
+        "Bill",
+        "Richie",
+        "Eddie",
+        "Stanley"
+      ],
+      "depicts": [
+        "reaction"
+      ],
+      "action": "the Losers talking, garage/bikes"
+    },
+    {
+      "id": "clip:00:11:35.0",
+      "time_start": 695,
+      "chars": [
+        "Eddie",
+        "Richie",
+        "Bill"
+      ],
+      "depicts": [
+        "reaction",
+        "dialogue"
+      ],
+      "action": "Eddie + the boys joking"
+    },
+    {
+      "id": "clip:00:11:50.0",
+      "time_start": 710,
+      "chars": [
+        "Richie",
+        "Bill",
+        "Eddie",
+        "Stanley"
+      ],
+      "depicts": [
+        "reaction",
+        "dialogue"
+      ],
+      "action": "Richie loudmouth, the group"
+    },
+    {
+      "id": "clip:00:12:20.0",
+      "time_start": 740,
+      "chars": [
+        "Stanley",
+        "Richie"
+      ],
+      "depicts": [
+        "reaction",
+        "dialogue"
+      ],
+      "action": "Stanley + the boys"
+    },
+    {
+      "id": "clip:00:13:00.0",
+      "time_start": 780,
+      "chars": [
+        "Mike"
+      ],
+      "depicts": [
+        "reaction"
+      ],
+      "action": "Mike on the farm / outsider"
+    },
+    {
+      "id": "clip:00:13:15.0",
+      "time_start": 795,
+      "chars": [
+        "Bill"
+      ],
+      "depicts": [
+        "transition",
+        "reaction"
+      ],
+      "action": "Bill, the group forming"
+    },
+    {
+      "id": "clip:00:27:05.0",
+      "time_start": 1625,
+      "chars": [
+        "Ben"
+      ],
+      "depicts": [
+        "discovery",
+        "setup"
+      ],
+      "action": "Ben in the library/records, the cellar archive"
+    },
+    {
+      "id": "clip:00:27:20.0",
+      "time_start": 1640,
+      "chars": [
+        "Ben"
+      ],
+      "depicts": [
+        "discovery",
+        "establishing"
+      ],
+      "action": "Ben's research montage, old newspapers"
+    },
+    {
+      "id": "clip:00:27:30.0",
+      "time_start": 1650,
+      "chars": [
+        "Ben"
+      ],
+      "depicts": [
+        "reaction"
+      ],
+      "action": "Ben the new kid in the archive"
+    },
+    {
+      "id": "clip:00:28:00.0",
+      "time_start": 1680,
+      "chars": [
+        "Ben",
+        "Pennywise"
+      ],
+      "depicts": [
+        "reveal"
+      ],
+      "action": "Ben's library scare, balloons / headless boy"
+    },
+    {
+      "id": "clip:00:29:30.0",
+      "time_start": 1770,
+      "chars": [
+        "Bowers",
+        "Ben"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "action": "Bowers carves Ben's stomach with a knife"
+    },
+    {
+      "id": "clip:00:42:00.0",
+      "time_start": 2520,
+      "chars": [
+        "Beverly"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "action": "Beverly's bathroom, blood from the sink"
+    },
+    {
+      "id": "clip:00:42:13.0",
+      "time_start": 2533,
+      "chars": [
+        "Beverly"
+      ],
+      "depicts": [
+        "reaction"
+      ],
+      "action": "Beverly intro / hair in sink"
+    },
+    {
+      "id": "clip:00:42:35.0",
+      "time_start": 2555,
+      "chars": [
+        "Bill",
+        "Beverly",
+        "Richie",
+        "Eddie",
+        "Stanley",
+        "Mike",
+        "Ben"
+      ],
+      "depicts": [
+        "establishing",
+        "emotion"
+      ],
+      "action": "the Losers at the quarry, summer"
+    },
+    {
+      "id": "clip:00:42:48.0",
+      "time_start": 2568,
+      "chars": [
+        "Bill",
+        "Beverly",
+        "Richie",
+        "Eddie",
+        "Stanley",
+        "Mike",
+        "Ben"
+      ],
+      "depicts": [
+        "establishing",
+        "emotion"
+      ],
+      "action": "quarry, the group together"
+    },
+    {
+      "id": "clip:00:43:20.0",
+      "time_start": 2600,
+      "chars": [
+        "Ben",
+        "Beverly"
+      ],
+      "depicts": [
+        "emotion",
+        "reaction"
+      ],
+      "action": "Ben + Beverly, the poem / crush"
+    },
+    {
+      "id": "clip:01:03:20.0",
+      "time_start": 3800,
+      "chars": [
+        "Bill",
+        "Beverly"
+      ],
+      "depicts": [
+        "emotion",
+        "dialogue"
+      ],
+      "action": "Bill and Beverly talking, intimate"
+    },
+    {
+      "id": "clip:01:03:25.0",
+      "time_start": 3805,
+      "chars": [
+        "Bill",
+        "Beverly"
+      ],
+      "depicts": [
+        "emotion",
+        "dialogue"
+      ],
+      "action": "Bill and Beverly conversation"
+    },
+    {
+      "id": "clip:01:04:30.0",
+      "time_start": 3870,
+      "chars": [
+        "Bill",
+        "Richie",
+        "Ben"
+      ],
+      "depicts": [
+        "discovery"
+      ],
+      "action": "the Losers on the street compare notes - same thing is hunting all of them"
+    },
+    {
+      "id": "clip:01:05:05.0",
+      "time_start": 3905,
+      "chars": [
+        "Bill"
+      ],
+      "depicts": [
+        "reaction"
+      ],
+      "action": "Bill standing alone in the sunny street (NOT a group compare-notes scene)"
+    },
+    {
+      "id": "clip:01:05:45.0",
+      "time_start": 3945,
+      "chars": [
+        "Bowers",
+        "Mike"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "action": "rock fight at the river, the gang"
+    },
+    {
+      "id": "clip:01:06:10.0",
+      "time_start": 3970,
+      "chars": [
+        "Bowers"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "action": "rock fight at the river, Bowers gang vs Losers"
+    },
+    {
+      "id": "clip:01:09:05.0",
+      "time_start": 4145,
+      "chars": [
+        "Mike"
+      ],
+      "depicts": [
+        "discovery"
+      ],
+      "action": "Mike explains the creature hibernates and feeds off Derry - it is older than a clown"
+    },
+    {
+      "id": "clip:01:21:30.0",
+      "time_start": 4890,
+      "chars": [
+        "Pennywise",
+        "Eddie",
+        "Richie"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "action": "Neibolt interior, the doll room, hallucinations"
+    },
+    {
+      "id": "clip:01:21:42.0",
+      "time_start": 4902,
+      "chars": [
+        "Stanley",
+        "Bill"
+      ],
+      "depicts": [
+        "dialogue",
+        "reaction"
+      ],
+      "action": "the kids arguing inside Neibolt"
+    },
+    {
+      "id": "clip:01:22:18.0",
+      "time_start": 4938,
+      "chars": [
+        "Stanley"
+      ],
+      "depicts": [
+        "reveal"
+      ],
+      "action": "Stanley + the flute/painting woman"
+    },
+    {
+      "id": "clip:01:23:05.0",
+      "time_start": 4985,
+      "chars": [],
+      "depicts": [
+        "emotion",
+        "aftermath"
+      ],
+      "action": "Neibolt aftermath, the group shaken"
+    },
+    {
+      "id": "clip:01:23:45.0",
+      "time_start": 5025,
+      "chars": [
+        "Eddie",
+        "Pennywise"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "action": "Eddie chased by the leper / Neibolt corridor"
+    },
+    {
+      "id": "clip:01:30:00.0",
+      "time_start": 5400,
+      "chars": [
+        "Mike"
+      ],
+      "depicts": [
+        "emotion",
+        "reveal"
+      ],
+      "action": "Mike's vision, parents burning"
+    },
+    {
+      "id": "clip:01:31:30.0",
+      "time_start": 5490,
+      "chars": [
+        "Eddie"
+      ],
+      "depicts": [
+        "reaction",
+        "aftermath"
+      ],
+      "action": "Eddie's broken arm, the cast, the pharmacy"
+    },
+    {
+      "id": "clip:01:40:45.0",
+      "time_start": 6045,
+      "chars": [
+        "Bill",
+        "Richie",
+        "Eddie",
+        "Stanley"
+      ],
+      "depicts": [
+        "reaction",
+        "transition"
+      ],
+      "action": "the boys regrouping, the arcade/street"
+    },
+    {
+      "id": "clip:01:41:30.0",
+      "time_start": 6090,
+      "chars": [
+        "Bill",
+        "Beverly",
+        "Richie",
+        "Eddie",
+        "Stanley",
+        "Mike",
+        "Ben"
+      ],
+      "depicts": [
+        "action",
+        "transition"
+      ],
+      "action": "the group bikes back to Neibolt"
+    },
+    {
+      "id": "clip:01:42:25.0",
+      "time_start": 6145,
+      "chars": [
+        "Bill"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "action": "entering Neibolt for Georgie"
+    },
+    {
+      "id": "clip:01:53:16.0",
+      "time_start": 6796,
+      "chars": [
+        "Bill"
+      ],
+      "depicts": [
+        "discovery"
+      ],
+      "action": "the cistern, floating bodies, Georgie's body"
+    },
+    {
+      "id": "clip:01:55:01.0",
+      "time_start": 6901,
+      "chars": [
+        "Pennywise",
+        "Bill"
+      ],
+      "depicts": [
+        "reveal",
+        "dialogue"
+      ],
+      "action": "the clown takes Georgie's form, lures Bill"
+    },
+    {
+      "id": "clip:01:57:00.0",
+      "time_start": 7020,
+      "chars": [
+        "Pennywise"
+      ],
+      "depicts": [
+        "transition",
+        "establishing"
+      ],
+      "action": "Neibolt house exterior / the lair"
+    },
+    {
+      "id": "clip:01:58:05.0",
+      "time_start": 7085,
+      "chars": [],
+      "depicts": [
+        "transition",
+        "establishing"
+      ],
+      "action": "the lair, finding where it lives"
+    },
+    {
+      "id": "clip:01:58:20.0",
+      "time_start": 7100,
+      "chars": [
+        "Pennywise",
+        "Eddie"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "action": "Pennywise attacks Eddie in the lair"
+    },
+    {
+      "id": "clip:01:59:00.0",
+      "time_start": 7140,
+      "chars": [
+        "Eddie",
+        "Richie",
+        "Stanley"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "action": "the Losers fight back together"
+    },
+    {
+      "id": "clip:01:59:10.0",
+      "time_start": 7150,
+      "chars": [
+        "Beverly",
+        "Pennywise"
+      ],
+      "depicts": [
+        "reveal"
+      ],
+      "action": "Beverly + the deadlights, frozen"
+    },
+    {
+      "id": "clip:01:59:39.0",
+      "time_start": 7179,
+      "chars": [
+        "Pennywise"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "action": "Pennywise rears up in the lair, menacing the Losers"
+    },
+    {
+      "id": "clip:01:59:55.0",
+      "time_start": 7195,
+      "chars": [
+        "Beverly"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "action": "Beverly at home / the clown's move"
+    },
+    {
+      "id": "clip:02:00:10.0",
+      "time_start": 7210,
+      "chars": [],
+      "depicts": [
+        "action"
+      ],
+      "action": "the Losers beat it down, climax"
+    },
+    {
+      "id": "clip:02:02:09.0",
+      "time_start": 7329,
+      "chars": [
+        "Bill",
+        "Beverly",
+        "Richie",
+        "Eddie",
+        "Stanley",
+        "Mike",
+        "Ben"
+      ],
+      "depicts": [
+        "emotion",
+        "establishing"
+      ],
+      "action": "the group, theme / aftermath"
+    },
+    {
+      "id": "clip:02:02:29.0",
+      "time_start": 7349,
+      "chars": [
+        "Ben",
+        "Beverly"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "action": "Ben leans over Beverly and kisses her to wake her from the deadlights"
+    },
+    {
+      "id": "clip:02:04:54.0",
+      "time_start": 7494,
+      "chars": [],
+      "depicts": [
+        "establishing",
+        "transition"
+      ],
+      "action": "the well / oath setup"
+    },
+    {
+      "id": "clip:02:05:00.0",
+      "time_start": 7500,
+      "chars": [
+        "Bill",
+        "Beverly",
+        "Richie",
+        "Eddie",
+        "Stanley",
+        "Mike",
+        "Ben"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "action": "the blood oath at the well"
+    },
+    {
+      "id": "clip:02:07:09.0",
+      "time_start": 7629,
+      "chars": [
+        "Bill",
+        "Beverly"
+      ],
+      "depicts": [
+        "emotion"
+      ],
+      "action": "Bill and Beverly goodbye"
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "_comment": "Canonical character names for Joker (2019). Use these exact strings in shots.json chars[]. No diminutives, no role descriptions. 'names' is the key the loader reads; 'characters' kept as a readable alias.",
+  "names": [
+    "Arthur",
+    "Sophie",
+    "Penny",
+    "Murray",
+    "Thomas Wayne",
+    "Alfred",
+    "Bruce",
+    "Randall",
+    "Gary",
+    "Hoyt",
+    "Garrity",
+    "Burke"
+  ],
+  "characters": [
+    "Arthur",
+    "Sophie",
+    "Penny",
+    "Murray",
+    "Thomas Wayne",
+    "Alfred",
+    "Bruce",
+    "Randall",
+    "Gary",
+    "Hoyt",
+    "Garrity",
+    "Burke"
+  ],
+  "aliases": {
+    "Arthur Fleck": "Arthur",
+    "Joker": "Arthur",
+    "Sophie Dumond": "Sophie",
+    "Penny Fleck": "Penny",
+    "Murray Franklin": "Murray",
+    "Thomas": "Thomas Wayne",
+    "Mr. Wayne": "Thomas Wayne",
+    "Bruce Wayne": "Bruce",
+    "Detective Garrity": "Garrity",
+    "Detective Burke": "Burke",
+    "Hoyt Vaughn": "Hoyt"
+  }
+}

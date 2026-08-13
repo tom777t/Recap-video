@@ -1,0 +1,888 @@
+{
+  "_comment": "Explicit-clip footage catalogue for Prisoners (2013). id = 'clip:<HH:MM:SS.s>'. depicts/chars describe what the timestamp ACTUALLY shows on screen (verified from frame montages), not what narration claims. One clip = one primary moment; 1-2 depicts tags max (see docs/TAGGING_GUIDE.md). Catalogued content-first from the 34-beat descriptions (beat list timestamps were from a different cut and are unreliable; located each beat via transcript + frames).",
+  "not_found": [],
+  "shots": [
+    {
+      "id": "clip:00:01:27.0",
+      "beat": 1,
+      "clip_start": "00:01:27.0",
+      "clip_end": "00:01:33.0",
+      "chars": [
+        "Keller",
+        "Ralph"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "action": "Keller and Ralph in orange hunting gear aim a rifle at a deer in the snowy winter forest"
+    },
+    {
+      "id": "clip:00:04:12.0",
+      "beat": 2,
+      "clip_start": "00:04:12.0",
+      "clip_end": "00:04:18.0",
+      "chars": [
+        "Keller",
+        "Grace",
+        "Anna",
+        "Ralph"
+      ],
+      "depicts": [
+        "setup"
+      ],
+      "action": "the Dover family walks up the street to the Birch home for Thanksgiving, Anna on Keller's shoulders, Grace carrying a dish"
+    },
+    {
+      "id": "clip:00:05:42.0",
+      "beat": 3,
+      "clip_start": "00:05:42.0",
+      "clip_end": "00:05:48.0",
+      "chars": [
+        "Keller",
+        "Grace",
+        "Franklin"
+      ],
+      "depicts": [
+        "setup"
+      ],
+      "action": "the adults prepare the Thanksgiving meal in the Birch kitchen, cutting venison"
+    },
+    {
+      "id": "clip:00:07:09.0",
+      "beat": 3,
+      "clip_start": "00:07:09.0",
+      "clip_end": "00:07:15.0",
+      "chars": [
+        "Franklin",
+        "Nancy",
+        "Keller",
+        "Grace"
+      ],
+      "depicts": [
+        "emotion"
+      ],
+      "action": "the two families relax together in the Birch living room, Franklin playing his trumpet"
+    },
+    {
+      "id": "clip:00:07:43.0",
+      "beat": 4,
+      "clip_start": "00:07:43.0",
+      "clip_end": "00:07:49.0",
+      "chars": [
+        "Anna",
+        "Joy"
+      ],
+      "depicts": [
+        "setup"
+      ],
+      "action": "Anna and Joy stand before the adults asking permission to walk to the Dover house; last time the girls are seen together (Ralph not visible in this shot)"
+    },
+    {
+      "id": "clip:00:10:12.0",
+      "beat": 5,
+      "clip_start": "00:10:12.0",
+      "clip_end": "00:10:18.0",
+      "chars": [
+        "Keller"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "action": "Keller searches the basement workshop looking for the missing girls"
+    },
+    {
+      "id": "clip:00:10:57.0",
+      "beat": 5,
+      "clip_start": "00:10:57.0",
+      "clip_end": "00:11:03.0",
+      "chars": [
+        "Keller",
+        "Grace",
+        "Franklin",
+        "Nancy"
+      ],
+      "depicts": [
+        "reaction"
+      ],
+      "action": "the four parents in the Birch living room realize the girls are gone, panic setting in"
+    },
+    {
+      "id": "clip:00:12:27.0",
+      "beat": 6,
+      "clip_start": "00:12:27.0",
+      "clip_end": "00:12:33.0",
+      "chars": [
+        "Loki"
+      ],
+      "depicts": [
+        "setup"
+      ],
+      "action": "Detective Loki eats alone at the diner, introducing the character"
+    },
+    {
+      "id": "clip:00:16:27.0",
+      "beat": 7,
+      "clip_start": "00:16:27.0",
+      "clip_end": "00:16:33.0",
+      "chars": [],
+      "depicts": [
+        "action"
+      ],
+      "action": "night raid in the rain - police converge on the RV (faces not identifiable in the dark/rain; Loki and Alex not facially verifiable in this shot)"
+    },
+    {
+      "id": "clip:00:19:57.0",
+      "beat": 8,
+      "clip_start": "00:19:57.0",
+      "clip_end": "00:20:03.0",
+      "chars": [],
+      "depicts": [
+        "action"
+      ],
+      "action": "forensics personnel process the impounded RV under bright garage lights (wide shot, individual faces not identifiable; Loki present in scene but not facially verifiable here)"
+    },
+    {
+      "id": "clip:00:21:27.0",
+      "beat": 9,
+      "clip_start": "00:21:27.0",
+      "clip_end": "00:21:33.0",
+      "chars": [
+        "Nancy"
+      ],
+      "depicts": [
+        "emotion"
+      ],
+      "action": "Nancy sits numb and grieving at the table, Franklin in the background of the Birch home"
+    },
+    {
+      "id": "clip:00:22:57.0",
+      "beat": 9,
+      "clip_start": "00:22:57.0",
+      "clip_end": "00:23:03.0",
+      "chars": [
+        "Grace"
+      ],
+      "depicts": [
+        "emotion"
+      ],
+      "action": "Grace lies in bed, drugged and grieving over the missing girls"
+    },
+    {
+      "id": "clip:00:24:27.0",
+      "beat": 10,
+      "clip_start": "00:24:27.0",
+      "clip_end": "00:24:33.0",
+      "chars": [
+        "Loki"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "action": "Loki explains to Keller there is no evidence and Alex has the mind of a child, so he must be released"
+    },
+    {
+      "id": "clip:00:25:42.0",
+      "beat": 10,
+      "clip_start": "00:25:42.0",
+      "clip_end": "00:25:48.0",
+      "chars": [
+        "Keller"
+      ],
+      "depicts": [
+        "reaction"
+      ],
+      "action": "Keller, anguished, reacts to Loki telling him there is no proof to hold the suspect"
+    },
+    {
+      "id": "clip:00:27:07.0",
+      "beat": 11,
+      "clip_start": "00:27:07.0",
+      "clip_end": "00:27:12.0",
+      "chars": [
+        "Richards",
+        "Loki"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "action": "Captain Richards at his desk presses Loki over the release decision while Loki stands across from him"
+    },
+    {
+      "id": "clip:00:27:12.0",
+      "beat": 11,
+      "clip_start": "00:27:12.0",
+      "clip_end": "00:27:17.0",
+      "chars": [
+        "Loki"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "action": "Loki stands his ground defending the decision to release the suspect, then turns to leave the captain's office"
+    },
+    {
+      "id": "clip:00:35:45.0",
+      "beat": 13,
+      "clip_start": "00:35:45.0",
+      "clip_end": "00:35:50.0",
+      "chars": [
+        "Loki"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "action": "at the station Loki, arms crossed, tells Keller they have no evidence to hold Alex and warns him to go home (Keller's back to camera in foreground)"
+    },
+    {
+      "id": "clip:00:36:07.0",
+      "beat": 13,
+      "clip_start": "00:36:07.0",
+      "clip_end": "00:36:12.0",
+      "chars": [
+        "Keller"
+      ],
+      "depicts": [
+        "reaction"
+      ],
+      "action": "close on an agitated Keller insisting Alex confessed ('are you sure that's what he said'), realizing the police will not act on his accusation"
+    },
+    {
+      "id": "clip:00:37:17.0",
+      "beat": 14,
+      "clip_start": "00:37:17.0",
+      "clip_end": "00:37:23.0",
+      "chars": [
+        "Bob"
+      ],
+      "depicts": [
+        "setup"
+      ],
+      "action": "Bob Taylor, a strange young man with glasses and curly hair, sits on the couch being questioned; his behavior is off (introduction of Bob)"
+    },
+    {
+      "id": "clip:00:37:21.0",
+      "beat": 14,
+      "clip_start": "00:37:21.0",
+      "clip_end": "00:37:27.0",
+      "chars": [
+        "Loki"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "action": "Loki questions Bob Taylor during a door-to-door interview"
+    },
+    {
+      "id": "clip:00:41:57.0",
+      "beat": 12,
+      "clip_start": "00:41:57.0",
+      "clip_end": "00:42:03.0",
+      "chars": [
+        "Keller"
+      ],
+      "depicts": [
+        "setup"
+      ],
+      "action": "Keller waits in his truck at night watching the lit cabin, before abducting Alex (real abduction scene; the beat's listed 28:30-32:30 range is actually the unrelated priest/corpse investigation)"
+    },
+    {
+      "id": "clip:00:43:12.0",
+      "beat": 12,
+      "clip_start": "00:43:12.0",
+      "clip_end": "00:43:18.0",
+      "chars": [],
+      "depicts": [
+        "action"
+      ],
+      "action": "a hooded figure is led away in the dark during the abduction (silhouette; Keller/Alex not facially verifiable in this shot)"
+    },
+    {
+      "id": "clip:00:49:27.0",
+      "beat": 16,
+      "clip_start": "00:49:27.0",
+      "clip_end": "00:49:33.0",
+      "chars": [
+        "Holly"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "action": "Holly Jones, Alex's aunt, sits calmly in her armchair answering Loki's questions; no red flags raised"
+    },
+    {
+      "id": "clip:00:51:27.0",
+      "beat": 15,
+      "clip_start": "00:51:27.0",
+      "clip_end": "00:51:33.0",
+      "chars": [
+        "Keller",
+        "Alex"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "action": "Keller beats a bound, bloodied Alex on the bathroom floor of the abandoned apartment"
+    },
+    {
+      "id": "clip:00:51:48.0",
+      "beat": 17,
+      "clip_start": "00:51:48.0",
+      "clip_end": "00:51:54.0",
+      "chars": [
+        "Keller",
+        "Alex"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "action": "closer angle in the tiled bathroom: Keller grips and strikes the bloodied Alex, whose battered face is visible"
+    },
+    {
+      "id": "clip:00:52:27.0",
+      "beat": 17,
+      "clip_start": "00:52:27.0",
+      "clip_end": "00:52:33.0",
+      "chars": [
+        "Franklin",
+        "Alex"
+      ],
+      "depicts": [
+        "reaction"
+      ],
+      "action": "Franklin stands conflicted and shaken over the hunched, bloodied Alex in the bathroom"
+    },
+    {
+      "id": "clip:00:52:48.0",
+      "beat": 17,
+      "clip_start": "00:52:48.0",
+      "clip_end": "00:52:54.0",
+      "chars": [
+        "Keller"
+      ],
+      "depicts": [
+        "emotion"
+      ],
+      "action": "close on Keller shouting, anguished and unravelling, as he interrogates the prisoner during the beating"
+    },
+    {
+      "id": "clip:00:53:12.0",
+      "beat": 17,
+      "clip_start": "00:53:12.0",
+      "clip_end": "00:53:18.0",
+      "chars": [
+        "Keller",
+        "Alex",
+        "Franklin"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "action": "Keller forces the bloodied Alex against the sink as the torture intensifies, Franklin present in the bathroom"
+    },
+    {
+      "id": "clip:00:54:57.0",
+      "beat": 18,
+      "clip_start": "00:54:57.0",
+      "clip_end": "00:55:03.0",
+      "chars": [
+        "Nancy"
+      ],
+      "depicts": [
+        "emotion"
+      ],
+      "action": "Nancy at the vigil at night, holding a candle, grieving among the crowd"
+    },
+    {
+      "id": "clip:00:55:28.0",
+      "beat": 18,
+      "clip_start": "00:55:28.0",
+      "clip_end": "00:55:34.0",
+      "chars": [
+        "Nancy",
+        "Grace"
+      ],
+      "depicts": [
+        "emotion"
+      ],
+      "action": "dedicated close-up of Nancy and Grace grieving together among the candles at the night vigil"
+    },
+    {
+      "id": "clip:00:56:27.0",
+      "beat": 18,
+      "clip_start": "00:56:27.0",
+      "clip_end": "00:56:33.0",
+      "chars": [],
+      "depicts": [
+        "establishing"
+      ],
+      "action": "rows of candles and a teddy bear at the night candlelight vigil for the missing girls (wide community shot, no single character in focus)"
+    },
+    {
+      "id": "clip:00:56:28.0",
+      "beat": 18,
+      "clip_start": "00:56:28.0",
+      "clip_end": "00:56:34.0",
+      "chars": [
+        "Loki"
+      ],
+      "depicts": [
+        "reaction"
+      ],
+      "action": "Loki moves through the vigil crowd scanning faces, watching for a suspect"
+    },
+    {
+      "id": "clip:00:58:58.0",
+      "beat": 19,
+      "clip_start": "00:58:58.0",
+      "clip_end": "00:59:04.0",
+      "chars": [],
+      "depicts": [
+        "action"
+      ],
+      "action": "a hooded figure flees over a fence into the dark woods as Loki gives chase (figure not facially identifiable)"
+    },
+    {
+      "id": "clip:00:59:13.0",
+      "beat": 19,
+      "clip_start": "00:59:13.0",
+      "clip_end": "00:59:19.0",
+      "chars": [],
+      "depicts": [
+        "action"
+      ],
+      "action": "a hooded figure runs through the dark woods, silhouetted against the distant vigil lights (face not identifiable)"
+    },
+    {
+      "id": "clip:01:03:57.0",
+      "beat": 20,
+      "clip_start": "01:03:57.0",
+      "clip_end": "01:04:03.0",
+      "chars": [
+        "Franklin",
+        "Nancy"
+      ],
+      "depicts": [
+        "reaction"
+      ],
+      "action": "Franklin and Nancy at home, shaken and conflicted over their part in holding and hurting Alex"
+    },
+    {
+      "id": "clip:01:08:57.0",
+      "beat": 20,
+      "clip_start": "01:08:57.0",
+      "clip_end": "01:09:03.0",
+      "chars": [
+        "Keller"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "action": "Keller returns to the locked torture box in the abandoned building to continue interrogating Alex, a photo of the missing girls on the wall"
+    },
+    {
+      "id": "clip:01:15:27.0",
+      "beat": 21,
+      "clip_start": "01:15:27.0",
+      "clip_end": "01:15:33.0",
+      "chars": [
+        "Keller",
+        "Grace"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "action": "Grace approaches and confronts a distraught Keller in the hallway, sensing something is wrong; the family is unraveling"
+    },
+    {
+      "id": "clip:01:25:46.0",
+      "beat": 22,
+      "clip_start": "01:25:46.0",
+      "clip_end": "01:25:52.0",
+      "chars": [
+        "Keller"
+      ],
+      "depicts": [
+        "setup"
+      ],
+      "action": "Keller, hooded, stands outside Bob Taylor's place in a desolate lot before breaking in"
+    },
+    {
+      "id": "clip:01:28:57.0",
+      "beat": 22,
+      "clip_start": "01:28:57.0",
+      "clip_end": "01:29:03.0",
+      "chars": [
+        "Keller"
+      ],
+      "depicts": [
+        "discovery"
+      ],
+      "action": "Keller searches inside Bob Taylor's place and finds the disturbing evidence (boxes of children's clothes and maze drawings)"
+    },
+    {
+      "id": "clip:01:32:57.0",
+      "beat": 23,
+      "clip_start": "01:32:57.0",
+      "clip_end": "01:33:03.0",
+      "chars": [
+        "Bob",
+        "Loki"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "action": "Loki confronts a nervous, smiling Bob Taylor at his door before taking him in"
+    },
+    {
+      "id": "clip:01:39:31.0",
+      "beat": 25,
+      "clip_start": "01:39:31.0",
+      "clip_end": "01:39:37.0",
+      "chars": [
+        "Loki",
+        "Keller"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "action": "Loki slides a photo of the bloodstained clothes across the table to show Keller the blood evidence from Bob"
+    },
+    {
+      "id": "clip:01:40:27.0",
+      "beat": 25,
+      "clip_start": "01:40:27.0",
+      "clip_end": "01:40:33.0",
+      "chars": [
+        "Keller"
+      ],
+      "depicts": [
+        "reaction"
+      ],
+      "action": "Keller, eyes closed and anguished, reacts to the blood evidence Loki has shown him"
+    },
+    {
+      "id": "clip:01:43:17.0",
+      "beat": 23,
+      "clip_start": "01:43:17.0",
+      "clip_end": "01:43:23.0",
+      "chars": [
+        "Bob"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "action": "Bob Taylor hunches in the interrogation room obsessively drawing mazes, watched through the one-way glass"
+    },
+    {
+      "id": "clip:01:45:13.0",
+      "beat": 24,
+      "clip_start": "01:45:13.0",
+      "clip_end": "01:45:19.0",
+      "chars": [
+        "Bob",
+        "Loki"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "action": "Bob breaks free and grabs a gun in the interrogation room as Loki and officers struggle to stop him"
+    },
+    {
+      "id": "clip:01:45:16.0",
+      "beat": 24,
+      "clip_start": "01:45:16.0",
+      "clip_end": "01:45:22.0",
+      "chars": [
+        "Bob",
+        "Loki"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "action": "Bob backed against the interrogation-room wall, the gun in his hand, as Loki and an officer try to bring him down"
+    },
+    {
+      "id": "clip:01:45:22.0",
+      "beat": 24,
+      "clip_start": "01:45:22.0",
+      "clip_end": "01:45:28.0",
+      "chars": [
+        "Bob"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "action": "Bob raises the gun under his own chin as the officers shout for him to stop"
+    },
+    {
+      "id": "clip:01:45:29.0",
+      "beat": 24,
+      "clip_start": "01:45:29.0",
+      "clip_end": "01:45:35.0",
+      "chars": [
+        "Bob",
+        "Loki"
+      ],
+      "depicts": [
+        "reaction"
+      ],
+      "action": "Bob slumps bloodied on the floor after shooting himself, Loki standing over him"
+    },
+    {
+      "id": "clip:01:54:01.0",
+      "beat": 26,
+      "clip_start": "01:54:01.0",
+      "clip_end": "01:54:07.0",
+      "chars": [],
+      "depicts": [
+        "discovery"
+      ],
+      "action": "daytime dig at Bob Taylor's property: forensics in white suits excavate while detectives watch; the lab reveals the clothes had tags on, the blood was pig's blood and the kids' bodies are mannequins, meaning Bob was a copycat and the girls are still missing (wide shot, faces not facially verifiable)"
+    },
+    {
+      "id": "clip:01:57:46.0",
+      "beat": 27,
+      "clip_start": "01:57:46.0",
+      "clip_end": "01:57:52.0",
+      "chars": [
+        "Grace"
+      ],
+      "depicts": [
+        "reaction"
+      ],
+      "action": "Grace, on the phone in the bedroom, gets the call that one of the girls has been found alive ('Yeah, this is she... Wait, is she?')"
+    },
+    {
+      "id": "clip:01:59:11.0",
+      "beat": 28,
+      "clip_start": "01:59:11.0",
+      "clip_end": "01:59:17.0",
+      "chars": [
+        "Nancy",
+        "Grace"
+      ],
+      "depicts": [
+        "emotion"
+      ],
+      "action": "Nancy and Grace lean over the recovered Joy in her hospital bed, desperate for her to respond and tell them about Anna"
+    },
+    {
+      "id": "clip:02:02:56.0",
+      "beat": 29,
+      "clip_start": "02:02:56.0",
+      "clip_end": "02:03:02.0",
+      "chars": [
+        "Keller",
+        "Holly"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "action": "Keller returns to Holly's house, claiming he wants to fix her door as penance; Holly, behind the storm-door glass, invites him in (the trap)"
+    },
+    {
+      "id": "clip:02:03:18.0",
+      "beat": 30,
+      "clip_start": "02:03:18.0",
+      "clip_end": "02:03:24.0",
+      "chars": [
+        "Holly"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "action": "Holly in her kitchen seen past Keller, making tea and talking, the tension building before anything is revealed"
+    },
+    {
+      "id": "clip:02:04:08.0",
+      "beat": 30,
+      "clip_start": "02:04:08.0",
+      "clip_end": "02:04:14.0",
+      "chars": [
+        "Holly"
+      ],
+      "depicts": [
+        "reveal"
+      ],
+      "action": "Holly raises a revolver and points it at Keller across the kitchen, turning the scene (Keller's back in foreground)"
+    },
+    {
+      "id": "clip:02:04:42.0",
+      "beat": 30,
+      "clip_start": "02:04:42.0",
+      "clip_end": "02:04:48.0",
+      "chars": [
+        "Holly"
+      ],
+      "depicts": [
+        "reveal"
+      ],
+      "action": "Holly draws a revolver on Keller in her kitchen, revealing she is the kidnapper; she and her late husband abducted the children as their 'war with God'"
+    },
+    {
+      "id": "clip:02:05:08.0",
+      "beat": 30,
+      "clip_start": "02:05:08.0",
+      "clip_end": "02:05:14.0",
+      "chars": [
+        "Keller"
+      ],
+      "depicts": [
+        "reaction"
+      ],
+      "action": "close on Keller at gunpoint in the kitchen, forced to comply and drink the drugged tea, his helplessness setting in"
+    },
+    {
+      "id": "clip:02:09:34.0",
+      "beat": 30,
+      "clip_start": "02:09:34.0",
+      "clip_end": "02:09:40.0",
+      "chars": [
+        "Holly"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "action": "Holly, gun trained on Keller by the car, calmly confesses they took Alex first and that she kept the girls; tells Keller his daughters are 'under there'"
+    },
+    {
+      "id": "clip:02:10:11.0",
+      "beat": 31,
+      "clip_start": "02:10:11.0",
+      "clip_end": "02:10:17.0",
+      "chars": [
+        "Holly",
+        "Keller"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "action": "at gunpoint Holly forces a bound Keller down into the hidden pit in her yard at night (very dark; both faces dimly visible)"
+    },
+    {
+      "id": "clip:02:12:15.0",
+      "beat": 32,
+      "clip_start": "02:12:15.0",
+      "clip_end": "02:12:21.0",
+      "chars": [
+        "Loki"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "action": "in a hospital corridor Loki is told to go notify Holly Jones, the lead that sends him to her house"
+    },
+    {
+      "id": "clip:02:15:05.0",
+      "beat": 32,
+      "clip_start": "02:15:05.0",
+      "clip_end": "02:15:11.0",
+      "chars": [
+        "Loki"
+      ],
+      "depicts": [
+        "setup"
+      ],
+      "action": "Loki arrives at the green front door of Holly's house, numbered 1634, and steps inside"
+    },
+    {
+      "id": "clip:02:16:54.0",
+      "beat": 32,
+      "clip_start": "02:16:54.0",
+      "clip_end": "02:17:00.0",
+      "chars": [
+        "Loki"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "action": "Loki bursts into Holly's house, gun drawn, shouting for her to show her hands moments before the shootout in which he kills Holly and saves Anna"
+    },
+    {
+      "id": "clip:02:16:57.0",
+      "beat": 32,
+      "clip_start": "02:16:57.0",
+      "clip_end": "02:17:03.0",
+      "chars": [
+        "Loki"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "action": "Loki, gun drawn and aimed, shouts for Holly to show her hands inside her house"
+    },
+    {
+      "id": "clip:02:17:04.0",
+      "beat": 32,
+      "clip_start": "02:17:04.0",
+      "clip_end": "02:17:10.0",
+      "chars": [],
+      "depicts": [
+        "action"
+      ],
+      "action": "a dark, low-angle struggle on the kitchen floor during the shooting (faces not identifiable in the dark)"
+    },
+    {
+      "id": "clip:02:17:12.0",
+      "beat": 32,
+      "clip_start": "02:17:12.0",
+      "clip_end": "02:17:18.0",
+      "chars": [
+        "Holly"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "action": "Holly raises a gun toward Loki in the dim hallway"
+    },
+    {
+      "id": "clip:02:17:18.0",
+      "beat": 32,
+      "clip_start": "02:17:18.0",
+      "clip_end": "02:17:24.0",
+      "chars": [
+        "Loki"
+      ],
+      "depicts": [
+        "reaction"
+      ],
+      "action": "Loki, shot in the struggle, doubles over and staggers, wounded"
+    },
+    {
+      "id": "clip:02:17:58.0",
+      "beat": 32,
+      "clip_start": "02:17:58.0",
+      "clip_end": "02:18:04.0",
+      "chars": [],
+      "depicts": [
+        "action"
+      ],
+      "action": "a car races down a dark, wet country road at night as Loki rushes the rescued Anna to the hospital (no faces visible)"
+    },
+    {
+      "id": "clip:02:20:54.0",
+      "beat": 33,
+      "clip_start": "02:20:54.0",
+      "clip_end": "02:21:00.0",
+      "chars": [
+        "Anna",
+        "Grace"
+      ],
+      "depicts": [
+        "reaction"
+      ],
+      "action": "hospital corridor aftermath: a recovering Anna in a wheelchair tended by Grace, with Nancy and Joy nearby, the families reunited"
+    },
+    {
+      "id": "clip:02:24:08.0",
+      "beat": 34,
+      "clip_start": "02:24:08.0",
+      "clip_end": "02:24:14.0",
+      "chars": [],
+      "depicts": [
+        "transition"
+      ],
+      "action": "night excavation of Holly's property after the case; a lone figure lingers at the dig site (silhouette), the moment before the faint whistle from Keller's hidden pit closes the film (faces not verifiable)"
+    }
+  ]
+}

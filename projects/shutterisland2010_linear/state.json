@@ -1,0 +1,19 @@
+{
+  "stage": "script",
+  "stage_reason": "outline_ready: 24/28 beats bound, no >=2-consecutive gap, 0 mismatch / 0 unverified, continuity 0, 0 violations, 4 lone beat(s) tolerated (granularity)",
+  "stage_updated": "2026-07-25T09:01:52+00:00",
+  "outline_metrics": {
+    "beats": 28,
+    "covered": 24,
+    "uncovered": [
+      "B03",
+      "B05",
+      "B17",
+      "B22"
+    ],
+    "binding_mismatch": 0,
+    "binding_unverified": 0,
+    "continuity_issues": 0,
+    "binding_violations": 0
+  }
+}

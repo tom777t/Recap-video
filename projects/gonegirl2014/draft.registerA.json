@@ -1,0 +1,889 @@
+{
+  "_comment": "Stage 4 draft for Gone Girl (2014) recap. Each line binds narration to an exact catalogued shot (clip_start matches shots.json). Lines L04+ run in source-film time order; only U01 (hook) lines have narrative_jump=true. Tone: measured, restrained, Fincher-cool - footage carries weight, no psychologizing. TWIST DISCIPLINE: U01-U08 (beats 1-15) treat Amy purely as victim/missing; diary beats use 'her diary tells us' / 'according to her account' to leave room for subversion. U09 is the explicit pivot ('everything we thought we understood falls apart ... Amy is alive'). U10-U18 treat Amy as architect. Cool Girl (U10) is faithful paraphrase, no quoted excerpts. Desi murder (U15) is tag-honest, no lurid detail; the slash/blood shots carry S7 censor at render and the aftermath line uses subject=None (face-unverifiable). Pregnancy thread: claimed U07 (B13) -> used as leverage U17 (B35). C3: U18 and U_outro bind to different shots within B36.",
+  "project": "gonegirl2014",
+  "lines": [
+    {
+      "id": 1,
+      "line_id": "L01",
+      "unit_id": "U01",
+      "covers": [
+        "1"
+      ],
+      "clip_start": "00:00:24.0",
+      "clip_end": "00:00:30.0",
+      "narration": "A marriage that looked like a fairy tale. A husband who thought he knew his wife.",
+      "claim": {
+        "type": "emotion",
+        "requires_visual": true,
+        "subject": "Nick"
+      },
+      "narrative_jump": true
+    },
+    {
+      "id": 2,
+      "line_id": "L02",
+      "unit_id": "U01",
+      "covers": [
+        "4"
+      ],
+      "clip_start": "00:08:35.0",
+      "clip_end": "00:08:41.0",
+      "narration": "Then, on the morning of their fifth anniversary, Nick Dunne comes home to an empty house and a living room torn apart. Amy is gone.",
+      "claim": {
+        "type": "discovery",
+        "requires_visual": true,
+        "subject": "Nick"
+      },
+      "narrative_jump": true
+    },
+    {
+      "id": 3,
+      "line_id": "L03",
+      "unit_id": "U01",
+      "covers": [
+        "5"
+      ],
+      "clip_start": "00:09:32.0",
+      "clip_end": "00:09:37.0",
+      "narration": "I'm Serabudabu, and today we'll be reviewing Gone Girl, twenty-fourteen. It's David Fincher's thriller about a disappearance, a marriage, and how little we ever really know the person beside us.",
+      "claim": {
+        "type": "dialogue",
+        "requires_visual": true,
+        "subject": "Nick"
+      },
+      "narrative_jump": true
+    },
+    {
+      "id": 4,
+      "line_id": "L04",
+      "unit_id": "U02",
+      "covers": [
+        "1"
+      ],
+      "clip_start": "00:00:24.0",
+      "clip_end": "00:00:30.0",
+      "narration": "It opens on a held image of Amy, while Nick's voice turns over the questions a marriage never stops asking. What are you thinking. How are you feeling. What have we done to each other.",
+      "claim": {
+        "type": "emotion",
+        "requires_visual": true,
+        "subject": "Nick"
+      }
+    },
+    {
+      "id": 5,
+      "line_id": "L05",
+      "unit_id": "U02",
+      "covers": [
+        "2"
+      ],
+      "clip_start": "00:02:27.0",
+      "clip_end": "00:02:33.0",
+      "narration": "That morning he stops by the bar he runs with his twin sister, Margo. It is his fifth anniversary, and he sits there flat and restless, a man who would rather be anywhere else.",
+      "claim": {
+        "type": "dialogue",
+        "requires_visual": true,
+        "subject": "Nick"
+      }
+    },
+    {
+      "id": 6,
+      "line_id": "L06",
+      "unit_id": "U02",
+      "covers": [
+        "3"
+      ],
+      "clip_start": "00:03:40.0",
+      "clip_end": "00:03:45.0",
+      "narration": "In flashback we see how it began. Nick and Amy meet at a crowded New York party, trading clever lines, certain they have found the one person sharp enough to keep up.",
+      "claim": {
+        "type": "setup",
+        "requires_visual": true,
+        "subject": "Nick"
+      }
+    },
+    {
+      "id": 7,
+      "line_id": "L07",
+      "unit_id": "U03",
+      "covers": [
+        "4"
+      ],
+      "clip_start": "00:08:35.0",
+      "clip_end": "00:08:41.0",
+      "narration": "Back in the present, Nick returns home to find the front door open and signs of a struggle inside.",
+      "claim": {
+        "type": "discovery",
+        "requires_visual": true,
+        "subject": "Nick"
+      }
+    },
+    {
+      "id": 8,
+      "line_id": "L08",
+      "unit_id": "U03",
+      "covers": [
+        "5"
+      ],
+      "clip_start": "00:09:32.0",
+      "clip_end": "00:09:37.0",
+      "narration": "He calls the police. Detective Boney and Officer Gilpin arrive and walk the house.",
+      "claim": {
+        "type": "dialogue",
+        "requires_visual": true,
+        "subject": "Nick"
+      }
+    },
+    {
+      "id": 9,
+      "line_id": "L09",
+      "unit_id": "U03",
+      "covers": [
+        "5"
+      ],
+      "clip_start": "00:11:06.0",
+      "clip_end": "00:11:11.0",
+      "narration": "Something about the scene feels wrong to them. It looks less like a break-in than like a picture of one.",
+      "claim": {
+        "type": "discovery",
+        "requires_visual": true,
+        "subject": "Boney"
+      }
+    },
+    {
+      "id": 10,
+      "line_id": "L10",
+      "unit_id": "U04",
+      "covers": [
+        "6"
+      ],
+      "clip_start": "00:12:00.0",
+      "clip_end": "00:12:05.0",
+      "narration": "Amy, it turns out, is a kind of celebrity. Her parents wrote a beloved children's series, Amazing Amy, modeled on their daughter and always one polished step better than the real girl ever was.",
+      "claim": {
+        "type": "setup",
+        "requires_visual": true,
+        "subject": "Amy"
+      }
+    },
+    {
+      "id": 11,
+      "line_id": "L11",
+      "unit_id": "U04",
+      "covers": [
+        "7"
+      ],
+      "clip_start": "00:15:18.0",
+      "clip_end": "00:15:23.0",
+      "narration": "In his first interview with the police, Nick struggles with the simplest questions about his wife. He cannot name her friends, or say how she fills her days, or even recall her blood type. To the detectives, that distance starts to look suspicious.",
+      "claim": {
+        "type": "dialogue",
+        "requires_visual": true,
+        "subject": "Nick"
+      }
+    },
+    {
+      "id": 12,
+      "line_id": "L12",
+      "unit_id": "U05",
+      "covers": [
+        "8"
+      ],
+      "clip_start": "00:27:08.0",
+      "clip_end": "00:27:13.0",
+      "narration": "The detectives turn up an old boyfriend, Desi Collings, a wealthy man who once stalked Amy and never quite let go of her.",
+      "claim": {
+        "type": "dialogue",
+        "requires_visual": true,
+        "subject": "Boney"
+      }
+    },
+    {
+      "id": 13,
+      "line_id": "L13",
+      "unit_id": "U05",
+      "covers": [
+        "9"
+      ],
+      "clip_start": "00:28:06.0",
+      "clip_end": "00:28:11.0",
+      "narration": "And in Amy's study they find the first clue of one of her anniversary treasure hunts. Every year she hid a trail of riddles for Nick to follow. This year the police want to follow it too, to trace her last days.",
+      "claim": {
+        "type": "discovery",
+        "requires_visual": true,
+        "subject": "Nick"
+      }
+    },
+    {
+      "id": 14,
+      "line_id": "L14",
+      "unit_id": "U06",
+      "covers": [
+        "10"
+      ],
+      "clip_start": "00:31:34.0",
+      "clip_end": "00:31:40.0",
+      "narration": "Amy's diary fills in the years between. It tells us of a couple who promised never to turn bitter.",
+      "claim": {
+        "type": "emotion",
+        "requires_visual": true,
+        "subject": "Amy"
+      }
+    },
+    {
+      "id": 15,
+      "line_id": "L15",
+      "unit_id": "U06",
+      "covers": [
+        "10"
+      ],
+      "clip_start": "00:33:38.0",
+      "clip_end": "00:33:43.0",
+      "narration": "Then the recession takes their jobs, the money runs thin, and according to her account the marriage slowly curdles into resentment.",
+      "claim": {
+        "type": "dialogue",
+        "requires_visual": true,
+        "subject": "Amy"
+      }
+    },
+    {
+      "id": 16,
+      "line_id": "L16",
+      "unit_id": "U06",
+      "covers": [
+        "11"
+      ],
+      "clip_start": "00:35:09.0",
+      "clip_end": "00:35:14.0",
+      "narration": "As the town organizes searches for the missing woman, the pressure begins to settle onto her husband.",
+      "claim": {
+        "type": "transition",
+        "requires_visual": true,
+        "subject": "Nick"
+      }
+    },
+    {
+      "id": 17,
+      "line_id": "L17",
+      "unit_id": "U07",
+      "covers": [
+        "12"
+      ],
+      "clip_start": "00:54:00.0",
+      "clip_end": "00:54:05.0",
+      "narration": "A candlelight vigil gathers for the missing Amy. The whole town turns out, and Nick stands before the cameras to plead for his wife's safe return.",
+      "claim": {
+        "type": "setup",
+        "requires_visual": true,
+        "subject": "Nick"
+      }
+    },
+    {
+      "id": 18,
+      "line_id": "L18",
+      "unit_id": "U07",
+      "covers": [
+        "13"
+      ],
+      "clip_start": "00:56:40.0",
+      "clip_end": "00:56:45.0",
+      "narration": "Then a friend steps forward with news that stuns the room. Amy, she says, was six weeks pregnant when she vanished.",
+      "claim": {
+        "type": "reveal",
+        "requires_visual": true,
+        "subject": "Noelle"
+      }
+    },
+    {
+      "id": 19,
+      "line_id": "L19",
+      "unit_id": "U07",
+      "covers": [
+        "13"
+      ],
+      "clip_start": "00:57:34.0",
+      "clip_end": "00:57:39.0",
+      "narration": "Nick insists he never knew about any baby. But to the watching police, and to the millions now following the case, his shock looks a great deal like guilt.",
+      "claim": {
+        "type": "reaction",
+        "requires_visual": true,
+        "subject": "Nick"
+      }
+    },
+    {
+      "id": 20,
+      "line_id": "L20",
+      "unit_id": "U08",
+      "covers": [
+        "14"
+      ],
+      "clip_start": "00:58:45.0",
+      "clip_end": "00:58:50.0",
+      "narration": "The evidence keeps pointing inward. A scene that looks staged. Blood mopped up in the kitchen. A mountain of hidden debt, and a life insurance policy quietly raised in Amy's name just months before she vanished.",
+      "claim": {
+        "type": "dialogue",
+        "requires_visual": true,
+        "subject": "Boney"
+      }
+    },
+    {
+      "id": 21,
+      "line_id": "L21",
+      "unit_id": "U08",
+      "covers": [
+        "15"
+      ],
+      "clip_start": "01:00:46.0",
+      "clip_end": "01:00:51.0",
+      "narration": "Then the detectives uncover the last piece. Nick has been having an affair with one of his young students. A pregnant wife, a secret girlfriend, and a fortune in insurance. Now he has a motive, and the whole country can see it.",
+      "claim": {
+        "type": "reveal",
+        "requires_visual": true,
+        "subject": "Nick"
+      }
+    },
+    {
+      "id": 22,
+      "line_id": "L22",
+      "unit_id": "U09",
+      "covers": [
+        "16"
+      ],
+      "clip_start": "01:06:00.0",
+      "clip_end": "01:06:06.0",
+      "narration": "And here, everything we thought we understood falls apart. Because Amy is alive. We find her driving down a country road, watching her own disappearance unfold on the radio.",
+      "claim": {
+        "type": "reveal",
+        "requires_visual": true,
+        "subject": "Amy"
+      }
+    },
+    {
+      "id": 23,
+      "line_id": "L23",
+      "unit_id": "U09",
+      "covers": [
+        "16"
+      ],
+      "clip_start": "01:06:00.0",
+      "clip_end": "01:06:06.0",
+      "narration": "She was never taken. She planned all of it. The grieving wife was a performance, and Nick is being framed for a murder that never happened.",
+      "claim": {
+        "type": "reveal",
+        "requires_visual": true,
+        "subject": "Amy"
+      }
+    },
+    {
+      "id": 24,
+      "line_id": "L24",
+      "unit_id": "U10",
+      "covers": [
+        "17"
+      ],
+      "clip_start": "01:07:02.0",
+      "clip_end": "01:07:07.0",
+      "narration": "In her telling, she shows us how it was done. She befriended a pregnant neighbor and stole her urine to fake the pregnancy.",
+      "claim": {
+        "type": "action",
+        "requires_visual": true,
+        "subject": "Amy"
+      }
+    },
+    {
+      "id": 25,
+      "line_id": "L25",
+      "unit_id": "U10",
+      "covers": [
+        "17"
+      ],
+      "clip_start": "01:08:14.0",
+      "clip_end": "01:08:19.0",
+      "narration": "She staged the house the morning Nick left, building a crime scene with just enough mistakes to raise doubt.",
+      "claim": {
+        "type": "action",
+        "requires_visual": true,
+        "subject": "Amy"
+      }
+    },
+    {
+      "id": 26,
+      "line_id": "L26",
+      "unit_id": "U10",
+      "covers": [
+        "17"
+      ],
+      "clip_start": "01:08:37.0",
+      "clip_end": "01:08:42.0",
+      "narration": "She made herself bleed, then cleaned it up badly, the way a panicking husband would.",
+      "claim": {
+        "type": "action",
+        "requires_visual": true,
+        "subject": "Amy"
+      }
+    },
+    {
+      "id": 27,
+      "line_id": "L27",
+      "unit_id": "U10",
+      "covers": [
+        "17"
+      ],
+      "clip_start": "01:09:11.0",
+      "clip_end": "01:09:16.0",
+      "narration": "And she wrote a diary, hundreds of entries inventing the abuse and the fear, burned just enough to be found.",
+      "claim": {
+        "type": "action",
+        "requires_visual": true,
+        "subject": "Amy"
+      }
+    },
+    {
+      "id": 28,
+      "line_id": "L28",
+      "unit_id": "U10",
+      "covers": [
+        "18"
+      ],
+      "clip_start": "01:10:26.0",
+      "clip_end": "01:10:32.0",
+      "narration": "And she explains the marriage. For years she played the Cool Girl Nick wanted, the easygoing woman who liked everything he liked and never complained. It was a performance.",
+      "claim": {
+        "type": "reveal",
+        "requires_visual": true,
+        "subject": "Amy"
+      }
+    },
+    {
+      "id": 29,
+      "line_id": "L29",
+      "unit_id": "U10",
+      "covers": [
+        "18"
+      ],
+      "clip_start": "01:12:01.0",
+      "clip_end": "01:12:06.0",
+      "narration": "But when Nick grew lazy and took a younger woman, she decided he would not get to win. He would not walk away happy.",
+      "claim": {
+        "type": "reveal",
+        "requires_visual": true,
+        "subject": "Amy"
+      }
+    },
+    {
+      "id": 30,
+      "line_id": "L30",
+      "unit_id": "U11",
+      "covers": [
+        "19"
+      ],
+      "clip_start": "01:13:35.0",
+      "clip_end": "01:13:40.0",
+      "narration": "Nick and Margo work through the treasure-hunt clues and realize the truth. Amy is framing him for her murder.",
+      "claim": {
+        "type": "discovery",
+        "requires_visual": true,
+        "subject": "Nick"
+      }
+    },
+    {
+      "id": 31,
+      "line_id": "L31",
+      "unit_id": "U11",
+      "covers": [
+        "19"
+      ],
+      "clip_start": "01:15:40.0",
+      "clip_end": "01:15:45.0",
+      "narration": "Amy, meanwhile, disappears into a backwoods motel under a new name, dyed hair, plain glasses, waiting for the story to do its work.",
+      "claim": {
+        "type": "setup",
+        "requires_visual": true,
+        "subject": "Amy"
+      }
+    },
+    {
+      "id": 32,
+      "line_id": "L32",
+      "unit_id": "U11",
+      "covers": [
+        "20"
+      ],
+      "clip_start": "01:21:01.0",
+      "clip_end": "01:21:06.0",
+      "narration": "Cornered by the case against him, Nick hires Tanner Bolt, a lawyer who specializes in men everyone already believes are guilty.",
+      "claim": {
+        "type": "dialogue",
+        "requires_visual": true,
+        "subject": "Nick"
+      }
+    },
+    {
+      "id": 33,
+      "line_id": "L33",
+      "unit_id": "U12",
+      "covers": [
+        "21"
+      ],
+      "clip_start": "01:24:27.0",
+      "clip_end": "01:24:32.0",
+      "narration": "On the news, Nick is convicted in the court of public opinion, a wife-killer in every headline.",
+      "claim": {
+        "type": "reaction",
+        "requires_visual": true,
+        "subject": "Nick"
+      }
+    },
+    {
+      "id": 34,
+      "line_id": "L34",
+      "unit_id": "U12",
+      "covers": [
+        "22"
+      ],
+      "clip_start": "01:34:27.0",
+      "clip_end": "01:34:32.0",
+      "narration": "But Amy's plan has a weakness. At the motel, a neighbor spots the cash she is carrying.",
+      "claim": {
+        "type": "discovery",
+        "requires_visual": true,
+        "subject": "Amy"
+      }
+    },
+    {
+      "id": 35,
+      "line_id": "L35",
+      "unit_id": "U12",
+      "covers": [
+        "22"
+      ],
+      "clip_start": "01:38:07.0",
+      "clip_end": "01:38:12.0",
+      "narration": "That night the couple turns on her, demanding the money and refusing to take no for an answer.",
+      "claim": {
+        "type": "action",
+        "requires_visual": true,
+        "subject": "Amy"
+      }
+    },
+    {
+      "id": 36,
+      "line_id": "L36",
+      "unit_id": "U12",
+      "covers": [
+        "22"
+      ],
+      "clip_start": "01:38:42.0",
+      "clip_end": "01:38:47.0",
+      "narration": "They take nearly everything. Broke and exposed, Amy is suddenly out of options.",
+      "claim": {
+        "type": "narration",
+        "requires_visual": false,
+        "subject": null
+      }
+    },
+    {
+      "id": 37,
+      "line_id": "L37",
+      "unit_id": "U13",
+      "covers": [
+        "23"
+      ],
+      "clip_start": "01:41:59.0",
+      "clip_end": "01:42:04.0",
+      "narration": "So she calls the one man who would still take her in without question. Her old admirer Desi, who never stopped loving the girl who got away.",
+      "claim": {
+        "type": "dialogue",
+        "requires_visual": true,
+        "subject": "Amy"
+      }
+    },
+    {
+      "id": 38,
+      "line_id": "L38",
+      "unit_id": "U13",
+      "covers": [
+        "24"
+      ],
+      "clip_start": "01:46:41.0",
+      "clip_end": "01:46:46.0",
+      "narration": "Desi installs her in his secluded lake house, a place of every comfort, with cameras watching every door and window.",
+      "claim": {
+        "type": "setup",
+        "requires_visual": true,
+        "subject": "Amy"
+      }
+    },
+    {
+      "id": 39,
+      "line_id": "L39",
+      "unit_id": "U13",
+      "covers": [
+        "24"
+      ],
+      "clip_start": "01:49:26.0",
+      "clip_end": "01:49:31.0",
+      "narration": "But his devotion has an edge to it. The more he gives, the more he expects in return, and slowly the refuge becomes another kind of cage, one Amy did not plan to stay inside.",
+      "claim": {
+        "type": "dialogue",
+        "requires_visual": true,
+        "subject": "Desi"
+      }
+    },
+    {
+      "id": 40,
+      "line_id": "L40",
+      "unit_id": "U14",
+      "covers": [
+        "25"
+      ],
+      "clip_start": "01:50:47.0",
+      "clip_end": "01:50:53.0",
+      "narration": "Back home, Nick makes a move of his own. He sits for a televised interview with Sharon Schieber.",
+      "claim": {
+        "type": "setup",
+        "requires_visual": true,
+        "subject": "Nick"
+      }
+    },
+    {
+      "id": 41,
+      "line_id": "L41",
+      "unit_id": "U14",
+      "covers": [
+        "25"
+      ],
+      "clip_start": "01:51:07.0",
+      "clip_end": "01:51:13.0",
+      "narration": "On camera he confesses the affair and performs his remorse, saying exactly what the audience needs to hear.",
+      "claim": {
+        "type": "dialogue",
+        "requires_visual": true,
+        "subject": "Nick"
+      }
+    },
+    {
+      "id": 42,
+      "line_id": "L42",
+      "unit_id": "U14",
+      "covers": [
+        "25"
+      ],
+      "clip_start": "01:51:10.0",
+      "clip_end": "01:51:16.0",
+      "narration": "At the lake house, Amy watches, studying the husband who is suddenly playing the game as well as she does.",
+      "claim": {
+        "type": "reaction",
+        "requires_visual": true,
+        "subject": "Amy"
+      }
+    },
+    {
+      "id": 43,
+      "line_id": "L43",
+      "unit_id": "U14",
+      "covers": [
+        "26"
+      ],
+      "clip_start": "01:57:00.0",
+      "clip_end": "01:57:06.0",
+      "narration": "And Boney, still unconvinced by the tidy case, keeps pulling at the evidence that does not fit.",
+      "claim": {
+        "type": "discovery",
+        "requires_visual": true,
+        "subject": "Boney"
+      }
+    },
+    {
+      "id": 44,
+      "line_id": "L44",
+      "unit_id": "U15",
+      "covers": [
+        "27"
+      ],
+      "clip_start": "01:59:19.0",
+      "clip_end": "01:59:24.0",
+      "narration": "Watching Nick win the public back, Amy makes her final decision. She wants to go home, to the version of her husband she fell for. But to do that, she has to get free of Desi, and she has only one way out.",
+      "claim": {
+        "type": "setup",
+        "requires_visual": true,
+        "subject": "Amy"
+      }
+    },
+    {
+      "id": 45,
+      "line_id": "L45",
+      "unit_id": "U15",
+      "covers": [
+        "28"
+      ],
+      "clip_start": "02:03:57.0",
+      "clip_end": "02:04:03.0",
+      "narration": "She draws him close one last night, playing the grateful, devoted woman he always wanted her to be.",
+      "claim": {
+        "type": "action",
+        "requires_visual": true,
+        "subject": "Amy"
+      }
+    },
+    {
+      "id": 46,
+      "line_id": "L46",
+      "unit_id": "U15",
+      "covers": [
+        "29"
+      ],
+      "clip_start": "02:04:47.0",
+      "clip_end": "02:04:55.0",
+      "narration": "Then, in a single brutal moment, she kills Desi, and arranges the scene so it will read as a desperate woman escaping a captor.",
+      "claim": {
+        "type": "action",
+        "requires_visual": true,
+        "subject": "Amy"
+      }
+    },
+    {
+      "id": 47,
+      "line_id": "L47",
+      "unit_id": "U15",
+      "covers": [
+        "29"
+      ],
+      "clip_start": "02:05:05.0",
+      "clip_end": "02:05:20.0",
+      "narration": "She leaves the room behind exactly as she needs it, turned into evidence for the story she is about to sell.",
+      "claim": {
+        "type": "narration",
+        "requires_visual": false,
+        "subject": null
+      }
+    },
+    {
+      "id": 48,
+      "line_id": "L48",
+      "unit_id": "U16",
+      "covers": [
+        "30"
+      ],
+      "clip_start": "02:05:27.0",
+      "clip_end": "02:05:33.0",
+      "narration": "Covered in blood, she drives back through the night toward the life she walked away from.",
+      "claim": {
+        "type": "narration",
+        "requires_visual": false,
+        "subject": null
+      }
+    },
+    {
+      "id": 49,
+      "line_id": "L49",
+      "unit_id": "U16",
+      "covers": [
+        "31"
+      ],
+      "clip_start": "02:06:15.0",
+      "clip_end": "02:06:20.0",
+      "narration": "And Amy returns, collapsing into Nick's arms in front of a wall of cameras, the missing wife miraculously, impossibly home.",
+      "claim": {
+        "type": "reveal",
+        "requires_visual": true,
+        "subject": "Amy"
+      }
+    },
+    {
+      "id": 50,
+      "line_id": "L50",
+      "unit_id": "U16",
+      "covers": [
+        "32"
+      ],
+      "clip_start": "02:07:03.0",
+      "clip_end": "02:07:08.0",
+      "narration": "At the hospital she gives the police a careful, tearful account, casting Desi as the obsessed kidnapper who held her captive and assaulted her for weeks.",
+      "claim": {
+        "type": "dialogue",
+        "requires_visual": true,
+        "subject": "Amy"
+      }
+    },
+    {
+      "id": 51,
+      "line_id": "L51",
+      "unit_id": "U17",
+      "covers": [
+        "33"
+      ],
+      "clip_start": "02:09:29.0",
+      "clip_end": "02:09:34.0",
+      "narration": "Boney does not believe a word of it. She keeps asking how a captive tied up for weeks got hold of a box cutter. But the story is airtight, and the public wants its miracle.",
+      "claim": {
+        "type": "dialogue",
+        "requires_visual": true,
+        "subject": "Boney"
+      }
+    },
+    {
+      "id": 52,
+      "line_id": "L52",
+      "unit_id": "U17",
+      "covers": [
+        "34"
+      ],
+      "clip_start": "02:12:21.0",
+      "clip_end": "02:12:26.0",
+      "narration": "Alone with Nick, Amy drops the act and tells him the truth. She murdered Desi, and came home for the husband who finally understands exactly what she is capable of.",
+      "claim": {
+        "type": "dialogue",
+        "requires_visual": true,
+        "subject": "Amy"
+      }
+    },
+    {
+      "id": 53,
+      "line_id": "L53",
+      "unit_id": "U17",
+      "covers": [
+        "35"
+      ],
+      "clip_start": "02:16:16.0",
+      "clip_end": "02:16:21.0",
+      "narration": "And the pregnancy that was a lie at the vigil is suddenly real, made true with sperm Nick had stored years before. She uses the coming child as a lock on the door. If he leaves, he leaves his baby. Nick is trapped.",
+      "claim": {
+        "type": "dialogue",
+        "requires_visual": true,
+        "subject": "Nick"
+      }
+    },
+    {
+      "id": 54,
+      "line_id": "L54",
+      "unit_id": "U18",
+      "covers": [
+        "36"
+      ],
+      "clip_start": "02:23:34.0",
+      "clip_end": "02:23:39.0",
+      "narration": "And so they stay together. They announce the coming baby to the world and settle in as the perfect couple, smiling for the cameras. Nick holds Amy's secrets, and Amy holds his, and so neither one can ever let go. In the end, they have become exactly what they made of each other.",
+      "claim": {
+        "type": "emotion",
+        "requires_visual": true,
+        "subject": "Nick"
+      }
+    },
+    {
+      "id": 55,
+      "line_id": "L55",
+      "unit_id": "U_outro",
+      "covers": [
+        "36"
+      ],
+      "clip_start": "02:24:18.0",
+      "clip_end": "02:24:28.0",
+      "narration": "Gone Girl is a story about marriage as performance, and two people who finally deserve each other. Thanks for watching. If you enjoyed this, hit like and subscribe for more deep dives. See you in the next one.",
+      "claim": {
+        "type": "emotion",
+        "requires_visual": true,
+        "subject": "Amy"
+      }
+    }
+  ]
+}

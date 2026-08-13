@@ -1,0 +1,230 @@
+{
+  "_comment": "Interstellar (2014) recap skeleton. 23 units covering 34 beats. Register B (Medium). Hook U01 = viral cold-open teasing the dying-Earth / last-mission premise and the MYSTERY of the ghost, WITHOUT the time-loop reveal (Cooper=ghost held to U19) and WITHOUT the ending. Earth-timeline inserts (beats 20/22/32) are narrative_jump. Climax units use G4 restraint. Ending unit U23 preserves ambiguity (Cooper's CHOICE to go find Brand, not a guaranteed reunion). Motifs woven systematically: DUST, GRAVITY, the WATCH, the CORNFIELD, LOVE-across-time. Target ~3050 words / ~15-16 min at the calibrated Andrew +22% rate (3.5 w/s). must_cover lists the beat numbers each unit covers.",
+  "project": "interstellar2014",
+  "film_title": "Interstellar",
+  "predicted_runtime_min": 15.5,
+  "target_total_words": 3050,
+  "units": [
+    {
+      "id": "U01",
+      "label": "Hook - a dying Earth and one last mission",
+      "tier": "DEEP",
+      "tier_label": "CRITICAL",
+      "target_words": 120,
+      "why": "Viral cold-open: a dust-choked dying Earth, a farmer who used to be a pilot, a strange presence in his daughter's room, and a secret mission to find humanity a new home. Tease the premise + the ghost MYSTERY + a question hook + channel intro. NO time-loop reveal (do not say the ghost is Cooper), NO ending. All hook lines narrative_jump=true.",
+      "must_cover": ["1", "2", "8"],
+      "narrative_jump": true,
+      "tolerance": 0.3
+    },
+    {
+      "id": "U02",
+      "label": "The dust bowl and the Cooper family",
+      "tier": "STANDARD",
+      "target_words": 150,
+      "why": "Establish the world: blight, dust, a farm; Cooper the widower ex-pilot, his son Tom, daughter Murph, and Grandpa Donald. Humanity reduced from explorers to caretakers.",
+      "must_cover": ["1"],
+      "tolerance": 0.3
+    },
+    {
+      "id": "U03",
+      "label": "Murph's ghost",
+      "tier": "DEEP",
+      "target_words": 140,
+      "why": "The bookshelf 'ghost' knocks books off Murph's shelf; Cooper tells her to be scientific and record it. Plant the DUST + GRAVITY + bookshelf mystery. TWIST-HOLD: present as unexplained anomaly only.",
+      "must_cover": ["2"],
+      "tolerance": 0.3
+    },
+    {
+      "id": "U04",
+      "label": "The drone and a world that stopped looking up",
+      "tier": "STANDARD",
+      "target_words": 130,
+      "why": "The drone chase (Cooper the pilot lights up); the school scene - textbooks call Apollo a hoax; Donald's 'we used to look up and wonder'. The theme: explorers become caretakers.",
+      "must_cover": ["3", "4", "5"],
+      "tolerance": 0.3
+    },
+    {
+      "id": "U05",
+      "label": "The coordinates in the dust",
+      "tier": "DEEP",
+      "target_words": 130,
+      "why": "Dust falls in patterns; Cooper reads it as binary coordinates left by gravity. GRAVITY-as-language, still mysterious. Leads them to a hidden place.",
+      "must_cover": ["6"],
+      "tolerance": 0.3
+    },
+    {
+      "id": "U06",
+      "label": "NASA and the Lazarus mission",
+      "tier": "DEEP",
+      "target_words": 160,
+      "why": "The coordinates lead to secret NASA; TARS; Amelia and Professor Brand. Earth is dying; the Lazarus scouts, the Endurance, the wormhole near Saturn.",
+      "must_cover": ["7", "8"],
+      "tolerance": 0.3
+    },
+    {
+      "id": "U07",
+      "label": "Plan A, Plan B, and the wormhole",
+      "tier": "DEEP",
+      "target_words": 150,
+      "why": "The wormhole placed by 'them'; Plan A (solve gravity, lift everyone) vs Plan B (5,000 embryos). Cooper agrees to pilot - to come home to his kids. TWIST-HOLD: do not leak that Plan A is a lie.",
+      "must_cover": ["9"],
+      "tolerance": 0.3
+    },
+    {
+      "id": "U08",
+      "label": "The watch, the promise, the launch",
+      "tier": "DEEP",
+      "tier_label": "CRITICAL",
+      "target_words": 150,
+      "why": "The emotional core of Act 1: Cooper gives Murph his WATCH, promises he'll come back; she refuses to say goodbye (STAY). He drives away in tears; the launch. Motifs: the WATCH, LOVE / family left behind. Contains the B10 silence hug.",
+      "must_cover": ["10", "11"],
+      "tolerance": 0.3
+    },
+    {
+      "id": "U09",
+      "label": "The Endurance and the wormhole",
+      "tier": "STANDARD",
+      "target_words": 150,
+      "why": "The crew (Amelia, Doyle, Romilly, TARS/CASE); the long cruise; Romilly's wormhole tutorial; passing THROUGH the wormhole into a new galaxy. Contains the B13 wormhole silence.",
+      "must_cover": ["12", "13"],
+      "tolerance": 0.3
+    },
+    {
+      "id": "U10",
+      "label": "Gargantua and the cost of time",
+      "tier": "DEEP",
+      "target_words": 140,
+      "why": "Gargantua the black hole; the choice of Miller's water planet despite time dilation - one hour there is seven years back home. TIME as the true antagonist. GRAVITY.",
+      "must_cover": ["14", "15"],
+      "tolerance": 0.3
+    },
+    {
+      "id": "U11",
+      "label": "The water planet and the wave",
+      "tier": "DEEP",
+      "tier_label": "CRITICAL",
+      "target_words": 160,
+      "why": "Miller's shallow ocean; 'those aren't mountains, they're waves'; the giant wave; Doyle dies; the desperate escape. G4 restraint on Doyle's death. The WAVE motif, cost of TIME.",
+      "must_cover": ["16", "17"],
+      "tolerance": 0.3
+    },
+    {
+      "id": "U12",
+      "label": "23 years and the messages",
+      "tier": "DEEP",
+      "tier_label": "CRITICAL",
+      "target_words": 170,
+      "why": "Romilly has aged 23 years; Cooper watches decades of his children's messages, weeping - Tom grown, Donald dead, adult Murph now his age. The emotional peak. Contains the B19 messages silence. TIME, LOVE across distance.",
+      "must_cover": ["18", "19"],
+      "tolerance": 0.3
+    },
+    {
+      "id": "U13",
+      "label": "Earth: Murph at NASA",
+      "tier": "STANDARD",
+      "target_words": 110,
+      "why": "Earth-timeline insert (narrative_jump): adult Murph now works at NASA with the dying Professor Brand on the gravity equation, still haunted by the bedroom ghost. TWIST-HOLD.",
+      "must_cover": ["20"],
+      "narrative_jump": true,
+      "tolerance": 0.3
+    },
+    {
+      "id": "U14",
+      "label": "The choice: love versus data",
+      "tier": "STANDARD",
+      "target_words": 120,
+      "why": "Amelia argues love is a real force that transcends time; the crew chooses Mann's planet over Edmunds'. LOVE as the film's thesis.",
+      "must_cover": ["21"],
+      "tolerance": 0.3
+    },
+    {
+      "id": "U15",
+      "label": "Brand's confession (Plan A was a lie)",
+      "tier": "DEEP",
+      "tier_label": "CRITICAL",
+      "target_words": 150,
+      "why": "Earth-timeline insert (narrative_jump): the burning cornfield; Professor Brand's deathbed confession - Plan A was a sham, unsolvable without black-hole data; 'you left us here to starve'. The BETRAYAL reveal - distinct from the loop, which is still hidden. CORNFIELD motif.",
+      "must_cover": ["22"],
+      "narrative_jump": true,
+      "tolerance": 0.3
+    },
+    {
+      "id": "U16",
+      "label": "Dr. Mann, alive",
+      "tier": "STANDARD",
+      "target_words": 130,
+      "why": "The ice planet; Dr. Mann found alive, 'the best of us', weeping with relief; his pitch about life beneath the ice.",
+      "must_cover": ["23"],
+      "tolerance": 0.3
+    },
+    {
+      "id": "U17",
+      "label": "Mann's betrayal",
+      "tier": "DEEP",
+      "tier_label": "CRITICAL",
+      "target_words": 150,
+      "why": "Mann faked all his data; he cracks Cooper's helmet and leaves him to die; KIPP's trap kills Romilly; CASE rescues Cooper. G4 restraint. The cost of the lie; LOVE (Amelia coming back).",
+      "must_cover": ["24", "25"],
+      "tolerance": 0.3
+    },
+    {
+      "id": "U18",
+      "label": "The docking",
+      "tier": "DEEP",
+      "target_words": 130,
+      "why": "Mann's failed docking blows open the Endurance and kills him; Cooper hand-docks the spinning, burning ship. Human skill vs the void. G4 restraint.",
+      "must_cover": ["26"],
+      "tolerance": 0.3
+    },
+    {
+      "id": "U19",
+      "label": "The sacrifice into Gargantua",
+      "tier": "DEEP",
+      "tier_label": "CRITICAL",
+      "target_words": 150,
+      "why": "Low on fuel, slingshot around Gargantua; 'leave something behind'; Cooper detaches himself so Amelia reaches Plan B; he crosses the event horizon into the black hole. LOVE and sacrifice, GRAVITY.",
+      "must_cover": ["27", "28"],
+      "tolerance": 0.3
+    },
+    {
+      "id": "U20",
+      "label": "The tesseract and the ghost revealed",
+      "tier": "DEEP",
+      "tier_label": "CRITICAL",
+      "target_words": 190,
+      "why": "THE TWIST PAYOFF: inside the black hole Cooper finds the tesseract behind Murph's bookshelf; he IS the ghost - he knocked the books, spelled STAY, sent the coordinates. Love, not chance, drew him here. Contains the B29 tesseract silence. The loop reveal lands ONLY here.",
+      "must_cover": ["29", "30"],
+      "tolerance": 0.3
+    },
+    {
+      "id": "U21",
+      "label": "The watch across time - Eureka",
+      "tier": "DEEP",
+      "tier_label": "CRITICAL",
+      "target_words": 160,
+      "why": "Cooper encodes the black-hole data into the WATCH via gravity; on Earth adult Murph reads it - 'Eureka' - and solves gravity, saving humanity. Earth insert at B32 is narrative_jump. The WATCH pays off the whole loop; LOVE completes it.",
+      "must_cover": ["31", "32"],
+      "narrative_jump": true,
+      "tolerance": 0.3
+    },
+    {
+      "id": "U22",
+      "label": "Cooper Station",
+      "tier": "STANDARD",
+      "target_words": 120,
+      "why": "Cooper wakes 124 years old on a vast space habitat humanity built - named for Murph, not him. Home remade; TIME survived.",
+      "must_cover": ["33"],
+      "tolerance": 0.3
+    },
+    {
+      "id": "U23",
+      "label": "Reunion and the choice to go - outro",
+      "tier": "DEEP",
+      "tier_label": "CRITICAL",
+      "target_words": 170,
+      "why": "Outro: Cooper reaches old, dying Murph; she tells him no parent should watch their child die - go. He chooses to leave to find Amelia, alone on Edmunds' planet. AMBIGUITY: state it as his CHOICE and a hopeful maybe, NOT a guaranteed reunion. Thematic close (LOVE and GRAVITY across time) + channel CTA. Contains the B34 reunion silence.",
+      "must_cover": ["34"],
+      "tolerance": 0.3
+    }
+  ]
+}

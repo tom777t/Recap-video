@@ -1,0 +1,364 @@
+{
+  "title": "He Jumped Into a Volcano With No Parachute — To Save a Piece of Bronze",
+  "target_minutes": 10,
+  "voice": "tts",
+  "lines": [
+    {
+      "id": 1,
+      "narration": "This man just leaped out of a plane with no parachute, falling straight toward an erupting volcano. And he did it to save a single chunk of bronze.",
+      "pool": "P6",
+      "delivery": "hook",
+      "hold": 6.0,
+      "setup_ok": true
+    },
+    {
+      "id": 2,
+      "narration": "To understand why a sane man would do something this insane, we have to go back to a treasure worth killing for.",
+      "pool": "P1",
+      "delivery": "tense",
+      "hold": 4.0,
+      "setup_ok": true
+    },
+    {
+      "id": 3,
+      "narration": "This is Serabudabu. Today I'm breaking down Chinese Zodiac — Jackie Chan's globe-trotting treasure-hunt that turns into something he never expected.",
+      "clip_start": "00:07:33.0",
+      "clip_end": "00:07:40.0",
+      "delivery": "intro"
+    },
+    {
+      "id": 4,
+      "narration": "It starts with a piece of real history. In 1860, foreign armies stormed China's Old Summer Palace, looted it, and burned it for three days straight.",
+      "clip_start": "00:08:20.0",
+      "clip_end": "00:08:28.0",
+      "delivery": "sad",
+      "visual": "1860_sacking",
+      "flashback": true
+    },
+    {
+      "id": 5,
+      "narration": "Among the stolen treasures were twelve bronze animal heads — the Chinese zodiac. Over a century later, they're scattered across the world, each one worth millions.",
+      "clip_start": "00:06:36.0",
+      "clip_end": "00:06:44.0",
+      "delivery": "normal"
+    },
+    {
+      "id": 6,
+      "narration": "And that's where the villains come in. A greedy corporation called MP wants every last head — not to honor them, but to auction them off for a fortune.",
+      "pool": "P10",
+      "delivery": "tense"
+    },
+    {
+      "id": 7,
+      "narration": "Their boss, Lawrence Morgan, makes an offer to the one man who can pull it off. One million euros for each head he steals. So who is this man?",
+      "clip_start": "00:07:03.0",
+      "clip_end": "00:07:10.0",
+      "delivery": "mystery"
+    },
+    {
+      "id": 8,
+      "narration": "They call him JC — played by Jackie Chan. A world-class treasure hunter who can break into anywhere and grab anything, as long as the money is right.",
+      "clip_start": "00:22:13.0",
+      "clip_end": "00:22:20.0",
+      "delivery": "normal"
+    },
+    {
+      "id": 9,
+      "narration": "His first target is the rooster head, locked inside a heavily guarded French castle. To get it, JC pulls off the kind of stunt only Jackie Chan would try.",
+      "clip_start": "00:20:05.0",
+      "clip_end": "00:20:12.0",
+      "delivery": "tense"
+    },
+    {
+      "id": 10,
+      "narration": "Wearing a full-body wingsuit, he slips inside, swaps the head for a fake, and then dives straight off the castle roof to escape.",
+      "pool": "P2",
+      "delivery": "tense",
+      "hold": 6.0
+    },
+    {
+      "id": 11,
+      "narration": "But the guards spot him. He's chased into a giant hedge maze, sprinting blind through the walls while his team tries to fly him an exit by drone.",
+      "clip_start": "00:21:50.0",
+      "clip_end": "00:21:58.0",
+      "delivery": "tense",
+      "visual": "hedge_maze"
+    },
+    {
+      "id": 12,
+      "narration": "He even fakes being a dog to slip past the guard hounds. It's ridiculous, it's brilliant, and he gets away clean. Mission one, done.",
+      "pool": "P3",
+      "delivery": "normal",
+      "hold": 4.0
+    },
+    {
+      "id": 13,
+      "narration": "JC doesn't pull this off alone. He runs with a slick little crew — Simon, his tech and pilot, who guides him through every job from a screen.",
+      "clip_start": "00:22:15.0",
+      "clip_end": "00:22:22.0",
+      "delivery": "normal"
+    },
+    {
+      "id": 14,
+      "narration": "There's also David and Bonnie, a married couple who bicker through every mission, and the data-minded students who track where the relics ended up. They're good at the job, and the money is great.",
+      "clip_start": "00:38:50.0",
+      "clip_end": "00:38:57.0",
+      "delivery": "normal"
+    },
+    {
+      "id": 15,
+      "narration": "So the heist works. But it accidentally drags two women into JC's life who will change everything he believes.",
+      "clip_start": "00:23:18.0",
+      "clip_end": "00:23:25.0",
+      "delivery": "mystery"
+    },
+    {
+      "id": 16,
+      "narration": "The first is Coco — a young Chinese activist who fights to bring stolen relics home. When she realizes JC steals treasures for money, she's disgusted.",
+      "clip_start": "00:32:07.0",
+      "clip_end": "00:32:14.0",
+      "delivery": "normal"
+    },
+    {
+      "id": 17,
+      "narration": "To her, these heads aren't a payday. They're her country's stolen history. Remember that — because her anger is the seed of everything that follows.",
+      "clip_start": "00:33:26.0",
+      "clip_end": "00:33:34.0",
+      "delivery": "tense"
+    },
+    {
+      "id": 18,
+      "narration": "The second is Katherine — and here's the twist. The castle JC just robbed belongs to her, a French aristocrat whose family has gone broke.",
+      "clip_start": "00:30:00.0",
+      "clip_end": "00:30:07.0",
+      "delivery": "mystery"
+    },
+    {
+      "id": 19,
+      "narration": "And her family hides a guilty secret. Her great-great-grandfather was one of the soldiers who raided China's palace back in 1860.",
+      "clip_start": "00:30:52.0",
+      "clip_end": "00:31:00.0",
+      "delivery": "sad"
+    },
+    {
+      "id": 20,
+      "narration": "He sailed home on a warship called the Indestructible, loaded with stolen gold and a famous painting. But on that voyage, he simply vanished — ship and all.",
+      "clip_start": "00:31:02.0",
+      "clip_end": "00:31:09.0",
+      "delivery": "mystery"
+    },
+    {
+      "id": 21,
+      "narration": "And Katherine surprises him. Knowing her family's treasures were stolen, she freely offers to give the rooster head back, no payment asked. It quietly plants a question in JC's mind: is he a hero, or just a thief with a paycheck?",
+      "clip_start": "00:34:09.0",
+      "clip_end": "00:34:16.0",
+      "delivery": "sad"
+    },
+    {
+      "id": 22,
+      "narration": "So now JC has two forces pulling at him. A grieving aristocrat who wants her lost ancestor found — and an activist shaming him for selling history.",
+      "clip_start": "00:33:54.0",
+      "clip_end": "00:34:02.0",
+      "delivery": "normal"
+    },
+    {
+      "id": 23,
+      "narration": "But JC is still a treasure hunter at heart. And that vanished ship full of gold? That's a prize too big to ignore. So he follows the trail.",
+      "clip_start": "00:34:35.0",
+      "clip_end": "00:34:43.0",
+      "delivery": "tense"
+    },
+    {
+      "id": 24,
+      "narration": "Using an old painting the ancestor made, the team pinpoints a remote tropical island and sails out to find the wreck of the Indestructible.",
+      "clip_start": "00:38:01.0",
+      "clip_end": "00:38:09.0",
+      "delivery": "normal"
+    },
+    {
+      "id": 25,
+      "narration": "And they actually find it — a shattered ship swallowed by the jungle, with the bones of Katherine's long-lost ancestor still inside.",
+      "clip_start": "00:44:29.0",
+      "clip_end": "00:44:37.0",
+      "delivery": "mystery"
+    },
+    {
+      "id": 26,
+      "narration": "The skeletons tell a grim story. The crew didn't die in a storm — they turned on each other and killed each other over the gold they were guarding.",
+      "clip_start": "00:44:53.0",
+      "clip_end": "00:45:01.0",
+      "delivery": "sad"
+    },
+    {
+      "id": 27,
+      "narration": "But JC's team isn't alone on this island. It turns out it's run by a gang of pirates — and their leader has been watching the whole time.",
+      "clip_start": "00:47:55.0",
+      "clip_end": "00:48:03.0",
+      "delivery": "tense"
+    },
+    {
+      "id": 28,
+      "narration": "The pirates surround them and demand the treasure. JC tries to talk his way out — but when they grab his friends, talking is over.",
+      "clip_start": "00:48:45.0",
+      "clip_end": "00:48:53.0",
+      "delivery": "tense"
+    },
+    {
+      "id": 29,
+      "narration": "So JC does what JC does best. Outnumbered and outgunned, he takes the entire pirate gang apart with his bare hands in the middle of the jungle.",
+      "pool": "P4",
+      "delivery": "tense",
+      "hold": 8.0
+    },
+    {
+      "id": 30,
+      "narration": "Using anything he can grab — logs, ropes, the trees themselves — he turns the ambush around and beats the pirates at their own game.",
+      "pool": "P5",
+      "delivery": "tense",
+      "hold": 5.0
+    },
+    {
+      "id": 31,
+      "narration": "With the pirates down, the team breaks into the ship's hidden vault. And what they find stops them cold.",
+      "clip_start": "00:55:22.0",
+      "clip_end": "00:55:29.0",
+      "delivery": "mystery"
+    },
+    {
+      "id": 32,
+      "narration": "Eight tons of solid gold — enough to make JC and his whole crew rich for life. This is the moment greed should win.",
+      "clip_start": "00:59:46.0",
+      "clip_end": "00:59:54.0",
+      "delivery": "tense"
+    },
+    {
+      "id": 33,
+      "narration": "The whole team celebrates — they're set for life. But while they cheer, JC goes quiet.",
+      "clip_start": "00:59:56.0",
+      "clip_end": "01:00:00.0",
+      "delivery": "normal"
+    },
+    {
+      "id": 34,
+      "narration": "Because something has shifted in him. Standing over treasure stolen from another country, with Coco's words and Katherine's guilt in his head, he can't unsee it anymore.",
+      "clip_start": "01:00:03.0",
+      "clip_end": "01:00:07.0",
+      "delivery": "sad"
+    },
+    {
+      "id": 35,
+      "narration": "He makes a choice that will cost him a fortune. The zodiac heads won't go to MP Corporation. They're going home — back to China, where they belong.",
+      "clip_start": "00:27:14.0",
+      "clip_end": "00:27:21.0",
+      "delivery": "tense"
+    },
+    {
+      "id": 36,
+      "narration": "And JC isn't the only one turning against MP. Around the world, public protests erupt demanding looted treasures go home, and the antique market collapses. So when Morgan realizes even his own hunter is keeping the heads from him, he's not just angry — he's cornered.",
+      "clip_start": "01:27:46.0",
+      "clip_end": "01:27:53.0",
+      "delivery": "normal"
+    },
+    {
+      "id": 37,
+      "narration": "So Morgan lashes out. To prove no one can defy him, he decides to make a brutal public example out of the last head he still controls — the dragon.",
+      "clip_start": "01:18:25.0",
+      "clip_end": "01:18:33.0",
+      "delivery": "tense"
+    },
+    {
+      "id": 38,
+      "narration": "His plan is pure evil. He'll hold a live auction over an active volcano. If the world won't pay his price, he'll dump the priceless dragon head straight into the lava.",
+      "clip_start": "01:28:22.0",
+      "clip_end": "01:28:30.0",
+      "delivery": "tense"
+    },
+    {
+      "id": 39,
+      "narration": "The deadline passes. No one pays. So MP sends skydivers to drop the dragon head into the volcano — live on camera, for the whole world to watch.",
+      "clip_start": "01:29:23.0",
+      "clip_end": "01:29:31.0",
+      "delivery": "tense"
+    },
+    {
+      "id": 40,
+      "narration": "JC isn't about to let a piece of his country burn. So he jumps in after it — and now you understand that opening. High above the crater, he fights the skydivers for the head while they all plummet toward the volcano.",
+      "pool": "P7",
+      "delivery": "tense",
+      "hold": 6.0
+    },
+    {
+      "id": 41,
+      "narration": "And the whole world is watching it live. Crowds on the volcano's rim track him through telescopes, holding their breath as he falls.",
+      "clip_start": "01:33:25.0",
+      "clip_end": "01:33:32.0",
+      "delivery": "tense",
+      "visual": "crowd_watching"
+    },
+    {
+      "id": 42,
+      "narration": "Then it goes wrong. His parachute is torn away, and JC is falling straight at the lava with nothing left to slow him down.",
+      "pool": "P8",
+      "delivery": "tense",
+      "hold": 6.0
+    },
+    {
+      "id": 43,
+      "narration": "At the last second, he grabs onto another diver and swings clear of the crater. He crashes down onto the volcano's ash field — alive, and still holding the dragon.",
+      "clip_start": "01:34:34.0",
+      "clip_end": "01:34:42.0",
+      "delivery": "tense",
+      "visual": "volcano_lava"
+    },
+    {
+      "id": 44,
+      "narration": "Battered and burned, he lifts the dragon head for the watching cameras. The treasure MP wanted to destroy is saved — in front of the entire world.",
+      "pool": "P9",
+      "delivery": "tense",
+      "hold": 4.0
+    },
+    {
+      "id": 45,
+      "narration": "And that public stunt is what finally sinks MP. With the cameras rolling and the stolen Roses painting traced back to them, Morgan and his son are arrested.",
+      "clip_start": "01:36:08.0",
+      "clip_end": "01:36:16.0",
+      "delivery": "normal"
+    },
+    {
+      "id": 46,
+      "narration": "Then comes the part that makes this more than an action movie. JC quietly mails every stolen treasure back to the country it was taken from.",
+      "clip_start": "01:36:19.0",
+      "clip_end": "01:36:27.0",
+      "delivery": "sad"
+    },
+    {
+      "id": 47,
+      "narration": "An Egyptian scepter, a Russian staff, lost relics from all over the world — all returned anonymously, no name attached, no reward asked.",
+      "clip_start": "01:36:27.0",
+      "clip_end": "01:36:35.0",
+      "delivery": "normal"
+    },
+    {
+      "id": 48,
+      "narration": "The treasure hunter who started this chasing a paycheck ends it giving everything back. That's the real story Chinese Zodiac is telling.",
+      "clip_start": "01:37:08.0",
+      "clip_end": "01:37:15.0",
+      "delivery": "sad"
+    },
+    {
+      "id": 49,
+      "narration": "That history belongs to the people it was stolen from — and no price tag ever changes that. That's why a man jumps into a volcano for a piece of bronze.",
+      "pool": "P9",
+      "delivery": "sad",
+      "hold": 4.0
+    },
+    {
+      "id": 50,
+      "narration": "That's the story. If it gripped you, smash that like, subscribe to Serabudabu, and tell me in the comments which film I should recap next.",
+      "clip_start": "00:08:01.0",
+      "clip_end": "00:08:08.0",
+      "delivery": "outro",
+      "flashback": true
+    }
+  ]
+}

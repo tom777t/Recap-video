@@ -1,0 +1,472 @@
+{
+  "title": "Shutter Island: The Case That Was Never Real",
+  "target_minutes": 11,
+  "voice": "tts",
+  "stage": "script",
+  "lines": [
+    {
+      "id": 1,
+      "narration": "Out of a wall of fog, a ferry carries two men toward an island you can only leave when they let you. At the sink, one passenger is bent double, fighting off seasickness, telling himself to pull it together.",
+      "clip_start": "00:02:15.0",
+      "clip_end": "00:02:37.0",
+      "delivery": "hook",
+      "note": "B01 cold-open hook (1/2)"
+    },
+    {
+      "id": 2,
+      "narration": "This is U.S. Marshal Teddy Daniels. Beside him is his new partner, Chuck Aule. They have been sent to Ashecliffe, a hospital for the criminally insane, to find a patient who has vanished without a trace.",
+      "clip_start": "00:03:00.0",
+      "clip_end": "00:03:22.0",
+      "delivery": "hook",
+      "note": "B01 hook (2/2) - names Teddy + Chuck + the job"
+    },
+    {
+      "id": 3,
+      "narration": "At the dock, Deputy Warden McPherson is waiting with a wall of armed guards who watch the two marshals a little too closely. A storm is rolling in behind them, and it will soon cut the island off from the mainland completely.",
+      "clip_start": "00:04:50.0",
+      "clip_end": "00:05:12.0",
+      "delivery": "normal",
+      "note": "B02 arrival + guards + coming storm"
+    },
+    {
+      "id": 4,
+      "narration": "They drive up through the grounds toward the wards, an orderly pointing out the buildings as they pass.",
+      "clip_start": "00:06:50.0",
+      "clip_end": "00:07:06.0",
+      "delivery": "normal",
+      "note": "B03 the drive up (now its own line)"
+    },
+    {
+      "id": 41,
+      "narration": "But before they can go any further, the staff make the two marshals hand over their guns. Whatever is happening here, they are on the hospital's terms now.",
+      "clip_start": "00:07:20.0",
+      "clip_end": "00:07:40.0",
+      "delivery": "normal",
+      "note": "B03b disarmed / on their terms (sub-moment, same scene 403-574s)"
+    },
+    {
+      "id": 5,
+      "narration": "The hospital sits in an old Civil War fort, its worst patients kept behind the walls of Ward C. It is the kind of place, Cawley admits, that exists in the space between medicine and a prison.",
+      "clip_start": "00:08:30.0",
+      "clip_end": "00:08:52.0",
+      "delivery": "normal",
+      "note": "B04pre establishing Ashecliffe (sub-moment, same scene 574-741s) - setting a viewer needs"
+    },
+    {
+      "id": 51,
+      "narration": "The lead psychiatrist, Dr. Cawley, lays out the case. A patient named Rachel Solando has disappeared overnight, straight out of a locked cell.",
+      "clip_start": "00:09:40.0",
+      "clip_end": "00:09:57.0",
+      "delivery": "normal",
+      "note": "B04 meet Cawley + the case"
+    },
+    {
+      "id": 6,
+      "narration": "She got past locked doors and three checkpoints without a single guard seeing her go. As Cawley puts it, it is as if she evaporated through the walls.",
+      "clip_start": "00:10:05.0",
+      "clip_end": "00:10:24.0",
+      "delivery": "normal",
+      "note": "B04b the impossible escape (sub-moment, same scene 574-741s)"
+    },
+    {
+      "id": 7,
+      "narration": "Rachel is here because she drowned her own three children. Her mind has buried it so completely that she still believes they are alive and waiting at home for her. To her, the crime simply never happened.",
+      "clip_start": "00:12:25.0",
+      "clip_end": "00:12:47.0",
+      "delivery": "normal",
+      "note": "B04 Rachel's crime - kept strictly ABOUT RACHEL (no thematic wink)"
+    },
+    {
+      "id": 8,
+      "narration": "In her empty room, the only trace she left is a note hidden behind a tile. It reads: the law of four, and a question - who is sixty-seven?",
+      "clip_start": "00:13:55.0",
+      "clip_end": "00:14:12.0",
+      "delivery": "normal",
+      "note": "B05 the note / who is 67"
+    },
+    {
+      "id": 9,
+      "narration": "Cawley says the hospital holds exactly sixty-six patients. There is no sixty-seventh. The number should mean nothing at all - and yet it lodges in Teddy's mind.",
+      "clip_start": "00:14:20.0",
+      "clip_end": "00:14:40.0",
+      "delivery": "normal",
+      "note": "B05b the riddle deepened (sub-moment, same scene 833-1017s)"
+    },
+    {
+      "id": 10,
+      "narration": "From the start, the staff give Teddy almost nothing. Rachel's own doctor left on vacation the morning she vanished. No one will hand over personnel files, and with the storm, the phones are dead.",
+      "clip_start": "00:17:00.0",
+      "clip_end": "00:17:20.0",
+      "delivery": "normal",
+      "note": "B06 staff stonewall (Sheehan named ONLY as absent doctor - safe)"
+    },
+    {
+      "id": 11,
+      "narration": "That evening, over drinks, the coldly polite Dr. Naehring studies Teddy like a specimen. He asks, almost idly, whether Teddy is a man of violence.",
+      "clip_start": "00:20:10.0",
+      "clip_end": "00:20:28.0",
+      "delivery": "normal",
+      "note": "B07 Naehring probes pt1"
+    },
+    {
+      "id": 112,
+      "narration": "Teddy pushes back hard and demands the personnel files again - and again Cawley refuses. Every polite conversation on this island seems built to measure him rather than help him. Something here is being protected.",
+      "clip_start": "00:24:00.0",
+      "clip_end": "00:24:24.0",
+      "delivery": "normal",
+      "note": "B07b files refused + the sense of being measured (sub-moment, same scene 1204-1662s)"
+    },
+    {
+      "id": 12,
+      "narration": "Alone that night, Teddy dreams of his wife, Dolores. She died in an apartment fire two years ago, and the loss has hollowed him out.",
+      "clip_start": "00:27:45.0",
+      "clip_end": "00:28:03.0",
+      "delivery": "emotion",
+      "note": "B08 Dolores dream - 'died in a fire' is the FIRST-VIEWER story (safe; R5 holds truth)"
+    },
+    {
+      "id": 13,
+      "narration": "In the dream she turns to ash and water in his arms and tells him she is still here, on the island. The grief is the thing he carries into every room.",
+      "clip_start": "00:28:10.0",
+      "clip_end": "00:28:30.0",
+      "delivery": "emotion",
+      "note": "B08b the dream deepened (sub-moment, same scene 1662-1943s) [S9]"
+    },
+    {
+      "id": 14,
+      "narration": "The next day he interviews patients, hunting for anyone who saw Rachel. Their answers circle and contradict, as if the whole ward has been coached to waste his time.",
+      "clip_start": "00:32:30.0",
+      "clip_end": "00:32:50.0",
+      "delivery": "normal",
+      "note": "B09 interviews pt1"
+    },
+    {
+      "id": 141,
+      "narration": "Then one woman answers his questions calmly - and the moment a guard looks away, she takes his notepad and writes a single word: run.",
+      "clip_start": "00:33:20.0",
+      "clip_end": "00:33:42.0",
+      "delivery": "normal",
+      "note": "B09 the RUN warning"
+    },
+    {
+      "id": 15,
+      "narration": "And then Teddy admits to Chuck why he really took this assignment. Two years ago, the arsonist who set the fire that killed his wife was named Andrew Laeddis.",
+      "clip_start": "00:38:00.0",
+      "clip_end": "00:38:18.0",
+      "delivery": "emotion",
+      "note": "B10 Teddy's agenda pt1 - Laeddis named as QUARRY (R1: name allowed; do NOT equate)"
+    },
+    {
+      "id": 16,
+      "narration": "Laeddis was committed to a mental hospital and then dropped out of the records entirely. Teddy is convinced he is locked up somewhere on this island, and he took this case to find him.",
+      "clip_start": "00:38:24.0",
+      "clip_end": "00:38:46.0",
+      "delivery": "emotion",
+      "note": "B10b agenda pt2 (sub-moment, same scene 2275-2505s)"
+    },
+    {
+      "id": 17,
+      "narration": "His mind keeps dragging him backward. Teddy was a soldier who helped liberate Dachau, and the frozen bodies and the executions he saw there never left him.",
+      "clip_start": "00:42:00.0",
+      "clip_end": "00:42:20.0",
+      "delivery": "emotion",
+      "note": "B11 Dachau flashback - trauma established"
+    },
+    {
+      "id": 171,
+      "narration": "Between the war and his grief, Teddy is a man held together by will alone. On this island, everything seems designed to test exactly where he might break.",
+      "clip_start": "00:43:00.0",
+      "clip_end": "00:43:20.0",
+      "delivery": "emotion",
+      "note": "B11b trauma -> vulnerability (sub-moment, same scene 2505-2600s)"
+    },
+    {
+      "id": 18,
+      "narration": "There is a second reason he wanted this case. Teddy has heard that Ashecliffe experiments on its patients, and that a man named George Noyce came out of here with a story no one would believe. Finding Laeddis and exposing the hospital have become the same mission.",
+      "clip_start": "00:44:30.0",
+      "clip_end": "00:44:54.0",
+      "delivery": "normal",
+      "note": "B11 second agenda / Noyce named"
+    },
+    {
+      "id": 19,
+      "narration": "Then Cawley drops a surprise: Rachel has been found, wandering the grounds, unharmed. But the interview curdles. Her answers do not add up, and all at once she turns on Teddy in a fury.",
+      "clip_start": "00:51:10.0",
+      "clip_end": "00:51:32.0",
+      "delivery": "normal",
+      "note": "B12 the found Rachel pt1"
+    },
+    {
+      "id": 20,
+      "narration": "As it falls apart, a blinding migraine drops Teddy where he stands. He is losing his footing on this island, and some part of him knows it.",
+      "clip_start": "00:52:00.0",
+      "clip_end": "00:52:20.0",
+      "delivery": "normal",
+      "note": "B12b migraine / destabilization (sub-moment, same scene 3067-3627s)"
+    },
+    {
+      "id": 192,
+      "narration": "The headaches are getting worse, the dreams sharper, the island stranger. The harder Teddy tries to run the investigation, the less certain he is of anything he sees.",
+      "clip_start": "00:56:30.0",
+      "clip_end": "00:56:52.0",
+      "delivery": "normal",
+      "note": "B12c the unraveling accelerates (sub-moment, same scene 3067-3627s)"
+    },
+    {
+      "id": 21,
+      "narration": "He collapses into another nightmare of Dolores, ringed by fire and drifting ash. She whispers that Laeddis is still out there, that Teddy has to find him and make him pay. When he wakes, he cannot be sure how much of the last day was real.",
+      "clip_start": "01:00:30.0",
+      "clip_end": "01:00:54.0",
+      "delivery": "emotion",
+      "note": "B13 second dream / reality softening"
+    },
+    {
+      "id": 22,
+      "narration": "That night the storm knocks out the island's power, and the locks and fences go dead with it. Teddy takes the chance he has been waiting for and pulls Chuck toward Ward C.",
+      "clip_start": "01:04:15.0",
+      "clip_end": "01:04:34.0",
+      "delivery": "normal",
+      "note": "B14 blackout -> Ward C pt1"
+    },
+    {
+      "id": 23,
+      "narration": "Ward C is the barred building where the most dangerous patients are kept - and where Teddy is certain Laeddis is hidden away.",
+      "clip_start": "01:04:40.0",
+      "clip_end": "01:04:58.0",
+      "delivery": "normal",
+      "note": "B14b what Ward C is (sub-moment, same scene 3850-3958s)"
+    },
+    {
+      "id": 24,
+      "narration": "Inside, it is chaos in the dark. Patients are loose in the corridors, and one inmate rushes Teddy and nearly kills him before he can break free.",
+      "clip_start": "01:06:05.0",
+      "clip_end": "01:06:26.0",
+      "delivery": "normal",
+      "note": "B15 Ward C attack"
+    },
+    {
+      "id": 25,
+      "narration": "In one cell, a badly burned inmate seems to know him, and taunts him from the shadows: this is about you. Teddy tells himself the patient is just raving - but the ground under what is real has started to shift.",
+      "clip_start": "01:12:00.0",
+      "clip_end": "01:12:22.0",
+      "delivery": "emotion",
+      "note": "B16 the burnt figure"
+    },
+    {
+      "id": 26,
+      "narration": "Deeper in the ward he finds George Noyce - the patient from the rumors - scarred and locked in a cage. But Noyce is terrified of him, and what he says makes no sense.",
+      "clip_start": "01:15:55.0",
+      "clip_end": "01:16:14.0",
+      "delivery": "emotion",
+      "note": "B17 Noyce pt1"
+    },
+    {
+      "id": 27,
+      "narration": "The doctors have already won, Noyce tells him. This whole thing is a game, and it is built around Teddy. And whatever he does, he must not trust his own partner.",
+      "clip_start": "01:16:20.0",
+      "clip_end": "01:16:42.0",
+      "delivery": "emotion",
+      "note": "B17b Noyce's warning (sub-moment, same scene 4554-4667s) - CHARACTER warning only; do NOT confirm why"
+    },
+    {
+      "id": 28,
+      "narration": "Teddy pushes on toward the lighthouse on the far cliffs, convinced the answers are inside it. But out on the rocks, he and Chuck get separated in the wind and the dark.",
+      "clip_start": "01:18:00.0",
+      "clip_end": "01:18:20.0",
+      "delivery": "emotion",
+      "note": "B18 cliffs pt1"
+    },
+    {
+      "id": 281,
+      "narration": "When Teddy looks down, he is certain he sees Chuck's broken body on the rocks far below. The one man he trusted here is gone, and now he is truly alone.",
+      "clip_start": "01:19:00.0",
+      "clip_end": "01:19:22.0",
+      "delivery": "emotion",
+      "note": "B18b Chuck 'falls' (sub-moment, same scene 4667-5008s)"
+    },
+    {
+      "id": 29,
+      "narration": "Climbing down after him, he instead finds a woman hiding in a cave, who says she is the real Rachel Solando. She was a doctor here, she tells him, until she learned the truth.",
+      "clip_start": "01:23:30.0",
+      "clip_end": "01:23:50.0",
+      "delivery": "normal",
+      "note": "B19 the cave pt1"
+    },
+    {
+      "id": 30,
+      "narration": "Ashecliffe drugs its patients, she says, and operates on their minds, and makes people disappear. And she warns him that they are already poisoning him - through his cigarettes, his food, his pills.",
+      "clip_start": "01:25:00.0",
+      "clip_end": "01:25:22.0",
+      "delivery": "normal",
+      "note": "B19b the conspiracy account (sub-moment, same scene 5008-5527s) - paranoid peak"
+    },
+    {
+      "id": 302,
+      "narration": "It is the most frightening version of everything Teddy already feared. If she is right, then nothing he has seen on this island can be trusted - and neither can his own mind. He leaves the cave more certain, and more lost, than ever.",
+      "clip_start": "01:27:00.0",
+      "clip_end": "01:27:24.0",
+      "delivery": "emotion",
+      "note": "B19c the paranoia turned inward (sub-moment, same scene 5008-5527s)"
+    },
+    {
+      "id": 31,
+      "narration": "When Teddy makes it back to the hospital, the ground drops out from under him. Cawley calmly tells him he arrived on Shutter Island alone. There was no Marshal named Chuck. There never was a partner.",
+      "clip_start": "01:36:40.846",
+      "clip_end": "01:36:58.197",
+      "delivery": "emotion",
+      "note": "B20 'you came alone' pt1"
+    },
+    {
+      "id": 32,
+      "narration": "For the first time, Teddy has no answer. He fights off an attempt to sedate him and runs for the lighthouse. Behind its walls, he is sure, he will finally find the operating tables and the proof they have been hiding.",
+      "clip_start": "01:38:40.0",
+      "clip_end": "01:39:02.0",
+      "delivery": "normal",
+      "note": "B20/B21 - certainty gone + run to lighthouse"
+    },
+    {
+      "id": 321,
+      "narration": "One more vision of Dolores steadies him - hold on to me, she seems to say, and finish this. He crosses the last stretch of rock alone and steps through the lighthouse door.",
+      "clip_start": "01:40:50.0",
+      "clip_end": "01:41:12.0",
+      "delivery": "emotion",
+      "note": "B22 final dream/resolve -> the lighthouse (frame-verified 6050-6260s) [S9] - covers the previously-lone B22"
+    },
+    {
+      "id": 33,
+      "narration": "Inside, there is no laboratory. There is only Dr. Cawley, sitting quietly, waiting for him.",
+      "clip_start": "01:45:50.0",
+      "clip_end": "01:46:08.0",
+      "delivery": "emotion",
+      "note": "B23 lighthouse pt1 - the turn begins"
+    },
+    {
+      "id": 34,
+      "narration": "And Cawley tells him something he cannot accept. He has been a patient on this island for two years. He is not being poisoned at all - he is in withdrawal from the medication he stopped taking.",
+      "clip_start": "01:46:15.0",
+      "clip_end": "01:46:40.0",
+      "delivery": "emotion",
+      "note": "B23b Cawley's first claim (sub-moment, same scene 6345-6600s)"
+    },
+    {
+      "id": 35,
+      "narration": "Then Cawley shows him the board. Edward Daniels is an anagram of Andrew Laeddis. Rachel Solando is an anagram of his wife, Dolores Chanal.",
+      "clip_start": "01:50:00.0",
+      "clip_end": "01:50:18.0",
+      "delivery": "emotion",
+      "note": "B24 *** REVEAL R1+R2 *** anagram frame-verified ~6600s"
+    },
+    {
+      "id": 36,
+      "narration": "The arsonist Teddy came here to hunt is Teddy himself.",
+      "clip_start": "01:50:24.0",
+      "clip_end": "01:50:38.0",
+      "delivery": "emotion",
+      "note": "B24b *** REVEAL R1 *** Teddy IS Laeddis - given its own line to land (split 1/3)"
+    },
+    {
+      "id": 361,
+      "narration": "The missing patient, the one from the note - number sixty-seven - is him.",
+      "clip_start": "01:50:42.0",
+      "clip_end": "01:50:58.0",
+      "delivery": "emotion",
+      "note": "B24c *** REVEAL R1 *** he is patient 67 - pays off the note riddle (split 2/3, same scene 6600-6758s)"
+    },
+    {
+      "id": 362,
+      "narration": "And the whole investigation was never real. Every doctor, every guard, every locked door was an elaborate role-play, staged by the hospital to lead him to this moment.",
+      "clip_start": "01:51:05.0",
+      "clip_end": "01:51:28.0",
+      "delivery": "emotion",
+      "note": "B24d *** REVEAL R4 *** the roleplay - given its own line (split 3/3, same scene 6600-6758s)"
+    },
+    {
+      "id": 37,
+      "narration": "And the partner who has been at his side the whole time steps forward and gives his real name: Dr. Lester Sheehan, the psychiatrist who has been treating Teddy for two years.",
+      "clip_start": "01:52:40.0",
+      "clip_end": "01:53:02.0",
+      "delivery": "emotion",
+      "note": "B25 *** REVEAL R3 *** Chuck = Sheehan"
+    },
+    {
+      "id": 371,
+      "narration": "The gun Teddy had been carrying turns out to be a toy. There is no case, no conspiracy, no lighthouse full of victims - only a patient and the doctors who have spent two years trying to reach him.",
+      "clip_start": "01:53:40.0",
+      "clip_end": "01:54:04.0",
+      "delivery": "emotion",
+      "note": "B25b the illusion collapses (sub-moment, same scene 6758-6955s)"
+    },
+    {
+      "id": 372,
+      "narration": "Cawley explains why they went this far. The staff let Teddy live out his fantasy to the very end, playing every role in it. The hope was that if he chased the lie all the way down, he might finally wake from it himself.",
+      "clip_start": "01:54:20.0",
+      "clip_end": "01:54:44.0",
+      "delivery": "emotion",
+      "note": "B25c why the roleplay (sub-moment, same scene 6758-6955s) - covers the therapy's logic"
+    },
+    {
+      "id": 373,
+      "narration": "It was a last resort, and a risky one. The alternative the hospital keeps for patients like him is a surgery that would quietly erase who he is. That is the fate now waiting, if the truth does not hold.",
+      "clip_start": "01:55:00.0",
+      "clip_end": "01:55:24.0",
+      "delivery": "emotion",
+      "note": "B25d the stakes of the therapy (sub-moment, same scene 6758-6955s) - sets up the lobotomy threat without leaking R6"
+    },
+    {
+      "id": 38,
+      "narration": "And the truth he could not live with comes back. There was a fire, but it did not kill his family. His wife was deeply ill, and one terrible day she drowned their three children.",
+      "clip_start": "01:56:00.0",
+      "clip_end": "01:56:20.0",
+      "delivery": "emotion",
+      "note": "B26 *** REVEAL R5 *** MAXIMALLY RESTRAINED - imply the children's deaths in one plain clause, no detail, no dwelling. USER WILL REVIEW."
+    },
+    {
+      "id": 39,
+      "narration": "Teddy could not carry being the husband who came home to that. So his mind built someone else entirely - a heroic Marshal chasing a stranger named Laeddis - so that he would never have to be Laeddis himself.",
+      "clip_start": "01:58:00.0",
+      "clip_end": "01:58:24.0",
+      "delivery": "emotion",
+      "note": "B26b the psychology (sub-moment, same scene 6955-7400s) - the mechanism, not the tragedy"
+    },
+    {
+      "id": 391,
+      "narration": "Everything on the island falls into place - the missing patient, the coded note, the storm, the war. Each was a piece his mind had arranged to keep the truth at arm's length, and to give his grief somewhere to go.",
+      "clip_start": "02:00:00.0",
+      "clip_end": "02:00:24.0",
+      "delivery": "emotion",
+      "note": "B26c how the delusion was assembled (sub-moment, same scene 6955-7400s) - ties the mystery together"
+    },
+    {
+      "id": 40,
+      "narration": "For a moment, it works. Teddy breaks down, and then goes quiet, and finally speaks the whole true story back to the doctors in his own words. He knows who he is. He knows what happened. He is, for the first time in two years, awake.",
+      "clip_start": "02:03:20.0",
+      "clip_end": "02:03:46.0",
+      "delivery": "emotion",
+      "note": "B27 lucid acceptance pt1 - the hard-won clarity"
+    },
+    {
+      "id": 44,
+      "narration": "They are relieved - but Cawley warns that they have reached this point with him once before, and lost him. If he slips back this time, there will be no more chances. They will lobotomize him.",
+      "clip_start": "02:04:00.0",
+      "clip_end": "02:04:24.0",
+      "delivery": "normal",
+      "note": "B27b the stakes (sub-moment, same scene 7400-7643s) - they've been here before"
+    },
+    {
+      "id": 42,
+      "narration": "The next morning, Teddy sits on the hospital steps beside the doctor who had been Chuck. He turns to him, calls him Chuck once more, and says quietly that they need to get off this rock before the others catch on.",
+      "clip_start": "02:07:25.0",
+      "clip_end": "02:07:49.0",
+      "delivery": "emotion",
+      "note": "B28 coda (1/2) - ACTION ONLY, no interpretation of his state (relapse vs lucid choice) - the ambiguity is the point"
+    },
+    {
+      "id": 43,
+      "narration": "Then he says one last thing - which would be worse: to live as a monster, or to die as a good man? He stands, and walks toward the lighthouse with the orderlies who have come to take him.",
+      "clip_start": "02:09:15.0",
+      "clip_end": "02:09:37.0",
+      "delivery": "emotion",
+      "note": "B28 (2/2) *** REVEAL R6 *** REPRODUCE THE AMBIGUITY, ADD NO INTERPRETATION - present the line and stop [S9 close]"
+    }
+  ]
+}

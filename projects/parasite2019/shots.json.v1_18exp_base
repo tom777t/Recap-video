@@ -1,0 +1,1268 @@
+{
+  "_comment": "Parasite (2019) shot catalogue. Stage 2 ACT 1 ONLY (infiltration, 0:00-0:45). Acts 2-3 to be catalogued next session. Every shot frame-verified (frames/verify/act1/). Cut-aware windows (real continuous takes, NOT 5s placeholders - Phase B lesson). Romanized names per names.json. depicts vocabulary per TAGGING_GUIDE. Muc 3 capacity fields auto-populated by catalogue.py enrich_shots.",
+  "project": "parasite2019",
+  "film_title": "Parasite",
+  "shots": [
+    {
+      "id": "clip:00:01:50.0",
+      "beat": 1,
+      "clip_start": "00:01:50.0",
+      "clip_end": "00:02:00.0",
+      "chars": [
+        "Ki-woo",
+        "Chung-sook"
+      ],
+      "depicts": [
+        "setup"
+      ],
+      "censor": "none",
+      "action": "Ki-woo holds his phone up hunting for free wifi while the family sits in the cramped semi-basement - the Kims' poverty established (FRAME-VERIFIED 00:01:50; nudged later to avoid opening-credit text overlay)",
+      "raw_duration_sec": 10.0,
+      "max_play_duration_sec": 11.0,
+      "max_narration_words_en": 45,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:03:55.0",
+      "beat": 1,
+      "clip_start": "00:03:55.0",
+      "clip_end": "00:04:02.0",
+      "chars": [
+        "Ki-taek",
+        "Ki-woo",
+        "Ki-jung",
+        "Chung-sook"
+      ],
+      "depicts": [
+        "setup"
+      ],
+      "censor": "none",
+      "action": "the whole Kim family folds pizza boxes for piece-work money in the cramped semi-basement (FRAME-VERIFIED 00:03:55)",
+      "raw_duration_sec": 7.0,
+      "max_play_duration_sec": 7.7,
+      "max_narration_words_en": 31,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:06:00.0",
+      "beat": 1,
+      "clip_start": "00:06:00.0",
+      "clip_end": "00:06:11.0",
+      "chars": [
+        "Ki-taek",
+        "Ki-woo"
+      ],
+      "depicts": [
+        "setup"
+      ],
+      "censor": "none",
+      "action": "street fumigation gas drifts into the open basement window; the family lets it in to kill the bugs - the gutter-level life (FRAME-VERIFIED 00:06:00)",
+      "raw_duration_sec": 11.0,
+      "max_play_duration_sec": 12.1,
+      "max_narration_words_en": 50,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:07:18.0",
+      "beat": 2,
+      "clip_start": "00:07:18.0",
+      "clip_end": "00:07:30.0",
+      "chars": [
+        "Min",
+        "Ki-woo",
+        "Ki-taek"
+      ],
+      "depicts": [
+        "reveal"
+      ],
+      "censor": "none",
+      "action": "Ki-woo's friend Min gives the family a 'scholar's rock' (viewing stone) said to bring wealth - opening the wooden box (FRAME-VERIFIED 00:07:18)",
+      "raw_duration_sec": 12.0,
+      "max_play_duration_sec": 12.0,
+      "max_narration_words_en": 54,
+      "extendable": false,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:08:50.0",
+      "beat": 2,
+      "clip_start": "00:08:50.0",
+      "clip_end": "00:09:00.0",
+      "chars": [
+        "Min",
+        "Ki-woo"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "censor": "none",
+      "action": "Min offers Ki-woo his tutoring job - teaching the rich Park family's daughter English while he studies abroad (FRAME-VERIFIED 00:08:50)",
+      "raw_duration_sec": 10.0,
+      "max_play_duration_sec": 10.0,
+      "max_narration_words_en": 45,
+      "extendable": false,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:11:25.0",
+      "beat": 3,
+      "clip_start": "00:11:25.0",
+      "clip_end": "00:11:35.0",
+      "chars": [
+        "Ki-jung",
+        "Ki-woo"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "censor": "none",
+      "action": "Ki-jung forges a university enrolment document for Ki-woo on the laptop - the family's real talent is performance and deception (FRAME-VERIFIED 00:11:25)",
+      "raw_duration_sec": 10.0,
+      "max_play_duration_sec": 10.0,
+      "max_narration_words_en": 45,
+      "extendable": false,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:13:00.0",
+      "beat": 4,
+      "clip_start": "00:13:00.0",
+      "clip_end": "00:13:12.0",
+      "chars": [
+        "Ki-woo"
+      ],
+      "depicts": [
+        "transition"
+      ],
+      "censor": "none",
+      "action": "Ki-woo climbs the concrete steps through the bamboo to the Parks' modernist house - the ascent into the other world (FRAME-VERIFIED 00:13:00)",
+      "raw_duration_sec": 12.0,
+      "max_play_duration_sec": 13.2,
+      "max_narration_words_en": 54,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:14:30.0",
+      "beat": 4,
+      "clip_start": "00:14:30.0",
+      "clip_end": "00:14:34.0",
+      "chars": [
+        "Ki-woo",
+        "Yeon-kyo"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "censor": "none",
+      "action": "Ki-woo ('Kevin') interviews with Yeon-kyo, Mrs Park, in the bright glass-walled house overlooking the garden (FRAME-VERIFIED 00:14:30)",
+      "raw_duration_sec": 4.0,
+      "max_play_duration_sec": 4.0,
+      "max_narration_words_en": 17,
+      "extendable": false,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:16:10.0",
+      "beat": 4,
+      "clip_start": "00:16:10.0",
+      "clip_end": "00:16:20.0",
+      "chars": [
+        "Ki-woo",
+        "Da-hye"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "censor": "none",
+      "action": "Ki-woo gives Da-hye her first English lesson, performing confidence as the qualified tutor (FRAME-VERIFIED 00:16:10)",
+      "raw_duration_sec": 10.0,
+      "max_play_duration_sec": 10.0,
+      "max_narration_words_en": 45,
+      "extendable": false,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:16:40.0",
+      "beat": 4,
+      "clip_start": "00:16:40.0",
+      "clip_end": "00:16:46.0",
+      "chars": [
+        "Ki-woo",
+        "Da-hye"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "censor": "none",
+      "action": "Ki-woo's lesson with Da-hye is really a performance of swagger; the teenage girl is visibly charmed by her new tutor (FRAME-VERIFIED 00:16:40)",
+      "raw_duration_sec": 6.0,
+      "max_play_duration_sec": 6.0,
+      "max_narration_words_en": 27,
+      "extendable": false,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:17:55.0",
+      "beat": 5,
+      "clip_start": "00:17:55.0",
+      "clip_end": "00:18:05.0",
+      "chars": [
+        "Yeon-kyo",
+        "Da-song",
+        "Ki-woo"
+      ],
+      "depicts": [
+        "setup"
+      ],
+      "censor": "none",
+      "action": "Ki-woo meets the Parks' hyperactive young son Da-song; Yeon-kyo frets over finding him an art teacher (FRAME-VERIFIED 00:17:55)",
+      "raw_duration_sec": 10.0,
+      "max_play_duration_sec": 11.0,
+      "max_narration_words_en": 45,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:18:30.0",
+      "beat": 5,
+      "clip_start": "00:18:30.0",
+      "clip_end": "00:18:42.0",
+      "chars": [
+        "Ki-woo",
+        "Yeon-kyo"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "censor": "none",
+      "action": "Mrs Park confides her worry that no art teacher can handle her wild, troubled son - and Ki-woo spots his next opening (FRAME-VERIFIED 00:18:30)",
+      "raw_duration_sec": 12.0,
+      "max_play_duration_sec": 12.0,
+      "max_narration_words_en": 54,
+      "extendable": false,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:19:55.0",
+      "beat": 5,
+      "clip_start": "00:19:55.0",
+      "clip_end": "00:20:07.0",
+      "chars": [
+        "Ki-woo",
+        "Yeon-kyo"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "censor": "none",
+      "action": "Ki-woo recommends an 'elite art therapist, Jessica' - secretly his sister Ki-jung - planting the second con (FRAME-VERIFIED 00:19:55)",
+      "raw_duration_sec": 12.0,
+      "max_play_duration_sec": 12.0,
+      "max_narration_words_en": 54,
+      "extendable": false,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:26:40.0",
+      "beat": 5,
+      "clip_start": "00:26:40.0",
+      "clip_end": "00:26:52.0",
+      "chars": [
+        "Ki-jung",
+        "Yeon-kyo"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "censor": "none",
+      "action": "Ki-jung ('Jessica') dazzles Yeon-kyo with invented art-therapy jargon about Da-song's drawings, landing the job (FRAME-VERIFIED 00:26:40)",
+      "raw_duration_sec": 12.0,
+      "max_play_duration_sec": 12.0,
+      "max_narration_words_en": 54,
+      "extendable": false,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:29:00.0",
+      "beat": 6,
+      "clip_start": "00:29:00.0",
+      "clip_end": "00:29:03.0",
+      "chars": [
+        "Ki-jung",
+        "Dong-ik"
+      ],
+      "depicts": [
+        "setup"
+      ],
+      "censor": "none",
+      "action": "Mr Park personally drives Ki-jung home, polite and oblivious, as she sets her trap (FRAME-VERIFIED 00:29:00)",
+      "raw_duration_sec": 3.0,
+      "max_play_duration_sec": 3.3,
+      "max_narration_words_en": 13,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:29:30.0",
+      "beat": 6,
+      "clip_start": "00:29:30.0",
+      "clip_end": "00:29:42.0",
+      "chars": [
+        "Ki-jung",
+        "Dong-ik"
+      ],
+      "depicts": [
+        "setup"
+      ],
+      "censor": "none",
+      "action": "Mr Park (Dong-ik) has his driver take Ki-jung home; she plants her underwear under the car seat (FRAME-VERIFIED 00:29:30)",
+      "raw_duration_sec": 12.0,
+      "max_play_duration_sec": 13.2,
+      "max_narration_words_en": 54,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:32:35.0",
+      "beat": 6,
+      "clip_start": "00:32:35.0",
+      "clip_end": "00:32:47.0",
+      "chars": [
+        "Dong-ik",
+        "Yeon-kyo"
+      ],
+      "depicts": [
+        "reveal"
+      ],
+      "censor": "none",
+      "action": "the Parks find the planted underwear and assume their young driver is having sex in the car - he is fired (FRAME-VERIFIED 00:32:35)",
+      "raw_duration_sec": 12.0,
+      "max_play_duration_sec": 12.0,
+      "max_narration_words_en": 54,
+      "extendable": false,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:37:50.0",
+      "beat": 6,
+      "clip_start": "00:37:50.0",
+      "clip_end": "00:37:55.0",
+      "chars": [
+        "Ki-taek",
+        "Dong-ik"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "censor": "none",
+      "action": "con #3 lands: Ki-taek is hired as the Parks' new chauffeur, recommended as a trustworthy older 'gentleman' (FRAME-VERIFIED 00:37:50)",
+      "raw_duration_sec": 5.0,
+      "max_play_duration_sec": 5.0,
+      "max_narration_words_en": 22,
+      "extendable": false,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:39:55.0",
+      "beat": 7,
+      "clip_start": "00:39:55.0",
+      "clip_end": "00:40:05.0",
+      "chars": [
+        "Ki-taek",
+        "Dong-ik"
+      ],
+      "depicts": [
+        "setup"
+      ],
+      "censor": "none",
+      "action": "the Kims learn the loyal housekeeper Moon-gwang has a hidden peach allergy and plot to exploit it (FRAME-VERIFIED 00:39:55)",
+      "raw_duration_sec": 10.0,
+      "max_play_duration_sec": 11.0,
+      "max_narration_words_en": 45,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:42:30.0",
+      "beat": 7,
+      "clip_start": "00:42:30.0",
+      "clip_end": "00:42:40.0",
+      "chars": [
+        "Ki-jung",
+        "Moon-gwang"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "censor": "none",
+      "action": "the Kims dust peach fuzz on Moon-gwang to trigger her allergy, then frame the reaction as tuberculosis (FRAME-VERIFIED 00:42:30)",
+      "raw_duration_sec": 10.0,
+      "max_play_duration_sec": 10.0,
+      "max_narration_words_en": 45,
+      "extendable": false,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:44:40.0",
+      "beat": 7,
+      "clip_start": "00:44:40.0",
+      "clip_end": "00:44:52.0",
+      "chars": [
+        "Yeon-kyo",
+        "Ki-taek"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "censor": "none",
+      "action": "Ki-taek convinces a frightened Yeon-kyo that Moon-gwang has TB; the last servant is ousted - all four Kims now embedded (FRAME-VERIFIED 00:44:40)",
+      "raw_duration_sec": 12.0,
+      "max_play_duration_sec": 12.0,
+      "max_narration_words_en": 54,
+      "extendable": false,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:51:30.0",
+      "beat": 8,
+      "clip_start": "00:51:30.0",
+      "clip_end": "00:51:42.0",
+      "chars": [
+        "Ki-taek",
+        "Chung-sook",
+        "Ki-woo",
+        "Ki-jung"
+      ],
+      "depicts": [
+        "reveal"
+      ],
+      "censor": "none",
+      "action": "all four Kims are now secretly employed by the Parks under false identities, pretending to be strangers - the con complete (FRAME-VERIFIED 00:51:30)",
+      "raw_duration_sec": 12.0,
+      "max_play_duration_sec": 12.0,
+      "max_narration_words_en": 54,
+      "extendable": false,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:53:35.0",
+      "beat": 9,
+      "clip_start": "00:53:35.0",
+      "clip_end": "00:53:47.0",
+      "chars": [
+        "Da-song",
+        "Dong-ik",
+        "Yeon-kyo"
+      ],
+      "depicts": [
+        "transition"
+      ],
+      "censor": "none",
+      "action": "the Park family leaves for Da-song's birthday camping trip, emptying the house (FRAME-VERIFIED 00:53:35)",
+      "raw_duration_sec": 12.0,
+      "max_play_duration_sec": 13.2,
+      "max_narration_words_en": 54,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:56:40.0",
+      "beat": 9,
+      "clip_start": "00:56:40.0",
+      "clip_end": "00:56:52.0",
+      "chars": [
+        "Ki-taek",
+        "Chung-sook",
+        "Ki-woo",
+        "Ki-jung"
+      ],
+      "depicts": [
+        "emotion"
+      ],
+      "censor": "none",
+      "action": "alone in the mansion, the Kims sprawl in the garden and living room, drinking the Parks' whiskey (FRAME-VERIFIED 00:56:40)",
+      "raw_duration_sec": 12.0,
+      "max_play_duration_sec": 13.2,
+      "max_narration_words_en": 54,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:00:50.0",
+      "beat": 10,
+      "clip_start": "01:00:50.0",
+      "clip_end": "01:01:02.0",
+      "chars": [
+        "Ki-taek",
+        "Ki-woo",
+        "Ki-jung"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "censor": "none",
+      "action": "the Kims muse about the rich Parks and pretend the house is theirs - the class-fantasy beat (FRAME-VERIFIED 01:00:50)",
+      "raw_duration_sec": 12.0,
+      "max_play_duration_sec": 12.0,
+      "max_narration_words_en": 54,
+      "extendable": false,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:03:00.0",
+      "beat": 11,
+      "clip_start": "01:03:00.0",
+      "clip_end": "01:03:12.0",
+      "chars": [
+        "Chung-sook",
+        "Moon-gwang",
+        "Ki-taek",
+        "Ki-woo"
+      ],
+      "depicts": [
+        "reveal"
+      ],
+      "censor": "none",
+      "action": "late at night the doorbell rings: the former housekeeper Moon-gwang returns, begging to fetch something from the basement (FRAME-VERIFIED 01:03:00)",
+      "raw_duration_sec": 12.0,
+      "max_play_duration_sec": 12.0,
+      "max_narration_words_en": 54,
+      "extendable": false,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:05:00.0",
+      "beat": 12,
+      "clip_start": "01:05:00.0",
+      "clip_end": "01:05:12.0",
+      "chars": [
+        "Moon-gwang",
+        "Chung-sook"
+      ],
+      "depicts": [
+        "discovery"
+      ],
+      "censor": "none",
+      "action": "Moon-gwang opens a hidden door behind the basement shelving, revealing a stairwell descending underground (FRAME-VERIFIED 01:05:00 - TWIST-HOLD: do not pre-leak in hook)",
+      "raw_duration_sec": 12.0,
+      "max_play_duration_sec": 12.0,
+      "max_narration_words_en": 54,
+      "extendable": false,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:06:25.0",
+      "beat": 12,
+      "clip_start": "01:06:25.0",
+      "clip_end": "01:06:37.0",
+      "chars": [
+        "Moon-gwang",
+        "Chung-sook"
+      ],
+      "depicts": [
+        "transition"
+      ],
+      "censor": "none",
+      "action": "Moon-gwang descends the hidden stair into the dark, Chung-sook following warily behind (FRAME-VERIFIED 01:06:25 - DARK; TWIST-HOLD lead-in)",
+      "raw_duration_sec": 12.0,
+      "max_play_duration_sec": 13.2,
+      "max_narration_words_en": 54,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:07:00.0",
+      "beat": 13,
+      "clip_start": "01:07:00.0",
+      "clip_end": "01:07:12.0",
+      "chars": [
+        "Moon-gwang",
+        "Geun-sae",
+        "Chung-sook"
+      ],
+      "depicts": [
+        "reveal"
+      ],
+      "censor": "none",
+      "action": "in a secret bunker beneath the house, Moon-gwang's husband Geun-sae has been hiding for years, living off the Parks unseen (FRAME-VERIFIED 01:07:00 - TWIST-HOLD: the film's central secret, hook must not spoil)",
+      "raw_duration_sec": 12.0,
+      "max_play_duration_sec": 12.0,
+      "max_narration_words_en": 54,
+      "extendable": false,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:08:30.0",
+      "beat": 13,
+      "clip_start": "01:08:30.0",
+      "clip_end": "01:08:42.0",
+      "chars": [
+        "Geun-sae",
+        "Moon-gwang"
+      ],
+      "depicts": [
+        "emotion"
+      ],
+      "censor": "none",
+      "action": "Geun-sae, gaunt and grateful, explains he hid here to escape loan sharks - a second parasite family already inside the house (FRAME-VERIFIED 01:08:30 - TWIST-HOLD)",
+      "raw_duration_sec": 12.0,
+      "max_play_duration_sec": 13.2,
+      "max_narration_words_en": 54,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:09:50.0",
+      "beat": 13,
+      "clip_start": "01:09:50.0",
+      "clip_end": "01:10:02.0",
+      "chars": [
+        "Geun-sae"
+      ],
+      "depicts": [
+        "reveal"
+      ],
+      "censor": "none",
+      "action": "Down in the concrete bunker Geun-sae eats in the gloom beside a panel of blinking lights - a man who has made a home out of a tomb (FRAME-VERIFIED 01:09:50 - DARK; TWIST-HOLD)",
+      "raw_duration_sec": 12.0,
+      "max_play_duration_sec": 12.0,
+      "max_narration_words_en": 54,
+      "extendable": false,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:11:00.0",
+      "beat": 14,
+      "clip_start": "01:11:00.0",
+      "clip_end": "01:11:12.0",
+      "chars": [
+        "Moon-gwang",
+        "Ki-taek",
+        "Chung-sook"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "censor": "none",
+      "action": "the two poor families discover each other; Moon-gwang films the Kims and threatens to send the proof to Mrs Park - mutual blackmail (FRAME-VERIFIED 01:11:00)",
+      "raw_duration_sec": 12.0,
+      "max_play_duration_sec": 12.0,
+      "max_narration_words_en": 54,
+      "extendable": false,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:12:30.0",
+      "beat": 14,
+      "clip_start": "01:12:30.0",
+      "clip_end": "01:12:42.0",
+      "chars": [
+        "Geun-sae",
+        "Moon-gwang",
+        "Ki-taek"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "censor": "none",
+      "action": "The standoff turns into a scramble for the incriminating phone, the two poor families clawing at each other on the cellar floor (FRAME-VERIFIED 01:12:30)",
+      "raw_duration_sec": 12.0,
+      "max_play_duration_sec": 12.0,
+      "max_narration_words_en": 54,
+      "extendable": false,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:15:50.0",
+      "beat": 15,
+      "clip_start": "01:15:50.0",
+      "clip_end": "01:16:02.0",
+      "chars": [
+        "Chung-sook",
+        "Yeon-kyo"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "censor": "none",
+      "action": "the Parks phone: the rain has ended the camping trip and they are heading home in eight minutes - panic (FRAME-VERIFIED 01:15:50)",
+      "raw_duration_sec": 12.0,
+      "max_play_duration_sec": 12.0,
+      "max_narration_words_en": 54,
+      "extendable": false,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:17:15.0",
+      "beat": 16,
+      "clip_start": "01:17:15.0",
+      "clip_end": "01:17:25.0",
+      "chars": [
+        "Ki-taek",
+        "Chung-sook",
+        "Moon-gwang",
+        "Geun-sae"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "censor": "none",
+      "action": "the Kims overpower Moon-gwang and Geun-sae, forcing them back down into the bunker, and scramble to erase every trace (FRAME-VERIFIED 01:17:15)",
+      "raw_duration_sec": 10.0,
+      "max_play_duration_sec": 10.0,
+      "max_narration_words_en": 45,
+      "extendable": false,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:20:00.0",
+      "beat": 17,
+      "clip_start": "01:20:00.0",
+      "clip_end": "01:20:09.0",
+      "chars": [
+        "Ki-taek",
+        "Ki-woo",
+        "Ki-jung",
+        "Dong-ik",
+        "Yeon-kyo"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "censor": "none",
+      "action": "the Parks arrive home early; Ki-taek, Ki-woo and Ki-jung hide under the low living-room table as the family settles on the couch (FRAME-VERIFIED 01:20:00)",
+      "raw_duration_sec": 9.0,
+      "max_play_duration_sec": 9.0,
+      "max_narration_words_en": 40,
+      "extendable": false,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:21:30.0",
+      "beat": 17,
+      "clip_start": "01:21:30.0",
+      "clip_end": "01:21:38.0",
+      "chars": [
+        "Ki-taek",
+        "Ki-woo",
+        "Ki-jung",
+        "Dong-ik",
+        "Yeon-kyo"
+      ],
+      "depicts": [
+        "emotion"
+      ],
+      "censor": "none",
+      "action": "Trapped under the table, the Kims must lie utterly still, listening to the family's pillow talk inches above them (FRAME-VERIFIED 01:21:30)",
+      "raw_duration_sec": 8.0,
+      "max_play_duration_sec": 8.8,
+      "max_narration_words_en": 36,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:27:30.0",
+      "beat": 18,
+      "clip_start": "01:27:30.0",
+      "clip_end": "01:27:42.0",
+      "chars": [
+        "Dong-ik",
+        "Yeon-kyo",
+        "Ki-taek"
+      ],
+      "depicts": [
+        "dialogue",
+        "reaction"
+      ],
+      "censor": "none",
+      "action": "on the couch above the hidden Kims, Mr Park complains that Ki-taek's smell 'crosses the line' - the class insult that will detonate later (FRAME-VERIFIED 01:27:30; Ki-taek hidden under table)",
+      "raw_duration_sec": 12.0,
+      "max_play_duration_sec": 12.0,
+      "max_narration_words_en": 54,
+      "extendable": false,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:31:30.0",
+      "beat": 19,
+      "clip_start": "01:31:30.0",
+      "clip_end": "01:31:43.0",
+      "chars": [
+        "Ki-taek",
+        "Ki-woo",
+        "Ki-jung"
+      ],
+      "depicts": [
+        "transition"
+      ],
+      "censor": "none",
+      "action": "the three Kims flee the Parks' house through the storm, descending the city's stairways back down toward their flooded poor district (FRAME-VERIFIED 01:31:30 - DARK; SILENCE candidate - Bong's wordless vertical descent)",
+      "raw_duration_sec": 13.0,
+      "max_play_duration_sec": 14.3,
+      "max_narration_words_en": 59,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:33:18.0",
+      "beat": 19,
+      "clip_start": "01:33:18.0",
+      "clip_end": "01:33:36.0",
+      "chars": [
+        "Ki-taek",
+        "Ki-woo",
+        "Ki-jung"
+      ],
+      "depicts": [
+        "transition"
+      ],
+      "censor": "none",
+      "narration_silence_seconds": 18.0,
+      "action": "the family descends the rain-soaked city stairways in the night flood - Bong's wordless vertical sequence (FRAME-VERIFIED 01:33:18 - SILENCE shot, atmospheric breathing room; DARK)"
+    },
+    {
+      "id": "clip:01:35:00.0",
+      "beat": 19,
+      "clip_start": "01:35:00.0",
+      "clip_end": "01:35:13.0",
+      "chars": [
+        "Ki-taek",
+        "Ki-woo",
+        "Ki-jung"
+      ],
+      "depicts": [
+        "setup"
+      ],
+      "censor": "none",
+      "action": "their semi-basement neighbourhood is drowning in the night flood; the family wades down the submerged alley (FRAME-VERIFIED 01:35:00 - DARK; SILENCE candidate)",
+      "raw_duration_sec": 13.0,
+      "max_play_duration_sec": 14.3,
+      "max_narration_words_en": 59,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:36:30.0",
+      "beat": 20,
+      "clip_start": "01:36:30.0",
+      "clip_end": "01:36:43.0",
+      "chars": [
+        "Ki-jung",
+        "Ki-woo"
+      ],
+      "depicts": [
+        "reveal"
+      ],
+      "censor": "none",
+      "action": "inside, sewage erupts from the toilet; their home and belongings are destroyed by the flood (FRAME-VERIFIED 01:36:30 - DARK)",
+      "raw_duration_sec": 13.0,
+      "max_play_duration_sec": 13.0,
+      "max_narration_words_en": 59,
+      "extendable": false,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:39:30.0",
+      "beat": 20,
+      "clip_start": "01:39:30.0",
+      "clip_end": "01:39:43.0",
+      "chars": [
+        "Ki-taek",
+        "Ki-woo",
+        "Chung-sook"
+      ],
+      "depicts": [
+        "emotion"
+      ],
+      "censor": "none",
+      "action": "the displaced family sleeps on the floor of a crowded gymnasium shelter among other flood refugees (FRAME-VERIFIED 01:39:30)",
+      "raw_duration_sec": 13.0,
+      "max_play_duration_sec": 14.3,
+      "max_narration_words_en": 59,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:43:00.0",
+      "beat": 21,
+      "clip_start": "01:43:00.0",
+      "clip_end": "01:43:10.0",
+      "chars": [
+        "Yeon-kyo",
+        "Ki-taek"
+      ],
+      "depicts": [
+        "setup"
+      ],
+      "censor": "none",
+      "action": "the next day Yeon-kyo throws an impromptu garden party for Da-song; the exhausted Kims are summoned to serve (FRAME-VERIFIED 01:43:00)",
+      "raw_duration_sec": 10.0,
+      "max_play_duration_sec": 11.0,
+      "max_narration_words_en": 45,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:46:00.0",
+      "beat": 21,
+      "clip_start": "01:46:00.0",
+      "clip_end": "01:46:12.0",
+      "chars": [
+        "Yeon-kyo",
+        "Dong-ik",
+        "Ki-taek",
+        "Ki-jung"
+      ],
+      "depicts": [
+        "setup"
+      ],
+      "censor": "none",
+      "action": "guests gather in the sunlit garden; Mr Park enlists Ki-taek in a costumed surprise for his son (FRAME-VERIFIED 01:46:00)",
+      "raw_duration_sec": 12.0,
+      "max_play_duration_sec": 13.2,
+      "max_narration_words_en": 54,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:51:00.0",
+      "beat": 23,
+      "clip_start": "01:51:00.0",
+      "clip_end": "01:51:06.0",
+      "chars": [
+        "Geun-sae"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "censor": "none",
+      "action": "Below the party, Geun-sae - starved and unhinged after his wife's death - crawls up the bunker stairs toward the light (FRAME-VERIFIED 01:51:00 - DARK)",
+      "raw_duration_sec": 6.0,
+      "max_play_duration_sec": 6.0,
+      "max_narration_words_en": 27,
+      "extendable": false,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:52:05.0",
+      "beat": 22,
+      "clip_start": "01:52:05.0",
+      "clip_end": "01:52:11.0",
+      "chars": [
+        "Ki-jung",
+        "Yeon-kyo",
+        "Dong-ik"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "censor": "none",
+      "action": "Ki-jung carries out the birthday cake to the gathered guests - the calm an instant before the violence (FRAME-VERIFIED 01:52:05)",
+      "raw_duration_sec": 6.0,
+      "max_play_duration_sec": 6.0,
+      "max_narration_words_en": 27,
+      "extendable": false,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:53:18.0",
+      "beat": 23,
+      "clip_start": "01:53:18.0",
+      "clip_end": "01:53:23.0",
+      "chars": [
+        "Geun-sae",
+        "Ki-jung"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "censor": "blur",
+      "action": "Geun-sae erupts from the bunker into the party and stabs Ki-jung; chaos breaks out among the guests (FRAME-VERIFIED 01:53:18 - CENSOR region blur [output-canvas coords] on the stabbing; fast-cut chaos)",
+      "censor_region": {
+        "x": 570,
+        "y": 274,
+        "width": 810,
+        "height": 480
+      },
+      "raw_duration_sec": 5.0,
+      "max_play_duration_sec": 5.0,
+      "max_narration_words_en": 22,
+      "extendable": false,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:53:55.0",
+      "beat": 23,
+      "clip_start": "01:53:55.0",
+      "clip_end": "01:53:57.0",
+      "chars": [
+        "Ki-jung",
+        "Geun-sae"
+      ],
+      "depicts": [
+        "reveal"
+      ],
+      "censor": "blur",
+      "action": "Ki-jung lies bleeding on the grass as the party scatters in terror (FRAME-VERIFIED 01:53:55 - CENSOR region blur on the wound; output-canvas coords)",
+      "censor_region": {
+        "x": 480,
+        "y": 0,
+        "width": 990,
+        "height": 540
+      },
+      "raw_duration_sec": 2.0,
+      "max_play_duration_sec": 2.0,
+      "max_narration_words_en": 8,
+      "extendable": false,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:54:10.0",
+      "beat": 23,
+      "clip_start": "01:54:10.0",
+      "clip_end": "01:54:19.0",
+      "chars": [
+        "Yeon-kyo",
+        "Geun-sae"
+      ],
+      "depicts": [
+        "reveal"
+      ],
+      "censor": "blur",
+      "action": "blood-spattered panic in the garden as Geun-sae rampages and Chung-sook fights back (FRAME-VERIFIED 01:54:10 - CENSOR region blur [output-canvas coords] on the blood/gore; tight-but-central region)",
+      "censor_region": {
+        "x": 450,
+        "y": 140,
+        "width": 960,
+        "height": 645
+      },
+      "raw_duration_sec": 9.0,
+      "max_play_duration_sec": 9.0,
+      "max_narration_words_en": 40,
+      "extendable": false,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:54:40.0",
+      "beat": 24,
+      "clip_start": "01:54:40.0",
+      "clip_end": "01:54:48.0",
+      "chars": [
+        "Ki-taek",
+        "Dong-ik"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "censor": "blur",
+      "action": "Mr Park recoils from Geun-sae's smell; the class insult detonates and Ki-taek stabs Dong-ik dead (FRAME-VERIFIED 01:54:40 - CENSOR region blur [output-canvas coords] on the stabbing)",
+      "censor_region": {
+        "x": 540,
+        "y": 244,
+        "width": 840,
+        "height": 540
+      },
+      "raw_duration_sec": 8.0,
+      "max_play_duration_sec": 8.0,
+      "max_narration_words_en": 36,
+      "extendable": false,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:55:30.0",
+      "beat": 25,
+      "clip_start": "01:55:30.0",
+      "clip_end": "01:55:42.0",
+      "chars": [
+        "Ki-woo",
+        "Chung-sook"
+      ],
+      "depicts": [
+        "reveal"
+      ],
+      "censor": "none",
+      "action": "When the screaming stops, the garden is a scene of carnage - and Ki-taek is simply gone, swallowed by the crowd (FRAME-VERIFIED 01:55:30 - DARK)",
+      "raw_duration_sec": 12.0,
+      "max_play_duration_sec": 12.0,
+      "max_narration_words_en": 54,
+      "extendable": false,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:56:30.0",
+      "beat": 25,
+      "clip_start": "01:56:30.0",
+      "clip_end": "01:56:35.0",
+      "chars": [
+        "Ki-woo",
+        "Chung-sook"
+      ],
+      "depicts": [
+        "reveal"
+      ],
+      "censor": "none",
+      "action": "in the bloody aftermath Ki-taek has vanished; Ki-jung is dead and Ki-woo gravely wounded - the family destroyed (FRAME-VERIFIED 01:56:30 - DARK)",
+      "raw_duration_sec": 5.0,
+      "max_play_duration_sec": 5.0,
+      "max_narration_words_en": 22,
+      "extendable": false,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:57:00.0",
+      "beat": 26,
+      "clip_start": "01:57:00.0",
+      "clip_end": "01:57:06.0",
+      "chars": [
+        "Ki-woo",
+        "Chung-sook"
+      ],
+      "depicts": [
+        "transition"
+      ],
+      "censor": "none",
+      "action": "Ki-woo survives, but the head wound leaves him laughing helplessly; he and his mother are led away under guard (FRAME-VERIFIED 01:57:00)",
+      "raw_duration_sec": 6.0,
+      "max_play_duration_sec": 6.6,
+      "max_narration_words_en": 27,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:59:05.0",
+      "beat": 27,
+      "clip_start": "01:59:05.0",
+      "clip_end": "01:59:15.0",
+      "chars": [
+        "Ki-taek",
+        "Ki-woo"
+      ],
+      "depicts": [
+        "discovery"
+      ],
+      "censor": "none",
+      "action": "on a snowy hillside Ki-woo watches the Park house; its lights blink in Morse code and he realises his father has taken Geun-sae's place, hiding in the bunker (FRAME-VERIFIED 01:59:05 - TWIST-HOLD: ending realisation)",
+      "raw_duration_sec": 10.0,
+      "max_play_duration_sec": 10.0,
+      "max_narration_words_en": 45,
+      "extendable": false,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:59:20.0",
+      "beat": 26,
+      "clip_start": "01:59:20.0",
+      "clip_end": "01:59:33.0",
+      "chars": [
+        "Ki-woo",
+        "Chung-sook"
+      ],
+      "depicts": [
+        "transition"
+      ],
+      "censor": "none",
+      "action": "weeks later: Ki-woo, recovered from a head injury, and Chung-sook are convicted of fraud; Ki-taek is still missing (FRAME-VERIFIED 01:59:20)",
+      "raw_duration_sec": 13.0,
+      "max_play_duration_sec": 14.3,
+      "max_narration_words_en": 59,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:02:00:00.0",
+      "beat": 26,
+      "clip_start": "02:00:00.0",
+      "clip_end": "02:00:13.0",
+      "chars": [
+        "Ki-woo"
+      ],
+      "depicts": [
+        "emotion"
+      ],
+      "censor": "none",
+      "action": "a quieter, scarred Ki-woo rides the subway, haunted by what happened and by his missing father (FRAME-VERIFIED 02:00:00)",
+      "raw_duration_sec": 13.0,
+      "max_play_duration_sec": 14.3,
+      "max_narration_words_en": 59,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:02:00:30.0",
+      "beat": 26,
+      "clip_start": "02:00:30.0",
+      "clip_end": "02:00:33.0",
+      "chars": [
+        "Ki-woo"
+      ],
+      "depicts": [
+        "emotion"
+      ],
+      "censor": "none",
+      "action": "He drifts through the cold city, a quieter and emptier young man than the schemer we first met (FRAME-VERIFIED 02:00:30)",
+      "raw_duration_sec": 3.0,
+      "max_play_duration_sec": 3.3,
+      "max_narration_words_en": 13,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:02:01:30.0",
+      "beat": 28,
+      "clip_start": "02:01:30.0",
+      "clip_end": "02:01:42.0",
+      "chars": [
+        "Ki-woo"
+      ],
+      "depicts": [
+        "reveal"
+      ],
+      "censor": "none",
+      "action": "He pours everything into a letter to his father - the only way left to reach a man hiding beneath a stranger's house (FRAME-VERIFIED 02:01:30 - TWIST-HOLD: ending)",
+      "raw_duration_sec": 12.0,
+      "max_play_duration_sec": 12.0,
+      "max_narration_words_en": 54,
+      "extendable": false,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:02:05:40.0",
+      "beat": 28,
+      "clip_start": "02:05:40.0",
+      "clip_end": "02:05:53.0",
+      "chars": [
+        "Ki-woo",
+        "Ki-taek"
+      ],
+      "depicts": [
+        "reveal"
+      ],
+      "censor": "none",
+      "action": "Ki-woo writes a letter vowing to earn enough to buy the house so his father can simply walk up the stairs; we see the dreamed reunion (FRAME-VERIFIED 02:05:40 - TWIST-HOLD: leave as maybe-dream, do not state as achievable)",
+      "raw_duration_sec": 13.0,
+      "max_play_duration_sec": 13.0,
+      "max_narration_words_en": 59,
+      "extendable": false,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:02:06:25.0",
+      "beat": 28,
+      "clip_start": "02:06:25.0",
+      "clip_end": "02:06:43.0",
+      "chars": [
+        "Ki-woo"
+      ],
+      "depicts": [
+        "aftermath"
+      ],
+      "censor": "none",
+      "action": "the film cuts back to the same semi-basement window and the snowy alley - Ki-woo is still here; the plan that will never fail because there is no plan (FRAME-VERIFIED 02:06:25 - SILENCE shot for the ambiguous ending; mirrors the opening)",
+      "narration_silence_seconds": 13.0
+    }
+  ]
+}

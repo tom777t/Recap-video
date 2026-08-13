@@ -1,0 +1,277 @@
+{
+  "_comment": "Stage 3 skeleton for Gone Girl (2014) recap. Units are in source-film chronological order from U02 onward; only U01 (hook) has narrative_jump=true. must_cover references catalogued beats from shots.json (1-36). TWIST DISCIPLINE: U01-U08 (beats 1-15) frame Amy as a missing/grieving victim with ZERO leak; U09 (beat 16) is the explicit reveal; U10-U18 (beats 16-36) frame Amy as the orchestrator. Cool Girl (U10) is faithful paraphrase, no quoted excerpts. Desi murder (U15) is described without lurid detail; S7 censor applies at render. Pregnancy thread: claimed in U07 (B13) -> used as leverage in U17 (B35). Tiers: tier is the schema enum (LIGHT/STANDARD/DEEP); tier_label adds CRITICAL for hook + turning points. target_total sized for ~7 min default-rate Andrew TTS (~1600 words, Prisoners scope). [REGISTER B UPDATE 2026-06-16: target_words re-planned to the Light Register B draft distribution per docs/STYLE_GUIDE.md; interpretive layer adds weight to U02/U04/U06/U10/U13/U14/U17; twist U09 and bookend U18 kept lean per G4 restraint. tolerance 0.3 retained.] [MEDIUM REGISTER B 2026-06-16: target_words re-planned to Medium B distribution per STYLE_GUIDE sec5; +interpretive lines per major character, theme statements, retention prompts; stronger viral hook cold-open on B4/B5.]",
+  "project": "gonegirl2014",
+  "film_title": "Gone Girl (2014)",
+  "predicted_runtime_min": 7,
+  "target_total_words": 1778,
+  "units": [
+    {
+      "id": "U01",
+      "label": "Hook - the perfect marriage, the missing wife",
+      "tier": "DEEP",
+      "tier_label": "CRITICAL",
+      "target_words": 80,
+      "why": "Atmospheric setup + Serabudabu intro + film title teaser. Frames Amy as missing, NO twist leak.",
+      "must_cover": [
+        "1",
+        "4",
+        "5"
+      ],
+      "narrative_jump": true,
+      "tolerance": 0.3
+    },
+    {
+      "id": "U02",
+      "label": "Anniversary morning - Nick and Amy",
+      "tier": "STANDARD",
+      "tier_label": "STANDARD",
+      "target_words": 161,
+      "why": "Establish the marriage, the meet-cute charm; Amy still alive in flashback.",
+      "must_cover": [
+        1,
+        2,
+        3
+      ],
+      "narrative_jump": false,
+      "tolerance": 0.3
+    },
+    {
+      "id": "U03",
+      "label": "She is gone",
+      "tier": "DEEP",
+      "tier_label": "CRITICAL",
+      "target_words": 59,
+      "why": "The disappearance + staged-looking scene. Turning point that opens the mystery.",
+      "must_cover": [
+        4,
+        5
+      ],
+      "narrative_jump": false,
+      "tolerance": 0.3
+    },
+    {
+      "id": "U04",
+      "label": "Amazing Amy and a marriage built on a story",
+      "tier": "STANDARD",
+      "tier_label": "STANDARD",
+      "target_words": 141,
+      "why": "Amazing Amy backstory + first police doubts about how little Nick knows.",
+      "must_cover": [
+        6,
+        7
+      ],
+      "narrative_jump": false,
+      "tolerance": 0.3
+    },
+    {
+      "id": "U05",
+      "label": "Suspects and clues",
+      "tier": "STANDARD",
+      "tier_label": "STANDARD",
+      "target_words": 59,
+      "why": "Desi the obsessive ex introduced; treasure-hunt clues as a thread.",
+      "must_cover": [
+        8,
+        9
+      ],
+      "narrative_jump": false,
+      "tolerance": 0.3
+    },
+    {
+      "id": "U06",
+      "label": "A marriage curdles",
+      "tier": "DEEP",
+      "tier_label": "STANDARD",
+      "target_words": 123,
+      "why": "Flashback: money + resentment erode the marriage; the town searches. Victim framing.",
+      "must_cover": [
+        10,
+        11
+      ],
+      "narrative_jump": false,
+      "tolerance": 0.3
+    },
+    {
+      "id": "U07",
+      "label": "The vigil and the pregnancy",
+      "tier": "DEEP",
+      "tier_label": "CRITICAL",
+      "target_words": 74,
+      "why": "Vigil; the claimed pregnancy revealed (B13) - START of the pregnancy thread. Amy = grieving victim.",
+      "must_cover": [
+        12,
+        13
+      ],
+      "narrative_jump": false,
+      "tolerance": 0.3
+    },
+    {
+      "id": "U08",
+      "label": "The case turns on Nick",
+      "tier": "DEEP",
+      "tier_label": "STANDARD",
+      "target_words": 98,
+      "why": "Staged scene, debt, insurance, the secret affair = motive. Suspicion peaks on Nick.",
+      "must_cover": [
+        14,
+        15
+      ],
+      "narrative_jump": false,
+      "tolerance": 0.3
+    },
+    {
+      "id": "U09",
+      "label": "She was never gone",
+      "tier": "DEEP",
+      "tier_label": "CRITICAL",
+      "target_words": 59,
+      "why": "THE TWIST. Amy alive, driving away. Explicit reveal beat - the narration turns here.",
+      "must_cover": [
+        16
+      ],
+      "narrative_jump": false,
+      "tolerance": 0.3
+    },
+    {
+      "id": "U10",
+      "label": "How to vanish - the plan revealed",
+      "tier": "DEEP",
+      "tier_label": "CRITICAL",
+      "target_words": 155,
+      "why": "Staging recipe (S6) + Cool Girl monologue as FAITHFUL PARAPHRASE. Amy = architect. Heaviest unit.",
+      "must_cover": [
+        17,
+        18
+      ],
+      "narrative_jump": false,
+      "tolerance": 0.3
+    },
+    {
+      "id": "U11",
+      "label": "On the run",
+      "tier": "STANDARD",
+      "tier_label": "STANDARD",
+      "target_words": 98,
+      "why": "Amy hides at the motel; Nick hires Tanner. Two threads in parallel.",
+      "must_cover": [
+        19,
+        20
+      ],
+      "narrative_jump": false,
+      "tolerance": 0.3
+    },
+    {
+      "id": "U12",
+      "label": "The plan unravels",
+      "tier": "STANDARD",
+      "tier_label": "STANDARD",
+      "target_words": 81,
+      "why": "Media brands Nick a killer; the motel robbery (S6) strips Amy's escape money.",
+      "must_cover": [
+        21,
+        22
+      ],
+      "narrative_jump": false,
+      "tolerance": 0.3
+    },
+    {
+      "id": "U13",
+      "label": "Into the gilded cage",
+      "tier": "STANDARD",
+      "tier_label": "STANDARD",
+      "target_words": 106,
+      "why": "Broke, Amy turns to Desi; his lake house becomes a new kind of trap.",
+      "must_cover": [
+        23,
+        24
+      ],
+      "narrative_jump": false,
+      "tolerance": 0.3
+    },
+    {
+      "id": "U14",
+      "label": "Performance and pressure",
+      "tier": "STANDARD",
+      "tier_label": "STANDARD",
+      "target_words": 99,
+      "why": "Nick's calculated TV remorse (B25) vs police closing in (B26). Both perform.",
+      "must_cover": [
+        25,
+        26
+      ],
+      "narrative_jump": false,
+      "tolerance": 0.3
+    },
+    {
+      "id": "U15",
+      "label": "The final move",
+      "tier": "DEEP",
+      "tier_label": "CRITICAL",
+      "target_words": 95,
+      "why": "Amy decides to return and removes Desi (S7 censor). Murder described without lurid detail.",
+      "must_cover": [
+        27,
+        28,
+        29
+      ],
+      "narrative_jump": false,
+      "tolerance": 0.3
+    },
+    {
+      "id": "U16",
+      "label": "The bloody homecoming",
+      "tier": "DEEP",
+      "tier_label": "CRITICAL",
+      "target_words": 58,
+      "why": "Amy's blood-soaked return + the fabricated kidnapping story to police.",
+      "must_cover": [
+        30,
+        31,
+        32
+      ],
+      "narrative_jump": false,
+      "tolerance": 0.3
+    },
+    {
+      "id": "U17",
+      "label": "The truth between them",
+      "tier": "DEEP",
+      "tier_label": "CRITICAL",
+      "target_words": 135,
+      "why": "Boney's doubt vs the airtight story; Amy admits the murder; the pregnancy leverage USED (B35) - thread payoff.",
+      "must_cover": [
+        33,
+        34,
+        35
+      ],
+      "narrative_jump": false,
+      "tolerance": 0.3
+    },
+    {
+      "id": "U18",
+      "label": "Trapped",
+      "tier": "DEEP",
+      "tier_label": "CRITICAL",
+      "target_words": 36,
+      "why": "The couple reunited for the cameras; the bookend close. What have we done to each other.",
+      "must_cover": [
+        36
+      ],
+      "narrative_jump": false,
+      "tolerance": 0.3
+    },
+    {
+      "id": "U_outro",
+      "label": "Closing thoughts",
+      "tier": "STANDARD",
+      "tier_label": "STANDARD",
+      "target_words": 61,
+      "why": "Thematic closure (marriage as performance/mutual capture) + thanks + subscribe.",
+      "must_cover": [
+        36
+      ],
+      "narrative_jump": false,
+      "tolerance": 0.3
+    }
+  ]
+}

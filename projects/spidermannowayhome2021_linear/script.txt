@@ -1,0 +1,231 @@
+TITLE: Spider-Man: No Way Home - The Boy Who Chose to Be Forgotten
+Lines: 76   Words: 3457   Est. narration: 20.3 min   Target: 16 min
+============================================================
+
+[  1] (00:01:47.0 -> 00:02:05.0)  <hook>
+      One broadcast, and a teenager's whole life detonates. On every screen in the world, a dead man's final message plays. It's a hero the public loved, gasping out an accusation with his last breath. Spider-Man, he says, murdered him. And people believe it.
+
+[  2] (00:02:28.0 -> 00:02:44.0)  <hook>
+      And then the video drops the real bomb - his name. The most famous hero in New York is just a kid named Peter Parker. In seconds his face is everywhere, and a city that cheered him yesterday closes in around him, phones raised, screaming his name.
+
+[  3] (00:03:12.0 -> 00:03:30.0)  <tense>
+      He grabs his girlfriend and swings them both out of the crush. This is Peter, and this is MJ - the person he'd do anything to protect. But there's no swinging away from this one. Their quiet, ordinary life is already gone, and they can feel it slipping.
+
+[  4] (00:06:00.0 -> 00:06:18.0)  <normal>
+      Let me take you back to where it all begins. Overnight, Peter Parker goes from friendly neighborhood hero to the most hated name in the country. Every headline brands him a murderer, every screen demands he be locked up. He hasn't done a thing wrong - and it doesn't matter.
+
+[  5] (00:06:40.0 -> 00:07:00.0)  <tense>
+      It gets worse fast. A government agency smashes down his door and arrests him for a murder he didn't commit. And they don't stop at Peter - they haul in everyone standing near him, as if loving him were a crime too.
+
+[  6] (00:07:00.0 -> 00:07:24.0)  <normal>
+      Peter, MJ, and his best friend Ned all end up in cold interrogation rooms, grilled like suspects. They're teenagers who did nothing but stand beside him - and now the whole system is treating that friendship as evidence. The message is clear: knowing Peter Parker is dangerous.
+
+[  7] (00:10:40.0 -> 00:11:00.0)  <normal>
+      A sharp, calm lawyer steps in and, with a single move, gets every charge dropped. On paper, at least, Peter is a free man again. But paper is the only place this is over.
+
+[  8] (00:11:50.0 -> 00:12:08.0)  <normal>
+      Because free doesn't mean safe. Everywhere Peter and his Aunt May go, cameras swarm and strangers shout. May tries to hold him steady through it. But the truth is sinking in for both of them - you can't un-tell the world a secret. There's no walking this back.
+
+[  9] (00:20:55.0 -> 00:21:19.0)  <emotion>
+      For one quiet moment, they let themselves dream anyway. Peter and MJ lie back on a rooftop above the noise and picture a way out. College together, across the country. A clean start, somewhere nobody knows their faces. All of them, Ned too, in the same new city. Just an ordinary future.
+
+[ 10] (00:21:35.0 -> 00:21:55.0)  <emotion>
+      Just the two of them, hands laced together, holding on to a future they can almost touch. Hold on to this image of them - happy, hopeful, certain it'll all work out. It's the last calm they'll get.
+
+[ 11] (00:23:40.0 -> 00:24:04.0)  <emotion>
+      Then the letters come, and the dream dies on the spot. MIT rejects all three of them - not for their grades, but because of the scandal clinging to Peter's name. MJ and Ned were brilliant enough to get in on their own. Being his friends is what cost them their futures, and Peter knows it.
+
+[ 12] (00:25:40.0 -> 00:25:58.0)  <normal>
+      Drowning in guilt over what his secret has done to them, Peter goes looking for a fix only he could reach. It's the New York Sanctum, the strange, ancient home of the world's sorcerers. If anyone can rewrite this mess, it's the people who bend reality for a living.
+
+[ 13] (00:26:00.0 -> 00:26:24.0)  <normal>
+      Inside he finds Wong, the Sorcerer Supreme, busy fighting off a blizzard leaking in from another realm. Peter lays out his impossible ask. He wants a way to make the whole world forget his secret. Forget that Peter Parker was ever Spider-Man, and give his loved ones their lives back.
+
+[ 14] (00:28:20.0 -> 00:28:40.0)  <normal>
+      Doctor Strange, master of the mystic arts, hears him out - and against his better judgment, agrees to help. There's an old spell that can do exactly what Peter wants: make every living person forget that Peter Parker is Spider-Man. A clean slate for everyone he loves.
+
+[ 15] (00:28:50.0 -> 00:29:14.0)  <tense>
+      Deep in the Sanctum's undercroft, Strange begins to weave it. Glowing runes spiral out of his hands and into the dark, the forgetting spell taking shape around them both. It's working - the whole world is about to let Peter go.
+
+[ 16] (00:29:40.0 -> 00:30:04.0)  <tense>
+      But Peter can't leave it alone. Wait - let MJ still remember me. And Ned. And May. Each time he blurts out another name, Strange has to twist the spell mid-cast to obey. And a spell like this was never meant to be rewritten on the fly. It starts to buck and roar out of control.
+
+[ 17] (00:30:20.0 -> 00:30:44.0)  <tense>
+      Strange barely manages to wrestle the raging magic back into a box and slam it shut. He's furious - the spell got corrupted, he warns, and something like that could be dangerous. But he seals it away, and the crisis seems to pass. For now, it looks contained. It is not.
+
+[ 18] (00:33:12.0 -> 00:33:30.0)  <normal>
+      Strange points out there was a simpler fix all along: just call the school and actually plead his friends' case. Embarrassed he didn't think of it, Peter races across the city, swinging block after block to catch the MIT administrator before she leaves town.
+
+[ 19] (00:33:50.0 -> 00:34:14.0)  <normal>
+      He catches her car out on the highway and pours his heart out. He begs her to look past the headlines and give MJ and Ned the fair shot they earned. She actually listens. And for one fragile second, with a little hope back on the table, things almost feel normal again.
+
+[ 20] (00:35:05.0 -> 00:35:29.0)  <tense>
+      Then metal shrieks through the traffic. Huge mechanical arms punch out of nowhere, flinging cars like toys. They snatch Peter out of the air and slam him into the pavement. And whatever this thing is, it knows him. It calls him Peter, like an old enemy picking up an old fight.
+
+[201] (00:36:20.0 -> 00:36:40.0)  <tense>
+      Doc Ock's arms rip the bridge apart, hurling cars and buses. Peter can barely fight back - he's too busy catching people before they fall.
+
+[ 21] (00:38:20.0 -> 00:38:40.0)  <reveal>
+      The attacker is Doctor Octopus. He's a scientist with four deadly robotic tentacles fused to his spine, each one moving with a mind of its own. He has Peter cornered and helpless. But Peter's high-tech suit fights back on its own, latching onto the metal arms. Suddenly it's Peter controlling the tentacles - and the fight turns.
+
+[202] (00:38:40.0 -> 00:39:00.0)  <tense>
+      The tentacles pin him and he's losing - until his suit's nanotech crawls onto the metal arms and turns them red. The weapons that were killing him are now his to command.
+
+[ 22] (00:40:20.0 -> 00:40:44.0)  <tense>
+      The two batter each other to a bloody standstill, neither able to win. Then Strange steps in from a distance. With a flick of magic, he opens a portal and yanks Peter clean off the highway. The doctor and his tentacles are left behind, trapped and raging.
+
+[ 23] (00:41:20.0 -> 00:41:44.0)  <reveal>
+      Back at the Sanctum, Strange lays out the terrible truth. That corrupted spell didn't just fizzle out. It cracked open the multiverse - the idea that ours is only one of countless parallel worlds. And it started dragging people through. Specifically, people from other universes who know Spider-Man's secret identity. Peter's mistake tore a hole in reality itself.
+
+[ 24] (00:44:00.0 -> 00:44:24.0)  <normal>
+      So Strange hands them a mission. Peter, MJ, and Ned have to hunt down every visitor and capture them. Each one has to be caught before the tear in reality grows any wider. The clock is ticking, and the team has no idea how many strangers slipped through.
+
+[ 25] (00:45:45.0 -> 00:46:09.0)  <normal>
+      Doctor Octopus is the first, already locked in a cell deep beneath the Sanctum. But Strange warns there are more of them out there. So the hunt begins. Peter, MJ, and Ned start scouring the city for anything strange - and it doesn't take long.
+
+[ 26] (00:49:00.0 -> 00:49:24.0)  <tense>
+      A report of a disturbance at a research facility outside the city catches their attention. Something is loose out in the dark woods. Peter suits up and heads out to investigate, MJ and Ned feeding him directions from home. And the next visitors are already waiting for him.
+
+[ 27] (00:50:00.0 -> 00:50:24.0)  <reveal>
+      The first is Electro. He's a man made of pure energy, crackling with blue lightning, feeding on the city's power lines. The more electricity he drains, the stronger and more dangerous he gets. And he is thrilled to have a Spider-Man to fight.
+
+[ 28] (00:51:12.0 -> 00:51:36.0)  <reveal>
+      Then the ground itself rises up. This is Sandman - a towering giant of shifting, living sand, able to reshape his whole body at will. For a moment he actually fights alongside Peter against the electric storm. But Peter is quickly learning these visitors are unpredictable, and none of them can be trusted for long.
+
+[ 29] (00:53:30.0 -> 00:53:50.0)  <reveal>
+      And something else lurks in the shadows - the Lizard. Once a brilliant scientist, now a hulking reptilian monster. That makes four strangers from other universes: Doctor Octopus, Electro, Sandman, and the Lizard. All of them villains, and all of them already know Spider-Man's face.
+
+[ 30] (00:54:10.0 -> 00:54:30.0)  <normal>
+      It's a brutal, messy fight, but Peter holds his own. One by one he subdues Electro and the others. With Strange's help, the team hauls them back to the cells beneath the Sanctum. Four down - and Peter thinks the worst is behind him.
+
+[ 31] (00:55:12.0 -> 00:55:32.0)  <emotion>
+      But there's one more visitor, and he's different. In a dark alley, a shattered green mask lies on the ground, smashed to pieces. Its owner, a frightened old man, has just fought back against something inside himself and won - for now. He looks less like a monster than a man torn in two.
+
+[ 32] (00:56:08.0 -> 00:56:32.0)  <emotion>
+      His name is Norman Osborn. Lost and confused, he wanders into the shelter where May works, looking for Spider-Man. He isn't there to fight - he's there to beg for help. Sometimes, he admits quietly, he isn't himself. Sometimes he blacks out, and can't remember what he's done.
+
+[ 33] (00:57:36.0 -> 00:58:00.0)  <normal>
+      It's May who changes how Peter sees all of this. These aren't just monsters to lock in a cell, she tells him. They're sick, broken people - and maybe they can actually be helped, even cured. Sending them home to whatever they came from isn't the only answer. And slowly, Peter starts to listen.
+
+[ 34] (01:00:20.0 -> 01:00:44.0)  <reveal>
+      Then comes a chilling discovery. Down in the cells, the visitors start comparing their stories. And they realize something they all have in common. Each of them was ripped out of his own world at the exact moment he was about to die. The spell didn't just pull them across universes. It snatched them a heartbeat before their deaths.
+
+[ 35] (01:02:00.0 -> 01:02:24.0)  <tense>
+      This changes everything for Peter. Strange just wants to send them all straight back - fate is fate, and it's not their problem. But Peter can't accept that. If he sends these men home now, he's sending them home to die. So he makes a choice. He wants to cure them first, and give them a chance to survive their own stories.
+
+[ 36] (01:05:30.0 -> 01:05:54.0)  <tense>
+      So Peter does the unthinkable. He turns on Strange. He steals the box holding the spell, and in a wild chase through a folding, shifting Mirror Dimension, he traps the sorcerer inside it. It buys him time. Time to try and save the very men who were sent to kill him.
+
+[ 37] (01:11:00.0 -> 01:11:24.0)  <normal>
+      Peter smuggles the villains to a safe hideout - the apartment of his friend Happy Hogan. He turns the place into a makeshift lab. Using Stark technology, he races to build a personal cure for each of them, one by one. It's a wildly dangerous plan, and he's betting everything on the idea that these monsters can be saved.
+
+[ 38] (01:15:40.0 -> 01:16:04.0)  <emotion>
+      And the first cure works. It turns out a chip on Doctor Octopus's neck had been controlling him for years. Peter repairs it, and the tentacles fall still. The real man underneath - Otto, calm and decent and himself again - finally comes back. He's grateful, almost gentle. It's living proof that Peter was right.
+
+[ 39] (01:17:06.0 -> 01:17:30.0)  <tense>
+      Norman Osborn is next in line. He's still the gentle, frightened man who begged for help at the shelter. He steps forward willingly, ready to finally be rid of the voice in his head. For the first time, he looks hopeful. He just wants to be himself again.
+
+[ 40] (01:19:45.0 -> 01:20:09.0)  <reveal>
+      Then, in a single instant, everything changes. The gentle man's face twists. His voice drops into a cruel, gleeful snarl. Norman is gone - and something monstrous is looking out through his eyes. This is the Green Goblin. And he has no intention of being cured.
+
+[ 41] (01:21:10.0 -> 01:21:34.0)  <tense>
+      The Goblin is pure chaos. He turns the other villains against Peter, and unleashes them. He tears the apartment apart with brutal glee, laughing as he goes. In a single heartbeat, Peter's rescue mission collapses into a nightmare. He's outnumbered, and losing.
+
+[411] (01:22:28.0 -> 01:22:42.0)  <tense>
+      The Goblin comes at Peter himself, savage and fast, driving him back and hurling him through the glass. Peter's fighting three enemies at once and losing ground.
+
+[412] (01:23:40.0 -> 01:24:00.0)  <tense>
+      The whole floor caves in. The villains scatter into the night, and Peter drags himself up out of the wreckage, alone.
+
+[ 42] (01:25:40.0 -> 01:26:04.0)  <emotion>
+      When the dust settles, Peter digs through the rubble and finds May. He pulls her free, relieved. At first she seems okay. They're both shaken, both smiling, telling each other they're alright. And then he sees the wound. May is hurt - badly.
+
+[ 43] (01:26:10.0 -> 01:26:34.0)  <emotion>
+      He holds her, promising it'll be okay, that help is coming. She looks up at him, calm, and tells him he did the right thing. Then she speaks the words she needs him to hear. With great power, there must also come great responsibility.
+
+[ 44] (01:27:00.0 -> 01:27:20.0)  <emotion>
+      And then she's gone. She slips away right there in his arms, in the ruins of the apartment. Peter can't believe it. He begs her to wake up, to just talk to him. But May is dead. She raised him, she was the last of his family - and the men he tried to save did this.
+
+[ 45] (01:29:20.0 -> 01:29:40.0)  <emotion>
+      
+
+[ 46] (01:31:30.0 -> 01:31:54.0)  <tense>
+      Hollowed out by grief, Peter is ready to give up. He decides he'll just send the villains home to die after all. Meanwhile MJ and Ned are desperate to reach him. And then Ned discovers something wild - using Strange's sling ring, he can open glowing portals of his own. So the two of them start searching for their friend.
+
+[ 47] (01:32:25.0 -> 01:32:49.0)  <reveal>
+      Ned opens a portal to find Peter - and someone else steps through instead. It's a Spider-Man. But not their Peter. This one is leaner, a little older, in a completely different suit. He's just as confused as they are. Then he pulls off his mask, and stuns them all - he's Peter Parker too, from another universe entirely. We'll call him Peter-Three.
+
+[ 48] (01:33:20.0 -> 01:33:44.0)  <normal>
+      MJ and Ned aren't sure whether to trust him. So Peter-Three proves it the only way he can - crawling straight up the wall and sticking to the ceiling. He's wary, quick with a joke, and clearly the real thing. Just a version of Peter from a different world entirely.
+
+[ 49] (01:35:15.0 -> 01:35:39.0)  <reveal>
+      Then Ned opens one more portal, and a second stranger steps out. This one is older still, warm and gentle, with tired eyes that have seen a lot. And yes - he's another Peter Parker, from yet another universe. We'll call him Peter-Two. Somehow, there are now three of them.
+
+[ 50] (01:37:00.0 -> 01:37:24.0)  <emotion>
+      Together, the two visitors help track down our Peter - Peter-One - still shattered by May's death. And there they stand. Three versions of the same hero, from three different worlds, in one room. Two of them have lived through exactly the kind of loss Peter-One is drowning in right now.
+
+[ 51] (01:39:44.0 -> 01:40:08.0)  <emotion>
+      Peter-Three opens up to try and lift him. In his world, he once lost the love of his life - a girl named Gwen. She fell, and he couldn't catch her in time. That failure nearly hollowed him out and turned him bitter and angry. So he understands Peter-One's pain completely. And he begs him not to lose himself the way he almost did.
+
+[ 52] (01:46:00.0 -> 01:46:24.0)  <normal>
+      Slowly, the three of them become something like brothers. They trade war stories and compare their powers, marveling at each other's quirks. And they get to work. Together, the three Peters start building a cure for every single villain, turning grief into a plan.
+
+[ 53] (01:48:07.0 -> 01:48:31.0)  <tense>
+      Peter-One sets the trap himself. Over a public broadcast, he challenges the villains to meet him at the Statue of Liberty. It's a place, he says, that stands for second chances. It's bait they can't resist. And it's where the three Peters plan to cure them all, once and for all.
+
+[ 54] (01:48:36.0 -> 01:49:00.0)  <tense>
+      The villains close in and the Peters take position across the monument. Peter-Three swings up high on the scaffolding, ready. The fight for everyone's second chance begins.
+
+[ 55] (01:56:00.0 -> 01:56:20.0)  <tense>
+      At first it's pure chaos. Three heroes who've never worked together keep getting in each other's way, tripping over their own plan. Then Peter-One takes charge and rallies them. One target at a time, moving as a team. Finally, the three Spider-Men start to click.
+
+[551] (01:57:00.0 -> 01:57:24.0)  <tense>
+      Working together at last, the three Peters split the targets - each taking on a villain he understands.
+
+[ 56] (02:00:18.0 -> 02:00:55.0)  <tense>
+      The deadliest villain is Electro, supercharged by a stolen power source and hurling lightning across the harbor - too strong to touch. So the three Peters hit him at once and tear the reactor off his chest. The power dies, and Electro drops.
+
+[561] (02:00:56.0 -> 02:01:15.0)  <tense>
+      And one by one the others turn back too - the Lizard becomes Dr. Connors, a man again.
+
+[ 57] (02:01:18.0 -> 02:01:42.0)  <tense>
+      Ned's portal finally brings Doctor Strange back into the fight. He arrives ready to attack - until the Peters stop him, showing him their plan is already working. The villains are being cured, not killed.
+
+[ 58] (02:04:15.0 -> 02:04:31.0)  <tense>
+      The Goblin lashes out at Peter's weak spot, sending MJ tumbling off the crumbling structure. She plunges toward the dark water far below, and Peter-One is too far to reach her.
+
+[ 59] (02:04:31.0 -> 02:04:44.0)  <tense>
+      But Peter-Three is already diving. He shoots a web and snatches MJ clean out of the air - the catch he could never make before.
+
+[592] (02:04:44.0 -> 02:04:58.0)  <emotion>
+      Years ago, in his world, a girl named Gwen fell and he was a fraction too slow. That failure hollowed him out. Now, holding MJ safe, you can see decades of guilt lift off his shoulders.
+
+[ 60] (02:08:50.0 -> 02:09:48.0)  <emotion>
+      Blind with grief, Peter-One nearly kills the Goblin with his bare hands. The other two pull him back from the edge - and together they force the cure into him. The monster's snarl fades, and Norman Osborn comes back to himself, staring at the destruction, barely able to understand what his other half has done.
+
+[ 61] (02:10:30.0 -> 02:10:54.0)  <emotion>
+      But the danger isn't over. The sky is still torn open, and strangers keep pouring through. They're all here for one reason - they all know the name Peter Parker. And our Peter-One realizes there's only one way to close the door for good. He turns to Strange with an impossible request. Make the whole world forget that Peter Parker ever existed.
+
+[ 62] (02:13:20.0 -> 02:13:44.0)  <emotion>
+      It means everyone he loves will forget him. So Peter goes to say goodbye to MJ while she still knows who he is. He can barely get the words out. He makes her a promise: he'll come and find her, and remind her of everything. She's crying, telling him she'll figure it out even if he doesn't. He swears to her he'll make it right.
+
+[ 63] (02:14:40.0 -> 02:15:04.0)  <emotion>
+      One last embrace, and Peter gives Strange the signal. The sorcerer casts the spell. All across the world, in a single quiet moment, every mind lets go of Peter Parker. The visitors slip back to their own universes. And everyone who ever loved him - MJ, Ned, all of them - simply forgets he was ever there.
+
+[ 64] (02:17:40.0 -> 02:18:04.0)  <emotion>
+      Two weeks later, Peter keeps his promise and comes to find MJ. He stands at the counter, rehearsing the words, ready to make her remember everything.
+
+[641] (02:18:20.0 -> 02:18:44.0)  <emotion>
+      
+
+[642] (02:19:00.0 -> 02:19:24.0)  <emotion>
+      He watches her - happy, safe, a whole clean future ahead of her. Then he orders a coffee, says nothing, and lets her keep it.
+
+[ 65] (02:21:00.0 -> 02:21:24.0)  <emotion>
+      Later, Peter visits May's grave in the falling snow. Happy is there too - though he no longer remembers Peter at all. They talk like gentle strangers, Happy sharing how much May meant to him. Peter says nothing about who he is. But the quiet kindness of the moment steadies him, and gives him the strength to carry on.
+
+[ 66] (02:23:25.0 -> 02:24:10.0)  <emotion>
+      Back in a tiny apartment, Peter sews himself a simple new suit by hand. No high-tech gadgets, no famous name, no one left who knows his face. Then he swings back out over the city to keep doing the job. He's truly alone now. Just a kid who chose to carry all of this himself, so that everyone he loved could be safe and free. A friendly neighborhood Spider-Man, at last.
+
+[ 67] (02:27:40.0 -> 02:28:04.0)  <reveal>
+      Oh, and one more thing. In a sunny bar far away, another visitor the spell had briefly pulled in is getting caught up on this universe's heroes. Then he gets whisked back home too. But he leaves behind a tiny, living piece of something - a strange black goo, sitting on the bar. What is it? Well, that's a story for another day.

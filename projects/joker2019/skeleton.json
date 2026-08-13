@@ -1,0 +1,304 @@
+{
+  "_comment": "Stage 3 skeleton for Joker (2019) recap - REBUILT v2 (2026-06-18) to match frame-verified shots.json v2. Medium Register B. Units source-time chronological from U02 onward; only U01 (hook) has narrative_jump=true. must_cover references catalogued beats 1-37 (v2 numbering). SC REORDER (v2): Penny smother (beat 25, 01:21) precedes the Joker transformation+stairway dance (beat 26, 01:24-01:31) in source - so U13 = Penny smother, U14 = Becoming Joker (was reversed in v1). NEW U15 = detective subway chase (beat 27, 01:33), standalone STANDARD lean unit; old U15-U19 + U_outro renumbered to U16-U20 + U_outro. UNRELIABLE NARRATOR (alpha): U01-U09 narrate Sophie (beats 9/15) as REAL; U10 contains the explicit beat-21 Sophie-imagined reveal; U11-U20 acknowledge Arthur's unreliable perception; U19 preserves the Arkham ambiguity. S9 SILENCE units: U08 (beat 13 bathroom dance ~22s), U14 tail (beat 26 stairway dance ~22s), U18 (beat 35 Joker on car ~13s) bind silence shots that carry NO narration line (C1 exception). G4 restraint at climaxes. C3: U19 and U_outro bind different beat-36/37 shots.",
+  "project": "joker2019",
+  "film_title": "Joker (2019)",
+  "predicted_runtime_min": 8,
+  "target_total_words": 1431,
+  "units": [
+    {
+      "id": "U01",
+      "label": "Hook - the man who became the Joker",
+      "tier": "DEEP",
+      "tier_label": "CRITICAL",
+      "target_words": 62,
+      "why": "Viral cold-open: Arthur's descent (alley beating beat 3 + bus laughing-fit beat 5 + subway-shooting beat 12 over branding) without spoiling the Sophie/reality twist. Question hook + Serabudabu branding + title. All hook lines narrative_jump=true.",
+      "must_cover": [
+        "3",
+        "5",
+        "12"
+      ],
+      "narrative_jump": true,
+      "tolerance": 0.3
+    },
+    {
+      "id": "U02",
+      "label": "Gotham, and a clown named Arthur",
+      "tier": "STANDARD",
+      "tier_label": "STANDARD",
+      "target_words": 113,
+      "why": "World intro (decaying Gotham) + Arthur intro (forced smile, beaten). 2-3 interpretive lines on his invisibility/recognition need.",
+      "must_cover": [
+        "1",
+        "2",
+        "3"
+      ],
+      "narrative_jump": false,
+      "tolerance": 0.3
+    },
+    {
+      "id": "U03",
+      "label": "A medicated life",
+      "tier": "STANDARD",
+      "tier_label": "STANDARD",
+      "target_words": 207,
+      "why": "Social worker + Penny intro. Penny interpretive: she shaped his 'put on a happy face' mask.",
+      "must_cover": [
+        "4",
+        "5",
+        "6"
+      ],
+      "narrative_jump": false,
+      "tolerance": 0.3
+    },
+    {
+      "id": "U04",
+      "label": "The dream of being seen",
+      "tier": "STANDARD",
+      "tier_label": "STANDARD",
+      "target_words": 96,
+      "why": "Murray idol + the daydream of being called on stage. Theme seed: Arthur's hunger for recognition/validation. Daydream (beat 7) tagged real (unreliable).",
+      "must_cover": [
+        "6",
+        "7"
+      ],
+      "narrative_jump": false,
+      "tolerance": 0.3
+    },
+    {
+      "id": "U05",
+      "label": "A gun and a girl",
+      "tier": "STANDARD",
+      "tier_label": "STANDARD",
+      "target_words": 125,
+      "why": "Randall's gun + Sophie intro. Sophie narrated as REAL (pre-twist).",
+      "must_cover": [
+        "8",
+        "9"
+      ],
+      "narrative_jump": false,
+      "tolerance": 0.3
+    },
+    {
+      "id": "U06",
+      "label": "Everything falls apart",
+      "tier": "STANDARD",
+      "tier_label": "STANDARD",
+      "target_words": 58,
+      "why": "Hospital gun-drop -> fired -> bus laughing fit (beat 5, source-earlier but covered here for arc) -> the subway harassment that lights the fuse.",
+      "must_cover": [
+        "10",
+        "11"
+      ],
+      "narrative_jump": false,
+      "tolerance": 0.3
+    },
+    {
+      "id": "U07",
+      "label": "The subway",
+      "tier": "DEEP",
+      "tier_label": "CRITICAL",
+      "target_words": 68,
+      "why": "S6 subway shooting - the first kills, the turning point. Beat 11 (laughter erupts, men close in) leads into beat 12 (the kills). G4 restraint; S7/S8 censor at render.",
+      "must_cover": [
+        "11",
+        "12"
+      ],
+      "narrative_jump": false,
+      "tolerance": 0.3
+    },
+    {
+      "id": "U08",
+      "label": "Something awakens",
+      "tier": "DEEP",
+      "tier_label": "CRITICAL",
+      "target_words": 1,
+      "why": "S9 SILENCE: bathroom dance (beat 13, ~22s, no narration line - C1 exception). Lead-in framing lives in U07 tail.",
+      "must_cover": [
+        "13"
+      ],
+      "narrative_jump": false,
+      "tolerance": 1.0
+    },
+    {
+      "id": "U09",
+      "label": "A city in clown masks",
+      "tier": "STANDARD",
+      "tier_label": "STANDARD",
+      "target_words": 96,
+      "why": "City reacts to the killings; Sophie date (REAL pre-twist); failed open-mic; Murray mocks him on TV. Sophie still narrated as real.",
+      "must_cover": [
+        "14",
+        "15",
+        "16",
+        "17"
+      ],
+      "narrative_jump": false,
+      "tolerance": 0.3
+    },
+    {
+      "id": "U10",
+      "label": "Who is Arthur Fleck",
+      "tier": "DEEP",
+      "tier_label": "CRITICAL",
+      "target_words": 187,
+      "why": "Penny's Wayne claim -> manor gate -> Wayne denies + adoption -> [REVEAL] Sophie was imagined. EXPLICIT pivot. Heaviest unit.",
+      "must_cover": [
+        "18",
+        "19",
+        "20",
+        "21",
+        "22"
+      ],
+      "narrative_jump": false,
+      "tolerance": 0.3
+    },
+    {
+      "id": "U11",
+      "label": "The truth in the file",
+      "tier": "DEEP",
+      "tier_label": "STANDARD",
+      "target_words": 107,
+      "why": "Arkham records: adopted + abused. The last thread of his identity unravels. Post-reveal: narration acknowledges Arthur's perception is unreliable.",
+      "must_cover": [
+        "23"
+      ],
+      "narrative_jump": false,
+      "tolerance": 0.3
+    },
+    {
+      "id": "U12",
+      "label": "No more tragedy",
+      "tier": "DEEP",
+      "tier_label": "CRITICAL",
+      "target_words": 75,
+      "why": "S6 Randall murder; Gary spared. The first killing he chooses cold. G4 restraint; S7/S8 censor at render.",
+      "must_cover": [
+        "24"
+      ],
+      "narrative_jump": false,
+      "tolerance": 0.3
+    },
+    {
+      "id": "U13",
+      "label": "He erases his past",
+      "tier": "DEEP",
+      "tier_label": "CRITICAL",
+      "target_words": 44,
+      "why": "S6 Penny smother (beat 25, S8 strong region). He smothers his hospitalized mother - the last tie to who he was. SOURCE-ORDER: this precedes the transformation (v2 reorder, was U14). G4 restraint.",
+      "must_cover": [
+        "25"
+      ],
+      "narrative_jump": false,
+      "tolerance": 0.3
+    },
+    {
+      "id": "U14",
+      "label": "Becoming Joker",
+      "tier": "STANDARD",
+      "tier_label": "STANDARD",
+      "target_words": 51,
+      "why": "The transformation (makeup) + beat-26 S9 SILENCE stairway dance (~22s, no narration line). Brief framing line before the silence. SOURCE-ORDER: follows Penny smother (v2 reorder, was U13).",
+      "must_cover": [
+        "26"
+      ],
+      "narrative_jump": false,
+      "tolerance": 0.3
+    },
+    {
+      "id": "U15",
+      "label": "The net closes",
+      "tier": "STANDARD",
+      "tier_label": "STANDARD",
+      "target_words": 35,
+      "why": "NEW standalone unit (v2): two detectives corner the Joker in a subway packed with clown-masked rioters; he slips away in the chaos. Lean transitional beat (40-60w), G4 restrained, action carries the weight.",
+      "must_cover": [
+        "27"
+      ],
+      "narrative_jump": false,
+      "tolerance": 0.3
+    },
+    {
+      "id": "U16",
+      "label": "Live with Murray Franklin",
+      "tier": "DEEP",
+      "tier_label": "STANDARD",
+      "target_words": 139,
+      "why": "Backstage -> entrance -> confession to the subway killings -> the rant. The idol becomes the stage for his reckoning. Theme: society that made him. (was U15)",
+      "must_cover": [
+        "28",
+        "29",
+        "30",
+        "31"
+      ],
+      "narrative_jump": false,
+      "tolerance": 0.3
+    },
+    {
+      "id": "U17",
+      "label": "What you deserve",
+      "tier": "DEEP",
+      "tier_label": "CRITICAL",
+      "target_words": 43,
+      "why": "S6 Murray shooting on live TV. G4 - quiet, let it land. S7/S8 censor at render. (was U16)",
+      "must_cover": [
+        "32"
+      ],
+      "narrative_jump": false,
+      "tolerance": 0.3
+    },
+    {
+      "id": "U18",
+      "label": "Gotham burns",
+      "tier": "STANDARD",
+      "tier_label": "CRITICAL",
+      "target_words": 105,
+      "why": "Riot atmosphere + the Wayne murders (Batman origin) - the chaos he sparked births a new myth. Retention/theme on society. (was U17)",
+      "must_cover": [
+        "33",
+        "34"
+      ],
+      "narrative_jump": false,
+      "tolerance": 0.3
+    },
+    {
+      "id": "U19",
+      "label": "The myth is born",
+      "tier": "DEEP",
+      "tier_label": "CRITICAL",
+      "target_words": 26,
+      "why": "Beat-35 S9 SILENCE: Joker rises on the police car (~13s, no narration line). One framing line; let the crowd's roar carry it. G4. (was U18)",
+      "must_cover": [
+        "35"
+      ],
+      "narrative_jump": false,
+      "tolerance": 0.3
+    },
+    {
+      "id": "U20",
+      "label": "You wouldn't get it",
+      "tier": "DEEP",
+      "tier_label": "CRITICAL",
+      "target_words": 86,
+      "why": "Arkham ending. Preserve the film's intentional ambiguity (how much was real) - do NOT over-explain. Reality-vs-perception theme closes here. (was U19)",
+      "must_cover": [
+        "36",
+        "37"
+      ],
+      "narrative_jump": false,
+      "tolerance": 0.3
+    },
+    {
+      "id": "U_outro",
+      "label": "Closing thoughts",
+      "tier": "STANDARD",
+      "tier_label": "STANDARD",
+      "target_words": 56,
+      "why": "Thematic closure (society creates its monsters; recognition denied) + thanks + subscribe. Bound to the closing corridor shot (beat 37), different from U20's beat-36 shot (C3).",
+      "must_cover": [
+        "37"
+      ],
+      "narrative_jump": false,
+      "tolerance": 0.3
+    }
+  ]
+}

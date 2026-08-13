@@ -1,0 +1,321 @@
+TITLE: A Team Drove 498 People Down the Highway of Death
+Lines: 106   Words: 1868   Est. narration: 10.1 min   Target: 10 min
+============================================================
+
+[  1] (pool B14)  <hook>
+      There's a road in the middle of a war zone they call the Highway of Death. And one team is about to drive five hundred people straight down it.
+
+[  2] (pool B6)  <tense>
+      Mercenaries on one side. A sandstorm on the other. And nothing but open desert in between.
+
+[  3] (pool B10)  <tense>
+      By the end, there are car chases, cliff falls, and a body count you have to see to believe.
+
+[  4] (pool B1)  <intro>
+      This is Serabudabu. Today I'm breaking down this desert action thriller — and it does not let up for a second.
+
+[  5] (00:00:38.0 -> 00:00:42.0)  <intro>
+      And before we start — yeah, that's Jackie Chan leading this team. The legend himself, still throwing punches and stealing every scene.
+
+[  6] (00:02:48.0 -> 00:02:55.0)  <intro>
+      And right beside him? John Cena. So you already know the action is going to be huge.
+
+[  7] (pool B2)  <normal>
+      Here's the setup. There's an oil war raging in the Middle East, and a Chinese-run refinery called U-Time is caught right in the middle of it.
+
+[  8] (pool B2)  <tense>
+      A local warlord wants the refinery for himself, and he's been bombing it for weeks to force everyone out.
+
+[  9] (pool B3)  <tense>
+      Helicopters circle overhead. Gunfire echoes off the storage tanks. This is a refinery that's become a battlefield.
+
+[ 10] (00:01:15.0 -> 00:01:22.0)  <tense>
+      Trapped inside are four hundred and ninety-eight refinery workers — men, women, and children — and the warlord's planes hit them every few days.
+
+[ 11] (00:01:43.0 -> 00:01:50.0)  <tense>
+      The refinery's director, Professor Chang, knows they can't hold much longer. They have to evacuate everyone, now, or they all die here.
+
+[ 12] (00:01:18.0 -> 00:01:25.0)  <normal>
+      So Chang hires a private security team out of China for the job nobody else will take. Get all four hundred and ninety-eight people out alive.
+
+[ 13] (00:01:40.0 -> 00:01:46.0)  <normal>
+      Leading that team is Chris — a battle-worn veteran played by Jackie Chan, who's seen far too much of this kind of war.
+
+[ 14] (00:02:56.0 -> 00:03:03.0)  <normal>
+      And his crew? A pack of wisecracking hired guns who never, ever stop talking.
+
+[ 15] (00:03:08.0 -> 00:03:15.0)  <normal>
+      They hand out nicknames like it's a sport. Bald eagle. Tomb raider. Graffiti.
+
+[ 16] (00:03:30.0 -> 00:03:37.0)  <normal>
+      It's how they keep the fear down. Crack a joke, load the gun, don't think about the odds.
+
+[ 88] (00:02:45.0 -> 00:02:52.0)  <sad>
+      Each of them is running from something. A debt, a past, a name they're trying to outlive.
+
+[ 89] (00:01:10.0 -> 00:01:17.0)  <normal>
+      But put them in a firefight together, and they move like one machine. That's why this job even has a chance.
+
+[ 17] (00:05:46.0 -> 00:05:53.0)  <sad>
+      But under the jokes, this place is dying. The dam upstream got cut off. The water's gone.
+
+[ 18] (00:06:23.0 -> 00:06:30.0)  <normal>
+      The pumps are rusted dry. And clean water out here now costs a hundred thousand dollars.
+
+[ 19] (00:06:30.0 -> 00:06:37.0)  <normal>
+      Money this place simply does not have. There's only one thing more expensive than oil — and that's water.
+
+[ 20] (00:03:45.0 -> 00:03:51.0)  <mystery>
+      Then a second, secret job lands on the table from a teammate. One more mission, for five times the money.
+
+[ 21] (00:04:08.0 -> 00:04:15.0)  <tense>
+      A wanted international criminal — a woman worth a fortune — is being smuggled across the same desert by the warlord's men.
+
+[ 22] (00:04:19.0 -> 00:04:27.0)  <tense>
+      If Chris's team can grab her, they're set for life. But it means crossing the deadliest road in the country — the Highway of Death.
+
+[ 23] (00:04:35.0 -> 00:04:42.0)  <sad>
+      It's reckless. It's almost suicide. But as one of them says — Dad would have done it.
+
+[ 24] (00:04:46.0 -> 00:04:53.0)  <sad>
+      And that one line says everything about him. He's chasing a ghost — a father who never came home.
+
+[ 25] (00:07:14.0 -> 00:07:21.0)  <normal>
+      So they take both jobs. Save the workers, grab the prisoner, survive the same road twice.
+
+[ 79] (00:01:47.0 -> 00:01:54.0)  <tense>
+      And the clock is brutal. The enemy sends a strike every few days, and the next one could be the one that ends everyone.
+
+[ 80] (00:01:55.0 -> 00:02:02.0)  <sad>
+      The professor running the refinery begs them to hurry. Four hundred ninety-eight lives are now in this team's hands.
+
+[ 81] (00:07:36.0 -> 00:07:43.0)  <normal>
+      They map the only route fast enough to matter. Every other road is blocked, mined, or crawling with hostiles.
+
+[ 26] (pool B13)  <normal>
+      First, the evacuation. They load the workers, lock the convoy, and roll out toward the Green Zone.
+
+[ 27] (00:07:28.0 -> 00:07:35.0)  <tense>
+      Eight hours, non-stop, through hostile territory. No backup. No air support. No second chances.
+
+[120] (00:08:55.0 -> 00:09:03.0)  <tense>
+      The plan is simple on paper. Move fast, stay together, and never, ever stop in the open. Out here, a stopped vehicle is a dead one.
+
+[121] (00:09:33.0 -> 00:09:41.0)  <mystery>
+      But nothing about this road is simple. Checkpoints, snipers, and rival factions who'd sell their own mothers for a tank of fuel.
+
+[ 28] (00:15:05.0 -> 00:15:13.0)  <sad>
+      On the lead bus, Chris looks after Mei, a young refinery worker who's lost almost everyone she had to this war.
+
+[ 29] (00:15:30.0 -> 00:15:38.0)  <sad>
+      She's terrified. He's calm. Two strangers who only have each other now.
+
+[ 30] (00:16:15.0 -> 00:16:23.0)  <mystery>
+      Behind them, a whole busload of families holds its breath. Every mile could be their last.
+
+[ 90] (00:15:45.0 -> 00:15:52.0)  <sad>
+      Kids press their faces to the glass. Parents whisper that everything's going to be okay, even when they don't believe it.
+
+[ 91] (00:16:30.0 -> 00:16:37.0)  <tense>
+      The radio crackles with warnings. Hostiles on the primary route. The team pushes on anyway. There's no other way through.
+
+[ 31] (pool B14)  <tense>
+      Then the desert itself turns on them. A wall of sand swallows the road whole.
+
+[ 32] (00:17:00.0 -> 00:17:08.0)  <tense>
+      Visibility drops to nothing. The convoy crawls blind through the storm, holding the line by inches.
+
+[ 33] (00:17:05.0 -> 00:17:12.0)  <tense>
+      Jackie Chan white-knuckles the wheel of a forty-foot bus he can barely see past the hood.
+
+[ 34] (pool B5)  <mystery>
+      And somewhere out in that sand, the enemy is already waiting.
+
+[ 35] (00:32:10.0 -> 00:32:17.0)  <normal>
+      They reach a ruined desert outpost — ancient stone arches, half-buried in sand.
+
+[ 36] (00:31:20.0 -> 00:31:27.0)  <tense>
+      And walk straight into a tense standoff with the men who control the road.
+
+[ 37] (00:30:05.0 -> 00:30:12.0)  <mystery>
+      Out here, every deal comes with a knife behind it. Trust is a currency nobody can afford.
+
+[ 38] (00:32:00.0 -> 00:32:07.0)  <mystery>
+      They talk their way through it. Barely. But Chris can feel the trap closing.
+
+[ 92] (00:30:45.0 -> 00:30:52.0)  <tense>
+      These men want money, water, leverage — and they don't care how many buses full of families they have to bury to get it.
+
+[ 93] (00:32:30.0 -> 00:32:37.0)  <mystery>
+      The team buys a little time, refuels, and keeps the convoy rolling. But the desert has a way of collecting debts.
+
+[ 39] (01:00:00.0 -> 01:00:05.0)  <mystery>
+      Then night falls. And the quiet breaks.
+
+[ 40] (pool B15)  <tense>
+      An ambush rips through the village. Fists, blades, and bodies in the dark.
+
+[ 41] (01:00:35.0 -> 01:00:43.0)  <tense>
+      This is where the legend earns it. Close-quarters, hand-to-hand, taking down armed men twice his size.
+
+[ 42] (pool B16)  <tense>
+      And then the whole place goes up in fire.
+
+[ 43] (pool B17)  <tense>
+      Muzzle flashes light the alleys. The team fights room to room to keep the workers alive.
+
+[ 82] (01:01:55.0 -> 01:02:02.0)  <tense>
+      In the chaos, Mei proves she's tougher than anyone gave her credit for, grabbing a weapon and standing her ground.
+
+[ 83] (01:02:30.0 -> 01:02:37.0)  <sad>
+      The team takes losses. Real ones. Out here, every win costs somebody.
+
+[122] (00:03:18.0 -> 00:03:26.0)  <normal>
+      Between the gunfights, there are quieter moments. A shared cigarette. A bad joke. A promise to grab a beer if they live through this.
+
+[123] (00:02:30.0 -> 00:02:38.0)  <normal>
+      It's those little beats that make you care when the bullets start flying again. This crew feels like a real, dysfunctional family.
+
+[ 44] (01:02:15.0 -> 01:02:22.0)  <mystery>
+      They survive the night. Barely. But the worst part of the road is still ahead.
+
+[ 45] (00:30:35.0 -> 00:30:42.0)  <tense>
+      Because the warlord doesn't care about the workers. He wants his prisoner back — the criminal Chris's team just stole from him.
+
+[ 46] (pool B16)  <tense>
+      And they will burn the entire convoy to the ground to get her back.
+
+[ 47] (00:31:00.0 -> 00:31:07.0)  <mystery>
+      Now Chris has an impossible choice. The hundreds of innocent workers, or the one prisoner who started all of this.
+
+[ 48] (00:31:38.0 -> 00:31:45.0)  <tense>
+      He can't protect both. Not on this road. Not against this many guns.
+
+[ 49] (01:15:18.0 -> 01:15:25.0)  <normal>
+      So the team splits. A decoy run to pull the enemy off the buses.
+
+[ 50] (01:15:01.0 -> 01:15:08.0)  <sad>
+      One last gut check before the engines roar. They all know most of them aren't coming back.
+
+[ 94] (01:15:20.0 -> 01:15:27.0)  <sad>
+      Chris looks at Mei one more time. A silent promise. Whatever happens, he gets her out.
+
+[ 95] (01:16:35.0 -> 01:16:42.0)  <tense>
+      Then he floors it. And the desert turns into a war on wheels.
+
+[ 51] (pool B6)  <tense>
+      And then the chase begins.
+
+[ 52] (pool B5)  <tense>
+      Engines redline. Gun trucks swarm in from every angle. This is where the movie stops talking and just goes.
+
+[ 53] (pool B6)  <tense>
+      Trucks tear across the open desert, throwing rooster tails of dust, dodging fire from every side.
+
+[124] (01:23:30.0 -> 01:23:38.0)  <tense>
+      This is the centerpiece of the whole movie, and it absolutely delivers. Practical stunts, real vehicles, real dust, real danger.
+
+[ 54] (pool B7)  <tense>
+      One of them launches clean off a ridge — airborne, weightless, for one impossible second.
+
+[ 55] (01:21:45.0 -> 01:21:52.0)  <tense>
+      Inside the cab, Mei grips the wheel for the first time in her life.
+
+[ 56] (01:17:08.0 -> 01:17:15.0)  <tense>
+      Jackie's in the passenger seat screaming directions, half coaching her, half praying.
+
+[ 57] (01:22:58.0 -> 01:23:05.0)  <tense>
+      He rams the enemy truck head-on, trading paint at a hundred miles an hour, neither driver lifting off the gas.
+
+[ 58] (pool B8)  <tense>
+      Vehicles slam and roll across the sand. Metal folds. Glass shatters. Nobody slows down.
+
+[ 59] (pool B9)  <tense>
+      A car flips end over end and lands in a cloud of dust. Somehow, they crawl out of it.
+
+[ 84] (01:18:00.0 -> 01:18:07.0)  <tense>
+      Bullets chew through the doors. Tires blow out. She's driving on pure adrenaline now, and she will not stop.
+
+[ 85] (01:21:48.0 -> 01:21:55.0)  <tense>
+      Jackie does what Jackie does — turning a moving wreck into a weapon, using everything around him to fight back.
+
+[ 60] (01:27:22.0 -> 01:27:29.0)  <tense>
+      And then it gets personal. The warlord's right-hand man corners Chris — you killed my brother, he snarls. Now it's blood, not money.
+
+[ 61] (01:24:38.0 -> 01:24:45.0)  <mystery>
+      Revenge has been driving this man the whole time. Now he's got them cornered, with nothing left to lose.
+
+[ 96] (01:23:10.0 -> 01:23:17.0)  <tense>
+      The two trucks duel across the dunes, slamming together again and again, neither one willing to be the first to brake.
+
+[ 97] (01:24:05.0 -> 01:24:12.0)  <tense>
+      Gunfire stitches across the hood. The windshield spiderwebs. And still, they drive.
+
+[ 62] (01:24:58.0 -> 01:25:05.0)  <tense>
+      The final run pushes them to the edge of a canyon — full speed, with nowhere left to turn.
+
+[ 63] (pool B10)  <tense>
+      And the car goes straight off the cliff.
+
+[ 64] (pool B10)  <tense>
+      It tumbles down the rocks, tearing itself apart the whole way down.
+
+[ 65] (01:30:35.0 -> 01:30:42.0)  <sad>
+      When the dust finally clears, they're broken, bleeding — but breathing.
+
+[ 66] (pool B11)  <tense>
+      And one of them is hanging off the edge, holding on by a single hand.
+
+[ 67] (01:31:30.0 -> 01:31:37.0)  <tense>
+      Every muscle is screaming. The rock crumbles under their fingers. One slip and it's over.
+
+[ 68] (pool B12)  <sad>
+      Chris drags himself across the rocks to reach Mei. After everything, he is not letting go now.
+
+[ 69] (01:31:50.0 -> 01:31:57.0)  <sad>
+      They pull each other up the cliff, one painful grip at a time.
+
+[ 98] (01:32:00.0 -> 01:32:07.0)  <sad>
+      It's the whole movie in one image. Two people who started as strangers, now refusing to let the other one fall.
+
+[ 99] (01:32:20.0 -> 01:32:27.0)  <sad>
+      And when they finally reach solid ground, there's no big speech. Just exhausted, disbelieving relief.
+
+[ 70] (01:34:11.0 -> 01:34:18.0)  <normal>
+      And at the top, beaten half to death, the crew does the only thing this crew knows how to do.
+
+[ 71] (01:34:20.0 -> 01:34:28.0)  <normal>
+      They crack jokes. Scared of heights. Totally single. A clean bill of health.
+
+[ 72] (01:34:38.0 -> 01:34:45.0)  <normal>
+      The banter never dies, even on the edge of a cliff, even soaked in their own blood.
+
+[ 86] (01:34:28.0 -> 01:34:35.0)  <normal>
+      It's a strange thing, this movie. One second it's brutal and bloody, the next it's two guys arguing about nicknames.
+
+[ 87] (01:33:02.0 -> 01:33:09.0)  <sad>
+      But that's the charm. Under all the carnage, it's really about a found family that refuses to leave anyone behind.
+
+[ 73] (01:34:51.0 -> 01:34:58.0)  <mystery>
+      Now there's just one question left. How does a half-dead team escape a canyon in the middle of a war zone?
+
+[ 74] (01:35:01.0 -> 01:35:08.0)  <normal>
+      He says he's got an idea. And of course — it's completely insane.
+
+[125] (00:16:35.0 -> 00:16:43.0)  <tense>
+      Meanwhile, the convoy of workers grinds on toward safety, carried by the people the team left behind to protect them.
+
+[126] (00:17:15.0 -> 00:17:23.0)  <sad>
+      Every checkpoint they pass is a small miracle. Every mile closer to the Green Zone is a mile bought with blood.
+
+[ 75] (pool B13)  <normal>
+      Against every odd, the buses make it. Five hundred people who were dead on arrival, delivered to the Green Zone alive.
+
+[ 76] (01:32:40.0 -> 01:32:47.0)  <sad>
+      They came to move five hundred souls through hell. They lost blood, vehicles, and pieces of themselves doing it.
+
+[ 77] (pool B1)  <normal>
+      But on the Highway of Death, just walking away alive is its own kind of victory.
+
+[ 78] (pool B7)  <outro>
+      That's the ride. If it got your heart going, smash that like, subscribe to Serabudabu, and tell me what I should recap next.

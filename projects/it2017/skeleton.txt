@@ -1,0 +1,56 @@
+STORY UNIT COVERAGE PLAN — IT (2017)  [ENSEMBLE + COVERAGE-DEPTH]
+Stage 6B. Coverage depth (LIGHT / STANDARD / DEEP), not a runtime target.
+Rule: compress by REMOVING low-value material, never by shrinking DEEP units into
+summary. A unit FAILS if the viewer knows an event happened but not WHY it mattered.
+~170 finished words/min is only a sizing aid.
+
+LEVELS: LIGHT = setup/connective (1-2 lines). STANDARD = plot development (3-5
+lines). DEEP = emotional turn / mystery reveal / character-defining moment / major
+fear sequence / breakup-reunion / climax payoff (5-10+ lines).
+
+UNIT                          LEVEL      BUDGET   WHY
+1  Hook (clown + fear rule)   STANDARD   ~55w     scroll-stopper
+2  Serabudabu intro           LIGHT      ~28w     channel beat
+3  Georgie's death            DEEP       ~120w    defining horror; the monster's evil
+4  Derry's curse              STANDARD   ~50w     mystery engine
+5  Bill's grief / mission     STANDARD   ~45w     the spine
+6  LOSERS INTRODUCTIONS       DEEP       ~330w    7 core characters; each = own beat+wound
+7  Fear rule                  STANDARD   ~50w     the mechanic
+8  INDIVIDUAL FEAR SEQUENCES  DEEP       ~290w    signature unit; ALL 7 fears incl Ben+Mike
+9  DERRY INVESTIGATION/27yr   DEEP*      ~170w    *PROMOTED: major mystery reveal
+10 Bowers threat              STANDARD   ~100w    parallel human danger
+11 FRIENDSHIP SUMMER          DEEP       ~170w    emotional core; why we care if they live
+12 Find the lair              STANDARD   ~60w     connective
+13 NEIBOLT (first strike)     DEEP       ~180w    set-piece + "it can be hurt" payoff
+14 GROUP BREAKUP              DEEP       ~120w    emotional low; fear divides them
+15 Bowers -> murder           STANDARD   ~45w     escalation
+16 BEVERLY KIDNAPPING         DEEP       ~130w    character-defining + reunion catalyst
+17 REUNION / DESCENT          DEEP*      ~130w    *PROMOTED: major emotional turn (cistern+Georgie)
+18 SEWER FINALE / CLIMAX      DEEP       ~310w    payoff: Georgie test, Ben kiss, courage
+19 Resolution / blood oath    STANDARD   ~65w     27-yr promise
+20 Theme + outro              STANDARD   ~95w     sign-off (TRIM from 111w)
+
+TOTAL target ~2550w -> ~13-14 min. Runtime EMERGES from coverage.
+
+=== UNDER-COVERED DEEP UNITS (where ALL expansion goes; nothing else inflated) ===
+- U8 fears: was 122w/4 fears, Ben+Mike SKIPPED -> +5 lines (~290w). Each fear DRAMATIZED.
+- U6 intros: Bill/Richie/Stan thin (~26-31w) -> +1-2 lines, add each kid's wound.
+- U9 investigation: PROMOTED -> +2 lines on how the town forgets / IT's history.
+- U11 summer: +1-2 lines on belonging + Bev/Ben/Bill tension.
+- U13 Neibolt: +1-2 lines (well, projector, doll room less crammed).
+- U14 breakup: was 52w -> +2-3 lines; SHOW why it fractures (guilt, blame, fear).
+- U16 Bev kidnap: +2 lines (father confrontation + deadlights trance).
+- U17 reunion: PROMOTED -> +1-2 lines (regroup + the cistern of bodies + Georgie).
+- U18 climax: +1-2 lines (individual acts of courage).
+
+KEPT LEAN (NOT expanded): 1,2,4,5,7,10,12,15,19. TRIM: 20 (outro).
+
+NEW-BEAT FOOTAGE (distinct windows, avoid clustering):
+- Ben research/library + headless scare: 00:27:00-00:28:25
+- Bowers carving Ben: 00:29:00-00:29:55
+- Mike farm / fire backstory: 01:30:45-01:31:25
+- Eddie broken arm (Neibolt aftermath): 01:31:30-01:32:25
+- Reunion biking to Neibolt: 01:40:40-01:41:45
+
+AUDIT: each DEEP unit must answer WHY IT MATTERED, not just THAT it happened.
+Twist protection (J) intact. Visual families <=2 (viewer memory).

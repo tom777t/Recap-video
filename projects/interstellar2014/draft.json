@@ -1,0 +1,1473 @@
+{
+  "_comment": "Interstellar (2014) recap draft. English Medium Register B. Twist-hold hook (the ghost is a mystery; the Cooper=ghost loop is revealed only at U20/B30). Earth-timeline inserts (B20/B22/B32) marked narrative_jump; the early non-linear hook/flashback arrangement also marked. Climax G4 restraint. Ending ambiguity preserved (Cooper's CHOICE to go find Brand). Motifs woven: DUST, GRAVITY, the WATCH, the CORNFIELD, LOVE-across-time. Every non-silence line bound to a frame-verified shot, capacity-aware. Silence shots (B10 hug 00:38:57, B13 wormhole 00:59:00, B19 messages 01:18:44, B29 tesseract 02:22:44, B34 reunion 02:40:30) carry no line.",
+  "project": "interstellar2014",
+  "title": "Interstellar",
+  "target_minutes": 15,
+  "lines": [
+    {
+      "id": 1,
+      "line_id": "L01",
+      "unit_id": "U01",
+      "covers": [
+        "1"
+      ],
+      "clip_start": "00:03:22.0",
+      "clip_end": "00:03:31.0",
+      "narration": "In the near future, the Earth is dying. A blight is killing the crops, dust chokes the sky, and old survivors remember it like the slow end of the world.",
+      "claim": {
+        "type": "setup",
+        "requires_visual": true
+      },
+      "narrative_jump": true
+    },
+    {
+      "id": 2,
+      "line_id": "L02",
+      "unit_id": "U01",
+      "covers": [
+        "2"
+      ],
+      "clip_start": "00:14:54.0",
+      "clip_end": "00:15:03.0",
+      "narration": "In one farmhouse, something invisible keeps knocking books off a little girl's shelf. She calls it a ghost. Her father tells her to be scientific.",
+      "claim": {
+        "type": "setup",
+        "requires_visual": true,
+        "subject": "Cooper"
+      },
+      "narrative_jump": true
+    },
+    {
+      "id": 3,
+      "line_id": "L03",
+      "unit_id": "U01",
+      "covers": [
+        "8"
+      ],
+      "clip_start": "00:29:55.0",
+      "clip_end": "00:30:04.0",
+      "narration": "That father is a former pilot named Cooper, and that ghost is about to pull him into a secret mission to save the entire human race.",
+      "claim": {
+        "type": "dialogue",
+        "requires_visual": true,
+        "subject": "Professor Brand"
+      },
+      "narrative_jump": true
+    },
+    {
+      "id": 4,
+      "line_id": "L04",
+      "unit_id": "U01",
+      "covers": [
+        "8"
+      ],
+      "clip_start": "00:44:30.0",
+      "clip_end": "00:44:39.0",
+      "narration": "But time itself is working against him. I am Serabudabu, and today we go deep inside Interstellar.",
+      "claim": {
+        "type": "action",
+        "requires_visual": true
+      },
+      "narrative_jump": true
+    },
+    {
+      "id": 5,
+      "line_id": "L05",
+      "unit_id": "U02",
+      "covers": [
+        "1"
+      ],
+      "clip_start": "00:03:40.0",
+      "clip_end": "00:03:51.7",
+      "narration": "We open on a ruined near-future Earth. A blight has wiped out most of the world's crops, and endless dust storms bury everything, so families even set the dinner plates upside down to keep them clean.",
+      "claim": {
+        "type": "setup",
+        "requires_visual": true,
+        "subject": "Donald"
+      }
+    },
+    {
+      "id": 6,
+      "line_id": "L06",
+      "unit_id": "U02",
+      "covers": [
+        "1"
+      ],
+      "clip_start": "00:04:07.0",
+      "clip_end": "00:04:16.0",
+      "narration": "Cooper was once a gifted NASA pilot. Now he is just a corn farmer, raising his son Tom and his daughter Murph with his father-in-law, still grieving the wife he lost years ago.",
+      "claim": {
+        "type": "setup",
+        "requires_visual": true,
+        "subject": "Cooper"
+      }
+    },
+    {
+      "id": 7,
+      "line_id": "L07",
+      "unit_id": "U02",
+      "covers": [
+        "1"
+      ],
+      "clip_start": "00:02:10.0",
+      "clip_end": "00:02:22.0",
+      "narration": "He still dreams of flying, jolting awake from crashes that never leave him. He was built to explore, yet he was born into a world that has quietly decided to stop reaching for the stars at all.",
+      "claim": {
+        "type": "emotion",
+        "requires_visual": true,
+        "subject": "Cooper"
+      },
+      "narrative_jump": true
+    },
+    {
+      "id": 8,
+      "line_id": "L08",
+      "unit_id": "U03",
+      "covers": [
+        "2"
+      ],
+      "clip_start": "00:15:20.0",
+      "clip_end": "00:15:29.0",
+      "narration": "Which brings us back to that ghost. In Murph's bedroom, some unseen force keeps pushing books off the shelf. Instead of dismissing it, Cooper tells her to treat it like a scientist and record it.",
+      "claim": {
+        "type": "dialogue",
+        "requires_visual": true,
+        "subject": "Cooper"
+      }
+    },
+    {
+      "id": 9,
+      "line_id": "L09",
+      "unit_id": "U03",
+      "covers": [
+        "2"
+      ],
+      "clip_start": "00:20:35.0",
+      "clip_end": "00:20:46.7",
+      "narration": "Something is reaching into that little room through gravity itself. Nobody understands it yet, but hold on to this bedroom, because in the end every single thing in this whole story leads right back to it.",
+      "claim": {
+        "type": "setup",
+        "requires_visual": true,
+        "subject": "Murph"
+      }
+    },
+    {
+      "id": 10,
+      "line_id": "L10",
+      "unit_id": "U03",
+      "covers": [
+        "2"
+      ],
+      "clip_start": "00:15:44.0",
+      "clip_end": "00:15:53.0",
+      "narration": "Night after night the strange events pile up, and Cooper starts to suspect that whatever is in that room is not haunting them, but trying to communicate.",
+      "claim": {
+        "type": "setup",
+        "requires_visual": true,
+        "subject": "Cooper"
+      },
+      "narrative_jump": true
+    },
+    {
+      "id": 11,
+      "line_id": "L11",
+      "unit_id": "U04",
+      "covers": [
+        "3"
+      ],
+      "clip_start": "00:05:20.0",
+      "clip_end": "00:05:29.0",
+      "narration": "One afternoon the family tears across the corn chasing a stray military drone. The kids are laughing, thrilled, and for a few minutes the buried pilot inside Cooper flickers back to life.",
+      "claim": {
+        "type": "reaction",
+        "requires_visual": true,
+        "subject": "Murph"
+      },
+      "narrative_jump": true
+    },
+    {
+      "id": 12,
+      "line_id": "L12",
+      "unit_id": "U04",
+      "covers": [
+        "3"
+      ],
+      "clip_start": "00:08:33.0",
+      "clip_end": "00:08:42.0",
+      "narration": "He carefully brings the old solar drone down over the reservoir, a rare taste of the open sky he used to command, in a world that now keeps its eyes fixed firmly on the dirt.",
+      "claim": {
+        "type": "setup",
+        "requires_visual": true
+      }
+    },
+    {
+      "id": 13,
+      "line_id": "L13",
+      "unit_id": "U04",
+      "covers": [
+        "4"
+      ],
+      "clip_start": "00:11:30.0",
+      "clip_end": "00:11:42.3",
+      "narration": "At Murph's school he is told the new textbooks teach that the moon landings were faked, a story invented to bankrupt the old wasteful world. The message is clear: no one is meant to dream of leaving anymore.",
+      "claim": {
+        "type": "dialogue",
+        "requires_visual": true,
+        "subject": "Cooper"
+      }
+    },
+    {
+      "id": 14,
+      "line_id": "L14",
+      "unit_id": "U04",
+      "covers": [
+        "5"
+      ],
+      "clip_start": "00:16:20.0",
+      "clip_end": "00:16:29.0",
+      "narration": "As his father-in-law puts it, their parents' generation looked up at the sky and wondered what was out there. His generation just looks down at the ground, and worries about the next harvest.",
+      "claim": {
+        "type": "dialogue",
+        "requires_visual": true,
+        "subject": "Donald"
+      }
+    },
+    {
+      "id": 15,
+      "line_id": "L15",
+      "unit_id": "U05",
+      "covers": [
+        "6"
+      ],
+      "clip_start": "00:20:50.0",
+      "clip_end": "00:20:59.0",
+      "narration": "Then the ghost does something new. In the middle of a dust storm, the dust settles across Murph's bedroom floor in strange, deliberate lines, a pattern far too precise to be any kind of accident.",
+      "claim": {
+        "type": "discovery",
+        "requires_visual": true,
+        "subject": "Cooper"
+      }
+    },
+    {
+      "id": 16,
+      "line_id": "L16",
+      "unit_id": "U05",
+      "covers": [
+        "6"
+      ],
+      "clip_start": "00:21:30.0",
+      "clip_end": "00:21:39.0",
+      "narration": "Cooper reads the pattern as binary code, and that code spells out a set of map coordinates. Something out there has used pure gravity to hand them one single, exact address on the planet.",
+      "claim": {
+        "type": "discovery",
+        "requires_visual": true,
+        "subject": "Cooper"
+      }
+    },
+    {
+      "id": 17,
+      "line_id": "L17",
+      "unit_id": "U05",
+      "covers": [
+        "6"
+      ],
+      "clip_start": "00:22:28.0",
+      "clip_end": "00:22:37.0",
+      "narration": "Unable to walk away from a mystery like that, he follows the coordinates out into the dark, dragging a reluctant Murph along with him.",
+      "claim": {
+        "type": "transition",
+        "requires_visual": true,
+        "subject": "Cooper"
+      }
+    },
+    {
+      "id": 18,
+      "line_id": "L18",
+      "unit_id": "U06",
+      "covers": [
+        "7"
+      ],
+      "clip_start": "00:24:40.0",
+      "clip_end": "00:24:49.0",
+      "narration": "The coordinates lead them to a fenced compound hidden in the middle of nowhere, and the moment they slip inside, Cooper is seized by armed security.",
+      "claim": {
+        "type": "setup",
+        "requires_visual": true,
+        "subject": "Cooper"
+      }
+    },
+    {
+      "id": 19,
+      "line_id": "L19",
+      "unit_id": "U06",
+      "covers": [
+        "7"
+      ],
+      "clip_start": "00:25:30.0",
+      "clip_end": "00:25:39.0",
+      "narration": "Inside, blunt, wisecracking robots like TARS stand guard, and Cooper quickly realizes this is no ordinary government outpost hidden out in the desert.",
+      "claim": {
+        "type": "reveal",
+        "requires_visual": true,
+        "subject": "TARS"
+      }
+    },
+    {
+      "id": 20,
+      "line_id": "L20",
+      "unit_id": "U06",
+      "covers": [
+        "7"
+      ],
+      "clip_start": "00:26:35.0",
+      "clip_end": "00:26:44.0",
+      "narration": "It turns out to be a secret, surviving branch of NASA. A scientist named Amelia Brand recognizes his past and walks him straight into the heart of the operation.",
+      "claim": {
+        "type": "reveal",
+        "requires_visual": true,
+        "subject": "Amelia Brand"
+      }
+    },
+    {
+      "id": 21,
+      "line_id": "L21",
+      "unit_id": "U06",
+      "covers": [
+        "8"
+      ],
+      "clip_start": "00:27:13.0",
+      "clip_end": "00:27:24.7",
+      "narration": "Her father, the elderly Professor Brand, lays out the grim truth. The blight will soon strip the oxygen from the air. They are no longer trying to save the world, they are trying to escape it.",
+      "claim": {
+        "type": "dialogue",
+        "requires_visual": true,
+        "subject": "Professor Brand"
+      }
+    },
+    {
+      "id": 22,
+      "line_id": "L22",
+      "unit_id": "U07",
+      "covers": [
+        "9"
+      ],
+      "clip_start": "00:31:27.0",
+      "clip_end": "00:31:36.0",
+      "narration": "Decades ago, a wormhole appeared out near Saturn, placed there by some unknown intelligence, opening a doorway to a distant galaxy and a handful of worlds that might just be able to hold human life.",
+      "claim": {
+        "type": "dialogue",
+        "requires_visual": true,
+        "subject": "Cooper"
+      }
+    },
+    {
+      "id": 23,
+      "line_id": "L23",
+      "unit_id": "U07",
+      "covers": [
+        "9"
+      ],
+      "clip_start": "00:33:44.0",
+      "clip_end": "00:33:56.0",
+      "narration": "There are two plans. Plan A is to solve an equation that would master gravity and lift everyone off Earth at once. Plan B is colder: let the living die, and restart the species from frozen embryos.",
+      "claim": {
+        "type": "dialogue",
+        "requires_visual": true,
+        "subject": "Professor Brand"
+      }
+    },
+    {
+      "id": 24,
+      "line_id": "L24",
+      "unit_id": "U07",
+      "covers": [
+        "9"
+      ],
+      "clip_start": "00:35:20.0",
+      "clip_end": "00:35:32.3",
+      "narration": "They have the ship, the wormhole, and the embryos. What they need is a pilot, and Cooper agrees to fly, not for glory, but for the only thing he truly cares about: getting back home to his kids.",
+      "claim": {
+        "type": "reaction",
+        "requires_visual": true,
+        "subject": "Cooper"
+      }
+    },
+    {
+      "id": 25,
+      "line_id": "L25",
+      "unit_id": "U08",
+      "covers": [
+        "10"
+      ],
+      "clip_start": "00:36:54.0",
+      "clip_end": "00:37:03.0",
+      "narration": "His father-in-law warns him this could be a one-way trip, but Cooper is certain: mankind was born on this planet, but it was never meant to die here.",
+      "claim": {
+        "type": "dialogue",
+        "requires_visual": true,
+        "subject": "Donald"
+      }
+    },
+    {
+      "id": 26,
+      "line_id": "L26",
+      "unit_id": "U08",
+      "covers": [
+        "10"
+      ],
+      "clip_start": "00:37:29.0",
+      "clip_end": "00:37:38.0",
+      "narration": "But saying yes means leaving Murph behind. On his last night on Earth, he steps into her room to say goodbye, carrying the watch he plans to leave with her.",
+      "claim": {
+        "type": "setup",
+        "requires_visual": true,
+        "subject": "Cooper"
+      }
+    },
+    {
+      "id": 27,
+      "line_id": "L27",
+      "unit_id": "U08",
+      "covers": [
+        "10"
+      ],
+      "clip_start": "00:41:37.0",
+      "clip_end": "00:41:49.0",
+      "narration": "He hands her a matching watch, promising that when he comes back they will compare how much time has passed. But she is devastated and furious that he is going, and refuses to even look at him.",
+      "claim": {
+        "type": "dialogue",
+        "requires_visual": true,
+        "subject": "Cooper"
+      }
+    },
+    {
+      "id": 28,
+      "line_id": "L28",
+      "unit_id": "U08",
+      "covers": [
+        "10"
+      ],
+      "clip_start": "00:42:16.0",
+      "clip_end": "00:42:25.0",
+      "narration": "So Cooper drives away in tears, the only home his children have ever known shrinking to nothing in his mirror, unsure if he will ever see either of them again.",
+      "claim": {
+        "type": "emotion",
+        "requires_visual": true,
+        "subject": "Cooper"
+      }
+    },
+    {
+      "id": 29,
+      "line_id": "L29",
+      "unit_id": "U08",
+      "covers": [
+        "11"
+      ],
+      "clip_start": "00:43:30.0",
+      "clip_end": "00:43:39.0",
+      "narration": "And then, for the first time in a lifetime, a human being straps into a rocket and rides it up and off the surface of the dying Earth.",
+      "claim": {
+        "type": "action",
+        "requires_visual": true,
+        "subject": "Cooper"
+      }
+    },
+    {
+      "id": 30,
+      "line_id": "L30",
+      "unit_id": "U09",
+      "covers": [
+        "12"
+      ],
+      "clip_start": "00:46:30.0",
+      "clip_end": "00:46:39.0",
+      "narration": "In orbit he docks with the Endurance, the ship built for the long haul, joining scientists Doyle and Romilly and two dryly hilarious robots named TARS and CASE.",
+      "claim": {
+        "type": "setup",
+        "requires_visual": true
+      }
+    },
+    {
+      "id": 31,
+      "line_id": "L31",
+      "unit_id": "U09",
+      "covers": [
+        "12"
+      ],
+      "clip_start": "00:48:00.0",
+      "clip_end": "00:48:09.0",
+      "narration": "Amelia Brand and the others settle in for the long, cold cruise, a tiny crew of strangers carrying the last real hope of an entire dying species.",
+      "claim": {
+        "type": "setup",
+        "requires_visual": true,
+        "subject": "Amelia Brand"
+      }
+    },
+    {
+      "id": 32,
+      "line_id": "L32",
+      "unit_id": "U09",
+      "covers": [
+        "12"
+      ],
+      "clip_start": "00:50:35.0",
+      "clip_end": "00:50:44.0",
+      "narration": "For two long years they coast toward Saturn, chasing the fragile hope of three distant worlds that earlier scouts once flagged as possible new homes for mankind.",
+      "claim": {
+        "type": "dialogue",
+        "requires_visual": true,
+        "subject": "Cooper"
+      }
+    },
+    {
+      "id": 33,
+      "line_id": "L33",
+      "unit_id": "U09",
+      "covers": [
+        "13"
+      ],
+      "clip_start": "00:57:12.0",
+      "clip_end": "00:57:21.0",
+      "narration": "At the wormhole, Romilly explains how the impossible thing actually works: it bends space to fold two far-apart points right up against each other, a shortcut across the entire galaxy.",
+      "claim": {
+        "type": "dialogue",
+        "requires_visual": true,
+        "subject": "Romilly"
+      }
+    },
+    {
+      "id": 34,
+      "line_id": "L34",
+      "unit_id": "U09",
+      "covers": [
+        "13"
+      ],
+      "clip_start": "01:00:20.0",
+      "clip_end": "01:00:29.0",
+      "narration": "They pass through the shimmering sphere, feel a strange ripple as another hand seems to reach back, and emerge into a completely different corner of the universe.",
+      "claim": {
+        "type": "reaction",
+        "requires_visual": true,
+        "subject": "Cooper"
+      }
+    },
+    {
+      "id": 35,
+      "line_id": "L35",
+      "unit_id": "U10",
+      "covers": [
+        "14"
+      ],
+      "clip_start": "01:03:30.0",
+      "clip_end": "01:03:39.0",
+      "narration": "Waiting for them on the far side is Gargantua, a monstrous black hole ringed with blinding light, with three candidate planets trapped in its enormous gravity.",
+      "claim": {
+        "type": "setup",
+        "requires_visual": true
+      }
+    },
+    {
+      "id": 36,
+      "line_id": "L36",
+      "unit_id": "U10",
+      "covers": [
+        "14"
+      ],
+      "clip_start": "01:02:08.0",
+      "clip_end": "01:02:17.0",
+      "narration": "They choose the closest world first. But it orbits so near the black hole that its gravity actually warps time. A single hour spent down there will cost them seven whole years back home.",
+      "claim": {
+        "type": "dialogue",
+        "requires_visual": true,
+        "subject": "Cooper"
+      },
+      "narrative_jump": true
+    },
+    {
+      "id": 37,
+      "line_id": "L37",
+      "unit_id": "U10",
+      "covers": [
+        "15"
+      ],
+      "clip_start": "01:06:25.0",
+      "clip_end": "01:06:34.0",
+      "narration": "Cooper knows that every minute on that surface is stealing years from his children's lives. But the data down there could save everyone, so they swallow the risk and begin their descent.",
+      "claim": {
+        "type": "action",
+        "requires_visual": true,
+        "subject": "Cooper"
+      }
+    },
+    {
+      "id": 38,
+      "line_id": "L38",
+      "unit_id": "U11",
+      "covers": [
+        "16"
+      ],
+      "clip_start": "01:07:10.0",
+      "clip_end": "01:07:19.0",
+      "narration": "Amelia straps in beside him as the lander drops through the thick atmosphere, every second of the descent already ticking away years back on Earth.",
+      "claim": {
+        "type": "setup",
+        "requires_visual": true,
+        "subject": "Amelia Brand"
+      }
+    },
+    {
+      "id": 39,
+      "line_id": "L39",
+      "unit_id": "U10",
+      "covers": [
+        "14"
+      ],
+      "clip_start": "01:05:23.0",
+      "clip_end": "01:05:32.0",
+      "narration": "He lingers a moment, staring into that swirling black hole, knowing the clock is about to turn against him in the cruelest way imaginable.",
+      "claim": {
+        "type": "reaction",
+        "requires_visual": true,
+        "subject": "Cooper"
+      },
+      "narrative_jump": true
+    },
+    {
+      "id": 40,
+      "line_id": "L40",
+      "unit_id": "U11",
+      "covers": [
+        "16"
+      ],
+      "clip_start": "01:09:56.0",
+      "clip_end": "01:10:04.5",
+      "narration": "The planet turns out to be one endless, shin-deep ocean stretching under a flat grey sky, with the wreckage of an earlier scout mission waiting somewhere up ahead.",
+      "claim": {
+        "type": "setup",
+        "requires_visual": true
+      }
+    },
+    {
+      "id": 41,
+      "line_id": "L41",
+      "unit_id": "U11",
+      "covers": [
+        "16"
+      ],
+      "clip_start": "01:10:05.0",
+      "clip_end": "01:10:14.0",
+      "narration": "Then Cooper looks up at what he assumed were mountains sitting on the horizon, and realizes with horror that they are waves, miles high, already rolling straight toward them.",
+      "claim": {
+        "type": "reaction",
+        "requires_visual": true,
+        "subject": "Cooper"
+      }
+    },
+    {
+      "id": 42,
+      "line_id": "L42",
+      "unit_id": "U11",
+      "covers": [
+        "17"
+      ],
+      "clip_start": "01:10:35.0",
+      "clip_end": "01:10:44.0",
+      "narration": "The towering wall of water reaches them before they can get clear.",
+      "claim": {
+        "type": "action",
+        "requires_visual": true
+      }
+    },
+    {
+      "id": 43,
+      "line_id": "L43",
+      "unit_id": "U11",
+      "covers": [
+        "17"
+      ],
+      "clip_start": "01:11:10.0",
+      "clip_end": "01:11:19.0",
+      "narration": "TARS hauls the crew back toward the ship through the churning water, but Doyle is left stranded out in the open with nowhere to run.",
+      "claim": {
+        "type": "action",
+        "requires_visual": true,
+        "subject": "TARS"
+      }
+    },
+    {
+      "id": 44,
+      "line_id": "L44",
+      "unit_id": "U11",
+      "covers": [
+        "17"
+      ],
+      "clip_start": "01:12:30.0",
+      "clip_end": "01:12:39.0",
+      "narration": "Doyle is swept away and killed, and the flooded ship barely claws its way back into the sky. Those few minutes on the surface have cost them twenty-three years.",
+      "claim": {
+        "type": "action",
+        "requires_visual": true,
+        "subject": "Cooper"
+      }
+    },
+    {
+      "id": 45,
+      "line_id": "L45",
+      "unit_id": "U12",
+      "covers": [
+        "18"
+      ],
+      "clip_start": "01:17:50.0",
+      "clip_end": "01:17:59.0",
+      "narration": "Back aboard the Endurance, Romilly waited alone for the whole ordeal, and has aged twenty-three years in real time while they spent mere hours on the planet below.",
+      "claim": {
+        "type": "reveal",
+        "requires_visual": true,
+        "subject": "Romilly"
+      }
+    },
+    {
+      "id": 46,
+      "line_id": "L46",
+      "unit_id": "U12",
+      "covers": [
+        "18"
+      ],
+      "clip_start": "01:17:36.0",
+      "clip_end": "01:17:45.0",
+      "narration": "Cooper and Amelia climb back aboard the Endurance, dreading the question neither wants to ask out loud: exactly how much time has slipped away without them.",
+      "claim": {
+        "type": "transition",
+        "requires_visual": true,
+        "subject": "Cooper"
+      }
+    },
+    {
+      "id": 47,
+      "line_id": "L47",
+      "unit_id": "U12",
+      "covers": [
+        "19"
+      ],
+      "clip_start": "01:20:30.0",
+      "clip_end": "01:20:41.7",
+      "narration": "In the stacked-up messages, a grown Tom reports the years slipping past on the farm - a marriage, a first son, and finally Grandpa Donald's death - a whole life his father missed entirely.",
+      "claim": {
+        "type": "setup",
+        "requires_visual": true,
+        "subject": "Tom"
+      }
+    },
+    {
+      "id": 48,
+      "line_id": "L48",
+      "unit_id": "U12",
+      "covers": [
+        "19"
+      ],
+      "clip_start": "01:21:44.0",
+      "clip_end": "01:21:53.0",
+      "narration": "And then, at last, his little Murph, now a grown woman the same age he was when he left, quietly asks the father who swore he would return why he never came back to her.",
+      "claim": {
+        "type": "emotion",
+        "requires_visual": true,
+        "subject": "Murph"
+      }
+    },
+    {
+      "id": 49,
+      "line_id": "L49",
+      "unit_id": "U12",
+      "covers": [
+        "18"
+      ],
+      "clip_start": "01:16:00.0",
+      "clip_end": "01:16:09.0",
+      "narration": "Amelia sits in stunned silence, grieving Doyle and the lost years, as the true weight of what this mission costs finally settles over the crew.",
+      "claim": {
+        "type": "emotion",
+        "requires_visual": true,
+        "subject": "Amelia Brand"
+      },
+      "narrative_jump": true
+    },
+    {
+      "id": 50,
+      "line_id": "L50",
+      "unit_id": "U13",
+      "covers": [
+        "20"
+      ],
+      "clip_start": "01:22:56.0",
+      "clip_end": "01:23:11.0",
+      "narration": "On Earth, that same grown-up Murph now works at NASA side by side with the aging Professor Brand, still chasing a solution to his impossible gravity equation, and still quietly haunted, every single day of her adult life, by the strange ghost from her own childhood bedroom.",
+      "claim": {
+        "type": "setup",
+        "requires_visual": true,
+        "subject": "Professor Brand"
+      },
+      "narrative_jump": true
+    },
+    {
+      "id": 51,
+      "line_id": "L51",
+      "unit_id": "U14",
+      "covers": [
+        "21"
+      ],
+      "clip_start": "01:25:33.0",
+      "clip_end": "01:25:42.0",
+      "narration": "Two worlds are left, and the crew can only reach one. Amelia begs them to follow her heart to Edmunds' planet, insisting that love is a measurable force, not just a feeling.",
+      "claim": {
+        "type": "dialogue",
+        "requires_visual": true,
+        "subject": "Amelia Brand"
+      }
+    },
+    {
+      "id": 52,
+      "line_id": "L52",
+      "unit_id": "U14",
+      "covers": [
+        "21"
+      ],
+      "clip_start": "01:26:20.0",
+      "clip_end": "01:26:29.0",
+      "narration": "Alone in her seat, Amelia quietly insists that love is the one thing capable of crossing time and space, perhaps a clue they are not yet wise enough to follow.",
+      "claim": {
+        "type": "emotion",
+        "requires_visual": true,
+        "subject": "Amelia Brand"
+      }
+    },
+    {
+      "id": 53,
+      "line_id": "L53",
+      "unit_id": "U14",
+      "covers": [
+        "21"
+      ],
+      "clip_start": "01:27:40.0",
+      "clip_end": "01:27:49.0",
+      "narration": "Cooper overrules her and makes the colder, more logical call: the planet of Dr. Mann, the legendary scientist who first led this entire mission into the unknown.",
+      "claim": {
+        "type": "reaction",
+        "requires_visual": true,
+        "subject": "Cooper"
+      }
+    },
+    {
+      "id": 54,
+      "line_id": "L54",
+      "unit_id": "U15",
+      "covers": [
+        "22"
+      ],
+      "clip_start": "01:29:26.0",
+      "clip_end": "01:29:37.7",
+      "narration": "They wake Dr. Mann from his long, cold sleep, and he breaks down weeping with sheer relief. The best and bravest of them all, somehow still alive out here at the very edge of the galaxy.",
+      "claim": {
+        "type": "setup",
+        "requires_visual": true
+      },
+      "narrative_jump": true
+    },
+    {
+      "id": 55,
+      "line_id": "L55",
+      "unit_id": "U15",
+      "covers": [
+        "22"
+      ],
+      "clip_start": "01:32:30.0",
+      "clip_end": "01:32:42.0",
+      "narration": "And on his deathbed, Professor Brand confesses a devastating secret to Murph. Plan A was always a lie. His equation could never be solved without data from inside a black hole, data no one could ever reach.",
+      "claim": {
+        "type": "reveal",
+        "requires_visual": true,
+        "subject": "Professor Brand"
+      },
+      "narrative_jump": true
+    },
+    {
+      "id": 56,
+      "line_id": "L56",
+      "unit_id": "U15",
+      "covers": [
+        "22"
+      ],
+      "clip_start": "01:31:26.0",
+      "clip_end": "01:31:35.0",
+      "narration": "At a NASA hospital, the grown Murph and her colleague Getty gather at the dying professor's bedside, expecting comfort and instead hearing a confession.",
+      "claim": {
+        "type": "setup",
+        "requires_visual": true,
+        "subject": "Murph"
+      },
+      "narrative_jump": true
+    },
+    {
+      "id": 57,
+      "line_id": "L57",
+      "unit_id": "U15",
+      "covers": [
+        "22"
+      ],
+      "clip_start": "01:34:07.0",
+      "clip_end": "01:34:16.0",
+      "narration": "NASA never truly intended to save the billions of people left on Earth. Murph realizes her own father was sent into space to quietly abandon every last one of them.",
+      "claim": {
+        "type": "reaction",
+        "requires_visual": true,
+        "subject": "Murph"
+      },
+      "narrative_jump": true
+    },
+    {
+      "id": 58,
+      "line_id": "L58",
+      "unit_id": "U16",
+      "covers": [
+        "23"
+      ],
+      "clip_start": "01:38:21.0",
+      "clip_end": "01:38:30.0",
+      "narration": "Far out in space, the crew touches down on Mann's frozen world of ice and cloud, and finds his hibernation pods still intact among the frozen peaks.",
+      "claim": {
+        "type": "setup",
+        "requires_visual": true,
+        "subject": "Cooper"
+      }
+    },
+    {
+      "id": 59,
+      "line_id": "L59",
+      "unit_id": "U16",
+      "covers": [
+        "23"
+      ],
+      "clip_start": "01:38:51.0",
+      "clip_end": "01:39:00.0",
+      "narration": "They wake Dr. Mann from his long sleep, and he breaks down weeping with relief. The best and bravest of them all, somehow still alive at the very edge of the galaxy.",
+      "claim": {
+        "type": "reveal",
+        "requires_visual": true,
+        "subject": "Mann"
+      }
+    },
+    {
+      "id": 60,
+      "line_id": "L60",
+      "unit_id": "U16",
+      "covers": [
+        "23"
+      ],
+      "clip_start": "01:41:00.0",
+      "clip_end": "01:41:09.0",
+      "narration": "Mann swears there is real, breathable life waiting just beneath the ice, and for the first time in many long years, the whole impossible mission suddenly feels like it might actually succeed after all.",
+      "claim": {
+        "type": "dialogue",
+        "requires_visual": true,
+        "subject": "Cooper"
+      }
+    },
+    {
+      "id": 61,
+      "line_id": "L61",
+      "unit_id": "U13",
+      "covers": [
+        "20"
+      ],
+      "clip_start": "01:45:09.0",
+      "clip_end": "01:45:18.0",
+      "narration": "Meanwhile on Earth, Murph returns to her old childhood room, now certain the ghost was never random noise, that someone has been trying desperately to reach her this whole time.",
+      "claim": {
+        "type": "discovery",
+        "requires_visual": true,
+        "subject": "Murph"
+      },
+      "narrative_jump": true
+    },
+    {
+      "id": 62,
+      "line_id": "L62",
+      "unit_id": "U17",
+      "covers": [
+        "24"
+      ],
+      "clip_start": "01:50:30.0",
+      "clip_end": "01:50:39.0",
+      "narration": "But Dr. Mann is lying about everything. Out on the ice, without warning, he suddenly turns on Cooper and attacks him.",
+      "claim": {
+        "type": "action",
+        "requires_visual": true,
+        "subject": "Cooper"
+      }
+    },
+    {
+      "id": 63,
+      "line_id": "L63",
+      "unit_id": "U17",
+      "covers": [
+        "24"
+      ],
+      "clip_start": "01:52:00.0",
+      "clip_end": "01:52:09.0",
+      "narration": "He cracks open Cooper's helmet and confesses he faked all of his data. There is no habitable surface here at all. Too terrified to die alone, Mann has decided he would rather kill them instead.",
+      "claim": {
+        "type": "action",
+        "requires_visual": true,
+        "subject": "Mann"
+      }
+    },
+    {
+      "id": 64,
+      "line_id": "L64",
+      "unit_id": "U17",
+      "covers": [
+        "24"
+      ],
+      "clip_start": "01:55:27.0",
+      "clip_end": "01:55:36.0",
+      "narration": "He leaves Cooper stranded and gasping on the ice and sprints for a ship, planning to steal the Endurance and escape into space to save only himself.",
+      "claim": {
+        "type": "action",
+        "requires_visual": true,
+        "subject": "Mann"
+      }
+    },
+    {
+      "id": 65,
+      "line_id": "L65",
+      "unit_id": "U17",
+      "covers": [
+        "25"
+      ],
+      "clip_start": "01:57:30.0",
+      "clip_end": "01:57:39.0",
+      "narration": "Amelia races back in the lander and drags Cooper to safety in the last seconds before his air finally runs out.",
+      "claim": {
+        "type": "action",
+        "requires_visual": true,
+        "subject": "Amelia Brand"
+      }
+    },
+    {
+      "id": 66,
+      "line_id": "L66",
+      "unit_id": "U17",
+      "covers": [
+        "25"
+      ],
+      "clip_start": "02:00:49.0",
+      "clip_end": "02:00:58.0",
+      "narration": "But Mann rigged one final trap before they arrived, and its explosion tears his whole base apart, killing the loyal Romilly in an instant.",
+      "claim": {
+        "type": "action",
+        "requires_visual": true
+      }
+    },
+    {
+      "id": 67,
+      "line_id": "L67",
+      "unit_id": "U17",
+      "covers": [
+        "25"
+      ],
+      "clip_start": "02:02:30.0",
+      "clip_end": "02:02:39.0",
+      "narration": "Cooper and Amelia scramble to their lander and give chase, desperate to reach the Endurance before the traitor Mann can seize it and abandon them for good.",
+      "claim": {
+        "type": "reaction",
+        "requires_visual": true,
+        "subject": "Cooper"
+      }
+    },
+    {
+      "id": 68,
+      "line_id": "L68",
+      "unit_id": "U18",
+      "covers": [
+        "26"
+      ],
+      "clip_start": "02:03:46.0",
+      "clip_end": "02:03:55.0",
+      "narration": "Mann reaches the Endurance and forces a manual docking against every single warning. The airlock blows open, killing him instantly and ripping a gaping hole in the ship.",
+      "claim": {
+        "type": "action",
+        "requires_visual": true,
+        "subject": "Mann"
+      }
+    },
+    {
+      "id": 69,
+      "line_id": "L69",
+      "unit_id": "U18",
+      "covers": [
+        "26"
+      ],
+      "clip_start": "02:05:30.0",
+      "clip_end": "02:05:39.0",
+      "narration": "And so Cooper falls, completely alone, across the shimmering event horizon and down into the crushing heart of Gargantua itself, certain that he is giving his life for his daughter.",
+      "claim": {
+        "type": "action",
+        "requires_visual": true
+      }
+    },
+    {
+      "id": 70,
+      "line_id": "L70",
+      "unit_id": "U18",
+      "covers": [
+        "26"
+      ],
+      "clip_start": "02:06:37.0",
+      "clip_end": "02:06:46.0",
+      "narration": "In a breathtaking sequence, Cooper manually matches the wreck's brutal spin and docks with it by hand, saving the crew, but leaving them stranded right on the edge of Gargantua.",
+      "claim": {
+        "type": "action",
+        "requires_visual": true,
+        "subject": "Cooper"
+      }
+    },
+    {
+      "id": 71,
+      "line_id": "L71",
+      "unit_id": "U18",
+      "covers": [
+        "26"
+      ],
+      "clip_start": "02:08:30.0",
+      "clip_end": "02:08:39.0",
+      "narration": "Battered and shaking, Cooper and Amelia steady the wounded ship. They are alive, but marooned at the very lip of the black hole with almost nothing left.",
+      "claim": {
+        "type": "reaction",
+        "requires_visual": true,
+        "subject": "Cooper"
+      }
+    },
+    {
+      "id": 72,
+      "line_id": "L72",
+      "unit_id": "U19",
+      "covers": [
+        "27"
+      ],
+      "clip_start": "02:13:38.0",
+      "clip_end": "02:13:47.0",
+      "narration": "Almost out of fuel, they have exactly one option left: slingshot around Gargantua to reach the final planet. But to steal enough speed, they have to drop dead weight into the black hole.",
+      "claim": {
+        "type": "dialogue",
+        "requires_visual": true,
+        "subject": "Cooper"
+      }
+    },
+    {
+      "id": 73,
+      "line_id": "L73",
+      "unit_id": "U19",
+      "covers": [
+        "27"
+      ],
+      "clip_start": "02:15:26.0",
+      "clip_end": "02:15:35.0",
+      "narration": "The loyal robot TARS volunteers to be the weight they drop, falling into the black hole so that its readings might still, somehow, radio back the secret inside.",
+      "claim": {
+        "type": "setup",
+        "requires_visual": true,
+        "subject": "TARS"
+      }
+    },
+    {
+      "id": 74,
+      "line_id": "L74",
+      "unit_id": "U19",
+      "covers": [
+        "28"
+      ],
+      "clip_start": "02:16:20.0",
+      "clip_end": "02:16:29.0",
+      "narration": "They fire the engines and whip around the black hole at a screaming, impossible speed, using its monstrous gravity as a slingshot to fling themselves onward.",
+      "claim": {
+        "type": "action",
+        "requires_visual": true
+      }
+    },
+    {
+      "id": 75,
+      "line_id": "L75",
+      "unit_id": "U19",
+      "covers": [
+        "28"
+      ],
+      "clip_start": "02:17:12.0",
+      "clip_end": "02:17:21.0",
+      "narration": "Then Cooper secretly detaches his own small craft, sacrificing himself so Amelia can carry on alone. It is his final gift to the mission, and to the children waiting for him.",
+      "claim": {
+        "type": "emotion",
+        "requires_visual": true,
+        "subject": "Cooper"
+      }
+    },
+    {
+      "id": 76,
+      "line_id": "L76",
+      "unit_id": "U19",
+      "covers": [
+        "28"
+      ],
+      "clip_start": "02:17:45.0",
+      "clip_end": "02:17:54.0",
+      "narration": "Amelia realizes too late what he has done, her craft already hurled onward toward Edmunds' world, carrying Plan B and leaving Cooper behind forever.",
+      "claim": {
+        "type": "reaction",
+        "requires_visual": true,
+        "subject": "Amelia Brand"
+      }
+    },
+    {
+      "id": 77,
+      "line_id": "L77",
+      "unit_id": "U19",
+      "covers": [
+        "28"
+      ],
+      "clip_start": "02:18:04.0",
+      "clip_end": "02:18:13.0",
+      "narration": "And he falls, completely alone, across the event horizon and down into the heart of Gargantua itself.",
+      "claim": {
+        "type": "action",
+        "requires_visual": true,
+        "subject": "Cooper"
+      }
+    },
+    {
+      "id": 78,
+      "line_id": "L78",
+      "unit_id": "U20",
+      "covers": [
+        "29"
+      ],
+      "clip_start": "02:24:00.0",
+      "clip_end": "02:24:12.0",
+      "narration": "But he does not die. Inside the black hole he finds an impossible structure, built from a single room repeated endlessly across time in every direction. It is the back of a bookshelf. It is Murph's bookshelf.",
+      "claim": {
+        "type": "discovery",
+        "requires_visual": true,
+        "subject": "Cooper"
+      }
+    },
+    {
+      "id": 79,
+      "line_id": "L79",
+      "unit_id": "U20",
+      "covers": [
+        "30"
+      ],
+      "clip_start": "02:26:13.0",
+      "clip_end": "02:26:22.0",
+      "narration": "And here is the twist that reframes the entire movie. The ghost in Murph's childhood room was never a ghost at all. It was Cooper, reaching back through time from inside this very place.",
+      "claim": {
+        "type": "reveal",
+        "requires_visual": true,
+        "subject": "Cooper"
+      }
+    },
+    {
+      "id": 80,
+      "line_id": "L80",
+      "unit_id": "U20",
+      "covers": [
+        "30"
+      ],
+      "clip_start": "02:26:40.0",
+      "clip_end": "02:26:49.0",
+      "narration": "He knocked the books off the shelf. He nudged the dust into those coordinates. He is the one who spelled out the word STAY, desperately begging his own daughter to keep her father home.",
+      "claim": {
+        "type": "reveal",
+        "requires_visual": true,
+        "subject": "Murph"
+      }
+    },
+    {
+      "id": 81,
+      "line_id": "L81",
+      "unit_id": "U20",
+      "covers": [
+        "30"
+      ],
+      "clip_start": "02:27:30.0",
+      "clip_end": "02:27:39.0",
+      "narration": "Whoever built this place, some future version of humanity, made it so that Cooper could reach back across the years to the one person he loves most in the entire universe.",
+      "claim": {
+        "type": "discovery",
+        "requires_visual": true,
+        "subject": "Cooper"
+      }
+    },
+    {
+      "id": 82,
+      "line_id": "L82",
+      "unit_id": "U21",
+      "covers": [
+        "31"
+      ],
+      "clip_start": "02:28:45.0",
+      "clip_end": "02:28:54.0",
+      "narration": "TARS survived the fall too, carrying the quantum data from inside the black hole, the missing piece of Brand's equation. Now Cooper just has to find a way to send it home.",
+      "claim": {
+        "type": "emotion",
+        "requires_visual": true,
+        "subject": "Cooper"
+      }
+    },
+    {
+      "id": 83,
+      "line_id": "L83",
+      "unit_id": "U21",
+      "covers": [
+        "31"
+      ],
+      "clip_start": "02:30:40.0",
+      "clip_end": "02:30:49.0",
+      "narration": "Using gravity as his only tool, he taps that data out in Morse code into the ticking second hand of the very watch he gave to Murph all those long years ago.",
+      "claim": {
+        "type": "action",
+        "requires_visual": true,
+        "subject": "Cooper"
+      }
+    },
+    {
+      "id": 84,
+      "line_id": "L84",
+      "unit_id": "U21",
+      "covers": [
+        "32"
+      ],
+      "clip_start": "02:31:14.0",
+      "clip_end": "02:31:23.0",
+      "narration": "Back on Earth, the grown Murph finally senses her father in the room, races back to grab that childhood watch, and reads the message hidden in its ticking. Eureka.",
+      "claim": {
+        "type": "discovery",
+        "requires_visual": true,
+        "subject": "Murph"
+      },
+      "narrative_jump": true
+    },
+    {
+      "id": 85,
+      "line_id": "L85",
+      "unit_id": "U21",
+      "covers": [
+        "32"
+      ],
+      "clip_start": "02:32:30.0",
+      "clip_end": "02:32:39.0",
+      "narration": "She solves gravity and saves all of humanity, not through luck or chance, but through the fierce love between a father and daughter, closing a loop that stretches across space and time.",
+      "claim": {
+        "type": "emotion",
+        "requires_visual": true,
+        "subject": "Murph"
+      },
+      "narrative_jump": true
+    },
+    {
+      "id": 86,
+      "line_id": "L86",
+      "unit_id": "U22",
+      "covers": [
+        "33"
+      ],
+      "clip_start": "02:35:28.0",
+      "clip_end": "02:35:37.0",
+      "narration": "His impossible message sent, Cooper is spat back out of the black hole, and wakes up a hundred and twenty-four years old, rescued near Saturn and, against all odds, still alive.",
+      "claim": {
+        "type": "reveal",
+        "requires_visual": true,
+        "subject": "Cooper"
+      }
+    },
+    {
+      "id": 87,
+      "line_id": "L87",
+      "unit_id": "U22",
+      "covers": [
+        "33"
+      ],
+      "clip_start": "02:34:03.0",
+      "clip_end": "02:34:12.0",
+      "narration": "The tesseract folds shut behind him, and out near Saturn a hand reaches into the dark to pull the drifting, unconscious Cooper back among the living.",
+      "claim": {
+        "type": "transition",
+        "requires_visual": true,
+        "subject": "Cooper"
+      },
+      "narrative_jump": true
+    },
+    {
+      "id": 88,
+      "line_id": "L88",
+      "unit_id": "U22",
+      "covers": [
+        "33"
+      ],
+      "clip_start": "02:34:03.0",
+      "clip_end": "02:34:12.0",
+      "narration": "The impossible tesseract collapses behind him, and a hand reaches out of the dark near Saturn to pull the drifting Cooper back into the world of the living.",
+      "claim": {
+        "type": "transition",
+        "requires_visual": true,
+        "subject": "Cooper"
+      },
+      "narrative_jump": true
+    },
+    {
+      "id": 89,
+      "line_id": "L89",
+      "unit_id": "U22",
+      "covers": [
+        "33"
+      ],
+      "clip_start": "02:38:29.0",
+      "clip_end": "02:38:38.0",
+      "narration": "He finds himself aboard a vast space station that humanity built to survive, and learns it was named not for him, but for the daughter whose mind finally saved them all.",
+      "claim": {
+        "type": "setup",
+        "requires_visual": true,
+        "subject": "Cooper"
+      }
+    },
+    {
+      "id": 90,
+      "line_id": "L90",
+      "unit_id": "U23",
+      "covers": [
+        "34"
+      ],
+      "clip_start": "02:41:30.0",
+      "clip_end": "02:41:48.1",
+      "narration": "At last he reaches Murph, now old and dying herself, surrounded by her own children and grandchildren, the whole huge family she built in the lifetime he missed. She gently tells her father that no parent should ever have to watch their child die, and that the time has finally come for him to let her go.",
+      "claim": {
+        "type": "dialogue",
+        "requires_visual": true,
+        "subject": "Murph"
+      }
+    },
+    {
+      "id": 91,
+      "line_id": "L91",
+      "unit_id": "U23",
+      "covers": [
+        "34"
+      ],
+      "clip_start": "02:43:30.0",
+      "clip_end": "02:43:50.2",
+      "narration": "So he quietly slips away and takes a ship, setting out alone across the stars to find Amelia, waiting on a distant world. It is not a promised reunion, only a father chasing one last chance at love, out in the dark where gravity and time itself finally seem to bend, at long last, toward something like hope. If this dive moved you, subscribe.",
+      "claim": {
+        "type": "transition",
+        "requires_visual": true,
+        "subject": "Cooper"
+      }
+    }
+  ]
+}
