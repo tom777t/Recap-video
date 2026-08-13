@@ -28,6 +28,60 @@ import config  # noqa: E402
 
 UNSURE = ("khong ro", "không rõ", "unclear", "unsure", "n/a", "-", "")
 
+# `depicts` mixes two kinds of label. Only the left column is in the pixels;
+# the right column is what the scene DOES for the story, which a model looking
+# at frames cannot know and should not be marked wrong for missing.
+VISIBLE_AXIS = {"action", "dialogue", "establishing", "montage",
+                "reaction", "transition"}
+STORY_AXIS = {"aftermath", "discovery", "emotion", "reveal", "setup"}
+
+
+def load_cast_map(project):
+    """{character_lower: actor_lower} from names.json, if it carries actors."""
+    import config
+    p = config.project_dir(project) / "names.json"
+    if not p.exists():
+        return {}
+    try:
+        nd = json.load(io.open(p, encoding="utf-8-sig"))
+        names = nd.get("names", nd) if isinstance(nd, dict) else nd
+    except Exception:
+        return {}
+    out = {}
+    for n in names:
+        if isinstance(n, dict) and n.get("character") and n.get("actor"):
+            out[norm(n["character"])] = norm(n["actor"])
+    return out
+
+
+def canon(name, cast):
+    """Actor behind a character name - the identity that survives a twist.
+
+    Andrew Laeddis and Teddy Daniels are the same man; the hand tags switch to
+    the true name after the reveal while a model going by face keeps the first
+    one. Scoring them as two people penalised the model twice for being right.
+    Falls back to the name itself when no actor is known.
+    """
+    if not cast:
+        return name
+    if name in cast:
+        return cast[name]
+
+    def toks(x):
+        # titles are not identity; "Dr. Sheehan" and "Dr. Lester Sheehan" are
+        # the same man, and substring matching misses that over a middle name
+        return {t for t in re.split(r"[\s.]+", x) if t and t not in
+                ("dr", "mr", "mrs", "ms", "deputy", "warden", "the")}
+
+    nt = toks(name)
+    if not nt:
+        return name
+    for ch, actor in cast.items():
+        ct = toks(ch)
+        if nt and ct and (nt <= ct or ct <= nt):
+            return actor
+    return name
+
 
 def norm(s: str) -> str:
     s = s.strip().strip("`").strip("()[]").strip()
@@ -75,10 +129,19 @@ def main() -> None:
 
     # ---------- depicts ----------
     exact = overlap = zero = 0
+    vis_hit = vis_total = 0
+    story_only = 0
     confuse: dict[tuple[str, str], int] = {}
     for k in filled:
         t = {norm(x) for x in truth[k]["depicts"]}
         a = set(split_list(ans[k]["depicts"]))
+        tv, av = t & VISIBLE_AXIS, a & VISIBLE_AXIS
+        if tv:
+            vis_total += 1
+            if tv & av:
+                vis_hit += 1
+        elif t & STORY_AXIS:
+            story_only += 1
         if a == t:
             exact += 1
         elif a & t:
@@ -92,21 +155,30 @@ def main() -> None:
     n = len(filled)
     print("=" * 62)
     print("DEPICTS")
-    print(f"  CO CHUNG >=1 TAG     : {exact+overlap}/{n}  ({100*(exact+overlap)/n:.0f}%)  <- so chinh")
-    print(f"    trong do khop han  : {exact}/{n}  ({100*exact/n:.0f}%)")
-    print(f"  truot han            : {zero}/{n}  ({100*zero/n:.0f}%)")
-    print("  (Luu y: shot lam tay la CUA SO nhieu khoanh khac - vd mot window 17s")
-    print("   vua co dialogue vua co emotion - nen 'khop han' la nguong qua chat.")
-    print("   'Co chung >=1 tag' moi la thuoc do dung voi ground truth kieu nay.)")
+    if vis_total:
+        print(f"  TRUC NHIN THAY       : {vis_hit}/{vis_total}  "
+              f"({100*vis_hit/vis_total:.0f}%)  <- SO CHINH")
+        print(f"     (chi tinh shot ma tag tay co it nhat 1 nhan nhin-thay-duoc:")
+        print(f"      {', '.join(sorted(VISIBLE_AXIS))})")
+    if story_only:
+        print(f"  chi co nhan TRUC TRUYEN: {story_only}/{n} shot - khong cham,")
+        print(f"     nhan {', '.join(sorted(STORY_AXIS))} khong nam trong pixel")
+    print(f"  co chung >=1 tag bat ky: {exact+overlap}/{n}  ({100*(exact+overlap)/n:.0f}%)")
+    print(f"    trong do khop han    : {exact}/{n}  ({100*exact/n:.0f}%)")
     if confuse:
         print("  hay nham (tay -> may):")
         for (x, y), c in sorted(confuse.items(), key=lambda kv: -kv[1])[:8]:
             print(f"    {x} -> {y}  x{c}")
 
     # ---------- chars ----------
+    cast = load_cast_map(proj)
+    if cast:
+        print(f"\n  (alias tu names.json: {len(cast)} nhan vat co dien vien - "
+              f"cung dien vien = cung nguoi)")
     tp = fp = fn = 0
     abstain_items = 0
     abstain_shots = 0
+    extras_detail = []
     for k in filled:
         t = {norm(x) for x in truth[k]["chars"]}
         raw = ans[k]["chars"]
@@ -122,20 +194,31 @@ def main() -> None:
             if items:
                 continue
         a = set(named)
-        # so khop long: ten tay "Dr. Cawley" vs may "Cawley"
-        matched = set()
-        for x in t:
-            if any(x in y or y in x for y in a):
-                matched.add(x)
+
+        def same(x, y):
+            if x in y or y in x:            # "Cawley" vs "Dr. Cawley"
+                return True
+            cx, cy = canon(x, cast), canon(y, cast)
+            return bool(cx) and cx == cy    # Laeddis vs Teddy -> same actor
+
+        matched = {x for x in t if any(same(x, y) for y in a)}
         tp += len(matched)
         fn += len(t - matched)
-        fp += sum(1 for y in a if not any(y in x or x in y for x in t))
+        extra = [y for y in a if not any(same(y, x) for x in t)]
+        fp += len(extra)
+        for y in extra:
+            extras_detail.append((k, y))
 
     print("-" * 62)
     print("CHARS")
     print(f"  nhan dung   : {tp}")
     print(f"  bo sot      : {fn}   (gom ca nguoi no tu nhan khong ro)")
-    print(f"  bia them    : {fp}   <- nguy hiem nhat (dat ten sai cho nguoi co that)")
+    print(f"  may thay THEM nguoi: {fp}   (sau khi gop alias)")
+    if extras_detail:
+        print("     -> KHONG tu dong la 'bia': tag tay chi ghi nhan vat TRONG TAM,")
+        print("        nguoi dung nen / thoang qua khong duoc liet ke. Doc tung ca:")
+        for k, y in extras_detail[:12]:
+            print(f"        [{k}] {y}")
     print(f"  tu bo qua   : {abstain_items} luot '(khong ro)' "
           f"tren {abstain_shots}/{n} shot - day la hanh vi DUNG (rule A5)")
     if tp + fp:
@@ -150,12 +233,19 @@ def main() -> None:
     # Khong doc tay tung cai thi khong tach duoc "model sai" khoi "ground truth tho".
     print("-" * 62)
     print("CHARS - tung shot lech (tay | may):")
+
+    def _same(x, y):
+        if x in y or y in x:
+            return True
+        cx, cy = canon(x, cast), canon(y, cast)
+        return bool(cx) and cx == cy
+
     for k in filled:
         t = {norm(x) for x in truth[k]["chars"]}
         named = [x for x in split_list(ans[k]["chars"]) if x not in UNSURE]
         a = set(named)
-        extra = [y for y in a if not any(y in x or x in y for x in t)]
-        miss = [x for x in t if not any(x in y or y in x for y in a)]
+        extra = [y for y in a if not any(_same(y, x) for x in t)]
+        miss = [x for x in t if not any(_same(x, y) for y in a)]
         if not extra and not miss:
             continue
         print(f"  [{k}]")
@@ -176,9 +266,9 @@ def main() -> None:
 
     print("\n" + "=" * 62)
     print("Doc ket qua:")
-    print("  depicts cao + chars thap -> may tag depicts, NGUOI lam chars. Van la thang lon.")
-    print("  chars 'bia them' > 0     -> chua the tin. Phai ep no ghi '(khong ro)' manh hon.")
-    print("  ca hai deu thap          -> frame tinh khong du; can nhieu frame hon / model khac.")
+    print("  TRUC NHIN THAY >=90%  -> may tag duoc truc nay. Nguoi chi them truc truyen.")
+    print("  chars: doc tung ca 'them nguoi' truoc khi ket luan - phan lon la nhan vat nen.")
+    print("  'bo sot' cao ma cac ca deu o giua cua so -> loi LAY MAU, tang so frame.")
 
 
 if __name__ == "__main__":

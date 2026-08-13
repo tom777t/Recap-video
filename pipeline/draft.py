@@ -278,6 +278,29 @@ def validate_draft(project: str, *, write_state: bool = False,
                       "gives both lines the same narration audio.[/]")
         sys.exit(1)
 
+    # ---- empty narration ----------------------------------------------------
+    # HARD failure, same class as duplicate ids: a line with a clip window but no
+    # words renders anyway. TTS returns near-zero duration, clip_len falls to the
+    # floor, and the shot flashes past in under a second - footage on screen that
+    # nothing is being said about. Found in a shipped Spider-Man cut (lines 45 and
+    # 641), where no gate saw it: even RENDER-VERIFY was blind, because it asks
+    # whether the audio matches the line, not whether the line has any words.
+    # A SILENCE line (Gap 3) is deliberately wordless: it carries
+    # `narration_silence_seconds`, and render.py holds the visual for that long
+    # with the music swelling. That is a feature, not a blank line - the first
+    # version of this gate hard-failed three of four finished films for using it.
+    _blank = [ln for ln in draft["lines"]
+              if ln.get("clip_start")
+              and not (ln.get("narration") or "").strip()
+              and not ln.get("narration_silence_seconds")]
+    if _blank:
+        console.print("[red][EMPTY-LINE][/] line(s) with a clip window but no narration:")
+        for ln in _blank:
+            console.print(f"    line {ln.get('id')} at {ln.get('clip_start')}")
+        console.print("[red]  Write the line or remove it. Rendering as-is puts "
+                      "footage on screen with nothing said over it.[/]")
+        sys.exit(1)
+
     # quality linter (clarity / read-aloud / names / action-setup / visual-memory)
     _lint_script(pdir, draft, src_dur, pool_meta, explicit_times)
 
@@ -503,14 +526,15 @@ def _lint_script(pdir, draft, src_dur, pool_meta=None, explicit_times=None):
     warns: list = []
 
     # --- [NAME]: invented-name guard via names.json ----------------------
-    names_path = pdir / "names.json"
-    known = set()
-    if names_path.exists():
-        try:
-            nd = json.loads(names_path.read_text(encoding="utf-8-sig"))
-            known = {n.lower() for n in (nd.get("names", nd) if isinstance(nd, dict) else nd)}
-        except Exception:
-            known = set()
+    # Loaded through schemas.load_names, NOT parsed here. This used to have its
+    # own inline reader that assumed names.json held plain strings; when the
+    # file gained {"character", "actor"} entries, .lower() on a dict raised,
+    # the except swallowed it, and `known` silently became empty - so every
+    # capitalised word in the script got flagged as an invented name. One
+    # loader, one format. (GATE_CANDIDATES F6: the same job written twice
+    # drifts apart, and the copy nobody updated fails quietly.)
+    from pipeline import schemas as _schemas
+    known = _schemas.load_names(pdir.name)
     _stop = {"this", "today", "the", "and", "but", "so", "a", "i", "he", "she",
              "they", "it", "we", "his", "her", "their", "serabudabu", "god",
              "okay", "yeah", "no", "yes", "maine", "black"}
@@ -526,7 +550,13 @@ def _lint_script(pdir, draft, src_dur, pool_meta=None, explicit_times=None):
             if prev == "" or prev.endswith((".", "!", "?")):
                 continue
             proper_seen.setdefault(w, ln["id"])
-    if names_path.exists():
+    # `known` empty means either no names.json or an unreadable one - in both
+    # cases every capitalised word would be flagged, which is noise, not a
+    # finding. Say why the check is off instead of firing it or hiding it.
+    if not known:
+        warns.append("[NAME] skipped - names.json is missing or unreadable, "
+                     "so there is nothing to check invented names against.")
+    else:
         for w, lid in proper_seen.items():
             if w.lower() not in known:
                 warns.append(f"[NAME] line {lid}: '{w}' not in names.json - verify it's "

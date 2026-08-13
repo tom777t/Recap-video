@@ -80,6 +80,32 @@ def cmd_analyze(args):
     frames.analyze(args.project, every=args.every)
 
 
+def cmd_names(args):
+    from pipeline import names as namesmod
+    entries, err, rejected = namesmod.build(args.project, args.wiki,
+                                            write=not args.dry_run)
+    if err:
+        print(f"could not build names.json: {err}")
+        return
+    for r in rejected:
+        print(f"  [skipped - not a name] {r}")
+    if rejected:
+        print()
+    with_actor = [e for e in entries if e.get("actor")]
+    print(f"{len(entries)} name(s), {len(with_actor)} with an actor:\n")
+    for e in entries:
+        actor = e.get("actor")
+        print(f"  {e['character']:<34}{actor or '(no actor - kept from the old file)'}")
+    print()
+    if args.dry_run:
+        print("--dry-run: nothing written.")
+    else:
+        print(f"wrote {config.project_dir(args.project) / 'names.json'}")
+    print("Check this against the cut you actually have - an extended cut can")
+    print("carry people the article omits, and the article can list people your")
+    print("cut removes.")
+
+
 def cmd_verify(args):
     from pipeline import verify as verifymod
     n = verifymod.verify(args.project, model_size=args.model)
@@ -279,6 +305,13 @@ def main():
     pa.add_argument("--project", required=True)
     pa.add_argument("--every", type=float, default=5.0)
     pa.set_defaults(func=cmd_analyze)
+
+    pnm = sub.add_parser("names", help="build names.json from the Wikipedia Cast section")
+    pnm.add_argument("--project", required=True)
+    pnm.add_argument("--wiki", required=True,
+                     help="Wikipedia URL or page title, e.g. 'Shutter Island (film)'")
+    pnm.add_argument("--dry-run", action="store_true", help="print, do not write")
+    pnm.set_defaults(func=cmd_names)
 
     pvf = sub.add_parser("verify",
                          help="transcribe final.mp4 and check it says what draft.json says")
