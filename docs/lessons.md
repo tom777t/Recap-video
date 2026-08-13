@@ -1670,3 +1670,141 @@ describes") had nothing honest to anchor to. Measured: shot boundaries landing o
 transcript segment edge are 27% / 22% / 5% / 31% across the four films. **All four are
 cut from the picture.** The conclusion had been generalised from n=1. The composite shot
 at `00:13:55` is a local tagging fault, not a systemic cutting method.
+
+
+## 2026-08-11/12 - drift audit: five bad windows, and four wrong measures
+
+Went looking for the drift left in Shutter Island. Found five drifting windows
+across three films - and, four separate times, found that the thing telling me
+something was broken was itself the broken thing.
+
+### The measure that matters is NARRATION vs frames
+
+Two audits were built, a day apart, and only the second one is worth keeping.
+
+`CATALOGUE_AUDIT` pairs the hand-written `action` description with the real
+frames of that window. It reported 4/20 wrong on Shutter Island, 3+3 on
+Interstellar, 3+2 on Spider-Man. Alarming, and mostly wrong.
+
+`DRIFT_AUDIT` pairs the NARRATION LINE with the frames. Same films, same
+windows: John Wick 0/20, Spider-Man 1/16, Interstellar 2/18, Shutter Island
+2/20.
+
+The gap between them is the manual window fixes. After watching earlier cuts,
+windows were shifted by hand to correct drift - and the `action` descriptions
+were not updated with them. So a description-based audit finds a description
+that no longer matches its window, and reports a fault in a video that is fine.
+
+**The description is an intermediate note. What ships is narration over
+footage, and that is what any drift measure has to compare.**
+
+Consequence for the pipeline: when a window moves, the description moves with
+it, or the shot carries a field saying it was hand-fixed and when. Nothing
+recorded either, and that cost most of a day.
+
+### Five windows, and how they were found
+
+    shutterisland  line 24   01:06:05 -> 01:09:00.768   3 min off
+    shutterisland  line 31   01:32:10 -> 01:36:40.846   4.5 min off
+    interstellar   line 50   01:08:17 -> 01:09:03       45s off
+    interstellar   line 68   01:34:07 -> 01:33:37       30s off
+    spiderman      line 66   02:25:00 -> 02:23:25       had drifted into the credits
+
+The loop that found all five, in order of what to reach for:
+
+1. **Transcript search.** Line 31 says Cawley tells Teddy he came alone; the
+   transcript puts "You don't have a partner, Marshall" at 01:36:49, four and a
+   half minutes past the window. Strongest tool when the scene has dialogue.
+2. **Cut density.** Line 24 is the Ward C attack - almost no dialogue, so
+   transcript is useless. But an action scene cuts fast: counting cuts per 20s
+   window in `_cuts.json` put the peak at 01:09:00, 15 cuts in 20 seconds
+   against a film-wide average nearer one per 3 seconds.
+3. **Frames, by eye.** Non-negotiable. Twice the reasoning pointed the right
+   way and landed in the wrong place - the first guess for line 68 was 30
+   seconds late, and only the stills showed Murph's face had already gone.
+4. **Snap the boundary to a real cut** when a cut cache exists. Both Shutter
+   Island fixes took their start and end straight from detected cuts rather
+   than a round number.
+
+Ran five times without a miss. It is a procedure now, not an improvisation.
+
+### Four times, the tool was wrong and the data was fine
+
+This is the pattern of the two days, and it is worth more than any of the fixes.
+
+**Vision scoring penalised the model for being right.** The eval marked the
+model wrong whenever it called DiCaprio "Teddy" while the hand tags, written
+after the reveal, said "Laeddis". Same man. Scored as an invention AND a miss,
+twice per occurrence. Reported precision 67%; actual, after grouping aliases by
+actor, near 100%.
+
+**The scorer counted honesty as lying.** `(khong ro)` written inside a list -
+"Teddy Daniels, (khong ro)" - was parsed as a fabricated name, inflating
+"invented" from 10 to 19. Admitting uncertainty is the behaviour A5 asks for
+and the scorer punished it.
+
+**RENDER-VERIFY reported 19 systematic mismatches on a clean render.** It pulled
+in whole Whisper segments overlapping each line's window; segments run 10-15s
+and straddle line boundaries, so every window inherited its neighbour's
+sentence. It looked exactly like a render fault with a constant one-line offset.
+`diag_timeline.py` showed timeline.json accurate to ~0.1s, which located the
+fault in the measuring tool. Fixed by assigning words to exactly one window by
+midpoint.
+
+**EMPTY-LINE hard-failed three finished films for using a feature.** A line with
+a clip window and no narration looked like obvious corruption. It is Gap 3: a
+SILENCE line carries `narration_silence_seconds` and render holds the visual
+while the music swells. Written into this pipeline deliberately, and nearly
+gated out of it.
+
+The shape every time: **data departs from expectation -> conclude the data is
+broken -> the tool or the understanding was what was missing.** It is more
+dangerous than the reverse, because a false alarm sends you to fix something
+that was working.
+
+Two rules follow, and they are cheap:
+
+> When *every* case fails the same way, suspect the ruler before the thing
+> measured.
+
+> Before writing a hard-fail gate, read what render actually does with that
+> case.
+
+### Things that turned out not to predict drift
+
+Recorded so they are not re-derived.
+
+**Window length does not.** John Wick has the longest windows (median 28s, 71%
+over 20s) and zero drift. Interstellar has the shortest and tightest (median
+9s, 1% over 20s) and the most drift. The intuition that a long window must span
+several scenes, and therefore drift, is backwards.
+
+**SNAP-GRID does not.** John Wick flags 30/184 boundaries (16%) as more than 3s
+from any cut, one of them 12.9s off - and scores 0/20 on drift. The gate
+measures how neatly boundaries sit on cuts, which is worth reporting; it does
+not measure whether the footage matches the words. It stays report-only.
+
+**Catalogue coverage might.** Share of the film covered by catalogue windows:
+John Wick 48%, Spider-Man 17%, Interstellar 9%, Shutter Island 7% - which does
+order with the drift counts. But the manual fixes confound it, so this is a
+hypothesis, not a finding.
+
+### Smaller things
+
+`make_vision_eval` did not clear its output directory. Thirty frames left from
+an earlier 10-shot run sat in John Wick's sheet beside the current ones, stills
+from unrelated parts of the film presented as if they belonged to the window
+being judged - a measuring tool corrupting its own input. Both of John Wick's
+"partial" verdicts came from that; it is 20/20 clean.
+
+`draft.py` had its own names.json reader, separate from `schemas.load_names`.
+When the file gained `{character, actor}` entries it called `.lower()` on a
+dict, raised, the except swallowed it, `known` silently became empty, and every
+capitalised word in the script was flagged as an invented name. Exactly F6 in
+GATE_CANDIDATES, written down as a risk and then walked into. One loader, one
+format - and an empty `known` now says the check was skipped rather than firing
+on everything.
+
+Shot ids embed a timestamp that can move. Spider-Man's `clip:02:23:20.0` now
+points at 02:23:25. Same family as F5: an identifier should not carry data that
+changes.

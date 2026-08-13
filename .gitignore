@@ -26,3 +26,17 @@ projects/
 transcript*.txt
 transcript*.json3
 
+
+# --- keep the small artefacts under projects/ -------------------------------
+# source.mp4, clips and frames are big and re-derivable. shots.json,
+# draft.json and beats_proposal.md are neither: they hold the hand tagging,
+# the beat maps and the narration - a year of work that exists nowhere else.
+# A stale description after a hand-fixed window cost most of a day in Aug 2026
+# precisely because nothing recorded when the window moved or why.
+!projects/
+!projects/*/
+!projects/*/*.json
+!projects/*/*.md
+projects/*/_cuts.json
+projects/*/timeline.json
+projects/*/_vision_truth.json
