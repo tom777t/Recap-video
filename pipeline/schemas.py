@@ -601,7 +601,20 @@ def load_shots(project: str):
             sd = _read_json(sp)
             for s in sd.get("shots", []):
                 try:
-                    sh = Shot(**_drop_unknown(Shot, {**s, "source": s.get("source", "shots")}))
+                    # shots.json says clip_start/clip_end; Shot calls the same
+                    # thing time_start/time_end, so _drop_unknown was throwing
+                    # the window away and every Shot from shots.json arrived
+                    # with no timing at all. binding_audit then had nothing to
+                    # match a line against except an exact id string.
+                    row = {**s, "source": s.get("source", "shots")}
+                    for src_k, dst_k in (("clip_start", "time_start"),
+                                         ("clip_end", "time_end")):
+                        if row.get(src_k) is not None and row.get(dst_k) is None:
+                            try:
+                                row[dst_k] = parse_ts(row[src_k])
+                            except Exception:
+                                pass
+                    sh = Shot(**_drop_unknown(Shot, row))
                 except Exception as e:
                     problems.append(f"shots.json entry {s.get('id', '?')}: {e}")
                     continue

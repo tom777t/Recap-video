@@ -433,9 +433,28 @@ def _xfade_single(ff: str, clips: list[tuple[Path, float]], out: Path) -> float:
 
     vfilters = []
     afilters = []
+
+    # Pin every audio input to the SAME clock the video uses.
+    #
+    # xfade takes an explicit `offset=`, so the picture lands exactly where the
+    # cursor arithmetic says. acrossfade has no offset parameter - it chains on
+    # whatever the decoder hands it, and an AAC clip decodes to slightly MORE
+    # than its container duration (encoder priming). That surplus is invisible
+    # to ffprobe (stream metadata agrees with the video to under a millisecond)
+    # but real inside the filtergraph, so every junction leaked ~12-18ms of
+    # audio while the picture stayed put. It compounds: Superbad's narration
+    # finished 1.7s behind its own footage over 143 junctions, and the shorter
+    # films carry the same defect at ~0.7s - present in every render, hidden
+    # only by line count. apad+atrim forces each input to exactly the duration
+    # the cursor already assumed, so audio and video advance together.
+    apre = []
+    for i, (_p, d) in enumerate(clips):
+        apre.append(f"[{i}:a]apad=whole_dur={d:.3f},atrim=0:{d:.3f},"
+                    f"asetpts=PTS-STARTPTS[at{i}]")
+
     # running offset where the next xfade begins
     prev_v = "0:v"
-    prev_a = "0:a"
+    prev_a = "at0"
     cumulative = clips[0][1]
     for i in range(1, len(clips)):
         offset = cumulative - XFADE
@@ -445,13 +464,13 @@ def _xfade_single(ff: str, clips: list[tuple[Path, float]], out: Path) -> float:
             f"[{prev_v}][{i}:v]xfade=transition=fade:duration={XFADE}:offset={offset:.3f}[{vlabel}]"
         )
         afilters.append(
-            f"[{prev_a}][{i}:a]acrossfade=d={XFADE}[{alabel}]"
+            f"[{prev_a}][at{i}]acrossfade=d={XFADE}[{alabel}]"
         )
         prev_v = vlabel
         prev_a = alabel
         cumulative += clips[i][1] - XFADE
 
-    filtergraph = ";".join(vfilters + afilters)
+    filtergraph = ";".join(apre + vfilters + afilters)
     cmd = [
         ff, "-y", *inputs,
         "-filter_complex", filtergraph,
@@ -463,6 +482,102 @@ def _xfade_single(ff: str, clips: list[tuple[Path, float]], out: Path) -> float:
     ]
     _run(cmd, f"xfade chain -> {out.name}")
     return cumulative
+
+
+POSITION_TOLERANCE = 0.25   # seconds a line may sit off its timeline slot
+
+
+def _position_offsets(ff: str, final: Path, timeline: list, narration: list,
+                      n_probe: int = 3) -> list:
+    """Does the narration actually LAND where timeline.json says it does?
+
+    Cross-correlates a line's own TTS audio against the finished mix, near the
+    position timeline.json claims for it. Returns [(line_id, want, measured,
+    delta)] for the sampled lines, or [] if the check could not run.
+
+    This replaced a duration comparison that could never fail. The old check
+    computed `sum(clip durations) - XFADE*(n-1)` and compared it to the total
+    returned by _xfade_chain - which is that same expression, accumulated in a
+    loop. Both sides came from clips[]; neither looked at the rendered file, so
+    the 5% tolerance was decorative. It stayed green while narration drifted
+    1.7s out of step with its own footage.
+
+    A duration check is the wrong instrument regardless of where it reads from:
+    in that same broken render the audio stream measured 1031.056s against a
+    predicted 1031.056s. The total was right the whole time - the surplus was
+    absorbed at the tail while the interior slid. Only POSITION shows it.
+
+    Deliberately not ASR: this decodes waveforms and correlates energy
+    envelopes, so it is deterministic, needs no model, and costs a few seconds.
+    """
+    try:
+        import numpy as np
+    except ImportError:
+        return []
+
+    sr = 160000 // 10          # 16 kHz
+    win, pad, probe = 160, 6.0, 2.5
+
+    def decode(path, t=None):
+        cmd = [ff, "-v", "error", "-i", str(path)]
+        if t is not None:
+            cmd += ["-t", f"{t:.3f}"]
+        cmd += ["-vn", "-ac", "1", "-ar", str(sr), "-f", "s16le", "-"]
+        raw = subprocess.run(cmd, capture_output=True).stdout
+        return np.frombuffer(raw, np.int16).astype(np.float32) / 32768.0
+
+    def envelope(x):
+        n = len(x) // win * win
+        if n < win * 4:
+            return None
+        e = np.abs(x[:n]).reshape(-1, win).mean(axis=1)
+        return (e - e.mean()) / (e.std() + 1e-9)
+
+    # The in-memory timeline uses "start"; timeline.json renames it "out_start"
+    # on the way to disk. Accept either so this helper also works standalone
+    # against a written timeline.json.
+    def _slot(t):
+        v = t.get("start", t.get("out_start"))
+        return None if v is None else float(v)
+
+    audio_by_id = {lid: p for lid, p, _d in narration}
+    # Montage entries carry no id and are skipped - they have no single
+    # narration file to correlate against.
+    usable = [t for t in timeline
+              if t.get("id") in audio_by_id and _slot(t) is not None]
+    if len(usable) < 2:
+        return []
+
+    # head, middle and tail: accumulation is invisible at the head by
+    # definition, so the tail sample is the one that matters.
+    idxs = sorted({0, len(usable) // 2, len(usable) - 1})
+    if n_probe > 3 and len(usable) > n_probe:
+        step = max(1, len(usable) // n_probe)
+        idxs = sorted({*idxs, *range(0, len(usable), step)})
+
+    try:
+        full = decode(final)
+    except Exception:
+        return []
+    if len(full) < sr:
+        return []
+
+    out = []
+    for i in idxs:
+        t = usable[i]
+        want = _slot(t)
+        ref = envelope(decode(audio_by_id[t["id"]], t=probe))
+        if ref is None:
+            continue
+        lo = max(0.0, want - pad)
+        seg = full[int(lo * sr): int((want + pad + probe) * sr)]
+        hay = envelope(seg)
+        if hay is None or len(hay) <= len(ref) + 2:
+            continue
+        c = np.correlate(hay, ref - ref.mean(), mode="valid")
+        measured = lo + int(np.argmax(c)) * win / sr
+        out.append((t["id"], want, measured, measured - want))
+    return out
 
 
 def _clip_signature(source: Path, start: float, end: float, hold: float,
@@ -608,6 +723,11 @@ def render(project: str, draft: dict,
     cursor = 0.0  # start time of current clip on the overlapped timeline
     n_pool = 0
     n_cached = 0
+    # Gap 3 SILENCE lines build a clip but carry no narration audio and no
+    # caption window, so they are deliberately absent from BOTH `narration` and
+    # `timeline`. RENDER-CHECK has to know how many there were, or it reports
+    # every silence beat as a count mismatch (it fired on Superbad's two).
+    n_silence = 0
 
     for idx, ln in enumerate(draft["lines"]):
         lid = ln["id"]
@@ -655,6 +775,7 @@ def render(project: str, draft: dict,
             clips.append((cout, clip_len))
             boundaries.append(cursor)
             silence_windows.append((cursor, cursor + clip_len))
+            n_silence += 1
             # no caption text for a silence shot
             cursor += clip_len - XFADE
             tag = " [dim](cached)[/]" if reused else ""
@@ -884,22 +1005,48 @@ def render(project: str, draft: dict,
     # late-film voiceover over an early scene while every gate stayed green.
     # These three counts are cheap and cover the whole class.
     problems = []
-    if len(clips) != len(narration):
-        problems.append(f"{len(narration)} narration line(s) but {len(clips)} clip(s) built")
-    if len(timeline) != len(clips):
-        problems.append(f"{len(clips)} clip(s) but {len(timeline)} timeline entr(ies)")
-    est = sum(d for _f, d in clips) - XFADE * max(0, len(clips) - 1)
-    if est > 0 and abs(total_dur - est) / est > 0.05:
-        problems.append(f"runtime {total_dur/60:.1f} min is >5% off the "
-                        f"expected {est/60:.1f} min from the clip durations")
+    # A SILENCE line builds a clip but has no TTS audio and no caption window,
+    # so it is absent from `narration` and from `timeline` by design. Count it
+    # in, or every film using a silence beat reports a false mismatch.
+    if len(clips) != len(narration) + n_silence:
+        problems.append(f"{len(narration)} narration line(s) + {n_silence} silence "
+                        f"line(s) but {len(clips)} clip(s) built")
+    if len(timeline) != len(clips) - n_silence:
+        problems.append(f"{len(clips)} clip(s) - {n_silence} silence = "
+                        f"{len(clips)-n_silence} expected, but {len(timeline)} "
+                        f"timeline entr(ies)")
+
+    # ---- positional gate ----------------------------------------------------
+    # The real question is not "is the runtime about right" but "does line N's
+    # voice arrive where timeline.json says it does". Drift between the video
+    # chain (explicit xfade offsets) and the audio chain compounds per junction
+    # and is invisible in any total.
+    offsets = _position_offsets(ff, final, timeline, narration)
+    if not offsets:
+        console.print("[dim][RENDER-CHECK] position check skipped "
+                      "(numpy missing, or no narration to sample).[/]")
+    else:
+        worst = max(abs(d) for _i, _w, _m, d in offsets)
+        detail = ", ".join(f"line {i} {d:+.2f}s" for i, _w, _m, d in offsets)
+        if worst > POSITION_TOLERANCE:
+            problems.append(
+                f"narration is out of step with timeline.json by up to "
+                f"{worst:.2f}s ({detail}) - audio and video chains have "
+                f"diverged; captions and every timing gate downstream are "
+                f"reading positions the render does not honour")
+        else:
+            console.print(f"[dim][RENDER-CHECK] position: {detail} "
+                          f"(tolerance {POSITION_TOLERANCE:.2f}s).[/]")
+
     if problems:
         console.print("[red][RENDER-CHECK][/] the render does not match the draft:")
         for pr in problems:
             console.print(f"    {pr}")
         console.print("[red]  final.mp4 was still written - inspect it before publishing.[/]")
     else:
-        console.print(f"[dim][RENDER-CHECK] {len(clips)} lines in, {len(clips)} clips out, "
-                      f"runtime within 5% of expected.[/]")
+        console.print(f"[dim][RENDER-CHECK] {len(clips)} clips out "
+                      f"({len(narration)} narrated + {n_silence} silence), "
+                      f"narration lands on its timeline slots.[/]")
 
     console.print(f"\n[bold green]Done![/] Final video: {final}")
     return final

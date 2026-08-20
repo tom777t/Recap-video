@@ -1,3 +1,5 @@
+
+
 """
 binding_audit.py - Phase 1 claim-vs-footage check ([VOICE-VISUAL]).
 
@@ -123,7 +125,20 @@ def binding_audit(draft: Draft, shots: dict, pool_families: dict, names: set) ->
                 t = parse_ts(ln.clip_start)
             except Exception:
                 t = None
-            sh = shots.get(sid)  # may exist if a shots.json described it
+            sh = shots.get(sid)  # exact match: the line sits at a shot's start
+            if sh is None and t is not None:
+                # RULE A3 says anchor clip_start to the moment the narration
+                # describes, NOT to the shot start - so a correctly anchored
+                # line lands INSIDE a catalogued window and its exact key does
+                # not exist. Looking up by key alone marked 119 of 140 Superbad
+                # lines "unverified", which then blocked promotion through the
+                # no_unverified check. The window that contains the timestamp is
+                # the shot; find it.
+                for cand in shots.values():
+                    a, b = cand.time_start, cand.time_end
+                    if a is not None and b is not None and a - 0.6 <= t < b:
+                        sh = cand
+                        break
             if sh is not None:
                 agg_chars = {_norm(c) for c in sh.chars}
                 agg_depicts = set(sh.depicts)
@@ -174,3 +189,6 @@ def binding_audit(draft: Draft, shots: dict, pool_families: dict, names: set) ->
     return BindingResult(issues=issues, verified_match=verified_match,
                          verified_mismatch=verified_mismatch, unverified=unverified,
                          checked=checked)
+
+
+

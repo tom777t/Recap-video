@@ -1,0 +1,1692 @@
+{
+  "title": "Superbad: The Worst Night of Their Lives",
+  "target_minutes": 20,
+  "voice": "tts",
+  "stage": "outline",
+  "lines": [
+    {
+      "id": 3,
+      "narration": "This is Serabudabu. Today I'm walking you through Superbad, start to finish - one night, three boys, and a shopping list that destroys all of it.",
+      "clip_start": "00:00:25.0",
+      "clip_end": "00:00:37.0",
+      "delivery": "intro",
+      "narrative_jump": true,
+      "note": "CHANNEL INTRO - shot clip:00:00:25.0 (B01 title sequence). narrative_jump: the pivot back from the cold-open to the start of the film.",
+      "claim": {
+        "type": "narration",
+        "requires_visual": false
+      }
+    },
+    {
+      "id": 4,
+      "narration": "Let me take you back to where it starts. Two weeks before graduation, Seth - that's Jonah Hill - drives to school doing the only thing he ever does instead of everything else. Talking, at full volume, about a porn site he has decided to subscribe to.",
+      "clip_start": "00:01:30.0",
+      "clip_end": "00:01:46.0",
+      "delivery": "normal",
+      "note": "PIVOT to film order - shot clip:00:01:30.0 (B01). Famous face 1.",
+      "claim": {
+        "type": "setup",
+        "subject": "Seth"
+      }
+    },
+    {
+      "id": 5,
+      "narration": "On the other end of the phone is Evan, played by Michael Cera. He lets the words wash over him the way you only can with someone you have known your whole life. Because that is what these two are. Best friends since they were small, and in two weeks they leave for colleges on opposite sides of the country.",
+      "clip_start": "00:02:36.0",
+      "clip_end": "00:02:55.0",
+      "delivery": "normal",
+      "note": "shot clip:00:02:35.0 (B01) - famous face 2 + the spine. S5 FIX: re-bound off the Seth-in-car shot onto Evan's own shot, so the character being introduced is the one on screen.",
+      "claim": {
+        "type": "dialogue",
+        "subject": "Evan"
+      }
+    },
+    {
+      "id": 6,
+      "narration": "And one fact hangs over the whole film. Neither of them has ever so much as touched a girl. And both of them, quietly, have decided that this - the last two weeks of high school - is when that finally changes.",
+      "clip_start": "00:03:00.0",
+      "clip_end": "00:03:13.0",
+      "delivery": "normal",
+      "note": "shot clip:00:03:00.0 (B02) - WHAT THEY WANT, stated plainly. S5: 'both of them' needs both on screen; this shot has both.",
+      "claim": {
+        "type": "transition",
+        "subject": "Evan"
+      }
+    },
+    {
+      "id": 7,
+      "narration": "Seth swings by to pick Evan up, and Evan's mother leans in through the car window to say goodbye. Seth looks her dead in the chest and does not look away, and Evan watches his own soul leave his body in the passenger seat.",
+      "clip_start": "00:03:24.0",
+      "clip_end": "00:03:52.0",
+      "delivery": "normal",
+      "note": "shot clip:00:03:20.0 (B02) - anchored past the door-open lead-in to the window lean (A3)",
+      "claim": {
+        "type": "dialogue",
+        "subject": "Seth"
+      }
+    },
+    {
+      "id": 8,
+      "narration": "At the shop on the way in, Seth stops at the magazine rack. He flips through a porn magazine with the calm, unhurried focus of a man choosing which cereal to buy.",
+      "clip_start": "00:04:44.0",
+      "clip_end": "00:04:56.0",
+      "delivery": "normal",
+      "note": "shot clip:00:04:42.0 (B03) - censor blur_light at catalogue",
+      "claim": {
+        "type": "setup",
+        "subject": "Seth"
+      }
+    },
+    {
+      "id": 9,
+      "narration": "And this, honestly, is the whole friendship in one aisle. Seth talks and talks and talks, Evan winces and keeps walking, and the two of them bicker about absolutely nothing right up until the bell.",
+      "clip_start": "00:05:04.0",
+      "clip_end": "00:05:40.0",
+      "delivery": "normal",
+      "note": "shot clip:00:05:00.0 (B03)",
+      "claim": {
+        "type": "dialogue",
+        "subject": "Seth"
+      }
+    },
+    {
+      "id": 141,
+      "narration": "It is affectionate, it is relentless, and it is the thing the whole film is really about - long before anyone buys a drop of alcohol.",
+      "clip_start": "00:06:00.0",
+      "clip_end": "00:06:40.0",
+      "delivery": "normal",
+      "claim": {
+        "type": "dialogue",
+        "subject": "Seth"
+      },
+      "note": "shot clip:00:06:00.0 (B03) - Act1 enrich split from line 9"
+    },
+    {
+      "id": 10,
+      "narration": "At school, the key thing is that these two are nobodies. Older kids stop them on the pavement purely because it passes the time, and Seth takes it, and swallows it. There is nothing else to be done with it.",
+      "clip_start": "00:07:06.0",
+      "clip_end": "00:07:38.0",
+      "delivery": "normal",
+      "note": "shot clip:00:07:00.0 (B04) - establishes status; makes the party invite matter",
+      "claim": {
+        "type": "dialogue",
+        "subject": "Seth"
+      }
+    },
+    {
+      "id": 11,
+      "narration": "Then Evan runs into Becca. He has been quietly in love with her all year. And in all that time, he has not managed one complete sentence about it.",
+      "clip_start": "00:08:44.0",
+      "clip_end": "00:09:02.0",
+      "delivery": "normal",
+      "note": "shot clip:00:08:40.0 (B05) - name + role on first appearance",
+      "claim": {
+        "type": "setup",
+        "subject": "Becca"
+      }
+    },
+    {
+      "id": 12,
+      "narration": "She mentions a party at a friend's house that night, and asks, lightly, if he can maybe bring some alcohol. Evan hears his own mouth say yes. Which is a problem. Because Evan is seventeen years old and has never bought alcohol in his life.",
+      "clip_start": "00:09:08.0",
+      "clip_end": "00:09:32.0",
+      "delivery": "normal",
+      "note": "shot clip:00:09:05.0 (B05) - cause chain link 1",
+      "claim": {
+        "type": "dialogue",
+        "subject": "Evan"
+      }
+    },
+    {
+      "id": 13,
+      "narration": "Meanwhile, in home economics, Seth gets partnered with Jules. That is Emma Stone, in the very first film role of her career.",
+      "clip_start": "00:12:28.0",
+      "clip_end": "00:12:40.0",
+      "delivery": "normal",
+      "note": "shot clip:00:12:25.0 (B06) - famous face 3",
+      "claim": {
+        "type": "setup",
+        "subject": "Jules"
+      }
+    },
+    {
+      "id": 14,
+      "narration": "Her parents are away, she says, and she is throwing a party tonight. Could Seth pick up the drink for it? He says yes before she has even finished the question. Jules is the most beautiful girl who has ever spoken to him, and no was never going to come out of his mouth.",
+      "clip_start": "00:13:02.0",
+      "clip_end": "00:13:35.0",
+      "delivery": "normal",
+      "note": "shot clip:00:13:00.0 (B06) - cause chain link 2, the errand that drives the film",
+      "claim": {
+        "type": "dialogue",
+        "subject": "Seth"
+      }
+    },
+    {
+      "id": 15,
+      "narration": "There is just the matter that he cannot. He is seventeen, exactly like Evan. But the lie is already out, spoken to Jules's face. And now the entire rest of this night is built on a promise Seth had no way of keeping.",
+      "clip_start": "00:14:08.0",
+      "clip_end": "00:14:36.0",
+      "delivery": "normal",
+      "note": "shot clip:00:14:05.0 (B06) - the mechanism stated, not just the result",
+      "claim": {
+        "type": "dialogue",
+        "subject": "Jules"
+      }
+    },
+    {
+      "id": 16,
+      "narration": "Which is where the third member of this operation comes in. Their friend Fogell, walking down an empty school corridor toward camera with the unmistakable air of a man carrying a very big secret.",
+      "clip_start": "00:14:52.0",
+      "clip_end": "00:15:10.0",
+      "delivery": "normal",
+      "note": "shot clip:00:14:48.0 (B07) - anchored past the corridor lead-in to Fogell in frame (A3)",
+      "claim": {
+        "type": "setup",
+        "subject": "Fogell"
+      }
+    },
+    {
+      "id": 17,
+      "narration": "Fogell has a fake ID. A good one, he insists. And just like that, Seth's impossible promise has a delivery system. The night now has a shape: buy the drink, get to the party, and finally stop being the two boys nothing ever happens to.",
+      "clip_start": "00:15:24.0",
+      "clip_end": "00:16:02.0",
+      "delivery": "normal",
+      "note": "shot clip:00:15:20.0 (B07) - plan stated before the action, per setup-before-confusion",
+      "claim": {
+        "type": "dialogue",
+        "subject": "Fogell"
+      }
+    },
+    {
+      "id": 18,
+      "narration": "At lunch, Seth and Evan build the evening out loud between them. It is less a plan than a wish list, read at speed, each item more optimistic than the last.",
+      "clip_start": "00:17:10.0",
+      "clip_end": "00:17:58.0",
+      "delivery": "normal",
+      "note": "shot clip:00:17:05.0 (B08)",
+      "claim": {
+        "type": "dialogue"
+      }
+    },
+    {
+      "id": 19,
+      "narration": "And the film stops, briefly, to explain Seth - with a flashback to Seth as a small boy, maybe eight years old, sitting alone at his desk.",
+      "clip_start": "00:18:14.0",
+      "clip_end": "00:18:30.0",
+      "delivery": "normal",
+      "note": "shot clip:00:18:10.0 (B08) - flashback flagged as flashback so the jump reads",
+      "claim": {
+        "type": "setup"
+      }
+    },
+    {
+      "id": 20,
+      "narration": "He drew penises. Constantly. In every notebook, through every lesson, hundreds of them. All of it rendered with the joyful commitment of a boy who has discovered his one true calling in life.",
+      "clip_start": "00:18:46.0",
+      "clip_end": "00:19:22.0",
+      "delivery": "normal",
+      "note": "shot clip:00:18:42.0 (B08) - censor blur_light",
+      "claim": {
+        "type": "setup"
+      }
+    },
+    {
+      "id": 21,
+      "narration": "Then one day the class got hold of the drawings and passed them around, and that was the end of that. It plays as a joke - and it is one - but it is also the first quiet clue to who Seth really is underneath the noise. A kid who wants, more than anything, to be liked, and will never once admit it.",
+      "clip_start": "00:19:28.0",
+      "clip_end": "00:19:52.0",
+      "delivery": "normal",
+      "note": "shot clip:00:19:25.0 (B08) - censor blur_light. Pays the flashback off into character, not just gag.",
+      "claim": {
+        "type": "discovery"
+      }
+    },
+    {
+      "id": 22,
+      "narration": "For the rest of the day, Seth keeps orbiting back to Jules. And he keeps cheerfully promising her far, far more alcohol than any seventeen-year-old could ever actually get.",
+      "clip_start": "00:21:04.0",
+      "clip_end": "00:21:32.0",
+      "delivery": "normal",
+      "note": "shot clip:00:21:00.0 (B09)",
+      "claim": {
+        "type": "dialogue",
+        "subject": "Jules"
+      }
+    },
+    {
+      "id": 23,
+      "narration": "And out on the field, in a pinny, he lays the whole thing out for Evan one more time. Get the drink. Get to the party. And finally, after eighteen years, stop being the two guys that life just quietly skips over.",
+      "clip_start": "00:22:44.0",
+      "clip_end": "00:23:08.0",
+      "delivery": "normal",
+      "note": "shot clip:00:22:35.0 (B10) - anchored to the bleachers conversation, not the field-crossing lead-in",
+      "claim": {
+        "type": "dialogue",
+        "subject": "Evan"
+      }
+    },
+    {
+      "id": 24,
+      "narration": "Evan tracks Becca down at her locker and confirms he will be there tonight, with exactly what she asked for. The two of them are hopeless at this - all nerves and half-sentences - and both, completely, quietly thrilled.",
+      "clip_start": "00:25:08.0",
+      "clip_end": "00:25:30.0",
+      "delivery": "normal",
+      "note": "shot clip:00:25:05.0 (B11)",
+      "claim": {
+        "type": "dialogue",
+        "subject": "Becca"
+      }
+    },
+    {
+      "id": 2,
+      "narration": "That kid's fake licence says he is twenty-five, an organ donor from Hawaii, with one single name printed on it. McLovin.",
+      "clip_start": "00:27:25.0",
+      "clip_end": "00:27:34.0",
+      "delivery": "hook",
+      "narrative_jump": true,
+      "note": "HOOK 2/2 - shot clip:00:27:25.0 (B12). The absurd cause. Only out-of-order lines in the draft (S2). narrative_jump: this is the cold-open, the one sanctioned jump.",
+      "claim": {
+        "type": "reveal"
+      }
+    },
+    {
+      "id": 25,
+      "narration": "Then Fogell finally produces the actual ID, and the plan meets its first real problem before it has even left the school.",
+      "clip_start": "00:27:38.0",
+      "clip_end": "00:27:45.0",
+      "delivery": "normal",
+      "note": "shot clip:00:27:35.0 (B12) - the card itself already spent in the hook; this is the reaction beat",
+      "claim": {
+        "type": "dialogue",
+        "subject": "Fogell"
+      }
+    },
+    {
+      "id": 26,
+      "narration": "It is a Hawaii driver's licence. It lists him as an organ donor. And it has no first name on it whatsoever. It simply, gloriously, says McLovin - and Fogell genuinely cannot understand why the other two are now screaming at him in the street.",
+      "clip_start": "00:28:18.0",
+      "clip_end": "00:28:34.0",
+      "delivery": "normal",
+      "note": "shot clip:00:28:15.0 (B12)",
+      "claim": {
+        "type": "dialogue",
+        "subject": "Fogell"
+      }
+    },
+    {
+      "id": 27,
+      "narration": "He insists McLovin sounds like a fully grown twenty-five-year-old man. Seth insists it sounds like a wizard, or possibly a house cat.",
+      "clip_start": "00:28:38.2",
+      "clip_end": "00:28:46.8",
+      "delivery": "normal",
+      "note": "shot clip:00:28:38.2 (B12) - SPLIT 1/2 of the McLovin argument. Was one 8.0s window carrying 43w (~15.4s) against 11.2s capacity = BINDING-VIOLATION. Host shot clip:00:28:15.0 re-catalogued into three windows on real detected cuts (1718.21s / 1726.843s); host real end 00:29:00.0 unchanged. Second half is line 144.",
+      "claim": {
+        "type": "dialogue",
+        "subject": "Fogell"
+      }
+    },
+    {
+      "id": 144,
+      "narration": "Fogell wins the argument, on the grounds that Fogell is the one holding the only fake ID any of them has.",
+      "clip_start": "00:28:46.8",
+      "clip_end": "00:29:00.0",
+      "delivery": "normal",
+      "note": "shot clip:00:28:46.8 (B12) - SPLIT 2/2 of the McLovin argument, split from line 27. No words cut; the split is on the sentence boundary so the punchline keeps its own window.",
+      "claim": {
+        "type": "dialogue",
+        "subject": "Fogell"
+      }
+    },
+    {
+      "id": 28,
+      "narration": "So that evening they get changed at Evan's place, kill a little time, and head out to do the one job the entire night depends on.",
+      "clip_start": "00:29:40.0",
+      "clip_end": "00:30:18.0",
+      "delivery": "normal",
+      "note": "shot clip:00:29:35.0 (B13)",
+      "claim": {
+        "type": "setup",
+        "subject": "Evan"
+      }
+    },
+    {
+      "id": 29,
+      "narration": "Fogell turns up for the operation dressed as his own idea of what a twenty-five-year-old man looks like - slacks, a waistcoat, the works. And this, right here, is the exact moment Seth realises the plan may not survive contact with reality.",
+      "clip_start": "00:30:48.0",
+      "clip_end": "00:31:12.0",
+      "delivery": "normal",
+      "note": "shot clip:00:30:45.0 (B14)",
+      "claim": {
+        "type": "setup",
+        "subject": "Fogell"
+      }
+    },
+    {
+      "id": 30,
+      "narration": "But first, Seth decides to try it himself. He walks into a big supermarket, finds the liquor aisle, and starts pacing it, working up the nerve to just grab something and go.",
+      "clip_start": "00:31:50.0",
+      "clip_end": "00:32:10.0",
+      "delivery": "normal",
+      "note": "shot clip:00:31:48.0 (B15) [S6] 1/4",
+      "claim": {
+        "type": "setup",
+        "subject": "Seth"
+      }
+    },
+    {
+      "id": 31,
+      "narration": "He stalls. He stalls so long that an elderly woman strikes up a friendly conversation with him about her evening, and Seth, sweating now, stalls considerably harder.",
+      "clip_start": "00:32:34.0",
+      "clip_end": "00:33:00.0",
+      "delivery": "normal",
+      "note": "shot clip:00:32:30.0 (B15) [S6] 2/4",
+      "claim": {
+        "type": "dialogue"
+      }
+    },
+    {
+      "id": 32,
+      "narration": "So, because charm is clearly not happening, he decides to skip it entirely - and simply slides a bottle of vodka inside his jacket.",
+      "clip_start": "00:33:05.0",
+      "clip_end": "00:33:14.0",
+      "delivery": "normal",
+      "note": "shot clip:00:33:05.0 (B15) [S6] 3/4 - the action beat",
+      "claim": {
+        "type": "action"
+      }
+    },
+    {
+      "id": 33,
+      "narration": "He gets about six steps toward the door. A security guard takes the bottle straight back out of his jacket and walks him out of the shop by the arm. Plan A is dead.",
+      "clip_start": "00:33:16.0",
+      "clip_end": "00:33:38.0",
+      "delivery": "normal",
+      "note": "shot clip:00:33:15.0 (B15) [S6] 4/4 - outcome",
+      "claim": {
+        "type": "action"
+      }
+    },
+    {
+      "id": 34,
+      "narration": "Which leaves Fogell. They ride the bus across town to a liquor store. And on the pavement outside, Seth coaches him through it one more time, like a cornerman before the bell.",
+      "clip_start": "00:34:30.0",
+      "clip_end": "00:35:00.0",
+      "delivery": "normal",
+      "note": "shot clip:00:34:25.0 (B16)",
+      "claim": {
+        "type": "dialogue",
+        "subject": "Fogell"
+      }
+    },
+    {
+      "id": 35,
+      "narration": "Fogell rehearses being McLovin. He rehearses the walk. He rehearses the voice. Every instinct you have is telling you this is going to go extremely, memorably badly.",
+      "clip_start": "00:35:12.0",
+      "clip_end": "00:35:50.0",
+      "delivery": "normal",
+      "note": "shot clip:00:35:05.0 (B16)",
+      "claim": {
+        "type": "dialogue",
+        "subject": "Fogell"
+      }
+    },
+    {
+      "id": 36,
+      "narration": "Inside, his nerve deserts him on contact. He drifts along the beer coolers picking bottles up and putting them down again, while behind the counter the clerk watches this twitchy teenager do exactly that.",
+      "clip_start": "00:36:08.0",
+      "clip_end": "00:36:48.0",
+      "delivery": "normal",
+      "note": "shot clip:00:36:05.0 (B17)",
+      "claim": {
+        "type": "setup"
+      }
+    },
+    {
+      "id": 37,
+      "narration": "Outside, Seth and Evan wait, and because these two cannot stand still for ninety seconds without it happening, the waiting curdles into an argument.",
+      "clip_start": "00:36:54.0",
+      "clip_end": "00:37:40.0",
+      "delivery": "normal",
+      "note": "shot clip:00:36:50.0 (B17)",
+      "claim": {
+        "type": "dialogue",
+        "subject": "Seth"
+      }
+    },
+    {
+      "id": 38,
+      "narration": "And then, against all probability, something nobody expected. Fogell sets his basket on the counter and hands over the McLovin card. The cashier looks at it, looks at him, and starts ringing the whole thing up.",
+      "clip_start": "00:38:30.0",
+      "clip_end": "00:39:02.0",
+      "delivery": "tense",
+      "note": "shot clip:00:38:25.0 (B17) - genuine turn, earns the tense delivery",
+      "claim": {
+        "type": "dialogue",
+        "subject": "Fogell"
+      }
+    },
+    {
+      "id": 39,
+      "narration": "It is working. The fake ID is genuinely, actually working.",
+      "clip_start": "00:39:32.0",
+      "clip_end": "00:39:42.0",
+      "delivery": "tense",
+      "note": "shot clip:00:39:30.0 (B17)",
+      "claim": {
+        "type": "setup"
+      }
+    },
+    {
+      "id": 40,
+      "narration": "And that is the exact second a man in a black hood decides to rob the place, vaulting the counter for the register.",
+      "clip_start": "00:39:43.0",
+      "clip_end": "00:39:50.0",
+      "delivery": "tense",
+      "note": "shot clip:00:39:43.0 (B18) [S6] 1/3 - initiation",
+      "claim": {
+        "type": "action"
+      }
+    },
+    {
+      "id": 41,
+      "narration": "He knocks Fogell flat on his way past.",
+      "clip_start": "00:39:51.0",
+      "clip_end": "00:39:58.0",
+      "delivery": "tense",
+      "note": "shot clip:00:39:50.0 (B18) [S6] 2/3 - impact",
+      "claim": {
+        "type": "action",
+        "subject": "Fogell"
+      }
+    },
+    {
+      "id": 42,
+      "narration": "Ten seconds later it is over. The shop is empty, the money is gone, and McLovin is on the floor.",
+      "clip_start": "00:39:59.0",
+      "clip_end": "00:40:08.0",
+      "delivery": "normal",
+      "note": "shot clip:00:39:58.0 (B18) [S6] 3/3 - aftermath",
+      "claim": {
+        "type": "narration",
+        "requires_visual": false
+      }
+    },
+    {
+      "id": 43,
+      "narration": "Seth and Evan are still out on the pavement. They press up against the window, and they cannot work out what has just happened to their friend in there.",
+      "clip_start": "00:40:12.0",
+      "clip_end": "00:40:34.0",
+      "delivery": "normal",
+      "note": "shot clip:00:40:10.0 (B19)",
+      "claim": {
+        "type": "reaction",
+        "subject": "Seth"
+      }
+    },
+    {
+      "id": 44,
+      "narration": "Two police officers arrive. Slater and Michaels - played by Bill Hader and Seth Rogen, who co-wrote this entire film as a teenager with his friend Evan Goldberg. Yes, that Evan.",
+      "clip_start": "00:40:44.0",
+      "clip_end": "00:41:05.0",
+      "delivery": "normal",
+      "note": "shot clip:00:40:40.0 (B20) - famous faces 4+5. PRE-R1: introduced as ordinary patrolmen, nothing more.",
+      "claim": {
+        "type": "setup",
+        "subject": "Officer Slater"
+      }
+    },
+    {
+      "id": 45,
+      "narration": "They take the cashier's statement, if you can call it that. Inside a minute, the two of them have stopped investigating the robbery. They are now arguing with each other about whether the robber was even that fast.",
+      "clip_start": "00:41:10.0",
+      "clip_end": "00:41:54.0",
+      "delivery": "normal",
+      "note": "shot clip:00:41:05.0 (B20) - PRE-R1 HOLD: reads as pure incompetence, which is what a first-time viewer sees",
+      "claim": {
+        "type": "dialogue"
+      }
+    },
+    {
+      "id": 46,
+      "narration": "Then they get to Fogell. Bleeding a little, still clutching a licence that says McLovin. And he is about to discover that these two officers have no intention at all of arresting him.",
+      "clip_start": "00:42:38.0",
+      "clip_end": "00:43:10.0",
+      "delivery": "normal",
+      "note": "shot clip:00:42:35.0 (B20) - PRE-R1 HOLD: no hint of intent, only the surprising outcome",
+      "claim": {
+        "type": "dialogue",
+        "subject": "Fogell"
+      }
+    },
+    {
+      "id": 47,
+      "narration": "Out in the car park, Seth and Evan are blaming each other for the whole disaster, both of them shouting. And because Seth is walking backwards into the road to make his point, he does not see it coming.",
+      "clip_start": "00:43:20.0",
+      "clip_end": "00:43:57.0",
+      "delivery": "normal",
+      "note": "shot clip:00:43:15.0 (B21) [S6] 1/3 - setup, anchored to the back-into-the-road beat",
+      "claim": {
+        "type": "dialogue",
+        "subject": "Seth"
+      }
+    },
+    {
+      "id": 48,
+      "narration": "So a car hits him, and puts him flat on the tarmac.",
+      "clip_start": "00:43:58.0",
+      "clip_end": "00:44:04.0",
+      "delivery": "tense",
+      "note": "shot clip:00:43:58.0 (B21) [S6] 2/3 - impact",
+      "claim": {
+        "type": "action"
+      }
+    },
+    {
+      "id": 49,
+      "narration": "The driver gets out. This is Francis, and Francis is very, very keen that nobody involves the police in what just happened.",
+      "clip_start": "00:44:05.0",
+      "clip_end": "00:44:13.0",
+      "delivery": "normal",
+      "note": "shot clip:00:44:04.0 (B21) [S6] 3/3 - aftermath + name/role on first appearance",
+      "claim": {
+        "type": "narration",
+        "requires_visual": false
+      }
+    },
+    {
+      "id": 50,
+      "narration": "Back inside, the two officers turn the McLovin card over between them and, instead of booking him, hand it straight back.",
+      "clip_start": "00:44:24.0",
+      "clip_end": "00:44:58.0",
+      "delivery": "normal",
+      "note": "shot clip:00:44:20.0 (B22) - PRE-R1 HOLD",
+      "claim": {
+        "type": "dialogue",
+        "subject": "Fogell"
+      }
+    },
+    {
+      "id": 51,
+      "narration": "They think it is the single funniest thing they have seen all week. They offer him a ride. And Fogell, who has never in his life been offered anything by anyone, gets in.",
+      "clip_start": "00:45:04.0",
+      "clip_end": "00:45:38.0",
+      "delivery": "normal",
+      "note": "shot clip:00:45:00.0 (B22) - PRE-R1 HOLD: 'funniest thing' keeps the incompetence read",
+      "claim": {
+        "type": "emotion",
+        "subject": "Fogell"
+      }
+    },
+    {
+      "id": 52,
+      "narration": "Out in the car park, Francis makes Seth and Evan a deal. Forget the accident ever happened, and he will take them to a party with more free alcohol than they could ever carry out.",
+      "clip_start": "00:46:06.0",
+      "clip_end": "00:46:38.0",
+      "delivery": "normal",
+      "note": "shot clip:00:46:00.0 (B23)",
+      "claim": {
+        "type": "dialogue",
+        "subject": "Francis"
+      }
+    },
+    {
+      "id": 53,
+      "narration": "They have no drink, no plan, and no other options left. So they get in.",
+      "clip_start": "00:47:00.0",
+      "clip_end": "00:47:30.0",
+      "delivery": "normal",
+      "note": "shot clip:00:46:45.0 (B23)",
+      "claim": {
+        "type": "dialogue"
+      }
+    },
+    {
+      "id": 54,
+      "narration": "And from here, the night splits into three, and it stays split for the next hour. On one side, Seth and Evan, in the car of a stranger who just ran Seth over, heading to a house party full of grown adults.",
+      "clip_start": "00:48:24.0",
+      "clip_end": "00:48:58.0",
+      "delivery": "normal",
+      "note": "shot clip:00:48:20.0 (B24) - flags the parallel structure so the intercutting reads",
+      "claim": {
+        "type": "dialogue",
+        "subject": "Francis"
+      }
+    },
+    {
+      "id": 55,
+      "narration": "On another, Fogell rides in the back of a squad car. He is with two officers who have quietly decided he is the single best thing to happen to their whole shift.",
+      "clip_start": "00:49:24.0",
+      "clip_end": "00:50:00.0",
+      "delivery": "normal",
+      "note": "shot clip:00:49:20.0 (B24) - PRE-R1 HOLD",
+      "claim": {
+        "type": "dialogue",
+        "subject": "Fogell"
+      }
+    },
+    {
+      "id": 56,
+      "narration": "Officers who, it is now becoming clear, are drinking on the job, in uniform, and have no intention whatsoever of actually driving this kid home.",
+      "clip_start": "00:50:14.0",
+      "clip_end": "00:51:00.0",
+      "delivery": "normal",
+      "note": "shot clip:00:50:10.0 (B24) - PRE-R1 HOLD: irresponsibility, never design",
+      "claim": {
+        "type": "dialogue"
+      }
+    },
+    {
+      "id": 57,
+      "narration": "The party Francis drops them at is not a school party. Everyone in the room is at least ten years older. Seth and Evan work that out about four seconds after walking in.",
+      "clip_start": "00:51:52.0",
+      "clip_end": "00:52:35.0",
+      "delivery": "normal",
+      "note": "shot clip:00:51:50.0 (B25)",
+      "claim": {
+        "type": "setup"
+      }
+    },
+    {
+      "id": 58,
+      "narration": "And it goes wrong fast. Mark, whose house this is, catches Francis using his phone and tells him, coldly, that he was never invited.",
+      "clip_start": "00:52:44.0",
+      "clip_end": "00:53:02.0",
+      "delivery": "normal",
+      "note": "shot clip:00:52:40.0 (B26) [S6] 1/3 - name/role on first appearance",
+      "claim": {
+        "type": "dialogue",
+        "subject": "Francis"
+      }
+    },
+    {
+      "id": 59,
+      "narration": "So he hits him.",
+      "clip_start": "00:53:03.0",
+      "clip_end": "00:53:13.0",
+      "delivery": "normal",
+      "note": "shot clip:00:53:02.0 (B26) [S6] 2/3 + 3/3 merged - punch and ejection",
+      "claim": {
+        "type": "action",
+        "subject": "Francis"
+      }
+    },
+    {
+      "id": 142,
+      "narration": "And the whole room turns to watch Francis get thrown bodily out of the front door.",
+      "clip_start": "00:53:15.0",
+      "clip_end": "00:53:40.0",
+      "delivery": "normal",
+      "claim": {
+        "type": "narration",
+        "requires_visual": false
+      },
+      "note": "shot clip:00:53:15.0 (B26) aftermath - Act3 split from 59"
+    },
+    {
+      "id": 60,
+      "narration": "Evan has had enough and wants to leave. But Seth refuses to go without the alcohol he promised. And so, for the first time in the whole film, the two of them split up.",
+      "clip_start": "00:53:58.0",
+      "clip_end": "00:54:32.0",
+      "delivery": "normal",
+      "note": "shot clip:00:53:55.0 (B27) - the fracture that the last act pays off",
+      "claim": {
+        "type": "dialogue",
+        "subject": "Seth"
+      }
+    },
+    {
+      "id": 61,
+      "narration": "Meanwhile - and remember, hold this thought - the two officers have taken a seventeen-year-old to a bar, in uniform, and bought him a drink.",
+      "clip_start": "00:54:40.0",
+      "clip_end": "00:54:51.0",
+      "delivery": "normal",
+      "note": "shot clip:00:54:38.0 (B28) - PRE-R1 HOLD",
+      "claim": {
+        "type": "narration",
+        "requires_visual": false
+      }
+    },
+    {
+      "id": 62,
+      "narration": "When a fight breaks out, they do not break it up. They wade in and enjoy it, wrestling a man through the kitchen, while Fogell scrambles for cover under the nearest table.",
+      "clip_start": "00:55:38.0",
+      "clip_end": "00:56:12.0",
+      "delivery": "normal",
+      "note": "shot clip:00:55:35.0 (B28) - PRE-R1 HOLD",
+      "claim": {
+        "type": "action",
+        "subject": "Fogell"
+      }
+    },
+    {
+      "id": 63,
+      "narration": "Back at the party, Seth is trapped. A man in a cap has decided Seth is his new best friend, and will not let him leave.",
+      "clip_start": "00:56:18.0",
+      "clip_end": "00:56:35.0",
+      "delivery": "normal",
+      "note": "shot clip:00:56:15.0 (B29)",
+      "claim": {
+        "type": "dialogue",
+        "subject": "Seth"
+      }
+    },
+    {
+      "id": 64,
+      "narration": "Outside, Evan takes a call.",
+      "clip_start": "00:57:12.0",
+      "clip_end": "00:57:32.0",
+      "delivery": "normal",
+      "note": "shot clip:00:57:10.0 (B30) - S5 SPLIT 1/2: the intercut call was one line naming two absent people; now one line per side of the cut.",
+      "claim": {
+        "type": "dialogue",
+        "subject": "Evan"
+      }
+    },
+    {
+      "id": 140,
+      "narration": "It is Becca, already over at Jules's party, wanting to know whether he is actually going to show up.",
+      "clip_start": "00:57:34.0",
+      "clip_end": "00:57:58.0",
+      "delivery": "normal",
+      "note": "shot clip:00:57:33.0 (B30) - S5 SPLIT 2/2: Becca named on Becca's own footage.",
+      "claim": {
+        "type": "dialogue",
+        "subject": "Becca"
+      }
+    },
+    {
+      "id": 65,
+      "narration": "Seth needs to get away from him. So he ends up on the dance floor with a very drunk woman called Jacinda. Which, at the time, feels like the night finally turning his way. Remember that too.",
+      "clip_start": "00:58:02.0",
+      "clip_end": "00:58:36.0",
+      "delivery": "normal",
+      "note": "shot clip:00:58:00.0 (B29) - plants the stain that detonates at B35",
+      "claim": {
+        "type": "action",
+        "subject": "Jacinda"
+      }
+    },
+    {
+      "id": 66,
+      "narration": "And back on the actual mission, Seth finally solves his problem the only way left to him.",
+      "clip_start": "00:58:44.0",
+      "clip_end": "00:58:58.0",
+      "delivery": "normal",
+      "note": "shot clip:00:58:40.0 (B31)",
+      "claim": {
+        "type": "action",
+        "subject": "Seth"
+      }
+    },
+    {
+      "id": 143,
+      "narration": "He needs that drink. So he empties an ice bucket into a laundry detergent box, and starts quietly stealing the party supply, one bottle at a time.",
+      "clip_start": "00:59:00.0",
+      "clip_end": "00:59:52.0",
+      "delivery": "normal",
+      "claim": {
+        "type": "action",
+        "subject": "Seth"
+      },
+      "note": "shot clip:00:59:00.0 (B31) - Act3 split from 66"
+    },
+    {
+      "id": 67,
+      "narration": "At the bar, the officers and Fogell are properly bonding now. They ask him about girls. They tell him war stories. The three of them are, genuinely, having the time of their lives.",
+      "clip_start": "01:01:14.0",
+      "clip_end": "01:02:00.0",
+      "delivery": "normal",
+      "note": "shot clip:01:01:10.0 (B32) - PRE-R1 HOLD: warmth is fine, intent is not",
+      "claim": {
+        "type": "dialogue",
+        "subject": "Fogell"
+      }
+    },
+    {
+      "id": 68,
+      "narration": "Evan, on the other side of town, has it worse. He has been pulled onto a couch by a circle of older men who simply will not release him from the conversation.",
+      "clip_start": "01:05:14.0",
+      "clip_end": "01:06:18.0",
+      "delivery": "normal",
+      "note": "shot clip:01:05:10.0 (B33)",
+      "claim": {
+        "type": "dialogue",
+        "subject": "Evan"
+      }
+    },
+    {
+      "id": 69,
+      "narration": "And because nobody is stopping them, the officers start handing Fogell things. First the radio. Then the siren.",
+      "clip_start": "01:06:34.0",
+      "clip_end": "01:07:20.0",
+      "delivery": "normal",
+      "note": "shot clip:01:06:30.0 (B34) [S6] 1/4 - PRE-R1 HOLD",
+      "claim": {
+        "type": "emotion",
+        "subject": "Fogell"
+      }
+    },
+    {
+      "id": 70,
+      "narration": "Then, since that went fine, a loaded service pistol.",
+      "clip_start": "01:07:28.0",
+      "clip_end": "01:07:52.0",
+      "delivery": "normal",
+      "note": "shot clip:01:07:25.0 (B34) [S6] 2/4 - PRE-R1 HOLD: 'nothing has stopped them' = recklessness",
+      "claim": {
+        "type": "setup"
+      }
+    },
+    {
+      "id": 71,
+      "narration": "Back at the party, Seth glances down and finds blood smeared across his jeans.",
+      "clip_start": "01:08:00.0",
+      "clip_end": "01:08:10.0",
+      "delivery": "normal",
+      "note": "shot clip:01:08:00.0 (B35) - censor blur_light",
+      "claim": {
+        "type": "discovery",
+        "subject": "Seth"
+      }
+    },
+    {
+      "id": 72,
+      "narration": "It came off the woman he had been dancing with. She is, it turns out, engaged to Mark - whose house this is, and who is right now standing directly in front of him.",
+      "clip_start": "01:08:16.0",
+      "clip_end": "01:09:02.0",
+      "delivery": "normal",
+      "note": "shot clip:01:08:12.0 (B35) - cause->effect made explicit",
+      "claim": {
+        "type": "dialogue",
+        "subject": "Mark"
+      }
+    },
+    {
+      "id": 73,
+      "narration": "Evan pushes back through the crowd and finds his best friend already at the centre of a problem that is about to get physical.",
+      "clip_start": "01:09:08.0",
+      "clip_end": "01:09:38.0",
+      "delivery": "normal",
+      "note": "shot clip:01:09:05.0 (B35)",
+      "claim": {
+        "type": "reaction",
+        "subject": "Evan"
+      }
+    },
+    {
+      "id": 74,
+      "narration": "There is no version of this where Seth talks his way out, because Mark is done talking.",
+      "clip_start": "01:09:44.0",
+      "clip_end": "01:10:00.0",
+      "delivery": "tense",
+      "note": "shot clip:01:09:40.0 (B36) [S6] 1/3 - setup",
+      "claim": {
+        "type": "dialogue",
+        "subject": "Seth"
+      }
+    },
+    {
+      "id": 75,
+      "narration": "So the room goes up. Furniture over, bodies everywhere, half the party joining in for the fun of it.",
+      "clip_start": "01:10:02.0",
+      "clip_end": "01:10:22.0",
+      "delivery": "tense",
+      "note": "shot clip:01:10:00.0 (B36) [S6] 2/3 - peak",
+      "claim": {
+        "type": "action"
+      }
+    },
+    {
+      "id": 76,
+      "narration": "And Seth needs that drink above everything. So he swings the box of stolen liquor up out of the middle of the brawl, and runs for the door.",
+      "clip_start": "01:10:24.0",
+      "clip_end": "01:10:33.0",
+      "delivery": "tense",
+      "note": "shot clip:01:10:22.0 (B36) [S6] 3/3 - outcome",
+      "claim": {
+        "type": "action",
+        "subject": "Seth"
+      }
+    },
+    {
+      "id": 77,
+      "narration": "Which the three of them - meanwhile - are busy emptying into a road sign, in the dark, at the very top of their voices.",
+      "clip_start": "01:10:44.0",
+      "clip_end": "01:11:15.0",
+      "delivery": "normal",
+      "note": "shot clip:01:10:40.0 (B34) [S6] 3/4 - PRE-R1 HOLD. Follows the gun handed over at line 70.",
+      "claim": {
+        "type": "action"
+      }
+    },
+    {
+      "id": 78,
+      "narration": "Fogell has never, in seventeen years, been happier.",
+      "clip_start": "01:11:26.0",
+      "clip_end": "01:11:38.0",
+      "delivery": "normal",
+      "note": "shot clip:01:11:20.0 (B34) [S6] 4/4 - PRE-R1 HOLD",
+      "claim": {
+        "type": "emotion",
+        "subject": "Fogell"
+      }
+    },
+    {
+      "id": 79,
+      "narration": "Seth and Evan spill out into an empty street, two plastic jugs of stolen drink between them. And everything they have not said to each other all year comes out at once.",
+      "clip_start": "01:12:08.0",
+      "clip_end": "01:12:32.0",
+      "delivery": "normal",
+      "note": "shot clip:01:12:05.0 (B37) [S6] 1/4 - the film's emotional hinge",
+      "claim": {
+        "type": "transition",
+        "subject": "Seth"
+      }
+    },
+    {
+      "id": 80,
+      "narration": "Seth accuses Evan of leaving him. Of always leaving him. Of bailing the instant anything gets hard.",
+      "clip_start": "01:12:38.0",
+      "clip_end": "01:13:12.0",
+      "delivery": "tense",
+      "note": "shot clip:01:12:35.0 (B37) [S6] 2/4",
+      "claim": {
+        "type": "dialogue",
+        "subject": "Seth"
+      }
+    },
+    {
+      "id": 81,
+      "narration": "And Evan, for once, says it right back. That Seth is selfish. That he has spent years holding Evan back. That he is genuinely tired of it.",
+      "clip_start": "01:13:14.0",
+      "clip_end": "01:13:42.0",
+      "delivery": "tense",
+      "note": "shot clip:01:13:12.0 (B37) [S6] 3/4",
+      "claim": {
+        "type": "dialogue",
+        "subject": "Seth"
+      }
+    },
+    {
+      "id": 82,
+      "narration": "And so he shoves him - backwards, hard, furious, into the middle of the road.",
+      "clip_start": "01:13:44.0",
+      "clip_end": "01:13:54.0",
+      "delivery": "tense",
+      "note": "shot clip:01:13:42.0 (B37) [S6] 4/4",
+      "claim": {
+        "type": "action"
+      }
+    },
+    {
+      "id": 83,
+      "narration": "And in the squad car coming the other way, nobody is watching the road, because the officers are still doubled over laughing with Fogell.",
+      "clip_start": "01:14:00.0",
+      "clip_end": "01:14:32.0",
+      "delivery": "tense",
+      "note": "shot clip:01:13:55.0 (B38) [S6] 1/3 - PRE-R1 HOLD",
+      "claim": {
+        "type": "setup"
+      }
+    },
+    {
+      "id": 84,
+      "narration": "So the car hits Seth, and the windscreen stars white across the driver stunned view.",
+      "clip_start": "01:14:32.0",
+      "clip_end": "01:14:40.0",
+      "delivery": "tense",
+      "note": "shot clip:01:14:32.0 (B38) [S6] 2/3",
+      "claim": {
+        "type": "action",
+        "subject": "Seth"
+      }
+    },
+    {
+      "id": 85,
+      "narration": "One of the jugs rolls loose across the tarmac and empties out everything the two of them spent this whole catastrophic night trying to get.",
+      "clip_start": "01:14:42.0",
+      "clip_end": "01:14:52.0",
+      "delivery": "normal",
+      "note": "shot clip:01:14:40.0 (B38) [S6] 3/3 - aftermath",
+      "claim": {
+        "type": "narration",
+        "requires_visual": false
+      }
+    },
+    {
+      "id": 86,
+      "narration": "Seth, somehow, is more or less fine. The real problem is the two officers standing over them. They have just written off a police car, and they urgently need this to be somebody else's fault.",
+      "clip_start": "01:15:18.0",
+      "clip_end": "01:15:58.0",
+      "delivery": "normal",
+      "note": "SP1 [S6] 1/6 - shot clip:01:15:15.0 (B39). PRE-R1 HOLD: self-preservation, the least flattering read.",
+      "claim": {
+        "type": "dialogue",
+        "subject": "Seth"
+      }
+    },
+    {
+      "id": 87,
+      "narration": "So they decide, out loud, in front of the boys, to pin the entire crash on the two teenagers.",
+      "clip_start": "01:16:02.0",
+      "clip_end": "01:16:22.0",
+      "delivery": "normal",
+      "note": "SP1 [S6] 2/6 - shot clip:01:16:00.0 (B39). PRE-R1 HOLD.",
+      "claim": {
+        "type": "dialogue"
+      }
+    },
+    {
+      "id": 88,
+      "narration": "They put both of them face down on the road, in the glare of the headlights.",
+      "clip_start": "01:16:32.0",
+      "clip_end": "01:17:00.0",
+      "delivery": "normal",
+      "note": "SP1 [S6] 3/6 - shot clip:01:16:30.0 (B39)",
+      "claim": {
+        "type": "action"
+      }
+    },
+    {
+      "id": 89,
+      "narration": "And from inside the car, someone has been watching every second of this.",
+      "clip_start": "01:17:08.0",
+      "clip_end": "01:17:42.0",
+      "delivery": "tense",
+      "note": "SP1 [S6] 4/6 - shot clip:01:17:05.0 (B39)",
+      "claim": {
+        "type": "reaction"
+      }
+    },
+    {
+      "id": 90,
+      "narration": "Fogell gets out. And after a whole night spent running in three completely different directions, the three of them are suddenly standing together in the same stretch of road.",
+      "clip_start": "01:17:46.0",
+      "clip_end": "01:18:12.0",
+      "delivery": "tense",
+      "note": "SP1 [S6] 5/6 - shot clip:01:17:45.0 (B39). Convergence, NOT surprise - per beats_proposal note.",
+      "claim": {
+        "type": "reveal",
+        "subject": "Fogell"
+      }
+    },
+    {
+      "id": 91,
+      "narration": "So they run. All three of them, into the dark, with the two officers coming after them on foot.",
+      "clip_start": "01:18:22.0",
+      "clip_end": "01:18:55.0",
+      "delivery": "tense",
+      "note": "SP1 [S6] 6/6 - shot clip:01:18:20.0 (B39)",
+      "claim": {
+        "type": "action"
+      }
+    },
+    {
+      "id": 92,
+      "narration": "Through gardens, over a chain-link fence, still, somehow, carrying the jugs.",
+      "clip_start": "01:19:32.0",
+      "clip_end": "01:20:00.0",
+      "delivery": "tense",
+      "note": "shot clip:01:19:30.0 (B39)",
+      "claim": {
+        "type": "action"
+      }
+    },
+    {
+      "id": 93,
+      "narration": "And the two officers, out of breath, lose them completely.",
+      "clip_start": "01:20:08.0",
+      "clip_end": "01:20:32.0",
+      "delivery": "normal",
+      "note": "shot clip:01:20:05.0 (B39) - closes SP1",
+      "claim": {
+        "type": "narration",
+        "requires_visual": false
+      }
+    },
+    {
+      "id": 94,
+      "narration": "On the night bus, an old man reaches straight into Seth's jug, pulls out a bottle, and starts drinking from it.",
+      "clip_start": "01:21:08.0",
+      "clip_end": "01:21:32.0",
+      "delivery": "normal",
+      "note": "shot clip:01:21:05.0 (B40)",
+      "claim": {
+        "type": "action",
+        "subject": "Seth"
+      }
+    },
+    {
+      "id": 95,
+      "narration": "Then, for no reason at all, hurls it down the length of the bus, where it bursts across the floor.",
+      "clip_start": "01:21:34.0",
+      "clip_end": "01:21:52.0",
+      "delivery": "normal",
+      "note": "shot clip:01:21:32.0 (B40)",
+      "claim": {
+        "type": "action"
+      }
+    },
+    {
+      "id": 96,
+      "narration": "They walk the last stretch to the party together, with what is left of the drink. Fogell talking the whole way. Seth and Evan not saying a single word to each other.",
+      "clip_start": "01:22:44.0",
+      "clip_end": "01:23:28.0",
+      "delivery": "emotion",
+      "note": "shot clip:01:22:40.0 (B41) - carries the unresolved fight into the party",
+      "claim": {
+        "type": "emotion",
+        "subject": "Fogell"
+      }
+    },
+    {
+      "id": 97,
+      "narration": "The party is already in full swing when they arrive.",
+      "clip_start": "01:23:38.0",
+      "clip_end": "01:24:02.0",
+      "delivery": "normal",
+      "note": "shot clip:01:23:35.0 (B42)",
+      "claim": {
+        "type": "narration",
+        "requires_visual": false
+      }
+    },
+    {
+      "id": 98,
+      "narration": "And for about ninety seconds, Seth is a hero. He pours, the room cheers his name, and the entire catastrophic night suddenly looks like it might have been worth it.",
+      "clip_start": "01:24:48.0",
+      "clip_end": "01:25:02.0",
+      "delivery": "normal",
+      "note": "shot clip:01:24:48.0 (B42) - the one moment the plan works",
+      "claim": {
+        "type": "emotion",
+        "subject": "Seth"
+      }
+    },
+    {
+      "id": 99,
+      "narration": "Then Fogell mentions, completely in passing, that the two of them are going to be living together at college next year.",
+      "clip_start": "01:25:04.0",
+      "clip_end": "01:25:32.0",
+      "delivery": "normal",
+      "note": "shot clip:01:25:02.0 (B42) - PRE-R2 HOLD: play as news landing on Seth, no hint he already knows | S5: reworded to avoid naming absent Evan.",
+      "claim": {
+        "type": "discovery",
+        "subject": "Fogell"
+      }
+    },
+    {
+      "id": 100,
+      "narration": "Across the room, a girl called Nicola has clocked Fogell, and is starting to make her way over.",
+      "clip_start": "01:25:38.0",
+      "clip_end": "01:26:05.0",
+      "delivery": "normal",
+      "note": "shot clip:01:25:35.0 (B43)",
+      "claim": {
+        "type": "setup",
+        "subject": "Fogell"
+      }
+    },
+    {
+      "id": 101,
+      "narration": "Seth stops celebrating. He says nothing to anyone about it. He just decides, quietly, to start drinking - and then to keep drinking.",
+      "clip_start": "01:26:34.0",
+      "clip_end": "01:26:56.0",
+      "delivery": "normal",
+      "note": "shot clip:01:26:30.0 (B42) - PRE-R2 HOLD: behaviour only, no interior access. This is the line R2 later rewrites.",
+      "claim": {
+        "type": "action",
+        "subject": "Seth"
+      }
+    },
+    {
+      "id": 102,
+      "narration": "Evan and Becca end up out by the lit pool. And Becca, it is becoming clear, is a great deal drunker than Evan had realised.",
+      "clip_start": "01:27:04.0",
+      "clip_end": "01:27:56.0",
+      "delivery": "normal",
+      "note": "shot clip:01:27:00.0 (B44)",
+      "claim": {
+        "type": "dialogue",
+        "subject": "Becca"
+      }
+    },
+    {
+      "id": 103,
+      "narration": "Seth finds Jules in the kitchen and, instead of talking to her, immediately starts drinking harder right in front of her. This was not the plan he came in with.",
+      "clip_start": "01:28:38.0",
+      "clip_end": "01:29:12.0",
+      "delivery": "normal",
+      "note": "shot clip:01:28:35.0 (B45)",
+      "claim": {
+        "type": "dialogue",
+        "subject": "Jules"
+      }
+    },
+    {
+      "id": 104,
+      "narration": "Upstairs, Becca takes Evan by the hand and leads him to a bedroom.",
+      "clip_start": "01:29:20.0",
+      "clip_end": "01:29:32.0",
+      "delivery": "normal",
+      "note": "shot clip:01:29:18.0 (B46)",
+      "claim": {
+        "type": "transition",
+        "subject": "Becca"
+      }
+    },
+    {
+      "id": 105,
+      "narration": "And the thing Evan has wanted since the very first scene of this film actually starts to happen.",
+      "clip_start": "01:29:34.0",
+      "clip_end": "01:30:02.0",
+      "delivery": "normal",
+      "note": "shot clip:01:29:32.0 (B46)",
+      "claim": {
+        "type": "action",
+        "subject": "Evan"
+      }
+    },
+    {
+      "id": 106,
+      "narration": "Then Becca pulls her top off, and Evan stops it. She is too drunk, he tells her - drunk enough that she would not even remember it. And that is the end of that. It is the quiet moral centre of the whole film.",
+      "clip_start": "01:30:24.0",
+      "clip_end": "01:31:00.0",
+      "delivery": "normal",
+      "note": "shot clip:01:30:20.0 (B46) - censor blur_light. The film's actual moral centre.",
+      "claim": {
+        "type": "dialogue",
+        "subject": "Evan"
+      }
+    },
+    {
+      "id": 107,
+      "narration": "Downstairs, Seth and Jules end up alone. And for the first time in the entire film, the two of them simply talk to each other, like people.",
+      "clip_start": "01:31:18.0",
+      "clip_end": "01:31:58.0",
+      "delivery": "emotion",
+      "note": "shot clip:01:31:15.0 (B47)",
+      "claim": {
+        "type": "dialogue",
+        "subject": "Jules"
+      }
+    },
+    {
+      "id": 108,
+      "narration": "Upstairs, meanwhile, because Nicola led him there, Fogell is having, by an enormous margin, the single most successful night of anyone in this entire film.",
+      "clip_start": "01:32:30.0",
+      "clip_end": "01:33:20.0",
+      "delivery": "normal",
+      "note": "shot clip:01:32:25.0 (B48) - censor blur. Handled in one line, no dwelling.",
+      "claim": {
+        "type": "action",
+        "subject": "Fogell"
+      }
+    },
+    {
+      "id": 109,
+      "narration": "Becca, though, is humiliated. Evan did the decent thing, and it lands on her as a flat rejection. So she gets up and leaves.",
+      "clip_start": "01:33:28.0",
+      "clip_end": "01:34:02.0",
+      "delivery": "emotion",
+      "note": "shot clip:01:33:25.0 (B46) - censor blur_light. Consequence of line 106, not a gag.",
+      "claim": {
+        "type": "reaction",
+        "subject": "Becca"
+      }
+    },
+    {
+      "id": 110,
+      "narration": "And Seth goes for the kiss. Jules turns him down - not because she does not want to, but because he is far, far too drunk for it to count. The film applies the exact same rule to both boys.",
+      "clip_start": "01:34:48.0",
+      "clip_end": "01:35:20.0",
+      "delivery": "emotion",
+      "note": "shot clip:01:34:45.0 (B49) - mirrors 106; the film applies the same rule to both boys",
+      "claim": {
+        "type": "dialogue",
+        "subject": "Jules"
+      }
+    },
+    {
+      "id": 111,
+      "narration": "That is Seth's night, then. He folds face down over the bonnet of a parked car outside, completely finished.",
+      "clip_start": "01:35:24.0",
+      "clip_end": "01:35:48.0",
+      "delivery": "normal",
+      "note": "shot clip:01:35:22.0 (B50)",
+      "claim": {
+        "type": "reaction",
+        "subject": "Seth"
+      }
+    },
+    {
+      "id": 112,
+      "narration": "Then he stumbles back inside, and finds Evan out cold on a sofa.",
+      "clip_start": "01:35:52.0",
+      "clip_end": "01:36:08.0",
+      "delivery": "normal",
+      "note": "shot clip:01:35:50.0 (B51) [S6] 1/3",
+      "claim": {
+        "type": "discovery",
+        "subject": "Evan"
+      }
+    },
+    {
+      "id": 113,
+      "narration": "And the front door goes in. Slater and Michaels, busting the party.",
+      "clip_start": "01:36:12.0",
+      "clip_end": "01:36:32.0",
+      "delivery": "tense",
+      "note": "shot clip:01:36:10.0 (B51) [S6] 2/3 - PRE-R1 HOLD",
+      "claim": {
+        "type": "action",
+        "subject": "Officer Slater"
+      }
+    },
+    {
+      "id": 114,
+      "narration": "So Seth gets Evan off the sofa, hauls him onto his back, and carries him out through a hundred people all running the other way. After everything they said in that street, he carries him anyway.",
+      "clip_start": "01:36:36.0",
+      "clip_end": "01:37:18.0",
+      "delivery": "tense",
+      "note": "shot clip:01:36:32.0 (B51) [S6] 3/3 - pays off the fight: he carries him anyway",
+      "claim": {
+        "type": "action",
+        "subject": "Seth"
+      }
+    },
+    {
+      "id": 115,
+      "narration": "Upstairs, a torch beam finds Fogell in bed, and Nicola bolts straight past the officer and out of the room.",
+      "clip_start": "01:37:42.0",
+      "clip_end": "01:38:02.0",
+      "delivery": "normal",
+      "note": "shot clip:01:37:38.0 (B52) - censor blur_light",
+      "claim": {
+        "type": "action",
+        "subject": "Fogell"
+      }
+    },
+    {
+      "id": 116,
+      "narration": "And Fogell, half under a sheet, finally braces for the arrest he has been dreading since the liquor store.",
+      "clip_start": "01:38:08.0",
+      "clip_end": "01:38:38.0",
+      "delivery": "tense",
+      "note": "shot clip:01:38:05.0 (B53) - LAST PRE-R1 LINE. Ends at 01:38:17, well before land 01:38:50.",
+      "claim": {
+        "type": "setup",
+        "subject": "Fogell"
+      }
+    },
+    {
+      "id": 117,
+      "narration": "It does not come. Because they knew. They knew from the very first minute he walked into that store - you are not twenty-five, they tell him. We are not idiots.",
+      "clip_start": "01:38:52.0",
+      "clip_end": "01:39:25.0",
+      "delivery": "tense",
+      "note": "*** R1 LANDS *** shot clip:01:38:50.0 (B53). clip_start 01:38:52 > land 01:38:50 by design.",
+      "claim": {
+        "type": "reveal"
+      }
+    },
+    {
+      "id": 118,
+      "narration": "They are his age. They hated cops at his age. And the whole night was two men showing a scared kid it does not have to be that way. The bar, the gun, a squad car they set on fire. All of it, on purpose.",
+      "clip_start": "01:39:06.0",
+      "clip_end": "01:39:25.0",
+      "delivery": "emotion",
+      "note": "R1 payoff - shot clip:01:38:50.0 (B53) second sub-window, at MAX_REUSE cap. Recasts every cop line above.",
+      "claim": {
+        "type": "reveal"
+      }
+    },
+    {
+      "id": 119,
+      "narration": "Fogell does not know what to do with that. Neither, honestly, do they. So the three of them end up in a heap on the bed.",
+      "clip_start": "01:39:28.0",
+      "clip_end": "01:39:50.0",
+      "delivery": "emotion",
+      "note": "shot clip:01:39:25.0 (B53) - reaction beat",
+      "claim": {
+        "type": "reaction",
+        "subject": "Fogell"
+      }
+    },
+    {
+      "id": 120,
+      "narration": "Then they make it up to him properly. A staged arrest, in handcuffs, marched past every classmate who ever ignored him. And McLovin plays it to the very back row.",
+      "clip_start": "01:40:30.0",
+      "clip_end": "01:40:52.0",
+      "delivery": "normal",
+      "note": "shot clip:01:40:28.0 (B54) - only sayable after R1",
+      "claim": {
+        "type": "action",
+        "subject": "Fogell"
+      }
+    },
+    {
+      "id": 121,
+      "narration": "",
+      "clip_start": "01:40:52.0",
+      "clip_end": "01:41:22.0",
+      "narration_silence_seconds": 6.0,
+      "note": "[S9] SILENCE 1/2 - shot clip:01:40:52.0 (B55). Seth carrying Evan home. Earned: it is the answer to the fight, and words would flatten it."
+    },
+    {
+      "id": 122,
+      "narration": "And then the three of them get back in the car.",
+      "clip_start": "01:41:34.0",
+      "clip_end": "01:42:12.0",
+      "delivery": "normal",
+      "note": "shot clip:01:41:30.0 (B56) [S6] 1/4",
+      "claim": {
+        "type": "emotion"
+      }
+    },
+    {
+      "id": 123,
+      "narration": "And because the night has apparently no bottom, they let Fogell drive. Properly drive, in an empty lot, with the lights going.",
+      "clip_start": "01:42:18.0",
+      "clip_end": "01:43:02.0",
+      "delivery": "normal",
+      "note": "SP2 [S6] 2/4 - shot clip:01:42:15.0 (B56)",
+      "claim": {
+        "type": "action",
+        "subject": "Fogell"
+      }
+    },
+    {
+      "id": 124,
+      "narration": "He puts it straight into a concrete post.",
+      "clip_start": "01:43:04.0",
+      "clip_end": "01:43:24.0",
+      "delivery": "normal",
+      "note": "SP2 [S6] 3/4 - shot clip:01:43:02.0 (B56)",
+      "claim": {
+        "type": "action"
+      }
+    },
+    {
+      "id": 1,
+      "narration": "Two on-duty police officers have just emptied a bottle of liquor over their own patrol car and dropped a lit match on it. They are cheering. So is the seventeen-year-old standing between them.",
+      "clip_start": "01:43:28.0",
+      "clip_end": "01:43:43.0",
+      "delivery": "hook",
+      "note": "HOOK 1/2 - shot clip:01:43:28.0 (B56). Destination first; the gap is how a kid gets here. Use 1 of 2.",
+      "claim": {
+        "type": "action"
+      }
+    },
+    {
+      "id": 125,
+      "narration": "Which brings us right back to where this video began. A bottle of liquor emptied over the wreck, and a single lit match.",
+      "clip_start": "01:43:30.0",
+      "clip_end": "01:43:52.0",
+      "delivery": "normal",
+      "note": "SP2 [S6] 4/4 - shot clip:01:43:28.0 (B56) SECOND use, at MAX_REUSE cap. Deliberate hook callback.",
+      "claim": {
+        "type": "action"
+      }
+    },
+    {
+      "id": 126,
+      "narration": "",
+      "clip_start": "01:43:52.0",
+      "clip_end": "01:44:35.0",
+      "narration_silence_seconds": 9.0,
+      "note": "[S9] SILENCE 2/2 - shot clip:01:43:52.0 (B56). The three in front of the fire. Iconic image, and the hook's gap finally closed."
+    },
+    {
+      "id": 127,
+      "narration": "Seth gets Evan home and pours him into a sleeping bag on the basement floor.",
+      "clip_start": "01:44:42.0",
+      "clip_end": "01:45:02.0",
+      "delivery": "emotion",
+      "note": "shot clip:01:44:40.0 (B57) - LAST PRE-R2 LINE, ends 01:44:48, before land 01:45:04",
+      "claim": {
+        "type": "narration",
+        "requires_visual": false
+      }
+    },
+    {
+      "id": 128,
+      "narration": "And there, in the dark, Seth finally admits it. He was in Evan's room three weeks ago. He saw the housing forms. He has known, this entire night, that Evan was leaving with Fogell.",
+      "clip_start": "01:45:06.0",
+      "clip_end": "01:45:32.0",
+      "delivery": "emotion",
+      "note": "*** R2 LANDS *** shot clip:01:45:04.0 (B57). clip_start 01:45:06 > land 01:45:04 by design.",
+      "claim": {
+        "type": "discovery",
+        "subject": "Seth"
+      }
+    },
+    {
+      "id": 129,
+      "narration": "Which quietly rewrites the whole night. Every time Seth pushed, every time he would not let it drop - that was a boy who already knew his best friend was going without him.",
+      "clip_start": "01:45:38.0",
+      "clip_end": "01:46:20.0",
+      "delivery": "emotion",
+      "note": "R2 payoff - shot clip:01:45:35.0 (B57). Recasts lines 60, 79-82, 101.",
+      "claim": {
+        "type": "dialogue",
+        "subject": "Seth"
+      }
+    },
+    {
+      "id": 130,
+      "narration": "And Evan tells him the truth right back. He does not actually want to live with Fogell. He was just frightened of living with strangers.",
+      "clip_start": "01:45:56.0",
+      "clip_end": "01:46:20.0",
+      "delivery": "emotion",
+      "note": "shot clip:01:45:35.0 (B57) second sub-window, at MAX_REUSE cap",
+      "claim": {
+        "type": "dialogue",
+        "subject": "Evan"
+      }
+    },
+    {
+      "id": 131,
+      "narration": "And then they say it. Over and over, into the dark - the least ironic thirty seconds in any comedy of the last twenty years.",
+      "clip_start": "01:46:24.0",
+      "clip_end": "01:47:16.0",
+      "delivery": "emotion",
+      "note": "shot clip:01:46:20.0 (B57)",
+      "claim": {
+        "type": "emotion"
+      }
+    },
+    {
+      "id": 132,
+      "narration": "In the morning, of course, neither of them can look at the other.",
+      "clip_start": "01:47:38.0",
+      "clip_end": "01:48:22.0",
+      "delivery": "normal",
+      "note": "shot clip:01:47:35.0 (B58)",
+      "claim": {
+        "type": "reaction"
+      }
+    },
+    {
+      "id": 133,
+      "narration": "So they do the only thing these two know how to do. They go to the mall and talk about jeans.",
+      "clip_start": "01:48:30.0",
+      "clip_end": "01:49:32.0",
+      "delivery": "normal",
+      "note": "shot clip:01:48:25.0 (B58)",
+      "claim": {
+        "type": "dialogue"
+      }
+    },
+    {
+      "id": 134,
+      "narration": "And there, they run straight into Jules and Becca.",
+      "clip_start": "01:49:48.0",
+      "clip_end": "01:50:22.0",
+      "delivery": "normal",
+      "note": "shot clip:01:49:45.0 (B59)",
+      "claim": {
+        "type": "setup",
+        "subject": "Becca"
+      }
+    },
+    {
+      "id": 135,
+      "narration": "Becca and Evan apologise to each other, and get past the whole thing in about four sentences.",
+      "clip_start": "01:50:34.0",
+      "clip_end": "01:51:20.0",
+      "delivery": "normal",
+      "note": "shot clip:01:50:30.0 (B59)",
+      "claim": {
+        "type": "dialogue",
+        "subject": "Becca"
+      }
+    },
+    {
+      "id": 136,
+      "narration": "And Seth apologises to Jules. She has a black eye this morning, and she offers to spend the day with him anyway.",
+      "clip_start": "01:51:24.0",
+      "clip_end": "01:52:30.0",
+      "delivery": "normal",
+      "note": "shot clip:01:51:20.0 (B59). S4: the black eye is VISIBLE here; the headbutt that caused it is NOT catalogued, so it is not asserted.",
+      "claim": {
+        "type": "dialogue",
+        "subject": "Jules"
+      }
+    },
+    {
+      "id": 137,
+      "narration": "So the four of them pair off. And the two boys who have never done a single thing apart start walking two different ways.",
+      "clip_start": "01:52:38.0",
+      "clip_end": "01:53:12.0",
+      "delivery": "emotion",
+      "note": "shot clip:01:52:35.0 (B59)",
+      "claim": {
+        "type": "emotion"
+      }
+    },
+    {
+      "id": 138,
+      "narration": "Seth and Jules ride down one escalator. Evan and Becca up the other. And that is the end of being two kids who only ever had each other.",
+      "clip_start": "01:53:12.0",
+      "clip_end": "01:53:24.0",
+      "delivery": "emotion",
+      "note": "shot clip:01:53:12.0 (B59) - closing image",
+      "claim": {
+        "type": "emotion",
+        "subject": "Becca"
+      }
+    },
+    {
+      "id": 139,
+      "narration": "If you made it this far, subscribe and tell me what I should recap next.",
+      "clip_start": "01:53:25.0",
+      "clip_end": "01:53:32.0",
+      "delivery": "outro",
+      "note": "OUTRO - shot clip:01:53:12.0 (B59) second sub-window, at MAX_REUSE cap. Continues the same shot, no backward jump.",
+      "claim": {
+        "type": "emotion"
+      }
+    }
+  ]
+}

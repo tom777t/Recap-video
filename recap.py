@@ -108,9 +108,20 @@ def cmd_names(args):
 
 def cmd_verify(args):
     from pipeline import verify as verifymod
-    n = verifymod.verify(args.project, model_size=args.model)
-    if n > 0:
+    res = verifymod.verify(args.project, model_size=args.model)
+    if not isinstance(res, dict) or res.get("error"):
         sys.exit(1)
+    if res["failed"] > 0:
+        sys.exit(1)
+    # UNMEASURED is its own exit state. Folding it into 0 would hand back a
+    # green tick for lines nothing was actually established about; folding it
+    # into 1 would call an unread line a defect. Neither is true, so it gets
+    # its own code (matching `draft`, where 2 already means "look at this").
+    if res["unmeasured"] > 0:
+        console.print(f"\n[magenta]{res['unmeasured']} line(s) unmeasured - "
+                      f"{res['checked']}/{res['total']} actually verified. "
+                      f"(exit 2)[/]")
+        sys.exit(2)
 
 
 def cmd_cuts(args):

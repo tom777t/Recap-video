@@ -145,17 +145,38 @@ def _title_from(arg: str) -> str:
     return arg.replace(" ", "_")
 
 
-def fetch_cast(page: str):
-    """[(actor, character)] from the Cast section, in article order."""
-    url = RAW.format(title=urllib.parse.quote(_title_from(page), safe="_()'"))
+def _fetch_raw(title: str) -> str:
+    url = RAW.format(title=urllib.parse.quote(title, safe="_()'"))
     req = urllib.request.Request(url, headers={"User-Agent": UA})
     with urllib.request.urlopen(req, timeout=30) as r:
-        wikitext = r.read().decode("utf-8", errors="replace")
+        return r.read().decode("utf-8", errors="replace")
+
+
+def fetch_cast(page: str):
+    """[(actor, character)] from the Cast section, in article order."""
+    title = _title_from(page)
+    wikitext = _fetch_raw(title)
+
+    # Follow redirects. "Superbad (film)" is a redirect to "Superbad", and
+    # action=raw returns the redirect line rather than the article - so the Cast
+    # search found nothing and the command dead-ended with a message that did
+    # not say why. Two hops is plenty; Wikipedia does not chain further.
+    for _ in range(2):
+        m = re.match(r"^\s*#REDIRECT\s*\[\[([^\]#|]+)", wikitext, re.IGNORECASE)
+        if not m:
+            break
+        title = m.group(1).strip().replace(" ", "_")
+        wikitext = _fetch_raw(title)
 
     # keep only the Cast section - nothing else on the page is in scope
     m = re.search(r"^==+\s*Cast[^=]*==+\s*$", wikitext, re.MULTILINE | re.IGNORECASE)
     if not m:
-        return [], "no Cast section found on that page", []
+        # say WHAT the page does have, so the next step is obvious instead of
+        # guessing at titles
+        heads = re.findall(r"^==+\s*([^=\n]+?)\s*==+\s*$", wikitext, re.MULTILINE)
+        detail = ("; sections on '%s': %s" % (title, ", ".join(heads[:12]))
+                  if heads else "; the page appears to be empty or does not exist")
+        return [], "no Cast section found" + detail, []
     rest = wikitext[m.end():]
     nxt = re.search(r"^==[^=]", rest, re.MULTILINE)
     section = rest[:nxt.start()] if nxt else rest

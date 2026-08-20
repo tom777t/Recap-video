@@ -100,13 +100,13 @@ SHOWCASE_HOLD_MAX = 10.0   # never silent-hold longer than this
 # to cut through several action shots during the (mostly silent) hold.
 
 # Background music
-MUSIC_VOLUME = 0.18        # music level under the voice (0..1); ~0.12-0.18 is good. Joker v3: 0.18 (v2 had NO music - render was called without --music; auto-discovery now fixes that, and 0.13 was too subtle so raised to 0.18 for a clearly-audible bed).
+MUSIC_VOLUME = 0.15        # music level under the voice (0..1). History: 0.13 was judged too subtle, 0.18 too present. 0.15 from 2026-08-13.
 MUSIC_DUCK = True          # duck music slightly whenever narration plays
 MUSIC_FADEOUT = 3.0        # fade music out over N seconds at the very end
 # Gap 3 silence shots: during a narration-free "silence" shot the music swells
 # from the ducked narration level up to this level, then fades back when the
 # next narration starts. SILENCE_FADE = the rise/fall transition (seconds).
-SILENCE_MUSIC_VOLUME = 0.35
+SILENCE_MUSIC_VOLUME = 0.30
 SILENCE_FADE = 0.5
 
 # DARK-scene exposure lift (render): default brightness lift applied to shots a
