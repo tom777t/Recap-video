@@ -703,9 +703,90 @@ def render(project: str, draft: dict,
                     exposure_by_clip[key] = float(ev)
     except Exception as e:
         console.print(f"[yellow]Could not read shots.json censor/silence flags: {e}[/]")
+
+    # ---- resolve a line to the catalogued shot its footage came from ---------
+    # RULE A3 anchors a line's clip_start to the NARRATED MOMENT, not to the
+    # shot start, so a correctly anchored line's (clip_start, clip_end) is not a
+    # key in shots.json at all. Exact-key lookup therefore returned "none" and
+    # the line rendered UNCENSORED, silently: measured on superbad2007, 11 shots
+    # carried a censor flag, 9 had lines bound to them, and exactly 1 rendered
+    # blurred. This is the same defect as the binding_audit exact-key lookup -
+    # same cause, second location - so it takes the same containment fallback.
+    _shot_windows: list = []
+    _shot_keys: set = set()
+    try:
+        sp = pdir / "shots.json"
+        if sp.exists():
+            import json as _json2
+            for s in _json2.loads(sp.read_text(encoding="utf-8-sig")).get("shots", []):
+                cs, ce = s.get("clip_start"), s.get("clip_end")
+                if cs and ce:
+                    _shot_keys.add((cs, ce))
+                    try:
+                        _shot_windows.append((parse_ts(cs), parse_ts(ce), (cs, ce)))
+                    except Exception:
+                        pass
+            _shot_windows.sort()
+    except Exception:
+        pass
+
+    def _host_key(cs, ce):
+        """Exact shot key if it exists, else the shot window containing cs."""
+        k = (cs, ce)
+        if k in _shot_keys or not cs:
+            return k
+        try:
+            t = parse_ts(cs)
+        except Exception:
+            return k
+        for a, b, kk in _shot_windows:
+            if a - 0.6 <= t < b:
+                return kk
+        return k
+
+    # ---- census: how many LINES will actually render censored ---------------
+    # The old line counted entries in shots.json, i.e. INTENT. It printed
+    # "11 shot(s) flagged for blur" on a render that blurred one of them, which
+    # is precisely the reassurance you do not want from a content gate.
+    _cen_lines, _cen_shots_hit, _cen_unresolved = 0, set(), []
+    for _ln in draft["lines"]:
+        _cs, _ce = _ln.get("clip_start"), _ln.get("clip_end")
+        if not _cs:
+            continue
+        _hk = _host_key(_cs, _ce)
+        if censor_by_clip.get(_hk, "none") != "none":
+            _cen_lines += 1
+            _cen_shots_hit.add(_hk)
+        else:
+            # A line sitting inside a flagged shot's window that still resolves
+            # to "none" would mean the fallback failed - report, never swallow.
+            try:
+                _t = parse_ts(_cs)
+                for _a, _b, _kk in _shot_windows:
+                    if _a - 0.6 <= _t < _b and censor_by_clip.get(_kk, "none") != "none":
+                        _cen_unresolved.append((_ln.get("id"), _kk))
+                        break
+            except Exception:
+                pass
+
     if censor_by_clip:
         extra = f" ({n_partial} partial-region)" if n_partial else ""
-        console.print(f"[cyan]Censor:[/] {len(censor_by_clip)} shot(s) flagged for blur{extra}")
+        console.print(f"[cyan]Censor:[/] {_cen_lines} line(s) will render blurred"
+                      f"{extra}, from {len(_cen_shots_hit)}/{len(censor_by_clip)} "
+                      f"flagged shot(s)")
+        _orphans = [k for k in censor_by_clip if k not in _cen_shots_hit]
+        if _orphans:
+            console.print(f"[yellow]  {len(_orphans)} flagged shot(s) have NO line "
+                          f"bound - nothing will blur for them:[/]")
+            for k in _orphans[:8]:
+                console.print(f"[yellow]      {k[0]} -> {k[1]} "
+                              f"({censor_by_clip[k]})[/]")
+        if _cen_unresolved:
+            console.print(f"[red]  {len(_cen_unresolved)} line(s) sit inside a "
+                          f"flagged shot but resolved to no censor - this is a "
+                          f"resolver failure, do not publish:[/]")
+            for _lid, _kk in _cen_unresolved[:8]:
+                console.print(f"[red]      line {_lid} -> shot {_kk[0]}[/]")
     if silence_by_clip:
         console.print(f"[cyan]Silence:[/] {len(silence_by_clip)} silent shot(s) "
                       f"(music swells to {int(config.SILENCE_MUSIC_VOLUME*100)}%)")
@@ -869,8 +950,17 @@ def render(project: str, draft: dict,
         # censor level for this clip (from shots.json; default "none"). Pool/
         # montage clips are not censored here (no shots.json mapping for them).
         _ckey = (ln.get("clip_start"), ln.get("clip_end"))
-        censor = censor_by_clip.get(_ckey, "none")
-        censor_region = region_by_clip.get(_ckey)  # None -> whole-frame blur
+        # Censor resolves through the host shot (see _host_key): an A3-anchored
+        # line has no exact key, and defaulting to "none" is a silent failure
+        # that ships uncensored footage.
+        _hkey = _host_key(ln.get("clip_start"), ln.get("clip_end"))
+        censor = censor_by_clip.get(_hkey, "none")
+        censor_region = region_by_clip.get(_hkey)  # None -> whole-frame blur
+        # NOTE: exposure_lift still resolves by EXACT key and carries the same
+        # defect - an A3-anchored line inside a DARK shot does not get lifted.
+        # Left unchanged here deliberately: it alters the picture of every dark
+        # scene and invalidates their clip cache, which is a separate decision
+        # from restoring censorship. Measured impact reported alongside this fix.
         exposure = exposure_by_clip.get(_ckey, 0.0)  # DARK-scene lift (0 = none)
 
         # ---- clip cache: reuse an identical previously-built clip -----------

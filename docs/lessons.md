@@ -1808,3 +1808,81 @@ on everything.
 Shot ids embed a timestamp that can move. Spider-Man's `clip:02:23:20.0` now
 points at 02:23:25. Same family as F5: an identifier should not carry data that
 changes.
+
+
+## 2026-08-19 - exact-key lookup vs rule A3, in three places
+
+One defect, three sites, found a day apart. Rule A3 says anchor `clip_start` to
+the moment the narration describes, **not** to the shot start. So a correctly
+anchored line's `(clip_start, clip_end)` is not a key in shots.json at all. Any
+code that resolves a line to its shot by exact-key dictionary lookup therefore
+misses - and every one of these misses defaulted to a benign-looking value
+instead of an error.
+
+| site | symptom | status |
+|---|---|---|
+| `binding_audit` | 119 of 140 Superbad lines marked "unverified", blocking promotion | fixed (containment fallback) |
+| `render.py` censor | 11 shots flagged for blur, **1** line rendered blurred | fixed (same fallback) |
+| `render.py` exposure_lift | dark shots not lifted for A3-anchored lines | measured, deliberately left |
+
+The censor case is the one that shipped. Superbad had 11 censor-flagged shots,
+9 with lines bound to them, and exactly 1 that rendered with blur. The magazine
+rack and the bedroom scene both went out unblurred. Shutter Island had 1 flagged
+shot and rendered 0.
+
+`exposure_lift` was left alone on purpose: the same one-line fix applies, but it
+changes the picture of every dark scene and invalidates their clip cache, which
+is a different decision from restoring censorship. Measured impact today is **0
+additional lines** across all projects, so it costs nothing to defer. It is
+marked in the code.
+
+### Three projects match by exact key only because of how they were authored
+
+Joker (8 flagged), Parasite (6) and Gone Girl (7) resolved correctly before the
+fix. Not because they were safe - because their lines were authored sitting on
+shot starts, so the exact key happened to exist. **That is latent, not safe.**
+Re-anchor any one of those lines per A3 and it silently loses its blur, with no
+gate firing. They were never protected by anything except a coincidence of
+authoring style.
+
+The general form: *a lookup whose miss path returns a plausible default is
+indistinguishable from a lookup that succeeded.* `censor_by_clip.get(key,
+"none")` cannot tell "this shot is clean" from "I could not find this shot".
+Both render identically. Where a miss and a benign value are the same value,
+the miss has to be made explicit.
+
+### The gate was reporting intent, not outcome
+
+`Censor: 11 shot(s) flagged for blur` counted entries in shots.json. It printed
+11 on a render that blurred one of them, and it printed it in a reassuring
+cyan. A content gate that counts what you *asked for* rather than what
+*happened* is worse than no gate, because it is read as confirmation. It now
+counts lines that will actually render censored, warns when a flagged shot has
+no line bound, and prints a red "do not publish" when a line sits inside a
+flagged shot but still resolves to none.
+
+Same lesson as `[RENDER-CHECK]`'s duration comparison the day before: that one
+compared `sum(clip durations) - XFADE*(n-1)` against a total accumulated from
+the same list, so both sides were the same number and it could never fail.
+**Check the artefact, not the plan that produced it.**
+
+### blur_light does not censor anything
+
+Confirmed by eye on the re-render: Superbad line 8's pornographic magazine
+cover, at `blur_light` (boxblur=15) and occupying roughly a third of the frame,
+was still plainly legible. The old S7 wording invited that tag - it selected a
+level by content type, and "light nudity (partial, non-sexual context)" fit.
+The rule was wrong, not the tag.
+
+S7 now selects on **frame coverage and legibility**, not content type: anything
+readable or anatomically identifiable cannot be `blur_light`, and a third of
+the frame or more is `blur` at minimum. Superbad's 10 `blur_light` shots were
+raised to `blur` as a data fix; the shipped file predates it, recorded in that
+project's `_censor_note`.
+
+S7 also gained the escape hatch it never had. The first question is not how
+hard to blur but whether the line can be **bound to a different catalogued shot
+in the same beat**. A blurred patch tells the viewer exactly what is being
+hidden and damages the shot for everyone; another shot in the same beat is
+clean and costs nothing. S10's depth target guarantees 3+ shots per beat to
+choose from. Whole-frame blur is the last resort, not the first.

@@ -1,5 +1,6 @@
 {
   "_comment": "Superbad (2007) shot catalogue. Source cut runs ~113:30 of story + ~5min end credits (transcript duration 7120s; 40 overview montage pages at 36 frames/page, 5s per frame). depth_target: video_essay - the film is wall-to-wall dialogue comedy with a genuinely dense beat map, so coverage is per-visual-moment rather than per-camera-cut. PRE-CATALOGUE (A7): Wikipedia Plot + Cast read before tagging; Cast section cross-checked against the film's own end-credit crawl (pages 39-40) which is more precise than names.json for minor roles - it confirms 'Francis the Driver' = Joe Lo Truglio (the motorist who hits Seth) and 'Mark' = Kevin Corrigan (the party host in the yellow Brazil jersey who ejects Francis and later brawls with Seth). Frames win over Wikipedia where they disagree. SPOILER DISCIPLINE (A8): see _reveal_map below - this comedy has exactly two withheld-information beats and both live in the last 15 minutes. CHARS NOTE: names.json lists 'Fogell' and 'McLovin' as separate entries for the same actor and the same visible person; this catalogue uses 'Fogell' ONLY in chars so the binding audit never has to disambiguate one body into two names. Script writers should name him Fogell in claim.subject even when the narration says McLovin. CENSOR: R-rated raunch comedy - explicit content is frequent but mild and comic; blur_light for the porn magazine, the porn-site trailer, the penis drawings, the period-blood stain and the underwear-level bedroom beats, blur for the one actual sex scene (Fogell/Nicola). No gore anywhere in the film: the car hits, the punches and the cruiser crash are all played without injury detail, so they stay censor none.",
+  "_censor_note": "S7 revision 2026-08-19: these levels were raised blur_light -> blur after blur_light was measured insufficient (line 8's magazine cover stayed legible through boxblur=15). DATA FIX ONLY - final.mp4 in this project predates it and still carries the old blur_light render. Re-render before republishing. Levels were judged from catalogue descriptions plus one verified frame (line 108 at 'blur' is adequately obscured); a human eye pass is still advised, especially clip:01:34:15.0 and clip:01:37:38.0 which may warrant blur_heavy.",
   "project": "superbad2007",
   "film_title": "Superbad",
   "depth_target": "video_essay",
@@ -122,7 +123,7 @@
       "depicts": ["setup"],
       "action": "Seth stands in the convenience-store magazine rack openly leafing through a porn magazine",
       "family": "convenience_store",
-      "censor": "blur_light"
+      "censor": "blur"
     },
     {
       "id": "clip:00:05:00.0",
@@ -210,7 +211,7 @@
       "depicts": ["setup"],
       "action": "A laptop on a table plays the trailer for the porn site Seth has been evangelising, an open beer can beside it",
       "family": "porn_media",
-      "censor": "blur_light"
+      "censor": "blur"
     },
     {
       "id": "clip:00:09:50.0",
@@ -342,7 +343,7 @@
       "depicts": ["setup"],
       "action": "Flashback: young Seth sits alone on a bench beside the basketball courts filling a notebook with drawings of penises",
       "family": "young_seth_flashback",
-      "censor": "blur_light"
+      "censor": "blur"
     },
     {
       "id": "clip:00:18:42.0",
@@ -353,7 +354,7 @@
       "depicts": ["setup"],
       "action": "Flashback: young Seth ignores the lesson at his desk, hunched over the notebook, drawing through the whole class",
       "family": "young_seth_flashback",
-      "censor": "blur_light"
+      "censor": "blur"
     },
     {
       "id": "clip:00:19:25.0",
@@ -364,7 +365,7 @@
       "depicts": ["discovery"],
       "action": "Flashback: the drawings get passed around the classroom and young Becca reads one, the compulsion finally seen by everyone",
       "family": "young_seth_flashback",
-      "censor": "blur_light"
+      "censor": "blur"
     },
     {
       "id": "clip:00:19:55.0",
@@ -1277,7 +1278,7 @@
       "depicts": ["discovery"],
       "action": "Close on Seth's trouser leg: the dark red smear Jacinda left on him while they were dancing",
       "family": "blood_stain",
-      "censor": "blur_light"
+      "censor": "blur"
     },
     {
       "id": "clip:01:08:12.0",
@@ -1695,7 +1696,7 @@
       "depicts": ["dialogue"],
       "action": "Becca pulls her top off and Evan stops the whole thing, telling her she is too drunk for this to be fair",
       "family": "evan_becca_bedroom",
-      "censor": "blur_light"
+      "censor": "blur"
     },
     {
       "id": "clip:01:31:15.0",
@@ -1728,7 +1729,7 @@
       "depicts": ["reaction"],
       "action": "Becca, hurt and embarrassed, gets off the bed and pulls her clothes back on while Evan tries to explain himself",
       "family": "evan_becca_bedroom",
-      "censor": "blur_light"
+      "censor": "blur"
     },
     {
       "id": "clip:01:34:15.0",
@@ -1739,7 +1740,7 @@
       "depicts": ["emotion"],
       "action": "Fogell lies back in the bed afterwards with Nicola beside him, quietly astonished at himself",
       "family": "fogell_nicola",
-      "censor": "blur_light"
+      "censor": "blur"
     },
     {
       "id": "clip:01:34:45.0",
@@ -1805,7 +1806,7 @@
       "depicts": ["action"],
       "action": "A torch beam finds Fogell in the upstairs bed and Nicola bolts past the officer and out of the room",
       "family": "fogell_busted",
-      "censor": "blur_light"
+      "censor": "blur"
     },
     {
       "id": "clip:01:38:05.0",

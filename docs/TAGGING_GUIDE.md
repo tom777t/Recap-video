@@ -420,23 +420,82 @@ to skeleton planning.
 At catalogue stage, tag explicit content with appropriate censor flag.
 Default if absent: "none" (no blur applied at render).
 
-Intensity guide:
+#### S7.0 - Before reaching for a blur at all (DO THIS FIRST)
 
-- "blur_light" (boxblur=15): mild explicit content
-  - Light nudity (partial, non-sexual context)
-  - Drug paraphernalia background
-  - Mild injury visible
+Blur is the LAST resort, not the first. A blurred patch is a signpost: it tells
+the viewer precisely where to look and exactly what is being hidden. It also
+damages the shot for everyone, including viewers who did not need protecting.
 
-- "blur" (boxblur=30): standard explicit content
-  - Blood/gore (visible wounds, blood spray)
-  - Sexual nudity (whole body)
-  - Active drug use specifics
-  - Iconic violence moments
+So the first question is never "how hard do I blur this" but:
 
-- "blur_heavy" (boxblur=60): intense explicit content
-  - Graphic gore (organs, dismemberment)
-  - Explicit sexual acts
-  - Self-harm specifics
+> Does this shot carry any story information the narration has not already
+> stated in words?
+
+If it does not - and for explicit inserts it usually does not, because the
+narration has just said what the thing is - then **re-bind the line to a
+different catalogued shot in the same beat**. The beat has 3+ shots by S10's
+depth target; use one of them. A clean shot of a reaction, a hand, a doorway,
+the listener, is better television than a smeared rectangle, and it costs
+nothing at render time.
+
+Order of preference, strongest first:
+
+1. Bind the line to a different shot in the same beat that carries the same
+   story information without the explicit content. **Preferred.**
+2. Bind to the same shot but a different sub-window that is clean (S10 gives
+   you the sub-moment enumeration to find one).
+3. Partial-region blur (S8) - the explicit element is small, stationary, and
+   the rest of the frame is worth keeping.
+4. Whole-frame blur (this rule). **Last resort.**
+
+Only when 1-3 are genuinely unavailable does the intensity question below
+apply. If you find yourself tagging several shots in one beat for blur, that
+is a signal the beat is bound to the wrong footage, not that the beat needs
+more blur.
+
+#### S7.1 - Choosing the level: coverage and legibility, NOT content type
+
+The level is decided by **how much of the frame the content occupies** and
+**whether it is legible**, not by what the content is. Content type alone is
+not sufficient and has produced wrong tags in practice (see the measurement
+note below).
+
+Ask two questions in order:
+
+1. **Coverage** - what fraction of the frame does the explicit content occupy?
+2. **Legibility** - after the blur, is it still readable, recognisable, or
+   anatomically identifiable? If yes, the level is too low, whatever the
+   content type says.
+
+| Frame coverage | Minimum level |
+|---|---|
+| Small background detail, incidental, not the subject | `blur_light` |
+| Roughly a third of the frame or more, or it IS the subject | `blur` minimum |
+| Fills the frame, or is the point of the shot | `blur_heavy` |
+
+Legibility overrides coverage in one direction only: it can raise the level,
+never lower it. Anything **readable** (text, a magazine cover, a screen) or
+**anatomically identifiable** must not be left at `blur_light`.
+
+- `blur_light` (boxblur=15) - incidental background detail only.
+  Drug paraphernalia on a table in the background; a distant, non-subject
+  injury; a partially visible detail that is not what the shot is about.
+
+- `blur` (boxblur=30) - the content is a significant part of the frame, or is
+  the subject of the shot. Blood/gore with visible wounds; nudity that is
+  identifiable; a readable explicit image; active drug use specifics.
+
+- `blur_heavy` (boxblur=60) - the content dominates the frame or is the point
+  of the shot. Graphic gore; explicit sexual acts; self-harm specifics.
+
+**Measured limit of blur_light (2026-08-19, superbad2007 line 8).** A
+pornographic magazine cover occupying roughly a third of the frame was tagged
+`blur_light`, which the old wording permitted as "light nudity (partial,
+non-sexual context)". Checked frame-by-frame in the rendered file, the cover
+was still plainly legible after the blur. boxblur=15 does not obscure anything
+readable or anatomically identifiable at any meaningful frame coverage. Treat
+`blur_light` as usable ONLY for incidental background detail; if the thing
+matters enough to tag, it almost certainly needs `blur` or higher.
 
 When NOT to censor:
 - Implied violence (off-screen)
@@ -446,7 +505,14 @@ When NOT to censor:
 
 Catalogue review checkpoint: scan beat list before declaring catalogue
 complete, verify all explicit moments tagged with correct censor level.
-Flag uncertainty cases for human review.
+Verify the S7.0 question was asked before any blur was tagged. Flag
+uncertainty cases for human review.
+
+**Verify the outcome, not the intent.** `recap.py render` reports how many
+LINES will render censored, not how many shots carry a flag - those are
+different numbers, and for a long stretch they silently differed (see
+docs/lessons.md, exact-key vs A3). Read that line. If a shot is flagged and no
+line resolves to it, nothing blurs.
 
 
 ### S8 - Partial-blur region selection (Phase C)
