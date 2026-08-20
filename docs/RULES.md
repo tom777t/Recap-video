@@ -140,3 +140,70 @@
 **Khác biệt then chốt:** không bắt máy tự nhận ra lúc draft (nó không làm được) — mà **người đánh dấu ở bước reveal-map, máy tuân theo cái đánh dấu**. Dumb gate + explicit human intent — đúng triết lý đã thắng ở reveal-map và set-piece.
 
 **Hướng implement:** thêm cột/loại `ambiguity-hold` vào reveal-map trong `beats_proposal.md`, kèm range. Chi tiết gate ở `GATE_CANDIDATES.md` mục A-AMB.
+
+
+# PHẦN H — RULE TỪ PHIM HÀI (Superbad 2007)
+
+*Nối vào cuối `docs/RULES.md`, sau Phần G.*
+*Nguồn: chặng 2 của `ROADMAP_automation.md`. Chi tiết đầy đủ ở `docs/STRESS_superbad.md`.*
+*Cả ba đều **🔄 đã áp dụng** — dùng khi làm Superbad, chưa có phim thứ hai đối chiếu.*
+
+---
+
+## H1. Reveal cơ học ≠ reveal cần bảo vệ
+
+**Nguồn:** Superbad — vụ McLovin (00:27:25) và Fogell bước khỏi xe tuần (01:17:45).
+
+Một beat có thể là reveal **về mặt cấu trúc** — danh tính giấu kín lộ ra — mà vẫn **không được đưa vào reveal-map**. Hai trường hợp:
+
+- **Khán giả đã biết trước khi xem.** Vụ McLovin là hình quảng cáo của phim, và cả act giữa giả định người xem đã ở trong cuộc. Bảo vệ nó là hiểu sai phim.
+- **Reveal với NHÂN VẬT, không phải với khán giả.** Fogell bước ra khỏi xe tuần làm Seth và Evan sững sờ; khán giả đã theo tuyến cảnh sát nửa tiếng. Kể như **hội tụ**, không phải bất ngờ.
+
+**Rule:**
+> Ở bước reveal-map, với mỗi ứng viên hỏi thêm một câu: **khán giả chưa xem phim có biết điều này trước khi bấm play không, và họ có biết trước nhân vật không?** Nếu có ở câu nào, nó không vào reveal-map. Ghi vào `beats_proposal.md` dưới mục "DELIBERATELY NOT PROTECTED" kèm lý do, để người sửa sau không "giúp" thêm nó vào.
+
+**Vì sao cần thành rule:** hệ thống không có khái niệm này. Phải tự nghĩ ra mỗi lần, và tự động hoá thì không trông chờ được như vậy.
+
+---
+
+## H2. Hook không nhất thiết là cú sốc
+
+**Nguồn:** Superbad — `recap_style.md` đòi một "shock" mở màn.
+
+Công thức hook hiện tại xây cho phim mà sức hút là **twist hoặc cảnh hoành tráng**. Có thể loại kéo người xem bằng thứ khác:
+
+- **Sự nhận ra** — người ta xem Superbad vì nhớ mình từng là mấy đứa đó, không phải vì chưa biết chuyện gì xảy ra
+- **Hình ảnh sai chỗ** — đưa ra một khoảnh khắc muộn trông vô lý, để khoảng trống nhân quả tự kéo *(Superbad dùng cái xe cảnh sát đang cháy)*
+
+**Rule:**
+> Trước khi viết hook, hỏi phim này kéo người xem bằng gì. Nếu không phải bất ngờ, đừng nặn một hook hình-thriller lên nó. Hook kiểu hài: **đây là quyết định tệ nhất, giờ xem nó lan ra**.
+
+---
+
+## H3. Hài ngôn ngữ không sống sót qua recap
+
+**Nguồn:** Superbad — B12/B26 (cái tên McLovin), B31 (độc thoại mở màn), B29 (thoại ở bữa tiệc).
+
+Recap kể **cấu trúc**, và hài tình huống *là* cấu trúc — kế hoạch sụp đổ, ba tai hoạ hội tụ. Cái đó tải được gần như miễn phí.
+
+Nhưng hài **ngôn ngữ** — nhịp, cách đọc, khoảng lặng trước câu chốt — chỉ tồn tại trong khoảnh khắc nó được nói. Diễn giải là giết. Trích nguyên văn vào lời kể còn tệ hơn: cú đùa nổ hai lần, lần đầu ở giọng đọc và chết ở đó.
+
+**Rule:**
+> **Tả tình huống, để clip tự diễn.** Không bao giờ đưa câu chốt vào voiceover. Với beat mà cái hài thuần là lời, cho nó ít line và đi tiếp — đừng cố bù bằng độ dài.
+
+**Ngoại lệ có thật:** cú đùa **có nền cốt truyện** thì recap kể được, và kể tốt. Superbad B08 (hồi tưởng vẽ tranh) là gag nhưng phim cài nó làm tính cách — để gag đáp xuống một line, rồi dùng line sau nói ý nghĩa. Đó là chỗ "kể chuyện gì xảy ra" phục vụ cú đùa thay vì làm nhụt nó.
+
+---
+
+## H4. Kỷ luật hold quan trọng HƠN trong phim hài *(phát hiện ngược)*
+
+**Nguồn:** Superbad R1 — hai viên cảnh sát thừa nhận họ biết từ đầu.
+
+Cú lật chỉ hoạt động vì **90 phút trước đó được kể thuần là bất tài**. Việc của recap ở đây là **không được hài sớm**, để sự chân thành ở cuối có chỗ đáp xuống.
+
+Ngược với vấn đề thường gặp: A8 chống rò rỉ *thông tin*; cái này chống rò rỉ **tông**.
+
+**Rule:**
+> Khi phim hài có một beat lật sang chân thành hoặc ấm áp, mọi line trước đó về cùng chủ đề phải giữ **đúng cách khán giả đang đọc nó lúc ấy** — kể cả khi biết thừa là hiểu vậy sai. Một câu nháy mắt sớm là đủ giết cú lật.
+
+**Kiểm chứng:** người xem xác nhận cú lật đọng lại được sau khi giữ trọn 14 line cảnh sát ở tông bất tài.
