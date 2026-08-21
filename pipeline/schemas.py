@@ -16,6 +16,7 @@ Loaders accept the real on-disk shapes and IGNORE unknown keys (forward-compatib
 from __future__ import annotations
 
 import json
+import re
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Literal, Optional, get_args
@@ -515,6 +516,59 @@ def load_names(project: str) -> set:
                     out.add(str(c).strip().lower())
             elif n:
                 out.add(str(n).strip().lower())
+        return out
+    except Exception:
+        return set()
+
+
+def load_name_tokens(project: str) -> set:
+    """Every legal name TOKEN: characters, actors, and actor nicknames.
+
+    Separate from `load_names` on purpose. `load_names` feeds binding_audit,
+    which matches a claim's subject against a WHOLE character name and must
+    keep doing so. This one exists for the [NAME] invented-name guard, which
+    scans single capitalised words out of narration.
+
+    Whole-string membership was the defect: names.json holds "Dr. John Cawley",
+    narration says "Cawley", and the guard flagged a real name. Measured on two
+    finished films, 11 of 14 and 12 of 13 [NAME] flags were real names it
+    should have known - which is why RULES B8 told authors to ignore the gate
+    entirely. Tokenising drops those to 4 and 3, with injected misspellings
+    still caught 10/10.
+
+    Actors and `actor_alias` are folded in because narration legitimately names
+    them ("Jonah Hill", "Billkin"). The known cost is recombination: once
+    "Rachel" and "Daniels" are each legal, "Rachel Daniels" passes. The old
+    guard caught 1 of 5 such cases and buried it under 11 false flags, so the
+    detection being given up was never usable.
+    """
+    p = config.project_dir(project) / "names.json"
+    if not p.exists():
+        return set()
+    _skip = {"dr", "mr", "mrs", "ms", "the", "of", "and", "a", "an"}
+    try:
+        nd = _read_json(p)
+        names = nd.get("names", nd) if isinstance(nd, dict) else nd
+        out = set()
+
+        def _add(value):
+            for part in re.split(r"\s*/\s*", str(value)):
+                part = part.strip().lower()
+                if not part:
+                    continue
+                out.add(part)                     # whole form
+                for tok in part.split():          # and each token
+                    tok = tok.strip(".,'\u2019\"")
+                    if len(tok) >= 3 and tok not in _skip:
+                        out.add(tok)
+
+        for n in names:
+            if isinstance(n, dict):
+                for field in ("character", "name", "actor", "actor_alias"):
+                    if n.get(field):
+                        _add(n[field])
+            elif n:
+                _add(n)
         return out
     except Exception:
         return set()

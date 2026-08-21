@@ -209,13 +209,14 @@ is actually on screen.
 Two known gaps. Both are recorded here because a field that looks live, or a
 guard that looks total, is worse than an absent one.
 
-**`actor_alias` is stored and currently UNREAD.** `recap.py names` writes it
-when a credit carries an inline nickname - Thai credits do this routinely, as
-in `Putthipong "Billkin" Assaratanakul` -> `actor_alias: "Billkin"`. The
-nickname is kept because it is what audiences and narration actually call the
-person. **No consumer reads it yet.** It is not wired into the `[NAME]` guard,
-so writing "Billkin" in narration will still be flagged as an unknown name.
-Treat it as data captured for later, not as a permission.
+**`actor_alias` is LIVE.** `recap.py names` writes it when a credit carries an
+inline nickname - Thai credits do this routinely, as in
+`Putthipong "Billkin" Assaratanakul` -> `actor_alias: "Billkin"`. The nickname
+is kept because it is what audiences and narration actually call the person,
+and since 2026-08-19 the `[NAME]` guard reads it: `schemas.load_name_tokens`
+folds characters, actors and aliases into one token set, so narration may write
+"Billkin" without being flagged. Narration may also name actors ("Jonah Hill"),
+which previously flagged 12 of Superbad's 13 `[NAME]` warnings.
 
 **One-letter names are NOT checked by the `[NAME]` guard, and cannot be.**
 The scanner is `[A-Z][a-z]{2,}` - it requires three characters, so a character
@@ -230,14 +231,29 @@ So one-letter names stay excluded. `recap.py draft` now says so out loud: if
 names.json holds any, the run prints an explicit `[NAME] ... are NOT checked`
 warning naming them. Those lines need a human eye; nothing is checking them.
 
-**Related, measured, and not yet fixed:** the guard tests whole-string
-membership, so a bare surname drawn from a multi-word entry fails. On Shutter
-Island 11 of 14 `[NAME]` flags are real names - `Cawley`, `Daniels`,
-`Sheehan` - present in names.json only inside entries like `Dr. John Cawley`.
-On Superbad 12 of 13 flags are actors the narration legitimately names, and
-`load_names` reads only the `character` half. Read `[NAME]` output with that
-in mind: today most of its flags are noise, which is precisely how a gate
-stops being read.
+**A `[NAME]` flag is now worth reading (fixed 2026-08-19).** The guard used to
+test whole-string membership, so a bare surname drawn from a multi-word entry
+failed: `Cawley` was flagged because names.json held `Dr. John Cawley`. On the
+two finished films, 11 of 14 and 12 of 13 flags were real names. That is why
+RULES B8 told authors to ignore `[NAME]` output - a rule written around a
+defect rather than a fact.
+
+Tokenising the name set and adding class-based exclusions took the residual to
+**0 flags on Shutter Island and 1 on Superbad**, while injected misspellings
+are still caught **10/10**. The one survivor is `Goldberg` - Evan Goldberg,
+real crew, genuinely not in the cast list, so arguably a correct flag.
+
+Exclusions are named classes, not hand-added entries: `_RANKS` (marshal,
+deputy, warden...), `_PLACES` (US states, countries, cities) and the film's own
+title, read from `draft.json` `title` / `shots.json` `film_title`. `_stop`
+stays for genuine one-offs only. **Do not add nouns to names.json to quiet a
+flag** - that half of B8 stands permanently. If a new film produces recurring
+false flags, they belong in a class, not in the name list.
+
+Known cost of the fix: recombination is no longer detected. Once `Rachel` and
+`Daniels` are each legal tokens, `Rachel Daniels` passes. The old guard caught
+1 of 5 such cases and buried it under 11 false flags, so nothing usable was
+given up - but a swapped first name is now the guard's blind spot.
 
 
 ## `family` rules

@@ -415,6 +415,80 @@ def _stage_machine(project, audit, write_state=False, promote=False):
 # --------------------------------------------------------------------------- #
 import re as _re
 
+# --------------------------------------------------------------------------- #
+# [NAME] guard: class-based exclusions.
+#
+# These are the words that survive tokenisation as false flags. They are not
+# one-offs and they recur film to film, so they are named classes rather than
+# entries hand-added to _stop per project. Measured before this existed: the
+# residual flags on two finished films were "Civil", "War", "Deputy", "Marshal"
+# (ranks and a historical event) and "Goldberg", "Hawaii", "Superbad" (crew, a
+# place, the film's own title). Every one belongs to a class below except the
+# crew surname.
+# --------------------------------------------------------------------------- #
+
+# Ranks, honorifics and job titles that sit in front of a name and get scanned
+# as if they were one.
+_RANKS = {
+    "marshal", "marshall", "deputy", "sheriff", "warden", "doctor", "nurse",
+    "officer", "detective", "sergeant", "captain", "colonel", "general",
+    "lieutenant", "major", "corporal", "private", "admiral", "commander",
+    "chief", "agent", "judge", "professor", "senator", "governor", "mayor",
+    "president", "reverend", "principal", "coach", "guard", "ranger",
+}
+
+# Places. Not the whole world - the classes that actually appear in recap
+# narration: US states, countries and the handful of cities a film names.
+_PLACES = {
+    # US states
+    "alabama", "alaska", "arizona", "arkansas", "california", "colorado",
+    "connecticut", "delaware", "florida", "georgia", "hawaii", "idaho",
+    "illinois", "indiana", "iowa", "kansas", "kentucky", "louisiana", "maine",
+    "maryland", "massachusetts", "michigan", "minnesota", "mississippi",
+    "missouri", "montana", "nebraska", "nevada", "hampshire", "jersey",
+    "mexico", "york", "carolina", "dakota", "ohio", "oklahoma", "oregon",
+    "pennsylvania", "rhode", "tennessee", "texas", "utah", "vermont",
+    "virginia", "washington", "wisconsin", "wyoming",
+    # countries / regions
+    "america", "american", "england", "english", "britain", "british",
+    "france", "french", "germany", "german", "italy", "italian", "spain",
+    "spanish", "russia", "russian", "china", "chinese", "japan", "japanese",
+    "korea", "korean", "thailand", "thai", "india", "indian", "canada",
+    "canadian", "australia", "europe", "european", "africa", "african",
+    "boston", "chicago", "angeles", "vegas", "london", "paris", "berlin",
+    "tokyo", "bangkok", "seoul", "moscow",
+    # recurring historical/proper-noun phrases that are not people
+    "civil", "war", "christmas", "halloween", "thanksgiving", "easter",
+}
+
+
+def _title_tokens(pdir, draft) -> set:
+    """The film's own title, from metadata already on disk.
+
+    A recap says its own film's name. "Superbad" was flagged as an invented
+    character because nothing told the guard what the film was called - while
+    both draft.json ("title") and shots.json ("film_title") were sitting there
+    carrying it.
+    """
+    out = set()
+    vals = [draft.get("title") if isinstance(draft, dict) else None]
+    try:
+        sp = pdir / "shots.json"
+        if sp.exists():
+            vals.append(json.loads(sp.read_text(encoding="utf-8-sig")).get("film_title"))
+    except Exception:
+        pass
+    for v in vals:
+        if not v:
+            continue
+        # take the title proper, before any subtitle we added
+        head = str(v).split(":")[0]
+        for tok in _re.findall(r"[A-Za-z]+", head):
+            if len(tok) >= 3:
+                out.add(tok.lower())
+    return out
+
+
 _VAGUE = [
     r"\bit gets personal\b", r"\bthe leader\b", r"\bthe enemy\b",
     r"\bone of them\b", r"\bthe other guy\b", r"\bthis guy\b",
@@ -534,10 +608,18 @@ def _lint_script(pdir, draft, src_dur, pool_meta=None, explicit_times=None):
     # loader, one format. (GATE_CANDIDATES F6: the same job written twice
     # drifts apart, and the copy nobody updated fails quietly.)
     from pipeline import schemas as _schemas
-    known = _schemas.load_names(pdir.name)
+    # Tokens, not whole strings. names.json holds "Dr. John Cawley"; narration
+    # says "Cawley". Whole-string membership flagged the real name, which is
+    # what made this gate unreadable and what RULES B8 was written around.
+    known = _schemas.load_name_tokens(pdir.name)
+    # `_stop` is for genuine one-offs only. Everything enumerable and stable
+    # belongs to a named class below, so the next film does not arrive needing
+    # hand-additions - that hand-adding is how the list became noise the first
+    # time (and B8 told authors to ignore the result rather than fix it).
     _stop = {"this", "today", "the", "and", "but", "so", "a", "i", "he", "she",
              "they", "it", "we", "his", "her", "their", "serabudabu", "god",
-             "okay", "yeah", "no", "yes", "maine", "black"}
+             "okay", "yeah", "no", "yes"}
+    exclude = set(_stop) | _RANKS | _PLACES | _title_tokens(pdir, draft)
     proper_seen = {}
     for ln in draft["lines"]:
         text = ln.get("narration", "")
@@ -558,7 +640,7 @@ def _lint_script(pdir, draft, src_dur, pool_meta=None, explicit_times=None):
                      "so there is nothing to check invented names against.")
     else:
         for w, lid in proper_seen.items():
-            if w.lower() not in known:
+            if w.lower() not in known and w.lower() not in exclude:
                 warns.append(f"[NAME] line {lid}: '{w}' not in names.json - verify it's "
                              f"real or use a generic role (never invent).")
 
