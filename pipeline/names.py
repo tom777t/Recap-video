@@ -100,7 +100,39 @@ def _split_aliases(character: str):
     return uniq
 
 
-_PARTICLES = {"van", "von", "de", "der", "den", "di", "da", "la", "le", "du", "of"}
+_PARTICLES = {"van", "von", "de", "der", "den", "di", "da", "la", "le", "du", "of",
+              "del", "dos", "das", "do", "bin", "ibn", "al", "y", "e"}
+
+# Words that belong to a SENTENCE about a person, never inside the person's
+# name. This is what separates a clause from a name once length stops being a
+# usable signal - a title-cased clause passes a capitalisation test, but no
+# actor is called "Portrays" or "Revealed".
+_CLAUSE_WORDS = {
+    "portrays", "portrayed", "plays", "played", "appears", "appeared",
+    "presents", "presented", "reveals", "revealed", "voices", "voiced",
+    "stars", "starred", "depicts", "depicted", "credited", "reprises",
+    "returns", "becomes", "became", "is", "was", "are", "were", "has",
+    "had", "been", "being", "version", "role",
+}
+
+# Only DOUBLE quotes (straight or curly). Single quotes are left alone on
+# purpose: O'Brien and D'Angelo are names, not nicknames.
+_NICKNAME_RE = re.compile(r'["\u201c\u201d]\s*([^"\u201c\u201d]+?)\s*["\u201c\u201d]')
+
+
+def _split_nickname(actor: str):
+    """('Putthipong "Billkin" Assaratanakul') -> ('Putthipong Assaratanakul', 'Billkin').
+
+    Thai credits carry the nickname inline, and it is not decoration: Billkin is
+    what audiences and the narration actually call him. Returns (name, nickname)
+    with nickname None when there is no quoted element.
+    """
+    m = _NICKNAME_RE.search(actor)
+    if not m:
+        return actor, None
+    nick = m.group(1).strip()
+    base = re.sub(r"\s+", " ", _NICKNAME_RE.sub(" ", actor)).strip()
+    return (base or actor), (nick or None)
 
 
 def _looks_like_a_name(actor: str) -> bool:
@@ -111,15 +143,41 @@ def _looks_like_a_name(actor: str) -> bool:
     "Mortimer portrays the version presented by Cawley" into an actor - which
     then took the real Rachel Solando entry out of the list entirely.
 
-    A person's name is a few capitalised words, optionally with a lowercase
-    particle. A clause is longer and mostly lowercase.
+    The original test was `1 <= len(words) <= 4` plus a capitalisation walk.
+    Both halves were scoped to Western naming and dropped five principals from
+    howtomakemillions2024, including both leads:
+
+      - `Putthipong "Billkin" Assaratanakul` is only three words, so length was
+        never the problem there - the quoted nickname failed the capitalisation
+        walk, because `"` is not stripped and `"Billkin"[0]` is not uppercase.
+      - the four-word ceiling separately rejects long Iberian names such as
+        `Maria Isabel Lopez de la Vega`.
+
+    So: strip the nickname before counting, allow up to six words, and lean on
+    capitalisation plus a clause-word test rather than on length. A name is
+    capitalised throughout apart from particles; a clause contains a verb.
     """
-    words = actor.split()
-    if not (1 <= len(words) <= 4):
+    base, _nick = _split_nickname(actor)
+    words = base.split()
+    if not (1 <= len(words) <= 6):
         return False
+
+    # A long line is only a name if it is a plain run of tokens. Slashes and
+    # brackets at this length mean two people, or a parenthetical, not a name.
+    if len(words) >= 5 and re.search(r"[/()\[\]]", base):
+        return False
+
+    # Length alone can no longer reject a clause, so name the clause directly.
+    # Skipped for one- and two-word inputs, which cannot be a clause and where
+    # a false positive would cost a real name.
+    if len(words) >= 3:
+        lowered = {w.strip("'\u2019.,;:-").lower() for w in words}
+        if lowered & _CLAUSE_WORDS:
+            return False
+
     caps = 0
     for w in words:
-        stripped = w.strip("'\u2019.-")
+        stripped = w.strip("'\u2019.-\"\u201c\u201d")
         if not stripped:
             return False
         if stripped.lower() in _PARTICLES:
@@ -127,7 +185,9 @@ def _looks_like_a_name(actor: str) -> bool:
         if not stripped[0].isupper():
             return False
         caps += 1
-    return caps >= 1
+    # Every non-particle token is capitalised by now. A 5-6 word line still has
+    # to carry real name tokens rather than being mostly particles.
+    return caps >= 3 if len(words) >= 5 else caps >= 1
 
 
 def _looks_like_a_character(name: str) -> bool:
@@ -189,7 +249,18 @@ def fetch_cast(page: str):
             people = [_clean_actor(disp or target) for target, disp in links]
         else:
             people = [_clean_actor(raw_actors)]
-        people = [a for a in people if a and _looks_like_a_name(a)]
+        # Keep the nickname OUT of the stored actor name but not out of the
+        # data: the display name is the formal one, the nickname rides along as
+        # an alias because that is what people call him.
+        kept_people, nicknames = [], []
+        for a in people:
+            if not a or not _looks_like_a_name(a):
+                continue
+            base, nick = _split_nickname(a)
+            kept_people.append(base)
+            if nick:
+                nicknames.append(nick)
+        people = kept_people
 
         character = _clean_character(hit.group("character"))
         if not people or not character or len(character) > 80:
@@ -198,12 +269,13 @@ def fetch_cast(page: str):
         # one character genuinely played by two people (a role shown in two
         # versions) keeps both - which one a given frame shows is a judgement
         actor = " / ".join(dict.fromkeys(people))
+        alias = " / ".join(dict.fromkeys(nicknames)) or None
         for name in _split_aliases(character):
             key = name.lower()
             if key in seen or not _looks_like_a_character(name):
                 continue
             seen.add(key)
-            out.append((actor, name))
+            out.append((actor, name, alias))
     return out, "", rejected
 
 
@@ -224,7 +296,14 @@ def build(project: str, page: str, write: bool = True):
         except Exception:
             existing = []
 
-    entries = [{"character": c, "actor": a} for a, c in cast]
+    entries = []
+    for a, c, alias in cast:
+        e = {"character": c, "actor": a}
+        if alias:
+            # Optional key. Consumers read "character"/"actor"; this rides
+            # alongside so the nickname is not thrown away.
+            e["actor_alias"] = alias
+        entries.append(e)
     known = {e["character"].lower() for e in entries}
 
     # keep hand-added names the article does not list - they were added for a

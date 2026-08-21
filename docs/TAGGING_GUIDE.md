@@ -204,6 +204,42 @@ audit flags SUBJECT_MISMATCH. This only works if `chars` is accurate to who
 is actually on screen.
 
 
+### What names.json actually covers (and what it does not)
+
+Two known gaps. Both are recorded here because a field that looks live, or a
+guard that looks total, is worse than an absent one.
+
+**`actor_alias` is stored and currently UNREAD.** `recap.py names` writes it
+when a credit carries an inline nickname - Thai credits do this routinely, as
+in `Putthipong "Billkin" Assaratanakul` -> `actor_alias: "Billkin"`. The
+nickname is kept because it is what audiences and narration actually call the
+person. **No consumer reads it yet.** It is not wired into the `[NAME]` guard,
+so writing "Billkin" in narration will still be flagged as an unknown name.
+Treat it as data captured for later, not as a permission.
+
+**One-letter names are NOT checked by the `[NAME]` guard, and cannot be.**
+The scanner is `[A-Z][a-z]{2,}` - it requires three characters, so a character
+called `M` (the lead of howtomakemillions2024) is never read: not validated,
+not flagged, invisible. Widening the pattern to catch single capitals inverts
+the guard rather than fixing it. Measured: with `m` in names.json, a stray
+mid-sentence capital - "the sign above the door read M" - passes silently,
+because the lead's own name makes every single letter acceptable. The guard
+would launder exactly what it exists to catch.
+
+So one-letter names stay excluded. `recap.py draft` now says so out loud: if
+names.json holds any, the run prints an explicit `[NAME] ... are NOT checked`
+warning naming them. Those lines need a human eye; nothing is checking them.
+
+**Related, measured, and not yet fixed:** the guard tests whole-string
+membership, so a bare surname drawn from a multi-word entry fails. On Shutter
+Island 11 of 14 `[NAME]` flags are real names - `Cawley`, `Daniels`,
+`Sheehan` - present in names.json only inside entries like `Dr. John Cawley`.
+On Superbad 12 of 13 flags are actors the narration legitimately names, and
+`load_names` reads only the `character` half. Read `[NAME]` output with that
+in mind: today most of its flags are noise, which is precisely how a gate
+stops being read.
+
+
 ## `family` rules
 
 The `family` field on a `broll.json` entry groups visually-similar clips

@@ -562,6 +562,24 @@ def _lint_script(pdir, draft, src_dur, pool_meta=None, explicit_times=None):
                 warns.append(f"[NAME] line {lid}: '{w}' not in names.json - verify it's "
                              f"real or use a generic role (never invent).")
 
+        # One-letter character names are NOT covered by this guard and cannot
+        # be. The scanner is [A-Z][a-z]{2,}, so a token like "M" - the lead of
+        # howtomakemillions2024 - is never read at all: not validated, not
+        # flagged, simply invisible. Widening the pattern to see single capitals
+        # does not fix it, it inverts it. Measured: with "m" present in
+        # names.json, a stray mid-sentence capital M ("the sign above the door
+        # read M") passes silently, because the lead's own name makes every
+        # single letter acceptable. The guard would then launder precisely what
+        # it exists to catch. So one-letter names stay excluded, and the gap is
+        # stated rather than assumed closed.
+        _one_letter = sorted(n for n in known if len(n) == 1)
+        if _one_letter:
+            warns.append(
+                f"[NAME] {len(_one_letter)} one-letter name(s) are NOT checked "
+                f"({', '.join(x.upper() for x in _one_letter)}) - the scanner "
+                f"needs 3+ characters, and widening it would let any stray "
+                f"capital letter pass as a name. Check these lines by eye.")
+
     # --- [CLARITY]: vague references -------------------------------------
     for ln in draft["lines"]:
         t = ln.get("narration", "").lower()
