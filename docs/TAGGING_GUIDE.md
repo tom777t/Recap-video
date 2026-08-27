@@ -777,7 +777,7 @@ It reads `beats_proposal.md` + `shots.json` and emits:
 | `DEPTH-UNDER`  | a beat has fewer than 2 shots (per-beat floor)               | Add the missing sub-moment shot, or confirm 1 is right |
 | `DEPTH-CLIMAX` | an [S6] action/climax beat has <3 shots                       | Add distinct action moments (S6: 3-4) |
 | `DEPTH-REACTION` | a 2+ char beat has action coverage but no reaction/emotion | Catalogue the response shot |
-| `DEPTH-MOTIF`  | a `motifs:` declared image is in no shot's action text        | Catalogue the motif appearance, or drop the claim |
+| ~~`DEPTH-MOTIF`~~ | **RETIRED 2026-08-23** - see the dated section at the bottom of this file | - |
 | `DEPTH-TOTAL`  | total shots fall below the tier's lower bound                 | Catalogue more, or re-declare the tier |
 
 All warnings are soft (exit 2) by default. `--strict` escalates DEPTH-UNDER to
@@ -805,3 +805,161 @@ ones.
 
 Updates: append at the bottom under a dated heading. Do not silently rewrite
 sections (no git history, so changes vanish).
+
+
+## 2026-08-23 - Beat-map formats in `beats_proposal.md` (MANDATORY)
+
+This section exists because the format was never written down. Three mutually
+incompatible shapes got authored across ten films, `parse_beats()` accepted two
+of them, and the third parsed to **zero beats for five consecutive passes** on
+howtomakemillions2024 - which silently switched off every beat-iterating depth
+gate on that project while `--coverage` kept printing "Depth gates clean".
+
+An undocumented format is not a style question. It is a gate that stops running.
+
+### The three accepted shapes
+
+`pipeline/catalogue.py:parse_beats()` accepts exactly these. Pick ONE per file
+and use it for every beat in that file.
+
+**1. Whitespace** - id, then a timestamp, then prose (parasite2019):
+
+    B01  ~0:01  Kim family's semi-basement: phone hunting for wifi, folding pizza
+
+**2. Pipe** - id, then `|`-separated columns (joker2019, superbad2007):
+
+    B01 | 00:00:08 | Gotham decays - news, garbage strike | (none) | establishing
+    B03 | 00:04:42 | The convenience store ... | Seth, Evan | setup, dialogue [S7]
+
+**3. Markdown table row** - a leading `|` before the id (howtomakemillions2024):
+
+    | Beat | Window | Content | chars | depicts |
+    |---|---|---|---|---|
+    | B01 | 00:00:52 - 00:04:59 | Qingming grave visit ... | Amah Saejiu, M | setup |
+
+Shapes 2 and 3 share column semantics: the leading `|` of a table row is
+consumed together with the id, so the columns land at the same indices in both.
+The header row is skipped because a beat id must be `B` + optional `_` + a
+**digit** (`Beat` fails at the digit); the `|---|---|` separator never starts
+with `B`. A table row's block is the row alone - it does not swallow the prose
+that follows the table.
+
+### What the parser needs from you
+
+| You want this gate to run | The beat line must carry |
+|---|---|
+| `DEPTH-UNDER` (per-beat floor) | the id and a timestamp - nothing else |
+| `DEPTH-CLIMAX` (S6 coverage) | a `[S6]` tag on the action/climax beats |
+| `DEPTH-REACTION` (missing response shot) | a **chars column** (shape 2/3) or an inline `chars: X, Y` |
+| `DEPTH-TOTAL` (total vs tier) | a `depth_target:` or `Target: N-M min` header |
+
+A three-column table (`Beat | Window | Content`) parses fine and satisfies only
+the first row of that table. Two of the four gates will report NOT MEASURED, and
+that is now printed rather than hidden.
+
+An **empty** chars cell means "not declared" and leaves the beat out of
+`DEPTH-REACTION`'s unit count. Do not write `-` or `n/a` in it: those parse as a
+character name. Leave the cell blank.
+
+Declaring `chars` per beat is cheap and honest if you derive it from the union of
+that beat's shots in `shots.json` rather than from memory - the shots were
+frame-verified, so the derived list is too.
+
+### Prose that mentions a beat is not a beat
+
+`B22 is the explicit reveal ...` is NOT an entry - the id is not followed by a
+timestamp or a pipe, so the parser skips it. Keep it that way: do not start a
+prose paragraph with `B22 | ` or it will be harvested as a beat.
+
+### Rule G1 - zero units is UNMEASURED, never clean (MANDATORY)
+
+Any gate that walks a collection must distinguish "walked N units and found
+nothing wrong" from "had nothing to walk". The second is not a pass, and a gate
+that prints a pass on an empty collection is worse than no gate: it manufactures
+confidence.
+
+`--coverage` now prints a per-gate status block and refuses to say "clean" when
+any gate had zero units, exiting 2 (review) instead of 0:
+
+    Gate status:
+      DEPTH-UNDER      measured over 51 numbered beats - 1 warning(s)
+      DEPTH-CLIMAX     NOT MEASURED: no beat is tagged [S6] in beats_proposal.md
+      DEPTH-TOTAL      measured over 1 tier band - pass
+
+`CATALOGUE-DENSITY` and `SNAP-GRID` in `draft.py` already did this
+("not measured: no usable beat map"). That idiom is now the house standard - if
+you add a gate that iterates anything, it reports its unit count and says NOT
+MEASURED at zero. Do not let a new gate certify an empty set.
+
+
+## 2026-08-23 - DEPTH-MOTIF RETIRED (do not rebuild it)
+
+`DEPTH-MOTIF` and the `MOTIF TRACKING:` harvest that fed it are **removed** from
+`pipeline/catalogue.py`. The Stage 2 depth audit now has four gates, not five.
+This is recorded at length because the obvious instinct on reading "motifs are
+not checked" is to build it again.
+
+The choice was required-or-retired: a gate that exists and does not run is the
+state this codebase spent two weeks removing. It was retired on four measurements.
+
+**1. It ran on 1 film in 10.** Nine of the ten proposals in `projects/` carried
+no `MOTIF TRACKING:` line, so the gate had zero units and reported nothing.
+
+**2. Where it did run, it silently measured 60% of what was declared.**
+interstellar2014 declares five motifs across a **wrapped** line:
+
+    MOTIF TRACKING (weave systematically, Register B): DUST, GRAVITY, the WATCH,
+    the CORNFIELD, and LOVE-transcends-time.
+
+The harvest regex was `^\s*MOTIF[ _]?TRACKING[^:]*:\s*(.+)$` under `MULTILINE`.
+`.` does not cross a newline, so it read the first line only and extracted
+`['DUST', 'GRAVITY', 'WATCH']`. CORNFIELD and LOVE were dropped without a word,
+and the gate printed **pass**. That is the same defect class as the zero-unit
+false pass, one level down: a pass over a silently truncated unit set.
+
+**3. It cannot catch the failure it is imagined to catch.** The gate asks *"does
+this motif keyword appear in ANY shot's `action` text?"* That is presence, not
+placement. Measured on howtomakemillions2024: `pomegranate` appears in the action
+text of **four** shots, so the gate passes - while the actual defect, flagged by
+hand in pass 4 and still unresolved in pass 6, is that the motif's **plant is
+missing** and only its payoff is catalogued. A motif audit that cannot tell a
+plant from a payoff is not auditing motifs.
+
+**4. It greps `action` text, so it is blind to anything planted in dialogue.**
+This is the documented blind spot, and it is not hypothetical. On the same film,
+the house-sale plant lives entirely in what the buyer at the gate *says*
+(01:14:10, "I saw someone selling this house ... someone named M. Thanapat").
+`action` correctly described only what was visible - a man holding up a phone -
+so every text search over the catalogue returned nothing and a hand audit
+declared the plant absent. It was not absent. It was inaudible to the method.
+
+**What replaces it: nothing new, because the real check already exists.**
+S4 and the binding audit test **each narration claim against the clip it is
+actually bound to**, per line, at draft time. That is strictly stronger than a
+keyword sweep: it is per-line, it knows which shot the claim is attached to, and
+it fails on the specific line rather than on a global word count.
+
+**If you want motif checking back, these are the requirements it must meet**,
+and none of them are satisfied by grepping `action`:
+
+- it must distinguish a PLANT from a PAYOFF (order matters, presence does not);
+- it must read dialogue as well as visuals, i.e. the transcript, not just the
+  catalogue's own prose;
+- it must not depend on an author-written declaration that the same author then
+  marks their own homework against.
+
+Until something meets those three, motif discipline is a human review item and
+is written up per film in `beats_proposal.md` under a plant audit - which is
+where the pomegranate and the house-sale findings actually came from.
+
+### The general lesson, which outlives this gate
+
+**A text search over `action` text can only find things that are pictorial.**
+`action` is required by this guide to describe what is *visible* and nothing
+else, which is correct - but it means the catalogue is a deliberately incomplete
+record of the film. Any audit that greps it will return confident false
+negatives for everything the film carries in speech.
+
+When auditing a film for a missing plant, grep the **transcript** as well as the
+catalogue. Two of the three plant findings on howtomakemillions2024 were only
+reachable that way.

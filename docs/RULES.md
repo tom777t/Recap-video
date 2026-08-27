@@ -207,3 +207,194 @@ Ngược với vấn đề thường gặp: A8 chống rò rỉ *thông tin*; c�
 > Khi phim hài có một beat lật sang chân thành hoặc ấm áp, mọi line trước đó về cùng chủ đề phải giữ **đúng cách khán giả đang đọc nó lúc ấy** — kể cả khi biết thừa là hiểu vậy sai. Một câu nháy mắt sớm là đủ giết cú lật.
 
 **Kiểm chứng:** người xem xác nhận cú lật đọng lại được sau khi giữ trọn 14 line cảnh sát ở tông bất tài.
+
+
+# PHẦN I — RULE TỪ PHIM CẢM XÚC / KHÔNG NÓI TIẾNG ANH
+### (Gia Tài Của Ngoại — How to Make Millions Before Grandma Dies, 2024)
+
+*Nối vào cuối `docs/RULES.md`, sau Phần H.*
+*Nguồn: chặng 3 của `ROADMAP_automation.md`. Chi tiết đầy đủ ở `docs/STRESS_grandma.md`.*
+
+**Bằng chứng: bốn bản render của cùng một phim, cùng một catalogue, tách bạch từng biến.** Đây là dữ liệu mạnh nhất mà bất kỳ Phần nào trong file này từng có.
+
+| bản | biến đổi | người xem nói |
+|---|---|---|
+| 223 line, cửa sổ 6.5s | — | "không xúc động lắm, nhiều chỗ bị giục" |
+| 129 line, cửa sổ 45.9s | chậm lại | "chạm hơn một chút" |
+| 129 line, viết theo quan hệ | + đăng ký kể chuyện | **"chạm hơn nhiều"** |
+| 129 line, cửa sổ vừa lời, lead-in 0.5s | + hai sửa kỹ thuật | **"cảm động thật"** |
+
+**Nhịp đóng góp ít nhất. Đăng ký kể chuyện đóng góp nhiều nhất.**
+
+---
+
+## I1. Đăng ký kể chuyện: SỰ KIỆN vs QUAN HỆ ⭐ rule chính
+
+**Nguồn:** cả phim. Áp cho **mọi phim**, không riêng thể loại này.
+
+`style_linear_vn.md` được xây quanh việc kể **chuyện gì xảy ra**, và nó đúng cho tám phim cùng họ — ở đó sự kiện *là* nội dung. Nhưng nó ngầm đòi mỗi hành động phải mang **hệ quả hoặc động cơ**.
+
+Đưa nguyên tắc đó vào một bộ phim mà hành động không có cả hai — nơi ý nghĩa nằm ở **sự tích luỹ** chứ không ở từng lần — thì nó rút gọn thành tường thuật trần trụi. Tệ hơn: nó trượt xuống **chú thích khung hình**.
+
+### Dấu hiệu nhận biết: câu không có chủ ngữ
+
+Bản đầu tiên của phim này viết ra những dòng như:
+
+> *"Bốn giờ sáng. Con hẻm, đường ray, một con mèo."*
+> *"Đêm. Một bãi xe, và Amah đứng một mình giữa những chiếc ô tô."*
+
+Đó là **danh sách danh từ** — không chủ ngữ, không động từ, không ai làm gì với ai. Chúng đọc y hệt một dòng `action` trong `shots.json`, **vì chúng được viết ra từ đó**.
+
+Đối chiếu với Superbad, nơi mỗi câu có chủ ngữ, động từ, và một mệnh đề nói *vì sao*: *"vì duyên rõ ràng không có tác dụng, cậu quyết định bỏ qua hẳn"*.
+
+**Rule:**
+> **Viết câu, không viết chú thích.** Mỗi line cần chủ ngữ và động từ. **Đừng đọc `action` text làm nguồn cho văn xuôi** — dùng nó để biết trong khung có gì, rồi viết về *cái đang xảy ra giữa những người trong đó*.
+>
+> Khi phim không cho nhân quả để kể, hãy kể **trạng thái giữa hai người**: ai đang gánh ai, điều gì đang được hỏi mà không nói ra, cái gì đã lặng lẽ đổi kể từ lần trước ta thấy cảnh này. Đó là thứ có thật mà shot đang chiếu, và tường thuật nó **không phải là bịa**.
+
+### Ví dụ đo được
+
+Cùng một shot, cùng cửa sổ, chỉ đổi văn xuôi:
+
+| trước | sau |
+|---|---|
+| "Bốn giờ sáng. Con hẻm, đường ray, một con mèo." | "Bốn giờ sáng bà đã dậy được một tiếng, và giờ cậu dậy cùng bà. Họ cùng làm nồi cháo trong bóng tối — và một tháng trước, đây là người không ai gọi dậy nổi trước trưa." |
+| "bà đã đoán ra" | "Bà đã biết cậu đến vì cái gì. Biết từ lâu. Và vẫn để cậu ở lại." |
+
+Câu thứ hai của cặp dưới **kể lại cả bộ phim trong một dòng**. Câu đầu chỉ là một sự kiện.
+
+### Quan hệ với A2, và giới hạn
+
+A2 cấm bịa cái phim cố tình bỏ trống. Rule đó **giữ nguyên**. Nhưng ở phim loại này, khoảng trống thường *chính là* nội dung — nên:
+
+> Đừng bịa **sự kiện**. Nhưng đừng coi một khoảnh khắc không lời là **không có gì để tường thuật**.
+
+Ranh giới: một quan hệ đang đổi là thứ shot chiếu ra và người xem thấy được. Một sự kiện không có trên màn hình thì không.
+
+### Nó cũng gỡ được một xung đột rule
+
+Shot trả nghĩa của cây lựu có `chars: []` (không ai nhận diện được trong khung), nên **S5 cấm** nói "cậu đang tưới cây". Bản đầu ship *"có ai đó đang tưới nó"* — đúng sự thật, không mang gì cả.
+
+Đăng ký quan hệ gỡ được mà không phá S5: **báo trạng thái thay vì báo tác nhân** — *"có ai đó đang đứng đó giữ cho nó sống"*.
+
+---
+
+## I2. Thứ sống trong THỜI GIAN thì không sống sót qua NÉN *(gộp với H3)*
+
+**Nguồn:** phim này + Superbad H3.
+
+Superbad: hài ngôn ngữ không sống sót vì nó nằm ở **nhịp**.
+Phim này: sự day dứt không sống sót vì nó nằm ở **thời lượng**.
+
+Cùng một gốc:
+
+> **Recap nén 127 phút còn 20, và thời gian là thứ nó lấy đi trước tiên.** Với đoạn phim mà tác dụng nằm ở việc *được ngồi lại trong một khoảnh khắc*, độ phủ mua bằng nhịp là mua nhầm thứ.
+
+**Bằng chứng trực tiếp:** ở bản 223 line, **bốn chỗ im lặng là bốn chỗ duy nhất người xem thấy chạm** — và chúng là bốn chỗ duy nhất recap cho phép mình dừng lại.
+
+**Rule:**
+> Với đoạn mà nội dung là quan hệ chứ không phải sự kiện: **ít line hơn, cửa sổ dài hơn, nhiều silence hơn**, và chấp nhận bỏ beat để giữ nhịp. `DRAFT-UNDERFILL` và `BEAT-COVERAGE` sẽ kêu — bỏ qua chúng **có chủ ý và ghi lại**.
+
+⚠️ Nhưng **nhịp một mình không đủ**: bản chậm với văn xuôi cũ chỉ "chạm hơn một chút". Cho một câu tường thuật hành động nhiều thời gian hơn thì nó vẫn là câu tường thuật hành động. **I1 phải đi kèm.**
+
+---
+
+## I3. Fill là chỉ số MÙ với nhịp phim *(mở rộng B9)*
+
+B9 nói fill mù với comprehension. Đo trên năm phim thì nó còn mù với nhịp dựng:
+
+| phim | độ dài shot trung bình | fill |
+|---|---|---|
+| Gone Girl | 5.5s | 109% |
+| Interstellar | 9.7s | 71% |
+| Shutter Island | 17.4s | 73% |
+| Superbad | 21.7s | 27% |
+| Gia Tài Của Ngoại | **27.1s** | **13%** |
+
+`fill = từ ÷ (giây đã bind × 3.5)` là **mật độ từ trên giây phim**, nên nó tụt đơn điệu khi phim giữ cú máy lâu. Đạt 65% ở phim này cần ~14.700 từ — bảy mươi phút nói liên tục.
+
+> **Đừng bao giờ dùng fill làm mục tiêu.** Với phim cú máy dài, con số đó không thể thoả mãn mà không nói đè lên phim.
+
+---
+
+## I4. Transcript dịch máy: dùng để ĐỊNH VỊ, không dùng để HIỂU
+
+**Nguồn:** phim Thái, ingest bằng `--translate`.
+
+Whisper dịch thẳng từ âm thanh sang tiếng Anh (`task="translate"`) cho ra transcript đọc được nhưng **kém xa chép âm rồi dịch riêng**. Có chỗ hallucinate — một đoạn lặp cùng một câu bảy lần dưới nền im lặng.
+
+> Transcript của phim ngoại ngữ dùng để **tìm cảnh** và **biết ai đang nói**. Không dùng để suy ra chuyện gì xảy ra.
+>
+> Hệ quả: **PRE-CATALOGUE (A7) nặng ký hơn hẳn** — Wikipedia Plot thành nguồn chính chứ không phải bản đồ hỗ trợ. A7 vẫn đúng ("frame thắng khi mâu thuẫn"), nhưng thêm một vế: **transcript thua cả hai**.
+
+### Và audit plant bằng grep chỉ tìm được plant BẰNG HÌNH
+
+Pass 5 kết luận motif "bán nhà" không có plant nào, sau khi grep toàn bộ `action` text. **Sai.** Plant nằm ở 01:14:10 trong **thoại** — người mua tới cổng hỏi thăm.
+
+> Một plant audit chỉ quét `action` sẽ trả về **âm tính giả với sự tự tin tuyệt đối** cho mọi thứ phim gieo bằng lời. Grep cả transcript.
+
+---
+
+## I5. Bốn khoảng trống của từ vựng catalogue *(ghi lại, CHƯA implement)*
+
+Phát hiện lúc catalogue, xác nhận lúc viết draft. **Không thêm tag** — n=1, theo đúng tiền lệ G-AXIS.
+
+**(a) Không có nhãn cho "chăm sóc như việc thường ngày".** Động cơ của phim là chuỗi phục vụ lặp lại — đút ăn, tắm rửa, ngồi canh đêm. Không phải `action` (định nghĩa đòi hệ quả, không có), không phải `dialogue` (thường không lời), không phải `emotion` (định nghĩa là *không có hành động*, mà ở đây luôn có ai đó đang làm gì), không phải `montage` (rời rạc, không nén). Chỉ còn `setup` — mà nhãn đó khẳng định **thứ thật sự vẫn đang tới**. Nó không bao giờ tới, vì nó đã xảy ra bốn mươi lần trong im lặng.
+
+**(b) Không có chỗ ghi một shot mang HAI NGHĨA cùng lúc.** M đút cho bà ăn vừa là chăm sóc thật vừa là nước cờ giành thừa kế. `claim.type` là số ít, `depicts` ép chọn một nghĩa trội. Rule "một clip = một khoảnh khắc chính" đúng cho **các giai đoạn nối tiếp**; đây là **một khoảnh khắc với hai nghĩa đồng thời** — thứ khác hẳn.
+
+*(a) và (b) thực ra là một: **một hành động bình thường mà toàn bộ sức nặng nằm ở nghĩa thứ hai của nó.***
+
+**(c) Không có liên kết trả nghĩa — và trường `pays_off` khai xuôi KHÔNG dùng được.** Đôi dép ở 00:31:55 là một cutaway phụ, không gì trong khung/transcript/plot đánh dấu nó; payoff cách 32 phút. **Plant vô hình tại thời điểm gieo.**
+
+> Một liên kết giữa hai khoảnh khắc phải được khai **từ đầu nào đọc được**, và cấu trúc gieo-trả chỉ đọc được **từ phía trả**.
+
+⚠️ **Rủi ro kèm theo, chưa có cách chặn:** `MAX_REUSE` có thể âm thầm tiêu hết plant trước khi payoff được catalogue. Draft viết theo act tiêu hợp lệ cả hai lượt của shot gieo trong Act 1, vì tiệm giày chưa tồn tại. Mọi gate xanh — reuse cap thấy số hợp lệ, `DEPTH-MOTIF` quét chữ mà "dép" không có trong entry nào, binding audit cho cả hai qua. **Chỉ mất cái vần, và không gì đọc vần.**
+
+**(d) `aftermath` nói về SỰ KIỆN, không nói về SỰ VẮNG MẶT.** Trạng thái phim kết thúc là *một người không còn ở đó nữa*. Và nó có hệ quả kỹ thuật: `aftermath` **không có `ClaimType` tương ứng**, nên những line đó mang `requires_visual: false` và **binding audit bỏ qua** — 30 line miễn kiểm, 12 nằm trong 25 phút cuối, tức đúng đoạn mọi thứ dồn về.
+
+---
+
+## I6. Cửa sổ dài hơn lời quá nhiều thì phim chạy quá nhanh để đọc
+
+**Nguồn:** bản 129 line, trước khi trim.
+
+`render.py` đặt `clip_len = max(narr_dur + GAP, hold)` — **cửa sổ không đóng góp vào runtime**. Một cửa sổ 136 giây với 10 giây lời không làm clip dài ra; nó **nhồi 136 giây phim vào 9.4 giây, chạy ở 14.5×**, lao qua 23 cú cắt.
+
+Người xem thấy đó là drift. Nó không phải bind sai.
+
+> Cửa sổ của một line không nên dài quá **khoảng hai lần** thời lượng đọc của nó. Snap `clip_end` vào cú cắt thật khi có; không thì cắt thẳng tới mốc.
+>
+> Silence beat giữ nguyên toàn bộ hold — việc dừng lại chính là mục đích.
+
+**Ứng viên gate:** `BINDING-SLOWDOWN` bắt **lời dài hơn shot**. Không gì bắt chiều ngược lại — **shot chạy nhanh hơn tốc độ đọc được**. Dữ liệu đã có sẵn (`clip_len` vs độ dài cửa sổ, `_cuts.json` cho số cú cắt bị nhồi). Chưa implement.
+
+⚠️ **Trim tạo ra lỗi ngược:** 50 line merge sau khi trim kết thúc **trước** shot mà mệnh đề cuối của chúng đang tả — một vi phạm S4 do chính việc trim sinh ra. Sửa bằng cách cắt lời cho khớp cửa sổ, hoặc nới cửa sổ khi mệnh đề cuối *chính là* beat.
+
+---
+
+## I7. `NARRATION_LEAD_IN` — nửa giây, và nó đổi cả bộ phim
+
+**Nguồn:** người xem báo *"cảm giác cả video narration đi trước scene"*. Không phải drift, không phải desync — đo lại thì lệch timeline chỉ 0.15s và `verify` sạch 114/114.
+
+Nguyên nhân nằm trong code: `clip_len = max(narr_dur + GAP, hold)` đặt `GAP` ở **cuối**, và comment trong `render.py` nói thẳng *"narration starts at clip start"*.
+
+> **Mọi clip đều bắt đầu bằng giọng đọc, ngay khung hình đầu tiên.** Mắt chưa kịp nhận ra cảnh mới thì tai đã bị bảo cảnh đó là gì.
+
+Có trong **cả tám phim trước**. Không ai để ý vì phim cắt nhanh thì mắt đọc hình kịp. Với phim giữ cú máy lâu, hiệu ứng cộng dồn qua 114 line.
+
+**Sửa:** `config.NARRATION_LEAD_IN`, mặc định 0.5s. Dải hiệu chỉnh **theo thể loại**: 0.3–0.5 cho phim cắt nhanh, **0.6–1.0 cho phim giữ cú máy dài**.
+
+⚠️ **Lead phải CO LẠI cho vừa, không được phá binding.** Bản đầu cộng lead phẳng vào mọi line đẩy Interstellar 0 → 8 vi phạm, Parasite 0 → 12, Gone Girl 49 → 52 — ba phim đang render được sẽ dừng hẳn. Lead-in là tính năng dễ chịu; binding contract là tính đúng đắn. Lead co xuống tới 0 chứ không bao giờ phá render.
+
+⚠️ **Silence clip KHÔNG nhận lead-in.** Nó không có narration để trễ; thêm vào sẽ **âm thầm kéo dài mọi silence beat quá mức draft yêu cầu**.
+
+---
+
+## Ghi chú về mẫu dữ liệu
+
+Phần này rút từ **một phim**, nhưng I1, I2, I6 và I7 đều có bằng chứng A/B trong nội bộ phim đó — bốn bản, cùng catalogue, mỗi lần đổi một biến. I3 có năm điểm dữ liệu chéo phim.
+
+I5 là **n=1 và chưa implement gì**, đúng tiền lệ G-AXIS.
+
+**Điều kiện dừng chưa đạt:** Superbad thêm bốn rule, phim này thêm bảy. Mốc vẫn là **hai phim liên tiếp chạy qua mà không phải thêm rule nào**.
