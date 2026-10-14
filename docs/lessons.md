@@ -1886,3 +1886,333 @@ in the same beat**. A blurred patch tells the viewer exactly what is being
 hidden and damages the shot for everyone; another shot in the same beat is
 clean and costs nothing. S10's depth target guarantees 3+ shots per beat to
 choose from. Whole-frame blur is the last resort, not the first.
+
+## 2026-09-05 - per-item isolation has to start where the data is READ
+
+Built `tools/extract_shot_frames.py` so a failed frame extraction would cost one
+shot, not the batch. Every ffmpeg call wrapped in `try/except`, status recorded
+per shot in a manifest, never abort on error. Tested on 231 real shots: 231 ok,
+0 failures. The failure path was never exercised, so the test proved nothing
+about it.
+
+Injected one shot with `clip_start: "not-a-timestamp"`:
+
+```
+ValueError: could not convert string to float: 'not-a-timestamp'
+NO MANIFEST - the batch died
+```
+
+The crash was in `shots.sort(key=lambda s: pt(s["clip_start"]))` - **before any
+per-shot work began**. The careful per-shot error handling sat one layer below
+and never ran. One malformed field in one record destroyed the other 230.
+
+> **The isolation boundary must be drawn where the data is first touched, not
+> where the work starts.** I drew it around the expensive step (ffmpeg) because
+> that is where I expected failure. The actual failure was in parsing - earlier,
+> global, and applied to every record at once.
+
+Fix: parse and validate every record up front, route bad ones into the manifest
+as failures, sort only survivors. Re-tested: 4 good shots completed alongside 2
+broken ones, exit 0.
+
+### Same shape, three times in one session
+
+- `if style == "linear":` - a condition sitting above the thing it governed, so
+  it switched off gates that had nothing to do with style.
+- the sheet-write guard - treated 20 independent writes as one atomic action, so
+  the only options were "lose old data" or "lose new data". Correct behaviour
+  reappeared only at per-shot granularity.
+- this - isolation drawn at the work, not at the read.
+
+All three are **a boundary drawn at the wrong altitude**. The question to ask of
+any guard is not "does it handle failure" but *"at what granularity does the
+protected thing actually fail, and is the boundary drawn there?"*
+
+### And the test that found it
+
+231 real shots found nothing. One deliberately corrupted record found it
+immediately. A pass rate on clean data says nothing about the failure path;
+that needs a positive test of the failure itself - the same lesson as
+`tools/gate_selftest.py`.
+
+## 2026-09-05 - I checked for fabrication by fabricating the check
+
+Tagged 55 Bad Genius shots twice, with and without `names.json`. Result was
+clean: 39 names with the cast list, 0 without, 0 overlap. The list was
+demonstrably the sole source of every name.
+
+Then sampled ten and "verified them against the frames". Called three plainly
+fabricated: a wide classroom of backs of heads tagged `Lynn`, a hall of ~60
+distant students tagged `Bank`, a lobby with a signboard tagged `Lynn, Grace`.
+Recommended removing cast-list access. It was approved. I made the edit.
+
+**All three verdicts were wrong.** Each shot was judged from ONE frame of a
+multi-frame window, and these windows span cuts:
+
+| shot | frame I looked at | frame I did not |
+|---|---|---|
+| `shot105` | `_02` school lobby | `_00` two schoolgirls on a rooftop, faces clear |
+| `shot008` | `_01` wide classroom, backs of heads | `_00` a woman alone at a table in a dark room |
+| `shot049` | `_02` wide hall, distant students | `_00`/`_03` a young man's face, one in close-up |
+
+In every case the agent was describing the part of the window I had not opened.
+Access restored; the accuracy of those 39 names is **unmeasured**, not refuted.
+
+### The two errors, and the second is the worse one
+
+1. **A shot window is not an image.** Judging a multi-frame description against
+   one frame measures the sampler, not the description.
+
+2. **"Sole source" was read as "invented".** The A/B proved the cast list is
+   load-bearing - remove it and names vanish. It says *nothing* about whether
+   the names are correct. Those are different claims and I merged them, then
+   went looking for confirmation and accepted the first three cases that fit.
+
+### Why this one matters more than the others in this file
+
+The whole session was spent finding measurements shaped like measurements -
+prefix-and-length as a key check, `models.list` as an availability check,
+"shorter than 5s" as "missed by the 5s grid", an SDK exception as proof of
+revocation. **I then produced a fresh one while actively looking for them**, and
+it survived long enough to change a shipped prompt.
+
+Knowing the failure mode does not confer immunity. The only thing that caught
+it was going back to a case I had already scored and opening the frames I had
+skipped - the same rule already written at the end of GROUP G: *before trusting
+a score, read the cases it calls wrong.* I had read them. I had not read all of
+them.
+
+### Standing rule added
+
+> Any check of `chars` or `action` must be judged against **every frame the
+> tagger was given**, never a subset. If that is too expensive to do for the
+> whole sample, the sample is too big - shrink it rather than sampling frames
+> within it.
+
+## 2026-09-05 - pinning the standard did not make it right; it made the wrongness visible
+
+After getting the name-fabrication verdict wrong by judging each shot from one
+frame, the rerun was done properly: the standard for "identifiable face" was
+written into `docs/FACE_STANDARD.md` **before a single frame was opened**, with
+`AMBIG` declared in advance as a first-class outcome, and was not revised
+mid-run. Three batches of ten, running count after each. 86 frames, every frame
+each tagger had been given.
+
+The standard held up on its own terms. Only 2 of 30 landed in `AMBIG`, so the
+size/focus boundary - the part expected to collapse - did not.
+
+**And it was still the wrong instrument.**
+
+```
+shot163 -> Bank    FACE (clean: large, sharp, unobstructed)
+shot165 -> Pat     FACE (clean)
+```
+
+Both faces belong to Western men in suits - overseas exam officials. `Bank` and
+`Pat` are Thai teenagers. They **pass** the test and they are **wrong**. The
+question was *"is it that person's face"*; the measurement answered *"is there
+a face"*. No threshold tuning closes that gap.
+
+### The point about pinning
+
+Pinning did not prevent the error. What it prevented was the error being
+**absorbed**.
+
+Had the standard been written after looking, `shot163` would have arrived as an
+awkward case needing a clause - *"...and the face must plausibly belong to a
+character in the cast"* - and that clause would have been written to fit the
+two cases in front of me. The result would have been `28/30 FACE, guard viable`,
+reported with confidence, and wrong. The experiment would have **concluded
+successfully**.
+
+Because the standard was fixed and public, `shot163` had nowhere to go. It
+scored `FACE` by the written rule, the written rule and the verdict visibly
+disagreed with reality, and the only honest move left was to report that the
+instrument does not measure the question.
+
+> **A pinned standard does not make you right. It removes your ability to
+> quietly become right.** The value is not accuracy, it is that failure stays
+> legible instead of being smoothed into the criteria.
+
+### Corollary for the reader of any result
+
+A standard authored after the data has **no** evidential weight regardless of
+how reasonable it reads - it cannot fail, because it was shaped by the cases it
+was going to be applied to. Ask when the standard was written before asking
+what it concluded. The two files here carry timestamps 43 minutes apart for
+exactly that reason.
+
+### Related
+
+- Rejected guard recorded as `N2 FACE-AVAILABILITY` in `GATE_CANDIDATES.md`.
+- The single-frame verification failure that forced the rerun: entry above.
+- Still open, needing a different instrument: `chars` and `claim.subject` are
+  written by the same agent, so `binding_audit` compares a fabrication against
+  itself and passes.
+
+## 2026-09-06 - a catalogue is bound to ONE CUT, and losing the source loses re-verification
+
+superbad2007 has no `source.mp4`. When a censor measurement needed frames at
+768px, a Superbad file was found on the same machine:
+
+```
+recovered file          7120.2s = 118.7 min, 1280x692   (unrated cut)
+catalogue last clip_end 6812.0s = 113.5 min             (theatrical cut)
+```
+
+It is **the wrong cut**, and the mismatch is not a constant offset that could be
+subtracted. At `00:04:45` the recovered file is within seconds of the catalogue
+frame; by `01:08:05` the shot the catalogue names is not within +/-60s. That
+drift is the signature of **inserted scenes**, so every one of the 183
+timestamps would have to be re-derived by hand against the new edit - which is
+the catalogue pass over again.
+
+> **A catalogue is not a description of a film. It is a description of one
+> ENCODE of one CUT of a film.** Every `clip_start` in it is an index into that
+> specific file. Lose the file and the catalogue becomes unverifiable: still
+> readable, still renderable against nothing, but no longer checkable.
+
+This is not a superbad problem. It applies to every project here, and it is
+silent - nothing warns that a catalogue has become orphaned, because the
+catalogue still parses and still validates against itself.
+
+### What to do about it
+
+Cheapest first:
+
+1. **Keep the source.** Disk is cheaper than a catalogue pass.
+2. If the source must go, **record what it was**, in the project:
+   - exact runtime in seconds (the single most discriminating field - it
+     separates theatrical from unrated immediately),
+   - resolution and container,
+   - a checksum if it is cheap to compute at the time.
+3. A future guard could compare `_cuts.json`'s last cut and the catalogue's last
+   `clip_end` against a recorded runtime, and refuse to trust a source whose
+   runtime disagrees. **Not built.**
+
+`superbad2007/beats_proposal.md` line 3 says `Source: projects/superbad2007/
+source.mp4`. That records the PATH, which no longer exists, and nothing about
+the file. A path is not an identity.
+
+
+## 2026-09-06 - D-GREEN from inside the loop, unprompted
+
+Running the censor pass on badgenius2017, the subagent for `shot105` was told to
+follow `tools/tag_prompt.md`, which mandates that its **entire final message be
+exactly `ok <SHOT>`**. It did not comply. It returned:
+
+> *"Two deviations from `tools/tag_prompt.md` you should know about: ... The
+> prompt (line 181) specifies `projects/<PROJECT>/shots.json.d/<SHOT>.json`;
+> your instruction specified `projects/badgenius2017/tags_censor/shot105.json`.
+> I wrote to your path only. If the assembler reads `shots.json.d/`, this file
+> won't be picked up.* ... *Silently swallowing a path conflict would be worse
+> than breaking that format, so I'm flagging it instead."*
+
+It also volunteered that its `chars` confidence was "moderate, not certain" and
+named why.
+
+**It was right on both counts**, and the path conflict was real - I had
+deliberately redirected output to keep the A/B arm intact, but nothing in the
+instruction said so, and from inside the task the two paths simply disagreed.
+
+> This is exactly what **D-GREEN** demands - *an audit missing an input must say
+> so, never report clean* - arriving from a component nobody asked to police
+> itself, at the cost of breaking its own output contract.
+>
+> Every gate in this repo exists because some earlier pass stayed silent when it
+> should have spoken. Here the silence-avoidance came for free, from the
+> **inside**, and it cost one malformed return message out of 130.
+
+Worth knowing it happens. It also argues that the strict `ok <SHOT>` contract
+should have an explicit escape hatch - a component that can only say `ok` or
+`FAIL` has no way to say *"done, but you should know something"*, and this one
+had to break format to say it.
+
+## 2026-09-06 - the meaning layer works, and it cannot see what pass one left out
+
+Two-pass experiment on badgenius2017. **Pass one**: frames only, no plot, no
+beat map - unchanged, because that blindness is what stops it inventing.
+**Pass two**: the pass-one entry plus `film_plot.md` and `beats_proposal.md`,
+and **no frames**, rewriting `action` from frame-caption register into the
+register the human catalogue carries. 20 shots (R1 beat, R2 beats, the three
+test lines).
+
+### It works
+
+```
+carry-through violations (depicts/chars altered)   0 / 20
+"unchanged" with a stated reason                   2 / 20
+```
+
+On the three lines chosen as the test, pass two reached the human's own
+editorial moves independently - *"he does not ask her anything"*, *"the camera
+stays on her face rather than his"* - from a caption plus a plot summary. On
+B72 it also **corrected** pass one: pass one read Bank's statement as "he does
+not know her", pass two read it as Bank taking the fall, which is what the film
+is doing.
+
+The refusals were real. One declined because *"B48 lists Lynn, Bank, Grace and
+Pat - three candidates for two seats, so it is not unambiguous."* Another
+because *"the beat map has no beat in 01:49:20-01:51:30 and neither flanking
+beat is a library bench."*
+
+### It produces a third register
+
+```
+                    mean   median    max
+PASS 1 (caption)     200      194    268
+PASS 2 (meaning)     860      927   1178
+HUMAN catalogue      204      174    589
+```
+
+**4.2x the human's length.** Pass two writes a briefing addressed to a writer
+(*"Use this one for the weight and hold the confession for that one"*); the
+human writes a terse note with a frame-verified grid annotation. Content
+converges, form does not. Fixable with a length cap, which was not imposed.
+
+### The failure that matters - and the mechanism is NOT what I first said
+
+`shot227`. Pass two wrote *"he does not look away ... now says it to her face"*.
+The human catalogue says:
+
+> *"She has stopped answering. He is still talking when she turns towards the
+> door [grid 2s: 01:00/01:02 her at the doorway, 01:04 through 01:10 **him left
+> alone in frame**]"*
+
+I first reported this as a **sampling** failure - that pass one's frames missed
+the door turn. **That was wrong, and I asserted a frame list without checking
+it.** Verified afterwards: pass one was given `_00`, `_04`, `_07`, and `_07`
+(02:01:09) shows him front-on and **visibly alone**.
+
+So pass one **had the evidence and compressed it away.** Its caption -
+*"intercut with close-ups of a young man ... who answers and stares back at
+her"* - folds a shot that ENDS with her gone into a symmetrical "intercut",
+losing the only thing the shot is actually doing.
+
+> **Pass two cannot recover what pass one compressed.** An under-reporting
+> caption is still *true*, so nothing flags it; pass two then reasons fluently
+> from the truncated version and produces a confident reading of a scene that
+> ends the other way round. The meaning layer does not add errors - it
+> **amplifies omissions into assertions**, and an assertion is much harder to
+> falsify than a caption.
+
+Rule 2 ("say when you cannot") does not catch this. `shot227`'s pass-one text
+was not thin - it was rich, specific, and wrong by omission. Pass two had no
+signal to decline on.
+
+### What would actually help
+
+Not a confidence marker on pass two - it has nothing to be uncertain about.
+The gap is in **pass one**: its caption has no obligation to say *how the shot
+CHANGES across the window*. A caption that must end with what is in the LAST
+frame, or must state when the frames disagree with each other, would have
+carried "and he is alone at the end" forward. **Not built.**
+
+### And a third instance of the same personal error
+
+Diagnosing this, I stated which frames pass one received without opening the
+manifest, and was wrong. That is the same failure as the single-frame
+verification (2026-09-05) and the 11h-33m turn-latency figure (2026-09-06):
+**a confident factual claim about my own experimental setup, made from memory
+rather than from the record, in the direction that made the story neater.**
+Three times in two days, each time caught only by going back to check.

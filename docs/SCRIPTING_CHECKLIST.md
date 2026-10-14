@@ -133,12 +133,19 @@ ensure the catalogue is full enough to author against before any line is
 written. Run `python -m pipeline.catalogue --project NAME --coverage` and
 record the report. These map to TAGGING_GUIDE rule S10.
 
-- [ ] **C12 (S10 - depth target met):** The catalogue's total shot count is
-  within the declared tier's band (recap 60-80 / fuller_recap 90-110 /
-  video_essay 110-130). The tier is declared via `depth_target:` in
-  beats_proposal.md (or correctly inferred from the Target runtime). No
-  `DEPTH-TOTAL` warning, OR an explicit note explaining why fewer shots is
-  right for this film.
+- [ ] **C12 (S10 - depth floor met):** The catalogue's total shot count is AT OR
+  ABOVE the declared tier's floor (recap 60+ / fuller_recap 90+ /
+  video_essay 110+). **There is no ceiling.** The catalogue is a MENU the draft
+  selects from, and LINE count - not shot count - determines runtime; every line
+  still has to bind to a catalogued shot (BINDING-INTEGRITY), so more shots is
+  more choice, not more obligation. A catalogue cannot be "too full". The tier is
+  declared via `depth_target:` in beats_proposal.md (or correctly inferred from
+  the Target runtime). No `DEPTH-TOTAL` warning, OR an explicit note explaining
+  why fewer shots is right for this film.
+  (Ceiling removed 2026-08-31: it contradicted the C13 per-beat floor - N beats x
+  per_beat[0] exceeded the ceiling above ~43 beats - and had already been broken
+  in the other direction by two shipped films, Superbad 183 and Gia Tai Cua Ngoai
+  280. See docs/GATE_CANDIDATES.md "DEPTH-TOTAL ceiling".)
   Evidence: ____________________
 
 - [ ] **C13 (S10 - per-beat floor):** Every numbered beat has >= 2 shots, OR

@@ -963,3 +963,70 @@ negatives for everything the film carries in speech.
 When auditing a film for a missing plant, grep the **transcript** as well as the
 catalogue. Two of the three plant findings on howtomakemillions2024 were only
 reachable that way.
+
+
+## 2026-08-29 - Rule P1: a parser must name the shape it matched (MANDATORY)
+
+This is the **third** time an unstated input format has cost a working day, so it
+stops being three anecdotes and becomes a rule.
+
+| When | Parser | The shape it did not expect | What it did |
+|---|---|---|---|
+| 2026-08-23 | `catalogue.py:parse_beats()` | markdown table rows, after id-prefixed lines | returned **0 beats** for five passes; every depth gate silently stopped running while `--coverage` printed "clean" |
+| 2026-08-29 | `names.py:fetch_cast()` | Bad Genius (2017) writes its cast as **prose**, not a list | returned **0 names**; the file was hand-typed instead, and nobody knew whether the film had no cast or the parser had no eyes |
+| 2026-08-29 | `names.py:fetch_cast()` | John Wick writes its cast as a **wikitable** | same silent zero; `johnwick2014_linear/names.json` is hand-authored with no actors for exactly this reason |
+
+The common defect is not the missing format. It is that **an empty result and an
+unrecognised format were the same output.** A parser that cannot tell those apart
+converts a five-minute fix into a search of the wrong half of the codebase.
+
+### The rule
+
+Any parser that reads an external or authored format must:
+
+**1. Report which shape it matched, on success.** Not a debug flag - normal
+output. `recap.py names` now prints one of:
+
+    parsed 30 entries from the cast list.
+    parsed 5 entries from prose - this article has no cast list, so the
+    mapping was inferred from sentences. Word order is a weaker signal
+    than a list: check every pairing below.
+
+**2. Fail loudly on zero, and name what it actually saw.** "No entries parsed" is
+useless; it describes the parser, not the input. Say what the input was:
+
+    Cast section found but nothing could be read from it - the section is
+    a wikitable, which this parser does not read
+
+That message points at the fix. The old one ("no 'Actor as Character' lines
+parsed") pointed at nothing, and was read twice as "this film has no cast list"
+when it meant "this parser has no wikitable branch".
+
+**3. Rank its own modes by reliability, and say so.** The prose fallback infers
+the actor-role pairing from word order, which a list states outright. Both are
+"success"; they are not equally trustworthy, and the output says which one ran so
+it gets read with the right amount of suspicion. A fallback that is silently as
+authoritative as the primary path is how a guess becomes a fact.
+
+This is the same principle as Rule G1 above, one layer down: G1 says a gate must
+not certify an empty set, P1 says a parser must not report an empty set without
+saying what it failed to read.
+
+### The trap that comes with a prose fallback
+
+A prose parser reads sentences that happen to sit near a cast mention, so its
+false positives look plausible. Two guards earned their place on Bad Genius:
+
+- **Image captions are dropped.** A caption is prose *about a person* sitting
+  next to their name - the exact shape being matched, and the exact place it is
+  wrong.
+- **A role must start with a capital.** This single test rejects
+  "served **as** acting coach" and "**as** her character is left-handed", both of
+  which sit in the same paragraph as the four real cast sentences.
+
+Also: scope the section to the next heading **of the same level or shallower**.
+Bad Genius keeps its cast under `===Casting===`, and a boundary of `^==[^=]` ran
+past it through Filming and cinematography, handing the prose scanner three
+thousand extra characters of camera talk to misread. That boundary was wrong for
+every level-3 section in the corpus and harmless for all sixteen level-2 ones,
+which is why it survived so long.

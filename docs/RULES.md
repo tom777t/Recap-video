@@ -27,9 +27,89 @@
 | A6 | **+ RULE 3 (bổ sung A5)** — mở rộng sang **mọi NHÓM intercut** (villain, đội, ê-kíp), không chỉ look-alike. "Even when they look different." | Spider-Man (Sandman/Electro lẫn) | 🔄 đã áp dụng |
 | A7 | **PRE-CATALOGUE: đọc Wikipedia** (Plot + Cast) trước catalogue. Chỉ plot+cast, KHÔNG review/rating. **Frames win** khi mâu thuẫn. | Spider-Man | ✅ kiểm chứng (dùng lại ở Shutter Island) |
 | A8 | **SPOILER DISCIPLINE** — setup-zone/reveal-zone split; biết twist ≠ được kể; đọc trước = trách nhiệm CAO hơn; nghi thì giấu. **Per-reveal beat-map** ghi vào beats_proposal, hold theo map — KHÔNG dựa vào "kể đúng thứ tự". Kể cảnh sớm bằng con mắt người xem lần đầu. | Spider-Man | ✅ kiểm chứng (trọn 5 act; Shutter Island giữ trọn 6 reveal, gate 0 hit) |
-| A9 | **RULE 1 — Under-fill: TRỐNG Ở ĐÂU quan trọng hơn trống bao nhiêu.** Trống ở action = honest. Trống ở dialogue/emotional/closing = coverage gap, phải lấp. "Fill thấp vì phim action" chỉ đúng cho action shot — KHÔNG áp blanket. | Spider-Man (cảnh kết 3 phút bị nén còn 24s) | 🔄 đã áp dụng |
+| A9 | **RULE 1 — Under-fill: TRỐNG Ở ĐÂU quan trọng hơn trống bao nhiêu.** Trống ở action = honest. Trống ở dialogue/closing = coverage gap, phải lấp. "Fill thấp vì phim action" chỉ đúng cho action shot — KHÔNG áp blanket. **⚠️ ĐÃ THU HẸP 2026-09-05 — xem A9/I2 ở cuối Phần A.** Phạm vi giờ là **action và dialogue**. Với shot mà nội dung là QUAN HỆ chứ không phải SỰ KIỆN, **I2 cầm quyền**, không phải A9. | Spider-Man (cảnh kết 3 phút bị nén còn 24s) | 🔄 đã áp dụng, đã thu hẹp |
 | A10 | **+ RULE 1 correction** — "Don't pad the fights" ≠ "let the fights be unfollowable". Không tường thuật từng cú = đúng; kể STAGE của trận đánh = BẮT BUỘC. **Test: người xem lần đầu có theo được trận đánh không?** Nếu không → under-covered, bất kể fill. | Spider-Man (Statue 13.5 phút / 5 window = 14% coverage) | 🔄 đã áp dụng → sau đó được hoá thành gate SET-PIECE COVERAGE |
-| A11 | **TIER FOLLOWS THE FILM — cả hai chiều.** Không chỉ "vượt band thì lên tier". Phim có thể *từ chối* lên tier: enrich trung thực rồi đo, nếu con số dừng ở đáy band thấp thì giữ tier thấp, không kéo dài để chạm band trên. | Shutter Island (9.2 phút, dừng ở đáy `recap`, không lên `fuller_recap`) | 🔄 đã áp dụng |
+| A11 | ~~**TIER FOLLOWS THE FILM — cả hai chiều.**~~ **⛔ NGHỈ HƯU 2026-09-05 — xem "A11 nghỉ hưu" cuối Phần A.** Quan sát gốc vẫn đúng và vẫn đáng đọc; cái sai là **thứ nó quản lý lẽ ra không bao giờ nên là gate**. | Shutter Island | ⛔ superseded |
+
+---
+
+## A11 NGHỈ HƯU (2026-09-05) — rule đúng, nhưng nó quản một cái lẽ ra không phải gate
+
+**Không xoá.** Nguyên văn A11 giữ lại ở đây vì nó ghi một quan sát THẬT:
+
+> *Phim có thể **từ chối** lên tier: enrich trung thực rồi đo, nếu con số dừng ở đáy band thấp thì giữ tier thấp, không kéo dài để chạm band trên.*
+
+Và lần dùng đầu tiên — **Shutter Island tụt xuống đáy `recap`, không kéo lên `fuller_recap`** — là một quyết định **đúng**. Quan sát đó vẫn nên đọc trước khi ai đó cố kéo dài một phim không chịu dài.
+
+### Vì sao nghỉ hưu
+
+Vấn đề không nằm ở rule. Nằm ở chỗ **tier là một cái ngưỡng, mà người phải vượt ngưỡng cũng chính là người chọn tier.**
+
+Đó là **nước đi đỏ-sang-xanh rẻ nhất trong cả repo**: `DRAFT-UNDER-TARGET` kêu → sửa một chữ trong `beats_proposal.md` → hết kêu. Không cần viết thêm một câu nào.
+
+Và nó **đã xảy ra thật**, 2026-09-04, trên `badgenius2017`: tụt `video_essay → fuller_recap`, kèm **ba đoạn biện minh**, mà con số nền (`68% fill`) sau đó hoá ra là **artefact của một mẫu số hỏng** — số thật là 41%. Cú tụt tier đó đã bị rút lại.
+
+⚠️ **Điểm đáng sợ nhất:** một cú tụt tier *đúng* (Shutter Island) và một cú tụt tier *do đo sai* (Bad Genius) **nhìn giống hệt nhau** — cả hai đều đến kèm lý lẽ tự tin, viết cẩn thận, dẫn đúng rule. Không có cách nào phân biệt từ bên ngoài. Và trong vòng lặp tự động, người viết luôn đọc được luật.
+
+A11 đứng **số 1** trong danh sách "rule nguy hiểm nếu tự động hoá" của chính bản audit 2026-09-05.
+
+### Thay bằng gì
+
+| bỏ | thay bằng |
+|---|---|
+| `DRAFT-UNDER-TARGET` (sàn runtime theo tier) | **bỏ hẳn.** `DRAFT-TARGET` vẫn in runtime real-rate — **so với không gì cả**. Thông tin, không phải phán quyết |
+| `DEPTH-TOTAL` (sàn số shot theo tier) | **bỏ hẳn.** Số shot vẫn được in |
+| tier là ngưỡng | tier là **nhãn mô tả**. `recap` / `fuller_recap` / `video_essay` vẫn dùng để nói "phim này thuộc loại đó" trong một từ. Không mang ngưỡng nào |
+| — | **`target_minutes`**: tác giả khai độ dài mong muốn. Engine ghim vào `state.json` lần đầu; đổi về sau thì `[TARGET-LOCK]` nêu **cả hai giá trị**. Là **đầu vào**, không phải ngưỡng — không gì so runtime với nó |
+
+### Nguyên tắc rút ra (rộng hơn A11)
+
+> **Một ngưỡng mà người bị đo cũng là người đặt, thì không đo gì cả.** Nó đo cái nhãn.
+>
+> Khi gặp hình dạng đó, cách sửa không phải siết ngưỡng — mà là **biến nó thành đầu vào**, rồi kiểm rằng đầu vào ấy không bị đổi lặng lẽ.
+
+Áp cho các trường hợp còn lại có cùng hình dạng: `reveal-map` (người viết tự khai alias), `set-pieces` (tự khai range), `claim.type: speech` (tự chọn subject + binding), `DEPTH-*` (tự viết beat map làm mẫu số). Chưa cái nào được xử lý.
+
+---
+
+## A9 ↔ I2 — RANH GIỚI (sửa 2026-09-05, gỡ một mâu thuẫn sống)
+
+Trước ngày này, `A9` và `I2` đưa ra **chỉ dẫn ngược nhau trên cùng một loại shot**, và cả hai đều đang ở trạng thái 🔄:
+
+- **A9** viết: *"Trống ở dialogue/**emotional**/closing = coverage gap, **phải lấp**."*
+- **I2** viết: *"Với đoạn mà nội dung là quan hệ chứ không phải sự kiện: **ít line hơn, cửa sổ dài hơn, nhiều silence hơn**."*
+
+Một shot `emotion` rơi vào cả hai. Người viết đọc file này hôm nay không có cách nào biết cái nào thắng.
+
+### Ranh giới
+
+> **A9 quản `action` và `dialogue`.** Ở đó, capacity chưa dùng trên shot dialogue/closing là **lỗ hổng phủ sóng** và phải lấp.
+>
+> **I2 quản shot mà nội dung là QUAN HỆ chứ không phải SỰ KIỆN** — mặt người giữ lâu, silence có chủ ý, hai người ngồi với nhau mà không có gì "xảy ra". Ở đó capacity chưa dùng là **đúng**, và lấp nó là nói đè lên chính cái shot đang có tác dụng.
+
+### Vì sao A9 chịu thu hẹp chứ không phải I2
+
+**Chính câu đầu của A9 chưa bao giờ là lệnh lấp đầy.** Nguyên văn: *"TRỐNG Ở ĐÂU quan trọng hơn trống bao nhiêu"* — nó là rule về **chẩn đoán**, không phải về hạn ngạch. Nó ra đời từ Spider-Man, nơi một cảnh kết ba phút bị nén còn 24 giây; hỏng ở đó là **bỏ sót sự kiện**, không phải bỏ sót lời. Đem nó áp lên một khuôn mặt giữ hai mươi giây là mở rộng quá phạm vi nó được đo — đúng meta-pattern **B5**: *rule đúng, áp quá rộng*.
+
+`emotional` bị gỡ khỏi danh sách "phải lấp" của A9 vì lý do đó, không phải vì I2 mạnh hơn.
+
+### Cách phân loại khi không chắc
+
+Hỏi: **nếu bỏ shot này đi, người xem có mất một SỰ KIỆN không?**
+- Có → A9. Lấp.
+- Không, chỉ mất *cảm giác về việc đã ngồi lại trong khoảnh khắc đó* → I2. Để yên.
+
+Nhãn `depicts` là gợi ý, **không phải phán quyết**: một shot `dialogue` cũng có thể là quan hệ thuần (hai người nói mà không trao đổi thông tin gì), và một shot `emotion` cũng có thể mang một sự kiện (một người vừa hiểu ra điều gì).
+
+### Ca thật đã dùng ranh giới này
+
+Bad Genius, vòng enrich 2026-09-05: `emotion` ở 62% fill (số đo lúc đó), còn `dialogue`/`reaction` thấp hơn. Quyết định để yên phần `emotion` và lấp `dialogue` là **đúng theo ranh giới này**.
+
+⚠️ Nhưng lưu ý: chính lần đó cả hai con số đều **sai** vì mẫu số hỏng (xem Phần K / capacity basis). Ranh giới A9↔I2 đúng; **số liệu đem áp vào nó thì không**. Hai lỗi khác nhau, đừng gộp.
+
+### Trạng thái
+
+Cả hai vẫn **🔄** — cần một phim thứ hai có cả đoạn action nặng lẫn đoạn quan hệ nặng để xác nhận ranh giới cắt đúng chỗ. Cái đã đổi hôm nay là **hết mâu thuẫn**, chưa phải hết nghi ngờ.
 
 ---
 
@@ -295,6 +375,8 @@ Cùng một gốc:
 **Rule:**
 > Với đoạn mà nội dung là quan hệ chứ không phải sự kiện: **ít line hơn, cửa sổ dài hơn, nhiều silence hơn**, và chấp nhận bỏ beat để giữ nhịp. `DRAFT-UNDERFILL` và `BEAT-COVERAGE` sẽ kêu — bỏ qua chúng **có chủ ý và ghi lại**.
 
+**⚠️ ĐÃ LÀM RÕ PHẠM VI 2026-09-05.** Rule này **cầm quyền trên shot quan-hệ**, kể cả khi `A9` nói ngược lại — A9 đã được thu hẹp về `action` + `dialogue` cho đúng câu mở đầu của chính nó (*"trống Ở ĐÂU quan trọng hơn trống bao nhiêu"* là chẩn đoán, không phải hạn ngạch). Ranh giới đầy đủ + phép thử "bỏ shot này thì mất SỰ KIỆN hay chỉ mất thời gian ngồi lại?" nằm ở mục **A9 ↔ I2** cuối Phần A. I2 không được nới rộng: nó **không** cấp phép viết mỏng cho shot action hay shot mang sự kiện.
+
 ⚠️ Nhưng **nhịp một mình không đủ**: bản chậm với văn xuôi cũ chỉ "chạm hơn một chút". Cho một câu tường thuật hành động nhiều thời gian hơn thì nó vẫn là câu tường thuật hành động. **I1 phải đi kèm.**
 
 ---
@@ -398,3 +480,95 @@ Phần này rút từ **một phim**, nhưng I1, I2, I6 và I7 đều có bằng
 I5 là **n=1 và chưa implement gì**, đúng tiền lệ G-AXIS.
 
 **Điều kiện dừng chưa đạt:** Superbad thêm bốn rule, phim này thêm bảy. Mốc vẫn là **hai phim liên tiếp chạy qua mà không phải thêm rule nào**.
+
+
+# PHẦN J — RULE TỪ PHIM CÓ CỐT TRUYỆN NẰM TRONG THOẠI
+### (Bad Genius / ฉลาดเกมส์โกง, 2017 — chính kịch heist, tiếng Thái)
+
+*Nguồn: chặng 4 của `ROADMAP_automation.md`. Chi tiết ở `docs/STRESS_badgenius.md`.*
+*Bốn pass catalogue KHÔNG tìm ra rule nào. Rule này lộ ra ở **pass viết draft đầu tiên**, đúng chỗ Superbad lộ H3 và Gia Tài lộ I1.*
+*Trạng thái: **🔄 đã áp dụng** — đã implement và có test âm, chưa có phim thứ hai đối chiếu.*
+
+---
+
+## J1. Bằng chứng bằng LỜI là một loại claim riêng ⭐ rule chính
+
+**Nguồn:** Bad Genius R1 (01:10:40, Pat khai đã trả tiền cho vụ đánh) và lời chối của Bank (01:50:38).
+
+### Vấn đề
+
+`S4` / `C4` viết: *"mọi claim của narration phải mô tả cái footage CHO THẤY"*. `G4` viết: *"ở cao trào, narration phải nhỏ tiếng lại và để hình gánh"*.
+
+**Cả hai đều ngầm giả định bằng chứng nằm ở HÌNH.**
+
+Với phim mà nút thắt được **nói ra**, giả định đó sai. R1 của phim này không có một frame nào chứa nội dung của nó — catalogue đã ghi rõ điều đó trong shot note của B48. Khi viết draft, ba lựa chọn đều hỏng:
+
+| lựa chọn | hỏng ở đâu |
+|---|---|
+| bỏ hẳn reveal | mất nút thắt trung tâm — đúng lỗ hổng H-REVEAL, và **mọi gate vẫn xanh** |
+| bind vào shot Pat đang nói *trước* mốc đáp | phá **A8** (spoiler discipline) |
+| khẳng định đè lên shot phản ứng | phá **S4** — footage chỉ cho thấy một căn phòng đứng hình |
+
+Bản outline đầu tiên chọn cách thứ ba và tự khai. Đó là rule đầu tiên bị phá sau bốn pass.
+
+### Rule
+
+> **Một claim mà bằng chứng là LỜI NÓI là một loại claim riêng, không phải claim hình.** Khai bằng `claim.type: "speech"` kèm `claim.subject` là người nói.
+>
+> **Dạng chặt, và chỉ dạng chặt:** người nói phải **đang nói và nhìn thấy được TRONG CHÍNH shot được bind**.
+>
+> **Dạng lỏng — người nói được xác lập bởi line liền trước — đã bị BÁC BỎ.** Nó cho claim trôi một shot khỏi bằng chứng của nó, và một chuỗi line như vậy đi xa tuỳ ý khỏi bất kỳ ai đang có mặt. Đã có test âm cho đúng ca này.
+
+### Gate phải nói ra giới hạn của chính nó (D-GREEN)
+
+`binding_audit` coi `speech` là **kiểm được, nhưng kiểm thứ khác**:
+
+- kiểm `claim.subject` có nằm trong `chars` của shot không → `SPEAKER_ABSENT`;
+- kiểm subject có được nêu tên và có trong `names.json` không → `SPEAKER_UNNAMED`;
+- **KHÔNG** kiểm `depicts` (`speech` không phải giá trị depicts; shot tương ứng thường tag `dialogue`);
+- **KHÔNG** kiểm nội dung — không gate nào trong pipeline đọc thoại ở tầng nghĩa (I4).
+
+Đếm riêng thành `speaker_verified`, **không gộp vào `verified_match`**, và báo cáo luôn in kèm:
+
+    Speaker verified:    3 speech line(s) - speaker present in the bound shot
+    LIMIT: a `speech` claim is checked for SPEAKER PRESENCE ONLY. Nothing here
+    confirms WHAT was said - no gate in this pipeline reads dialogue. These
+    lines need the Stage-7 watch.
+
+Gộp vào `verified_match` sẽ để một con số nghĩa là *"hình cho thấy điều này"* nuốt mất những dòng mà hình **không** cho thấy. Đó đúng là D-GREEN.
+
+### Phát hiện quan trọng nhất: THIẾU TỪ VỰNG GÂY CHẨN ĐOÁN SAI
+
+Session trước kết luận R1 buộc phải phá S4, và lời chối của Bank là **không thể viết được**.
+
+**Cả hai kết luận đều sai**, và chỉ lộ ra sau khi có khái niệm `speech`:
+
+| | tưởng là | thật ra là |
+|---|---|---|
+| R1 | phải phá S4 | **lỗ hổng catalogue.** Pat nhìn thấy rõ đang nói ở **01:10:48–01:10:53** và **01:10:58–01:11:07**, cả hai **SAU** mốc đáp 01:10:40. Chưa từng được catalogue vì cửa sổ intercut bị tag sai. |
+| lời chối của Bank | không quay, mất luôn | **lỗ hổng catalogue.** Bank nhìn thấy rõ đang khai ở **01:50:38–01:50:51** (trang 093). B72 không có shot nào ở đó. |
+
+> **Không có tên cho một loại bằng chứng thì sẽ không đi tìm nó.** Bốn pass catalogue đọc frame để tìm *hành động*; không pass nào hỏi "ai đang nói ở đây". Cái thiếu không phải footage — là **từ vựng**.
+
+Kèm theo, cùng lúc phát hiện một lỗi tag thật: hai cửa sổ B48 (`01:10:54`, `01:11:20`) được tag như thể mỗi cửa sổ một nhân vật, trong khi đó là đoạn **intercut nhanh** giữa Pat và xưởng in. Đúng **A6** ("mở rộng sang mọi NHÓM intercut"). Đã cắt lại thành các cửa sổ một-nhân-vật.
+
+### Quan hệ với H-REVEAL-B
+
+`GATE_CANDIDATES.md` mục **H-REVEAL-B** nói: reveal do thoại mang thì **không kiểm được**. J1 nói: nó cũng **không viết được** nếu không phá S4. Cùng một lỗ hổng, hai đầu — và `claim.type: "speech"` vá cả hai:
+
+- phía **viết**: cho phép nêu điều được nói mà không phải giả vờ là hình cho thấy;
+- phía **kiểm**: cho gate khẳng định người nói có mặt, và **tự khai** là không kiểm được nội dung.
+
+Cột `carried: image | dialogue` đề xuất ở H-REVEAL-B vẫn nên làm: nó cho reveal-map biết reveal nào **cần** một line `speech`.
+
+### Giới hạn còn lại (chưa vá)
+
+`speech` chứng minh **ai đang nói**, không chứng minh **họ nói gì**. Với phim ngoại ngữ, nội dung vẫn đến từ A7 (Wikipedia Plot) và transcript — mà I4 đã nói transcript không dùng để suy ra chuyện gì xảy ra. **Chốt chặn vẫn là người duyệt draft và Stage-7 render QA.** Gate là sàn, không phải trần.
+
+---
+
+## Ghi chú về mẫu dữ liệu (Phần J)
+
+n=1. Nhưng lỗ hổng là **cấu trúc, không phải đặc thù phim**: bất kỳ phim nào có nút thắt nằm trong lời thoại đều gặp — và với phim không nói tiếng Anh thì đó là phần lớn nội dung. Test âm 4/4 (sai người nói, thiếu subject, người nói không có trong names.json, và đúng dạng-lỏng-đã-bác-bỏ).
+
+**Điều kiện dừng vẫn chưa đạt.** Superbad +4, Gia Tài +7, Bad Genius +1. Chuỗi "hai phim liên tiếp không thêm rule nào" **chưa bắt đầu**.
