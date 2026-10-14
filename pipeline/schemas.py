@@ -32,6 +32,15 @@ TierEnum = Literal["LIGHT", "STANDARD", "DEEP"]
 ClaimType = Literal[
     "action", "reveal", "discovery", "dialogue", "reaction",
     "setup", "transition", "narration", "emotion",
+    # "speech" (2026-08-31, RULES Part J): the line reports what a character
+    # SAYS, and the evidence is the speech itself, not the image. Every other
+    # claim type asserts something the frame shows; this one asserts something
+    # the frame can only witness being said. It is verifiable ONLY in the strict
+    # form: the claimed speaker must be VISIBLE SPEAKING in the bound shot. The
+    # audit checks the speaker is present and says, in its own output, that it
+    # cannot check the content. Do NOT use it for a speaker established by a
+    # neighbouring line - see Part J for why that form was rejected.
+    "speech",
 ]
 
 DepictsType = Literal[
@@ -243,6 +252,13 @@ class Line:
     covers: list = field(default_factory=list)
     claim: Optional[Claim] = None
     narrative_jump: bool = False
+    # Gap 3 / S9: a SILENCE line - visual holds this long with no voiceover.
+    # This lives on the LINE because the renderer iterates draft lines, not
+    # shots (TAGGING_GUIDE S9, SCRIPTING_CHECKLIST C1). It was missing from this
+    # dataclass until 2026-08-26, so _drop_unknown silently discarded it and
+    # every consumer of the typed Draft was blind to authored silence - which is
+    # why DRAFT-TARGET was reading silence out of shots.json instead.
+    narration_silence_seconds: Optional[float] = None
     # --- Mức 2: declared total visual duration (sum of play_durations).
     # Optional; if set, validated against the bind segments. Informational +
     # lets authors assert intent so a silent drift is caught.
@@ -259,6 +275,27 @@ class Line:
             except (TypeError, ValueError):
                 raise SchemaError(
                     f"line {self.id}: total_visual_duration must be a number")
+        # Same rules as Shot.narration_silence_seconds: optional, positive,
+        # <= 30s (S9's hard cap). Coerce int/str coming out of JSON.
+        if self.narration_silence_seconds is not None:
+            v = self.narration_silence_seconds
+            if isinstance(v, bool):
+                raise SchemaError(
+                    f"line {self.id}: narration_silence_seconds must be a number")
+            try:
+                v = float(v)
+            except (TypeError, ValueError):
+                raise SchemaError(
+                    f"line {self.id}: narration_silence_seconds must be a number, "
+                    f"got {self.narration_silence_seconds!r}")
+            if v <= 0:
+                raise SchemaError(
+                    f"line {self.id}: narration_silence_seconds must be > 0 (got {v})")
+            if v > 30:
+                raise SchemaError(
+                    f"line {self.id}: narration_silence_seconds must be <= 30 "
+                    f"(S9 long-silence limit; got {v})")
+            self.narration_silence_seconds = v
 
     def word_count(self) -> int:
         return len(self.narration.split())
@@ -690,6 +727,15 @@ def estimate_narration_seconds(words: int) -> float:
     """
     wpm = max(1.0, float(config.TTS_WORDS_PER_MINUTE))
     gap = float(getattr(config, "GAP_BETWEEN_LINES", 0.18))
+    # NARRATION_LEAD_IN is deliberately NOT added here. It looks like it should
+    # be - a rendered clip is lead + narration + GAP long - but render.py
+    # clamps the lead per line (_lead_for) precisely so it can never push a line
+    # past its shot's slow-motion ceiling. Adding it to this estimate instead
+    # RE-CREATES the failure the clamp exists to prevent, at draft time:
+    # measured at a flat 0.5s, interstellar2014_linear went 0 -> 8 capacity
+    # violations, parasite2019 0 -> 12, gonegirl2014 49 -> 52, on drafts that
+    # render fine. The lead-in is contract-neutral by construction; keep it out
+    # of the contract.
     return (max(0, int(words)) / wpm) * 60.0 + gap
 
 

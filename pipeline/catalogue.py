@@ -25,6 +25,7 @@ from pathlib import Path
 from typing import Optional
 
 import config
+from pipeline import reviewed as _reviewed
 from pipeline import calibration as _cal
 
 
@@ -63,6 +64,12 @@ def _is_extendable_default(depicts: list) -> bool:
     return False
 
 
+# Shots whose authored max_narration_words_en disagreed with the derived value.
+# Module-level so capacity_map()/coverage can surface it once per run instead of
+# per shot. Reset by capacity_map().
+_CAPACITY_BASIS_DRIFT: list = []
+
+
 def compute_fields(shot: dict, profile=None, force: bool = False) -> dict:
     """Return the Mức 3 fields for a single raw shot dict. Existing values are
     preserved unless force=True. Returns a dict of the 5 fields (or {} if the
@@ -86,17 +93,30 @@ def compute_fields(shot: dict, profile=None, force: bool = False) -> dict:
     max_play = shot.get("max_play_duration_sec")
     if max_play is None or force:
         max_play = round(raw_d * eff_tol, 3)
-    max_words = shot.get("max_narration_words_en")
-    if max_words is None or force:
-        slowdown = float(getattr(config, "BINDING_SLOWDOWN_MAX", 1.4)) \
-            if hasattr(config, "BINDING_SLOWDOWN_MAX") else 1.4
-        # use schema's constant if present
-        try:
-            from pipeline.schemas import BINDING_SLOWDOWN_MAX as _SD
-            slowdown = _SD
-        except Exception:
-            pass
-        max_words = profile.max_words_for_capacity(raw_d * slowdown)
+    # CAPACITY BASIS (2026-09-05). This value is now ALWAYS derived. It used to
+    # be read from the shot when authored, and that silently created a second,
+    # per-project capacity basis: four linear projects carried hand-written
+    # ceilings at 0.58 / 0.61 / 0.66 / 0.80 of the derived value - four
+    # different constants, i.e. drift, not a considered alternative. Every
+    # fill-based threshold (DRAFT_FILL_TARGET, DRAFT_FILL_UNDER_WARN,
+    # DRAFT_FILL_OVER_WARN) and CAPACITY-WORDS consumed those numbers as if they
+    # were comparable across projects. They were not: shutterisland2010_linear
+    # shipped reporting "in band, 73%" against a true 42%.
+    # BINDING-VIOLATION never had this problem because schemas.py:496 computes
+    # raw_duration_sec * BINDING_SLOWDOWN_MAX itself - which is exactly why the
+    # two gates disagreed on membership (D4).
+    slowdown = float(getattr(config, "BINDING_SLOWDOWN_MAX", 1.4)) \
+        if hasattr(config, "BINDING_SLOWDOWN_MAX") else 1.4
+    try:
+        from pipeline.schemas import BINDING_SLOWDOWN_MAX as _SD
+        slowdown = _SD
+    except Exception:
+        pass
+    max_words = profile.max_words_for_capacity(raw_d * slowdown)
+    _authored = shot.get("max_narration_words_en")
+    if _authored is not None and abs(int(_authored) - int(max_words)) > max(1, int(0.02 * max_words)):
+        _CAPACITY_BASIS_DRIFT.append(
+            (shot.get("clip_start") or shot.get("id"), int(_authored), int(max_words)))
 
     return {
         "raw_duration_sec": raw_d,
@@ -146,11 +166,24 @@ def capacity_map(project: str) -> dict:
     profile = _cal.get_profile(
         getattr(config, "DEFAULT_TTS_VOICE", None),
         getattr(config, "DEFAULT_TTS_RATE", "+22%"))
+    _CAPACITY_BASIS_DRIFT.clear()
     out = {}
     for s in data.get("shots", []):
         f = compute_fields(s, profile)
         if f and s.get("clip_start"):
             out[s["clip_start"]] = f["max_narration_words_en"]
+    if _CAPACITY_BASIS_DRIFT:
+        n = len(_CAPACITY_BASIS_DRIFT)
+        auth = sum(a for _, a, _ in _CAPACITY_BASIS_DRIFT)
+        derv = sum(d for _, _, d in _CAPACITY_BASIS_DRIFT)
+        print(f"[CAPACITY-BASIS] {n} shot(s) carry an authored "
+              f"max_narration_words_en that disagrees with the derived value "
+              f"(authored {auth} vs derived {derv}, ratio {auth/max(1,derv):.2f}). "
+              f"The DERIVED value is used. Authored ceilings are legacy - they "
+              f"created a second capacity basis that fill%/CAPACITY-WORDS "
+              f"consumed as if it were comparable. Run "
+              f"`recap.py catalogue --project {project} --enrich --force` to "
+              f"normalise the file.")
     return out
 
 
@@ -195,26 +228,40 @@ def infer_tier_from_runtime(target_line: str) -> Optional[str]:
 def parse_beats(project: str) -> dict:
     """Parse a project's beats_proposal.md into structured data.
 
-    Handles BOTH proposal formats seen in the repo:
-      Parasite: 'B01  ~0:01  description ... chars: X, Y [S6]'
-      Joker:    'B01 | 00:00:08 | description | chars | depicts [S6]'
+    Handles ALL THREE proposal shapes seen in the repo. They are documented in
+    docs/TAGGING_GUIDE.md ("Beat-map formats"); do not invent a fourth without
+    adding it there AND here.
+
+      1. whitespace  'B01  ~0:01  description ... chars: X, Y [S6]'
+                     (parasite2019)
+      2. pipe        'B01 | 00:00:08 | description | chars | depicts [S6]'
+                     (joker2019, superbad2007)
+      3. table row   '| B01 | 00:00:52 - 00:04:59 | description |'
+                     (howtomakemillions2024) - a GitHub-flavoured markdown
+                     table. Added 2026-08-23: this shape had parsed to zero
+                     beats for five passes, which silently disabled every
+                     beat-iterating depth gate on that project.
+
+    Shapes 2 and 3 share column semantics: the leading '|' of a table row is
+    consumed with the id, so `rest` begins at the same separator in both and the
+    chars column stays at index 3. A table row's trailing '|' only adds an empty
+    final element, which shifts nothing.
 
     Returns:
       {
         "tier": "video_essay" | None,            # explicit depth_target: header
         "tier_inferred": "recap" | None,         # inferred from Target: line
         "target_runtime": "11-13 min" | None,
-        "beats": [ {id, ts, text, chars:[...], tags:set(), is_s6, is_s9,
-                    motifs_hint:[...]} , ... ],
-        "declared_motifs": [...],                 # KEY: / motif lines if any
+        "beats": [ {id, ts, text, chars:[...], tags:set(), is_s6, is_s9} , ... ],
       }
+    NOTE: there is no "declared_motifs" key. It and the DEPTH-MOTIF gate were
+    retired 2026-08-23; see the comment at the end of this function.
     Never raises on a malformed proposal; returns what it can parse.
     """
     pdir = config.project_dir(project)
     bp = pdir / "beats_proposal.md"
     out = {"tier": None, "tier_inferred": None, "target_runtime": None,
-           "beats": [], "declared_motifs": [], "style": "review",
-           "ts_format": None}
+           "beats": [], "style": "review", "ts_format": None}
     if not bp.exists():
         return out
     text = bp.read_text(encoding="utf-8-sig")
@@ -253,16 +300,25 @@ def parse_beats(project: str) -> dict:
     # A genuine beat ENTRY line is one of:
     #   'B01  ~0:01  ...'          (whitespace format: ID then a timestamp)
     #   'B01 | 00:00:08 | ...'     (pipe format: ID then '|')
+    #   '| B01 | 00:00:52 | ...'   (markdown table row: optional leading '|')
     # Lines that merely start with a beat reference in prose (e.g.
     # 'B22 is the explicit reveal ...') are NOT entries - they lack the
     # timestamp/pipe right after the ID, so the stricter pattern skips them.
+    # A markdown header row ('| Beat | Window | Content |') is skipped because
+    # the id must be 'B' + optional '_' + a DIGIT: 'Beat' fails at the digit.
+    # (The old '\w+?' id class matched 'Beat' here - measured, not assumed.)
+    # A separator row ('|---|---|') never starts with 'B'.
     #
     # A beat's BLOCK is its entry line plus every following line up to (but not
     # including) the next beat entry or a section divider ('====' / '----').
     # We scan chars/tags across the WHOLE block so proposals that wrap the
     # description or carry a 'chars:' / sub-moment block on continuation lines
     # (the fuller_recap enumeration format) still parse correctly.
-    entry_re = _re.compile(r"^\s*(B_?\w+?)\s*(?:\|\s*|[~]?\d{1,2}:\d{2})")
+    #
+    # EXCEPTION for table rows: a markdown row is self-contained, so its block is
+    # the row alone. Without this the LAST row of a table would swallow all the
+    # prose that follows it and harvest stray '[S6]'-shaped tokens out of it.
+    entry_re = _re.compile(r"^\s*(\|\s*)?(B_?\d\w*?)\s*(?:\|\s*|[~]?\d{1,2}:\d{2})")
     lines = text.splitlines()
     seen_ids = set()
     # find the entry-line indices first
@@ -271,7 +327,7 @@ def parse_beats(project: str) -> dict:
         m = entry_re.match(raw.rstrip())
         if not m:
             continue
-        bid_raw = m.group(1)
+        bid_raw = m.group(2)
         cid = _norm_beat_id(bid_raw)
         bid = cid if cid else bid_raw
         if bid in seen_ids:
@@ -281,16 +337,18 @@ def parse_beats(project: str) -> dict:
 
     for idx, (i, bid, bid_raw, m) in enumerate(entries):
         entry_line = lines[i].rstrip()
-        rest = entry_line[m.start(1) + len(bid_raw):]
+        rest = entry_line[m.start(2) + len(bid_raw):]
+        is_table_row = entry_line.lstrip().startswith("|")
         # gather the block: entry line + continuation lines until next entry /
-        # section divider.
+        # section divider. Table rows are self-contained (see note above).
         end = entries[idx + 1][0] if idx + 1 < len(entries) else len(lines)
         block_lines = [rest]
-        for j in range(i + 1, end):
-            lj = lines[j].rstrip()
-            if _re.match(r"^\s*(={3,}|-{3,})", lj):
-                break
-            block_lines.append(lj)
+        if not is_table_row:
+            for j in range(i + 1, end):
+                lj = lines[j].rstrip()
+                if _re.match(r"^\s*(={3,}|-{3,})", lj):
+                    break
+                block_lines.append(lj)
         block = "\n".join(block_lines)
 
         tags = set(_re.findall(r"\[([A-Z0-9/\-]+)\]", block))  # [S6] [S7] [TWIST-HOLD]
@@ -326,32 +384,27 @@ def parse_beats(project: str) -> dict:
             "chars": chars, "tags": tags, "is_s6": s6, "is_s9": s9,
         })
 
-    # --- declared motifs -------------------------------------------------- #
-    # DEPTH-MOTIF checks the film's CANONICAL motif set, declared ONCE in a
-    # dedicated 'MOTIF TRACKING:' line, e.g.
-    #   MOTIF TRACKING (...): DUST, GRAVITY, the WATCH, the CORNFIELD, LOVE...
-    # We deliberately do NOT harvest the per-beat 'motifs:' enumeration lines -
-    # those are authoring notes (often parenthetical phrases) and would produce
-    # dozens of false 'not catalogued' warnings. We extract short motif KEYWORDS
-    # (prefer the ALL-CAPS token in each item) so matching is keyword-based, not
-    # whole-phrase.
-    mtrack = _re.search(r"^\s*MOTIF[ _]?TRACKING[^:]*:\s*(.+)$",
-                        text, _re.IGNORECASE | _re.MULTILINE)
-    if mtrack:
-        for item in _re.split(r"[,;]", mtrack.group(1)):
-            item = item.strip()
-            if not item:
-                continue
-            # prefer an ALL-CAPS keyword (DUST, GRAVITY, WATCH); else the first
-            # significant word, stripped of articles.
-            caps = _re.findall(r"\b([A-Z]{3,})\b", item)
-            if caps:
-                out["declared_motifs"].append(caps[0])
-            else:
-                w = _re.sub(r"^(the|a|an)\s+", "", item, flags=_re.IGNORECASE)
-                w = _re.split(r"[\s(]", w.strip())[0]
-                if len(w) >= 3:
-                    out["declared_motifs"].append(w)
+    # --- declared motifs: RETIRED 2026-08-23 ------------------------------- #
+    # The 'MOTIF TRACKING:' harvest and the DEPTH-MOTIF gate it fed are gone.
+    # The extraction is NOT left in place returning an empty list, because a
+    # field that looks live and is not is worse than an absent one (this guide's
+    # own rule, applied to itself).
+    #
+    # Why retired - the full argument and the measurements are in
+    # docs/TAGGING_GUIDE.md, "2026-08-23 - DEPTH-MOTIF retired". In short:
+    #   * it ran on 1 of 10 films (9 had no MOTIF TRACKING: line);
+    #   * on that one film the regex read only the FIRST line of a wrapped
+    #     declaration, so it measured 3 of 5 motifs and printed "pass";
+    #   * it asks "is this word in ANY shot's action text", which cannot catch
+    #     the failure it is imagined to catch. Measured on
+    #     howtomakemillions2024: 'pomegranate' appears in four shots' action
+    #     text, so the gate passes - while the motif's PLANT is genuinely
+    #     missing and the payoff is unsupported. Presence != placement.
+    #   * it greps action text, so a motif planted in DIALOGUE is invisible to
+    #     it (the house-sale case on the same film).
+    # The real check already exists downstream and is per-line and precise:
+    # S4 + the binding audit test each narration claim against the clip it is
+    # actually bound to.
     return out
 
 
@@ -451,13 +504,59 @@ def coverage_report(project: str, strict: bool = False) -> dict:
     warnings = []
     severity = "clean"
 
-    def warn(code, msg, hard=False):
+    # Findings a human has looked at and deliberately kept. Declared per-project
+    # in reviewed_exceptions.md, keyed to the exact finding (here: the beat id),
+    # never to the gate as a whole. See pipeline/reviewed.py.
+    _revd, _revd_bad = _reviewed.load(config.project_dir(project))
+    for _b in _revd_bad:
+        warnings.append({"code": "REVIEWED-EXCEPTION",
+                         "msg": f"malformed entry - {_b}", "hard": True})
+        severity = "hard"
+    _revd_hit = set()
+
+    def warn(code, msg, hard=False, key=None):
         nonlocal severity
+        exc = _revd.get((code, key)) if key else None
+        if exc:
+            # Still recorded and still printed - just not counted as a problem.
+            _revd_hit.add((code, key))
+            warnings.append({"code": code, "reviewed": exc,
+                             "msg": f"{msg}  [REVIEWED {exc[0]}: {exc[1]}]",
+                             "hard": False})
+            return
         warnings.append({"code": code, "msg": msg, "hard": hard})
         if hard:
             severity = "hard"
         elif severity != "hard":
             severity = "soft"
+
+    # --- gate measurability ------------------------------------------------ #
+    # A gate that iterates a collection reports NOTHING when that collection is
+    # empty. Reporting that as "clean" is a false pass - it is the state the
+    # howtomakemillions2024 beat map sat in for five passes, where a markdown
+    # table parsed to zero beats and every beat-iterating gate below silently
+    # had nothing to walk. Zero units is UNMEASURED, never clean. This mirrors
+    # what CATALOGUE-DENSITY and SNAP-GRID already do in draft.py
+    # ("not measured: <reason>").
+    _s6_beats = [b for b in beats if b["is_s6"]]
+    _reaction_beats = [b for b in beats
+                       if len(b["chars"]) >= 2 and len(by_beat.get(b["id"], [])) >= 1]
+    gates = [
+        {"code": "DEPTH-UNDER", "units": len(beats), "unit": "numbered beats",
+         "reason": "no usable beat map (0 numbered beats parsed from "
+                   "beats_proposal.md)"},
+        {"code": "DEPTH-CLIMAX", "units": len(_s6_beats), "unit": "[S6] beats",
+         "reason": "no beat is tagged [S6] in beats_proposal.md"},
+        {"code": "DEPTH-REACTION", "units": len(_reaction_beats),
+         "unit": "beats with 2+ chars and 1+ shot",
+         "reason": "no beat declares 2+ chars with any shot catalogued"},
+        # DEPTH-MOTIF was here. Retired 2026-08-23 - see parse_beats() and
+        # docs/TAGGING_GUIDE.md. Do not re-add a motif gate that greps action
+        # text: presence of the word is not evidence of placement, and it is
+        # blind to anything the film plants in dialogue.
+    ]
+    for g in gates:
+        g["measured"] = g["units"] > 0
 
     # --- per-beat floor + climax/action + reaction gaps -------------------- #
     for b in beats:
@@ -466,11 +565,12 @@ def coverage_report(project: str, strict: bool = False) -> dict:
             warn("DEPTH-UNDER",
                  f"Beat {b['id']} has {n} shot(s), expected {pb_lo}-{pb_hi} "
                  f"(tier '{tier}'). {b['text'][:60]}",
-                 hard=strict)
+                 hard=strict, key=b['id'])
         if b["is_s6"] and n < 3:
             warn("DEPTH-CLIMAX",
                  f"Beat {b['id']} is [S6] action/climax but has only {n} shot(s); "
-                 f"action sequences need rapid coverage (>=3-4 distinct moments).")
+                 f"action sequences need rapid coverage (>=3-4 distinct moments).",
+                 key=b['id'])
         # reaction-shot heuristic: a beat naming >=2 chars and tagged action but
         # whose shots carry no 'reaction' depicts is missing the reaction beat.
         if n >= 1 and len(b["chars"]) >= 2:
@@ -480,23 +580,19 @@ def coverage_report(project: str, strict: bool = False) -> dict:
             if "action" in deps and "reaction" not in deps and "emotion" not in deps:
                 warn("DEPTH-REACTION",
                      f"Beat {b['id']} has action coverage but no reaction/emotion "
-                     f"shot catalogued ({len(b['chars'])} chars present).")
-
-    # --- declared-but-uncatalogued motifs --------------------------------- #
-    if beatinfo["declared_motifs"]:
-        all_actions = " ".join(str(s.get("action", "")).lower() for s in timed)
-        for motif in beatinfo["declared_motifs"]:
-            if motif.lower() not in all_actions:
-                warn("DEPTH-MOTIF",
-                     f"Motif '{motif}' declared in proposal but not found in any "
-                     f"catalogued shot's action text.")
+                     f"shot catalogued ({len(b['chars'])} chars present).",
+                     key=b['id'])
 
     # --- total vs tier target --------------------------------------------- #
+    # Floor only - there is no ceiling. A catalogue cannot be "too full": it is a
+    # menu the draft selects from, and every line still has to bind to a shot.
+    # DEPTH-TOTAL REMOVED 2026-09-05. It warned when the catalogue held
+    # fewer shots than the declared tier's floor - but the author chooses
+    # the tier, so the warning cleared by editing one word. A shot-count
+    # floor tied to a self-declared label measures the label, not the
+    # catalogue. The count is still REPORTED below; nothing is compared
+    # against it. See docs/RULES.md A11 (retired) for the reasoning.
     total = len(timed)
-    if shot_hi and total < shot_lo:
-        warn("DEPTH-TOTAL",
-             f"{total} shots vs target {shot_lo}-{shot_hi} (tier '{tier}') - "
-             f"{shot_lo - total} under target.")
 
     # --- est word ceiling vs runtime -------------------------------------- #
     ceil_words = 0
@@ -511,7 +607,14 @@ def coverage_report(project: str, strict: bool = False) -> dict:
     avg_pb = round(total / n_beats, 1) if n_beats else 0.0
     under2 = sum(1 for b in beats if len(by_beat.get(b["id"], [])) < min_pb)
 
+    # An audit with any unmeasured gate is NOT clean, even with zero warnings.
+    unmeasured = [g for g in gates if not g["measured"]]
+    if unmeasured and severity == "clean":
+        severity = "unmeasured"
+
     return {
+        "gates": gates,
+        "unmeasured": [g["code"] for g in unmeasured],
         "tier": tier,
         "tier_explicit": beatinfo["tier"] is not None,
         "target_runtime": beatinfo["target_runtime"],
@@ -535,31 +638,36 @@ def print_coverage_report(project: str, strict: bool = False) -> int:
     lo, hi = r["shot_target"]
     plo, phi = r["per_beat_target"]
     tier = r["tier"] or "unknown"
-    in_band = (lo <= r["total_shots"] <= hi) if hi else False
-    band_note = "within target" if in_band else (
-        "UNDER target" if (hi and r["total_shots"] < lo) else
-        "over target" if (hi and r["total_shots"] > hi) else "no tier")
-
     print("=== STAGE 2 COVERAGE REPORT ===")
     src = "declared" if r["tier_explicit"] else "inferred from runtime"
-    print(f"  Tier:                {tier} ({src})  target {lo}-{hi} shots, "
-          f"{plo}-{phi} shots/beat")
+    # Tier is a DESCRIPTIVE LABEL from 2026-09-05. No shot-count floor and no
+    # runtime floor are applied; the per-beat guidance below is the only number
+    # still checked, and it is checked per beat, not against the label.
+    print(f"  Tier label:          {tier} ({src}) - descriptive, no thresholds")
     if r["target_runtime"]:
         print(f"  Target runtime:      {r['target_runtime']}")
-    print(f"  Total shots:         {r['total_shots']}   [{band_note}]")
+    print(f"  Total shots:         {r['total_shots']}")
     print(f"  Beats (numbered):    {r['n_beats']}  | avg {r['avg_shots_per_beat']} shots/beat")
     print(f"  Beats with <{getattr(config,'DEPTH_MIN_SHOTS_PER_BEAT',2)} shots:  {r['beats_under_floor']}")
     if r["unassigned_shots"]:
         print(f"  Unassigned shots:    {r['unassigned_shots']} (no beat field / not inferable)")
     print(f"  Est. word ceiling:   {r['est_word_ceiling']}w")
 
+    # --- per-gate status: a gate with no units to walk reports UNMEASURED --- #
+    print("\n  Gate status:")
+    for g in r["gates"]:
+        if g["measured"]:
+            fired = sum(1 for w in r["warnings"] if w["code"] == g["code"])
+            state = f"{fired} warning(s)" if fired else "pass"
+            print(f"    {g['code']:<16} measured over {g['units']} {g['unit']} - {state}")
+        else:
+            print(f"    {g['code']:<16} NOT MEASURED: {g['reason']}")
+
     if r["warnings"]:
         print(f"\n  {len(r['warnings'])} depth warning(s):")
         for w in r["warnings"]:
             mark = "HARD" if w["hard"] else "soft"
             print(f"    [{w['code']}/{mark}] {w['msg']}")
-    else:
-        print("\n  Depth gates clean - catalogue meets the tier's coverage floors.")
 
     sev = r["severity"]
     if sev == "hard":
@@ -567,10 +675,24 @@ def print_coverage_report(project: str, strict: bool = False) -> int:
               "for the flagged beats before authoring. (exit 1)")
         return 1
     if sev == "soft":
+        if r["unmeasured"]:
+            print(f"\n  NOTE: {len(r['unmeasured'])} gate(s) did not run at all "
+                  f"({', '.join(r['unmeasured'])}). The warnings below them are "
+                  f"not a complete picture.")
         print("\n  Depth audit: soft warnings. Review each - add coverage where a "
               "real sub-moment is missing; ignore where 1 shot is genuinely right. "
               "(exit 2)")
         return 2
+    if sev == "unmeasured":
+        # No warnings fired, but at least one gate had nothing to walk. This is
+        # NOT a pass: an audit that measured nothing cannot certify anything.
+        print(f"\n  Depth audit: NOT MEASURED. {len(r['unmeasured'])} gate(s) had "
+              f"zero units to check ({', '.join(r['unmeasured'])}), so they "
+              f"reported nothing. Zero units is not a pass. Fix the beat map / "
+              f"tier declaration and re-run before treating this as green. "
+              f"(exit 2)")
+        return 2
+    print("\n  Depth gates clean - every gate ran against real units and none fired.")
     return 0
 
 

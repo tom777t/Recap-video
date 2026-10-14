@@ -161,9 +161,17 @@ if not d:
     print("STEP=5.0"); raise SystemExit
 med = d[len(d)//2]
 step = max(1.0, round(med * 2 / 3, 1))
-miss5 = sum(1 for x in d if x < 5.0) / len(d)
+# SUA 2026-09-05: ban cu in ty le "shot ngan hon 5s" nhung goi no la "mu voi
+# X% so shot" - gop hai dai luong khac nhau va bao qua GAP DOI. Mot shot dai 4s
+# tren luoi 5s chi truot 20% so lan, khong phai 100%.
+#   Bad Genius: ngan hon 5s = 74.2%, ky vong bi bo sot = 37.0%.
+# 37% moi la con so ghi trong docs/STRESS_badgenius.md.
+G = 5.0
+shorter = sum(1 for x in d if x < G) / len(d)
+missed = sum((G - x) / G for x in d if x < G) / len(d)
 print(f"  {len(c)} cu cat | trung vi shot {med:.1f}s")
-print(f"  luoi 5s se mu voi {miss5*100:.0f}% so shot")
+print(f"  ngan hon luoi 5s: {shorter*100:.0f}% so shot")
+print(f"  KY VONG khong bao gio duoc lay mau o luoi 5s: {missed*100:.0f}%")
 print(f"  -> nen dung --every {step}")
 print(f"STEP={step}")
 '@

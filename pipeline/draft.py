@@ -13,13 +13,16 @@ The semi-auto checkpoint.
 """
 from __future__ import annotations
 
+import datetime as _dt
 import json
+import re
 import sys
 from pathlib import Path
 
 from rich.console import Console
 
 import config
+from pipeline import reviewed as _reviewed
 
 console = Console()
 
@@ -118,9 +121,14 @@ def validate_draft(project: str, *, write_state: bool = False,
         # is a deliberate held visual with NO narration (C1 exception). It is
         # exempt from the empty-narration requirement; every other line must
         # carry narration.
+        # NOTE (2026-09-05): the empty-narration condition used to be reported
+        # HERE, unlabelled, as "line #N: empty 'narration'". That message hit the
+        # `if errors:` abort below, which meant the labelled [EMPTY-LINE] block
+        # further down could never run - it was dead code shadowed by a
+        # duplicate check, and a positive test (tools/gate_selftest.py) proved
+        # it. The check now lives in ONE place: the labelled block, moved above
+        # the abort. Do not reintroduce a second copy here.
         is_silence = ln.get("narration_silence_seconds") is not None
-        if not is_silence and not ln.get("narration", "").strip():
-            errors.append(f"{where}: empty 'narration'")
         if ln.get("visual") and not ln.get("pool") and not ln.get("montage"):
             visual_uses.setdefault(ln["visual"], []).append(ln.get("id", i))
 
@@ -212,13 +220,179 @@ def validate_draft(project: str, *, write_state: bool = False,
     for vfam, ids in visual_uses.items():
         fam_uses[vfam] = fam_uses.get(vfam, 0) + len(ids)
         fam_lines.setdefault(vfam, []).extend(f"line {i}" for i in ids)
+
+    # NOT WIRED, and deliberately so (tried and reverted 2026-09-05).
+    # `family` on shots.json entries was fed into this counter for one session.
+    # It is the wrong input, because the word means two different things:
+    #   broll.json pool `family`  = interchangeable B-ROLL ALTERNATES. Showing
+    #       three members in a row really does read as "I just saw this", which
+    #       is what cap=2 was calibrated for.
+    #   shots.json `family`       = a SCENE / LOCATION label. superbad2007 has
+    #       69 of them over 183 shots. Binding 8 lines to 8 different shots of
+    #       cop_car_night is not repetition, it is covering the film's B-plot.
+    # Wiring it flagged 22 families on superbad2007 alone - a shipped, watched
+    # film - at up to 8x. That is the gate mis-measuring, not the recap being
+    # repetitive. See docs/GATE_CANDIDATES.md L-FAMILY-SEMANTICS.
+    # If this is ever revisited it needs its OWN cap and probably its own gate
+    # name, not this counter.
+
+    _revd, _revd_bad = _reviewed.load(pdir)
+    for _b in _revd_bad:
+        console.print(f"[red][REVIEWED-EXCEPTION][/] malformed entry - {_b}")
+    _revd_hit = set()
+
+    # ---- [SET-PIECE-DECLARE] + [RATCHET] --------------------------------
+    # Absence must be a DECISION. SET-PIECE was a silent no-op on 14 of 17
+    # projects because no fenced block existed - indistinguishable in effect
+    # from the strongest possible gaming, achieved by doing nothing. Follows
+    # the G2 precedent: Bad Genius recorded "AMBIGUITY-HOLD: none in this film"
+    # rather than skipping it, so the negative is on the record.
+    try:
+        _sp_list = parse_set_pieces(project)
+        _rm_list = parse_reveal_map(project)
+        _bp = pdir / "beats_proposal.md"
+        _bp_txt = _bp.read_text(encoding="utf-8-sig") if _bp.exists() else ""
+
+        # ---- [STYLE-DECLARE] ---------------------------------------------
+        # `style:` decides which half of the pipeline inspects this project,
+        # and it was declared on 6 of 17. The other 11 defaulted to `review` by
+        # absence - switching off BEAT-COVERAGE, BINDING-INTEGRITY, SNAP-GRID,
+        # CATALOGUE-DENSITY and the stage machine across 44 of 204 matrix
+        # cells, chosen by nobody. Same silent-default shape as
+        # SET-PIECE-DECLARE and PROJECT-STATUS, one layer further up.
+        # `style: review` is a perfectly good answer - it just has to be an
+        # answer.
+        # The sniff regex MUST match catalogue.parse_beats' own `[a-z_]+`
+        # class. An earlier `\w` version accepted `style: 2linear`, which
+        # silenced this warning while parse_beats still returned "review" -
+        # a gate whose name and whose check disagreed, which is the exact
+        # defect this audit has been removing elsewhere.
+        if _bp_txt and not re.search(r"^\s*style\s*:\s*[a-z_]+",
+                                     _bp_txt, re.M | re.I):
+            console.print(
+                "[yellow][STYLE-DECLARE][/] no `style:` line - defaulting to "
+                "[bold]review[/]. That default switches OFF: BEAT-COVERAGE, "
+                "BEAT-MAP, BINDING-INTEGRITY, CATALOGUE-DENSITY, SNAP-GRID, "
+                "SET-PIECE coverage, REVEAL-TIMING, and the OUTLINE/SCRIPT "
+                "stage machine (so DRAFT-TARGET is never stage-gated and "
+                "promotion is unreachable). It switches ON the stricter "
+                "per-line ACTION-SETUP. If review is right, say so: "
+                "`style: review`. If it is linear, say that.")
+
+        # ---- [PROJECT-STATUS] -------------------------------------------
+        # No beats_proposal.md means SET-PIECE-DECLARE, RATCHET and the whole
+        # DEPTH-* family are no-ops BY ABSENCE - the same failure one layer up.
+        # Absence becomes a decision on the record (the G2 precedent), and the
+        # gate names WHICH case this is rather than lumping them together:
+        # a project with no source video cannot be worked on at all; one with a
+        # source is merely incomplete. Note that a beat map is NOT linear-only -
+        # review-mode projects carry them too (gonegirl 36 beats, joker 38,
+        # parasite 28), so "review mode" is not an excuse for not having one.
+        if not _bp_txt:
+            _psf = pdir / "project_status.md"
+            _declared_status = False
+            if _psf.exists():
+                _pst = _psf.read_text(encoding="utf-8-sig")
+                _declared_status = bool(re.search(
+                    r"```project-status\s*\n(?=(?:.*\n)*?\s*status\s*:\s*\S)"
+                    r"(?=(?:.*\n)*?\s*reason\s*:\s*\S)", _pst, re.I))
+            if not _declared_status:
+                _has_src = any((pdir / f"source{e}").exists()
+                               for e in (".mp4", ".mkv", ".mov", ".m4v")) or \
+                    bool(list(pdir.glob("source.*")))
+                if _has_src:
+                    _case = ("a source video is present but there is no beat "
+                             "map - this project is INCOMPLETE, not impossible")
+                else:
+                    _case = ("there is no beat map and no source video - this "
+                             "project cannot be worked on as it stands")
+                console.print(
+                    f"[yellow][PROJECT-STATUS][/] {_case}. SET-PIECE-DECLARE, "
+                    f"RATCHET and every DEPTH-* gate are no-ops here by "
+                    f"absence. Declare it in project_status.md: a "
+                    f"```project-status``` block with status / mode / reason.")
+        _declared_none = bool(re.search(r"^\s*set-pieces\s*:\s*none\s*,\s*because\s+\S",
+                                        _bp_txt, re.M | re.I))
+        if _bp_txt and not _sp_list and not _declared_none:
+            _has_fence = bool(re.search(r"```set-pieces", _bp_txt, re.I))
+            _why = ("a ```set-pieces``` block is present but parses to ZERO "
+                    "measurable rows, which is the same as having none"
+                    if _has_fence else
+                    "there is no ```set-pieces``` block and no explicit negative")
+            console.print(
+                f"[yellow][SET-PIECE-DECLARE][/] {_why}. SET-PIECE cannot "
+                f"measure anything here, and silence is indistinguishable from "
+                f"having none. State it: `set-pieces: none, because <reason>` "
+                f"- or fix the block.")
+        # Ratchet: pin at promotion; also pin on first sight so existing
+        # projects acquire a baseline instead of being exempt forever.
+        from pipeline import state as _rstate
+        from pipeline import ratchet as _ratchet
+        from pipeline import catalogue as _catr
+        _nbeats = len([b for b in _catr.parse_beats(project).get("beats", [])
+                       if re.match(r"^B\d+$", str(b.get("id", "")))])
+        _cur = _ratchet.snapshot(_nbeats, _rm_list, _sp_list)
+        _rst = _rstate.load_state(project) or {}
+        _pin = _rst.get("ratchet")
+        if _pin is None:
+            if _cur["beats"] or _cur["reveals"] or _cur["set_pieces"]:
+                _rst["ratchet"] = _cur
+                _rstate.save_state(project, _rst)
+        else:
+            for _k, _m in _ratchet.compare(_pin, _cur):
+                _exc = _revd.get(("RATCHET", _k))
+                if _exc:
+                    _revd_hit.add(("RATCHET", _k))
+                    console.print(f"[yellow][RATCHET][/] {_m}  "
+                                  f"[bold]REVIEWED {_exc[0]}[/]: {_exc[1]}")
+                else:
+                    console.print(f"[yellow][RATCHET][/] {_m} "
+                                  f"[dim](finding key: {_k})[/]")
+    except Exception as _e:                              # pragma: no cover
+        console.print(f"[dim][RATCHET] skipped: {_e}[/]")
     for fam, count in fam_uses.items():
         if count > config.MAX_FAMILY_USES:
             where_list = ", ".join(fam_lines.get(fam, []))
-            errors.append(f"[VISUAL-REPEAT] visual family '{fam}' shown {count}x exceeds "
-                          f"cap of {config.MAX_FAMILY_USES} ({where_list}) - a viewer feels "
-                          f"they just saw this. Re-point extra lines to other footage, or "
-                          f"split into distinct stages (setup/reversal/outcome).")
+            msg = (f"[VISUAL-REPEAT] visual family '{fam}' shown {count}x exceeds "
+                   f"cap of {config.MAX_FAMILY_USES} ({where_list}) - a viewer feels "
+                   f"they just saw this. Re-point extra lines to other footage, or "
+                   f"split into distinct stages (setup/reversal/outcome).")
+            _exc = _revd.get(("VISUAL-REPEAT", fam))
+            if _exc:
+                # Still printed, still visible in the run - just not fatal.
+                _revd_hit.add(("VISUAL-REPEAT", fam))
+                console.print(f"[yellow][VISUAL-REPEAT][/] visual family '{fam}' "
+                              f"shown {count}x ({where_list}) - "
+                              f"[bold]REVIEWED {_exc[0]}[/]: {_exc[1]}")
+            else:
+                errors.append(msg)
+    # A stale exception is how a gate dies quietly in the other direction: the
+    # finding goes away, the note stays, and it silently covers the next one.
+    for (_g, _k), (_d, _r) in _revd.items():
+        if _g == "VISUAL-REPEAT" and (_g, _k) not in _revd_hit:
+            console.print(f"[yellow][REVIEWED-EXCEPTION][/] STALE - "
+                          f"{_g} '{_k}' (reviewed {_d}) no longer occurs; "
+                          f"delete the entry so it cannot cover a future finding.")
+
+    # [EMPTY-LINE] - moved ABOVE the abort on 2026-09-05. It used to sit ~20
+    # lines below and was unreachable: an unlabelled duplicate of this same
+    # check ran first and tripped `if errors:`. Keeping it here means the
+    # labelled message with the S9 exemption is the one an author actually sees.
+    # A SILENCE line (Gap 3) is deliberately wordless: it carries
+    # `narration_silence_seconds`, and render.py holds the visual for that long
+    # with the music swelling. That is a feature, not a blank line - the first
+    # version of this gate hard-failed three of four finished films for using it.
+    _blank = [ln for ln in draft["lines"]
+              if ln.get("clip_start")
+              and not (ln.get("narration") or "").strip()
+              and not ln.get("narration_silence_seconds")]
+    if _blank:
+        console.print("[red][EMPTY-LINE][/] line(s) with a clip window but no narration:")
+        for ln in _blank:
+            console.print(f"    line {ln.get('id')} at {ln.get('clip_start')}")
+        console.print("[red]  Write the line or remove it. Rendering as-is puts "
+                      "footage on screen with nothing said over it.[/]")
+        sys.exit(1)
 
     if errors:
         console.print("[red]draft.json has problems:[/]")
@@ -279,27 +453,16 @@ def validate_draft(project: str, *, write_state: bool = False,
         sys.exit(1)
 
     # ---- empty narration ----------------------------------------------------
-    # HARD failure, same class as duplicate ids: a line with a clip window but no
-    # words renders anyway. TTS returns near-zero duration, clip_len falls to the
-    # floor, and the shot flashes past in under a second - footage on screen that
-    # nothing is being said about. Found in a shipped Spider-Man cut (lines 45 and
-    # 641), where no gate saw it: even RENDER-VERIFY was blind, because it asks
-    # whether the audio matches the line, not whether the line has any words.
-    # A SILENCE line (Gap 3) is deliberately wordless: it carries
-    # `narration_silence_seconds`, and render.py holds the visual for that long
-    # with the music swelling. That is a feature, not a blank line - the first
-    # version of this gate hard-failed three of four finished films for using it.
-    _blank = [ln for ln in draft["lines"]
-              if ln.get("clip_start")
-              and not (ln.get("narration") or "").strip()
-              and not ln.get("narration_silence_seconds")]
-    if _blank:
-        console.print("[red][EMPTY-LINE][/] line(s) with a clip window but no narration:")
-        for ln in _blank:
-            console.print(f"    line {ln.get('id')} at {ln.get('clip_start')}")
-        console.print("[red]  Write the line or remove it. Rendering as-is puts "
-                      "footage on screen with nothing said over it.[/]")
-        sys.exit(1)
+    # MOVED 2026-09-05 to just above the `if errors:` abort (search [EMPTY-LINE]).
+    # It was unreachable here: an unlabelled duplicate of the same check ran in
+    # the per-line loop, appended to `errors`, and the abort fired first. The
+    # rationale that used to sit here is preserved at the new site - HARD
+    # failure, same class as duplicate ids: a line with a clip window but no
+    # words renders anyway, TTS returns near-zero duration, and the shot flashes
+    # past in under a second with nothing said over it. Found in a shipped
+    # Spider-Man cut (lines 45 and 641), where no gate saw it: even
+    # RENDER-VERIFY was blind, because it asks whether the audio matches the
+    # line, not whether the line has any words.
 
     # quality linter (clarity / read-aloud / names / action-setup / visual-memory)
     _lint_script(pdir, draft, src_dur, pool_meta, explicit_times)
@@ -349,6 +512,13 @@ def outline_ready(audit: dict) -> tuple:
         "no_skipped_chunk":     beats > 0 and max_run < 2,
         "no_binding_mismatch":  audit.get("binding_mismatch", 1) == 0,
         "no_unverified":        audit.get("binding_unverified", 1) == 0,
+        # D-GREEN. "0 mismatch / 0 unverified" is only evidence if the audit was
+        # given something to check. binding_audit only examines lines carrying a
+        # `claim`; with zero claims it returns 0/0 and every check above passes
+        # on an empty input. That is not a clean result, it is an ABSENT one, and
+        # it let every draft in this repo promote against an audit that had
+        # looked at nothing. A draft must carry at least one claim to promote.
+        "audit_examined":       audit.get("binding_checked", 0) > 0,
         "continuity_clean":     audit.get("continuity_issues", 1) == 0,
         "no_binding_violation": audit.get("binding_violations", 1) == 0,
         "not_hard":             audit.get("sev") != "hard",
@@ -358,7 +528,10 @@ def outline_ready(audit: dict) -> tuple:
         lone = len(bc.get("uncovered", []))
         note = (f", {lone} lone beat(s) tolerated (granularity)" if lone else "")
         reason = (f"outline_ready: {bc['covered']}/{beats} beats bound, "
-                  f"no >=2-consecutive gap, 0 mismatch / 0 unverified, "
+                  f"no >=2-consecutive gap, "
+                  f"{audit.get('binding_verified', 0)} verified of "
+                  f"{audit.get('binding_checked', 0)} claim(s) checked, "
+                  f"0 mismatch / 0 unverified, "
                   f"continuity 0, 0 violations{note}")
     else:
         failed = ", ".join(k for k, v in checks.items() if not v)
@@ -1102,15 +1275,24 @@ def beat_coverage(project, d) -> dict:
     if not bounds:
         return result
 
-    # explicit-timestamp line starts (montage/pool lines have no clip_start)
+    # Explicit-timestamp line starts. Pool/montage lines have NO clip_start, so
+    # they cannot be placed on the film's timeline and contribute nothing here.
+    # That is invisible in linear mode (every linear project is 0-pool) but it
+    # matters now this gate also runs on review projects: a beat covered ONLY by
+    # a pool line would otherwise be reported UNCOVERED, which is a false
+    # finding. Count them and make the report say so rather than stay silent
+    # about the assumption it is standing on.
     line_secs = []
+    unplaceable = 0
     for ln in d.lines:
         cs = getattr(ln, "clip_start", None)
         if not cs:
+            unplaceable += 1
             continue
         try:
             line_secs.append(parse_ts(cs))
         except Exception:
+            unplaceable += 1
             continue
 
     counts = {bid: 0 for bid, _ in bounds}
@@ -1159,6 +1341,7 @@ def beat_coverage(project, d) -> dict:
         counts=counts,
         max_consecutive_uncovered=max_run,
         consecutive_gaps=consecutive_gaps,
+        unplaceable=unplaceable,
     )
     return result
 
@@ -1639,7 +1822,14 @@ def _run_phase1_audits(project, pdir):
 
     # ---- beat-coverage (skeleton-free; linear) - same numbers the stage
     # machine uses; surfaced here for visibility.
-    bc = beat_coverage(project, d) if style == "linear" else {"beats": 0}
+    # BEAT-COVERAGE: needs a beat map and timestamped lines. Neither is
+    # linear-only - review projects carry beat maps too (gonegirl2014 36,
+    # joker2019 37, parasite2019 28). Self-no-ops to {"beats": 0} when the beat
+    # map is missing or unparseable, so it is safe to call unconditionally.
+    # `bc` also feeds audit["beat_coverage"] -> outline_ready, but the stage
+    # machine is separately gated on style == "linear" (see :475), so widening
+    # this report does not reach it.
+    bc = beat_coverage(project, d)
     if bc.get("beats"):
         # Always say WHICH timestamp convention produced these numbers, and
         # whether it was declared or assumed - the gate must never be silent
@@ -1651,55 +1841,79 @@ def _run_phase1_audits(project, pdir):
         if bc["uncovered"]:
             msg += f"; uncovered: {', '.join(map(str, bc['uncovered'][:10]))}"
         console.print(msg)
+        if bc.get("unplaceable"):
+            console.print(
+                f"    [dim]{bc['unplaceable']} line(s) unplaceable (no "
+                f"clip_start - pool/montage): they cover no beat in this "
+                f"count, so an 'uncovered' beat above may in fact be shown by "
+                f"one of them.[/]")
     for _prob in bc.get("ts_problems", []):
         console.print(f"[red][BEAT-MAP][/] {_prob}")
 
     # ---- BINDING-INTEGRITY (stage 1: report only, never blocks) -------------
     pdir = config.project_dir(project)
-    if style == "linear":
-        bi = binding_integrity(pdir, d)
-        if bi["total"]:
-            if bi["free"]:
-                ids = ", ".join(bi["free_ids"][:20])
-                console.print(
-                    f"[yellow][BINDING-INTEGRITY][/] {bi['free']}/{bi['total']} "
-                    f"explicit-window line(s) are bound to NO catalogued shot: {ids}"
-                    f"{' ...' if len(bi['free_ids']) > 20 else ''}")
-                console.print(
-                    "    Nothing in shots.json stands behind these, so the footage "
-                    "audits cannot check them at all. Split or add catalogue entries "
-                    "rather than pointing a line at a bare timestamp.")
-                console.print("    [dim](report only for now - this does not block)[/]")
-            else:
-                console.print(f"[bold][BINDING-INTEGRITY][/] all {bi['bound']} "
-                              f"explicit-window line(s) land on a catalogued shot")
-        for _br in bi["bad_ref"]:
-            console.print(f"[red][BINDING-INTEGRITY][/] {_br}")
 
-        # ---- CATALOGUE-DENSITY ---------------------------------------------
-        cd = catalogue_density(project, pdir)
-        if not cd["ok"]:
-            console.print(f"[dim][CATALOGUE-DENSITY] not measured: {cd['reason']}[/]")
+    # BINDING-INTEGRITY is MODE-INDEPENDENT and no longer gated on style.
+    # It asks one question - does this line's window land on a catalogued shot?
+    # - of shots.json and clip_start, neither of which is linear-only. It
+    # already skips pool/montage lines by hand (see :1180), which is the proof
+    # it was written mode-safe; and it returns total=0 when shots.json is
+    # absent, so it self-no-ops. Behind `if style == "linear":` it was dark on
+    # 11 of 17 projects over data that was fully present - the same over-wide
+    # scope this audit has been removing elsewhere (B5).
+    bi = binding_integrity(pdir, d)
+    if bi["total"]:
+        if bi["free"]:
+            ids = ", ".join(bi["free_ids"][:20])
+            console.print(
+                f"[yellow][BINDING-INTEGRITY][/] {bi['free']}/{bi['total']} "
+                f"explicit-window line(s) are bound to NO catalogued shot: {ids}"
+                f"{' ...' if len(bi['free_ids']) > 20 else ''}")
+            console.print(
+                "    Nothing in shots.json stands behind these, so the footage "
+                "audits cannot check them at all. Split or add catalogue entries "
+                "rather than pointing a line at a bare timestamp.")
+            console.print("    [dim](report only for now - this does not block)[/]")
         else:
-            msg = (f"[CATALOGUE-DENSITY] {cd['shots']} shots / {cd['beats']} beats "
-                   f"= {cd['ratio']:.2f} per beat")
-            if cd["empty"]:
-                console.print(f"[yellow][/]{msg}")
-                console.print(f"    [yellow]{len(cd['empty'])} beat(s) have NO shot "
-                              f"catalogued: {', '.join(cd['empty'][:15])}[/] - these "
-                              f"cannot be shown at all; the draft will have to invent "
-                              f"windows for them.")
-            elif cd["thin"]:
-                console.print(f"[bold]{msg}[/]")
-                console.print(f"    [dim]{len(cd['thin'])} beat(s) have only one shot: "
-                              f"{', '.join(cd['thin'][:15])} - one way to show them.[/]")
-            else:
-                console.print(f"[bold]{msg}[/] [dim]- every beat has >=2 shots[/]")
-            console.print("    [dim]band PROVISIONAL (4 films): the per-beat list is "
-                          "the signal, the ratio alone does not separate a healthy "
-                          "catalogue from a thin one.[/]")
+            console.print(f"[bold][BINDING-INTEGRITY][/] all {bi['bound']} "
+                          f"explicit-window line(s) land on a catalogued shot")
+    for _br in bi["bad_ref"]:
+        console.print(f"[red][BINDING-INTEGRITY][/] {_br}")
 
+    # ---- CATALOGUE-DENSITY ------------------------------------------------
+    # Also mode-independent: shots.json + beat map, and it already self-no-ops
+    # with a STATED reason when either is missing (see :1238) - i.e. it was
+    # written to be called unconditionally and the style gate was redundant.
+    # The beat map is the author's declaration of what the film contains; that
+    # declaration exists in review mode too.
+    cd = catalogue_density(project, pdir)
+    if not cd["ok"]:
+        console.print(f"[dim][CATALOGUE-DENSITY] not measured: {cd['reason']}[/]")
+    else:
+        msg = (f"[CATALOGUE-DENSITY] {cd['shots']} shots / {cd['beats']} beats "
+               f"= {cd['ratio']:.2f} per beat")
+        if cd["empty"]:
+            console.print(f"[yellow][/]{msg}")
+            console.print(f"    [yellow]{len(cd['empty'])} beat(s) have NO shot "
+                          f"catalogued: {', '.join(cd['empty'][:15])}[/] - these "
+                          f"cannot be shown at all; the draft will have to invent "
+                          f"windows for them.")
+        elif cd["thin"]:
+            console.print(f"[bold]{msg}[/]")
+            console.print(f"    [dim]{len(cd['thin'])} beat(s) have only one shot: "
+                          f"{', '.join(cd['thin'][:15])} - one way to show them.[/]")
+        else:
+            console.print(f"[bold]{msg}[/] [dim]- every beat has >=2 shots[/]")
+        console.print("    [dim]band PROVISIONAL (4 films): the per-beat list is "
+                      "the signal, the ratio alone does not separate a healthy "
+                      "catalogue from a thin one.[/]")
+
+    if style == "linear":
         # ---- SNAP-GRID: do catalogue boundaries land on real visual cuts? ----
+        # NOT moved. It is arguably mode-independent too, but it was not part of
+        # this change and moving it because it is ADJACENT is exactly how the
+        # style conditional got over-wide in the first place. Assessed and left;
+        # see the report.
         from pipeline import cuts as _cuts
         sg = _cuts.snap_report(project, _load_shot_index(pdir))
         if not sg["measured"]:
@@ -1801,6 +2015,12 @@ def _run_phase1_audits(project, pdir):
         "beat_coverage": bc,
         "binding_mismatch": bind.verified_mismatch,
         "binding_unverified": bind.unverified,
+        # How much the binding audit actually LOOKED AT. Without these,
+        # "0 mismatch / 0 unverified" is indistinguishable from "the audit was
+        # never given an input" - which is how every draft in this repo promoted
+        # while binding_audit examined nothing. See outline_ready/audit_examined.
+        "binding_checked": bind.checked,
+        "binding_verified": bind.verified_match + bind.speaker_verified,
         "continuity_issues": len(cont),
         "binding_violations": len(violations),
         "reveal_hits": len(reveal_hits),
@@ -1821,26 +2041,36 @@ def _draft_target_report(project, d, cmap):
     # Narrated seconds come from the draft lines (at the calibrated rate).
     real_sec = 0.0
     total_words = 0
+    # Silence seconds come from the DRAFT LINES, not from shots.json.
+    #
+    # The comment that used to sit here said the opposite - "silence seconds
+    # live on SHOTS (a silence shot binds no draft line, per C1)" - and that is
+    # the inverse of C1. TAGGING_GUIDE S9 and SCRIPTING_CHECKLIST C1 both state,
+    # in bold, that the RENDERER iterates draft LINES and that a silence tagged
+    # only on a shot "is silently DROPPED at render" (the 2026-07-01 Interstellar
+    # bug). So a correctly authored silence beat is a draft line, and reading
+    # shots.json meant this gate graded a number unrelated to the draft.
+    #
+    # Measured on howtomakemillions2024 before the fix: the draft held 243s
+    # across 15 silence LINES, of which this counted 0; it counted 29s from four
+    # SHOTS tagged in passes 1-2, two of which that cut does not stop on. The
+    # gate then told a 20-minute draft to "enrich the narration" for runtime it
+    # already had. The faster the cut, the smaller the error, which is why eight
+    # films never surfaced it.
+    sil_sec = 0.0
+    n_sil = 0
     for ln in d.lines:
+        s = getattr(ln, "narration_silence_seconds", None)
+        if s:
+            # a silence line carries no words but real runtime
+            sil_sec += float(s)
+            n_sil += 1
+            continue
         w = ln.word_count() if hasattr(ln, "word_count") else len(str(getattr(ln, "narration", "")).split())
         if w == 0:
             continue
         total_words += w
         real_sec += profile.estimate_narration_seconds(getattr(ln, "narration", "") or "")
-    # Silence seconds live on SHOTS (a silence shot binds no draft line, per C1),
-    # so add them from shots.json so the runtime estimate is complete.
-    sil_sec = 0.0
-    try:
-        import json as _json
-        sp = config.project_dir(project) / "shots.json"
-        if sp.exists():
-            sdata = _json.loads(sp.read_text(encoding="utf-8-sig"))
-            for s in sdata.get("shots", []):
-                v = s.get("narration_silence_seconds")
-                if v:
-                    sil_sec += float(v)
-    except Exception:
-        pass
     real_sec += sil_sec
     real_min = real_sec / 60.0
     cons_min = total_words / float(getattr(config, "TTS_WORDS_PER_MINUTE", 170))
@@ -1849,6 +2079,9 @@ def _draft_target_report(project, d, cmap):
                   f"[bold]{real_min:.1f} min[/] "
                   f"(calibrated {profile.words_per_sec:.2f} w/s) | "
                   f"conservative est: {cons_min:.1f} min")
+    if n_sil:
+        console.print(f"    [dim]includes {sil_sec:.0f}s of authored silence "
+                      f"across {n_sil} beat(s), read from draft lines[/]")
 
     # divergence note (conservative overshoots when real rate is faster)
     div_thr = float(getattr(config, "DRAFT_ESTIMATE_DIVERGENCE_NOTE", 0.15))
@@ -1869,20 +2102,60 @@ def _draft_target_report(project, d, cmap):
         style = "review"
     _guide = "prompts/style_linear_vn.md" if style == "linear" else "prompts/recap_style.md"
     console.print(f"    [dim]narration style: [bold]{style}[/] ({_guide})[/]")
-    if tier and tier in tiers:
-        floor = float(tiers[tier].get("runtime_floor_min", 0))
-        band = tiers[tier].get("runtime", "?")
-        if floor and real_min < floor:
-            console.print(f"    [yellow][DRAFT-UNDER-TARGET][/] real-rate "
-                          f"{real_min:.1f} min is under the '{tier}' floor of "
-                          f"{floor:.1f} min (tier band {band}). Enrich the "
-                          f"narration before render.")
-        else:
-            console.print(f"    [green]tier '{tier}' ({band}): real-rate "
-                          f"{real_min:.1f} min meets the {floor:.1f} min floor.[/]")
-    else:
-        console.print("    [dim]no depth_target tier declared in beats_proposal.md "
-                      "- skipping tier-floor check (real-rate + fill still shown).[/]")
+    # TIER IS AN INPUT, NOT A GATE (2026-09-05). [DRAFT-UNDER-TARGET] compared
+    # real-rate runtime against a per-tier floor and warned below it. It was
+    # removed, not relaxed, because the floor was the cheapest red-to-green move
+    # in the repo: the same author who fails it also chooses the tier, so the
+    # warning clears by editing one word in beats_proposal.md. That happened to
+    # badgenius2017 on 2026-09-04 - dropped video_essay -> fuller_recap, three
+    # paragraphs of justification, and the number it rested on turned out to be
+    # an artefact of a broken capacity denominator. The rule governing it (A11)
+    # is retired in docs/RULES.md for the same reason: the rule was sound, the
+    # thing it governed should never have been a gate.
+    # The tier NAME stays as a descriptive label. It carries no threshold.
+    if tier:
+        console.print(f"    [dim]tier label: {tier} (descriptive only - no "
+                      f"runtime threshold is applied)[/]")
+    # [TARGET-LOCK] - target_minutes is the AUTHOR's declaration of scale.
+    # It replaces the tier floor as the thing that says how long this should be,
+    # and it is deliberately NOT a threshold: nothing compares runtime against
+    # it. What IS checked is that it stays the author's number. The engine pins
+    # it in state.json the first time it sees it; a later disagreement is
+    # reported with both values. A writing model can still edit the file - it
+    # just cannot do so silently, which is the whole difference between an input
+    # and a gate you can move.
+    # read from the FILE: `d` here is the typed Draft object, which carries only
+    # project+lines - target_minutes lives in the raw json.
+    try:
+        _declared = json.loads(
+            (config.project_dir(project) / "draft.json").read_text(
+                encoding="utf-8-sig")).get("target_minutes")
+    except Exception:
+        _declared = None
+    if _declared:
+        try:
+            from pipeline import state as _state
+            _st = _state.load_state(project) or {}
+            _pinned = _st.get("declared_target_minutes")
+            if _pinned is None:
+                _st["declared_target_minutes"] = _declared
+                _st["declared_target_pinned"] = _dt.datetime.now(
+                    _dt.timezone.utc).isoformat(timespec="seconds")
+                _state.save_state(project, _st)
+                console.print(f"    [dim]author target: {_declared} min "
+                              f"(pinned; guidance on scale, not a threshold)[/]")
+            elif float(_pinned) != float(_declared):
+                console.print(f"    [yellow][TARGET-LOCK][/] target_minutes "
+                              f"changed: author declared [bold]{_pinned}[/], "
+                              f"draft.json now says [bold]{_declared}[/]. The "
+                              f"target is an INPUT - if the length should "
+                              f"change, the author changes it, not the draft.")
+            else:
+                console.print(f"    [dim]author target: {_declared} min "
+                              f"(guidance on scale; nothing is compared "
+                              f"against it)[/]")
+        except Exception as _e:                       # pragma: no cover
+            console.print(f"    [dim]author target: {_declared} min[/]")
 
     # --- capacity fill -------------------------------------------------------
     if cmap:

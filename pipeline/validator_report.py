@@ -98,6 +98,20 @@ def format_validator_report(coverage_gaps, binding_result, continuity_issues,
     lines.append(f"    Verified matches:    {vmatch} lines")
     lines.append(f"    Verified mismatches: {vmis} lines (real issues)")
     lines.append(f"    Unverified:          {unver} lines (footage untagged - cannot audit)")
+    # RULES Part J. Printed as its own row, never folded into "verified
+    # matches", and always followed by its own limitation. A speech line that
+    # passes has had its SPEAKER confirmed and its CONTENT confirmed by nothing;
+    # an audit that does not say so out loud is reporting clean on an input it
+    # never had (D-GREEN).
+    _spk = getattr(bres, "speaker_verified", 0)
+    if _spk:
+        lines.append(f"    Speaker verified:    {_spk} speech line(s) - "
+                     f"speaker present in the bound shot")
+        lines.append("  [yellow]LIMIT: a `speech` claim is checked for SPEAKER "
+                     "PRESENCE ONLY. Nothing here confirms WHAT was said - no "
+                     "gate in this pipeline reads dialogue. These lines need the "
+                     "Stage-7 watch.[/]")
+        warn = True
     if vmis == 0 and unver > 0:
         lines.append(f"  [yellow]0 verified mismatches - but {unver} lines unverified. "
                      f"Tag remaining footage to complete the audit.[/]")

@@ -37,6 +37,37 @@ console = Console()
 
 XFADE = config.XFADE_DURATION
 GAP = config.GAP_BETWEEN_LINES
+# Seconds of picture BEFORE the voice starts, per narrated line. See
+# config.NARRATION_LEAD_IN - it is a genre parameter, not a constant.
+# GAP stays at the END of the clip; LEAD_IN is added at the FRONT.
+LEAD_IN = float(getattr(config, "NARRATION_LEAD_IN", 0.0))
+
+
+def _lead_for(narr_dur: float, shot_dur: float) -> float:
+    """Per-line lead-in, CLAMPED to what the shot can actually carry.
+
+    The lead-in is a comfort feature; the binding contract is a correctness one.
+    A flat LEAD_IN added to every line pushes any line already near its shot's
+    slow-motion ceiling over it, turning a rendering project into a
+    BindingViolation. Measured when this was first written flat at 0.5s:
+    interstellar2014_linear 0 -> 8 violations, parasite2019 0 -> 12,
+    gonegirl2014 49 -> 52. Those films render today and must keep rendering.
+
+    So the lead shrinks to fit and, on a line with no room at all, becomes 0 -
+    the line simply behaves as it did before. Lines with spare footage (the
+    normal case, and the whole reason this exists) get the full value.
+    """
+    if LEAD_IN <= 0.0:
+        return 0.0
+    if shot_dur <= 0.0:          # pool/unknown window: nothing to clamp against
+        return LEAD_IN
+    from pipeline.schemas import BINDING_SLOWDOWN_MAX
+    capacity = shot_dur * BINDING_SLOWDOWN_MAX
+    # 1ms of slack: without it a line whose room is EXACTLY the lead lands on
+    # `narr_need == capacity` and float error tips the `>` comparison into a
+    # BindingViolation. Measured at shot_dur=7.3s in the clamp test.
+    room = capacity - (narr_dur + GAP) - 1e-3
+    return max(0.0, min(LEAD_IN, room))
 
 
 def _run(cmd: list[str], desc: str):
@@ -69,7 +100,8 @@ def _censor_boxblur(censor: str) -> int:
 def _build_clip(ff: str, source: Path, start: float, end: float,
                 narr_audio: Path, narr_dur: float, out: Path, idx: int = 0,
                 crop_top: float = 0.0, hold: float = 0.0,
-                censor: str = "none", censor_region=None, exposure: float = 0.0):
+                censor: str = "none", censor_region=None, exposure: float = 0.0,
+                lead_in: float | None = None):
     """
     Cut from `start`, normalise to canvas, fit to clip_len WITHOUT slowing
     footage:
@@ -90,7 +122,13 @@ def _build_clip(ff: str, source: Path, start: float, end: float,
     RAISE BindingViolation instead of silently cloning the last frame (freeze).
     """
     from pipeline.schemas import BindingViolation, BINDING_SLOWDOWN_MAX
-    clip_len = max(narr_dur + GAP, hold)
+    # `lead` seconds of picture first, then the narration, then GAP. The
+    # narration audio is delayed by `lead` below (adelay), so the voice no
+    # longer lands on the clip's first frame. `lead` is clamped per line by
+    # _lead_for(); the caller passes the same value it used for the timeline.
+    lead = _lead_for(narr_dur, max(0.0, float(end) - float(start))) \
+        if lead_in is None else float(lead_in)
+    clip_len = max(lead + narr_dur + GAP, hold)
     w, h, fps = config.OUTPUT_WIDTH, config.OUTPUT_HEIGHT, config.OUTPUT_FPS
     nf = config.NARRATION_FADE
 
@@ -102,7 +140,10 @@ def _build_clip(ff: str, source: Path, start: float, end: float,
     if shot_dur > 0:
         # only the NARRATION-driven need triggers the contract; an intentional
         # `hold` (action breathing) is allowed to clone frames as before.
-        narr_need = narr_dur + GAP
+        # the (clamped) lead counts: the clip must carry that much extra
+        # picture. Because _lead_for() already shrank it to fit capacity, this
+        # can no longer turn a rendering line into a violation.
+        narr_need = lead + narr_dur + GAP
         if narr_need > shot_dur:
             capacity = shot_dur * BINDING_SLOWDOWN_MAX
             if narr_need <= capacity:
@@ -197,9 +238,16 @@ def _build_clip(ff: str, source: Path, start: float, end: float,
     else:
         v_label = "[v]"
 
+    # Fades are applied to the RAW narration (still relative to its own t=0),
+    # THEN the whole thing is shifted right by LEAD_IN, THEN padded out to
+    # clip_len. Order matters: delaying before the fades would fade the silence.
+    # `all=1` applies the delay to every channel whatever the mp3's layout is.
+    lead_ms = int(round(lead * 1000))
+    delay_f = f"adelay={lead_ms}:all=1," if lead_ms > 0 else ""
     af = (
         f"afade=t=in:st=0:d={nf},"
         f"afade=t=out:st={max(0.0, narr_dur - nf):.3f}:d={nf},"
+        f"{delay_f}"
         f"apad=whole_dur={clip_len:.3f},"
         f"aformat=sample_rates=48000:channel_layouts=stereo"
     )
@@ -235,6 +283,11 @@ def _build_silence_clip(ff: str, source: Path, start: float, end: float,
     narration (a silent audio track is baked so the downstream xfade/music mix
     stays uniform). Music swells during this window (handled at mix time).
     Mirrors `_build_clip`'s canvas/motion/censor/exposure so the look matches.
+
+    NARRATION_LEAD_IN deliberately does NOT apply here (checked 2026-08-26).
+    There is no narration to delay: the audio is anullsrc for the whole clip and
+    clip_len is the authored hold, not a function of speech. Adding a lead-in
+    would silently lengthen every silence beat beyond what the draft asked for.
     """
     clip_len = float(silence_dur)
     w, h, fps = config.OUTPUT_WIDTH, config.OUTPUT_HEIGHT, config.OUTPUT_FPS
@@ -337,7 +390,7 @@ def _build_montage_clip(ff: str, source: Path, segments: list[tuple[float, float
         declared = [float(p) if p is not None else None for p in play_durs]
         sum_declared = sum(p for p in declared if p is not None)
         n_unset = sum(1 for p in declared if p is None)
-        clip_len = max(narr_dur + GAP, sum_declared, hold)
+        clip_len = max(LEAD_IN + narr_dur + GAP, sum_declared, hold)
         if n_unset:
             leftover = max(0.0, clip_len - sum_declared)
             share = leftover / n_unset
@@ -350,7 +403,7 @@ def _build_montage_clip(ff: str, source: Path, segments: list[tuple[float, float
             if extra > 0.001 and seg_durs:
                 seg_durs[-1] += extra
     else:
-        clip_len = max(narr_dur + GAP, hold)
+        clip_len = max(LEAD_IN + narr_dur + GAP, hold)
         seg_durs = [clip_len / k] * k
 
     inputs = []
@@ -376,8 +429,14 @@ def _build_montage_clip(ff: str, source: Path, segments: list[tuple[float, float
 
     # narration audio on input k (after the video inputs), padded to clip_len
     inputs += ["-i", str(narr_audio)]
+    # Same lead-in as _build_clip: fade the raw narration, shift it right by
+    # LEAD_IN, then pad to clip_len. A montage line opens on its first sub-shot,
+    # so it needs the beat just as much as a single-shot line does.
+    _lead_ms = int(round(LEAD_IN * 1000))
+    _delay_f = f"adelay={_lead_ms}:all=1," if _lead_ms > 0 else ""
     af = (f"[{len(segments)}:a]afade=t=in:st=0:d={nf},"
           f"afade=t=out:st={max(0.0, narr_dur - nf):.3f}:d={nf},"
+          f"{_delay_f}"
           f"apad=whole_dur={clip_len:.3f},"
           f"aformat=sample_rates=48000:channel_layouts=stereo[a]")
 
@@ -583,7 +642,8 @@ def _position_offsets(ff: str, final: Path, timeline: list, narration: list,
 def _clip_signature(source: Path, start: float, end: float, hold: float,
                     idx: int, crop_top: float, narr_dur: float,
                     audio_path: Path, censor: str = "none",
-                    censor_region=None, exposure: float = 0.0, silence=None) -> str:
+                    censor_region=None, exposure: float = 0.0, silence=None,
+                    lead_in: float = 0.0) -> str:
     """Hash everything that determines a clip's pixels+audio, for caching."""
     import hashlib
     try:
@@ -601,6 +661,9 @@ def _clip_signature(source: Path, start: float, end: float, hold: float,
         str(config.MOTION_ENABLE), str(config.MOTION_ZOOM),
         f"{config.OUTPUT_WIDTH}x{config.OUTPUT_HEIGHT}@{config.OUTPUT_FPS}",
         str(config.VIDEO_CRF), f"{GAP:.3f}",
+        # Lead-in changes both the clip's LENGTH and where the voice sits in it,
+        # so every clip cached before 2026-08-26 must be rebuilt, not reused.
+        f"leadin={float(lead_in):.3f}",
         # censor level changes pixels -> must bust the cache:
         f"censor={str(censor or 'none')}",
         # censor REGION changes pixels too (partial vs whole-frame, or a moved
@@ -870,7 +933,9 @@ def render(project: str, draft: dict,
         _, audio_path, narr_dur = by_id[lid]
         narr_dur = max(0.4, narr_dur)
         hold = float(ln.get("hold", 0.0))
-        need = max(narr_dur + GAP, hold)
+        # how much footage this line needs; includes the lead-in so a pool
+        # window is long enough to cover the picture-before-voice beat too.
+        need = max(LEAD_IN + narr_dur + GAP, hold)
 
         crop_top = 0.0
         src_label = "scene"
@@ -915,7 +980,10 @@ def render(project: str, draft: dict,
             n_pool += 1
             clips.append((cout, clip_len))
             boundaries.append(cursor)
-            timeline.append({"start": cursor, "end": cursor + narr_dur, "text": ln["narration"]})
+            # narration now starts LEAD_IN after the clip does (see adelay).
+            timeline.append({"start": cursor + LEAD_IN,
+                             "end": cursor + LEAD_IN + narr_dur,
+                             "text": ln["narration"]})
             cursor += clip_len - XFADE
             _m2 = " m2" if pd_arg else ""
             console.print(f"  line {lid:>3}: [montg] -> {clip_len:4.1f}s "
@@ -941,7 +1009,7 @@ def render(project: str, draft: dict,
             # through silently on a re-render.
             from pipeline.schemas import BindingViolation, BINDING_SLOWDOWN_MAX
             _shot_dur = max(0.0, end - start)
-            _narr_need = narr_dur + GAP
+            _narr_need = _lead_for(narr_dur, _shot_dur) + narr_dur + GAP
             if _shot_dur > 0 and _narr_need > _shot_dur * BINDING_SLOWDOWN_MAX:
                 raise BindingViolation(
                     line_id=lid, narration_dur=_narr_need,
@@ -963,21 +1031,29 @@ def render(project: str, draft: dict,
         # from restoring censorship. Measured impact reported alongside this fix.
         exposure = exposure_by_clip.get(_ckey, 0.0)  # DARK-scene lift (0 = none)
 
+        # per-line lead-in, clamped to what this shot can carry. The SAME value
+        # is used for the clip, the cache key and the timeline entry - if they
+        # ever disagree the captions and the positional gate drift.
+        lead = _lead_for(narr_dur, max(0.0, end - start))
+
         # ---- clip cache: reuse an identical previously-built clip -----------
         sig = _clip_signature(source, start, end, hold, idx, crop_top,
-                              narr_dur, audio_path, censor, censor_region, exposure)
+                              narr_dur, audio_path, censor, censor_region, exposure,
+                              lead_in=lead)
         cached = cache_dir / f"{sig}.mp4"
         reused = False
         if not force_clips and cached.exists():
             import shutil
             shutil.copy2(cached, cout)
-            clip_len = max(narr_dur + GAP, hold)
+            # must match _build_clip's formula exactly, or a cache hit reports a
+            # different length than the file actually is and the timeline drifts.
+            clip_len = max(lead + narr_dur + GAP, hold)
             reused = True
             n_cached += 1
         else:
             clip_len = _build_clip(ff, source, start, end, audio_path, narr_dur,
                                    cout, idx, crop_top, hold, censor, censor_region,
-                                   exposure)
+                                   exposure, lead_in=lead)
             try:
                 import shutil
                 shutil.copy2(cout, cached)
@@ -986,10 +1062,14 @@ def render(project: str, draft: dict,
         clips.append((cout, clip_len))
         boundaries.append(cursor)  # absolute start time of this clip
 
-        # caption window: narration starts at clip start, lasts narr_dur
+        # caption window: narration starts LEAD_IN after the clip starts (the
+        # audio is delayed by adelay in _build_clip), and lasts narr_dur. This
+        # is also what _position_offsets checks against, so captions and the
+        # positional gate both stay aligned with the voice rather than the cut.
         # `id` / `clip_*` are carried for timeline.json (see below); build_ass
         # ignores the extra keys.
-        timeline.append({"start": cursor, "end": cursor + narr_dur,
+        timeline.append({"start": cursor + lead,
+                         "end": cursor + lead + narr_dur,
                          "text": ln["narration"], "id": lid,
                          "clip_start": ln.get("clip_start"),
                          "clip_end": ln.get("clip_end")})

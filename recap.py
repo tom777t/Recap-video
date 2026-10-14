@@ -82,8 +82,8 @@ def cmd_analyze(args):
 
 def cmd_names(args):
     from pipeline import names as namesmod
-    entries, err, rejected = namesmod.build(args.project, args.wiki,
-                                            write=not args.dry_run)
+    entries, err, rejected, mode = namesmod.build(args.project, args.wiki,
+                                                  write=not args.dry_run)
     if err:
         print(f"could not build names.json: {err}")
         return
@@ -92,6 +92,12 @@ def cmd_names(args):
     if rejected:
         print()
     with_actor = [e for e in entries if e.get("actor")]
+    if mode == "prose":
+        print(f"parsed {len(with_actor)} entries from prose - this article has no")
+        print("cast list, so the mapping was inferred from sentences. Word order")
+        print("is a weaker signal than a list: check every pairing below.\n")
+    elif mode == "list":
+        print(f"parsed {len(with_actor)} entries from the cast list.\n")
     print(f"{len(entries)} name(s), {len(with_actor)} with an actor:\n")
     for e in entries:
         actor = e.get("actor")
@@ -155,8 +161,26 @@ def cmd_draft(args):
                             promote=getattr(args, "promote", False))
     sev = (result or {}).get("_audit_severity", "clean") if isinstance(result, dict) else "clean"
     if sev == "hard":
-        console.print("\n[red]Audit found real [VOICE-VISUAL] mismatches above - re-point "
-                      "those lines' footage before rendering. (exit 1)[/]")
+        # Name what ACTUALLY failed. This line used to assert "[VOICE-VISUAL]
+        # mismatches" for every hard severity, including runs whose own report
+        # printed "Verified mismatches: 0" three lines above - a message that
+        # contradicted the data it was summarising, and sent people to re-point
+        # footage that was not the problem.
+        r = result if isinstance(result, dict) else {}
+        causes = []
+        if r.get("binding_mismatch"):
+            causes.append(f"{r['binding_mismatch']} [VOICE-VISUAL] mismatch(es) "
+                          f"- re-point those lines' footage")
+        if r.get("binding_violations"):
+            causes.append(f"{r['binding_violations']} BINDING-VIOLATION(s) "
+                          f"- lines exceed 1.4x shot capacity and would freeze")
+        if r.get("reveal_hits"):
+            causes.append(f"{r['reveal_hits']} REVEAL-TIMING hit(s) "
+                          f"- a protected term appears before its landing beat")
+        if not causes:
+            causes.append("a hard audit finding that is NOT a binding mismatch "
+                          "(binding reported 0) - read the report above for which")
+        console.print("\n[red]Audit failed hard: " + "; ".join(causes) + ". (exit 1)[/]")
         sys.exit(1)
     if sev == "soft":
         console.print("\n[yellow]Audit warning: tag remaining footage / fill claims "

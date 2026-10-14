@@ -41,15 +41,37 @@ TTS_WORDS_PER_MINUTE = 170
 # A "tier" maps a film's intended runtime to how full the shot catalogue should
 # be FROM THE START, so Stage 2 aims for the film's natural shot capacity rather
 # than under-cataloguing and expanding reactively. Each tier carries:
-#   shots      = (min, max) total catalogued shots to aim for
+#   shots      = (min, None) total catalogued shots FLOOR. There is no ceiling.
 #   per_beat   = (min, max) default shots PER BEAT (was implicitly 1-2)
 # These are FLOORS TO CONSIDER, not quotas to pad to. The coverage audit warns
 # (soft) when a catalogue falls short; it never pads. Override per-project via
 # the beats_proposal.md "depth_target:" header line.
+#
+# CEILING REMOVED 2026-08-31. It contradicted per_beat: DEPTH-UNDER demands
+# per_beat[0] shots on EVERY numbered beat, so a beat map of N beats needs
+# N x per_beat[0] shots, while the old ceiling capped the same catalogue. The two
+# were satisfiable together only below ~43 beats (video_essay), ~36
+# (fuller_recap), ~40 (recap). Bad Genius has 80 beats: DEPTH-UNDER wanted 240,
+# the ceiling allowed 130. The ceiling has also been wrong in the other
+# direction on shipped films - Superbad 183 (41% over), Gia Tai Cua Ngoai 280.
+# Shot count does not set recap length; LINE count does. The catalogue is a menu
+# and BINDING-INTEGRITY requires every line to land on a shot, so more shots is
+# more choice, not more obligation. See docs/GATE_CANDIDATES.md "DEPTH-TOTAL
+# ceiling".
+# TIER IS A DESCRIPTIVE LABEL (2026-09-05). It carries NO thresholds.
+#   `runtime` and `shots` are RETIRED - kept only so the tier names still read
+#   as meaning something to a human ("this film is a video_essay kind of film").
+#   Nothing compares against them: DRAFT-UNDER-TARGET and DEPTH-TOTAL were both
+#   removed. A threshold whose subject also picks the tier measures the label,
+#   not the work - see docs/RULES.md "A11 nghỉ hưu".
+#   The author's intended length now lives in draft.json `target_minutes`,
+#   pinned in state.json and guarded by [TARGET-LOCK]. It is an INPUT.
+#   `per_beat` is still checked - but per BEAT, against the beat map, not
+#   against the label.
 DEPTH_TIERS = {
-    "recap":        {"runtime": "9-13 min",  "shots": (60, 80),   "per_beat": (2, 3), "runtime_floor_min": 9.0},
-    "fuller_recap": {"runtime": "14-17 min", "shots": (90, 110),  "per_beat": (3, 3), "runtime_floor_min": 13.5},
-    "video_essay":  {"runtime": "18+ min",   "shots": (110, 130), "per_beat": (3, 4), "runtime_floor_min": 17.0},
+    "recap":        {"runtime": "9-13 min  (label only)",  "per_beat": (2, 3)},
+    "fuller_recap": {"runtime": "14-17 min (label only)",  "per_beat": (3, 3)},
+    "video_essay":  {"runtime": "18+ min   (label only)",  "per_beat": (3, 4)},
 }
 # DRAFT-TARGET gate (2026-06-30, Stage 3 depth enforcement). The Stage 2
 # depth-target enhancement filled the SHOT catalogue; this fills the NARRATION.
@@ -87,6 +109,25 @@ SETPIECE_MAXGAP_MULT = 3.0       # x the film's median consecutive-line gap
 XFADE_DURATION = 0.28      # crossfade/dissolve length between clips (seconds)
 GAP_BETWEEN_LINES = 0.18   # a real micro-breath between lines (was 0.05; too fast)
 NARRATION_FADE = 0.04      # micro fade in/out on each line to kill pops
+
+# Lead-in: how long the PICTURE is on screen before the voice starts, per line.
+# --------------------------------------------------------------------------- #
+# Until 2026-08-26 narration began on a clip's first frame, so the cut and the
+# voice landed together and the voice read as running ahead of the image. On
+# eight fast-cut films nobody noticed; on howtomakemillions2024 - shots held for
+# 27s on average, each needing a beat to register - it compounded over 114 lines
+# and the viewer reported the narration ahead of the picture for the whole film.
+#
+# This is a GENRE PARAMETER, not a constant. A film that cuts 16 times a minute
+# wants a short beat or none at all; a film that holds wants a longer one. Tune
+# per project rather than treating 0.5 as correct everywhere.
+#   0.0        - previous behaviour, voice on the first frame
+#   0.3 - 0.5  - fast-cut / conventional recap
+#   0.6 - 1.0  - held, slow, contemplative films
+# Cost: each narrated line grows by this much, so a 114-line recap gains ~57s at
+# 0.5s. It also raises the footage each line must carry, which tightens the
+# binding contract (a line that only just fitted may now need mild slow-motion).
+NARRATION_LEAD_IN = 0.5
 
 # Motion energy (Ken Burns) - subtle constant zoom/pan so nothing sits still.
 MOTION_ENABLE = True

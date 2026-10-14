@@ -28,6 +28,9 @@ from .schemas import Draft, Shot, parse_ts
 
 BindingIssueType = Literal[
     "NO_SHOT", "UNKNOWN_SHOT", "SUBJECT_MISMATCH", "CLAIM_MISMATCH", "UNVERIFIED",
+    # RULES Part J: a claim of type "speech" names a SPEAKER. The only thing
+    # footage can settle is whether that speaker is in the shot.
+    "SPEAKER_ABSENT", "SPEAKER_UNNAMED",
 ]
 
 
@@ -56,6 +59,11 @@ class BindingResult:
     verified_mismatch: int = 0         # real problems (NO_SHOT/UNKNOWN_SHOT/CLAIM/SUBJECT)
     unverified: int = 0                # footage untagged -> could not audit
     checked: int = 0                   # visual-required lines considered
+    # RULES Part J. Counted SEPARATELY from verified_match on purpose: a speech
+    # line that passes has had its SPEAKER confirmed on screen and its CONTENT
+    # confirmed by nothing. Folding it into verified_match would let a number
+    # that means "the footage shows this" absorb lines where it does not.
+    speaker_verified: int = 0
 
     @property
     def mismatches(self) -> list:
@@ -72,6 +80,7 @@ def binding_audit(draft: Draft, shots: dict, pool_families: dict, names: set) ->
     verified_mismatch = 0
     unverified = 0
     checked = 0
+    speaker_verified = 0
 
     # Suggestions: walk all known shots and surface ones whose depicts cover the
     # claim, preferring those whose chars include the subject. pool_families is
@@ -165,6 +174,41 @@ def binding_audit(draft: Draft, shots: dict, pool_families: dict, names: set) ->
             unverified += 1
             continue
 
+        # ---- SPEECH claims (RULES Part J) -----------------------------------
+        # Strict form only: the claimed speaker must be visible IN THIS SHOT.
+        # We do NOT check `depicts` - "speech" is not a depicts value, and the
+        # shot a speaker is visible in is normally tagged `dialogue`. We do NOT
+        # accept a speaker established by an adjacent line: that lets the claim
+        # drift one shot from its evidence, and a run of such lines walks
+        # arbitrarily far from anyone visible.
+        if ctype == "speech":
+            if not subj:
+                issues.append(BindingIssue(
+                    ln.id, "SPEAKER_UNNAMED", ln.narration, ctype, subj, footage,
+                    footage_chars=sorted(agg_chars),
+                    footage_depicts=sorted(agg_depicts)))
+                verified_mismatch += 1
+                continue
+            if not subj_is_char:
+                # subject is not in names.json - cannot be matched against chars
+                issues.append(BindingIssue(
+                    ln.id, "SPEAKER_UNNAMED", ln.narration, ctype, subj, footage,
+                    footage_chars=sorted(agg_chars),
+                    footage_depicts=sorted(agg_depicts)))
+                verified_mismatch += 1
+                continue
+            if _norm(subj) not in agg_chars:
+                issues.append(BindingIssue(
+                    ln.id, "SPEAKER_ABSENT", ln.narration, ctype, subj, footage,
+                    footage_chars=sorted(agg_chars),
+                    footage_depicts=sorted(agg_depicts),
+                    suggested=_suggest("dialogue", subj)))
+                verified_mismatch += 1
+                continue
+            # Speaker is on screen. That is ALL that has been established.
+            speaker_verified += 1
+            continue
+
         # ---- check claim.type is depicted -----------------------------------
         if agg_depicts and ctype not in agg_depicts:
             issues.append(BindingIssue(
@@ -188,7 +232,7 @@ def binding_audit(draft: Draft, shots: dict, pool_families: dict, names: set) ->
 
     return BindingResult(issues=issues, verified_match=verified_match,
                          verified_mismatch=verified_mismatch, unverified=unverified,
-                         checked=checked)
+                         checked=checked, speaker_verified=speaker_verified)
 
 
 

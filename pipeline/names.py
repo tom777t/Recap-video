@@ -23,10 +23,21 @@ from __future__ import annotations
 import io
 import json
 import re
+import urllib.error
 import urllib.parse
 import urllib.request
 
 import config
+
+
+class FetchError(Exception):
+    """A page could not be fetched, for a reason the user can act on.
+
+    Mistyping a page title is an ordinary mistake, not a defect, and a
+    traceback tells the user nothing they can use. This carries a single
+    sentence that names the title and what to do about it; the command prints
+    it and stops.
+    """
 
 UA = "RecapVidTool/1.0 (personal film-recap pipeline)"
 RAW = "https://en.wikipedia.org/w/index.php?title={title}&action=raw"
@@ -198,6 +209,153 @@ def _looks_like_a_character(name: str) -> bool:
     return first not in {"the", "a", "an", "his", "her", "their", "who", "one"}
 
 
+# --------------------------------------------------------------------------
+# Prose fallback
+#
+# Some articles never write a cast list. Bad Genius (2017) puts the same
+# mapping inside sentences - "made her film acting debut as Lynn",
+# "[[Chanon Santinatornkul]] played the role of Bank" - and the bullet parser
+# returns nothing at all on it. An empty list is the worst possible answer
+# here: it looks like a film with no cast rather than like a parser that did
+# not recognise the shape.
+#
+# This is deliberately reported as its own mode. Extracting a mapping from
+# prose is guesswork in a way that reading a list is not: it infers which
+# actor a role phrase belongs to from word order, and word order lies. The
+# caller says which path ran so the output gets read with the right amount of
+# suspicion.
+# --------------------------------------------------------------------------
+
+# A role phrase, and the actor sits BEFORE it: "... as Lynn", "who played
+# Lynn's father", "played the role of Bank". Longest alternatives first so
+# "played the role of" never degrades into a bare "played".
+_ACTOR_FIRST = re.compile(
+    r"\b(?:who\s+|and\s+)?"
+    r"(?:played\s+the\s+role\s+of|in\s+the\s+role\s+of|"
+    r"portrayed|portrays|played|plays|as)\s+",
+    re.IGNORECASE,
+)
+
+# The mirror image: the role comes first and the actors follow.
+# "Pat and Grace were played by [[Teeradon ...]] and [[Eisaya ...]],
+# respectively" carries two complete pairs in one clause, and dropping it
+# would lose two of the five principals on Bad Genius.
+_LINK_RUN = re.compile(r"\[\[[^\]]+\]\](?:\s*(?:,\s*|\s+and\s+|\s*&\s*)\[\[[^\]]+\]\])*")
+# The role side has to be a run of capitalised name tokens, not "anything up to
+# the verb". An open-ended capture reaches backwards across "]]" and eats the
+# previous clause: on Bad Genius it turned "Chanon Santinatornkul]] played the
+# role of Bank" into a character name and then paired it with the wrong actor.
+_NAME_RUN = r"[A-Z][\w'\u2019.\-]*(?:\s+[A-Z][\w'\u2019.\-]*){0,3}"
+_ROLE_FIRST = re.compile(
+    r"(?P<roles>" + _NAME_RUN + r"(?:\s*(?:,\s*|\s+and\s+)" + _NAME_RUN + r")*)"
+    r"\s+(?:were|was|are|is)\s+(?:played|portrayed)\s+by\s+")
+
+# A role ends where the sentence turns back into prose.
+_ROLE_END = re.compile(r"\s*(?:[,.;:()\[<]|\s\u2013\s|\s\u2014\s|\band\b|\bwho\b|$)")
+
+
+def _strip_markup(section: str) -> str:
+    """Flatten wikitext to sentences, keeping [[links]] intact.
+
+    Image captions are dropped wholesale. A caption is prose about a person
+    that sits next to their name - "Lead actress [[Chutimon ...]], a fashion
+    model, made her film debut" - which is exactly the shape this parser looks
+    for, and exactly the place it would be wrong.
+    """
+    out = []
+    for ln in section.splitlines():
+        if re.match(r"\s*\[\[\s*(?:File|Image)\s*:", ln, re.IGNORECASE):
+            continue
+        out.append(ln)
+    s = "\n".join(out)
+    s = re.sub(r"<!--.*?-->", " ", s, flags=re.S)
+    s = re.sub(r"<ref[^>]*/\s*>", " ", s)
+    s = re.sub(r"<ref[^>]*>.*?</ref>", " ", s, flags=re.S)
+    s = re.sub(r"\{\{[^{}]*\}\}", " ", s)          # innermost templates
+    s = re.sub(r"\{\{[^{}]*\}\}", " ", s)          # and one level of nesting
+    s = re.sub(r"<[^>]+>", " ", s)
+    s = s.replace("&nbsp;", " ")
+    s = re.sub(r"''+", "", s)
+    return s
+
+
+def _sentences(text: str):
+    """(offset, sentence) pairs. Offsets keep the output in article order."""
+    pos = 0
+    for part in re.split(r"(?<=[.!?])\s+", text):
+        yield pos, part
+        pos += len(part) + 1
+
+
+def _role_at(sentence: str, start: int):
+    """Read a character name out of the text following a role phrase."""
+    tail = sentence[start:]
+    m = _ROLE_END.search(tail)
+    raw = tail[:m.start()] if m and m.start() > 0 else tail
+    # A role is a name, and names are capitalised. This one test is what keeps
+    # "served as acting coach" and "as her character is left-handed" out - both
+    # sit in the same section as the real cast sentences on Bad Genius.
+    stripped = raw.strip()
+    if not stripped or not stripped[0].isupper():
+        return ""
+    return _clean_character(stripped)
+
+
+def _parse_prose(section: str):
+    """[(offset, actor, character)] mined from sentences. Order is article order."""
+    text = _strip_markup(section)
+    found, rejected = [], []
+
+    for base, sent in _sentences(text):
+        links = [(m.start(), m.end(), m) for m in LINK.finditer(sent)]
+        if not links:
+            continue
+        masked = [False] * len(sent)
+
+        def _actor_before(pos):
+            best = None
+            for ls, le, m in links:
+                if le <= pos:
+                    best = m
+                else:
+                    break
+            if not best:
+                return None
+            return _clean_actor(best.group(2) or best.group(1))
+
+        # role-first, possibly several roles to several actors
+        for m in _ROLE_FIRST.finditer(sent):
+            run = _LINK_RUN.match(sent, m.end())
+            if not run:
+                continue
+            actors = [_clean_actor(d or t) for t, d in LINK.findall(run.group(0))]
+            roles = [r.strip() for r in re.split(r"\s*,\s*|\s+and\s+", m.group("roles"))
+                     if r.strip()]
+            roles = [r for r in roles if r and r[0].isupper()]
+            if len(roles) != len(actors) or not roles:
+                rejected.append(f"{' / '.join(roles)[:40]} | played by "
+                                f"{' / '.join(actors)[:40]} (counts do not pair)")
+                continue
+            for i, (r, a) in enumerate(zip(roles, actors)):
+                found.append((base + m.start("roles") + i, a, _clean_character(r)))
+            for i in range(m.start(), run.end()):
+                masked[i] = True
+
+        # actor-first
+        for m in _ACTOR_FIRST.finditer(sent):
+            if masked[m.start()]:
+                continue
+            character = _role_at(sent, m.end())
+            if not character:
+                continue
+            actor = _actor_before(m.start())
+            if not actor:
+                continue
+            found.append((base + m.end(), actor, character))
+
+    return found, rejected
+
+
 def _title_from(arg: str) -> str:
     if arg.startswith("http"):
         path = urllib.parse.urlparse(arg).path
@@ -208,25 +366,40 @@ def _title_from(arg: str) -> str:
 def _fetch_raw(title: str) -> str:
     url = RAW.format(title=urllib.parse.quote(title, safe="_()'"))
     req = urllib.request.Request(url, headers={"User-Agent": UA})
-    with urllib.request.urlopen(req, timeout=30) as r:
-        return r.read().decode("utf-8", errors="replace")
+    try:
+        with urllib.request.urlopen(req, timeout=30) as r:
+            return r.read().decode("utf-8", errors="replace")
+    except urllib.error.HTTPError as e:
+        if e.code == 404:
+            raise FetchError(
+                f"no Wikipedia page titled '{title.replace('_', ' ')}' "
+                f"- check the title, or paste the article URL instead") from None
+        raise FetchError(
+            f"Wikipedia returned HTTP {e.code} ({e.reason}) for "
+            f"'{title.replace('_', ' ')}'") from None
+    except urllib.error.URLError as e:
+        raise FetchError(f"could not reach Wikipedia: {e.reason}") from None
 
 
 def fetch_cast(page: str):
     """[(actor, character)] from the Cast section, in article order."""
     title = _title_from(page)
-    wikitext = _fetch_raw(title)
-
-    # Follow redirects. "Superbad (film)" is a redirect to "Superbad", and
-    # action=raw returns the redirect line rather than the article - so the Cast
-    # search found nothing and the command dead-ended with a message that did
-    # not say why. Two hops is plenty; Wikipedia does not chain further.
-    for _ in range(2):
-        m = re.match(r"^\s*#REDIRECT\s*\[\[([^\]#|]+)", wikitext, re.IGNORECASE)
-        if not m:
-            break
-        title = m.group(1).strip().replace(" ", "_")
+    try:
         wikitext = _fetch_raw(title)
+
+        # Follow redirects. "Superbad (film)" is a redirect to "Superbad", and
+        # action=raw returns the redirect line rather than the article - so the
+        # Cast search found nothing and the command dead-ended with a message
+        # that did not say why. Two hops is plenty; Wikipedia does not chain
+        # further.
+        for _ in range(2):
+            m = re.match(r"^\s*#REDIRECT\s*\[\[([^\]#|]+)", wikitext, re.IGNORECASE)
+            if not m:
+                break
+            title = m.group(1).strip().replace(" ", "_")
+            wikitext = _fetch_raw(title)
+    except FetchError as e:
+        return [], str(e), [], ""
 
     # keep only the Cast section - nothing else on the page is in scope
     m = re.search(r"^==+\s*Cast[^=]*==+\s*$", wikitext, re.MULTILINE | re.IGNORECASE)
@@ -236,9 +409,15 @@ def fetch_cast(page: str):
         heads = re.findall(r"^==+\s*([^=\n]+?)\s*==+\s*$", wikitext, re.MULTILINE)
         detail = ("; sections on '%s': %s" % (title, ", ".join(heads[:12]))
                   if heads else "; the page appears to be empty or does not exist")
-        return [], "no Cast section found" + detail, []
+        return [], "no Cast section found" + detail, [], ""
     rest = wikitext[m.end():]
-    nxt = re.search(r"^==[^=]", rest, re.MULTILINE)
+    # Stop at the next heading of the SAME level or shallower. The old test
+    # only stopped at "==", so a "===Casting===" subsection ran on through
+    # Filming and everything after it - which does not matter to a bullet
+    # parser that finds nothing there anyway, but hands the prose parser three
+    # thousand characters of camera talk to misread.
+    depth = len(re.match(r"=+", m.group(0).strip()).group(0))
+    nxt = re.search(r"^={2,%d}[^=]" % depth, rest, re.MULTILINE)
     section = rest[:nxt.start()] if nxt else rest
 
     out, seen, rejected = [], set(), []
@@ -276,16 +455,51 @@ def fetch_cast(page: str):
                 continue
             seen.add(key)
             out.append((actor, name, alias))
-    return out, "", rejected
+    if out:
+        return out, "", rejected, "list"
+
+    # The list parser found nothing. Before giving up, try the section as
+    # prose - but say so, because it is a weaker reading of a weaker source.
+    prose, prose_rejected = _parse_prose(section)
+    for _off, actor, character in sorted(prose, key=lambda p: p[0]):
+        if not actor or not _looks_like_a_name(actor):
+            continue
+        base, nick = _split_nickname(actor)
+        for name in _split_aliases(character):
+            key = name.lower()
+            if key in seen or not _looks_like_a_character(name):
+                continue
+            seen.add(key)
+            out.append((base, name, nick))
+    if out:
+        return out, "", rejected + prose_rejected, "prose"
+
+    # Still nothing. Name the shape that was actually there. "no lines parsed"
+    # is the message that sent this bug looking in the wrong place twice.
+    if re.search(r"^\s*\{\|", section, re.MULTILINE):
+        shape = "the section is a wikitable, which this parser does not read"
+    elif re.search(r"<gallery", section, re.IGNORECASE):
+        shape = "the section is a gallery, which this parser does not read"
+    elif re.search(r"^\*", section, re.MULTILINE):
+        shape = ("the section is a bullet list, but no line matched "
+                 "'Actor as Character'")
+    elif section.strip():
+        shape = ("the section is prose, and no 'as/played/in the role of' "
+                 "phrasing tied an actor to a character")
+    else:
+        shape = "the section is empty"
+    return [], f"Cast section found but nothing could be read from it - {shape}", \
+        rejected + prose_rejected, ""
 
 
 def build(project: str, page: str, write: bool = True):
     """Fetch, merge with any existing names.json, write. Returns the entries."""
-    cast, err, rejected = fetch_cast(page)
+    cast, err, rejected, mode = fetch_cast(page)
     if err:
-        return None, err, []
+        return None, err, rejected, mode
     if not cast:
-        return None, "Cast section found but no 'Actor as Character' lines parsed", rejected
+        return None, "Cast section found but no 'Actor as Character' lines parsed", \
+            rejected, mode
 
     p = config.project_dir(project) / "names.json"
     existing = []
@@ -318,4 +532,4 @@ def build(project: str, page: str, write: bool = True):
     if write:
         io.open(p, "w", encoding="utf-8").write(
             json.dumps({"names": entries}, ensure_ascii=False, indent=2))
-    return entries, "", rejected
+    return entries, "", rejected, mode
