@@ -23,7 +23,10 @@ import re
 import sys
 from pathlib import Path
 
-sys.path.insert(0, str(Path(__file__).resolve().parent))
+# .parent is tools/; config.py lives at the repo ROOT, one level up. The old
+# line pointed at tools/ so `import config` raised ModuleNotFoundError and the
+# scorer could not be run standalone at all.
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 import config  # noqa: E402
 
 UNSURE = ("khong ro", "không rõ", "unclear", "unsure", "n/a", "-", "")
@@ -131,6 +134,8 @@ def main() -> None:
     exact = overlap = zero = 0
     vis_hit = vis_total = 0
     story_only = 0
+    no_depicts = 0
+    vis_excluded_ids: list[str] = []
     confuse: dict[tuple[str, str], int] = {}
     for k in filled:
         t = {norm(x) for x in truth[k]["depicts"]}
@@ -142,6 +147,12 @@ def main() -> None:
                 vis_hit += 1
         elif t & STORY_AXIS:
             story_only += 1
+            vis_excluded_ids.append(k)
+        else:
+            # dap an tham chieu khong co nhan NAO - truoc day roi thang qua khe
+            # va bien mat khoi ca hai con dem. Phai dem va phai noi ra.
+            no_depicts += 1
+            vis_excluded_ids.append(k)
         if a == t:
             exact += 1
         elif a & t:
@@ -155,14 +166,32 @@ def main() -> None:
     n = len(filled)
     print("=" * 62)
     print("DEPICTS")
+    n_excl = len(vis_excluded_ids)
     if vis_total:
         print(f"  TRUC NHIN THAY       : {vis_hit}/{vis_total}  "
               f"({100*vis_hit/vis_total:.0f}%)  <- SO CHINH")
+        print(f"     cham {vis_total}/{n} shot | LOAI TRU {n_excl} shot")
         print(f"     (chi tinh shot ma tag tay co it nhat 1 nhan nhin-thay-duoc:")
         print(f"      {', '.join(sorted(VISIBLE_AXIS))})")
-    if story_only:
-        print(f"  chi co nhan TRUC TRUYEN: {story_only}/{n} shot - khong cham,")
-        print(f"     nhan {', '.join(sorted(STORY_AXIS))} khong nam trong pixel")
+    else:
+        print(f"  TRUC NHIN THAY       : KHONG CHAM DUOC shot nao "
+              f"(LOAI TRU ca {n_excl}/{n})")
+    if n_excl:
+        # D-GREEN o tang cham diem: ca khong do duoc phai duoc GOI TEN, khong
+        # bao gio duoc gop vao phan sai. Mot shot ma DAP AN THAM CHIEU khong co
+        # nhan truc-nhin thi khong the cham tren truc do - phat no la do mau so,
+        # khong phai do may sai.
+        print(f"  LOAI TRU khoi mau so : {n_excl}/{n} shot "
+              f"({100*n_excl/n:.0f}%) - KHONG tinh la sai")
+        if story_only:
+            print(f"     {story_only} shot: tag tay CHI co nhan truc-truyen "
+                  f"({', '.join(sorted(STORY_AXIS))}) - khong nam trong pixel")
+        if no_depicts:
+            print(f"     {no_depicts} shot: tag tay KHONG co nhan depicts nao")
+        print(f"     -> {', '.join(vis_excluded_ids[:12])}"
+              f"{' ...' if n_excl > 12 else ''}")
+        print(f"     Xem N1a trong docs/GATE_CANDIDATES.md: catalogue da ship "
+              f"thieu nhan truc-nhin tren 39% shot cua badgenius2017.")
     print(f"  co chung >=1 tag bat ky: {exact+overlap}/{n}  ({100*(exact+overlap)/n:.0f}%)")
     print(f"    trong do khop han    : {exact}/{n}  ({100*exact/n:.0f}%)")
     if confuse:
@@ -179,10 +208,26 @@ def main() -> None:
     abstain_items = 0
     abstain_shots = 0
     extras_detail = []
+    empty_ref_shots: list[str] = []
+    empty_ref_names = 0
     for k in filled:
         t = {norm(x) for x in truth[k]["chars"]}
         raw = ans[k]["chars"]
         items = split_list(raw)
+
+        # ---- mau so cho CHARS -------------------------------------------
+        # Neu tag tay de `chars` RONG thi khong cham duoc shot nay tren truc
+        # dat-ten: khong co gi de doi chieu. Ban truoc dem MOI cai ten may gan
+        # o day thanh false positive, tuc la phat may vi tham chieu thieu.
+        # N1b (docs/GATE_CANDIDATES.md): 28/30 shot co `chars` rong trong
+        # catalogue badgenius2017 VAN co mat nguoi nhin ro - truong rong khong
+        # co nghia la khong co ai trong khung.
+        if not t:
+            named_here = [x for x in items if x not in UNSURE]
+            if named_here:
+                empty_ref_shots.append(k)
+                empty_ref_names += len(named_here)
+            continue
         # QUAN TRONG: '(khong ro)' co the nam LAN trong danh sach - vd
         # "Teddy Daniels, (khong ro)". Phai tach no ra, khong duoc tinh la mot
         # cai ten bia. Ban truoc cua script nay dem nham nhu vay va thoi phong
@@ -221,6 +266,17 @@ def main() -> None:
             print(f"        [{k}] {y}")
     print(f"  tu bo qua   : {abstain_items} luot '(khong ro)' "
           f"tren {abstain_shots}/{n} shot - day la hanh vi DUNG (rule A5)")
+    n_cscored = n - len(empty_ref_shots)
+    if empty_ref_shots:
+        print(f"  LOAI TRU khoi mau so : {len(empty_ref_shots)}/{n} shot "
+              f"({100*len(empty_ref_shots)/n:.0f}%) - tag tay de `chars` RONG")
+        print(f"     {empty_ref_names} ten may gan tren nhung shot do KHONG "
+              f"tinh la sai - khong co gi de doi chieu")
+        print(f"     -> {', '.join(empty_ref_shots[:12])}"
+              f"{' ...' if len(empty_ref_shots) > 12 else ''}")
+        print(f"     Xem N1b trong docs/GATE_CANDIDATES.md: 28/30 shot co "
+              f"`chars` rong VAN co mat nguoi nhin ro.")
+    print(f"  cham tren   : {n_cscored}/{n} shot")
     if tp + fp:
         print(f"  do chinh xac: {100*tp/(tp+fp):.0f}%   (trong so cai no DAM dat ten)")
     if tp + fn:
