@@ -1,0 +1,4122 @@
+{
+  "_comment": "Bad Genius (2017). PASS 3 TRANCHE 1 - NOT COMPLETE. Every shot here was seen in frames; none came from the Wikipedia plot or the machine-translated transcript. Each action text ends with a verification token: [dense 0.75s] = read from a --zoom burst across the whole window; [grid 5s] = seen only in the 5s overview grid, which is acceptable ONLY for long held shots where the grid gives 3+ frames inside the window and the framing does not change. MEASURED: 74% of this film's shots are shorter than the 5s grid step (median shot 3.0s), so [grid 5s] is NOT sufficient inside any set-piece. Set-piece phases still needing a dense burst are listed in beats_proposal.md and are deliberately absent here rather than guessed.",
+  "project": "badgenius2017",
+  "film_title": "Bad Genius",
+  "depth_target": "video_essay",
+  "shots": [
+    {
+      "id": "clip:00:01:22.0",
+      "beat": "B01",
+      "clip_start": "00:01:22.0",
+      "clip_end": "00:01:34.0",
+      "chars": [
+        "Lynn"
+      ],
+      "depicts": [
+        "setup"
+      ],
+      "action": "FRAME STORY / HOOK: Lynn in profile at a long table, her own reflection repeating away down a mirrored wall until it is a queue of her [grid 2s, re-verified: 01:22 through 01:34, seven frames, one held setup - stood exactly as catalogued at 5s]",
+      "censor": "none",
+      "raw_duration_sec": 12.0,
+      "max_narration_words_en": 54,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:01:36.0",
+      "beat": "B01",
+      "clip_start": "00:01:36.0",
+      "clip_end": "00:01:50.0",
+      "chars": [
+        "Lynn"
+      ],
+      "depicts": [
+        "setup"
+      ],
+      "action": "A sealed clear bag of small dark objects is already lying on the table when we arrive; she is shown looking at it, and only then does a hand slide it across to her [grid 2s, re-verified: 01:36/01:38 the bag alone, 01:40/01:42 her face, 01:44/01:46 the hand pushing it, 01:48/01:50 her answering. CORRECTED: the 5s pass called the contents 'pencils and erasers' - they are not resolvable at 2s or 0.75s - and had the push before the look, which is the wrong way round]",
+      "censor": "none",
+      "raw_duration_sec": 14.0,
+      "max_narration_words_en": 64,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:02:28.0",
+      "beat": "B03",
+      "clip_start": "00:02:28.0",
+      "clip_end": "00:02:50.0",
+      "chars": [
+        "Lynn",
+        "Lynn's father"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "action": "Her record is opened on the desk in front of her: the file cover in her legal name, a school certificate, and a press clipping headlined 'The new Crossword Champion' with her photograph on it [grid 2s, re-verified: 02:28 the cover, 02:30/02:32 the certificate, 02:46/02:48 the clipping. CORRECTED: the 5s pass put this at 02:55, where the file has already been closed and two administrators are talking instead]",
+      "censor": "none",
+      "raw_duration_sec": 22.0,
+      "max_narration_words_en": 101,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:03:35.0",
+      "beat": "B04",
+      "clip_start": "00:03:35.0",
+      "clip_end": "00:03:55.0",
+      "chars": [
+        "Lynn"
+      ],
+      "depicts": [
+        "discovery"
+      ],
+      "action": "120,000 is written into the air beside her head and stays there while the fee is explained - the first of a running series of sums that keep accumulating over this scene, reaching a circled 150,000 by 04:18 [grid 2s, re-verified: 03:36 through 03:50 with the figure held in frame. CORRECTED: attributed to 'the director' at 5s; there are two administrators in the room and they take it in turns]",
+      "censor": "none",
+      "raw_duration_sec": 20.0,
+      "max_narration_words_en": 91,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:05:20.0",
+      "beat": "B06",
+      "clip_start": "00:05:20.0",
+      "clip_end": "00:05:46.0",
+      "chars": [
+        "Lynn",
+        "Grace"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "action": "It is a school photo call - a red backdrop, a camera on a tripod, a queue of shoes. Grace takes the new girl in hand in front of it: talks at her, fixes her hair, and lifts the glasses off her face before the shutter [grid 2s, re-verified: 05:20/05:22 the red wall, 05:24-05:30 Grace talking, 05:32 the hair, 05:40 the glasses coming off, 05:42/05:44 the photographer. CORRECTED: the 5s pass had the red wall as a wall and missed the photo session entirely, which is the whole reason the grooming is happening]",
+      "censor": "none",
+      "raw_duration_sec": 26.0,
+      "max_narration_words_en": 119,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:07:40.0",
+      "beat": "B07",
+      "clip_start": "00:07:40.0",
+      "clip_end": "00:08:00.0",
+      "chars": [
+        "Lynn",
+        "Grace"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "action": "INSERT: a pink worksheet, question 1, a Venn diagram and four multiple-choice sets - then the two of them head to head over it, Grace animated and nowhere near the answer [grid 2s, re-verified: 07:40/07:42 the sheet, 07:44 through 07:58 the two-shot. CORRECTED: the 5s pass placed them 'on the library floor'; the floor-sitting wide is at 07:16-07:26, before this shot starts]",
+      "censor": "none",
+      "raw_duration_sec": 20.0,
+      "max_narration_words_en": 91,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:08:50.0",
+      "beat": "B08",
+      "clip_start": "00:08:50.0",
+      "clip_end": "00:09:00.0",
+      "chars": [
+        "Lynn"
+      ],
+      "depicts": [
+        "setup"
+      ],
+      "action": "Interview insert: Lynn front-on in the dark room, still, answering - the film cuts here to introduce the first thing she did [dense 0.75s: 08:50-09:00, single unbroken framing, no cut inside the window]",
+      "censor": "none",
+      "raw_duration_sec": 10.0,
+      "max_narration_words_en": 45,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:09:00.0",
+      "beat": "B08",
+      "clip_start": "00:09:00.0",
+      "clip_end": "00:09:05.0",
+      "chars": [],
+      "depicts": [
+        "establishing"
+      ],
+      "action": "Title card 'สอบกลางภาค' (midterm) burns in over a wide of the exam room from the back - rows of white shirts, one supervisor [dense 0.75s: 09:00-09:04, card present on every frame]",
+      "censor": "none",
+      "raw_duration_sec": 5.0,
+      "max_narration_words_en": 22,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:09:05.0",
+      "beat": "B08",
+      "clip_start": "00:09:05.0",
+      "clip_end": "00:09:10.0",
+      "chars": [
+        "Grace"
+      ],
+      "depicts": [
+        "reaction"
+      ],
+      "action": "Grace at her desk with her hand at her temple, looking at a paper she cannot do and then around the room for help (face readable at 09:08-09:09) [dense 0.75s: 09:05-09:09]",
+      "censor": "none",
+      "raw_duration_sec": 5.0,
+      "max_narration_words_en": 22,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:11:33.0",
+      "beat": "B09",
+      "clip_start": "00:11:33.0",
+      "clip_end": "00:11:38.0",
+      "chars": [],
+      "depicts": [
+        "action"
+      ],
+      "action": "INSERT, hands only: the wrapper is peeled off a red 'Plastic br.111' eraser and the answers - Thai letters ก ข ค ง - are written along the inside of it against the answer sheet [dense 0.75s: 11:33-11:37, four separate inserts, no face in frame]",
+      "censor": "none",
+      "raw_duration_sec": 5.0,
+      "max_narration_words_en": 22,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:11:38.0",
+      "beat": "B10",
+      "clip_start": "00:11:38.0",
+      "clip_end": "00:11:41.0",
+      "chars": [
+        "Grace"
+      ],
+      "depicts": [
+        "reaction"
+      ],
+      "action": "Grace waiting, hand still at her temple, eyes going sideways to the desk behind her [dense 0.75s: 11:38-11:40, face readable]",
+      "censor": "none",
+      "raw_duration_sec": 3.0,
+      "max_narration_words_en": 13,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:12:00.0",
+      "beat": "B11",
+      "clip_start": "00:12:00.0",
+      "clip_end": "00:12:12.0",
+      "chars": [
+        "Lynn",
+        "Grace"
+      ],
+      "depicts": [
+        "setup"
+      ],
+      "action": "Down at floor level under the desks - white socks, black school shoes, and one foot already easing out of one of them [grid 2s: 12:00 the shoes, 12:02 Lynn's face, 12:04 the floor, 12:08 Grace straining, 12:10/12:12 the shoes again]",
+      "censor": "none",
+      "raw_duration_sec": 12.0,
+      "max_narration_words_en": 54,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:12:38.0",
+      "beat": "B11",
+      "clip_start": "00:12:38.0",
+      "clip_end": "00:12:52.0",
+      "chars": [
+        "Grace"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "action": "The relay: a shoe goes across the classroom floor from foot to foot, pushed a desk at a time, with the answers folded inside it [grid 2s: 12:38/12:40 the girls above, 12:42 through 12:50 the shoe travelling under the desks, 12:52 it arriving]",
+      "censor": "none",
+      "raw_duration_sec": 14.0,
+      "max_narration_words_en": 64,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:12:54.0",
+      "beat": "B11",
+      "clip_start": "00:12:54.0",
+      "clip_end": "00:13:04.0",
+      "chars": [
+        "Grace"
+      ],
+      "depicts": [
+        "reaction"
+      ],
+      "action": "It gets there. Two heads go down over the same desk and the supervisor at the front never looks up [grid 2s: 12:54/12:56/12:58 the girls, 13:00 the room, 13:02/13:04 the front of the class]",
+      "censor": "none",
+      "raw_duration_sec": 10.0,
+      "max_narration_words_en": 45,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:14:26.0",
+      "beat": "B13",
+      "clip_start": "00:14:26.0",
+      "clip_end": "00:14:34.0",
+      "chars": [],
+      "depicts": [
+        "establishing"
+      ],
+      "action": "A different world entirely: a bathrobe embroidered PATTON HOTEL BANGKOK, and a rooftop pool lit turquoise against the city at night [grid 2s: 14:26 the robe, 14:28/14:30 someone going in off the side, 14:32/14:34 the pool]",
+      "censor": "none",
+      "raw_duration_sec": 8.0,
+      "max_narration_words_en": 36,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:14:36.0",
+      "beat": "B13",
+      "clip_start": "00:14:36.0",
+      "clip_end": "00:14:54.0",
+      "chars": [
+        "Lynn",
+        "Grace",
+        "Pat"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "action": "Pat holds court from the water with Grace and Lynn in it beside him, and there is champagne on ice at the edge of the pool [grid 2s: 14:36 through 14:46 the three of them, 14:48 the bucket and glasses, 14:50 through 14:54 the pool wide]",
+      "censor": "none",
+      "raw_duration_sec": 18.0,
+      "max_narration_words_en": 82,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:14:56.0",
+      "beat": "B13",
+      "clip_start": "00:14:56.0",
+      "clip_end": "00:15:04.0",
+      "chars": [
+        "Pat"
+      ],
+      "depicts": [
+        "establishing"
+      ],
+      "action": "Pat gets the red-backdrop portrait too, and then a receipt: 10,875.48 [grid 2s: 14:56/14:58 the red, 15:00 the receipt, 15:02/15:04 the monochrome frame]",
+      "censor": "none",
+      "raw_duration_sec": 8.0,
+      "max_narration_words_en": 36,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:15:16.0",
+      "beat": "B14",
+      "clip_start": "00:15:16.0",
+      "clip_end": "00:15:34.0",
+      "chars": [
+        "Lynn",
+        "Pat"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "action": "Lynn sits on the poolside in a hotel robe with her arms round her knees while Pat talks up at her from the water, a bottle in his hand - the whole offer happens with him below her and her not answering [grid 2s: 15:16 through 15:34, ten frames, the two of them across the edge of the pool]",
+      "censor": "none",
+      "raw_duration_sec": 18.0,
+      "max_narration_words_en": 82,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:18:00.0",
+      "beat": "B15",
+      "clip_start": "00:18:00.0",
+      "clip_end": "00:18:12.0",
+      "chars": [
+        "Lynn"
+      ],
+      "depicts": [
+        "discovery"
+      ],
+      "action": "Home at night, at her father's desk, going through his papers - and an official receipt with a school seal on it and a figure in the corner [grid 2s: 18:00 the wide, 18:02 through 18:08 the receipt held to the lamp, 18:10/18:12 her small in the room]",
+      "censor": "none",
+      "raw_duration_sec": 12.0,
+      "max_narration_words_en": 54,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:18:14.0",
+      "beat": "B15",
+      "clip_start": "00:18:14.0",
+      "clip_end": "00:18:30.0",
+      "chars": [
+        "Lynn"
+      ],
+      "depicts": [
+        "discovery"
+      ],
+      "action": "There is more than one. She works down through a folder of them, and stops at a framed photograph of a woman holding a baby [grid 2s: 18:14 through 18:28 the documents, 18:30 the photograph]",
+      "censor": "none",
+      "raw_duration_sec": 16.0,
+      "max_narration_words_en": 73,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:18:32.0",
+      "beat": "B15",
+      "clip_start": "00:18:32.0",
+      "clip_end": "00:18:38.0",
+      "chars": [
+        "Lynn"
+      ],
+      "depicts": [
+        "emotion"
+      ],
+      "action": "She reads the last of it with her hand over her mouth [grid 2s: 18:32/18:34/18:36/18:38, the same close]",
+      "censor": "none",
+      "raw_duration_sec": 6.0,
+      "max_narration_words_en": 27,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:18:40.0",
+      "beat": "B16",
+      "clip_start": "00:18:40.0",
+      "clip_end": "00:18:48.0",
+      "chars": [
+        "Lynn"
+      ],
+      "depicts": [
+        "setup"
+      ],
+      "action": "She sits down at the upright in the corner of the living room and puts both hands on the keys [grid 2s: 18:40/18:42 the hands on the keyboard, 18:44/18:46 her at it, 18:48 her face]",
+      "censor": "none",
+      "raw_duration_sec": 8.0,
+      "max_narration_words_en": 36,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:18:50.0",
+      "beat": "B16",
+      "clip_start": "00:18:50.0",
+      "clip_end": "00:19:10.0",
+      "chars": [
+        "Lynn",
+        "Lynn's father"
+      ],
+      "depicts": [
+        "emotion"
+      ],
+      "action": "Her father comes to the doorway in a vest and stands there listening, and neither of them says anything about the receipts [grid 2s: 18:50 through 19:04 the two of them across the room, 19:06/19:08 the wide with the piano and him leaving, 19:10 her still sitting at it]",
+      "censor": "none",
+      "raw_duration_sec": 20.0,
+      "max_narration_words_en": 91,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:21:38.0",
+      "beat": "B17",
+      "clip_start": "00:21:38.0",
+      "clip_end": "00:21:48.0",
+      "chars": [
+        "Lynn"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "action": "INSERT after INSERT of four fingers going down on the keys while the clients sit on the sofa behind her and watch her do it - the method is taught as a piano exercise before it is ever an exam [grid 2s: 21:38/21:40 the keys, 21:44/21:46 the sofa, 21:48 the keys again]",
+      "censor": "none",
+      "raw_duration_sec": 10.0,
+      "max_narration_words_en": 45,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:21:50.0",
+      "beat": "B17",
+      "clip_start": "00:21:50.0",
+      "clip_end": "00:22:06.0",
+      "chars": [
+        "Lynn"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "action": "Lynn at the upright in a red shirt, turned half round to explain it, the backs of their heads across the bottom of frame [grid 2s: 21:50/21:52 her, 21:54/21:56/22:00 her hands, 21:58 the wide, 22:02/22:04/22:06 her over their shoulders]",
+      "censor": "none",
+      "raw_duration_sec": 16.0,
+      "max_narration_words_en": 73,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:22:08.0",
+      "beat": "B17",
+      "clip_start": "00:22:08.0",
+      "clip_end": "00:22:18.0",
+      "chars": [
+        "Lynn",
+        "Grace",
+        "Pat"
+      ],
+      "depicts": [
+        "reaction"
+      ],
+      "action": "The living room: five of them on and around the sofa working out that she is serious, and Lynn still at the keyboard waiting for them to catch up [grid 2s: 22:08/22:10/22:12 the sofa, 22:14/22:16/22:18 her at the piano]",
+      "censor": "none",
+      "raw_duration_sec": 10.0,
+      "max_narration_words_en": 45,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:22:20.0",
+      "beat": "B18",
+      "clip_start": "00:22:20.0",
+      "clip_end": "00:22:26.0",
+      "chars": [
+        "Lynn"
+      ],
+      "depicts": [
+        "setup"
+      ],
+      "action": "The exam room instead: Lynn with her chin on her hand looking down the rows, a wall clock and a Thai flag, and the cover sheet - end of term 2/2557, 8.30 to 10.30 [grid 2s: 22:20/22:22 her, 22:24 the clock, 22:26 the paper]",
+      "censor": "none",
+      "raw_duration_sec": 6.0,
+      "max_narration_words_en": 27,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:22:28.0",
+      "beat": "B18",
+      "clip_start": "00:22:28.0",
+      "clip_end": "00:22:40.0",
+      "chars": [
+        "Lynn"
+      ],
+      "depicts": [
+        "montage"
+      ],
+      "action": "The desk and the piano cut into each other - her writing, the keys, her hand tapping on her own knee, a client smiling two rows over, bubble 20 going down [grid 2s: 22:28/22:30/22:32 the room, 22:34 the keys, 22:36 the knee, 22:38 the client, 22:40 the bubble]",
+      "censor": "none",
+      "raw_duration_sec": 12.0,
+      "max_narration_words_en": 54,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:22:42.0",
+      "beat": "B18",
+      "clip_start": "00:22:42.0",
+      "clip_end": "00:22:46.0",
+      "chars": [],
+      "depicts": [
+        "establishing"
+      ],
+      "action": "A recital stage under red curtains, a small figure at the front holding a bouquet, cut in without explanation [grid 2s: 22:42/22:44 the stage, 22:46 back to hands on a desk]",
+      "censor": "none",
+      "raw_duration_sec": 4.0,
+      "max_narration_words_en": 17,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:22:50.0",
+      "beat": "B19",
+      "clip_start": "00:22:50.0",
+      "clip_end": "00:22:56.0",
+      "chars": [],
+      "depicts": [
+        "setup"
+      ],
+      "action": "A black BMW comes up to the school gate and a man gets out of it drinking - the kind of money that is buying this [grid 2s: 22:50 the grille, 22:52 the car, 22:54 him getting out]",
+      "censor": "none",
+      "raw_duration_sec": 6.0,
+      "max_narration_words_en": 27,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:22:58.0",
+      "beat": "B18",
+      "clip_start": "00:22:58.0",
+      "clip_end": "00:23:06.0",
+      "chars": [],
+      "depicts": [
+        "action"
+      ],
+      "action": "Two boys at their desks reading her hands off the far side of the room and putting the letters straight down [grid 2s: 22:58 one looking across, 23:00/23:02/23:04 both writing, 23:06 the bubbles]",
+      "censor": "none",
+      "raw_duration_sec": 8.0,
+      "max_narration_words_en": 36,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:23:12.0",
+      "beat": "B19",
+      "clip_start": "00:23:12.0",
+      "clip_end": "00:23:18.0",
+      "chars": [],
+      "depicts": [
+        "discovery"
+      ],
+      "action": "INSERT: a handwritten ledger, names down one column and sums down the other - 1,500, 3,000, 12,000, 19,000, 24,000 - the service has a price list [grid 2s: 23:12 a hand and a watch, 23:14 the page, 23:16/23:18 a client's room]",
+      "censor": "none",
+      "raw_duration_sec": 6.0,
+      "max_narration_words_en": 27,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:23:38.0",
+      "beat": "B19",
+      "clip_start": "00:23:38.0",
+      "clip_end": "00:23:48.0",
+      "chars": [
+        "Lynn",
+        "Grace"
+      ],
+      "depicts": [
+        "emotion"
+      ],
+      "action": "A gift box with a keyboard printed on it, and the girls with their heads together at the desks afterwards, laughing behind their hands [grid 2s: 23:38/23:40 the box, 23:42/23:44/23:46 the whispering, 23:48 Lynn's face]",
+      "censor": "none",
+      "raw_duration_sec": 10.0,
+      "max_narration_words_en": 45,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:23:50.0",
+      "beat": "B19",
+      "clip_start": "00:23:50.0",
+      "clip_end": "00:23:58.0",
+      "chars": [],
+      "depicts": [
+        "reaction"
+      ],
+      "action": "A posed group photograph of four of them, then the school's own banner across the front of the building congratulating its students on the 2557 results [grid 2s: 23:50 the photo, 23:52 the building, 23:54/23:56/23:58 the banner]",
+      "censor": "none",
+      "raw_duration_sec": 8.0,
+      "max_narration_words_en": 36,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:24:02.0",
+      "beat": "B20",
+      "clip_start": "00:24:02.0",
+      "clip_end": "00:24:08.0",
+      "chars": [
+        "Bank"
+      ],
+      "depicts": [
+        "establishing"
+      ],
+      "action": "The same red photo backdrop Lynn was put in front of, and this time it is Bank sitting on the stool - then the frame drains to black and white [grid 2s: 24:02/24:04 the red, 24:06 the monochrome]",
+      "censor": "none",
+      "raw_duration_sec": 6.0,
+      "max_narration_words_en": 27,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:24:14.0",
+      "beat": "B20",
+      "clip_start": "00:24:14.0",
+      "clip_end": "00:24:18.0",
+      "chars": [
+        "Bank"
+      ],
+      "depicts": [
+        "setup"
+      ],
+      "action": "Head down at a desk writing, and an INSERT of a hand holding out a name label - BANK [grid 2s: 24:14 him writing, 24:16 the label, 24:18 the washroom door]",
+      "censor": "none",
+      "raw_duration_sec": 4.0,
+      "max_narration_words_en": 17,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:24:18.0",
+      "beat": "B20",
+      "clip_start": "00:24:18.0",
+      "clip_end": "00:24:24.0",
+      "chars": [
+        "Bank"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "action": "What the scholarship actually costs him: he is alone in the school washroom after hours, wiping down the basins [grid 2s: 24:18/24:20/24:22 the same wide, him working the length of the row]",
+      "censor": "none",
+      "raw_duration_sec": 6.0,
+      "max_narration_words_en": 27,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:24:40.0",
+      "beat": "B20",
+      "clip_start": "00:24:40.0",
+      "clip_end": "00:24:46.0",
+      "chars": [
+        "Bank"
+      ],
+      "depicts": [
+        "emotion"
+      ],
+      "action": "Bank's turn at the interview table - the same black surround, the same glass of water, front-on and unmoving [grid 2s: 24:40/24:42/24:44, one held frame]",
+      "censor": "none",
+      "raw_duration_sec": 6.0,
+      "max_narration_words_en": 27,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:26:26.0",
+      "beat": "B21",
+      "clip_start": "00:26:26.0",
+      "clip_end": "00:26:42.0",
+      "chars": [
+        "Lynn",
+        "Bank"
+      ],
+      "depicts": [
+        "setup"
+      ],
+      "action": "Both of them being lit and photographed for the school, in profile, one after the other [grid 2s: 26:26 through 26:42, nine frames alternating him and her under the lamps]",
+      "censor": "none",
+      "raw_duration_sec": 16.0,
+      "max_narration_words_en": 73,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:26:44.0",
+      "beat": "B21",
+      "clip_start": "00:26:44.0",
+      "clip_end": "00:26:54.0",
+      "chars": [
+        "Lynn",
+        "Bank"
+      ],
+      "depicts": [
+        "establishing"
+      ],
+      "action": "Teen Genius: the school's two best students side by side behind a quiz desk on a blue studio set, buzzers in front of them [grid 2s: 26:44 through 26:52 the two-shot, 26:54 the host]",
+      "censor": "none",
+      "raw_duration_sec": 10.0,
+      "max_narration_words_en": 45,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:26:56.0",
+      "beat": "B22",
+      "clip_start": "00:26:56.0",
+      "clip_end": "00:27:00.0",
+      "chars": [],
+      "depicts": [
+        "setup"
+      ],
+      "action": "The director's office, and the director already sitting behind the desk waiting for them [grid 2s: 26:56/26:58/27:00]",
+      "censor": "none",
+      "raw_duration_sec": 4.0,
+      "max_narration_words_en": 17,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:27:02.0",
+      "beat": "B22",
+      "clip_start": "00:27:02.0",
+      "clip_end": "00:27:26.0",
+      "chars": [
+        "Lynn",
+        "Bank"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "action": "The two of them stood side by side in front of her desk while the overseas scholarship is explained - one place, two candidates, and neither of them looks at the other [grid 2s: 27:02 through 27:26, thirteen frames, the same standing two-shot with the director in reverse]",
+      "censor": "none",
+      "raw_duration_sec": 24.0,
+      "max_narration_words_en": 110,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:27:28.0",
+      "beat": "B22",
+      "clip_start": "00:27:28.0",
+      "clip_end": "00:27:34.0",
+      "chars": [
+        "Bank"
+      ],
+      "depicts": [
+        "reaction"
+      ],
+      "action": "Bank leaves first, without waiting [grid 2s: 27:28/27:30 him going out, 27:32/27:34 the director still talking]",
+      "censor": "none",
+      "raw_duration_sec": 6.0,
+      "max_narration_words_en": 27,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:28:48.0",
+      "beat": "B23",
+      "clip_start": "00:28:48.0",
+      "clip_end": "00:28:58.0",
+      "chars": [
+        "Bank"
+      ],
+      "depicts": [
+        "establishing"
+      ],
+      "action": "Home is a laundry. Earphones in, hands in someone else's washing, a schoolbook and a phone propped on the bench beside him [grid 2s: 28:48 him, 28:50/28:52 the hands, 28:54 the book, 28:56/28:58 the phone on the book]",
+      "censor": "none",
+      "raw_duration_sec": 10.0,
+      "max_narration_words_en": 45,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:29:00.0",
+      "beat": "B23",
+      "clip_start": "00:29:00.0",
+      "clip_end": "00:29:14.0",
+      "chars": [
+        "Bank"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "action": "He works the press on his own into the night, crouched at the machine, the room lit by one red indicator [grid 2s: 29:00 through 29:14, eight frames, the same wide]",
+      "censor": "none",
+      "raw_duration_sec": 14.0,
+      "max_narration_words_en": 64,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:29:16.0",
+      "beat": "B23",
+      "clip_start": "00:29:16.0",
+      "clip_end": "00:29:36.0",
+      "chars": [
+        "Lynn"
+      ],
+      "depicts": [
+        "emotion"
+      ],
+      "action": "Cut to Lynn at the interview table talking about him, in a long unbroken close-up [grid 2s: 29:16 through 29:36, eleven frames, one held shot]",
+      "censor": "none",
+      "raw_duration_sec": 20.0,
+      "max_narration_words_en": 91,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:30:04.0",
+      "beat": "B24",
+      "clip_start": "00:30:04.0",
+      "clip_end": "00:30:16.0",
+      "chars": [
+        "Pat"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "action": "Corridor before the exam: Pat and a classmate in glasses, the classmate doing all the grinning and all the talking, Pat mostly listening [dense 0.75s at 00:30:10: the two-shot reverses cleanly every second or so; the classmate is a recurring buyer and is not named anywhere in frame]",
+      "censor": "none",
+      "raw_duration_sec": 12.0,
+      "max_narration_words_en": 54,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:30:50.0",
+      "beat": "B24",
+      "clip_start": "00:30:50.0",
+      "clip_end": "00:30:56.0",
+      "chars": [],
+      "depicts": [
+        "establishing"
+      ],
+      "action": "The hall before anyone is in it - desks in ranks the length of a sports floor, each with its own lamp [grid 2s: 30:50/30:52/30:54 the same high wide]",
+      "censor": "none",
+      "raw_duration_sec": 6.0,
+      "max_narration_words_en": 27,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:31:36.0",
+      "beat": "B24",
+      "clip_start": "00:31:36.0",
+      "clip_end": "00:31:42.0",
+      "chars": [],
+      "depicts": [
+        "establishing"
+      ],
+      "action": "The same hall full, shot from the back: several hundred candidates and one invigilator alone at a table at the far end [grid 2s: 31:36 the rows, 31:38 the full wide, 31:40/31:42 back to the desks]",
+      "censor": "none",
+      "raw_duration_sec": 6.0,
+      "max_narration_words_en": 27,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:31:44.0",
+      "beat": "B24",
+      "clip_start": "00:31:44.0",
+      "clip_end": "00:31:50.0",
+      "chars": [],
+      "depicts": [
+        "setup"
+      ],
+      "action": "INSERT: a name and a class going onto the header of an answer sheet in ballpoint [grid 2s: 31:44/31:46 the form, 31:48/31:50 the room settling]",
+      "censor": "none",
+      "raw_duration_sec": 6.0,
+      "max_narration_words_en": 27,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:31:52.0",
+      "beat": "B25",
+      "clip_start": "00:31:52.0",
+      "clip_end": "00:32:00.0",
+      "chars": [
+        "Lynn"
+      ],
+      "depicts": [
+        "montage"
+      ],
+      "action": "Time compressed by superimposition - candidates dissolving through each other over the rows, then the wall clock [grid 2s: 31:52/31:56/31:58 the dissolves, 32:00 the clock]",
+      "censor": "none",
+      "raw_duration_sec": 8.0,
+      "max_narration_words_en": 36,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:32:00.0",
+      "beat": "B25",
+      "clip_start": "00:32:00.0",
+      "clip_end": "00:32:08.0",
+      "chars": [],
+      "depicts": [
+        "discovery"
+      ],
+      "action": "THE TWO PAPERS: a wristwatch laid on the desk, a question sheet, then the insert that breaks the scheme - 'ข้อสอบของนักเรียนเป็นข้อสอบชุดที่ 1 / ก. ชุดที่ 1 / ข. ชุดที่ 2', question 40 asking which of two different papers you were given [dense 0.75s: 32:00-32:07, the Q40 insert holds from 32:04 to 32:07]",
+      "censor": "none",
+      "raw_duration_sec": 8.0,
+      "max_narration_words_en": 36,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:32:08.0",
+      "beat": "B27",
+      "clip_start": "00:32:08.0",
+      "clip_end": "00:32:16.0",
+      "chars": [
+        "Bank"
+      ],
+      "depicts": [
+        "discovery"
+      ],
+      "action": "Bank stops writing, looks up and around the hall, works something out, and puts his hand up for the supervisor [dense 0.75s: 32:08-32:15, he is in frame throughout, hand raised at 32:12]",
+      "censor": "none",
+      "raw_duration_sec": 8.0,
+      "max_narration_words_en": 36,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:32:16.0",
+      "beat": "B24",
+      "clip_start": "00:32:16.0",
+      "clip_end": "00:32:20.0",
+      "chars": [],
+      "depicts": [
+        "establishing"
+      ],
+      "action": "The supervisor at his desk under a green banker's lamp, seen past the shoulders of two students - the only authority in a hall of hundreds [dense 0.75s: 32:16-32:19]",
+      "censor": "none",
+      "raw_duration_sec": 4.0,
+      "max_narration_words_en": 17,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:32:22.0",
+      "beat": "B25",
+      "clip_start": "00:32:22.0",
+      "clip_end": "00:32:30.0",
+      "chars": [
+        "Lynn"
+      ],
+      "depicts": [
+        "reaction"
+      ],
+      "action": "Lynn reads question 40 twice and stops moving; behind her the room keeps working [grid 2s: 32:22 her face, 32:24 the desks, 32:26 an invigilator, 32:28/32:30 a candidate turning a page]",
+      "censor": "none",
+      "raw_duration_sec": 8.0,
+      "max_narration_words_en": 36,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:32:32.0",
+      "beat": "B26",
+      "clip_start": "00:32:32.0",
+      "clip_end": "00:32:40.0",
+      "chars": [],
+      "depicts": [
+        "discovery"
+      ],
+      "action": "INSERT: 'A. Set 1' on the paper, and the pencil filling that bubble - the hall has been split into two exams sitting side by side [grid 2s: 32:32 the line, 32:36 bubble 40 under the pencil, 32:34/32:38/32:40 candidates checking their own]",
+      "censor": "none",
+      "raw_duration_sec": 8.0,
+      "max_narration_words_en": 36,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:32:42.0",
+      "beat": "B26",
+      "clip_start": "00:32:42.0",
+      "clip_end": "00:32:52.0",
+      "chars": [],
+      "depicts": [
+        "reaction"
+      ],
+      "action": "The invigilator in glasses has stopped patrolling and is watching one part of the room; a candidate half-raises a question and thinks better of it [grid 2s: 32:42/32:44/32:46 him watching, 32:48/32:50/32:52 the candidate]",
+      "censor": "none",
+      "raw_duration_sec": 10.0,
+      "max_narration_words_en": 45,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:33:12.0",
+      "beat": "B27",
+      "clip_start": "00:33:12.0",
+      "clip_end": "00:33:26.0",
+      "chars": [],
+      "depicts": [
+        "action"
+      ],
+      "action": "A hand with a steel watch runs a straightedge down a completed answer sheet and then writes across a blank page in Thai [grid 2s: 33:12 the hand, 33:18/33:20/33:22 the sheet under the edge, 33:24/33:26 the writing]",
+      "censor": "none",
+      "raw_duration_sec": 14.0,
+      "max_narration_words_en": 64,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:36:06.0",
+      "beat": "B28",
+      "clip_start": "00:36:06.0",
+      "clip_end": "00:36:18.0",
+      "chars": [
+        "Lynn"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "action": "Lynn works with her head down and her eyes going sideways across the rows; the classmate in glasses answers the look [grid 2s: 36:06/36:10 her looking off, 36:08 him, 36:14/36:18 her back on the paper]",
+      "censor": "none",
+      "raw_duration_sec": 12.0,
+      "max_narration_words_en": 54,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:36:20.0",
+      "beat": "B28",
+      "clip_start": "00:36:20.0",
+      "clip_end": "00:36:32.0",
+      "chars": [
+        "Lynn"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "action": "Both hands flat on the paper, an eraser turned over, the clock, and the pencil going down the bubbles [grid 2s: 36:20 the flat hands, 36:22 the eraser, 36:24 the clock, 36:30 the sheet under the nib]",
+      "censor": "none",
+      "raw_duration_sec": 12.0,
+      "max_narration_words_en": 54,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:36:44.0",
+      "beat": "B28",
+      "clip_start": "00:36:44.0",
+      "clip_end": "00:36:52.0",
+      "chars": [
+        "Lynn"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "action": "Writing at speed - a watch strap, a fist round the pencil, then a full page of dense working held up [grid 2s: 36:44/36:46 the hands, 36:48 the bubble sheet, 36:52 the covered page]",
+      "censor": "none",
+      "raw_duration_sec": 8.0,
+      "max_narration_words_en": 36,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:37:16.0",
+      "beat": "B28",
+      "clip_start": "00:37:16.0",
+      "clip_end": "00:37:24.0",
+      "chars": [
+        "Lynn"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "action": "The method itself: her hands worked over the desk edge like a keyboard, a small eraser turned between the fingers as she goes [grid 2s: 37:16/37:20/37:22 the fingering, 37:24 her hands and a neighbour's in the same frame]",
+      "censor": "none",
+      "raw_duration_sec": 8.0,
+      "max_narration_words_en": 36,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:37:30.0",
+      "beat": "B28",
+      "clip_start": "00:37:30.0",
+      "clip_end": "00:37:44.0",
+      "chars": [],
+      "depicts": [
+        "discovery"
+      ],
+      "action": "INSERT: 40 filled for A on one paper, 'B. Set 2' printed on another, and between them a hand laid flat and still on a desk - one signal, two exams [grid 2s: 37:30 bubble A, 37:40 the flat hand, 37:42 the Set 2 line, 37:44 the hand again]",
+      "censor": "none",
+      "raw_duration_sec": 14.0,
+      "max_narration_words_en": 64,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:37:56.0",
+      "beat": "B28",
+      "clip_start": "00:37:56.0",
+      "clip_end": "00:38:12.0",
+      "chars": [
+        "Lynn"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "action": "Lynn's face coming up, and a second hand with a black watch laid flat on a desk further down the row - it is moving through the room now [grid 2s: 37:56 her face, 38:00 the watch hand, 38:08/38:10 her again, 38:12 the hand]",
+      "censor": "none",
+      "raw_duration_sec": 16.0,
+      "max_narration_words_en": 73,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:38:38.0",
+      "beat": "B29",
+      "clip_start": "00:38:38.0",
+      "clip_end": "00:38:44.0",
+      "chars": [],
+      "depicts": [
+        "setup"
+      ],
+      "action": "Time is called and the invigilators start down the rows collecting [grid 2s: 38:38 him calling it, 38:42 the collection from the back, 38:44 a candidate looking up]",
+      "censor": "none",
+      "raw_duration_sec": 6.0,
+      "max_narration_words_en": 27,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:38:46.0",
+      "beat": "B29",
+      "clip_start": "00:38:46.0",
+      "clip_end": "00:38:58.0",
+      "chars": [
+        "Lynn"
+      ],
+      "depicts": [
+        "reaction"
+      ],
+      "action": "A grey-haired senior invigilator stops and says something quiet to one candidate, and Lynn watches the whole of it without moving [grid 2s: 38:46/38:48/38:50 him talking, 38:52/38:54/38:56 her watching, 38:58 the classmate in glasses]",
+      "censor": "none",
+      "raw_duration_sec": 12.0,
+      "max_narration_words_en": 54,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:39:00.0",
+      "beat": "B29",
+      "clip_start": "00:39:00.0",
+      "clip_end": "00:39:04.0",
+      "chars": [],
+      "depicts": [
+        "reaction"
+      ],
+      "action": "The classmate in glasses gets both fists in the air over his own desk before he is out of the room [grid 2s: 39:00 him bent over, 39:02 the punch, 39:04 him sitting back down]",
+      "censor": "none",
+      "raw_duration_sec": 4.0,
+      "max_narration_words_en": 17,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:39:06.0",
+      "beat": "B29",
+      "clip_start": "00:39:06.0",
+      "clip_end": "00:39:14.0",
+      "chars": [],
+      "depicts": [
+        "emotion"
+      ],
+      "action": "A girl a few desks over sits back with her hands over her mouth, laughing, while the papers are still being taken in [grid 2s: 39:06/39:08/39:10 her; too small at this grid scale to identify her against names.json, so left unnamed]",
+      "censor": "none",
+      "raw_duration_sec": 8.0,
+      "max_narration_words_en": 36,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:39:24.0",
+      "beat": "B29",
+      "clip_start": "00:39:24.0",
+      "clip_end": "00:39:30.0",
+      "chars": [],
+      "depicts": [
+        "reaction"
+      ],
+      "action": "INSERT: the thread, read by 20, timestamped 8:03 - then two of them sitting on the school steps sharing one screen [grid 2s: 39:24/39:26 the chat, 39:28/39:30 the steps]",
+      "censor": "none",
+      "raw_duration_sec": 6.0,
+      "max_narration_words_en": 27,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:39:36.0",
+      "beat": "B30",
+      "clip_start": "00:39:36.0",
+      "clip_end": "00:39:42.0",
+      "chars": [
+        "Lynn",
+        "Grace"
+      ],
+      "depicts": [
+        "setup"
+      ],
+      "action": "The morning after: Lynn and Grace on the school steps with a phone between them, counting it up [grid 2s: 39:36/39:38/39:40/39:42, the same group on the steps]",
+      "censor": "none",
+      "raw_duration_sec": 6.0,
+      "max_narration_words_en": 27,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:39:44.0",
+      "beat": "B30",
+      "clip_start": "00:39:44.0",
+      "clip_end": "00:39:50.0",
+      "chars": [
+        "Bank"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "action": "Bank comes out through a doorway behind them holding a folded sheet of paper, and keeps walking [grid 2s: 39:44/39:46 him in the doorway, 39:48/39:50 the girls turning to watch him go]",
+      "censor": "none",
+      "raw_duration_sec": 6.0,
+      "max_narration_words_en": 27,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:39:52.0",
+      "beat": "B30",
+      "clip_start": "00:39:52.0",
+      "clip_end": "00:40:04.0",
+      "chars": [
+        "Lynn"
+      ],
+      "depicts": [
+        "reaction"
+      ],
+      "action": "Lynn stands up. She watches him all the way down the corridor and neither of them says anything [grid 2s: 39:52 through 40:00 her standing and watching, 40:02/40:04 the office door closing]",
+      "censor": "none",
+      "raw_duration_sec": 12.0,
+      "max_narration_words_en": 54,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:40:06.0",
+      "beat": "B31",
+      "clip_start": "00:40:06.0",
+      "clip_end": "00:40:22.0",
+      "chars": [
+        "Lynn",
+        "Bank"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "action": "The office: the director behind her desk, Lynn and a classmate in front of it, and Bank sitting off to one side having already said his piece [grid 2s: 40:06 through 40:22, nine frames, the room from several angles]",
+      "censor": "none",
+      "raw_duration_sec": 16.0,
+      "max_narration_words_en": 73,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:40:24.0",
+      "beat": "B31",
+      "clip_start": "00:40:24.0",
+      "clip_end": "00:40:28.0",
+      "chars": [],
+      "depicts": [
+        "discovery"
+      ],
+      "action": "INSERT: the paper spread out on the desk - sheets of handwriting, laid down one beside another [grid 2s: 40:24 the pages in a hand, 40:26 them going down on the desk, 40:28 Lynn's face above them]",
+      "censor": "none",
+      "raw_duration_sec": 4.0,
+      "max_narration_words_en": 17,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:40:30.0",
+      "beat": "B31",
+      "clip_start": "00:40:30.0",
+      "clip_end": "00:40:46.0",
+      "chars": [
+        "Lynn"
+      ],
+      "depicts": [
+        "reaction"
+      ],
+      "action": "Lynn watches the director read it and does not say a word in her own defence [grid 2s: 40:30 through 40:36 her face, 40:38 through 40:44 the director reading, 40:46 the room]",
+      "censor": "none",
+      "raw_duration_sec": 16.0,
+      "max_narration_words_en": 73,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:42:08.0",
+      "beat": "B32",
+      "clip_start": "00:42:08.0",
+      "clip_end": "00:42:20.0",
+      "chars": [
+        "Lynn",
+        "Lynn's father"
+      ],
+      "depicts": [
+        "reaction"
+      ],
+      "action": "Her father is in the room now, in a checked shirt and glasses, and Lynn stands against the window blinds where she does not have to look at him [grid 2s: 42:08/42:10 him, 42:12 through 42:20 her in profile against the blinds]",
+      "censor": "none",
+      "raw_duration_sec": 12.0,
+      "max_narration_words_en": 54,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:42:22.0",
+      "beat": "B32",
+      "clip_start": "00:42:22.0",
+      "clip_end": "00:42:32.0",
+      "chars": [
+        "Bank"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "action": "Bank says it again with her father sitting there, pointing at the desk as he does it [grid 2s: 42:22 through 42:32, six frames, him talking and gesturing]",
+      "censor": "none",
+      "raw_duration_sec": 10.0,
+      "max_narration_words_en": 45,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:42:34.0",
+      "beat": "B33",
+      "clip_start": "00:42:34.0",
+      "clip_end": "00:42:50.0",
+      "chars": [
+        "Lynn's father"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "action": "The director delivers it and Lynn's father takes it sitting down, without arguing [grid 2s: 42:34 through 42:40 her talking, 42:42 through 42:50 him listening]",
+      "censor": "none",
+      "raw_duration_sec": 16.0,
+      "max_narration_words_en": 73,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:44:28.0",
+      "beat": "B33",
+      "clip_start": "00:44:28.0",
+      "clip_end": "00:44:42.0",
+      "chars": [
+        "Lynn's father"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "action": "He tries anyway - leaning in over the desk - and the answer comes back with her hands folded on the blotter [grid 2s: 44:28 through 44:34 him, 44:38/44:40/44:42 her, hands folded, unmoved]",
+      "censor": "none",
+      "raw_duration_sec": 14.0,
+      "max_narration_words_en": 64,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:44:52.0",
+      "beat": "B33",
+      "clip_start": "00:44:52.0",
+      "clip_end": "00:45:10.0",
+      "chars": [
+        "Lynn",
+        "Lynn's father",
+        "Bank"
+      ],
+      "depicts": [
+        "reaction"
+      ],
+      "action": "The wide has all three of them standing in a row in front of the desk - Lynn, her father, and Bank at the end of it looking at the floor - and then Lynn finally speaks [grid 2s: 44:52 through 44:58 the row, 45:00 through 45:10 held on Lynn talking]",
+      "censor": "none",
+      "raw_duration_sec": 18.0,
+      "max_narration_words_en": 82,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:45:28.0",
+      "beat": "B34",
+      "clip_start": "00:45:28.0",
+      "clip_end": "00:45:34.0",
+      "chars": [
+        "Lynn",
+        "Bank"
+      ],
+      "depicts": [
+        "emotion"
+      ],
+      "action": "Out at the door afterwards, the two of them end up side by side for a second, and neither one of them has anything to say to the other [grid 2s: 45:28 the doorway, 45:30/45:32/45:34 the two-shot, his eyes down, hers not]",
+      "censor": "none",
+      "raw_duration_sec": 6.0,
+      "max_narration_words_en": 27,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:46:16.0",
+      "beat": "B35",
+      "clip_start": "00:46:16.0",
+      "clip_end": "00:46:42.0",
+      "chars": [
+        "Lynn",
+        "Lynn's father"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "action": "Home, at the round table by the window: her father stands the whole time, leaning on the back of a chair over a cup he never picks up, and does not raise his voice; Lynn sits in her uniform and takes it [grid 2s, re-verified: 46:16 through 46:42, fourteen frames, he never once sits down - stood exactly as catalogued at 5s]",
+      "censor": "none",
+      "raw_duration_sec": 26.0,
+      "max_narration_words_en": 119,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:48:22.0",
+      "beat": "B36",
+      "clip_start": "00:48:22.0",
+      "clip_end": "00:48:38.0",
+      "chars": [
+        "Grace"
+      ],
+      "depicts": [
+        "emotion"
+      ],
+      "action": "Grace's turn at the interview table, and she is the only one of them who cries doing it [grid 2s: 48:22 a hand on the table, 48:24 through 48:38, eight frames held on her face]",
+      "censor": "none",
+      "raw_duration_sec": 16.0,
+      "max_narration_words_en": 73,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:48:40.0",
+      "beat": "B36",
+      "clip_start": "00:48:40.0",
+      "clip_end": "00:48:48.0",
+      "chars": [
+        "Lynn"
+      ],
+      "depicts": [
+        "setup"
+      ],
+      "action": "A ring-pull going back on a cold can, and Lynn drinking it - the film's one clean breath before the second half starts [grid 2s: 48:40/48:42 the can opening, 48:44/48:46 her drinking, 48:48 her laughing]",
+      "censor": "none",
+      "raw_duration_sec": 8.0,
+      "max_narration_words_en": 36,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:48:50.0",
+      "beat": "B36",
+      "clip_start": "00:48:50.0",
+      "clip_end": "00:49:10.0",
+      "chars": [
+        "Lynn",
+        "Grace"
+      ],
+      "depicts": [
+        "setup"
+      ],
+      "action": "A restaurant with panelled walls and waiters: Grace in a yellow T-shirt across the table from Lynn, plates arriving over their shoulders [grid 2s: 48:50 through 49:10, eleven frames, the two of them and the service going on around them]",
+      "censor": "none",
+      "raw_duration_sec": 20.0,
+      "max_narration_words_en": 91,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:51:36.0",
+      "beat": "B37",
+      "clip_start": "00:51:36.0",
+      "clip_end": "00:51:50.0",
+      "chars": [
+        "Lynn"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "action": "The other end of the table: an older couple doing the talking and the laughing, a hand sliding a folder across the cloth to her, and Lynn listening with a wine glass between her and them [grid 2s: 51:36 the woman, 51:40 the folder crossing the table, 51:42/51:44 the couple, 51:46/51:48 Lynn, 51:50 the paper on the cloth]",
+      "censor": "none",
+      "raw_duration_sec": 14.0,
+      "max_narration_words_en": 64,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:51:52.0",
+      "beat": "B37",
+      "clip_start": "00:51:52.0",
+      "clip_end": "00:52:16.0",
+      "chars": [
+        "Lynn",
+        "Grace"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "action": "Lynn does the asking for once - leaning in across the table while Grace sits back and lets her [grid 2s: 51:52 through 52:16, thirteen frames, shot and reverse across the table]",
+      "censor": "none",
+      "raw_duration_sec": 24.0,
+      "max_narration_words_en": 110,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:52:18.0",
+      "beat": "B38",
+      "clip_start": "00:52:18.0",
+      "clip_end": "00:52:24.0",
+      "chars": [],
+      "depicts": [
+        "discovery"
+      ],
+      "action": "INSERT: a book put down on the tablecloth - a STIC preparation manual [grid 2s: 52:18 the cover, 52:20/52:22 Grace looking at it, 52:24 Lynn]",
+      "censor": "none",
+      "raw_duration_sec": 6.0,
+      "max_narration_words_en": 27,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:52:26.0",
+      "beat": "B38",
+      "clip_start": "00:52:26.0",
+      "clip_end": "00:52:46.0",
+      "chars": [
+        "Lynn",
+        "Grace"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "action": "She keeps talking and it is the first time in twenty minutes of film that she looks interested in anything [grid 2s: 52:26 through 52:46, eleven frames]",
+      "censor": "none",
+      "raw_duration_sec": 20.0,
+      "max_narration_words_en": 91,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:54:00.0",
+      "beat": "B39",
+      "clip_start": "00:54:00.0",
+      "clip_end": "00:54:12.0",
+      "chars": [
+        "Lynn"
+      ],
+      "depicts": [
+        "setup"
+      ],
+      "action": "A hotel counter, and someone holding a phone up to her with a photograph on it [grid 2s: 54:00 through 54:04 her at the desk, 54:06 through 54:12 the phone held out, the same held frame]",
+      "censor": "none",
+      "raw_duration_sec": 12.0,
+      "max_narration_words_en": 54,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:54:14.0",
+      "beat": "B39",
+      "clip_start": "00:54:14.0",
+      "clip_end": "00:54:26.0",
+      "chars": [
+        "Lynn"
+      ],
+      "depicts": [
+        "discovery"
+      ],
+      "action": "She stops mid-sentence and looks up at something above and behind the desk [grid 2s: 54:14 through 54:26, seven frames, her face tilting up and staying there]",
+      "censor": "none",
+      "raw_duration_sec": 12.0,
+      "max_narration_words_en": 54,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:54:28.0",
+      "beat": "B39",
+      "clip_start": "00:54:28.0",
+      "clip_end": "00:54:44.0",
+      "chars": [],
+      "depicts": [
+        "discovery"
+      ],
+      "action": "What she is looking at: a wall of clocks, each with a brass plate under it - NEW YORK, then LONDON, then DUBAI, then BANGKOK, all showing different times [grid 2s: 54:28/54:30 NEW YORK alone, 54:38 NEW YORK and LONDON, 54:40 LONDON, 54:42 DUBAI, 54:44 BANGKOK]",
+      "censor": "none",
+      "raw_duration_sec": 16.0,
+      "max_narration_words_en": 73,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:54:46.0",
+      "beat": "B39",
+      "clip_start": "00:54:46.0",
+      "clip_end": "00:54:56.0",
+      "chars": [
+        "Lynn"
+      ],
+      "depicts": [
+        "emotion"
+      ],
+      "action": "Held on her face while she does the arithmetic [grid 2s: 54:46 her looking up, 54:48/54:50 the wide with her small under the row, 54:52 through 54:56 the close]",
+      "censor": "none",
+      "raw_duration_sec": 10.0,
+      "max_narration_words_en": 45,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:54:58.0",
+      "beat": "B39",
+      "clip_start": "00:54:58.0",
+      "clip_end": "00:55:10.0",
+      "chars": [
+        "Lynn"
+      ],
+      "depicts": [
+        "discovery"
+      ],
+      "action": "The last clock on the wall says SYDNEY, and it is hours ahead of every other one - that gap is the entire plan [grid 2s: 54:58/55:00 the SYDNEY clock, 55:02 through 55:06 her face, 55:08/55:10 her standing under the whole row]",
+      "censor": "none",
+      "raw_duration_sec": 12.0,
+      "max_narration_words_en": 54,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:55:12.0",
+      "beat": "B40",
+      "clip_start": "00:55:12.0",
+      "clip_end": "00:55:24.0",
+      "chars": [],
+      "depicts": [
+        "discovery"
+      ],
+      "action": "INSERT: a hand pushes a small red pin-flag into a world map, and it goes into AUSTRALIA [grid 2s: 55:12/55:14 the hand and the pin, 55:16 the flag standing in it, 55:24 the flag again with the whole Pacific beside it]",
+      "censor": "none",
+      "raw_duration_sec": 12.0,
+      "max_narration_words_en": 54,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:55:26.0",
+      "beat": "B40",
+      "clip_start": "00:55:26.0",
+      "clip_end": "00:55:52.0",
+      "chars": [
+        "Lynn",
+        "Grace",
+        "Pat"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "action": "The print shop with the map open on the table: Grace and Pat leaning over it while Lynn stands over them both and lays the thing out [grid 2s: 55:26 through 55:52, fourteen frames, her standing and the two of them seated]",
+      "censor": "none",
+      "raw_duration_sec": 26.0,
+      "max_narration_words_en": 119,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:55:54.0",
+      "beat": "B40",
+      "clip_start": "00:55:54.0",
+      "clip_end": "00:56:22.0",
+      "chars": [
+        "Lynn",
+        "Grace",
+        "Pat"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "action": "They start asking questions back, and she has an answer for each of them [grid 2s: 55:54 through 56:22, fifteen frames, shot and reverse across the map]",
+      "censor": "none",
+      "raw_duration_sec": 28.0,
+      "max_narration_words_en": 128,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:57:44.0",
+      "beat": "B41",
+      "clip_start": "00:57:44.0",
+      "clip_end": "00:57:47.0",
+      "chars": [],
+      "depicts": [
+        "establishing"
+      ],
+      "action": "A wet street at night, headlights, a scooter pulling away - the last ordinary shot before the assault [dense 0.75s: 57:45-57:46]",
+      "censor": "none",
+      "raw_duration_sec": 3.0,
+      "max_narration_words_en": 13,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:57:47.0",
+      "beat": "B41",
+      "clip_start": "00:57:47.0",
+      "clip_end": "00:57:53.0",
+      "chars": [
+        "Bank"
+      ],
+      "depicts": [
+        "setup"
+      ],
+      "action": "Bank sets a laundry basket down at a lit gate to work the padlock; two unlit figures are already standing in the foreground of the frame, and he has not seen them [dense 0.75s: 57:47-57:52, the figures are present in every frame]",
+      "censor": "none",
+      "raw_duration_sec": 6.0,
+      "max_narration_words_en": 27,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:57:53.0",
+      "beat": "B41",
+      "clip_start": "00:57:53.0",
+      "clip_end": "00:58:05.0",
+      "chars": [
+        "Bank"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "action": "He is taken at the gate - dragged down out of the light, the attackers in silhouette, the basket going over. No face and no injury detail in frame [dense 0.75s: 57:53-58:04]. CENSOR none per S7 'dark/silhouette violence, already obscured by lighting' - frame-checked, not assumed",
+      "censor": "none",
+      "raw_duration_sec": 12.0,
+      "max_narration_words_en": 54,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:58:16.0",
+      "beat": "B42",
+      "clip_start": "00:58:16.0",
+      "clip_end": "00:58:26.0",
+      "chars": [],
+      "depicts": [
+        "discovery"
+      ],
+      "action": "Security-camera footage, black and white, timecoded 19:53:25: two figures cross a gateway, a car is parked across the frame, and by 19:53:31 there is a body on the ground beside it [grid 2s: 58:16 through 58:26, six frames, the timecode advancing six seconds]",
+      "censor": "none",
+      "raw_duration_sec": 10.0,
+      "max_narration_words_en": 45,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:58:28.0",
+      "beat": "B42",
+      "clip_start": "00:58:28.0",
+      "clip_end": "00:58:34.0",
+      "chars": [
+        "Bank"
+      ],
+      "depicts": [
+        "emotion"
+      ],
+      "action": "Daylight, and a close-up of what it cost: one eye swollen shut, dried blood across his face [grid 2s: 58:28 the close, 58:30/58:32/58:34 him lying in the rubbish]",
+      "censor": "none",
+      "raw_duration_sec": 6.0,
+      "max_narration_words_en": 27,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:00:58:36.0",
+      "beat": "B42",
+      "clip_start": "00:58:36.0",
+      "clip_end": "00:58:46.0",
+      "chars": [
+        "Bank"
+      ],
+      "depicts": [
+        "establishing"
+      ],
+      "action": "The wide pulls out and he is a white shirt in the middle of a landfill, a tyre beside him, the tip going up the frame behind [grid 2s: 58:36 through 58:44, five frames, the same enormous wide]",
+      "censor": "none",
+      "raw_duration_sec": 10.0,
+      "max_narration_words_en": 45,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:00:00.0",
+      "beat": "B42",
+      "clip_start": "01:00:00.0",
+      "clip_end": "01:00:14.0",
+      "chars": [
+        "Bank"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "action": "He gets himself upright out of it - sits, looks around at where he is, and starts working out how to walk off a rubbish tip in a school uniform [grid 2s: 00:00 through 00:14, eight frames]",
+      "censor": "none",
+      "raw_duration_sec": 14.0,
+      "max_narration_words_en": 64,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:00:20.0",
+      "beat": "B43",
+      "clip_start": "01:00:20.0",
+      "clip_end": "01:00:26.0",
+      "chars": [],
+      "depicts": [
+        "setup"
+      ],
+      "action": "A school lobby with a brass-railed staircase and a red presentation board propped at the bottom of it [grid 2s: 00:20/00:22 students filing past, 00:24/00:26 the board]",
+      "censor": "none",
+      "raw_duration_sec": 6.0,
+      "max_narration_words_en": 27,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:00:28.0",
+      "beat": "B43",
+      "clip_start": "01:00:28.0",
+      "clip_end": "01:00:34.0",
+      "chars": [
+        "Pat"
+      ],
+      "depicts": [
+        "establishing"
+      ],
+      "action": "A darkened hall, one silhouette against a lit screen, and the screen says STIC [grid 2s: 00:28/00:30 the silhouette, 00:32/00:34 him lit against the logo]",
+      "censor": "none",
+      "raw_duration_sec": 6.0,
+      "max_narration_words_en": 27,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:00:40.0",
+      "beat": "B43",
+      "clip_start": "01:00:40.0",
+      "clip_end": "01:00:46.0",
+      "chars": [],
+      "depicts": [
+        "reaction"
+      ],
+      "action": "The room he is selling to: rows of students in school uniform, in the dark, listening [grid 2s: 00:40/00:42/00:44 the audience]",
+      "censor": "none",
+      "raw_duration_sec": 6.0,
+      "max_narration_words_en": 27,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:01:28.0",
+      "beat": "B44",
+      "clip_start": "01:01:28.0",
+      "clip_end": "01:01:34.0",
+      "chars": [],
+      "depicts": [
+        "discovery"
+      ],
+      "action": "INSERT: an ordinary pencil turned in the light, and the barcode printed down the length of it - 4 902778 999042 [grid 2s: 01:28/01:30 the pencil close, 01:32/01:34 the barcode blown up on the projection screen]",
+      "censor": "none",
+      "raw_duration_sec": 6.0,
+      "max_narration_words_en": 27,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:01:36.0",
+      "beat": "B43",
+      "clip_start": "01:01:36.0",
+      "clip_end": "01:01:44.0",
+      "chars": [
+        "Pat"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "action": "Pat works the front of the hall like a product launch, mic in hand, walking the length of the screen [dense 0.75s at 01:01:54: face clearly resolved and matches the Bangkok print-shop scenes; grid 2s: 01:36/01:38/01:40/01:42 him working the length of the lit screen]",
+      "censor": "none",
+      "raw_duration_sec": 8.0,
+      "max_narration_words_en": 36,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:01:44.0",
+      "beat": "B44",
+      "clip_start": "01:01:44.0",
+      "clip_end": "01:01:46.0",
+      "chars": [],
+      "depicts": [
+        "discovery"
+      ],
+      "action": "INSERT: the screen resolves the bars into four groups and labels them A, B, C, D - the code is the answer key [grid 2s: 01:44 the screen, 01:46 the letters under the bars]",
+      "censor": "none",
+      "raw_duration_sec": 2.0,
+      "max_narration_words_en": 8,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:01:52.0",
+      "beat": "B44",
+      "clip_start": "01:01:52.0",
+      "clip_end": "01:02:02.0",
+      "chars": [
+        "Pat"
+      ],
+      "depicts": [
+        "discovery"
+      ],
+      "action": "Four pencils go up the screen, one under another, each with a different barcode - one pencil per answer set, and a red callout ringing the last of them [dense 0.75s at 01:01:54; grid 2s: 01:52 one pencil, 01:54/01:56 four, 02:00/02:02 the callout]",
+      "censor": "none",
+      "raw_duration_sec": 10.0,
+      "max_narration_words_en": 45,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:02:10.0",
+      "beat": "B44",
+      "clip_start": "01:02:10.0",
+      "clip_end": "01:02:18.0",
+      "chars": [
+        "Lynn",
+        "Bank"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "action": "Back at the print shop the two of them lean over a map with small coloured markers on it, working out where in the world this has to happen [grid 2s: 02:10/02:12/02:14 the map and the markers, 02:16/02:18 the two of them]",
+      "censor": "none",
+      "raw_duration_sec": 8.0,
+      "max_narration_words_en": 36,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:03:38.0",
+      "beat": "B45",
+      "clip_start": "01:03:38.0",
+      "clip_end": "01:03:58.0",
+      "chars": [
+        "Lynn",
+        "Bank"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "action": "The laundry, shot from the street through the shop's own signage: she has come to him, and he keeps working the press while she talks [grid 2s: 03:38 through 03:58, eleven frames, the orange sign across the foreground the whole time]",
+      "censor": "none",
+      "raw_duration_sec": 20.0,
+      "max_narration_words_en": 91,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:04:10.0",
+      "beat": "B45",
+      "clip_start": "01:04:10.0",
+      "clip_end": "01:04:26.0",
+      "chars": [
+        "Lynn"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "action": "Inside, among the shelves of folded and bagged laundry, she makes the offer [grid 2s: 04:10 through 04:16 her at the shelves, 04:18/04:20 him at the ironing station, 04:22 through 04:26 her again]",
+      "censor": "none",
+      "raw_duration_sec": 16.0,
+      "max_narration_words_en": 73,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:04:28.0",
+      "beat": "B45",
+      "clip_start": "01:04:28.0",
+      "clip_end": "01:04:46.0",
+      "chars": [
+        "Bank"
+      ],
+      "depicts": [
+        "reaction"
+      ],
+      "action": "He does not move from the board. The answer takes a while and she has to stand there for all of it [grid 2s: 04:28 through 04:36 him, 04:38 through 04:46 her waiting]",
+      "censor": "none",
+      "raw_duration_sec": 18.0,
+      "max_narration_words_en": 82,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:06:04.0",
+      "beat": "B46",
+      "clip_start": "01:06:04.0",
+      "clip_end": "01:06:18.0",
+      "chars": [
+        "Lynn",
+        "Bank"
+      ],
+      "depicts": [
+        "setup"
+      ],
+      "action": "The print shop as a war room: she comes through the door in silhouette, he is already sitting there, and the place is empty except for the presses [grid 2s: 06:04 the silhouette, 06:08/06:10 Bank at a table, 06:12 her face, 06:14 through 06:18 the SAFETY FIRST beam and the floor]",
+      "censor": "none",
+      "raw_duration_sec": 14.0,
+      "max_narration_words_en": 64,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:06:20.0",
+      "beat": "B46",
+      "clip_start": "01:06:20.0",
+      "clip_end": "01:06:34.0",
+      "chars": [
+        "Lynn",
+        "Bank",
+        "Grace",
+        "Pat"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "action": "All four of them in one room for the first time: Pat in the patterned shirt doing the talking, Bank in navy not moving, Grace and Lynn on either side of the machine [grid 2s: 06:20/06:22 Pat and Grace, 06:24 through 06:30 Pat and Bank facing off, 06:32 Grace, 06:34 Bank]",
+      "censor": "none",
+      "raw_duration_sec": 14.0,
+      "max_narration_words_en": 64,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:06:50.0",
+      "beat": "B46",
+      "clip_start": "01:06:50.0",
+      "clip_end": "01:06:58.0",
+      "chars": [],
+      "depicts": [
+        "discovery"
+      ],
+      "action": "INSERT: the plan is a web form. STIC Registration - personal info, test centre - and then the admission ticket itself, with her photograph, October 8 2016, and the test centre printed as University of Sydney [grid 2s: 06:50 the form, 06:54 the fields, 06:56 the ticket, 06:58 a hand on a marker]",
+      "censor": "none",
+      "raw_duration_sec": 8.0,
+      "max_narration_words_en": 36,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:07:04.0",
+      "beat": "B46",
+      "clip_start": "01:07:04.0",
+      "clip_end": "01:07:10.0",
+      "chars": [
+        "Lynn"
+      ],
+      "depicts": [
+        "setup"
+      ],
+      "action": "Money moving in the background of it - a car, an older woman sitting down with her, and a Teen Genius graphic open on a monitor [grid 2s: 07:04 the car, 07:06/07:08 the two of them, 07:10 the screen]",
+      "censor": "none",
+      "raw_duration_sec": 6.0,
+      "max_narration_words_en": 27,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:09:36.0",
+      "beat": "B47",
+      "clip_start": "01:09:36.0",
+      "clip_end": "01:09:42.0",
+      "chars": [
+        "Lynn",
+        "Grace",
+        "Pat",
+        "Bank"
+      ],
+      "depicts": [
+        "emotion"
+      ],
+      "action": "The night before: Lynn mid-sentence at the press, Pat and Grace hanging off each other laughing, Bank sitting apart looking at the floor - and then the bag, open, full of banknotes [grid 2s: 09:36 Lynn, 09:38 Pat and Grace, 09:40 Bank alone, 09:42 the cash]",
+      "censor": "none",
+      "raw_duration_sec": 6.0,
+      "max_narration_words_en": 27,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:09:48.0",
+      "beat": "B47",
+      "clip_start": "01:09:48.0",
+      "clip_end": "01:09:58.0",
+      "chars": [],
+      "depicts": [
+        "setup"
+      ],
+      "action": "UNIDENTIFIED - flagged, not guessed. A hard overhead of a public stairway: a woman in a pink dress lying across the steps, a student in white uniform crouched over her, other figures moving in and out of frame, a bag spilled on the landing. Read at 0.75s across the whole window and it still does not resolve into an event I can name, and it does not match the gate assault at 00:57:46 (different location, daylight, different clothing). Do NOT bind a narration line to this shot without settling what it is [dense 0.75s at 01:09:52: fifteen frames, 09:45-09:58]",
+      "censor": "none",
+      "raw_duration_sec": 10.0,
+      "max_narration_words_en": 45,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:10:12.0",
+      "beat": "B48",
+      "clip_start": "01:10:12.0",
+      "clip_end": "01:10:22.0",
+      "chars": [
+        "Pat"
+      ],
+      "depicts": [
+        "emotion"
+      ],
+      "action": "Pat alone at the interview table. He starts the answer laughing, and somewhere in the middle of it his hands go up over his face and stay there [grid 2s: 10:12/10:14 laughing, 10:16/10:18 both hands over the face, 10:20/10:22 doubled over the table]",
+      "censor": "none",
+      "raw_duration_sec": 10.0,
+      "max_narration_words_en": 45,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:10:24.0",
+      "beat": "B48",
+      "clip_start": "01:10:24.0",
+      "clip_end": "01:10:34.0",
+      "chars": [
+        "Pat"
+      ],
+      "depicts": [
+        "emotion"
+      ],
+      "action": "He keeps going and cannot get through it - talking with his hands folded, then covering his eyes again [grid 2s: 10:24 through 10:34, six frames, the same held front-on framing]",
+      "censor": "none",
+      "raw_duration_sec": 10.0,
+      "max_narration_words_en": 45,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:10:48.0",
+      "beat": "B48",
+      "clip_start": "01:10:48.0",
+      "clip_end": "01:10:53.0",
+      "chars": [
+        "Pat"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "action": "Pat at the interview table, front-on and lit, talking - this is the shot the reveal is SPOKEN in, and it sits after the 01:10:40 landing [grid 2s: 10:48/10:50/10:52, mouth open in all three, Lynn's striped sleeve across the foreground]",
+      "censor": "none",
+      "raw_duration_sec": 5.0,
+      "max_narration_words_en": 22,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:10:54.0",
+      "beat": "B48",
+      "clip_start": "01:10:54.0",
+      "clip_end": "01:10:58.0",
+      "chars": [
+        "Lynn",
+        "Grace",
+        "Bank"
+      ],
+      "depicts": [
+        "reaction"
+      ],
+      "action": "The print shop side of the intercut: Grace against the wall with her hands at her chin, Lynn at the table, Bank standing off in blue - nobody moving [grid 2s: 10:54/10:56, one framing]",
+      "censor": "none",
+      "raw_duration_sec": 4.0,
+      "max_narration_words_en": 17,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:10:58.0",
+      "beat": "B48",
+      "clip_start": "01:10:58.0",
+      "clip_end": "01:11:07.0",
+      "chars": [
+        "Pat"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "action": "Back to Pat, still talking, gesturing with one hand - the middle of the same answer [grid 2s: 10:58 through 11:06, five frames, all of them him]",
+      "censor": "none",
+      "raw_duration_sec": 9.0,
+      "max_narration_words_en": 40,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:11:12.0",
+      "beat": "B48",
+      "clip_start": "01:11:12.0",
+      "clip_end": "01:11:19.0",
+      "chars": [
+        "Pat"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "action": "Pat again with his hands folded in front of him, finishing it [grid 2s: 11:12 through 11:18, four frames]",
+      "censor": "none",
+      "raw_duration_sec": 7.0,
+      "max_narration_words_en": 31,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:11:32.0",
+      "beat": "B48",
+      "clip_start": "01:11:32.0",
+      "clip_end": "01:11:37.0",
+      "chars": [
+        "Bank"
+      ],
+      "depicts": [
+        "reaction"
+      ],
+      "action": "Held on Bank's face in profile in the print shop while it lands [grid 2s: 11:32/11:34/11:36, no cut away to Pat inside this window]",
+      "censor": "none",
+      "raw_duration_sec": 5.0,
+      "max_narration_words_en": 22,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:11:40.0",
+      "beat": "B49",
+      "clip_start": "01:11:40.0",
+      "clip_end": "01:11:50.0",
+      "chars": [
+        "Bank",
+        "Pat"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "action": "Bank comes over the desk at him and takes him down onto the floor of the print shop [grid 2s: 11:40 the lunge, 11:42 both on the ground, 11:44/11:46/11:48 the grapple, 11:50 the room going past in a blur]",
+      "censor": "none",
+      "raw_duration_sec": 10.0,
+      "max_narration_words_en": 45,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:11:52.0",
+      "beat": "B49",
+      "clip_start": "01:11:52.0",
+      "clip_end": "01:11:58.0",
+      "chars": [
+        "Grace",
+        "Lynn"
+      ],
+      "depicts": [
+        "reaction"
+      ],
+      "action": "The two women get out of the way of it - Grace with both hands over her mouth [grid 2s: 11:52/11:54 the fight, 11:56 Grace's face, 11:58 the room]",
+      "censor": "none",
+      "raw_duration_sec": 6.0,
+      "max_narration_words_en": 27,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:13:12.0",
+      "beat": "B50",
+      "clip_start": "01:13:12.0",
+      "clip_end": "01:13:24.0",
+      "chars": [
+        "Bank",
+        "Pat"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "action": "It ends with Bank's hand at Pat's throat, holding him flat against a wooden wall, the two of them nose to nose [grid 2s: 13:12/13:14 the hands going up, 13:16 through 13:24 pinned against the panelling]",
+      "censor": "none",
+      "raw_duration_sec": 12.0,
+      "max_narration_words_en": 54,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:13:42.0",
+      "beat": "B50",
+      "clip_start": "01:13:42.0",
+      "clip_end": "01:13:48.0",
+      "chars": [
+        "Lynn",
+        "Grace"
+      ],
+      "depicts": [
+        "reaction"
+      ],
+      "action": "Lynn and Grace side by side watching it, both crying, neither of them stepping in [grid 2s: 13:42/13:44/13:46/13:48, the same two-shot]",
+      "censor": "none",
+      "raw_duration_sec": 6.0,
+      "max_narration_words_en": 27,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:15:38.0",
+      "beat": "B50",
+      "clip_start": "01:15:38.0",
+      "clip_end": "01:16:04.0",
+      "chars": [
+        "Lynn",
+        "Grace"
+      ],
+      "depicts": [
+        "emotion"
+      ],
+      "action": "Afterwards, in a stairwell behind a folding gate: Grace cries and laughs in the same breath through the whole of it, and Lynn lets her [grid 2s: 15:38 the gate, 15:42 through 16:04, twelve frames, one continuous two-hander]",
+      "censor": "none",
+      "raw_duration_sec": 26.0,
+      "max_narration_words_en": 119,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:16:06.0",
+      "beat": "B50",
+      "clip_start": "01:16:06.0",
+      "clip_end": "01:16:32.0",
+      "chars": [
+        "Lynn",
+        "Grace"
+      ],
+      "depicts": [
+        "emotion"
+      ],
+      "action": "It goes on past the point where either of them has anything left to say, and ends with the two of them standing apart in the stairwell [grid 2s: 16:06 through 16:30, thirteen frames, then 16:32 the wide through the gate again]",
+      "censor": "none",
+      "raw_duration_sec": 26.0,
+      "max_narration_words_en": 119,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:16:34.0",
+      "beat": "B51",
+      "clip_start": "01:16:34.0",
+      "clip_end": "01:16:46.0",
+      "chars": [
+        "Lynn",
+        "Bank"
+      ],
+      "depicts": [
+        "setup"
+      ],
+      "action": "Night, a pedestrian footbridge lit green and red. Lynn is at the rail on her own - and then Bank walks onto the bridge behind her [grid 2s: 16:34/16:36 the bridge empty, 16:38/16:40 Lynn at the rail, 16:42/16:44/16:46 Bank arriving]",
+      "censor": "none",
+      "raw_duration_sec": 12.0,
+      "max_narration_words_en": 54,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:18:32.0",
+      "beat": "B52",
+      "clip_start": "01:18:32.0",
+      "clip_end": "01:18:42.0",
+      "chars": [
+        "Lynn",
+        "Bank"
+      ],
+      "depicts": [
+        "emotion"
+      ],
+      "action": "Sydney: Lynn and Bank at a harbour railing framed dead centre inside a stone arch, the Opera House small and white behind them, neither of them talking [grid 2s, re-verified: 18:32 through 18:42, six frames, the arch framing held throughout. CORRECTED: the 5s pass called it 'the day before' - the film gives a SYDNEY title at 18:14 but never dates this against the exam]",
+      "censor": "none",
+      "raw_duration_sec": 10.0,
+      "max_narration_words_en": 45,
+      "extendable": true,
+      "stretch_tolerance": 1.1,
+      "narration_silence_seconds": 8.0
+    },
+    {
+      "id": "clip:01:20:24.0",
+      "beat": "B53",
+      "clip_start": "01:20:24.0",
+      "clip_end": "01:20:30.0",
+      "chars": [
+        "Bank"
+      ],
+      "depicts": [
+        "setup"
+      ],
+      "action": "Sydney, exam morning: a STIC news bulletin playing on a hotel television, Bank eating alone at a table underneath it [grid 2s: 20:24 the screen, 20:26/20:28 Bank]",
+      "censor": "none",
+      "raw_duration_sec": 6.0,
+      "max_narration_words_en": 27,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:20:42.0",
+      "beat": "B53",
+      "clip_start": "01:20:42.0",
+      "clip_end": "01:20:54.0",
+      "chars": [
+        "Lynn",
+        "Bank"
+      ],
+      "depicts": [
+        "setup"
+      ],
+      "action": "On the train in, Lynn and Bank share one set of earphones and watch one phone between them - the last time they are on the same side of this [grid 2s: 20:42 through 20:52, six frames, framing unchanged]",
+      "censor": "none",
+      "raw_duration_sec": 12.0,
+      "max_narration_words_en": 54,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:21:04.0",
+      "beat": "B53",
+      "clip_start": "01:21:04.0",
+      "clip_end": "01:21:12.0",
+      "chars": [],
+      "depicts": [
+        "establishing"
+      ],
+      "action": "Arrival: overhead of candidates converging in the atrium, then the test administrator squaring up in front of them to set out the rules [grid 2s: 21:04/21:06 overhead, 21:08/21:10 the administrator]",
+      "censor": "none",
+      "raw_duration_sec": 8.0,
+      "max_narration_words_en": 36,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:21:33.0",
+      "beat": "B54",
+      "clip_start": "01:21:33.0",
+      "clip_end": "01:21:39.0",
+      "chars": [
+        "Lynn",
+        "Bank"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "action": "PARALLEL, overhead: two cubicles, two people crouching at the same moment - Lynn in one, Bank in the next - each working at something low on the wall [dense 0.75s: 21:33-21:38; the two cubicles are cut against each other, not one person twice]",
+      "censor": "none",
+      "raw_duration_sec": 6.0,
+      "max_narration_words_en": 27,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:21:39.0",
+      "beat": "B54",
+      "clip_start": "01:21:39.0",
+      "clip_end": "01:21:41.0",
+      "chars": [
+        "Lynn"
+      ],
+      "depicts": [
+        "emotion"
+      ],
+      "action": "Her own face looking back at her out of the open panel while her hands work below it - the last beat before the thing is actually done [dense 0.75s: 21:39/21:40, Lynn's reflection; Bank gets the identical shot at 21:48]",
+      "censor": "none",
+      "raw_duration_sec": 2.0,
+      "max_narration_words_en": 8,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:21:41.0",
+      "beat": "B54",
+      "clip_start": "01:21:41.0",
+      "clip_end": "01:21:47.0",
+      "chars": [
+        "Lynn"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "action": "Lynn's hands: a white wall fitting off its bracket on her lap, a phone in a clear bag taped inside it with black tape, the fitting closed again [dense 0.75s: 21:41-21:46, hands and sleeve in frame throughout]",
+      "censor": "none",
+      "raw_duration_sec": 6.0,
+      "max_narration_words_en": 27,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:21:47.0",
+      "beat": "B54",
+      "clip_start": "01:21:47.0",
+      "clip_end": "01:21:51.0",
+      "chars": [
+        "Bank"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "action": "Bank does exactly the same thing one cubicle over - his face in the fitting's panel, his hands taping [dense 0.75s: 21:47-21:49]",
+      "censor": "none",
+      "raw_duration_sec": 4.0,
+      "max_narration_words_en": 17,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:22:36.0",
+      "beat": "B55",
+      "clip_start": "01:22:36.0",
+      "clip_end": "01:22:48.0",
+      "chars": [],
+      "depicts": [
+        "setup"
+      ],
+      "action": "8:29:59 on the hall clock; the invigilator gives the word; seals come off; the card reads SECTION 1 - Reading Test, 52 QUESTIONS, 45 MINUTES [grid 2s: 22:36 clock, 22:38 invigilator, 22:40/22:42 papers, 22:44 card, 22:46 wide]",
+      "censor": "none",
+      "raw_duration_sec": 12.0,
+      "max_narration_words_en": 54,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:22:54.0",
+      "beat": "B56",
+      "clip_start": "01:22:54.0",
+      "clip_end": "01:23:00.0",
+      "chars": [
+        "Lynn"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "action": "Lynn opens the paper and starts reading - INSERT of the first question, 'As used in line 15, poor most nearly means' [grid 2s: 22:54/22:56 Lynn, 22:58 the question]",
+      "censor": "none",
+      "raw_duration_sec": 6.0,
+      "max_narration_words_en": 27,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:23:00.0",
+      "beat": "B56",
+      "clip_start": "01:23:00.0",
+      "clip_end": "01:23:08.0",
+      "chars": [],
+      "depicts": [
+        "action"
+      ],
+      "action": "INSERTS, hands only: bubbles going down the sheet in order - 19, 20, 21, then 23, 24, 25, then 26 - at the speed of somebody who is not reading the questions [grid 2s: 23:00 through 23:06]",
+      "censor": "none",
+      "raw_duration_sec": 8.0,
+      "max_narration_words_en": 36,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:23:14.0",
+      "beat": "B56",
+      "clip_start": "01:23:14.0",
+      "clip_end": "01:23:20.0",
+      "chars": [
+        "Bank"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "action": "Bank works his own paper head-down at the same speed, already sweating [grid 2s: 23:14/23:16/23:18]",
+      "censor": "none",
+      "raw_duration_sec": 6.0,
+      "max_narration_words_en": 27,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:24:02.0",
+      "beat": "B56",
+      "clip_start": "01:24:02.0",
+      "clip_end": "01:24:16.0",
+      "chars": [
+        "Lynn",
+        "Bank"
+      ],
+      "depicts": [
+        "montage"
+      ],
+      "action": "Section 1 running: Lynn with her eyes shut holding a block of answers in her head, Bank looking across at her, the hall clock at 9:14:59 [grid 2s: 24:02 through 24:16, seven frames, Lynn/Bank/insert/clock intercut]",
+      "censor": "none",
+      "raw_duration_sec": 14.0,
+      "max_narration_words_en": 64,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:24:48.0",
+      "beat": "B57",
+      "clip_start": "01:24:48.0",
+      "clip_end": "01:25:00.0",
+      "chars": [
+        "Grace",
+        "Pat"
+      ],
+      "depicts": [
+        "setup"
+      ],
+      "action": "Bangkok, the print shop: the shutter, and inside it the operations board - section timings, a barcode taped up, a map - with Grace and Pat waiting under it [grid 2s: 24:48/24:50 the sign, 24:52/24:54 the board, 24:56-25:00 the two of them]",
+      "censor": "none",
+      "raw_duration_sec": 12.0,
+      "max_narration_words_en": 54,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:25:12.0",
+      "beat": "B57",
+      "clip_start": "01:25:12.0",
+      "clip_end": "01:25:22.0",
+      "chars": [],
+      "depicts": [
+        "establishing"
+      ],
+      "action": "The delivery network: a hall of paying students packed at the shutter, and outside four ranks of motorbike couriers standing with their engines off, waiting [grid 2s: 25:12 the students, 25:14-25:20 the couriers]",
+      "censor": "none",
+      "raw_duration_sec": 10.0,
+      "max_narration_words_en": 45,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:25:32.0",
+      "beat": "B56",
+      "clip_start": "01:25:32.0",
+      "clip_end": "01:25:44.0",
+      "chars": [
+        "Lynn",
+        "Bank"
+      ],
+      "depicts": [
+        "montage"
+      ],
+      "action": "The relay opens: Bank lifts the bagged phone back out of the fitting, Lynn types the first block from her own cubicle - BACDCD / AABCDA / DBBCA [grid 2s: 25:32-25:36 Bank's hands, 25:38 Lynn, 25:40-25:44 the screen]",
+      "censor": "none",
+      "raw_duration_sec": 12.0,
+      "max_narration_words_en": 54,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:25:46.0",
+      "beat": "B56",
+      "clip_start": "01:25:46.0",
+      "clip_end": "01:26:00.0",
+      "chars": [
+        "Bank"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "action": "Bank reads the strings off the screen in a locked cubicle and mouths them back to himself, one block at a time [grid 2s: 25:46 through 25:58, Bank in frame except the two phone inserts]",
+      "censor": "none",
+      "raw_duration_sec": 14.0,
+      "max_narration_words_en": 64,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:26:20.0",
+      "beat": "B56",
+      "clip_start": "01:26:20.0",
+      "clip_end": "01:26:28.0",
+      "chars": [
+        "Bank"
+      ],
+      "depicts": [
+        "emotion"
+      ],
+      "action": "Extreme close-up: Bank's eyes and the sweat on the lid, holding thirty letters he is not allowed to write down [grid 2s: 26:20/26:22/26:24/26:26]",
+      "censor": "none",
+      "raw_duration_sec": 8.0,
+      "max_narration_words_en": 36,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:26:48.0",
+      "beat": "B58",
+      "clip_start": "01:26:48.0",
+      "clip_end": "01:26:58.0",
+      "chars": [
+        "Grace",
+        "Pat"
+      ],
+      "depicts": [
+        "reaction"
+      ],
+      "action": "Bangkok stops: Grace and Pat crowd one screen at the press and read the message that has just come in from Sydney [grid 2s: 26:48 the two of them, 26:50/26:52 the thread, 26:54-26:58 their faces]",
+      "censor": "none",
+      "raw_duration_sec": 10.0,
+      "max_narration_words_en": 45,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:27:40.0",
+      "beat": "B58",
+      "clip_start": "01:27:40.0",
+      "clip_end": "01:27:48.0",
+      "chars": [
+        "Grace"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "action": "Grace alone at the operations desk under the section board, negotiating by text with a boy locked in a toilet eight thousand kilometres away while the clock runs [grid 2s: 27:40/27:42 Grace, 27:44/27:46 the thread]",
+      "censor": "none",
+      "raw_duration_sec": 8.0,
+      "max_narration_words_en": 36,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:28:00.0",
+      "beat": "B58",
+      "clip_start": "01:28:00.0",
+      "clip_end": "01:28:12.0",
+      "chars": [
+        "Bank"
+      ],
+      "depicts": [
+        "discovery"
+      ],
+      "action": "INSERT: a bank app showing 485,000.00 paid in - then Bank's face as he reads the confirmation. He has just found out what he is worth mid-exam [grid 2s: 28:00 the balance, 28:02/28:04 Bank, 28:06/28:08 the thread, 28:10 Bank]",
+      "censor": "none",
+      "raw_duration_sec": 12.0,
+      "max_narration_words_en": 54,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:28:44.0",
+      "beat": "B59",
+      "clip_start": "01:28:44.0",
+      "clip_end": "01:28:52.0",
+      "chars": [],
+      "depicts": [
+        "action"
+      ],
+      "action": "The pencils are being made while the exam is still running: the flywheel, the finished heap, and an INSERT of the barcode going down the shaft of one - 4 902776 [grid 2s: 28:44/28:46 the press and the heap, 28:48/28:50 the barcode, 28:52 the room]",
+      "censor": "none",
+      "raw_duration_sec": 8.0,
+      "max_narration_words_en": 36,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:29:32.0",
+      "beat": "B56",
+      "clip_start": "01:29:32.0",
+      "clip_end": "01:29:40.0",
+      "chars": [],
+      "depicts": [
+        "setup"
+      ],
+      "action": "SECTION 2 - Writing and Language Test, 44 QUESTIONS, 25 MINUTES - and the pencil already going into C and D before the card is off the screen [grid 2s: 29:32/29:34 card, 29:36-29:40 inserts]",
+      "censor": "none",
+      "raw_duration_sec": 8.0,
+      "max_narration_words_en": 36,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:29:50.0",
+      "beat": "B56",
+      "clip_start": "01:29:50.0",
+      "clip_end": "01:29:58.0",
+      "chars": [],
+      "depicts": [
+        "setup"
+      ],
+      "action": "SECTION 3 - Math Test, Grid-In, 16 QUESTIONS, 20 MINUTES. The answers stop being letters here, which is the first thing the scheme was not built for [grid 2s: 29:50 card, 29:52-29:58 pencil and sheet]",
+      "censor": "none",
+      "raw_duration_sec": 8.0,
+      "max_narration_words_en": 36,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:30:04.0",
+      "beat": "B56",
+      "clip_start": "01:30:04.0",
+      "clip_end": "01:30:10.0",
+      "chars": [],
+      "depicts": [
+        "action"
+      ],
+      "action": "INSERT: grid-in answers written as digits in the boxes - 5, then 11.02 - each one having to be transmitted as a number, not a choice [grid 2s: 30:04/30:06 the grids, 30:08 the sheet]",
+      "censor": "none",
+      "raw_duration_sec": 6.0,
+      "max_narration_words_en": 27,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:30:28.0",
+      "beat": "B60",
+      "clip_start": "01:30:28.0",
+      "clip_end": "01:30:38.0",
+      "chars": [
+        "Lynn"
+      ],
+      "depicts": [
+        "setup"
+      ],
+      "action": "The women's toilets: a queue. Two other candidates ahead of her, and Lynn waiting with a phone she cannot take out yet [grid 2s: 30:28-30:38, six frames]",
+      "censor": "none",
+      "raw_duration_sec": 10.0,
+      "max_narration_words_en": 45,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:30:48.0",
+      "beat": "B60",
+      "clip_start": "01:30:48.0",
+      "clip_end": "01:30:54.0",
+      "chars": [
+        "Bank"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "action": "Bank sends the Section 3 block from the cubicle - BCADB / DCDAC / BDABC - and asks for the grid-in format back [grid 2s: 30:48 Bank, 30:50/30:52 the screen]",
+      "censor": "none",
+      "raw_duration_sec": 6.0,
+      "max_narration_words_en": 27,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:31:04.0",
+      "beat": "B60",
+      "clip_start": "01:31:04.0",
+      "clip_end": "01:31:12.0",
+      "chars": [],
+      "depicts": [
+        "setup"
+      ],
+      "action": "Outside the toilets the administrator has stopped in the corridor with a colleague; they are talking, and looking up [grid 2s: 31:04 through 31:10, four frames, same two men]",
+      "censor": "none",
+      "raw_duration_sec": 8.0,
+      "max_narration_words_en": 36,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:31:14.0",
+      "beat": "B60",
+      "clip_start": "01:31:14.0",
+      "clip_end": "01:31:22.0",
+      "chars": [
+        "Bank"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "action": "Section 3 has to go as digits, not letters: Bank thumbs 0.72, 107, 23, 0.3, 2.25 into the thread one grid-in at a time [grid 2s: 31:14/31:16 Bank, 31:18/31:20 the screen]",
+      "censor": "none",
+      "raw_duration_sec": 8.0,
+      "max_narration_words_en": 36,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:31:24.0",
+      "beat": "B60",
+      "clip_start": "01:31:24.0",
+      "clip_end": "01:31:28.0",
+      "chars": [],
+      "depicts": [
+        "setup"
+      ],
+      "action": "The administrator has stopped moving in the washroom and is listening at the cubicle doors [grid 2s: 31:24/31:26, same framing]",
+      "censor": "none",
+      "raw_duration_sec": 4.0,
+      "max_narration_words_en": 17,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:31:30.0",
+      "beat": "B60",
+      "clip_start": "01:31:30.0",
+      "clip_end": "01:31:36.0",
+      "chars": [
+        "Bank"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "action": "Bank opens the chat menu and deletes the thread - Chat / Archive / Remove [grid 2s: 31:30/31:32 Bank, 31:34 the menu]",
+      "censor": "none",
+      "raw_duration_sec": 6.0,
+      "max_narration_words_en": 27,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:31:40.0",
+      "beat": "B61",
+      "clip_start": "01:31:40.0",
+      "clip_end": "01:31:50.0",
+      "chars": [
+        "Bank"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "action": "Standing over the bowl he breaks something white underfoot; the pieces skid across the tiles [grid 2s: 31:40/31:42 him, 31:44 the shoe and fragments, 31:46/31:48 a piece on the floor]",
+      "censor": "none",
+      "raw_duration_sec": 10.0,
+      "max_narration_words_en": 45,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:32:02.0",
+      "beat": "B61",
+      "clip_start": "01:32:02.0",
+      "clip_end": "01:32:12.0",
+      "chars": [
+        "Bank"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "action": "He drops the phone into the pan, puts the lid down and holds it there with both hands while it flushes [grid 2s: 32:02 through 32:10]",
+      "censor": "none",
+      "raw_duration_sec": 10.0,
+      "max_narration_words_en": 45,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:32:12.0",
+      "beat": "B61",
+      "clip_start": "01:32:12.0",
+      "clip_end": "01:32:24.0",
+      "chars": [],
+      "depicts": [
+        "action"
+      ],
+      "action": "INSERT: the phone turning over in the bowl and going down - the only copy of what they sent [grid 2s: 32:12/32:14/32:16 the bowl, 32:20/32:22 the last of it]",
+      "censor": "none",
+      "raw_duration_sec": 12.0,
+      "max_narration_words_en": 54,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:32:28.0",
+      "beat": "B62",
+      "clip_start": "01:32:28.0",
+      "clip_end": "01:32:36.0",
+      "chars": [
+        "Lynn"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "action": "Overhead: two cubicles away Lynn is standing up on the seat with her papers, out of sight of the gap under the door, and then steps down [grid 2s: 32:28/32:30 overhead, 32:32/32:34 her getting down]",
+      "censor": "none",
+      "raw_duration_sec": 8.0,
+      "max_narration_words_en": 36,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:32:46.0",
+      "beat": "B62",
+      "clip_start": "01:32:46.0",
+      "clip_end": "01:33:04.0",
+      "chars": [
+        "Lynn"
+      ],
+      "depicts": [
+        "reaction"
+      ],
+      "action": "At the basins: a female invigilator washes her hands beside Lynn and neither of them looks away from the mirror; the administrator is standing in the doorway behind them [grid 2s: 32:46 through 33:02, nine frames, one continuous scene]",
+      "censor": "none",
+      "raw_duration_sec": 18.0,
+      "max_narration_words_en": 82,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:33:12.0",
+      "beat": "B62",
+      "clip_start": "01:33:12.0",
+      "clip_end": "01:33:24.0",
+      "chars": [
+        "Bank"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "action": "The administrator has Bank against the corridor wall with a finger in his face; Bank says nothing [grid 2s: 33:12/33:14/33:16, 33:20/33:22/33:24]",
+      "censor": "none",
+      "raw_duration_sec": 12.0,
+      "max_narration_words_en": 54,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:33:26.0",
+      "beat": "B62",
+      "clip_start": "01:33:26.0",
+      "clip_end": "01:33:34.0",
+      "chars": [
+        "Lynn"
+      ],
+      "depicts": [
+        "reaction"
+      ],
+      "action": "Lynn watches it from the far end of the corridor, crying, and then makes herself turn round and walk away [grid 2s: 33:26/33:28/33:30/33:32]",
+      "censor": "none",
+      "raw_duration_sec": 8.0,
+      "max_narration_words_en": 36,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:33:43.0",
+      "beat": "B63",
+      "clip_start": "01:33:43.0",
+      "clip_end": "01:33:54.0",
+      "chars": [
+        "Lynn"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "action": "At the water cooler she fills a cup, crouches, and takes something out of the top of her boot - the object is never shown in frame, at 2s or at 0.75s - and her hand goes over the cup before she drinks it [dense 0.75s: 33:43-33:54; the boot is in frame 33:49-33:53 and her hand covers whatever it is throughout]",
+      "censor": "none",
+      "raw_duration_sec": 11.0,
+      "max_narration_words_en": 50,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:34:18.0",
+      "beat": "B64",
+      "clip_start": "01:34:18.0",
+      "clip_end": "01:34:24.0",
+      "chars": [],
+      "depicts": [
+        "setup"
+      ],
+      "action": "Back at the desk in the hall, alone now; the clock reads 10:20:00 [grid 2s: 34:18/34:20 the room, 34:22 the clock]",
+      "censor": "none",
+      "raw_duration_sec": 6.0,
+      "max_narration_words_en": 27,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:34:26.0",
+      "beat": "B64",
+      "clip_start": "01:34:26.0",
+      "clip_end": "01:34:46.0",
+      "chars": [
+        "Lynn"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "action": "Section 4 with nobody on the other end: she works the paper herself, pencil down the sheet, face closing up [grid 2s: 34:26 through 34:46, eleven frames alternating her face and the sheet]",
+      "censor": "none",
+      "raw_duration_sec": 20.0,
+      "max_narration_words_en": 91,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:35:35.0",
+      "beat": "B65",
+      "clip_start": "01:35:35.0",
+      "clip_end": "01:35:55.0",
+      "chars": [
+        "Lynn"
+      ],
+      "depicts": [
+        "emotion"
+      ],
+      "action": "SIGNATURE IMAGE: alone on the last section with nothing left to write on, Lynn closes her eyes at the desk and plays - fingers moving on the desk edge, intercut with the lit upright piano at home, the keys, and the answers surfacing as letters (A A D / C D B / B C A). She is not remembering the answers, she is playing them [dense 0.75s: 35:35-35:54, the intercut pattern is continuous across the whole window]",
+      "censor": "none",
+      "raw_duration_sec": 20.0,
+      "max_narration_words_en": 91,
+      "extendable": true,
+      "stretch_tolerance": 1.1,
+      "narration_silence_seconds": 10.0
+    },
+    {
+      "id": "clip:01:36:26.0",
+      "beat": "B65",
+      "clip_start": "01:36:26.0",
+      "clip_end": "01:36:40.0",
+      "chars": [
+        "Lynn"
+      ],
+      "depicts": [
+        "montage"
+      ],
+      "action": "The exam hall cut against the upright at home, back and forth on every other frame, until her hands are flat on the desk edge working it like a keyboard [grid 2s: 36:26/36:30 the hall, 36:28/36:32 the piano, 36:36/36:38 her hands on the desk, 36:40 her face at the keys]",
+      "censor": "none",
+      "raw_duration_sec": 14.0,
+      "max_narration_words_en": 64,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:36:42.0",
+      "beat": "B65",
+      "clip_start": "01:36:42.0",
+      "clip_end": "01:37:02.0",
+      "chars": [
+        "Lynn"
+      ],
+      "depicts": [
+        "montage"
+      ],
+      "action": "Bubbles going down under the pencil, the piano, a whip-blur, more bubbles - question 29 - and her face coming back up out of it [grid 2s: 36:42 the sheet, 36:46/36:48/36:50 the piano, 36:52 the blur, 37:00 bubble 29, 37:02 her face]",
+      "censor": "none",
+      "raw_duration_sec": 20.0,
+      "max_narration_words_en": 91,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:37:34.0",
+      "beat": "B66",
+      "clip_start": "01:37:34.0",
+      "clip_end": "01:37:38.0",
+      "chars": [],
+      "depicts": [
+        "setup"
+      ],
+      "action": "The hall clock rolls 10:57:59 to 11:00 and the invigilator stands up to announce the last section [grid 2s: 37:34/37:36 the clock, 37:38 the invigilator]",
+      "censor": "none",
+      "raw_duration_sec": 4.0,
+      "max_narration_words_en": 17,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:37:46.0",
+      "beat": "B66",
+      "clip_start": "01:37:46.0",
+      "clip_end": "01:37:52.0",
+      "chars": [],
+      "depicts": [
+        "discovery"
+      ],
+      "action": "INSERT: the essay paper - 'Lighting Your Way to a Better Future', Nelson Mandela, Johannesburg. There is nobody to send this to and no letters to send [grid 2s: 37:46 the header, 37:48/37:50/37:52 the prompt panning across]",
+      "censor": "none",
+      "raw_duration_sec": 6.0,
+      "max_narration_words_en": 27,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:37:54.0",
+      "beat": "B66",
+      "clip_start": "01:37:54.0",
+      "clip_end": "01:38:12.0",
+      "chars": [
+        "Lynn"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "action": "She writes it herself, the only honest work she does all morning [grid 2s: 37:54 through 38:12, ten frames, her over the paper and the hall around her]",
+      "censor": "none",
+      "raw_duration_sec": 18.0,
+      "max_narration_words_en": 82,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:38:14.0",
+      "beat": "B66",
+      "clip_start": "01:38:14.0",
+      "clip_end": "01:38:24.0",
+      "chars": [
+        "Lynn"
+      ],
+      "depicts": [
+        "setup"
+      ],
+      "action": "She puts the pencil in her mouth and holds it there, looking at nothing, deciding [grid 2s: 38:14/38:16/38:18 the pencil held in her teeth, 38:20/38:22 the wide, 38:24 back close]",
+      "censor": "none",
+      "raw_duration_sec": 10.0,
+      "max_narration_words_en": 45,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:38:26.0",
+      "beat": "B66",
+      "clip_start": "01:38:26.0",
+      "clip_end": "01:38:38.0",
+      "chars": [
+        "Lynn"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "action": "She pushes it back into her throat until she gags, then does it again with her fingers [grid 2s: 38:26/38:28/38:30/38:32 her mouth open on the pencil, 38:34/38:36 doubling over, 38:38 the hand]",
+      "censor": "none",
+      "raw_duration_sec": 12.0,
+      "max_narration_words_en": 54,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:38:40.0",
+      "beat": "B66",
+      "clip_start": "01:38:40.0",
+      "clip_end": "01:38:52.0",
+      "chars": [
+        "Lynn"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "action": "She is sick at the desk in front of the whole room [grid 2s: 38:40/38:42 her doubled over, 38:44/38:46/38:48/38:50 the close inserts, 38:52 collapsed on the paper]",
+      "censor": "none",
+      "raw_duration_sec": 12.0,
+      "max_narration_words_en": 54,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:38:56.0",
+      "beat": "B66",
+      "clip_start": "01:38:56.0",
+      "clip_end": "01:39:10.0",
+      "chars": [
+        "Lynn"
+      ],
+      "depicts": [
+        "reaction"
+      ],
+      "action": "The hall turns to look; an invigilator gets an arm under her and walks her out past all of them [grid 2s: 38:56/38:58 the other candidates, 39:00 through 39:08 the invigilator lifting her, 39:10 the room watching her go]",
+      "censor": "none",
+      "raw_duration_sec": 14.0,
+      "max_narration_words_en": 64,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:39:36.0",
+      "beat": "B67",
+      "clip_start": "01:39:36.0",
+      "clip_end": "01:39:42.0",
+      "chars": [
+        "Lynn"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "action": "Out of the room and moving: a hand at the basin, the black boot, and a hard canted overhead of the corridor as she goes [grid 2s: 39:36 the basin, 39:38 the boot, 39:40/39:42 the tilted overheads]",
+      "censor": "none",
+      "raw_duration_sec": 6.0,
+      "max_narration_words_en": 27,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:40:06.0",
+      "beat": "B67",
+      "clip_start": "01:40:06.0",
+      "clip_end": "01:40:22.0",
+      "chars": [
+        "Lynn"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "action": "She runs the length of the building - corridor, book stacks, the long glazed hall - and the administrator is already at the far end of it [grid 2s: 40:06/40:08 running, 40:12 him in the doorway, 40:16/40:18 through the stacks, 40:20/40:22 the empty hall]",
+      "censor": "none",
+      "raw_duration_sec": 16.0,
+      "max_narration_words_en": 73,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:40:38.0",
+      "beat": "B68",
+      "clip_start": "01:40:38.0",
+      "clip_end": "01:40:46.0",
+      "chars": [],
+      "depicts": [
+        "discovery"
+      ],
+      "action": "The administrator walks into the exam hall holding one printed sheet and puts it in front of the invigilators - the leak has come back round to them [grid 2s: 40:38/40:40 him crossing the hall, 40:42/40:44 the sheet in his hand]",
+      "censor": "none",
+      "raw_duration_sec": 8.0,
+      "max_narration_words_en": 36,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:40:48.0",
+      "beat": "B68",
+      "clip_start": "01:40:48.0",
+      "clip_end": "01:41:16.0",
+      "chars": [
+        "Lynn"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "action": "The stairwell: she goes down, he comes down after her, and the camera keeps losing one of them behind the flights [grid 2s: 40:48 through 41:16, fifteen frames, alternating her descending and him following]",
+      "censor": "none",
+      "raw_duration_sec": 28.0,
+      "max_narration_words_en": 128,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:41:18.0",
+      "beat": "B68",
+      "clip_start": "01:41:18.0",
+      "clip_end": "01:41:22.0",
+      "chars": [
+        "Lynn"
+      ],
+      "depicts": [
+        "emotion"
+      ],
+      "action": "She stops on the half-landing and looks back up, and the face is the first time all film she has looked frightened rather than calculating [grid 2s: 41:18/41:20/41:22]",
+      "censor": "none",
+      "raw_duration_sec": 4.0,
+      "max_narration_words_en": 17,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:41:32.0",
+      "beat": "B68",
+      "clip_start": "01:41:32.0",
+      "clip_end": "01:41:42.0",
+      "chars": [
+        "Lynn"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "action": "Out of the building into daylight, past a WATER REFILL STATION flag, phone already up [grid 2s: 41:32/41:34 the door, 41:36/41:38 the phone, 41:40/41:42 the campus]",
+      "censor": "none",
+      "raw_duration_sec": 10.0,
+      "max_narration_words_en": 45,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:42:00.0",
+      "beat": "B69",
+      "clip_start": "01:42:00.0",
+      "clip_end": "01:42:04.0",
+      "chars": [
+        "Lynn"
+      ],
+      "depicts": [
+        "establishing"
+      ],
+      "action": "Through the ticket gates into the South Concourse at Redfern, still typing [grid 2s: 42:00 the gates, 42:02 her in the concourse]",
+      "censor": "none",
+      "raw_duration_sec": 4.0,
+      "max_narration_words_en": 17,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:42:12.0",
+      "beat": "B69",
+      "clip_start": "01:42:12.0",
+      "clip_end": "01:42:26.0",
+      "chars": [
+        "Lynn"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "action": "He has followed her underground. She ties her hair up as she walks - the one thing about her he could recognise from behind - and goes past him [grid 2s: 42:12/42:14 him in the tunnel, 42:16/42:18 her arms up in her hair, 42:20 the tunnel, 42:24/42:26 him searching, her walking off]",
+      "censor": "none",
+      "raw_duration_sec": 14.0,
+      "max_narration_words_en": 64,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:42:28.0",
+      "beat": "B69",
+      "clip_start": "01:42:28.0",
+      "clip_end": "01:42:30.0",
+      "chars": [],
+      "depicts": [
+        "discovery"
+      ],
+      "action": "INSERT: what she is actually typing is a search - the speech transcript, 16 July - she is answering the essay from a station platform [grid 2s: 42:28 the search field, 42:30 the phone face-up]",
+      "censor": "none",
+      "raw_duration_sec": 2.0,
+      "max_narration_words_en": 8,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:44:24.0",
+      "beat": "B70",
+      "clip_start": "01:44:24.0",
+      "clip_end": "01:44:32.0",
+      "chars": [
+        "Pat"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "action": "Outside the print shop in Bangkok the buyers have arrived in person and are crowding Pat, who has nothing to give them yet [grid 2s: 44:24 the scrum, 44:26 the shopfront, 44:28/44:30/44:32 Pat hemmed in]",
+      "censor": "none",
+      "raw_duration_sec": 8.0,
+      "max_narration_words_en": 36,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:44:34.0",
+      "beat": "B70",
+      "clip_start": "01:44:34.0",
+      "clip_end": "01:44:38.0",
+      "chars": [],
+      "depicts": [
+        "discovery"
+      ],
+      "action": "INSERT: a browser searching the essay title, and the Nelson Mandela speech coming back as the first result - the one section that cannot be reduced to letters is the one anybody can look up [grid 2s: 44:34 the blank search, 44:36/44:38 the results]",
+      "censor": "none",
+      "raw_duration_sec": 4.0,
+      "max_narration_words_en": 17,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:44:48.0",
+      "beat": "B70",
+      "clip_start": "01:44:48.0",
+      "clip_end": "01:44:52.0",
+      "chars": [
+        "Pat"
+      ],
+      "depicts": [
+        "reaction"
+      ],
+      "action": "Every buyer in the yard on a phone at the same moment, heads down together [grid 2s: 44:48/44:50/44:52]",
+      "censor": "none",
+      "raw_duration_sec": 4.0,
+      "max_narration_words_en": 17,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:45:04.0",
+      "beat": "B70",
+      "clip_start": "01:45:04.0",
+      "clip_end": "01:45:10.0",
+      "chars": [],
+      "depicts": [
+        "action"
+      ],
+      "action": "The press: a barcode and a plate number, a finger on the mouse, the rollers coming up to speed [grid 2s: 45:04 the barcode, 45:06 the click, 45:08 the roller, 45:10 the shop wide]",
+      "censor": "none",
+      "raw_duration_sec": 6.0,
+      "max_narration_words_en": 27,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:45:26.0",
+      "beat": "B69",
+      "clip_start": "01:45:26.0",
+      "clip_end": "01:45:58.0",
+      "chars": [
+        "Lynn"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "action": "Down to the platform and along it: the train in, the doors, the length of the carriages, the Way Out signs, phone never lowered [grid 2s: 45:26 through 45:58, seventeen frames, one continuous run]",
+      "censor": "none",
+      "raw_duration_sec": 32.0,
+      "max_narration_words_en": 147,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:46:00.0",
+      "beat": "B69",
+      "clip_start": "01:46:00.0",
+      "clip_end": "01:46:34.0",
+      "chars": [
+        "Lynn"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "action": "The escalators. She rides up in a crowd; he rides up behind her in the same crowd; the REDFERN tilework goes past between them [grid 2s: 46:00 through 46:34, eighteen frames, her on the phone and him closing]",
+      "censor": "none",
+      "raw_duration_sec": 34.0,
+      "max_narration_words_en": 156,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:46:56.0",
+      "beat": "B71",
+      "clip_start": "01:46:56.0",
+      "clip_end": "01:47:00.0",
+      "chars": [
+        "Lynn"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "action": "INSERT: DBDCA lands at 11:22 and she starts typing CABB under it, one hand, on a platform [grid 2s: 46:56 the received line, 46:58 CABB going in, 47:00 her on the platform]",
+      "censor": "none",
+      "raw_duration_sec": 4.0,
+      "max_narration_words_en": 17,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:47:08.0",
+      "beat": "B70",
+      "clip_start": "01:47:08.0",
+      "clip_end": "01:47:12.0",
+      "chars": [],
+      "depicts": [
+        "action"
+      ],
+      "action": "The couriers pull away into the street with it - a hand on a throttle, then a rank of orange vests emptying [grid 2s: 47:08 the throttle, 47:10/47:12 the bikes going]",
+      "censor": "none",
+      "raw_duration_sec": 4.0,
+      "max_narration_words_en": 17,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:47:26.0",
+      "beat": "B71",
+      "clip_start": "01:47:26.0",
+      "clip_end": "01:47:40.0",
+      "chars": [
+        "Lynn"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "action": "Platform 12, under a No Exit sign, running its whole length for a signal [grid 2s: 47:26 the sign, 47:28/47:30/47:32/47:34 her running, 47:36 her face, 47:38/47:40 a vending machine going past]",
+      "censor": "none",
+      "raw_duration_sec": 14.0,
+      "max_narration_words_en": 64,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:47:42.0",
+      "beat": "B71",
+      "clip_start": "01:47:42.0",
+      "clip_end": "01:47:54.0",
+      "chars": [
+        "Lynn"
+      ],
+      "depicts": [
+        "emotion"
+      ],
+      "action": "Head back, eyes shut, sweating, crying - she has sent it and there is nothing left to do with her hands [grid 2s: 47:42/47:44 head back, 47:48 the phone, 47:50/47:52/47:54 her face]",
+      "censor": "none",
+      "raw_duration_sec": 12.0,
+      "max_narration_words_en": 54,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:47:56.0",
+      "beat": "B71",
+      "clip_start": "01:47:56.0",
+      "clip_end": "01:47:58.0",
+      "chars": [],
+      "depicts": [
+        "discovery"
+      ],
+      "action": "INSERT: the finished thread - DABABC, CDDCBA, DBDCAB, CABBCD - a whole national paper as four lines of text [grid 2s: 47:56 the thread, 47:58 Bangkok picking it up]",
+      "censor": "none",
+      "raw_duration_sec": 2.0,
+      "max_narration_words_en": 8,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:48:44.0",
+      "beat": "B72",
+      "clip_start": "01:48:44.0",
+      "clip_end": "01:49:00.0",
+      "chars": [
+        "Lynn"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "action": "A hand closes on her arm and he has her against the REDFERN tiles, a finger up in her face, the platform behind them completely empty [grid 2s: 48:44/48:46 the grab, 48:48/48:50 him talking at her, 48:52/48:54/48:56 her cornered against the letters, 48:58/49:00 side by side]",
+      "censor": "none",
+      "raw_duration_sec": 16.0,
+      "max_narration_words_en": 73,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:49:04.0",
+      "beat": "B72",
+      "clip_start": "01:49:04.0",
+      "clip_end": "01:49:16.0",
+      "chars": [
+        "Lynn"
+      ],
+      "depicts": [
+        "reaction"
+      ],
+      "action": "He takes the bag off her shoulder and the film cuts to black on her face [grid 2s: 49:04 her face, 49:06/49:08 the bag being taken, 49:10 her walked off, 49:16 black]",
+      "censor": "none",
+      "raw_duration_sec": 12.0,
+      "max_narration_words_en": 54,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:49:22.0",
+      "beat": "B72",
+      "clip_start": "01:49:22.0",
+      "clip_end": "01:49:50.0",
+      "chars": [
+        "Lynn"
+      ],
+      "depicts": [
+        "emotion"
+      ],
+      "action": "Held: nearly half a minute on Lynn's face while she is questioned, looking up at someone we are not shown, saying almost nothing [grid 2s: 49:22 through 49:50, fifteen frames, the same close-up throughout; the STIC staff member appears only at 49:42/49:44]",
+      "censor": "none",
+      "raw_duration_sec": 28.0,
+      "max_narration_words_en": 128,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:49:52.0",
+      "beat": "B72",
+      "clip_start": "01:49:52.0",
+      "clip_end": "01:50:06.0",
+      "chars": [
+        "Lynn",
+        "Bank"
+      ],
+      "depicts": [
+        "discovery"
+      ],
+      "action": "The wide shows they have been in the same room the whole time, seated apart among the shelves - and the thing on the phone between them is a photograph of the two of them together [grid 2s: 49:52 through 50:00 the wide, 50:02/50:04 the photo, 50:06 the delete prompt]",
+      "censor": "none",
+      "raw_duration_sec": 14.0,
+      "max_narration_words_en": 64,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:50:08.0",
+      "beat": "B72",
+      "clip_start": "01:50:08.0",
+      "clip_end": "01:50:22.0",
+      "chars": [
+        "Bank"
+      ],
+      "depicts": [
+        "reaction"
+      ],
+      "action": "Bank at the bare table by himself, and Lynn across the room not looking at him [grid 2s: 50:08/50:10/50:12 her, 50:14/50:16 him alone, 50:18/50:20/50:22 her looking away]",
+      "censor": "none",
+      "raw_duration_sec": 14.0,
+      "max_narration_words_en": 64,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:50:38.0",
+      "beat": "B72",
+      "clip_start": "01:50:38.0",
+      "clip_end": "01:50:51.0",
+      "chars": [
+        "Bank"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "action": "Bank front-on in the bright room, making his own statement to the investigators - visibly speaking across the whole window [grid 2s: 50:38/50:40 talking, 50:46/50:48/50:50 talking, intercut with Lynn at 50:42/50:44 who is NOT in this window]",
+      "censor": "none",
+      "raw_duration_sec": 13.0,
+      "max_narration_words_en": 59,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:50:52.0",
+      "beat": "B72",
+      "clip_start": "01:50:52.0",
+      "clip_end": "01:51:02.0",
+      "chars": [
+        "Lynn"
+      ],
+      "depicts": [
+        "reaction"
+      ],
+      "action": "Lynn hearing it from the other side of the glass, and the shot stays on her for five frames without going back to him [grid 2s: 50:52 through 51:02]",
+      "censor": "none",
+      "raw_duration_sec": 10.0,
+      "max_narration_words_en": 45,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:53:20.0",
+      "beat": "B74",
+      "clip_start": "01:53:20.0",
+      "clip_end": "01:53:58.0",
+      "chars": [
+        "Lynn",
+        "Lynn's father"
+      ],
+      "depicts": [
+        "emotion"
+      ],
+      "action": "Arrivals: her father is waiting past the barrier and she does not run at him. They stand and talk for the better part of half a minute, her face holding, and only then does it go and he takes hold of her [grid 2s, re-verified: 53:20/53:22 the meeting, 53:24 through 53:48 the two of them talking, 53:50/53:52/53:54 her face going, 53:56/53:58 the embrace. CORRECTED twice: the 5s pass said the embrace was 'the first thing she does', and named the airport Don Mueang, which is nowhere in frame. Shot end pulled back from 01:54:10 to 01:53:58, the limit of what has actually been looked at]",
+      "censor": "none",
+      "raw_duration_sec": 38.0,
+      "max_narration_words_en": 174,
+      "extendable": true,
+      "stretch_tolerance": 1.1,
+      "narration_silence_seconds": 8.0
+    },
+    {
+      "id": "clip:01:54:16.0",
+      "beat": "B75",
+      "clip_start": "01:54:16.0",
+      "clip_end": "01:54:32.0",
+      "chars": [
+        "Lynn"
+      ],
+      "depicts": [
+        "emotion"
+      ],
+      "action": "She sits down on her own in the arrivals hall with her case beside her, and the shot keeps widening until she is one small figure in an enormous empty concourse [grid 2s: 54:16 through 54:22 the bench, 54:28/54:30/54:32 the full wide]",
+      "censor": "none",
+      "raw_duration_sec": 16.0,
+      "max_narration_words_en": 73,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:54:34.0",
+      "beat": "B75",
+      "clip_start": "01:54:34.0",
+      "clip_end": "01:54:46.0",
+      "chars": [
+        "Lynn"
+      ],
+      "depicts": [
+        "setup"
+      ],
+      "action": "Back at school, in uniform with a white bow, waiting in a corridor outside an office [grid 2s: 54:34 through 54:46, seven frames, the same profile]",
+      "censor": "none",
+      "raw_duration_sec": 12.0,
+      "max_narration_words_en": 54,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:54:48.0",
+      "beat": "B75",
+      "clip_start": "01:54:48.0",
+      "clip_end": "01:55:02.0",
+      "chars": [
+        "Grace",
+        "Pat"
+      ],
+      "depicts": [
+        "montage"
+      ],
+      "action": "The party: gold balloons, confetti in the air, and everybody in a printed T-shirt that says STIC 1460 - the score they bought [grid 2s: 54:48/54:50/54:52 the room, 54:54/54:56 Grace and Pat, 54:58 a boy in glasses laughing, 55:00/55:02 the shirts in close-up]",
+      "censor": "none",
+      "raw_duration_sec": 14.0,
+      "max_narration_words_en": 64,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:55:04.0",
+      "beat": "B75",
+      "clip_start": "01:55:04.0",
+      "clip_end": "01:55:10.0",
+      "chars": [
+        "Lynn"
+      ],
+      "depicts": [
+        "reaction"
+      ],
+      "action": "Cut back to her in the corridor. She is not in a single frame of it [grid 2s: 55:04/55:06/55:08 the corridor, 55:10 her face]",
+      "censor": "none",
+      "raw_duration_sec": 6.0,
+      "max_narration_words_en": 27,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:57:20.0",
+      "beat": "B76",
+      "clip_start": "01:57:20.0",
+      "clip_end": "01:57:34.0",
+      "chars": [
+        "Lynn"
+      ],
+      "depicts": [
+        "setup"
+      ],
+      "action": "Night. She walks up to a shopfront that is lit and open, and stops outside it; on the ground by the kerb there is a discarded STIC T-shirt [grid 2s: 57:20 through 57:30 her approaching, 57:32 the shirt, 57:34 her face]",
+      "censor": "none",
+      "raw_duration_sec": 14.0,
+      "max_narration_words_en": 64,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:57:40.0",
+      "beat": "B76",
+      "clip_start": "01:57:40.0",
+      "clip_end": "01:57:44.0",
+      "chars": [],
+      "depicts": [
+        "discovery"
+      ],
+      "action": "The sign over the shop: MISTER BANK, wash-dry-press. His name is on the building now [grid 2s: 57:40 the sign, 57:42/57:44 a row of new machines still in their bubble wrap]",
+      "censor": "none",
+      "raw_duration_sec": 4.0,
+      "max_narration_words_en": 17,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:57:46.0",
+      "beat": "B76",
+      "clip_start": "01:57:46.0",
+      "clip_end": "01:57:54.0",
+      "chars": [
+        "Lynn"
+      ],
+      "depicts": [
+        "reaction"
+      ],
+      "action": "She takes in what the money bought - the machines, and a new scooter parked at the door - before she goes in [grid 2s: 57:46 through 57:50 her looking, 57:52/57:54 the scooter]",
+      "censor": "none",
+      "raw_duration_sec": 8.0,
+      "max_narration_words_en": 36,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:57:56.0",
+      "beat": "B77",
+      "clip_start": "01:57:56.0",
+      "clip_end": "01:58:00.0",
+      "chars": [
+        "Bank"
+      ],
+      "depicts": [
+        "establishing"
+      ],
+      "action": "He is already standing in the middle of his own shop with his arms folded, waiting for her [grid 2s: 57:56 the doorway, 57:58/58:00 him in the wide]",
+      "censor": "none",
+      "raw_duration_sec": 4.0,
+      "max_narration_words_en": 17,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:58:02.0",
+      "beat": "B77",
+      "clip_start": "01:58:02.0",
+      "clip_end": "01:58:22.0",
+      "chars": [
+        "Lynn",
+        "Bank"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "action": "The two of them either side of the room: her against a wooden door in the light, him in shadow, and he does most of the talking [grid 2s: 58:02 through 58:22, eleven frames, shot and reverse]",
+      "censor": "none",
+      "raw_duration_sec": 20.0,
+      "max_narration_words_en": 91,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:01:58:24.0",
+      "beat": "B77",
+      "clip_start": "01:58:24.0",
+      "clip_end": "01:58:46.0",
+      "chars": [
+        "Lynn",
+        "Bank"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "action": "He keeps going, and by the end of it there is a piece of paper in his hand that he wants her to look at [grid 2s: 58:24 through 58:44 the reverses, 58:46 the paper]",
+      "censor": "none",
+      "raw_duration_sec": 22.0,
+      "max_narration_words_en": 101,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:02:00:00.0",
+      "beat": "B78",
+      "clip_start": "02:00:00.0",
+      "clip_end": "02:00:22.0",
+      "chars": [
+        "Lynn",
+        "Bank"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "action": "Tight profiles now, cutting faster between them, neither one giving ground [grid 2s: 00:00 through 00:22, twelve frames alternating]",
+      "censor": "none",
+      "raw_duration_sec": 22.0,
+      "max_narration_words_en": 101,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:02:00:24.0",
+      "beat": "B78",
+      "clip_start": "02:00:24.0",
+      "clip_end": "02:00:46.0",
+      "chars": [
+        "Lynn",
+        "Bank"
+      ],
+      "depicts": [
+        "reaction"
+      ],
+      "action": "He says whatever he says, and the camera stays on her face through the length of it [grid 2s: 00:24 through 00:36 him, 00:38 through 00:46 held on her]",
+      "censor": "none",
+      "raw_duration_sec": 22.0,
+      "max_narration_words_en": 101,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:02:00:48.0",
+      "beat": "B78",
+      "clip_start": "02:00:48.0",
+      "clip_end": "02:01:10.0",
+      "chars": [
+        "Lynn",
+        "Bank"
+      ],
+      "depicts": [
+        "emotion"
+      ],
+      "action": "She has stopped answering. He is still talking when she turns towards the door [grid 2s: 00:48 through 00:58 the two of them, 01:00/01:02 her at the doorway, 01:04 through 01:10 him left alone in frame]",
+      "censor": "none",
+      "raw_duration_sec": 22.0,
+      "max_narration_words_en": 101,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:02:02:24.0",
+      "beat": "B79",
+      "clip_start": "02:02:24.0",
+      "clip_end": "02:02:32.0",
+      "chars": [
+        "Lynn",
+        "Lynn's father"
+      ],
+      "depicts": [
+        "emotion"
+      ],
+      "action": "A white corridor, over-lit to nothing: her father sits beside her on a row of chairs outside a door, and a man in a suit walks past them and goes in [grid 2s: 02:24 the two of them close, 02:26 through 02:32 the long white wide]",
+      "censor": "none",
+      "raw_duration_sec": 8.0,
+      "max_narration_words_en": 36,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:02:02:56.0",
+      "beat": "B79",
+      "clip_start": "02:02:56.0",
+      "clip_end": "02:03:08.0",
+      "chars": [
+        "Lynn",
+        "Bank"
+      ],
+      "depicts": [
+        "emotion"
+      ],
+      "action": "Back in the laundry, held on her face with Bank soft behind her, for six frames in which she does not answer him [grid 2s: 02:56 through 03:08, the same close-up throughout]",
+      "censor": "none",
+      "raw_duration_sec": 12.0,
+      "max_narration_words_en": 54,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:02:03:10.0",
+      "beat": "B79",
+      "clip_start": "02:03:10.0",
+      "clip_end": "02:03:22.0",
+      "chars": [
+        "Lynn"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "action": "She turns round and walks out of his shop [grid 2s: 03:10 her back, 03:12 through 03:18 her looking round once, 03:20/03:22 her going through the door]",
+      "censor": "none",
+      "raw_duration_sec": 12.0,
+      "max_narration_words_en": 54,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    },
+    {
+      "id": "clip:02:03:24.0",
+      "beat": "B80",
+      "clip_start": "02:03:24.0",
+      "clip_end": "02:03:34.0",
+      "chars": [
+        "Lynn"
+      ],
+      "depicts": [
+        "reveal"
+      ],
+      "action": "The white room: a camera on a tripod, a man in a grey suit setting it up, and Lynn standing in front of the lens before she sits down to it [grid 2s: 03:24 the corridor, 03:26/03:28 her at the tripod, 03:30/03:32 her leaning to the table, 03:34 Bank, one last time]",
+      "censor": "none",
+      "raw_duration_sec": 10.0,
+      "max_narration_words_en": 45,
+      "extendable": true,
+      "stretch_tolerance": 1.1
+    }
+  ]
+}

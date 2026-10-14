@@ -1,0 +1,15 @@
+{
+ "shot": "shot211",
+ "depicts": [
+  "reaction",
+  "emotion"
+ ],
+ "chars": [
+  "Lynn",
+  "(khong ro)"
+ ],
+ "censor": "none",
+ "action": "The two of them held apart by the cut. Lynn stands in the fluorescent-lit room with her head lowered and her face strained; against her, a young man sits alone on a chair beside a table in a bare room, head bowed, seen past a blurred figure planted in the foreground - the framing of someone being questioned, watched from behind the questioner's shoulder. The beat is B72 (01:49:20), which puts only Lynn and Bank in these two rooms, so the young man is Bank. Neither of them is shown speaking: this is the intercut AROUND the denial, not the shot it is spoken in, and a writer who needs the line itself has to go elsewhere for it. What this window carries instead is the geometry - the camera never once puts them in the same frame, so the thing that decides what happens to Lynn is going on in the other half of the cut, out of her sight and with her standing still for it. Fourteen seconds, in a film whose median shot is three, on two people who will not lift their heads. Per the reveal-map hold on R2, Bank here is the one taking the fall; nothing in the shot is the first sign of a turn.",
+ "pass2": "rewritten",
+ "pass2_added": "(khong ro) young man resolved to Bank in the action text - B72 (01:49:20-01:51:30) covers this window and places only Lynn and Bank in the two rooms, and the plot has Bank detained in the test centre while Lynn is brought back. chars left unchanged per pass-two scope."
+}

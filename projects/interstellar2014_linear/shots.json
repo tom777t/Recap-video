@@ -865,9 +865,9 @@
       ],
       "censor": "none",
       "action": "Miller's planet: the Ranger sits in shin-deep water under a grey sky, the crew wading, no land anywhere. (window re-anchored 2026-08-11 by frame check)",
-      "raw_duration_sec": 7.0,
+      "raw_duration_sec": 22.0,
       "max_play_duration_sec": 7.7,
-      "max_narration_words_en": 31,
+      "max_narration_words_en": 101,
       "extendable": true,
       "stretch_tolerance": 1.1
     },
@@ -1226,9 +1226,9 @@
       "censor": "none",
       "action": "Murph's face as Brand's deathbed confession lands - NASA never meant to save the people on Earth. (window re-anchored 2026-08-11 from transcript + frame check)",
       "exposure_lift": 0.18,
-      "raw_duration_sec": 9.0,
+      "raw_duration_sec": 10.0,
       "max_play_duration_sec": 9.0,
-      "max_narration_words_en": 40,
+      "max_narration_words_en": 45,
       "extendable": false,
       "stretch_tolerance": 1.1
     },

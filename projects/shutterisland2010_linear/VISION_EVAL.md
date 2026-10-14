@@ -116,8 +116,8 @@ Mot cau ta cai dang xay ra tren man hinh.
 ![shot01_07.jpg](vision_eval/shot01_07.jpg)
 
 - depicts: dialogue
-- chars: Teddy Daniels, Chuck Aule
-- action: On the deck of a ferry crossing to the island, the two marshals stand at the rail talking, the sea and a chain-link cage behind them.
+- chars: Chuck Aule, Teddy Daniels
+- action: Teddy Daniels and Chuck Aule talk to each other while standing on the deck of a ferry.
 
 ### shot02  (00:04:50.0 -> 00:05:05.0, 15.0s)
 
@@ -130,9 +130,9 @@ Mot cau ta cai dang xay ra tren man hinh.
 ![shot02_06.jpg](vision_eval/shot02_06.jpg)
 ![shot02_07.jpg](vision_eval/shot02_07.jpg)
 
-- depicts: establishing
-- chars: McPherson, (khong ro)
-- action: Arrival at the dock: a heavyset officer greets the marshals by a military jeep while armed guards stand watch with rifles, a boat moored behind them.
+- depicts: dialogue
+- chars: Deputy Warden McPherson, Teddy Daniels, Chuck Aule, (khong ro)
+- action: Deputy Warden McPherson speaks to U.S. Marshals Teddy Daniels and Chuck Aule as they are escorted past armed guards on the island.
 
 ### shot03  (00:06:50.0 -> 00:07:04.0, 14.0s)
 
@@ -145,9 +145,9 @@ Mot cau ta cai dang xay ra tren man hinh.
 ![shot03_06.jpg](vision_eval/shot03_06.jpg)
 ![shot03_07.jpg](vision_eval/shot03_07.jpg)
 
-- depicts: establishing, setup
-- chars: Teddy Daniels, Chuck Aule, McPherson
-- action: The fortress-like hospital looms beyond the green grounds as the two marshals walk in through the gate and a heavyset officer briefs them.
+- depicts: dialogue, establishing
+- chars: Chuck Aule, Deputy Warden McPherson, Teddy Daniels, (khong ro)
+- action: Deputy Warden McPherson talks to Teddy Daniels and Chuck Aule as they arrive on the grounds of the asylum.
 
 ### shot04  (00:12:25.0 -> 00:12:40.0, 15.0s)
 

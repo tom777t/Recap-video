@@ -1,0 +1,1829 @@
+{
+ "title": "Bad Genius - the exam heist that crossed a time zone",
+ "voice": "tts",
+ "target_minutes": 20,
+ "stage_note": "STAGE 3a OUTLINE, A/B ARM B. Identical inputs to draft.json (same beats_proposal.md, reveal-map, tier, rules) EXCEPT the catalogue: written from shots_tagged.json (machine tags) instead of shots.json (human). Windows resolved against the machine catalogue. Do not merge into draft.json. PASS-TWO VARIANT: 20 lines (R1 beat B48, B72/B74, R2 beats B76/B77/B78) rewritten from tags_pass2/ meaning-layer action text. All other lines are pass-one as before.",
+ "lines": [
+  {
+   "id": 1,
+   "narration": "A girl sits alone in a mirrored room, and her own reflection runs away from her down the wall - one of her, then ten, then a hundred. Someone off-camera is asking her to start at the beginning.",
+   "clip_start": "00:01:36.0",
+   "clip_end": "00:01:50.0",
+   "note": "B01",
+   "delivery": "hook",
+   "narrative_jump": true
+  },
+  {
+   "id": 2,
+   "narration": "Her father sets a black portfolio on the desk and opens it for the school: the marks, the certificates, the whole of her so far, laid out for someone else to price.",
+   "clip_start": "00:02:28.0",
+   "clip_end": "00:02:50.0",
+   "note": "B03",
+   "delivery": "normal"
+  },
+  {
+   "id": 3,
+   "narration": "The woman across the desk explains the development fee. A hundred and twenty thousand baht, said pleasantly, as if it were paperwork. Her father says yes before Lynn can look at him.",
+   "clip_start": "00:03:35.0",
+   "clip_end": "00:03:55.0",
+   "note": "B04",
+   "delivery": "tense"
+  },
+  {
+   "id": 4,
+   "narration": "On her first day another girl attaches herself to her in the corridor, straightens her glasses for her, and decides they are friends. That is Grace, and Grace is not asking.",
+   "clip_start": "00:05:20.0",
+   "clip_end": "00:05:46.0",
+   "note": "B06",
+   "delivery": "normal"
+  },
+  {
+   "id": 5,
+   "narration": "They sit on the floor of the library and Lynn walks her through set theory. Grace is trying. Grace is not going to get there, and both of them can already see it.",
+   "clip_start": "00:07:40.0",
+   "clip_end": "00:08:00.0",
+   "note": "B07",
+   "delivery": "normal"
+  },
+  {
+   "id": 6,
+   "narration": "So Lynn keeps going, closer over the book, because the alternative is telling her friend the truth.",
+   "clip_start": "00:08:50.0",
+   "clip_end": "00:09:00.0",
+   "note": "B07",
+   "delivery": "normal"
+  },
+  {
+   "id": 7,
+   "narration": "Midterm. Rows of white shirts, one supervisor, and two seats away a girl who is drowning.",
+   "clip_start": "00:09:00.0",
+   "clip_end": "00:09:05.0",
+   "note": "B08",
+   "delivery": "tense"
+  },
+  {
+   "id": 8,
+   "narration": "Grace lifts her head and holds up her fingers where only Lynn can see.",
+   "clip_start": "00:09:05.0",
+   "clip_end": "00:09:10.0",
+   "note": "B08",
+   "delivery": "tense"
+  },
+  {
+   "id": 9,
+   "narration": "Lynn writes the answers down the side of an eraser wrapper in letters small enough to be nothing.",
+   "clip_start": "00:11:33.0",
+   "clip_end": "00:11:38.0",
+   "note": "B09",
+   "delivery": "tense"
+  },
+  {
+   "id": 10,
+   "narration": "Then she waits, and the room carries on not noticing.",
+   "clip_start": "00:11:38.0",
+   "clip_end": "00:11:41.0",
+   "note": "B09",
+   "delivery": "normal"
+  },
+  {
+   "id": 11,
+   "narration": "Her foot comes out of her shoe under the desk. The shoe slides forward across the tiles, and the answers go with it.",
+   "clip_start": "00:12:00.0",
+   "clip_end": "00:12:12.0",
+   "note": "B10",
+   "delivery": "tense"
+  },
+  {
+   "id": 12,
+   "narration": "It is a small thing, done slowly, in a room built to stop exactly this.",
+   "clip_start": "00:12:38.0",
+   "clip_end": "00:12:52.0",
+   "note": "B10",
+   "delivery": "tense"
+  },
+  {
+   "id": 13,
+   "narration": "The shoe crosses the room one nudge at a time, and the girl behind her keeps watch for both of them. Nobody looks down.",
+   "clip_start": "00:12:54.0",
+   "clip_end": "00:13:04.0",
+   "note": "B11",
+   "delivery": "tense"
+  },
+  {
+   "id": 14,
+   "narration": "A bathrobe with a hotel's name on it, and a boy throwing himself into a lit pool at night. Grace has someone she wants Lynn to meet.",
+   "clip_start": "00:14:26.0",
+   "clip_end": "00:14:34.0",
+   "note": "B13",
+   "delivery": "normal"
+  },
+  {
+   "id": 15,
+   "narration": "Pat surfaces, slicks his hair back, and talks to them across the water like a host. His family owns the building they are standing in.",
+   "clip_start": "00:14:36.0",
+   "clip_end": "00:14:54.0",
+   "note": "B13",
+   "delivery": "normal"
+  },
+  {
+   "id": 16,
+   "narration": "Somebody signs a bill without reading it. That is the world Grace has brought her into.",
+   "clip_start": "00:14:56.0",
+   "clip_end": "00:15:04.0",
+   "note": "B13",
+   "delivery": "normal"
+  },
+  {
+   "id": 17,
+   "narration": "Sitting in the water with a bottle in his hand, Pat names a price per answer. Lynn does not say yes. She does not say no either, and he notices.",
+   "clip_start": "00:15:16.0",
+   "clip_end": "00:15:34.0",
+   "note": "B14",
+   "delivery": "tense"
+  },
+  {
+   "id": 18,
+   "narration": "At home she goes through her father's papers under a desk lamp and finds a receipt for two hundred thousand baht.",
+   "clip_start": "00:18:00.0",
+   "clip_end": "00:18:12.0",
+   "note": "B15",
+   "delivery": "sad"
+  },
+  {
+   "id": 19,
+   "narration": "She keeps going. The certificates, the sleeves, the framed photograph of him - and under all of it, the money the school took anyway.",
+   "clip_start": "00:18:14.0",
+   "clip_end": "00:18:30.0",
+   "note": "B15",
+   "delivery": "sad"
+  },
+  {
+   "id": 20,
+   "narration": "She reads it twice. Her father paid the fee he told her he had argued them out of.",
+   "clip_start": "00:18:32.0",
+   "clip_end": "00:18:38.0",
+   "note": "B15",
+   "delivery": "sad"
+  },
+  {
+   "id": 21,
+   "narration": "She sits down at the piano and plays. Four fingerings, over and over, until they are not music any more.",
+   "clip_start": "00:18:40.0",
+   "clip_end": "00:18:48.0",
+   "note": "B16",
+   "delivery": "normal"
+  },
+  {
+   "id": 22,
+   "narration": "Her father stands in the doorway and asks her something gentle. She answers with her head down, and does not tell him what she found.",
+   "clip_start": "00:18:50.0",
+   "clip_end": "00:19:10.0",
+   "note": "B16",
+   "delivery": "sad"
+  },
+  {
+   "id": 23,
+   "narration": "A row of them on the sofa in her living room, leaning in, faces going tight as they realise how much they are going to have to memorise.",
+   "clip_start": "00:21:38.0",
+   "clip_end": "00:21:48.0",
+   "note": "B17",
+   "delivery": "tense"
+  },
+  {
+   "id": 24,
+   "narration": "She plays it for them. Each shape of her hand is a letter, and the song is the answer key.",
+   "clip_start": "00:21:50.0",
+   "clip_end": "00:22:06.0",
+   "note": "B17",
+   "delivery": "normal"
+  },
+  {
+   "id": 25,
+   "narration": "She stands beside the piano and explains the rules once. There will not be a second explanation.",
+   "clip_start": "00:22:08.0",
+   "clip_end": "00:22:18.0",
+   "note": "B17",
+   "delivery": "normal"
+  },
+  {
+   "id": 26,
+   "narration": "Then she plays with her eyes closed, and somewhere on the other side of the wall the exam room is already waiting.",
+   "clip_start": "00:22:20.0",
+   "clip_end": "00:22:26.0",
+   "note": "B17",
+   "delivery": "tense"
+  },
+  {
+   "id": 27,
+   "narration": "Final exam. She sits back with the pencil at her lips and starts, and the erasers begin moving along the edges of the desks.",
+   "clip_start": "00:22:28.0",
+   "clip_end": "00:22:40.0",
+   "note": "B18",
+   "delivery": "tense"
+  },
+  {
+   "id": 28,
+   "narration": "Grace takes a bow somewhere else entirely, holding flowers, in front of a curtain.",
+   "clip_start": "00:22:42.0",
+   "clip_end": "00:22:46.0",
+   "note": "B18",
+   "delivery": "normal"
+  },
+  {
+   "id": 29,
+   "narration": "A black car pulls up at the gate and Pat steps out. This is the money buying her hands.",
+   "clip_start": "00:22:50.0",
+   "clip_end": "00:22:56.0",
+   "note": "B18",
+   "delivery": "normal"
+  },
+  {
+   "id": 30,
+   "narration": "Two boys twist round in their seats to check the row behind them. The code is running at a scale she did not design it for.",
+   "clip_start": "00:22:58.0",
+   "clip_end": "00:23:06.0",
+   "note": "B18",
+   "delivery": "tense"
+  },
+  {
+   "id": 31,
+   "narration": "Afterwards there is a passbook with columns of deposits in it, and the dates are close together.",
+   "clip_start": "00:23:12.0",
+   "clip_end": "00:23:18.0",
+   "note": "B19",
+   "delivery": "normal"
+  },
+  {
+   "id": 32,
+   "narration": "Word moves along the corridor the way it always does - someone leaning in, someone else already knowing.",
+   "clip_start": "00:23:38.0",
+   "clip_end": "00:23:48.0",
+   "note": "B19",
+   "delivery": "normal"
+  },
+  {
+   "id": 33,
+   "narration": "The four of them line up outside for a photograph, under banners congratulating the school on its results.",
+   "clip_start": "00:23:50.0",
+   "clip_end": "00:23:58.0",
+   "note": "B19",
+   "delivery": "normal"
+  },
+  {
+   "id": 34,
+   "narration": "And here is the other one. The school's other prospect, looking straight down the lens while the colour drains out behind him.",
+   "clip_start": "00:24:02.0",
+   "clip_end": "00:24:08.0",
+   "note": "B20",
+   "delivery": "normal"
+  },
+  {
+   "id": 35,
+   "narration": "Bank stands in a dim room holding his own name tag, head down.",
+   "clip_start": "00:24:14.0",
+   "clip_end": "00:24:18.0",
+   "note": "B20",
+   "delivery": "sad"
+  },
+  {
+   "id": 36,
+   "narration": "Then he is alone in an empty school washroom, hunched over the sink, cleaning the building he studies in.",
+   "clip_start": "00:24:18.0",
+   "clip_end": "00:24:24.0",
+   "note": "B20",
+   "delivery": "sad"
+  },
+  {
+   "id": 37,
+   "narration": "He talks about it plainly, later, to whoever is on the other side of the table.",
+   "clip_start": "00:24:40.0",
+   "clip_end": "00:24:46.0",
+   "note": "B20",
+   "delivery": "normal"
+  },
+  {
+   "id": 38,
+   "narration": "Lynn waits against a wood-panelled wall with somebody's head blurred in front of her.",
+   "clip_start": "00:26:26.0",
+   "clip_end": "00:26:42.0",
+   "note": "B21",
+   "delivery": "normal"
+  },
+  {
+   "id": 39,
+   "narration": "Teen Genius puts the two of them at the contestants' desk side by side, the school's two best, pointed at the same camera.",
+   "clip_start": "00:26:44.0",
+   "clip_end": "00:26:54.0",
+   "note": "B21",
+   "delivery": "normal"
+  },
+  {
+   "id": 40,
+   "narration": "In an office the director watches it on a television.",
+   "clip_start": "00:26:56.0",
+   "clip_end": "00:27:00.0",
+   "note": "B21",
+   "delivery": "normal"
+  },
+  {
+   "id": 41,
+   "narration": "She calls them both in. One overseas scholarship, two names, and she says it as though it were good news for both of them.",
+   "clip_start": "00:27:02.0",
+   "clip_end": "00:27:26.0",
+   "note": "B22",
+   "delivery": "normal"
+  },
+  {
+   "id": 42,
+   "narration": "Bank walks out past the glass with his backpack and does not look back through it.",
+   "clip_start": "00:27:28.0",
+   "clip_end": "00:27:34.0",
+   "note": "B22",
+   "delivery": "normal"
+  },
+  {
+   "id": 43,
+   "narration": "His home is the laundry. He scrubs with earphones in and a video playing on the phone propped up beside the basin.",
+   "clip_start": "00:28:48.0",
+   "clip_end": "00:28:58.0",
+   "note": "B23",
+   "delivery": "normal"
+  },
+  {
+   "id": 44,
+   "narration": "The phone sits on a maths textbook. He is doing both, because there is no hour in the day where he is only doing one.",
+   "clip_start": "00:29:00.0",
+   "clip_end": "00:29:14.0",
+   "note": "B23",
+   "delivery": "normal"
+  },
+  {
+   "id": 45,
+   "narration": "Lynn sits in the dark with her eyes down, and the camera comes in until there is nowhere for her to look.",
+   "clip_start": "00:29:16.0",
+   "clip_end": "00:29:36.0",
+   "note": "B23",
+   "delivery": "sad"
+  },
+  {
+   "id": 46,
+   "narration": "Two boys stop each other in the corridor. One of them is explaining something, and the bespectacled one is not agreeing.",
+   "clip_start": "00:30:04.0",
+   "clip_end": "00:30:16.0",
+   "note": "B23",
+   "delivery": "tense"
+  },
+  {
+   "id": 47,
+   "narration": "The hall exam. An earphone behind a white collar, and then the room: hundreds of desks, spaced so that nobody can reach anybody.",
+   "clip_start": "00:30:50.0",
+   "clip_end": "00:30:56.0",
+   "note": "B24",
+   "delivery": "tense"
+  },
+  {
+   "id": 48,
+   "narration": "Bank sits in it alone and works, watched from the front.",
+   "clip_start": "00:31:36.0",
+   "clip_end": "00:31:42.0",
+   "note": "B24",
+   "delivery": "tense"
+  },
+  {
+   "id": 49,
+   "narration": "A stamped form, filled in slowly. Rows of them, all the way back.",
+   "clip_start": "00:31:44.0",
+   "clip_end": "00:31:50.0",
+   "note": "B24",
+   "delivery": "tense"
+  },
+  {
+   "id": 50,
+   "narration": "Pencils shading bubbles, one after another, for as long as it takes.",
+   "clip_start": "00:31:52.0",
+   "clip_end": "00:32:00.0",
+   "note": "B24",
+   "delivery": "tense"
+  },
+  {
+   "id": 51,
+   "narration": "The clock on the wall says twenty to ten.",
+   "clip_start": "00:32:00.0",
+   "clip_end": "00:32:08.0",
+   "note": "B24",
+   "delivery": "tense"
+  },
+  {
+   "id": 52,
+   "narration": "Bank finishes a line, leans back, and his face goes wrong. Question forty asks which paper you were given.",
+   "clip_start": "00:32:08.0",
+   "clip_end": "00:32:16.0",
+   "note": "B25",
+   "delivery": "tense"
+  },
+  {
+   "id": 53,
+   "narration": "Lynn stands up in the middle of the hall and looks up. There.",
+   "clip_start": "00:32:16.0",
+   "clip_end": "00:32:20.0",
+   "note": "B25",
+   "delivery": "tense"
+  },
+  {
+   "id": 54,
+   "narration": "Set one, it says at the top. Which means somewhere there is a set two.",
+   "clip_start": "00:32:22.0",
+   "clip_end": "00:32:30.0",
+   "note": "B25",
+   "delivery": "tense"
+  },
+  {
+   "id": 55,
+   "narration": "Set one, it says at the top. Which means there is a set two.",
+   "clip_start": "00:32:32.0",
+   "clip_end": "00:32:40.0",
+   "note": "B26",
+   "delivery": "tense"
+  },
+  {
+   "id": 56,
+   "narration": "She runs both of them. One hand for each, in a room where the only thing anyone is watching is hands.",
+   "clip_start": "00:32:42.0",
+   "clip_end": "00:32:52.0",
+   "note": "B26",
+   "delivery": "tense"
+  },
+  {
+   "id": 57,
+   "narration": "Papers go past the desks. She glances back over her shoulder, and her fingers keep moving where she can be seen.",
+   "clip_start": "00:33:12.0",
+   "clip_end": "00:33:26.0",
+   "note": "B27",
+   "delivery": "tense"
+  },
+  {
+   "id": 58,
+   "narration": "She looks back once more. At the front, students are already standing up to hand in.",
+   "clip_start": "00:36:06.0",
+   "clip_end": "00:36:18.0",
+   "note": "B27",
+   "delivery": "tense"
+  },
+  {
+   "id": 59,
+   "narration": "The clock says ten past ten. She is still working, and Bank has been watching her hands long enough to understand what they are doing.",
+   "clip_start": "00:36:20.0",
+   "clip_end": "00:36:32.0",
+   "note": "B27",
+   "delivery": "tense"
+  },
+  {
+   "id": 60,
+   "narration": "Equations, then the bubble sheet, then her face.",
+   "clip_start": "00:36:44.0",
+   "clip_end": "00:36:52.0",
+   "note": "B28",
+   "delivery": "tense"
+  },
+  {
+   "id": 61,
+   "narration": "She works at the eraser with her fingers, low over the desk.",
+   "clip_start": "00:37:16.0",
+   "clip_end": "00:37:24.0",
+   "note": "B28",
+   "delivery": "tense"
+  },
+  {
+   "id": 62,
+   "narration": "One more bubble filled. Then she stretches, arms behind her head, because sitting still is the part that gives you away.",
+   "clip_start": "00:37:30.0",
+   "clip_end": "00:37:44.0",
+   "note": "B28",
+   "delivery": "tense"
+  },
+  {
+   "id": 63,
+   "narration": "She is sweating. Somewhere else a grey-haired man raises his hand at night, and the two shots belong to the same minute.",
+   "clip_start": "00:37:56.0",
+   "clip_end": "00:38:12.0",
+   "note": "B28",
+   "delivery": "tense"
+  },
+  {
+   "id": 64,
+   "narration": "A hand flattens on the desk. The invigilator lays a fresh sheet down in front of someone.",
+   "clip_start": "00:38:38.0",
+   "clip_end": "00:38:44.0",
+   "note": "B28",
+   "delivery": "tense"
+  },
+  {
+   "id": 65,
+   "narration": "He is standing over her now, looking down, and she looks up at him and keeps her hands where they are.",
+   "clip_start": "00:38:46.0",
+   "clip_end": "00:38:58.0",
+   "note": "B28",
+   "delivery": "tense"
+  },
+  {
+   "id": 66,
+   "narration": "In the gymnasium someone's arm comes round and Bank's head snaps back with it.",
+   "clip_start": "00:39:00.0",
+   "clip_end": "00:39:04.0",
+   "note": "B29",
+   "delivery": "tense"
+  },
+  {
+   "id": 67,
+   "narration": "Grace clasps her hands and begs the invigilator standing over her desk, and then puts her face down on the paper.",
+   "clip_start": "00:39:06.0",
+   "clip_end": "00:39:14.0",
+   "note": "B29",
+   "delivery": "sad"
+  },
+  {
+   "id": 68,
+   "narration": "A group chat, read by twenty-six people, thanking P'Lin. Outside, three of them sit on the steps.",
+   "clip_start": "00:39:24.0",
+   "clip_end": "00:39:30.0",
+   "note": "B29",
+   "delivery": "normal"
+  },
+  {
+   "id": 69,
+   "narration": "Grace fixes Lynn's hair from behind while Pat talks. It worked, and nobody sitting there looks troubled by it.",
+   "clip_start": "00:39:36.0",
+   "clip_end": "00:39:42.0",
+   "note": "B29",
+   "delivery": "normal"
+  },
+  {
+   "id": 70,
+   "narration": "At a doorway a grey-haired man looks down at a brown envelope in his hands.",
+   "clip_start": "00:39:44.0",
+   "clip_end": "00:39:50.0",
+   "note": "B30",
+   "delivery": "tense"
+  },
+  {
+   "id": 71,
+   "narration": "On the walkway Grace stops dead, and the girl crouched beside her looks up with a face that has already understood.",
+   "clip_start": "00:39:52.0",
+   "clip_end": "00:40:04.0",
+   "note": "B30",
+   "delivery": "tense"
+  },
+  {
+   "id": 72,
+   "narration": "In the office the director is talking to students who are standing very straight.",
+   "clip_start": "00:40:06.0",
+   "clip_end": "00:40:22.0",
+   "note": "B31",
+   "delivery": "tense"
+  },
+  {
+   "id": 73,
+   "narration": "She goes through the sheets with both hands. They match each other.",
+   "clip_start": "00:40:24.0",
+   "clip_end": "00:40:28.0",
+   "note": "B31",
+   "delivery": "tense"
+  },
+  {
+   "id": 74,
+   "narration": "Lynn and Bank stand in front of that desk together. He walked in here with the paper in his hand.",
+   "clip_start": "00:40:30.0",
+   "clip_end": "00:40:46.0",
+   "note": "B31",
+   "delivery": "tense"
+  },
+  {
+   "id": 75,
+   "narration": "Through the glass, a woman on one side of her and a man on the other, and Lynn standing between them with nothing to say.",
+   "clip_start": "00:42:08.0",
+   "clip_end": "00:42:20.0",
+   "note": "B32",
+   "delivery": "sad"
+  },
+  {
+   "id": 76,
+   "narration": "Bank's mouth opens and then closes again, and her father listens to all of it.",
+   "clip_start": "00:42:22.0",
+   "clip_end": "00:42:32.0",
+   "note": "B32",
+   "delivery": "sad"
+  },
+  {
+   "id": 77,
+   "narration": "The director will not look at anyone. The scholarship is suspended and the overseas application goes back in the drawer.",
+   "clip_start": "00:42:34.0",
+   "clip_end": "00:42:50.0",
+   "note": "B33",
+   "delivery": "sad"
+  },
+  {
+   "id": 78,
+   "narration": "Her father sits with his head bowed in the front room, and then stands in a school doorway because there is nowhere else to be.",
+   "clip_start": "00:44:28.0",
+   "clip_end": "00:44:42.0",
+   "note": "B33",
+   "delivery": "sad"
+  },
+  {
+   "id": 79,
+   "narration": "She stands next to him in the office with another student waiting to the side. Everything he presented in that black portfolio has been taken back.",
+   "clip_start": "00:44:52.0",
+   "clip_end": "00:45:10.0",
+   "note": "B33",
+   "delivery": "sad"
+  },
+  {
+   "id": 80,
+   "narration": "In the corridor afterwards the two of them end up standing close together, and neither one of them says anything at all.",
+   "clip_start": "00:45:28.0",
+   "clip_end": "00:45:34.0",
+   "note": "B34",
+   "delivery": "sad"
+  },
+  {
+   "id": 81,
+   "narration": "At the round table he holds up the passbook with all those deposits in it and asks her, gently, where the money came from.",
+   "clip_start": "00:46:16.0",
+   "clip_end": "00:46:42.0",
+   "note": "B35",
+   "delivery": "sad"
+  },
+  {
+   "id": 82,
+   "narration": "She does not answer. She lifts her eyes, and that is the answer.",
+   "clip_start": "00:48:22.0",
+   "clip_end": "00:48:38.0",
+   "note": "B35",
+   "delivery": "sad"
+  },
+  {
+   "id": 83,
+   "narration": "A can opens and foams over the lid. Months later, and she has stopped.",
+   "clip_start": "00:48:40.0",
+   "clip_end": "00:48:48.0",
+   "note": "B36",
+   "delivery": "normal"
+  },
+  {
+   "id": 84,
+   "narration": "She sits at the table talking to someone just out of focus. Grace and Pat have come back with something bigger.",
+   "clip_start": "00:48:50.0",
+   "clip_end": "00:49:10.0",
+   "note": "B36",
+   "delivery": "normal"
+  },
+  {
+   "id": 85,
+   "narration": "Dinner with Pat's parents. His mother does most of the talking, and the subject is Boston, and what a place there costs.",
+   "clip_start": "00:51:36.0",
+   "clip_end": "00:51:50.0",
+   "note": "B37",
+   "delivery": "normal"
+  },
+  {
+   "id": 86,
+   "narration": "A university brochure on a bed, and Grace explaining the rest of it with a smile on.",
+   "clip_start": "00:51:52.0",
+   "clip_end": "00:52:16.0",
+   "note": "B38",
+   "delivery": "normal"
+  },
+  {
+   "id": 87,
+   "narration": "The prep book slides across the tablecloth towards her.",
+   "clip_start": "00:52:18.0",
+   "clip_end": "00:52:24.0",
+   "note": "B38",
+   "delivery": "normal"
+  },
+  {
+   "id": 88,
+   "narration": "STIC. One exam, sat all over the world on a single day. Lynn holds the paper and lets them talk.",
+   "clip_start": "00:52:26.0",
+   "clip_end": "00:52:46.0",
+   "note": "B38",
+   "delivery": "tense"
+  },
+  {
+   "id": 89,
+   "narration": "In a hotel lobby a man holds his phone up to show her a photograph of a little girl in a blue dress.",
+   "clip_start": "00:54:00.0",
+   "clip_end": "00:54:12.0",
+   "note": "B38",
+   "delivery": "normal"
+  },
+  {
+   "id": 90,
+   "narration": "She looks up past him at something on the wall.",
+   "clip_start": "00:54:14.0",
+   "clip_end": "00:54:26.0",
+   "note": "B38",
+   "delivery": "tense"
+  },
+  {
+   "id": 91,
+   "narration": "Clocks. New York, Dubai, Bangkok - all of them right, all of them different.",
+   "clip_start": "00:54:28.0",
+   "clip_end": "00:54:44.0",
+   "note": "B39",
+   "delivery": "tense"
+  },
+  {
+   "id": 92,
+   "narration": "Bangkok, Singapore, Tokyo, Sydney, in a row above the front desk.",
+   "clip_start": "00:54:46.0",
+   "clip_end": "00:54:56.0",
+   "note": "B39",
+   "delivery": "tense"
+  },
+  {
+   "id": 93,
+   "narration": "And Sydney on a brass plate. Sydney sits hours ahead of here, which means somewhere in the world the answers exist before the exam has started.",
+   "clip_start": "00:54:58.0",
+   "clip_end": "00:55:10.0",
+   "note": "B39",
+   "delivery": "tense"
+  },
+  {
+   "id": 94,
+   "narration": "Somebody puts a red pin into Australia on a map spread across the workshop table, and the other two watch it go in.",
+   "clip_start": "00:55:26.0",
+   "clip_end": "00:55:52.0",
+   "note": "B40",
+   "delivery": "tense"
+  },
+  {
+   "id": 95,
+   "narration": "They sit around that map and talk up at her. The shape of it is already there on the table; all it needs is her.",
+   "clip_start": "00:55:54.0",
+   "clip_end": "00:56:22.0",
+   "note": "B40",
+   "delivery": "tense"
+  },
+  {
+   "id": 96,
+   "narration": "The prep book slides across the tablecloth to her.",
+   "clip_start": "00:57:44.0",
+   "clip_end": "00:57:47.0",
+   "note": "B41",
+   "delivery": "tense"
+  },
+  {
+   "id": 97,
+   "narration": "At the gate he wrestles a washing-machine drum off the back of the bike, the way he does every night.",
+   "clip_start": "00:57:47.0",
+   "clip_end": "00:57:53.0",
+   "note": "B41",
+   "delivery": "normal"
+  },
+  {
+   "id": 98,
+   "narration": "Then hauls the laundry cart along the pavement past the shuttered fronts.",
+   "clip_start": "00:57:53.0",
+   "clip_end": "00:58:05.0",
+   "note": "B41",
+   "delivery": "normal"
+  },
+  {
+   "id": 99,
+   "narration": "A camera on the street catches it in grey: several people, a parked bike, a scuffle that is over quickly.",
+   "clip_start": "00:58:16.0",
+   "clip_end": "00:58:26.0",
+   "note": "B41",
+   "delivery": "tense"
+  },
+  {
+   "id": 100,
+   "narration": "His eye is swollen shut and there is blood on his face, and he is lying in a heap of rubbish.",
+   "clip_start": "00:58:28.0",
+   "clip_end": "00:58:34.0",
+   "note": "B41",
+   "delivery": "sad"
+  },
+  {
+   "id": 101,
+   "narration": "He pushes himself upright in the middle of a landfill and sits there among the tyres.",
+   "clip_start": "00:58:36.0",
+   "clip_end": "00:58:46.0",
+   "note": "B42",
+   "delivery": "sad"
+  },
+  {
+   "id": 102,
+   "narration": "Then he screams, and goes down into the mud of it, and there is nobody out there to hear him.",
+   "clip_start": "01:00:00.0",
+   "clip_end": "01:00:14.0",
+   "note": "B42",
+   "delivery": "sad"
+  },
+  {
+   "id": 103,
+   "narration": "On a rooftop two girls crouch and talk. Below them the school is filing in as usual.",
+   "clip_start": "01:00:20.0",
+   "clip_end": "01:00:26.0",
+   "note": "B42",
+   "delivery": "normal"
+  },
+  {
+   "id": 104,
+   "narration": "And a young man in a black turtleneck walks a lit stage with a microphone, in front of a screen.",
+   "clip_start": "01:00:28.0",
+   "clip_end": "01:00:34.0",
+   "note": "B42",
+   "delivery": "normal"
+  },
+  {
+   "id": 105,
+   "narration": "Rows of uniforms slumped in the dark, facing a projector on a tripod. They have paid to be here.",
+   "clip_start": "01:00:40.0",
+   "clip_end": "01:00:46.0",
+   "note": "B43",
+   "delivery": "tense"
+  },
+  {
+   "id": 106,
+   "narration": "A sharpened pencil turning in the dark. A barcode on a white sheet. The pencil held up against it.",
+   "clip_start": "01:01:28.0",
+   "clip_end": "01:01:34.0",
+   "note": "B43",
+   "delivery": "tense"
+  },
+  {
+   "id": 107,
+   "narration": "On stage the slide behind them is a barcode and a test paper, and one student stands in the light beside it.",
+   "clip_start": "01:01:36.0",
+   "clip_end": "01:01:44.0",
+   "note": "B44",
+   "delivery": "tense"
+  },
+  {
+   "id": 108,
+   "narration": "The slide fills the frame.",
+   "clip_start": "01:01:44.0",
+   "clip_end": "01:01:46.0",
+   "note": "B44",
+   "delivery": "normal"
+  },
+  {
+   "id": 109,
+   "narration": "Pat paces in front of a wall of barcoded pencils and explains it: the answers come home down the side of a 2B, and nobody searches a pencil.",
+   "clip_start": "01:01:52.0",
+   "clip_end": "01:02:02.0",
+   "note": "B44",
+   "delivery": "tense"
+  },
+  {
+   "id": 110,
+   "narration": "Lynn says her part in the workshop and turns away from them.",
+   "clip_start": "01:02:10.0",
+   "clip_end": "01:02:18.0",
+   "note": "B44",
+   "delivery": "normal"
+  },
+  {
+   "id": 111,
+   "narration": "She goes to the laundry. He is behind the counter with his hands full and she talks to him through the racks.",
+   "clip_start": "01:03:38.0",
+   "clip_end": "01:03:58.0",
+   "note": "B45",
+   "delivery": "normal"
+  },
+  {
+   "id": 112,
+   "narration": "She stands there holding a bundle. He keeps working while she asks.",
+   "clip_start": "01:04:10.0",
+   "clip_end": "01:04:26.0",
+   "note": "B45",
+   "delivery": "tense"
+  },
+  {
+   "id": 113,
+   "narration": "He says no. Then he says a number, and the number is not small, and that is the end of him saying no.",
+   "clip_start": "01:04:28.0",
+   "clip_end": "01:04:46.0",
+   "note": "B45",
+   "delivery": "tense"
+  },
+  {
+   "id": 114,
+   "narration": "Into the print shop, under a sign that says SAFETY FIRST.",
+   "clip_start": "01:06:04.0",
+   "clip_end": "01:06:18.0",
+   "note": "B46",
+   "delivery": "tense"
+  },
+  {
+   "id": 115,
+   "narration": "She stands tense beside the press while the two of them argue it out between the machines.",
+   "clip_start": "01:06:20.0",
+   "clip_end": "01:06:34.0",
+   "note": "B46",
+   "delivery": "tense"
+  },
+  {
+   "id": 116,
+   "narration": "Then the two of them sit apart on the platforms of the presses with the work between them, not looking at each other.",
+   "clip_start": "01:06:50.0",
+   "clip_end": "01:06:58.0",
+   "note": "B46",
+   "delivery": "normal"
+  },
+  {
+   "id": 117,
+   "narration": "Grace and Pat go through the papers at a classroom table. Somewhere else her father is reading a sheet on his own.",
+   "clip_start": "01:07:04.0",
+   "clip_end": "01:07:10.0",
+   "note": "B46",
+   "delivery": "normal"
+  },
+  {
+   "id": 118,
+   "narration": "The night before the flight. Lynn talks, Pat sits with his arm round Grace, and Bank listens with his face still healing.",
+   "clip_start": "01:09:36.0",
+   "clip_end": "01:09:42.0",
+   "note": "B47",
+   "delivery": "tense"
+  },
+  {
+   "id": 119,
+   "narration": "Three of them go down a stairwell, seen from directly above.",
+   "clip_start": "01:09:48.0",
+   "clip_end": "01:09:58.0",
+   "note": "B47",
+   "delivery": "normal"
+  },
+  {
+   "id": 120,
+   "narration": "And in a dim room at a bare table, alone, Pat starts laughing about something and then cannot hold his face together.",
+   "clip_start": "01:10:12.0",
+   "clip_end": "01:10:22.0",
+   "note": "B47",
+   "delivery": "sad"
+  },
+  {
+   "id": 121,
+   "narration": "He wipes his eyes and keeps trying to get the sentence out.",
+   "clip_start": "01:10:24.0",
+   "clip_end": "01:10:34.0",
+   "note": "B47",
+   "delivery": "sad"
+  },
+  {
+   "id": 122,
+   "narration": "He leans over the table and names who sent the men to the gate. He paid for it.",
+   "clip_start": "01:10:48.0",
+   "clip_end": "01:10:53.0",
+   "note": "B48",
+   "delivery": "reveal",
+   "pass2": true
+  },
+  {
+   "id": 123,
+   "narration": "He keeps going, and the camera will not turn round to show us the two people hearing it.",
+   "clip_start": "01:10:58.0",
+   "clip_end": "01:11:07.0",
+   "note": "B48",
+   "delivery": "tense",
+   "pass2": true
+  },
+  {
+   "id": 124,
+   "narration": "Across the table he lays it out with his hands, the way you would explain a delivery schedule.",
+   "clip_start": "01:11:12.0",
+   "clip_end": "01:11:19.0",
+   "note": "B48",
+   "delivery": "tense",
+   "pass2": true
+  },
+  {
+   "id": 125,
+   "narration": "Then a cut to Bank's face in profile, close, and the film holds it there.",
+   "clip_start": "01:11:32.0",
+   "clip_end": "01:11:37.0",
+   "note": "B48",
+   "delivery": "tense",
+   "pass2": true
+  },
+  {
+   "id": 126,
+   "narration": "In the back room among the hanging clothes, someone is shouting and someone has their back turned.",
+   "clip_start": "01:11:40.0",
+   "clip_end": "01:11:50.0",
+   "note": "B49",
+   "delivery": "tense"
+  },
+  {
+   "id": 127,
+   "narration": "A girl goes down into a crouch with her arm over her head.",
+   "clip_start": "01:11:52.0",
+   "clip_end": "01:11:58.0",
+   "note": "B49",
+   "delivery": "tense"
+  },
+  {
+   "id": 128,
+   "narration": "Bank gets a hand on Pat's face and then on his throat, under a plaque on the wall that says JESUS.",
+   "clip_start": "01:13:12.0",
+   "clip_end": "01:13:24.0",
+   "note": "B49",
+   "delivery": "action"
+  },
+  {
+   "id": 129,
+   "narration": "Afterwards Grace is crying with a bloodied nose and someone is holding on to her.",
+   "clip_start": "01:13:42.0",
+   "clip_end": "01:13:48.0",
+   "note": "B50",
+   "delivery": "sad"
+  },
+  {
+   "id": 130,
+   "narration": "Bank stands alone in a station corridor beside a lit billboard for laundry detergent.",
+   "clip_start": "01:15:38.0",
+   "clip_end": "01:16:04.0",
+   "note": "B50",
+   "delivery": "sad"
+  },
+  {
+   "id": 131,
+   "narration": "Lynn and Grace face each other behind a folding gate and go back and forth, and then the camera leaves them to it.",
+   "clip_start": "01:16:06.0",
+   "clip_end": "01:16:32.0",
+   "note": "B50",
+   "delivery": "sad"
+  },
+  {
+   "id": 132,
+   "narration": "He comes back. Under the overpass at night she stands with her hand flat against the wall, and he tells her to finish it.",
+   "clip_start": "01:16:34.0",
+   "clip_end": "01:16:46.0",
+   "note": "B51",
+   "delivery": "tense"
+  },
+  {
+   "id": 133,
+   "narration": "Sydney, the day before. Two of them at a harbour railing with their backs to us, looking at the water.",
+   "clip_start": "01:18:32.0",
+   "clip_end": "01:18:42.0",
+   "note": "B52",
+   "delivery": "normal"
+  },
+  {
+   "id": 134,
+   "narration": "On the diner television the news is about tighter monitoring at STIC this year. He watches it alone.",
+   "clip_start": "01:20:24.0",
+   "clip_end": "01:20:30.0",
+   "note": "B53",
+   "delivery": "tense"
+  },
+  {
+   "id": 135,
+   "narration": "On the train they share his earphones, standing face to face, listening to the same thing.",
+   "clip_start": "01:20:42.0",
+   "clip_end": "01:20:54.0",
+   "note": "B53",
+   "delivery": "tense"
+  },
+  {
+   "id": 136,
+   "narration": "Polished shoes come through the lobby past the display screens. Above them, a crowd of test-takers queuing.",
+   "clip_start": "01:21:04.0",
+   "clip_end": "01:21:12.0",
+   "note": "B53",
+   "delivery": "tense"
+  },
+  {
+   "id": 137,
+   "narration": "A cubicle, seen from directly above. Someone steps in and crouches beside the bin.",
+   "clip_start": "01:21:33.0",
+   "clip_end": "01:21:39.0",
+   "note": "B54",
+   "delivery": "tense"
+  },
+  {
+   "id": 138,
+   "narration": "A lid lifts.",
+   "clip_start": "01:21:39.0",
+   "clip_end": "01:21:41.0",
+   "note": "B54",
+   "delivery": "tense"
+  },
+  {
+   "id": 139,
+   "narration": "Hands pass a small taped bundle onto a white tray.",
+   "clip_start": "01:21:41.0",
+   "clip_end": "01:21:47.0",
+   "note": "B54",
+   "delivery": "tense"
+  },
+  {
+   "id": 140,
+   "narration": "She looks down with her mouth open.",
+   "clip_start": "01:21:47.0",
+   "clip_end": "01:21:51.0",
+   "note": "B54",
+   "delivery": "tense"
+  },
+  {
+   "id": 141,
+   "narration": "The clock above the door reads 8:29:58. Then she is in a library of tablet-arm chairs with everyone else, and it starts.",
+   "clip_start": "01:22:36.0",
+   "clip_end": "01:22:48.0",
+   "note": "B55",
+   "delivery": "tense"
+  },
+  {
+   "id": 142,
+   "narration": "8:51. She bends over the paper in the wood-panelled hall and starts memorising.",
+   "clip_start": "01:23:00.0",
+   "clip_end": "01:23:08.0",
+   "note": "B56",
+   "delivery": "tense"
+  },
+  {
+   "id": 143,
+   "narration": "In a library somewhere else, Bank has his head down and is writing.",
+   "clip_start": "01:23:14.0",
+   "clip_end": "01:23:20.0",
+   "note": "B56",
+   "delivery": "tense"
+  },
+  {
+   "id": 144,
+   "narration": "Behind a raised stack of papers she is crying, and carrying on.",
+   "clip_start": "01:24:02.0",
+   "clip_end": "01:24:16.0",
+   "note": "B56",
+   "delivery": "sad"
+  },
+  {
+   "id": 145,
+   "narration": "On a whiteboard the exam is broken into sections with times beside them. This was rehearsed.",
+   "clip_start": "01:24:48.0",
+   "clip_end": "01:25:00.0",
+   "note": "B56",
+   "delivery": "normal"
+  },
+  {
+   "id": 146,
+   "narration": "In Bangkok a warehouse: a line of students facing a line of helmeted riders, waiting.",
+   "clip_start": "01:25:12.0",
+   "clip_end": "01:25:22.0",
+   "note": "B57",
+   "delivery": "tense"
+  },
+  {
+   "id": 147,
+   "narration": "She hides a phone under a flat board on her lap in a cubicle.",
+   "clip_start": "01:25:32.0",
+   "clip_end": "01:25:44.0",
+   "note": "B57",
+   "delivery": "tense"
+  },
+  {
+   "id": 148,
+   "narration": "In another cubicle he thumbs letter codes into a thread that is already long.",
+   "clip_start": "01:25:46.0",
+   "clip_end": "01:26:00.0",
+   "note": "B57",
+   "delivery": "tense"
+  },
+  {
+   "id": 149,
+   "narration": "He squints at the screen, and the camera goes in until there is only sweat and closed eyes.",
+   "clip_start": "01:26:20.0",
+   "clip_end": "01:26:28.0",
+   "note": "B57",
+   "delivery": "tense"
+  },
+  {
+   "id": 150,
+   "narration": "Lynn and Pat lean over his phone together. In the middle of the exam Bank has asked for a million baht.",
+   "clip_start": "01:26:48.0",
+   "clip_end": "01:26:58.0",
+   "note": "B58",
+   "delivery": "tense"
+  },
+  {
+   "id": 151,
+   "narration": "The demand goes round. A woman at a desk looks down at it.",
+   "clip_start": "01:27:40.0",
+   "clip_end": "01:27:48.0",
+   "note": "B58",
+   "delivery": "tense"
+  },
+  {
+   "id": 152,
+   "narration": "One million, inside five minutes, or the letters stop.",
+   "clip_start": "01:28:00.0",
+   "clip_end": "01:28:12.0",
+   "note": "B58",
+   "delivery": "tense"
+  },
+  {
+   "id": 153,
+   "narration": "Pencils laid out on a pale surface, and a thumb pressing along a barcode.",
+   "clip_start": "01:28:44.0",
+   "clip_end": "01:28:52.0",
+   "note": "B58",
+   "delivery": "tense"
+  },
+  {
+   "id": 154,
+   "narration": "A macro crawl across the booklet page.",
+   "clip_start": "01:29:32.0",
+   "clip_end": "01:29:40.0",
+   "note": "B59",
+   "delivery": "tense"
+  },
+  {
+   "id": 155,
+   "narration": "Section three. Sixteen questions, twenty minutes.",
+   "clip_start": "01:29:50.0",
+   "clip_end": "01:29:58.0",
+   "note": "B59",
+   "delivery": "tense"
+  },
+  {
+   "id": 156,
+   "narration": "Two sweating faces bent over two papers in two countries.",
+   "clip_start": "01:30:04.0",
+   "clip_end": "01:30:10.0",
+   "note": "B59",
+   "delivery": "tense"
+  },
+  {
+   "id": 157,
+   "narration": "In the restroom she stares at nothing, then stands behind two other girls at the mirrors and waits her turn.",
+   "clip_start": "01:30:28.0",
+   "clip_end": "01:30:38.0",
+   "note": "B59",
+   "delivery": "tense"
+  },
+  {
+   "id": 158,
+   "narration": "His hands type long strings of letters in the stall.",
+   "clip_start": "01:30:48.0",
+   "clip_end": "01:30:54.0",
+   "note": "B60",
+   "delivery": "tense"
+  },
+  {
+   "id": 159,
+   "narration": "He looks up. Outside the cubicle there are two men in dark suits.",
+   "clip_start": "01:31:04.0",
+   "clip_end": "01:31:12.0",
+   "note": "B60",
+   "delivery": "tense"
+  },
+  {
+   "id": 160,
+   "narration": "He looks up, then down at the screen again, and keeps going.",
+   "clip_start": "01:31:14.0",
+   "clip_end": "01:31:22.0",
+   "note": "B60",
+   "delivery": "tense"
+  },
+  {
+   "id": 161,
+   "narration": "Pat frowns at his phone, somewhere far away from any of this.",
+   "clip_start": "01:31:24.0",
+   "clip_end": "01:31:28.0",
+   "note": "B60",
+   "delivery": "tense"
+  },
+  {
+   "id": 162,
+   "narration": "The numbers are marked read. A finger opens the menu on the group and taps through to confirm.",
+   "clip_start": "01:31:30.0",
+   "clip_end": "01:31:36.0",
+   "note": "B60",
+   "delivery": "tense"
+  },
+  {
+   "id": 163,
+   "narration": "Something small drops and breaks on the tiles beside a pair of shoes.",
+   "clip_start": "01:31:40.0",
+   "clip_end": "01:31:50.0",
+   "note": "B60",
+   "delivery": "tense"
+  },
+  {
+   "id": 164,
+   "narration": "The latch is bolted. His hands hold the phone out over the open lid.",
+   "clip_start": "01:32:02.0",
+   "clip_end": "01:32:12.0",
+   "note": "B61",
+   "delivery": "tense"
+  },
+  {
+   "id": 165,
+   "narration": "It lies face-up in the water, and then the flush takes it.",
+   "clip_start": "01:32:12.0",
+   "clip_end": "01:32:24.0",
+   "note": "B61",
+   "delivery": "tense"
+  },
+  {
+   "id": 166,
+   "narration": "She shuts herself into a stall and works at something flat on her lap.",
+   "clip_start": "01:32:28.0",
+   "clip_end": "01:32:36.0",
+   "note": "B61",
+   "delivery": "tense"
+  },
+  {
+   "id": 167,
+   "narration": "A woman in a dark suit walks the row of stalls and comes out to the mirrors, where two girls are standing.",
+   "clip_start": "01:32:46.0",
+   "clip_end": "01:33:04.0",
+   "note": "B61",
+   "delivery": "tense"
+  },
+  {
+   "id": 168,
+   "narration": "In the corridor a man in a suit has Bank against the wall and is pointing a finger into his face.",
+   "clip_start": "01:33:12.0",
+   "clip_end": "01:33:24.0",
+   "note": "B62",
+   "delivery": "tense"
+  },
+  {
+   "id": 169,
+   "narration": "A woman is pleading with someone, sweating, crying, getting nowhere.",
+   "clip_start": "01:33:26.0",
+   "clip_end": "01:33:34.0",
+   "note": "B62",
+   "delivery": "sad"
+  },
+  {
+   "id": 170,
+   "narration": "She walks past the water cooler and sits down, and the camera drops to her boots.",
+   "clip_start": "01:33:43.0",
+   "clip_end": "01:33:54.0",
+   "note": "B63",
+   "delivery": "tense"
+  },
+  {
+   "id": 171,
+   "narration": "She settles into her chair among the others. The invigilator stands under the clock by the door.",
+   "clip_start": "01:34:18.0",
+   "clip_end": "01:34:24.0",
+   "note": "B63",
+   "delivery": "normal"
+  },
+  {
+   "id": 172,
+   "narration": "She looks down, and her hand pencils two rows of letters onto something that is not the answer sheet.",
+   "clip_start": "01:34:26.0",
+   "clip_end": "01:34:46.0",
+   "note": "B63",
+   "delivery": "tense"
+  },
+  {
+   "id": 173,
+   "narration": "Section four, and she is on her own now. She leans over an imagined keyboard and works the fingerings out against the letters she has written.",
+   "clip_start": "01:35:35.0",
+   "clip_end": "01:35:55.0",
+   "note": "B64",
+   "delivery": "tense"
+  },
+  {
+   "id": 174,
+   "narration": "She writes it into the notebook, line after line of hand-printed letters.",
+   "clip_start": "01:36:26.0",
+   "clip_end": "01:36:40.0",
+   "note": "B65",
+   "delivery": "tense"
+  },
+  {
+   "id": 175,
+   "narration": "Around her the room carries on: someone between shelves, an invigilator standing with her hands on her hips.",
+   "clip_start": "01:36:42.0",
+   "clip_end": "01:37:02.0",
+   "note": "B65",
+   "delivery": "normal"
+  },
+  {
+   "id": 176,
+   "narration": "A red clock outside flips from 6:59 to 7:00. Bangkok is waking up.",
+   "clip_start": "01:37:34.0",
+   "clip_end": "01:37:38.0",
+   "note": "B65",
+   "delivery": "tense"
+  },
+  {
+   "id": 177,
+   "narration": "The essay section. Lighting Your Way to a Better Future.",
+   "clip_start": "01:37:46.0",
+   "clip_end": "01:37:52.0",
+   "note": "B65",
+   "delivery": "normal"
+  },
+  {
+   "id": 178,
+   "narration": "She is bowed over the desk with sweat at her temple, and then lifts her head.",
+   "clip_start": "01:37:54.0",
+   "clip_end": "01:38:12.0",
+   "note": "B65",
+   "delivery": "tense"
+  },
+  {
+   "id": 179,
+   "narration": "She holds the pencil upright in front of her face and looks at it.",
+   "clip_start": "01:38:14.0",
+   "clip_end": "01:38:24.0",
+   "note": "B65",
+   "delivery": "tense"
+  },
+  {
+   "id": 180,
+   "narration": "She puts it in her mouth and bites down with her eyes shut.",
+   "clip_start": "01:38:26.0",
+   "clip_end": "01:38:38.0",
+   "note": "B66",
+   "delivery": "tense"
+  },
+  {
+   "id": 181,
+   "narration": "A hand gripping the edge of the desk. The pencil at her lips again.",
+   "clip_start": "01:38:40.0",
+   "clip_end": "01:38:52.0",
+   "note": "B66",
+   "delivery": "tense"
+  },
+  {
+   "id": 182,
+   "narration": "The room looks up as a proctor pulls a sobbing girl out of her chair and walks her down the aisle.",
+   "clip_start": "01:38:56.0",
+   "clip_end": "01:39:10.0",
+   "note": "B66",
+   "delivery": "action"
+  },
+  {
+   "id": 183,
+   "narration": "At the cooler she fills a plastic sleeve and pushes it down inside her boot.",
+   "clip_start": "01:39:36.0",
+   "clip_end": "01:39:42.0",
+   "note": "B67",
+   "delivery": "tense"
+  },
+  {
+   "id": 184,
+   "narration": "Two people stand in a room of noticeboards and machinery, both looking off at the same thing.",
+   "clip_start": "01:40:06.0",
+   "clip_end": "01:40:22.0",
+   "note": "B67",
+   "delivery": "normal"
+  },
+  {
+   "id": 185,
+   "narration": "An invigilator walks the aisle holding a sheet of paper while everyone writes.",
+   "clip_start": "01:40:38.0",
+   "clip_end": "01:40:46.0",
+   "note": "B67",
+   "delivery": "tense"
+  },
+  {
+   "id": 186,
+   "narration": "The corridor is empty. She comes down the stairwell with her backpack on.",
+   "clip_start": "01:40:48.0",
+   "clip_end": "01:41:16.0",
+   "note": "B68",
+   "delivery": "tense"
+  },
+  {
+   "id": 187,
+   "narration": "Then she is flat against the wall beside the stairs, breathing hard.",
+   "clip_start": "01:41:18.0",
+   "clip_end": "01:41:22.0",
+   "note": "B68",
+   "delivery": "tense"
+  },
+  {
+   "id": 188,
+   "narration": "She pushes the door open onto the walkway and goes, eyes down on the phone.",
+   "clip_start": "01:41:32.0",
+   "clip_end": "01:41:42.0",
+   "note": "B68",
+   "delivery": "action"
+  },
+  {
+   "id": 189,
+   "narration": "Out through the turnstiles at the South Concourse, still checking the screen.",
+   "clip_start": "01:42:00.0",
+   "clip_end": "01:42:04.0",
+   "note": "B69",
+   "delivery": "action"
+  },
+  {
+   "id": 190,
+   "narration": "A man in a dark suit and a red tie comes through the concourse behind her.",
+   "clip_start": "01:42:12.0",
+   "clip_end": "01:42:26.0",
+   "note": "B69",
+   "delivery": "tense"
+  },
+  {
+   "id": 191,
+   "narration": "She hurries along the wall.",
+   "clip_start": "01:42:28.0",
+   "clip_end": "01:42:30.0",
+   "note": "B69",
+   "delivery": "tense"
+  },
+  {
+   "id": 192,
+   "narration": "In Bangkok they are gathered outside the shopfront, waiting on a forecourt full of motorbikes.",
+   "clip_start": "01:44:24.0",
+   "clip_end": "01:44:32.0",
+   "note": "B69",
+   "delivery": "normal"
+  },
+  {
+   "id": 193,
+   "narration": "Someone types the essay title into Google and the results come up.",
+   "clip_start": "01:44:34.0",
+   "clip_end": "01:44:38.0",
+   "note": "B70",
+   "delivery": "tense"
+  },
+  {
+   "id": 194,
+   "narration": "A hangar of young people stands with their heads down over their phones.",
+   "clip_start": "01:44:48.0",
+   "clip_end": "01:44:52.0",
+   "note": "B70",
+   "delivery": "tense"
+  },
+  {
+   "id": 195,
+   "narration": "Her eyes widen. Somewhere a pair of hands is typing very fast.",
+   "clip_start": "01:45:04.0",
+   "clip_end": "01:45:10.0",
+   "note": "B70",
+   "delivery": "tense"
+  },
+  {
+   "id": 196,
+   "narration": "She comes up out of the stairwell and runs the platform, past the escalators, sending as she goes.",
+   "clip_start": "01:45:26.0",
+   "clip_end": "01:45:58.0",
+   "note": "B70",
+   "delivery": "action"
+  },
+  {
+   "id": 197,
+   "narration": "A ringed hand closes on the brake lever.",
+   "clip_start": "01:47:08.0",
+   "clip_end": "01:47:12.0",
+   "note": "B71",
+   "delivery": "tense"
+  },
+  {
+   "id": 198,
+   "narration": "Platform 12, Sydenham. She walks away down the dim platform under a red No Exit sign.",
+   "clip_start": "01:47:26.0",
+   "clip_end": "01:47:40.0",
+   "note": "B71",
+   "delivery": "tense"
+  },
+  {
+   "id": 199,
+   "narration": "She hurries, shoes going over the tiles, face tight.",
+   "clip_start": "01:47:42.0",
+   "clip_end": "01:47:54.0",
+   "note": "B71",
+   "delivery": "action"
+  },
+  {
+   "id": 200,
+   "narration": "A screen full of answer strings.",
+   "clip_start": "01:47:56.0",
+   "clip_end": "01:47:58.0",
+   "note": "B71",
+   "delivery": "tense"
+  },
+  {
+   "id": 201,
+   "narration": "On the platform a man in a suit takes hold of her backpack strap, and she turns.",
+   "clip_start": "01:48:44.0",
+   "clip_end": "01:49:00.0",
+   "note": "B71",
+   "delivery": "action"
+  },
+  {
+   "id": 202,
+   "narration": "In Bangkok the riders sit under the shophouse roof with their headlights on, waiting for something that is not coming.",
+   "clip_start": "01:49:04.0",
+   "clip_end": "01:49:16.0",
+   "note": "B71",
+   "delivery": "normal"
+  },
+  {
+   "id": 203,
+   "narration": "Brought back. She stands in the concourse light and looks up, and then down, and the shot stays on her for a long time.",
+   "clip_start": "01:49:22.0",
+   "clip_end": "01:49:50.0",
+   "note": "B72",
+   "delivery": "sad",
+   "pass2": true
+  },
+  {
+   "id": 204,
+   "narration": "On a bench in the stacks her hands find DELETE and confirm it.",
+   "clip_start": "01:49:52.0",
+   "clip_end": "01:50:06.0",
+   "note": "B72",
+   "delivery": "tense",
+   "pass2": true
+  },
+  {
+   "id": 205,
+   "narration": "She stands with her head lowered. Bank is sitting alone in another room.",
+   "clip_start": "01:50:08.0",
+   "clip_end": "01:50:22.0",
+   "note": "B72",
+   "delivery": "sad",
+   "pass2": true
+  },
+  {
+   "id": 206,
+   "narration": "In the next room Bank gives his own statement, and he tells them she had nothing to do with any of it. Thirteen seconds of it, and the camera never once puts the two of them in the same frame.",
+   "clip_start": "01:50:38.0",
+   "clip_end": "01:50:51.0",
+   "note": "B72",
+   "delivery": "tense",
+   "pass2": true
+  },
+  {
+   "id": 207,
+   "narration": "He looks off at the wall. She watches him through the glass.",
+   "clip_start": "01:50:52.0",
+   "clip_end": "01:51:02.0",
+   "note": "B72",
+   "delivery": "sad",
+   "pass2": true
+  },
+  {
+   "id": 208,
+   "narration": "Her father is waiting past the barrier. She is crying before she finishes the sentence, and he answers without words and pulls her in. He does not ask her anything.",
+   "clip_start": "01:53:20.0",
+   "clip_end": "01:53:58.0",
+   "note": "B74",
+   "delivery": "sad",
+   "pass2": true
+  },
+  {
+   "id": 209,
+   "narration": "Someone on a phone by the luggage carts, and then a student sitting down somewhere else.",
+   "clip_start": "01:54:16.0",
+   "clip_end": "01:54:32.0",
+   "note": "B74",
+   "delivery": "normal",
+   "pass2": true
+  },
+  {
+   "id": 210,
+   "narration": "She sits alone on a rolling chair in the middle of an empty white floor.",
+   "clip_start": "01:54:34.0",
+   "clip_end": "01:54:46.0",
+   "note": "B75",
+   "delivery": "sad"
+  },
+  {
+   "id": 211,
+   "narration": "At the party there are gold balloons and matching shirts with the score printed on them, and everyone has their arms up.",
+   "clip_start": "01:54:48.0",
+   "clip_end": "01:55:02.0",
+   "note": "B75",
+   "delivery": "normal"
+  },
+  {
+   "id": 212,
+   "narration": "Fourteen sixty, across their chests. Grace is there with a white bow in her hair.",
+   "clip_start": "01:55:04.0",
+   "clip_end": "01:55:10.0",
+   "note": "B75",
+   "delivery": "normal"
+  },
+  {
+   "id": 213,
+   "narration": "Night. She walks up to a shopfront stripped for renovation - ladders, paint tins, a scooter at the kerb.",
+   "clip_start": "01:57:20.0",
+   "clip_end": "01:57:34.0",
+   "note": "B76",
+   "delivery": "normal",
+   "pass2": true
+  },
+  {
+   "id": 214,
+   "narration": "The sign reads Mister BANK, laundry service, and inside, new machines still wrapped.",
+   "clip_start": "01:57:40.0",
+   "clip_end": "01:57:44.0",
+   "note": "B76",
+   "delivery": "normal",
+   "pass2": true
+  },
+  {
+   "id": 215,
+   "narration": "She comes through the covered passage, and the camera leaves her for the scooter and holds it while she goes past behind the glass.",
+   "clip_start": "01:57:46.0",
+   "clip_end": "01:57:54.0",
+   "note": "B76",
+   "delivery": "normal",
+   "pass2": true
+  },
+  {
+   "id": 216,
+   "narration": "She stops in the doorway. He is against the desk with his arms folded, waiting.",
+   "clip_start": "01:57:56.0",
+   "clip_end": "01:58:00.0",
+   "note": "B76",
+   "delivery": "tense",
+   "pass2": true
+  },
+  {
+   "id": 217,
+   "narration": "Behind him the workshop is full of machines that were not there before.",
+   "clip_start": "01:58:02.0",
+   "clip_end": "01:58:22.0",
+   "note": "B76",
+   "delivery": "tense",
+   "pass2": true
+  },
+  {
+   "id": 218,
+   "narration": "He talks with his face quite flat, looking somewhere past her.",
+   "clip_start": "01:58:24.0",
+   "clip_end": "01:58:46.0",
+   "note": "B76",
+   "delivery": "tense",
+   "pass2": true
+  },
+  {
+   "id": 219,
+   "narration": "He has a bigger one in mind. GAT and PAT, sat nationwide, and he wants her back in for it - and he is not really asking, because he knows what she did and he is willing to say so.",
+   "clip_start": "02:00:00.0",
+   "clip_end": "02:00:22.0",
+   "note": "B77",
+   "delivery": "reveal",
+   "pass2": true
+  },
+  {
+   "id": 220,
+   "narration": "She listens with her eyes down while he lays out what the months without her have made him.",
+   "clip_start": "02:00:24.0",
+   "clip_end": "02:00:46.0",
+   "note": "B77",
+   "delivery": "tense",
+   "pass2": true
+  },
+  {
+   "id": 221,
+   "narration": "She says no. He answers, and the camera stays on her face for it rather than his.",
+   "clip_start": "02:00:48.0",
+   "clip_end": "02:01:10.0",
+   "note": "B78",
+   "delivery": "tense",
+   "pass2": true
+  },
+  {
+   "id": 222,
+   "narration": "A white room, her father beside her, and the whole of it about to be said out loud.",
+   "clip_start": "02:02:24.0",
+   "clip_end": "02:02:32.0",
+   "note": "B79",
+   "delivery": "sad"
+  },
+  {
+   "id": 223,
+   "narration": "Her face in close-up, brow down, and someone in a checked shirt standing out of focus behind her.",
+   "clip_start": "02:02:56.0",
+   "clip_end": "02:03:08.0",
+   "note": "B79",
+   "delivery": "sad"
+  },
+  {
+   "id": 224,
+   "narration": "She walks away down the corridor, stops, looks back once, and goes on.",
+   "clip_start": "02:03:10.0",
+   "clip_end": "02:03:22.0",
+   "note": "B79",
+   "delivery": "sad"
+  },
+  {
+   "id": 225,
+   "narration": "Then a white room, a table, and a man with a recorder. She leans in and starts at the beginning.",
+   "clip_start": "02:03:24.0",
+   "clip_end": "02:03:34.0",
+   "note": "B80",
+   "delivery": "outro"
+  }
+ ]
+}

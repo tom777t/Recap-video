@@ -1,0 +1,15 @@
+{
+ "shot": "shot226",
+ "depicts": [
+  "dialogue",
+  "emotion"
+ ],
+ "chars": [
+  "Lynn",
+  "Bank"
+ ],
+ "censor": "none",
+ "action": "B78 (02:00:30), after the laundry has already told us what Bank has become: she has said no, and this is the shot he answers her in - he is the one speaking, she is the one taking it. The cutting is the editorial point. They are sitting beside each other and the film refuses to put them in one frame: tight single profiles, his, hers, his, and the partnership is over at the level of the edit before anything is settled between them. And it is her single the camera keeps coming back to - lowered gaze, turned off to the side, not answering, not looking at him. Whatever he is saying, the scene is not about him saying it; it is about the cost of sitting still through it. Twenty-two seconds of two faces in a warm dim room, in a film whose median shot is three seconds: the last conversation these two have is being let run.",
+ "pass2": "rewritten",
+ "pass2_added": "Named the two people pass one described but did not identify: the long-haired young woman is Lynn and the young man beside her is Bank. Basis - pass one's own chars field is [Lynn, Bank], and the window 02:00:24-02:00:46 sits on B78, which puts only those two in the scene."
+}

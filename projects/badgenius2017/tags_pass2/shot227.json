@@ -1,0 +1,16 @@
+{
+ "shot": "shot227",
+ "depicts": [
+  "dialogue",
+  "reaction",
+  "emotion"
+ ],
+ "chars": [
+  "Lynn",
+  "Bank"
+ ],
+ "censor": "none",
+ "action": "Lynn and Bank, no one else in frame, eighteen seconds into B78 (02:00:30): this is the shot her answer is SPOKEN in, and the shot he answers it in. R2 has already landed at 01:58:45, so nothing is being held back here - the scene is the two of them settling what he asked for, out loud. The editorial point is the cutting. He is the one who came with the proposition, but the window opens on HER speaking and holds her in tight profile; he only gets the frame to reply, and then it goes back. The two are never put in one frame together - there is no two-shot, no wide, nothing that would let them share the room - so the whole exchange is built out of singles that face each other across a cut. And he does not look away: the close-ups have him answering and then holding his eyes on her. That is the change a writer wants, and it is the only one available here - the boy who used to walk into an office with a sheet of paper rather than say a thing to her face now says it to her face. Twenty-two seconds of intercut singles in a film whose median shot is three seconds: both faces are kept available for the whole of it, and the film does not cut away until this is finished.",
+ "pass2": "rewritten",
+ "pass2_added": "Mapped pass one's two unnamed figures onto the names it had already put in `chars`: the long-haired young woman speaking = Lynn, the young man in the checked shirt = Bank. Basis - `chars` is [\"Lynn\", \"Bank\"] and the beat map has only this pair in the window (B77/B78, 01:58:45-02:02:05), so the pairing is forced. No new person, object, location or action. The location is left as pass one's \"dim warm-lit room\" and NOT named from the beat map."
+}

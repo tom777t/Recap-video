@@ -1,0 +1,12 @@
+{
+ "shot": "shot220",
+ "depicts": [
+  "establishing",
+  "aftermath"
+ ],
+ "censor": "none",
+ "chars": [],
+ "action": "Bank's name is on the shopfront before Bank is. This is B76 (01:57:20), the beat that exists so the money can be read off the premises instead of announced: a lit new sign selling laundry under his name, then a room of machines so new they are still in their wrapping. What the scheme paid out is stated in capital goods. The editorial note for a writer is that there is nobody in frame - pass one names no one, and that is the shot's whole method. The change in him is shown as inventory first, so the audience has already priced it before the scene with him starts. Note also the cutting: exterior sign to interior stock inside four seconds, two images rather than one held one, so this is the edit making the point twice, not lingering on it. Nothing here is spoken; the beat map's own line is that the image reveals it first, and this is that image.",
+ "pass2": "rewritten",
+ "pass2_added": "Read the sign's 'BANK' as the character Bank rather than a bank/brand name. Basis: beats_proposal B76, 'Mister Bank: a new sign, a new bike, his name on it', and film_plot.md, 'Bank, who has invested his share in revamping his mother's laundry business'. No person was added to the frame - chars stays empty, and Bank is referred to as the name on the signage, not as present."
+}

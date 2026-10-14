@@ -1,0 +1,10 @@
+{
+  "stage": "outline",
+  "declared_target_minutes": 20,
+  "declared_target_pinned": "2026-09-13T09:38:37+00:00",
+  "ratchet": {
+    "beats": 57,
+    "reveals": {},
+    "set_pieces": {}
+  }
+}

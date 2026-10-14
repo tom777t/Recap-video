@@ -1,0 +1,1477 @@
+{
+ "title": "How to Make Millions Before Grandma Dies",
+ "target_minutes": 20,
+ "voice": "tts",
+ "stage": "OUTLINE",
+ "_experiment": {
+  "what": "EXPERIMENT 3 - one variable: the prose. Structure is frozen and identical to the 129-line cut: same lines, same shots, same windows, same 15 silence beats, same 4 dropped beats, same claims. Only `narration` differs.",
+  "diagnosis_being_tested": "Seen beside Superbad's draft, the narration had drifted into captioning the frame. Lines like 'Four in the morning. The lane, the rails, a cat.' and 'Night. A car park, and Amah standing on her own among the cars.' are noun lists - no subject, no verb, nobody doing anything to anyone. They read like shots.json `action` text because that is what they were written from. Superbad's lines are sentences with a causal clause: 'Because charm is clearly not happening, he decides to skip it entirely.'",
+  "rule_applied": "Every line gets a subject and a verb. Where the film reports no causality, the line reports the state BETWEEN the people instead - who is carrying whom, what is being asked and not said, what has quietly changed since we last looked at these two. That is a real thing the shot shows.",
+  "caregiving": "Narrated as ACCUMULATION rather than instance. L18 'he learns which cup is hers', L40 'none of it registers as an event to anybody in that house', L42 'this is the part of it her family will never hear about', L35 'she lies still and lets him'. Forty acts of service mean something no single one of them does, so the lines report the total rather than the item.",
+  "method_note": "shots.json `action` text was used only to know who and what is in frame. No line was written from it.",
+  "constraints_held": "A8 and S5 unchanged. The four unnamed people stay unnamed and are referred to by role. R1 (L117-L121) still describes an object and a memory and no phone call. R2 lands at L74 and nowhere earlier - and the refusing man is still never called her brother in a sentence that attributes the relation to him, because 'Amah's brother' is a names.json character and he is not in that shot's chars. L105 still cannot say M is watering the vine (chars=[]), so it says 'somebody is standing there keeping it alive'."
+ },
+ "lines": [
+  {
+   "id": 1,
+   "clip_start": "00:00:52.8",
+   "clip_end": "00:01:08.5",
+   "narration": "Once a year the families of Bangkok climb this hillside to sweep the graves and feed their dead. Everyone comes. Turning up is how you prove you loved someone.",
+   "delivery": "intro",
+   "claim": {
+    "type": "narration",
+    "requires_visual": false
+   },
+   "note": "HOOK 1/3. establishing -> narration/no-visual."
+  },
+  {
+   "id": 2,
+   "clip_start": "00:01:10.0",
+   "clip_end": "00:01:27.9",
+   "narration": "The woman under the parasol is Amah, and she has run this ritual so many years that nobody needs to tell her what comes next. Her daughter stands at her shoulder and follows her lead.",
+   "delivery": "intro",
+   "claim": {
+    "type": "setup",
+    "subject": "Amah Saejiu"
+   },
+   "note": "HOOK 2/3."
+  },
+  {
+   "id": 3,
+   "clip_start": "00:02:00.4",
+   "clip_end": "00:02:28.2",
+   "narration": "Her grandson sits three feet up the slope with his back to all of it, and nobody calls him down. This is Serabudabu, and today I'm walking you through How to Make Millions Before Grandma Dies - the Thai film that asks what a grandson is actually worth.",
+   "delivery": "intro",
+   "claim": {
+    "type": "setup",
+    "subject": "M"
+   },
+   "note": "HOOK 3/3. Branding + title. Premise stated flatly per H2."
+  },
+  {
+   "id": 4,
+   "clip_start": "00:02:35.0",
+   "clip_end": "00:02:56.5",
+   "narration": "Amah kneels on the slab and works through the offering in an order she has never had to explain. She goes round her grandson twice to reach the tree, and he does not shift his feet once.",
+   "delivery": "normal",
+   "claim": {
+    "type": "action",
+    "subject": "Amah Saejiu"
+   },
+   "note": "MERGED from 00:02:35.0, 00:03:45.0"
+  },
+  {
+   "id": 5,
+   "clip_start": "00:04:30.0",
+   "clip_end": "00:04:52.1",
+   "narration": "He is twenty-something, he streams video games to an audience that is not growing, and the woman he will spend the next year of his life on is currently just the person standing between him and his signal.",
+   "delivery": "normal",
+   "claim": {
+    "type": "emotion",
+    "subject": "M"
+   }
+  },
+  {
+   "id": 6,
+   "clip_start": "00:04:59.1",
+   "clip_end": "00:05:18.3",
+   "narration": "Weeks later the same family gathers at the same hospital entrance, except that this time they are lifting her out of the car instead of waiting for her to lead the way in.",
+   "delivery": "normal",
+   "claim": {
+    "type": "narration",
+    "requires_visual": false
+   },
+   "note": "establishing -> narration/no-visual. | MERGED from 00:04:59.1, 00:05:20.0"
+  },
+  {
+   "id": 7,
+   "clip_start": "00:05:45.0",
+   "clip_end": "00:05:57.8",
+   "narration": "Out by the open car door, her children decide what their mother is allowed to know. The doctors have said stage four and about a year. The family agrees she will be told none of it.",
+   "delivery": "normal",
+   "claim": {
+    "type": "dialogue",
+    "subject": "Sew"
+   },
+   "note": "S4 note: the diagnosis is carried in this conversation, not shown. Bound to the conversation itself and worded as what they are doing."
+  },
+  {
+   "id": 8,
+   "clip_start": "00:05:57.8",
+   "clip_end": "00:06:21.6",
+   "narration": "M lives in a dark room lit by one monitor, and his mother still lets herself in to collect his laundry. He rubs her shoulders while she talks at him, which is the most work he does for anybody all week.",
+   "delivery": "normal",
+   "claim": {
+    "type": "setup",
+    "subject": "M"
+   },
+   "note": "MERGED from 00:05:57.8, 00:06:27.0"
+  },
+  {
+   "id": 9,
+   "clip_start": "00:07:05.0",
+   "clip_end": "00:07:26.5",
+   "narration": "She stands over the desk and tries again, and he answers her without taking the headset off. Then she gives up and goes, and he carries on talking to a chat window with almost nobody in it.",
+   "delivery": "normal",
+   "claim": {
+    "type": "dialogue",
+    "subject": "M"
+   },
+   "note": "MERGED from 00:07:05.0, 00:08:00.0"
+  },
+  {
+   "id": 10,
+   "clip_start": "00:08:36.4",
+   "clip_end": "00:08:58.5",
+   "narration": "Agong, his other grandfather, is dying in a hospital bed installed in the family living room. M sits beside it on his phone, which is so far the only thing we have watched him do next to a dying person.",
+   "delivery": "normal",
+   "claim": {
+    "type": "setup",
+    "subject": "Agong"
+   }
+  },
+  {
+   "id": 11,
+   "clip_start": "00:08:59.2",
+   "clip_end": "00:09:20.7",
+   "narration": "The person actually doing the work is his cousin Mui. She changes the old man, cleans him, cranks the bed up, all of it alone, while M carries a kettle into the next room and stays there.",
+   "delivery": "normal",
+   "claim": {
+    "type": "dialogue",
+    "subject": "Mui"
+   },
+   "note": "MERGED from 00:08:59.2, 00:09:30.7"
+  },
+  {
+   "id": 12,
+   "clip_start": "00:10:05.0",
+   "clip_end": "00:10:21.4",
+   "narration": "He talks to her from a bench across the room while she keeps working, and neither of them finds it strange. Remember where each of them is standing. The whole film is in it.",
+   "delivery": "normal",
+   "claim": {
+    "type": "dialogue",
+    "subject": "Mui"
+   }
+  },
+  {
+   "id": 13,
+   "clip_start": "00:10:33.5",
+   "clip_end": "00:10:58.5",
+   "narration": "Agong dies, and at the burning M learns what his cousin got for those months of gloves and bedpans: the old man left her the house. It is the only piece of family arithmetic M will act on all film.",
+   "delivery": "normal",
+   "claim": {
+    "type": "setup",
+    "subject": "M"
+   },
+   "note": "MERGED from 00:10:33.5, 00:11:32.0"
+  },
+  {
+   "id": 14,
+   "clip_start": "00:12:13.2",
+   "clip_end": "00:12:35.5",
+   "narration": "So M goes looking for a grandmother of his own. He crosses the city into the old lanes, carrying a plan he has not said out loud to anybody. How to Make Millions Before Grandma Dies.",
+   "delivery": "normal",
+   "claim": {
+    "type": "narration",
+    "requires_visual": false
+   },
+   "note": "establishing -> narration/no-visual. | MERGED from 00:12:13.2, 00:13:29.4, 00:14:00.3"
+  },
+  {
+   "id": 15,
+   "clip_start": "00:14:29.2",
+   "clip_end": "00:14:50.7",
+   "narration": "He walks the length of the lane to a green folding gate and calls in through the bars like a man delivering something. Inside, his grandmother receives the sudden warmth of her only grandson with open suspicion.",
+   "delivery": "normal",
+   "claim": {
+    "type": "transition",
+    "subject": "M"
+   },
+   "note": "MERGED from 00:14:29.2, 00:15:15.0"
+  },
+  {
+   "id": 16,
+   "clip_start": "00:16:00.1",
+   "clip_end": "00:16:24.5",
+   "narration": "She has run a congee stall by the railway since before he was born, she is up before the market, and she does not stop. He eats her fish, she watches him eat it, and for one meal they almost get along.",
+   "delivery": "normal",
+   "claim": {
+    "type": "narration",
+    "requires_visual": false
+   },
+   "note": "establishing -> narration/no-visual. | MERGED from 00:16:00.1, 00:16:32.0"
+  },
+  {
+   "id": 17,
+   "clip_start": "00:17:15.4",
+   "clip_end": "00:17:31.2",
+   "narration": "Then she lies down on the daybed among her medicine bottles, and he sits there looking at the shape of the year he has just volunteered for.",
+   "delivery": "normal",
+   "claim": {
+    "type": "setup",
+    "subject": "Amah Saejiu"
+   }
+  },
+  {
+   "id": 18,
+   "clip_start": "00:18:00.0",
+   "clip_end": "00:18:20.9",
+   "narration": "So he starts serving her. He heats what she leaves, sets her containers out, learns which cup is hers - and then stands at her shrine afterwards pricing the offerings like a man reading a menu.",
+   "delivery": "normal",
+   "claim": {
+    "type": "action",
+    "subject": "M"
+   },
+   "note": "MERGED from 00:18:00.0, 00:18:29.0"
+  },
+  {
+   "id": 19,
+   "clip_start": "00:19:28.4",
+   "clip_end": "00:19:52.2",
+   "narration": "Then he takes a box across town to Mui, who lives in a hotel now. She sold the house Agong left her and has been paying for room service out of it ever since, and says so without lowering her voice.",
+   "delivery": "normal",
+   "claim": {
+    "type": "dialogue",
+    "subject": "Mui"
+   },
+   "note": "MERGED from 00:19:28.4, 00:20:27.8"
+  },
+  {
+   "id": 20,
+   "clip_start": "00:22:01.4",
+   "clip_end": "00:22:28.0",
+   "narration": "So he asks her straight out how she did it - how you get an old person to sign a house over to you. She does not pretend the question is rude. You give them what their own children will not, she says. You turn up.",
+   "delivery": "normal",
+   "claim": {
+    "type": "dialogue",
+    "subject": "M"
+   },
+   "note": "MERGED from 00:22:01.4, 00:22:58.4"
+  },
+  {
+   "id": 21,
+   "clip_start": "00:24:05.0",
+   "clip_end": "00:24:23.0",
+   "narration": "He packs his room. His mother walks him round a supermarket buying groceries for a woman she knows perfectly well he is not moving in to help, and neither of them says so.",
+   "delivery": "normal",
+   "claim": {
+    "type": "setup",
+    "subject": "M"
+   },
+   "note": "MERGED from 00:24:05.0, 00:24:38.0"
+  },
+  {
+   "id": 22,
+   "clip_start": "00:25:00.8",
+   "clip_end": "00:25:24.0",
+   "narration": "He arrives at Amah's with his bags before anybody has agreed to it. She meets him in her own gateway holding a kitchen tool she does not put down, and sets her terms: he can stay, and he will work.",
+   "delivery": "normal",
+   "claim": {
+    "type": "setup",
+    "subject": "M"
+   },
+   "note": "MERGED from 00:25:00.8, 00:25:30.1"
+  },
+  {
+   "id": 23,
+   "clip_start": "00:25:58.0",
+   "clip_end": "00:26:20.6",
+   "narration": "The first thing she does is open her cash tin and count it out in front of him, item by item. She is not hiding the money. She is showing him exactly how little there is to be left.",
+   "delivery": "normal",
+   "claim": {
+    "type": "dialogue",
+    "subject": "Amah Saejiu"
+   },
+   "note": "MERGED from 00:25:58.0, 00:26:38.0"
+  },
+  {
+   "id": 24,
+   "clip_start": "00:27:20.0",
+   "clip_end": "00:27:32.1",
+   "narration": "He walks the house on his own afterwards, past the glass cabinets and the standing clock, valuing the place she has just finished telling him is worth nothing.",
+   "delivery": "normal",
+   "claim": {
+    "type": "setup",
+    "subject": "M"
+   }
+  },
+  {
+   "id": 25,
+   "clip_start": "00:27:57.7",
+   "clip_end": "00:28:24.5",
+   "narration": "The routine starts. He climbs the stairs a step behind her in case she goes backwards. And that night, once she is asleep on the daybed, he lies down near her and settles a cover over her with nobody there to see him do it.",
+   "delivery": "normal",
+   "claim": {
+    "type": "dialogue",
+    "subject": "M"
+   },
+   "note": "MERGED from 00:27:57.7, 00:28:20.0"
+  },
+  {
+   "id": 26,
+   "clip_start": "00:28:45.0",
+   "clip_end": "00:29:10.1",
+   "narration": "By four in the morning she has been up an hour, and now he is up with her. They work the congee pots together in the dark, and a month ago this was a man who could not be woken before noon.",
+   "delivery": "normal",
+   "claim": {
+    "type": "narration",
+    "requires_visual": false
+   },
+   "note": "establishing -> narration/no-visual. | MERGED from 00:28:45.0, 00:29:02.0"
+  },
+  {
+   "id": 27,
+   "clip_start": "00:31:32.0",
+   "clip_end": "00:31:56.9",
+   "narration": "She goes through the cabinet and puts something into his hands without explaining what it is. Watch her feet while she does it - the film is already setting something up, and it will not own up to it for another half hour.",
+   "delivery": "normal",
+   "claim": {
+    "type": "dialogue",
+    "subject": "Amah Saejiu"
+   },
+   "note": "PLANT: the worn sandal at ~00:31:55 inside this window. Pays off at 01:03:11.9 (shoe shop). See STRESS_grandma Gap 3."
+  },
+  {
+   "id": 28,
+   "clip_start": "00:31:59.4",
+   "clip_end": "00:32:22.3",
+   "narration": "She sits out in the lane on a low stool and he comes down onto his heels so their faces are level. Six weeks ago he could not lift his eyes off a phone at his grandfather's grave. Nobody remarks on it.",
+   "delivery": "normal",
+   "claim": {
+    "type": "emotion",
+    "subject": "M"
+   },
+   "note": "MERGED from 00:31:59.4, 00:32:32.0"
+  },
+  {
+   "id": 29,
+   "clip_start": "00:33:00.0",
+   "clip_end": "00:33:20.9",
+   "narration": "Then the rest of them arrive for the weekly meal. Her grown children fill her house, put their dishes down on her table, and talk across her at a volume that never requires her to answer.",
+   "delivery": "normal",
+   "claim": {
+    "type": "setup",
+    "subject": "Amah Saejiu"
+   },
+   "note": "MERGED from 00:33:00.0, 00:33:20.0"
+  },
+  {
+   "id": 30,
+   "clip_start": "00:34:09.9",
+   "clip_end": "00:34:33.1",
+   "narration": "The talk turns to who will look after her, and every one of them has a reason why it cannot be them. M listens from the stairs with a bowl on his knees, and nobody thinks to call him in.",
+   "delivery": "normal",
+   "claim": {
+    "type": "dialogue",
+    "subject": "M"
+   },
+   "note": "MERGED from 00:34:09.9, 00:34:40.0"
+  },
+  {
+   "id": 31,
+   "clip_start": "00:35:19.5",
+   "clip_end": "00:36:20.7",
+   "narration": "",
+   "narration_silence_seconds": 15.0,
+   "note": "SILENCE - hold on 00:35:19.5 (B17)."
+  },
+  {
+   "id": 32,
+   "clip_start": "00:37:32.4",
+   "clip_end": "00:38:03.3",
+   "narration": "Her daughter takes her swimming. They stand in the shallow end with their heads together while the class goes on around them - the only conversation in this film neither woman is performing for anybody. Afterwards her son works round to finding out how much his mother has guessed about him.",
+   "delivery": "normal",
+   "claim": {
+    "type": "dialogue",
+    "subject": "Sew"
+   },
+   "note": "MERGED from 00:37:32.4, 00:39:00.0"
+  },
+  {
+   "id": 33,
+   "clip_start": "00:39:30.8",
+   "clip_end": "00:39:54.6",
+   "narration": "At night they drive her to the hospital, and she waits by herself between the parked cars while the two of them get out and come over to her. Inside, M queues through a hall where every single chair is taken.",
+   "delivery": "normal",
+   "claim": {
+    "type": "setup",
+    "subject": "Amah Saejiu"
+   },
+   "note": "MERGED from 00:39:30.8, 00:40:22.7"
+  },
+  {
+   "id": 34,
+   "clip_start": "00:41:10.0",
+   "clip_end": "00:41:31.5",
+   "narration": "She takes the drip sitting upright with him beside her, and holds herself together the entire time he is watching. Then he steps behind the glass partition where she cannot see him, and stops holding himself together.",
+   "delivery": "normal",
+   "claim": {
+    "type": "setup",
+    "subject": "Amah Saejiu"
+   },
+   "note": "MERGED from 00:41:10.0, 00:41:30.0"
+  },
+  {
+   "id": 35,
+   "clip_start": "00:41:59.5",
+   "clip_end": "00:42:18.7",
+   "narration": "The care escalates without anybody announcing it. He carries things down for her, then finds himself at her bedside listening to her chest through a tube while she lies still and lets him.",
+   "delivery": "normal",
+   "claim": {
+    "type": "action",
+    "subject": "M"
+   },
+   "note": "MERGED from 00:41:59.5, 00:43:31.0"
+  },
+  {
+   "id": 36,
+   "clip_start": "00:44:00.8",
+   "clip_end": "00:44:24.6",
+   "narration": "They end up sleeping in the same room under the same net, beneath a photograph of the family's dead. He wakes in the dark and sits up fast, the way you do once you have started listening for somebody else's breathing.",
+   "delivery": "normal",
+   "claim": {
+    "type": "emotion",
+    "subject": "Amah Saejiu"
+   },
+   "note": "MERGED from 00:44:00.8, 00:44:42.1"
+  },
+  {
+   "id": 37,
+   "clip_start": "00:45:00.0",
+   "clip_end": "00:45:12.1",
+   "narration": "In the morning she is back at the stall scales, running her business as though none of this were happening to her.",
+   "delivery": "normal",
+   "claim": {
+    "type": "dialogue",
+    "subject": "Amah Saejiu"
+   }
+  },
+  {
+   "id": 38,
+   "clip_start": "00:45:33.0",
+   "clip_end": "00:46:29.0",
+   "narration": "",
+   "narration_silence_seconds": 22.0,
+   "note": "SILENCE - hold on 00:45:33.0 (B21)."
+  },
+  {
+   "id": 39,
+   "clip_start": "00:46:45.0",
+   "clip_end": "00:46:55.6",
+   "narration": "Then she falls asleep sitting bolt upright in a waiting room, her head gone over onto one shoulder.",
+   "delivery": "normal",
+   "claim": {
+    "type": "emotion",
+    "subject": "Amah Saejiu"
+   }
+  },
+  {
+   "id": 40,
+   "clip_start": "00:47:00.0",
+   "clip_end": "00:47:27.4",
+   "narration": "After that he is doing all of it. He brings her down the stairs a step at a time, lights the stove, fills the kettle, washes what she used - and none of it registers as an event to anybody in that house.",
+   "delivery": "normal",
+   "claim": {
+    "type": "action",
+    "subject": "M"
+   },
+   "note": "MERGED from 00:47:00.0, 00:47:40.0"
+  },
+  {
+   "id": 41,
+   "clip_start": "00:48:00.0",
+   "clip_end": "00:48:49.2",
+   "narration": "",
+   "narration_silence_seconds": 16.0,
+   "note": "SILENCE - hold on 00:48:00.0 (B22)."
+  },
+  {
+   "id": 42,
+   "clip_start": "00:48:49.2",
+   "clip_end": "00:49:15.3",
+   "narration": "She watches him work the incense at the shrine and does not correct him once, because by now he knows the order. He hangs her washing across the lane while she supervises from the doorway. Her family will never hear about this part.",
+   "delivery": "normal",
+   "claim": {
+    "type": "dialogue",
+    "subject": "Amah Saejiu"
+   },
+   "note": "MERGED from 00:48:49.2, 00:50:20.0"
+  },
+  {
+   "id": 43,
+   "clip_start": "00:50:50.2",
+   "clip_end": "00:51:16.3",
+   "narration": "One of her sons turns up at the house, and the film cannot be bothered to introduce him properly. He hauls her half off her feet out in the lane and she laughs at him for it. He is also the one who owes money.",
+   "delivery": "normal",
+   "claim": {
+    "type": "dialogue",
+    "subject": "M"
+   },
+   "note": "MERGED from 00:50:50.2, 00:51:21.3"
+  },
+  {
+   "id": 44,
+   "clip_start": "00:53:20.0",
+   "clip_end": "00:53:33.6",
+   "narration": "Then her eldest son sends a car for her, and she is driven out through the suburbs to an address she has never lived at.",
+   "delivery": "normal",
+   "claim": {
+    "type": "transition",
+    "subject": "M"
+   }
+  },
+  {
+   "id": 45,
+   "clip_start": "00:53:47.6",
+   "clip_end": "00:54:09.1",
+   "narration": "They have fitted a room out for her - hospital bed, balloons, karaoke screen, everything but a reason to want to be in it. She sits on the new mattress while it is shown off around her.",
+   "delivery": "normal",
+   "claim": {
+    "type": "setup",
+    "subject": "Amah Saejiu"
+   },
+   "note": "MERGED from 00:53:47.6, 00:54:47.6"
+  },
+  {
+   "id": 46,
+   "clip_start": "00:55:30.1",
+   "clip_end": "00:55:48.2",
+   "narration": "Then Kiang takes M aside and puts an offer to him, and you can watch M work out that he has just been outbid by a man with a spare bedroom.",
+   "delivery": "normal",
+   "claim": {
+    "type": "dialogue",
+    "subject": "Kiang"
+   }
+  },
+  {
+   "id": 47,
+   "clip_start": "00:56:30.2",
+   "clip_end": "00:56:38.2",
+   "narration": "She reaches up and takes Kiang's hand, and hands him the thing M has been working four months for.",
+   "delivery": "normal",
+   "claim": {
+    "type": "emotion",
+    "subject": "Kiang"
+   }
+  },
+  {
+   "id": 48,
+   "clip_start": "00:56:58.3",
+   "clip_end": "00:57:15.0",
+   "narration": "M watches her do it and says nothing at all. Then the whole family goes up-country on a train, and he sits among them as though nothing has been decided.",
+   "delivery": "normal",
+   "claim": {
+    "type": "reaction",
+    "subject": "M"
+   },
+   "note": "MERGED from 00:56:58.3, 00:57:30.0"
+  },
+  {
+   "id": 49,
+   "clip_start": "00:58:01.5",
+   "clip_end": "00:58:25.9",
+   "narration": "At a hilltop temple he crouches at the steps and works her swollen feet out of her sandals before she has to ask. Then they go through the offerings together among the candles and the oranges, and he knows this ritual now.",
+   "delivery": "normal",
+   "claim": {
+    "type": "narration",
+    "requires_visual": false
+   },
+   "note": "establishing -> narration/no-visual. | MERGED from 00:58:01.5, 00:58:35.0, 00:59:00.2"
+  },
+  {
+   "id": 50,
+   "clip_start": "01:00:00.0",
+   "clip_end": "01:00:58.7",
+   "narration": "",
+   "narration_silence_seconds": 18.0,
+   "note": "SILENCE - hold on 01:00:00.0 (B25)."
+  },
+  {
+   "id": 51,
+   "clip_start": "01:00:58.7",
+   "clip_end": "01:01:20.6",
+   "narration": "Then he picks up a printed slip and reads what she has been filling in. It is a coffin donation - she is paying in advance for the burial of a stranger. She signs it and hands it back.",
+   "delivery": "normal",
+   "claim": {
+    "type": "discovery",
+    "subject": "M"
+   },
+   "note": "MERGED from 01:00:58.7, 01:01:30.0"
+  },
+  {
+   "id": 52,
+   "clip_start": "01:03:11.9",
+   "clip_end": "01:03:35.7",
+   "narration": "In a shoe shop he kneels on the floor and works a new pair onto the feet you were told to watch forty minutes ago. He looks up at her from down there, still holding her heel, and she lets him.",
+   "delivery": "normal",
+   "claim": {
+    "type": "action",
+    "subject": "M"
+   },
+   "note": "PAYOFF of the sandal chain (plant 00:31:32.0, mid-beat 00:58:35.0). | MERGED from 01:03:11.9, 01:03:45.0"
+  },
+  {
+   "id": 53,
+   "clip_start": "01:04:11.4",
+   "clip_end": "01:04:30.9",
+   "narration": "",
+   "narration_silence_seconds": 8.0,
+   "note": "SILENCE - hold on 01:04:11.4 (B27)."
+  },
+  {
+   "id": 54,
+   "clip_start": "01:04:30.9",
+   "clip_end": "01:04:55.1",
+   "narration": "They go through old photographs on his phone by the window, and he puts his head down against her arm while she laughs at the screen. Whatever he came into this house to do, it is not the only thing he is doing any more.",
+   "delivery": "normal",
+   "claim": {
+    "type": "dialogue",
+    "subject": "Amah Saejiu"
+   },
+   "note": "MERGED from 01:04:30.9, 01:05:30.0"
+  },
+  {
+   "id": 55,
+   "clip_start": "01:06:04.2",
+   "clip_end": "01:06:12.2",
+   "narration": "A train runs the embankment under a full rainbow, and the film lets you think for a moment that this is going well.",
+   "delivery": "normal",
+   "claim": {
+    "type": "narration",
+    "requires_visual": false
+   },
+   "note": "establishing -> narration/no-visual. Deliberately short: the next shot must not be narrated over."
+  },
+  {
+   "id": 56,
+   "clip_start": "01:06:26.3",
+   "clip_end": "01:06:39.8",
+   "narration": "",
+   "narration_silence_seconds": 10.0,
+   "note": "SILENCE - hold on 01:06:26.3 (B29)."
+  },
+  {
+   "id": 57,
+   "clip_start": "01:06:46.6",
+   "clip_end": "01:07:03.7",
+   "narration": "He works the paddle through the congee pot while she watches him do it from the stool below him. The stall still opens every morning, because she has not agreed to stop.",
+   "delivery": "normal",
+   "claim": {
+    "type": "action",
+    "subject": "M"
+   }
+  },
+  {
+   "id": 58,
+   "clip_start": "01:07:24.5",
+   "clip_end": "01:07:32.5",
+   "narration": "At night the two of them sit and count the day's takings together at the green table.",
+   "delivery": "normal",
+   "claim": {
+    "type": "dialogue",
+    "subject": "Amah Saejiu"
+   }
+  },
+  {
+   "id": 59,
+   "clip_start": "01:08:05.0",
+   "clip_end": "01:08:32.0",
+   "narration": "The film stops on her, alone under the strip light, about four seconds longer than it needs to. Then their heads come together over one small bowl and they talk about nothing in particular, which by now is what they have instead of talking.",
+   "delivery": "normal",
+   "claim": {
+    "type": "emotion",
+    "subject": "Amah Saejiu"
+   },
+   "note": "MERGED from 01:08:05.0, 01:08:50.0"
+  },
+  {
+   "id": 60,
+   "clip_start": "01:09:19.0",
+   "clip_end": "01:09:37.6",
+   "narration": "This is the warmest the film gets. She smiles at something he said, and he takes it in from across the table like a man handed something he did not budget for.",
+   "delivery": "normal",
+   "claim": {
+    "type": "emotion",
+    "subject": "Amah Saejiu"
+   },
+   "note": "MERGED from 01:09:19.0, 01:09:40.0"
+  },
+  {
+   "id": 61,
+   "clip_start": "01:10:25.0",
+   "clip_end": "01:10:51.1",
+   "narration": "He reaches a jar down and builds her a plate in the narrow kitchen while she sits where she can watch him do it. Later the two of them sit on the bed over one black-and-white photograph on his phone, and she does the talking.",
+   "delivery": "normal",
+   "claim": {
+    "type": "action",
+    "subject": "M"
+   },
+   "note": "MERGED from 01:10:25.0, 01:10:50.0"
+  },
+  {
+   "id": 62,
+   "clip_start": "01:12:05.0",
+   "clip_end": "01:12:31.8",
+   "narration": "Her son from the lane crouches down beside him at the bike park and starts talking. M keeps his eyes on the ground and lets him get all the way to the end of it, and whatever is being asked for here, it is money.",
+   "delivery": "normal",
+   "claim": {
+    "type": "dialogue",
+    "subject": "M"
+   },
+   "note": "Unnamed per beats_proposal. Role only. | MERGED from 01:12:05.0, 01:12:25.0"
+  },
+  {
+   "id": 63,
+   "clip_start": "01:13:45.0",
+   "clip_end": "01:14:01.4",
+   "narration": "A man in a maroon shirt comes to the green gate and talks to her through the bars. She keeps the gate shut and answers him through it.",
+   "delivery": "normal",
+   "claim": {
+    "type": "dialogue",
+    "subject": "Amah Saejiu"
+   }
+  },
+  {
+   "id": 64,
+   "clip_start": "01:14:20.0",
+   "clip_end": "01:14:39.6",
+   "narration": "He holds his phone up against the bars. There is a listing on the screen with a photograph of her house on it, and a name on the advert that is not hers. She tells him the house is not for sale, and that she does not know who that is.",
+   "delivery": "normal",
+   "claim": {
+    "type": "dialogue",
+    "subject": "Amah Saejiu"
+   },
+   "note": "S4: the listing card and the photo of a building ARE visible (zoom 01-14-26). The name and the denial are carried in dialogue and reported as speech."
+  },
+  {
+   "id": 65,
+   "clip_start": "01:14:39.6",
+   "clip_end": "01:15:00.0",
+   "narration": "",
+   "narration_silence_seconds": 12.0,
+   "note": "SILENCE - hold on 01:14:39.6 (B34)."
+  },
+  {
+   "id": 66,
+   "clip_start": "01:15:15.0",
+   "clip_end": "01:15:38.6",
+   "narration": "She spends more of the day in the rocking chair now, looking at nothing much. He gets her up and holds her steady until her feet take her weight, and when he sits down beside her she puts her hand flat against his face.",
+   "delivery": "normal",
+   "claim": {
+    "type": "emotion",
+    "subject": "Amah Saejiu"
+   },
+   "note": "MERGED from 01:15:15.0, 01:15:27.0, 01:15:45.0"
+  },
+  {
+   "id": 67,
+   "clip_start": "01:16:45.0",
+   "clip_end": "01:17:09.4",
+   "narration": "There is one pomegranate on the vine by her gate, and she has been letting it ripen for somebody. She picks it, carries it over, and sits down with it in her lap beside a grandson who is looking at his phone.",
+   "delivery": "normal",
+   "claim": {
+    "type": "setup",
+    "subject": "Amah Saejiu"
+   },
+   "note": "MERGED from 01:16:45.0, 01:17:12.0"
+  },
+  {
+   "id": 68,
+   "clip_start": "01:17:20.0",
+   "clip_end": "01:17:39.3",
+   "narration": "She turns it over and sets a knife to the skin. Then she opens it in front of him and tells him, across the fruit, that he will have to learn to stand on his own feet.",
+   "delivery": "normal",
+   "claim": {
+    "type": "action",
+    "subject": "Amah Saejiu"
+   },
+   "note": "MERGED from 01:17:20.0, 01:17:45.0"
+  },
+  {
+   "id": 69,
+   "clip_start": "01:18:00.0",
+   "clip_end": "01:18:07.8",
+   "narration": "He answers her back, and she holds his eye until he stops talking.",
+   "delivery": "normal",
+   "claim": {
+    "type": "dialogue",
+    "subject": "M"
+   }
+  },
+  {
+   "id": 70,
+   "clip_start": "01:18:22.0",
+   "clip_end": "01:18:49.8",
+   "narration": "Then she takes him to a large white house behind an ornamental fence and sits him at a table of relatives he does not know. He eats beside a small boy, helps himself at the buffet, and works out fairly quickly that he is here as somebody's escort.",
+   "delivery": "normal",
+   "claim": {
+    "type": "narration",
+    "requires_visual": false
+   },
+   "note": "establishing -> narration/no-visual. | MERGED from 01:18:22.0, 01:18:43.0, 01:18:53.0"
+  },
+  {
+   "id": 71,
+   "clip_start": "01:19:20.2",
+   "clip_end": "01:19:38.1",
+   "narration": "She gets on the karaoke and sings up at the old man standing over her, laughing, working him. This is her brother's house, and she has come here to ask him for money.",
+   "delivery": "normal",
+   "claim": {
+    "type": "emotion",
+    "subject": "Amah Saejiu"
+   },
+   "note": "The elderly man is NOT named (see beats_proposal). 'her brother's house' states the location, not an identification of the man on screen."
+  },
+  {
+   "id": 72,
+   "clip_start": "01:19:42.7",
+   "clip_end": "01:20:00.2",
+   "narration": "Then she sits down at the long dark table and asks. A million baht - and she makes him listen to the whole request without helping her through any of it.",
+   "delivery": "normal",
+   "claim": {
+    "type": "setup",
+    "subject": "Amah Saejiu"
+   },
+   "note": "MERGED from 01:19:42.7, 01:20:00.2"
+  },
+  {
+   "id": 73,
+   "clip_start": "01:20:17.7",
+   "clip_end": "01:20:36.3",
+   "narration": "He turns to the desk behind him and finds something to do with his hands rather than answer. Further down the room, her grandson listens to his grandmother being made to wait.",
+   "delivery": "normal",
+   "claim": {
+    "type": "reaction",
+    "subject": "Amah Saejiu"
+   },
+   "note": "MERGED from 01:20:17.7, 01:20:33.5"
+  },
+  {
+   "id": 74,
+   "clip_start": "01:20:42.2",
+   "clip_end": "01:21:13.0",
+   "narration": "Standing up, on his cane, he tells her no. And this is where the film finally says what she has been carrying: she nursed their parents in that house until they died, and she came out of it with nothing, and he kept it. She is not asking for a loan. She is asking to be paid for work she already did.",
+   "delivery": "normal",
+   "claim": {
+    "type": "dialogue",
+    "subject": "Amah Saejiu"
+   },
+   "note": "R2 lands HERE and not before - beats_proposal reveal-map: protect the placement."
+  },
+  {
+   "id": 75,
+   "clip_start": "01:21:19.8",
+   "clip_end": "01:21:40.7",
+   "narration": "",
+   "narration_silence_seconds": 15.0,
+   "note": "SILENCE - hold on 01:21:19.8 (B37)."
+  },
+  {
+   "id": 76,
+   "clip_start": "01:21:40.7",
+   "clip_end": "01:21:50.0",
+   "narration": "He walks off through his own house and leaves her standing where she is, and not one person in that room goes after her.",
+   "delivery": "normal",
+   "claim": {
+    "type": "narration",
+    "requires_visual": false
+   },
+   "note": "aftermath -> narration/no-visual."
+  },
+  {
+   "id": 77,
+   "clip_start": "01:22:02.8",
+   "clip_end": "01:22:19.2",
+   "narration": "M rides home holding the pole, looking at nothing. Through the window she is already talking to somebody else, because that is what she does instead of minding.",
+   "delivery": "normal",
+   "claim": {
+    "type": "emotion",
+    "subject": "M"
+   },
+   "note": "MERGED from 01:22:02.8, 01:22:09.0"
+  },
+  {
+   "id": 78,
+   "clip_start": "01:22:38.2",
+   "clip_end": "01:22:48.2",
+   "narration": "And then the film does the thing it is best at, which is stop talking and let the two of them walk.",
+   "delivery": "normal",
+   "claim": {
+    "type": "narration",
+    "requires_visual": false
+   },
+   "note": "transition -> narration/no-visual."
+  },
+  {
+   "id": 79,
+   "clip_start": "01:23:30.0",
+   "clip_end": "01:23:57.5",
+   "narration": "",
+   "narration_silence_seconds": 20.0,
+   "note": "SILENCE - hold on 01:23:30.0 (B38)."
+  },
+  {
+   "id": 80,
+   "clip_start": "01:23:57.5",
+   "clip_end": "01:24:16.1",
+   "narration": "They are back in the outpatient hall, and she waits at the end of a bench in a knitted cap while her family goes to find out what happens to her next.",
+   "delivery": "normal",
+   "claim": {
+    "type": "narration",
+    "requires_visual": false
+   },
+   "note": "establishing -> narration/no-visual. | MERGED from 01:23:57.5, 01:24:24.8"
+  },
+  {
+   "id": 81,
+   "clip_start": "01:24:39.8",
+   "clip_end": "01:25:02.6",
+   "narration": "Away from her, Sew is crying with her son's head against hers. The chemotherapy has stopped working and they are moving her mother onto comfort care - told to them at a desk, by a doctor whose face the film never shows.",
+   "delivery": "normal",
+   "claim": {
+    "type": "reaction",
+    "subject": "Sew"
+   },
+   "note": "MERGED from 01:24:39.8, 01:24:53.0"
+  },
+  {
+   "id": 82,
+   "clip_start": "01:25:02.6",
+   "clip_end": "01:25:23.7",
+   "narration": "She is still down the far end of the hall on her own, waiting to be told the thing everybody else in the building already knows. It is her grandson who walks over, crouches down, and tells her.",
+   "delivery": "normal",
+   "claim": {
+    "type": "emotion",
+    "subject": "Amah Saejiu"
+   },
+   "note": "MERGED from 01:25:02.6, 01:25:12.8"
+  },
+  {
+   "id": 83,
+   "clip_start": "01:25:34.2",
+   "clip_end": "01:25:56.0",
+   "narration": "She hears it out without changing her face. The film keeps all three of them in the one frame and refuses to go hunting for a close-up. Then his hand closes over hers on the arm of the chair.",
+   "delivery": "normal",
+   "claim": {
+    "type": "reaction",
+    "subject": "Amah Saejiu"
+   },
+   "note": "MERGED from 01:25:34.2, 01:25:56.0"
+  },
+  {
+   "id": 84,
+   "clip_start": "01:26:33.0",
+   "clip_end": "01:26:49.2",
+   "narration": "That night he sits on the floor beside her bed and watches her sleep, and for the first time since he moved in there is nothing left for him to organise.",
+   "delivery": "normal",
+   "claim": {
+    "type": "emotion",
+    "subject": "M"
+   },
+   "note": "MERGED from 01:26:33.0, 01:26:49.2"
+  },
+  {
+   "id": 85,
+   "clip_start": "01:27:05.0",
+   "clip_end": "01:27:22.5",
+   "narration": "The rest of the family has moved on to the paperwork. Out on the walkway between the hospital blocks, her son and her daughter stop being polite to one another.",
+   "delivery": "normal",
+   "claim": {
+    "type": "setup",
+    "subject": "Sew"
+   },
+   "note": "MERGED from 01:27:05.0, 01:27:38.8"
+  },
+  {
+   "id": 86,
+   "clip_start": "01:28:03.0",
+   "clip_end": "01:28:18.0",
+   "narration": "Kiang wants to know where the title deed is. His wife has asked him to ask. Their mother is not dead yet - he says that part himself, out loud, as though saying it settles the manners of the question.",
+   "delivery": "normal",
+   "claim": {
+    "type": "dialogue",
+    "subject": "Kiang"
+   }
+  },
+  {
+   "id": 87,
+   "clip_start": "01:28:18.0",
+   "clip_end": "01:28:34.5",
+   "narration": "Sew tells him what she thinks of that, then walks back to her son and repeats it quietly, because somebody in this family has to hear it from somebody.",
+   "delivery": "normal",
+   "claim": {
+    "type": "reaction",
+    "subject": "Sew"
+   },
+   "note": "MERGED from 01:28:18.0, 01:28:34.5"
+  },
+  {
+   "id": 88,
+   "clip_start": "01:28:43.0",
+   "clip_end": "01:28:54.2",
+   "narration": "Documents change hands at the foot of the stairs, and M is left standing on them on his own.",
+   "delivery": "normal",
+   "claim": {
+    "type": "dialogue",
+    "subject": "M"
+   },
+   "note": "MERGED from 01:28:43.0, 01:29:03.0"
+  },
+  {
+   "id": 89,
+   "clip_start": "01:29:13.0",
+   "clip_end": "01:29:38.5",
+   "narration": "Somewhere in the building a room has been stripped and its drip stands left standing empty. M catches sight of himself in a glass door and puts a hand up to his face, in the one place where nobody can watch him do it.",
+   "delivery": "normal",
+   "claim": {
+    "type": "narration",
+    "requires_visual": false
+   },
+   "note": "aftermath -> narration/no-visual. | MERGED from 01:29:13.0, 01:29:33.1"
+  },
+  {
+   "id": 90,
+   "clip_start": "01:30:50.9",
+   "clip_end": "01:31:21.5",
+   "narration": "He pushes her along the outside walkway, no cap on her head now, and she talks at him for a minute and a half while he keeps his eyes on the ground. She has known what he came for. She has known it a long time. She has been letting him stay anyway.",
+   "delivery": "normal",
+   "claim": {
+    "type": "dialogue",
+    "subject": "M"
+   },
+   "note": "MERGED from 01:30:50.9, 01:31:17.8"
+  },
+  {
+   "id": 91,
+   "clip_start": "01:31:58.0",
+   "clip_end": "01:32:24.8",
+   "narration": "",
+   "narration_silence_seconds": 16.0,
+   "note": "SILENCE - hold on 01:31:58.0 (B43)."
+  },
+  {
+   "id": 92,
+   "clip_start": "01:32:57.0",
+   "clip_end": "01:33:15.6",
+   "narration": "His mother cuts hair for a living. He lies back in her chair and lets her work on him, which is the first time in a year anybody has looked after him.",
+   "delivery": "normal",
+   "claim": {
+    "type": "narration",
+    "requires_visual": false
+   },
+   "note": "establishing -> narration/no-visual. | MERGED from 01:32:57.0, 01:33:13.0"
+  },
+  {
+   "id": 93,
+   "clip_start": "01:33:34.3",
+   "clip_end": "01:33:48.9",
+   "narration": "She stands there with her hands up behind her head, worn out, and tells him the house has been sold and his things need packing.",
+   "delivery": "normal",
+   "claim": {
+    "type": "dialogue",
+    "subject": "Sew"
+   }
+  },
+  {
+   "id": 94,
+   "clip_start": "01:34:13.0",
+   "clip_end": "01:34:42.3",
+   "narration": "Then she drops onto the couch laughing, and he sits down and works at her legs and feet - doing for his mother exactly what he has spent the year doing for her mother. She says the quiet part: it is easier to be the one who gives.",
+   "delivery": "normal",
+   "claim": {
+    "type": "emotion",
+    "subject": "Sew"
+   },
+   "note": "MERGED from 01:34:13.0, 01:34:28.0"
+  },
+  {
+   "id": 95,
+   "clip_start": "01:35:08.0",
+   "clip_end": "01:35:27.6",
+   "narration": "He drives out to see Mui. She is sitting on the veranda of a house she does not own any more, and she pours the tea and does the talking while he sits there and listens to her.",
+   "delivery": "normal",
+   "claim": {
+    "type": "narration",
+    "requires_visual": false
+   },
+   "note": "transition -> narration/no-visual. | MERGED from 01:35:08.0, 01:36:03.3, 01:36:28.0"
+  },
+  {
+   "id": 96,
+   "clip_start": "01:37:18.0",
+   "clip_end": "01:37:44.6",
+   "narration": "She tells him something she has clearly never said to anybody. She was there at the end for Agong, and she knew what she stood to get, and she has never once managed to feel clean about both of those being true at the same time.",
+   "delivery": "normal",
+   "claim": {
+    "type": "dialogue",
+    "subject": "Mui"
+   }
+  },
+  {
+   "id": 97,
+   "clip_start": "01:37:53.4",
+   "clip_end": "01:38:08.0",
+   "narration": "Her face goes, and he does not answer her, because there is no answer available to him that is not also a confession about himself.",
+   "delivery": "normal",
+   "claim": {
+    "type": "emotion",
+    "subject": "Mui"
+   },
+   "note": "MERGED from 01:37:53.4, 01:38:28.8"
+  },
+  {
+   "id": 98,
+   "clip_start": "01:38:58.0",
+   "clip_end": "01:39:06.0",
+   "narration": "And meanwhile she is on her own in the kitchen, doing all of it herself again.",
+   "delivery": "normal",
+   "claim": {
+    "type": "emotion",
+    "subject": "Amah Saejiu"
+   }
+  },
+  {
+   "id": 99,
+   "clip_start": "01:39:13.1",
+   "clip_end": "01:39:34.0",
+   "narration": "",
+   "narration_silence_seconds": 14.0,
+   "note": "SILENCE - hold on 01:39:13.1 (B47)."
+  },
+  {
+   "id": 100,
+   "clip_start": "01:39:34.0",
+   "clip_end": "01:39:42.0",
+   "narration": "She is on her own out at the gate too, bending over the plants, because there is nobody else to do it.",
+   "delivery": "normal",
+   "claim": {
+    "type": "emotion",
+    "subject": "Amah Saejiu"
+   }
+  },
+  {
+   "id": 101,
+   "clip_start": "01:39:53.0",
+   "clip_end": "01:40:11.4",
+   "narration": "He is looking at something on his phone. It turns out to be a care home, and he has driven out to find what it would cost to hand her over to it.",
+   "delivery": "normal",
+   "claim": {
+    "type": "reaction",
+    "subject": "M"
+   },
+   "note": "MERGED from 01:39:53.0, 01:40:16.2, 01:40:33.8"
+  },
+  {
+   "id": 102,
+   "clip_start": "01:40:55.6",
+   "clip_end": "01:41:16.9",
+   "narration": "A man in the corridor holds a paper out to him and gives him a number. Then he walks the ward, past a bed with somebody in it, and another, and another, and another.",
+   "delivery": "normal",
+   "claim": {
+    "type": "dialogue",
+    "subject": "M"
+   },
+   "note": "MERGED from 01:40:55.6, 01:41:32.8"
+  },
+  {
+   "id": 103,
+   "clip_start": "01:41:48.1",
+   "clip_end": "01:42:10.7",
+   "narration": "He sits down at one of them and takes an old man's hand. There is a tube taped to the man's nose, and a bowl of soup at the edge of the frame that nobody is holding for him.",
+   "delivery": "normal",
+   "claim": {
+    "type": "emotion",
+    "subject": "M"
+   },
+   "note": "MERGED from 01:41:48.1, 01:42:18.0"
+  },
+  {
+   "id": 104,
+   "clip_start": "01:42:28.1",
+   "clip_end": "01:42:53.1",
+   "narration": "He talks to the old man, and his face goes while he does it. Then he stops, looks away, and says no more. He came out to price a place to put his grandmother, and has just been shown what that costs.",
+   "delivery": "normal",
+   "claim": {
+    "type": "emotion",
+    "subject": "M"
+   },
+   "note": "MERGED from 01:42:28.1, 01:43:13.2"
+  },
+  {
+   "id": 105,
+   "clip_start": "01:43:29.4",
+   "clip_end": "01:43:38.5",
+   "narration": "Back at her gate the pomegranate has come ripe, and somebody is standing there keeping it alive.",
+   "delivery": "normal",
+   "claim": {
+    "type": "setup"
+   },
+   "note": "No chars in shot. The vine's second appearance."
+  },
+  {
+   "id": 106,
+   "clip_start": "01:43:43.0",
+   "clip_end": "01:44:03.9",
+   "narration": "Her living room sits empty. And in the room that used to be his, his gaming monitors are still standing on the desk, with a hospital bed made up on the floor in front of them.",
+   "delivery": "normal",
+   "claim": {
+    "type": "narration",
+    "requires_visual": false
+   },
+   "note": "aftermath -> narration/no-visual. | MERGED from 01:43:43.0, 01:43:58.0"
+  },
+  {
+   "id": 107,
+   "clip_start": "01:44:29.2",
+   "clip_end": "01:44:49.2",
+   "narration": "Sew breaks down beside her, and the film holds the pair of them in one frame while a woman in her sixties cries at her mother, and her mother sits there and lets her.",
+   "delivery": "normal",
+   "claim": {
+    "type": "emotion",
+    "subject": "Sew"
+   },
+   "note": "MERGED from 01:44:29.2, 01:44:49.2"
+  },
+  {
+   "id": 108,
+   "clip_start": "01:45:43.9",
+   "clip_end": "01:46:02.5",
+   "narration": "New Year. A car pulls up at the kerb and Kiang stays sitting in the driver's seat, so M has to stand outside it and talk in at him through the glass.",
+   "delivery": "normal",
+   "claim": {
+    "type": "setup",
+    "subject": "M"
+   },
+   "note": "MERGED from 01:45:43.9, 01:46:12.7"
+  },
+  {
+   "id": 109,
+   "clip_start": "01:47:18.2",
+   "clip_end": "01:47:47.1",
+   "narration": "Inside, the house has been hung with lanterns for the new year, and a hospital bed has been made up in red in the middle of the front room. Kiang sits down beside it with a hand up to his head, and then leans over and takes his mother's hand.",
+   "delivery": "normal",
+   "claim": {
+    "type": "narration",
+    "requires_visual": false
+   },
+   "note": "establishing -> narration/no-visual. | MERGED from 01:47:18.2, 01:47:48.0"
+  },
+  {
+   "id": 110,
+   "clip_start": "01:48:00.0",
+   "clip_end": "01:48:10.6",
+   "narration": "They close round the bed, all of them at once, for the first time in the entire film.",
+   "delivery": "normal",
+   "claim": {
+    "type": "emotion",
+    "subject": "Amah Saejiu"
+   }
+  },
+  {
+   "id": 111,
+   "clip_start": "01:48:29.1",
+   "clip_end": "01:48:37.1",
+   "narration": "Somebody has left a lamp burning over a desk, because nobody here is going to bed properly tonight.",
+   "delivery": "normal",
+   "claim": {
+    "type": "setup"
+   },
+   "note": "No chars in shot."
+  },
+  {
+   "id": 112,
+   "clip_start": "01:48:48.0",
+   "clip_end": "01:49:13.0",
+   "narration": "",
+   "narration_silence_seconds": 16.0,
+   "note": "SILENCE - hold on 01:48:48.0 (B52)."
+  },
+  {
+   "id": 113,
+   "clip_start": "01:49:13.0",
+   "clip_end": "01:49:24.8",
+   "narration": "Their hands lie together on the bedding, and then the hands come apart. He goes on talking to her anyway.",
+   "delivery": "normal",
+   "claim": {
+    "type": "emotion",
+    "subject": "M"
+   },
+   "note": "MERGED from 01:49:13.0, 01:49:42.9"
+  },
+  {
+   "id": 114,
+   "clip_start": "01:50:23.8",
+   "clip_end": "01:51:21.4",
+   "narration": "",
+   "narration_silence_seconds": 28.0,
+   "note": "SILENCE - hold on 01:50:23.8 (B52)."
+  },
+  {
+   "id": 115,
+   "clip_start": "01:51:21.4",
+   "clip_end": "01:51:33.1",
+   "narration": "They hold the funeral under a gold canopy, with most of the chairs still stacked against the wall, and he sets the incense himself.",
+   "delivery": "normal",
+   "claim": {
+    "type": "narration",
+    "requires_visual": false
+   },
+   "note": "aftermath/establishing -> narration/no-visual. | MERGED from 01:51:21.4, 01:51:33.1"
+  },
+  {
+   "id": 116,
+   "clip_start": "01:51:44.0",
+   "clip_end": "01:51:59.4",
+   "narration": "He and his mother stand together by the coffin, one of them in white and one in black. Then he walks the length of a room that never filled up.",
+   "delivery": "normal",
+   "claim": {
+    "type": "dialogue",
+    "subject": "M"
+   },
+   "note": "MERGED from 01:51:44.0, 01:51:59.4"
+  },
+  {
+   "id": 117,
+   "clip_start": "01:52:26.2",
+   "clip_end": "01:52:32.3",
+   "narration": "Afterwards he goes through her things, the way she once went through the cash tin in front of him.",
+   "delivery": "normal",
+   "claim": {
+    "type": "setup",
+    "subject": "M"
+   }
+  },
+  {
+   "id": 118,
+   "clip_start": "01:52:32.3",
+   "clip_end": "01:52:40.1",
+   "narration": "And he finds a savings book. Bank of Siam, an account number, and a name filled in on the line by hand - and the name is his.",
+   "delivery": "normal",
+   "claim": {
+    "type": "discovery"
+   },
+   "note": "R1 - the OBJECT. No chars in shot. Do NOT narrate a phone call: no call is dramatised anywhere in the film."
+  },
+  {
+   "id": 119,
+   "clip_start": "01:52:40.1",
+   "clip_end": "01:52:46.2",
+   "narration": "She had been paying into it since he was small.",
+   "delivery": "normal",
+   "claim": {
+    "type": "dialogue",
+    "subject": "M"
+   }
+  },
+  {
+   "id": 120,
+   "clip_start": "01:53:28.0",
+   "clip_end": "01:53:45.1",
+   "narration": "Since a walk back from school, when a boy told his grandmother he was going to buy her a new house one day, and she went away and opened an account for it.",
+   "delivery": "normal",
+   "claim": {
+    "type": "emotion",
+    "subject": "Amah Saejiu"
+   },
+   "note": "R1 - the MEMORY. Flashback; see beats_proposal for the strength of the identification."
+  },
+  {
+   "id": 121,
+   "clip_start": "01:53:58.0",
+   "clip_end": "01:54:13.0",
+   "narration": "She had been saving for that house his entire life. Every hour he spent working her into leaving him something, she had already left him something else.",
+   "delivery": "normal",
+   "claim": {
+    "type": "emotion",
+    "subject": "M"
+   },
+   "note": "MERGED from 01:53:58.0, 01:54:13.0"
+  },
+  {
+   "id": 122,
+   "clip_start": "01:54:34.7",
+   "clip_end": "01:54:52.2",
+   "narration": "They rope the coffin onto a flatbed and climb up to ride out with it, and he and his mother sit back against it and do not say very much.",
+   "delivery": "normal",
+   "claim": {
+    "type": "setup",
+    "subject": "M"
+   },
+   "note": "MERGED from 01:54:34.7, 01:54:49.3"
+  },
+  {
+   "id": 123,
+   "clip_start": "01:55:19.7",
+   "clip_end": "01:55:31.5",
+   "narration": "The truck carries her out under an arch, past the market she worked, and then out of the city altogether.",
+   "delivery": "normal",
+   "claim": {
+    "type": "narration",
+    "requires_visual": false
+   },
+   "note": "transition -> narration/no-visual. | MERGED from 01:55:19.7, 01:55:28.0, 01:55:58.8"
+  },
+  {
+   "id": 124,
+   "clip_start": "01:56:19.9",
+   "clip_end": "01:56:28.0",
+   "narration": "He sits back against the gold with the sun on him and the wind going through his hair.",
+   "delivery": "normal",
+   "claim": {
+    "type": "emotion",
+    "subject": "M"
+   }
+  },
+  {
+   "id": 125,
+   "clip_start": "01:56:36.3",
+   "clip_end": "01:57:24.2",
+   "narration": "",
+   "narration_silence_seconds": 20.0,
+   "note": "SILENCE - hold on 01:56:36.3 (B56)."
+  },
+  {
+   "id": 126,
+   "clip_start": "01:57:29.8",
+   "clip_end": "01:57:52.4",
+   "narration": "They bring her back to the hillside the film started on. And this time he does the work - carrying, setting down, clearing the plot - while a child plays round his legs and pays him no attention whatsoever.",
+   "delivery": "normal",
+   "claim": {
+    "type": "narration",
+    "requires_visual": false
+   },
+   "note": "establishing -> narration/no-visual. | MERGED from 01:57:29.8, 01:57:58.0"
+  },
+  {
+   "id": 127,
+   "clip_start": "01:58:28.0",
+   "clip_end": "01:58:35.2",
+   "narration": "Then he sits down on the grass beside her and stays there.",
+   "delivery": "normal",
+   "claim": {
+    "type": "emotion",
+    "subject": "M"
+   }
+  },
+  {
+   "id": 128,
+   "clip_start": "01:58:52.0",
+   "clip_end": "01:59:05.8",
+   "narration": "",
+   "narration_silence_seconds": 13.0,
+   "note": "SILENCE - hold on 01:58:52.0 (B57)."
+  },
+  {
+   "id": 129,
+   "clip_start": "01:58:52.0",
+   "clip_end": "01:59:05.2",
+   "narration": "He came for a house. What he got was a year with her, and a savings book with his name in it in her handwriting. Thanks for watching - if this one got to you, subscribe, and tell me which film to sit with next.",
+   "delivery": "outro",
+   "note": "OUTRO - second use of clip:01:58:52.0 (MAX_REUSE=2). Same clip_start, so no backward jump. | slow cut: unchanged.",
+   "claim": {
+    "type": "emotion",
+    "subject": "M"
+   }
+  }
+ ]
+}

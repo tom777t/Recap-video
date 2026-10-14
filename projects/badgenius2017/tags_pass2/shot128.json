@@ -1,0 +1,16 @@
+{
+ "shot": "shot128",
+ "depicts": [
+  "dialogue",
+  "reaction"
+ ],
+ "chars": [
+  "Pat",
+  "Bank",
+  "(khong ro)"
+ ],
+ "censor": "none",
+ "action": "The tail of the reveal, a minute after it lands (B48, 01:10:40): Pat is still talking across the table to a girl the shot cannot identify, and then the window cuts away from him entirely, to Bank alone in close profile, looking past the camera at nothing. The cut is the point - it leaves the one who is still explaining and stays with the one who has stopped answering, with the girl seated behind him thrown out of focus so no second face competes for it. Five seconds before Bank goes at him (B49, 01:11:40), and the camera shows none of it coming; only the face it will come out of.",
+ "pass2": "rewritten",
+ "pass2_added": "Resolved the floral-shirt man as Pat and the blue-top man as Bank - pass one's own chars list already names exactly those two, and B48/B49 put Pat and Bank across the same scene in that order. Both girls are deliberately left unidentified: B48 places Lynn AND Grace in this scene, so pass one's (khong ro) cannot be resolved without guessing. Added no person, object or location beyond pass one's text; the two spaces are kept separate because pass one described a cut and not a continuity."
+}

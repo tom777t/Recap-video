@@ -1,0 +1,16 @@
+{
+ "shot": "shot225",
+ "depicts": [
+  "dialogue",
+  "reaction",
+  "emotion"
+ ],
+ "chars": [
+  "Bank",
+  "Lynn"
+ ],
+ "censor": "none",
+ "action": "Bank talks and Lynn listens, and the reversal is the point: the last time these two were in a dim room over an offer it was Lynn who came asking and Bank who got to say no and then name his price (B45, 01:03:30). R2 has already landed at 01:58:45, so this window is not the reveal - it is the pitch still running, after it. The coverage pass one describes is all singles, his profile cut against hers, which means the camera never lets the two of them share a frame while he is selling it to her. What it keeps coming back to is a face that is not answering: she is tense and looking down, and her refusal is B78 at 02:00:30, so the whole of this window is Lynn not saying it yet. Twenty-two seconds of alternating profiles in a film whose median shot is three seconds - the room is being made to sit in itself. A writer can carry the new proposition on his half of the intercut and the decision forming on hers; what he says once she answers is not in this window.",
+ "pass2": "rewritten",
+ "pass2_added": "Bank and Lynn. Pass one already carried both in `chars` but could not attach the names to the two bodies; the beat map puts only these two in the room across B77 (01:58:45) and B78 (02:00:30), which brackets this window, and Bank is the one making the offer in both - so the speaking man is Bank and the listening woman is Lynn. No new person, object, location or action added; 'dim room' is pass one's, not the laundry."
+}

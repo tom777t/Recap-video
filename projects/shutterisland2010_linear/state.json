@@ -15,5 +15,77 @@
     "binding_unverified": 0,
     "continuity_issues": 0,
     "binding_violations": 0
+  },
+  "declared_target_minutes": 11,
+  "declared_target_pinned": "2026-09-13T09:38:40+00:00",
+  "ratchet": {
+    "beats": 28,
+    "reveals": {
+      "R1": {
+        "land_sec": 6600.0,
+        "holds": [
+          "daniels is laeddis",
+          "he is the patient",
+          "invented persona",
+          "never a marshal",
+          "teddy is a patient",
+          "teddy is andrew"
+        ]
+      },
+      "R2": {
+        "land_sec": 6600.0,
+        "holds": [
+          "anagram",
+          "made her up",
+          "rachel is dolores",
+          "rachel isn't real",
+          "rachel never existed"
+        ]
+      },
+      "R3": {
+        "land_sec": 6720.0,
+        "holds": [
+          "chuck is a doctor",
+          "chuck is his psychiatrist",
+          "chuck is sheehan",
+          "lester sheehan",
+          "sheehan"
+        ]
+      },
+      "R4": {
+        "land_sec": 6600.0,
+        "holds": [
+          "elaborate act",
+          "last-chance therapy",
+          "role-play",
+          "roleplay",
+          "staged",
+          "the whole thing is fake",
+          "they were pretending"
+        ]
+      },
+      "R5": {
+        "land_sec": 6960.0,
+        "holds": [
+          "dolores killed the children",
+          "drowned the children",
+          "drowned their kids",
+          "he killed his wife",
+          "he shot her",
+          "killed dolores"
+        ]
+      },
+      "R6": {
+        "land_sec": 7620.0,
+        "holds": [
+          "chooses the lobotomy",
+          "chooses to be lobotomized",
+          "dies as a good man",
+          "feigns relapse",
+          "pretends to relapse"
+        ]
+      }
+    },
+    "set_pieces": {}
   }
 }

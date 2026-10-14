@@ -1,0 +1,15 @@
+{
+ "shot": "shot215",
+ "depicts": [
+  "establishing",
+  "transition"
+ ],
+ "chars": [
+  "(khong ro)"
+ ],
+ "censor": "none",
+ "action": "A person on a phone leans against luggage carts beside a companion in an airport arrivals hall, then after a black frame a student in white uniform sits alone on an office chair in the middle of a vast empty office floor.",
+ "pass2": "unchanged",
+ "pass2_reason": "the beat map has no entry for the empty-office half (B75 at 01:54:30 is a Grace/Pat party montage, which this is not), and the arrivals half is ambiguous between the tail of the reunion at B74 and the two clients at B73, so neither figure can be resolved",
+ "pass2_added": ""
+}

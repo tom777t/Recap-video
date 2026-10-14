@@ -1,0 +1,15 @@
+{
+ "shot": "shot210",
+ "depicts": [
+  "action",
+  "aftermath"
+ ],
+ "chars": [
+  "(khong ro)"
+ ],
+ "censor": "none",
+ "action": "A young woman sits alone on a bench among the library stacks with a backpack on her lap, and in close-up her hands tap DELETE on a phone confirmation dialog over a photo of two girls.",
+ "pass2": "unchanged",
+ "pass2_reason": "the beat map has no beat in 01:49:20-01:51:30 and neither flanking beat (B72, the Sydney test centre; B73, Don Mueang arrivals) is a library bench, so the unidentified woman cannot be resolved and nothing says whose photo is being deleted or what the deletion ends",
+ "pass2_added": ""
+}

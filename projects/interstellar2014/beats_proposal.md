@@ -7,7 +7,7 @@ Timestamps below are transcript-anchored (dialogue brackets); EVERY shot frame-v
 
 KEY: chars = expected on-screen (verify at catalogue). [S6] = 4+ shots / micro-montage.
 [S7] = whole-frame censor. [S8] = partial-blur region. [S9] = silence shot (let an
-image breathe). [TWIST-HOLD] = do NOT pre-leak the time-loop / "Cooper is the ghost" reveal.
+image breathe). TWIST-HOLD:unenforced (NOT machine-read - see note at end) = do NOT pre-leak the time-loop / "Cooper is the ghost" reveal.
 
 names.json: Cooper (Coop), Murph (young + adult), Tom, Amelia Brand (Amelia),
 Professor Brand, TARS, CASE, KIPP; Mann (Dr. Mann), Doyle, Romilly, Donald (grandpa),
@@ -47,7 +47,7 @@ B01  00:01  Dust-bowl Earth: documentary-style old voices recall the dying world
       setting:     the farmhouse, the endless corn, brown skies
 
 B02  00:03  Murph's "ghost": books fall off her shelf on their own; Cooper tells her
-            to be scientific - record it, don't fear it. chars: Cooper, Murph [TWIST-HOLD]
+            to be scientific - record it, don't fear it. chars: Cooper, Murph TWIST-HOLD:unenforced
     sub-moments:
       main_action: the poltergeist knocks books off the shelf (the unexplained anomaly)
       reactions:   Murph frightened/curious; Cooper calm, rational
@@ -80,7 +80,7 @@ B05  00:15  Grandpa Donald's "we used to look up and wonder; now we look down an
       setting:     the porch, night sky
 
 B06  00:20  The dust falls in PATTERNS on Murph's floor - Cooper reads it as BINARY:
-            coordinates. Gravity left a message. chars: Cooper, Murph [TWIST-HOLD]
+            coordinates. Gravity left a message. chars: Cooper, Murph TWIST-HOLD:unenforced
     sub-moments:
       main_action: dust lines decoded as coordinates (gravity as language)
       reactions:   Cooper's dawning realization; Murph watching
@@ -114,7 +114,7 @@ B09  00:31  The WORMHOLE near Saturn - "They" placed it there; 12 worlds scouted
       setting:     the wormhole diagram, the embryo vault
 
 B10  00:37  Cooper leaves Murph: he gives her his WATCH, promises "I'll come back."
-            She refuses to say goodbye - finds STAY spelled in her books. chars: Cooper, Murph [S9 candidate][TWIST-HOLD]
+            She refuses to say goodbye - finds STAY spelled in her books. chars: Cooper, Murph [S9 candidate]TWIST-HOLD:unenforced
     sub-moments:
       main_action: the watch handoff; the promise; Murph's furious grief
       reactions:   Murph won't look at him; Cooper drives away crying
@@ -199,7 +199,7 @@ B19  01:18  The MESSAGE BACKLOG: Cooper watches decades of his children's videos
       setting:     the message screen, Cooper alone weeping
 
 B20  01:22  Earth: adult MURPH now works at NASA with the dying Professor Brand on the
-            gravity equation, haunted by the ghost in her old room. chars: Murph, Professor Brand [TWIST-HOLD]
+            gravity equation, haunted by the ghost in her old room. chars: Murph, Professor Brand TWIST-HOLD:unenforced
     sub-moments:
       main_action: the Earth timeline catches up; Murph the scientist introduced
       reactions:   Murph's drive and unease; Brand's failing health
@@ -374,3 +374,44 @@ Earth-insert line narrative_jump: true at draft stage.
 BEAT DISTRIBUTION: Act 1 = B01-B11 (11), Act 2 = B12-B26 (15), Act 3 = B27-B34 (8).
 Total 34 numbered beats + B_outro. Act anchors: 1->2 launch ~00:42; 2->3 Cooper
 detaches into Gargantua ~02:17.
+
+
+================================================================================
+TWIST-HOLD - NOT MACHINE-READ (recorded 2026-09-05)
+================================================================================
+This file used the marker TWIST-HOLD (in bracket form) on beats that must be narrated WITHOUT
+hindsight - the early scenes that show the phenomenon a later reveal explains.
+
+NOTHING HAS EVER READ IT. `catalogue.py` parses bracketed tags inside a beat
+block into a set and then consumes exactly two, S6 and S9; every other tag is
+discarded silently. The marker has been inert since it was written, on this and
+two other projects, while looking like an enforced hold.
+
+The bracket form has been changed to `TWIST-HOLD:unenforced` so it can no longer
+be mistaken for a live tag. The intent is preserved here.
+
+WHAT IT WAS TRYING TO EXPRESS
+  "A first-time viewer does not yet know what this scene means. Narrate it with
+   ONLY what they know at this point - no hindsight, no knowing phrasing."
+  That is A8 spoiler discipline applied per-beat rather than per-term.
+
+WHY IT WAS NOT WIRED INSTEAD
+  A gate cannot check it. The reveal-map gate (REVEAL-TIMING) scans for LITERAL
+  TERMS appearing before a landing time. Hindsight contamination usually carries
+  no protected term at all - RULES B11 is the recorded case: at Shutter Island a
+  line reading "the stories people tell themselves to survive" implied the whole
+  twist and the gate saw nothing. Wiring TWIST-HOLD to a term scan would produce
+  a gate that passes exactly the failures the marker exists to prevent, which is
+  worse than no gate. Detecting hindsight properly is semantic work, far beyond
+  the cost bar this decision was given.
+
+WHAT TO DO INSTEAD, AND WHAT IS CURRENTLY MISSING
+  1. Add a ```reveal-map``` block. It catches the literal-term half, which is the
+     half a machine can do. THIS PROJECT DOES NOT HAVE ONE - so it currently has
+     no machine-readable spoiler hold of any kind.
+  2. Keep the beats below on the draft-review watch by hand. That is the only
+     thing that catches the implication half (RULES F, checkpoint 1).
+
+Landing times were deliberately NOT invented here to build a reveal-map: this
+project's reveal beats have not been frame-verified in this pass, and A5 says
+admit the gap rather than guess it.

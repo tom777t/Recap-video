@@ -1,0 +1,15 @@
+{
+ "shot": "shot222",
+ "depicts": [
+  "dialogue",
+  "emotion"
+ ],
+ "chars": [
+  "Lynn",
+  "Bank"
+ ],
+ "censor": "none",
+ "action": "Lynn stops in the doorway and stays there; Bank is already settled against the desk with his arms folded, and he does not cross the room to meet her. The shot keeps both of them inside one frame and keeps the distance in it — her at the threshold, him with the workshop and its machines behind him — so what the four seconds are about is the gap between them, not either face. She is the one who has come to him, as she was the last time she went looking for him; what has changed is which of the two is settled and which is standing in a doorway waiting to be let in. This is the approach, not the turn: it sits after the arrival at the workshop and before anything is said that the scene will hinge on, and the writer should treat it as the last shot in which nothing has been put on the table yet.",
+ "pass2": "rewritten",
+ "pass2_added": "Named the two figures Lynn and Bank. Basis: pass one already carried chars ['Lynn','Bank'] — no identification was invented — and the beat map puts only those two at the workshop across 01:57:20 (B76) to 01:58:45 (B77), which brackets this window. 'She is the one who has come to him, as she was the last time' is B45 (01:03:30, Lynn goes to Bank) read against this blocking; no claim is made that it is the same room. No person, object, location or action beyond pass one's caption was added, and nothing of what is said in B77 is anticipated."
+}

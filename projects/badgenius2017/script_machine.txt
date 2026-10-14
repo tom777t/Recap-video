@@ -1,0 +1,677 @@
+MACHINE-TAG DRAFT
+Lines: 225   Words: 3867
+============================================================
+[   1] (00:01:36.0 -> 00:01:50.0)  <hook>
+      A girl sits alone in a mirrored room, and her own reflection runs away from her down the wall - one of her, then ten, then a hundred. Someone off-camera is asking her to start at the beginning.
+
+[   2] (00:02:28.0 -> 00:02:50.0)  <normal>
+      Her father sets a black portfolio on the desk and opens it for the school: the marks, the certificates, the whole of her so far, laid out for someone else to price.
+
+[   3] (00:03:35.0 -> 00:03:55.0)  <tense>
+      The woman across the desk explains the development fee. A hundred and twenty thousand baht, said pleasantly, as if it were paperwork. Her father says yes before Lynn can look at him.
+
+[   4] (00:05:20.0 -> 00:05:46.0)  <normal>
+      On her first day another girl attaches herself to her in the corridor, straightens her glasses for her, and decides they are friends. That is Grace, and Grace is not asking.
+
+[   5] (00:07:40.0 -> 00:08:00.0)  <normal>
+      They sit on the floor of the library and Lynn walks her through set theory. Grace is trying. Grace is not going to get there, and both of them can already see it.
+
+[   6] (00:08:50.0 -> 00:09:00.0)  <normal>
+      So Lynn keeps going, closer over the book, because the alternative is telling her friend the truth.
+
+[   7] (00:09:00.0 -> 00:09:05.0)  <tense>
+      Midterm. Rows of white shirts, one supervisor, and two seats away a girl who is drowning.
+
+[   8] (00:09:05.0 -> 00:09:10.0)  <tense>
+      Grace lifts her head and holds up her fingers where only Lynn can see.
+
+[   9] (00:11:33.0 -> 00:11:38.0)  <tense>
+      Lynn writes the answers down the side of an eraser wrapper in letters small enough to be nothing.
+
+[  10] (00:11:38.0 -> 00:11:41.0)  <normal>
+      Then she waits, and the room carries on not noticing.
+
+[  11] (00:12:00.0 -> 00:12:12.0)  <tense>
+      Her foot comes out of her shoe under the desk. The shoe slides forward across the tiles, and the answers go with it.
+
+[  12] (00:12:38.0 -> 00:12:52.0)  <tense>
+      It is a small thing, done slowly, in a room built to stop exactly this.
+
+[  13] (00:12:54.0 -> 00:13:04.0)  <tense>
+      The shoe crosses the room one nudge at a time, and the girl behind her keeps watch for both of them. Nobody looks down.
+
+[  14] (00:14:26.0 -> 00:14:34.0)  <normal>
+      A bathrobe with a hotel's name on it, and a boy throwing himself into a lit pool at night. Grace has someone she wants Lynn to meet.
+
+[  15] (00:14:36.0 -> 00:14:54.0)  <normal>
+      Pat surfaces, slicks his hair back, and talks to them across the water like a host. His family owns the building they are standing in.
+
+[  16] (00:14:56.0 -> 00:15:04.0)  <normal>
+      Somebody signs a bill without reading it. That is the world Grace has brought her into.
+
+[  17] (00:15:16.0 -> 00:15:34.0)  <tense>
+      Sitting in the water with a bottle in his hand, Pat names a price per answer. Lynn does not say yes. She does not say no either, and he notices.
+
+[  18] (00:18:00.0 -> 00:18:12.0)  <sad>
+      At home she goes through her father's papers under a desk lamp and finds a receipt for two hundred thousand baht.
+
+[  19] (00:18:14.0 -> 00:18:30.0)  <sad>
+      She keeps going. The certificates, the sleeves, the framed photograph of him - and under all of it, the money the school took anyway.
+
+[  20] (00:18:32.0 -> 00:18:38.0)  <sad>
+      She reads it twice. Her father paid the fee he told her he had argued them out of.
+
+[  21] (00:18:40.0 -> 00:18:48.0)  <normal>
+      She sits down at the piano and plays. Four fingerings, over and over, until they are not music any more.
+
+[  22] (00:18:50.0 -> 00:19:10.0)  <sad>
+      Her father stands in the doorway and asks her something gentle. She answers with her head down, and does not tell him what she found.
+
+[  23] (00:21:38.0 -> 00:21:48.0)  <tense>
+      A row of them on the sofa in her living room, leaning in, faces going tight as they realise how much they are going to have to memorise.
+
+[  24] (00:21:50.0 -> 00:22:06.0)  <normal>
+      She plays it for them. Each shape of her hand is a letter, and the song is the answer key.
+
+[  25] (00:22:08.0 -> 00:22:18.0)  <normal>
+      She stands beside the piano and explains the rules once. There will not be a second explanation.
+
+[  26] (00:22:20.0 -> 00:22:26.0)  <tense>
+      Then she plays with her eyes closed, and somewhere on the other side of the wall the exam room is already waiting.
+
+[  27] (00:22:28.0 -> 00:22:40.0)  <tense>
+      Final exam. She sits back with the pencil at her lips and starts, and the erasers begin moving along the edges of the desks.
+
+[  28] (00:22:42.0 -> 00:22:46.0)  <normal>
+      Grace takes a bow somewhere else entirely, holding flowers, in front of a curtain.
+
+[  29] (00:22:50.0 -> 00:22:56.0)  <normal>
+      A black car pulls up at the gate and Pat steps out. This is the money buying her hands.
+
+[  30] (00:22:58.0 -> 00:23:06.0)  <tense>
+      Two boys twist round in their seats to check the row behind them. The code is running at a scale she did not design it for.
+
+[  31] (00:23:12.0 -> 00:23:18.0)  <normal>
+      Afterwards there is a passbook with columns of deposits in it, and the dates are close together.
+
+[  32] (00:23:38.0 -> 00:23:48.0)  <normal>
+      Word moves along the corridor the way it always does - someone leaning in, someone else already knowing.
+
+[  33] (00:23:50.0 -> 00:23:58.0)  <normal>
+      The four of them line up outside for a photograph, under banners congratulating the school on its results.
+
+[  34] (00:24:02.0 -> 00:24:08.0)  <normal>
+      And here is the other one. The school's other prospect, looking straight down the lens while the colour drains out behind him.
+
+[  35] (00:24:14.0 -> 00:24:18.0)  <sad>
+      Bank stands in a dim room holding his own name tag, head down.
+
+[  36] (00:24:18.0 -> 00:24:24.0)  <sad>
+      Then he is alone in an empty school washroom, hunched over the sink, cleaning the building he studies in.
+
+[  37] (00:24:40.0 -> 00:24:46.0)  <normal>
+      He talks about it plainly, later, to whoever is on the other side of the table.
+
+[  38] (00:26:26.0 -> 00:26:42.0)  <normal>
+      Lynn waits against a wood-panelled wall with somebody's head blurred in front of her.
+
+[  39] (00:26:44.0 -> 00:26:54.0)  <normal>
+      Teen Genius puts the two of them at the contestants' desk side by side, the school's two best, pointed at the same camera.
+
+[  40] (00:26:56.0 -> 00:27:00.0)  <normal>
+      In an office the director watches it on a television.
+
+[  41] (00:27:02.0 -> 00:27:26.0)  <normal>
+      She calls them both in. One overseas scholarship, two names, and she says it as though it were good news for both of them.
+
+[  42] (00:27:28.0 -> 00:27:34.0)  <normal>
+      Bank walks out past the glass with his backpack and does not look back through it.
+
+[  43] (00:28:48.0 -> 00:28:58.0)  <normal>
+      His home is the laundry. He scrubs with earphones in and a video playing on the phone propped up beside the basin.
+
+[  44] (00:29:00.0 -> 00:29:14.0)  <normal>
+      The phone sits on a maths textbook. He is doing both, because there is no hour in the day where he is only doing one.
+
+[  45] (00:29:16.0 -> 00:29:36.0)  <sad>
+      Lynn sits in the dark with her eyes down, and the camera comes in until there is nowhere for her to look.
+
+[  46] (00:30:04.0 -> 00:30:16.0)  <tense>
+      Two boys stop each other in the corridor. One of them is explaining something, and the bespectacled one is not agreeing.
+
+[  47] (00:30:50.0 -> 00:30:56.0)  <tense>
+      The hall exam. An earphone behind a white collar, and then the room: hundreds of desks, spaced so that nobody can reach anybody.
+
+[  48] (00:31:36.0 -> 00:31:42.0)  <tense>
+      Bank sits in it alone and works, watched from the front.
+
+[  49] (00:31:44.0 -> 00:31:50.0)  <tense>
+      A stamped form, filled in slowly. Rows of them, all the way back.
+
+[  50] (00:31:52.0 -> 00:32:00.0)  <tense>
+      Pencils shading bubbles, one after another, for as long as it takes.
+
+[  51] (00:32:00.0 -> 00:32:08.0)  <tense>
+      The clock on the wall says twenty to ten.
+
+[  52] (00:32:08.0 -> 00:32:16.0)  <tense>
+      Bank finishes a line, leans back, and his face goes wrong. Question forty asks which paper you were given.
+
+[  53] (00:32:16.0 -> 00:32:20.0)  <tense>
+      Lynn stands up in the middle of the hall and looks up. There.
+
+[  54] (00:32:22.0 -> 00:32:30.0)  <tense>
+      Set one, it says at the top. Which means somewhere there is a set two.
+
+[  55] (00:32:32.0 -> 00:32:40.0)  <tense>
+      Set one, it says at the top. Which means there is a set two.
+
+[  56] (00:32:42.0 -> 00:32:52.0)  <tense>
+      She runs both of them. One hand for each, in a room where the only thing anyone is watching is hands.
+
+[  57] (00:33:12.0 -> 00:33:26.0)  <tense>
+      Papers go past the desks. She glances back over her shoulder, and her fingers keep moving where she can be seen.
+
+[  58] (00:36:06.0 -> 00:36:18.0)  <tense>
+      She looks back once more. At the front, students are already standing up to hand in.
+
+[  59] (00:36:20.0 -> 00:36:32.0)  <tense>
+      The clock says ten past ten. She is still working, and Bank has been watching her hands long enough to understand what they are doing.
+
+[  60] (00:36:44.0 -> 00:36:52.0)  <tense>
+      Equations, then the bubble sheet, then her face.
+
+[  61] (00:37:16.0 -> 00:37:24.0)  <tense>
+      She works at the eraser with her fingers, low over the desk.
+
+[  62] (00:37:30.0 -> 00:37:44.0)  <tense>
+      One more bubble filled. Then she stretches, arms behind her head, because sitting still is the part that gives you away.
+
+[  63] (00:37:56.0 -> 00:38:12.0)  <tense>
+      She is sweating. Somewhere else a grey-haired man raises his hand at night, and the two shots belong to the same minute.
+
+[  64] (00:38:38.0 -> 00:38:44.0)  <tense>
+      A hand flattens on the desk. The invigilator lays a fresh sheet down in front of someone.
+
+[  65] (00:38:46.0 -> 00:38:58.0)  <tense>
+      He is standing over her now, looking down, and she looks up at him and keeps her hands where they are.
+
+[  66] (00:39:00.0 -> 00:39:04.0)  <tense>
+      In the gymnasium someone's arm comes round and Bank's head snaps back with it.
+
+[  67] (00:39:06.0 -> 00:39:14.0)  <sad>
+      Grace clasps her hands and begs the invigilator standing over her desk, and then puts her face down on the paper.
+
+[  68] (00:39:24.0 -> 00:39:30.0)  <normal>
+      A group chat, read by twenty-six people, thanking P'Lin. Outside, three of them sit on the steps.
+
+[  69] (00:39:36.0 -> 00:39:42.0)  <normal>
+      Grace fixes Lynn's hair from behind while Pat talks. It worked, and nobody sitting there looks troubled by it.
+
+[  70] (00:39:44.0 -> 00:39:50.0)  <tense>
+      At a doorway a grey-haired man looks down at a brown envelope in his hands.
+
+[  71] (00:39:52.0 -> 00:40:04.0)  <tense>
+      On the walkway Grace stops dead, and the girl crouched beside her looks up with a face that has already understood.
+
+[  72] (00:40:06.0 -> 00:40:22.0)  <tense>
+      In the office the director is talking to students who are standing very straight.
+
+[  73] (00:40:24.0 -> 00:40:28.0)  <tense>
+      She goes through the sheets with both hands. They match each other.
+
+[  74] (00:40:30.0 -> 00:40:46.0)  <tense>
+      Lynn and Bank stand in front of that desk together. He walked in here with the paper in his hand.
+
+[  75] (00:42:08.0 -> 00:42:20.0)  <sad>
+      Through the glass, a woman on one side of her and a man on the other, and Lynn standing between them with nothing to say.
+
+[  76] (00:42:22.0 -> 00:42:32.0)  <sad>
+      Bank's mouth opens and then closes again, and her father listens to all of it.
+
+[  77] (00:42:34.0 -> 00:42:50.0)  <sad>
+      The director will not look at anyone. The scholarship is suspended and the overseas application goes back in the drawer.
+
+[  78] (00:44:28.0 -> 00:44:42.0)  <sad>
+      Her father sits with his head bowed in the front room, and then stands in a school doorway because there is nowhere else to be.
+
+[  79] (00:44:52.0 -> 00:45:10.0)  <sad>
+      She stands next to him in the office with another student waiting to the side. Everything he presented in that black portfolio has been taken back.
+
+[  80] (00:45:28.0 -> 00:45:34.0)  <sad>
+      In the corridor afterwards the two of them end up standing close together, and neither one of them says anything at all.
+
+[  81] (00:46:16.0 -> 00:46:42.0)  <sad>
+      At the round table he holds up the passbook with all those deposits in it and asks her, gently, where the money came from.
+
+[  82] (00:48:22.0 -> 00:48:38.0)  <sad>
+      She does not answer. She lifts her eyes, and that is the answer.
+
+[  83] (00:48:40.0 -> 00:48:48.0)  <normal>
+      A can opens and foams over the lid. Months later, and she has stopped.
+
+[  84] (00:48:50.0 -> 00:49:10.0)  <normal>
+      She sits at the table talking to someone just out of focus. Grace and Pat have come back with something bigger.
+
+[  85] (00:51:36.0 -> 00:51:50.0)  <normal>
+      Dinner with Pat's parents. His mother does most of the talking, and the subject is Boston, and what a place there costs.
+
+[  86] (00:51:52.0 -> 00:52:16.0)  <normal>
+      A university brochure on a bed, and Grace explaining the rest of it with a smile on.
+
+[  87] (00:52:18.0 -> 00:52:24.0)  <normal>
+      The prep book slides across the tablecloth towards her.
+
+[  88] (00:52:26.0 -> 00:52:46.0)  <tense>
+      STIC. One exam, sat all over the world on a single day. Lynn holds the paper and lets them talk.
+
+[  89] (00:54:00.0 -> 00:54:12.0)  <normal>
+      In a hotel lobby a man holds his phone up to show her a photograph of a little girl in a blue dress.
+
+[  90] (00:54:14.0 -> 00:54:26.0)  <tense>
+      She looks up past him at something on the wall.
+
+[  91] (00:54:28.0 -> 00:54:44.0)  <tense>
+      Clocks. New York, Dubai, Bangkok - all of them right, all of them different.
+
+[  92] (00:54:46.0 -> 00:54:56.0)  <tense>
+      Bangkok, Singapore, Tokyo, Sydney, in a row above the front desk.
+
+[  93] (00:54:58.0 -> 00:55:10.0)  <tense>
+      And Sydney on a brass plate. Sydney sits hours ahead of here, which means somewhere in the world the answers exist before the exam has started.
+
+[  94] (00:55:26.0 -> 00:55:52.0)  <tense>
+      Somebody puts a red pin into Australia on a map spread across the workshop table, and the other two watch it go in.
+
+[  95] (00:55:54.0 -> 00:56:22.0)  <tense>
+      They sit around that map and talk up at her. The shape of it is already there on the table; all it needs is her.
+
+[  96] (00:57:44.0 -> 00:57:47.0)  <tense>
+      The prep book slides across the tablecloth to her.
+
+[  97] (00:57:47.0 -> 00:57:53.0)  <normal>
+      At the gate he wrestles a washing-machine drum off the back of the bike, the way he does every night.
+
+[  98] (00:57:53.0 -> 00:58:05.0)  <normal>
+      Then hauls the laundry cart along the pavement past the shuttered fronts.
+
+[  99] (00:58:16.0 -> 00:58:26.0)  <tense>
+      A camera on the street catches it in grey: several people, a parked bike, a scuffle that is over quickly.
+
+[ 100] (00:58:28.0 -> 00:58:34.0)  <sad>
+      His eye is swollen shut and there is blood on his face, and he is lying in a heap of rubbish.
+
+[ 101] (00:58:36.0 -> 00:58:46.0)  <sad>
+      He pushes himself upright in the middle of a landfill and sits there among the tyres.
+
+[ 102] (01:00:00.0 -> 01:00:14.0)  <sad>
+      Then he screams, and goes down into the mud of it, and there is nobody out there to hear him.
+
+[ 103] (01:00:20.0 -> 01:00:26.0)  <normal>
+      On a rooftop two girls crouch and talk. Below them the school is filing in as usual.
+
+[ 104] (01:00:28.0 -> 01:00:34.0)  <normal>
+      And a young man in a black turtleneck walks a lit stage with a microphone, in front of a screen.
+
+[ 105] (01:00:40.0 -> 01:00:46.0)  <tense>
+      Rows of uniforms slumped in the dark, facing a projector on a tripod. They have paid to be here.
+
+[ 106] (01:01:28.0 -> 01:01:34.0)  <tense>
+      A sharpened pencil turning in the dark. A barcode on a white sheet. The pencil held up against it.
+
+[ 107] (01:01:36.0 -> 01:01:44.0)  <tense>
+      On stage the slide behind them is a barcode and a test paper, and one student stands in the light beside it.
+
+[ 108] (01:01:44.0 -> 01:01:46.0)  <normal>
+      The slide fills the frame.
+
+[ 109] (01:01:52.0 -> 01:02:02.0)  <tense>
+      Pat paces in front of a wall of barcoded pencils and explains it: the answers come home down the side of a 2B, and nobody searches a pencil.
+
+[ 110] (01:02:10.0 -> 01:02:18.0)  <normal>
+      Lynn says her part in the workshop and turns away from them.
+
+[ 111] (01:03:38.0 -> 01:03:58.0)  <normal>
+      She goes to the laundry. He is behind the counter with his hands full and she talks to him through the racks.
+
+[ 112] (01:04:10.0 -> 01:04:26.0)  <tense>
+      She stands there holding a bundle. He keeps working while she asks.
+
+[ 113] (01:04:28.0 -> 01:04:46.0)  <tense>
+      He says no. Then he says a number, and the number is not small, and that is the end of him saying no.
+
+[ 114] (01:06:04.0 -> 01:06:18.0)  <tense>
+      Into the print shop, under a sign that says SAFETY FIRST.
+
+[ 115] (01:06:20.0 -> 01:06:34.0)  <tense>
+      She stands tense beside the press while the two of them argue it out between the machines.
+
+[ 116] (01:06:50.0 -> 01:06:58.0)  <normal>
+      Then the two of them sit apart on the platforms of the presses with the work between them, not looking at each other.
+
+[ 117] (01:07:04.0 -> 01:07:10.0)  <normal>
+      Grace and Pat go through the papers at a classroom table. Somewhere else her father is reading a sheet on his own.
+
+[ 118] (01:09:36.0 -> 01:09:42.0)  <tense>
+      The night before the flight. Lynn talks, Pat sits with his arm round Grace, and Bank listens with his face still healing.
+
+[ 119] (01:09:48.0 -> 01:09:58.0)  <normal>
+      Three of them go down a stairwell, seen from directly above.
+
+[ 120] (01:10:12.0 -> 01:10:22.0)  <sad>
+      And in a dim room at a bare table, alone, Pat starts laughing about something and then cannot hold his face together.
+
+[ 121] (01:10:24.0 -> 01:10:34.0)  <sad>
+      He wipes his eyes and keeps trying to get the sentence out.
+
+[ 122] (01:10:48.0 -> 01:10:53.0)  <reveal>
+      He says no. Then he names a number, and it is not small.
+
+[ 123] (01:10:58.0 -> 01:11:07.0)  <tense>
+      He is still talking. He does not seem to understand what he has just put in the room.
+
+[ 124] (01:11:12.0 -> 01:11:19.0)  <tense>
+      Across the table, blinds behind him, he explains it with his hands as though it were logistics.
+
+[ 125] (01:11:32.0 -> 01:11:37.0)  <tense>
+      Then a cut to Bank's face in profile, close, hearing it.
+
+[ 126] (01:11:40.0 -> 01:11:50.0)  <tense>
+      In the back room among the hanging clothes, someone is shouting and someone has their back turned.
+
+[ 127] (01:11:52.0 -> 01:11:58.0)  <tense>
+      A girl goes down into a crouch with her arm over her head.
+
+[ 128] (01:13:12.0 -> 01:13:24.0)  <action>
+      Bank gets a hand on Pat's face and then on his throat, under a plaque on the wall that says JESUS.
+
+[ 129] (01:13:42.0 -> 01:13:48.0)  <sad>
+      Afterwards Grace is crying with a bloodied nose and someone is holding on to her.
+
+[ 130] (01:15:38.0 -> 01:16:04.0)  <sad>
+      Bank stands alone in a station corridor beside a lit billboard for laundry detergent.
+
+[ 131] (01:16:06.0 -> 01:16:32.0)  <sad>
+      Lynn and Grace face each other behind a folding gate and go back and forth, and then the camera leaves them to it.
+
+[ 132] (01:16:34.0 -> 01:16:46.0)  <tense>
+      He comes back. Under the overpass at night she stands with her hand flat against the wall, and he tells her to finish it.
+
+[ 133] (01:18:32.0 -> 01:18:42.0)  <normal>
+      Sydney, the day before. Two of them at a harbour railing with their backs to us, looking at the water.
+
+[ 134] (01:20:24.0 -> 01:20:30.0)  <tense>
+      On the diner television the news is about tighter monitoring at STIC this year. He watches it alone.
+
+[ 135] (01:20:42.0 -> 01:20:54.0)  <tense>
+      On the train they share his earphones, standing face to face, listening to the same thing.
+
+[ 136] (01:21:04.0 -> 01:21:12.0)  <tense>
+      Polished shoes come through the lobby past the display screens. Above them, a crowd of test-takers queuing.
+
+[ 137] (01:21:33.0 -> 01:21:39.0)  <tense>
+      A cubicle, seen from directly above. Someone steps in and crouches beside the bin.
+
+[ 138] (01:21:39.0 -> 01:21:41.0)  <tense>
+      A lid lifts.
+
+[ 139] (01:21:41.0 -> 01:21:47.0)  <tense>
+      Hands pass a small taped bundle onto a white tray.
+
+[ 140] (01:21:47.0 -> 01:21:51.0)  <tense>
+      She looks down with her mouth open.
+
+[ 141] (01:22:36.0 -> 01:22:48.0)  <tense>
+      The clock above the door reads 8:29:58. Then she is in a library of tablet-arm chairs with everyone else, and it starts.
+
+[ 142] (01:23:00.0 -> 01:23:08.0)  <tense>
+      8:51. She bends over the paper in the wood-panelled hall and starts memorising.
+
+[ 143] (01:23:14.0 -> 01:23:20.0)  <tense>
+      In a library somewhere else, Bank has his head down and is writing.
+
+[ 144] (01:24:02.0 -> 01:24:16.0)  <sad>
+      Behind a raised stack of papers she is crying, and carrying on.
+
+[ 145] (01:24:48.0 -> 01:25:00.0)  <normal>
+      On a whiteboard the exam is broken into sections with times beside them. This was rehearsed.
+
+[ 146] (01:25:12.0 -> 01:25:22.0)  <tense>
+      In Bangkok a warehouse: a line of students facing a line of helmeted riders, waiting.
+
+[ 147] (01:25:32.0 -> 01:25:44.0)  <tense>
+      She hides a phone under a flat board on her lap in a cubicle.
+
+[ 148] (01:25:46.0 -> 01:26:00.0)  <tense>
+      In another cubicle he thumbs letter codes into a thread that is already long.
+
+[ 149] (01:26:20.0 -> 01:26:28.0)  <tense>
+      He squints at the screen, and the camera goes in until there is only sweat and closed eyes.
+
+[ 150] (01:26:48.0 -> 01:26:58.0)  <tense>
+      Lynn and Pat lean over his phone together. In the middle of the exam Bank has asked for a million baht.
+
+[ 151] (01:27:40.0 -> 01:27:48.0)  <tense>
+      The demand goes round. A woman at a desk looks down at it.
+
+[ 152] (01:28:00.0 -> 01:28:12.0)  <tense>
+      One million, inside five minutes, or the letters stop.
+
+[ 153] (01:28:44.0 -> 01:28:52.0)  <tense>
+      Pencils laid out on a pale surface, and a thumb pressing along a barcode.
+
+[ 154] (01:29:32.0 -> 01:29:40.0)  <tense>
+      A macro crawl across the booklet page.
+
+[ 155] (01:29:50.0 -> 01:29:58.0)  <tense>
+      Section three. Sixteen questions, twenty minutes.
+
+[ 156] (01:30:04.0 -> 01:30:10.0)  <tense>
+      Two sweating faces bent over two papers in two countries.
+
+[ 157] (01:30:28.0 -> 01:30:38.0)  <tense>
+      In the restroom she stares at nothing, then stands behind two other girls at the mirrors and waits her turn.
+
+[ 158] (01:30:48.0 -> 01:30:54.0)  <tense>
+      His hands type long strings of letters in the stall.
+
+[ 159] (01:31:04.0 -> 01:31:12.0)  <tense>
+      He looks up. Outside the cubicle there are two men in dark suits.
+
+[ 160] (01:31:14.0 -> 01:31:22.0)  <tense>
+      He looks up, then down at the screen again, and keeps going.
+
+[ 161] (01:31:24.0 -> 01:31:28.0)  <tense>
+      Pat frowns at his phone, somewhere far away from any of this.
+
+[ 162] (01:31:30.0 -> 01:31:36.0)  <tense>
+      The numbers are marked read. A finger opens the menu on the group and taps through to confirm.
+
+[ 163] (01:31:40.0 -> 01:31:50.0)  <tense>
+      Something small drops and breaks on the tiles beside a pair of shoes.
+
+[ 164] (01:32:02.0 -> 01:32:12.0)  <tense>
+      The latch is bolted. His hands hold the phone out over the open lid.
+
+[ 165] (01:32:12.0 -> 01:32:24.0)  <tense>
+      It lies face-up in the water, and then the flush takes it.
+
+[ 166] (01:32:28.0 -> 01:32:36.0)  <tense>
+      She shuts herself into a stall and works at something flat on her lap.
+
+[ 167] (01:32:46.0 -> 01:33:04.0)  <tense>
+      A woman in a dark suit walks the row of stalls and comes out to the mirrors, where two girls are standing.
+
+[ 168] (01:33:12.0 -> 01:33:24.0)  <tense>
+      In the corridor a man in a suit has Bank against the wall and is pointing a finger into his face.
+
+[ 169] (01:33:26.0 -> 01:33:34.0)  <sad>
+      A woman is pleading with someone, sweating, crying, getting nowhere.
+
+[ 170] (01:33:43.0 -> 01:33:54.0)  <tense>
+      She walks past the water cooler and sits down, and the camera drops to her boots.
+
+[ 171] (01:34:18.0 -> 01:34:24.0)  <normal>
+      She settles into her chair among the others. The invigilator stands under the clock by the door.
+
+[ 172] (01:34:26.0 -> 01:34:46.0)  <tense>
+      She looks down, and her hand pencils two rows of letters onto something that is not the answer sheet.
+
+[ 173] (01:35:35.0 -> 01:35:55.0)  <tense>
+      Section four, and she is on her own now. She leans over an imagined keyboard and works the fingerings out against the letters she has written.
+
+[ 174] (01:36:26.0 -> 01:36:40.0)  <tense>
+      She writes it into the notebook, line after line of hand-printed letters.
+
+[ 175] (01:36:42.0 -> 01:37:02.0)  <normal>
+      Around her the room carries on: someone between shelves, an invigilator standing with her hands on her hips.
+
+[ 176] (01:37:34.0 -> 01:37:38.0)  <tense>
+      A red clock outside flips from 6:59 to 7:00. Bangkok is waking up.
+
+[ 177] (01:37:46.0 -> 01:37:52.0)  <normal>
+      The essay section. Lighting Your Way to a Better Future.
+
+[ 178] (01:37:54.0 -> 01:38:12.0)  <tense>
+      She is bowed over the desk with sweat at her temple, and then lifts her head.
+
+[ 179] (01:38:14.0 -> 01:38:24.0)  <tense>
+      She holds the pencil upright in front of her face and looks at it.
+
+[ 180] (01:38:26.0 -> 01:38:38.0)  <tense>
+      She puts it in her mouth and bites down with her eyes shut.
+
+[ 181] (01:38:40.0 -> 01:38:52.0)  <tense>
+      A hand gripping the edge of the desk. The pencil at her lips again.
+
+[ 182] (01:38:56.0 -> 01:39:10.0)  <action>
+      The room looks up as a proctor pulls a sobbing girl out of her chair and walks her down the aisle.
+
+[ 183] (01:39:36.0 -> 01:39:42.0)  <tense>
+      At the cooler she fills a plastic sleeve and pushes it down inside her boot.
+
+[ 184] (01:40:06.0 -> 01:40:22.0)  <normal>
+      Two people stand in a room of noticeboards and machinery, both looking off at the same thing.
+
+[ 185] (01:40:38.0 -> 01:40:46.0)  <tense>
+      An invigilator walks the aisle holding a sheet of paper while everyone writes.
+
+[ 186] (01:40:48.0 -> 01:41:16.0)  <tense>
+      The corridor is empty. She comes down the stairwell with her backpack on.
+
+[ 187] (01:41:18.0 -> 01:41:22.0)  <tense>
+      Then she is flat against the wall beside the stairs, breathing hard.
+
+[ 188] (01:41:32.0 -> 01:41:42.0)  <action>
+      She pushes the door open onto the walkway and goes, eyes down on the phone.
+
+[ 189] (01:42:00.0 -> 01:42:04.0)  <action>
+      Out through the turnstiles at the South Concourse, still checking the screen.
+
+[ 190] (01:42:12.0 -> 01:42:26.0)  <tense>
+      A man in a dark suit and a red tie comes through the concourse behind her.
+
+[ 191] (01:42:28.0 -> 01:42:30.0)  <tense>
+      She hurries along the wall.
+
+[ 192] (01:44:24.0 -> 01:44:32.0)  <normal>
+      In Bangkok they are gathered outside the shopfront, waiting on a forecourt full of motorbikes.
+
+[ 193] (01:44:34.0 -> 01:44:38.0)  <tense>
+      Someone types the essay title into Google and the results come up.
+
+[ 194] (01:44:48.0 -> 01:44:52.0)  <tense>
+      A hangar of young people stands with their heads down over their phones.
+
+[ 195] (01:45:04.0 -> 01:45:10.0)  <tense>
+      Her eyes widen. Somewhere a pair of hands is typing very fast.
+
+[ 196] (01:45:26.0 -> 01:45:58.0)  <action>
+      She comes up out of the stairwell and runs the platform, past the escalators, sending as she goes.
+
+[ 197] (01:47:08.0 -> 01:47:12.0)  <tense>
+      A ringed hand closes on the brake lever.
+
+[ 198] (01:47:26.0 -> 01:47:40.0)  <tense>
+      Platform 12, Sydenham. She walks away down the dim platform under a red No Exit sign.
+
+[ 199] (01:47:42.0 -> 01:47:54.0)  <action>
+      She hurries, shoes going over the tiles, face tight.
+
+[ 200] (01:47:56.0 -> 01:47:58.0)  <tense>
+      A screen full of answer strings.
+
+[ 201] (01:48:44.0 -> 01:49:00.0)  <action>
+      On the platform a man in a suit takes hold of her backpack strap, and she turns.
+
+[ 202] (01:49:04.0 -> 01:49:16.0)  <normal>
+      In Bangkok the riders sit under the shophouse roof with their headlights on, waiting for something that is not coming.
+
+[ 203] (01:49:22.0 -> 01:49:50.0)  <sad>
+      Brought back. She stands in the fluorescent light of the concourse looking up, and then down.
+
+[ 204] (01:49:52.0 -> 01:50:06.0)  <tense>
+      On a bench in the stacks her hands find DELETE and confirm it.
+
+[ 205] (01:50:08.0 -> 01:50:22.0)  <sad>
+      She stands with her head lowered. He is sitting alone on a chair in another room.
+
+[ 206] (01:50:38.0 -> 01:50:51.0)  <tense>
+      They face each other and talk in short alternating close-ups. He is saying he does not know her.
+
+[ 207] (01:50:52.0 -> 01:51:02.0)  <sad>
+      He looks off at the wall. She watches him through the glass.
+
+[ 208] (01:53:20.0 -> 01:53:58.0)  <sad>
+      Outside the terminal her father listens to her, and she is crying before she finishes the sentence.
+
+[ 209] (01:54:16.0 -> 01:54:32.0)  <normal>
+      Someone on a phone by the luggage carts. Then a black frame, and a student in uniform sitting down.
+
+[ 210] (01:54:34.0 -> 01:54:46.0)  <sad>
+      She sits alone on a rolling chair in the middle of an empty white floor.
+
+[ 211] (01:54:48.0 -> 01:55:02.0)  <normal>
+      At the party there are gold balloons and matching shirts with the score printed on them, and everyone has their arms up.
+
+[ 212] (01:55:04.0 -> 01:55:10.0)  <normal>
+      Fourteen sixty, across their chests. Grace is there with a white bow in her hair.
+
+[ 213] (01:57:20.0 -> 01:57:34.0)  <normal>
+      Night. A woman walks up to a shopfront stripped for renovation - ladders, paint tins, a scooter at the kerb.
+
+[ 214] (01:57:40.0 -> 01:57:44.0)  <normal>
+      The sign over it reads Mister BANK, laundry service.
+
+[ 215] (01:57:46.0 -> 01:57:54.0)  <normal>
+      She comes through the covered passage and looks off to the side.
+
+[ 216] (01:57:56.0 -> 01:58:00.0)  <tense>
+      She stops in the doorway. He is leaning against a desk with his arms folded.
+
+[ 217] (01:58:02.0 -> 01:58:22.0)  <tense>
+      The workshop behind him is lined with machines that were not there before.
+
+[ 218] (01:58:24.0 -> 01:58:46.0)  <tense>
+      He talks with his face quite flat, looking somewhere past her.
+
+[ 219] (02:00:00.0 -> 02:00:22.0)  <reveal>
+      He has a bigger one in mind. GAT and PAT, sat nationwide, and he wants her back in for it - and he is not really asking, because he knows what she did and he is willing to say so.
+
+[ 220] (02:00:24.0 -> 02:00:46.0)  <tense>
+      She listens with her eyes down while he lays out what he has become in the months she was gone.
+
+[ 221] (02:00:48.0 -> 02:01:10.0)  <tense>
+      She says no. He answers, and what he answers is what he will do about it.
+
+[ 222] (02:02:24.0 -> 02:02:32.0)  <sad>
+      A white room, her father beside her, and the whole of it about to be said out loud.
+
+[ 223] (02:02:56.0 -> 02:03:08.0)  <sad>
+      Her face in close-up, brow down, and someone in a checked shirt standing out of focus behind her.
+
+[ 224] (02:03:10.0 -> 02:03:22.0)  <sad>
+      She walks away down the corridor, stops, looks back once, and goes on.
+
+[ 225] (02:03:24.0 -> 02:03:34.0)  <outro>
+      Then a white room, a table, and a man with a recorder. She leans in and starts at the beginning.

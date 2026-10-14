@@ -1,0 +1,2524 @@
+{
+ "title": "How to Make Millions Before Grandma Dies",
+ "target_minutes": 20,
+ "voice": "tts",
+ "stage": "OUTLINE",
+ "_decisions": {
+  "_1_shot_selection": {
+   "question": "280 catalogued shots against a declared video_essay band of 110-130.",
+   "decision": "BIND 222 of 280 (79%). Do not trim the catalogue. Do not chase capacity fill.",
+   "why_the_band_does_not_apply": "The 110-130 band and the 70-85% capacity-fill band were both calibrated on films that cut 3-5x faster than this one. Measured, not asserted - mean duration of the shots each finished draft actually binds, against the fill that draft scored: gonegirl 5.5s -> 109%, interstellar 9.7s -> 71%, shutterisland 17.4s -> 73%, superbad 21.7s -> 27%, this film 27.1s -> 13%. Fill is words divided by (bound seconds x 3.5 w/s), so it is a words-per-second-of-footage measure. It falls monotonically as the source holds its shots longer, whatever the author does.",
+   "what_satisfying_fill_would_cost": "To reach the 65% floor at 27.1s mean bound duration requires ~66 narrated words per shot - 14,700 words, about 70 minutes of continuous talking over a 119-minute film. The only alternative is to bind ~45 shots instead of 219, discarding 80% of frame-verified coverage. Both destroy the thing this film does: it holds, and it is silent where it matters most.",
+   "so": "[DRAFT-UNDERFILL] at 13% is recorded, understood and NOT actioned, per RULES B9 (fill is a blind metric for comprehension, never a target - measured identical fill either side of a rewrite that fixed comprehension) and B12 (do not polish a metric you have concluded is untrustworthy). Runtime, which is the metric that governs the tier, is met honestly: 18.4 min real-rate against an 18-22 band and a 17.0 floor.",
+   "the_58_shots_not_bound": "Dropped as genuine redundancy, not as trimming to a number: repeated establishing wides of the same location, the second and third beat of unbroken conversations already represented by one line, and transition cutaways whose job is done by the cut itself. No beat lost its coverage - every one of the 57 beats is represented."
+  },
+  "_2_silence_budget": {
+   "question": "S9 allows 2-4 silence beats. Six candidates existed; four claimed one contested slot.",
+   "budget_used": [
+    "clip:00:45:33.0 - 12s - the empty-room hold (56s, nobody in frame)",
+    "clip:01:04:11.4 - 6s  - the shoe-shop close",
+    "clip:01:50:23.8 - 12s - the death (57s of M talking, getting no answer)",
+    "clip:01:58:52.0 - 12s - the final image, the last shot before black"
+   ],
+   "contested_slot_winner": "clip:01:58:52.0",
+   "rejected_and_why": {
+    "clip:01:21:19.8 (Amah takes the refusal)": "Rejected. Strongest single face in the film, but the beat around it is plot-carrying - R2 lands in the two lines either side of it. S9 forbids silence on a moment the viewer needs explained, and this is that moment.",
+    "clip:01:23:30.0 (the walk down the green tunnel)": "Rejected, and this was the closest call. It is the better IMAGE - iconic, already held, 28 seconds long. It loses on position: it sits four minutes after the empty-room hold's neighbourhood and would make the middle of the recap two long wordless holds in the same movement, which reads as the recap running out of things to say rather than as a choice.",
+    "clip:01:31:58.0 (Amah's face from the wheelchair)": "Rejected. Pass 5 already called it the weakest of its three - the conversation it sits inside is the one where she tells him she has known all along, which is the single most plot-carrying exchange in the last act."
+   },
+   "also_displaced_from_the_passes_1_2_budget": {
+    "clip:00:28:20.0": "Displaced to make room for the death. Now a narrated line. It is a good small beat, but it is the fourth-best use of a cap of four and it sits early, before the audience has invested enough for a hold to read as weight.",
+    "clip:00:32:32.0": "Displaced, as pass 5 predicted it would have to be. Five seconds on a lane close-up cannot outrank the death."
+   },
+   "note_on_the_death": "G4 says narration goes QUIETER at climaxes, not louder. The transcript across 01:48:00-01:52:44 returns the same three lines four times over - the hallucination-under-silence pattern - which is diagnostic: the film plays the death almost wordless. Narrating over it would be competing with nothing and losing."
+  }
+ },
+ "lines": [
+  {
+   "id": 1,
+   "clip_start": "00:00:52.8",
+   "clip_end": "00:01:00.7",
+   "narration": "Once a year this hillside outside Bangkok fills up with families who have come to sweep the graves and feed their dead.",
+   "delivery": "intro",
+   "note": "HOOK 1/3. establishing -> narration/no-visual.",
+   "claim": {
+    "type": "narration",
+    "requires_visual": false
+   }
+  },
+  {
+   "id": 2,
+   "clip_start": "00:01:10.0",
+   "clip_end": "00:01:18.9",
+   "narration": "The woman under the lace parasol is Amah. She works the ritual the way you work something you have done every year of your life.",
+   "delivery": "intro",
+   "note": "HOOK 2/3.",
+   "claim": {
+    "type": "setup",
+    "subject": "Amah Saejiu"
+   }
+  },
+  {
+   "id": 3,
+   "clip_start": "00:02:00.4",
+   "clip_end": "00:02:15.0",
+   "narration": "Her grandson is sitting three feet away, on his phone, doing none of it. This is Serabudabu, and today we're walking through How to Make Millions Before Grandma Dies - the Thai film that asks how much of love is arithmetic.",
+   "delivery": "intro",
+   "note": "HOOK 3/3. Branding + title. Premise stated flatly per H2.",
+   "claim": {
+    "type": "setup",
+    "subject": "M"
+   }
+  },
+  {
+   "id": 4,
+   "clip_start": "00:02:35.0",
+   "clip_end": "00:02:42.5",
+   "narration": "Amah kneels on the slab and lays it all out. Fruit, bowls, incense, in an order nobody has to tell her.",
+   "delivery": "normal",
+   "claim": {
+    "type": "action",
+    "subject": "Amah Saejiu"
+   }
+  },
+  {
+   "id": 5,
+   "clip_start": "00:03:45.0",
+   "clip_end": "00:03:52.9",
+   "narration": "M stays on the ledge. She moves around him, hanging a marker in the tree, and he does not look up once.",
+   "delivery": "normal",
+   "claim": {
+    "type": "setup",
+    "subject": "M"
+   }
+  },
+  {
+   "id": 6,
+   "clip_start": "00:04:30.0",
+   "clip_end": "00:04:41.8",
+   "narration": "He is twenty-something, he streams games for a living, and the person he is about to build his whole year around is currently just the old woman in the way of his signal.",
+   "delivery": "normal",
+   "claim": {
+    "type": "emotion",
+    "subject": "M"
+   }
+  },
+  {
+   "id": 7,
+   "clip_start": "00:04:59.1",
+   "clip_end": "00:05:03.6",
+   "narration": "Not long after, the family is at a hospital entrance instead.",
+   "delivery": "normal",
+   "note": "establishing -> narration/no-visual.",
+   "claim": {
+    "type": "narration",
+    "requires_visual": false
+   }
+  },
+  {
+   "id": 8,
+   "clip_start": "00:05:20.0",
+   "clip_end": "00:05:24.5",
+   "narration": "Amah is lifted out of the car and into a wheelchair.",
+   "delivery": "normal",
+   "claim": {
+    "type": "action",
+    "subject": "Amah Saejiu"
+   }
+  },
+  {
+   "id": 9,
+   "clip_start": "00:05:45.0",
+   "clip_end": "00:05:57.1",
+   "narration": "Out by the open door, her children work out what to tell her. The word from the doctors is stage four, and about a year. They decide she is not going to hear it.",
+   "delivery": "normal",
+   "note": "S4 note: the diagnosis is carried in this conversation, not shown. Bound to the conversation itself and worded as what they are doing.",
+   "claim": {
+    "type": "dialogue",
+    "subject": "Sew"
+   }
+  },
+  {
+   "id": 10,
+   "clip_start": "00:05:57.8",
+   "clip_end": "00:06:02.3",
+   "narration": "M's own life is a dark room and a lit monitor.",
+   "delivery": "normal",
+   "claim": {
+    "type": "setup",
+    "subject": "M"
+   }
+  },
+  {
+   "id": 11,
+   "clip_start": "00:06:27.0",
+   "clip_end": "00:06:35.9",
+   "narration": "His mother Sew still does his laundry. He rubs her shoulders while she talks, which is the closest thing to a job he currently holds.",
+   "delivery": "normal",
+   "claim": {
+    "type": "dialogue",
+    "subject": "Sew"
+   }
+  },
+  {
+   "id": 12,
+   "clip_start": "00:07:05.0",
+   "clip_end": "00:07:09.6",
+   "narration": "She stands over the desk and tries again. He keeps the headset on.",
+   "delivery": "normal",
+   "claim": {
+    "type": "dialogue",
+    "subject": "M"
+   }
+  },
+  {
+   "id": 13,
+   "clip_start": "00:08:00.0",
+   "clip_end": "00:08:05.7",
+   "narration": "The stream is not going well either. The chat scrolls past a man talking to nobody.",
+   "delivery": "normal",
+   "claim": {
+    "type": "setup",
+    "subject": "M"
+   }
+  },
+  {
+   "id": 14,
+   "clip_start": "00:08:36.4",
+   "clip_end": "00:08:47.5",
+   "narration": "Then there is the other grandparent. Agong is dying in a hospital bed in the middle of the family living room, and M sits next to him looking at his phone.",
+   "delivery": "normal",
+   "claim": {
+    "type": "setup",
+    "subject": "Agong"
+   }
+  },
+  {
+   "id": 15,
+   "clip_start": "00:08:59.2",
+   "clip_end": "00:09:03.7",
+   "narration": "The person actually doing the work is his cousin Mui.",
+   "delivery": "normal",
+   "claim": {
+    "type": "dialogue",
+    "subject": "Mui"
+   }
+  },
+  {
+   "id": 16,
+   "clip_start": "00:09:30.7",
+   "clip_end": "00:09:37.5",
+   "narration": "She changes him, cleans him, raises the bed, gloves on, alone. M fills a kettle in the next room.",
+   "delivery": "normal",
+   "claim": {
+    "type": "action",
+    "subject": "Mui"
+   }
+  },
+  {
+   "id": 17,
+   "clip_start": "00:10:05.0",
+   "clip_end": "00:10:13.2",
+   "narration": "He talks to her from the bench across the room while she keeps working. Watch that arrangement. The whole film is in it.",
+   "delivery": "normal",
+   "claim": {
+    "type": "dialogue",
+    "subject": "Mui"
+   }
+  },
+  {
+   "id": 18,
+   "clip_start": "00:10:33.5",
+   "clip_end": "00:10:38.1",
+   "narration": "Agong dies. White mourning clothes, paper hats, monks, a photograph banked with flowers.",
+   "delivery": "normal",
+   "claim": {
+    "type": "setup",
+    "subject": "M"
+   }
+  },
+  {
+   "id": 19,
+   "clip_start": "00:11:32.0",
+   "clip_end": "00:11:43.8",
+   "narration": "And at the burning, M learns the only piece of family arithmetic he will act on for the next two hours: the house went to Mui. To the one who did the caring.",
+   "delivery": "normal",
+   "claim": {
+    "type": "emotion",
+    "subject": "M"
+   }
+  },
+  {
+   "id": 20,
+   "clip_start": "00:12:13.2",
+   "clip_end": "00:12:17.7",
+   "narration": "So he goes looking for a grandmother of his own.",
+   "delivery": "normal",
+   "note": "establishing -> narration/no-visual.",
+   "claim": {
+    "type": "narration",
+    "requires_visual": false
+   }
+  },
+  {
+   "id": 21,
+   "clip_start": "00:13:29.4",
+   "clip_end": "00:13:33.9",
+   "narration": "Across town, down along the railway, into the old lanes.",
+   "delivery": "normal",
+   "claim": {
+    "type": "transition",
+    "subject": "M"
+   }
+  },
+  {
+   "id": 22,
+   "clip_start": "00:14:00.3",
+   "clip_end": "00:14:04.8",
+   "narration": "How to Make Millions Before Grandma Dies.",
+   "delivery": "normal",
+   "note": "Title card shot. establishing/setup -> keep to one clause.",
+   "claim": {
+    "type": "narration",
+    "requires_visual": false
+   }
+  },
+  {
+   "id": 23,
+   "clip_start": "00:14:29.2",
+   "clip_end": "00:14:35.6",
+   "narration": "The lane ends at a green folding gate, and he calls in through the bars like a delivery.",
+   "delivery": "normal",
+   "claim": {
+    "type": "transition",
+    "subject": "M"
+   }
+  },
+  {
+   "id": 24,
+   "clip_start": "00:15:15.0",
+   "clip_end": "00:15:24.3",
+   "narration": "Inside is a shophouse packed with glass cabinets and stacked pans, and an old woman who is entirely unconvinced by the sudden warmth of her grandson.",
+   "delivery": "normal",
+   "claim": {
+    "type": "dialogue",
+    "subject": "Amah Saejiu"
+   }
+  },
+  {
+   "id": 25,
+   "clip_start": "00:16:00.1",
+   "clip_end": "00:16:06.9",
+   "narration": "She runs a congee stall by the tracks. She is up before the market and she does not stop.",
+   "delivery": "normal",
+   "note": "establishing -> narration/no-visual.",
+   "claim": {
+    "type": "narration",
+    "requires_visual": false
+   }
+  },
+  {
+   "id": 26,
+   "clip_start": "00:16:32.0",
+   "clip_end": "00:16:37.0",
+   "narration": "They eat together, a whole steamed fish between them, and it is almost pleasant.",
+   "delivery": "normal",
+   "claim": {
+    "type": "dialogue",
+    "subject": "Amah Saejiu"
+   }
+  },
+  {
+   "id": 27,
+   "clip_start": "00:17:15.4",
+   "clip_end": "00:17:24.7",
+   "narration": "Then she lies down on the daybed among the medicine bottles, and the shape of the year ahead is on the table in front of him.",
+   "delivery": "normal",
+   "claim": {
+    "type": "setup",
+    "subject": "Amah Saejiu"
+   }
+  },
+  {
+   "id": 28,
+   "clip_start": "00:18:00.0",
+   "clip_end": "00:18:04.5",
+   "narration": "He heats her food. He sets out the containers.",
+   "delivery": "normal",
+   "claim": {
+    "type": "action",
+    "subject": "M"
+   }
+  },
+  {
+   "id": 29,
+   "clip_start": "00:18:29.0",
+   "clip_end": "00:18:37.2",
+   "narration": "He stands at the shrine with its little red electric candles and looks at the offerings like a man reading a price list.",
+   "delivery": "normal",
+   "claim": {
+    "type": "emotion",
+    "subject": "M"
+   }
+  },
+  {
+   "id": 30,
+   "clip_start": "00:19:28.4",
+   "clip_end": "00:19:34.5",
+   "narration": "And then he takes a box across town to Mui, who is now living in a hotel.",
+   "delivery": "normal",
+   "claim": {
+    "type": "dialogue",
+    "subject": "Mui"
+   }
+  },
+  {
+   "id": 31,
+   "clip_start": "00:20:27.8",
+   "clip_end": "00:20:39.9",
+   "narration": "She sold the house Agong left her. She has been in serviced rooms for months on the proceeds, and she says it the way you say something you have already stopped being ashamed of.",
+   "delivery": "normal",
+   "claim": {
+    "type": "dialogue",
+    "subject": "Mui"
+   }
+  },
+  {
+   "id": 32,
+   "clip_start": "00:22:01.4",
+   "clip_end": "00:22:08.5",
+   "narration": "So he asks her outright how she did it. How you get an old person to leave you the deed.",
+   "delivery": "normal",
+   "claim": {
+    "type": "dialogue",
+    "subject": "M"
+   }
+  },
+  {
+   "id": 33,
+   "clip_start": "00:22:58.4",
+   "clip_end": "00:23:09.1",
+   "narration": "Her answer is the thesis of the film, and she does not dress it up. You have to give them what their children will not. You have to be there.",
+   "delivery": "normal",
+   "claim": {
+    "type": "emotion",
+    "subject": "Mui"
+   }
+  },
+  {
+   "id": 34,
+   "clip_start": "00:24:05.0",
+   "clip_end": "00:24:09.5",
+   "narration": "He packs his room.",
+   "delivery": "normal",
+   "claim": {
+    "type": "setup",
+    "subject": "M"
+   }
+  },
+  {
+   "id": 35,
+   "clip_start": "00:24:38.0",
+   "clip_end": "00:24:44.4",
+   "narration": "Sew walks him round a supermarket, and neither of them says out loud what he is actually doing.",
+   "delivery": "normal",
+   "claim": {
+    "type": "dialogue",
+    "subject": "Sew"
+   }
+  },
+  {
+   "id": 36,
+   "clip_start": "00:25:00.8",
+   "clip_end": "00:25:05.3",
+   "narration": "He turns up at Amah's with his bags.",
+   "delivery": "normal",
+   "claim": {
+    "type": "setup",
+    "subject": "M"
+   }
+  },
+  {
+   "id": 37,
+   "clip_start": "00:25:30.1",
+   "clip_end": "00:25:38.3",
+   "narration": "She stands in her own gateway with a kitchen tool in her hand and sets her terms. He can stay. He will work.",
+   "delivery": "normal",
+   "claim": {
+    "type": "dialogue",
+    "subject": "Amah Saejiu"
+   }
+  },
+  {
+   "id": 38,
+   "clip_start": "00:25:58.0",
+   "clip_end": "00:26:05.5",
+   "narration": "The first thing she does is open the cash tin and go through it in front of him, item by item.",
+   "delivery": "normal",
+   "claim": {
+    "type": "dialogue",
+    "subject": "Amah Saejiu"
+   }
+  },
+  {
+   "id": 39,
+   "clip_start": "00:26:38.0",
+   "clip_end": "00:26:43.4",
+   "narration": "She is not hiding the money. She is showing him exactly how little there is.",
+   "delivery": "normal",
+   "claim": {
+    "type": "dialogue",
+    "subject": "Amah Saejiu"
+   }
+  },
+  {
+   "id": 40,
+   "clip_start": "00:27:20.0",
+   "clip_end": "00:27:26.1",
+   "narration": "He walks the house on his own afterwards, past the cabinets and the tall clock, pricing it.",
+   "delivery": "normal",
+   "claim": {
+    "type": "setup",
+    "subject": "M"
+   }
+  },
+  {
+   "id": 41,
+   "clip_start": "00:27:57.7",
+   "clip_end": "00:28:02.3",
+   "narration": "The routine starts. Up the stairs behind her, a step back, in case.",
+   "delivery": "normal",
+   "claim": {
+    "type": "dialogue",
+    "subject": "M"
+   }
+  },
+  {
+   "id": 42,
+   "clip_start": "00:28:20.0",
+   "clip_end": "00:28:32.1",
+   "narration": "At night she is asleep on the daybed and he lies down near her and settles a cover over her. Nobody sees him do it, which is the first time that has been true.",
+   "delivery": "normal",
+   "note": "DISPLACED silence (was tagged 6s in passes 1-2). Narrated instead - see decision note.",
+   "claim": {
+    "type": "emotion",
+    "subject": "M"
+   }
+  },
+  {
+   "id": 43,
+   "clip_start": "00:28:45.0",
+   "clip_end": "00:28:49.5",
+   "narration": "Four in the morning. The lane, the rails, a cat.",
+   "delivery": "normal",
+   "note": "establishing -> narration/no-visual.",
+   "claim": {
+    "type": "narration",
+    "requires_visual": false
+   }
+  },
+  {
+   "id": 44,
+   "clip_start": "00:29:02.0",
+   "clip_end": "00:29:11.3",
+   "narration": "They work the congee pots together, ladling and stacking, and this is the part the film keeps coming back to. Not the big decisions. The pots.",
+   "delivery": "normal",
+   "claim": {
+    "type": "action",
+    "subject": "Amah Saejiu"
+   }
+  },
+  {
+   "id": 45,
+   "clip_start": "00:30:02.0",
+   "clip_end": "00:30:12.0",
+   "narration": "She takes him to a shop hung with paper funeral goods and picks through the stock. She is buying for her own send-off and treating it as errands.",
+   "delivery": "normal",
+   "claim": {
+    "type": "dialogue",
+    "subject": "Amah Saejiu"
+   }
+  },
+  {
+   "id": 46,
+   "clip_start": "00:30:30.6",
+   "clip_end": "00:30:41.0",
+   "narration": "Then she starts across a main road on her own, and he goes after her and takes her arm. He does not think about it first. That is new.",
+   "delivery": "normal",
+   "claim": {
+    "type": "action",
+    "subject": "M"
+   }
+  },
+  {
+   "id": 47,
+   "clip_start": "00:31:02.5",
+   "clip_end": "00:31:07.0",
+   "narration": "He washes up crouched at the low sink.",
+   "delivery": "normal",
+   "claim": {
+    "type": "action",
+    "subject": "M"
+   }
+  },
+  {
+   "id": 48,
+   "clip_start": "00:31:32.0",
+   "clip_end": "00:31:45.2",
+   "narration": "She sorts through the cabinet and puts something into his hands. Keep an eye on her feet in this one - the film is already working, and it will not tell you so for another half hour.",
+   "delivery": "normal",
+   "note": "PLANT: the worn sandal at ~00:31:55 inside this window. Pays off at 01:03:11.9 (shoe shop). See STRESS_grandma Gap 3.",
+   "claim": {
+    "type": "dialogue",
+    "subject": "Amah Saejiu"
+   }
+  },
+  {
+   "id": 49,
+   "clip_start": "00:31:59.4",
+   "clip_end": "00:32:06.9",
+   "narration": "Out in the lane she sits on a low stool and he crouches down so they are at the same height.",
+   "delivery": "normal",
+   "claim": {
+    "type": "emotion",
+    "subject": "M"
+   }
+  },
+  {
+   "id": 50,
+   "clip_start": "00:32:32.0",
+   "clip_end": "00:32:37.0",
+   "narration": "Six weeks ago he could not put his phone down at her husband's grave.",
+   "delivery": "normal",
+   "claim": {
+    "type": "emotion",
+    "subject": "Amah Saejiu"
+   }
+  },
+  {
+   "id": 51,
+   "clip_start": "00:33:00.0",
+   "clip_end": "00:33:04.5",
+   "narration": "Then the rest of them arrive.",
+   "delivery": "normal",
+   "claim": {
+    "type": "setup",
+    "subject": "Amah Saejiu"
+   }
+  },
+  {
+   "id": 52,
+   "clip_start": "00:33:20.0",
+   "clip_end": "00:33:26.8",
+   "narration": "The weekly meal. Her grown children and their families packed in around the green table, all talking at once.",
+   "delivery": "normal",
+   "claim": {
+    "type": "dialogue",
+    "subject": "Amah Saejiu"
+   }
+  },
+  {
+   "id": 53,
+   "clip_start": "00:34:09.9",
+   "clip_end": "00:34:16.7",
+   "narration": "The talk turns to who is going to look after her. Everyone has a reason it cannot be them.",
+   "delivery": "normal",
+   "claim": {
+    "type": "dialogue",
+    "subject": "M"
+   }
+  },
+  {
+   "id": 54,
+   "clip_start": "00:34:40.0",
+   "clip_end": "00:34:44.5",
+   "narration": "M eats on the stairs.",
+   "delivery": "normal",
+   "claim": {
+    "type": "emotion",
+    "subject": "M"
+   }
+  },
+  {
+   "id": 55,
+   "clip_start": "00:35:19.5",
+   "clip_end": "00:35:29.1",
+   "narration": "And here is the thing the film does with a wide shot and no dialogue: a woman sitting alone in the middle of her own full house.",
+   "delivery": "normal",
+   "claim": {
+    "type": "emotion",
+    "subject": "Amah Saejiu"
+   }
+  },
+  {
+   "id": 56,
+   "clip_start": "00:36:25.0",
+   "clip_end": "00:36:29.5",
+   "narration": "Sew takes her swimming.",
+   "delivery": "normal",
+   "claim": {
+    "type": "dialogue",
+    "subject": "Sew"
+   }
+  },
+  {
+   "id": 57,
+   "clip_start": "00:37:32.4",
+   "clip_end": "00:37:45.3",
+   "narration": "Mother and daughter stand in the shallow end with their heads together while the class goes on around them. Whatever is said there, it is the one conversation in this film that happens without an audience.",
+   "delivery": "normal",
+   "claim": {
+    "type": "dialogue",
+    "subject": "Sew"
+   }
+  },
+  {
+   "id": 58,
+   "clip_start": "00:38:28.0",
+   "clip_end": "00:38:32.5",
+   "narration": "M watches from the side with a towel.",
+   "delivery": "normal",
+   "claim": {
+    "type": "emotion",
+    "subject": "M"
+   }
+  },
+  {
+   "id": 59,
+   "clip_start": "00:39:00.0",
+   "clip_end": "00:39:07.5",
+   "narration": "Afterwards he and his mother talk, and you can hear him testing whether she has noticed what he is up to.",
+   "delivery": "normal",
+   "claim": {
+    "type": "dialogue",
+    "subject": "Sew"
+   }
+  },
+  {
+   "id": 60,
+   "clip_start": "00:39:30.8",
+   "clip_end": "00:39:35.4",
+   "narration": "Night. A car park, and Amah standing on her own among the cars.",
+   "delivery": "normal",
+   "claim": {
+    "type": "setup",
+    "subject": "Amah Saejiu"
+   }
+  },
+  {
+   "id": 61,
+   "clip_start": "00:40:22.7",
+   "clip_end": "00:40:30.6",
+   "narration": "The outpatient hall is full. Every chair taken, sandals across the floor, and M working his way through it to the counter.",
+   "delivery": "normal",
+   "note": "establishing -> narration/no-visual.",
+   "claim": {
+    "type": "narration",
+    "requires_visual": false
+   }
+  },
+  {
+   "id": 62,
+   "clip_start": "00:41:10.0",
+   "clip_end": "00:41:14.5",
+   "narration": "She takes the drip sitting up, with him beside her.",
+   "delivery": "normal",
+   "claim": {
+    "type": "setup",
+    "subject": "Amah Saejiu"
+   }
+  },
+  {
+   "id": 63,
+   "clip_start": "00:41:30.0",
+   "clip_end": "00:41:36.1",
+   "narration": "And then he steps behind the glass partition, where she cannot see him, and his face goes.",
+   "delivery": "normal",
+   "claim": {
+    "type": "reaction",
+    "subject": "M"
+   }
+  },
+  {
+   "id": 64,
+   "clip_start": "00:41:59.5",
+   "clip_end": "00:42:04.0",
+   "narration": "The care escalates without anybody announcing it.",
+   "delivery": "normal",
+   "claim": {
+    "type": "action",
+    "subject": "M"
+   }
+  },
+  {
+   "id": 65,
+   "clip_start": "00:43:31.0",
+   "clip_end": "00:43:36.7",
+   "narration": "He sits at the bedside with a listening tube against her chest while she lies still.",
+   "delivery": "normal",
+   "claim": {
+    "type": "emotion",
+    "subject": "M"
+   }
+  },
+  {
+   "id": 66,
+   "clip_start": "00:44:00.8",
+   "clip_end": "00:44:06.9",
+   "narration": "They start sleeping in the same room, under the same net, under a photograph of the dead.",
+   "delivery": "normal",
+   "claim": {
+    "type": "emotion",
+    "subject": "Amah Saejiu"
+   }
+  },
+  {
+   "id": 67,
+   "clip_start": "00:44:42.1",
+   "clip_end": "00:44:50.0",
+   "narration": "He wakes in the dark and sits up fast, because that is what you do when you are listening for someone's breathing.",
+   "delivery": "normal",
+   "claim": {
+    "type": "reaction",
+    "subject": "M"
+   }
+  },
+  {
+   "id": 68,
+   "clip_start": "00:45:00.0",
+   "clip_end": "00:45:06.1",
+   "narration": "She is back at the stall scales in the morning as if none of it is happening.",
+   "delivery": "normal",
+   "claim": {
+    "type": "dialogue",
+    "subject": "Amah Saejiu"
+   }
+  },
+  {
+   "id": 69,
+   "clip_start": "00:45:33.0",
+   "clip_end": "00:46:29.0",
+   "narration": "",
+   "narration_silence_seconds": 12.0,
+   "note": "SILENCE 1/4 - the empty-room hold. 56s unbroken, nobody in frame. S9 iconic-shot case."
+  },
+  {
+   "id": 70,
+   "clip_start": "00:46:45.0",
+   "clip_end": "00:46:50.4",
+   "narration": "Then she falls asleep sitting upright in a waiting room, head over on one side.",
+   "delivery": "normal",
+   "claim": {
+    "type": "emotion",
+    "subject": "Amah Saejiu"
+   }
+  },
+  {
+   "id": 71,
+   "clip_start": "00:47:00.0",
+   "clip_end": "00:47:08.6",
+   "narration": "After that it is all hands. Down the stairs one step at a time, her hand on the rail and his on her arm.",
+   "delivery": "normal",
+   "claim": {
+    "type": "action",
+    "subject": "M"
+   }
+  },
+  {
+   "id": 72,
+   "clip_start": "00:47:40.0",
+   "clip_end": "00:47:44.5",
+   "narration": "The stove, the kettle, the low sink.",
+   "delivery": "normal",
+   "claim": {
+    "type": "action",
+    "subject": "M"
+   }
+  },
+  {
+   "id": 73,
+   "clip_start": "00:48:00.0",
+   "clip_end": "00:48:11.4",
+   "narration": "And through the window grille, this: he washes her back and her hair at the basin, and the camera does not cut away or find an angle that spares either of them.",
+   "delivery": "normal",
+   "claim": {
+    "type": "emotion",
+    "subject": "M"
+   }
+  },
+  {
+   "id": 74,
+   "clip_start": "00:48:49.2",
+   "clip_end": "00:48:54.2",
+   "narration": "She watches him handle the incense at the shrine. He has learned the order.",
+   "delivery": "normal",
+   "claim": {
+    "type": "dialogue",
+    "subject": "Amah Saejiu"
+   }
+  },
+  {
+   "id": 75,
+   "clip_start": "00:50:20.0",
+   "clip_end": "00:50:28.9",
+   "narration": "He hangs the washing across the lane while she watches from the doorway. None of this is a scene. That is the point of it.",
+   "delivery": "normal",
+   "claim": {
+    "type": "action",
+    "subject": "M"
+   }
+  },
+  {
+   "id": 76,
+   "clip_start": "00:50:50.2",
+   "clip_end": "00:50:59.1",
+   "narration": "A man in a singlet turns up at the shophouse. He is one of the sons, and the film never bothers to introduce him properly.",
+   "delivery": "normal",
+   "claim": {
+    "type": "dialogue",
+    "subject": "M"
+   }
+  },
+  {
+   "id": 77,
+   "clip_start": "00:51:21.3",
+   "clip_end": "00:51:31.7",
+   "narration": "He makes a fuss of Amah out in the lane, half lifting her off her feet, and she laughs at him. He is also the one who owes money.",
+   "delivery": "normal",
+   "note": "The visitor is NOT named - see beats_proposal 'NOT NAMED'. Described by role only, no canonical name claimed.",
+   "claim": {
+    "type": "emotion",
+    "subject": "Amah Saejiu"
+   }
+  },
+  {
+   "id": 78,
+   "clip_start": "00:53:20.0",
+   "clip_end": "00:53:26.8",
+   "narration": "Then the eldest son sends a car, and Amah is driven out through the suburbs to a housing estate.",
+   "delivery": "normal",
+   "claim": {
+    "type": "transition",
+    "subject": "M"
+   }
+  },
+  {
+   "id": 79,
+   "clip_start": "00:53:47.6",
+   "clip_end": "00:53:53.0",
+   "narration": "A bright modern room, fitted out for her. A hospital bed, balloons, a karaoke screen.",
+   "delivery": "normal",
+   "claim": {
+    "type": "setup",
+    "subject": "Amah Saejiu"
+   }
+  },
+  {
+   "id": 80,
+   "clip_start": "00:54:47.6",
+   "clip_end": "00:54:52.1",
+   "narration": "Kiang shows it off while she sits on the new mattress.",
+   "delivery": "normal",
+   "claim": {
+    "type": "dialogue",
+    "subject": "Kiang"
+   }
+  },
+  {
+   "id": 81,
+   "clip_start": "00:55:30.1",
+   "clip_end": "00:55:40.8",
+   "narration": "Then he takes M aside and makes him an offer, and you can watch M work out that he has just been outbid by a man with a spare room.",
+   "delivery": "normal",
+   "claim": {
+    "type": "dialogue",
+    "subject": "Kiang"
+   }
+  },
+  {
+   "id": 82,
+   "clip_start": "00:56:30.2",
+   "clip_end": "00:56:34.7",
+   "narration": "She reaches up and takes Kiang's hand.",
+   "delivery": "normal",
+   "claim": {
+    "type": "emotion",
+    "subject": "Kiang"
+   }
+  },
+  {
+   "id": 83,
+   "clip_start": "00:56:58.3",
+   "clip_end": "00:57:02.8",
+   "narration": "M watches that and says nothing.",
+   "delivery": "normal",
+   "claim": {
+    "type": "reaction",
+    "subject": "M"
+   }
+  },
+  {
+   "id": 84,
+   "clip_start": "00:57:30.0",
+   "clip_end": "00:57:35.0",
+   "narration": "The whole family goes up-country on a train, sun coming through the open windows.",
+   "delivery": "normal",
+   "claim": {
+    "type": "transition",
+    "subject": "M"
+   }
+  },
+  {
+   "id": 85,
+   "clip_start": "00:58:01.5",
+   "clip_end": "00:58:06.9",
+   "narration": "A hilltop temple, a white Guanyin, a long staircase with a dragon down the rail.",
+   "delivery": "normal",
+   "note": "establishing -> narration/no-visual.",
+   "claim": {
+    "type": "narration",
+    "requires_visual": false
+   }
+  },
+  {
+   "id": 86,
+   "clip_start": "00:58:35.0",
+   "clip_end": "00:58:39.5",
+   "narration": "At the steps he eases her swollen feet out of her sandals.",
+   "delivery": "normal",
+   "note": "MID-BEAT of the sandal/feet chain: plant 00:31:32, payoff 01:03:11.9.",
+   "claim": {
+    "type": "emotion",
+    "subject": "M"
+   }
+  },
+  {
+   "id": 87,
+   "clip_start": "00:59:00.2",
+   "clip_end": "00:59:04.7",
+   "narration": "They work through the offerings together among the candles and the oranges.",
+   "delivery": "normal",
+   "claim": {
+    "type": "dialogue",
+    "subject": "Amah Saejiu"
+   }
+  },
+  {
+   "id": 88,
+   "clip_start": "01:00:00.0",
+   "clip_end": "01:00:07.5",
+   "narration": "A long two-shot from behind, the pair of them side by side at the blue table, barely a cut in it.",
+   "delivery": "normal",
+   "claim": {
+    "type": "emotion",
+    "subject": "Amah Saejiu"
+   }
+  },
+  {
+   "id": 89,
+   "clip_start": "01:00:58.7",
+   "clip_end": "01:01:07.6",
+   "narration": "And then he picks up a printed slip and reads what it is. A coffin donation. She is paying, in advance, for someone else's burial.",
+   "delivery": "normal",
+   "claim": {
+    "type": "discovery",
+    "subject": "M"
+   }
+  },
+  {
+   "id": 90,
+   "clip_start": "01:01:30.0",
+   "clip_end": "01:01:34.5",
+   "narration": "She fills it in.",
+   "delivery": "normal",
+   "claim": {
+    "type": "emotion",
+    "subject": "Amah Saejiu"
+   }
+  },
+  {
+   "id": 91,
+   "clip_start": "01:02:15.7",
+   "clip_end": "01:02:20.7",
+   "narration": "On the train home she watches the country go past, and he watches her.",
+   "delivery": "normal",
+   "claim": {
+    "type": "emotion",
+    "subject": "Amah Saejiu"
+   }
+  },
+  {
+   "id": 92,
+   "clip_start": "01:03:11.9",
+   "clip_end": "01:03:22.6",
+   "narration": "Then a shoe shop, and this is the payoff to a shot you saw forty minutes ago. He kneels on the floor and works a new pair onto her feet.",
+   "delivery": "normal",
+   "note": "PAYOFF of the sandal chain (plant 00:31:32.0, mid-beat 00:58:35.0).",
+   "claim": {
+    "type": "action",
+    "subject": "M"
+   }
+  },
+  {
+   "id": 93,
+   "clip_start": "01:03:45.0",
+   "clip_end": "01:03:49.5",
+   "narration": "He looks up at her from down there, still holding her foot.",
+   "delivery": "normal",
+   "claim": {
+    "type": "dialogue",
+    "subject": "M"
+   }
+  },
+  {
+   "id": 94,
+   "clip_start": "01:04:11.4",
+   "clip_end": "01:04:30.9",
+   "narration": "",
+   "narration_silence_seconds": 6.0,
+   "note": "SILENCE 2/4 - the shoe-shop close. Held reaction, no dialogue under it."
+  },
+  {
+   "id": 95,
+   "clip_start": "01:04:30.9",
+   "clip_end": "01:04:35.4",
+   "narration": "They go through old photographs on his phone by the window.",
+   "delivery": "normal",
+   "claim": {
+    "type": "dialogue",
+    "subject": "Amah Saejiu"
+   }
+  },
+  {
+   "id": 96,
+   "clip_start": "01:05:30.0",
+   "clip_end": "01:05:41.1",
+   "narration": "He puts his head against her arm while she laughs at the screen. Whatever he came here to do, this is not it any more. Or it is not only it.",
+   "delivery": "normal",
+   "claim": {
+    "type": "emotion",
+    "subject": "M"
+   }
+  },
+  {
+   "id": 97,
+   "clip_start": "01:06:04.2",
+   "clip_end": "01:06:08.7",
+   "narration": "A train under a full rainbow.",
+   "delivery": "normal",
+   "note": "establishing -> narration/no-visual. Deliberately short: the next shot must not be narrated over.",
+   "claim": {
+    "type": "narration",
+    "requires_visual": false
+   }
+  },
+  {
+   "id": 98,
+   "clip_start": "01:06:26.3",
+   "clip_end": "01:06:30.8",
+   "narration": "And she is at the table.",
+   "delivery": "normal",
+   "note": "SCRIPTING NOTE (beats_proposal): her hair is gone and the film announces nothing. Do NOT narrate the treatment here. Four words, then get out of the way.",
+   "claim": {
+    "type": "setup",
+    "subject": "Amah Saejiu"
+   }
+  },
+  {
+   "id": 99,
+   "clip_start": "01:06:46.6",
+   "clip_end": "01:06:55.2",
+   "narration": "He works the paddle through the congee pot while she watches from the stool below him. The stall still opens. That is the arrangement.",
+   "delivery": "normal",
+   "claim": {
+    "type": "action",
+    "subject": "M"
+   }
+  },
+  {
+   "id": 100,
+   "clip_start": "01:07:24.5",
+   "clip_end": "01:07:29.0",
+   "narration": "At night they count the takings at the green table.",
+   "delivery": "normal",
+   "claim": {
+    "type": "dialogue",
+    "subject": "Amah Saejiu"
+   }
+  },
+  {
+   "id": 101,
+   "clip_start": "01:08:05.0",
+   "clip_end": "01:08:14.3",
+   "narration": "There is a shot of her alone under the strip light, glasses catching it, that the film holds about four seconds longer than it needs to.",
+   "delivery": "normal",
+   "claim": {
+    "type": "emotion",
+    "subject": "Amah Saejiu"
+   }
+  },
+  {
+   "id": 102,
+   "clip_start": "01:08:50.0",
+   "clip_end": "01:08:54.6",
+   "narration": "Their heads come together over a small bowl and they talk about nothing.",
+   "delivery": "normal",
+   "claim": {
+    "type": "dialogue",
+    "subject": "Amah Saejiu"
+   }
+  },
+  {
+   "id": 103,
+   "clip_start": "01:09:19.0",
+   "clip_end": "01:09:24.4",
+   "narration": "This is the warmest stretch in the film. She smiles at something he has said.",
+   "delivery": "normal",
+   "claim": {
+    "type": "emotion",
+    "subject": "Amah Saejiu"
+   }
+  },
+  {
+   "id": 104,
+   "clip_start": "01:09:40.0",
+   "clip_end": "01:09:44.5",
+   "narration": "He takes it in from across the table.",
+   "delivery": "normal",
+   "claim": {
+    "type": "reaction",
+    "subject": "M"
+   }
+  },
+  {
+   "id": 105,
+   "clip_start": "01:10:25.0",
+   "clip_end": "01:10:31.4",
+   "narration": "He reaches a jar down and puts a plate together in the narrow kitchen while she sits nearby.",
+   "delivery": "normal",
+   "claim": {
+    "type": "action",
+    "subject": "M"
+   }
+  },
+  {
+   "id": 106,
+   "clip_start": "01:10:50.0",
+   "clip_end": "01:10:56.1",
+   "narration": "An old black-and-white photograph on his phone, the two of them on the bed looking at it.",
+   "delivery": "normal",
+   "claim": {
+    "type": "emotion",
+    "subject": "Amah Saejiu"
+   }
+  },
+  {
+   "id": 107,
+   "clip_start": "01:11:10.0",
+   "clip_end": "01:11:14.5",
+   "narration": "Then he goes out to an apartment block.",
+   "delivery": "normal",
+   "note": "establishing -> narration/no-visual.",
+   "claim": {
+    "type": "narration",
+    "requires_visual": false
+   }
+  },
+  {
+   "id": 108,
+   "clip_start": "01:11:50.0",
+   "clip_end": "01:11:54.5",
+   "narration": "And crouches down beside a motorbike wheel with his head lowered.",
+   "delivery": "normal",
+   "claim": {
+    "type": "emotion",
+    "subject": "M"
+   }
+  },
+  {
+   "id": 109,
+   "clip_start": "01:12:05.0",
+   "clip_end": "01:12:09.5",
+   "narration": "The uncle from the lane crouches down next to him.",
+   "delivery": "normal",
+   "note": "Unnamed per beats_proposal. Role only.",
+   "claim": {
+    "type": "dialogue",
+    "subject": "M"
+   }
+  },
+  {
+   "id": 110,
+   "clip_start": "01:12:25.0",
+   "clip_end": "01:12:35.0",
+   "narration": "They sit back against the wall. M keeps his eyes down and lets the man do the talking, and whatever is being asked for, the answer is money.",
+   "delivery": "normal",
+   "claim": {
+    "type": "dialogue",
+    "subject": "M"
+   }
+  },
+  {
+   "id": 111,
+   "clip_start": "01:13:15.5",
+   "clip_end": "01:13:20.0",
+   "narration": "Back at the sinks, scrubbing a pot beside her.",
+   "delivery": "normal",
+   "claim": {
+    "type": "action",
+    "subject": "M"
+   }
+  },
+  {
+   "id": 112,
+   "clip_start": "01:13:45.0",
+   "clip_end": "01:13:53.6",
+   "narration": "A man in a maroon shirt turns up at the green gate and talks to Amah through the bars. She does not open it.",
+   "delivery": "normal",
+   "claim": {
+    "type": "dialogue",
+    "subject": "Amah Saejiu"
+   }
+  },
+  {
+   "id": 113,
+   "clip_start": "01:14:20.0",
+   "clip_end": "01:14:37.9",
+   "narration": "He holds his phone up against the bars. There is a property listing on it, with a photograph of this house, and a name attached to the advert that is not hers. She tells him the house is not for sale and that she does not know who that is.",
+   "delivery": "normal",
+   "note": "S4: the listing card and the photo of a building ARE visible (zoom 01-14-26). The name and the denial are carried in dialogue and reported as speech.",
+   "claim": {
+    "type": "dialogue",
+    "subject": "Amah Saejiu"
+   }
+  },
+  {
+   "id": 114,
+   "clip_start": "01:14:39.6",
+   "clip_end": "01:14:44.1",
+   "narration": "Then she stands there on her own for a while.",
+   "delivery": "normal",
+   "claim": {
+    "type": "emotion",
+    "subject": "Amah Saejiu"
+   }
+  },
+  {
+   "id": 115,
+   "clip_start": "01:15:15.0",
+   "clip_end": "01:15:20.0",
+   "narration": "She is in the rocking chair more now, looking out at nothing in particular.",
+   "delivery": "normal",
+   "claim": {
+    "type": "emotion",
+    "subject": "Amah Saejiu"
+   }
+  },
+  {
+   "id": 116,
+   "clip_start": "01:15:27.0",
+   "clip_end": "01:15:31.6",
+   "narration": "He gets her up out of it and steadies her on her feet.",
+   "delivery": "normal",
+   "claim": {
+    "type": "action",
+    "subject": "M"
+   }
+  },
+  {
+   "id": 117,
+   "clip_start": "01:15:45.0",
+   "clip_end": "01:15:51.4",
+   "narration": "He sits close beside her talking, and she reaches up and puts her hand flat against his face.",
+   "delivery": "normal",
+   "claim": {
+    "type": "dialogue",
+    "subject": "Amah Saejiu"
+   }
+  },
+  {
+   "id": 118,
+   "clip_start": "01:16:45.0",
+   "clip_end": "01:16:50.7",
+   "narration": "There is one pomegranate on the vine by the gate. She has been letting it ripen.",
+   "delivery": "normal",
+   "claim": {
+    "type": "setup",
+    "subject": "Amah Saejiu"
+   }
+  },
+  {
+   "id": 119,
+   "clip_start": "01:17:12.0",
+   "clip_end": "01:17:17.7",
+   "narration": "She sits down next to him with it in her lap. He is on his phone.",
+   "delivery": "normal",
+   "claim": {
+    "type": "dialogue",
+    "subject": "Amah Saejiu"
+   }
+  },
+  {
+   "id": 120,
+   "clip_start": "01:17:20.0",
+   "clip_end": "01:17:24.5",
+   "narration": "She turns it over and sets a knife to the skin.",
+   "delivery": "normal",
+   "claim": {
+    "type": "action",
+    "subject": "Amah Saejiu"
+   }
+  },
+  {
+   "id": 121,
+   "clip_start": "01:17:45.0",
+   "clip_end": "01:17:50.4",
+   "narration": "And she talks to him across the opened fruit about standing on his own feet.",
+   "delivery": "normal",
+   "claim": {
+    "type": "emotion",
+    "subject": "Amah Saejiu"
+   }
+  },
+  {
+   "id": 122,
+   "clip_start": "01:18:00.0",
+   "clip_end": "01:18:04.5",
+   "narration": "He answers her. She holds his eye until he stops.",
+   "delivery": "normal",
+   "claim": {
+    "type": "dialogue",
+    "subject": "M"
+   }
+  },
+  {
+   "id": 123,
+   "clip_start": "01:18:22.0",
+   "clip_end": "01:18:26.5",
+   "narration": "Then a large white house behind an ornamental fence.",
+   "delivery": "normal",
+   "note": "establishing -> narration/no-visual.",
+   "claim": {
+    "type": "narration",
+    "requires_visual": false
+   }
+  },
+  {
+   "id": 124,
+   "clip_start": "01:18:43.0",
+   "clip_end": "01:18:49.4",
+   "narration": "M eats at a laid table next to a small boy, surrounded by blue-and-white porcelain and carved furniture.",
+   "delivery": "normal",
+   "claim": {
+    "type": "setup",
+    "subject": "M"
+   }
+  },
+  {
+   "id": 125,
+   "clip_start": "01:18:53.0",
+   "clip_end": "01:18:59.1",
+   "narration": "He helps himself at the buffet and moves through a room full of relatives on his own.",
+   "delivery": "normal",
+   "claim": {
+    "type": "setup",
+    "subject": "M"
+   }
+  },
+  {
+   "id": 126,
+   "clip_start": "01:19:20.2",
+   "clip_end": "01:19:30.2",
+   "narration": "Amah is on the karaoke, laughing up at the old man standing over her. This is her brother's house, and she has come to ask him for money.",
+   "delivery": "normal",
+   "note": "The elderly man is NOT named (see beats_proposal). 'her brother's house' states the location, not an identification of the man on screen.",
+   "claim": {
+    "type": "emotion",
+    "subject": "Amah Saejiu"
+   }
+  },
+  {
+   "id": 127,
+   "clip_start": "01:19:42.7",
+   "clip_end": "01:19:47.2",
+   "narration": "She sits down at the long dark table.",
+   "delivery": "normal",
+   "claim": {
+    "type": "setup",
+    "subject": "Amah Saejiu"
+   }
+  },
+  {
+   "id": 128,
+   "clip_start": "01:20:00.2",
+   "clip_end": "01:20:05.6",
+   "narration": "And she asks. A million baht, and she lets him hear the whole of it.",
+   "delivery": "normal",
+   "claim": {
+    "type": "dialogue",
+    "subject": "Amah Saejiu"
+   }
+  },
+  {
+   "id": 129,
+   "clip_start": "01:20:17.7",
+   "clip_end": "01:20:23.1",
+   "narration": "He turns to the desk behind him and finds something to do with his hands.",
+   "delivery": "normal",
+   "claim": {
+    "type": "reaction",
+    "subject": "Amah Saejiu"
+   }
+  },
+  {
+   "id": 130,
+   "clip_start": "01:20:33.5",
+   "clip_end": "01:20:38.0",
+   "narration": "M sits further down the room and listens to it.",
+   "delivery": "normal",
+   "claim": {
+    "type": "reaction",
+    "subject": "M"
+   }
+  },
+  {
+   "id": 131,
+   "clip_start": "01:20:42.2",
+   "clip_end": "01:21:00.8",
+   "narration": "Standing, on his cane, he says no. And this is where the film tells you what she has been carrying: she nursed their parents until they died, in that house, and she came out of it with nothing. He kept it. She is asking for a loan against work she already did.",
+   "delivery": "normal",
+   "note": "R2 lands HERE and not before - beats_proposal reveal-map: protect the placement.",
+   "claim": {
+    "type": "dialogue",
+    "subject": "Amah Saejiu"
+   }
+  },
+  {
+   "id": 132,
+   "clip_start": "01:21:13.0",
+   "clip_end": "01:21:17.5",
+   "narration": "M turns round on the daybed.",
+   "delivery": "normal",
+   "claim": {
+    "type": "reaction",
+    "subject": "M"
+   }
+  },
+  {
+   "id": 133,
+   "clip_start": "01:21:19.8",
+   "clip_end": "01:21:24.4",
+   "narration": "She takes it without a word. Her eyes go down and stay down.",
+   "delivery": "normal",
+   "claim": {
+    "type": "emotion",
+    "subject": "Amah Saejiu"
+   }
+  },
+  {
+   "id": 134,
+   "clip_start": "01:21:40.7",
+   "clip_end": "01:21:45.3",
+   "narration": "He walks off through the room and leaves her standing where she is.",
+   "delivery": "normal",
+   "note": "aftermath -> narration/no-visual.",
+   "claim": {
+    "type": "narration",
+    "requires_visual": false
+   }
+  },
+  {
+   "id": 135,
+   "clip_start": "01:22:02.8",
+   "clip_end": "01:22:07.3",
+   "narration": "M on the train home, holding the pole, looking at nothing.",
+   "delivery": "normal",
+   "claim": {
+    "type": "emotion",
+    "subject": "M"
+   }
+  },
+  {
+   "id": 136,
+   "clip_start": "01:22:09.0",
+   "clip_end": "01:22:13.5",
+   "narration": "Through the window, Amah is already talking to somebody else.",
+   "delivery": "normal",
+   "claim": {
+    "type": "dialogue",
+    "subject": "Amah Saejiu"
+   }
+  },
+  {
+   "id": 137,
+   "clip_start": "01:22:38.2",
+   "clip_end": "01:22:43.2",
+   "narration": "And then the film does the thing it does best, which is stop talking.",
+   "delivery": "normal",
+   "note": "transition -> narration/no-visual.",
+   "claim": {
+    "type": "narration",
+    "requires_visual": false
+   }
+  },
+  {
+   "id": 138,
+   "clip_start": "01:23:57.5",
+   "clip_end": "01:24:02.0",
+   "narration": "The outpatient hall again. Benches, monks, wheelchairs.",
+   "delivery": "normal",
+   "note": "establishing -> narration/no-visual.",
+   "claim": {
+    "type": "narration",
+    "requires_visual": false
+   }
+  },
+  {
+   "id": 139,
+   "clip_start": "01:24:24.8",
+   "clip_end": "01:24:29.3",
+   "narration": "Amah waits at the end of a row in a knitted cap.",
+   "delivery": "normal",
+   "claim": {
+    "type": "setup",
+    "subject": "Amah Saejiu"
+   }
+  },
+  {
+   "id": 140,
+   "clip_start": "01:24:39.8",
+   "clip_end": "01:24:48.7",
+   "narration": "Away from her, Sew is in tears with M's head next to hers. The chemotherapy is not working. They are moving her to comfort care.",
+   "delivery": "normal",
+   "claim": {
+    "type": "reaction",
+    "subject": "Sew"
+   }
+  },
+  {
+   "id": 141,
+   "clip_start": "01:24:53.0",
+   "clip_end": "01:24:58.0",
+   "narration": "They take it at the desk, from a doctor whose face we never see.",
+   "delivery": "normal",
+   "claim": {
+    "type": "discovery",
+    "subject": "Sew"
+   }
+  },
+  {
+   "id": 142,
+   "clip_start": "01:25:02.6",
+   "clip_end": "01:25:09.0",
+   "narration": "And she is still down the far end of the hall, on her own, waiting to be told.",
+   "delivery": "normal",
+   "claim": {
+    "type": "emotion",
+    "subject": "Amah Saejiu"
+   }
+  },
+  {
+   "id": 143,
+   "clip_start": "01:25:12.8",
+   "clip_end": "01:25:17.3",
+   "narration": "M crouches to the wheelchair and tells her himself.",
+   "delivery": "normal",
+   "claim": {
+    "type": "dialogue",
+    "subject": "M"
+   }
+  },
+  {
+   "id": 144,
+   "clip_start": "01:25:34.2",
+   "clip_end": "01:25:42.1",
+   "narration": "She hears it out. The film holds all three of them in one frame and does not go looking for a close-up.",
+   "delivery": "normal",
+   "claim": {
+    "type": "reaction",
+    "subject": "Amah Saejiu"
+   }
+  },
+  {
+   "id": 145,
+   "clip_start": "01:25:56.0",
+   "clip_end": "01:26:00.5",
+   "narration": "Then his hand closes over hers on the arm of the chair.",
+   "delivery": "normal",
+   "claim": {
+    "type": "emotion",
+    "subject": "M"
+   }
+  },
+  {
+   "id": 146,
+   "clip_start": "01:26:33.0",
+   "clip_end": "01:26:38.0",
+   "narration": "That night he sits on the floor beside her bed and watches her sleep.",
+   "delivery": "normal",
+   "claim": {
+    "type": "emotion",
+    "subject": "M"
+   }
+  },
+  {
+   "id": 147,
+   "clip_start": "01:26:49.2",
+   "clip_end": "01:26:53.7",
+   "narration": "There is nothing left to arrange.",
+   "delivery": "normal",
+   "claim": {
+    "type": "emotion",
+    "subject": "Amah Saejiu"
+   }
+  },
+  {
+   "id": 148,
+   "clip_start": "01:27:05.0",
+   "clip_end": "01:27:09.5",
+   "narration": "The family, meanwhile, has moved on to the paperwork.",
+   "delivery": "normal",
+   "claim": {
+    "type": "setup",
+    "subject": "Sew"
+   }
+  },
+  {
+   "id": 149,
+   "clip_start": "01:27:38.8",
+   "clip_end": "01:27:44.5",
+   "narration": "Out on the walkway between hospital blocks, Kiang and Sew stop being polite to each other.",
+   "delivery": "normal",
+   "claim": {
+    "type": "dialogue",
+    "subject": "Kiang"
+   }
+  },
+  {
+   "id": 150,
+   "clip_start": "01:28:03.0",
+   "clip_end": "01:28:15.5",
+   "narration": "He wants to know where the title deed is. His wife has asked him to ask. Their mother is not dead yet, and he says so himself, as though that settles the manners of it.",
+   "delivery": "normal",
+   "claim": {
+    "type": "dialogue",
+    "subject": "Kiang"
+   }
+  },
+  {
+   "id": 151,
+   "clip_start": "01:28:18.0",
+   "clip_end": "01:28:22.5",
+   "narration": "Sew tells him what she thinks of that.",
+   "delivery": "normal",
+   "claim": {
+    "type": "reaction",
+    "subject": "Sew"
+   }
+  },
+  {
+   "id": 152,
+   "clip_start": "01:28:34.5",
+   "clip_end": "01:28:39.1",
+   "narration": "Then she comes back down the corridor to M and repeats it low.",
+   "delivery": "normal",
+   "claim": {
+    "type": "dialogue",
+    "subject": "Sew"
+   }
+  },
+  {
+   "id": 153,
+   "clip_start": "01:28:43.0",
+   "clip_end": "01:28:47.5",
+   "narration": "Documents change hands at the foot of the stairs.",
+   "delivery": "normal",
+   "claim": {
+    "type": "dialogue",
+    "subject": "M"
+   }
+  },
+  {
+   "id": 154,
+   "clip_start": "01:29:03.0",
+   "clip_end": "01:29:07.5",
+   "narration": "And he is left on the steps on his own.",
+   "delivery": "normal",
+   "claim": {
+    "type": "reaction",
+    "subject": "M"
+   }
+  },
+  {
+   "id": 155,
+   "clip_start": "01:29:13.0",
+   "clip_end": "01:29:17.6",
+   "narration": "A hospital room with the beds stripped and the drip stands standing empty.",
+   "delivery": "normal",
+   "note": "aftermath -> narration/no-visual.",
+   "claim": {
+    "type": "narration",
+    "requires_visual": false
+   }
+  },
+  {
+   "id": 156,
+   "clip_start": "01:29:33.1",
+   "clip_end": "01:29:39.9",
+   "narration": "He catches himself in a glass door and puts a hand up to his face where nobody is looking.",
+   "delivery": "normal",
+   "claim": {
+    "type": "emotion",
+    "subject": "M"
+   }
+  },
+  {
+   "id": 157,
+   "clip_start": "01:29:58.0",
+   "clip_end": "01:30:05.5",
+   "narration": "The film gives you two very long empty walkways here, and no help at all with what to feel about them.",
+   "delivery": "normal",
+   "note": "establishing -> narration/no-visual.",
+   "claim": {
+    "type": "narration",
+    "requires_visual": false
+   }
+  },
+  {
+   "id": 158,
+   "clip_start": "01:30:50.9",
+   "clip_end": "01:30:55.4",
+   "narration": "He pushes her along the outside walkway. No cap now.",
+   "delivery": "normal",
+   "claim": {
+    "type": "dialogue",
+    "subject": "M"
+   }
+  },
+  {
+   "id": 159,
+   "clip_start": "01:31:17.8",
+   "clip_end": "01:31:28.5",
+   "narration": "And she talks at him for ninety seconds while he keeps his eyes down. She has worked out what he came for. She worked it out a long time ago.",
+   "delivery": "normal",
+   "claim": {
+    "type": "dialogue",
+    "subject": "Amah Saejiu"
+   }
+  },
+  {
+   "id": 160,
+   "clip_start": "01:31:58.0",
+   "clip_end": "01:32:05.1",
+   "narration": "Then she answers the question he has not had the nerve to ask, with the hedge sliding past behind her.",
+   "delivery": "normal",
+   "claim": {
+    "type": "emotion",
+    "subject": "Amah Saejiu"
+   }
+  },
+  {
+   "id": 161,
+   "clip_start": "01:32:24.8",
+   "clip_end": "01:32:29.3",
+   "narration": "A train, in full sun.",
+   "delivery": "normal",
+   "note": "transition -> narration/no-visual.",
+   "claim": {
+    "type": "narration",
+    "requires_visual": false
+   }
+  },
+  {
+   "id": 162,
+   "clip_start": "01:32:34.4",
+   "clip_end": "01:32:40.5",
+   "narration": "Then the same sky at night, and a phone screen lit in the dark of the shophouse.",
+   "delivery": "normal",
+   "note": "setup depicts; no chars in shot, so no subject claimed.",
+   "claim": {
+    "type": "setup"
+   }
+  },
+  {
+   "id": 163,
+   "clip_start": "01:32:57.0",
+   "clip_end": "01:33:01.5",
+   "narration": "Sew cuts hair for a living.",
+   "delivery": "normal",
+   "note": "establishing -> narration/no-visual.",
+   "claim": {
+    "type": "narration",
+    "requires_visual": false
+   }
+  },
+  {
+   "id": 164,
+   "clip_start": "01:33:13.0",
+   "clip_end": "01:33:19.1",
+   "narration": "M lies back in the chair with his feet up and lets his mother work on him.",
+   "delivery": "normal",
+   "claim": {
+    "type": "setup",
+    "subject": "Sew"
+   }
+  },
+  {
+   "id": 165,
+   "clip_start": "01:33:34.3",
+   "clip_end": "01:33:42.9",
+   "narration": "She stands there with her hands behind her head, tired, and they talk about the house being sold and what has to be packed.",
+   "delivery": "normal",
+   "claim": {
+    "type": "dialogue",
+    "subject": "Sew"
+   }
+  },
+  {
+   "id": 166,
+   "clip_start": "01:34:13.0",
+   "clip_end": "01:34:17.5",
+   "narration": "Then she drops onto the couch laughing.",
+   "delivery": "normal",
+   "claim": {
+    "type": "emotion",
+    "subject": "Sew"
+   }
+  },
+  {
+   "id": 167,
+   "clip_start": "01:34:28.0",
+   "clip_end": "01:34:41.6",
+   "narration": "And he sits down and works at her legs and her feet, the way he has been doing for someone else all year. She says the quiet thing: that it is better to be the one who gives.",
+   "delivery": "normal",
+   "claim": {
+    "type": "emotion",
+    "subject": "Sew"
+   }
+  },
+  {
+   "id": 168,
+   "clip_start": "01:35:08.0",
+   "clip_end": "01:35:12.5",
+   "narration": "He drives out to see Mui.",
+   "delivery": "normal",
+   "note": "transition -> narration/no-visual.",
+   "claim": {
+    "type": "narration",
+    "requires_visual": false
+   }
+  },
+  {
+   "id": 169,
+   "clip_start": "01:36:03.3",
+   "clip_end": "01:36:09.0",
+   "narration": "She is out on the veranda of a house she does not live in any more.",
+   "delivery": "normal",
+   "claim": {
+    "type": "setup",
+    "subject": "Mui"
+   }
+  },
+  {
+   "id": 170,
+   "clip_start": "01:36:28.0",
+   "clip_end": "01:36:32.5",
+   "narration": "They sit at the tea table and he listens.",
+   "delivery": "normal",
+   "claim": {
+    "type": "dialogue",
+    "subject": "Mui"
+   }
+  },
+  {
+   "id": 171,
+   "clip_start": "01:37:18.0",
+   "clip_end": "01:37:33.7",
+   "narration": "She tells him something she has plainly never said out loud. That she was there at the end for Agong, and she knew what she was owed, and she has never once managed to feel clean about the fact that both things were true.",
+   "delivery": "normal",
+   "claim": {
+    "type": "dialogue",
+    "subject": "Mui"
+   }
+  },
+  {
+   "id": 172,
+   "clip_start": "01:37:53.4",
+   "clip_end": "01:37:57.9",
+   "narration": "Her face goes.",
+   "delivery": "normal",
+   "claim": {
+    "type": "emotion",
+    "subject": "Mui"
+   }
+  },
+  {
+   "id": 173,
+   "clip_start": "01:38:28.8",
+   "clip_end": "01:38:34.2",
+   "narration": "M does not answer her. There is no answer that is not also about himself.",
+   "delivery": "normal",
+   "claim": {
+    "type": "reaction",
+    "subject": "M"
+   }
+  },
+  {
+   "id": 174,
+   "clip_start": "01:38:58.0",
+   "clip_end": "01:39:02.5",
+   "narration": "And then she is on her own in the kitchen.",
+   "delivery": "normal",
+   "claim": {
+    "type": "emotion",
+    "subject": "Amah Saejiu"
+   }
+  },
+  {
+   "id": 175,
+   "clip_start": "01:39:13.1",
+   "clip_end": "01:39:17.6",
+   "narration": "On her own in the chair, with the television on.",
+   "delivery": "normal",
+   "note": "aftermath -> narration/no-visual. The absence IS the content - see gap report.",
+   "claim": {
+    "type": "narration",
+    "requires_visual": false
+   }
+  },
+  {
+   "id": 176,
+   "clip_start": "01:39:34.0",
+   "clip_end": "01:39:38.5",
+   "narration": "On her own out at the gate, bent over the plants.",
+   "delivery": "normal",
+   "claim": {
+    "type": "emotion",
+    "subject": "Amah Saejiu"
+   }
+  },
+  {
+   "id": 177,
+   "clip_start": "01:39:53.0",
+   "clip_end": "01:39:57.5",
+   "narration": "He is looking at something on his phone.",
+   "delivery": "normal",
+   "claim": {
+    "type": "reaction",
+    "subject": "M"
+   }
+  },
+  {
+   "id": 178,
+   "clip_start": "01:40:16.2",
+   "clip_end": "01:40:20.7",
+   "narration": "It is a care home. Mown lawn, shade trees, low buildings.",
+   "delivery": "normal",
+   "note": "establishing -> narration/no-visual.",
+   "claim": {
+    "type": "narration",
+    "requires_visual": false
+   }
+  },
+  {
+   "id": 179,
+   "clip_start": "01:40:33.8",
+   "clip_end": "01:40:38.3",
+   "narration": "Rooms off a long open corridor, red plastic chairs.",
+   "delivery": "normal",
+   "note": "establishing -> narration/no-visual.",
+   "claim": {
+    "type": "narration",
+    "requires_visual": false
+   }
+  },
+  {
+   "id": 180,
+   "clip_start": "01:40:55.6",
+   "clip_end": "01:41:01.0",
+   "narration": "He talks to a man in the corridor who holds a paper out to him.",
+   "delivery": "normal",
+   "claim": {
+    "type": "dialogue",
+    "subject": "M"
+   }
+  },
+  {
+   "id": 181,
+   "clip_start": "01:41:32.8",
+   "clip_end": "01:41:38.5",
+   "narration": "And he walks the ward, past a bed with somebody in it, and another, and another.",
+   "delivery": "normal",
+   "claim": {
+    "type": "setup",
+    "subject": "M"
+   }
+  },
+  {
+   "id": 182,
+   "clip_start": "01:41:48.1",
+   "clip_end": "01:41:52.7",
+   "narration": "He sits down at one of them and takes an old man's hand.",
+   "delivery": "normal",
+   "claim": {
+    "type": "emotion",
+    "subject": "M"
+   }
+  },
+  {
+   "id": 183,
+   "clip_start": "01:42:18.0",
+   "clip_end": "01:42:23.7",
+   "narration": "Feeding tube. A bowl of soup at the edge of the frame that nobody is holding.",
+   "delivery": "normal",
+   "note": "No chars in shot; no subject claimed. The man is NOT identified.",
+   "claim": {
+    "type": "setup"
+   }
+  },
+  {
+   "id": 184,
+   "clip_start": "01:42:28.1",
+   "clip_end": "01:42:32.6",
+   "narration": "He talks to him. His face goes while he does it.",
+   "delivery": "normal",
+   "claim": {
+    "type": "emotion",
+    "subject": "M"
+   }
+  },
+  {
+   "id": 185,
+   "clip_start": "01:43:13.2",
+   "clip_end": "01:43:26.4",
+   "narration": "Then he looks away and does not say any more. He came to price a place to put her. He has just seen what it costs in a currency he was not expecting to be billed in.",
+   "delivery": "normal",
+   "claim": {
+    "type": "reaction",
+    "subject": "M"
+   }
+  },
+  {
+   "id": 186,
+   "clip_start": "01:43:29.4",
+   "clip_end": "01:43:34.4",
+   "narration": "Back at the gate the pomegranate has come ripe, and somebody is watering it.",
+   "delivery": "normal",
+   "note": "No chars in shot. The vine's second appearance.",
+   "claim": {
+    "type": "setup"
+   }
+  },
+  {
+   "id": 187,
+   "clip_start": "01:43:43.0",
+   "clip_end": "01:43:47.5",
+   "narration": "The living room, with nobody in it.",
+   "delivery": "normal",
+   "note": "aftermath -> narration/no-visual.",
+   "claim": {
+    "type": "narration",
+    "requires_visual": false
+   }
+  },
+  {
+   "id": 188,
+   "clip_start": "01:43:58.0",
+   "clip_end": "01:44:06.6",
+   "narration": "And his old room: the gaming monitors still on the desk, and a hospital bed made up on the floor in front of them.",
+   "delivery": "normal",
+   "note": "aftermath -> narration/no-visual. Payoff of B03's gaming rig.",
+   "claim": {
+    "type": "narration",
+    "requires_visual": false
+   }
+  },
+  {
+   "id": 189,
+   "clip_start": "01:44:29.2",
+   "clip_end": "01:44:33.7",
+   "narration": "Sew is in tears beside her.",
+   "delivery": "normal",
+   "claim": {
+    "type": "emotion",
+    "subject": "Sew"
+   }
+  },
+  {
+   "id": 190,
+   "clip_start": "01:44:49.2",
+   "clip_end": "01:44:57.8",
+   "narration": "And the film holds the two of them in one frame while a sixty-year-old woman cries at her mother and her mother lets her.",
+   "delivery": "normal",
+   "claim": {
+    "type": "emotion",
+    "subject": "Amah Saejiu"
+   }
+  },
+  {
+   "id": 191,
+   "clip_start": "01:45:18.6",
+   "clip_end": "01:45:23.1",
+   "narration": "She leans right in.",
+   "delivery": "normal",
+   "claim": {
+    "type": "emotion",
+    "subject": "Sew"
+   }
+  },
+  {
+   "id": 192,
+   "clip_start": "01:45:43.9",
+   "clip_end": "01:45:48.4",
+   "narration": "New Year. There is a car at the kerb.",
+   "delivery": "normal",
+   "claim": {
+    "type": "setup",
+    "subject": "M"
+   }
+  },
+  {
+   "id": 193,
+   "clip_start": "01:46:12.7",
+   "clip_end": "01:46:19.1",
+   "narration": "Kiang stays in the driver's seat. M stands outside the car talking in at him through the glass.",
+   "delivery": "normal",
+   "claim": {
+    "type": "dialogue",
+    "subject": "Kiang"
+   }
+  },
+  {
+   "id": 194,
+   "clip_start": "01:47:18.2",
+   "clip_end": "01:47:26.4",
+   "narration": "Inside, the shophouse is hung with lanterns, and there is a hospital bed made up in red in the middle of the room.",
+   "delivery": "normal",
+   "note": "establishing -> narration/no-visual.",
+   "claim": {
+    "type": "narration",
+    "requires_visual": false
+   }
+  },
+  {
+   "id": 195,
+   "clip_start": "01:47:48.0",
+   "clip_end": "01:47:55.1",
+   "narration": "Kiang sits down beside it with his hand up to his head, and then leans over and takes her hand.",
+   "delivery": "normal",
+   "claim": {
+    "type": "emotion",
+    "subject": "Kiang"
+   }
+  },
+  {
+   "id": 196,
+   "clip_start": "01:48:00.0",
+   "clip_end": "01:48:06.1",
+   "narration": "They close round the bed. All of them, at once, for the first time in the film.",
+   "delivery": "normal",
+   "claim": {
+    "type": "emotion",
+    "subject": "Amah Saejiu"
+   }
+  },
+  {
+   "id": 197,
+   "clip_start": "01:48:29.1",
+   "clip_end": "01:48:33.6",
+   "narration": "A lamp left on over a desk.",
+   "delivery": "normal",
+   "note": "No chars in shot.",
+   "claim": {
+    "type": "setup"
+   }
+  },
+  {
+   "id": 198,
+   "clip_start": "01:48:48.0",
+   "clip_end": "01:48:54.4",
+   "narration": "The back of her head, out of focus, filling half the screen, with the lanterns sharp behind it.",
+   "delivery": "normal",
+   "note": "No chars in shot; rack-focus hold.",
+   "claim": {
+    "type": "emotion"
+   }
+  },
+  {
+   "id": 199,
+   "clip_start": "01:49:13.0",
+   "clip_end": "01:49:17.5",
+   "narration": "Their hands on the bedding. Then the hands come apart.",
+   "delivery": "normal",
+   "claim": {
+    "type": "emotion",
+    "subject": "M"
+   }
+  },
+  {
+   "id": 200,
+   "clip_start": "01:49:42.9",
+   "clip_end": "01:49:47.4",
+   "narration": "He keeps talking to her.",
+   "delivery": "normal",
+   "claim": {
+    "type": "emotion",
+    "subject": "M"
+   }
+  },
+  {
+   "id": 201,
+   "clip_start": "01:50:23.8",
+   "clip_end": "01:51:21.4",
+   "narration": "",
+   "narration_silence_seconds": 12.0,
+   "note": "SILENCE 3/4 - the death. 57s unbroken of M talking and getting no answer. G4: narration goes quieter, not louder."
+  },
+  {
+   "id": 202,
+   "clip_start": "01:51:21.4",
+   "clip_end": "01:51:25.9",
+   "narration": "A funeral hall. Gold catafalque, white wreaths, stacked chairs.",
+   "delivery": "normal",
+   "note": "aftermath/establishing -> narration/no-visual.",
+   "claim": {
+    "type": "narration",
+    "requires_visual": false
+   }
+  },
+  {
+   "id": 203,
+   "clip_start": "01:51:33.1",
+   "clip_end": "01:51:37.6",
+   "narration": "He sets the incense.",
+   "delivery": "normal",
+   "claim": {
+    "type": "action",
+    "subject": "M"
+   }
+  },
+  {
+   "id": 204,
+   "clip_start": "01:51:44.0",
+   "clip_end": "01:51:48.5",
+   "narration": "He and his mother stand by the coffin in white and black.",
+   "delivery": "normal",
+   "claim": {
+    "type": "dialogue",
+    "subject": "M"
+   }
+  },
+  {
+   "id": 205,
+   "clip_start": "01:51:59.4",
+   "clip_end": "01:52:04.0",
+   "narration": "And he walks the length of a room that has not filled up.",
+   "delivery": "normal",
+   "claim": {
+    "type": "emotion",
+    "subject": "M"
+   }
+  },
+  {
+   "id": 206,
+   "clip_start": "01:52:26.2",
+   "clip_end": "01:52:30.7",
+   "narration": "Afterwards he goes through her things.",
+   "delivery": "normal",
+   "claim": {
+    "type": "setup",
+    "subject": "M"
+   }
+  },
+  {
+   "id": 207,
+   "clip_start": "01:52:32.3",
+   "clip_end": "01:52:40.1",
+   "narration": "And finds a savings book. Bank of Siam. An account number, and a name filled in by hand, and the name is his.",
+   "delivery": "normal",
+   "note": "R1 - the OBJECT. No chars in shot. Do NOT narrate a phone call: no call is dramatised anywhere in the film.",
+   "claim": {
+    "type": "discovery"
+   }
+  },
+  {
+   "id": 208,
+   "clip_start": "01:52:40.1",
+   "clip_end": "01:52:44.6",
+   "narration": "She had been paying into it since he was a child.",
+   "delivery": "normal",
+   "claim": {
+    "type": "dialogue",
+    "subject": "M"
+   }
+  },
+  {
+   "id": 209,
+   "clip_start": "01:53:28.0",
+   "clip_end": "01:53:36.6",
+   "narration": "Since a walk home from school, when a small boy told his grandmother he was going to buy her a new house one day.",
+   "delivery": "normal",
+   "note": "R1 - the MEMORY. Flashback; see beats_proposal for the strength of the identification.",
+   "claim": {
+    "type": "emotion",
+    "subject": "Amah Saejiu"
+   }
+  },
+  {
+   "id": 210,
+   "clip_start": "01:53:58.0",
+   "clip_end": "01:54:02.5",
+   "narration": "She wrote it down and started saving for it.",
+   "delivery": "normal",
+   "claim": {
+    "type": "emotion",
+    "subject": "M"
+   }
+  },
+  {
+   "id": 211,
+   "clip_start": "01:54:13.0",
+   "clip_end": "01:54:19.4",
+   "narration": "Every hour he spent working her into leaving him the house, she was already leaving him something else.",
+   "delivery": "normal",
+   "claim": {
+    "type": "reaction",
+    "subject": "M"
+   }
+  },
+  {
+   "id": 212,
+   "clip_start": "01:54:34.7",
+   "clip_end": "01:54:39.7",
+   "narration": "They rope the coffin onto a flatbed and climb up to ride with it.",
+   "delivery": "normal",
+   "claim": {
+    "type": "setup",
+    "subject": "M"
+   }
+  },
+  {
+   "id": 213,
+   "clip_start": "01:54:49.3",
+   "clip_end": "01:54:53.8",
+   "narration": "He and Sew sit back against it and do not say much.",
+   "delivery": "normal",
+   "claim": {
+    "type": "emotion",
+    "subject": "Sew"
+   }
+  },
+  {
+   "id": 214,
+   "clip_start": "01:55:19.7",
+   "clip_end": "01:55:24.2",
+   "narration": "An arch, and then the city.",
+   "delivery": "normal",
+   "note": "transition -> narration/no-visual.",
+   "claim": {
+    "type": "narration",
+    "requires_visual": false
+   }
+  },
+  {
+   "id": 215,
+   "clip_start": "01:55:28.0",
+   "clip_end": "01:55:32.5",
+   "narration": "The market they worked, going past.",
+   "delivery": "normal",
+   "note": "transition -> narration/no-visual.",
+   "claim": {
+    "type": "narration",
+    "requires_visual": false
+   }
+  },
+  {
+   "id": 216,
+   "clip_start": "01:55:58.8",
+   "clip_end": "01:56:03.3",
+   "narration": "And then out of it altogether.",
+   "delivery": "normal",
+   "note": "transition -> narration/no-visual.",
+   "claim": {
+    "type": "narration",
+    "requires_visual": false
+   }
+  },
+  {
+   "id": 217,
+   "clip_start": "01:56:19.9",
+   "clip_end": "01:56:24.9",
+   "narration": "He sits against the gold in the sun with the wind in his hair.",
+   "delivery": "normal",
+   "claim": {
+    "type": "emotion",
+    "subject": "M"
+   }
+  },
+  {
+   "id": 218,
+   "clip_start": "01:56:36.3",
+   "clip_end": "01:56:50.9",
+   "narration": "And he is talking, and laughing, riding to his grandmother's funeral on the back of a truck. The film holds it right through without cutting, and does not tell you which of those things you are supposed to be looking at.",
+   "delivery": "normal",
+   "claim": {
+    "type": "emotion",
+    "subject": "M"
+   }
+  },
+  {
+   "id": 219,
+   "clip_start": "01:57:29.8",
+   "clip_end": "01:57:34.3",
+   "narration": "The same hillside the film opened on.",
+   "delivery": "normal",
+   "note": "establishing -> narration/no-visual.",
+   "claim": {
+    "type": "narration",
+    "requires_visual": false
+   }
+  },
+  {
+   "id": 220,
+   "clip_start": "01:57:58.0",
+   "clip_end": "01:58:06.6",
+   "narration": "And he does the work. Carrying, setting things down, clearing the plot, while a child plays around him and pays no attention at all.",
+   "delivery": "normal",
+   "claim": {
+    "type": "action",
+    "subject": "M"
+   }
+  },
+  {
+   "id": 221,
+   "clip_start": "01:58:28.0",
+   "clip_end": "01:58:32.5",
+   "narration": "Then he sits down on the grass next to her.",
+   "delivery": "normal",
+   "claim": {
+    "type": "emotion",
+    "subject": "M"
+   }
+  },
+  {
+   "id": 222,
+   "clip_start": "01:58:52.0",
+   "clip_end": "01:59:05.8",
+   "narration": "",
+   "narration_silence_seconds": 12.0,
+   "note": "SILENCE 4/4 - the final image. Winner of the contested slot."
+  },
+  {
+   "id": 223,
+   "clip_start": "01:58:52.0",
+   "clip_end": "01:59:05.2",
+   "narration": "He wanted a house. What he got was a year, and a receipt for it in her handwriting. Thanks for watching - if this one landed, subscribe, and tell me which film I should sit with next.",
+   "delivery": "outro",
+   "note": "OUTRO - second use of clip:01:58:52.0 (MAX_REUSE=2). Same clip_start, so no backward jump.",
+   "claim": {
+    "type": "emotion",
+    "subject": "M"
+   }
+  }
+ ]
+}

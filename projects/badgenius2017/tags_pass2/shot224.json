@@ -1,0 +1,14 @@
+{
+ "shot": "shot224",
+ "depicts": [
+  "dialogue",
+  "reaction"
+ ],
+ "chars": [
+  "Bank"
+ ],
+ "censor": "none",
+ "action": "Bank in close-up, doing the talking, eyeline off to someone the camera never turns to. The window is the run-up to R2, not R2: the reveal lands at 01:58:45 (B77) and this window ends at 01:58:46, so for twenty-one of its twenty-two seconds a writer using this shot is still on the hold side of the line - the beat map does not say what he is saying here, and this shot may not be made to say it early. What it does carry is the part of R2 the beat map says arrives before any words do. The patterned button-up is not a school uniform; the dim industrial interior reads as the laundry (B23, and B76 two beats earlier - the new sign, his name on it); the face is flat while he speaks. Nothing in the delivery announces anything, and that is the information. The camera holds the mouth and keeps the listener out of frame, so this is usable for the approach being made and gives a writer nothing at all about how it is taken. Twenty-two seconds on one close-up in a film whose median shot is three: he is being given the floor, and the film is letting us look at him for a long time before it tells us what he has become.",
+ "pass2": "rewritten",
+ "pass2_added": "No names resolved - pass one already had Bank in chars. Two readings flagged rather than asserted: (1) 'dim industrial interior' read as Bank's laundry, on the basis of B23 (the laundry, the presses) and B76 at 01:57:20 (new sign, his name on it) bracketing this window; (2) an off-camera addressee inferred from pass one's own 'looking off-camera ... as he speaks' plus depicts:dialogue and B77 being a Lynn/Bank two-hander. Lynn is NOT asserted to be in frame - pass one describes one figure and that stands."
+}

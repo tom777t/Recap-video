@@ -1,0 +1,15 @@
+{
+ "shot": "shot223",
+ "depicts": [
+  "dialogue",
+  "establishing"
+ ],
+ "chars": [
+  "Bank",
+  "Lynn"
+ ],
+ "censor": "none",
+ "action": "Lynn comes to Bank at the laundry, and the room belongs to him now: he waits against a desk with his arms folded, settled among the machines, while she stops in the wooden doorway and speaks to him from the threshold without coming in. The last time she stood in this workshop she was the one asking and he was the one who could refuse; the geography of that visit is still on screen, but the ease in it has changed hands. The camera shoots her over the listener's shoulder, so it is her face that is held and read and his that is kept out of frame. Nothing is settled in this twenty seconds - it is the approach, the two of them in the same room again with the thing unsaid; what he has brought her here for is spoken in a later shot.",
+ "pass2": "rewritten",
+ "pass2_added": "Read pass one's 'young man' as Bank and 'long-haired young woman' as Lynn, and the over-the-shoulder foreground figure as Bank, on the basis that pass one's own chars field lists exactly these two and the beat map has only Lynn and Bank in the laundry across B76-B78. No person, object or action added beyond pass one's text; the earlier laundry visit is cited from the plot/beat map, not from any frame."
+}

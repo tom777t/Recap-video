@@ -1,0 +1,103 @@
+{
+  "stage": "outline",
+  "ratchet": {
+    "beats": 26,
+    "reveals": {
+      "R1-ock": {
+        "land_sec": 1800.0,
+        "holds": [
+          "doc ock",
+          "doctor octopus",
+          "otto octavius"
+        ]
+      },
+      "R1-gob": {
+        "land_sec": 1800.0,
+        "holds": [
+          "green goblin",
+          "the goblin"
+        ]
+      },
+      "R1-multi": {
+        "land_sec": 2100.0,
+        "holds": [
+          "multiverse",
+          "other realities",
+          "other universes"
+        ]
+      },
+      "R2": {
+        "land_sec": 3300.0,
+        "holds": [
+          "about to die",
+          "just before their deaths",
+          "pulled from before"
+        ]
+      },
+      "R3": {
+        "land_sec": 3900.0,
+        "holds": [
+          "aunt's death",
+          "may dies",
+          "may's death"
+        ]
+      },
+      "R4": {
+        "land_sec": 4500.0,
+        "holds": [
+          "garfield",
+          "maguire",
+          "other spider-men",
+          "peter-three",
+          "peter-two",
+          "two other spider-men"
+        ]
+      },
+      "R5": {
+        "land_sec": 5580.0,
+        "holds": [
+          "gwen"
+        ]
+      },
+      "R6": {
+        "land_sec": 5940.0,
+        "holds": [
+          "erases himself",
+          "forget him",
+          "forgotten by everyone",
+          "world forgets"
+        ]
+      },
+      "R7": {
+        "land_sec": Infinity,
+        "holds": [
+          "eddie brock",
+          "symbiote",
+          "venom"
+        ]
+      }
+    },
+    "set_pieces": {
+      "SP1": {
+        "start": 2100.0,
+        "end": 2385.0,
+        "keep": true
+      },
+      "SP2": {
+        "start": 4870.0,
+        "end": 5098.0,
+        "keep": true
+      },
+      "SP3": {
+        "start": 6824.0,
+        "end": 7400.0,
+        "keep": true
+      },
+      "SP4": {
+        "start": 7620.0,
+        "end": 7800.0,
+        "keep": true
+      }
+    }
+  }
+}

@@ -19,9 +19,10 @@
       "action": "COLD-OPEN HOOK: a ferry pushes through fog; Teddy Daniels, seasick, steadies himself at the mirror/rail - a lawman heading somewhere he dreads (FRAME-VERIFIED ~130-190s)",
       "censor": "none",
       "raw_duration_sec": 16.0,
-      "max_narration_words_en": 44,
+      "max_narration_words_en": 73,
       "extendable": true,
-      "stretch_tolerance": 1.1
+      "stretch_tolerance": 1.1,
+      "max_play_duration_sec": 17.6
     },
     {
       "id": "clip:00:03:00.0",
@@ -38,9 +39,10 @@
       "action": "Teddy meets his new partner Chuck Aule on deck; they are U.S. Marshals sent to Ashecliffe, a hospital for the criminally insane on Shutter Island (FRAME-VERIFIED ~190s)",
       "censor": "none",
       "raw_duration_sec": 14.0,
-      "max_narration_words_en": 38,
+      "max_narration_words_en": 64,
       "extendable": true,
-      "stretch_tolerance": 1.1
+      "stretch_tolerance": 1.1,
+      "max_play_duration_sec": 15.4
     },
     {
       "id": "clip:00:04:50.0",
@@ -59,9 +61,10 @@
       "action": "Dock arrival: Deputy Warden McPherson meets them amid tense armed guards - 'Welcome to Shutter Island.' A storm is coming (FRAME-VERIFIED ~284s)",
       "censor": "none",
       "raw_duration_sec": 15.0,
-      "max_narration_words_en": 40,
+      "max_narration_words_en": 68,
       "extendable": true,
-      "stretch_tolerance": 1.1
+      "stretch_tolerance": 1.1,
+      "max_play_duration_sec": 16.5
     },
     {
       "id": "clip:00:06:50.0",
@@ -79,9 +82,10 @@
       "action": "Driving up to the fortress hospital; the marshals must surrender their guns at the gate. Wards A, B, and the ominous Ward C (~403s)",
       "censor": "none",
       "raw_duration_sec": 14.0,
-      "max_narration_words_en": 38,
+      "max_narration_words_en": 64,
       "extendable": true,
-      "stretch_tolerance": 1.1
+      "stretch_tolerance": 1.1,
+      "max_play_duration_sec": 15.4
     },
     {
       "id": "clip:00:09:40.0",
@@ -99,9 +103,10 @@
       "action": "Meeting Dr. John Cawley, the lead psychiatrist - genial but guarded. The case: patient Rachel Solando has vanished from a locked cell (~574s)",
       "censor": "none",
       "raw_duration_sec": 18.0,
-      "max_narration_words_en": 48,
+      "max_narration_words_en": 82,
       "extendable": true,
-      "stretch_tolerance": 1.1
+      "stretch_tolerance": 1.1,
+      "max_play_duration_sec": 19.8
     },
     {
       "id": "clip:00:12:25.0",
@@ -118,9 +123,10 @@
       "action": "Cawley explains Rachel drowned her three children and now believes them alive - and that her escape from a locked room is impossible (~741s)",
       "censor": "none",
       "raw_duration_sec": 15.0,
-      "max_narration_words_en": 40,
+      "max_narration_words_en": 68,
       "extendable": true,
-      "stretch_tolerance": 1.1
+      "stretch_tolerance": 1.1,
+      "max_play_duration_sec": 16.5
     },
     {
       "id": "clip:00:13:55.0",
@@ -139,9 +145,10 @@
       "action": "Rachel's empty room: a hidden note - 'The law of 4 / who is 67?' Teddy demands the staff files; Cawley deflects (~833s)",
       "censor": "none",
       "raw_duration_sec": 17.0,
-      "max_narration_words_en": 46,
+      "max_narration_words_en": 77,
       "extendable": true,
-      "stretch_tolerance": 1.1
+      "stretch_tolerance": 1.1,
+      "max_play_duration_sec": 18.7
     },
     {
       "id": "clip:00:17:00.0",
@@ -159,9 +166,10 @@
       "action": "Staff interview: Rachel's own doctor, Sheehan, left the island the moment she vanished; the phones are dead in the storm (~1017s)",
       "censor": "none",
       "raw_duration_sec": 16.0,
-      "max_narration_words_en": 42,
+      "max_narration_words_en": 73,
       "extendable": true,
-      "stretch_tolerance": 1.1
+      "stretch_tolerance": 1.1,
+      "max_play_duration_sec": 17.6
     },
     {
       "id": "clip:00:20:10.0",
@@ -179,9 +187,10 @@
       "action": "Evening at Cawley's quarters: the cold Dr. Naehring needles Teddy about 'men of violence,' and the files are refused outright. The stonewall hardens (~1204s)",
       "censor": "none",
       "raw_duration_sec": 18.0,
-      "max_narration_words_en": 48,
+      "max_narration_words_en": 82,
       "extendable": true,
-      "stretch_tolerance": 1.1
+      "stretch_tolerance": 1.1,
+      "max_play_duration_sec": 19.8
     },
     {
       "id": "clip:00:27:45.0",
@@ -198,9 +207,10 @@
       "action": "DREAM: Teddy's dead wife Dolores appears in ash and water - 'she's still here.' His grief and his haunting take hold (~1662s) [S9]",
       "censor": "none",
       "raw_duration_sec": 18.0,
-      "max_narration_words_en": 46,
+      "max_narration_words_en": 82,
       "extendable": true,
-      "stretch_tolerance": 1.1
+      "stretch_tolerance": 1.1,
+      "max_play_duration_sec": 19.8
     },
     {
       "id": "clip:00:32:30.0",
@@ -216,9 +226,10 @@
       "action": "Day two: interviewing patients. One, questioned, secretly scrawls a single word on Teddy's notepad - 'RUN' (~1943-2103s)",
       "censor": "none",
       "raw_duration_sec": 16.0,
-      "max_narration_words_en": 42,
+      "max_narration_words_en": 73,
       "extendable": true,
-      "stretch_tolerance": 1.1
+      "stretch_tolerance": 1.1,
+      "max_play_duration_sec": 17.6
     },
     {
       "id": "clip:00:38:00.0",
@@ -236,9 +247,10 @@
       "action": "Teddy admits his real reason for coming: he believes the arsonist who killed his wife - a man named Andrew Laeddis - is hidden here as a patient (~2275s)",
       "censor": "none",
       "raw_duration_sec": 20.0,
-      "max_narration_words_en": 52,
+      "max_narration_words_en": 91,
       "extendable": true,
-      "stretch_tolerance": 1.1
+      "stretch_tolerance": 1.1,
+      "max_play_duration_sec": 22.0
     },
     {
       "id": "clip:00:42:00.0",
@@ -255,9 +267,10 @@
       "action": "Flashback: Teddy as a soldier at the liberation of Dachau - frozen corpses, an execution. The war that broke him (~2505s) [S9]",
       "censor": "none",
       "raw_duration_sec": 18.0,
-      "max_narration_words_en": 46,
+      "max_narration_words_en": 82,
       "extendable": true,
-      "stretch_tolerance": 1.1
+      "stretch_tolerance": 1.1,
+      "max_play_duration_sec": 19.8
     },
     {
       "id": "clip:00:44:30.0",
@@ -274,9 +287,10 @@
       "action": "Teddy reveals his second agenda: rumors of illegal experiments on patients at Ashecliffe, tied to a man named George Noyce (~2600s)",
       "censor": "none",
       "raw_duration_sec": 16.0,
-      "max_narration_words_en": 42,
+      "max_narration_words_en": 73,
       "extendable": true,
-      "stretch_tolerance": 1.1
+      "stretch_tolerance": 1.1,
+      "max_play_duration_sec": 17.6
     },
     {
       "id": "clip:00:51:10.0",
@@ -295,9 +309,10 @@
       "action": "Cawley abruptly produces a 'found' Rachel Solando; the interview curdles as a blinding migraine hits Teddy. Nothing here adds up (~3067s)",
       "censor": "none",
       "raw_duration_sec": 20.0,
-      "max_narration_words_en": 50,
+      "max_narration_words_en": 91,
       "extendable": true,
-      "stretch_tolerance": 1.1
+      "stretch_tolerance": 1.1,
+      "max_play_duration_sec": 22.0
     },
     {
       "id": "clip:01:00:30.0",
@@ -314,9 +329,10 @@
       "action": "Collapse into nightmare: Dolores again, fire and drifting ash, a whispered 'find him and kill him.' Teddy is medicated (~3627s) [S9]",
       "censor": "none",
       "raw_duration_sec": 18.0,
-      "max_narration_words_en": 46,
+      "max_narration_words_en": 82,
       "extendable": true,
-      "stretch_tolerance": 1.1
+      "stretch_tolerance": 1.1,
+      "max_play_duration_sec": 19.8
     },
     {
       "id": "clip:01:04:15.0",
@@ -333,9 +349,10 @@
       "action": "A storm blackout kills the island's power and security. Teddy and Chuck seize the chance to break into the barred Ward C (~3850s)",
       "censor": "none",
       "raw_duration_sec": 15.0,
-      "max_narration_words_en": 40,
+      "max_narration_words_en": 68,
       "extendable": true,
-      "stretch_tolerance": 1.1
+      "stretch_tolerance": 1.1,
+      "max_play_duration_sec": 16.5
     },
     {
       "id": "clip:01:06:05.0",
@@ -351,9 +368,10 @@
       "action": "Inside Ward C: shrieking, loose patients in the dark; Teddy is grabbed and attacked, barely fighting free (~3958s)",
       "censor": "none",
       "raw_duration_sec": 17.0,
-      "max_narration_words_en": 44,
+      "max_narration_words_en": 77,
       "extendable": true,
-      "stretch_tolerance": 1.1
+      "stretch_tolerance": 1.1,
+      "max_play_duration_sec": 18.7
     },
     {
       "id": "clip:01:12:00.0",
@@ -369,9 +387,10 @@
       "action": "A burnt figure in a cell taunts him - 'this is about you.' Teddy's grip on what is real begins to slip (~4308s) [S9]",
       "censor": "none",
       "raw_duration_sec": 16.0,
-      "max_narration_words_en": 42,
+      "max_narration_words_en": 73,
       "extendable": true,
-      "stretch_tolerance": 1.1
+      "stretch_tolerance": 1.1,
+      "max_play_duration_sec": 17.6
     },
     {
       "id": "clip:01:15:55.0",
@@ -389,9 +408,10 @@
       "action": "George Noyce - scarred, caged - warns Teddy the doctors have 'already won,' that this is all for him, and that he must not trust his own partner (~4554s)",
       "censor": "none",
       "raw_duration_sec": 19.0,
-      "max_narration_words_en": 50,
+      "max_narration_words_en": 87,
       "extendable": true,
-      "stretch_tolerance": 1.1
+      "stretch_tolerance": 1.1,
+      "max_play_duration_sec": 20.9
     },
     {
       "id": "clip:01:18:00.0",
@@ -409,9 +429,10 @@
       "action": "On the cliffs toward the lighthouse Chuck questions Teddy's story; they are separated, and Teddy believes he sees Chuck's body broken on the rocks below (~4667s)",
       "censor": "none",
       "raw_duration_sec": 18.0,
-      "max_narration_words_en": 48,
+      "max_narration_words_en": 82,
       "extendable": true,
-      "stretch_tolerance": 1.1
+      "stretch_tolerance": 1.1,
+      "max_play_duration_sec": 19.8
     },
     {
       "id": "clip:01:23:30.0",
@@ -428,9 +449,10 @@
       "action": "THE CAVE: a woman claiming to be the real Rachel Solando - once a doctor here - tells Teddy the island lobotomizes and brainwashes people, and that HE is being drugged (~5008s)",
       "censor": "none",
       "raw_duration_sec": 20.0,
-      "max_narration_words_en": 52,
+      "max_narration_words_en": 91,
       "extendable": true,
-      "stretch_tolerance": 1.1
+      "stretch_tolerance": 1.1,
+      "max_play_duration_sec": 22.0
     },
     {
       "id": "clip:01:32:10.0",
@@ -448,10 +470,11 @@
       ],
       "action": "Back at the hospital, Cawley tells Teddy he arrived alone - there never was a partner. (window re-anchored 2026-08-11 from transcript + scene cuts; verified against frames)",
       "censor": "none",
-      "raw_duration_sec": 18.0,
-      "max_narration_words_en": 48,
+      "raw_duration_sec": 17.351,
+      "max_narration_words_en": 79,
       "extendable": true,
-      "stretch_tolerance": 1.1
+      "stretch_tolerance": 1.1,
+      "max_play_duration_sec": 19.086
     },
     {
       "id": "clip:01:38:40.0",
@@ -468,9 +491,10 @@
       "action": "Teddy fights off an attempt to sedate him and sets out for the lighthouse, certain the answers are locked inside it (~5914s)",
       "censor": "none",
       "raw_duration_sec": 16.0,
-      "max_narration_words_en": 42,
+      "max_narration_words_en": 73,
       "extendable": true,
-      "stretch_tolerance": 1.1
+      "stretch_tolerance": 1.1,
+      "max_play_duration_sec": 17.6
     },
     {
       "id": "clip:01:45:50.0",
@@ -488,9 +512,10 @@
       "action": "Inside the lighthouse Teddy finds not a lab but Dr. Cawley, calmly waiting - who says Teddy has been on this island two years, and is in withdrawal, not drugged (FRAME-VERIFIED ~6345s)",
       "censor": "none",
       "raw_duration_sec": 20.0,
-      "max_narration_words_en": 52,
+      "max_narration_words_en": 91,
       "extendable": true,
-      "stretch_tolerance": 1.1
+      "stretch_tolerance": 1.1,
+      "max_play_duration_sec": 22.0
     },
     {
       "id": "clip:01:49:50.0",
@@ -508,9 +533,10 @@
       "action": "*** THE REVEAL *** Cawley's whiteboard: 'EDWARD DANIELS = ANDREW LAEDDIS' and 'RACHEL SOLANDO = DOLORES CHANAL.' Teddy IS the patient he was hunting; the entire investigation was a staged roleplay to break his delusion (DENSE FRAME-VERIFIED ~6595-6620s: board legible, then reaction)",
       "censor": "none",
       "raw_duration_sec": 24.0,
-      "max_narration_words_en": 62,
+      "max_narration_words_en": 110,
       "extendable": true,
-      "stretch_tolerance": 1.1
+      "stretch_tolerance": 1.1,
+      "max_play_duration_sec": 26.4
     },
     {
       "id": "clip:01:52:40.0",
@@ -529,9 +555,10 @@
       "action": "*** THE REVEAL *** 'Chuck' steps forward as Dr. Lester Sheehan - Teddy's own psychiatrist, who played the partner throughout (FRAME-VERIFIED ~6758s)",
       "censor": "none",
       "raw_duration_sec": 18.0,
-      "max_narration_words_en": 48,
+      "max_narration_words_en": 82,
       "extendable": true,
-      "stretch_tolerance": 1.1
+      "stretch_tolerance": 1.1,
+      "max_play_duration_sec": 19.8
     },
     {
       "id": "clip:01:56:00.0",
@@ -548,9 +575,10 @@
       "action": "*** THE REVEAL *** The lake-house memory: his wife Dolores drowned their three children; Andrew then shot her. The 'fire and arsonist' story was the lie that shielded him from it (~6955s) [S7: imply the drowning, do NOT show the children]",
       "censor": "blur_heavy",
       "raw_duration_sec": 22.0,
-      "max_narration_words_en": 56,
+      "max_narration_words_en": 101,
       "extendable": true,
-      "stretch_tolerance": 1.1
+      "stretch_tolerance": 1.1,
+      "max_play_duration_sec": 24.2
     },
     {
       "id": "clip:02:03:20.0",
@@ -569,9 +597,10 @@
       "action": "Andrew, finally lucid, accepts the truth. The doctors are relieved - but warn that if he slips back again, they will lobotomize him (~7400s)",
       "censor": "none",
       "raw_duration_sec": 18.0,
-      "max_narration_words_en": 48,
+      "max_narration_words_en": 82,
       "extendable": true,
-      "stretch_tolerance": 1.1
+      "stretch_tolerance": 1.1,
+      "max_play_duration_sec": 19.8
     },
     {
       "id": "clip:02:07:25.0",
@@ -589,9 +618,10 @@
       "action": "CODA: the next morning Andrew calls Sheehan 'Chuck' again and speaks of leaving - relapsed, or choosing not to live with the truth (~7643s)",
       "censor": "none",
       "raw_duration_sec": 20.0,
-      "max_narration_words_en": 50,
+      "max_narration_words_en": 91,
       "extendable": true,
-      "stretch_tolerance": 1.1
+      "stretch_tolerance": 1.1,
+      "max_play_duration_sec": 22.0
     },
     {
       "id": "clip:02:09:15.0",
@@ -608,9 +638,10 @@
       "action": "His last line - 'to live as a monster, or to die as a good man?' - then he rises and walks off toward the lighthouse and the lobotomy (~7761s) [S9 close]",
       "censor": "none",
       "raw_duration_sec": 18.0,
-      "max_narration_words_en": 46,
+      "max_narration_words_en": 82,
       "extendable": true,
-      "stretch_tolerance": 1.1
+      "stretch_tolerance": 1.1,
+      "max_play_duration_sec": 19.8
     }
   ]
 }

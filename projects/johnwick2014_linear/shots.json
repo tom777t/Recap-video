@@ -8,330 +8,461 @@
       "beat": 1,
       "clip_start": "00:00:52.0",
       "clip_end": "00:01:03.0",
-      "chars": ["John Wick"],
-      "depicts": ["establishing", "action"],
+      "chars": [
+        "John Wick"
+      ],
+      "depicts": [
+        "establishing",
+        "action"
+      ],
       "action": "COLD-OPEN HOOK: a black SUV skids to a stop at a night warehouse/waterfront; a battered John stumbles out, bleeding (FRAME-VERIFIED 00:00:52)",
       "censor": "none",
       "raw_duration_sec": 11.0,
-      "max_narration_words_en": 46,
+      "max_narration_words_en": 50,
       "extendable": true,
-      "stretch_tolerance": 1.1
+      "stretch_tolerance": 1.1,
+      "max_play_duration_sec": 12.1
     },
     {
       "id": "clip:00:01:20.0",
       "beat": 1,
       "clip_start": "00:01:20.0",
       "clip_end": "00:01:31.0",
-      "chars": ["John Wick"],
-      "depicts": ["emotion"],
+      "chars": [
+        "John Wick"
+      ],
+      "depicts": [
+        "emotion"
+      ],
       "action": "HOOK: John collapses against a low wall, gravely wounded, and pulls out his phone (FRAME-VERIFIED 00:01:20)",
       "censor": "none",
       "raw_duration_sec": 11.0,
-      "max_narration_words_en": 46,
+      "max_narration_words_en": 50,
       "extendable": true,
-      "stretch_tolerance": 1.1
+      "stretch_tolerance": 1.1,
+      "max_play_duration_sec": 12.1
     },
     {
       "id": "clip:00:01:40.0",
       "beat": 1,
       "clip_start": "00:01:40.0",
       "clip_end": "00:01:56.0",
-      "chars": ["John Wick", "Helen"],
-      "depicts": ["emotion"],
+      "chars": [
+        "John Wick",
+        "Helen"
+      ],
+      "depicts": [
+        "emotion"
+      ],
       "action": "HOOK payoff: John watches a phone video of his late wife Helen as he bleeds out - who is this man, and why is he dying alone? (FRAME-VERIFIED 00:01:40)",
       "censor": "none",
       "raw_duration_sec": 16.0,
-      "max_narration_words_en": 60,
+      "max_narration_words_en": 73,
       "extendable": true,
-      "stretch_tolerance": 1.1
+      "stretch_tolerance": 1.1,
+      "max_play_duration_sec": 17.6
     },
     {
       "id": "clip:00:02:24.0",
       "beat": 2,
       "clip_start": "00:02:24.0",
       "clip_end": "00:02:35.0",
-      "chars": ["John Wick", "Helen"],
-      "depicts": ["establishing", "setup"],
+      "chars": [
+        "John Wick",
+        "Helen"
+      ],
+      "depicts": [
+        "establishing",
+        "setup"
+      ],
       "action": "Reset to the beginning: John's modern glass house; framed photos of John and Helen together; the quiet life he built (FRAME-VERIFIED 00:02:24)",
       "censor": "none",
       "raw_duration_sec": 11.0,
-      "max_narration_words_en": 46,
+      "max_narration_words_en": 50,
       "extendable": true,
-      "stretch_tolerance": 1.1
+      "stretch_tolerance": 1.1,
+      "max_play_duration_sec": 12.1
     },
     {
       "id": "clip:00:03:08.0",
       "beat": 2,
       "clip_start": "00:03:08.0",
       "clip_end": "00:03:36.0",
-      "chars": ["John Wick", "Helen"],
-      "depicts": ["emotion"],
+      "chars": [
+        "John Wick",
+        "Helen"
+      ],
+      "depicts": [
+        "emotion"
+      ],
       "action": "the hospital: John at Helen's bedside as she dies of illness; he holds her, hollowed (FRAME-VERIFIED 00:03:08)",
       "censor": "none",
       "raw_duration_sec": 28.0,
-      "max_narration_words_en": 90,
+      "max_narration_words_en": 128,
       "extendable": true,
-      "stretch_tolerance": 1.1
+      "stretch_tolerance": 1.1,
+      "max_play_duration_sec": 30.8
     },
     {
       "id": "clip:00:03:52.0",
       "beat": 2,
       "clip_start": "00:03:52.0",
       "clip_end": "00:04:00.0",
-      "chars": ["John Wick"],
-      "depicts": ["emotion"],
+      "chars": [
+        "John Wick"
+      ],
+      "depicts": [
+        "emotion"
+      ],
       "action": "John alone with his grief after Helen passes - a single tear (FRAME-VERIFIED 00:03:52)",
       "censor": "none",
       "raw_duration_sec": 8.0,
-      "max_narration_words_en": 30,
+      "max_narration_words_en": 36,
       "extendable": true,
-      "stretch_tolerance": 1.1
+      "stretch_tolerance": 1.1,
+      "max_play_duration_sec": 8.8
     },
     {
       "id": "clip:00:04:16.0",
       "beat": 2,
       "clip_start": "00:04:16.0",
       "clip_end": "00:04:28.0",
-      "chars": ["John Wick"],
-      "depicts": ["establishing", "emotion"],
+      "chars": [
+        "John Wick"
+      ],
+      "depicts": [
+        "establishing",
+        "emotion"
+      ],
       "action": "Helen's funeral in the rain: the casket lowered, mourners under black umbrellas at the graveside (FRAME-VERIFIED 00:04:16)",
       "censor": "none",
       "raw_duration_sec": 12.0,
-      "max_narration_words_en": 48,
+      "max_narration_words_en": 54,
       "extendable": true,
-      "stretch_tolerance": 1.1
+      "stretch_tolerance": 1.1,
+      "max_play_duration_sec": 13.2
     },
     {
       "id": "clip:00:04:48.0",
       "beat": 2,
       "clip_start": "00:04:48.0",
       "clip_end": "00:05:20.0",
-      "chars": ["John Wick", "Marcus"],
-      "depicts": ["dialogue"],
+      "chars": [
+        "John Wick",
+        "Marcus"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
       "action": "graveside: Marcus, an old friend, approaches John under an umbrella to pay quiet respects ('checking up on an old friend') (FRAME-VERIFIED 00:04:48)",
       "censor": "none",
       "raw_duration_sec": 32.0,
-      "max_narration_words_en": 100,
+      "max_narration_words_en": 147,
       "extendable": true,
-      "stretch_tolerance": 1.1
+      "stretch_tolerance": 1.1,
+      "max_play_duration_sec": 35.2
     },
     {
       "id": "clip:00:05:44.0",
       "beat": 2,
       "clip_start": "00:05:44.0",
       "clip_end": "00:05:59.0",
-      "chars": ["John Wick"],
-      "depicts": ["emotion"],
+      "chars": [
+        "John Wick"
+      ],
+      "depicts": [
+        "emotion"
+      ],
       "action": "John stands alone among the gravestones in the rain after the funeral, utterly hollowed (FRAME-VERIFIED 00:05:44)",
       "censor": "none",
       "raw_duration_sec": 15.0,
-      "max_narration_words_en": 56,
+      "max_narration_words_en": 68,
       "extendable": true,
-      "stretch_tolerance": 1.1
+      "stretch_tolerance": 1.1,
+      "max_play_duration_sec": 16.5
     },
     {
       "id": "clip:00:06:32.0",
       "beat": 3,
       "clip_start": "00:06:32.0",
       "clip_end": "00:06:44.0",
-      "chars": ["John Wick"],
-      "depicts": ["setup"],
+      "chars": [
+        "John Wick"
+      ],
+      "depicts": [
+        "setup"
+      ],
       "action": "night: a Kewlin delivery van at John's door; he signs for an unexpected crate delivery (FRAME-VERIFIED 00:06:32)",
       "censor": "none",
       "raw_duration_sec": 12.0,
-      "max_narration_words_en": 48,
+      "max_narration_words_en": 54,
       "extendable": true,
-      "stretch_tolerance": 1.1
+      "stretch_tolerance": 1.1,
+      "max_play_duration_sec": 13.2
     },
     {
       "id": "clip:00:06:52.0",
       "beat": 3,
       "clip_start": "00:06:52.0",
       "clip_end": "00:07:12.0",
-      "chars": ["John Wick", "Helen"],
-      "depicts": ["emotion"],
+      "chars": [
+        "John Wick",
+        "Helen"
+      ],
+      "depicts": [
+        "emotion"
+      ],
       "action": "John reads Helen's handwritten letter under the lamp: her final gift, 'so you have something to love' (FRAME-VERIFIED 00:06:52)",
       "censor": "none",
       "raw_duration_sec": 20.0,
-      "max_narration_words_en": 72,
+      "max_narration_words_en": 91,
       "extendable": true,
-      "stretch_tolerance": 1.1
+      "stretch_tolerance": 1.1,
+      "max_play_duration_sec": 22.0
     },
     {
       "id": "clip:00:08:00.0",
       "beat": 3,
       "clip_start": "00:08:00.0",
       "clip_end": "00:08:20.0",
-      "chars": ["John Wick"],
-      "depicts": ["emotion"],
+      "chars": [
+        "John Wick"
+      ],
+      "depicts": [
+        "emotion"
+      ],
       "action": "John opens the crate: Daisy, a beagle puppy - Helen's last gift; he lifts her, the one thing pulling him back toward life (FRAME-VERIFIED 00:08:00)",
       "censor": "none",
       "raw_duration_sec": 20.0,
-      "max_narration_words_en": 72,
+      "max_narration_words_en": 91,
       "extendable": true,
-      "stretch_tolerance": 1.1
+      "stretch_tolerance": 1.1,
+      "max_play_duration_sec": 22.0
     },
     {
       "id": "clip:00:08:48.0",
       "beat": 4,
       "clip_start": "00:08:48.0",
       "clip_end": "00:09:12.0",
-      "chars": ["John Wick"],
-      "depicts": ["emotion"],
+      "chars": [
+        "John Wick"
+      ],
+      "depicts": [
+        "emotion"
+      ],
       "action": "morning: the puppy Daisy wakes John in bed, licking his face - a first breath of peace (FRAME-VERIFIED 00:08:48)",
       "censor": "none",
       "raw_duration_sec": 24.0,
-      "max_narration_words_en": 80,
+      "max_narration_words_en": 110,
       "extendable": true,
-      "stretch_tolerance": 1.1
+      "stretch_tolerance": 1.1,
+      "max_play_duration_sec": 26.4
     },
     {
       "id": "clip:00:09:36.0",
       "beat": 4,
       "clip_start": "00:09:36.0",
       "clip_end": "00:09:52.0",
-      "chars": ["John Wick"],
-      "depicts": ["setup"],
+      "chars": [
+        "John Wick"
+      ],
+      "depicts": [
+        "setup"
+      ],
       "action": "quiet morning routine: John makes coffee, two cereal bowls (one for Daisy), the puppy underfoot in the kitchen (FRAME-VERIFIED 00:09:36)",
       "censor": "none",
       "raw_duration_sec": 16.0,
-      "max_narration_words_en": 60,
+      "max_narration_words_en": 73,
       "extendable": true,
-      "stretch_tolerance": 1.1
+      "stretch_tolerance": 1.1,
+      "max_play_duration_sec": 17.6
     },
     {
       "id": "clip:00:10:08.0",
       "beat": 4,
       "clip_start": "00:10:08.0",
       "clip_end": "00:10:36.0",
-      "chars": ["John Wick"],
-      "depicts": ["establishing"],
+      "chars": [
+        "John Wick"
+      ],
+      "depicts": [
+        "establishing"
+      ],
       "action": "John, Daisy beside him, backs his classic 1969 Mustang out of the garage and takes it out to drive (FRAME-VERIFIED 00:10:08)",
       "censor": "none",
       "raw_duration_sec": 28.0,
-      "max_narration_words_en": 90,
+      "max_narration_words_en": 128,
       "extendable": true,
-      "stretch_tolerance": 1.1
+      "stretch_tolerance": 1.1,
+      "max_play_duration_sec": 30.8
     },
     {
       "id": "clip:00:12:44.0",
       "beat": 4,
       "clip_start": "00:12:44.0",
       "clip_end": "00:13:16.0",
-      "chars": ["John Wick"],
-      "depicts": ["establishing"],
+      "chars": [
+        "John Wick"
+      ],
+      "depicts": [
+        "establishing"
+      ],
       "action": "John opens up the '69 Mustang on an empty airfield at sunset - the joy of the life he is rebuilding (FRAME-VERIFIED 00:12:44)",
       "censor": "none",
       "raw_duration_sec": 32.0,
-      "max_narration_words_en": 100,
+      "max_narration_words_en": 147,
       "extendable": true,
-      "stretch_tolerance": 1.1
+      "stretch_tolerance": 1.1,
+      "max_play_duration_sec": 35.2
     },
     {
       "id": "clip:00:10:40.0",
       "beat": 5,
       "clip_start": "00:10:40.0",
       "clip_end": "00:11:08.0",
-      "chars": ["John Wick", "Iosef Tarasov"],
-      "depicts": ["setup"],
+      "chars": [
+        "John Wick",
+        "Iosef Tarasov"
+      ],
+      "depicts": [
+        "setup"
+      ],
       "action": "the Chevron gas station: John fuels the Mustang; a car pulls in and Iosef Tarasov, hooded, gets out eyeing the car (FRAME-VERIFIED 00:10:40)",
       "censor": "none",
       "raw_duration_sec": 28.0,
-      "max_narration_words_en": 90,
+      "max_narration_words_en": 128,
       "extendable": true,
-      "stretch_tolerance": 1.1
+      "stretch_tolerance": 1.1,
+      "max_play_duration_sec": 30.8
     },
     {
       "id": "clip:00:11:20.0",
       "beat": 5,
       "clip_start": "00:11:20.0",
       "clip_end": "00:11:48.0",
-      "chars": ["John Wick", "Iosef Tarasov"],
-      "depicts": ["dialogue"],
+      "chars": [
+        "John Wick",
+        "Iosef Tarasov"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
       "action": "Iosef demands to buy John's Mustang; John refuses. Iosef's wounded pride - the spark that starts everything (FRAME-VERIFIED 00:11:20)",
       "censor": "none",
       "raw_duration_sec": 28.0,
-      "max_narration_words_en": 90,
+      "max_narration_words_en": 128,
       "extendable": true,
-      "stretch_tolerance": 1.1
+      "stretch_tolerance": 1.1,
+      "max_play_duration_sec": 30.8
     },
     {
       "id": "clip:00:12:04.0",
       "beat": 5,
       "clip_start": "00:12:04.0",
       "clip_end": "00:12:18.0",
-      "chars": ["John Wick", "Iosef Tarasov"],
-      "depicts": ["reaction"],
+      "chars": [
+        "John Wick",
+        "Iosef Tarasov"
+      ],
+      "depicts": [
+        "reaction"
+      ],
       "action": "John drives off; Iosef watches, humiliated - 'who does this guy think he is?' (FRAME-VERIFIED 00:12:04)",
       "censor": "none",
       "raw_duration_sec": 14.0,
-      "max_narration_words_en": 52,
+      "max_narration_words_en": 64,
       "extendable": true,
-      "stretch_tolerance": 1.1
+      "stretch_tolerance": 1.1,
+      "max_play_duration_sec": 15.4
     },
     {
       "id": "clip:00:13:32.0",
       "beat": 6,
       "clip_start": "00:13:32.0",
       "clip_end": "00:14:02.0",
-      "chars": ["John Wick"],
-      "depicts": ["setup"],
+      "chars": [
+        "John Wick"
+      ],
+      "depicts": [
+        "setup"
+      ],
       "action": "DARK: night at John's house - John and Daisy asleep; the calm before the break-in (FRAME-VERIFIED 00:13:32; deliberate dark night interior, no lift)",
       "censor": "none",
-      "raw_duration_sec": 32.0,
-      "max_narration_words_en": 100,
+      "raw_duration_sec": 30.0,
+      "max_narration_words_en": 138,
       "extendable": true,
-      "stretch_tolerance": 1.1
+      "stretch_tolerance": 1.1,
+      "max_play_duration_sec": 33.0
     },
     {
       "id": "clip:00:14:12.0",
       "beat": 6,
       "clip_start": "00:14:12.0",
       "clip_end": "00:14:36.0",
-      "chars": ["John Wick", "Iosef Tarasov"],
-      "depicts": ["action"],
+      "chars": [
+        "John Wick",
+        "Iosef Tarasov"
+      ],
+      "depicts": [
+        "action"
+      ],
       "action": "DARK: the crew beats John unconscious on the floor of his home; Iosef stands over him ('shut that fucking dog up!') (FRAME-VERIFIED 00:14:12)",
       "censor": "none",
       "raw_duration_sec": 24.0,
-      "max_narration_words_en": 80,
+      "max_narration_words_en": 110,
       "extendable": false,
-      "stretch_tolerance": 1.05
+      "stretch_tolerance": 1.05,
+      "max_play_duration_sec": 24.0
     },
     {
       "id": "clip:00:15:00.0",
       "beat": 6,
       "clip_start": "00:15:00.0",
       "clip_end": "00:15:16.0",
-      "chars": ["John Wick"],
-      "depicts": ["aftermath"],
+      "chars": [
+        "John Wick"
+      ],
+      "depicts": [
+        "aftermath"
+      ],
       "action": "DARK: John left beaten and bloody on the floor as the crew leave with his Mustang; the puppy killed (off-frame) (FRAME-VERIFIED 00:15:00)",
       "censor": "none",
       "raw_duration_sec": 16.0,
-      "max_narration_words_en": 60,
+      "max_narration_words_en": 73,
       "extendable": false,
-      "stretch_tolerance": 1.05
+      "stretch_tolerance": 1.05,
+      "max_play_duration_sec": 16.0
     },
     {
       "id": "clip:00:15:36.0",
       "beat": 7,
       "clip_start": "00:15:36.0",
       "clip_end": "00:15:44.0",
-      "chars": ["John Wick"],
-      "depicts": ["emotion"],
+      "chars": [
+        "John Wick"
+      ],
+      "depicts": [
+        "emotion"
+      ],
       "action": "John wakes bloodied in the wreckage of his peace; morning after the assault (FRAME-VERIFIED 00:15:36)",
       "censor": "none",
       "raw_duration_sec": 8.0,
-      "max_narration_words_en": 30,
+      "max_narration_words_en": 36,
       "extendable": true,
-      "stretch_tolerance": 1.1
+      "stretch_tolerance": 1.1,
+      "max_play_duration_sec": 8.8
     },
     {
       "id": "clip:00:15:48.0",
       "beat": 7,
       "clip_start": "00:15:48.0",
       "clip_end": "00:16:00.0",
-      "chars": ["John Wick"],
-      "depicts": ["emotion"],
+      "chars": [
+        "John Wick"
+      ],
+      "depicts": [
+        "emotion"
+      ],
       "action": "John buries Daisy in the yard at dawn - a shovel, a small grave; something in him closes (FRAME-VERIFIED 00:15:48; silence-candidate, let the grief breathe)",
       "censor": "none",
       "narration_silence_seconds": 6.0
@@ -341,750 +472,1040 @@
       "beat": 7,
       "clip_start": "00:16:12.0",
       "clip_end": "00:16:22.0",
-      "chars": ["John Wick"],
-      "depicts": ["emotion"],
+      "chars": [
+        "John Wick"
+      ],
+      "depicts": [
+        "emotion"
+      ],
       "action": "John at the dawn waterfront, hollowed and silent - the grief hardening into something else (FRAME-VERIFIED 00:16:12)",
       "censor": "none",
       "raw_duration_sec": 10.0,
-      "max_narration_words_en": 40,
+      "max_narration_words_en": 45,
       "extendable": true,
-      "stretch_tolerance": 1.1
+      "stretch_tolerance": 1.1,
+      "max_play_duration_sec": 11.0
     },
     {
       "id": "clip:00:18:04.0",
       "beat": 8,
       "clip_start": "00:18:04.0",
       "clip_end": "00:18:44.0",
-      "chars": ["Iosef Tarasov", "Aurelio"],
-      "depicts": ["dialogue"],
+      "chars": [
+        "Iosef Tarasov",
+        "Aurelio"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
       "action": "Aurelio's blue-lit chop shop: Iosef brings the stolen Mustang; Aurelio recognizes it and confronts him (FRAME-VERIFIED 00:18:04)",
       "censor": "none",
       "raw_duration_sec": 40.0,
-      "max_narration_words_en": 120,
+      "max_narration_words_en": 184,
       "extendable": true,
-      "stretch_tolerance": 1.1
+      "stretch_tolerance": 1.1,
+      "max_play_duration_sec": 44.0
     },
     {
       "id": "clip:00:18:48.0",
       "beat": 8,
       "clip_start": "00:18:48.0",
       "clip_end": "00:19:20.0",
-      "chars": ["Iosef Tarasov", "Aurelio"],
-      "depicts": ["action"],
+      "chars": [
+        "Iosef Tarasov",
+        "Aurelio"
+      ],
+      "depicts": [
+        "action"
+      ],
       "action": "Aurelio punches Iosef to the ground and throws him out: 'you stole John Wick's car, and killed his dog' - the first weight of the name (FRAME-VERIFIED 00:18:48)",
       "censor": "none",
       "raw_duration_sec": 32.0,
-      "max_narration_words_en": 100,
+      "max_narration_words_en": 147,
       "extendable": true,
-      "stretch_tolerance": 1.1
+      "stretch_tolerance": 1.1,
+      "max_play_duration_sec": 35.2
     },
     {
       "id": "clip:00:20:04.0",
       "beat": 9,
       "clip_start": "00:20:04.0",
       "clip_end": "00:20:44.0",
-      "chars": ["Viggo Tarasov"],
-      "depicts": ["dialogue"],
+      "chars": [
+        "Viggo Tarasov"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
       "action": "Viggo Tarasov, the Russian crime boss, on a rooftop terrace at dusk - he phones Aurelio, not angry that he struck his son but asking WHY (FRAME-VERIFIED 00:20:04)",
       "censor": "none",
       "raw_duration_sec": 40.0,
-      "max_narration_words_en": 120,
+      "max_narration_words_en": 184,
       "extendable": true,
-      "stretch_tolerance": 1.1
+      "stretch_tolerance": 1.1,
+      "max_play_duration_sec": 44.0
     },
     {
       "id": "clip:00:21:40.0",
       "beat": 10,
       "clip_start": "00:21:40.0",
       "clip_end": "00:22:20.0",
-      "chars": ["Viggo Tarasov", "Iosef Tarasov"],
-      "depicts": ["dialogue"],
+      "chars": [
+        "Viggo Tarasov",
+        "Iosef Tarasov"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
       "action": "the candlelit Tarasov HQ: Viggo confronts Iosef at the bar - 'it's not what you did, son... it's who you did it to' (FRAME-VERIFIED 00:21:40)",
       "censor": "none",
       "raw_duration_sec": 40.0,
-      "max_narration_words_en": 120,
+      "max_narration_words_en": 184,
       "extendable": true,
-      "stretch_tolerance": 1.1
+      "stretch_tolerance": 1.1,
+      "max_play_duration_sec": 44.0
     },
     {
       "id": "clip:00:23:20.0",
       "beat": 10,
       "clip_start": "00:23:20.0",
       "clip_end": "00:23:44.0",
-      "chars": ["Viggo Tarasov"],
-      "depicts": ["dialogue"],
+      "chars": [
+        "Viggo Tarasov"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
       "action": "THE REVEAL of who John was: Viggo's 'Baba Yaga' monologue - John was the assassin they sent to kill the boogeyman, who left the life for a woman (FRAME-VERIFIED 00:23:20)",
       "censor": "none",
       "raw_duration_sec": 24.0,
-      "max_narration_words_en": 80,
+      "max_narration_words_en": 110,
       "extendable": true,
-      "stretch_tolerance": 1.1
+      "stretch_tolerance": 1.1,
+      "max_play_duration_sec": 26.4
     },
     {
       "id": "clip:00:24:04.0",
       "beat": 11,
       "clip_start": "00:24:04.0",
       "clip_end": "00:24:24.0",
-      "chars": ["John Wick"],
-      "depicts": ["action"],
+      "chars": [
+        "John Wick"
+      ],
+      "depicts": [
+        "action"
+      ],
       "action": "in his emptied house at night, John sledgehammers his own concrete floor to reach a buried cache - the assassin re-awakening (FRAME-VERIFIED 00:24:04)",
       "censor": "none",
       "raw_duration_sec": 20.0,
-      "max_narration_words_en": 72,
+      "max_narration_words_en": 91,
       "extendable": true,
-      "stretch_tolerance": 1.1
+      "stretch_tolerance": 1.1,
+      "max_play_duration_sec": 22.0
     },
     {
       "id": "clip:00:26:24.0",
       "beat": 11,
       "clip_start": "00:26:24.0",
       "clip_end": "00:26:40.0",
-      "chars": ["John Wick"],
-      "depicts": ["reveal"],
+      "chars": [
+        "John Wick"
+      ],
+      "depicts": [
+        "reveal"
+      ],
       "action": "the buried case opens: rows of gold coins and a fitted arsenal - John's old life, unearthed and re-armed (FRAME-VERIFIED 00:26:24)",
       "censor": "none",
       "raw_duration_sec": 16.0,
-      "max_narration_words_en": 60,
+      "max_narration_words_en": 73,
       "extendable": true,
-      "stretch_tolerance": 1.1
+      "stretch_tolerance": 1.1,
+      "max_play_duration_sec": 17.6
     },
     {
       "id": "clip:00:26:44.0",
       "beat": 11,
       "clip_start": "00:26:44.0",
       "clip_end": "00:27:16.0",
-      "chars": ["John Wick", "Viggo Tarasov"],
-      "depicts": ["dialogue"],
+      "chars": [
+        "John Wick",
+        "Viggo Tarasov"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
       "action": "Viggo phones John directly - the two professionals speak; Viggo offers condolences and warns him off, but the choice is already made (FRAME-VERIFIED 00:26:44)",
       "censor": "none",
       "raw_duration_sec": 32.0,
-      "max_narration_words_en": 100,
+      "max_narration_words_en": 147,
       "extendable": true,
-      "stretch_tolerance": 1.1
+      "stretch_tolerance": 1.1,
+      "max_play_duration_sec": 35.2
     },
     {
       "id": "clip:00:27:52.0",
       "beat": 11,
       "clip_start": "00:27:52.0",
       "clip_end": "00:28:20.0",
-      "chars": ["John Wick"],
-      "depicts": ["setup"],
+      "chars": [
+        "John Wick"
+      ],
+      "depicts": [
+        "setup"
+      ],
       "action": "John showers off the blood (scarred back) and dresses in a pressed black suit - the Boogeyman fully remade (FRAME-VERIFIED 00:27:52)",
       "censor": "none",
       "raw_duration_sec": 28.0,
-      "max_narration_words_en": 90,
+      "max_narration_words_en": 128,
       "extendable": true,
-      "stretch_tolerance": 1.1
+      "stretch_tolerance": 1.1,
+      "max_play_duration_sec": 30.8
     },
     {
       "id": "clip:00:29:04.0",
       "beat": 12,
       "clip_start": "00:29:04.0",
       "clip_end": "00:29:20.0",
-      "chars": ["John Wick"],
-      "depicts": ["setup"],
+      "chars": [
+        "John Wick"
+      ],
+      "depicts": [
+        "setup"
+      ],
       "action": "DARK: knowing John is coming, Viggo sends a hit squad to John's house that night; masked men close on the dark glass house (FRAME-VERIFIED 00:29:04)",
       "censor": "none",
       "raw_duration_sec": 16.0,
-      "max_narration_words_en": 60,
+      "max_narration_words_en": 73,
       "extendable": true,
-      "stretch_tolerance": 1.1
+      "stretch_tolerance": 1.1,
+      "max_play_duration_sec": 17.6
     },
     {
       "id": "clip:00:29:20.0",
       "beat": 13,
       "clip_start": "00:29:20.0",
       "clip_end": "00:29:36.0",
-      "chars": ["John Wick"],
-      "depicts": ["action"],
+      "chars": [
+        "John Wick"
+      ],
+      "depicts": [
+        "action"
+      ],
       "action": "HOUSE FIGHT stage 1 (the breach): masked assailants pour in down the spiral stair; John meets them at the entry (FRAME-VERIFIED 00:29:20)",
       "censor": "none",
       "raw_duration_sec": 16.0,
-      "max_narration_words_en": 60,
+      "max_narration_words_en": 73,
       "extendable": false,
-      "stretch_tolerance": 1.05
+      "stretch_tolerance": 1.05,
+      "max_play_duration_sec": 16.0
     },
     {
       "id": "clip:00:29:36.0",
       "beat": 13,
       "clip_start": "00:29:36.0",
       "clip_end": "00:30:08.0",
-      "chars": ["John Wick"],
-      "depicts": ["action"],
+      "chars": [
+        "John Wick"
+      ],
+      "depicts": [
+        "action"
+      ],
       "action": "HOUSE FIGHT stage 2 (gun-fu, main floor): John drops attacker after attacker with precise close-range gunfire - the first full display of what he is (FRAME-VERIFIED 00:29:36)",
       "censor": "none",
       "raw_duration_sec": 32.0,
-      "max_narration_words_en": 100,
+      "max_narration_words_en": 147,
       "extendable": false,
-      "stretch_tolerance": 1.05
+      "stretch_tolerance": 1.05,
+      "max_play_duration_sec": 32.0
     },
     {
       "id": "clip:00:30:20.0",
       "beat": 13,
       "clip_start": "00:30:20.0",
       "clip_end": "00:30:48.0",
-      "chars": ["John Wick"],
-      "depicts": ["action"],
+      "chars": [
+        "John Wick"
+      ],
+      "depicts": [
+        "action"
+      ],
       "action": "HOUSE FIGHT stage 3 (through the rooms): John hunts the remaining men room to room, silhouettes and muzzle flashes across the dark house (FRAME-VERIFIED 00:30:20)",
       "censor": "none",
       "raw_duration_sec": 28.0,
-      "max_narration_words_en": 90,
+      "max_narration_words_en": 128,
       "extendable": false,
-      "stretch_tolerance": 1.05
+      "stretch_tolerance": 1.05,
+      "max_play_duration_sec": 28.0
     },
     {
       "id": "clip:00:30:48.0",
       "beat": 13,
       "clip_start": "00:30:48.0",
       "clip_end": "00:31:12.0",
-      "chars": ["John Wick"],
-      "depicts": ["action"],
+      "chars": [
+        "John Wick"
+      ],
+      "depicts": [
+        "action"
+      ],
       "action": "HOUSE FIGHT stage 4 (hand-to-hand): John grapples an assailant in the kitchen, brutal close combat when the guns run dry (FRAME-VERIFIED 00:30:48)",
       "censor": "none",
       "raw_duration_sec": 24.0,
-      "max_narration_words_en": 80,
+      "max_narration_words_en": 110,
       "extendable": false,
-      "stretch_tolerance": 1.05
+      "stretch_tolerance": 1.05,
+      "max_play_duration_sec": 24.0
     },
     {
       "id": "clip:00:31:12.0",
       "beat": 13,
       "clip_start": "00:31:12.0",
       "clip_end": "00:31:36.0",
-      "chars": ["John Wick"],
-      "depicts": ["action"],
+      "chars": [
+        "John Wick"
+      ],
+      "depicts": [
+        "action"
+      ],
       "action": "HOUSE FIGHT stage 5 (the finish): John pins and kills the last man on the floor, then rises alone and bloodied - the squad wiped out (FRAME-VERIFIED 00:31:12)",
       "censor": "none",
       "raw_duration_sec": 24.0,
-      "max_narration_words_en": 80,
+      "max_narration_words_en": 110,
       "extendable": false,
-      "stretch_tolerance": 1.05
+      "stretch_tolerance": 1.05,
+      "max_play_duration_sec": 24.0
     },
     {
       "id": "clip:00:31:48.0",
       "beat": 14,
       "clip_start": "00:31:48.0",
       "clip_end": "00:32:12.0",
-      "chars": ["John Wick"],
-      "depicts": ["aftermath"],
+      "chars": [
+        "John Wick"
+      ],
+      "depicts": [
+        "aftermath"
+      ],
       "action": "aftermath: a patrol cop arrives at the red-lit door on a 'noise complaint'; John, calm amid the carnage, sends him off (FRAME-VERIFIED 00:31:48)",
       "censor": "none",
       "raw_duration_sec": 24.0,
-      "max_narration_words_en": 80,
+      "max_narration_words_en": 110,
       "extendable": true,
-      "stretch_tolerance": 1.1
+      "stretch_tolerance": 1.1,
+      "max_play_duration_sec": 26.4
     },
     {
       "id": "clip:00:32:40.0",
       "beat": 14,
       "clip_start": "00:32:40.0",
       "clip_end": "00:33:12.0",
-      "chars": ["John Wick"],
-      "depicts": ["setup"],
+      "chars": [
+        "John Wick"
+      ],
+      "depicts": [
+        "setup"
+      ],
       "action": "John calls in a 'dinner reservation' and counts gold coins - introducing the assassins' economy and the Continental cleanup service (FRAME-VERIFIED 00:32:40)",
       "censor": "none",
       "raw_duration_sec": 32.0,
-      "max_narration_words_en": 100,
+      "max_narration_words_en": 147,
       "extendable": true,
-      "stretch_tolerance": 1.1
+      "stretch_tolerance": 1.1,
+      "max_play_duration_sec": 35.2
     },
     {
       "id": "clip:00:33:16.0",
       "beat": 14,
       "clip_start": "00:33:16.0",
       "clip_end": "00:34:24.0",
-      "chars": ["John Wick", "Charlie"],
-      "depicts": ["dialogue"],
+      "chars": [
+        "John Wick",
+        "Charlie"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
       "action": "Charlie and his 'waste disposal' crew arrive to quietly remove the bodies - the discreet machinery of John's old world (FRAME-VERIFIED 00:33:16)",
       "censor": "none",
-      "raw_duration_sec": 40.0,
-      "max_narration_words_en": 120,
+      "raw_duration_sec": 68.0,
+      "max_narration_words_en": 313,
       "extendable": true,
-      "stretch_tolerance": 1.1
+      "stretch_tolerance": 1.1,
+      "max_play_duration_sec": 74.8
     },
     {
       "id": "clip:00:34:28.0",
       "beat": 15,
       "clip_start": "00:34:28.0",
       "clip_end": "00:35:08.0",
-      "chars": ["Viggo Tarasov"],
-      "depicts": ["setup"],
+      "chars": [
+        "Viggo Tarasov"
+      ],
+      "depicts": [
+        "setup"
+      ],
       "action": "Viggo, learning John survived, puts a two-million-dollar open contract on him - every assassin in the city is now a threat (FRAME-VERIFIED 00:34:28)",
       "censor": "none",
       "raw_duration_sec": 40.0,
-      "max_narration_words_en": 120,
+      "max_narration_words_en": 184,
       "extendable": true,
-      "stretch_tolerance": 1.1
+      "stretch_tolerance": 1.1,
+      "max_play_duration_sec": 44.0
     },
     {
       "id": "clip:00:35:12.0",
       "beat": 17,
       "clip_start": "00:35:12.0",
       "clip_end": "00:35:36.0",
-      "chars": ["Marcus"],
-      "depicts": ["establishing"],
+      "chars": [
+        "Marcus"
+      ],
+      "depicts": [
+        "establishing"
+      ],
       "action": "Marcus, an older assassin and John's old friend, in his own apartment - a calm domestic morning before the contract finds him (FRAME-VERIFIED 00:35:12)",
       "censor": "none",
       "raw_duration_sec": 24.0,
-      "max_narration_words_en": 80,
+      "max_narration_words_en": 110,
       "extendable": true,
-      "stretch_tolerance": 1.1
+      "stretch_tolerance": 1.1,
+      "max_play_duration_sec": 26.4
     },
     {
       "id": "clip:00:36:00.0",
       "beat": 17,
       "clip_start": "00:36:00.0",
       "clip_end": "00:36:24.0",
-      "chars": ["Marcus"],
-      "depicts": ["dialogue"],
+      "chars": [
+        "Marcus"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
       "action": "Marcus takes Viggo's contract - 'consider it done' - but his intent is his own (FRAME-VERIFIED 00:36:00)",
       "censor": "none",
       "raw_duration_sec": 24.0,
-      "max_narration_words_en": 80,
+      "max_narration_words_en": 110,
       "extendable": true,
-      "stretch_tolerance": 1.1
+      "stretch_tolerance": 1.1,
+      "max_play_duration_sec": 26.4
     },
     {
       "id": "clip:00:36:56.0",
       "beat": 17,
       "clip_start": "00:36:56.0",
       "clip_end": "00:37:36.0",
-      "chars": ["Marcus"],
-      "depicts": ["setup"],
+      "chars": [
+        "Marcus"
+      ],
+      "depicts": [
+        "setup"
+      ],
       "action": "instead of hunting John, Marcus sets up as an overwatch sniper across the rooftops - loyalty positioned against the bounty (FRAME-VERIFIED 00:36:56)",
       "censor": "none",
       "raw_duration_sec": 40.0,
-      "max_narration_words_en": 120,
+      "max_narration_words_en": 184,
       "extendable": true,
-      "stretch_tolerance": 1.1
+      "stretch_tolerance": 1.1,
+      "max_play_duration_sec": 44.0
     },
     {
       "id": "clip:00:37:40.0",
       "beat": 16,
       "clip_start": "00:37:40.0",
       "clip_end": "00:38:00.0",
-      "chars": ["John Wick"],
-      "depicts": ["establishing"],
+      "chars": [
+        "John Wick"
+      ],
+      "depicts": [
+        "establishing"
+      ],
       "action": "John pulls up outside the Continental hotel in his black muscle car and steps out, suited, back in the life (FRAME-VERIFIED 00:37:40)",
       "censor": "none",
       "raw_duration_sec": 20.0,
-      "max_narration_words_en": 72,
+      "max_narration_words_en": 91,
       "extendable": true,
-      "stretch_tolerance": 1.1
+      "stretch_tolerance": 1.1,
+      "max_play_duration_sec": 22.0
     },
     {
       "id": "clip:00:38:24.0",
       "beat": 16,
       "clip_start": "00:38:24.0",
       "clip_end": "00:39:12.0",
-      "chars": ["John Wick", "Winston", "Ms. Perkins"],
-      "depicts": ["dialogue"],
+      "chars": [
+        "John Wick",
+        "Winston",
+        "Ms. Perkins"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
       "action": "the Continental lobby: John checks in among fellow assassins (Ms. Perkins nearby); the house code and gold-coin economy are laid out (FRAME-VERIFIED 00:38:24)",
       "censor": "none",
       "raw_duration_sec": 48.0,
-      "max_narration_words_en": 140,
+      "max_narration_words_en": 221,
       "extendable": true,
-      "stretch_tolerance": 1.1
+      "stretch_tolerance": 1.1,
+      "max_play_duration_sec": 52.8
     },
     {
       "id": "clip:00:39:36.0",
       "beat": 16,
       "clip_start": "00:39:36.0",
       "clip_end": "00:40:00.0",
-      "chars": ["John Wick"],
-      "depicts": ["setup"],
+      "chars": [
+        "John Wick"
+      ],
+      "depicts": [
+        "setup"
+      ],
       "action": "in his Continental room John lays out his weapons; then moves down through the hotel, hunting - the predator on the move (FRAME-VERIFIED 00:39:36)",
       "censor": "none",
       "raw_duration_sec": 24.0,
-      "max_narration_words_en": 80,
+      "max_narration_words_en": 110,
       "extendable": true,
-      "stretch_tolerance": 1.1
+      "stretch_tolerance": 1.1,
+      "max_play_duration_sec": 26.4
     },
     {
       "id": "clip:00:40:28.0",
       "beat": 18,
       "clip_start": "00:40:28.0",
       "clip_end": "00:40:44.0",
-      "chars": ["John Wick"],
-      "depicts": ["establishing"],
+      "chars": [
+        "John Wick"
+      ],
+      "depicts": [
+        "establishing"
+      ],
       "action": "DARK: John enters the Red Circle nightclub, its crowd washed in green and red - closing in on Iosef (FRAME-VERIFIED 00:40:28)",
       "censor": "none",
       "raw_duration_sec": 16.0,
-      "max_narration_words_en": 60,
+      "max_narration_words_en": 73,
       "extendable": true,
-      "stretch_tolerance": 1.1
+      "stretch_tolerance": 1.1,
+      "max_play_duration_sec": 17.6
     },
     {
       "id": "clip:00:41:19.0",
       "beat": 18,
       "clip_start": "00:41:19.0",
       "clip_end": "00:42:06.0",
-      "chars": ["John Wick", "Winston"],
-      "depicts": ["dialogue"],
+      "chars": [
+        "John Wick",
+        "Winston"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
       "action": "at the Continental, Winston helps John find his target - 'Yosef Tarasov, I'd like to talk with him' - and reminds him he got out once (FRAME-VERIFIED 00:41:19)",
       "censor": "none",
       "raw_duration_sec": 47.0,
-      "max_narration_words_en": 140,
+      "max_narration_words_en": 216,
       "extendable": true,
-      "stretch_tolerance": 1.1
+      "stretch_tolerance": 1.1,
+      "max_play_duration_sec": 51.7
     },
     {
       "id": "clip:00:45:34.0",
       "beat": 19,
       "clip_start": "00:45:34.0",
       "clip_end": "00:45:58.0",
-      "chars": ["John Wick"],
-      "depicts": ["establishing"],
+      "chars": [
+        "John Wick"
+      ],
+      "depicts": [
+        "establishing"
+      ],
       "action": "DARK: John arrives at the Red Circle - the club's facade blazing red, green and blue neon; he walks in to hunt Iosef (FRAME-VERIFIED 00:45:34)",
       "censor": "none",
       "raw_duration_sec": 24.0,
-      "max_narration_words_en": 80,
+      "max_narration_words_en": 110,
       "extendable": true,
-      "stretch_tolerance": 1.1
+      "stretch_tolerance": 1.1,
+      "max_play_duration_sec": 26.4
     },
     {
       "id": "clip:00:46:30.0",
       "beat": 19,
       "clip_start": "00:46:30.0",
       "clip_end": "00:47:20.0",
-      "chars": ["John Wick", "Iosef Tarasov"],
-      "depicts": ["setup"],
+      "chars": [
+        "John Wick",
+        "Iosef Tarasov"
+      ],
+      "depicts": [
+        "setup"
+      ],
       "action": "DARK: in the neon bathhouse Iosef's bodyguards spot John - 'are you scared of the boogeyman? / you should be'; John clears the club (FRAME-VERIFIED 00:46:30)",
       "censor": "none",
       "raw_duration_sec": 50.0,
-      "max_narration_words_en": 140,
+      "max_narration_words_en": 230,
       "extendable": true,
-      "stretch_tolerance": 1.1
+      "stretch_tolerance": 1.1,
+      "max_play_duration_sec": 55.0
     },
     {
       "id": "clip:00:48:00.0",
       "beat": 19,
       "clip_start": "00:48:00.0",
       "clip_end": "00:48:28.0",
-      "chars": ["John Wick"],
-      "depicts": ["action"],
+      "chars": [
+        "John Wick"
+      ],
+      "depicts": [
+        "action"
+      ],
       "action": "RED CIRCLE stage 1 (the baths): John drowns/kills a bodyguard in the blue bathhouse pools - 'you stole my car' - the hunt turns lethal (FRAME-VERIFIED 00:48:00)",
       "censor": "none",
       "raw_duration_sec": 28.0,
-      "max_narration_words_en": 90,
+      "max_narration_words_en": 128,
       "extendable": false,
-      "stretch_tolerance": 1.05
+      "stretch_tolerance": 1.05,
+      "max_play_duration_sec": 28.0
     },
     {
       "id": "clip:00:49:16.0",
       "beat": 19,
       "clip_start": "00:49:16.0",
       "clip_end": "00:49:56.0",
-      "chars": ["John Wick"],
-      "depicts": ["action"],
+      "chars": [
+        "John Wick"
+      ],
+      "depicts": [
+        "action"
+      ],
       "action": "RED CIRCLE stage 2 (through the club): John fights guards through the red-and-blue corridors and VIP rooms, gun and fist (FRAME-VERIFIED 00:49:16)",
       "censor": "none",
       "raw_duration_sec": 40.0,
-      "max_narration_words_en": 120,
+      "max_narration_words_en": 184,
       "extendable": false,
-      "stretch_tolerance": 1.05
+      "stretch_tolerance": 1.05,
+      "max_play_duration_sec": 40.0
     },
     {
       "id": "clip:00:51:12.0",
       "beat": 19,
       "clip_start": "00:51:12.0",
       "clip_end": "00:51:48.0",
-      "chars": ["John Wick"],
-      "depicts": ["action"],
+      "chars": [
+        "John Wick"
+      ],
+      "depicts": [
+        "action"
+      ],
       "action": "RED CIRCLE stage 3 (the dancefloor): wounded and bleeding, John shoulders through the packed crowd, still hunting Iosef among the strobing bodies (FRAME-VERIFIED 00:51:12)",
       "censor": "none",
       "raw_duration_sec": 36.0,
-      "max_narration_words_en": 110,
+      "max_narration_words_en": 165,
       "extendable": false,
-      "stretch_tolerance": 1.05
+      "stretch_tolerance": 1.05,
+      "max_play_duration_sec": 36.0
     },
     {
       "id": "clip:00:51:48.0",
       "beat": 19,
       "clip_start": "00:51:48.0",
       "clip_end": "00:52:48.0",
-      "chars": ["John Wick"],
-      "depicts": ["action"],
+      "chars": [
+        "John Wick"
+      ],
+      "depicts": [
+        "action"
+      ],
       "action": "RED CIRCLE stage 4 (the booths): John cuts down the last guards in the tufted VIP booths - the club a battlefield (FRAME-VERIFIED 00:51:48)",
       "censor": "none",
       "raw_duration_sec": 60.0,
-      "max_narration_words_en": 170,
+      "max_narration_words_en": 276,
       "extendable": false,
-      "stretch_tolerance": 1.05
+      "stretch_tolerance": 1.05,
+      "max_play_duration_sec": 60.0
     },
     {
       "id": "clip:00:53:28.0",
       "beat": 20,
       "clip_start": "00:53:28.0",
       "clip_end": "00:54:00.0",
-      "chars": ["John Wick", "Iosef Tarasov"],
-      "depicts": ["action"],
+      "chars": [
+        "John Wick",
+        "Iosef Tarasov"
+      ],
+      "depicts": [
+        "action"
+      ],
       "action": "Iosef escapes the chaos in a speeding car; John, wounded, is denied the kill (FRAME-VERIFIED 00:53:28)",
       "censor": "none",
       "raw_duration_sec": 32.0,
-      "max_narration_words_en": 100,
+      "max_narration_words_en": 147,
       "extendable": false,
-      "stretch_tolerance": 1.05
+      "stretch_tolerance": 1.05,
+      "max_play_duration_sec": 32.0
     },
     {
       "id": "clip:00:54:44.0",
       "beat": 20,
       "clip_start": "00:54:44.0",
       "clip_end": "00:55:00.0",
-      "chars": ["John Wick"],
-      "depicts": ["aftermath"],
+      "chars": [
+        "John Wick"
+      ],
+      "depicts": [
+        "aftermath"
+      ],
       "action": "bloodied outside the club, John makes a call - relentless but hurt, the target slipped away (FRAME-VERIFIED 00:54:44)",
       "censor": "none",
       "raw_duration_sec": 16.0,
-      "max_narration_words_en": 60,
+      "max_narration_words_en": 73,
       "extendable": true,
-      "stretch_tolerance": 1.1
+      "stretch_tolerance": 1.1,
+      "max_play_duration_sec": 17.6
     },
     {
       "id": "clip:00:55:44.0",
       "beat": 21,
       "clip_start": "00:55:44.0",
       "clip_end": "00:56:40.0",
-      "chars": ["John Wick"],
-      "depicts": ["setup"],
+      "chars": [
+        "John Wick"
+      ],
+      "depicts": [
+        "setup"
+      ],
       "action": "back at the Continental, the house doctor stitches John's gunshot wound as he recovers in his room (FRAME-VERIFIED 00:55:44)",
       "censor": "none",
       "raw_duration_sec": 56.0,
-      "max_narration_words_en": 160,
+      "max_narration_words_en": 258,
       "extendable": true,
-      "stretch_tolerance": 1.1
+      "stretch_tolerance": 1.1,
+      "max_play_duration_sec": 61.6
     },
     {
       "id": "clip:00:57:36.0",
       "beat": 21,
       "clip_start": "00:57:36.0",
       "clip_end": "00:58:24.0",
-      "chars": ["John Wick", "Ms. Perkins"],
-      "depicts": ["action"],
+      "chars": [
+        "John Wick",
+        "Ms. Perkins"
+      ],
+      "depicts": [
+        "action"
+      ],
       "action": "Ms. Perkins breaks the Continental's rules, slipping into John's room with a silenced pistol; a brutal one-on-one fight erupts across the room (FRAME-VERIFIED 00:57:36)",
       "censor": "none",
       "raw_duration_sec": 48.0,
-      "max_narration_words_en": 140,
+      "max_narration_words_en": 221,
       "extendable": false,
-      "stretch_tolerance": 1.05
+      "stretch_tolerance": 1.05,
+      "max_play_duration_sec": 48.0
     },
     {
       "id": "clip:00:58:48.0",
       "beat": 21,
       "clip_start": "00:58:48.0",
       "clip_end": "00:59:20.0",
-      "chars": ["John Wick", "Ms. Perkins"],
-      "depicts": ["action"],
+      "chars": [
+        "John Wick",
+        "Ms. Perkins"
+      ],
+      "depicts": [
+        "action"
+      ],
       "action": "John overpowers Perkins and takes her alive, bloodied - a captive who has just violated the house code (FRAME-VERIFIED 00:58:48)",
       "censor": "none",
       "raw_duration_sec": 32.0,
-      "max_narration_words_en": 100,
+      "max_narration_words_en": 147,
       "extendable": false,
-      "stretch_tolerance": 1.05
+      "stretch_tolerance": 1.05,
+      "max_play_duration_sec": 32.0
     },
     {
       "id": "clip:01:00:00.0",
       "beat": 21,
       "clip_start": "01:00:00.0",
       "clip_end": "01:00:44.0",
-      "chars": ["John Wick", "Ms. Perkins"],
-      "depicts": ["dialogue"],
+      "chars": [
+        "John Wick",
+        "Ms. Perkins"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
       "action": "John interrogates the captive Perkins - 'do you really want to die here?' - and she gives up the Russian church where Viggo hides his stash (FRAME-VERIFIED 01:00:00)",
       "censor": "none",
       "raw_duration_sec": 44.0,
-      "max_narration_words_en": 130,
+      "max_narration_words_en": 202,
       "extendable": true,
-      "stretch_tolerance": 1.1
+      "stretch_tolerance": 1.1,
+      "max_play_duration_sec": 48.4
     },
     {
       "id": "clip:01:01:16.0",
       "beat": 22,
       "clip_start": "01:01:16.0",
       "clip_end": "01:01:56.0",
-      "chars": ["John Wick"],
-      "depicts": ["action"],
+      "chars": [
+        "John Wick"
+      ],
+      "depicts": [
+        "action"
+      ],
       "action": "CHURCH RAID stage 1: John enters the Russian church front and cuts down Viggo's guards among the pews and stained glass (FRAME-VERIFIED 01:01:16)",
       "censor": "none",
       "raw_duration_sec": 40.0,
-      "max_narration_words_en": 120,
+      "max_narration_words_en": 184,
       "extendable": false,
-      "stretch_tolerance": 1.05
+      "stretch_tolerance": 1.05,
+      "max_play_duration_sec": 40.0
     },
     {
       "id": "clip:01:02:24.0",
       "beat": 22,
       "clip_start": "01:02:24.0",
       "clip_end": "01:03:08.0",
-      "chars": ["John Wick"],
-      "depicts": ["action"],
+      "chars": [
+        "John Wick"
+      ],
+      "depicts": [
+        "action"
+      ],
       "action": "CHURCH RAID stage 2 (the vault): John forces the priest to open the hidden vault at gunpoint, shooting his way in to Viggo's cash and blackmail (FRAME-VERIFIED 01:02:24)",
       "censor": "none",
       "raw_duration_sec": 44.0,
-      "max_narration_words_en": 130,
+      "max_narration_words_en": 202,
       "extendable": false,
-      "stretch_tolerance": 1.05
+      "stretch_tolerance": 1.05,
+      "max_play_duration_sec": 44.0
     },
     {
       "id": "clip:01:03:08.0",
       "beat": 22,
       "clip_start": "01:03:08.0",
       "clip_end": "01:03:20.0",
-      "chars": ["John Wick"],
-      "depicts": ["action"],
+      "chars": [
+        "John Wick"
+      ],
+      "depicts": [
+        "action"
+      ],
       "action": "CHURCH RAID payoff: John torches Viggo's war chest - the cash and the leverage over the city, burned; he is dismantling Viggo's power itself (FRAME-VERIFIED 01:03:08)",
       "censor": "none",
       "raw_duration_sec": 12.0,
-      "max_narration_words_en": 48,
+      "max_narration_words_en": 54,
       "extendable": true,
-      "stretch_tolerance": 1.1
+      "stretch_tolerance": 1.1,
+      "max_play_duration_sec": 13.2
     },
     {
       "id": "clip:01:04:48.0",
       "beat": 23,
       "clip_start": "01:04:48.0",
       "clip_end": "01:05:12.0",
-      "chars": ["John Wick"],
-      "depicts": ["action"],
+      "chars": [
+        "John Wick"
+      ],
+      "depicts": [
+        "action"
+      ],
       "action": "STREET AMBUSH: leaving the church, John is jumped by Viggo's men on the street - the hand-to-hand breaks into a running gunfight (FRAME-VERIFIED 01:04:48)",
       "censor": "none",
       "raw_duration_sec": 24.0,
-      "max_narration_words_en": 80,
+      "max_narration_words_en": 110,
       "extendable": false,
-      "stretch_tolerance": 1.05
+      "stretch_tolerance": 1.05,
+      "max_play_duration_sec": 24.0
     },
     {
       "id": "clip:01:05:20.0",
       "beat": 23,
       "clip_start": "01:05:20.0",
       "clip_end": "01:06:00.0",
-      "chars": ["John Wick"],
-      "depicts": ["action"],
+      "chars": [
+        "John Wick"
+      ],
+      "depicts": [
+        "action"
+      ],
       "action": "the street shootout: John trades rifle fire with Viggo's crew around parked cars, then is finally overwhelmed and knocked out - captured (FRAME-VERIFIED 01:05:20)",
       "censor": "none",
       "raw_duration_sec": 40.0,
-      "max_narration_words_en": 120,
+      "max_narration_words_en": 184,
       "extendable": false,
-      "stretch_tolerance": 1.05
+      "stretch_tolerance": 1.05,
+      "max_play_duration_sec": 40.0
     },
     {
       "id": "clip:01:07:12.0",
       "beat": 23,
       "clip_start": "01:07:12.0",
       "clip_end": "01:09:32.0",
-      "chars": ["John Wick", "Viggo Tarasov"],
-      "depicts": ["dialogue"],
+      "chars": [
+        "John Wick",
+        "Viggo Tarasov"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
       "action": "tied to a chair in a warehouse, John faces Viggo - the two professionals talk; 'people don't change / times, they do'; 'finally, common ground' (FRAME-VERIFIED 01:07:12)",
       "censor": "none",
       "raw_duration_sec": 140.0,
-      "max_narration_words_en": 200,
+      "max_narration_words_en": 646,
       "extendable": true,
-      "stretch_tolerance": 1.1
+      "stretch_tolerance": 1.1,
+      "max_play_duration_sec": 154.0
     },
     {
       "id": "clip:01:10:44.0",
       "beat": 23,
       "clip_start": "01:10:44.0",
       "clip_end": "01:11:12.0",
-      "chars": ["John Wick", "Marcus"],
-      "depicts": ["action"],
+      "chars": [
+        "John Wick",
+        "Marcus"
+      ],
+      "depicts": [
+        "action"
+      ],
       "action": "a distant sniper shot - Marcus, watching over John from a rooftop, kills the executioner and frees John to fight (FRAME-VERIFIED 01:10:44)",
       "censor": "none",
       "raw_duration_sec": 28.0,
-      "max_narration_words_en": 90,
+      "max_narration_words_en": 128,
       "extendable": false,
-      "stretch_tolerance": 1.05
+      "stretch_tolerance": 1.05,
+      "max_play_duration_sec": 28.0
     },
     {
       "id": "clip:01:11:12.0",
       "beat": 23,
       "clip_start": "01:11:12.0",
       "clip_end": "01:12:44.0",
-      "chars": ["John Wick"],
-      "depicts": ["action"],
+      "chars": [
+        "John Wick"
+      ],
+      "depicts": [
+        "action"
+      ],
       "action": "WAREHOUSE BREAKOUT: freed, John fights his way out through Viggo's men in the golden-lit warehouse, then out into the daylight street (FRAME-VERIFIED 01:11:12)",
       "censor": "none",
       "raw_duration_sec": 92.0,
-      "max_narration_words_en": 190,
+      "max_narration_words_en": 424,
       "extendable": false,
-      "stretch_tolerance": 1.05
+      "stretch_tolerance": 1.05,
+      "max_play_duration_sec": 92.0
     },
     {
       "id": "clip:01:13:12.0",
       "beat": 23,
       "clip_start": "01:13:12.0",
       "clip_end": "01:14:00.0",
-      "chars": ["John Wick"],
-      "depicts": ["dialogue"],
+      "chars": [
+        "John Wick"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
       "action": "John runs down a fleeing Tarasov man at his car and forces Iosef's location out of him at gunpoint (FRAME-VERIFIED 01:13:12)",
       "censor": "none",
       "raw_duration_sec": 48.0,
-      "max_narration_words_en": 140,
+      "max_narration_words_en": 221,
       "extendable": true,
-      "stretch_tolerance": 1.1
+      "stretch_tolerance": 1.1,
+      "max_play_duration_sec": 52.8
     },
     {
       "id": "clip:01:18:24.0",
       "beat": 24,
       "clip_start": "01:18:24.0",
       "clip_end": "01:19:08.0",
-      "chars": ["John Wick", "Marcus"],
-      "depicts": ["dialogue"],
+      "chars": [
+        "John Wick",
+        "Marcus"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
       "action": "John and Marcus meet under the bridge - two old friends, the last quiet moment before the cost of Marcus's loyalty comes due (FRAME-VERIFIED 01:18:24)",
       "censor": "none",
       "raw_duration_sec": 44.0,
-      "max_narration_words_en": 130,
+      "max_narration_words_en": 202,
       "extendable": true,
-      "stretch_tolerance": 1.1
+      "stretch_tolerance": 1.1,
+      "max_play_duration_sec": 48.4
     },
     {
       "id": "clip:01:19:40.0",
       "beat": 24,
       "clip_start": "01:19:40.0",
       "clip_end": "01:20:32.0",
-      "chars": ["Marcus", "Viggo Tarasov"],
-      "depicts": ["setup"],
+      "chars": [
+        "Marcus",
+        "Viggo Tarasov"
+      ],
+      "depicts": [
+        "setup"
+      ],
       "action": "Viggo's men are waiting inside Marcus's home; John, driving, phones to warn him - but Marcus already knows he is trapped (FRAME-VERIFIED 01:19:40)",
       "censor": "none",
       "raw_duration_sec": 52.0,
-      "max_narration_words_en": 150,
+      "max_narration_words_en": 239,
       "extendable": true,
-      "stretch_tolerance": 1.1
+      "stretch_tolerance": 1.1,
+      "max_play_duration_sec": 57.2
     },
     {
       "id": "clip:01:20:36.0",
       "beat": 24,
       "clip_start": "01:20:36.0",
       "clip_end": "01:21:36.0",
-      "chars": ["Marcus", "Viggo Tarasov"],
-      "depicts": ["emotion"],
+      "chars": [
+        "Marcus",
+        "Viggo Tarasov"
+      ],
+      "depicts": [
+        "emotion"
+      ],
       "action": "Viggo's men beat and torture Marcus for protecting John - the old assassin battered but unbroken (FRAME-VERIFIED 01:20:36)",
       "censor": "none",
       "raw_duration_sec": 60.0,
-      "max_narration_words_en": 170,
+      "max_narration_words_en": 276,
       "extendable": true,
-      "stretch_tolerance": 1.1
+      "stretch_tolerance": 1.1,
+      "max_play_duration_sec": 66.0
     },
     {
       "id": "clip:01:21:56.0",
       "beat": 24,
       "clip_start": "01:21:56.0",
       "clip_end": "01:22:20.0",
-      "chars": ["Marcus", "Ms. Perkins", "Viggo Tarasov"],
-      "depicts": ["emotion"],
+      "chars": [
+        "Marcus",
+        "Ms. Perkins",
+        "Viggo Tarasov"
+      ],
+      "depicts": [
+        "emotion"
+      ],
       "action": "Ms. Perkins executes Marcus as Viggo watches - loyalty repaid with death; John's one true friend is gone (FRAME-VERIFIED 01:21:56)",
       "censor": "none",
       "raw_duration_sec": 24.0,
-      "max_narration_words_en": 80,
+      "max_narration_words_en": 110,
       "extendable": true,
-      "stretch_tolerance": 1.1
+      "stretch_tolerance": 1.1,
+      "max_play_duration_sec": 26.4
     },
     {
       "id": "clip:01:23:12.0",
       "beat": 24,
       "clip_start": "01:23:12.0",
       "clip_end": "01:23:36.0",
-      "chars": ["John Wick", "Marcus"],
-      "depicts": ["emotion"],
+      "chars": [
+        "John Wick",
+        "Marcus"
+      ],
+      "depicts": [
+        "emotion"
+      ],
       "action": "John arrives too late and finds Marcus dead on the floor - he kneels beside his friend's body, the grief silent and total (FRAME-VERIFIED 01:23:12; let this land)",
       "censor": "none",
       "narration_silence_seconds": 8.0
@@ -1094,134 +1515,193 @@
       "beat": 25,
       "clip_start": "01:24:00.0",
       "clip_end": "01:24:24.0",
-      "chars": ["Ms. Perkins", "Winston"],
-      "depicts": ["action"],
+      "chars": [
+        "Ms. Perkins",
+        "Winston"
+      ],
+      "depicts": [
+        "action"
+      ],
       "action": "the Continental collects its due: Ms. Perkins, cornered in the underground hall, is executed by the house for breaking its rules - the world polices its own (FRAME-VERIFIED 01:24:00)",
       "censor": "none",
       "raw_duration_sec": 24.0,
-      "max_narration_words_en": 80,
+      "max_narration_words_en": 110,
       "extendable": true,
-      "stretch_tolerance": 1.1
+      "stretch_tolerance": 1.1,
+      "max_play_duration_sec": 26.4
     },
     {
       "id": "clip:01:24:24.0",
       "beat": 25,
       "clip_start": "01:24:24.0",
       "clip_end": "01:24:44.0",
-      "chars": ["John Wick", "Viggo Tarasov"],
-      "depicts": ["dialogue"],
+      "chars": [
+        "John Wick",
+        "Viggo Tarasov"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
       "action": "John phones Viggo directly - grief turned to cold purpose; Winston's code quietly points him to where Viggo is fleeing (FRAME-VERIFIED 01:24:24)",
       "censor": "none",
       "raw_duration_sec": 20.0,
-      "max_narration_words_en": 72,
+      "max_narration_words_en": 91,
       "extendable": true,
-      "stretch_tolerance": 1.1
+      "stretch_tolerance": 1.1,
+      "max_play_duration_sec": 22.0
     },
     {
       "id": "clip:01:26:24.0",
       "beat": 26,
       "clip_start": "01:26:24.0",
       "clip_end": "01:27:00.0",
-      "chars": ["John Wick", "Viggo Tarasov"],
-      "depicts": ["action"],
+      "chars": [
+        "John Wick",
+        "Viggo Tarasov"
+      ],
+      "depicts": [
+        "action"
+      ],
       "action": "John hits the shipyard where Viggo's convoy is fleeing to a helicopter; a firefight erupts across the wet docks - 'I knew he'd come' (FRAME-VERIFIED 01:26:24)",
       "censor": "none",
       "raw_duration_sec": 36.0,
-      "max_narration_words_en": 110,
+      "max_narration_words_en": 165,
       "extendable": false,
-      "stretch_tolerance": 1.05
+      "stretch_tolerance": 1.05,
+      "max_play_duration_sec": 36.0
     },
     {
       "id": "clip:01:27:12.0",
       "beat": 26,
       "clip_start": "01:27:12.0",
       "clip_end": "01:27:40.0",
-      "chars": ["John Wick", "Iosef Tarasov"],
-      "depicts": ["action"],
+      "chars": [
+        "John Wick",
+        "Iosef Tarasov"
+      ],
+      "depicts": [
+        "action"
+      ],
       "action": "John reaches Iosef in a car and finally kills him - the revenge that started it all, closed, as Viggo watches his son die (FRAME-VERIFIED 01:27:12)",
       "censor": "none",
       "raw_duration_sec": 28.0,
-      "max_narration_words_en": 90,
+      "max_narration_words_en": 128,
       "extendable": false,
-      "stretch_tolerance": 1.05
+      "stretch_tolerance": 1.05,
+      "max_play_duration_sec": 28.0
     },
     {
       "id": "clip:01:27:44.0",
       "beat": 26,
       "clip_start": "01:27:44.0",
       "clip_end": "01:28:44.0",
-      "chars": ["John Wick", "Viggo Tarasov"],
-      "depicts": ["action"],
+      "chars": [
+        "John Wick",
+        "Viggo Tarasov"
+      ],
+      "depicts": [
+        "action"
+      ],
       "action": "with his son dead, Viggo flees and John gives chase - a running car battle through the dark docks toward the final reckoning (FRAME-VERIFIED 01:27:44)",
       "censor": "none",
       "raw_duration_sec": 60.0,
-      "max_narration_words_en": 170,
+      "max_narration_words_en": 276,
       "extendable": false,
-      "stretch_tolerance": 1.05
+      "stretch_tolerance": 1.05,
+      "max_play_duration_sec": 60.0
     },
     {
       "id": "clip:01:28:48.0",
       "beat": 27,
       "clip_start": "01:28:48.0",
       "clip_end": "01:29:12.0",
-      "chars": ["John Wick", "Viggo Tarasov"],
-      "depicts": ["action"],
+      "chars": [
+        "John Wick",
+        "Viggo Tarasov"
+      ],
+      "depicts": [
+        "action"
+      ],
       "action": "the chase ends in a crash on the rain-soaked dock; both men drag themselves from the wreckage, spent and wounded (FRAME-VERIFIED 01:28:48)",
       "censor": "none",
       "raw_duration_sec": 24.0,
-      "max_narration_words_en": 80,
+      "max_narration_words_en": 110,
       "extendable": false,
-      "stretch_tolerance": 1.05
+      "stretch_tolerance": 1.05,
+      "max_play_duration_sec": 24.0
     },
     {
       "id": "clip:01:29:12.0",
       "beat": 27,
       "clip_start": "01:29:12.0",
       "clip_end": "01:29:36.0",
-      "chars": ["John Wick", "Viggo Tarasov"],
-      "depicts": ["setup"],
+      "chars": [
+        "John Wick",
+        "Viggo Tarasov"
+      ],
+      "depicts": [
+        "setup"
+      ],
       "action": "in the pouring rain, guns and bullets spent, John and Viggo square off - 'no more guns, John... just you and me' - stripped to the two men themselves (FRAME-VERIFIED 01:29:12)",
       "censor": "none",
       "raw_duration_sec": 24.0,
-      "max_narration_words_en": 80,
+      "max_narration_words_en": 110,
       "extendable": true,
-      "stretch_tolerance": 1.1
+      "stretch_tolerance": 1.1,
+      "max_play_duration_sec": 26.4
     },
     {
       "id": "clip:01:29:36.0",
       "beat": 28,
       "clip_start": "01:29:36.0",
       "clip_end": "01:30:24.0",
-      "chars": ["John Wick", "Viggo Tarasov"],
-      "depicts": ["action"],
+      "chars": [
+        "John Wick",
+        "Viggo Tarasov"
+      ],
+      "depicts": [
+        "action"
+      ],
       "action": "RAIN FIGHT stage 1: two exhausted men trade brutal blows in the downpour, grappling to the wet ground - no style left, just will (FRAME-VERIFIED 01:29:36)",
       "censor": "none",
       "raw_duration_sec": 48.0,
-      "max_narration_words_en": 140,
+      "max_narration_words_en": 221,
       "extendable": false,
-      "stretch_tolerance": 1.05
+      "stretch_tolerance": 1.05,
+      "max_play_duration_sec": 48.0
     },
     {
       "id": "clip:01:30:24.0",
       "beat": 28,
       "clip_start": "01:30:24.0",
       "clip_end": "01:31:12.0",
-      "chars": ["John Wick", "Viggo Tarasov"],
-      "depicts": ["action"],
+      "chars": [
+        "John Wick",
+        "Viggo Tarasov"
+      ],
+      "depicts": [
+        "action"
+      ],
       "action": "RAIN FIGHT stage 2: Viggo pulls a knife; John disarms him and turns it, the fight grinding to its exhausted end (FRAME-VERIFIED 01:30:24)",
       "censor": "none",
       "raw_duration_sec": 48.0,
-      "max_narration_words_en": 140,
+      "max_narration_words_en": 221,
       "extendable": false,
-      "stretch_tolerance": 1.05
+      "stretch_tolerance": 1.05,
+      "max_play_duration_sec": 48.0
     },
     {
       "id": "clip:01:31:36.0",
       "beat": 28,
       "clip_start": "01:31:36.0",
       "clip_end": "01:32:00.0",
-      "chars": ["John Wick", "Viggo Tarasov"],
-      "depicts": ["action"],
+      "chars": [
+        "John Wick",
+        "Viggo Tarasov"
+      ],
+      "depicts": [
+        "action"
+      ],
       "action": "the finish: John ends it, and Viggo falls - the war that took everything from him is over (FRAME-VERIFIED 01:31:36; let the beat land, do not over-narrate)",
       "censor": "none",
       "narration_silence_seconds": 5.0
@@ -1231,50 +1711,69 @@
       "beat": 28,
       "clip_start": "01:32:00.0",
       "clip_end": "01:32:24.0",
-      "chars": ["John Wick"],
-      "depicts": ["emotion"],
+      "chars": [
+        "John Wick"
+      ],
+      "depicts": [
+        "emotion"
+      ],
       "action": "John stands alone in the rain, gravely wounded, and staggers away from Viggo's body - victorious, and utterly hollowed out (FRAME-VERIFIED 01:32:00)",
       "censor": "none",
       "raw_duration_sec": 24.0,
-      "max_narration_words_en": 80,
+      "max_narration_words_en": 110,
       "extendable": true,
-      "stretch_tolerance": 1.1
+      "stretch_tolerance": 1.1,
+      "max_play_duration_sec": 26.4
     },
     {
       "id": "clip:01:32:48.0",
       "beat": 29,
       "clip_start": "01:32:48.0",
       "clip_end": "01:34:00.0",
-      "chars": ["John Wick"],
-      "depicts": ["emotion"],
+      "chars": [
+        "John Wick"
+      ],
+      "depicts": [
+        "emotion"
+      ],
       "action": "John breaks into an animal clinic and stitches his own wounds - alone again, but alive, the way he began (FRAME-VERIFIED 01:32:48)",
       "censor": "none",
       "raw_duration_sec": 72.0,
-      "max_narration_words_en": 180,
+      "max_narration_words_en": 332,
       "extendable": true,
-      "stretch_tolerance": 1.1
+      "stretch_tolerance": 1.1,
+      "max_play_duration_sec": 79.2
     },
     {
       "id": "clip:01:34:04.0",
       "beat": 30,
       "clip_start": "01:34:04.0",
       "clip_end": "01:34:24.0",
-      "chars": ["John Wick"],
-      "depicts": ["emotion"],
+      "chars": [
+        "John Wick"
+      ],
+      "depicts": [
+        "emotion"
+      ],
       "action": "at the kennels John frees a dog from its cage - choosing, again, to have something to protect; something to live for (FRAME-VERIFIED 01:34:04; mirrors Daisy, the opening gift)",
       "censor": "none",
       "raw_duration_sec": 20.0,
-      "max_narration_words_en": 72,
+      "max_narration_words_en": 91,
       "extendable": true,
-      "stretch_tolerance": 1.1
+      "stretch_tolerance": 1.1,
+      "max_play_duration_sec": 22.0
     },
     {
       "id": "clip:01:34:24.0",
       "beat": 30,
       "clip_start": "01:34:24.0",
       "clip_end": "01:34:38.0",
-      "chars": ["John Wick"],
-      "depicts": ["emotion"],
+      "chars": [
+        "John Wick"
+      ],
+      "depicts": [
+        "emotion"
+      ],
       "action": "John and the dog walk off together along the same night waterfront where he grieved - not peace, but a reason to keep going (FRAME-VERIFIED 01:34:24; the quiet close, let it breathe)",
       "censor": "none",
       "narration_silence_seconds": 6.0

@@ -10,5 +10,66 @@
     "binding_unverified": 0,
     "continuity_issues": 0,
     "binding_violations": 0
+  },
+  "declared_target_minutes": 20,
+  "declared_target_pinned": "2026-09-13T09:38:41+00:00",
+  "ratchet": {
+    "beats": 59,
+    "reveals": {
+      "R1": {
+        "land_sec": 5930.0,
+        "holds": [
+          "in on it",
+          "in on the joke",
+          "knew all along",
+          "knew he was underage",
+          "knew the whole time",
+          "never fooled",
+          "not fooled",
+          "played along",
+          "playing along",
+          "pretending to be fooled",
+          "saw through the id",
+          "staged the whole night",
+          "were in on it",
+          "weren't fooled"
+        ]
+      },
+      "R2": {
+        "land_sec": 6304.0,
+        "holds": [
+          "already knew",
+          "been hiding it",
+          "housing forms",
+          "knew about the rooming",
+          "knew for weeks",
+          "knew they were rooming",
+          "saw the forms",
+          "three weeks ago"
+        ]
+      }
+    },
+    "set_pieces": {
+      "SP1": {
+        "start": 4515.0,
+        "end": 4832.0,
+        "keep": true
+      },
+      "SP2": {
+        "start": 6135.0,
+        "end": 6275.0,
+        "keep": true
+      },
+      "SP3": {
+        "start": 4180.0,
+        "end": 4234.0,
+        "keep": false
+      },
+      "SP4": {
+        "start": 3335.0,
+        "end": 3372.0,
+        "keep": false
+      }
+    }
   }
 }

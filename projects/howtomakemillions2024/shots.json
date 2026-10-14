@@ -1,0 +1,4233 @@
+{
+  "_comment": "Catalogue built pass by pass. Every entry below was verified against frames/overview/page_NNN.jpg before being written. Nothing is entered from the Wikipedia plot alone. Boundaries are snapped to _cuts.json where a detected cut falls within 2.5s; where no cut is near, the observed time is kept rather than forcing a false alignment - this film averages 4.9 cuts/min (Superbad: 16.3) and holds shots for 30s+ at a time.",
+  "_censor_note": "No explicit content observed anywhere in the film (00:00:00-01:59:05.8). All entries censor=none. Two judgement calls, both left uncensored per S7: the care-home ward (01:41:33-01:43:13) and Amah's deathbed (01:49:30-01:51:20) show feeding/oxygen tubes and terminal illness, shot without graphic detail - S7 says implied and non-graphic medical content is not censored. No body is visible at the funeral; the coffin is closed throughout.",
+  "_pass_status": "CATALOGUE COMPLETE to the end of the narrative. PASS 1 pages 001-011 (00:00:00-00:33:00). PASS 2 pages 012-022 (00:33:00-01:06:00). PASS 3 pages 023-025 (01:06:00-01:15:00). PASS 4 page 026 (01:15:00-01:18:00). PASS 5 pages 027-036 (01:18:00-01:48:00). PASS 6 pages 037-040 (01:48:00-01:59:05.8). THE FILM'S NARRATIVE ENDS AT 01:59:05.8 (cut to black, _cuts.json 7145.833). Pages 041-043 (01:59:05.8-02:06:47) were read in full and are TEXT CREDITS ONLY - no mid-credit and no post-credit footage. They are deliberately not catalogued. R1 (the savings passbook and the childhood flashback) is now catalogued at B54-B55.",
+  "project": "howtomakemillions2024",
+  "film_title": "How to Make Millions Before Grandma Dies",
+  "depth_target": "video_essay",
+  "_depth_note": "FINAL after pass 6: 280 shots over 119.1 min of narrative (2.35/min). Per-pass density: p1 1.73, p2 1.55, p3 2.78, p4 3.33, p5 3.33, p6 3.33 shots/min. The step up at pass 3 is the S10 depth discipline being applied and passes 4-6 hold that line. It is NOT the film cutting faster - detected cuts run 5.58/min in pass 1's window and 4.73/min in pass 5's. TIER PROBLEM, unresolved by design: video_essay is 110-130 shots and this catalogue is 280. Selection is a DRAFT-stage decision - deleting frame-verified coverage to hit a number destroys the one thing that cannot be rebuilt without re-reading every page. Either re-declare the tier or select at authoring time.",
+  "shots": [
+    {
+      "id": "clip:00:00:52.8",
+      "beat": "B01",
+      "clip_start": "00:00:52.8",
+      "clip_end": "00:01:10.0",
+      "chars": [],
+      "depicts": [
+        "establishing"
+      ],
+      "action": "Wide over a hillside cemetery, tall grass moving in the wind above the terraced family graves",
+      "family": "cemetery_hillside",
+      "censor": "none"
+    },
+    {
+      "id": "clip:00:01:10.0",
+      "beat": "B01",
+      "clip_start": "00:01:10.0",
+      "clip_end": "00:01:32.0",
+      "chars": [
+        "Amah Saejiu",
+        "Sew"
+      ],
+      "depicts": [
+        "setup"
+      ],
+      "action": "Amah stands at the family grave under a lace parasol with her hands pressed together, Sew beside her in a floral dress",
+      "family": "qingming_grave",
+      "censor": "none"
+    },
+    {
+      "id": "clip:00:01:32.0",
+      "beat": "B01",
+      "clip_start": "00:01:32.0",
+      "clip_end": "00:01:55.3",
+      "chars": [],
+      "depicts": [
+        "transition"
+      ],
+      "action": "A van unloads relatives, folding stools and baskets along the row of graves as the family assembles",
+      "family": "qingming_arrival",
+      "censor": "none"
+    },
+    {
+      "id": "clip:00:02:00.4",
+      "beat": "B01",
+      "clip_start": "00:02:00.4",
+      "clip_end": "00:02:35.0",
+      "chars": [
+        "M",
+        "Amah Saejiu",
+        "Sew"
+      ],
+      "depicts": [
+        "setup"
+      ],
+      "action": "M sits apart on the grave ledge scrolling his phone while Amah and Sew lay out the offering dishes below him",
+      "family": "qingming_offerings",
+      "censor": "none"
+    },
+    {
+      "id": "clip:00:02:35.0",
+      "beat": "B01",
+      "clip_start": "00:02:35.0",
+      "clip_end": "00:03:25.0",
+      "chars": [
+        "Amah Saejiu",
+        "Sew"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "action": "Amah kneels on the grave slab arranging fruit, bowls and incense, working steadily through the ritual",
+      "family": "qingming_ritual",
+      "censor": "none"
+    },
+    {
+      "id": "clip:00:03:30.0",
+      "beat": "B01",
+      "clip_start": "00:03:30.0",
+      "clip_end": "00:03:45.0",
+      "chars": [
+        "Amah Saejiu"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "action": "A man in a white shirt holds a phone up to Amah at the graveside showing a video call; he is not identifiable at overview resolution",
+      "family": "qingming_videocall",
+      "censor": "none"
+    },
+    {
+      "id": "clip:00:03:45.0",
+      "beat": "B01",
+      "clip_start": "00:03:45.0",
+      "clip_end": "00:04:30.0",
+      "chars": [
+        "M",
+        "Amah Saejiu"
+      ],
+      "depicts": [
+        "setup"
+      ],
+      "action": "M sits on the grave ledge with his phone while Amah moves around him tending the plot and hanging a marker in the tree",
+      "family": "qingming_m_apart",
+      "censor": "none"
+    },
+    {
+      "id": "clip:00:04:30.0",
+      "beat": "B01",
+      "clip_start": "00:04:30.0",
+      "clip_end": "00:04:59.1",
+      "chars": [
+        "M"
+      ],
+      "depicts": [
+        "emotion"
+      ],
+      "action": "M sits alone on the grass slope above the graves, absorbed in his phone, the ritual continuing out of focus below",
+      "family": "qingming_m_alone",
+      "censor": "none"
+    },
+    {
+      "id": "clip:00:04:59.1",
+      "beat": "B02",
+      "clip_start": "00:04:59.1",
+      "clip_end": "00:05:20.0",
+      "chars": [],
+      "depicts": [
+        "establishing"
+      ],
+      "action": "The hospital emergency entrance in flat daylight, empty chairs outside",
+      "family": "hospital_exterior",
+      "censor": "none"
+    },
+    {
+      "id": "clip:00:05:20.0",
+      "beat": "B02",
+      "clip_start": "00:05:20.0",
+      "clip_end": "00:05:45.0",
+      "chars": [
+        "Amah Saejiu"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "action": "Amah is lifted out of a car into a wheelchair at the hospital entrance by staff and family",
+      "family": "hospital_arrival",
+      "censor": "none"
+    },
+    {
+      "id": "clip:00:05:45.0",
+      "beat": "B02",
+      "clip_start": "00:05:45.0",
+      "clip_end": "00:05:57.8",
+      "chars": [
+        "M",
+        "Sew"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "action": "Beside the open car door M and Sew talk with an older male relative; M has his backpack on",
+      "family": "hospital_kerbside",
+      "censor": "none"
+    },
+    {
+      "id": "clip:00:05:57.8",
+      "beat": "B03",
+      "clip_start": "00:05:57.8",
+      "clip_end": "00:06:27.0",
+      "chars": [
+        "M"
+      ],
+      "depicts": [
+        "setup"
+      ],
+      "action": "M's darkened room: a lit gaming rig and monitor, M in a headset hunched at the screen",
+      "family": "m_gaming_rig",
+      "censor": "none"
+    },
+    {
+      "id": "clip:00:06:27.0",
+      "beat": "B03",
+      "clip_start": "00:06:27.0",
+      "clip_end": "00:07:05.0",
+      "chars": [
+        "M",
+        "Sew"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "action": "In the living room M stands behind Sew kneading her shoulders while they talk",
+      "family": "m_sew_livingroom",
+      "censor": "none"
+    },
+    {
+      "id": "clip:00:07:05.0",
+      "beat": "B03",
+      "clip_start": "00:07:05.0",
+      "clip_end": "00:08:00.0",
+      "chars": [
+        "M",
+        "Sew"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "action": "Sew stands over M at his desk; he keeps playing in his headset while she talks at him",
+      "family": "m_sew_desk",
+      "censor": "none"
+    },
+    {
+      "id": "clip:00:08:00.0",
+      "beat": "B03",
+      "clip_start": "00:08:00.0",
+      "clip_end": "00:08:36.4",
+      "chars": [
+        "M"
+      ],
+      "depicts": [
+        "setup"
+      ],
+      "action": "M alone at the keyboard talking to his stream; the live chat overlay fills the screen",
+      "family": "m_stream_chat",
+      "censor": "none"
+    },
+    {
+      "id": "clip:00:08:36.4",
+      "beat": "B04",
+      "clip_start": "00:08:36.4",
+      "clip_end": "00:08:59.2",
+      "chars": [
+        "M",
+        "Agong"
+      ],
+      "depicts": [
+        "setup"
+      ],
+      "action": "Agong lies in a hospital bed set up in the family living room; M sits beside it looking at his phone",
+      "family": "agong_bedside",
+      "censor": "none"
+    },
+    {
+      "id": "clip:00:08:59.2",
+      "beat": "B04",
+      "clip_start": "00:08:59.2",
+      "clip_end": "00:09:30.7",
+      "chars": [
+        "M",
+        "Mui",
+        "Agong"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "action": "Mui arrives with a tray and works around Agong's bed, raising the frame, while M stands watching",
+      "family": "mui_caring",
+      "censor": "none"
+    },
+    {
+      "id": "clip:00:09:30.7",
+      "beat": "B04",
+      "clip_start": "00:09:30.7",
+      "clip_end": "00:10:05.0",
+      "chars": [
+        "Mui",
+        "Agong"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "action": "Mui changes and cleans Agong in the bed on her own, gloved, while M fills a kettle in the next room",
+      "family": "mui_bedcare",
+      "censor": "none"
+    },
+    {
+      "id": "clip:00:10:05.0",
+      "beat": "B04",
+      "clip_start": "00:10:05.0",
+      "clip_end": "00:10:28.2",
+      "chars": [
+        "M",
+        "Mui"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "action": "M sits on the bench across the room talking to Mui while she keeps working at the bedside",
+      "family": "m_mui_room",
+      "censor": "none"
+    },
+    {
+      "id": "clip:00:10:33.5",
+      "beat": "B05",
+      "clip_start": "00:10:33.5",
+      "clip_end": "00:10:58.5",
+      "chars": [
+        "M"
+      ],
+      "depicts": [
+        "setup"
+      ],
+      "action": "The funeral hall: family in white mourning dress and paper hats, monks, Agong's framed portrait banked with flowers",
+      "family": "funeral_hall",
+      "censor": "none"
+    },
+    {
+      "id": "clip:00:10:58.5",
+      "beat": "B05",
+      "clip_start": "00:10:58.5",
+      "clip_end": "00:11:32.0",
+      "chars": [
+        "M"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "action": "M in white mourning clothes sits with an older woman in black at the funeral; relatives kneel on the floor behind them",
+      "family": "funeral_seated",
+      "censor": "none"
+    },
+    {
+      "id": "clip:00:11:32.0",
+      "beat": "B05",
+      "clip_start": "00:11:32.0",
+      "clip_end": "00:12:13.2",
+      "chars": [
+        "M"
+      ],
+      "depicts": [
+        "emotion"
+      ],
+      "action": "At night the paper offerings burn in a tall open fire; M stands in white watching them go up",
+      "family": "funeral_burning",
+      "censor": "none"
+    },
+    {
+      "id": "clip:00:12:13.2",
+      "beat": "B06",
+      "clip_start": "00:12:13.2",
+      "clip_end": "00:12:45.0",
+      "chars": [],
+      "depicts": [
+        "establishing"
+      ],
+      "action": "Bangkok by day - the elevated train crossing above the rooftops with the Big Buddha behind it",
+      "family": "bangkok_skytrain",
+      "censor": "none"
+    },
+    {
+      "id": "clip:00:12:45.0",
+      "beat": "B06",
+      "clip_start": "00:12:45.0",
+      "clip_end": "00:13:29.4",
+      "chars": [],
+      "depicts": [
+        "establishing"
+      ],
+      "action": "Street level - shophouse rows, traffic and the railway line running between the buildings",
+      "family": "bangkok_street",
+      "censor": "none"
+    },
+    {
+      "id": "clip:00:13:29.4",
+      "beat": "B06",
+      "clip_start": "00:13:29.4",
+      "clip_end": "00:14:00.3",
+      "chars": [
+        "M"
+      ],
+      "depicts": [
+        "transition"
+      ],
+      "action": "M walks along the tracks and turns into the lanes of the old neighbourhood, a cat in a window",
+      "family": "m_walks_lane",
+      "censor": "none"
+    },
+    {
+      "id": "clip:00:14:00.3",
+      "beat": "B06",
+      "clip_start": "00:14:00.3",
+      "clip_end": "00:14:29.2",
+      "chars": [],
+      "depicts": [
+        "setup"
+      ],
+      "action": "The film's title card appears over a bag of fish hung in the greenery of the lane",
+      "family": "title_card",
+      "censor": "none"
+    },
+    {
+      "id": "clip:00:14:29.2",
+      "beat": "B07",
+      "clip_start": "00:14:29.2",
+      "clip_end": "00:15:15.0",
+      "chars": [
+        "M"
+      ],
+      "depicts": [
+        "transition"
+      ],
+      "action": "M walks the length of the narrow lane to a green folding gate, phone in hand, and calls in through the bars",
+      "family": "green_gate_arrival",
+      "censor": "none"
+    },
+    {
+      "id": "clip:00:15:15.0",
+      "beat": "B07",
+      "clip_start": "00:15:15.0",
+      "clip_end": "00:16:00.1",
+      "chars": [
+        "M",
+        "Amah Saejiu"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "action": "Inside the dim shophouse M talks to Amah across the cluttered room of glass cabinets and stacked pans",
+      "family": "shophouse_interior",
+      "censor": "none"
+    },
+    {
+      "id": "clip:00:16:00.1",
+      "beat": "B08",
+      "clip_start": "00:16:00.1",
+      "clip_end": "00:16:32.0",
+      "chars": [],
+      "depicts": [
+        "establishing"
+      ],
+      "action": "The trackside food stall in the morning - fish grilling over the fire, the market crowd pressing past under umbrellas",
+      "family": "trackside_market",
+      "censor": "none"
+    },
+    {
+      "id": "clip:00:16:32.0",
+      "beat": "B08",
+      "clip_start": "00:16:32.0",
+      "clip_end": "00:17:15.4",
+      "chars": [
+        "M",
+        "Amah Saejiu"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "action": "M and Amah eat together at the kitchen table with a whole steamed fish between them",
+      "family": "kitchen_meal",
+      "censor": "none"
+    },
+    {
+      "id": "clip:00:17:15.4",
+      "beat": "B08",
+      "clip_start": "00:17:15.4",
+      "clip_end": "00:18:00.0",
+      "chars": [
+        "M",
+        "Amah Saejiu"
+      ],
+      "depicts": [
+        "setup"
+      ],
+      "action": "M carries shopping bags back through the lane; Amah lies down on the daybed among the medicine bottles on the table",
+      "family": "amah_daybed",
+      "censor": "none"
+    },
+    {
+      "id": "clip:00:18:00.0",
+      "beat": "B09",
+      "clip_start": "00:18:00.0",
+      "clip_end": "00:18:29.0",
+      "chars": [
+        "M"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "action": "M heats food in the microwave and sets out containers and cups in the kitchen",
+      "family": "kitchen_reheat",
+      "censor": "none"
+    },
+    {
+      "id": "clip:00:18:29.0",
+      "beat": "B09",
+      "clip_start": "00:18:29.0",
+      "clip_end": "00:18:59.7",
+      "chars": [
+        "M"
+      ],
+      "depicts": [
+        "emotion"
+      ],
+      "action": "M stands alone at the household shrine with its red electric candles, looking at the offerings",
+      "family": "house_shrine",
+      "censor": "none"
+    },
+    {
+      "id": "clip:00:18:59.7",
+      "beat": "B09",
+      "clip_start": "00:18:59.7",
+      "clip_end": "00:19:28.4",
+      "chars": [
+        "M"
+      ],
+      "depicts": [
+        "transition"
+      ],
+      "action": "M leaves through the green gate and crosses town carrying a cardboard box to a modern townhouse",
+      "family": "m_box_crosstown",
+      "censor": "none"
+    },
+    {
+      "id": "clip:00:19:28.4",
+      "beat": "B09",
+      "clip_start": "00:19:28.4",
+      "clip_end": "00:20:27.8",
+      "chars": [
+        "M",
+        "Mui"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "action": "In a hotel lobby M hands Mui the cardboard box and they stand talking by the stair rail",
+      "family": "hotel_lobby",
+      "censor": "none"
+    },
+    {
+      "id": "clip:00:20:27.8",
+      "beat": "B09",
+      "clip_start": "00:20:27.8",
+      "clip_end": "00:21:35.0",
+      "chars": [
+        "M",
+        "Mui"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "action": "In the hotel room Mui hangs clothes on a rolling rack while M sits and talks to her, the lit city in the window",
+      "family": "hotel_room_rack",
+      "censor": "none"
+    },
+    {
+      "id": "clip:00:22:01.4",
+      "beat": "B09",
+      "clip_start": "00:22:01.4",
+      "clip_end": "00:22:58.4",
+      "chars": [
+        "M",
+        "Mui"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "action": "M and Mui stand facing each other in the middle of the room; the conversation stops being casual",
+      "family": "hotel_room_confront",
+      "censor": "none"
+    },
+    {
+      "id": "clip:00:22:58.4",
+      "beat": "B09",
+      "clip_start": "00:22:58.4",
+      "clip_end": "00:24:05.0",
+      "chars": [
+        "M",
+        "Mui"
+      ],
+      "depicts": [
+        "emotion"
+      ],
+      "action": "Close two-shot of M and Mui at the window, the night city behind them, as she talks and he listens without answering",
+      "family": "hotel_room_closeup",
+      "censor": "none"
+    },
+    {
+      "id": "clip:00:24:05.0",
+      "beat": "B10",
+      "clip_start": "00:24:05.0",
+      "clip_end": "00:24:38.0",
+      "chars": [
+        "M"
+      ],
+      "depicts": [
+        "setup"
+      ],
+      "action": "M packs up his own room at home, pulling bedding and clothes together and clearing the shelves",
+      "family": "m_packs_room",
+      "censor": "none"
+    },
+    {
+      "id": "clip:00:24:38.0",
+      "beat": "B10",
+      "clip_start": "00:24:38.0",
+      "clip_end": "00:25:00.8",
+      "chars": [
+        "M",
+        "Sew"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "action": "M and Sew work along the produce aisle of a supermarket, talking across the fruit",
+      "family": "supermarket",
+      "censor": "none"
+    },
+    {
+      "id": "clip:00:25:00.8",
+      "beat": "B10",
+      "clip_start": "00:25:00.8",
+      "clip_end": "00:25:30.1",
+      "chars": [
+        "M",
+        "Amah Saejiu"
+      ],
+      "depicts": [
+        "setup"
+      ],
+      "action": "M arrives at Amah's with his bags and sits down at her table; she comes through from the back in her housecoat",
+      "family": "m_moves_in",
+      "censor": "none"
+    },
+    {
+      "id": "clip:00:25:30.1",
+      "beat": "B10",
+      "clip_start": "00:25:30.1",
+      "clip_end": "00:25:58.0",
+      "chars": [
+        "M",
+        "Amah Saejiu"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "action": "Amah stands in the gateway pointing a red-handled kitchen tool at M as she lays down her terms; M stays sitting",
+      "family": "amah_lays_down_terms",
+      "censor": "none"
+    },
+    {
+      "id": "clip:00:25:58.0",
+      "beat": "B11",
+      "clip_start": "00:25:58.0",
+      "clip_end": "00:26:38.0",
+      "chars": [
+        "M",
+        "Amah Saejiu"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "action": "Amah sits at the table with M beside her, an orange and a cash tin in front of them, going through it item by item",
+      "family": "amah_cash_tin",
+      "censor": "none"
+    },
+    {
+      "id": "clip:00:26:38.0",
+      "beat": "B11",
+      "clip_start": "00:26:38.0",
+      "clip_end": "00:27:20.0",
+      "chars": [
+        "M",
+        "Amah Saejiu"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "action": "Close two-shot across the table, Amah talking steadily and M listening in profile",
+      "family": "amah_m_table_closeup",
+      "censor": "none"
+    },
+    {
+      "id": "clip:00:27:20.0",
+      "beat": "B11",
+      "clip_start": "00:27:20.0",
+      "clip_end": "00:27:57.7",
+      "chars": [
+        "M"
+      ],
+      "depicts": [
+        "setup"
+      ],
+      "action": "M wanders the old shophouse on his own, past the glass display cabinets and the tall standing clock",
+      "family": "shophouse_explore",
+      "censor": "none"
+    },
+    {
+      "id": "clip:00:27:57.7",
+      "beat": "B12",
+      "clip_start": "00:27:57.7",
+      "clip_end": "00:28:20.0",
+      "chars": [
+        "M",
+        "Amah Saejiu"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "action": "Amah climbs the stairs past the flowers on the landing with M following a step behind",
+      "family": "stairs_landing",
+      "censor": "none"
+    },
+    {
+      "id": "clip:00:28:20.0",
+      "beat": "B12",
+      "clip_start": "00:28:20.0",
+      "clip_end": "00:28:45.0",
+      "chars": [
+        "M",
+        "Amah Saejiu"
+      ],
+      "depicts": [
+        "emotion"
+      ],
+      "action": "Night in the shophouse: Amah asleep on the daybed, M lying down near her and settling a cover over her",
+      "family": "night_daybed",
+      "censor": "none",
+      "narration_silence_seconds": 6.0
+    },
+    {
+      "id": "clip:00:28:45.0",
+      "beat": "B13",
+      "clip_start": "00:28:45.0",
+      "clip_end": "00:29:02.0",
+      "chars": [],
+      "depicts": [
+        "establishing"
+      ],
+      "action": "The lane and the railway at first light, a cat crossing the rails",
+      "family": "dawn_tracks",
+      "censor": "none"
+    },
+    {
+      "id": "clip:00:29:02.0",
+      "beat": "B13",
+      "clip_start": "00:29:02.0",
+      "clip_end": "00:29:30.0",
+      "chars": [
+        "M",
+        "Amah Saejiu"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "action": "Amah and M work the congee pots at the trackside stall in the early morning, ladling and stacking bowls",
+      "family": "congee_stall_work",
+      "censor": "none"
+    },
+    {
+      "id": "clip:00:29:30.0",
+      "beat": "B13",
+      "clip_start": "00:29:30.0",
+      "clip_end": "00:30:02.0",
+      "chars": [],
+      "depicts": [
+        "establishing"
+      ],
+      "action": "The shophouse row along the tracks as the neighbourhood opens up for the day",
+      "family": "shophouse_row",
+      "censor": "none"
+    },
+    {
+      "id": "clip:00:30:02.0",
+      "beat": "B14",
+      "clip_start": "00:30:02.0",
+      "clip_end": "00:30:30.6",
+      "chars": [
+        "M",
+        "Amah Saejiu"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "action": "Amah and M in a shop hung with red lanterns and paper funeral goods; she picks through the stock while he leans in",
+      "family": "paper_goods_shop",
+      "censor": "none"
+    },
+    {
+      "id": "clip:00:30:30.6",
+      "beat": "B14",
+      "clip_start": "00:30:30.6",
+      "clip_end": "00:31:02.5",
+      "chars": [
+        "M",
+        "Amah Saejiu"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "action": "Amah starts across a busy road on her own; M comes after her and takes her arm at the kerb",
+      "family": "road_crossing",
+      "censor": "none"
+    },
+    {
+      "id": "clip:00:31:02.5",
+      "beat": "B15",
+      "clip_start": "00:31:02.5",
+      "clip_end": "00:31:32.0",
+      "chars": [
+        "M"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "action": "M washes up in the narrow kitchen, crouched at the low sink among the pots",
+      "family": "kitchen_washing",
+      "censor": "none"
+    },
+    {
+      "id": "clip:00:31:32.0",
+      "beat": "B15",
+      "clip_start": "00:31:32.0",
+      "clip_end": "00:31:59.4",
+      "chars": [
+        "M",
+        "Amah Saejiu"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "action": "Amah stands at the cabinet sorting through it with M beside her; she puts something into his hands",
+      "family": "cabinet_handover",
+      "censor": "none"
+    },
+    {
+      "id": "clip:00:31:59.4",
+      "beat": "B16",
+      "clip_start": "00:31:59.4",
+      "clip_end": "00:32:32.0",
+      "chars": [
+        "M",
+        "Amah Saejiu"
+      ],
+      "depicts": [
+        "emotion"
+      ],
+      "action": "Amah sits out in the lane on a low stool; M crouches down beside her chair and they talk at eye level",
+      "family": "lane_sitting",
+      "censor": "none"
+    },
+    {
+      "id": "clip:00:32:32.0",
+      "beat": "B16",
+      "clip_start": "00:32:32.0",
+      "clip_end": "00:32:47.0",
+      "chars": [
+        "M",
+        "Amah Saejiu"
+      ],
+      "depicts": [
+        "emotion"
+      ],
+      "action": "Close on the two of them together in the lane, Amah in the foreground and M behind her shoulder",
+      "family": "lane_closeup",
+      "censor": "none",
+      "narration_silence_seconds": 5.0
+    },
+    {
+      "id": "clip:00:32:47.0",
+      "beat": "B16",
+      "clip_start": "00:32:47.0",
+      "clip_end": "00:33:00.0",
+      "chars": [],
+      "depicts": [
+        "setup"
+      ],
+      "action": "A family meal being laid out on the table, dishes and rice going down as people gather",
+      "family": "family_meal_setup",
+      "censor": "none"
+    },
+    {
+      "id": "clip:00:33:00.0",
+      "beat": "B17",
+      "clip_start": "00:33:00.0",
+      "clip_end": "00:33:20.0",
+      "chars": [
+        "Amah Saejiu"
+      ],
+      "depicts": [
+        "setup"
+      ],
+      "action": "The family crowds into the shophouse for the weekly meal, dishes going down on the green table around Amah",
+      "family": "weekly_meal_arrive",
+      "censor": "none"
+    },
+    {
+      "id": "clip:00:33:20.0",
+      "beat": "B17",
+      "clip_start": "00:33:20.0",
+      "clip_end": "00:34:09.9",
+      "chars": [
+        "Amah Saejiu"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "action": "The full table talking over each other, Amah's grown children and their families packed in around her",
+      "family": "weekly_meal_table",
+      "censor": "none"
+    },
+    {
+      "id": "clip:00:34:09.9",
+      "beat": "B17",
+      "clip_start": "00:34:09.9",
+      "clip_end": "00:34:40.0",
+      "chars": [
+        "M",
+        "Amah Saejiu"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "action": "The talk at the table turns to Amah's care while M listens from the edge of it",
+      "family": "weekly_meal_care_talk",
+      "censor": "none"
+    },
+    {
+      "id": "clip:00:34:40.0",
+      "beat": "B17",
+      "clip_start": "00:34:40.0",
+      "clip_end": "00:35:19.5",
+      "chars": [
+        "M"
+      ],
+      "depicts": [
+        "emotion"
+      ],
+      "action": "M sits apart on the stairs with his bowl, eating on his own while the family talks inside",
+      "family": "m_stairs_apart",
+      "censor": "none"
+    },
+    {
+      "id": "clip:00:35:19.5",
+      "beat": "B17",
+      "clip_start": "00:35:19.5",
+      "clip_end": "00:36:20.7",
+      "chars": [
+        "Amah Saejiu",
+        "M"
+      ],
+      "depicts": [
+        "emotion"
+      ],
+      "action": "Amah alone in her chair in the middle of the noise; M watching her from the stairs",
+      "family": "amah_alone_in_crowd",
+      "censor": "none"
+    },
+    {
+      "id": "clip:00:36:25.0",
+      "beat": "B18",
+      "clip_start": "00:36:25.0",
+      "clip_end": "00:37:07.2",
+      "chars": [
+        "M",
+        "Sew"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "action": "In the pool changing room M and Sew talk while she gets her float and gear together",
+      "family": "pool_changing",
+      "censor": "none"
+    },
+    {
+      "id": "clip:00:37:07.2",
+      "beat": "B18",
+      "clip_start": "00:37:07.2",
+      "clip_end": "00:37:32.4",
+      "chars": [
+        "M"
+      ],
+      "depicts": [
+        "setup"
+      ],
+      "action": "The public pool with an aqua class for older swimmers under way; M stands at the edge holding a towel",
+      "family": "pool_class",
+      "censor": "none"
+    },
+    {
+      "id": "clip:00:37:32.4",
+      "beat": "B18",
+      "clip_start": "00:37:32.4",
+      "clip_end": "00:38:28.0",
+      "chars": [
+        "Sew",
+        "Amah Saejiu"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "action": "Amah and Sew stand in the water in swim caps with their heads together, talking while the class goes on around them",
+      "family": "pool_water_talk",
+      "censor": "none"
+    },
+    {
+      "id": "clip:00:38:28.0",
+      "beat": "B18",
+      "clip_start": "00:38:28.0",
+      "clip_end": "00:38:36.0",
+      "chars": [
+        "M"
+      ],
+      "depicts": [
+        "emotion"
+      ],
+      "action": "M crouched at the poolside with a towel over his shoulders, watching the water",
+      "family": "pool_m_watching",
+      "censor": "none"
+    },
+    {
+      "id": "clip:00:39:00.0",
+      "beat": "B18",
+      "clip_start": "00:39:00.0",
+      "clip_end": "00:39:30.8",
+      "chars": [
+        "M",
+        "Sew"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "action": "Close two-shot of M and Sew talking side by side after the swim",
+      "family": "m_sew_after_swim",
+      "censor": "none"
+    },
+    {
+      "id": "clip:00:39:30.8",
+      "beat": "B19",
+      "clip_start": "00:39:30.8",
+      "clip_end": "00:40:22.7",
+      "chars": [
+        "M",
+        "Amah Saejiu",
+        "Mui"
+      ],
+      "depicts": [
+        "setup"
+      ],
+      "action": "Night in a car park - Amah stands alone among the parked cars while M and Mui get out of a car and come to her",
+      "family": "carpark_night",
+      "censor": "none"
+    },
+    {
+      "id": "clip:00:40:22.7",
+      "beat": "B19",
+      "clip_start": "00:40:22.7",
+      "clip_end": "00:41:10.0",
+      "chars": [
+        "M"
+      ],
+      "depicts": [
+        "establishing"
+      ],
+      "action": "A packed hospital outpatient hall, every chair taken and sandals scattered across the floor, M working his way through to the counter",
+      "family": "hospital_hall",
+      "censor": "none"
+    },
+    {
+      "id": "clip:00:41:10.0",
+      "beat": "B19",
+      "clip_start": "00:41:10.0",
+      "clip_end": "00:41:30.0",
+      "chars": [
+        "M",
+        "Amah Saejiu"
+      ],
+      "depicts": [
+        "setup"
+      ],
+      "action": "Amah sits in a treatment chair on a drip with M standing beside her",
+      "family": "hospital_drip",
+      "censor": "none"
+    },
+    {
+      "id": "clip:00:41:30.0",
+      "beat": "B19",
+      "clip_start": "00:41:30.0",
+      "clip_end": "00:41:59.5",
+      "chars": [
+        "M"
+      ],
+      "depicts": [
+        "reaction"
+      ],
+      "action": "M stands alone on the far side of the glass partition, his face going as he looks back in",
+      "family": "m_behind_glass",
+      "censor": "none"
+    },
+    {
+      "id": "clip:00:41:59.5",
+      "beat": "B20",
+      "clip_start": "00:41:59.5",
+      "clip_end": "00:42:33.5",
+      "chars": [
+        "M",
+        "Amah Saejiu"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "action": "M brings a long red pole down the stairs; Amah reaches up to take it off him",
+      "family": "stairs_pole",
+      "censor": "none"
+    },
+    {
+      "id": "clip:00:42:33.5",
+      "beat": "B20",
+      "clip_start": "00:42:33.5",
+      "clip_end": "00:43:31.0",
+      "chars": [
+        "M",
+        "Amah Saejiu"
+      ],
+      "depicts": [
+        "setup"
+      ],
+      "action": "M moves through Amah's bedroom past the round mirror and the dressing table while she lies down on the bed",
+      "family": "amah_bedroom",
+      "censor": "none"
+    },
+    {
+      "id": "clip:00:43:31.0",
+      "beat": "B20",
+      "clip_start": "00:43:31.0",
+      "clip_end": "00:44:00.8",
+      "chars": [
+        "M",
+        "Amah Saejiu"
+      ],
+      "depicts": [
+        "emotion"
+      ],
+      "action": "M sits at the bedside holding a listening tube while Amah lies still with her eyes closed",
+      "family": "bedside_listening",
+      "censor": "none"
+    },
+    {
+      "id": "clip:00:44:00.8",
+      "beat": "B20",
+      "clip_start": "00:44:00.8",
+      "clip_end": "00:44:42.1",
+      "chars": [
+        "M",
+        "Amah Saejiu"
+      ],
+      "depicts": [
+        "emotion"
+      ],
+      "action": "Night under the mosquito net with the framed portrait on the wall above them, M and Amah asleep in the same room",
+      "family": "mosquito_net_night",
+      "censor": "none"
+    },
+    {
+      "id": "clip:00:44:42.1",
+      "beat": "B20",
+      "clip_start": "00:44:42.1",
+      "clip_end": "00:45:00.0",
+      "chars": [
+        "M"
+      ],
+      "depicts": [
+        "reaction"
+      ],
+      "action": "M wakes in the dark in his singlet and sits up sharply",
+      "family": "m_wakes_night",
+      "censor": "none"
+    },
+    {
+      "id": "clip:00:45:00.0",
+      "beat": "B21",
+      "clip_start": "00:45:00.0",
+      "clip_end": "00:45:33.0",
+      "chars": [
+        "M",
+        "Amah Saejiu"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "action": "Amah at the stall scales in her orange top, M behind the hanging net talking to her",
+      "family": "stall_scales",
+      "censor": "none"
+    },
+    {
+      "id": "clip:00:45:33.0",
+      "beat": "B21",
+      "clip_start": "00:45:33.0",
+      "clip_end": "00:46:29.0",
+      "chars": [],
+      "depicts": [
+        "emotion"
+      ],
+      "action": "A single unbroken hold on the empty room behind the blue mosquito net - nearly a minute, no cut, nobody in frame. The longest static shot in the film so far.",
+      "family": "empty_room_hold",
+      "censor": "none",
+      "narration_silence_seconds": 12.0
+    },
+    {
+      "id": "clip:00:46:29.0",
+      "beat": "B21",
+      "clip_start": "00:46:29.0",
+      "clip_end": "00:46:45.0",
+      "chars": [
+        "M"
+      ],
+      "depicts": [
+        "setup"
+      ],
+      "action": "M turns a small yellow flower over in his fingers",
+      "family": "yellow_flower",
+      "censor": "none"
+    },
+    {
+      "id": "clip:00:46:45.0",
+      "beat": "B21",
+      "clip_start": "00:46:45.0",
+      "clip_end": "00:47:00.0",
+      "chars": [
+        "Amah Saejiu"
+      ],
+      "depicts": [
+        "emotion"
+      ],
+      "action": "Amah asleep sitting upright in a crowded waiting area, her head fallen to one side",
+      "family": "amah_asleep_waiting",
+      "censor": "none"
+    },
+    {
+      "id": "clip:00:47:00.0",
+      "beat": "B22",
+      "clip_start": "00:47:00.0",
+      "clip_end": "00:47:40.0",
+      "chars": [
+        "M",
+        "Amah Saejiu"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "action": "M brings Amah down the stairs a step at a time, her hand on the red rail and his on her arm",
+      "family": "stairs_descent",
+      "censor": "none"
+    },
+    {
+      "id": "clip:00:47:40.0",
+      "beat": "B22",
+      "clip_start": "00:47:40.0",
+      "clip_end": "00:48:00.0",
+      "chars": [
+        "M",
+        "Amah Saejiu"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "action": "M lights the stove and fills the kettle while Amah washes up at the low sink",
+      "family": "kitchen_stove",
+      "censor": "none"
+    },
+    {
+      "id": "clip:00:48:00.0",
+      "beat": "B22",
+      "clip_start": "00:48:00.0",
+      "clip_end": "00:48:49.2",
+      "chars": [
+        "M",
+        "Amah Saejiu"
+      ],
+      "depicts": [
+        "emotion"
+      ],
+      "action": "Seen through the window grille, M washes Amah's back and hair at the basin; both stay in frame for the length of the shot",
+      "family": "washing_through_grille",
+      "censor": "none"
+    },
+    {
+      "id": "clip:00:48:49.2",
+      "beat": "B22",
+      "clip_start": "00:48:49.2",
+      "clip_end": "00:49:48.2",
+      "chars": [
+        "M",
+        "Amah Saejiu"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "action": "M and Amah at the household shrine with the red candle lit; she watches while he handles the incense and the offerings",
+      "family": "shrine_together",
+      "censor": "none"
+    },
+    {
+      "id": "clip:00:49:48.2",
+      "beat": "B22",
+      "clip_start": "00:49:48.2",
+      "clip_end": "00:50:20.0",
+      "chars": [
+        "M"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "action": "M scrubs out the bathroom on his own",
+      "family": "bathroom_cleaning",
+      "censor": "none"
+    },
+    {
+      "id": "clip:00:50:20.0",
+      "beat": "B22",
+      "clip_start": "00:50:20.0",
+      "clip_end": "00:50:50.2",
+      "chars": [
+        "M",
+        "Amah Saejiu"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "action": "M hangs the washing on the line strung across the lane while Amah watches from the doorway",
+      "family": "laundry_lane",
+      "censor": "none"
+    },
+    {
+      "id": "clip:00:50:50.2",
+      "beat": "B23",
+      "clip_start": "00:50:50.2",
+      "clip_end": "00:51:21.3",
+      "chars": [
+        "M"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "action": "A man in a singlet arrives at the shophouse and talks to M across the room; not identifiable at overview resolution",
+      "family": "visitor_arrives",
+      "censor": "none"
+    },
+    {
+      "id": "clip:00:51:21.3",
+      "beat": "B23",
+      "clip_start": "00:51:21.3",
+      "clip_end": "00:52:20.7",
+      "chars": [
+        "Amah Saejiu"
+      ],
+      "depicts": [
+        "emotion"
+      ],
+      "action": "The visitor makes a fuss of Amah out in the lane, half lifting her off her feet while she laughs at him",
+      "family": "visitor_and_amah",
+      "censor": "none"
+    },
+    {
+      "id": "clip:00:52:20.7",
+      "beat": "B23",
+      "clip_start": "00:52:20.7",
+      "clip_end": "00:53:20.0",
+      "chars": [
+        "M"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "action": "Night market - M at a lit food stall served by a young woman in a lilac uniform who works it; corrected from overview reading after --zoom 00:53:05, she is staff behind the counter, not a companion. Not identifiable by name.",
+      "family": "night_market_stall",
+      "censor": "none"
+    },
+    {
+      "id": "clip:00:53:20.0",
+      "beat": "B23",
+      "clip_start": "00:53:20.0",
+      "clip_end": "00:53:47.6",
+      "chars": [
+        "M",
+        "Amah Saejiu"
+      ],
+      "depicts": [
+        "transition"
+      ],
+      "action": "In the car with M in front and Amah in the back, driven out through the suburbs to a housing estate",
+      "family": "car_to_estate",
+      "censor": "none"
+    },
+    {
+      "id": "clip:00:53:47.6",
+      "beat": "B24",
+      "clip_start": "00:53:47.6",
+      "clip_end": "00:54:47.6",
+      "chars": [
+        "Amah Saejiu",
+        "Sew"
+      ],
+      "depicts": [
+        "setup"
+      ],
+      "action": "A bright modern room fitted out for Amah - a hospital bed, balloons, a karaoke screen - as the family walks her into it",
+      "family": "kiang_house_room",
+      "censor": "none"
+    },
+    {
+      "id": "clip:00:54:47.6",
+      "beat": "B24",
+      "clip_start": "00:54:47.6",
+      "clip_end": "00:55:30.1",
+      "chars": [
+        "M",
+        "Amah Saejiu",
+        "Kiang"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "action": "Kiang shows off the room while Amah sits on the new bed; M stands apart by the window",
+      "family": "kiang_shows_room",
+      "censor": "none"
+    },
+    {
+      "id": "clip:00:55:30.1",
+      "beat": "B24",
+      "clip_start": "00:55:30.1",
+      "clip_end": "00:56:30.2",
+      "chars": [
+        "M",
+        "Kiang"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "action": "Kiang takes M aside and puts an offer to him; M's face working through what it means",
+      "family": "kiang_offer",
+      "censor": "none"
+    },
+    {
+      "id": "clip:00:56:30.2",
+      "beat": "B24",
+      "clip_start": "00:56:30.2",
+      "clip_end": "00:56:58.3",
+      "chars": [
+        "Amah Saejiu",
+        "Kiang"
+      ],
+      "depicts": [
+        "emotion"
+      ],
+      "action": "Amah reaches up and takes Kiang's hand at the bedside",
+      "family": "amah_kiang_hand",
+      "censor": "none"
+    },
+    {
+      "id": "clip:00:56:58.3",
+      "beat": "B25",
+      "clip_start": "00:56:58.3",
+      "clip_end": "00:57:30.0",
+      "chars": [
+        "M"
+      ],
+      "depicts": [
+        "reaction"
+      ],
+      "action": "M in close, watching it and saying nothing",
+      "family": "m_watches_handover",
+      "censor": "none"
+    },
+    {
+      "id": "clip:00:57:30.0",
+      "beat": "B25",
+      "clip_start": "00:57:30.0",
+      "clip_end": "00:58:01.5",
+      "chars": [
+        "M",
+        "Amah Saejiu"
+      ],
+      "depicts": [
+        "transition"
+      ],
+      "action": "The family on a rural train, sun coming through the open windows, a child in a sun hat between them",
+      "family": "train_out",
+      "censor": "none"
+    },
+    {
+      "id": "clip:00:58:01.5",
+      "beat": "B25",
+      "clip_start": "00:58:01.5",
+      "clip_end": "00:58:35.0",
+      "chars": [],
+      "depicts": [
+        "establishing"
+      ],
+      "action": "A hilltop temple with a tall white Guanyin figure above it and a long dragon-railed staircase",
+      "family": "temple_exterior",
+      "censor": "none"
+    },
+    {
+      "id": "clip:00:58:35.0",
+      "beat": "B25",
+      "clip_start": "00:58:35.0",
+      "clip_end": "00:59:00.2",
+      "chars": [
+        "M",
+        "Amah Saejiu"
+      ],
+      "depicts": [
+        "emotion"
+      ],
+      "action": "Hands easing Amah's swollen feet out of her sandals at the temple steps, M crouched down over them",
+      "family": "temple_feet",
+      "censor": "none"
+    },
+    {
+      "id": "clip:00:59:00.2",
+      "beat": "B25",
+      "clip_start": "00:59:00.2",
+      "clip_end": "01:00:00.0",
+      "chars": [
+        "M",
+        "Amah Saejiu"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "action": "M and Amah among the candles and oranges at the temple tables while the family works around them",
+      "family": "temple_tables",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:00:00.0",
+      "beat": "B25",
+      "clip_start": "01:00:00.0",
+      "clip_end": "01:00:58.7",
+      "chars": [
+        "M",
+        "Amah Saejiu"
+      ],
+      "depicts": [
+        "emotion"
+      ],
+      "action": "A long held two-shot from behind - Amah and M side by side at the blue table working through the offering ritual, barely a cut in it",
+      "family": "temple_two_shot_hold",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:00:58.7",
+      "beat": "B25",
+      "clip_start": "01:00:58.7",
+      "clip_end": "01:01:30.0",
+      "chars": [
+        "M"
+      ],
+      "depicts": [
+        "discovery"
+      ],
+      "action": "M reads a printed temple slip - a coffin-donation form - and takes in what it is for",
+      "family": "coffin_donation_form",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:01:30.0",
+      "beat": "B25",
+      "clip_start": "01:01:30.0",
+      "clip_end": "01:02:15.7",
+      "chars": [
+        "Amah Saejiu"
+      ],
+      "depicts": [
+        "emotion"
+      ],
+      "action": "Amah in profile at the temple, then the filled-in donation slip held up in close-up",
+      "family": "amah_profile_temple",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:02:15.7",
+      "beat": "B26",
+      "clip_start": "01:02:15.7",
+      "clip_end": "01:03:11.9",
+      "chars": [
+        "M",
+        "Amah Saejiu"
+      ],
+      "depicts": [
+        "emotion"
+      ],
+      "action": "The train home - Amah watching the country go past the window, M across the aisle watching her",
+      "family": "train_home",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:03:11.9",
+      "beat": "B27",
+      "clip_start": "01:03:11.9",
+      "clip_end": "01:03:45.0",
+      "chars": [
+        "M",
+        "Amah Saejiu"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "action": "In a big shoe shop M kneels on the floor and works a new pair onto Amah's feet while she sits on the bench above him",
+      "family": "shoe_shop_fitting",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:03:45.0",
+      "beat": "B27",
+      "clip_start": "01:03:45.0",
+      "clip_end": "01:04:11.4",
+      "chars": [
+        "M",
+        "Amah Saejiu"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "action": "M looks up at Amah from the floor, still holding her foot, and the two of them talk",
+      "family": "shoe_shop_talk",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:04:11.4",
+      "beat": "B27",
+      "clip_start": "01:04:11.4",
+      "clip_end": "01:04:30.9",
+      "chars": [
+        "M",
+        "Amah Saejiu"
+      ],
+      "depicts": [
+        "emotion"
+      ],
+      "action": "Amah's face looking down at him while M fastens the strap",
+      "family": "shoe_shop_closeup",
+      "censor": "none",
+      "narration_silence_seconds": 6.0
+    },
+    {
+      "id": "clip:01:04:30.9",
+      "beat": "B28",
+      "clip_start": "01:04:30.9",
+      "clip_end": "01:05:30.0",
+      "chars": [
+        "M",
+        "Amah Saejiu"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "action": "Amah in a green cardigan by the window with M leaning on the arm of her chair, the two of them going through old photographs on his phone",
+      "family": "phone_photos",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:05:30.0",
+      "beat": "B28",
+      "clip_start": "01:05:30.0",
+      "clip_end": "01:06:00.0",
+      "chars": [
+        "M",
+        "Amah Saejiu"
+      ],
+      "depicts": [
+        "emotion"
+      ],
+      "action": "M rests his head against her arm while she laughs at the screen",
+      "family": "head_on_arm",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:06:04.2",
+      "beat": "B29",
+      "clip_start": "01:06:04.2",
+      "clip_end": "01:06:26.3",
+      "chars": [],
+      "depicts": [
+        "establishing"
+      ],
+      "action": "A train runs along the embankment under a full rainbow standing over the palms",
+      "family": "rainbow_train",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:06:26.3",
+      "beat": "B29",
+      "clip_start": "01:06:26.3",
+      "clip_end": "01:06:39.8",
+      "chars": [
+        "M",
+        "Amah Saejiu"
+      ],
+      "depicts": [
+        "setup"
+      ],
+      "action": "Amah at the kitchen table with her hair now gone, M bringing a dish across to her - the first shot in which the treatment is visible on her",
+      "family": "amah_hairloss_first",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:06:39.8",
+      "beat": "B29",
+      "clip_start": "01:06:39.8",
+      "clip_end": "01:06:46.6",
+      "chars": [],
+      "depicts": [
+        "setup"
+      ],
+      "action": "Close on the congee pot, pandan leaves turning over in the water",
+      "family": "congee_pot_closeup",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:06:46.6",
+      "beat": "B29",
+      "clip_start": "01:06:46.6",
+      "clip_end": "01:07:16.2",
+      "chars": [
+        "M",
+        "Amah Saejiu"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "action": "M works the long wooden paddle through the congee pot while Amah watches from her stool below him",
+      "family": "congee_paddle",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:07:16.2",
+      "beat": "B29",
+      "clip_start": "01:07:16.2",
+      "clip_end": "01:07:24.5",
+      "chars": [],
+      "depicts": [
+        "transition"
+      ],
+      "action": "The empty lane at night, lit by the shop lights",
+      "family": "lane_night_empty",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:07:24.5",
+      "beat": "B30",
+      "clip_start": "01:07:24.5",
+      "clip_end": "01:08:05.0",
+      "chars": [
+        "M",
+        "Amah Saejiu"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "action": "Amah and M at the green table with the day's notes and a blue bowl between them, counting the takings",
+      "family": "counting_takings",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:08:05.0",
+      "beat": "B30",
+      "clip_start": "01:08:05.0",
+      "clip_end": "01:08:25.0",
+      "chars": [
+        "Amah Saejiu"
+      ],
+      "depicts": [
+        "emotion"
+      ],
+      "action": "Amah alone in close-up at the table, bald under the strip light, her glasses catching it",
+      "family": "amah_table_closeup",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:08:25.0",
+      "beat": "B30",
+      "clip_start": "01:08:25.0",
+      "clip_end": "01:08:50.0",
+      "chars": [
+        "M"
+      ],
+      "depicts": [
+        "reaction"
+      ],
+      "action": "M across the table, watching her without saying anything",
+      "family": "m_watches_across_table",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:08:50.0",
+      "beat": "B30",
+      "clip_start": "01:08:50.0",
+      "clip_end": "01:09:19.0",
+      "chars": [
+        "M",
+        "Amah Saejiu"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "action": "The two of them over a small bowl at the table, heads close, talking easily",
+      "family": "table_small_bowl",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:09:19.0",
+      "beat": "B31",
+      "clip_start": "01:09:19.0",
+      "clip_end": "01:09:40.0",
+      "chars": [
+        "Amah Saejiu"
+      ],
+      "depicts": [
+        "emotion"
+      ],
+      "action": "Amah in close-up, smiling at something he has just said",
+      "family": "amah_smiling",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:09:40.0",
+      "beat": "B31",
+      "clip_start": "01:09:40.0",
+      "clip_end": "01:10:00.0",
+      "chars": [
+        "M"
+      ],
+      "depicts": [
+        "reaction"
+      ],
+      "action": "M's face taking it in across the table",
+      "family": "m_takes_it_in",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:10:00.0",
+      "beat": "B31",
+      "clip_start": "01:10:00.0",
+      "clip_end": "01:10:25.0",
+      "chars": [
+        "Amah Saejiu"
+      ],
+      "depicts": [
+        "setup"
+      ],
+      "action": "Amah sits out in the lane on her chair among the potted plants",
+      "family": "amah_lane_chair",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:10:25.0",
+      "beat": "B31",
+      "clip_start": "01:10:25.0",
+      "clip_end": "01:10:50.0",
+      "chars": [
+        "M",
+        "Amah Saejiu"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "action": "M reaches a jar down, cooks, and puts a plate together in the narrow kitchen while Amah sits nearby",
+      "family": "m_cooks_plate",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:10:50.0",
+      "beat": "B31",
+      "clip_start": "01:10:50.0",
+      "clip_end": "01:11:10.0",
+      "chars": [
+        "M",
+        "Amah Saejiu"
+      ],
+      "depicts": [
+        "emotion"
+      ],
+      "action": "Sitting on the bed, the two of them looking at an old black-and-white photograph on M's phone",
+      "family": "old_photo_phone",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:11:10.0",
+      "beat": "B32",
+      "clip_start": "01:11:10.0",
+      "clip_end": "01:11:30.0",
+      "chars": [],
+      "depicts": [
+        "establishing"
+      ],
+      "action": "A walk-up apartment block and a covered walkway lined with parked motorbikes",
+      "family": "apartment_block",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:11:30.0",
+      "beat": "B32",
+      "clip_start": "01:11:30.0",
+      "clip_end": "01:11:50.0",
+      "chars": [
+        "M"
+      ],
+      "depicts": [
+        "transition"
+      ],
+      "action": "M walks down an apartment corridor and out to the bike park",
+      "family": "apartment_corridor",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:11:50.0",
+      "beat": "B32",
+      "clip_start": "01:11:50.0",
+      "clip_end": "01:12:05.0",
+      "chars": [
+        "M"
+      ],
+      "depicts": [
+        "emotion"
+      ],
+      "action": "M crouches down beside a motorbike wheel with his head lowered",
+      "family": "m_crouched_bike",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:12:05.0",
+      "beat": "B33",
+      "clip_start": "01:12:05.0",
+      "clip_end": "01:12:25.0",
+      "chars": [
+        "M"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "action": "The moustached man last seen in the lane at 00:51 crouches down beside M and they begin talking; still not identifiable by name after --zoom",
+      "family": "bikepark_talk",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:12:25.0",
+      "beat": "B33",
+      "clip_start": "01:12:25.0",
+      "clip_end": "01:12:42.5",
+      "chars": [
+        "M"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "action": "The two of them sit back against the wall; M keeps his eyes down while the man does the talking",
+      "family": "wall_sitting_talk",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:12:42.5",
+      "beat": "B33",
+      "clip_start": "01:12:42.5",
+      "clip_end": "01:13:15.5",
+      "chars": [
+        "M"
+      ],
+      "depicts": [
+        "setup"
+      ],
+      "action": "A motorbike repair yard - the man working down among the parts while M stands by holding a plastic bag",
+      "family": "repair_yard",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:13:15.5",
+      "beat": "B33",
+      "clip_start": "01:13:15.5",
+      "clip_end": "01:13:30.0",
+      "chars": [
+        "M",
+        "Amah Saejiu"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "action": "Back at the shophouse, Amah at the outdoor sinks while M crouches to scrub a pot beside her",
+      "family": "outdoor_sinks",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:13:30.0",
+      "beat": "B34",
+      "clip_start": "01:13:30.0",
+      "clip_end": "01:13:45.0",
+      "chars": [
+        "M"
+      ],
+      "depicts": [
+        "setup"
+      ],
+      "action": "M moves through the shophouse past the hanging pans",
+      "family": "shophouse_pans",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:13:45.0",
+      "beat": "B34",
+      "clip_start": "01:13:45.0",
+      "clip_end": "01:14:20.0",
+      "chars": [
+        "Amah Saejiu"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "action": "A man in a maroon shirt stands at the green folding gate talking to Amah through the bars; she does not open it",
+      "family": "gate_caller",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:14:20.0",
+      "beat": "B34",
+      "clip_start": "01:14:20.0",
+      "clip_end": "01:14:39.6",
+      "chars": [
+        "Amah Saejiu"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "action": "He holds his phone up against the bars showing a listing-style card with a photograph of a building on it; Amah looks at the screen through the gate without opening it",
+      "family": "gate_caller_phone",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:14:39.6",
+      "beat": "B34",
+      "clip_start": "01:14:39.6",
+      "clip_end": "01:15:00.0",
+      "chars": [
+        "Amah Saejiu"
+      ],
+      "depicts": [
+        "emotion"
+      ],
+      "action": "Amah alone in close-up after he has gone, then small in the frame of the shophouse behind the pink curtain",
+      "family": "amah_after_caller",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:15:00.0",
+      "beat": "B35",
+      "clip_start": "01:15:00.0",
+      "clip_end": "01:15:15.0",
+      "chars": [
+        "M",
+        "Amah Saejiu"
+      ],
+      "depicts": [
+        "setup"
+      ],
+      "action": "The shophouse behind the hanging pink curtain, Amah small in her chair with M moving about at the back",
+      "family": "shophouse_pink_curtain",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:15:15.0",
+      "beat": "B35",
+      "clip_start": "01:15:15.0",
+      "clip_end": "01:15:27.0",
+      "chars": [
+        "Amah Saejiu"
+      ],
+      "depicts": [
+        "emotion"
+      ],
+      "action": "Amah in profile in the rocking chair, bald, looking out at nothing in particular",
+      "family": "amah_rocking_chair",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:15:27.0",
+      "beat": "B35",
+      "clip_start": "01:15:27.0",
+      "clip_end": "01:15:45.0",
+      "chars": [
+        "M",
+        "Amah Saejiu"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "action": "M gets Amah up out of the rocking chair and steadies her on her feet",
+      "family": "helping_her_up",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:15:45.0",
+      "beat": "B35",
+      "clip_start": "01:15:45.0",
+      "clip_end": "01:16:30.0",
+      "chars": [
+        "M",
+        "Amah Saejiu"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "action": "M, in a white shirt, sits close beside Amah talking; she reaches up and puts her hand to his face",
+      "family": "white_shirt_close_talk",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:16:30.0",
+      "beat": "B35",
+      "clip_start": "01:16:30.0",
+      "clip_end": "01:16:45.0",
+      "chars": [
+        "M",
+        "Amah Saejiu"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "action": "M shakes out a cloth and helps her settle back down in the chair",
+      "family": "settling_her_back",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:16:45.0",
+      "beat": "B36",
+      "clip_start": "01:16:45.0",
+      "clip_end": "01:17:12.0",
+      "chars": [
+        "Amah Saejiu"
+      ],
+      "depicts": [
+        "setup"
+      ],
+      "action": "A single red pomegranate hanging on the vine by the green folding gate; Amah comes up the lane toward it and reaches for the branch",
+      "family": "pomegranate_on_vine",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:17:12.0",
+      "beat": "B36",
+      "clip_start": "01:17:12.0",
+      "clip_end": "01:17:20.0",
+      "chars": [
+        "M",
+        "Amah Saejiu"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "action": "Amah sits down beside M with the fruit in her lap while he is still on his phone",
+      "family": "pomegranate_sits_down",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:17:20.0",
+      "beat": "B36",
+      "clip_start": "01:17:20.0",
+      "clip_end": "01:17:30.0",
+      "chars": [
+        "Amah Saejiu"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "action": "Close on Amah's hands turning the pomegranate over and setting a knife to the skin",
+      "family": "pomegranate_hands",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:17:30.0",
+      "beat": "B36",
+      "clip_start": "01:17:30.0",
+      "clip_end": "01:17:45.0",
+      "chars": [
+        "M"
+      ],
+      "depicts": [
+        "reaction"
+      ],
+      "action": "M sits back in the wicker chair listening to her",
+      "family": "m_wicker_listening",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:17:45.0",
+      "beat": "B36",
+      "clip_start": "01:17:45.0",
+      "clip_end": "01:18:00.0",
+      "chars": [
+        "M",
+        "Amah Saejiu"
+      ],
+      "depicts": [
+        "emotion"
+      ],
+      "action": "Amah talking to him across the opened fruit; M taking it in without answering",
+      "family": "pomegranate_two_shot",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:18:00.0",
+      "beat": "B36",
+      "clip_start": "01:18:00.0",
+      "clip_end": "01:18:22.0",
+      "chars": [
+        "M",
+        "Amah Saejiu"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "action": "The close of the pomegranate conversation in reverse singles - M answering across the opened fruit, Amah holding his eye - ending wide on the two of them with her medicine bottles on the table",
+      "family": "pomegranate_two_shot",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:18:22.0",
+      "beat": "B37",
+      "clip_start": "01:18:22.0",
+      "clip_end": "01:18:43.0",
+      "chars": [],
+      "depicts": [
+        "establishing"
+      ],
+      "action": "A large white house set back behind an ornamental fence and a mown lawn, lamp posts along the drive, two figures walking up to it",
+      "family": "big_house_exterior",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:18:43.0",
+      "beat": "B37",
+      "clip_start": "01:18:43.0",
+      "clip_end": "01:18:53.0",
+      "chars": [
+        "M"
+      ],
+      "depicts": [
+        "setup"
+      ],
+      "action": "Inside the big house M eats at a laid table beside a small boy in a pink shirt, blue-and-white porcelain and dark carved furniture around them",
+      "family": "big_house_lunch",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:18:53.0",
+      "beat": "B37",
+      "clip_start": "01:18:53.0",
+      "clip_end": "01:19:20.2",
+      "chars": [
+        "M"
+      ],
+      "depicts": [
+        "setup"
+      ],
+      "action": "M stands with a plate helping himself at the buffet and moves through the room of guests on his own, the big soup tureen on the table behind him",
+      "family": "big_house_buffet",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:19:20.2",
+      "beat": "B37",
+      "clip_start": "01:19:20.2",
+      "clip_end": "01:19:38.1",
+      "chars": [
+        "Amah Saejiu"
+      ],
+      "depicts": [
+        "emotion"
+      ],
+      "action": "Amah sings into a karaoke microphone, laughing up at an elderly man in a maroon polo who stands over her; the karaoke screen glows behind them",
+      "family": "karaoke",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:19:38.1",
+      "beat": "B37",
+      "clip_start": "01:19:38.1",
+      "clip_end": "01:19:42.7",
+      "chars": [
+        "M"
+      ],
+      "depicts": [
+        "reaction"
+      ],
+      "action": "M alone in the doorway holding his plate, a model sailing ship and a lamp behind him, watching the room",
+      "family": "m_watching_doorway",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:19:42.7",
+      "beat": "B37",
+      "clip_start": "01:19:42.7",
+      "clip_end": "01:20:00.2",
+      "chars": [
+        "Amah Saejiu",
+        "M"
+      ],
+      "depicts": [
+        "setup"
+      ],
+      "action": "Amah sits down at the long dark table; a hand sets a lacquer pot in front of her; M is small in the background behind her",
+      "family": "long_table_ask",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:20:00.2",
+      "beat": "B37",
+      "clip_start": "01:20:00.2",
+      "clip_end": "01:20:17.7",
+      "chars": [
+        "Amah Saejiu"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "action": "Amah puts her request to the elderly man across the table, he sits with his back half to camera and lets her finish",
+      "family": "the_ask",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:20:17.7",
+      "beat": "B37",
+      "clip_start": "01:20:17.7",
+      "clip_end": "01:20:24.8",
+      "chars": [
+        "Amah Saejiu"
+      ],
+      "depicts": [
+        "reaction"
+      ],
+      "action": "Over Amah's shoulder the man turns away to the desk behind him and busies his hands with something instead of answering",
+      "family": "turning_away",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:20:24.8",
+      "beat": "B37",
+      "clip_start": "01:20:24.8",
+      "clip_end": "01:20:33.5",
+      "chars": [
+        "Amah Saejiu"
+      ],
+      "depicts": [
+        "emotion"
+      ],
+      "action": "Amah alone at the table by the window, waiting for an answer that is not coming",
+      "family": "amah_waiting_table",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:20:33.5",
+      "beat": "B37",
+      "clip_start": "01:20:33.5",
+      "clip_end": "01:20:42.2",
+      "chars": [
+        "M"
+      ],
+      "depicts": [
+        "reaction"
+      ],
+      "action": "M sitting further down the room, listening to it and saying nothing",
+      "family": "m_listening_bighouse",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:20:42.2",
+      "beat": "B37",
+      "clip_start": "01:20:42.2",
+      "clip_end": "01:21:13.0",
+      "chars": [
+        "Amah Saejiu",
+        "M"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "action": "Standing now: the elderly man leans on his cane and refuses her, Amah in front of him with her hands clasped, M behind them on the carved daybed, an empty hospital bed against the wall",
+      "family": "the_refusal",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:21:13.0",
+      "beat": "B37",
+      "clip_start": "01:21:13.0",
+      "clip_end": "01:21:19.8",
+      "chars": [
+        "M"
+      ],
+      "depicts": [
+        "reaction"
+      ],
+      "action": "M turns on the daybed and looks up at the two of them, hearing what is being said",
+      "family": "m_hears_refusal",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:21:19.8",
+      "beat": "B37",
+      "clip_start": "01:21:19.8",
+      "clip_end": "01:21:40.7",
+      "chars": [
+        "Amah Saejiu"
+      ],
+      "depicts": [
+        "emotion"
+      ],
+      "action": "Held close-up: Amah takes the refusal without answering it, her eyes going down and staying down",
+      "family": "amah_takes_refusal",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:21:40.7",
+      "beat": "B37",
+      "clip_start": "01:21:40.7",
+      "clip_end": "01:22:02.8",
+      "chars": [
+        "Amah Saejiu",
+        "M"
+      ],
+      "depicts": [
+        "aftermath"
+      ],
+      "action": "M looks away in the foreground as the man walks off through the room on his cane, leaving Amah standing where she was; the empty hospital bed and the lamp behind her",
+      "family": "brother_walks_off",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:22:02.8",
+      "beat": "B38",
+      "clip_start": "01:22:02.8",
+      "clip_end": "01:22:09.0",
+      "chars": [
+        "M"
+      ],
+      "depicts": [
+        "emotion"
+      ],
+      "action": "M on the train home in close-up, holding on to the pole, looking at nothing",
+      "family": "train_home_m",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:22:09.0",
+      "beat": "B38",
+      "clip_start": "01:22:09.0",
+      "clip_end": "01:22:23.3",
+      "chars": [
+        "Amah Saejiu"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "action": "Seen through the train window, Amah sits talking to the moustached man in green last seen in the lane at 00:51 and at 01:12; he is still not identifiable by name",
+      "family": "train_window_amah",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:22:23.3",
+      "beat": "B38",
+      "clip_start": "01:22:23.3",
+      "clip_end": "01:22:38.2",
+      "chars": [],
+      "depicts": [
+        "establishing"
+      ],
+      "action": "The railway line running away into a tunnel of overgrown green, bougainvillea over the track",
+      "family": "green_track_tunnel",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:22:38.2",
+      "beat": "B38",
+      "clip_start": "01:22:38.2",
+      "clip_end": "01:23:12.9",
+      "chars": [],
+      "depicts": [
+        "transition"
+      ],
+      "action": "Figures walking away from camera down the middle of the track under the trees",
+      "family": "track_walkers",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:23:12.9",
+      "beat": "B38",
+      "clip_start": "01:23:12.9",
+      "clip_end": "01:23:30.0",
+      "chars": [
+        "M",
+        "Amah Saejiu"
+      ],
+      "depicts": [
+        "emotion"
+      ],
+      "action": "M and Amah walking away down the track together, she with a stick, he keeping to her pace",
+      "family": "walk_home_track",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:23:30.0",
+      "beat": "B38",
+      "clip_start": "01:23:30.0",
+      "clip_end": "01:23:57.5",
+      "chars": [
+        "M",
+        "Amah Saejiu"
+      ],
+      "depicts": [
+        "emotion"
+      ],
+      "action": "Held wide: the two of them tiny at the far end of the green tunnel, still walking, the shot not cutting",
+      "family": "walk_home_wide",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:23:57.5",
+      "beat": "B39",
+      "clip_start": "01:23:57.5",
+      "clip_end": "01:24:24.8",
+      "chars": [],
+      "depicts": [
+        "establishing"
+      ],
+      "action": "The crowded outpatient hall - benches of waiting patients, monks in orange, wheelchairs, the reception counters behind",
+      "family": "outpatient_hall",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:24:24.8",
+      "beat": "B39",
+      "clip_start": "01:24:24.8",
+      "clip_end": "01:24:39.8",
+      "chars": [
+        "Amah Saejiu"
+      ],
+      "depicts": [
+        "setup"
+      ],
+      "action": "Amah parked in a wheelchair at the end of a row of benches in a knitted cap and a green cardigan, waiting",
+      "family": "amah_wheelchair_wait",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:24:39.8",
+      "beat": "B39",
+      "clip_start": "01:24:39.8",
+      "clip_end": "01:24:53.0",
+      "chars": [
+        "M",
+        "Sew"
+      ],
+      "depicts": [
+        "reaction"
+      ],
+      "action": "Away from her: Sew in tears with M's head close to hers, both of them taking in what they have just been told",
+      "family": "sew_m_break",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:24:53.0",
+      "beat": "B39",
+      "clip_start": "01:24:53.0",
+      "clip_end": "01:25:02.6",
+      "chars": [
+        "M",
+        "Sew"
+      ],
+      "depicts": [
+        "discovery"
+      ],
+      "action": "Sew and M at the doctor's desk, the doctor in a white coat with his back to camera, Sew leaning on the desk",
+      "family": "doctors_desk",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:25:02.6",
+      "beat": "B39",
+      "clip_start": "01:25:02.6",
+      "clip_end": "01:25:12.8",
+      "chars": [
+        "Amah Saejiu"
+      ],
+      "depicts": [
+        "emotion"
+      ],
+      "action": "Wide back down the hall - Amah still small in her wheelchair at the far end, alone while they are away",
+      "family": "amah_alone_hall",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:25:12.8",
+      "beat": "B39",
+      "clip_start": "01:25:12.8",
+      "clip_end": "01:25:34.2",
+      "chars": [
+        "M",
+        "Amah Saejiu",
+        "Sew"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "action": "M crouches down to the wheelchair to tell her, Amah's hand on the armrest, Sew standing over them",
+      "family": "telling_amah",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:25:34.2",
+      "beat": "B39",
+      "clip_start": "01:25:34.2",
+      "clip_end": "01:25:56.0",
+      "chars": [
+        "Amah Saejiu",
+        "Sew",
+        "M"
+      ],
+      "depicts": [
+        "reaction"
+      ],
+      "action": "Held three-shot: Amah in profile hearing it out, Sew's face behind her, M in front of her",
+      "family": "amah_hears_prognosis",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:25:56.0",
+      "beat": "B39",
+      "clip_start": "01:25:56.0",
+      "clip_end": "01:26:18.9",
+      "chars": [
+        "M",
+        "Amah Saejiu"
+      ],
+      "depicts": [
+        "emotion"
+      ],
+      "action": "M close in to Amah's face, then his hand closing over hers on the arm of the wheelchair",
+      "family": "m_takes_her_hand",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:26:18.9",
+      "beat": "B40",
+      "clip_start": "01:26:18.9",
+      "clip_end": "01:26:33.0",
+      "chars": [
+        "Amah Saejiu"
+      ],
+      "depicts": [
+        "setup"
+      ],
+      "action": "Night - Amah asleep on the daybed behind the pink net, small lights of the shrine still on",
+      "family": "night_pink_net",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:26:33.0",
+      "beat": "B40",
+      "clip_start": "01:26:33.0",
+      "clip_end": "01:26:49.2",
+      "chars": [
+        "M",
+        "Amah Saejiu"
+      ],
+      "depicts": [
+        "emotion"
+      ],
+      "action": "M sitting on the floor beside the bed in the dark, watching her sleep",
+      "family": "night_vigil",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:26:49.2",
+      "beat": "B40",
+      "clip_start": "01:26:49.2",
+      "clip_end": "01:27:05.0",
+      "chars": [
+        "Amah Saejiu"
+      ],
+      "depicts": [
+        "emotion"
+      ],
+      "action": "Close on Amah's face on the pillow, then the same shot from outside the pink net",
+      "family": "amah_sleeping_cu",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:27:05.0",
+      "beat": "B41",
+      "clip_start": "01:27:05.0",
+      "clip_end": "01:27:32.4",
+      "chars": [
+        "Sew"
+      ],
+      "depicts": [
+        "setup"
+      ],
+      "action": "Sew bent over a payment machine in the hospital concourse, a man waiting on the bench behind her",
+      "family": "hospital_concourse",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:27:32.4",
+      "beat": "B41",
+      "clip_start": "01:27:32.4",
+      "clip_end": "01:27:38.8",
+      "chars": [
+        "M"
+      ],
+      "depicts": [
+        "reaction"
+      ],
+      "action": "M on the hospital stairs looking up the flight, worried",
+      "family": "m_hospital_stairs",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:27:38.8",
+      "beat": "B41",
+      "clip_start": "01:27:38.8",
+      "clip_end": "01:28:03.0",
+      "chars": [
+        "Kiang",
+        "Sew"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "action": "Out on the open walkway between blocks, Kiang and Sew face each other and the conversation stops being polite",
+      "family": "walkway_argument",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:28:03.0",
+      "beat": "B41",
+      "clip_start": "01:28:03.0",
+      "clip_end": "01:28:18.0",
+      "chars": [
+        "Kiang",
+        "Sew"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "action": "Close two-shot - Kiang puts something to her and keeps putting it; Sew's face setting",
+      "family": "kiang_puts_it",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:28:18.0",
+      "beat": "B41",
+      "clip_start": "01:28:18.0",
+      "clip_end": "01:28:34.5",
+      "chars": [
+        "Sew",
+        "Kiang"
+      ],
+      "depicts": [
+        "reaction"
+      ],
+      "action": "Reverse onto Sew answering him back across the walkway",
+      "family": "sew_answers_kiang",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:28:34.5",
+      "beat": "B41",
+      "clip_start": "01:28:34.5",
+      "clip_end": "01:28:43.0",
+      "chars": [
+        "Sew",
+        "M"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "action": "Sew comes back down the corridor to M and the two of them stand close, talking low",
+      "family": "sew_to_m_corridor",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:28:43.0",
+      "beat": "B41",
+      "clip_start": "01:28:43.0",
+      "clip_end": "01:29:03.0",
+      "chars": [
+        "M",
+        "Sew"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "action": "At the foot of the stairs a bearded man with a shoulder bag hands documents across to M and Sew, then walks away with the bag",
+      "family": "documents_handover",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:29:03.0",
+      "beat": "B41",
+      "clip_start": "01:29:03.0",
+      "clip_end": "01:29:13.0",
+      "chars": [
+        "M"
+      ],
+      "depicts": [
+        "reaction"
+      ],
+      "action": "M left standing on the stairs on his own, looking at nothing",
+      "family": "m_stairs_after",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:29:13.0",
+      "beat": "B42",
+      "clip_start": "01:29:13.0",
+      "clip_end": "01:29:23.0",
+      "chars": [],
+      "depicts": [
+        "aftermath"
+      ],
+      "action": "A two-bed hospital room with the beds stripped, drip stands standing empty, the orange curtain drawn back - nobody in it",
+      "family": "emptied_ward_room",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:29:23.0",
+      "beat": "B42",
+      "clip_start": "01:29:23.0",
+      "clip_end": "01:29:33.1",
+      "chars": [
+        "Sew",
+        "M"
+      ],
+      "depicts": [
+        "aftermath"
+      ],
+      "action": "Sew comes into the emptied room carrying a bag; M's silhouette black in the foreground against the stripped bed",
+      "family": "emptied_room_sew",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:29:33.1",
+      "beat": "B42",
+      "clip_start": "01:29:33.1",
+      "clip_end": "01:29:48.0",
+      "chars": [
+        "M"
+      ],
+      "depicts": [
+        "emotion"
+      ],
+      "action": "M reflected in a glass door, putting a hand up to his face where nobody is looking",
+      "family": "m_reflection_glass",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:29:48.0",
+      "beat": "B42",
+      "clip_start": "01:29:48.0",
+      "clip_end": "01:29:58.0",
+      "chars": [],
+      "depicts": [
+        "establishing"
+      ],
+      "action": "The long open hospital walkway, empty in both directions",
+      "family": "hospital_walkway_empty",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:29:58.0",
+      "beat": "B42",
+      "clip_start": "01:29:58.0",
+      "clip_end": "01:30:23.0",
+      "chars": [],
+      "depicts": [
+        "establishing"
+      ],
+      "action": "Held wide down the ward walkway - two figures at the far end, too small to identify",
+      "family": "ward_walkway_wide",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:30:23.0",
+      "beat": "B42",
+      "clip_start": "01:30:23.0",
+      "clip_end": "01:30:43.0",
+      "chars": [],
+      "depicts": [
+        "transition"
+      ],
+      "action": "The green patient pick-up sign at the hospital forecourt and an empty wheelchair being pushed past it",
+      "family": "pickup_point_sign",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:30:43.0",
+      "beat": "B43",
+      "clip_start": "01:30:43.0",
+      "clip_end": "01:30:50.9",
+      "chars": [
+        "M"
+      ],
+      "depicts": [
+        "setup"
+      ],
+      "action": "M walking out through the hospital grounds with his head down",
+      "family": "m_walking_grounds",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:30:50.9",
+      "beat": "B43",
+      "clip_start": "01:30:50.9",
+      "clip_end": "01:31:17.8",
+      "chars": [
+        "M",
+        "Amah Saejiu"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "action": "M pushing Amah along the outside walkway in a wheelchair - bald, no cap, in a dark floral gown - the two of them talking as they go",
+      "family": "wheelchair_talk",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:31:17.8",
+      "beat": "B43",
+      "clip_start": "01:31:17.8",
+      "clip_end": "01:31:58.0",
+      "chars": [
+        "M",
+        "Amah Saejiu"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "action": "The conversation continuing in profile singles, M keeping his eyes down while she talks at him",
+      "family": "wheelchair_talk_singles",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:31:58.0",
+      "beat": "B43",
+      "clip_start": "01:31:58.0",
+      "clip_end": "01:32:24.8",
+      "chars": [
+        "Amah Saejiu"
+      ],
+      "depicts": [
+        "emotion"
+      ],
+      "action": "Held on Amah's face in profile as she answers him, the hedge and the hospital block sliding past behind her",
+      "family": "amah_profile_hold",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:32:24.8",
+      "beat": "B44",
+      "clip_start": "01:32:24.8",
+      "clip_end": "01:32:29.9",
+      "chars": [],
+      "depicts": [
+        "transition"
+      ],
+      "action": "A train comes down the tree tunnel towards camera in full sun",
+      "family": "train_tunnel_day",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:32:29.9",
+      "beat": "B44",
+      "clip_start": "01:32:29.9",
+      "clip_end": "01:32:34.4",
+      "chars": [],
+      "depicts": [
+        "transition"
+      ],
+      "action": "The same sky at night - power lines and the tops of the trees against deep blue",
+      "family": "night_sky_wires",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:32:34.4",
+      "beat": "B44",
+      "clip_start": "01:32:34.4",
+      "clip_end": "01:32:57.0",
+      "chars": [],
+      "depicts": [
+        "setup"
+      ],
+      "action": "Night inside the shophouse in blue dark - a sleeping shape under the covers and a phone screen lit in the black; too dark to identify anyone",
+      "family": "night_blue_interior",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:32:57.0",
+      "beat": "B45",
+      "clip_start": "01:32:57.0",
+      "clip_end": "01:33:13.0",
+      "chars": [],
+      "depicts": [
+        "establishing"
+      ],
+      "action": "A small hair salon - mirrors down one wall, shelves of bottles, someone moving about at the back",
+      "family": "salon_establishing",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:33:13.0",
+      "beat": "B45",
+      "clip_start": "01:33:13.0",
+      "clip_end": "01:33:34.3",
+      "chars": [
+        "Sew",
+        "M"
+      ],
+      "depicts": [
+        "setup"
+      ],
+      "action": "Sew working on M's hair while he lies back in the salon chair with his feet up on the footrest",
+      "family": "salon_haircut",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:33:34.3",
+      "beat": "B45",
+      "clip_start": "01:33:34.3",
+      "clip_end": "01:34:13.0",
+      "chars": [
+        "Sew",
+        "M"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "action": "Sew standing with her hands up behind her head, tired, talking across the salon to M who sits in the foreground",
+      "family": "salon_talk",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:34:13.0",
+      "beat": "B45",
+      "clip_start": "01:34:13.0",
+      "clip_end": "01:34:28.0",
+      "chars": [
+        "Sew",
+        "M"
+      ],
+      "depicts": [
+        "emotion"
+      ],
+      "action": "Sew drops down onto the salon couch laughing and lies back; M standing over her feet",
+      "family": "salon_couch_drop",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:34:28.0",
+      "beat": "B45",
+      "clip_start": "01:34:28.0",
+      "clip_end": "01:35:03.2",
+      "chars": [
+        "M",
+        "Sew"
+      ],
+      "depicts": [
+        "emotion"
+      ],
+      "action": "M sits on the couch with Sew lying across it and works at her legs and feet while the two of them keep talking",
+      "family": "salon_leg_rub",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:35:03.2",
+      "beat": "B45",
+      "clip_start": "01:35:03.2",
+      "clip_end": "01:35:08.0",
+      "chars": [
+        "M"
+      ],
+      "depicts": [
+        "reaction"
+      ],
+      "action": "M at the salon counter afterwards, looking away from her",
+      "family": "salon_counter_m",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:35:08.0",
+      "beat": "B46",
+      "clip_start": "01:35:08.0",
+      "clip_end": "01:35:27.6",
+      "chars": [],
+      "depicts": [
+        "transition"
+      ],
+      "action": "A white SUV comes down a walled suburban lane and past a big banyan",
+      "family": "suv_lane",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:35:27.6",
+      "beat": "B46",
+      "clip_start": "01:35:27.6",
+      "clip_end": "01:35:38.0",
+      "chars": [],
+      "depicts": [
+        "setup"
+      ],
+      "action": "A young woman in a car smiling and pressing her hands together in a wai; not identifiable at this resolution",
+      "family": "car_wai_greeting",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:35:38.0",
+      "beat": "B46",
+      "clip_start": "01:35:38.0",
+      "clip_end": "01:36:03.3",
+      "chars": [],
+      "depicts": [
+        "establishing"
+      ],
+      "action": "An old house seen from inside - a bright garden through the window bars, a man in a navy jacket standing in the doorway, an elderly woman crossing the foreground",
+      "family": "old_house_interior",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:36:03.3",
+      "beat": "B46",
+      "clip_start": "01:36:03.3",
+      "clip_end": "01:36:28.0",
+      "chars": [
+        "Mui",
+        "M"
+      ],
+      "depicts": [
+        "setup"
+      ],
+      "action": "Mui sitting out on the veranda seen past the curtains, M's dark shoulder filling the foreground",
+      "family": "mui_veranda",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:36:28.0",
+      "beat": "B46",
+      "clip_start": "01:36:28.0",
+      "clip_end": "01:37:18.0",
+      "chars": [
+        "M",
+        "Mui"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "action": "M and Mui at the tea table indoors - flowers and a tea set between them, he listens, she talks",
+      "family": "mui_tea_table",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:37:18.0",
+      "beat": "B46",
+      "clip_start": "01:37:18.0",
+      "clip_end": "01:37:53.4",
+      "chars": [
+        "Mui"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "action": "Mui in close-up, telling him something at length that she has plainly not said before",
+      "family": "mui_close_telling",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:37:53.4",
+      "beat": "B46",
+      "clip_start": "01:37:53.4",
+      "clip_end": "01:38:28.8",
+      "chars": [
+        "Mui",
+        "M"
+      ],
+      "depicts": [
+        "emotion"
+      ],
+      "action": "Mui keeps going until her face goes; M's profile cutting in opposite her",
+      "family": "mui_breaks",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:38:28.8",
+      "beat": "B46",
+      "clip_start": "01:38:28.8",
+      "clip_end": "01:38:48.6",
+      "chars": [
+        "M"
+      ],
+      "depicts": [
+        "reaction"
+      ],
+      "action": "M in profile at the table, eyes down, listening without answering",
+      "family": "m_listens_mui",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:38:48.6",
+      "beat": "B47",
+      "clip_start": "01:38:48.6",
+      "clip_end": "01:38:58.0",
+      "chars": [],
+      "depicts": [
+        "setup"
+      ],
+      "action": "Dark - a hand reaching out and someone bent over a bed at night; too dark to identify",
+      "family": "dark_bedside_hand",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:38:58.0",
+      "beat": "B47",
+      "clip_start": "01:38:58.0",
+      "clip_end": "01:39:13.1",
+      "chars": [
+        "Amah Saejiu"
+      ],
+      "depicts": [
+        "emotion"
+      ],
+      "action": "Amah on her own in the shophouse kitchen, small in the frame among the pots and the shelves",
+      "family": "amah_alone_kitchen",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:39:13.1",
+      "beat": "B47",
+      "clip_start": "01:39:13.1",
+      "clip_end": "01:39:34.0",
+      "chars": [
+        "Amah Saejiu"
+      ],
+      "depicts": [
+        "aftermath"
+      ],
+      "action": "Amah alone in the wicker chair under the pink net with the television on and the rest of the room empty around her",
+      "family": "amah_alone_chair",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:39:34.0",
+      "beat": "B47",
+      "clip_start": "01:39:34.0",
+      "clip_end": "01:39:47.8",
+      "chars": [
+        "Amah Saejiu"
+      ],
+      "depicts": [
+        "emotion"
+      ],
+      "action": "Amah outside the green folding gate, bent over the plants by the bicycle, alone in the lane",
+      "family": "amah_alone_lane",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:39:47.8",
+      "beat": "B48",
+      "clip_start": "01:39:47.8",
+      "clip_end": "01:39:53.0",
+      "chars": [],
+      "depicts": [
+        "discovery"
+      ],
+      "action": "A phone held up in a hand, a picture open on the screen",
+      "family": "phone_screen_held",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:39:53.0",
+      "beat": "B48",
+      "clip_start": "01:39:53.0",
+      "clip_end": "01:40:07.0",
+      "chars": [
+        "M"
+      ],
+      "depicts": [
+        "reaction"
+      ],
+      "action": "M outside the green gate looking down at the phone in his hand, then up",
+      "family": "m_phone_at_gate",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:40:07.0",
+      "beat": "B48",
+      "clip_start": "01:40:07.0",
+      "clip_end": "01:40:16.2",
+      "chars": [],
+      "depicts": [
+        "establishing"
+      ],
+      "action": "An ornate Chinese temple roof with dragons along the ridge against a white sky",
+      "family": "temple_roof",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:40:16.2",
+      "beat": "B48",
+      "clip_start": "01:40:16.2",
+      "clip_end": "01:40:33.8",
+      "chars": [],
+      "depicts": [
+        "establishing"
+      ],
+      "action": "The grounds of a care institution - a wide mown lawn, big shade trees, low buildings, a few figures walking the paths",
+      "family": "care_home_grounds",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:40:33.8",
+      "beat": "B48",
+      "clip_start": "01:40:33.8",
+      "clip_end": "01:40:55.6",
+      "chars": [],
+      "depicts": [
+        "establishing"
+      ],
+      "action": "Inside the home - rooms opening off a long open corridor with red plastic chairs, a man in a striped shirt standing at a bedside looking out",
+      "family": "care_home_corridor",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:40:55.6",
+      "beat": "B48",
+      "clip_start": "01:40:55.6",
+      "clip_end": "01:41:23.0",
+      "chars": [
+        "M"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "action": "M in the corridor talking with a bearded man in a pale shirt and a shoulder bag, who holds a paper out to him",
+      "family": "care_home_talk",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:41:23.0",
+      "beat": "B48",
+      "clip_start": "01:41:23.0",
+      "clip_end": "01:41:32.8",
+      "chars": [],
+      "depicts": [
+        "setup"
+      ],
+      "action": "The bearded man on his own, opening the shoulder bag",
+      "family": "bearded_man_bag",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:41:32.8",
+      "beat": "B48",
+      "clip_start": "01:41:32.8",
+      "clip_end": "01:41:48.1",
+      "chars": [
+        "M"
+      ],
+      "depicts": [
+        "setup"
+      ],
+      "action": "M walks between the rows of beds in the ward, an elderly resident lying in each one",
+      "family": "care_home_ward",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:41:48.1",
+      "beat": "B48",
+      "clip_start": "01:41:48.1",
+      "clip_end": "01:42:18.0",
+      "chars": [
+        "M"
+      ],
+      "depicts": [
+        "emotion"
+      ],
+      "action": "M sits down at the bedside of an elderly bedridden man and takes his hand",
+      "family": "bedside_old_man",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:42:18.0",
+      "beat": "B48",
+      "clip_start": "01:42:18.0",
+      "clip_end": "01:42:28.1",
+      "chars": [],
+      "depicts": [
+        "setup"
+      ],
+      "action": "Close on the old man on the pillow - bald, a feeding tube taped at his nose, a bowl of soup and a spoon at the edge of frame",
+      "family": "old_man_pillow",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:42:28.1",
+      "beat": "B48",
+      "clip_start": "01:42:28.1",
+      "clip_end": "01:42:53.1",
+      "chars": [
+        "M"
+      ],
+      "depicts": [
+        "emotion"
+      ],
+      "action": "M talking to him in close-up, his face going as he does it",
+      "family": "m_talks_to_old_man",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:42:53.1",
+      "beat": "B48",
+      "clip_start": "01:42:53.1",
+      "clip_end": "01:43:13.2",
+      "chars": [
+        "M"
+      ],
+      "depicts": [
+        "emotion"
+      ],
+      "action": "Back on the old man; M's hand closing over his on the blanket",
+      "family": "hand_on_blanket",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:43:13.2",
+      "beat": "B48",
+      "clip_start": "01:43:13.2",
+      "clip_end": "01:43:29.4",
+      "chars": [
+        "M"
+      ],
+      "depicts": [
+        "reaction"
+      ],
+      "action": "M looks down, then away, and does not say any more",
+      "family": "m_after_bedside",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:43:29.4",
+      "beat": "B49",
+      "clip_start": "01:43:29.4",
+      "clip_end": "01:43:38.5",
+      "chars": [],
+      "depicts": [
+        "setup"
+      ],
+      "action": "A green hose watering the vine at the green gate - one ripe red pomegranate hanging heavy on the branch",
+      "family": "pomegranate_ripe",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:43:38.5",
+      "beat": "B49",
+      "clip_start": "01:43:38.5",
+      "clip_end": "01:43:43.0",
+      "chars": [
+        "M"
+      ],
+      "depicts": [
+        "setup"
+      ],
+      "action": "M in the shophouse doorway looking out down the lane to the gate",
+      "family": "m_doorway_looking_out",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:43:43.0",
+      "beat": "B49",
+      "clip_start": "01:43:43.0",
+      "clip_end": "01:43:58.0",
+      "chars": [],
+      "depicts": [
+        "aftermath"
+      ],
+      "action": "The shophouse living room - the sofa, the barred window, the light coming in, and nobody in it",
+      "family": "empty_living_room",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:43:58.0",
+      "beat": "B49",
+      "clip_start": "01:43:58.0",
+      "clip_end": "01:44:29.2",
+      "chars": [],
+      "depicts": [
+        "aftermath"
+      ],
+      "action": "M's old room: his gaming monitors still standing on the desk, and a hospital bed made up with floral bedding now in the middle of the floor",
+      "family": "gaming_room_hospital_bed",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:44:29.2",
+      "beat": "B50",
+      "clip_start": "01:44:29.2",
+      "clip_end": "01:44:41.8",
+      "chars": [
+        "Sew",
+        "Amah Saejiu"
+      ],
+      "depicts": [
+        "emotion"
+      ],
+      "action": "Sew in tears beside Amah, who sits bald in her glasses in a wheelchair by the kitchen shelves",
+      "family": "sew_cries_at_amah",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:44:41.8",
+      "beat": "B50",
+      "clip_start": "01:44:41.8",
+      "clip_end": "01:44:49.2",
+      "chars": [
+        "M",
+        "Sew"
+      ],
+      "depicts": [
+        "reaction"
+      ],
+      "action": "M leaning in beside the two of them",
+      "family": "m_leans_in_kitchen",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:44:49.2",
+      "beat": "B50",
+      "clip_start": "01:44:49.2",
+      "clip_end": "01:45:18.6",
+      "chars": [
+        "Amah Saejiu",
+        "Sew"
+      ],
+      "depicts": [
+        "emotion"
+      ],
+      "action": "Amah's face while her daughter cries at her, the two of them held in the same frame without cutting away",
+      "family": "amah_hears_sew",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:45:18.6",
+      "beat": "B50",
+      "clip_start": "01:45:18.6",
+      "clip_end": "01:45:33.8",
+      "chars": [
+        "Sew",
+        "Amah Saejiu"
+      ],
+      "depicts": [
+        "emotion"
+      ],
+      "action": "Sew leaning right in to her mother, both in profile, close",
+      "family": "sew_leans_to_amah",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:45:33.8",
+      "beat": "B51",
+      "clip_start": "01:45:33.8",
+      "clip_end": "01:45:38.0",
+      "chars": [
+        "M"
+      ],
+      "depicts": [
+        "setup"
+      ],
+      "action": "A kitchen doorway - a young woman out of focus in the foreground, M standing at the back of the house",
+      "family": "kitchen_doorway_m",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:45:38.0",
+      "beat": "B51",
+      "clip_start": "01:45:38.0",
+      "clip_end": "01:45:43.9",
+      "chars": [],
+      "depicts": [
+        "establishing"
+      ],
+      "action": "A New Year door poster of a child in red and gold, and a framed landscape, on the wall",
+      "family": "new_year_poster",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:45:43.9",
+      "beat": "B51",
+      "clip_start": "01:45:43.9",
+      "clip_end": "01:46:12.7",
+      "chars": [
+        "M"
+      ],
+      "depicts": [
+        "setup"
+      ],
+      "action": "Outside the house: a silver car at the kerb, M in a red-and-white striped polo walking round it, a woman in red up at the gate",
+      "family": "car_at_kerb",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:46:12.7",
+      "beat": "B51",
+      "clip_start": "01:46:12.7",
+      "clip_end": "01:46:43.0",
+      "chars": [
+        "Kiang",
+        "M"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "action": "Kiang stays sitting in the driver's seat behind the windscreen; M stands outside the car talking in at him",
+      "family": "kiang_stays_in_car",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:46:43.0",
+      "beat": "B51",
+      "clip_start": "01:46:43.0",
+      "clip_end": "01:47:18.2",
+      "chars": [
+        "Kiang"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "action": "Kiang in profile through the car window; a woman in a dark red top leans in at the glass to him",
+      "family": "kiang_car_window",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:47:18.2",
+      "beat": "B51",
+      "clip_start": "01:47:18.2",
+      "clip_end": "01:47:39.2",
+      "chars": [
+        "M"
+      ],
+      "depicts": [
+        "establishing"
+      ],
+      "action": "The shophouse hung with New Year lanterns and red decorations, a hospital bed made up in red in the middle of the room and the family moving around it",
+      "family": "new_year_shophouse",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:47:39.2",
+      "beat": "B51",
+      "clip_start": "01:47:39.2",
+      "clip_end": "01:47:48.0",
+      "chars": [
+        "Kiang",
+        "M"
+      ],
+      "depicts": [
+        "setup"
+      ],
+      "action": "Kiang and the woman in red come in through the decorated room; M in the foreground by the bed",
+      "family": "kiang_arrives_ny",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:47:48.0",
+      "beat": "B51",
+      "clip_start": "01:47:48.0",
+      "clip_end": "01:48:00.0",
+      "chars": [
+        "Kiang",
+        "Amah Saejiu"
+      ],
+      "depicts": [
+        "emotion"
+      ],
+      "action": "Kiang sits down by the hospital bed with his hand up to his head, then leans over and takes Amah's hand",
+      "family": "kiang_at_bedside",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:48:00.0",
+      "beat": "B51",
+      "clip_start": "01:48:00.0",
+      "clip_end": "01:48:19.1",
+      "chars": [
+        "Kiang",
+        "M",
+        "Amah Saejiu"
+      ],
+      "depicts": [
+        "emotion"
+      ],
+      "action": "The family closed round the hospital bed under the New Year lanterns - Kiang in red at the near side, M behind him, a woman and a small girl in red at the far side, hands on Amah",
+      "family": "new_year_bedside_group",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:48:19.1",
+      "beat": "B51",
+      "clip_start": "01:48:19.1",
+      "clip_end": "01:48:29.1",
+      "chars": [
+        "Kiang",
+        "Amah Saejiu"
+      ],
+      "depicts": [
+        "emotion"
+      ],
+      "action": "Kiang leaning right down over Amah where she lies in the bed, close",
+      "family": "kiang_over_amah",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:48:29.1",
+      "beat": "B52",
+      "clip_start": "01:48:29.1",
+      "clip_end": "01:48:38.0",
+      "chars": [],
+      "depicts": [
+        "setup"
+      ],
+      "action": "Night - a shaded lamp lit over a desk of papers and pens, the room quiet",
+      "family": "night_lamp_desk",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:48:38.0",
+      "beat": "B52",
+      "clip_start": "01:48:38.0",
+      "clip_end": "01:48:48.0",
+      "chars": [
+        "M"
+      ],
+      "depicts": [
+        "setup"
+      ],
+      "action": "M lying down asleep on a pillow in a pale shirt",
+      "family": "m_asleep_pillow",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:48:48.0",
+      "beat": "B52",
+      "clip_start": "01:48:48.0",
+      "clip_end": "01:49:13.0",
+      "chars": [],
+      "depicts": [
+        "emotion"
+      ],
+      "action": "Held rack-focus: the back of Amah's bald head enormous and out of focus in the foreground, the New Year lanterns and the lamp sharp behind her, someone moving about the room in the distance",
+      "family": "vigil_rack_focus",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:49:13.0",
+      "beat": "B52",
+      "clip_start": "01:49:13.0",
+      "clip_end": "01:49:32.4",
+      "chars": [
+        "M",
+        "Amah Saejiu"
+      ],
+      "depicts": [
+        "emotion"
+      ],
+      "action": "Close on their hands on the bedding - Amah's hand with a gold ring, M's hand over it, then the two hands coming apart",
+      "family": "hands_gold_ring",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:49:32.4",
+      "beat": "B52",
+      "clip_start": "01:49:32.4",
+      "clip_end": "01:49:42.9",
+      "chars": [
+        "Amah Saejiu"
+      ],
+      "depicts": [
+        "setup"
+      ],
+      "action": "Amah on the pillow with her eyes closed and a tube taped at her nose",
+      "family": "amah_pillow_tube",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:49:42.9",
+      "beat": "B52",
+      "clip_start": "01:49:42.9",
+      "clip_end": "01:49:58.4",
+      "chars": [
+        "M"
+      ],
+      "depicts": [
+        "emotion"
+      ],
+      "action": "M's face at the bedside in the lamplight, talking to her",
+      "family": "m_bedside_lamplight",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:49:58.4",
+      "beat": "B52",
+      "clip_start": "01:49:58.4",
+      "clip_end": "01:50:23.8",
+      "chars": [
+        "Amah Saejiu"
+      ],
+      "depicts": [
+        "emotion"
+      ],
+      "action": "Amah on the pillow, a hand coming into frame to stroke her head",
+      "family": "hand_strokes_head",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:50:23.8",
+      "beat": "B52",
+      "clip_start": "01:50:23.8",
+      "clip_end": "01:51:21.4",
+      "chars": [
+        "M",
+        "Amah Saejiu"
+      ],
+      "depicts": [
+        "emotion"
+      ],
+      "action": "M's face beyond her head, talking to her and getting no answer - held for the best part of a minute without cutting",
+      "family": "m_talks_to_dying_amah",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:51:21.4",
+      "beat": "B53",
+      "clip_start": "01:51:21.4",
+      "clip_end": "01:51:33.1",
+      "chars": [],
+      "depicts": [
+        "establishing"
+      ],
+      "action": "Dark foliage with something burning orange behind it, opening into the funeral hall - red drapes, a gold catafalque, banks of white wreaths, a portrait on an easel and rows of stacked chairs, nobody in it",
+      "family": "funeral_hall_empty",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:51:33.1",
+      "beat": "B53",
+      "clip_start": "01:51:33.1",
+      "clip_end": "01:51:44.0",
+      "chars": [
+        "M"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "action": "M in a white shirt reaching in to set incense at the big gold urn in front of the catafalque",
+      "family": "m_incense_urn",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:51:44.0",
+      "beat": "B53",
+      "clip_start": "01:51:44.0",
+      "clip_end": "01:51:59.4",
+      "chars": [
+        "M",
+        "Sew"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "action": "M in white and Sew in mourning black standing face to face by the gold coffin, talking",
+      "family": "m_sew_funeral_talk",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:51:59.4",
+      "beat": "B53",
+      "clip_start": "01:51:59.4",
+      "clip_end": "01:52:18.0",
+      "chars": [
+        "M"
+      ],
+      "depicts": [
+        "emotion"
+      ],
+      "action": "M walking the length of the funeral hall on his own, the wreaths and the empty chairs around him",
+      "family": "m_walks_empty_hall",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:52:18.0",
+      "beat": "B53",
+      "clip_start": "01:52:18.0",
+      "clip_end": "01:52:26.2",
+      "chars": [
+        "M"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "action": "M on the phone in the funeral hall, standing among the flowers",
+      "family": "m_phone_funeral_hall",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:52:26.2",
+      "beat": "B54",
+      "clip_start": "01:52:26.2",
+      "clip_end": "01:52:32.3",
+      "chars": [
+        "M"
+      ],
+      "depicts": [
+        "setup"
+      ],
+      "action": "M sitting on the edge of the bed with the floral bedding, going through something with both hands",
+      "family": "m_at_bed_going_through",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:52:32.3",
+      "beat": "B54",
+      "clip_start": "01:52:32.3",
+      "clip_end": "01:52:40.1",
+      "chars": [],
+      "depicts": [
+        "discovery"
+      ],
+      "action": "A green savings passbook held open - BANK OF SIAM, account number 826-006-1525-8, and a name written in by hand",
+      "family": "savings_passbook",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:52:40.1",
+      "beat": "B55",
+      "clip_start": "01:52:40.1",
+      "clip_end": "01:53:08.0",
+      "chars": [
+        "M"
+      ],
+      "depicts": [
+        "dialogue"
+      ],
+      "action": "The railway line running away between the overgrown green, then M out on it in a white shirt with the phone held to his ear",
+      "family": "m_on_phone_outside",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:53:08.0",
+      "beat": "B55",
+      "clip_start": "01:53:08.0",
+      "clip_end": "01:53:28.0",
+      "chars": [],
+      "depicts": [
+        "setup"
+      ],
+      "action": "FLASHBACK - a lane past a pale blue building, schoolchildren in uniform walking home along it",
+      "family": "flashback_school_lane",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:53:28.0",
+      "beat": "B55",
+      "clip_start": "01:53:28.0",
+      "clip_end": "01:53:58.0",
+      "chars": [
+        "Amah Saejiu",
+        "M"
+      ],
+      "depicts": [
+        "emotion"
+      ],
+      "action": "FLASHBACK - Amah, years younger with a full dark perm and a red-and-black floral blouse, walking a small boy in school uniform down the lane; the boy has his head down over something in his hands",
+      "family": "flashback_amah_young_m",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:53:58.0",
+      "beat": "B55",
+      "clip_start": "01:53:58.0",
+      "clip_end": "01:54:13.0",
+      "chars": [
+        "Amah Saejiu",
+        "M"
+      ],
+      "depicts": [
+        "emotion"
+      ],
+      "action": "FLASHBACK - the two of them small and getting smaller away down the lane",
+      "family": "flashback_lane_wide",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:54:13.0",
+      "beat": "B55",
+      "clip_start": "01:54:13.0",
+      "clip_end": "01:54:34.7",
+      "chars": [
+        "M"
+      ],
+      "depicts": [
+        "reaction"
+      ],
+      "action": "Present day again - M standing by the railway as a train runs past behind him, still holding the phone to his ear",
+      "family": "m_phone_train_passes",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:54:34.7",
+      "beat": "B56",
+      "clip_start": "01:54:34.7",
+      "clip_end": "01:54:49.3",
+      "chars": [
+        "M",
+        "Sew"
+      ],
+      "depicts": [
+        "setup"
+      ],
+      "action": "The gold coffin roped onto the back of a flatbed truck with the family climbing up to ride alongside it",
+      "family": "coffin_on_truck",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:54:49.3",
+      "beat": "B56",
+      "clip_start": "01:54:49.3",
+      "clip_end": "01:55:19.7",
+      "chars": [
+        "M",
+        "Sew"
+      ],
+      "depicts": [
+        "emotion"
+      ],
+      "action": "M and Sew sitting back against the gold coffin as the truck moves, the two of them not saying much",
+      "family": "riding_with_coffin",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:55:19.7",
+      "beat": "B56",
+      "clip_start": "01:55:19.7",
+      "clip_end": "01:55:28.0",
+      "chars": [],
+      "depicts": [
+        "transition"
+      ],
+      "action": "From the truck - a Chinese arch, then the city opening out across the railway and the rooftops",
+      "family": "arch_and_city",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:55:28.0",
+      "beat": "B56",
+      "clip_start": "01:55:28.0",
+      "clip_end": "01:55:44.8",
+      "chars": [],
+      "depicts": [
+        "transition"
+      ],
+      "action": "The trackside market going past, blue umbrellas and cooking smoke and stallholders",
+      "family": "market_passing",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:55:44.8",
+      "beat": "B56",
+      "clip_start": "01:55:44.8",
+      "clip_end": "01:55:58.8",
+      "chars": [],
+      "depicts": [
+        "establishing"
+      ],
+      "action": "Houses and greenery, then a wide of the Bangkok road with the skyline standing up behind it",
+      "family": "bangkok_road_wide",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:55:58.8",
+      "beat": "B56",
+      "clip_start": "01:55:58.8",
+      "clip_end": "01:56:08.4",
+      "chars": [],
+      "depicts": [
+        "transition"
+      ],
+      "action": "Out of the city - a track running between big trees towards a gate",
+      "family": "country_track",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:56:08.4",
+      "beat": "B56",
+      "clip_start": "01:56:08.4",
+      "clip_end": "01:56:19.9",
+      "chars": [
+        "Sew"
+      ],
+      "depicts": [
+        "emotion"
+      ],
+      "action": "The others riding with the coffin - the bearded man in a pale shirt, then Sew with her hair going in the wind",
+      "family": "others_riding",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:56:19.9",
+      "beat": "B56",
+      "clip_start": "01:56:19.9",
+      "clip_end": "01:56:28.0",
+      "chars": [
+        "M"
+      ],
+      "depicts": [
+        "emotion"
+      ],
+      "action": "M sitting against the gold coffin in the sun with the wind in his hair",
+      "family": "m_riding_sun",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:56:28.0",
+      "beat": "B56",
+      "clip_start": "01:56:28.0",
+      "clip_end": "01:56:36.3",
+      "chars": [],
+      "depicts": [
+        "establishing"
+      ],
+      "action": "The hillside cemetery going past from the moving truck - the same terraced green graves the film opened on",
+      "family": "cemetery_from_truck",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:56:36.3",
+      "beat": "B56",
+      "clip_start": "01:56:36.3",
+      "clip_end": "01:57:24.2",
+      "chars": [
+        "M"
+      ],
+      "depicts": [
+        "emotion"
+      ],
+      "action": "M riding against the coffin, talking and laughing into the wind, held right through without cutting",
+      "family": "m_laughing_on_truck",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:57:24.2",
+      "beat": "B56",
+      "clip_start": "01:57:24.2",
+      "clip_end": "01:57:29.8",
+      "chars": [],
+      "depicts": [
+        "transition"
+      ],
+      "action": "The sun coming through the branches of a big tree",
+      "family": "sun_through_branches",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:57:29.8",
+      "beat": "B57",
+      "clip_start": "01:57:29.8",
+      "clip_end": "01:57:58.0",
+      "chars": [],
+      "depicts": [
+        "establishing"
+      ],
+      "action": "The hillside cemetery in full daylight - mounded green graves, families spread out tending them, smoke going up from the burning offerings",
+      "family": "cemetery_qingming_late",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:57:58.0",
+      "beat": "B57",
+      "clip_start": "01:57:58.0",
+      "clip_end": "01:58:28.0",
+      "chars": [
+        "M"
+      ],
+      "depicts": [
+        "action"
+      ],
+      "action": "M in a green striped tee working at the family grave - carrying, setting things down, clearing the plot - while a small girl in a lilac dress plays around him",
+      "family": "m_tends_grave",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:58:28.0",
+      "beat": "B57",
+      "clip_start": "01:58:28.0",
+      "clip_end": "01:58:52.0",
+      "chars": [
+        "M"
+      ],
+      "depicts": [
+        "emotion"
+      ],
+      "action": "M sitting down on the grass beside the grave with a plastic bag in his hand, the girl moving about behind him",
+      "family": "m_sits_by_grave",
+      "censor": "none"
+    },
+    {
+      "id": "clip:01:58:52.0",
+      "beat": "B57",
+      "clip_start": "01:58:52.0",
+      "clip_end": "01:59:05.8",
+      "chars": [
+        "M"
+      ],
+      "depicts": [
+        "emotion"
+      ],
+      "action": "M looking up and out across the hillside, holding it - the last image in the film before it cuts to black",
+      "family": "m_looks_up_final",
+      "censor": "none"
+    }
+  ]
+}

@@ -6,7 +6,7 @@ Target: 11-13 min recap, ~1900-2400 words. Register B (Medium). Director: Bong J
 
 KEY: chars = expected on-screen (verify at catalogue). [S6] = 4+ shots / micro-montage.
 [S7] = whole-frame censor. [S8] = partial-blur region. [S9] = silence shot (let an
-image breathe). [TWIST-HOLD] = do NOT pre-leak the bunker reveal.
+image breathe). TWIST-HOLD:unenforced (NOT machine-read - see note at end) = do NOT pre-leak the bunker reveal.
 
 names.json: Ki-taek, Chung-sook, Ki-woo, Ki-jung (Kim family);
 Dong-ik, Yeon-kyo, Da-hye, Da-song (Park family); Moon-gwang, Geun-sae; Min.
@@ -123,3 +123,44 @@ CENSOR / SILENCE / MONTAGE candidates (verify at Stage 2)
   wordless vertical sequence - strong silence-shot candidate), B28 ending.
 [S6 micro-montage]: B06 driver-framing, B14 two-families struggle, B16 the
   scramble-to-clean - rapid-cut sequences -> per-moment frame verification.
+
+
+================================================================================
+TWIST-HOLD - NOT MACHINE-READ (recorded 2026-09-05)
+================================================================================
+This file used the marker TWIST-HOLD (in bracket form) on beats that must be narrated WITHOUT
+hindsight - the early scenes that show the phenomenon a later reveal explains.
+
+NOTHING HAS EVER READ IT. `catalogue.py` parses bracketed tags inside a beat
+block into a set and then consumes exactly two, S6 and S9; every other tag is
+discarded silently. The marker has been inert since it was written, on this and
+two other projects, while looking like an enforced hold.
+
+The bracket form has been changed to `TWIST-HOLD:unenforced` so it can no longer
+be mistaken for a live tag. The intent is preserved here.
+
+WHAT IT WAS TRYING TO EXPRESS
+  "A first-time viewer does not yet know what this scene means. Narrate it with
+   ONLY what they know at this point - no hindsight, no knowing phrasing."
+  That is A8 spoiler discipline applied per-beat rather than per-term.
+
+WHY IT WAS NOT WIRED INSTEAD
+  A gate cannot check it. The reveal-map gate (REVEAL-TIMING) scans for LITERAL
+  TERMS appearing before a landing time. Hindsight contamination usually carries
+  no protected term at all - RULES B11 is the recorded case: at Shutter Island a
+  line reading "the stories people tell themselves to survive" implied the whole
+  twist and the gate saw nothing. Wiring TWIST-HOLD to a term scan would produce
+  a gate that passes exactly the failures the marker exists to prevent, which is
+  worse than no gate. Detecting hindsight properly is semantic work, far beyond
+  the cost bar this decision was given.
+
+WHAT TO DO INSTEAD, AND WHAT IS CURRENTLY MISSING
+  1. Add a ```reveal-map``` block. It catches the literal-term half, which is the
+     half a machine can do. THIS PROJECT DOES NOT HAVE ONE - so it currently has
+     no machine-readable spoiler hold of any kind.
+  2. Keep the beats below on the draft-review watch by hand. That is the only
+     thing that catches the implication half (RULES F, checkpoint 1).
+
+Landing times were deliberately NOT invented here to build a reveal-map: this
+project's reveal beats have not been frame-verified in this pass, and A5 says
+admit the gap rather than guess it.

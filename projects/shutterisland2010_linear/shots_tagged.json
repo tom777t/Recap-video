@@ -1,0 +1,258 @@
+{
+  "shots": [
+    {
+      "shot": "shot01",
+      "depicts": [
+        "dialogue",
+        "setup"
+      ],
+      "chars": [
+        "Teddy Daniels",
+        "Chuck Aule"
+      ],
+      "action": "Two men in fedoras and trench coats stand talking on the open deck of a ferry, the sea and a chain-link railing behind them."
+    },
+    {
+      "shot": "shot02",
+      "depicts": [
+        "dialogue",
+        "establishing",
+        "setup"
+      ],
+      "chars": [
+        "Deputy Warden McPherson",
+        "Teddy Daniels",
+        "Chuck Aule",
+        "(khong ro)"
+      ],
+      "action": "A uniformed officer in a peaked cap speaks to two men in trench coats and fedoras on the road by the dock, with armed guards, a jeep and the moored ferry behind them."
+    },
+    {
+      "shot": "shot03",
+      "depicts": [
+        "establishing",
+        "dialogue",
+        "setup"
+      ],
+      "chars": [
+        "Teddy Daniels",
+        "Chuck Aule",
+        "Deputy Warden McPherson"
+      ],
+      "action": "A wide view of the institution's manicured grounds and fortress-like stone building gives way to the two hatted marshals walking in through the brick gate past uniformed guards while a uniformed officer talks to them on the lawn."
+    },
+    {
+      "shot": "shot04",
+      "depicts": [
+        "dialogue",
+        "setup"
+      ],
+      "chars": [
+        "Dr. John Cawley",
+        "Teddy Daniels",
+        "Chuck Aule"
+      ],
+      "action": "In a wood-panelled office, a bald man in a tweed suit and bow tie stands by his desk gesturing with a pipe as he speaks to two seated men in suits."
+    },
+    {
+      "shot": "shot05",
+      "depicts": [
+        "action",
+        "discovery",
+        "reveal"
+      ],
+      "chars": [
+        "Teddy Daniels"
+      ],
+      "action": "Crouched in a dim room, Teddy Daniels peers into a narrow gap and picks up a small folded scrap of paper, then unfolds it in his hands to show the handwritten words \"THE LAW OF 4 / WHO IS 67?\"."
+    },
+    {
+      "shot": "shot06",
+      "depicts": [
+        "dialogue",
+        "establishing"
+      ],
+      "chars": [
+        "Dr. John Cawley",
+        "(khong ro)"
+      ],
+      "action": "At night three men in overcoats and hats walk away from a lit brick building, Dr. Cawley in close-up talking as he walks, before the camera holds on the dark rain-slicked facility exterior."
+    },
+    {
+      "shot": "shot07",
+      "depicts": [
+        "dialogue",
+        "establishing",
+        "setup"
+      ],
+      "chars": [
+        "Teddy Daniels",
+        "Chuck Aule"
+      ],
+      "action": "Two men in hats and overcoats stand silhouetted against the grounds behind a tall chain-link fence, then talk face to face in close-up through the wire as one lights the other's cigarette."
+    },
+    {
+      "shot": "shot08",
+      "depicts": [
+        "dialogue",
+        "setup"
+      ],
+      "chars": [
+        "Teddy Daniels",
+        "Chuck Aule"
+      ],
+      "action": "In a dim ferry cabin Teddy sits in the foreground while Chuck, seated against the bulkhead opposite him, fidgets with his hands and talks to him, with a brief cut to a misty snow-dusted pine forest between the two angles."
+    },
+    {
+      "shot": "shot09",
+      "depicts": [
+        "dialogue",
+        "reaction",
+        "reveal"
+      ],
+      "chars": [
+        "Chuck Aule",
+        "Teddy Daniels",
+        "(khong ro)"
+      ],
+      "action": "In a dim wood-panelled room a man in a grey suit holds up a metal flask as he speaks to another man, whose face is then seen in close-up with a lit cigarette in his mouth, cut against an overhead view of three bloodied children's bodies lying on a patterned carpet beside a woman in a red dress."
+    },
+    {
+      "shot": "shot10",
+      "depicts": [
+        "action",
+        "dialogue",
+        "establishing"
+      ],
+      "chars": [
+        "Andrew Laeddis",
+        "Dr. Lester Sheehan"
+      ],
+      "action": "Orderlies in white struggle with patients across the beds of a dim ward dormitory, a man in a white coat leans in to light a cigarette for another man seated beside him, and a lone white-clad figure stands in the arched stone entrance of the brick hospital building."
+    },
+    {
+      "shot": "shot11",
+      "depicts": [
+        "dialogue",
+        "setup"
+      ],
+      "chars": [
+        "Teddy Daniels",
+        "Chuck Aule",
+        "(khong ro)"
+      ],
+      "action": "In a dark brick basement corridor by a stone staircase, a heavyset uniformed guard in a peaked cap speaks across the frame to Teddy and Chuck, who stand together in white coats and listen."
+    },
+    {
+      "shot": "shot12",
+      "depicts": [
+        "dialogue",
+        "reaction"
+      ],
+      "chars": [
+        "Teddy Daniels",
+        "(khong ro)"
+      ],
+      "action": "In a dim cell block, an over-the-shoulder view holds on a bald, shirtless man hunched on a bunk, then cuts to a close-up of Teddy's bruised face watching him through the iron bars."
+    },
+    {
+      "shot": "shot13",
+      "depicts": [
+        "establishing",
+        "dialogue",
+        "discovery"
+      ],
+      "chars": [
+        "Teddy Daniels",
+        "Chuck Aule"
+      ],
+      "action": "Two men in pale clothing stand at the edge of a wooded sea cliff looking out at a lighthouse on the rocks below, then talk facing each other among the trees."
+    },
+    {
+      "shot": "shot14",
+      "depicts": [
+        "dialogue",
+        "reveal"
+      ],
+      "chars": [
+        "Rachel Solando",
+        "(khong ro)"
+      ],
+      "action": "Inside a dark cave lit by a small fire, a woman in a grey institutional dress stands against the rock wall talking toward an out-of-focus man in the foreground, holding a knife at her side in the later frames."
+    },
+    {
+      "shot": "shot15",
+      "depicts": [
+        "action",
+        "setup"
+      ],
+      "chars": [
+        "Warden",
+        "Teddy Daniels"
+      ],
+      "action": "A uniformed man waits at the wheel of an army jeep on a wooded road and looks back as Teddy, in a pale jacket, walks over and climbs in, and the jeep drives on past a weathered building."
+    },
+    {
+      "shot": "shot16",
+      "depicts": [
+        "dialogue",
+        "reveal"
+      ],
+      "chars": [
+        "Dr. John Cawley"
+      ],
+      "action": "Dr. Cawley stands beside a flip chart in a stone room, speaking and gesturing at the handwritten anagrams \"EDWARD DANIELS-ANDREW LAEDDIS\" and \"RACHEL SOLANDO-DOLORES CHANAL\"."
+    },
+    {
+      "shot": "shot17",
+      "depicts": [
+        "reaction",
+        "dialogue",
+        "emotion"
+      ],
+      "chars": [
+        "Teddy Daniels",
+        "(khong ro)"
+      ],
+      "action": "In a dim brick corridor a rain-soaked Teddy Daniels in a pale jacket faces a man in a dark suit across the passage, then the camera holds on Teddy's face in close-up as he stares off and his expression hardens."
+    },
+    {
+      "shot": "shot18",
+      "depicts": [
+        "dialogue",
+        "reveal"
+      ],
+      "chars": [
+        "Dr. Lester Sheehan",
+        "Dr. John Cawley",
+        "Teddy Daniels"
+      ],
+      "action": "In a lamplit stone room a dark-haired man in a tweed suit talks urgently at a man seen from behind, with a brief cut to two men grappling on the iron stairs of a brick lighthouse, before a bald older man holds up a photograph of a dead boy for the same listener to look at."
+    },
+    {
+      "shot": "shot19",
+      "depicts": [
+        "reaction",
+        "dialogue",
+        "emotion"
+      ],
+      "chars": [
+        "Andrew Laeddis",
+        "Dolores Chanal"
+      ],
+      "action": "In close-up outdoors, a soaked blonde woman in a yellow floral dress cradles the back of a man's head while speaking to him, and he then doubles over sobbing against her on the grass."
+    },
+    {
+      "shot": "shot20",
+      "depicts": [
+        "dialogue",
+        "reaction"
+      ],
+      "chars": [
+        "Teddy Daniels",
+        "Chuck Aule"
+      ],
+      "action": "Tight two-shot of Teddy and Chuck standing close together outside a columned building, talking low as Teddy studies him with a tense frown."
+    }
+  ]
+}
