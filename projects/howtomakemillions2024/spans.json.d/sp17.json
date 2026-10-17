@@ -1,0 +1,68 @@
+{
+  "span": "sp17",
+  "moments": [
+    {
+      "shots": [0, 1],
+      "clip_start": "01:24:00.292",
+      "clip_end": "01:24:24.833",
+      "depicts": ["establishing", "setup"],
+      "chars": ["Amah"],
+      "action": "Busy hospital lobby: Amah sits parked in a wheelchair among waiting patients and monks. Cut to a locked-off view of the consulting-room doorway, empty at first, then showing a doctor at his desk with a patient inside.",
+      "censor": "none"
+    },
+    {
+      "shots": [2],
+      "clip_start": "01:24:24.833",
+      "clip_end": "01:24:39.750",
+      "depicts": ["reaction"],
+      "chars": ["Amah"],
+      "action": "A long held profile of Amah in her beanie, waiting alone in the wheelchair as staff and patients drift past behind her; by the end she has tipped her head back, eyes half-closed.",
+      "censor": "none"
+    },
+    {
+      "shots": [3, 4, 5],
+      "clip_start": "01:24:39.750",
+      "clip_end": "01:25:02.583",
+      "depicts": ["dialogue", "reveal"],
+      "chars": ["Sew", "M", "Amah"],
+      "action": "Inside the consulting room Sew's face crumples as she listens, M sitting still beside her; a cutaway to his hand closing around Amah's outside, then back as he grips Sew's shoulder while she breaks down at the doctor's desk.",
+      "censor": "none"
+    },
+    {
+      "shots": [6],
+      "clip_start": "01:25:02.583",
+      "clip_end": "01:25:12.833",
+      "depicts": ["action", "aftermath"],
+      "chars": ["Sew", "M", "Amah"],
+      "action": "Back in the wide lobby, Sew walks out towards Amah's wheelchair and stops short in front of it, M crouched low at Amah's side, the two of them composing themselves before her.",
+      "censor": "none"
+    },
+    {
+      "shots": [7, 8],
+      "clip_start": "01:25:12.833",
+      "clip_end": "01:25:23.667",
+      "depicts": ["dialogue", "emotion"],
+      "chars": ["Amah", "M"],
+      "action": "Amah leans on the wheelchair arm and talks brightly to M; the reverse shows him answering her with a flat, careful face as she reaches over and takes hold of his arm.",
+      "censor": "none"
+    },
+    {
+      "shots": [9, 10],
+      "clip_start": "01:25:23.667",
+      "clip_end": "01:25:34.250",
+      "depicts": ["reaction", "emotion"],
+      "chars": ["Amah", "Sew", "M"],
+      "action": "Sew moves in behind the wheelchair, face wet, while Amah keeps smiling and chatting; the reverse holds on M, who answers her evenly without letting anything show.",
+      "censor": "none"
+    },
+    {
+      "shots": [11],
+      "clip_start": "01:25:34.250",
+      "clip_end": "01:25:56.000",
+      "depicts": ["reaction", "aftermath"],
+      "chars": ["Amah", "Sew", "M"],
+      "action": "A long held take over Amah's shoulder: she sits smiling and oblivious while Sew stands behind her holding a brave face, then turns her head away and bends down, crying, out of her mother's sightline.",
+      "censor": "none"
+    }
+  ]
+}

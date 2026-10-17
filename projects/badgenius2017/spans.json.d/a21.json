@@ -1,0 +1,86 @@
+{
+  "span": "a21",
+  "moments": [
+    {
+      "shots": [0, 1, 2],
+      "clip_start": "00:31:30.375",
+      "clip_end": "00:31:40.708",
+      "depicts": ["establishing", "setup"],
+      "chars": ["Bank", "Lynn"],
+      "action": "Bank sits alone at a desk in a huge exam gym, staring forward. The camera widens to Lynn and a bespectacled boy in the same row, then pulls all the way back to the full hall with the proctor standing at the front desk.",
+      "censor": "none"
+    },
+    {
+      "shots": [3, 4, 5, 6],
+      "clip_start": "00:31:40.708",
+      "clip_end": "00:31:47.667",
+      "depicts": ["action", "setup"],
+      "chars": ["Bank"],
+      "action": "Bank lowers his eyes to his paper and starts filling the header. Macro inserts follow the pencil and pen writing the class line, ending on the half-written 'ม 5/' before the name field.",
+      "censor": "none"
+    },
+    {
+      "shots": [7, 8, 9, 10],
+      "clip_start": "00:31:47.667",
+      "clip_end": "00:32:08.208",
+      "depicts": ["action", "emotion"],
+      "chars": ["Lynn", "Bank"],
+      "action": "The row settles into work, pencils shading bubbles. Bank, calm at the start, is sweating in close-up by the second half, and the last insert shows the pencil stalled in the 39-40 block.",
+      "censor": "none"
+    },
+    {
+      "shots": [11, 12, 13, 14],
+      "clip_start": "00:32:08.208",
+      "clip_end": "00:32:21.667",
+      "depicts": ["action", "emotion"],
+      "chars": ["Pat"],
+      "action": "Pat writes steadily, then lifts his head; cut to the proctor at his lamp-lit desk, head down marking. By the last shot the proctor has looked straight up at the hall, catching the movement.",
+      "censor": "none"
+    },
+    {
+      "shots": [15, 16, 17, 18],
+      "clip_start": "00:32:21.667",
+      "clip_end": "00:32:30.375",
+      "depicts": ["reaction", "emotion"],
+      "chars": ["Lynn"],
+      "action": "Lynn stands over her desk, face hard, then in close-up presses a hand to her mouth. A boy nearby props his cheek, bored; Lynn's final close-up has her eyes gone wide and fixed on the page.",
+      "censor": "none"
+    },
+    {
+      "shots": [19, 20, 21, 22],
+      "clip_start": "00:32:30.375",
+      "clip_end": "00:32:38.500",
+      "depicts": ["discovery", "reveal"],
+      "chars": ["Lynn", "Bank"],
+      "action": "Lynn lifts her booklet and reads the cover; insert reveals the label 'ก. ชุดที่ 1'. Cut to Bank bowed over his own sheet, then a macro of question 40 where a filled bubble has been rubbed out.",
+      "censor": "none"
+    },
+    {
+      "shots": [23, 24, 25, 26, 27],
+      "clip_start": "00:32:38.500",
+      "clip_end": "00:33:00.542",
+      "depicts": ["action", "emotion"],
+      "chars": ["Pat", "Bank"],
+      "action": "Pat works head-down while a girl behind turns her pages; Bank, in profile, raises his eyes off the paper for the first time. The hall wide shot follows, then the focus slips and the rows blur out.",
+      "censor": "none"
+    },
+    {
+      "shots": [28, 29, 30, 31],
+      "clip_start": "00:33:00.542",
+      "clip_end": "00:33:13.750",
+      "depicts": ["action", "emotion"],
+      "chars": ["Bank"],
+      "action": "Bank looks up down the hall; inserts show the proctor's hand carrying papers and a pen as he walks the aisle. Bank drops his head and mouths to himself as the proctor passes behind the desks.",
+      "censor": "none"
+    },
+    {
+      "shots": [32, 33, 34, 35],
+      "clip_start": "00:33:13.750",
+      "clip_end": "00:33:20.958",
+      "depicts": ["action", "reaction"],
+      "chars": ["Lynn"],
+      "action": "A blurred girl hunches at her desk; in the hall a boy has slid down almost flat over his answer sheet. An insert shows hands with a calculator watch spread across the bubbles, then Lynn twists round to look back.",
+      "censor": "none"
+    }
+  ]
+}

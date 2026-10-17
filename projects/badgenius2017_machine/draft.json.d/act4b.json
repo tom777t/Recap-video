@@ -1,0 +1,355 @@
+{
+  "act": 4,
+  "lines": [
+    {
+      "id": 451,
+      "narration": "The last section is an essay on a speech - nothing in it reduces to four letters.",
+      "clip_start": "01:37:53.750",
+      "clip_end": "01:38:01.958",
+      "note": "B66",
+      "delivery": "tense",
+      "narrative_jump": false
+    },
+    {
+      "id": 452,
+      "narration": "Her own fingers go between her lips. She is not sick; she is making herself sick.",
+      "clip_start": "01:38:44.333",
+      "clip_end": "01:38:52.958",
+      "note": "B66",
+      "delivery": "reveal",
+      "narrative_jump": false
+    },
+    {
+      "id": 453,
+      "narration": "She buckles until the whole row is watching, and asks to be let home.",
+      "clip_start": "01:38:52.958",
+      "clip_end": "01:39:05.958",
+      "note": "B66",
+      "delivery": "tense",
+      "narrative_jump": false,
+      "claim": {
+        "type": "speech",
+        "subject": "Lynn"
+      }
+    },
+    {
+      "id": 454,
+      "narration": "Leave now and her score is cancelled, the proctor tells her. She goes anyway, walked out in tears.",
+      "clip_start": "01:39:05.958",
+      "clip_end": "01:39:11.792",
+      "note": "B66",
+      "delivery": "tense",
+      "narrative_jump": false
+    },
+    {
+      "id": 455,
+      "narration": "Bag on her shoulder she hurries down the corridor. A suited man rushes past: somebody has started looking.",
+      "clip_start": "01:40:06.750",
+      "clip_end": "01:40:26.042",
+      "note": "B67",
+      "delivery": "tense",
+      "narrative_jump": true
+    },
+    {
+      "id": 456,
+      "narration": "She climbs the stairs while a suited man crosses the lobby, phone at his ear, telling someone he cannot see her.",
+      "clip_start": "01:41:00.375",
+      "clip_end": "01:41:14.583",
+      "note": "B68",
+      "delivery": "tense",
+      "narrative_jump": false
+    },
+    {
+      "id": 457,
+      "narration": "In the station she sends a coded line about a speech transcript. In Bangkok the alert lands on a phone on cardboard.",
+      "clip_start": "01:42:26.917",
+      "clip_end": "01:42:40.042",
+      "note": "B69",
+      "delivery": "tense",
+      "narrative_jump": true
+    },
+    {
+      "id": 458,
+      "narration": "She drops to her knees on the station floor and hammers out another block.",
+      "clip_start": "01:43:27.000",
+      "clip_end": "01:43:40.000",
+      "note": "B69",
+      "delivery": "tense",
+      "narrative_jump": false
+    },
+    {
+      "id": 459,
+      "narration": "Grace types the phrase into search and Nelson Mandela speech transcripts fill the screen. The code opens.",
+      "clip_start": "01:44:34.208",
+      "clip_end": "01:44:40.958",
+      "note": "B70",
+      "delivery": "reveal",
+      "narrative_jump": true
+    },
+    {
+      "id": 460,
+      "narration": "Answer slips go into the rank of motorbike taxis, and the riders pull away.",
+      "clip_start": "01:45:21.792",
+      "clip_end": "01:45:26.292",
+      "note": "B70",
+      "delivery": "normal",
+      "narrative_jump": false
+    },
+    {
+      "id": 461,
+      "narration": "Her screen reads C A B B. She stops dead on the empty platform.",
+      "clip_start": "01:47:18.292",
+      "clip_end": "01:47:26.167",
+      "note": "B71",
+      "delivery": "tense",
+      "narrative_jump": true
+    },
+    {
+      "id": 462,
+      "narration": "Commuters hurry past her legs. Bank is gone, so she keeps sending alone, a tear running down her face.",
+      "clip_start": "01:47:46.292",
+      "clip_end": "01:47:57.500",
+      "note": "B71",
+      "delivery": "sad",
+      "narrative_jump": false
+    },
+    {
+      "id": 463,
+      "narration": "A scuffle, and her backpack is on the floor with the suited man over it. She swallows and faces him.",
+      "clip_start": "01:48:45.833",
+      "clip_end": "01:49:02.042",
+      "note": "B72",
+      "delivery": "tense",
+      "narrative_jump": false
+    },
+    {
+      "id": 464,
+      "narration": "A staff member tells her what is coming. Another Thai candidate has already admitted carrying a phone in. Her score is gone, and at worst she sits the exam again.",
+      "clip_start": "01:49:21.500",
+      "clip_end": "01:49:52.208",
+      "note": "B72",
+      "delivery": "tense",
+      "narrative_jump": true
+    },
+    {
+      "id": 465,
+      "narration": "Through the glass she watches Bank answer them. Whatever he gives them, her name is not in it. She turns away.",
+      "clip_start": "01:50:38.167",
+      "clip_end": "01:51:05.875",
+      "note": "B72",
+      "delivery": "sad",
+      "narrative_jump": false,
+      "claim": {
+        "type": "speech",
+        "subject": "Bank"
+      }
+    },
+    {
+      "id": 466,
+      "narration": "At Bangkok arrivals Pat has a party waiting: Bank is arrested, their score is banked, and she only has to sit the exam again. She has changed her mind.",
+      "clip_start": "01:51:55.625",
+      "clip_end": "01:52:23.083",
+      "note": "B73",
+      "delivery": "tense",
+      "narrative_jump": true,
+      "claim": {
+        "type": "speech",
+        "subject": "Lynn"
+      }
+    },
+    {
+      "id": 467,
+      "narration": "Grace puts out a hand to shake on it. Lynn walks straight past both of them.",
+      "clip_start": "01:52:49.375",
+      "clip_end": "01:53:04.458",
+      "note": "B73",
+      "delivery": "sad",
+      "narrative_jump": false
+    },
+    {
+      "id": 468,
+      "narration": "Her father walks up at the terminal doors and asks where her boyfriend is - he wants the boy over for dinner.",
+      "clip_start": "01:53:19.250",
+      "clip_end": "01:53:35.500",
+      "note": "B74",
+      "delivery": "sad",
+      "narrative_jump": false,
+      "claim": {
+        "type": "speech",
+        "subject": "Lynn's father"
+      }
+    },
+    {
+      "id": 469,
+      "narration": "He pulls her into a hug and she breaks, sobbing on his shoulder - everything she has carried since Sydney, out at once.",
+      "clip_start": "01:53:56.625",
+      "clip_end": "01:54:23.958",
+      "note": "B74",
+      "delivery": "sad",
+      "narrative_jump": false
+    },
+    {
+      "id": 470,
+      "narration": "The party she is not at: balloons, confetti, and matching shirts printed with the score they bought. STIC 1460.",
+      "clip_start": "01:54:47.792",
+      "clip_end": "01:55:04.958",
+      "note": "B75",
+      "delivery": "normal",
+      "narrative_jump": true
+    },
+    {
+      "id": 471,
+      "narration": "A message from Pat: Bank has already drawn his million and her share is waiting. Lynn left the chat.",
+      "clip_start": "01:55:24.958",
+      "clip_end": "01:55:42.333",
+      "note": "B75",
+      "delivery": "sad",
+      "narrative_jump": true
+    },
+    {
+      "id": 472,
+      "narration": "A scholarship banner with Bank's face goes up on a school wall; inside, he is head-down at a desk.",
+      "clip_start": "01:56:31.833",
+      "clip_end": "01:56:47.917",
+      "note": "B76",
+      "delivery": "normal",
+      "narrative_jump": true
+    },
+    {
+      "id": 473,
+      "narration": "The laundry has been rebuilt - new machines still in bubble wrap, a new sign over the door. Mister Bank.",
+      "clip_start": "01:57:39.375",
+      "clip_end": "01:57:55.167",
+      "note": "B76",
+      "delivery": "reveal",
+      "narrative_jump": true
+    },
+    {
+      "id": 474,
+      "narration": "A door opens onto the back workshop. Bank waits against a bench and tells her to come in. She stays put.",
+      "clip_start": "01:57:55.167",
+      "clip_end": "01:58:16.208",
+      "note": "B77",
+      "delivery": "tense",
+      "narrative_jump": false,
+      "claim": {
+        "type": "speech",
+        "subject": "Bank"
+      }
+    },
+    {
+      "id": 475,
+      "narration": "He called her for a reason: has she applied for GAT/PAT, because he has a job he wants her on.",
+      "clip_start": "01:58:31.292",
+      "clip_end": "01:58:50.083",
+      "note": "B77",
+      "delivery": "reveal",
+      "narrative_jump": false,
+      "claim": {
+        "type": "speech",
+        "subject": "Bank"
+      }
+    },
+    {
+      "id": 476,
+      "narration": "He holds out a yellow leaflet: the national exam, every school in the country on the same day. She asks how much he needs.",
+      "clip_start": "01:59:07.958",
+      "clip_end": "01:59:31.792",
+      "note": "B77",
+      "delivery": "tense",
+      "narrative_jump": false,
+      "claim": {
+        "type": "speech",
+        "subject": "Lynn"
+      }
+    },
+    {
+      "id": 477,
+      "narration": "It is not about enough, he says, but about what he can do from here. A million this time, and getting caught would not mean jail.",
+      "clip_start": "01:59:50.958",
+      "clip_end": "02:00:26.208",
+      "note": "B77",
+      "delivery": "tense",
+      "narrative_jump": false,
+      "claim": {
+        "type": "speech",
+        "subject": "Bank"
+      }
+    },
+    {
+      "id": 478,
+      "narration": "She says no. He turns square to her: refuse, and he will see her cut off from the exam that sends her abroad.",
+      "clip_start": "02:00:56.833",
+      "clip_end": "02:01:16.292",
+      "note": "B78",
+      "delivery": "tense",
+      "narrative_jump": false,
+      "claim": {
+        "type": "speech",
+        "subject": "Bank"
+      }
+    },
+    {
+      "id": 479,
+      "narration": "And not just her - Grace, Pat and every client who sat it. Her hand is on the door handle. She stops.",
+      "clip_start": "02:01:31.250",
+      "clip_end": "02:01:48.875",
+      "note": "B78",
+      "delivery": "tense",
+      "narrative_jump": false,
+      "claim": {
+        "type": "speech",
+        "subject": "Bank"
+      }
+    },
+    {
+      "id": 480,
+      "narration": "One more thing, he says. Her father would be very sad. Her eyes shut, then open flat.",
+      "clip_start": "02:01:48.875",
+      "clip_end": "02:02:05.125",
+      "note": "B78",
+      "delivery": "tense",
+      "narrative_jump": false,
+      "claim": {
+        "type": "speech",
+        "subject": "Bank"
+      }
+    },
+    {
+      "id": 481,
+      "narration": "In a white corridor her father sits beside her, head bowed. She turns away, close to tears.",
+      "clip_start": "02:02:05.125",
+      "clip_end": "02:02:17.208",
+      "note": "B79",
+      "delivery": "sad",
+      "narrative_jump": true
+    },
+    {
+      "id": 482,
+      "narration": "He lifts his head and gives her a small smile, two chairs at the end of an empty corridor.",
+      "clip_start": "02:02:17.208",
+      "clip_end": "02:02:34.333",
+      "note": "B79",
+      "delivery": "sad",
+      "narrative_jump": false
+    },
+    {
+      "id": 483,
+      "narration": "They walk her past the suits to a camcorder on a tripod.",
+      "clip_start": "02:03:25.000",
+      "clip_end": "02:03:34.292",
+      "note": "B80",
+      "delivery": "tense",
+      "narrative_jump": true
+    },
+    {
+      "id": 484,
+      "narration": "She sits down across the white table and tells them everything. Bank's threat still stands; she chooses this anyway - and it costs her the exam, the money and him.",
+      "clip_start": "02:03:44.083",
+      "clip_end": "02:03:57.208",
+      "note": "B80",
+      "delivery": "reveal",
+      "narrative_jump": false
+    }
+  ]
+}

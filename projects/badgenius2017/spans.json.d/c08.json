@@ -1,0 +1,77 @@
+{
+  "span": "c08",
+  "moments": [
+    {
+      "shots": [0],
+      "clip_start": "01:55:30.917",
+      "clip_end": "01:55:39.458",
+      "depicts": ["dialogue", "emotion"],
+      "chars": ["Lynn"],
+      "action": "Held close-up of Lynn in a pale blouse, speaking straight down the lens in an empty white hall; she starts steady and her mouth keeps moving as the take runs on without a cut.",
+      "censor": "none"
+    },
+    {
+      "shots": [1, 2, 3],
+      "clip_start": "01:55:39.458",
+      "clip_end": "01:55:55.208",
+      "depicts": ["dialogue", "reveal"],
+      "chars": ["Pat", "Grace"],
+      "action": "Insert of a phone chat where Pat's thread ends with 'Lin left the chat', then cut away to a warm wood-panelled party: Pat turns and talks off-screen, and the reverse lands on Grace smiling back at him.",
+      "censor": "none"
+    },
+    {
+      "shots": [4, 5],
+      "clip_start": "01:55:55.208",
+      "clip_end": "01:56:03.583",
+      "depicts": ["action", "aftermath"],
+      "chars": ["Pat", "Grace"],
+      "action": "Close-up of hands kneading a bare leg, then the camera pulls back past a table of empty bottles to Pat and Grace sprawled together on the couch, the massage over and both slumped in the mess.",
+      "censor": "none"
+    },
+    {
+      "shots": [6],
+      "clip_start": "01:56:03.583",
+      "clip_end": "01:56:17.458",
+      "depicts": ["reaction", "emotion"],
+      "chars": ["Lynn"],
+      "action": "Back to Lynn alone in the white hall, holding the camera's gaze through a long take; by the end of the shot she has dropped her eyes to the floor and stopped speaking.",
+      "censor": "none"
+    },
+    {
+      "shots": [7, 8],
+      "clip_start": "01:56:17.458",
+      "clip_end": "01:56:31.833",
+      "depicts": ["dialogue", "setup"],
+      "chars": [],
+      "action": "In a dim office a woman in a black blazer sits behind a desk facing two people shot from behind; the scene cuts to a clipboard close-up of a school-crested letter already carrying a handwritten signature.",
+      "censor": "none"
+    },
+    {
+      "shots": [9, 10],
+      "clip_start": "01:56:31.833",
+      "clip_end": "01:56:47.917",
+      "depicts": ["establishing", "setup"],
+      "chars": ["Bank"],
+      "action": "A congratulatory scholarship banner with Bank's portrait hangs on a school wall; cut inside to Bank himself hunched over a desk in a blue-lit classroom, writing hard, head down.",
+      "censor": "none"
+    },
+    {
+      "shots": [11, 12, 13, 14, 15, 16],
+      "clip_start": "01:56:47.917",
+      "clip_end": "01:57:00.750",
+      "depicts": ["action", "aftermath"],
+      "chars": [],
+      "action": "A fast run of near-black shots in a cramped cluttered laundry room: a figure hauls a bucket past the doorway, glimpses of someone working among hanging cloth, the frames darkening until the picture goes fully black.",
+      "censor": "none"
+    },
+    {
+      "shots": [17, 18],
+      "clip_start": "01:57:00.750",
+      "clip_end": "01:57:19.542",
+      "depicts": ["establishing", "setup"],
+      "chars": [],
+      "action": "Out of black into a bright school corridor: two girls walk away and a boy exits far down the hall, then a uniformed girl comes forward alone toward the lens. Cut to her phone lighting up with a message, 'come meet us at our place tonight'.",
+      "censor": "none"
+    }
+  ]
+}

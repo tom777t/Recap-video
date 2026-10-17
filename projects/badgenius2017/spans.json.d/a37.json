@@ -1,0 +1,50 @@
+{
+  "span": "a37",
+  "moments": [
+    {
+      "shots": [0, 1, 2, 3],
+      "clip_start": "00:55:30.333",
+      "clip_end": "00:55:54.958",
+      "depicts": ["dialogue", "setup"],
+      "chars": ["Lynn", "Grace", "Pat"],
+      "action": "Lynn stands over a world map spread on the print-shop table, pitching to a seated Grace and Pat. Grace starts slumped on her hands; by the last shot both sit up, Pat gesturing back at Lynn.",
+      "censor": "none"
+    },
+    {
+      "shots": [4, 5, 6, 7],
+      "clip_start": "00:55:54.958",
+      "clip_end": "00:56:26.125",
+      "depicts": ["dialogue", "reveal"],
+      "chars": ["Lynn", "Grace", "Pat"],
+      "action": "Tighter, darker coverage as Lynn keeps explaining, eyes down. Pat argues back across the map, Grace frowning beside him; by the end Pat has gone quiet with a hand at his chin, working it out.",
+      "censor": "none"
+    },
+    {
+      "shots": [8, 9, 10, 11],
+      "clip_start": "00:56:26.125",
+      "clip_end": "00:56:46.292",
+      "depicts": ["reaction", "emotion"],
+      "chars": ["Lynn", "Grace", "Pat"],
+      "action": "Lynn finishes, still unsmiling. Grace breaks into a laugh, then springs out of her chair in a wide shot and throws herself at Lynn in a hug, leaving Lynn held and faintly smiling.",
+      "censor": "none"
+    },
+    {
+      "shots": [12, 13],
+      "clip_start": "00:56:46.292",
+      "clip_end": "00:57:01.542",
+      "depicts": ["dialogue", "setup"],
+      "chars": ["Lynn", "Grace", "Pat"],
+      "action": "Grace and Pat lean over the map, Pat spreading his hand across it and talking up at Lynn. Cut to Lynn alone in profile against a bright barred window, turned away and no longer smiling.",
+      "censor": "none"
+    },
+    {
+      "shots": [14, 15, 16],
+      "clip_start": "00:57:01.542",
+      "clip_end": "00:57:17.250",
+      "depicts": ["dialogue", "reaction"],
+      "chars": ["Lynn", "Grace", "Pat"],
+      "action": "Grace and Pat keep planning aloud at the table while Lynn stays silhouetted at the window, head dropping. The last shot lands on Pat clamping a hand over his mouth as Grace stares up, the excitement gone.",
+      "censor": "none"
+    }
+  ]
+}

@@ -1,0 +1,59 @@
+{
+  "span": "a35",
+  "moments": [
+    {
+      "shots": [0, 1],
+      "clip_start": "00:52:25.375",
+      "clip_end": "00:52:55.917",
+      "depicts": ["dialogue", "setup"],
+      "chars": ["Lynn"],
+      "action": "In a wood-panelled room a smiling woman in a striped shirt talks across to Lynn, who listens in her yellow volunteer T-shirt. By the end Lynn has lifted a white envelope into frame and holds it.",
+      "censor": "none"
+    },
+    {
+      "shots": [2, 3, 4],
+      "clip_start": "00:52:55.917",
+      "clip_end": "00:53:23.667",
+      "depicts": ["transition", "setup"],
+      "chars": ["Lynn"],
+      "action": "Elevator doors slide shut on a figure glimpsed through the gap; then Lynn rides a mall escalator, turning to glance back over her shoulder, ending on a blurred insert of hands carrying an orange booklet and a shop bag.",
+      "censor": "none"
+    },
+    {
+      "shots": [5, 6, 7],
+      "clip_start": "00:53:23.667",
+      "clip_end": "00:53:43.333",
+      "depicts": ["action", "setup"],
+      "chars": ["Lynn"],
+      "action": "Lynn stands back from a hotel reception desk lined with world clocks, then moves in and leans on the counter talking to the receptionist; by the last shot her hand is writing Thai on a card beside the orange booklets.",
+      "censor": "none"
+    },
+    {
+      "shots": [8, 9],
+      "clip_start": "00:53:43.333",
+      "clip_end": "00:54:00.667",
+      "depicts": ["action", "reaction"],
+      "chars": ["Lynn"],
+      "action": "Lynn pushes the booklet and card across the marble counter, eyes down; the angle then swings to her profile, face set and waiting, a man working blurred behind her.",
+      "censor": "none"
+    },
+    {
+      "shots": [10, 11],
+      "clip_start": "00:54:00.667",
+      "clip_end": "00:54:13.000",
+      "depicts": ["dialogue", "reveal"],
+      "chars": ["Lynn"],
+      "action": "Lynn waits at the counter with her eyes lowered while the receptionist takes a phone call; the next shot cuts to a hand in a brown sleeve holding up a phone showing a man with a small girl in a blue dress.",
+      "censor": "none"
+    },
+    {
+      "shots": [12],
+      "clip_start": "00:54:13.000",
+      "clip_end": "00:54:27.250",
+      "depicts": ["reaction", "emotion"],
+      "chars": ["Lynn"],
+      "action": "A held low angle on Lynn under the lobby chandelier: she looks off composed and almost defiant, then her brow draws in and her eyes go glassy as the shot runs on.",
+      "censor": "none"
+    }
+  ]
+}

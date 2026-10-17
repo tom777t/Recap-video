@@ -1,0 +1,50 @@
+{
+  "span": "c11",
+  "moments": [
+    {
+      "shots": [0, 1, 2, 3],
+      "clip_start": "01:59:50.958",
+      "clip_end": "02:00:26.208",
+      "depicts": ["dialogue", "emotion"],
+      "chars": ["Bank", "Lynn"],
+      "action": "In a dim room Bank talks in tight profile while Lynn listens, facing away from him. Over the exchange her jaw tightens and her eyes go glassy; by the last shot she is near tears and still has not looked at him.",
+      "censor": "none"
+    },
+    {
+      "shots": [4, 5],
+      "clip_start": "02:00:26.208",
+      "clip_end": "02:00:56.833",
+      "depicts": ["dialogue", "emotion"],
+      "chars": ["Bank", "Lynn"],
+      "action": "Bank drops his gaze to the floor as he keeps speaking, then the camera holds on Lynn alone; her stare hardens and her mouth sets as she takes in what he said.",
+      "censor": "none"
+    },
+    {
+      "shots": [6, 7, 8],
+      "clip_start": "02:00:56.833",
+      "clip_end": "02:01:16.292",
+      "depicts": ["dialogue", "reveal"],
+      "chars": ["Bank"],
+      "action": "Bank, still in profile, looks off past her; a cutaway to the glass-panelled door and a hanging umbrella, then he turns square to camera and speaks straight at Lynn, no longer avoiding her.",
+      "censor": "none"
+    },
+    {
+      "shots": [9, 10],
+      "clip_start": "02:01:16.292",
+      "clip_end": "02:01:31.250",
+      "depicts": ["action", "emotion"],
+      "chars": ["Lynn"],
+      "action": "Lynn stands at the door with her back to him, then turns her head to look back, face drawn. An insert of a hand closing on the doorknob ends the beat - she is leaving.",
+      "censor": "none"
+    },
+    {
+      "shots": [11, 12, 13, 14],
+      "clip_start": "02:01:31.250",
+      "clip_end": "02:01:48.875",
+      "depicts": ["dialogue", "emotion"],
+      "chars": ["Bank", "Lynn"],
+      "action": "Bank raises his voice at her, mouth open mid-shout; Lynn keeps her back turned in the doorway, then he speaks again, softer. She ends in profile by the hanging coats, lit from the doorway, not turning back.",
+      "censor": "none"
+    }
+  ]
+}

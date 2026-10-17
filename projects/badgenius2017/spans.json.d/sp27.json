@@ -1,0 +1,95 @@
+{
+  "span": "sp27",
+  "moments": [
+    {
+      "shots": [0, 1, 2, 3, 4],
+      "clip_start": "01:38:57.833",
+      "clip_end": "01:39:11.792",
+      "depicts": ["action", "emotion"],
+      "chars": ["Lynn"],
+      "action": "Lynn doubles over her desk in the library exam hall, then rises in tears as the proctor grips her arm and walks her out. The last shot leaves the proctor alone in the aisle, Lynn gone.",
+      "censor": "none"
+    },
+    {
+      "shots": [5, 6, 7, 8],
+      "clip_start": "01:39:11.792",
+      "clip_end": "01:39:34.333",
+      "depicts": ["action", "setup"],
+      "chars": [],
+      "action": "A young man in a striped polo strides through a printing plant past the presses, a young woman in a blue work uniform trailing him. He breaks into a hurry, and the shop's printer in a cream polo turns to face them.",
+      "censor": "none"
+    },
+    {
+      "shots": [9, 10, 11],
+      "clip_start": "01:39:34.333",
+      "clip_end": "01:39:43.625",
+      "depicts": ["action"],
+      "chars": [],
+      "action": "Cut to the exam building corridor: a hand fills a paper cup at the water cooler, black boots planted at the counter, then an overhead shows the woman slumped against the wall beside the cooler.",
+      "censor": "none"
+    },
+    {
+      "shots": [12, 13, 14],
+      "clip_start": "01:39:43.625",
+      "clip_end": "01:39:51.375",
+      "depicts": ["dialogue"],
+      "chars": [],
+      "action": "The printer talks straight at the pair; the young woman in blue grins beside the man in the striped polo. The moment breaks on a cutaway to the same black boots striding away down the carpet.",
+      "censor": "none"
+    },
+    {
+      "shots": [15, 16],
+      "clip_start": "01:39:51.375",
+      "clip_end": "01:39:59.958",
+      "depicts": ["dialogue"],
+      "chars": [],
+      "action": "Back in the plant, the printer keeps talking, eyes widening; the reverse holds on the couple listening, her smile fading as he goes on.",
+      "censor": "none"
+    },
+    {
+      "shots": [17, 18, 19, 20],
+      "clip_start": "01:39:59.958",
+      "clip_end": "01:40:06.750",
+      "depicts": ["dialogue"],
+      "chars": [],
+      "action": "The printer pulls back and shakes a loose sheaf of pages at them. The young man answers; by the last shot both have gone quiet and still, watching him.",
+      "censor": "none"
+    },
+    {
+      "shots": [21, 22, 23, 24, 25, 26],
+      "clip_start": "01:40:06.750",
+      "clip_end": "01:40:26.042",
+      "depicts": ["action", "transition"],
+      "chars": ["Lynn"],
+      "action": "Lynn, bag on her shoulder, hurries out along the timber corridor glancing back. A suited man rushes past the doors, the camera whips to a blank wall, and it settles on an old monitor showing a figure at a cabinet.",
+      "censor": "none"
+    },
+    {
+      "shots": [27, 28],
+      "clip_start": "01:40:26.042",
+      "clip_end": "01:40:30.292",
+      "depicts": ["dialogue"],
+      "chars": [],
+      "action": "Close on the printer mid-sentence in the plant, then he steps forward and puts a hand out across the frame towards the pair.",
+      "censor": "none"
+    },
+    {
+      "shots": [29, 30, 31],
+      "clip_start": "01:40:30.292",
+      "clip_end": "01:40:37.625",
+      "depicts": ["reaction", "discovery"],
+      "chars": [],
+      "action": "The young man drops his eyes to something being handed over; a soft close-up of hands at the counter follows. Both of them end up looking down at it, their earlier smiles gone.",
+      "censor": "none"
+    },
+    {
+      "shots": [32, 33],
+      "clip_start": "01:40:37.625",
+      "clip_end": "01:40:48.417",
+      "depicts": ["establishing"],
+      "chars": [],
+      "action": "Wide of the exam hall: the suited invigilator paces the aisle while the remaining candidates keep writing. Cut back to the printer standing alone among his presses, still looking at them.",
+      "censor": "none"
+    }
+  ]
+}

@@ -1,0 +1,59 @@
+{
+  "span": "a26",
+  "moments": [
+    {
+      "shots": [0, 1, 2, 3],
+      "clip_start": "00:38:58.000",
+      "clip_end": "00:39:23.667",
+      "depicts": ["action", "discovery"],
+      "chars": ["Lynn"],
+      "action": "In the exam hall a bespectacled invigilator leans in, takes a folded note from a seated girl, then moves off down the aisle to another student. Lynn twists round in her seat, watching, tense.",
+      "censor": "none"
+    },
+    {
+      "shots": [4, 5, 6, 7],
+      "clip_start": "00:39:23.667",
+      "clip_end": "00:39:43.333",
+      "depicts": ["dialogue", "setup"],
+      "chars": ["Lynn", "Pat", "Grace"],
+      "action": "A phone screen fills with a LINE group chat; outside, Pat scrolls his phone on the steps while Grace braids Lynn's hair. A boy by the doorway grins at his own screen - the message has spread.",
+      "censor": "none"
+    },
+    {
+      "shots": [8, 9],
+      "clip_start": "00:39:43.333",
+      "clip_end": "00:40:02.208",
+      "depicts": ["reaction", "setup"],
+      "chars": ["Lynn", "Pat", "Grace"],
+      "action": "A grey-haired teacher in a tie steps out of the doorway and passes the steps. The easy mood drops: the three look up after him, and Grace rises to her feet as he walks by.",
+      "censor": "none"
+    },
+    {
+      "shots": [10, 11, 12],
+      "clip_start": "00:40:02.208",
+      "clip_end": "00:40:15.500",
+      "depicts": ["action", "setup"],
+      "chars": [],
+      "action": "A close-up of a dark office doorknob; the door swings and students push through, one wide-eyed. Inside, a woman behind a desk faces a seated man as two students stand waiting.",
+      "censor": "none"
+    },
+    {
+      "shots": [13, 14, 15, 16],
+      "clip_start": "00:40:15.500",
+      "clip_end": "00:40:28.208",
+      "depicts": ["action", "discovery"],
+      "chars": ["Pat", "Bank"],
+      "action": "Pat works at a laptop with Bank and a girl leaning over him. The camera whips off them to the teacher in the tie, head down, and follows a man crossing the office toward the woman at the desk.",
+      "censor": "none"
+    },
+    {
+      "shots": [17, 18],
+      "clip_start": "00:40:28.208",
+      "clip_end": "00:40:44.667",
+      "depicts": ["reaction", "reveal"],
+      "chars": ["Lynn", "Bank"],
+      "action": "Lynn stands beside Bank in the office, eyes down and silent while he speaks. Cut to the woman at her desk, leafing one by one through the answer sheets in front of her.",
+      "censor": "none"
+    }
+  ]
+}

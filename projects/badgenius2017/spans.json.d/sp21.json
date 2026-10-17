@@ -1,0 +1,77 @@
+{
+  "span": "sp21",
+  "moments": [
+    {
+      "shots": [0, 1, 2, 3, 4, 5],
+      "clip_start": "01:29:59.917",
+      "clip_end": "01:30:10.167",
+      "depicts": ["action", "setup"],
+      "chars": ["Lynn", "Bank"],
+      "action": "The exam runs: a hand works an answer sheet, Lynn and Bank sit rows apart. It tightens from wide desks to sweat running down Bank's and Lynn's faces, cut with inserts of grid-in boxes reading 0.72 and 11160.",
+      "censor": "none"
+    },
+    {
+      "shots": [6, 7, 8, 9],
+      "clip_start": "01:30:10.167",
+      "clip_end": "01:30:20.667",
+      "depicts": ["reaction", "establishing"],
+      "chars": ["Lynn", "Bank"],
+      "action": "A blurred whip past a candidate settles on Lynn's face, jaw working as she mouths something, eyes down. The camera then pulls back to the full library hall, Bank and Lynn small at separate desks among rows of candidates.",
+      "censor": "none"
+    },
+    {
+      "shots": [10, 11, 12, 13],
+      "clip_start": "01:30:20.667",
+      "clip_end": "01:30:39.833",
+      "depicts": ["action", "transition"],
+      "chars": ["Lynn"],
+      "action": "A cubicle door and its latch, then a lurching handheld move along the washroom wall past two blonde girls at the mirrors, ending on Lynn stopped inside the toilets, looking off and listening.",
+      "censor": "none"
+    },
+    {
+      "shots": [14, 15, 16, 17, 18],
+      "clip_start": "01:30:39.833",
+      "clip_end": "01:30:54.417",
+      "depicts": ["action", "discovery"],
+      "chars": ["Bank", "Lynn"],
+      "action": "In the locked cubicle Bank peels a phone out of a sanitary-pad wrapper on his lap; Lynn turns away outside. He wakes the screen and starts typing answer strings - BCADB DCDAC BDABC - under earlier blocks already marked read.",
+      "censor": "none"
+    },
+    {
+      "shots": [19, 20, 21, 22],
+      "clip_start": "01:30:54.417",
+      "clip_end": "01:31:06.458",
+      "depicts": ["action", "reaction"],
+      "chars": ["Lynn", "Bank"],
+      "action": "Lynn checks her wristwatch and looks down, strained. Cut to the phone as Bank types 'next, grid-in' and sends it, then to Bank in the stall, mouth open, waiting on the screen.",
+      "censor": "none"
+    },
+    {
+      "shots": [23, 24, 25, 26],
+      "clip_start": "01:31:06.458",
+      "clip_end": "01:31:24.917",
+      "depicts": ["action", "reveal"],
+      "chars": ["Bank"],
+      "action": "Two men in suits walk into the washroom talking. Bank's head snaps up at the noise, then he bends back to the phone to type grid-in values 0.72, 107, 23, 0 - and his face lifts again, frightened, as the voices get closer.",
+      "censor": "none"
+    },
+    {
+      "shots": [27, 28, 29, 30],
+      "clip_start": "01:31:24.917",
+      "clip_end": "01:31:36.667",
+      "depicts": ["action"],
+      "chars": ["Bank"],
+      "action": "The suited invigilator moves down the stalls with a second man behind him. Bank adds one more number, 5, then abandons the message: he backs out to the chat list and opens the menu to Remove the thread 'L,P'.",
+      "censor": "none"
+    },
+    {
+      "shots": [31, 32, 33, 34, 35],
+      "clip_start": "01:31:36.667",
+      "clip_end": "01:31:49.750",
+      "depicts": ["action", "aftermath"],
+      "chars": ["Bank"],
+      "action": "The invigilator pushes a stall door open and calls out. Bank freezes, then reseals the phone inside the plastic pad wrapper and slides it onto the floor by his sneakers; the last frame holds on the tiles as the man's black shoes pass.",
+      "censor": "none"
+    }
+  ]
+}

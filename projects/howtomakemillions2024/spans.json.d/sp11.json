@@ -1,0 +1,50 @@
+{
+  "span": "sp11",
+  "moments": [
+    {
+      "shots": [0, 1, 2],
+      "clip_start": "01:15:06.083",
+      "clip_end": "01:15:35.583",
+      "depicts": ["dialogue", "setup"],
+      "chars": ["Amah", "M"],
+      "action": "Amah sits in profile, hands on her cane, watching M eat at the shophouse table in his grey tee. By the last shot she has stopped watching and he has turned away, reaching for something off-table.",
+      "censor": "none"
+    },
+    {
+      "shots": [3, 4],
+      "clip_start": "01:15:35.583",
+      "clip_end": "01:15:43.083",
+      "depicts": ["action", "setup"],
+      "chars": ["Amah", "M"],
+      "action": "Amah stands by the folding gate unwrapping a white shirt and hands it to M. In the wide that follows he is wearing it and she is bent at his waist, tucking it in for him.",
+      "censor": "none"
+    },
+    {
+      "shots": [5, 6, 7],
+      "clip_start": "01:15:43.083",
+      "clip_end": "01:16:13.167",
+      "depicts": ["dialogue", "emotion"],
+      "chars": ["Amah", "M"],
+      "action": "Close shot/reverse as Amah fusses over the white shirt's front and collar. M starts stiff and talking down at her; by the last shot she is grinning up at him and he has softened.",
+      "censor": "none"
+    },
+    {
+      "shots": [8],
+      "clip_start": "01:16:13.167",
+      "clip_end": "01:16:33.500",
+      "depicts": ["dialogue", "emotion"],
+      "chars": ["M", "Amah"],
+      "action": "A long held take on M in the finished white shirt, talking across the table. Mid-shot Amah leans into frame and her hand settles on his chest to straighten the tie, and he stops to let her.",
+      "censor": "none"
+    },
+    {
+      "shots": [9],
+      "clip_start": "01:16:33.500",
+      "clip_end": "01:16:46.000",
+      "depicts": ["action", "aftermath"],
+      "chars": ["M", "Amah"],
+      "action": "Wide of the room: M strips the white shirt off over his shoulders while Amah, now sat back down by the table, watches. He ends in his grey tee, back to camera, and she is still smiling up at him.",
+      "censor": "none"
+    }
+  ]
+}

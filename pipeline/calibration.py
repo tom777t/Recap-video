@@ -39,12 +39,32 @@ class VoiceProfile:
     words_per_sec_conservative: float
     syllables_per_sec: float = 0.0
     pause_overhead_sec: float = 0.18
+    # "measured"  = do that tu dau ra TTS cua CHINH giong se duoc render
+    # "config-fallback" = suy ra tu config.TTS_WORDS_PER_MINUTE vi giong do
+    #                     chua duoc do bao gio
+    # Bat buoc phai phan biet duoc, vi co so runtime la cai do duoc khi co, va
+    # chi lui ve hang so khi khong co. Nguoi doc phai biet ho dang xem cai nao.
+    source: str = "measured"
+
+    @property
+    def is_measured(self) -> bool:
+        return self.source == "measured"
+
+    @property
+    def words_per_minute(self) -> float:
+        return self.words_per_sec * 60.0
 
     def estimate_narration_seconds(self, text: str) -> float:
         """Best-estimate spoken length of `text` (seconds), incl. the inter-line
         pause overhead. Uses the AGGREGATE rate (closest to reality)."""
         words = len(str(text).split())
-        wps = self.words_per_sec or 3.5
+        # 2026-09-09: day tung la `or 3.5` - mot hang so DAT RA, khong do tu dau.
+        # Mot truong thieu trong voice_profiles.json lang le sinh ra mot NHIP
+        # THU HAI (3.5 w/s = 210 WPM) ben canh config.TTS_WORDS_PER_MINUTE=170,
+        # va hai con so runtime cung ton tai: script.txt bao 24.7 phut con
+        # DRAFT-TARGET bao 20.6. Toi da lap ngan sach tu con so nho hon.
+        # Thieu du lieu thi lui ve CO SO DUY NHAT, khong tu nghi ra nhip moi.
+        wps = self.words_per_sec or (float(config.TTS_WORDS_PER_MINUTE) / 60.0)
         return words / wps + self.pause_overhead_sec
 
     def max_words_for_capacity(self, capacity_sec: float) -> int:
@@ -52,7 +72,8 @@ class VoiceProfile:
         Uses the CONSERVATIVE rate so the ceiling is safe (a line at this many
         words is guaranteed to fit the real, faster-on-average audio)."""
         usable = max(0.0, float(capacity_sec) - self.pause_overhead_sec)
-        wps = self.words_per_sec_conservative or self.words_per_sec or 3.3
+        wps = (self.words_per_sec_conservative or self.words_per_sec
+               or (float(config.TTS_WORDS_PER_MINUTE) / 60.0))
         return int(usable * wps)
 
 
@@ -86,11 +107,15 @@ def load_profile(voice_id: str, rate: str = "+22%") -> Optional[VoiceProfile]:
     return VoiceProfile(
         voice_id=meta.get("voice_id", voice_id),
         rate_adjustment=meta.get("rate_adjustment", rate),
-        words_per_sec=float(meta.get("words_per_sec", 3.5)),
+        words_per_sec=float(meta.get("words_per_sec",
+                                     float(config.TTS_WORDS_PER_MINUTE) / 60.0)),
         words_per_sec_conservative=float(
-            meta.get("words_per_sec_conservative", meta.get("words_per_sec", 3.3))),
+            meta.get("words_per_sec_conservative",
+                     meta.get("words_per_sec",
+                              float(config.TTS_WORDS_PER_MINUTE) / 60.0))),
         syllables_per_sec=float(meta.get("syllables_per_sec", 0.0)),
         pause_overhead_sec=float(meta.get("pause_overhead_sec", 0.18)),
+        source="measured",
     )
 
 
@@ -102,6 +127,7 @@ def default_profile() -> VoiceProfile:
         voice_id="(default)", rate_adjustment="",
         words_per_sec=wps, words_per_sec_conservative=wps,
         pause_overhead_sec=float(getattr(config, "GAP_BETWEEN_LINES", 0.18)),
+        source="config-fallback",
     )
 
 

@@ -1,0 +1,113 @@
+{
+  "span": "sp25",
+  "moments": [
+    {
+      "shots": [0, 1],
+      "clip_start": "01:35:56.625",
+      "clip_end": "01:36:19.500",
+      "depicts": ["establishing", "setup"],
+      "chars": ["Lynn"],
+      "action": "Lynn sits mid-row in the exam hall, eyes shut over her paper. The angle swings behind her to the hall clock at 10:42:11, and the doorway ahead fades through into a dark room with an upright piano.",
+      "censor": "none"
+    },
+    {
+      "shots": [2, 3, 4, 5],
+      "clip_start": "01:36:19.500",
+      "clip_end": "01:36:28.500",
+      "depicts": ["action", "setup"],
+      "chars": ["Lynn"],
+      "action": "Extreme close-ups of Lynn's sweating brow and tight face; an insert shows a pencilled letter string C B A A D on blank paper. She is back upright in the stacks, writing steadily.",
+      "censor": "none"
+    },
+    {
+      "shots": [6, 7, 8, 9],
+      "clip_start": "01:36:28.500",
+      "clip_end": "01:36:34.917",
+      "depicts": ["montage", "action"],
+      "chars": ["Lynn"],
+      "action": "Cuts alternate between Lynn at the lamplit piano and Lynn bent over her desk in the hall. The run ends on the paper, where the letter string has grown to D P B C A D B D.",
+      "censor": "none"
+    },
+    {
+      "shots": [10, 11, 12, 13],
+      "clip_start": "01:36:34.917",
+      "clip_end": "01:36:39.333",
+      "depicts": ["montage", "action"],
+      "chars": ["Lynn"],
+      "action": "Lynn frowns down at her sheet, then her fingers start drumming the desktop; the cut matches them to hands running real piano keys and back to the silent tapping on the exam paper.",
+      "censor": "none"
+    },
+    {
+      "shots": [14, 15, 16, 17],
+      "clip_start": "01:36:39.333",
+      "clip_end": "01:36:45.792",
+      "depicts": ["action", "emotion"],
+      "chars": ["Lynn"],
+      "action": "Lynn's sweat-sheened profile in the piano room, then upright in the stacks reading her sheet; an insert shows answer bubbles already shaded in, and she ends breathing hard, mouth open.",
+      "censor": "none"
+    },
+    {
+      "shots": [18, 19, 20],
+      "clip_start": "01:36:45.792",
+      "clip_end": "01:36:54.208",
+      "depicts": ["action", "setup"],
+      "chars": ["Lynn"],
+      "action": "A held wide of Lynn's back at the upright piano, window light behind her, breaks into a whip-pan blur and lands on the proctor in the cream blazer planted in the hall doorway, hands on hips, watching.",
+      "censor": "none"
+    },
+    {
+      "shots": [21, 22, 23, 24, 25],
+      "clip_start": "01:36:54.208",
+      "clip_end": "01:37:03.542",
+      "depicts": ["montage", "action"],
+      "chars": ["Lynn"],
+      "action": "The intercut speeds up: blurred piano playing, Lynn writing at her desk, filled C and D bubbles, fingers on keys. It ends tight on her hand tapping in the foreground with her face soft behind it.",
+      "censor": "none"
+    },
+    {
+      "shots": [26, 27, 28],
+      "clip_start": "01:37:03.542",
+      "clip_end": "01:37:13.833",
+      "depicts": ["establishing", "setup"],
+      "chars": [],
+      "action": "A new location: a dim print works full of old presses. A phone left on a desk lights up with an incoming call from 0840126470, and the cut goes outside to the shop's Thai signboard.",
+      "censor": "none"
+    },
+    {
+      "shots": [29],
+      "clip_start": "01:37:13.833",
+      "clip_end": "01:37:23.000",
+      "depicts": ["establishing", "reveal"],
+      "chars": [],
+      "action": "A long static hold on a car's rear window carrying a handwritten paper advert; the number on it, 084-012-6470, is the one that just rang at the print shop.",
+      "censor": "none"
+    },
+    {
+      "shots": [30, 31, 32, 33],
+      "clip_start": "01:37:23.000",
+      "clip_end": "01:37:36.500",
+      "depicts": ["action", "setup"],
+      "chars": [],
+      "action": "A hand holds a phone reading 6:58, Sat Oct 8; two students compare their screens in a packed hall; the camera pans a rank of waiting motorbike taxis and settles on a wall clock ticking to 6:59.",
+      "censor": "none"
+    },
+    {
+      "shots": [34, 35, 36],
+      "clip_start": "01:37:36.500",
+      "clip_end": "01:37:43.083",
+      "depicts": ["reaction", "emotion"],
+      "chars": ["Lynn"],
+      "action": "Back in the exam hall the clock has run to 10:57:59. The proctor stares straight down the room, and Lynn sits with her eyes closed, face damp and still.",
+      "censor": "none"
+    },
+    {
+      "shots": [37, 38],
+      "clip_start": "01:37:43.083",
+      "clip_end": "01:37:47.417",
+      "depicts": ["action", "reveal"],
+      "chars": ["Lynn"],
+      "action": "Lynn's hand sweeps across the page of pencilled letters and the camera pushes past it to the next section heading printed in the booklet: Essay.",
+      "censor": "none"
+    }
+  ]
+}

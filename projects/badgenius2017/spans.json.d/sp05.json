@@ -1,0 +1,86 @@
+{
+  "span": "sp05",
+  "moments": [
+    {
+      "shots": [0, 1, 2, 3, 4],
+      "clip_start": "01:05:58.583",
+      "clip_end": "01:06:14.750",
+      "depicts": ["action", "reveal"],
+      "chars": ["Lynn", "Bank", "Pat", "Grace"],
+      "action": "Lynn walks into the dim printing works while a figure waits in the dark. She turns, and Bank steps forward under a strip light. By the last shot she is smiling faintly, Pat and Grace hanging back behind her.",
+      "censor": "none"
+    },
+    {
+      "shots": [5, 6],
+      "clip_start": "01:06:14.750",
+      "clip_end": "01:06:31.292",
+      "depicts": ["establishing", "setup"],
+      "chars": ["Pat", "Grace"],
+      "action": "The camera tilts up over the works' girders and the painted SAFETY FIRST slogan, then drops to the floor, where Pat is propped against an offset press and Grace turns away in the foreground.",
+      "censor": "none"
+    },
+    {
+      "shots": [7, 8, 9],
+      "clip_start": "01:06:31.292",
+      "clip_end": "01:06:50.458",
+      "depicts": ["dialogue", "setup"],
+      "chars": ["Lynn", "Bank"],
+      "action": "Lynn and Bank trade looks in profile across the press floor. Over the long final take Lynn goes from staring off to talking, dropping her eyes as she lays out the plan.",
+      "censor": "none"
+    },
+    {
+      "shots": [10, 11, 12, 13, 14],
+      "clip_start": "01:06:50.458",
+      "clip_end": "01:06:58.625",
+      "depicts": ["montage", "setup"],
+      "chars": ["Lynn", "Pat"],
+      "action": "A STIC registration form fills in as Lynn works from a laptop on the press step. Two completed admission tickets flash up, Thanaphon's then Rinrada's, and the frame widens to Pat and Lynn enrolling side by side.",
+      "censor": "none"
+    },
+    {
+      "shots": [15, 16, 17, 18],
+      "clip_start": "01:06:58.625",
+      "clip_end": "01:07:09.625",
+      "depicts": ["montage", "setup"],
+      "chars": ["Grace", "Pat", "Lynn", "Lynn's father"],
+      "action": "Hands fill in an application form clipped to a passport photo while Grace and Pat wait at the table. The run jumps home: Lynn's father soaping the car at night, then Lynn standing over him as he reads her papers.",
+      "censor": "none"
+    },
+    {
+      "shots": [19, 20, 21, 22, 23],
+      "clip_start": "01:07:09.625",
+      "clip_end": "01:07:22.792",
+      "depicts": ["montage", "setup"],
+      "chars": ["Grace"],
+      "action": "On a MacBook a \"Teen Genius\" logo is cut out in Photoshop and dropped onto a letterhead as a hand works the mouse. Grace types at a second laptop, and the run ends on a blurred arm whipping past the lens.",
+      "censor": "none"
+    },
+    {
+      "shots": [24, 25, 26, 27],
+      "clip_start": "01:07:22.792",
+      "clip_end": "01:07:35.667",
+      "depicts": ["dialogue", "setup"],
+      "chars": ["Lynn", "Lynn's father"],
+      "action": "Lynn brings the printed letter to her father. He keeps scrubbing the car, then turns to look up at her; by the last shot he is on his feet outside, the page in his hands and Lynn leaning in beside him.",
+      "censor": "none"
+    },
+    {
+      "shots": [28, 29],
+      "clip_start": "01:07:35.667",
+      "clip_end": "01:07:39.292",
+      "depicts": ["reaction", "setup"],
+      "chars": ["Bank", "Pat", "Grace", "Lynn"],
+      "action": "Bank lifts his eyes in close-up against the wooden post, then the cut pulls wide to the whole group spread across the press floor: Bank at the machine, Pat and Grace on chairs, Lynn facing them with her arms folded.",
+      "censor": "none"
+    },
+    {
+      "shots": [30, 31, 32, 33, 34],
+      "clip_start": "01:07:39.292",
+      "clip_end": "01:07:51.458",
+      "depicts": ["montage", "setup"],
+      "chars": ["Pat", "Grace", "Bank", "Lynn"],
+      "action": "Now in school uniform, the four run a timed mock exam in the works: Pat stands over Grace with a timer, Bank and Lynn sit at desks down the aisle. A practice booklet and answer sheet are laid out and a title card counts off the section.",
+      "censor": "none"
+    }
+  ]
+}

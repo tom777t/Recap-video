@@ -1,0 +1,450 @@
+{
+  "act": 3,
+  "lines": [
+    {
+      "id": 301,
+      "narration": "Lynn has stopped taking the work. Grace sits down opposite and sells harder.",
+      "clip_start": "00:48:40.417",
+      "clip_end": "00:48:56.250",
+      "note": "B36",
+      "delivery": "normal",
+      "narrative_jump": true
+    },
+    {
+      "id": 302,
+      "narration": "Lynn answers flat: they can manage two semesters without her. Nothing agreed.",
+      "clip_start": "00:49:09.375",
+      "clip_end": "00:49:32.917",
+      "note": "B36",
+      "delivery": "normal",
+      "narrative_jump": false,
+      "claim": {
+        "type": "speech",
+        "subject": "Lynn"
+      }
+    },
+    {
+      "id": 303,
+      "narration": "Another table. Pat's father drains the wine; Lynn laughs along.",
+      "clip_start": "00:49:32.917",
+      "clip_end": "00:49:55.000",
+      "note": "B37",
+      "delivery": "normal",
+      "narrative_jump": true
+    },
+    {
+      "id": 304,
+      "narration": "A Boston brochure slides across: go with Pat, tutor him into a school his grades can't reach.",
+      "clip_start": "00:51:35.167",
+      "clip_end": "00:51:52.750",
+      "note": "B37",
+      "delivery": "normal",
+      "narrative_jump": false
+    },
+    {
+      "id": 305,
+      "narration": "The condition is STIC — one exam, sat the same day worldwide.",
+      "clip_start": "00:51:52.750",
+      "clip_end": "00:52:09.042",
+      "note": "B38",
+      "delivery": "mystery",
+      "narrative_jump": false
+    },
+    {
+      "id": 306,
+      "narration": "Six hundred thousand baht to go. Lynn says nothing, and takes the envelope.",
+      "clip_start": "00:52:37.125",
+      "clip_end": "00:52:55.917",
+      "note": "B38",
+      "delivery": "tense",
+      "narrative_jump": false
+    },
+    {
+      "id": 307,
+      "narration": "A wall of hotel clocks. NEW YORK. Her face tightens, then opens.",
+      "clip_start": "00:54:13.000",
+      "clip_end": "00:54:38.417",
+      "note": "B39",
+      "delivery": "mystery",
+      "narrative_jump": true
+    },
+    {
+      "id": 308,
+      "narration": "Her eyes find SYDNEY, hours ahead. Sit the paper there and the answers reach Bangkok first.",
+      "clip_start": "00:54:52.083",
+      "clip_end": "00:55:12.417",
+      "note": "B39",
+      "delivery": "reveal",
+      "narrative_jump": false
+    },
+    {
+      "id": 309,
+      "narration": "A red pin goes down on Australia. Behind the glass, a print shop.",
+      "clip_start": "00:55:12.417",
+      "clip_end": "00:55:26.583",
+      "note": "B40",
+      "delivery": "normal",
+      "narrative_jump": true
+    },
+    {
+      "id": 310,
+      "narration": "Lynn lays it out: their own scores, plus fees from other students, split after costs.",
+      "clip_start": "00:55:54.958",
+      "clip_end": "00:56:26.125",
+      "note": "B40",
+      "delivery": "tense",
+      "narrative_jump": false,
+      "claim": {
+        "type": "speech",
+        "subject": "Lynn"
+      }
+    },
+    {
+      "id": 311,
+      "narration": "She can hold half the answers in a break. The other half needs one person, who will refuse.",
+      "clip_start": "00:57:17.250",
+      "clip_end": "00:57:38.917",
+      "note": "B40",
+      "delivery": "tense",
+      "narrative_jump": false,
+      "claim": {
+        "type": "speech",
+        "subject": "Lynn"
+      }
+    },
+    {
+      "id": 312,
+      "narration": "Bank hauls the basket off his scooter: one more delivery, exam at eight tomorrow.",
+      "clip_start": "00:57:46.792",
+      "clip_end": "00:58:06.292",
+      "note": "B41",
+      "delivery": "normal",
+      "narrative_jump": true,
+      "claim": {
+        "type": "speech",
+        "subject": "Bank"
+      }
+    },
+    {
+      "id": 313,
+      "narration": "A parked car has been watching. A door opens; Bank stares straight back.",
+      "clip_start": "00:58:06.292",
+      "clip_end": "00:58:16.333",
+      "note": "B41",
+      "delivery": "tense",
+      "narrative_jump": false
+    },
+    {
+      "id": 314,
+      "narration": "CCTV, 19:53. Men rush him and drag him down beside the pickup.",
+      "clip_start": "00:58:16.333",
+      "clip_end": "00:58:28.417",
+      "note": "B41",
+      "delivery": "tense",
+      "narrative_jump": false
+    },
+    {
+      "id": 315,
+      "narration": "He comes round in rubbish, one eye swollen shut, a speck on a landfill.",
+      "clip_start": "00:58:28.417",
+      "clip_end": "00:58:46.792",
+      "note": "B42",
+      "delivery": "sad",
+      "narrative_jump": false
+    },
+    {
+      "id": 316,
+      "narration": "He falls, gets up, walks on. His scholarship exam starts without him.",
+      "clip_start": "00:59:03.458",
+      "clip_end": "00:59:12.458",
+      "note": "B42",
+      "delivery": "sad",
+      "narrative_jump": false
+    },
+    {
+      "id": 317,
+      "narration": "Then he stops looking for a way out and howls in the mud.",
+      "clip_start": "01:00:00.042",
+      "clip_end": "01:00:15.042",
+      "note": "B42",
+      "delivery": "sad",
+      "narrative_jump": false
+    },
+    {
+      "id": 318,
+      "narration": "At school it is sold from a stage: spotlight, microphone, STIC logo.",
+      "clip_start": "01:00:27.292",
+      "clip_end": "01:00:36.125",
+      "note": "B43",
+      "delivery": "normal",
+      "narrative_jump": true
+    },
+    {
+      "id": 319,
+      "narration": "Out in the rows the paying customers are already slumped.",
+      "clip_start": "01:00:36.125",
+      "clip_end": "01:00:46.375",
+      "note": "B43",
+      "delivery": "normal",
+      "narrative_jump": false
+    },
+    {
+      "id": 320,
+      "narration": "Her method: a phone taped under a sink, answers sent out in the breaks.",
+      "clip_start": "01:00:58.083",
+      "clip_end": "01:01:12.083",
+      "note": "B44",
+      "delivery": "normal",
+      "narrative_jump": true,
+      "claim": {
+        "type": "speech",
+        "subject": "Lynn"
+      }
+    },
+    {
+      "id": 321,
+      "narration": "Into the room with it: a barcode printed down a 2B pencil.",
+      "clip_start": "01:01:28.042",
+      "clip_end": "01:01:45.083",
+      "note": "B44",
+      "delivery": "normal",
+      "narrative_jump": false
+    },
+    {
+      "id": 322,
+      "narration": "Bar thickness carries the answer, thickest to thinnest — A, B, C, D.",
+      "clip_start": "01:01:45.083",
+      "clip_end": "01:01:51.750",
+      "note": "B44",
+      "delivery": "normal",
+      "narrative_jump": false
+    },
+    {
+      "id": 323,
+      "narration": "Bank sits in a dim back room, a bruise under his eye.",
+      "clip_start": "01:03:18.167",
+      "clip_end": "01:03:28.292",
+      "note": "B45",
+      "delivery": "sad",
+      "narrative_jump": true
+    },
+    {
+      "id": 324,
+      "narration": "Daylight. Lynn walks into the laundry.",
+      "clip_start": "01:03:28.292",
+      "clip_end": "01:03:35.500",
+      "note": "B45",
+      "delivery": "normal",
+      "narrative_jump": true
+    },
+    {
+      "id": 325,
+      "narration": "Bank's answer: cheating means somebody loses. Lynn says they are the losers already.",
+      "clip_start": "01:04:47.333",
+      "clip_end": "01:04:58.458",
+      "note": "B45",
+      "delivery": "tense",
+      "narrative_jump": false,
+      "claim": {
+        "type": "speech",
+        "subject": "Bank"
+      }
+    },
+    {
+      "id": 326,
+      "narration": "His life cheats him anyway, she says, and slides a card across his ledger.",
+      "clip_start": "01:05:15.250",
+      "clip_end": "01:05:33.750",
+      "note": "B45",
+      "delivery": "tense",
+      "narrative_jump": false,
+      "claim": {
+        "type": "speech",
+        "subject": "Lynn"
+      }
+    },
+    {
+      "id": 327,
+      "narration": "He looks past her, refusing. Then he takes it — the no had a price.",
+      "clip_start": "01:05:33.750",
+      "clip_end": "01:05:51.083",
+      "note": "B45",
+      "delivery": "tense",
+      "narrative_jump": false
+    },
+    {
+      "id": 328,
+      "narration": "Bank steps out of the dark of the print works. He is in.",
+      "clip_start": "01:06:06.292",
+      "clip_end": "01:06:14.750",
+      "note": "B46",
+      "delivery": "normal",
+      "narrative_jump": true
+    },
+    {
+      "id": 329,
+      "narration": "Step one, Lynn says: she and Bank sit the exam in Sydney.",
+      "clip_start": "01:06:31.292",
+      "clip_end": "01:06:50.458",
+      "note": "B46",
+      "delivery": "normal",
+      "narrative_jump": false,
+      "claim": {
+        "type": "speech",
+        "subject": "Lynn"
+      }
+    },
+    {
+      "id": 330,
+      "narration": "Then the drills, section by section; the clothes change, the run repeats.",
+      "clip_start": "01:07:47.333",
+      "clip_end": "01:07:55.500",
+      "note": "B46",
+      "delivery": "normal",
+      "narrative_jump": false
+    },
+    {
+      "id": 331,
+      "narration": "Lynn calls time and Bank runs. The whole trip must fit one break.",
+      "clip_start": "01:08:28.708",
+      "clip_end": "01:08:42.292",
+      "note": "B46",
+      "delivery": "tense",
+      "narrative_jump": false
+    },
+    {
+      "id": 332,
+      "narration": "Seven and a half million on a phone calculator, then a bag of notes.",
+      "clip_start": "01:09:09.167",
+      "clip_end": "01:09:18.208",
+      "note": "B47",
+      "delivery": "normal",
+      "narrative_jump": true
+    },
+    {
+      "id": 333,
+      "narration": "Getting answers out: a phone taped inside a cistern lid, thumbs typing.",
+      "clip_start": "01:09:18.208",
+      "clip_end": "01:09:29.833",
+      "note": "B47",
+      "delivery": "tense",
+      "narrative_jump": false
+    },
+    {
+      "id": 334,
+      "narration": "Pat and Grace grin as the answers land. Bank sits apart, head down.",
+      "clip_start": "01:09:29.833",
+      "clip_end": "01:09:42.333",
+      "note": "B47",
+      "delivery": "sad",
+      "narrative_jump": false
+    },
+    {
+      "id": 335,
+      "narration": "The interview room again — this time Pat in the chair, crying into both hands.",
+      "clip_start": "01:10:11.542",
+      "clip_end": "01:10:35.125",
+      "note": "B48",
+      "delivery": "tense",
+      "narrative_jump": true
+    },
+    {
+      "id": 336,
+      "narration": "It slips out at Lynn's back: the men at that gate were Pat's. Bank missed his exam because Pat paid for it.",
+      "clip_start": "01:10:35.125",
+      "clip_end": "01:10:57.125",
+      "note": "B48",
+      "delivery": "reveal",
+      "narrative_jump": true,
+      "claim": {
+        "type": "speech",
+        "subject": "Pat"
+      }
+    },
+    {
+      "id": 337,
+      "narration": "Pat's voice goes up. Bank hears all of it, jaw set.",
+      "clip_start": "01:11:30.083",
+      "clip_end": "01:11:40.167",
+      "note": "B48",
+      "delivery": "tense",
+      "narrative_jump": false
+    },
+    {
+      "id": 338,
+      "narration": "Bank comes over the desk. Lynn screams; they go down by the green wall.",
+      "clip_start": "01:11:40.167",
+      "clip_end": "01:11:52.292",
+      "note": "B49",
+      "delivery": "tense",
+      "narrative_jump": false
+    },
+    {
+      "id": 339,
+      "narration": "Bank drives Pat into the door — Pat turns it round, gripping his shirt.",
+      "clip_start": "01:13:01.833",
+      "clip_end": "01:13:25.417",
+      "note": "B49",
+      "delivery": "tense",
+      "narrative_jump": false
+    },
+    {
+      "id": 340,
+      "narration": "Lynn and Grace stand helpless while Bank's shouting breaks into crying.",
+      "clip_start": "01:13:25.417",
+      "clip_end": "01:13:35.500",
+      "note": "B50",
+      "delivery": "sad",
+      "narrative_jump": false
+    },
+    {
+      "id": 341,
+      "narration": "Lynn holds Bank's look, then she is gone, and Grace is left with him.",
+      "clip_start": "01:14:28.833",
+      "clip_end": "01:14:47.250",
+      "note": "B50",
+      "delivery": "sad",
+      "narrative_jump": false
+    },
+    {
+      "id": 342,
+      "narration": "A lit overpass. Lynn alone at the rail, hand over her mouth.",
+      "clip_start": "01:16:34.000",
+      "clip_end": "01:16:42.750",
+      "note": "B51",
+      "delivery": "sad",
+      "narrative_jump": true
+    },
+    {
+      "id": 343,
+      "narration": "Bank comes up the ramp and stops dead, breathing hard.",
+      "clip_start": "01:16:42.750",
+      "clip_end": "01:16:53.750",
+      "note": "B51",
+      "delivery": "tense",
+      "narrative_jump": false
+    },
+    {
+      "id": 344,
+      "narration": "Bank's answer is not no. He finishes it — she put him in that landfill, and he wants paying.",
+      "clip_start": "01:17:10.333",
+      "clip_end": "01:17:37.500",
+      "note": "B51",
+      "delivery": "tense",
+      "narrative_jump": false,
+      "claim": {
+        "type": "speech",
+        "subject": "Bank"
+      }
+    },
+    {
+      "id": 345,
+      "narration": "Their faces inches apart over the city lights. Two figures with a flight to catch.",
+      "clip_start": "01:17:37.500",
+      "clip_end": "01:18:03.083",
+      "note": "B51",
+      "delivery": "tense",
+      "narrative_jump": false
+    }
+  ]
+}

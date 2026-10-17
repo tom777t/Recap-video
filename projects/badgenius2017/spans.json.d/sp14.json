@@ -1,0 +1,68 @@
+{
+  "span": "sp14",
+  "moments": [
+    {
+      "shots": [0, 1, 2],
+      "clip_start": "01:19:27.833",
+      "clip_end": "01:19:47.542",
+      "depicts": ["dialogue", "emotion"],
+      "chars": ["Lynn", "Bank"],
+      "action": "Lynn and Bank sit by Sydney Harbour talking without facing each other; Bank turns off toward the bridge and by the last shot Lynn is alone in frame, staring across the water at the Opera House.",
+      "censor": "none"
+    },
+    {
+      "shots": [3, 4],
+      "clip_start": "01:19:47.542",
+      "clip_end": "01:20:08.000",
+      "depicts": ["establishing", "emotion"],
+      "chars": ["Lynn", "Bank"],
+      "action": "The two sit shoulder to shoulder squinting into the sun, saying nothing; the film then pulls back to a wide of the harbour where they are two small figures standing at the railing, bags at their feet.",
+      "censor": "none"
+    },
+    {
+      "shots": [5, 6],
+      "clip_start": "01:20:08.000",
+      "clip_end": "01:20:19.292",
+      "depicts": ["transition", "setup"],
+      "chars": ["Lynn"],
+      "action": "A red Thai title card on black breaks off the Sydney scene; it cuts to Lynn alone in a hotel bathroom, hair wet, wrapped in a towel, holding her own stare in the mirror.",
+      "censor": "none"
+    },
+    {
+      "shots": [7, 8, 9],
+      "clip_start": "01:20:19.292",
+      "clip_end": "01:20:29.833",
+      "depicts": ["reaction", "discovery"],
+      "chars": ["Bank"],
+      "action": "Bank eats a banana alone in an empty diner until the wall TV cuts to a STIC flash-news bulletin on tighter monitoring; he stops chewing and sits staring up at the screen.",
+      "censor": "none"
+    },
+    {
+      "shots": [10, 11, 12],
+      "clip_start": "01:20:29.833",
+      "clip_end": "01:20:53.458",
+      "depicts": ["action", "setup"],
+      "chars": ["Lynn", "Bank"],
+      "action": "Lynn strides out through the hotel lobby past reception; by the end she and Bank are on a train sharing one set of earphones over his phone, reading the STIC news story, her eyes shut, his face tight.",
+      "censor": "none"
+    },
+    {
+      "shots": [13, 14, 15, 16],
+      "clip_start": "01:20:53.458",
+      "clip_end": "01:21:08.333",
+      "depicts": ["establishing", "setup"],
+      "chars": [],
+      "action": "Arrival at the test centre: an empty wall with a NO SMOKING sign, then a STIC REGISTRATION sign, an empty lobby floor, and finally an overhead shot of candidates flooding in across the tiles.",
+      "censor": "none"
+    },
+    {
+      "shots": [17, 18, 19],
+      "clip_start": "01:21:08.333",
+      "clip_end": "01:21:21.917",
+      "depicts": ["dialogue", "reaction", "setup"],
+      "chars": ["Lynn", "Bank"],
+      "action": "A suited STIC official addresses the candidates; Bank and Lynn stand unsmiling in the crowd, and the moment ends on an insert of a hand slipping a gold watch off a wrist.",
+      "censor": "none"
+    }
+  ]
+}

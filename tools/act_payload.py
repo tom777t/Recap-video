@@ -1,0 +1,118 @@
+# -*- coding: utf-8 -*-
+"""In payload cho mot ACT: cac beat cua act do + cac moment MAY trong khung
+thoi gian cua act (lay tu shots.json cua project, voi project may thi do chinh
+la catalogue may).
+
+Dung:
+    python tools/act_payload.py <project> <act_number>
+"""
+from __future__ import annotations
+import io, json, os, re, sys
+
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+import config
+
+
+def pt(ts) -> float:
+    p = [float(x) for x in str(ts).split(":")]
+    while len(p) < 3:
+        p.insert(0, 0.0)
+    return p[0] * 3600 + p[1] * 60 + p[2]
+
+
+def main() -> int:
+    proj, actn = sys.argv[1], int(sys.argv[2])
+    pdir = config.project_dir(proj)
+    bp = io.open(pdir / "beats_proposal.md", encoding="utf-8").read().splitlines()
+
+    heads = [(i, l) for i, l in enumerate(bp) if re.match(r"^ACT \d", l.strip())]
+    if actn < 1 or actn > len(heads):
+        print(f"act {actn} khong ton tai (co {len(heads)} act)")
+        return 1
+    i0 = heads[actn - 1][0]
+    i1 = heads[actn][0] if actn < len(heads) else len(bp)
+    head = heads[actn - 1][1].strip()
+    m = re.search(r"\(([\d:]+)\s*-\s*([\d:]+)\)", head)
+    a, b = (pt(m.group(1)), pt(m.group(2))) if m else (0.0, 1e9)
+
+    beats = [l.rstrip() for l in bp[i0:i1]
+             if re.match(r"^\s*B\d+\s*\|", l)]
+
+    # Act dai qua mot luot subagent thi chia doi THEO BEAT, va cat thoi gian
+    # dung tai moc cua beat dau tien cua nua sau - khong de hai nua chong lan.
+    half = sys.argv[3] if len(sys.argv) > 3 else None
+    if half in ("1", "2") and len(beats) > 2:
+        mid = len(beats) // 2
+        bts = [pt(re.split(r"\s*\|\s*", l.strip())[1]) for l in beats]
+        split = bts[mid]
+        if half == "1":
+            beats, b = beats[:mid], split
+        else:
+            beats, a = beats[mid:], split
+        head += f"  [HALF {half} of 2]"
+    print(f"### {head}")
+    print(f"### time range {a:.0f}s - {b:.0f}s | {len(beats)} beats\n")
+    print("BEATS (id | ts | what happens | chars | kind):")
+    for l in beats:
+        print("  " + l.strip())
+
+    shots = json.load(io.open(pdir / "shots.json", encoding="utf-8-sig"))["shots"]
+    S = [s for s in shots if a - 30 <= pt(s["clip_start"]) and pt(s["clip_end"]) <= b + 30]
+
+    # --- SPEECH ------------------------------------------------------------
+    # 2026-09-09: khau nay TRUOC DAY khong he ton tai. Nguoi viet chi nhan
+    # `action` (mo ta HINH ANH) nen moi lien ket nhan qua nao song trong LOI
+    # THOAI deu bien mat: ban draft dau khong co cho nao noi Bank to cao Lynn,
+    # nen viec mat hoc bong khong co nguyen nhan, va hang loat dong chi con
+    # "talks / argues / pitches" - mot dong tac mieng khong noi dieu gi.
+    tp = pdir / "transcript.json"
+    segs = []
+    if tp.exists():
+        try:
+            segs = json.load(io.open(tp, encoding="utf-8-sig")).get("segments") or []
+        except Exception:
+            segs = []
+    segs = [s for s in segs if isinstance(s.get("start"), (int, float))]
+
+    def speech_for(x0, x1):
+        return [s for s in segs if s["end"] > x0 and s["start"] < x1]
+
+    print(f"\nAVAILABLE MACHINE MOMENTS in range: {len(S)}")
+    print("Each moment: id | start -> end | dur | maxwords | chars | depicts | "
+          "censor | action")
+    print("SPEECH lines under a moment are the transcript for that window.")
+    for s in S:
+        x0, x1 = pt(s["clip_start"]), pt(s["clip_end"])
+        print(f"  {s['id']} | {s['clip_start']} -> {s['clip_end']} | "
+              f"{s['raw_duration_sec']:.1f}s | "
+              f"{int(s['raw_duration_sec'] * 1.4 * 3.5)}w | "
+              f"{','.join(s['chars']) or '-'} | {','.join(s['depicts'])} | "
+              f"{s['censor']} | {s['action']}")
+        for sp in speech_for(x0, x1):
+            print(f"       SPEECH {sp['start']:.1f}-{sp['end']:.1f}: "
+                  f"{str(sp.get('text','')).strip()}")
+
+    if not segs:
+        print("\n!! NO transcript.json - this act has NO speech evidence at all. "
+              "Causal links carried by dialogue cannot be written and must not "
+              "be guessed.")
+    else:
+        print(f"\nHOW TO USE THE SPEECH LINES")
+        print("- The audio is Thai and the transcript is machine translation. "
+              "Per RULES I4 it tells you WHAT IS SAID and WHO IS SPEAKING; it is "
+              "NOT a source for what happens on screen. Where transcript and "
+              "frames disagree, the frames win.")
+        print("- A causal link that only exists in dialogue (who informed on "
+              "whom, who paid, what was threatened) can ONLY come from here. "
+              "Write it.")
+        print("- Any line whose evidence is SPEECH must carry:")
+        print('      "claim": {"type": "speech", "subject": "<the speaker>"}')
+        print("  and the speaker MUST be in that moment's `chars`, because the "
+              "audit checks speaker presence and nothing else (RULES Part J).")
+        print("- Never write 'X talks to Y' / 'argues' / 'pitches' when the "
+              "transcript tells you WHAT was said. Say the content.")
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

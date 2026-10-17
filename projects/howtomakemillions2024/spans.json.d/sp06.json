@@ -1,0 +1,41 @@
+{
+  "span": "sp06",
+  "moments": [
+    {
+      "shots": [0, 1],
+      "clip_start": "01:07:31.125",
+      "clip_end": "01:08:00.000",
+      "depicts": ["dialogue", "setup"],
+      "chars": ["M", "Amah Saejiu"],
+      "action": "In the kitchen M leans over the table on both hands while Amah lays small white cards out on the green mat. By the second shot he has come down to her level, forearm on the table, as she keeps handling the cards.",
+      "censor": "none"
+    },
+    {
+      "shots": [2, 3, 4],
+      "clip_start": "01:08:00.000",
+      "clip_end": "01:08:40.917",
+      "depicts": ["dialogue", "emotion"],
+      "chars": ["M", "Amah Saejiu"],
+      "action": "A wide shows the two sat across the mat, M slouched back on his stool. The camera closes to Amah, whose face tightens as she talks, then reverses to M, no longer joking, holding her look.",
+      "censor": "none"
+    },
+    {
+      "shots": [5],
+      "clip_start": "01:08:40.917",
+      "clip_end": "01:09:19.000",
+      "depicts": ["dialogue", "emotion"],
+      "chars": ["M", "Amah Saejiu"],
+      "action": "A long held two-shot of the card game: M squares the deck and feeds cards to Amah, who picks one up. By the end of the take he has sat up grinning, laughing at her across the table.",
+      "censor": "none"
+    },
+    {
+      "shots": [6],
+      "clip_start": "01:09:19.000",
+      "clip_end": "01:09:29.833",
+      "depicts": ["dialogue", "reaction"],
+      "chars": ["M", "Amah Saejiu"],
+      "action": "Tight on Amah over M's shoulder. She leans in and talks steadily at him, the amusement from the game gone from her face by the end of the shot.",
+      "censor": "none"
+    }
+  ]
+}

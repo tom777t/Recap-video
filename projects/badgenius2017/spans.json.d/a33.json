@@ -1,0 +1,59 @@
+{
+  "span": "a33",
+  "moments": [
+    {
+      "shots": [0, 1, 2, 3, 4, 5],
+      "clip_start": "00:49:32.917",
+      "clip_end": "00:49:55.000",
+      "depicts": ["dialogue", "setup"],
+      "chars": ["Lynn", "Pat"],
+      "action": "At the panelled restaurant table the man in the grey suit tips his wine glass up to drain the last drop; Lynn and Pat laugh along. By the last shot the glass is down and empty in the foreground and Pat is talking back to him.",
+      "censor": "none"
+    },
+    {
+      "shots": [6, 7, 8, 9],
+      "clip_start": "00:49:55.000",
+      "clip_end": "00:50:11.417",
+      "depicts": ["establishing", "dialogue"],
+      "chars": ["Lynn", "Pat"],
+      "action": "Wide of the almost empty dining room as Pat stands and steps away from the table, leaving Lynn alone with the couple. Lynn turns to the woman in the cream jacket, who smiles back at her across the cloth.",
+      "censor": "none"
+    },
+    {
+      "shots": [10, 11],
+      "clip_start": "00:50:11.417",
+      "clip_end": "00:50:27.875",
+      "depicts": ["dialogue", "reaction"],
+      "chars": ["Lynn"],
+      "action": "The woman in the cream jacket talks on with her eyes closed. Opposite her Lynn's smile thins and she lowers her gaze to the table instead of answering.",
+      "censor": "none"
+    },
+    {
+      "shots": [12, 13],
+      "clip_start": "00:50:27.875",
+      "clip_end": "00:50:40.000",
+      "depicts": ["dialogue", "reaction"],
+      "chars": ["Lynn"],
+      "action": "The woman leans in, smiling, and presses her point; Lynn lifts her head again and breaks into an open laugh, the awkwardness of the previous exchange dropped.",
+      "censor": "none"
+    },
+    {
+      "shots": [14, 15, 16, 17],
+      "clip_start": "00:50:40.000",
+      "clip_end": "00:51:02.292",
+      "depicts": ["dialogue"],
+      "chars": ["Lynn"],
+      "action": "The man in the grey suit takes over the table, talking at Lynn with growing animation. She listens in profile without smiling, and by the last shot her lips have parted as if she is about to reply.",
+      "censor": "none"
+    },
+    {
+      "shots": [18, 19, 20, 21, 22],
+      "clip_start": "00:51:02.292",
+      "clip_end": "00:51:21.583",
+      "depicts": ["dialogue", "setup"],
+      "chars": ["Lynn", "Pat"],
+      "action": "The man leans forward over the glasses to push his case. Lynn's eyes flick up as Pat walks back in carrying a wine bottle; she turns in her chair to watch him come, while the man keeps talking.",
+      "censor": "none"
+    }
+  ]
+}

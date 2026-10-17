@@ -1,0 +1,573 @@
+TITLE: Bad Genius (2017)
+Lines: 190   Words: 3428   Est. narration: 16.3 min @ 210 WPM [measured en-US-AndrewMultilingualNeural]   Target: 20.0 min
+============================================================
+
+[  1] (00:01:36.542 -> 00:01:59.875)  <hook>
+      A sealed bag of pencils and erasers. Lynn gives her name, says the phone is not hers, offers her grades as proof.
+
+[  2] (00:01:59.875 -> 00:02:27.333)  <mystery>
+      In the dark an answer sheet fills itself in, row by row, until a name settles under the bubbles.
+
+[  3] (00:02:27.333 -> 00:02:38.875)  <normal>
+      Then a file with her name on it. Certificates, a clipping, the record that makes her worth recruiting.
+
+[  4] (00:02:38.875 -> 00:02:50.000)  <normal>
+      Lynn and her father sit before the administrator, trophies on the desk, a clipping naming her a national crossword champion.
+
+[  5] (00:02:50.000 -> 00:03:16.667)  <normal>
+      Her father talks the record down to swimming, pushing trophies across. The director stops him - does Lynn want to come?
+
+[  6] (00:03:16.667 -> 00:03:34.500)  <tense>
+      She answers for herself: the old school suits her better, and a year here costs almost a hundred and fifty thousand.
+
+[  7] (00:03:34.500 -> 00:03:52.875)  <reveal>
+      Sixty thousand a term, two terms. The number arrives handwritten beside her head: 120,000. She keeps itemising.
+
+[  8] (00:04:05.125 -> 00:04:22.208)  <tense>
+      Her father's hand settles over hers as she finishes the sum - fares, lunch at thirty-five instead of twenty. Not worth it.
+
+[  9] (00:04:22.208 -> 00:04:37.000)  <reveal>
+      Then the figures vanish and the offer lands: what if she studies for free? Her father grins beside the trophies.
+
+[ 10] (00:05:04.708 -> 00:05:08.667)  <normal>
+      An enrolment form for 2557, and a nickname going onto the dotted line.
+
+[ 11] (00:05:11.875 -> 00:05:21.833)  <normal>
+      M.4. Three years gone, and the new school arrives as a queue of white uniforms climbing stone steps.
+
+[ 12] (00:05:21.833 -> 00:05:35.792)  <normal>
+      A stranger starts smoothing Lynn's hair at the backdrop. Three years here, she says, you have to look good. She is Grace.
+
+[ 13] (00:06:31.750 -> 00:06:50.833)  <sad>
+      Alone at a dark table, Grace repeats what people say about them: Lynn is clever, and Grace is stupid.
+
+[ 14] (00:07:37.208 -> 00:07:55.083)  <normal>
+      They spread a maths paper between them. A inside B, intersect C - Lynn walks it while Grace stares at the page.
+
+[ 15] (00:07:55.083 -> 00:08:06.625)  <normal>
+      A hand lands on Lynn's shoulder. Teach me how - and the astonishment is at Lynn, not the maths.
+
+[ 16] (00:08:18.000 -> 00:08:36.208)  <normal>
+      Grace names the terms: homework every evening, and she will be the first student Lynn ever teaches.
+
+[ 17] (00:08:51.792 -> 00:09:00.792)  <mystery>
+      Back at the bare table: she only helped a friend study. She taught her nothing wrong. Did she?
+
+[ 18] (00:09:00.792 -> 00:09:08.500)  <tense>
+      Midterm. A hall of white uniforms, and Lynn at her desk with her head already down, writing.
+
+[ 19] (00:09:36.625 -> 00:09:47.000)  <reveal>
+      Two seats over, Grace's page is blank - then a Venn diagram she knows, the same question off Lynn's pink worksheet.
+
+[ 20] (00:10:27.250 -> 00:10:35.375)  <tense>
+      Grace twists round and whispers back. Lynn answers alert, then her face folds. She knows what is being asked.
+
+[ 21] (00:11:21.250 -> 00:11:26.542)  <tense>
+      The proctor slouches and stifles a yawn. Lynn is the only head in the hall that comes up.
+
+[ 22] (00:11:26.542 -> 00:11:38.167)  <reveal>
+      A metal pen, then something small in her fingers: answer letters pencilled down the side of a white eraser.
+
+[ 23] (00:11:38.167 -> 00:11:51.833)  <tense>
+      Lynn checks the front of the room. Grace's head snaps up, expectant. Lynn stays turned away.
+
+[ 24] (00:11:51.833 -> 00:11:59.500)  <tense>
+      She works her foot out of her shoe and drops the eraser inside. Then their eyes meet across the aisle.
+
+[ 25] (00:12:41.708 -> 00:12:54.208)  <tense>
+      The shoe is kicked out. It skids over the tiles and stops upright in the open, answers inside.
+
+[ 26] (00:13:34.208 -> 00:13:46.625)  <reveal>
+      A student stands at the invigilator's desk. Under the rows a hand reaches into the shoe for the eraser.
+
+[ 27] (00:13:46.625 -> 00:14:00.958)  <normal>
+      Grace grins down at her sheet and writes. Lynn hands her paper in. Grace sits back with a lollipop.
+
+[ 28] (00:14:07.083 -> 00:14:26.417)  <normal>
+      In the corridor Grace hugs a report book and names the next thing: Pat's place. You have a swimsuit, right?
+
+[ 29] (00:14:26.417 -> 00:14:38.583)  <normal>
+      A robe stitched Patton Hotel Bangkok. Then night, a lit rooftop pool, and a boy surging through the spray: Pat.
+
+[ 30] (00:16:02.333 -> 00:16:17.958)  <sad>
+      Grace surfaces into it: smart people do not understand her, and stupid people still want a good grade.
+
+[ 31] (00:16:17.958 -> 00:16:33.958)  <tense>
+      Pat slaps water into the air and names a price: three thousand baht a term. Lynn lifts her head.
+
+[ 32] (00:16:33.958 -> 00:16:50.333)  <tense>
+      Three thousand each, he says, and five more of them want in. On a dark street, Lynn is still listening.
+
+[ 33] (00:17:04.083 -> 00:17:25.792)  <reveal>
+      Thirteen exams, he totals it: two hundred and thirty-four thousand baht. Worth more, he says, than her cleverness.
+
+[ 34] (00:17:56.500 -> 00:18:09.208)  <mystery>
+      At home, in the dark, she eases open her father's desk drawer and lifts out a sealed official document.
+
+[ 35] (00:18:09.208 -> 00:18:22.208)  <reveal>
+      Under the lamp she sorts the papers and reads. The development fee was paid anyway - 120,000, scholarship or not.
+
+[ 36] (00:19:25.917 -> 00:19:44.292)  <sad>
+      Why this school, she asks from the piano. For chances he never had, he says. He is not like her mother.
+
+[ 37] (00:19:44.292 -> 00:19:56.250)  <sad>
+      He tips a pill into his hand and swallows it. Lynn drops her eyes. He sets the bottle down, smiling.
+
+[ 38] (00:20:31.333 -> 00:20:49.125)  <reveal>
+      Alone, she works the same four fingerings until they stop being music. Four shapes, four answers on a multiple-choice sheet.
+
+[ 39] (00:21:07.500 -> 00:21:26.750)  <mystery>
+      Paying a friend to teach you music, she will say later, is not illegal in any country.
+
+[ 40] (00:21:26.750 -> 00:21:38.708)  <normal>
+      In the music room she gives six students four chords and a right-hand position to read off her hands.
+
+[ 41] (00:22:02.542 -> 00:22:20.458)  <reveal>
+      Three answers right, one wrong, repeated - and hold the scores down so nobody notices. The students stare back blank.
+
+[ 42] (00:22:20.458 -> 00:22:34.375)  <tense>
+      Final exam, 2/2557, half past eight to half past ten. Grace chews her pencil and waits for a hand.
+
+[ 43] (00:22:56.583 -> 00:23:10.708)  <tense>
+      Lynn plays the exam from her own living room while boy after boy reads the tapping hand and inks another row.
+
+[ 44] (00:23:10.708 -> 00:23:20.792)  <normal>
+      A bank book opens on deposits climbing into the hundreds of thousands. Then the house after dark, her father waiting.
+
+[ 45] (00:23:51.625 -> 00:24:02.167)  <reveal>
+      On the school tower a banner unrolls: a portrait, congratulations on a scholarship. The school hangs up what it was handed.
+
+[ 46] (00:24:02.167 -> 00:24:13.458)  <hook>
+      The other top student gets his own title. Bank's portrait drains to grey over a school toilet block.
+
+[ 47] (00:24:13.458 -> 00:24:24.500)  <tense>
+      Inside a stall his face screws up and he doubles over. Then a card reading Bank goes on his shirt.
+
+[ 48] (00:24:58.750 -> 00:25:25.542)  <normal>
+      Backstage he divides the prize before they win it: five thousand baht, less the discount, half each. Lynn keeps her eyes shut.
+
+[ 49] (00:25:51.500 -> 00:26:04.000)  <normal>
+      His hair is a mess and she is fixing it, she says; he is on television now. He looks away, silent.
+
+[ 50] (00:26:04.000 -> 00:26:24.583)  <normal>
+      She lays a hand on him in the doorway and holds out a fist. He stares, then bumps it.
+
+[ 51] (00:26:44.500 -> 00:26:56.750)  <normal>
+      Teen Genius. Both of them at the contestant desk; pi comes back to twelve places and their school wins the week.
+
+[ 52] (00:27:45.292 -> 00:28:13.625)  <tense>
+      The director has news. One free Singapore scholarship, both of them sent to sit for it, and only one place per school.
+
+[ 53] (00:28:22.042 -> 00:28:31.917)  <normal>
+      Night. A headlight flares, a battered helmet goes on over earphones, and Bank walks the bike into a lit laundry.
+
+[ 54] (00:28:31.917 -> 00:28:38.458)  <sad>
+      Inside, a hand sets his certificate beside a memorial portrait. The shop is still working.
+
+[ 55] (00:28:38.458 -> 00:28:54.750)  <sad>
+      From a dark doorway he watches his mother crouched over the washing, one earphone in, her hands raw in the soap.
+
+[ 56] (00:28:54.750 -> 00:29:15.000)  <sad>
+      Leave it, he tells her, that hand will not heal. His textbook stays on the stool. He scrubs alone.
+
+[ 57] (00:29:15.000 -> 00:29:38.208)  <mystery>
+      Lynn sits alone in near-darkness, then raises her head. The look hardens out of defeat into something decided.
+
+[ 58] (00:29:55.125 -> 00:30:23.958)  <tense>
+      A classmate stops him in the corridor: he cannot pass the paper, and offers three thousand baht. Bank walks away.
+
+[ 59] (00:30:46.125 -> 00:31:08.792)  <tense>
+      The hall exam. An earphone in Bank's ear, hundreds of desks ruled out in white tape. He watches the room fill.
+
+[ 60] (00:31:47.667 -> 00:32:08.208)  <tense>
+      The row settles into shading bubbles. Bank is sweating by the second half, his pencil stalled at thirty-nine and forty.
+
+[ 61] (00:32:08.208 -> 00:32:21.667)  <reveal>
+      A student asks the proctor about question forty. There are two versions of the paper, and it asks which one you got.
+
+[ 62] (00:32:30.375 -> 00:32:38.500)  <reveal>
+      Lynn's hand goes to her mouth. Her cover reads set one; Bank's forty has a filled bubble rubbed out.
+
+[ 63] (00:33:13.750 -> 00:33:27.250)  <tense>
+      Her code carries one set of answers; the hall is sitting two. She checks behind her and drives the pencil on.
+
+[ 64] (00:33:51.500 -> 00:34:13.042)  <tense>
+      Under the green lamp Bank reports what Lynn's hands have been doing. A second invigilator comes to the desk.
+
+[ 65] (00:34:13.042 -> 00:34:35.417)  <tense>
+      Past the lamp, a grid of bowed heads. He folds his arms, says he will see to it, and looks past Bank.
+
+[ 66] (00:35:23.958 -> 00:35:36.708)  <tense>
+      So the answers go out as finger taps. A hand drums the desk; a boy taps and writes at once.
+
+[ 67] (00:37:40.083 -> 00:37:54.292)  <reveal>
+      A second header lands on a desk: set two. The fingers splay and drum a different rhythm.
+
+[ 68] (00:38:25.583 -> 00:38:36.583)  <tense>
+      Lynn sweats, left hand tapping while the right one writes. Then the invigilator steps out and heads come up.
+
+[ 69] (00:39:23.667 -> 00:39:43.333)  <normal>
+      Outside, a phone fills with the group chat. Pat counts the takings while Grace braids Lynn's hair. It has spread.
+
+[ 70] (00:39:43.333 -> 00:40:02.208)  <tense>
+      A grey-haired teacher in a tie passes the steps. The speakers call a student to the office. Grace stands up.
+
+[ 71] (00:40:15.500 -> 00:40:28.208)  <reveal>
+      The teacher already has his informant. Bank told the school the exam had leaked, and that two different papers went out.
+
+[ 72] (00:40:28.208 -> 00:40:44.667)  <tense>
+      Lynn and Bank stand side by side, eyes down, while the teacher works a stack of answer sheets for the match.
+
+[ 73] (00:41:04.708 -> 00:41:19.875)  <tense>
+      Then it breaks. Lynn pushes past the doorframe and out; a boy in the glass door looks after her.
+
+[ 74] (00:42:04.875 -> 00:42:21.000)  <tense>
+      Through the office glass: the director, Lynn at the blinds, her father beside her. They have evidence she sat a friend's exam.
+
+[ 75] (00:42:21.000 -> 00:42:28.958)  <reveal>
+      For the money, she says. A classmate paid her three thousand baht to sit it. Her father's head comes round.
+
+[ 76] (00:44:02.917 -> 00:44:15.458)  <tense>
+      She is not the only one making money here, Lynn says: two million baht, and they call it a fee.
+
+[ 77] (00:44:28.000 -> 00:44:44.750)  <sad>
+      Her father begs for her term. The condition: her scholarship is cut, and Singapore with it.
+
+[ 78] (00:44:59.958 -> 00:45:23.208)  <tense>
+      She never cheated, Lynn says. The marks were hers, and Bank deserves the place. The director looks up, stricken.
+
+[ 79] (00:45:23.208 -> 00:45:43.208)  <sad>
+      Her father keeps his eyes down and leaves with Bank. Bank's head stays lowered, Lynn's back in front of him.
+
+[ 80] (00:45:43.208 -> 00:46:11.417)  <tense>
+      A dark room, a glass of water sweating, Bank still answering. Find the evidence, he says, and she cheated.
+
+[ 81] (00:46:11.417 -> 00:46:44.375)  <sad>
+      A passbook tilts open to Lynn's name. Nobody earns three thousand baht that way, her father says across the table.
+
+[ 82] (00:47:32.792 -> 00:47:54.875)  <sad>
+      He unbuttons the shirt as he talks: he does not want it any more. She stays home and repays the money.
+
+[ 83] (00:47:54.875 -> 00:48:10.875)  <sad>
+      Lynn sits by a barred window in her uniform. Her head drops and her face comes apart.
+
+[ 84] (00:48:40.417 -> 00:48:56.250)  <normal>
+      Lynn has stopped taking the work. Grace sits down opposite and sells harder.
+
+[ 85] (00:49:09.375 -> 00:49:32.917)  <normal>
+      Lynn answers flat: they can manage two semesters without her. Nothing agreed.
+
+[ 86] (00:49:32.917 -> 00:49:55.000)  <normal>
+      Another table. Pat's father drains the wine; Lynn laughs along.
+
+[ 87] (00:51:35.167 -> 00:51:52.750)  <normal>
+      A Boston brochure slides across: go with Pat, tutor him into a school his grades can't reach.
+
+[ 88] (00:51:52.750 -> 00:52:09.042)  <mystery>
+      The condition is STIC — one exam, sat the same day worldwide.
+
+[ 89] (00:52:37.125 -> 00:52:55.917)  <tense>
+      Six hundred thousand baht to go. Lynn says nothing, and takes the envelope.
+
+[ 90] (00:54:13.000 -> 00:54:38.417)  <mystery>
+      A wall of hotel clocks. NEW YORK. Her face tightens, then opens.
+
+[ 91] (00:54:52.083 -> 00:55:12.417)  <reveal>
+      Her eyes find SYDNEY, hours ahead. Sit the paper there and the answers reach Bangkok first.
+
+[ 92] (00:55:12.417 -> 00:55:26.583)  <normal>
+      A red pin goes down on Australia. Behind the glass, a print shop.
+
+[ 93] (00:55:54.958 -> 00:56:26.125)  <tense>
+      Lynn lays it out: their own scores, plus fees from other students, split after costs.
+
+[ 94] (00:57:17.250 -> 00:57:38.917)  <tense>
+      She can hold half the answers in a break. The other half needs one person, who will refuse.
+
+[ 95] (00:57:46.792 -> 00:58:06.292)  <normal>
+      Bank hauls the basket off his scooter: one more delivery, exam at eight tomorrow.
+
+[ 96] (00:58:06.292 -> 00:58:16.333)  <tense>
+      A parked car has been watching. A door opens; Bank stares straight back.
+
+[ 97] (00:58:16.333 -> 00:58:28.417)  <tense>
+      CCTV, 19:53. Men rush him and drag him down beside the pickup.
+
+[ 98] (00:58:28.417 -> 00:58:46.792)  <sad>
+      He comes round in rubbish, one eye swollen shut, a speck on a landfill.
+
+[ 99] (00:59:03.458 -> 00:59:12.458)  <sad>
+      He falls, gets up, walks on. His scholarship exam starts without him.
+
+[100] (01:00:00.042 -> 01:00:15.042)  <sad>
+      Then he stops looking for a way out and howls in the mud.
+
+[101] (01:00:27.292 -> 01:00:36.125)  <normal>
+      At school it is sold from a stage: spotlight, microphone, STIC logo.
+
+[102] (01:00:36.125 -> 01:00:46.375)  <normal>
+      Out in the rows the paying customers are already slumped.
+
+[103] (01:00:58.083 -> 01:01:12.083)  <normal>
+      Her method: a phone taped under a sink, answers sent out in the breaks.
+
+[104] (01:01:28.042 -> 01:01:45.083)  <normal>
+      Into the room with it: a barcode printed down a 2B pencil.
+
+[105] (01:01:45.083 -> 01:01:51.750)  <normal>
+      Bar thickness carries the answer, thickest to thinnest — A, B, C, D.
+
+[106] (01:03:18.167 -> 01:03:28.292)  <sad>
+      Bank sits in a dim back room, a bruise under his eye.
+
+[107] (01:03:28.292 -> 01:03:35.500)  <normal>
+      Daylight. Lynn walks into the laundry.
+
+[108] (01:04:47.333 -> 01:04:58.458)  <tense>
+      Bank's answer: cheating means somebody loses. Lynn says they are the losers already.
+
+[109] (01:05:15.250 -> 01:05:33.750)  <tense>
+      His life cheats him anyway, she says, and slides a card across his ledger.
+
+[110] (01:05:33.750 -> 01:05:51.083)  <tense>
+      He looks past her, refusing. Then he takes it — the no had a price.
+
+[111] (01:06:06.292 -> 01:06:14.750)  <normal>
+      Bank steps out of the dark of the print works. He is in.
+
+[112] (01:06:31.292 -> 01:06:50.458)  <normal>
+      Step one, Lynn says: she and Bank sit the exam in Sydney.
+
+[113] (01:07:47.333 -> 01:07:55.500)  <normal>
+      Then the drills, section by section; the clothes change, the run repeats.
+
+[114] (01:08:28.708 -> 01:08:42.292)  <tense>
+      Lynn calls time and Bank runs. The whole trip must fit one break.
+
+[115] (01:09:09.167 -> 01:09:18.208)  <normal>
+      Seven and a half million on a phone calculator, then a bag of notes.
+
+[116] (01:09:18.208 -> 01:09:29.833)  <tense>
+      Getting answers out: a phone taped inside a cistern lid, thumbs typing.
+
+[117] (01:09:29.833 -> 01:09:42.333)  <sad>
+      Pat and Grace grin as the answers land. Bank sits apart, head down.
+
+[118] (01:10:11.542 -> 01:10:35.125)  <tense>
+      The interview room again — this time Pat in the chair, crying into both hands.
+
+[119] (01:10:35.125 -> 01:10:57.125)  <reveal>
+      It slips out at Lynn's back: the men at that gate were Pat's. Bank missed his exam because Pat paid for it.
+
+[120] (01:11:30.083 -> 01:11:40.167)  <tense>
+      Pat's voice goes up. Bank hears all of it, jaw set.
+
+[121] (01:11:40.167 -> 01:11:52.292)  <tense>
+      Bank comes over the desk. Lynn screams; they go down by the green wall.
+
+[122] (01:13:01.833 -> 01:13:25.417)  <tense>
+      Bank drives Pat into the door — Pat turns it round, gripping his shirt.
+
+[123] (01:13:25.417 -> 01:13:35.500)  <sad>
+      Lynn and Grace stand helpless while Bank's shouting breaks into crying.
+
+[124] (01:14:28.833 -> 01:14:47.250)  <sad>
+      Lynn holds Bank's look, then she is gone, and Grace is left with him.
+
+[125] (01:16:34.000 -> 01:16:42.750)  <sad>
+      A lit overpass. Lynn alone at the rail, hand over her mouth.
+
+[126] (01:16:42.750 -> 01:16:53.750)  <tense>
+      Bank comes up the ramp and stops dead, breathing hard.
+
+[127] (01:17:10.333 -> 01:17:37.500)  <tense>
+      Bank's answer is not no. He finishes it — she put him in that landfill, and he wants paying.
+
+[128] (01:17:37.500 -> 01:18:03.083)  <tense>
+      Their faces inches apart over the city lights. Two figures with a flight to catch.
+
+[129] (01:18:43.000 -> 01:18:53.583)  <sad>
+      Sydney, the day before. Head down, Bank tells her he is sorry.
+
+[130] (01:19:12.792 -> 01:19:27.833)  <tense>
+      He has never been abroad, he says. From tomorrow he can go anywhere in the world.
+
+[131] (01:19:47.542 -> 01:20:08.000)  <sad>
+      Then nothing. Two small figures at a railing, bags at their feet - the last quiet hour they get.
+
+[132] (01:20:19.292 -> 01:20:29.833)  <tense>
+      Exam morning. Bank stops chewing: the diner television has broken into a STIC bulletin on tighter monitoring.
+
+[133] (01:21:08.333 -> 01:21:29.375)  <tense>
+      At the centre an official briefs them. Watches come off; they go in carrying nothing.
+
+[134] (01:21:29.375 -> 01:21:39.125)  <tense>
+      Bank carries a bundled jacket into the men's toilet. Two doors shut, one each.
+
+[135] (01:21:39.125 -> 01:21:47.167)  <tense>
+      In the dark a panel comes away. A bagged phone, taped under a tray, ends up on Lynn's lap.
+
+[136] (01:21:47.167 -> 01:21:54.208)  <tense>
+      Bank's face appears in a gap in the partition. Both reach through.
+
+[137] (01:22:36.083 -> 01:22:40.083)  <tense>
+      The invigilator walks out. 8:29:58.
+
+[138] (01:22:54.792 -> 01:23:08.083)  <tense>
+      Her hand runs the grid - question 17, the clock at 8:51, bubbles to twenty-six, ahead of the paper so the answers can leave first.
+
+[139] (01:24:47.083 -> 01:25:04.333)  <mystery>
+      Bangkok, still dark. In a shuttered print house a whiteboard maps the sections, the timings, the phones. Grace turns to Pat; the message goes.
+
+[140] (01:25:33.375 -> 01:25:45.792)  <tense>
+      At the break two phones come out of plastic wrap, Bank's first, then Lynn's, and answer strings start filling the chat.
+
+[141] (01:26:59.375 -> 01:27:14.000)  <tense>
+      Then the thread stops being answers. Bank wants another million. Lynn reads it in her stall, Pat in his.
+
+[142] (01:27:14.000 -> 01:27:28.667)  <tense>
+      He pounds the laundry bench and gives them five minutes to transfer, then turns on a worker behind the table.
+
+[143] (01:27:43.417 -> 01:28:02.708)  <tense>
+      He prices it out: the first million was the fee, the second is for the beating. Pat's disbelief sets into a scowl.
+
+[144] (01:28:02.708 -> 01:28:16.792)  <normal>
+      Pat sends back a transfer slip - everything in the account now, the rest when the answers come. Bangkok pays.
+
+[145] (01:28:33.792 -> 01:28:42.333)  <normal>
+      Barcodes map onto answers, 1A to 5C. A hand hits the button and the press starts.
+
+[146] (01:28:42.333 -> 01:28:56.583)  <normal>
+      Black pencils heap onto the steel bed, barcode strip peeled off. The mark on the pencil is the answer, printed while the exam runs.
+
+[147] (01:29:49.917 -> 01:29:58.750)  <normal>
+      Section 3, grid-in: sixteen questions, twenty minutes. She works the algebra and prints digits into the boxes.
+
+[148] (01:30:39.833 -> 01:30:54.417)  <tense>
+      In a locked cubicle Bank peels the phone out of a sanitary-pad wrapper and types BCADB, DCDAC, BDABC. Outside, Lynn listens.
+
+[149] (01:31:06.458 -> 01:31:24.917)  <tense>
+      Two men in suits come in; someone has reported how long he has been gone. His head snaps up, then back to the values.
+
+[150] (01:32:11.542 -> 01:32:28.000)  <tense>
+      The phone goes into the bowl and the flush carries it away. Outside, a proctor tilts his face up at the door.
+
+[151] (01:33:12.333 -> 01:33:25.000)  <tense>
+      In the corridor a grey-haired man jabs a finger at Bank, then grabs a fistful of his jacket. Lynn watches from the doorway.
+
+[152] (01:33:25.000 -> 01:33:38.583)  <sad>
+      Her face crumples and holds. Then she turns and walks back down the hall, because the exam is still running without him.
+
+[153] (01:33:46.833 -> 01:34:10.667)  <mystery>
+      At the water cooler a hand dips into her boot, tears a wrapper, lifts the cup. She walks off, hands behind her back.
+
+[154] (01:34:50.792 -> 01:35:01.625)  <tense>
+      Section 4: thirty questions, thirty-five minutes. The pencil reaches thirty, and there is nothing left to carry it out on.
+
+[155] (01:35:40.708 -> 01:35:56.625)  <reveal>
+      So she shuts her eyes, and the rows on her paper - A A D, C D B, B C A - become the piano she learned on.
+
+[156] (01:35:56.625 -> 01:36:19.500)  <sad>
+      The clock behind her reads 10:42. The code she built to sell answers is now the only place she can keep them.
+
+[157] (01:37:53.750 -> 01:38:01.958)  <tense>
+      The last section is an essay on a speech - nothing in it reduces to four letters.
+
+[158] (01:38:44.333 -> 01:38:52.958)  <reveal>
+      Her own fingers go between her lips. She is not sick; she is making herself sick.
+
+[159] (01:38:52.958 -> 01:39:05.958)  <tense>
+      She buckles until the whole row is watching, and asks to be let home.
+
+[160] (01:39:05.958 -> 01:39:11.792)  <tense>
+      Leave now and her score is cancelled, the proctor tells her. She goes anyway, walked out in tears.
+
+[161] (01:40:06.750 -> 01:40:26.042)  <tense>
+      Bag on her shoulder she hurries down the corridor. A suited man rushes past: somebody has started looking.
+
+[162] (01:41:00.375 -> 01:41:14.583)  <tense>
+      She climbs the stairs while a suited man crosses the lobby, phone at his ear, telling someone he cannot see her.
+
+[163] (01:42:26.917 -> 01:42:40.042)  <tense>
+      In the station she sends a coded line about a speech transcript. In Bangkok the alert lands on a phone on cardboard.
+
+[164] (01:43:27.000 -> 01:43:40.000)  <tense>
+      She drops to her knees on the station floor and hammers out another block.
+
+[165] (01:44:34.208 -> 01:44:40.958)  <reveal>
+      Grace types the phrase into search and Nelson Mandela speech transcripts fill the screen. The code opens.
+
+[166] (01:45:21.792 -> 01:45:26.292)  <normal>
+      Answer slips go into the rank of motorbike taxis, and the riders pull away.
+
+[167] (01:47:18.292 -> 01:47:26.167)  <tense>
+      Her screen reads C A B B. She stops dead on the empty platform.
+
+[168] (01:47:46.292 -> 01:47:57.500)  <sad>
+      Commuters hurry past her legs. Bank is gone, so she keeps sending alone, a tear running down her face.
+
+[169] (01:48:45.833 -> 01:49:02.042)  <tense>
+      A scuffle, and her backpack is on the floor with the suited man over it. She swallows and faces him.
+
+[170] (01:49:21.500 -> 01:49:52.208)  <tense>
+      A staff member tells her what is coming. Another Thai candidate has already admitted carrying a phone in. Her score is gone, and at worst she sits the exam again.
+
+[171] (01:50:38.167 -> 01:51:05.875)  <sad>
+      Through the glass she watches Bank answer them. Whatever he gives them, her name is not in it. She turns away.
+
+[172] (01:51:55.625 -> 01:52:23.083)  <tense>
+      At Bangkok arrivals Pat has a party waiting: Bank is arrested, their score is banked, and she only has to sit the exam again. She has changed her mind.
+
+[173] (01:52:49.375 -> 01:53:04.458)  <sad>
+      Grace puts out a hand to shake on it. Lynn walks straight past both of them.
+
+[174] (01:53:19.250 -> 01:53:35.500)  <sad>
+      Her father walks up at the terminal doors and asks where her boyfriend is - he wants the boy over for dinner.
+
+[175] (01:53:56.625 -> 01:54:23.958)  <sad>
+      He pulls her into a hug and she breaks, sobbing on his shoulder - everything she has carried since Sydney, out at once.
+
+[176] (01:54:47.792 -> 01:55:04.958)  <normal>
+      The party she is not at: balloons, confetti, and matching shirts printed with the score they bought. STIC 1460.
+
+[177] (01:55:24.958 -> 01:55:42.333)  <sad>
+      A message from Pat: Bank has already drawn his million and her share is waiting. Lynn left the chat.
+
+[178] (01:56:31.833 -> 01:56:47.917)  <normal>
+      A scholarship banner with Bank's face goes up on a school wall; inside, he is head-down at a desk.
+
+[179] (01:57:39.375 -> 01:57:55.167)  <reveal>
+      The laundry has been rebuilt - new machines still in bubble wrap, a new sign over the door. Mister Bank.
+
+[180] (01:57:55.167 -> 01:58:16.208)  <tense>
+      A door opens onto the back workshop. Bank waits against a bench and tells her to come in. She stays put.
+
+[181] (01:58:31.292 -> 01:58:50.083)  <reveal>
+      He called her for a reason: has she applied for GAT/PAT, because he has a job he wants her on.
+
+[182] (01:59:07.958 -> 01:59:31.792)  <tense>
+      He holds out a yellow leaflet: the national exam, every school in the country on the same day. She asks how much he needs.
+
+[183] (01:59:50.958 -> 02:00:26.208)  <tense>
+      It is not about enough, he says, but about what he can do from here. A million this time, and getting caught would not mean jail.
+
+[184] (02:00:56.833 -> 02:01:16.292)  <tense>
+      She says no. He turns square to her: refuse, and he will see her cut off from the exam that sends her abroad.
+
+[185] (02:01:31.250 -> 02:01:48.875)  <tense>
+      And not just her - Grace, Pat and every client who sat it. Her hand is on the door handle. She stops.
+
+[186] (02:01:48.875 -> 02:02:05.125)  <tense>
+      One more thing, he says. Her father would be very sad. Her eyes shut, then open flat.
+
+[187] (02:02:05.125 -> 02:02:17.208)  <sad>
+      In a white corridor her father sits beside her, head bowed. She turns away, close to tears.
+
+[188] (02:02:17.208 -> 02:02:34.333)  <sad>
+      He lifts his head and gives her a small smile, two chairs at the end of an empty corridor.
+
+[189] (02:03:25.000 -> 02:03:34.292)  <tense>
+      They walk her past the suits to a camcorder on a tripod.
+
+[190] (02:03:44.083 -> 02:03:57.208)  <reveal>
+      She sits down across the white table and tells them everything. Bank's threat still stands; she chooses this anyway - and it costs her the exam, the money and him.

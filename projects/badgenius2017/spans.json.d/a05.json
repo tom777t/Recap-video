@@ -1,0 +1,95 @@
+{
+  "span": "a05",
+  "moments": [
+    {
+      "shots": [0, 1],
+      "clip_start": "00:07:28.917",
+      "clip_end": "00:07:37.208",
+      "depicts": ["dialogue", "setup"],
+      "chars": ["Lynn", "Grace"],
+      "action": "In the library stacks a girl turns sharply, startled; the reverse shows the two of them now talking face to face through a gap in the shelves, Grace leaning in close to Lynn.",
+      "censor": "none"
+    },
+    {
+      "shots": [2, 3, 4],
+      "clip_start": "00:07:37.208",
+      "clip_end": "00:07:55.083",
+      "depicts": ["dialogue", "setup"],
+      "chars": ["Lynn", "Grace"],
+      "action": "They settle on the library floor with books spread around them; an insert shows a Thai maths exam paper, then the two heads come together over it, Lynn talking while Grace studies the page.",
+      "censor": "none"
+    },
+    {
+      "shots": [5, 6, 7, 8],
+      "clip_start": "00:07:55.083",
+      "clip_end": "00:08:06.625",
+      "depicts": ["dialogue", "reaction"],
+      "chars": ["Lynn", "Grace"],
+      "action": "Shot/reverse over the pink answer sheet as Lynn works the problem through; Grace puts a hand on her shoulder, and by the last shot her face has opened into wide-eyed astonishment.",
+      "censor": "none"
+    },
+    {
+      "shots": [9, 10, 11],
+      "clip_start": "00:08:06.625",
+      "clip_end": "00:08:18.000",
+      "depicts": ["dialogue", "emotion"],
+      "chars": ["Lynn", "Grace"],
+      "action": "Grace breaks into a delighted grin and keeps talking; Lynn stays flat, eyes drifting up and away, and by the last shot she is still looking off while Grace's hand reaches toward her.",
+      "censor": "none"
+    },
+    {
+      "shots": [12],
+      "clip_start": "00:08:18.000",
+      "clip_end": "00:08:36.208",
+      "depicts": ["dialogue", "emotion"],
+      "chars": ["Lynn", "Grace"],
+      "action": "One long held two-shot: Grace beams at the paper while Lynn keeps her eyes down; across the take Lynn turns and Grace ends up talking straight into her face.",
+      "censor": "none"
+    },
+    {
+      "shots": [13, 14, 15],
+      "clip_start": "00:08:36.208",
+      "clip_end": "00:08:51.792",
+      "depicts": ["reaction", "emotion"],
+      "chars": ["Lynn", "Grace"],
+      "action": "Lynn finally cracks, laughing with her eyes shut as Grace leans into her; they end up clapping hands together, and the wide pulls back to leave them laughing on the library floor.",
+      "censor": "none"
+    },
+    {
+      "shots": [16],
+      "clip_start": "00:08:51.792",
+      "clip_end": "00:09:00.792",
+      "depicts": ["transition", "setup"],
+      "chars": ["Lynn"],
+      "action": "Hard cut to a dark bare room: Lynn alone in a striped shirt behind an empty table, facing the camera head on and holding still, unsmiling, for the whole shot.",
+      "censor": "none"
+    },
+    {
+      "shots": [17, 18],
+      "clip_start": "00:09:00.792",
+      "clip_end": "00:09:08.500",
+      "depicts": ["establishing", "setup"],
+      "chars": ["Lynn"],
+      "action": "Big red Thai titles land over a wide of a silent exam room full of students, then a close on Lynn at her desk, head down and hand up, working through the paper.",
+      "censor": "none"
+    },
+    {
+      "shots": [19, 20, 21],
+      "clip_start": "00:09:08.500",
+      "clip_end": "00:09:17.500",
+      "depicts": ["reaction"],
+      "chars": ["Lynn", "Grace"],
+      "action": "Grace twists round in her seat to look back at Lynn; Lynn raises her head and holds the look; by the last shot Grace has turned to face front again with her eyes down.",
+      "censor": "none"
+    },
+    {
+      "shots": [22, 23],
+      "clip_start": "00:09:17.500",
+      "clip_end": "00:09:21.833",
+      "depicts": ["action", "setup"],
+      "chars": ["Lynn"],
+      "action": "Lynn goes back to the test, lifting the sheet up to read it; the cut moves to the front of the room, where the maths teacher stands at the whiteboard watching the class.",
+      "censor": "none"
+    }
+  ]
+}

@@ -1,0 +1,86 @@
+{
+  "span": "sp16",
+  "moments": [
+    {
+      "shots": [0, 1, 2, 3],
+      "clip_start": "01:22:30.167",
+      "clip_end": "01:22:40.083",
+      "depicts": ["establishing", "setup"],
+      "chars": ["Lynn", "Bank"],
+      "action": "An invigilator in a pale blazer walks toward the dark doorway of the library exam hall; Lynn and Bank look up from their desks, then the digital clock above the door reads 8:29:58.",
+      "censor": "none"
+    },
+    {
+      "shots": [4, 5, 6, 7, 8],
+      "clip_start": "01:22:40.083",
+      "clip_end": "01:22:54.792",
+      "depicts": ["action", "setup"],
+      "chars": ["Lynn", "Bank"],
+      "action": "A candidate flips the STIC booklet open, the pages spread; Lynn starts writing on her lap-desk with Bank beside her, and the wide of the hall ends with every row already bent over the paper.",
+      "censor": "none"
+    },
+    {
+      "shots": [9, 10, 11, 12, 13, 14, 15, 16],
+      "clip_start": "01:22:54.792",
+      "clip_end": "01:23:08.083",
+      "depicts": ["montage", "action"],
+      "chars": ["Lynn"],
+      "action": "Lynn reads, her watched hand moving over the answer grid; inserts of question 17, the clock at 8:51, then bubbles filling in until the pencil reaches question 26 - she has run deep into the section.",
+      "censor": "none"
+    },
+    {
+      "shots": [17, 18, 19, 20, 21],
+      "clip_start": "01:23:08.083",
+      "clip_end": "01:23:19.875",
+      "depicts": ["action"],
+      "chars": ["Lynn", "Bank"],
+      "action": "Lynn writes head-down in the row, then the scene shifts to Bank: tight on his face as he mouths to himself, then wide at his desk where he glances off and settles back into writing.",
+      "censor": "none"
+    },
+    {
+      "shots": [22, 23, 24, 25, 26],
+      "clip_start": "01:23:19.875",
+      "clip_end": "01:23:33.833",
+      "depicts": ["action", "reveal"],
+      "chars": ["Bank", "Pat"],
+      "action": "Hands ink answers onto the STIC Section 1 sheet; Bank mouths silently and Pat, rows away, raises a hand to his face. The last shot holds on fingers laid flat across the half-filled grid.",
+      "censor": "none"
+    },
+    {
+      "shots": [27, 28, 29, 30, 31],
+      "clip_start": "01:23:33.833",
+      "clip_end": "01:23:46.833",
+      "depicts": ["reaction", "emotion"],
+      "chars": ["Bank", "Lynn"],
+      "action": "Bank frowns over his paper and Lynn stares down at hers, both tightening; the clock above the door turns 9:09:59 and the camera whips off it into a smear of red - the time is nearly gone.",
+      "censor": "none"
+    },
+    {
+      "shots": [32, 33, 34],
+      "clip_start": "01:23:46.833",
+      "clip_end": "01:24:01.083",
+      "depicts": ["action"],
+      "chars": [],
+      "action": "A pencil darkens bubble 52-C, the shot holds long on 51-B and 52-C, then both hands spread flat over the finished Section 1 grid - the sheet is now complete to the last row.",
+      "censor": "none"
+    },
+    {
+      "shots": [35, 36, 37, 38],
+      "clip_start": "01:24:01.083",
+      "clip_end": "01:24:12.333",
+      "depicts": ["action", "reaction"],
+      "chars": ["Lynn", "Pat", "Bank"],
+      "action": "Lynn mouths the answers to herself; Pat shuts his eyes and repeats them back, Bank in profile beside another candidate, and the answer grid drifts out of focus as the recital takes over.",
+      "censor": "none"
+    },
+    {
+      "shots": [39, 40, 41, 42, 43],
+      "clip_start": "01:24:12.333",
+      "clip_end": "01:24:21.125",
+      "depicts": ["reaction", "emotion"],
+      "chars": ["Lynn", "Bank"],
+      "action": "Lynn sits with her eyes closed, lips moving, while the answer sheet doubles and blurs; the clock reads 9:14:59 and she ends looking up and away past Bank, who is still hunched over his paper.",
+      "censor": "none"
+    }
+  ]
+}

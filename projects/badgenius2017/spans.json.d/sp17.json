@@ -1,0 +1,86 @@
+{
+  "span": "sp17",
+  "moments": [
+    {
+      "shots": [0, 1, 2],
+      "clip_start": "01:24:01.083",
+      "clip_end": "01:24:10.042",
+      "depicts": ["action", "setup"],
+      "chars": ["Lynn", "Bank"],
+      "action": "In the wood-panelled exam hall Lynn mouths answers off her paper and Bank screws his eyes shut memorising; by the last shot both have dropped their heads over their desks, working in silence.",
+      "censor": "none"
+    },
+    {
+      "shots": [3, 4, 5, 6, 7],
+      "clip_start": "01:24:10.042",
+      "clip_end": "01:24:18.667",
+      "depicts": ["action", "setup"],
+      "chars": ["Lynn"],
+      "action": "Inserts of a bubble sheet, blurred then sharp, showing two numbering runs (47/44, 48/45) filled in; Lynn's eyes stay shut as she recites. The run ends on the hall clock reading 9:14:59.",
+      "censor": "none"
+    },
+    {
+      "shots": [8, 9, 10, 11],
+      "clip_start": "01:24:18.667",
+      "clip_end": "01:24:32.125",
+      "depicts": ["action", "setup"],
+      "chars": ["Lynn", "Bank"],
+      "action": "Lynn, seated behind Bank, looks off toward the invigilator, who stands talking at the front desk. Focus racks from Bank to Lynn and by the last shot she is on her feet, moving away from her chair.",
+      "censor": "none"
+    },
+    {
+      "shots": [12, 13, 14],
+      "clip_start": "01:24:32.125",
+      "clip_end": "01:24:47.083",
+      "depicts": ["action"],
+      "chars": ["Lynn", "Bank"],
+      "action": "Bank walks away from camera into the dark doorway; Lynn stands among the seated candidates staring ahead. The wide shot leaves both gone down the aisle and out the door, clock now 9:15:31.",
+      "censor": "none"
+    },
+    {
+      "shots": [15, 16, 17, 18, 19],
+      "clip_start": "01:24:47.083",
+      "clip_end": "01:25:04.333",
+      "depicts": ["establishing", "dialogue", "setup"],
+      "chars": ["Pat", "Grace"],
+      "action": "Cut to night at a shuttered Thai printing house; inside, a whiteboard maps the STIC sections, timings and phones. Grace turns wide-eyed to Pat in the dark room, and the moment ends on hands typing a chat message.",
+      "censor": "none"
+    },
+    {
+      "shots": [20, 21, 22],
+      "clip_start": "01:25:04.333",
+      "clip_end": "01:25:12.208",
+      "depicts": ["transition", "setup"],
+      "chars": [],
+      "action": "A ceiling dome camera in the hall, then its own grainy feed: at 09:15:57 a blonde girl crosses the corridor, and three seconds later a boy in a grey sweatshirt stops at the stairwell marked 1.",
+      "censor": "none"
+    },
+    {
+      "shots": [23, 24, 25],
+      "clip_start": "01:25:12.208",
+      "clip_end": "01:25:22.417",
+      "depicts": ["establishing", "montage", "setup"],
+      "chars": [],
+      "action": "Back at the printing house yard a man in a blue polo stands before a crowd of students, then ranks of helmeted motorbike couriers wait beside them; the wide shot shows the two lines drawn up facing each other.",
+      "censor": "none"
+    },
+    {
+      "shots": [26, 27, 28, 29],
+      "clip_start": "01:25:22.417",
+      "clip_end": "01:25:33.375",
+      "depicts": ["action"],
+      "chars": ["Bank"],
+      "action": "Bank threads past other boys in the washroom, presses a hand to a toilet fitting and crouches at the wall; by the last shot he is sitting in the stall peeling a phone out of plastic taped to a lid.",
+      "censor": "none"
+    },
+    {
+      "shots": [30, 31, 32, 33],
+      "clip_start": "01:25:33.375",
+      "clip_end": "01:25:49.958",
+      "depicts": ["action"],
+      "chars": ["Lynn", "Bank"],
+      "action": "Lynn unwraps her own hidden phone in a cubicle and starts thumbing a chat; the screen fills with answer strings DBBDCA, BACDCD, AABCDA. The last shot is Bank in his stall, reading them off his phone.",
+      "censor": "none"
+    }
+  ]
+}

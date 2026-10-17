@@ -1,0 +1,131 @@
+{
+  "span": "c01",
+  "moments": [
+    {
+      "shots": [0, 1, 2],
+      "clip_start": "01:45:00.083",
+      "clip_end": "01:45:04.708",
+      "depicts": ["action", "setup"],
+      "chars": ["Lynn"],
+      "action": "Lynn hurries through a tiled subway corridor thumbing her phone; an insert shows a chat thread filling with coded answer strings, then the cut lands on an extreme close-up of a girl's eyes receiving them.",
+      "censor": "none"
+    },
+    {
+      "shots": [3, 4, 5, 6, 7],
+      "clip_start": "01:45:04.708",
+      "clip_end": "01:45:12.917",
+      "depicts": ["montage", "setup"],
+      "chars": [],
+      "action": "The other end of the pipeline: a barcode file being edited on a design screen, a hand clicking the mouse, the girl's eyes snapping wide, then a wide of the dim print workshop where one figure works alone at a laptop.",
+      "censor": "none"
+    },
+    {
+      "shots": [8, 9, 10],
+      "clip_start": "01:45:12.917",
+      "clip_end": "01:45:17.292",
+      "depicts": ["action"],
+      "chars": ["Lynn"],
+      "action": "Lynn strides at the camera wiping her face, an insert shows thumbs typing a fresh answer block under messages already marked read, and she walks on with the phone lowered.",
+      "censor": "none"
+    },
+    {
+      "shots": [11, 12, 13],
+      "clip_start": "01:45:17.292",
+      "clip_end": "01:45:21.792",
+      "depicts": ["action"],
+      "chars": ["Lynn"],
+      "action": "A busker plays a keyboard against the station wall; the camera pushes in on his hands, then whips to Lynn passing behind him, glancing back over her shoulder as she keeps moving.",
+      "censor": "none"
+    },
+    {
+      "shots": [14, 15],
+      "clip_start": "01:45:21.792",
+      "clip_end": "01:45:26.292",
+      "depicts": ["action", "setup"],
+      "chars": [],
+      "action": "A blurred handoff across a parked motorbike racks into focus as a man in a brown shirt pushes slips of paper into a packed rank of waiting motorcycle-taxi riders, who start pulling away.",
+      "censor": "none"
+    },
+    {
+      "shots": [16, 17, 18],
+      "clip_start": "01:45:26.292",
+      "clip_end": "01:45:34.708",
+      "depicts": ["action"],
+      "chars": ["Lynn"],
+      "action": "Lynn climbs from the lower level, boards an escalator and rides up with her backpack and phone clutched to her chest; by the last shot her eyes are off the screen and fixed ahead.",
+      "censor": "none"
+    },
+    {
+      "shots": [19, 20, 21],
+      "clip_start": "01:45:34.708",
+      "clip_end": "01:45:38.833",
+      "depicts": ["action"],
+      "chars": ["Lynn"],
+      "action": "A train noses into the platform and rushes past the camera; cut to Lynn on the escalator, head up, phone forgotten in her hand as she registers the sound.",
+      "censor": "none"
+    },
+    {
+      "shots": [22, 23, 24, 25],
+      "clip_start": "01:45:38.833",
+      "clip_end": "01:45:46.583",
+      "depicts": ["action"],
+      "chars": ["Lynn"],
+      "action": "A passenger steps aboard carriage N5207 while Lynn bolts down the escalator and sprints along the platform; by the last shot the doors are shut and the train is still.",
+      "censor": "none"
+    },
+    {
+      "shots": [26, 27, 28],
+      "clip_start": "01:45:46.583",
+      "clip_end": "01:45:54.792",
+      "depicts": ["reaction"],
+      "chars": ["Lynn"],
+      "action": "Lynn stops at the closed door and stares up through the glass, holding there, then tilts her head to the window; the cut answers with a woman's face wide open in a scream.",
+      "censor": "none"
+    },
+    {
+      "shots": [29, 30, 31, 32],
+      "clip_start": "01:45:54.792",
+      "clip_end": "01:46:04.583",
+      "depicts": ["action"],
+      "chars": ["Lynn"],
+      "action": "Shot from behind her, the carriages slide away past Lynn until the platform is bare and other passengers stream by; she turns and walks off under the yellow Way out signs.",
+      "censor": "none"
+    },
+    {
+      "shots": [33, 34, 35, 36, 37],
+      "clip_start": "01:46:04.583",
+      "clip_end": "01:46:15.792",
+      "depicts": ["action"],
+      "chars": ["Lynn"],
+      "action": "An empty escalator shaft, then Lynn rides up in the crowd, steps off at the top and crosses the concourse alone, head down, finally passing a lit perfume billboard.",
+      "censor": "none"
+    },
+    {
+      "shots": [38, 39, 40, 41],
+      "clip_start": "01:46:15.792",
+      "clip_end": "01:46:22.750",
+      "depicts": ["action", "emotion"],
+      "chars": ["Lynn"],
+      "action": "A platform clock reads 11:19:43 above Lynn's head; she walks past a blue door, and an insert of her hands on the phone cuts to her face screwing up as she reads the screen.",
+      "censor": "none"
+    },
+    {
+      "shots": [42, 43, 44, 45, 46],
+      "clip_start": "01:46:22.750",
+      "clip_end": "01:46:38.042",
+      "depicts": ["action", "reveal"],
+      "chars": ["Lynn"],
+      "action": "A man in a dark suit comes down the escalator and strides through the station in low-angle shots, intercut with Lynn still frowning at her phone; by the last shot she has turned and is looking back, alarmed.",
+      "censor": "none"
+    },
+    {
+      "shots": [47],
+      "clip_start": "01:46:38.042",
+      "clip_end": "01:46:51.333",
+      "depicts": ["action", "discovery"],
+      "chars": [],
+      "action": "In the dim workshop a man in a dark shirt hurries to the laptop where a girl in blue school uniform is working; by the end of the take both are hunched over his phone, reading it together.",
+      "censor": "none"
+    }
+  ]
+}

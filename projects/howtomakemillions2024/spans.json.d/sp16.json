@@ -1,0 +1,32 @@
+{
+  "span": "sp16",
+  "moments": [
+    {
+      "shots": [0, 1],
+      "clip_start": "01:22:23.292",
+      "clip_end": "01:23:12.875",
+      "depicts": ["establishing", "emotion"],
+      "chars": ["M", "Mengju Amah Saejiu"],
+      "action": "High wide of the trackside path at golden hour, figures tiny in the distance; the camera drops to ground level and M walks the alley behind Amah, reaching up to pull at an overhanging branch as other locals pass.",
+      "censor": "none"
+    },
+    {
+      "shots": [2],
+      "clip_start": "01:23:12.875",
+      "clip_end": "01:23:57.500",
+      "depicts": ["action", "emotion"],
+      "chars": ["M", "Mengju Amah Saejiu"],
+      "action": "A long held take on a shaded lane: M walks alone into frame carrying a bag, then stops; by the end of the take Amah in her sun hat has caught up and the two stand together facing down the empty road.",
+      "censor": "none"
+    },
+    {
+      "shots": [3, 4, 5],
+      "clip_start": "01:23:57.500",
+      "clip_end": "01:24:24.833",
+      "depicts": ["transition", "establishing"],
+      "chars": ["Mengju Amah Saejiu"],
+      "action": "A hazy Bangkok skyline over rooftops marks the time jump, then a busy hospital lobby where Amah waits in wheelchair 24 in her knit cap; the last shot holds on a closed consulting-room door that opens onto a doctor at his desk with a patient.",
+      "censor": "none"
+    }
+  ]
+}

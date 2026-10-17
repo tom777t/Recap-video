@@ -1,0 +1,68 @@
+{
+  "span": "a27",
+  "moments": [
+    {
+      "shots": [0, 1],
+      "clip_start": "00:40:28.208",
+      "clip_end": "00:40:44.667",
+      "depicts": ["dialogue", "setup"],
+      "chars": ["Lynn", "Bank"],
+      "action": "Lynn and Bank stand side by side in a school office, eyes down; the shot cuts away to the teacher in the blue shirt at her desk, flipping through a stack of answer sheets.",
+      "censor": "none"
+    },
+    {
+      "shots": [2, 3, 4],
+      "clip_start": "00:40:44.667",
+      "clip_end": "00:41:04.708",
+      "depicts": ["dialogue", "reveal"],
+      "chars": ["Lynn", "Bank"],
+      "action": "Wide of the pair standing before the desk with a second teacher seated nearby; the teacher looks up and speaks, and by the last shot Bank has turned his head toward Lynn while she stares straight ahead.",
+      "censor": "none"
+    },
+    {
+      "shots": [5, 6, 7, 8, 9],
+      "clip_start": "00:41:04.708",
+      "clip_end": "00:41:19.875",
+      "depicts": ["action", "aftermath"],
+      "chars": ["Lynn"],
+      "action": "A blurred rush of movement breaks the standoff: the teacher drops her eyes to the desk, Lynn pushes past the door frame and out of the office, and a boy stops in the glass doorway to look back after her.",
+      "censor": "none"
+    },
+    {
+      "shots": [10, 11],
+      "clip_start": "00:41:19.875",
+      "clip_end": "00:41:37.750",
+      "depicts": ["dialogue", "aftermath"],
+      "chars": ["Lynn", "Bank"],
+      "action": "Back inside, the teacher is on her feet holding a sheet, smiling as she talks past Bank by the window; the cut leaves Lynn alone facing the room, a man seated at her shoulder, her face blank.",
+      "censor": "none"
+    },
+    {
+      "shots": [12, 13],
+      "clip_start": "00:41:37.750",
+      "clip_end": "00:41:49.417",
+      "depicts": ["establishing", "emotion"],
+      "chars": ["Grace"],
+      "action": "A garlanded statue of the Virgin Mary on a wooden shrine, then Grace in close-up with hands pressed together and eyes shut, lips moving in prayer.",
+      "censor": "none"
+    },
+    {
+      "shots": [14, 15],
+      "clip_start": "00:41:49.417",
+      "clip_end": "00:42:04.875",
+      "depicts": ["dialogue", "reveal"],
+      "chars": ["Grace", "Pat"],
+      "action": "The angle widens to show Pat lounging on the bench below the shrine with snacks while Grace keeps praying; by the end she has broken off and turned to look back at him over her shoulder.",
+      "censor": "none"
+    },
+    {
+      "shots": [16, 17, 18, 19, 20],
+      "clip_start": "00:42:04.875",
+      "clip_end": "00:42:25.333",
+      "depicts": ["dialogue", "aftermath"],
+      "chars": ["Lynn", "Lynn's father"],
+      "action": "Seen through office glass, Lynn stands between two seated adults; her father listens in close-up, stunned, and the shots move from her silent profile to her finally turning to face him.",
+      "censor": "none"
+    }
+  ]
+}

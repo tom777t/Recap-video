@@ -1,0 +1,59 @@
+{
+  "span": "c12",
+  "moments": [
+    {
+      "shots": [0, 1, 2, 3, 4],
+      "clip_start": "02:01:28.875",
+      "clip_end": "02:01:48.875",
+      "depicts": ["dialogue", "emotion"],
+      "chars": ["Lynn", "Bank"],
+      "action": "Lynn's hand closes on the door handle of the dim laundry while Bank argues at her from behind. She keeps her back turned, but by the last shot she has stopped and stands in profile, not leaving.",
+      "censor": "none"
+    },
+    {
+      "shots": [5, 6, 7],
+      "clip_start": "02:01:48.875",
+      "clip_end": "02:02:05.125",
+      "depicts": ["reaction", "emotion"],
+      "chars": ["Lynn", "Bank"],
+      "action": "Cut to Lynn against a blank white wall, eyes shut. A beat on Bank's face in the dark laundry, then back to Lynn with her eyes open, staring flatly into the lens.",
+      "censor": "none"
+    },
+    {
+      "shots": [8, 9],
+      "clip_start": "02:02:05.125",
+      "clip_end": "02:02:17.208",
+      "depicts": ["reaction", "emotion"],
+      "chars": ["Lynn", "Lynn's father"],
+      "action": "In a washed-out white corridor Lynn's father sits beside her with his head bowed and eyes lowered. She turns off to the side in profile, face tight and close to tears.",
+      "censor": "none"
+    },
+    {
+      "shots": [10, 11],
+      "clip_start": "02:02:17.208",
+      "clip_end": "02:02:34.333",
+      "depicts": ["reaction", "establishing"],
+      "chars": ["Lynn", "Lynn's father"],
+      "action": "Her father lifts his head and gives her a small smile. The camera then pulls back to a wide of the empty white corridor, the two of them alone on chairs at the far end.",
+      "censor": "none"
+    },
+    {
+      "shots": [12, 13, 14, 15],
+      "clip_start": "02:02:34.333",
+      "clip_end": "02:02:55.042",
+      "depicts": ["dialogue", "emotion"],
+      "chars": ["Lynn", "Bank"],
+      "action": "Back in the dark laundry: Bank talks on in profile, chin up, while Lynn stands backlit and still. He turns to face her directly, and the moment ends back on her hand resting on the door handle.",
+      "censor": "none"
+    },
+    {
+      "shots": [16],
+      "clip_start": "02:02:55.042",
+      "clip_end": "02:03:09.750",
+      "depicts": ["reaction", "emotion"],
+      "chars": ["Lynn", "Bank"],
+      "action": "A long held close-up of Lynn, brow furrowed, eyes down, with Bank a blurred shape standing behind her in the gloom. Across the take she barely moves and never turns to him.",
+      "censor": "none"
+    }
+  ]
+}

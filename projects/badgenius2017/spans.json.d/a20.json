@@ -1,0 +1,77 @@
+{
+  "span": "a20",
+  "moments": [
+    {
+      "shots": [0, 1, 2],
+      "clip_start": "00:30:00.792",
+      "clip_end": "00:30:13.500",
+      "depicts": ["dialogue", "setup"],
+      "chars": ["Bank"],
+      "action": "In a bright school corridor Bank is stopped by a bespectacled classmate. Shot/reverse: Bank starts wide-eyed and startled, and by the last shot his mouth is set and he is glaring back.",
+      "censor": "none"
+    },
+    {
+      "shots": [3, 4, 5],
+      "clip_start": "00:30:13.500",
+      "clip_end": "00:30:35.958",
+      "depicts": ["dialogue", "emotion"],
+      "chars": ["Bank"],
+      "action": "The classmate keeps pressing his point while Bank stares at him in disbelief. The camera finally pulls back to a cold wide of the two facing off alone on the walkway.",
+      "censor": "none"
+    },
+    {
+      "shots": [6],
+      "clip_start": "00:30:35.958",
+      "clip_end": "00:30:46.125",
+      "depicts": ["action", "aftermath"],
+      "chars": ["Bank"],
+      "action": "Bank breaks away and strides past camera down the corridor, jaw tight; the classmate hurries after him, still talking, and is left behind in the background.",
+      "censor": "none"
+    },
+    {
+      "shots": [7, 8, 9, 10],
+      "clip_start": "00:30:46.125",
+      "clip_end": "00:31:08.792",
+      "depicts": ["establishing", "setup"],
+      "chars": ["Bank"],
+      "action": "Close on an earphone in Bank's ear, then a high wide of the near-empty exam hall ruled with white tape. Bank sits with eyes shut, then opens them and turns to scan the filling room.",
+      "censor": "none"
+    },
+    {
+      "shots": [11, 12],
+      "clip_start": "00:31:08.792",
+      "clip_end": "00:31:21.458",
+      "depicts": ["action", "setup"],
+      "chars": ["Pat"],
+      "action": "Candidates file in and find their desks: Pat walks the aisle past seated students, then a ponytailed girl crosses the empty floor as a proctor seats others at the back.",
+      "censor": "none"
+    },
+    {
+      "shots": [13, 14, 15],
+      "clip_start": "00:31:21.458",
+      "clip_end": "00:31:32.667",
+      "depicts": ["reaction", "setup"],
+      "chars": ["Bank"],
+      "action": "Bank, seated, glances off to the side; a proctor moves along the rows dropping papers on desks; Bank then squares up to face front, eyes fixed straight at camera.",
+      "censor": "none"
+    },
+    {
+      "shots": [16, 17],
+      "clip_start": "00:31:32.667",
+      "clip_end": "00:31:40.708",
+      "depicts": ["establishing", "setup"],
+      "chars": [],
+      "action": "A row of waiting candidates, hands flat on their desks, then a symmetrical wide from behind the proctor at his podium showing the whole hall now full and silent.",
+      "censor": "none"
+    },
+    {
+      "shots": [18, 19, 20, 21],
+      "clip_start": "00:31:40.708",
+      "clip_end": "00:31:47.667",
+      "depicts": ["action", "setup"],
+      "chars": ["Bank"],
+      "action": "Bank drops his eyes to the desk and starts work; macro inserts follow the pencil and pen filling in the crested answer sheet's class line, going from blank to written.",
+      "censor": "none"
+    }
+  ]
+}

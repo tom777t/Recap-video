@@ -1,0 +1,86 @@
+{
+  "span": "c03",
+  "moments": [
+    {
+      "shots": [0, 1, 2],
+      "clip_start": "01:47:59.792",
+      "clip_end": "01:48:05.667",
+      "depicts": ["action", "setup"],
+      "chars": ["Bank"],
+      "action": "A barcode file with a row of numbers sits open on a laptop in a Bangkok print shop; Bank test-scans a printed strip at a machine, then turns and walks off across the press floor with a roll of sheets.",
+      "censor": "none"
+    },
+    {
+      "shots": [3, 4, 5, 6, 7],
+      "clip_start": "01:48:05.667",
+      "clip_end": "01:48:15.000",
+      "depicts": ["montage", "action"],
+      "chars": ["Lynn", "Bank"],
+      "action": "Lynn grabs a drink and a muffin from a station vending tray and tears into them, intercut with the press floor and with a suited man striding fast along the platform. She ends with her mouth crammed full.",
+      "censor": "none"
+    },
+    {
+      "shots": [8, 9, 10, 11],
+      "clip_start": "01:48:15.000",
+      "clip_end": "01:48:31.125",
+      "depicts": ["montage", "action"],
+      "chars": ["Lynn"],
+      "action": "Orange-vested motorbike couriers mass in a Thai yard while a man in a blue polo shouts and points them into line; intercut, Lynn drains the bottle. Ends low among the riders' legs and wheels.",
+      "censor": "none"
+    },
+    {
+      "shots": [12, 13, 14, 15],
+      "clip_start": "01:48:31.125",
+      "clip_end": "01:48:39.875",
+      "depicts": ["action", "montage"],
+      "chars": ["Lynn"],
+      "action": "Lynn chews and sweats on the near-empty Redfern platform; the grey-haired man in the suit bellows in close-up, and she turns and walks off down the platform past the vending machine.",
+      "censor": "none"
+    },
+    {
+      "shots": [16, 17, 18, 19, 20],
+      "clip_start": "01:48:39.875",
+      "clip_end": "01:48:45.833",
+      "depicts": ["montage", "action"],
+      "chars": ["Lynn", "Bank"],
+      "action": "On the press floor sheets are handed out to vested riders; Lynn trails her fingers along the tiled REDFERN letters until an older man's hand closes on her shoulder strap from behind and stops her.",
+      "censor": "none"
+    },
+    {
+      "shots": [21, 22, 23, 24],
+      "clip_start": "01:48:45.833",
+      "clip_end": "01:49:02.042",
+      "depicts": ["action", "discovery"],
+      "chars": ["Lynn"],
+      "action": "A blurred scuffle leaves her orange backpack on the platform floor with the suited man standing over it. Lynn huddles at the wall cramming the last of the food into her mouth, then straightens to face him.",
+      "censor": "none"
+    },
+    {
+      "shots": [25, 26, 27, 28, 29],
+      "clip_start": "01:49:02.042",
+      "clip_end": "01:49:16.750",
+      "depicts": ["montage", "action"],
+      "chars": ["Lynn"],
+      "action": "A scooter revs and a wall of couriers lights its headlights inside the printing house; Lynn stands stricken, a phone is raised over a seated man's shoulder, and the convoy finally pours out into the street.",
+      "censor": "none"
+    },
+    {
+      "shots": [30, 31],
+      "clip_start": "01:49:16.750",
+      "clip_end": "01:49:21.500",
+      "depicts": ["transition", "aftermath"],
+      "chars": [],
+      "action": "The screen holds on black, then opens on a young man alone at a bare desk in a white room, writing, while a figure stands over him with a bag. His face is never clearly shown.",
+      "censor": "none"
+    },
+    {
+      "shots": [32, 33, 34, 35, 36],
+      "clip_start": "01:49:21.500",
+      "clip_end": "01:49:52.208",
+      "depicts": ["dialogue", "aftermath"],
+      "chars": ["Lynn"],
+      "action": "In a bright glass-walled hall a woman in a white blazer with a staff ID talks steadily at Lynn. Lynn answers nothing, staring up past her; across the long held take her jaw sets and her eyes go glassy.",
+      "censor": "none"
+    }
+  ]
+}

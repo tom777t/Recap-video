@@ -1,0 +1,50 @@
+{
+  "span": "a31",
+  "moments": [
+    {
+      "shots": [0],
+      "clip_start": "00:46:16.542",
+      "clip_end": "00:46:44.375",
+      "depicts": ["dialogue", "setup"],
+      "chars": ["Lynn", "Lynn's father"],
+      "action": "In the sunlit dining room Lynn's father walks up to the table where she sits in school uniform; by the end of the take he has stopped and leaned both hands on the tabletop over her.",
+      "censor": "none"
+    },
+    {
+      "shots": [1, 2],
+      "clip_start": "00:46:44.375",
+      "clip_end": "00:47:18.583",
+      "depicts": ["dialogue", "reaction"],
+      "chars": ["Lynn", "Lynn's father"],
+      "action": "Close on Lynn, jaw set, looking past him; the film cuts to her father standing over her in close-up, talking steadily down at her, his expression hardening as he goes on.",
+      "censor": "none"
+    },
+    {
+      "shots": [3, 4, 5],
+      "clip_start": "00:47:18.583",
+      "clip_end": "00:47:32.792",
+      "depicts": ["dialogue", "emotion"],
+      "chars": ["Lynn", "Lynn's father"],
+      "action": "Back and forth: Lynn stares off, the wide shot shows her father braced on the table across from her, and when it returns to her face her eyes have reddened and her mouth is pulling tight.",
+      "censor": "none"
+    },
+    {
+      "shots": [6, 7, 8],
+      "clip_start": "00:47:32.792",
+      "clip_end": "00:47:54.875",
+      "depicts": ["dialogue", "emotion"],
+      "chars": ["Lynn", "Lynn's father"],
+      "action": "Her father presses a hand to his chest, then starts unbuttoning his shirt as he argues; Lynn's eyes fill. By the wide shot he is in a white undershirt, stepping away from the table and leaving her seated alone.",
+      "censor": "none"
+    },
+    {
+      "shots": [9],
+      "clip_start": "00:47:54.875",
+      "clip_end": "00:48:10.875",
+      "depicts": ["reaction", "emotion"],
+      "chars": ["Lynn"],
+      "action": "Alone at the table, Lynn holds her face still against the window light, then her chin drops and she breaks down, crying with her head bowed.",
+      "censor": "none"
+    }
+  ]
+}

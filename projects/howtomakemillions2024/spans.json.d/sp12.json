@@ -1,0 +1,59 @@
+{
+  "span": "sp12",
+  "moments": [
+    {
+      "shots": [0],
+      "clip_start": "01:16:33.500",
+      "clip_end": "01:16:46.000",
+      "depicts": ["action", "setup"],
+      "chars": ["M", "Amah Saejiu"],
+      "action": "In the dim front room Amah sits on a stool by the cabinet while M, standing over her, strips off a white shirt; by the end of the take he is in a grey tee, back to camera, facing her.",
+      "censor": "none"
+    },
+    {
+      "shots": [1],
+      "clip_start": "01:16:46.000",
+      "clip_end": "01:17:16.375",
+      "depicts": ["establishing", "setup"],
+      "chars": ["M", "Amah Saejiu"],
+      "action": "A long static wide shot through the green folding gate: Amah stands at a stool beside M's chair, then crosses out toward the camera, leaving the stool empty with only M's legs still in place.",
+      "censor": "none"
+    },
+    {
+      "shots": [2, 3],
+      "clip_start": "01:17:16.375",
+      "clip_end": "01:17:24.583",
+      "depicts": ["action", "setup"],
+      "chars": ["M", "Amah Saejiu"],
+      "action": "Amah, back to camera, peels an apple while M sits in the wicker chair scrolling his phone; the camera drops to a tight insert of her hands turning the fruit against the knife.",
+      "censor": "none"
+    },
+    {
+      "shots": [4, 5],
+      "clip_start": "01:17:24.583",
+      "clip_end": "01:17:39.333",
+      "depicts": ["dialogue", "emotion"],
+      "chars": ["M", "Amah Saejiu"],
+      "action": "Close on Amah in her glasses, head bowed over the peeling, talking without looking up; the reverse finds M in the wicker chair with the phone gone from his hands, eyes lowered, listening.",
+      "censor": "none"
+    },
+    {
+      "shots": [6, 7],
+      "clip_start": "01:17:39.333",
+      "clip_end": "01:17:57.875",
+      "depicts": ["dialogue", "emotion"],
+      "chars": ["M", "Amah Saejiu"],
+      "action": "Amah lifts her head and looks straight at M with a faint smile; the reverse pushes past her bald head onto M, who holds her gaze, face tight and eyes glassy.",
+      "censor": "none"
+    },
+    {
+      "shots": [8, 9, 10],
+      "clip_start": "01:17:57.875",
+      "clip_end": "01:18:19.167",
+      "depicts": ["dialogue", "emotion"],
+      "chars": ["M", "Amah Saejiu"],
+      "action": "The exchange continues in close-up: Amah quiet and level, M staring back from the wicker chair; by the final shot she has become animated, caught mid-sentence with her mouth open.",
+      "censor": "none"
+    }
+  ]
+}

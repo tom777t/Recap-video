@@ -1,0 +1,57 @@
+{
+  "stage": "script",
+  "stage_reason": "outline_ready: 76/80 beats bound, no >=2-consecutive gap, 4 verified of 4 claim(s) checked, 0 mismatch / 0 unverified, continuity 0, 0 violations, 4 lone beat(s) tolerated (granularity)",
+  "stage_updated": "2026-09-05T07:37:56+00:00",
+  "outline_metrics": {
+    "beats": 80,
+    "covered": 76,
+    "uncovered": [
+      "B02",
+      "B05",
+      "B12",
+      "B73"
+    ],
+    "binding_mismatch": 0,
+    "binding_unverified": 0,
+    "continuity_issues": 0,
+    "binding_violations": 0
+  },
+  "declared_target_minutes": 20,
+  "declared_target_pinned": "2026-09-13T09:37:31+00:00",
+  "ratchet": {
+    "beats": 80,
+    "reveals": {
+      "R1": {
+        "land_sec": 4240.0,
+        "holds": [
+          "arranged the beating",
+          "conveniently beaten",
+          "hired the men",
+          "no coincidence",
+          "ordered the attack",
+          "paid the men",
+          "paid to have him beaten",
+          "pat arranged",
+          "pat ordered",
+          "pat paid",
+          "set him up",
+          "wanted him desperate"
+        ]
+      },
+      "R2": {
+        "land_sec": 7125.0,
+        "holds": [
+          "becomes the villain",
+          "blackmails her",
+          "corrupted",
+          "ends up worse",
+          "no better than",
+          "sells her out",
+          "threatens to expose",
+          "turns on her"
+        ]
+      }
+    },
+    "set_pieces": {}
+  }
+}

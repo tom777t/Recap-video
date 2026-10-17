@@ -1,0 +1,50 @@
+{
+  "span": "sp19",
+  "moments": [
+    {
+      "shots": [0],
+      "clip_start": "01:26:55.125",
+      "clip_end": "01:27:04.958",
+      "depicts": ["reaction", "emotion"],
+      "chars": ["M"],
+      "action": "M sits alone in a dim, pink-lit room, head lowered. He barely moves across the held shot; his face stays half-lost in the dark.",
+      "censor": "none"
+    },
+    {
+      "shots": [1, 2, 3],
+      "clip_start": "01:27:04.958",
+      "clip_end": "01:27:38.750",
+      "depicts": ["dialogue", "setup"],
+      "chars": ["M", "Sew", "Kiang"],
+      "action": "In the hospital lobby Sew waits on the bench while M sits up the stairs with his phone. Kiang walks in and crosses to them; by the last shot he is standing over M on the steps, talking down to him.",
+      "censor": "none"
+    },
+    {
+      "shots": [4, 5, 6],
+      "clip_start": "01:27:38.750",
+      "clip_end": "01:28:02.958",
+      "depicts": ["dialogue", "emotion"],
+      "chars": ["Sew", "Kiang"],
+      "action": "Out on the hospital walkway Kiang leans on the railing facing the buildings while Sew hangs back. She steps up beside him and he turns off the view to face her as they talk.",
+      "censor": "none"
+    },
+    {
+      "shots": [7, 8, 9],
+      "clip_start": "01:28:02.958",
+      "clip_end": "01:28:28.542",
+      "depicts": ["dialogue", "emotion"],
+      "chars": ["Sew", "Kiang"],
+      "action": "Tight shot/reverse at the railing: Kiang keeps talking and Sew's composure gives way. She drops her eyes, then looks back at him with wet eyes and a small, strained smile.",
+      "censor": "none"
+    },
+    {
+      "shots": [10, 11],
+      "clip_start": "01:28:28.542",
+      "clip_end": "01:28:48.375",
+      "depicts": ["reaction", "emotion"],
+      "chars": ["M", "Sew"],
+      "action": "Through a grimy window the pair are small figures on the walkway below. M turns from the stairwell glass, and when Sew reaches him he takes her arm and walks her down the stairs.",
+      "censor": "none"
+    }
+  ]
+}

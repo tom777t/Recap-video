@@ -1,0 +1,68 @@
+{
+  "span": "a34",
+  "moments": [
+    {
+      "shots": [0, 1, 2, 3],
+      "clip_start": "00:50:59.250",
+      "clip_end": "00:51:13.917",
+      "depicts": ["dialogue", "setup"],
+      "chars": ["Pat"],
+      "action": "In a wood-panelled restaurant a young woman listens across the table while an older man in a grey jacket talks and gestures over the wine glasses; her smile fades, and the last shot finds Pat walking back to the table with a bottle.",
+      "censor": "none"
+    },
+    {
+      "shots": [4, 5, 6],
+      "clip_start": "00:51:13.917",
+      "clip_end": "00:51:24.458",
+      "depicts": ["dialogue"],
+      "chars": [],
+      "action": "Shot past the wine glasses, the young woman is turned away from camera as the man keeps talking; by the end she has swung back to face him, guarded now rather than amused.",
+      "censor": "none"
+    },
+    {
+      "shots": [7, 8],
+      "clip_start": "00:51:24.458",
+      "clip_end": "00:51:35.167",
+      "depicts": ["dialogue", "reaction"],
+      "chars": [],
+      "action": "The man leans in with an easy grin, still selling; the cut back replaces the woman's wary look with a small pleased smile as she tilts her head toward him.",
+      "censor": "none"
+    },
+    {
+      "shots": [9, 10, 11, 12, 13],
+      "clip_start": "00:51:35.167",
+      "clip_end": "00:51:52.750",
+      "depicts": ["dialogue", "reveal", "setup"],
+      "chars": [],
+      "action": "An older woman in tweed holds up a Boston University brochure and talks it through; inserts show hands sliding it across the cream cloth to the young woman, who looks down smiling, and it ends lying open on the table.",
+      "censor": "none"
+    },
+    {
+      "shots": [14, 15, 16, 17],
+      "clip_start": "00:51:52.750",
+      "clip_end": "00:52:09.042",
+      "depicts": ["dialogue"],
+      "chars": [],
+      "action": "A brighter room: a girl in a yellow T-shirt sits with her head lowered while a woman in a striped shirt talks warmly across the table; by the last shot the girl has lifted her eyes and the woman is grinning.",
+      "censor": "none"
+    },
+    {
+      "shots": [18, 19, 20],
+      "clip_start": "00:52:09.042",
+      "clip_end": "00:52:20.000",
+      "depicts": ["dialogue", "reaction"],
+      "chars": [],
+      "action": "The girl now holds the woman's gaze flatly; the woman leans closer and talks faster, and the moment ends on a defocused insert of the Boston University brochure lying on the cloth between them.",
+      "censor": "none"
+    },
+    {
+      "shots": [21, 22],
+      "clip_start": "00:52:20.000",
+      "clip_end": "00:52:37.125",
+      "depicts": ["dialogue", "reaction", "emotion"],
+      "chars": [],
+      "action": "Close on the woman, wide-eyed and smiling as she presses her case; the long held final shot stays on the girl, who folds her hands on the table and gives nothing back, her face closing.",
+      "censor": "none"
+    }
+  ]
+}

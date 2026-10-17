@@ -1,0 +1,77 @@
+{
+  "span": "sp07",
+  "moments": [
+    {
+      "shots": [0, 1, 2, 3],
+      "clip_start": "01:09:00.000",
+      "clip_end": "01:09:09.167",
+      "depicts": ["dialogue", "setup"],
+      "chars": ["Bank", "Pat", "Grace", "Lynn"],
+      "action": "A cut of Bank sprinting down an open walkway drops into the print shop, where Bank sits apart, Pat and Grace listen from the press, and by the last shot Lynn is the one talking in front of the machine.",
+      "censor": "none"
+    },
+    {
+      "shots": [4, 5, 6, 7, 8],
+      "clip_start": "01:09:09.167",
+      "clip_end": "01:09:18.208",
+      "depicts": ["dialogue", "reveal"],
+      "chars": ["Bank", "Lynn", "Pat", "Grace"],
+      "action": "A phone calculator reads 7,500,000 and Bank looks up at it; the figure turns into a duffel bag stuffed with banknotes and three faces lit over it at night, then back to the wide print shop with Lynn standing over the others.",
+      "censor": "none"
+    },
+    {
+      "shots": [9, 10, 11, 12, 13, 14],
+      "clip_start": "01:09:18.208",
+      "clip_end": "01:09:29.833",
+      "depicts": ["action", "montage", "setup"],
+      "chars": ["Bank", "Pat", "Grace"],
+      "action": "Bank bolts out a door; between Pat weighing it up and Bank sitting silent, the method plays out - a phone taped inside a lifted toilet cistern lid, Bank reading the paper, then thumbs typing the answers out.",
+      "censor": "none"
+    },
+    {
+      "shots": [15, 16, 17, 18],
+      "clip_start": "01:09:29.833",
+      "clip_end": "01:09:42.333",
+      "depicts": ["reaction", "dialogue"],
+      "chars": ["Pat", "Grace", "Lynn", "Bank"],
+      "action": "Pat and Grace huddle over a phone and grin as the answers land, Lynn talks on smiling, Pat laughs with an arm round Grace - and it ends on Bank alone, head dropped, not sharing any of it.",
+      "censor": "none"
+    },
+    {
+      "shots": [19, 20, 21],
+      "clip_start": "01:09:42.333",
+      "clip_end": "01:09:48.667",
+      "depicts": ["transition", "montage"],
+      "chars": ["Lynn"],
+      "action": "An overhead insert of the open bag of banknotes, then Lynn lying back in the dark in phone light, before the picture drops to full black.",
+      "censor": "none"
+    },
+    {
+      "shots": [22, 23],
+      "clip_start": "01:09:48.667",
+      "clip_end": "01:10:11.542",
+      "depicts": ["establishing", "action"],
+      "chars": ["Lynn"],
+      "action": "A long overhead take of a school stairwell - a student in uniform crouched beside a wooden ramp, others passing below - then the camera finds Lynn alone further up, leaning on the white railing and looking back.",
+      "censor": "none"
+    },
+    {
+      "shots": [24, 25],
+      "clip_start": "01:10:11.542",
+      "clip_end": "01:10:35.125",
+      "depicts": ["reaction", "emotion"],
+      "chars": ["Pat"],
+      "action": "Pat, in a floral shirt, is crying in a bare dark room; at the interrogation table he buries his face in both hands, then lifts it again, wet-eyed, to appeal to someone off camera.",
+      "censor": "none"
+    },
+    {
+      "shots": [26, 27],
+      "clip_start": "01:10:35.125",
+      "clip_end": "01:10:54.500",
+      "depicts": ["dialogue", "transition"],
+      "chars": ["Pat"],
+      "action": "A near-black shot with only faint smears of light holds (shot 26 not visually verifiable), then the interrogation room returns: Pat, calmer now, leans on the table talking to a woman in a striped top opposite him.",
+      "censor": "none"
+    }
+  ]
+}

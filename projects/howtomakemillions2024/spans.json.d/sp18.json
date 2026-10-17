@@ -1,0 +1,41 @@
+{
+  "span": "sp18",
+  "moments": [
+    {
+      "shots": [0, 1],
+      "clip_start": "01:25:29.292",
+      "clip_end": "01:25:56.000",
+      "depicts": ["dialogue", "emotion"],
+      "chars": ["M", "Amah Saejiu", "Sew"],
+      "action": "In a hospital waiting area M crouches beside Amah's wheelchair, listening. The angle swings behind them as Sew, in the blue floral blouse, steps in and bends down over Amah.",
+      "censor": "none"
+    },
+    {
+      "shots": [2, 3],
+      "clip_start": "01:25:56.000",
+      "clip_end": "01:26:18.917",
+      "depicts": ["dialogue", "reaction"],
+      "chars": ["M", "Amah Saejiu"],
+      "action": "M stares back at Amah across the wheelchair, stunned. By the reverse she has softened, reaching her hand out over the chair arm toward his.",
+      "censor": "none"
+    },
+    {
+      "shots": [4, 5],
+      "clip_start": "01:26:18.917",
+      "clip_end": "01:26:49.167",
+      "depicts": ["action", "emotion"],
+      "chars": ["M", "Amah Saejiu"],
+      "action": "Night at home, very dim: a figure curled on the bed behind a mosquito net, then Amah lying flat in her floral shirt. M comes in and settles over her, taking her arm.",
+      "censor": "none"
+    },
+    {
+      "shots": [6, 7],
+      "clip_start": "01:26:49.167",
+      "clip_end": "01:27:04.958",
+      "depicts": ["action", "emotion"],
+      "chars": ["M", "Amah Saejiu"],
+      "action": "M reaches across Amah on the pillow as her hand lifts weakly; the shot then closes on M alone in the pink half-light, head down, no longer looking at her.",
+      "censor": "none"
+    }
+  ]
+}

@@ -1,0 +1,77 @@
+{
+  "span": "sp18",
+  "moments": [
+    {
+      "shots": [0, 1, 2, 3],
+      "clip_start": "01:25:31.250",
+      "clip_end": "01:25:45.792",
+      "depicts": ["action", "setup"],
+      "chars": ["Lynn", "Bank"],
+      "action": "In two toilet stalls, hands peel a phone out of its plastic wrap - Bank's first, then Lynn's. Lynn bows over her screen, and by the last shot the chat is already filled with answer strings being thumbed in.",
+      "censor": "none"
+    },
+    {
+      "shots": [4, 5, 6, 7],
+      "clip_start": "01:25:45.792",
+      "clip_end": "01:26:04.083",
+      "depicts": ["action", "setup"],
+      "chars": ["Bank"],
+      "action": "Bank hunches over the phone in his stall, reading the blocks of letters and typing more of them. His face goes from flat concentration to a deep frown as the message on screen keeps growing.",
+      "censor": "none"
+    },
+    {
+      "shots": [8],
+      "clip_start": "01:26:04.083",
+      "clip_end": "01:26:20.792",
+      "depicts": ["reaction", "emotion"],
+      "chars": ["Bank"],
+      "action": "One long held take on Bank in the stall: he stares at the phone, jaw tight, then both hands come up to grip his collar, face damp and breathing hard - from reading to near-panic without a cut.",
+      "censor": "none"
+    },
+    {
+      "shots": [9, 10],
+      "clip_start": "01:26:20.792",
+      "clip_end": "01:26:31.292",
+      "depicts": ["reaction", "emotion"],
+      "chars": ["Bank"],
+      "action": "Extreme close-up on Bank's closed eyes, sweat beaded on the skin. He opens them and the frame pulls back to him turned to the phone again, settled and deliberate.",
+      "censor": "none"
+    },
+    {
+      "shots": [11, 12, 13],
+      "clip_start": "01:26:31.292",
+      "clip_end": "01:26:45.458",
+      "depicts": ["action", "setup"],
+      "chars": ["Lynn"],
+      "action": "The LINE group 'L,B' is packed with answer blocks and a thumb scrolls them. Lynn watches from her stall, then the screen shows her starting a Thai reply instead of more letters.",
+      "censor": "none"
+    },
+    {
+      "shots": [14, 15, 16, 17],
+      "clip_start": "01:26:45.458",
+      "clip_end": "01:26:59.375",
+      "depicts": ["dialogue", "reaction"],
+      "chars": ["Pat", "Grace"],
+      "action": "Cut to a dark room in Thailand at 5:19am: Pat and Grace lean into one phone and send that they are ready. Nothing comes back, so they send 'Bank?' - by the last shot Pat is talking fast, lit only by the screen.",
+      "censor": "none"
+    },
+    {
+      "shots": [18, 19, 20, 21],
+      "clip_start": "01:26:59.375",
+      "clip_end": "01:27:14.000",
+      "depicts": ["reaction", "reveal"],
+      "chars": ["Lynn", "Bank"],
+      "action": "Lynn screws up her face at the phone in her stall. The screen answers the 'Bank?' with his demand for a million more, and the cut lands on Bank in his own stall, mouth moving, calm.",
+      "censor": "none"
+    },
+    {
+      "shots": [22, 23],
+      "clip_start": "01:27:14.000",
+      "clip_end": "01:27:17.917",
+      "depicts": ["action", "reaction"],
+      "chars": ["Pat"],
+      "action": "In the Bangkok workroom Pat drives his fist down onto the table, then lurches up out of the chair shouting, the camera whipping with him as bystanders flinch at the edge of frame.",
+      "censor": "none"
+    }
+  ]
+}

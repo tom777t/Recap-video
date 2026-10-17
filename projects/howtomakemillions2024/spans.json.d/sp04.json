@@ -1,0 +1,41 @@
+{
+  "span": "sp04",
+  "moments": [
+    {
+      "shots": [0, 1],
+      "clip_start": "01:04:30.917",
+      "clip_end": "01:04:42.333",
+      "depicts": ["action", "emotion"],
+      "chars": ["Amah Saejiu", "M"],
+      "action": "In the sunlit sitting room Amah pushes a hand through her thin white hair, head down, while M sits on the floor below her chair; the cut tightens until her arm has come over the armrest to rest against him.",
+      "censor": "none"
+    },
+    {
+      "shots": [2, 3, 4, 5],
+      "clip_start": "01:04:42.333",
+      "clip_end": "01:05:12.750",
+      "depicts": ["action", "dialogue"],
+      "chars": ["Amah Saejiu", "M"],
+      "action": "M points his phone at Amah and they watch the screen together, both laughing as she bats at his arm; the screen starts on her own face and ends with her swapped into a bald old man.",
+      "censor": "none"
+    },
+    {
+      "shots": [6],
+      "clip_start": "01:05:12.750",
+      "clip_end": "01:06:03.125",
+      "depicts": ["dialogue", "emotion"],
+      "chars": ["Amah Saejiu", "M"],
+      "action": "One long held take against the bright window: Amah laughs openly, teeth showing, then the frame settles on M looking up at her, no longer smiling, his hand closed around her wrist.",
+      "censor": "none"
+    },
+    {
+      "shots": [7, 8, 9],
+      "clip_start": "01:06:03.125",
+      "clip_end": "01:06:22.500",
+      "depicts": ["transition", "establishing"],
+      "chars": [],
+      "action": "A dark commuter train slides past in tight overhead shots, then the camera pulls wide to palms and sky where a rainbow stands; the train crosses beneath it and clears the frame.",
+      "censor": "none"
+    }
+  ]
+}

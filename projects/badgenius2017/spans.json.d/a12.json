@@ -1,0 +1,68 @@
+{
+  "span": "a12",
+  "moments": [
+    {
+      "shots": [0, 1],
+      "clip_start": "00:17:58.667",
+      "clip_end": "00:18:09.208",
+      "depicts": ["action", "discovery"],
+      "chars": ["Lynn"],
+      "action": "Night. Lynn crouches at her father's desk under a single lamp and works a drawer open; the moment ends on a stamped, official-looking receipt held up in her hand.",
+      "censor": "none"
+    },
+    {
+      "shots": [2, 3, 4],
+      "clip_start": "00:18:09.208",
+      "clip_end": "00:18:22.208",
+      "depicts": ["action", "discovery"],
+      "chars": ["Lynn"],
+      "action": "Seen through a doorway she settles at the lamplit desk and sorts the papers, an arm sweeping across the pile; the last shot pushes in close on her face, lowered and unmoving as she reads.",
+      "censor": "none"
+    },
+    {
+      "shots": [5, 6, 7],
+      "clip_start": "00:18:22.208",
+      "clip_end": "00:18:39.708",
+      "depicts": ["action", "discovery"],
+      "chars": ["Lynn"],
+      "action": "She lifts an ornate award certificate out of the stack; a framed photo of her father holding her as a baby sits on the shelf beside her. By the last shot she is reading another sheet, face set.",
+      "censor": "none"
+    },
+    {
+      "shots": [8],
+      "clip_start": "00:18:39.708",
+      "clip_end": "00:19:02.917",
+      "depicts": ["action", "establishing"],
+      "chars": ["Lynn", "Lynn's father"],
+      "action": "Daylight, one long take: close on Lynn's hands moving over the piano keys, then focus racks past her blurred shoulder to her father, in a white vest, appearing in the room behind her.",
+      "censor": "none"
+    },
+    {
+      "shots": [9, 10, 11],
+      "clip_start": "00:19:02.917",
+      "clip_end": "00:19:16.250",
+      "depicts": ["action", "emotion"],
+      "chars": ["Lynn", "Lynn's father"],
+      "action": "Lynn plays on in profile, eyes forward; in the wide shot her father crosses the room behind her and goes out through the archway. Left alone, she lowers her head over the keys.",
+      "censor": "none"
+    },
+    {
+      "shots": [12, 13],
+      "clip_start": "00:19:16.250",
+      "clip_end": "00:19:25.917",
+      "depicts": ["reaction", "emotion"],
+      "chars": ["Lynn", "Lynn's father"],
+      "action": "Past Lynn's shoulder, her father pulls open the fridge and rummages inside. Cut back: she has lifted her head from the keys and is staring away, no longer playing.",
+      "censor": "none"
+    },
+    {
+      "shots": [14, 15],
+      "clip_start": "00:19:25.917",
+      "clip_end": "00:19:44.292",
+      "depicts": ["action", "reaction"],
+      "chars": ["Lynn", "Lynn's father"],
+      "action": "Her father carries a plastic bottle to the table and stands fussing with something white in his hands, back turned. The last shot returns to Lynn at the piano, hands off the keys, watching him.",
+      "censor": "none"
+    }
+  ]
+}

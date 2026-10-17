@@ -748,6 +748,268 @@ def test_reviewed_exception() -> tuple[bool, str]:
         shutil.rmtree(os.path.join(ROOT, 'projects', proj), ignore_errors=True)
 
 
+def _win_project(proj, bad_at=None):
+    """Cuts deu 5s tu 0..200. Segment 10s mot, nen ranh gioi loi noi roi dung
+    vao boi so cua 10 -> diem ngat du doan duoc. `bad_at` thay MOT moc bang rac."""
+    cuts = [float(5 * i) for i in range(41)]
+    if bad_at is not None:
+        cuts[cuts.index(bad_at)] = "khong-phai-so"
+    segs = [{"start": float(10 * i), "end": float(10 * i + 8), "text": f"s{i}"}
+            for i in range(20)]
+    _mk(proj, {"_cuts.json": {"threshold": 27.0, "min_scene_len": 15, "cuts": cuts},
+               "transcript.json": {"language": "th", "duration": 200.0,
+                                   "model": "x", "segments": segs}})
+    r = subprocess.run([sys.executable, 'tools/make_windows.py', proj],
+                       cwd=ROOT, capture_output=True, text=True,
+                       encoding='utf-8', errors='replace', timeout=300)
+    wp = os.path.join(ROOT, 'projects', proj, 'windows.json')
+    w = json.load(io.open(wp, encoding='utf-8')) if os.path.exists(wp) else None
+    return r, w
+
+
+def test_window_grouping() -> tuple[bool, str]:
+    """[WINDOW-GROUPING] positive test - gom cu cat thanh moment.
+
+    Khang dinh:
+      1. chay duoc, sinh windows.json
+      2. gom THAT: moi cua so > mot shot may quay (neu bang nhau thi khong gom)
+      3. moi canh cua so dung tai mot moc cat - khong bia ra moc moi
+      4. phu kin, khong ho, khong chong lan
+      5. KHONG doc file cam (shots.json la dap an)
+    """
+    proj = '_selftest_windows'
+    r, w = _win_project(proj)
+    if w is None:
+        return False, f'khong sinh windows.json (rc={r.returncode}) {r.stdout[-200:]}'
+    W = w['windows']
+    if len(W) < 2:
+        return False, f'chi {len(W)} cua so - khong co gi de kiem tra'
+    cuts = {float(5 * i) for i in range(41)}
+    off = [x['id'] for x in W
+           if x['start_sec'] not in cuts or x['end_sec'] not in cuts]
+    if off:
+        return False, f'canh khong nam tren moc cat: {off[:3]}'
+    for a, b in zip(W, W[1:]):
+        if abs(a['end_sec'] - b['start_sec']) > 1e-6:
+            return False, f"ho/chong lan giua {a['id']} va {b['id']}"
+    if W[0]['start_sec'] != 0.0 or W[-1]['end_sec'] != 200.0:
+        return False, 'khong phu kin toan bo'
+    multi = sum(1 for x in W if x['n_cuts'] >= 1)
+    if multi == 0:
+        return False, 'moi cua so chi la mot shot - khong he GOM'
+    # Tim viec DUNG DUONG DAN that su (pdir / "shots.json"), khong phai viec
+    # NHAC TEN - hang so FORBIDDEN_INPUTS co quyen liet ke chung.
+    src = io.open(os.path.join(ROOT, 'tools', 'make_windows.py'),
+                  encoding='utf-8').read()
+    leak = re.findall(r'/\s*["\'](shots\.json|beats_proposal\.md|draft\.json|'
+                      r'timeline\.json|names\.json)["\']', src)
+    leak += re.findall(r'open\(\s*["\'][^"\']*(shots\.json|beats_proposal\.md)', src)
+    if leak:
+        return False, f'ma nguon DUNG dau vao CAM: {sorted(set(leak))}'
+    return True, (f'{len(W)} cua so, moi canh tren moc cat, phu kin 0-200s, '
+                  f'{multi} cua so gom >1 shot, khong dung dau vao cam')
+
+
+def test_window_bad_cut() -> tuple[bool, str]:
+    """[WINDOW-BAD-CUT] granularity - MOT moc cat hong chi duoc lam hong cua so
+    ke no, khong phai ca lo (bai hoc 2026-09-05).
+
+    So sanh lo sach voi lo co moc hong tai t=100: moi cua so KHONG cham vung
+    [95,105] phai GIONG HET; chi cua so phu vung do bi danh dau degraded.
+    """
+    clean_r, clean = _win_project('_selftest_windows_ok')
+    bad_r, bad = _win_project('_selftest_windows_bad', bad_at=100.0)
+    if clean is None or bad is None:
+        return False, 'mot trong hai lo khong sinh duoc windows.json'
+    if bad_r.returncode != 0:
+        return False, f'moc hong lam CHET CA LO (rc={bad_r.returncode})'
+    if bad['stats']['n_cuts_bad'] != 1:
+        return False, f"cach ly sai: n_cuts_bad={bad['stats']['n_cuts_bad']}"
+    deg = [x for x in bad['windows'] if x.get('degraded')]
+    if not deg:
+        return False, 'moc hong bi NUOT im lang - khong cua so nao degraded'
+    for x in deg:
+        if not (x['start_sec'] < 105.0 and x['end_sec'] > 95.0):
+            return False, f"{x['id']} bi danh dau degraded nhung o ngoai vung hong"
+    def key(ws):
+        return {(w['start_sec'], w['end_sec']) for w in ws}
+    far_clean = {k for k in key(clean['windows']) if k[1] <= 95.0 or k[0] >= 105.0}
+    far_bad = {k for k in key(bad['windows']) if k[1] <= 95.0 or k[0] >= 105.0}
+    if far_clean != far_bad:
+        d = (far_clean ^ far_bad)
+        return False, f'cua so NGOAI vung hong bi doi: {sorted(d)[:3]}'
+    return True, (f"1 moc hong -> {len(deg)} cua so degraded, "
+                  f"{len(far_bad)}/{len(key(clean['windows']))} cua so con lai "
+                  f"giong het lo sach, rc=0")
+
+
+def test_name_leak() -> tuple[bool, str]:
+    """[NAME-LEAK] - mot ten rieng khong co nguon trong narration.
+
+    Hai nua, vi mot rule chi bao "co" thi vo dung neu no cung bao "co" voi moi
+    thu:
+      FIRES  : ten romanise tu transcript ("Lin"/"Rin" = Lynn) va mot nhan vat
+               CHI ton tai trong ban dich may ("Toe").
+      SILENT : ten that trong names.json, va dia danh co trong DONG BEAT.
+
+    "Lin" la truong hop rieng: beat map TU MAU THUAN - header cam no, nhung B05
+    lai viet "the nickname on the form: Lin". Chi dua vao allowlist thi no lot,
+    nen phai co nhanh so sanh BIEN THE (cung chu cai dau, edit distance <=2).
+    """
+    proj = '_selftest_nameleak'
+    names = {"names": [{"character": "Lynn", "actor": "A"},
+                       {"character": "Bank", "actor": "B"},
+                       {"character": "Lynn's father", "actor": "C"}]}
+    beats = ("# beats\n"
+             'The transcript romanises the lead as "Lin". names.json says Lynn.\n'
+             "style: linear\n\n"
+             "B01 | 00:00:05 | Lynn in Sydney | Lynn | setup\n"
+             "B02 | 00:00:20 | Bank at the gate | Bank | action\n")
+    shots = {"shots": [
+        {"id": "clip:00:00:00", "clip_start": "00:00:00.0",
+         "clip_end": "00:00:10.0", "chars": ["Lynn"], "depicts": ["setup"],
+         "action": "a girl at a table", "censor": "none"},
+        {"id": "clip:00:00:10", "clip_start": "00:00:10.0",
+         "clip_end": "00:00:20.0", "chars": ["Bank"], "depicts": ["action"],
+         "action": "a boy at a gate", "censor": "none"}]}
+    lines = [
+        # phai IM: ten that + dia danh co trong dong beat
+        {"id": 1, "narration": "Lynn lands in Sydney and waits.",
+         "clip_start": "00:00:00.0", "clip_end": "00:00:10.0", "note": "B01"},
+        # phai KEU: ca ba deu la ten khong co nguon
+        {"id": 2, "narration": "Teach me how, Rin. Toe paid her. The form says Lin.",
+         "clip_start": "00:00:10.0", "clip_end": "00:00:20.0", "note": "B02"},
+    ]
+    p = _mk(proj, {"names.json": names, "shots.json": shots,
+                   "draft.json": {"title": "T", "target_minutes": 1,
+                                  "lines": lines},
+                   "_cuts.json": {"cuts": [0.0, 10.0, 20.0]}})
+    io.open(os.path.join(p, "beats_proposal.md"), "w",
+            encoding="utf-8").write(beats)
+    out = _run_draft(proj)
+    hits = [l.strip() for l in out.splitlines() if "[NAME-LEAK]" in l]
+    joined = " ".join(hits)
+    missed = [n for n in ("Rin", "Toe", "Lin") if f"'{n}'" not in joined]
+    if missed:
+        return False, f'KHONG bat duoc {missed} - ' + (hits[0] if hits else 'khong co hit nao')
+    if any("line 1:" in h for h in hits):
+        return False, ('keu tren dong 1, nhung "Lynn" co trong names.json va '
+                       '"Sydney" co trong dong beat - ca hai deu co nguon')
+    return True, (f"bat ca Lin/Rin/Toe ({len(hits)} hit), im tren ten that + "
+                  f"dia danh co trong dong beat")
+
+
+def _moment_project(proj, *, bad_span=None, make_overlap=False):
+    """Hai span 40s, cu cat moi 10s. Mot moment vat qua seam o t=40."""
+    cuts = [float(10 * i) for i in range(9)]            # 0..80
+    shots = lambda a, b: [{"i": j, "start": float(a + 10*j),
+                           "end": float(a + 10*j + 10), "dur": 10.0}
+                          for j in range((b - a) // 10)]
+    spans = [{"id": "sp01", "own_start": 0.0, "own_end": 40.0, "ext_end": 60.0,
+              "shots": shots(0, 60), "frames": [], "frame_status": "ok"},
+             {"id": "sp02", "own_start": 40.0, "own_end": 80.0, "ext_end": 80.0,
+              "shots": shots(40, 80), "frames": [], "frame_status": "ok"}]
+    p = _mk(proj, {"_cuts.json": {"cuts": cuts},
+                   "spans.json": {"project": proj, "span_sec": 40.0,
+                                  "overlap_sec": 20.0, "region": [0.0, 80.0],
+                                  "spans": spans}})
+    d = os.path.join(p, "spans.json.d")
+    os.makedirs(d)
+
+    def mom(idx, a, b, extra=None):
+        o = {"shots": idx, "clip_start": f"00:00:{a:06.3f}",
+             "clip_end": f"00:00:{b:06.3f}", "depicts": ["action"],
+             "chars": [], "action": "x", "censor": "none"}
+        o.update(extra or {})
+        return o
+
+    # sp01 tiles 0..60; the moment [3,4] spans 30-50, midpoint 40 -> owned by sp02
+    sp01 = {"span": "sp01", "moments": [mom([0, 1, 2], 0, 30), mom([3, 4], 30, 50),
+                                        mom([5], 50, 60)]}
+    # sp02 tiles 40..80. Its first moment starts at 40 -> leaves a gap after
+    # sp01's 0-30 unless the seam rule works.
+    start2 = 30.0 if make_overlap else 40.0
+    sp02 = {"span": "sp02", "moments": [mom([0], start2, 50), mom([1, 2], 50, 70),
+                                        mom([3], 70, 80)]}
+    for sid, obj in (("sp01", sp01), ("sp02", sp02)):
+        io.open(os.path.join(d, f"{sid}.json"), "w", encoding="utf-8").write(
+            json.dumps(obj, ensure_ascii=False))
+    if bad_span:
+        # Phai lam hong mot span CO THAT trong spans.json. Mot file la cho mot
+        # span khong ton tai thi assembler khong bao gio doc toi - test kieu do
+        # se "dat" ma khong he cham vao duong di that.
+        io.open(os.path.join(d, f"{bad_span}.json"), "w",
+                encoding="utf-8").write("{ this is not json")
+    r = subprocess.run([sys.executable, 'tools/assemble_moments.py', proj],
+                       cwd=ROOT, capture_output=True, text=True,
+                       encoding='utf-8', errors='replace', timeout=300)
+    wp = os.path.join(p, "windows_llm.json")
+    w = json.load(io.open(wp, encoding='utf-8')) if os.path.exists(wp) else None
+    return r, w
+
+
+def test_moment_seam() -> tuple[bool, str]:
+    """[MOMENT-SEAM] positive test - quy tac so huu theo DIEM GIUA.
+
+    Mot moment vat qua mep span duoc CA HAI span tra ve. Phai giu DUNG MOT lan,
+    boi span chua diem giua cua no, va ket qua cuoi khong duoc co ho hay chong
+    lan. Day la cho loi duoc du doan se don lai, nen no phai co test rieng.
+    """
+    proj = '_selftest_moment_seam'
+    r, w = _moment_project(proj)
+    if w is None:
+        return False, f'khong sinh windows_llm.json (rc={r.returncode})'
+    W = w['windows']
+    if w['stats']['validation_problems']:
+        return False, f"validation ket toi: {w['problems'][:2]}"
+    # moment vat seam (30-50) phai xuat hien dung mot lan
+    cross = [x for x in W if x['start_sec'] <= 30.0 and x['end_sec'] >= 50.0]
+    if len(cross) != 1:
+        return False, (f'moment vat seam xuat hien {len(cross)} lan, can dung 1: '
+                       f'{[(x["start_sec"], x["end_sec"]) for x in W]}')
+    for a, b in zip(W, W[1:]):
+        if abs(a['end_sec'] - b['start_sec']) > 1e-6:
+            return False, f"ho/chong lan giua {a['id']} va {b['id']}"
+    if W[0]['start_sec'] != 0.0 or W[-1]['end_sec'] != 80.0:
+        return False, f"khong phu kin: {W[0]['start_sec']}..{W[-1]['end_sec']}"
+    dup = [x['id'] for x in W if x['span'] == 'sp01' and x['start_sec'] >= 40.0]
+    if dup:
+        return False, f'sp01 giu moment thuoc vung so huu cua sp02: {dup}'
+    return True, (f"{len(W)} cua so, moment vat seam giu dung 1 lan boi span "
+                  f"chua diem BAT DAU, phu kin 0-80s khong ho khong chong lan")
+
+
+def test_moment_bad_span() -> tuple[bool, str]:
+    """[MOMENT-BAD-SPAN] granularity - MOT span hong chi mat SPAN DO.
+
+    File span hong phai duoc GOI TEN trong missing_spans, cac span con lai van
+    lap rap binh thuong, va tien trinh khong duoc chet.
+    """
+    proj = '_selftest_moment_bad'
+    r, w = _moment_project(proj, bad_span='sp02')
+    if w is None:
+        return False, f'span hong lam CHET CA LO (rc={r.returncode})'
+    if r.returncode != 0:
+        return False, f'rc={r.returncode}, span hong khong duoc cach ly'
+    named = any('sp02' in str(s) for s in w.get('problems', [])) \
+        or 'sp02' in w.get('missing_spans', [])
+    if not named:
+        return False, ('span hong bi NUOT im lang - khong co trong problems '
+                       'hay missing_spans')
+    _moment_project('_selftest_moment_bad_ref')
+    ref = json.load(io.open(os.path.join(
+        ROOT, 'projects', '_selftest_moment_bad_ref', 'windows_llm.json'),
+        encoding='utf-8'))
+    a = [(x['start_sec'], x['end_sec']) for x in w['windows']]
+    b = [(x['start_sec'], x['end_sec']) for x in ref['windows']
+         if x['span'] == 'sp01']
+    if a != b:
+        return False, (f'span hong lam doi ket qua cua span KHAC: '
+                       f'{a} vs sp01-cua-lo-sach {b}')
+    return True, (f"span hong duoc goi ten, {len(a)} cua so tu span con lai "
+                  f"giong het lo sach, rc=0")
+
+
 TESTS = {
     'VISUAL-REPEAT':   test_visual_repeat,
     # 'VISUAL-REPEAT-SHOTS' is NOT registered: the feature it specifies was
@@ -770,6 +1032,11 @@ TESTS = {
     'DUPLICATE-ID':    test_duplicate_id,
     'EMPTY-LINE':      test_empty_line,
     'BEAT-MAP':        test_beat_map,
+    'WINDOW-GROUPING': test_window_grouping,
+    'WINDOW-BAD-CUT':  test_window_bad_cut,
+    'NAME-LEAK':       test_name_leak,
+    'MOMENT-SEAM':     test_moment_seam,
+    'MOMENT-BAD-SPAN': test_moment_bad_span,
 }
 
 # Gates known to be unreachable. Reported as XFAIL, not PASS and not FAIL, so

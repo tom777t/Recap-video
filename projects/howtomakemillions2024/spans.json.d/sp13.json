@@ -1,0 +1,50 @@
+{
+  "span": "sp13",
+  "moments": [
+    {
+      "shots": [0, 1, 2, 3],
+      "clip_start": "01:17:57.875",
+      "clip_end": "01:18:26.583",
+      "depicts": ["dialogue", "setup"],
+      "chars": ["Amah Saejiu", "M"],
+      "action": "Amah presses M in close-up while he listens and barely answers; the last cut pulls back to a wide that shows the two of them sitting among her clutter, her cane by her knee.",
+      "censor": "none"
+    },
+    {
+      "shots": [4],
+      "clip_start": "01:18:26.583",
+      "clip_end": "01:18:43.000",
+      "depicts": ["establishing", "setup"],
+      "chars": ["Amah Saejiu", "M"],
+      "action": "A held wide from behind: M and Amah, now in a knit cap, stand at an ornate gold gate facing a large white two-storey house. They wait without moving until a figure appears in the far doorway.",
+      "censor": "none"
+    },
+    {
+      "shots": [5, 6],
+      "clip_start": "01:18:43.000",
+      "clip_end": "01:19:20.250",
+      "depicts": ["action", "setup"],
+      "chars": ["M"],
+      "action": "Inside, M loads a plate from the buffet beside a boy in pink; the long take follows him through the room until he ends up alone at the edge of the party, eating with a gold gift bag in his hand.",
+      "censor": "none"
+    },
+    {
+      "shots": [7, 8],
+      "clip_start": "01:19:20.250",
+      "clip_end": "01:19:42.708",
+      "depicts": ["dialogue", "reaction", "emotion"],
+      "chars": ["Amah Saejiu", "Amah's brother", "M"],
+      "action": "At the karaoke screen Amah holds a microphone low while her white-haired brother talks at her; she turns up to face him and answers. Cut across the room to M, mouth full, watching them.",
+      "censor": "none"
+    },
+    {
+      "shots": [9],
+      "clip_start": "01:19:42.708",
+      "clip_end": "01:20:00.250",
+      "depicts": ["dialogue", "setup"],
+      "chars": ["Amah Saejiu", "M"],
+      "action": "Amah sits talking at a heavy wooden table, an abacus and papers in front of her and M small behind beside an IV stand. The shot holds until a hand reaches in close and takes a red carved canister.",
+      "censor": "none"
+    }
+  ]
+}

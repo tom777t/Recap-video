@@ -1,0 +1,77 @@
+{
+  "span": "sp19",
+  "moments": [
+    {
+      "shots": [0, 1, 2, 3],
+      "clip_start": "01:26:59.375",
+      "clip_end": "01:27:14.000",
+      "depicts": ["dialogue", "setup"],
+      "chars": ["Lynn", "Pat"],
+      "action": "Lynn, shut in a toilet stall, stares at her phone; an insert shows the chat where Bank demands one million more. By the last shot the cut has moved to Pat, alone in another stall, reading the same line.",
+      "censor": "none"
+    },
+    {
+      "shots": [4, 5, 6, 7, 8, 9],
+      "clip_start": "01:27:14.000",
+      "clip_end": "01:27:28.667",
+      "depicts": ["action", "emotion"],
+      "chars": ["Bank"],
+      "action": "In the laundry workshop Bank erupts, pounding the bench with both fists; a phone insert carries his ultimatum to transfer within five minutes. By the last shot he has turned on the woman in the blue uniform, who recoils behind the table.",
+      "censor": "none"
+    },
+    {
+      "shots": [10, 11, 12, 13, 14],
+      "clip_start": "01:27:28.667",
+      "clip_end": "01:27:43.417",
+      "depicts": ["action", "emotion"],
+      "chars": ["Bank"],
+      "action": "Bank screams across the table at the woman in blue; she grabs at his hands, crying, until he stoops away and retreats into the dark machine floor. The moment ends on her left alone at the glass desk, head down.",
+      "censor": "none"
+    },
+    {
+      "shots": [15, 16, 17, 18, 19],
+      "clip_start": "01:27:43.417",
+      "clip_end": "01:28:02.708",
+      "depicts": ["dialogue", "reaction"],
+      "chars": ["Pat"],
+      "action": "Screen inserts fill the thread as Bank prices it out - first million the fee, second for the beating - cutting back to Pat in his stall. He shifts from slack-mouthed disbelief to a hard frown by the last shot.",
+      "censor": "none"
+    },
+    {
+      "shots": [20, 21, 22],
+      "clip_start": "01:28:02.708",
+      "clip_end": "01:28:16.792",
+      "depicts": ["reaction", "dialogue"],
+      "chars": ["Pat"],
+      "action": "Pat thumbs a reply; the chat shows a bank transfer slip and a message that this is all that is in the account, the rest after the answers come. Pat's face closes from shock into a scowl.",
+      "censor": "none"
+    },
+    {
+      "shots": [23, 24, 25],
+      "clip_start": "01:28:16.792",
+      "clip_end": "01:28:33.792",
+      "depicts": ["reaction", "aftermath"],
+      "chars": ["Lynn", "Bank"],
+      "action": "Lynn watches the thread from her stall, tight-faced; a hand holds the phone up on the transfer slip. It ends on Bank perched on a laundry table beside the woman in blue, the two of them quietly reading his phone together.",
+      "censor": "none"
+    },
+    {
+      "shots": [26, 27, 28, 29, 30, 31, 32, 33, 34],
+      "clip_start": "01:28:33.792",
+      "clip_end": "01:28:43.542",
+      "depicts": ["montage", "setup"],
+      "chars": [],
+      "action": "Fast montage: an Illustrator file turns an answer key into barcode bars, a hand thumbs the green press's buttons and the rollers start spinning, women work a mouse and a laptop in the dim shop, ending on a sweat-soaked face bent close to the machine.",
+      "censor": "none"
+    },
+    {
+      "shots": [35, 36, 37, 38],
+      "clip_start": "01:28:43.542",
+      "clip_end": "01:28:52.292",
+      "depicts": ["montage", "setup"],
+      "chars": [],
+      "action": "The press pushes printed sheets out; a card marked '1' lies on the steel bed, then dozens of black pencils are heaped beside it, and the last shot is fingers peeling a printed barcode strip loose.",
+      "censor": "none"
+    }
+  ]
+}

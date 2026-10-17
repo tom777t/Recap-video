@@ -1,0 +1,77 @@
+{
+  "span": "a14",
+  "moments": [
+    {
+      "shots": [0, 1, 2, 3],
+      "clip_start": "00:20:59.708",
+      "clip_end": "00:21:26.750",
+      "depicts": ["establishing", "setup"],
+      "chars": ["Lynn"],
+      "action": "In a dim room Lynn sits at an upright piano with a hand on the keys; cut to a student alone at a bare table in the dark, hands clasped, who drops his eyes before the frame goes black.",
+      "censor": "none"
+    },
+    {
+      "shots": [4, 5, 6, 7],
+      "clip_start": "00:21:26.750",
+      "clip_end": "00:21:38.708",
+      "depicts": ["dialogue", "setup"],
+      "chars": ["Lynn", "Grace", "Pat"],
+      "action": "Daylight music room: Lynn stands by the piano with her eyes shut, then her fingers settle on the keys and she lifts a hand as she explains. The cut pulls back to six students sitting in rows, watching her.",
+      "censor": "none"
+    },
+    {
+      "shots": [8, 9, 10, 11],
+      "clip_start": "00:21:38.708",
+      "clip_end": "00:21:50.250",
+      "depicts": ["dialogue", "setup"],
+      "chars": ["Lynn", "Grace", "Pat"],
+      "action": "Close on Lynn's fingers walking across the keys while she talks over her shoulder. The group, first a loose row, is now crowded in tight on the sofa, leaning forward at her hand.",
+      "censor": "none"
+    },
+    {
+      "shots": [12, 13, 14, 15],
+      "clip_start": "00:21:50.250",
+      "clip_end": "00:22:02.542",
+      "depicts": ["dialogue", "action"],
+      "chars": ["Lynn"],
+      "action": "Lynn, backlit at the barred window, keeps explaining, intercut with her hand running the pattern. By the end she has turned to the piano and is playing it herself rather than describing it.",
+      "censor": "none"
+    },
+    {
+      "shots": [16, 17, 18],
+      "clip_start": "00:22:02.542",
+      "clip_end": "00:22:20.458",
+      "depicts": ["dialogue", "reaction"],
+      "chars": ["Lynn", "Grace", "Pat"],
+      "action": "Wide over the students' heads: Lynn sits at the piano smiling at them; they stare back blank and unmoved. She ends on her feet beside the piano, alone in frame, facing them down.",
+      "censor": "none"
+    },
+    {
+      "shots": [19, 20, 21, 22, 23],
+      "clip_start": "00:22:20.458",
+      "clip_end": "00:22:34.375",
+      "depicts": ["establishing", "setup"],
+      "chars": ["Grace"],
+      "action": "School exam hall. Grace glances sideways at her desk; a wall clock and the paper header reading final exam 2/2557, 8.30-10.30. She sits back chewing her pencil, and a classmate's hand flattens on the desk edge.",
+      "censor": "none"
+    },
+    {
+      "shots": [24, 25, 26, 27],
+      "clip_start": "00:22:34.375",
+      "clip_end": "00:22:39.708",
+      "depicts": ["montage", "reveal"],
+      "chars": ["Grace", "Pat"],
+      "action": "Overhead of a hand on piano keys cuts back to Grace grinning at the lesson with Pat beside her, her fingers drumming the pattern on her thigh; then she is in the exam room, still smiling, turning to look.",
+      "censor": "none"
+    },
+    {
+      "shots": [28, 29, 30],
+      "clip_start": "00:22:39.708",
+      "clip_end": "00:22:47.917",
+      "depicts": ["montage", "reveal"],
+      "chars": [],
+      "action": "A pencil tip fills the bubble beside question 20, intercut with a hand sweeping the piano keys; it lands on a hand splayed flat on an exam desk, holding the same finger position.",
+      "censor": "none"
+    }
+  ]
+}

@@ -1,0 +1,59 @@
+{
+  "span": "sp05",
+  "moments": [
+    {
+      "shots": [0, 1, 2],
+      "clip_start": "01:06:03.125",
+      "clip_end": "01:06:22.500",
+      "depicts": ["transition", "establishing"],
+      "chars": [],
+      "action": "A commuter train slides past in near darkness, then the view pulls back to palms and a rainbow over the tracks as the lit train runs under it - night gives way to a bright wet day.",
+      "censor": "none"
+    },
+    {
+      "shots": [3, 4],
+      "clip_start": "01:06:22.500",
+      "clip_end": "01:06:35.458",
+      "depicts": ["action", "setup"],
+      "chars": ["M", "Amah"],
+      "action": "A pot of pork-and-greens soup boils; the camera finds the cramped kitchen where Amah sits with her back to us and M, plate in hand, spoons food out for her.",
+      "censor": "none"
+    },
+    {
+      "shots": [5, 6, 7, 8],
+      "clip_start": "01:06:35.458",
+      "clip_end": "01:06:50.042",
+      "depicts": ["montage", "action"],
+      "chars": ["M", "Amah"],
+      "action": "Chores in close-up: a charcoal stove lit beside bare crouched legs, hands pulling pandan leaves from a pot plant, the knotted leaves dropped into a pan of rice water. By the last shot Amah has come to the doorway to watch M stir.",
+      "censor": "none"
+    },
+    {
+      "shots": [9, 10],
+      "clip_start": "01:06:50.042",
+      "clip_end": "01:07:21.250",
+      "depicts": ["action", "emotion"],
+      "chars": ["M", "Amah"],
+      "action": "A long held wide of the kitchen: Amah seated in the foreground, M behind her stirring a steaming pot, glancing over at her. It cuts back outside past his stirring hands to Amah, who now steps forward out of the doorway towards him.",
+      "censor": "none"
+    },
+    {
+      "shots": [11],
+      "clip_start": "01:07:21.250",
+      "clip_end": "01:07:24.542",
+      "depicts": ["transition", "establishing"],
+      "chars": [],
+      "action": "An empty alley at night, wet underfoot, shuttered gates and potted plants lit by a single lamp - time has jumped to evening.",
+      "censor": "none"
+    },
+    {
+      "shots": [12, 13],
+      "clip_start": "01:07:24.542",
+      "clip_end": "01:07:47.542",
+      "depicts": ["dialogue", "emotion"],
+      "chars": ["M", "Amah"],
+      "action": "High wide of the night kitchen: Amah works at a green-topped table while M stands over her. Closer in, he leans on the table talking as she presses something into a blue basket; by the end he has broken into a grin.",
+      "censor": "none"
+    }
+  ]
+}

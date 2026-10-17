@@ -1,0 +1,77 @@
+{
+  "span": "sp08",
+  "moments": [
+    {
+      "shots": [0, 1, 2],
+      "clip_start": "01:10:35.125",
+      "clip_end": "01:10:57.125",
+      "depicts": ["dialogue", "setup"],
+      "chars": ["Pat", "Lynn", "Grace", "Bank"],
+      "action": "Opens on a near-black frame, then the dim station office: Pat talks across the desk at Lynn's back. The wide reverse reveals the room - Lynn seated writing, Grace waiting at the wall, Bank standing apart.",
+      "censor": "none"
+    },
+    {
+      "shots": [3, 4, 5],
+      "clip_start": "01:10:57.125",
+      "clip_end": "01:11:19.417",
+      "depicts": ["dialogue", "emotion"],
+      "chars": ["Pat", "Lynn", "Grace", "Bank"],
+      "action": "Pat jabs a finger at Lynn, arguing; she keeps her eyes on the papers in her hands. By the last shot his hand is down and he has folded into a pleading clasp, head bowed.",
+      "censor": "none"
+    },
+    {
+      "shots": [6, 7, 8],
+      "clip_start": "01:11:19.417",
+      "clip_end": "01:11:30.083",
+      "depicts": ["dialogue", "reaction"],
+      "chars": ["Bank", "Pat", "Lynn", "Grace"],
+      "action": "Bank watches in profile, Grace blurred behind him. Pat leans in talking again, and the wide shot ends on Lynn bent over the desk, pen moving, writing the statement out.",
+      "censor": "none"
+    },
+    {
+      "shots": [9, 10, 11],
+      "clip_start": "01:11:30.083",
+      "clip_end": "01:11:40.167",
+      "depicts": ["dialogue", "emotion"],
+      "chars": ["Pat", "Bank", "Lynn", "Grace"],
+      "action": "Pat raises his voice at Lynn; the cut lands on Bank's face in tight profile, jaw set. Back on Pat, the fight has gone out of him and he sits silent as Lynn's hand stays on the page.",
+      "censor": "none"
+    },
+    {
+      "shots": [12, 13, 14, 15, 16, 17, 18],
+      "clip_start": "01:11:40.167",
+      "clip_end": "01:11:52.292",
+      "depicts": ["action", "emotion"],
+      "chars": ["Bank", "Pat", "Lynn", "Grace"],
+      "action": "Bank comes over the desk at Pat in a blur of handheld cuts; Lynn springs up screaming. The two go down and the moment ends with both sprawled on the floor by the green wall, Bank on top.",
+      "censor": "none"
+    },
+    {
+      "shots": [19, 20, 21, 22, 23, 24],
+      "clip_start": "01:11:52.292",
+      "clip_end": "01:12:00.958",
+      "depicts": ["action", "reaction"],
+      "chars": ["Lynn", "Grace", "Bank", "Pat"],
+      "action": "Lynn lunges in and hauls at Bank's sweater, trying to drag him off; Grace claps both hands over her mouth, crying. The scuffle breaks and the last shot sits behind Bank's blue shoulder, pulled back from the desk.",
+      "censor": "none"
+    },
+    {
+      "shots": [25, 26, 27],
+      "clip_start": "01:12:00.958",
+      "clip_end": "01:12:07.208",
+      "depicts": ["aftermath", "action", "emotion"],
+      "chars": ["Pat", "Lynn"],
+      "action": "Pat is down against the wall; Lynn's face crumples in tears. By the last shot Pat is back on his feet at the blinds, mouth open, shouting again.",
+      "censor": "none"
+    },
+    {
+      "shots": [28, 29, 30],
+      "clip_start": "01:12:07.208",
+      "clip_end": "01:12:17.417",
+      "depicts": ["aftermath", "reaction"],
+      "chars": ["Bank", "Lynn", "Pat", "Grace"],
+      "action": "A rack-focus finds the emptied desk with the single sheet still on it, then Bank turning away past Lynn. It closes on Pat pinned to the blinds, held back by Grace's arms.",
+      "censor": "none"
+    }
+  ]
+}

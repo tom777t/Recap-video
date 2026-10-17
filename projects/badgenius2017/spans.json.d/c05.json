@@ -1,0 +1,50 @@
+{
+  "span": "c05",
+  "moments": [
+    {
+      "shots": [0, 1, 2, 3],
+      "clip_start": "01:51:04.750",
+      "clip_end": "01:51:30.375",
+      "depicts": ["reaction", "emotion"],
+      "chars": ["Bank", "Grace"],
+      "action": "Bank sits alone against a whiteboard, then the film cuts to Grace staring out a bright window. She brings up a beach selfie of herself and a boy on her phone and ends looking down at it, eyes wet.",
+      "censor": "none"
+    },
+    {
+      "shots": [4, 5, 6],
+      "clip_start": "01:51:30.375",
+      "clip_end": "01:51:43.458",
+      "depicts": ["establishing", "setup"],
+      "chars": ["Pat", "Grace"],
+      "action": "An 'International Arrivals' sign at night, then Pat and Grace on the arrivals balcony holding up a glowing heart sign. By the last shot they are laughing, Grace fiddling with an orchid garland.",
+      "censor": "none"
+    },
+    {
+      "shots": [7, 8, 9],
+      "clip_start": "01:51:43.458",
+      "clip_end": "01:51:55.625",
+      "depicts": ["dialogue", "reaction"],
+      "chars": ["Lynn", "Pat", "Grace"],
+      "action": "Lynn reaches them and Pat lifts the garland toward her. Grace and Pat beam, but Lynn stays flat-faced and starts talking back at them, unsmiling.",
+      "censor": "none"
+    },
+    {
+      "shots": [10, 11],
+      "clip_start": "01:51:55.625",
+      "clip_end": "01:52:23.083",
+      "depicts": ["dialogue", "setup"],
+      "chars": ["Lynn", "Pat", "Grace"],
+      "action": "The three talk at the railing under the airport sign, Grace leaning in and laughing. On the reverse angle Pat holds the orchid garland out to Lynn and she still has not taken it.",
+      "censor": "none"
+    },
+    {
+      "shots": [12, 13],
+      "clip_start": "01:52:23.083",
+      "clip_end": "01:52:49.375",
+      "depicts": ["dialogue", "reveal"],
+      "chars": ["Lynn", "Pat", "Grace"],
+      "action": "Grace drops her eyes and says something to Lynn, whose back is to us. The camera then pushes to a tight over-shoulder on Lynn, who turns and holds Pat's gaze without smiling.",
+      "censor": "none"
+    }
+  ]
+}

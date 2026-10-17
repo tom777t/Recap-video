@@ -1,0 +1,68 @@
+{
+  "span": "a22",
+  "moments": [
+    {
+      "shots": [0, 1, 2, 3],
+      "clip_start": "00:33:00.542",
+      "clip_end": "00:33:13.750",
+      "depicts": ["establishing", "setup"],
+      "chars": ["Pat"],
+      "action": "Pat sits in the middle of the packed exam hall, mouth working as he stares ahead; cut to an invigilator's hand carrying papers and a pen down the aisle. By the last shot the invigilator is right beside the desks and Pat has dropped his eyes.",
+      "censor": "none"
+    },
+    {
+      "shots": [4, 5, 6, 7, 8],
+      "clip_start": "00:33:13.750",
+      "clip_end": "00:33:27.250",
+      "depicts": ["action", "setup"],
+      "chars": ["Lynn"],
+      "action": "A blurred girl bows over her paper, then a wide of rows of students writing; overhead inserts show a hand with a calculator watch pressing a pencil across the bubble sheet. Lynn twists round to check behind her, and the sheet is far fuller by the last insert.",
+      "censor": "none"
+    },
+    {
+      "shots": [9, 10, 11, 12],
+      "clip_start": "00:33:27.250",
+      "clip_end": "00:33:39.417",
+      "depicts": ["dialogue"],
+      "chars": ["Lynn", "Pat"],
+      "action": "Pat leans low over his desk, whispering urgently at Lynn; she turns back over her shoulder to answer him. He presses again, and by the last shot she has turned forward with a small, closed smile.",
+      "censor": "none"
+    },
+    {
+      "shots": [13, 14],
+      "clip_start": "00:33:39.417",
+      "clip_end": "00:33:51.500",
+      "depicts": ["reaction", "emotion"],
+      "chars": ["Lynn", "Grace"],
+      "action": "Tight on Grace at her desk, brow tight as she watches off-screen; cut wide to Lynn, who swivels in her seat with the pencil still in her fingers and stares straight back down the hall.",
+      "censor": "none"
+    },
+    {
+      "shots": [15, 16, 17, 18],
+      "clip_start": "00:33:51.500",
+      "clip_end": "00:34:13.042",
+      "depicts": ["dialogue", "reveal"],
+      "chars": ["Bank"],
+      "action": "Bank stands over the invigilator's desk under the green lamp, talking down at the seated man; the invigilator reaches a hand out towards him. Bank's eyes drop, and by the last shot a second invigilator in uniform has come to the desk.",
+      "censor": "none"
+    },
+    {
+      "shots": [19, 20, 21, 22, 23],
+      "clip_start": "00:34:13.042",
+      "clip_end": "00:34:35.417",
+      "depicts": ["dialogue", "discovery"],
+      "chars": ["Bank"],
+      "action": "Past the lamp, the hall is a silent grid of heads down over papers. Bank keeps talking at the desk; the invigilator folds his arms and sits back, and in the last shot he is leaning away entirely, chin up, looking past Bank.",
+      "censor": "none"
+    },
+    {
+      "shots": [24, 25, 26, 27],
+      "clip_start": "00:34:35.417",
+      "clip_end": "00:34:51.542",
+      "depicts": ["reaction", "emotion"],
+      "chars": ["Lynn"],
+      "action": "A blurred whip as Lynn turns in her seat; she settles in profile, watching the front of the hall while a boy in glasses works on at his desk. It closes on her face in extreme close-up, hand at her chin, brow drawn tight.",
+      "censor": "none"
+    }
+  ]
+}

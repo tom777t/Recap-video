@@ -1,0 +1,95 @@
+{
+  "span": "a03",
+  "moments": [
+    {
+      "shots": [0, 1, 2],
+      "clip_start": "00:04:30.667",
+      "clip_end": "00:04:42.917",
+      "depicts": ["dialogue", "setup"],
+      "chars": ["Lynn", "Lynn's father"],
+      "action": "Lynn and her father sit across a desk from a smiling woman in a white blouse in a school office. The angle flips from her side of the desk to theirs, Lynn watching warily while her father stays composed.",
+      "censor": "none"
+    },
+    {
+      "shots": [3, 4, 5],
+      "clip_start": "00:04:42.917",
+      "clip_end": "00:05:04.708",
+      "depicts": ["dialogue", "setup"],
+      "chars": ["Lynn", "Lynn's father"],
+      "action": "Close coverage of the meeting: the woman talks warmly, the father listens flat-faced behind his glasses, and by the last shot Lynn has softened from guarded into a small smile.",
+      "censor": "none"
+    },
+    {
+      "shots": [6, 7, 8],
+      "clip_start": "00:05:04.708",
+      "clip_end": "00:05:08.667",
+      "depicts": ["action", "setup"],
+      "chars": [],
+      "action": "Inserts of the school enrolment form for academic year 2557: the printed header, a pen tracking along a dotted line, then the nickname field filled in with 'Lin'.",
+      "censor": "none"
+    },
+    {
+      "shots": [9, 10],
+      "clip_start": "00:05:08.667",
+      "clip_end": "00:05:11.875",
+      "depicts": ["transition", "reveal"],
+      "chars": ["Lynn"],
+      "action": "Lynn faces the lens dead-on against a red backdrop for her ID photo, unsmiling; the image then drains to black and white, turning her into a finished document portrait.",
+      "censor": "none"
+    },
+    {
+      "shots": [11, 12, 13],
+      "clip_start": "00:05:11.875",
+      "clip_end": "00:05:21.833",
+      "depicts": ["establishing", "transition"],
+      "chars": [],
+      "action": "A large Thai title card reads M.4 over a student seated at the red photo backdrop; time has jumped. Cut to schoolgirls' legs queueing up stone steps, then a rack focus off a blurred white uniform.",
+      "censor": "none"
+    },
+    {
+      "shots": [14, 15, 16, 17],
+      "clip_start": "00:05:21.833",
+      "clip_end": "00:05:35.792",
+      "depicts": ["action", "setup"],
+      "chars": ["Lynn", "Grace"],
+      "action": "Grace steps up to Lynn at the red backdrop and starts smoothing her hair with both hands while Lynn stares off, enduring it. Intercut with Grace chatting brightly in the sunlit corridor and a pair of black school shoes waiting in line.",
+      "censor": "none"
+    },
+    {
+      "shots": [18, 19, 20, 21],
+      "clip_start": "00:05:35.792",
+      "clip_end": "00:05:46.042",
+      "depicts": ["action", "dialogue"],
+      "chars": ["Lynn", "Grace"],
+      "action": "The grooming continues in cross-cut: Grace talks over someone's shoulder in the bright corridor, Lynn stands stiff at the backdrop, and Grace ends up pushing Lynn's fringe off her forehead as Lynn flinches back.",
+      "censor": "none"
+    },
+    {
+      "shots": [22, 23, 24, 25, 26],
+      "clip_start": "00:05:46.042",
+      "clip_end": "00:06:00.792",
+      "depicts": ["action", "reaction"],
+      "chars": ["Lynn", "Grace"],
+      "action": "Grace wais to the photographer at his tripod, then mugs and finally grins wide at the lens. Cut against Lynn at the backdrop, blank behind her glasses, then with the glasses gone, eyes sliding away from camera.",
+      "censor": "none"
+    },
+    {
+      "shots": [27],
+      "clip_start": "00:06:00.792",
+      "clip_end": "00:06:10.958",
+      "depicts": ["reaction", "emotion"],
+      "chars": ["Lynn"],
+      "action": "A long held take of Lynn alone against the red backdrop, glasses off and hair pulled back; her guarded look eases into the faintest closed-mouth smile for the shutter.",
+      "censor": "none"
+    },
+    {
+      "shots": [28, 29, 30, 31],
+      "clip_start": "00:06:10.958",
+      "clip_end": "00:06:20.917",
+      "depicts": ["montage", "setup"],
+      "chars": ["Grace"],
+      "action": "Grace's turn, built the same way: she fixes her hair in the sunlit walkway, takes her place at the red backdrop, her form's nickname field reads 'Grace', and the sequence ends on her finished portrait, beaming.",
+      "censor": "none"
+    }
+  ]
+}

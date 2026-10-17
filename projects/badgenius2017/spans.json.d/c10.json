@@ -1,0 +1,50 @@
+{
+  "span": "c10",
+  "moments": [
+    {
+      "shots": [0, 1, 2],
+      "clip_start": "01:58:31.292",
+      "clip_end": "01:58:50.083",
+      "depicts": ["dialogue", "emotion"],
+      "chars": ["Bank", "Lynn"],
+      "action": "Bank faces Lynn in the dim laundry while she sits against the wooden door, watching him without moving. By the last shot he has dropped his eyes to the floor.",
+      "censor": "none"
+    },
+    {
+      "shots": [3, 4, 5, 6],
+      "clip_start": "01:58:50.083",
+      "clip_end": "01:59:07.958",
+      "depicts": ["dialogue", "reaction"],
+      "chars": ["Lynn", "Bank"],
+      "action": "Lynn frowns at him across the room; Bank's face snaps open in shock, mouth parted, then settles back into a flat stare while she keeps her eyes on him.",
+      "censor": "none"
+    },
+    {
+      "shots": [7, 8, 9, 10],
+      "clip_start": "01:59:07.958",
+      "clip_end": "01:59:31.792",
+      "depicts": ["dialogue", "reveal"],
+      "chars": ["Lynn", "Bank"],
+      "action": "Lynn stares in silence, then Bank holds out a yellow leaflet to her, caught in close insert. The framing widens to an over-shoulder two-shot with him facing her squarely and the paper gone from view.",
+      "censor": "none"
+    },
+    {
+      "shots": [11, 12, 13, 14],
+      "clip_start": "01:59:31.792",
+      "clip_end": "01:59:50.958",
+      "depicts": ["dialogue", "emotion"],
+      "chars": ["Lynn", "Bank"],
+      "action": "The coverage tightens to warm sunlit profiles, Lynn then Bank. An insert catches the yellow leaflet in mid-air above his outstretched arm, and the moment ends on Lynn in profile, eyes lowered.",
+      "censor": "none"
+    },
+    {
+      "shots": [15],
+      "clip_start": "01:59:50.958",
+      "clip_end": "02:00:09.542",
+      "depicts": ["dialogue", "emotion"],
+      "chars": ["Bank"],
+      "action": "A long held profile close-up of Bank against the sunlit wall as he talks on and on. He never turns toward her; the take ends with him still speaking, gaze fixed off-screen.",
+      "censor": "none"
+    }
+  ]
+}

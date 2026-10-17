@@ -1,0 +1,68 @@
+{
+  "span": "a02",
+  "moments": [
+    {
+      "shots": [0, 1],
+      "clip_start": "00:02:54.750",
+      "clip_end": "00:03:16.667",
+      "depicts": ["dialogue", "setup"],
+      "chars": ["Lynn", "Lynn's father"],
+      "action": "Close on hands setting Lynn's competition trophies out on the office desk, the woman behind it blurred. The cut lands on Lynn herself in uniform, glasses on, holding the woman's gaze with a small fixed smile.",
+      "censor": "none"
+    },
+    {
+      "shots": [2, 3, 4, 5],
+      "clip_start": "00:03:16.667",
+      "clip_end": "00:03:34.500",
+      "depicts": ["dialogue", "setup"],
+      "chars": ["Lynn", "Lynn's father"],
+      "action": "Lynn's father pitches her record; the school director answers with a warm smile. A wide shows the pair seated side by side behind the trophies, then the camera retreats outside the office, watching all three small through glass partitions.",
+      "censor": "none"
+    },
+    {
+      "shots": [6, 7],
+      "clip_start": "00:03:34.500",
+      "clip_end": "00:03:52.875",
+      "depicts": ["dialogue", "reveal"],
+      "chars": ["Lynn"],
+      "action": "The director leans in explaining something; cut to Lynn as the figure \"120,000\" appears handwritten beside her head. She shifts from silently listening to speaking back at the desk.",
+      "censor": "none"
+    },
+    {
+      "shots": [8, 9, 10],
+      "clip_start": "00:03:52.875",
+      "clip_end": "00:04:05.125",
+      "depicts": ["dialogue", "discovery"],
+      "chars": ["Lynn", "Lynn's father"],
+      "action": "Handwritten sums start crawling over the frame: the father looks off, counting fares; Lynn's column of arithmetic fills her shot; by the director's close-up the running total has reached 13,600 baht.",
+      "censor": "none"
+    },
+    {
+      "shots": [11, 12, 13],
+      "clip_start": "00:04:05.125",
+      "clip_end": "00:04:22.208",
+      "depicts": ["dialogue", "emotion"],
+      "chars": ["Lynn", "Lynn's father"],
+      "action": "Insert of the father's hand settling over Lynn's on her lap, the sums still floating. A wide holds both under the figures, then Lynn's close-up as the last line resolves to 75% and her face stays unreadable.",
+      "censor": "none"
+    },
+    {
+      "shots": [14, 15, 16],
+      "clip_start": "00:04:22.208",
+      "clip_end": "00:04:37.000",
+      "depicts": ["dialogue", "emotion"],
+      "chars": ["Lynn", "Lynn's father"],
+      "action": "The overlaid numbers are gone. The director sits back smiling; the father breaks into a wide grin beside the trophies; a shot from behind both of them shows her across the desk, hands clasped over the paperwork.",
+      "censor": "none"
+    },
+    {
+      "shots": [17, 18, 19],
+      "clip_start": "00:04:37.000",
+      "clip_end": "00:04:54.333",
+      "depicts": ["dialogue", "reaction"],
+      "chars": ["Lynn", "Lynn's father"],
+      "action": "Lynn's smile drops into a guarded, questioning look. The wide returns to father and daughter facing the desk, and the moment ends on the director talking on, still cheerful, oblivious to Lynn's change.",
+      "censor": "none"
+    }
+  ]
+}

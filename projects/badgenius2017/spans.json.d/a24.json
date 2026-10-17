@@ -1,0 +1,95 @@
+{
+  "span": "a24",
+  "moments": [
+    {
+      "shots": [0, 1, 2],
+      "clip_start": "00:36:00.000",
+      "clip_end": "00:36:05.833",
+      "depicts": ["establishing", "setup"],
+      "chars": [],
+      "action": "A girl pushes up from her desk in the exam hall; wide on rows of students writing at spaced desks. By the last shot the proctor at his lamp-lit desk has looked up and is tracking her.",
+      "censor": "none"
+    },
+    {
+      "shots": [3, 4, 5, 6, 7, 8, 9, 10],
+      "clip_start": "00:36:05.833",
+      "clip_end": "00:36:19.125",
+      "depicts": ["reaction", "setup"],
+      "chars": ["Lynn"],
+      "action": "Lynn twists round and mouths something at a boy in glasses across the aisle; he grimaces back. Behind them students start carrying papers up to the proctor, and by the end Lynn has turned away, face set.",
+      "censor": "none"
+    },
+    {
+      "shots": [11, 12, 13, 14, 15],
+      "clip_start": "00:36:19.125",
+      "clip_end": "00:36:27.458",
+      "depicts": ["action", "transition"],
+      "chars": [],
+      "action": "Hands shove exam papers across the proctor's desk; close on a booklet header filled in for M.5/1. The crowd files out, a wall clock reads just past 10:08, and the proctor is left alone at the empty desk.",
+      "censor": "none"
+    },
+    {
+      "shots": [16, 17, 18, 19, 20, 21, 22],
+      "clip_start": "00:36:27.458",
+      "clip_end": "00:36:41.833",
+      "depicts": ["reaction", "action"],
+      "chars": ["Lynn"],
+      "action": "Lynn stands at her desk in the gym, head down; a pencil blacks in a bubble. She and the boy in glasses trade strained, sweating grimaces across the aisle until he finally breaks into a grin.",
+      "censor": "none"
+    },
+    {
+      "shots": [23, 24, 25, 26, 27, 28, 29],
+      "clip_start": "00:36:41.833",
+      "clip_end": "00:37:00.208",
+      "depicts": ["action", "setup"],
+      "chars": ["Grace"],
+      "action": "Grace bends over her paper; a hand works longhand maths, then fills bubbles on the answer sheet. The working sheet is a mess of erased lines, and the wall clock has moved on to 10:20.",
+      "censor": "none"
+    },
+    {
+      "shots": [30, 31, 32, 33, 34],
+      "clip_start": "00:37:00.208",
+      "clip_end": "00:37:09.917",
+      "depicts": ["reaction", "setup"],
+      "chars": ["Grace", "Pat"],
+      "action": "Grace lifts her head and looks off across the thinning hall, then sits head-on with her pen down, waiting. Another girl stays hunched with her back turned, a bubble is inked, and Pat checks his watch.",
+      "censor": "none"
+    },
+    {
+      "shots": [35, 36, 37, 38, 39, 40, 41],
+      "clip_start": "00:37:09.917",
+      "clip_end": "00:37:20.125",
+      "depicts": ["action", "setup"],
+      "chars": ["Lynn", "Pat"],
+      "action": "Macro of graphite on paper, then Lynn leans low and taps a rhythm along her pen. Pat scratches the back of his head and grins her way; a hand drops below the desk and drums its fingers on the floor.",
+      "censor": "none"
+    },
+    {
+      "shots": [42, 43, 44, 45, 46, 47],
+      "clip_start": "00:37:20.125",
+      "clip_end": "00:37:29.583",
+      "depicts": ["action", "reaction"],
+      "chars": ["Lynn"],
+      "action": "Lynn counts the code off on her fingers against the pen, brow knotting. Cut to the proctor dead centre staring out at the room, then a whip pan to a wide where only a handful of students are left.",
+      "censor": "none"
+    },
+    {
+      "shots": [48, 49, 50, 51, 52, 53],
+      "clip_start": "00:37:29.583",
+      "clip_end": "00:37:37.708",
+      "depicts": ["action", "reveal"],
+      "chars": ["Lynn", "Grace"],
+      "action": "Macro of a bubble smudged and re-inked at question 40; Lynn's hands settle flat over her papers and eraser. She stretches both arms overhead in the near-empty hall, and a whip pan lands on Grace looking up sharply.",
+      "censor": "none"
+    },
+    {
+      "shots": [54, 55, 56, 57, 58],
+      "clip_start": "00:37:37.708",
+      "clip_end": "00:37:51.375",
+      "depicts": ["action", "reveal"],
+      "chars": ["Lynn", "Grace"],
+      "action": "Lynn locks her hands behind her head, eyes shut, then an arm sweeps the desk. Close on the paper's header reading set 2; a hand lies flat with fingers spread, and Grace reads it and starts writing.",
+      "censor": "none"
+    }
+  ]
+}

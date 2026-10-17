@@ -1,0 +1,68 @@
+{
+  "span": "sp03",
+  "moments": [
+    {
+      "shots": [0],
+      "clip_start": "01:02:51.875",
+      "clip_end": "01:03:11.917",
+      "depicts": ["establishing", "transition"],
+      "chars": [],
+      "action": "A commuter train slides across the elevated track above a cramped canal lane, tower blocks behind it; once it clears the frame, the walkway it hid is revealed with people strolling along it.",
+      "censor": "none"
+    },
+    {
+      "shots": [1],
+      "clip_start": "01:03:11.917",
+      "clip_end": "01:03:20.542",
+      "depicts": ["establishing", "setup"],
+      "chars": ["M"],
+      "action": "Wide of a bright Big C shoe department; M stands among the low display tables of flats, head down over the rows, working his way deeper into the aisle.",
+      "censor": "none"
+    },
+    {
+      "shots": [2],
+      "clip_start": "01:03:20.542",
+      "clip_end": "01:03:47.750",
+      "depicts": ["action", "emotion"],
+      "chars": ["M", "Amah Saejiu"],
+      "action": "Amah sits alone on the fitting bench craning up at the wall of shoeboxes; M arrives, drops cross-legged on the floor and takes her bare foot in his hands, pairs piling up beside them.",
+      "censor": "none"
+    },
+    {
+      "shots": [3, 4, 5],
+      "clip_start": "01:03:47.750",
+      "clip_end": "01:04:18.292",
+      "depicts": ["dialogue", "emotion"],
+      "chars": ["M", "Amah Saejiu"],
+      "action": "Close shot/reverse across the aisle: M answers Amah flatly, almost sullen, she looks back at him and softens into a smile, and by the last shot he is grinning and laughing with her.",
+      "censor": "none"
+    },
+    {
+      "shots": [6],
+      "clip_start": "01:04:18.292",
+      "clip_end": "01:04:30.917",
+      "depicts": ["action", "emotion"],
+      "chars": ["M", "Amah Saejiu"],
+      "action": "Back to the wide: M holds up a white shoe, then bends to work it onto Amah's foot while she watches from the bench, her old sandals and the rejected pairs scattered across the floor.",
+      "censor": "none"
+    },
+    {
+      "shots": [7, 8],
+      "clip_start": "01:04:30.917",
+      "clip_end": "01:04:42.333",
+      "depicts": ["action", "emotion"],
+      "chars": ["M", "Amah Saejiu"],
+      "action": "At home in the armchair, Amah pushes her thin white hair back with one hand while M sits below her, head down; she then reaches across and rests her hand on his head, stroking it.",
+      "censor": "none"
+    },
+    {
+      "shots": [9],
+      "clip_start": "01:04:42.333",
+      "clip_end": "01:04:47.792",
+      "depicts": ["action", "setup"],
+      "chars": ["Amah Saejiu"],
+      "action": "Over a shoulder and a pair of bare feet in flip-flops, a phone screen shows Amah posing against green curtains, the red record button lit at the bottom of the frame.",
+      "censor": "none"
+    }
+  ]
+}

@@ -1,0 +1,59 @@
+{
+  "span": "a36",
+  "moments": [
+    {
+      "shots": [0, 1],
+      "clip_start": "00:54:00.667",
+      "clip_end": "00:54:13.000",
+      "depicts": ["establishing", "setup"],
+      "chars": ["Lynn"],
+      "action": "Lynn waits at a hotel reception counter, papers in front of her, while the clerk takes a phone call; the shot then cuts to a hand holding up a phone showing a snapshot of a man and a small girl.",
+      "censor": "none"
+    },
+    {
+      "shots": [2, 3, 4],
+      "clip_start": "00:54:13.000",
+      "clip_end": "00:54:38.417",
+      "depicts": ["reaction", "discovery"],
+      "chars": ["Lynn"],
+      "action": "Lynn stands under the lobby chandelier staring up, face slowly tightening across a long held take; cut to a wall clock labelled NEW YORK, then back to her, mouth now open as it lands.",
+      "censor": "none"
+    },
+    {
+      "shots": [5, 6, 7],
+      "clip_start": "00:54:38.417",
+      "clip_end": "00:54:52.083",
+      "depicts": ["reaction", "discovery"],
+      "chars": ["Lynn"],
+      "action": "Two clocks, NEW YORK and LONDON, sit side by side; Lynn's lifted face answers them, and the camera pulls back to a wide of her small at the counter beneath a whole row of world clocks.",
+      "censor": "none"
+    },
+    {
+      "shots": [8, 9, 10, 11],
+      "clip_start": "00:54:52.083",
+      "clip_end": "00:55:12.417",
+      "depicts": ["reaction", "discovery"],
+      "chars": ["Lynn"],
+      "action": "Lynn's eyes travel the clock wall to one marked SYDNEY; a high angle catches her looking straight up, and the last shot turns her away from us, back to camera, facing the clocks, decided.",
+      "censor": "none"
+    },
+    {
+      "shots": [12, 13, 14],
+      "clip_start": "00:55:12.417",
+      "clip_end": "00:55:26.583",
+      "depicts": ["establishing", "setup"],
+      "chars": [],
+      "action": "A hand pushes a red pin flag down onto Australia on a world map; cut to a print workshop seen through its glass partitions, then back to the flag now standing upright with the hand laid flat beside it.",
+      "censor": "none"
+    },
+    {
+      "shots": [15, 16, 17, 18],
+      "clip_start": "00:55:26.583",
+      "clip_end": "00:55:49.417",
+      "depicts": ["dialogue", "setup"],
+      "chars": ["Lynn", "Pat", "Grace"],
+      "action": "Lynn and Pat slump on their elbows over the flagged map in the print shop while Grace stands across the table talking at them; a hand reaches in to point at Australia and Grace keeps pitching, unanswered.",
+      "censor": "none"
+    }
+  ]
+}

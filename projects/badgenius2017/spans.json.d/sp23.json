@@ -1,0 +1,77 @@
+{
+  "span": "sp23",
+  "moments": [
+    {
+      "shots": [0, 1],
+      "clip_start": "01:33:03.625",
+      "clip_end": "01:33:12.333",
+      "depicts": ["reaction", "dialogue"],
+      "chars": ["Lynn"],
+      "action": "Close on a pair of black boots planted on a tiled floor, then a cut to Lynn in tight profile, mouth open mid-shout. The moment goes from still, anonymous feet to Lynn yelling at someone off-screen.",
+      "censor": "none"
+    },
+    {
+      "shots": [2, 3, 4],
+      "clip_start": "01:33:12.333",
+      "clip_end": "01:33:25.000",
+      "depicts": ["action", "dialogue"],
+      "chars": ["Lynn", "Bank"],
+      "action": "In a wood-panelled corridor a grey-haired man in a suit jabs a finger at Bank against a glass door; a reverse shows Lynn frozen in the doorway watching. By the last shot the man has seized Bank's jacket.",
+      "censor": "none"
+    },
+    {
+      "shots": [5, 6, 7],
+      "clip_start": "01:33:25.000",
+      "clip_end": "01:33:38.583",
+      "depicts": ["reaction", "emotion"],
+      "chars": ["Lynn"],
+      "action": "Lynn's sweating, crumpling face fills the frame; the corridor reverse finds her still standing in the doorway behind the suited man. She ends by turning and walking away from camera down the hall.",
+      "censor": "none"
+    },
+    {
+      "shots": [8, 9, 10],
+      "clip_start": "01:33:38.583",
+      "clip_end": "01:33:46.833",
+      "depicts": ["establishing", "action"],
+      "chars": ["Lynn"],
+      "action": "Wide of the lift lobby: students stand with arms raised while staff pat them down and a crouching woman checks their shoes. The run ends on Lynn walking straight at camera, past a water cooler.",
+      "censor": "none"
+    },
+    {
+      "shots": [11, 12, 13, 14],
+      "clip_start": "01:33:46.833",
+      "clip_end": "01:34:10.667",
+      "depicts": ["action", "setup"],
+      "chars": ["Lynn"],
+      "action": "Close inserts at the water cooler: a hand works the tap, a hand dips to her boot, fingers tear open a small wrapper, a cup is lifted. She ends walking away from the cooler, hands held behind her back.",
+      "censor": "none"
+    },
+    {
+      "shots": [15, 16, 17, 18],
+      "clip_start": "01:34:10.667",
+      "clip_end": "01:34:27.667",
+      "depicts": ["establishing", "setup"],
+      "chars": ["Lynn"],
+      "action": "Out of focus, then sharp: Lynn reaches a desk in the library exam hall and sets her board down. An invigilator passes a clock reading 10:20:00; the wide ends with Lynn seated among rows of candidates.",
+      "censor": "none"
+    },
+    {
+      "shots": [19, 20, 21],
+      "clip_start": "01:34:27.667",
+      "clip_end": "01:34:36.250",
+      "depicts": ["action"],
+      "chars": ["Lynn"],
+      "action": "Tight on Lynn's hands: she holds a pencil poised over blank paper, then the tip comes down and she starts writing. The cut out is a medium of her head bowed, candidates working behind her.",
+      "censor": "none"
+    },
+    {
+      "shots": [22, 23, 24, 25, 26, 27],
+      "clip_start": "01:34:36.250",
+      "clip_end": "01:34:50.792",
+      "depicts": ["action", "montage", "emotion"],
+      "chars": ["Lynn"],
+      "action": "Overhead inserts of the answer sheet alternate with Lynn's face: one scrawled line of letters becomes two full rows while sweat beads on her. The last shot has her eyes screwed shut, breaking into tears.",
+      "censor": "none"
+    }
+  ]
+}

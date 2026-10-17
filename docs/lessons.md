@@ -2216,3 +2216,63 @@ verification (2026-09-05) and the 11h-33m turn-latency figure (2026-09-06):
 **a confident factual claim about my own experimental setup, made from memory
 rather than from the record, in the direction that made the story neater.**
 Three times in two days, each time caught only by going back to check.
+
+## 2026-09-08 - the metric and the use disagreed, and the metric was wrong twice
+
+Piece 1 second attempt: grouping moved into the LLM, one subagent per ~90s span,
+50 spans across two films. **Failed the pinned boundary-F1 bar on both films**
+(+2.1 and -1.3 against a bar of +8). On howtomakemillions - the clean test,
+92.3% human coverage, count ratio 0.90 - it **lost to one-window-per-camera-shot.**
+
+Then the downstream test, on the same windows:
+
+```
+                          boundary-F1 (hmm)     draft lines bindable (badgenius)
+LLM moments                   37.9                      49/60 = 81.7%
+metronome 6s                  36.0                      33/60 = 55.0%
+one window per camera shot    39.2  <- F1 winner        17/60 = 28.3%
+```
+
+> **The rule that wins the metric is the one that cannot be used.** One camera
+> shot matches human boundaries often - it has a boundary nearly everywhere -
+> but it is too short to carry a narration line and rarely covers 70% of a
+> line's window. Boundary-F1 rewards precisely the property that makes a
+> catalogue useless.
+
+That is the same shape as 1% `depicts` agreement not mattering downstream. Two
+for two now: **agreement-with-the-human metrics have not once predicted
+downstream usefulness in this pipeline.**
+
+### Pinning worked, and it is supposed to feel like this
+
+v1's pinned bar was passed by a metronome. v2's pinned bar was passed by doing
+nothing. Both times the bar was wrong, and both times I found out **because it
+was pinned and the baselines ran next to it every time**. The value of pinning
+is not that the bar is right - it is that when the bar is wrong you cannot
+quietly discover a better one afterwards and present it as the plan.
+
+I did not convert 81.7% into a pass. The bar was aimed at the wrong quantity;
+that is the finding, not a technicality to route around.
+
+### Two defects, one shape - a limit placed where it was convenient
+
+1. **`MAX_FRAMES = 34` truncated the frame list from the end.** 12 of 30 spans
+   lost every frame past shot 33 - 77 blind shots - and the blind part was the
+   span *tail*, which is the only part the seam logic depends on. A cap meant
+   to bound payload size silently removed the evidence.
+2. **The seam rule gave a cross-seam moment to the span that cannot produce
+   it.** Overlap extends only forward, so a moment straddling a seam is only
+   ever emitted by the *earlier* span; assigning it by midpoint handed it to
+   the later span, which never sees its head. The moment was deleted and the
+   gap-filler quietly covered the hole. On badgenius: 13 gap-fixes, 85.79s of
+   shift - which I was about to write up as *"model disagreement at seams"*.
+
+Both are the boundary-at-the-wrong-altitude pattern again (4th and 5th
+instances). The second was caught **only** by a self-test written for the
+predicted failure point, after the first scoring run had already been done and
+believed.
+
+> Writing a test for the place you already said the error would concentrate is
+> worth more than writing one for the place the code looks complicated. I had
+> named span edges as the risk in the criterion, then built the mechanism
+> wrong anyway, and the test I wrote because of that sentence is what caught it.

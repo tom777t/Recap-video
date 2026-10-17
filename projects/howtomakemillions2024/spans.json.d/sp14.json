@@ -1,0 +1,50 @@
+{
+  "span": "sp14",
+  "moments": [
+    {
+      "shots": [0, 1],
+      "clip_start": "01:19:38.125",
+      "clip_end": "01:20:00.250",
+      "depicts": ["dialogue", "setup"],
+      "chars": ["M", "Amah"],
+      "action": "M stands in the living room holding a plate of food and a gold gift bag, talking; cut to Amah seated at her table listening, and by the end a hand reaches in and sets a red tea caddy down beside her.",
+      "censor": "none"
+    },
+    {
+      "shots": [2, 3, 4],
+      "clip_start": "01:20:00.250",
+      "clip_end": "01:20:24.833",
+      "depicts": ["dialogue"],
+      "chars": ["Amah", "Amah's brother", "M"],
+      "action": "Amah's elderly brother speaks from his desk; Amah answers across the table, now with a blue-and-white porcelain jar and stacked boxes set in front of her. He ends up hunched over his cane at the green mat.",
+      "censor": "none"
+    },
+    {
+      "shots": [5, 6],
+      "clip_start": "01:20:24.833",
+      "clip_end": "01:20:42.250",
+      "depicts": ["dialogue", "reaction"],
+      "chars": ["Amah", "Amah's brother", "M"],
+      "action": "Amah stands behind the pile of boxes and looks away as her brother moves in at the frame edge; the reverse over his shoulder finds M on the carved sofa, who looks up and cuts into the conversation.",
+      "censor": "none"
+    },
+    {
+      "shots": [7, 8],
+      "clip_start": "01:20:42.250",
+      "clip_end": "01:21:03.375",
+      "depicts": ["dialogue", "emotion"],
+      "chars": ["Amah", "Amah's brother", "M"],
+      "action": "The brother is on his feet with his cane and Amah walks beside him, smiling. In the wide he stops by her hospital bed, head lowered over the cane, Amah facing him and M watching from the sofa.",
+      "censor": "none"
+    },
+    {
+      "shots": [9, 10, 11],
+      "clip_start": "01:21:03.375",
+      "clip_end": "01:21:19.833",
+      "depicts": ["dialogue", "reaction", "emotion"],
+      "chars": ["Amah", "Amah's brother", "M"],
+      "action": "Amah talks up at her brother; he keeps his eyes down on his cane and gives nothing back, still bowed in the wide shot. The last shot swings to M on the sofa, who sits up and speaks toward them.",
+      "censor": "none"
+    }
+  ]
+}

@@ -1,0 +1,77 @@
+{
+  "span": "sp09",
+  "moments": [
+    {
+      "shots": [0, 1, 2, 3],
+      "clip_start": "01:12:00.958",
+      "clip_end": "01:12:08.542",
+      "depicts": ["action", "aftermath"],
+      "chars": ["Pat", "Grace"],
+      "action": "Pat is down on the floor against the green wall and Grace flinches away in tears; Pat scrambles back up and lunges in again. Ends on a cutaway to a bare desk with one sheet of paper on it.",
+      "censor": "none"
+    },
+    {
+      "shots": [4, 5, 6],
+      "clip_start": "01:12:08.542",
+      "clip_end": "01:12:27.750",
+      "depicts": ["action", "emotion"],
+      "chars": ["Bank", "Lynn", "Pat"],
+      "action": "Bank pushes away through the back room with Lynn behind him while Lynn shoves Pat back against the blinds; by the last shot Bank has turned round at the lockers and is shouting at them.",
+      "censor": "none"
+    },
+    {
+      "shots": [7, 8, 9, 10],
+      "clip_start": "01:12:27.750",
+      "clip_end": "01:12:48.458",
+      "depicts": ["action", "dialogue"],
+      "chars": ["Bank", "Pat", "Lynn", "Grace"],
+      "action": "Bank grabs Pat by the collar and throat until Lynn hauls Pat clear; Bank keeps yelling with Grace behind him, and the moment ends with Pat and Lynn pressed to the blinds, taking it in silence.",
+      "censor": "none"
+    },
+    {
+      "shots": [11, 12],
+      "clip_start": "01:12:48.458",
+      "clip_end": "01:13:01.833",
+      "depicts": ["action", "transition"],
+      "chars": ["Bank", "Grace"],
+      "action": "Grace locks her arms around Bank from behind to hold him back; the film then cuts outside to the lit room seen small through a barred night window, the fight suddenly distant.",
+      "censor": "none"
+    },
+    {
+      "shots": [13],
+      "clip_start": "01:13:01.833",
+      "clip_end": "01:13:25.417",
+      "depicts": ["action", "dialogue"],
+      "chars": ["Bank", "Pat"],
+      "action": "One long take: Bank drives Pat across the room and slams him against the wooden door, but by the end Pat has turned it round, gripping Bank's shirt and arguing back inches from his face.",
+      "censor": "none"
+    },
+    {
+      "shots": [14, 15, 16],
+      "clip_start": "01:13:25.417",
+      "clip_end": "01:13:35.500",
+      "depicts": ["reaction", "emotion"],
+      "chars": ["Lynn", "Grace", "Bank", "Pat"],
+      "action": "Cut away to Lynn and Grace standing helpless by the green wall, Grace crying; back at the door Bank's shouting has broken into tears while Pat holds him pinned by the collar.",
+      "censor": "none"
+    },
+    {
+      "shots": [17, 18, 19, 20, 21],
+      "clip_start": "01:13:35.500",
+      "clip_end": "01:13:41.875",
+      "depicts": ["action", "dialogue", "emotion"],
+      "chars": ["Bank", "Pat"],
+      "action": "A flurry of tight cuts at the door as Bank and Pat scream into each other's faces with fists bunched in each other's shirts; Bank goes from raging to weeping by the last cut.",
+      "censor": "none"
+    },
+    {
+      "shots": [22],
+      "clip_start": "01:13:41.875",
+      "clip_end": "01:13:50.708",
+      "depicts": ["reaction", "emotion"],
+      "chars": ["Lynn", "Grace"],
+      "action": "Held on Lynn and Grace against the green wall while the fight carries on off screen; Grace's face crumples into tears and she looks down, Lynn staring past her, silent.",
+      "censor": "none"
+    }
+  ]
+}

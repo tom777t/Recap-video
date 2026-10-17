@@ -1,0 +1,79 @@
+{
+  "span": "a39",
+  "moments": [
+    {
+      "shots": [0, 1, 2],
+      "clip_start": "00:58:29.917",
+      "clip_end": "00:58:56.292",
+      "depicts": ["establishing", "aftermath"],
+      "chars": ["Bank"],
+      "action": "Bank lies unconscious in a landfill, face bloodied; a wide shot finds him sprawled on the rubbish slope, and by the last shot he has hauled himself upright, a speck sitting alone on the ridge.",
+      "censor": "blur_light",
+      "censor_note": "dried blood and a swollen, split eye on Bank's face in the opening close-up, which fills the frame; blood smears on his shirt in the wider shots"
+    },
+    {
+      "shots": [3, 4, 5],
+      "clip_start": "00:58:56.292",
+      "clip_end": "00:59:03.458",
+      "depicts": ["action"],
+      "chars": ["Bank"],
+      "action": "Tight on Bank's muddy shoes picking their way along the rutted track, then the camera pulls back to a wide of him walking off down the dump road with a stray dog standing in his path.",
+      "censor": "none"
+    },
+    {
+      "shots": [6, 7, 8],
+      "clip_start": "00:59:03.458",
+      "clip_end": "00:59:12.458",
+      "depicts": ["action", "emotion"],
+      "chars": ["Bank"],
+      "action": "Bank staggers, pitches forward and ends face-down in the mud; by the last shot he is back on his feet, small in the grey haze, walking on under circling birds.",
+      "censor": "none"
+    },
+    {
+      "shots": [9, 10, 11, 12, 13],
+      "clip_start": "00:59:12.458",
+      "clip_end": "00:59:26.625",
+      "depicts": ["dialogue", "setup"],
+      "chars": ["Pat", "Grace", "Lynn"],
+      "action": "On a school rooftop a classmate in glasses holds forth to Pat, Grace and Lynn. Lynn turns a tiny object over in her fingers while Grace argues back, and by the last shot both girls have gone quiet and are just listening.",
+      "censor": "none"
+    },
+    {
+      "shots": [14, 15, 16, 17],
+      "clip_start": "00:59:26.625",
+      "clip_end": "00:59:46.042",
+      "depicts": ["dialogue", "reveal"],
+      "chars": ["Pat", "Grace", "Lynn"],
+      "action": "The classmate lifts his phone - an insert shows a STIC group chat on screen - and the table leans in. Grace and Lynn crowd the handset, and Pat ends the moment staring at it open-mouthed.",
+      "censor": "none"
+    },
+    {
+      "shots": [18, 19, 20],
+      "clip_start": "00:59:46.042",
+      "clip_end": "01:00:00.042",
+      "depicts": ["dialogue", "reaction"],
+      "chars": ["Grace", "Lynn"],
+      "action": "The classmate keeps talking with his eyes shut, pleased with himself; the girls' faces tighten and Lynn puts a hand to her forehead, and he closes the moment grinning straight at them.",
+      "censor": "none"
+    },
+    {
+      "shots": [21, 22, 23, 24, 25],
+      "clip_start": "01:00:00.042",
+      "clip_end": "01:00:15.042",
+      "depicts": ["action", "emotion"],
+      "chars": ["Bank"],
+      "action": "Back at the dump, Bank lurches toward camera in tears, turns away up the track, then stops and screams at the sky; the last shot leaves him sitting in the mud, head thrown back, howling.",
+      "censor": "blur_light",
+      "censor_note": "dried blood on Bank's face and the front of his shirt, mid-shot, roughly a quarter of the frame"
+    },
+    {
+      "shots": [26],
+      "clip_start": "01:00:15.042",
+      "clip_end": "01:00:20.833",
+      "depicts": ["reaction", "emotion"],
+      "chars": ["Grace", "Lynn"],
+      "action": "One held take back on the rooftop: Grace fixes the phone with a flat, unsmiling stare while Lynn keeps a hand at her mouth. Nobody speaks or moves - the earlier banter is gone.",
+      "censor": "none"
+    }
+  ]
+}

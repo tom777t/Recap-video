@@ -1,0 +1,41 @@
+{
+  "span": "a30",
+  "moments": [
+    {
+      "shots": [0, 1, 2, 3],
+      "clip_start": "00:44:59.958",
+      "clip_end": "00:45:23.208",
+      "depicts": ["dialogue", "reveal"],
+      "chars": ["Lynn", "Bank", "Lynn's father"],
+      "action": "In the headmistress's office Lynn stands and talks; a wide shot shows her lined up at the desk with her father and Bank. The headmistress goes from listening in profile to looking up, stricken.",
+      "censor": "none"
+    },
+    {
+      "shots": [4, 5, 6],
+      "clip_start": "00:45:23.208",
+      "clip_end": "00:45:43.208",
+      "depicts": ["reaction", "aftermath"],
+      "chars": ["Lynn's father", "Bank", "Lynn"],
+      "action": "Lynn's father stands with his eyes down, then he and Bank move out through the office doorway; the moment ends on Bank, head lowered, with Lynn's back filling the foreground.",
+      "censor": "none"
+    },
+    {
+      "shots": [7, 8, 9],
+      "clip_start": "00:45:43.208",
+      "clip_end": "00:46:11.417",
+      "depicts": ["dialogue", "reveal"],
+      "chars": ["Bank"],
+      "action": "A dark interview room: focus pulls from a sweating glass of water to Bank talking, an insert shows the school's scholarship banner outside, then he is alone at the long table still answering.",
+      "censor": "none"
+    },
+    {
+      "shots": [10, 11],
+      "clip_start": "00:46:11.417",
+      "clip_end": "00:46:44.375",
+      "depicts": ["dialogue", "discovery"],
+      "chars": ["Lynn", "Lynn's father"],
+      "action": "A hand tilts a bank passbook open to Lynn's name, then at home her father stands over the dining table where she sits; by the end of the long take he has leaned in across it toward her.",
+      "censor": "none"
+    }
+  ]
+}

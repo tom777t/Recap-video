@@ -1,0 +1,50 @@
+{
+  "span": "sp02",
+  "moments": [
+    {
+      "shots": [0],
+      "clip_start": "01:01:20.583",
+      "clip_end": "01:01:42.167",
+      "depicts": ["establishing", "setup"],
+      "chars": ["M", "Amah Saejiu"],
+      "action": "A held take at a temple: M's bowed head fills frame, then the camera pulls back to a sunlit courtyard under red lanterns as he walks barefoot beside Amah, who follows slowly on her cane.",
+      "censor": "none"
+    },
+    {
+      "shots": [1, 2],
+      "clip_start": "01:01:42.167",
+      "clip_end": "01:02:15.667",
+      "depicts": ["dialogue", "discovery"],
+      "chars": ["Amah Saejiu"],
+      "action": "Close on Amah in profile, talking as she looks across the temple yard; the film then cuts down to handwritten coffin-donation slips on a pink table, hers joined by a second slip in different handwriting.",
+      "censor": "none"
+    },
+    {
+      "shots": [3],
+      "clip_start": "01:02:15.667",
+      "clip_end": "01:02:26.667",
+      "depicts": ["establishing", "transition"],
+      "chars": ["M", "Amah Saejiu"],
+      "action": "New location: a wide of a packed third-class train carriage, greenery streaming past the windows, with M seated mid-aisle turned back toward Amah's white head at the window seat behind him.",
+      "censor": "none"
+    },
+    {
+      "shots": [4, 5, 6, 7],
+      "clip_start": "01:02:26.667",
+      "clip_end": "01:02:51.875",
+      "depicts": ["dialogue", "emotion"],
+      "chars": ["M", "Amah Saejiu"],
+      "action": "Shot/reverse between M and Amah on the moving train: he faces front and talks, she watches him over her cane; by the last pair he has turned sideways, sullen, and she has turned away to the window.",
+      "censor": "none"
+    },
+    {
+      "shots": [8],
+      "clip_start": "01:02:51.875",
+      "clip_end": "01:03:11.917",
+      "depicts": ["transition", "establishing"],
+      "chars": [],
+      "action": "Exterior held take: the train slides across frame past a green tin house with city towers behind, and once it has passed the track is left empty with people walking along the bridge.",
+      "censor": "none"
+    }
+  ]
+}

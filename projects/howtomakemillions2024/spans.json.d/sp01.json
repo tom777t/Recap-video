@@ -1,0 +1,41 @@
+{
+  "span": "sp01",
+  "moments": [
+    {
+      "shots": [0],
+      "clip_start": "00:59:38.708",
+      "clip_end": "01:00:44.250",
+      "depicts": ["dialogue", "setup"],
+      "chars": ["M", "Amah"],
+      "action": "A held take at a blue temple table: M fills in a small paper slip beside Amah, who sits turned away from him. By the end of the take the pen is down and he is holding the finished slip.",
+      "censor": "none"
+    },
+    {
+      "shots": [1, 2],
+      "clip_start": "01:00:44.250",
+      "clip_end": "01:00:58.667",
+      "depicts": ["action", "reveal"],
+      "chars": ["M"],
+      "action": "M walks past the shelves of gold Buddhas and amulet baskets, eyes down. Cut to an insert of the pink wall he reaches: rows of handwritten coffin-donation receipts pinned up.",
+      "censor": "none"
+    },
+    {
+      "shots": [3, 4, 5, 6],
+      "clip_start": "01:00:58.667",
+      "clip_end": "01:01:20.583",
+      "depicts": ["dialogue", "emotion"],
+      "chars": ["M", "Amah"],
+      "action": "At the counter, shot/reverse-shot: Amah bends over it in her glasses while M talks at her side. Across the exchange he stops talking and his face drops, ending looking down at her in silence.",
+      "censor": "none"
+    },
+    {
+      "shots": [7],
+      "clip_start": "01:01:20.583",
+      "clip_end": "01:01:42.167",
+      "depicts": ["action", "transition"],
+      "chars": ["M", "Amah"],
+      "action": "M bows his head over the counter in close foreground; the take opens out to a wide of the sunlit temple yard as Amah walks away on her cane, following a man past the horse statues.",
+      "censor": "none"
+    }
+  ]
+}

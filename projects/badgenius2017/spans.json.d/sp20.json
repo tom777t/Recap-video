@@ -1,0 +1,95 @@
+{
+  "span": "sp20",
+  "moments": [
+    {
+      "shots": [0, 1, 2, 3, 4, 5, 6, 7],
+      "clip_start": "01:28:33.792",
+      "clip_end": "01:28:42.333",
+      "depicts": ["montage", "setup"],
+      "chars": ["Lynn"],
+      "action": "Fast montage: an Illustrator file maps barcodes to answers 1A-5C, then a hand hits a green machine's button and presses start. Cuts move off the screen onto the running press and onto Lynn hunched close over the work.",
+      "censor": "none"
+    },
+    {
+      "shots": [8, 9, 10, 11, 12, 13],
+      "clip_start": "01:28:42.333",
+      "clip_end": "01:28:56.583",
+      "depicts": ["montage", "action"],
+      "chars": ["Lynn", "Bank"],
+      "action": "Lynn, sweating, watches the machine run; a bare steel bed with a card marked '1' fills with a heap of black pencils, a barcode strip is peeled off, and the camera pulls back to the whole print shop with Lynn and Bank bent over the bench.",
+      "censor": "none"
+    },
+    {
+      "shots": [14, 15, 16],
+      "clip_start": "01:28:56.583",
+      "clip_end": "01:29:11.333",
+      "depicts": ["establishing", "setup"],
+      "chars": ["Bank", "Lynn"],
+      "action": "Bank strides down a wood-panelled corridor on exam day; Lynn joins him and they walk away from camera together, ending on the digital clock above the hall door reading 9:25:43.",
+      "censor": "none"
+    },
+    {
+      "shots": [17, 18, 19, 20],
+      "clip_start": "01:29:11.333",
+      "clip_end": "01:29:19.792",
+      "depicts": ["establishing", "setup"],
+      "chars": ["Lynn"],
+      "action": "Lynn walks into the library exam hall past rows of seated candidates, finds her chair and lowers her head; the view widens to the full hall with the invigilator standing alone in the doorway.",
+      "censor": "none"
+    },
+    {
+      "shots": [21, 22, 23],
+      "clip_start": "01:29:19.792",
+      "clip_end": "01:29:32.333",
+      "depicts": ["reaction", "emotion"],
+      "chars": ["Lynn", "Bank"],
+      "action": "Lynn sits with her eyes down; Bank turns in his seat and looks straight at her. She lifts her head and returns the look, the exchange ending with her holding his gaze instead of avoiding it.",
+      "censor": "none"
+    },
+    {
+      "shots": [24, 25, 26, 27],
+      "clip_start": "01:29:32.333",
+      "clip_end": "01:29:41.333",
+      "depicts": ["montage", "action"],
+      "chars": [],
+      "action": "Insert on the booklet header 'SECTION 2 Writing and Language Test, 44 questions, 25 minutes', then macro shots of a pencil tip filling bubbles - the last one blacking in B.",
+      "censor": "none"
+    },
+    {
+      "shots": [28, 29, 30, 31, 32],
+      "clip_start": "01:29:41.333",
+      "clip_end": "01:29:49.917",
+      "depicts": ["action", "setup"],
+      "chars": ["Bank", "Lynn"],
+      "action": "The hall clock hits 9:49:59; over the invigilator's shoulder the room is still writing, and she looks up as it rolls to 9:50:01. Bank works head-down, then Lynn raises her face from her desk.",
+      "censor": "none"
+    },
+    {
+      "shots": [33, 34, 35, 36, 37],
+      "clip_start": "01:29:49.917",
+      "clip_end": "01:29:58.750",
+      "depicts": ["action", "montage"],
+      "chars": ["Lynn"],
+      "action": "'SECTION 3 Math Test - Grid-In, 16 questions, 20 minutes'. Lynn glances to the front of the hall, then bends down and works, the pencil scratching out x2, x5/2 before moving onto the grid-in boxes.",
+      "censor": "none"
+    },
+    {
+      "shots": [38, 39, 40, 41, 42],
+      "clip_start": "01:29:58.750",
+      "clip_end": "01:30:07.167",
+      "depicts": ["action", "emotion"],
+      "chars": ["Lynn", "Bank"],
+      "action": "A pencil prints a digit into the grid boxes and Lynn's hands flatten the booklet. She works beside Bank, and by the last shots he is sweating hard down his face as 0.72 goes into the grid.",
+      "censor": "none"
+    },
+    {
+      "shots": [43, 44, 45, 46, 47, 48],
+      "clip_start": "01:30:07.167",
+      "clip_end": "01:30:20.667",
+      "depicts": ["action", "emotion"],
+      "chars": ["Lynn", "Bank"],
+      "action": "Lynn's face is slick with sweat; answer 11.60 is written for question 12, her hands blur over the page and she is breathing through her mouth. The wide shot leaves both her and Bank still writing across the quiet hall.",
+      "censor": "none"
+    }
+  ]
+}

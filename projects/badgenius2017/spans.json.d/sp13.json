@@ -1,0 +1,77 @@
+{
+  "span": "sp13",
+  "moments": [
+    {
+      "shots": [0, 1],
+      "clip_start": "01:17:57.875",
+      "clip_end": "01:18:12.250",
+      "depicts": ["transition", "setup"],
+      "chars": ["Lynn", "Bank"],
+      "action": "Night: two figures cross a lit footbridge over a highway past green-arrow and red-X lane signs. Cut to Bank and Lynn sitting side by side in a dark red-seated cabin, both staring ahead, not speaking.",
+      "censor": "none"
+    },
+    {
+      "shots": [2, 3],
+      "clip_start": "01:18:12.250",
+      "clip_end": "01:18:32.042",
+      "depicts": ["establishing", "setup"],
+      "chars": ["Lynn", "Bank"],
+      "action": "Daylight abroad: a gull on a railing against a soft-focus harbour skyline, then a wide platform silhouette where Bank and Lynn stand well apart with their bags, a bridge and cruise liner behind them.",
+      "censor": "none"
+    },
+    {
+      "shots": [4],
+      "clip_start": "01:18:32.042",
+      "clip_end": "01:18:43.000",
+      "depicts": ["establishing"],
+      "chars": ["Lynn", "Bank"],
+      "action": "Framed through a stone arch, Bank and Lynn stand at a harbour railing with the opera house across the water, bags set down at their feet; they hold the same side-by-side pose for the whole long take.",
+      "censor": "none"
+    },
+    {
+      "shots": [5, 6, 7],
+      "clip_start": "01:18:43.000",
+      "clip_end": "01:18:53.583",
+      "depicts": ["dialogue"],
+      "chars": ["Lynn", "Bank"],
+      "action": "Tight reverses start: Bank, low angle with the bridge behind him, talks with his head lowered; Lynn, shot over his shoulder, stays turned away and looks out at the water instead of at him.",
+      "censor": "none"
+    },
+    {
+      "shots": [8, 9, 10],
+      "clip_start": "01:18:53.583",
+      "clip_end": "01:19:12.792",
+      "depicts": ["dialogue", "emotion"],
+      "chars": ["Lynn", "Bank"],
+      "action": "Lynn turns into profile and answers while Bank drops his eyes further; by the end of the run she has swung further round toward him and is doing the talking.",
+      "censor": "none"
+    },
+    {
+      "shots": [11, 12, 13],
+      "clip_start": "01:19:12.792",
+      "clip_end": "01:19:27.833",
+      "depicts": ["dialogue", "reaction"],
+      "chars": ["Lynn", "Bank"],
+      "action": "Bank lifts his head and looks off past her; Lynn watches him, faintly frowning; Bank then settles back into still profile, facing the water rather than her.",
+      "censor": "none"
+    },
+    {
+      "shots": [14, 15],
+      "clip_start": "01:19:27.833",
+      "clip_end": "01:19:39.667",
+      "depicts": ["reaction", "emotion"],
+      "chars": ["Lynn", "Bank"],
+      "action": "Lynn faces the glittering water with her eyes lowered, calm and quiet; behind her Bank turns his head further away until only the back of his head is left to camera.",
+      "censor": "none"
+    },
+    {
+      "shots": [16],
+      "clip_start": "01:19:39.667",
+      "clip_end": "01:19:47.542",
+      "depicts": ["establishing", "emotion"],
+      "chars": ["Lynn"],
+      "action": "Wide across the harbour: Lynn, seen from behind in her striped top, stands alone watching a ferry cross in front of the opera house. Bank has dropped out of frame entirely.",
+      "censor": "none"
+    }
+  ]
+}

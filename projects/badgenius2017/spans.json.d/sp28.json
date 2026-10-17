@@ -1,0 +1,122 @@
+{
+  "span": "sp28",
+  "moments": [
+    {
+      "shots": [0, 1, 2],
+      "clip_start": "01:40:30.292",
+      "clip_end": "01:40:37.625",
+      "depicts": ["reaction", "discovery"],
+      "chars": ["Pat", "Grace"],
+      "action": "In the print shop Pat stares down at something in his hands; an insert catches his and Grace's hands at the bench. By the last shot she has stepped in beside him and both are reading the same page.",
+      "censor": "none"
+    },
+    {
+      "shots": [3, 4],
+      "clip_start": "01:40:37.625",
+      "clip_end": "01:40:48.417",
+      "depicts": ["establishing", "setup"],
+      "chars": [],
+      "action": "A long held take of the exam hall: an invigilator in a black suit paces between desks of writing candidates. Cut to the print shop, where the man in the striped polo stops working and looks up.",
+      "censor": "none"
+    },
+    {
+      "shots": [5, 6, 7],
+      "clip_start": "01:40:48.417",
+      "clip_end": "01:41:00.375",
+      "depicts": ["action", "transition"],
+      "chars": ["Pat", "Grace"],
+      "action": "Someone bolts down the wood-panelled corridor past the stairwell; an overhead shot swings across the empty atrium below. The cut back finds Pat and Grace frozen, now both staring straight ahead.",
+      "censor": "none"
+    },
+    {
+      "shots": [8, 9, 10],
+      "clip_start": "01:41:00.375",
+      "clip_end": "01:41:14.583",
+      "depicts": ["action"],
+      "chars": ["Lynn"],
+      "action": "Lynn hurries up the staircase with her backpack while a suited man crosses the lobby gates with a phone to his ear. She stops on the landing and turns back toward the stairs she just climbed.",
+      "censor": "none"
+    },
+    {
+      "shots": [11, 12, 13],
+      "clip_start": "01:41:14.583",
+      "clip_end": "01:41:32.292",
+      "depicts": ["action", "emotion"],
+      "chars": ["Lynn"],
+      "action": "The suited man shoves through a door at the stairwell; Lynn, sweating, glances back over her shoulder. The moment ends on the stairwell empty, both of them gone from frame.",
+      "censor": "none"
+    },
+    {
+      "shots": [14, 15, 16],
+      "clip_start": "01:41:32.292",
+      "clip_end": "01:41:40.250",
+      "depicts": ["action"],
+      "chars": ["Lynn"],
+      "action": "Lynn shoulders an exterior door open into the daylit courtyard, doubles over on the ramp to catch her breath, then straightens up walking and pulls out her phone to read it.",
+      "censor": "none"
+    },
+    {
+      "shots": [17, 18, 19],
+      "clip_start": "01:41:40.250",
+      "clip_end": "01:41:45.792",
+      "depicts": ["action"],
+      "chars": ["Lynn"],
+      "action": "A whip pan across the bike racks and courtyard; Lynn hurries past a yellow WATER column, checking behind her. The last shot opens out wide and leaves only a distant figure crossing the empty square.",
+      "censor": "none"
+    },
+    {
+      "shots": [20, 21, 22],
+      "clip_start": "01:41:45.792",
+      "clip_end": "01:41:52.083",
+      "depicts": ["reaction"],
+      "chars": ["Pat", "Grace"],
+      "action": "Back in the darkened press hall a man walks out from between the machines past stacked paper; Pat watches, tense. An insert shows Grace's hand slipping from his as he opens his fingers.",
+      "censor": "none"
+    },
+    {
+      "shots": [23, 24],
+      "clip_start": "01:41:52.083",
+      "clip_end": "01:41:58.958",
+      "depicts": ["dialogue"],
+      "chars": [],
+      "action": "A young man in a navy polo strides across the dim press floor, and the shot cuts to the man in the striped polo in the lit room, now gesturing off-screen as he talks.",
+      "censor": "none"
+    },
+    {
+      "shots": [25, 26],
+      "clip_start": "01:41:58.958",
+      "clip_end": "01:42:03.958",
+      "depicts": ["action", "transition"],
+      "chars": ["Lynn"],
+      "action": "A close insert of Lynn's hand tapping a travel card on a station reader, then she comes through the fare gates into the concourse and keeps walking under the station signage.",
+      "censor": "none"
+    },
+    {
+      "shots": [27, 28],
+      "clip_start": "01:42:03.958",
+      "clip_end": "01:42:08.292",
+      "depicts": ["reaction"],
+      "chars": ["Pat", "Grace"],
+      "action": "A phone lies face-up and lit on the metal bench beside a laptop; focus pulls off it to leave Pat and Grace standing together out of focus behind, nobody reaching for it.",
+      "censor": "none"
+    },
+    {
+      "shots": [29, 30, 31],
+      "clip_start": "01:42:08.292",
+      "clip_end": "01:42:15.000",
+      "depicts": ["action"],
+      "chars": ["Lynn"],
+      "action": "Lynn walks away from camera down the tiled station tunnel past other commuters, and the sequence ends on the suited man in profile standing on the platform level behind her.",
+      "censor": "none"
+    },
+    {
+      "shots": [32, 33, 34],
+      "clip_start": "01:42:15.000",
+      "clip_end": "01:42:19.708",
+      "depicts": ["action", "emotion"],
+      "chars": ["Lynn"],
+      "action": "Lynn turns to check the tunnel behind her, then pulls her hair loose and reties it up as she walks on, changing her look before she disappears into the crowd.",
+      "censor": "none"
+    }
+  ]
+}

@@ -1,0 +1,68 @@
+{
+  "span": "a29",
+  "moments": [
+    {
+      "shots": [0, 1, 2, 3],
+      "clip_start": "00:43:33.458",
+      "clip_end": "00:43:50.583",
+      "depicts": ["dialogue", "setup"],
+      "chars": ["Lynn"],
+      "action": "In a school office the woman in the navy blouse talks at Lynn, who stands in uniform with her head down. By the last shot Lynn has raised her eyes and is looking straight back at her.",
+      "censor": "none"
+    },
+    {
+      "shots": [4, 5, 6, 7],
+      "clip_start": "00:43:50.583",
+      "clip_end": "00:44:02.917",
+      "depicts": ["reaction", "emotion"],
+      "chars": ["Lynn", "Bank", "Lynn's father"],
+      "action": "The camera goes round the room: Lynn's father sits hunched in his chair, Lynn stands by the blinds, Bank waits in the dark at the back. The last shot widens to put Lynn standing over her father.",
+      "censor": "none"
+    },
+    {
+      "shots": [8, 9, 10],
+      "clip_start": "00:44:02.917",
+      "clip_end": "00:44:15.458",
+      "depicts": ["dialogue", "emotion"],
+      "chars": ["Lynn"],
+      "action": "The woman's face twists as she lays into them and Lynn turns to answer back. The moment ends with the woman rising out of her chair, the frame blurred by her movement.",
+      "censor": "none"
+    },
+    {
+      "shots": [11, 12, 13, 14],
+      "clip_start": "00:44:15.458",
+      "clip_end": "00:44:28.000",
+      "depicts": ["dialogue"],
+      "chars": ["Lynn", "Lynn's father"],
+      "action": "On her feet now, the woman faces Lynn across the glass partition and Lynn argues back; the father grimaces in his seat. The last shot pulls outside the office to show the three spread apart.",
+      "censor": "none"
+    },
+    {
+      "shots": [15, 16, 17],
+      "clip_start": "00:44:28.000",
+      "clip_end": "00:44:44.750",
+      "depicts": ["dialogue", "emotion"],
+      "chars": ["Lynn's father"],
+      "action": "Lynn's father sits with his head sunk, then pushes up out of the chair and bends forward, pleading. Cut to the woman back at her desk, hands folded, looking up at him with a thin, unmoved smile.",
+      "censor": "none"
+    },
+    {
+      "shots": [18, 19, 20],
+      "clip_start": "00:44:44.750",
+      "clip_end": "00:44:59.958",
+      "depicts": ["reaction"],
+      "chars": ["Lynn", "Bank", "Lynn's father"],
+      "action": "Lynn stares ahead in profile and Bank keeps his eyes down. The wide shot then finds all three lined up in front of the desk, the father holding Lynn's hand as they stand to hear the verdict.",
+      "censor": "none"
+    },
+    {
+      "shots": [21, 22, 23],
+      "clip_start": "00:44:59.958",
+      "clip_end": "00:45:19.000",
+      "depicts": ["dialogue", "reveal"],
+      "chars": ["Lynn", "Bank", "Lynn's father"],
+      "action": "Lynn speaks up at length, straight at the woman, who answers from her chair. In the last shot she is gesturing across the desk at the three of them, who are still standing where they were.",
+      "censor": "none"
+    }
+  ]
+}

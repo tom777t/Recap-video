@@ -1,0 +1,122 @@
+{
+  "span": "a06",
+  "moments": [
+    {
+      "shots": [0, 1],
+      "clip_start": "00:09:00.792",
+      "clip_end": "00:09:08.500",
+      "depicts": ["establishing", "setup"],
+      "chars": ["Lynn"],
+      "action": "A Thai title card over a wide classroom of uniformed students at the midterm; the camera then drops in to Lynn at her desk, head down, fist against her cheek as she starts to write.",
+      "censor": "none"
+    },
+    {
+      "shots": [2, 3, 4],
+      "clip_start": "00:09:08.500",
+      "clip_end": "00:09:17.500",
+      "depicts": ["reaction", "setup"],
+      "chars": ["Lynn", "Grace"],
+      "action": "Grace twists round in her seat to look back; Lynn meets her eyes from the row behind. By the last shot Grace has turned forward again and dropped her gaze.",
+      "censor": "none"
+    },
+    {
+      "shots": [5, 6, 7, 8, 9, 10],
+      "clip_start": "00:09:17.500",
+      "clip_end": "00:09:27.000",
+      "depicts": ["establishing", "setup"],
+      "chars": ["Lynn"],
+      "action": "Lynn reads her paper; the teacher stands at the board under \"midterm exam - mathematics\". Inserts of the answer sheet, the header reading 60 questions / 30 marks, a pen nib, then hands begin writing.",
+      "censor": "none"
+    },
+    {
+      "shots": [11, 12, 13],
+      "clip_start": "00:09:27.000",
+      "clip_end": "00:09:36.625",
+      "depicts": ["action", "emotion"],
+      "chars": ["Grace"],
+      "action": "Grace bends over her sheet, hand flat on the page while the student next to her writes steadily. By the last shot her page is still blank and her face has only sunk lower.",
+      "censor": "none"
+    },
+    {
+      "shots": [14, 15, 16, 17, 18],
+      "clip_start": "00:09:36.625",
+      "clip_end": "00:09:47.000",
+      "depicts": ["montage", "discovery"],
+      "chars": ["Lynn", "Grace"],
+      "action": "A Venn-diagram question on the white exam paper cuts to a black-and-white memory of Grace and Lynn studying on the library floor over a pink worksheet, then to that worksheet: the same question.",
+      "censor": "none"
+    },
+    {
+      "shots": [19, 20, 21, 22, 23],
+      "clip_start": "00:09:47.000",
+      "clip_end": "00:09:55.083",
+      "depicts": ["montage", "discovery"],
+      "chars": ["Grace"],
+      "action": "Grace flips to the next page and keeps checking: a shaded Venn on the white exam against the identical shaded Venn on the pink sheet. Her hand ends the moment resting, still not answering.",
+      "censor": "none"
+    },
+    {
+      "shots": [24, 25, 26, 27, 28],
+      "clip_start": "00:09:55.083",
+      "clip_end": "00:09:59.500",
+      "depicts": ["montage", "reveal"],
+      "chars": ["Grace"],
+      "action": "The cutting accelerates - white exam questions 10/11 and 17/18 matched against the pink worksheet's 11/12 and 18, identical wording - with Grace's lowered face in the middle of the run.",
+      "censor": "none"
+    },
+    {
+      "shots": [29, 30],
+      "clip_start": "00:09:59.500",
+      "clip_end": "00:10:09.083",
+      "depicts": ["reaction", "reveal"],
+      "chars": ["Lynn", "Grace"],
+      "action": "Grace lifts her head and stares dead ahead, stunned. The angle widens behind her: classmates with heads in their hands, and Lynn in the foreground chewing her fingernail.",
+      "censor": "none"
+    },
+    {
+      "shots": [31, 32, 33],
+      "clip_start": "00:10:09.083",
+      "clip_end": "00:10:15.625",
+      "depicts": ["action", "discovery"],
+      "chars": ["Grace"],
+      "action": "Grace turns her head to scan the room - a girl in glasses working beside her, then the teacher at the front desk with his head down over his phone, not watching anyone.",
+      "censor": "none"
+    },
+    {
+      "shots": [34, 35],
+      "clip_start": "00:10:15.625",
+      "clip_end": "00:10:27.250",
+      "depicts": ["reaction", "emotion"],
+      "chars": ["Lynn", "Grace"],
+      "action": "Grace looks off to the side, brow creased and close to panic; cut to Lynn in her own row, eyes down, biting at her fingernail. Neither is writing.",
+      "censor": "none"
+    },
+    {
+      "shots": [36, 37, 38, 39],
+      "clip_start": "00:10:27.250",
+      "clip_end": "00:10:35.375",
+      "depicts": ["dialogue", "emotion"],
+      "chars": ["Lynn", "Grace"],
+      "action": "Grace twists round with her paper and whispers back to Lynn; the reverse holds on Lynn, whose face goes from alert reply to a pained grimace by the last shot.",
+      "censor": "none"
+    },
+    {
+      "shots": [40, 41, 42],
+      "clip_start": "00:10:35.375",
+      "clip_end": "00:10:39.750",
+      "depicts": ["action"],
+      "chars": ["Grace"],
+      "action": "A small object flicks past the world map on the classroom wall; a wide shows the hunched rows undisturbed, and Grace is back down over her paper, eyes fixed on it.",
+      "censor": "none"
+    },
+    {
+      "shots": [43, 44],
+      "clip_start": "00:10:39.750",
+      "clip_end": "00:10:47.792",
+      "depicts": ["establishing", "emotion"],
+      "chars": ["Grace"],
+      "action": "The teacher stands with his back to camera surveying rows of bent heads; cut in tight to Grace, head lowered and sweating over her paper.",
+      "censor": "none"
+    }
+  ]
+}

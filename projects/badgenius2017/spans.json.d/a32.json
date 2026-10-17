@@ -1,0 +1,59 @@
+{
+  "span": "a32",
+  "moments": [
+    {
+      "shots": [0],
+      "clip_start": "00:47:54.875",
+      "clip_end": "00:48:10.875",
+      "depicts": ["reaction", "emotion"],
+      "chars": ["Lynn"],
+      "action": "Lynn sits in school uniform by a barred window, staring off to the side. Across the held take she drops her head and her face crumples into tears.",
+      "censor": "none"
+    },
+    {
+      "shots": [1, 2, 3],
+      "clip_start": "00:48:10.875",
+      "clip_end": "00:48:40.417",
+      "depicts": ["reaction", "emotion"],
+      "chars": [],
+      "action": "Tight on a woman in a polka-dot blouse against a dark wall, eyes down; an insert shows her hands twisting the ring on her finger. She wipes her eyes, then lifts her face, composed again.",
+      "censor": "none"
+    },
+    {
+      "shots": [4, 5, 6, 7],
+      "clip_start": "00:48:40.417",
+      "clip_end": "00:48:56.250",
+      "depicts": ["dialogue", "setup"],
+      "chars": ["Lynn"],
+      "action": "In a wood-panelled restaurant a thumb cracks open a cold soda can. The woman in the striped shirt sips and talks brightly; Lynn, in a yellow t-shirt opposite, stares back blankly while the woman ends up beaming and holding the can up to her.",
+      "censor": "none"
+    },
+    {
+      "shots": [8, 9, 10, 11],
+      "clip_start": "00:48:56.250",
+      "clip_end": "00:49:09.375",
+      "depicts": ["dialogue", "reaction"],
+      "chars": ["Lynn"],
+      "action": "The woman shuts her eyes and savours the drink, pitching hard across the table. Lynn gives nothing back, and by the last shot the woman has lowered the can and her grin has shrunk to a thin smile.",
+      "censor": "none"
+    },
+    {
+      "shots": [12, 13, 14, 15],
+      "clip_start": "00:49:09.375",
+      "clip_end": "00:49:32.917",
+      "depicts": ["dialogue", "transition"],
+      "chars": ["Lynn"],
+      "action": "Lynn finally speaks, flat and brief; the woman looks down and away with a faint smile, then Lynn goes blank again. The camera pulls back to a dark wide of the empty restaurant, the pair out of frame.",
+      "censor": "none"
+    },
+    {
+      "shots": [16, 17, 18, 19, 20, 21],
+      "clip_start": "00:49:32.917",
+      "clip_end": "00:49:55.000",
+      "depicts": ["dialogue", "setup"],
+      "chars": ["Pat", "Grace"],
+      "action": "At a lit dinner table an older man in a grey suit tips his wine glass empty, then holds forth, eyes closed with pleasure. Pat and Grace laugh along, the shots closing on them framed through his raised glass.",
+      "censor": "none"
+    }
+  ]
+}

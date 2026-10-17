@@ -1,0 +1,50 @@
+{
+  "span": "a01",
+  "moments": [
+    {
+      "shots": [0, 1, 2, 3],
+      "clip_start": "00:01:36.542",
+      "clip_end": "00:01:59.875",
+      "depicts": ["dialogue", "setup"],
+      "chars": ["Lynn"],
+      "action": "A phone sealed in an evidence bag sits on a dark table; Lynn answers questions straight to camera. By the last shot she has dropped her eyes from the lens and is talking down at the table.",
+      "censor": "none"
+    },
+    {
+      "shots": [4],
+      "clip_start": "00:01:59.875",
+      "clip_end": "00:02:27.333",
+      "depicts": ["montage", "setup"],
+      "chars": [],
+      "action": "On black, a multiple-choice answer sheet builds itself row by row, from question 1 with four blank bubbles to row 12 where a bubble fills in and a Thai name appears beneath it.",
+      "censor": "none"
+    },
+    {
+      "shots": [5, 6, 7],
+      "clip_start": "00:02:27.333",
+      "clip_end": "00:02:38.875",
+      "depicts": ["establishing", "setup"],
+      "chars": [],
+      "action": "Hands open a black portfolio labelled with Lynn's name and turn to a school certificate inside; the camera then pulls back to a glass-walled office where two people sit at desks.",
+      "censor": "none"
+    },
+    {
+      "shots": [8, 9, 10],
+      "clip_start": "00:02:38.875",
+      "clip_end": "00:02:50.000",
+      "depicts": ["dialogue", "setup"],
+      "chars": ["Lynn", "Lynn's father"],
+      "action": "Lynn in school uniform and her father sit before the administrator, trophies on her desk; from the wide two-shot it tightens to Lynn alone, then to a press clipping naming her crossword champion.",
+      "censor": "none"
+    },
+    {
+      "shots": [11, 12, 13],
+      "clip_start": "00:02:50.000",
+      "clip_end": "00:03:16.667",
+      "depicts": ["dialogue", "reaction"],
+      "chars": ["Lynn", "Lynn's father"],
+      "action": "Lynn's father talks up her record, smiling, then pushes the trophies across the desk towards the administrator; the moment ends on Lynn, who has turned from her father to face the woman with a small smile.",
+      "censor": "none"
+    }
+  ]
+}

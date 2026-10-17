@@ -1,0 +1,391 @@
+{
+  "act": 2,
+  "lines": [
+    {
+      "id": 201,
+      "narration": "The other top student gets his own title. Bank's portrait drains to grey over a school toilet block.",
+      "clip_start": "00:24:02.167",
+      "clip_end": "00:24:13.458",
+      "note": "B20",
+      "delivery": "hook",
+      "narrative_jump": true
+    },
+    {
+      "id": 202,
+      "narration": "Inside a stall his face screws up and he doubles over. Then a card reading Bank goes on his shirt.",
+      "clip_start": "00:24:13.458",
+      "clip_end": "00:24:24.500",
+      "note": "B20",
+      "delivery": "tense",
+      "narrative_jump": false
+    },
+    {
+      "id": 203,
+      "narration": "Backstage he divides the prize before they win it: five thousand baht, less the discount, half each. Lynn keeps her eyes shut.",
+      "clip_start": "00:24:58.750",
+      "clip_end": "00:25:25.542",
+      "note": "B20",
+      "delivery": "normal",
+      "narrative_jump": true,
+      "claim": {
+        "type": "speech",
+        "subject": "Bank"
+      }
+    },
+    {
+      "id": 204,
+      "narration": "His hair is a mess and she is fixing it, she says; he is on television now. He looks away, silent.",
+      "clip_start": "00:25:51.500",
+      "clip_end": "00:26:04.000",
+      "note": "B20",
+      "delivery": "normal",
+      "narrative_jump": false,
+      "claim": {
+        "type": "speech",
+        "subject": "Lynn"
+      }
+    },
+    {
+      "id": 205,
+      "narration": "She lays a hand on him in the doorway and holds out a fist. He stares, then bumps it.",
+      "clip_start": "00:26:04.000",
+      "clip_end": "00:26:24.583",
+      "note": "B20",
+      "delivery": "normal",
+      "narrative_jump": false
+    },
+    {
+      "id": 206,
+      "narration": "Teen Genius. Both of them at the contestant desk; pi comes back to twelve places and their school wins the week.",
+      "clip_start": "00:26:44.500",
+      "clip_end": "00:26:56.750",
+      "note": "B21",
+      "delivery": "normal",
+      "narrative_jump": true
+    },
+    {
+      "id": 207,
+      "narration": "The director has news. One free Singapore scholarship, both of them sent to sit for it, and only one place per school.",
+      "clip_start": "00:27:45.292",
+      "clip_end": "00:28:13.625",
+      "note": "B22",
+      "delivery": "tense",
+      "narrative_jump": true
+    },
+    {
+      "id": 208,
+      "narration": "Night. A headlight flares, a battered helmet goes on over earphones, and Bank walks the bike into a lit laundry.",
+      "clip_start": "00:28:22.042",
+      "clip_end": "00:28:31.917",
+      "note": "B23",
+      "delivery": "normal",
+      "narrative_jump": true
+    },
+    {
+      "id": 209,
+      "narration": "Inside, a hand sets his certificate beside a memorial portrait. The shop is still working.",
+      "clip_start": "00:28:31.917",
+      "clip_end": "00:28:38.458",
+      "note": "B23",
+      "delivery": "sad",
+      "narrative_jump": false
+    },
+    {
+      "id": 210,
+      "narration": "From a dark doorway he watches his mother crouched over the washing, one earphone in, her hands raw in the soap.",
+      "clip_start": "00:28:38.458",
+      "clip_end": "00:28:54.750",
+      "note": "B23",
+      "delivery": "sad",
+      "narrative_jump": false
+    },
+    {
+      "id": 211,
+      "narration": "Leave it, he tells her, that hand will not heal. His textbook stays on the stool. He scrubs alone.",
+      "clip_start": "00:28:54.750",
+      "clip_end": "00:29:15.000",
+      "note": "B23",
+      "delivery": "sad",
+      "narrative_jump": false,
+      "claim": {
+        "type": "speech",
+        "subject": "Bank"
+      }
+    },
+    {
+      "id": 212,
+      "narration": "Lynn sits alone in near-darkness, then raises her head. The look hardens out of defeat into something decided.",
+      "clip_start": "00:29:15.000",
+      "clip_end": "00:29:38.208",
+      "note": "B23",
+      "delivery": "mystery",
+      "narrative_jump": true
+    },
+    {
+      "id": 213,
+      "narration": "A classmate stops him in the corridor: he cannot pass the paper, and offers three thousand baht. Bank walks away.",
+      "clip_start": "00:29:55.125",
+      "clip_end": "00:30:23.958",
+      "note": "B23",
+      "delivery": "tense",
+      "narrative_jump": true
+    },
+    {
+      "id": 214,
+      "narration": "The hall exam. An earphone in Bank's ear, hundreds of desks ruled out in white tape. He watches the room fill.",
+      "clip_start": "00:30:46.125",
+      "clip_end": "00:31:08.792",
+      "note": "B24",
+      "delivery": "tense",
+      "narrative_jump": true
+    },
+    {
+      "id": 215,
+      "narration": "The row settles into shading bubbles. Bank is sweating by the second half, his pencil stalled at thirty-nine and forty.",
+      "clip_start": "00:31:47.667",
+      "clip_end": "00:32:08.208",
+      "note": "B24",
+      "delivery": "tense",
+      "narrative_jump": false
+    },
+    {
+      "id": 216,
+      "narration": "A student asks the proctor about question forty. There are two versions of the paper, and it asks which one you got.",
+      "clip_start": "00:32:08.208",
+      "clip_end": "00:32:21.667",
+      "note": "B25",
+      "delivery": "reveal",
+      "narrative_jump": false
+    },
+    {
+      "id": 217,
+      "narration": "Lynn's hand goes to her mouth. Her cover reads set one; Bank's forty has a filled bubble rubbed out.",
+      "clip_start": "00:32:30.375",
+      "clip_end": "00:32:38.500",
+      "note": "B25",
+      "delivery": "reveal",
+      "narrative_jump": false
+    },
+    {
+      "id": 218,
+      "narration": "Her code carries one set of answers; the hall is sitting two. She checks behind her and drives the pencil on.",
+      "clip_start": "00:33:13.750",
+      "clip_end": "00:33:27.250",
+      "note": "B26",
+      "delivery": "tense",
+      "narrative_jump": false
+    },
+    {
+      "id": 219,
+      "narration": "Under the green lamp Bank reports what Lynn's hands have been doing. A second invigilator comes to the desk.",
+      "clip_start": "00:33:51.500",
+      "clip_end": "00:34:13.042",
+      "note": "B27",
+      "delivery": "tense",
+      "narrative_jump": false,
+      "claim": {
+        "type": "speech",
+        "subject": "Bank"
+      }
+    },
+    {
+      "id": 220,
+      "narration": "Past the lamp, a grid of bowed heads. He folds his arms, says he will see to it, and looks past Bank.",
+      "clip_start": "00:34:13.042",
+      "clip_end": "00:34:35.417",
+      "note": "B27",
+      "delivery": "tense",
+      "narrative_jump": false
+    },
+    {
+      "id": 221,
+      "narration": "So the answers go out as finger taps. A hand drums the desk; a boy taps and writes at once.",
+      "clip_start": "00:35:23.958",
+      "clip_end": "00:35:36.708",
+      "note": "B26",
+      "delivery": "tense",
+      "narrative_jump": false
+    },
+    {
+      "id": 222,
+      "narration": "A second header lands on a desk: set two. The fingers splay and drum a different rhythm.",
+      "clip_start": "00:37:40.083",
+      "clip_end": "00:37:54.292",
+      "note": "B28",
+      "delivery": "reveal",
+      "narrative_jump": false
+    },
+    {
+      "id": 223,
+      "narration": "Lynn sweats, left hand tapping while the right one writes. Then the invigilator steps out and heads come up.",
+      "clip_start": "00:38:25.583",
+      "clip_end": "00:38:36.583",
+      "note": "B28",
+      "delivery": "tense",
+      "narrative_jump": false
+    },
+    {
+      "id": 224,
+      "narration": "Outside, a phone fills with the group chat. Pat counts the takings while Grace braids Lynn's hair. It has spread.",
+      "clip_start": "00:39:23.667",
+      "clip_end": "00:39:43.333",
+      "note": "B29",
+      "delivery": "normal",
+      "narrative_jump": true
+    },
+    {
+      "id": 225,
+      "narration": "A grey-haired teacher in a tie passes the steps. The speakers call a student to the office. Grace stands up.",
+      "clip_start": "00:39:43.333",
+      "clip_end": "00:40:02.208",
+      "note": "B30",
+      "delivery": "tense",
+      "narrative_jump": false
+    },
+    {
+      "id": 226,
+      "narration": "The teacher already has his informant. Bank told the school the exam had leaked, and that two different papers went out.",
+      "clip_start": "00:40:15.500",
+      "clip_end": "00:40:28.208",
+      "note": "B31",
+      "delivery": "reveal",
+      "narrative_jump": true
+    },
+    {
+      "id": 227,
+      "narration": "Lynn and Bank stand side by side, eyes down, while the teacher works a stack of answer sheets for the match.",
+      "clip_start": "00:40:28.208",
+      "clip_end": "00:40:44.667",
+      "note": "B31",
+      "delivery": "tense",
+      "narrative_jump": false
+    },
+    {
+      "id": 228,
+      "narration": "Then it breaks. Lynn pushes past the doorframe and out; a boy in the glass door looks after her.",
+      "clip_start": "00:41:04.708",
+      "clip_end": "00:41:19.875",
+      "note": "B31",
+      "delivery": "tense",
+      "narrative_jump": false
+    },
+    {
+      "id": 229,
+      "narration": "Through the office glass: the director, Lynn at the blinds, her father beside her. They have evidence she sat a friend's exam.",
+      "clip_start": "00:42:04.875",
+      "clip_end": "00:42:21.000",
+      "note": "B32",
+      "delivery": "tense",
+      "narrative_jump": true
+    },
+    {
+      "id": 230,
+      "narration": "For the money, she says. A classmate paid her three thousand baht to sit it. Her father's head comes round.",
+      "clip_start": "00:42:21.000",
+      "clip_end": "00:42:28.958",
+      "note": "B32",
+      "delivery": "reveal",
+      "narrative_jump": false,
+      "claim": {
+        "type": "speech",
+        "subject": "Lynn"
+      }
+    },
+    {
+      "id": 231,
+      "narration": "She is not the only one making money here, Lynn says: two million baht, and they call it a fee.",
+      "clip_start": "00:44:02.917",
+      "clip_end": "00:44:15.458",
+      "note": "B33",
+      "delivery": "tense",
+      "narrative_jump": false,
+      "claim": {
+        "type": "speech",
+        "subject": "Lynn"
+      }
+    },
+    {
+      "id": 232,
+      "narration": "Her father begs for her term. The condition: her scholarship is cut, and Singapore with it.",
+      "clip_start": "00:44:28.000",
+      "clip_end": "00:44:44.750",
+      "note": "B33",
+      "delivery": "sad",
+      "narrative_jump": false,
+      "claim": {
+        "type": "speech",
+        "subject": "Lynn's father"
+      }
+    },
+    {
+      "id": 233,
+      "narration": "She never cheated, Lynn says. The marks were hers, and Bank deserves the place. The director looks up, stricken.",
+      "clip_start": "00:44:59.958",
+      "clip_end": "00:45:23.208",
+      "note": "B33",
+      "delivery": "tense",
+      "narrative_jump": false,
+      "claim": {
+        "type": "speech",
+        "subject": "Lynn"
+      }
+    },
+    {
+      "id": 234,
+      "narration": "Her father keeps his eyes down and leaves with Bank. Bank's head stays lowered, Lynn's back in front of him.",
+      "clip_start": "00:45:23.208",
+      "clip_end": "00:45:43.208",
+      "note": "B34",
+      "delivery": "sad",
+      "narrative_jump": false
+    },
+    {
+      "id": 235,
+      "narration": "A dark room, a glass of water sweating, Bank still answering. Find the evidence, he says, and she cheated.",
+      "clip_start": "00:45:43.208",
+      "clip_end": "00:46:11.417",
+      "note": "B34",
+      "delivery": "tense",
+      "narrative_jump": true,
+      "claim": {
+        "type": "speech",
+        "subject": "Bank"
+      }
+    },
+    {
+      "id": 236,
+      "narration": "A passbook tilts open to Lynn's name. Nobody earns three thousand baht that way, her father says across the table.",
+      "clip_start": "00:46:11.417",
+      "clip_end": "00:46:44.375",
+      "note": "B35",
+      "delivery": "sad",
+      "narrative_jump": true,
+      "claim": {
+        "type": "speech",
+        "subject": "Lynn's father"
+      }
+    },
+    {
+      "id": 237,
+      "narration": "He unbuttons the shirt as he talks: he does not want it any more. She stays home and repays the money.",
+      "clip_start": "00:47:32.792",
+      "clip_end": "00:47:54.875",
+      "note": "B35",
+      "delivery": "sad",
+      "narrative_jump": false,
+      "claim": {
+        "type": "speech",
+        "subject": "Lynn's father"
+      }
+    },
+    {
+      "id": 238,
+      "narration": "Lynn sits by a barred window in her uniform. Her head drops and her face comes apart.",
+      "clip_start": "00:47:54.875",
+      "clip_end": "00:48:10.875",
+      "note": "B35",
+      "delivery": "sad",
+      "narrative_jump": true
+    }
+  ]
+}

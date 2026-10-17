@@ -1,0 +1,59 @@
+{
+  "span": "a04",
+  "moments": [
+    {
+      "shots": [0, 1],
+      "clip_start": "00:06:00.792",
+      "clip_end": "00:06:14.792",
+      "depicts": ["montage", "setup"],
+      "chars": ["Grace"],
+      "action": "Grace stands against a flat red wall in school uniform, holding a faint smile for an unseen camera; the film then cuts away to a bright school corridor where a bespectacled student ties back her hair.",
+      "censor": "none"
+    },
+    {
+      "shots": [2, 3, 4, 5, 6],
+      "clip_start": "00:06:14.792",
+      "clip_end": "00:06:31.750",
+      "depicts": ["montage", "setup"],
+      "chars": ["Grace"],
+      "action": "Quick cards of the same girl on red - a form inked with the nickname 'Grace', then a wide grin, then the portrait in black and white - before the image tips over into an upside-down blur of her face on a dark table.",
+      "censor": "none"
+    },
+    {
+      "shots": [7],
+      "clip_start": "00:06:31.750",
+      "clip_end": "00:06:50.833",
+      "depicts": ["dialogue", "setup"],
+      "chars": ["Grace"],
+      "action": "Grace sits alone at a bare wooden table in a dark room, hands clasped, talking straight into the lens; across the long take she leans in and her loose smile tightens into something more insistent.",
+      "censor": "none"
+    },
+    {
+      "shots": [8, 9, 10],
+      "clip_start": "00:06:50.833",
+      "clip_end": "00:07:09.750",
+      "depicts": ["dialogue", "establishing"],
+      "chars": ["Lynn", "Grace"],
+      "action": "A wide down the library stacks shows two schoolgirls sitting facing each other on the floor; the cut goes in close as one talks with a hand up at the shelf, then to the girl with the blue ribbon answering in profile.",
+      "censor": "none"
+    },
+    {
+      "shots": [11, 12, 13, 14],
+      "clip_start": "00:07:09.750",
+      "clip_end": "00:07:28.917",
+      "depicts": ["dialogue", "emotion"],
+      "chars": ["Lynn", "Grace"],
+      "action": "Reverse angles continue between the two on the floor - a flat, guarded look softens into a smile as the other presses her point - and the wide returns with a pink booklet now out on the stack of books between them.",
+      "censor": "none"
+    },
+    {
+      "shots": [15, 16, 17, 18],
+      "clip_start": "00:07:28.917",
+      "clip_end": "00:07:43.500",
+      "depicts": ["dialogue", "setup"],
+      "chars": ["Lynn", "Grace"],
+      "action": "She turns at the shelf wide-eyed; through a gap in the stacks the two keep talking, then the wide shows the pink booklet passed between them and an insert lands on a Thai maths paper of set-theory questions.",
+      "censor": "none"
+    }
+  ]
+}

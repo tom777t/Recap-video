@@ -1,0 +1,265 @@
+{
+  "act": 4,
+  "lines": [
+    {
+      "id": 401,
+      "narration": "Sydney, the day before. Head down, Bank tells her he is sorry.",
+      "clip_start": "01:18:43.000",
+      "clip_end": "01:18:53.583",
+      "note": "B52",
+      "delivery": "sad",
+      "narrative_jump": true,
+      "claim": {
+        "type": "speech",
+        "subject": "Bank"
+      }
+    },
+    {
+      "id": 402,
+      "narration": "He has never been abroad, he says. From tomorrow he can go anywhere in the world.",
+      "clip_start": "01:19:12.792",
+      "clip_end": "01:19:27.833",
+      "note": "B52",
+      "delivery": "tense",
+      "narrative_jump": false,
+      "claim": {
+        "type": "speech",
+        "subject": "Bank"
+      }
+    },
+    {
+      "id": 403,
+      "narration": "Then nothing. Two small figures at a railing, bags at their feet - the last quiet hour they get.",
+      "clip_start": "01:19:47.542",
+      "clip_end": "01:20:08.000",
+      "note": "B52",
+      "delivery": "sad",
+      "narrative_jump": false
+    },
+    {
+      "id": 404,
+      "narration": "Exam morning. Bank stops chewing: the diner television has broken into a STIC bulletin on tighter monitoring.",
+      "clip_start": "01:20:19.292",
+      "clip_end": "01:20:29.833",
+      "note": "B53",
+      "delivery": "tense",
+      "narrative_jump": true
+    },
+    {
+      "id": 405,
+      "narration": "At the centre an official briefs them. Watches come off; they go in carrying nothing.",
+      "clip_start": "01:21:08.333",
+      "clip_end": "01:21:29.375",
+      "note": "B53",
+      "delivery": "tense",
+      "narrative_jump": true
+    },
+    {
+      "id": 406,
+      "narration": "Bank carries a bundled jacket into the men's toilet. Two doors shut, one each.",
+      "clip_start": "01:21:29.375",
+      "clip_end": "01:21:39.125",
+      "note": "B54",
+      "delivery": "tense",
+      "narrative_jump": false
+    },
+    {
+      "id": 407,
+      "narration": "In the dark a panel comes away. A bagged phone, taped under a tray, ends up on Lynn's lap.",
+      "clip_start": "01:21:39.125",
+      "clip_end": "01:21:47.167",
+      "note": "B54",
+      "delivery": "tense",
+      "narrative_jump": false
+    },
+    {
+      "id": 408,
+      "narration": "Bank's face appears in a gap in the partition. Both reach through.",
+      "clip_start": "01:21:47.167",
+      "clip_end": "01:21:54.208",
+      "note": "B54",
+      "delivery": "tense",
+      "narrative_jump": false
+    },
+    {
+      "id": 409,
+      "narration": "The invigilator walks out. 8:29:58.",
+      "clip_start": "01:22:36.083",
+      "clip_end": "01:22:40.083",
+      "note": "B55",
+      "delivery": "tense",
+      "narrative_jump": true
+    },
+    {
+      "id": 410,
+      "narration": "Her hand runs the grid - question 17, the clock at 8:51, bubbles to twenty-six, ahead of the paper so the answers can leave first.",
+      "clip_start": "01:22:54.792",
+      "clip_end": "01:23:08.083",
+      "note": "B56",
+      "delivery": "tense",
+      "narrative_jump": false
+    },
+    {
+      "id": 411,
+      "narration": "Bangkok, still dark. In a shuttered print house a whiteboard maps the sections, the timings, the phones. Grace turns to Pat; the message goes.",
+      "clip_start": "01:24:47.083",
+      "clip_end": "01:25:04.333",
+      "note": "B57",
+      "delivery": "mystery",
+      "narrative_jump": true
+    },
+    {
+      "id": 412,
+      "narration": "At the break two phones come out of plastic wrap, Bank's first, then Lynn's, and answer strings start filling the chat.",
+      "clip_start": "01:25:33.375",
+      "clip_end": "01:25:45.792",
+      "note": "B56",
+      "delivery": "tense",
+      "narrative_jump": true
+    },
+    {
+      "id": 413,
+      "narration": "Then the thread stops being answers. Bank wants another million. Lynn reads it in her stall, Pat in his.",
+      "clip_start": "01:26:59.375",
+      "clip_end": "01:27:14.000",
+      "note": "B58",
+      "delivery": "tense",
+      "narrative_jump": false
+    },
+    {
+      "id": 414,
+      "narration": "He pounds the laundry bench and gives them five minutes to transfer, then turns on a worker behind the table.",
+      "clip_start": "01:27:14.000",
+      "clip_end": "01:27:28.667",
+      "note": "B58",
+      "delivery": "tense",
+      "narrative_jump": false
+    },
+    {
+      "id": 415,
+      "narration": "He prices it out: the first million was the fee, the second is for the beating. Pat's disbelief sets into a scowl.",
+      "clip_start": "01:27:43.417",
+      "clip_end": "01:28:02.708",
+      "note": "B58",
+      "delivery": "tense",
+      "narrative_jump": false
+    },
+    {
+      "id": 416,
+      "narration": "Pat sends back a transfer slip - everything in the account now, the rest when the answers come. Bangkok pays.",
+      "clip_start": "01:28:02.708",
+      "clip_end": "01:28:16.792",
+      "note": "B58",
+      "delivery": "normal",
+      "narrative_jump": false
+    },
+    {
+      "id": 417,
+      "narration": "Barcodes map onto answers, 1A to 5C. A hand hits the button and the press starts.",
+      "clip_start": "01:28:33.792",
+      "clip_end": "01:28:42.333",
+      "note": "B59",
+      "delivery": "normal",
+      "narrative_jump": true
+    },
+    {
+      "id": 418,
+      "narration": "Black pencils heap onto the steel bed, barcode strip peeled off. The mark on the pencil is the answer, printed while the exam runs.",
+      "clip_start": "01:28:42.333",
+      "clip_end": "01:28:56.583",
+      "note": "B59",
+      "delivery": "normal",
+      "narrative_jump": false
+    },
+    {
+      "id": 419,
+      "narration": "Section 3, grid-in: sixteen questions, twenty minutes. She works the algebra and prints digits into the boxes.",
+      "clip_start": "01:29:49.917",
+      "clip_end": "01:29:58.750",
+      "note": "B56",
+      "delivery": "normal",
+      "narrative_jump": true
+    },
+    {
+      "id": 420,
+      "narration": "In a locked cubicle Bank peels the phone out of a sanitary-pad wrapper and types BCADB, DCDAC, BDABC. Outside, Lynn listens.",
+      "clip_start": "01:30:39.833",
+      "clip_end": "01:30:54.417",
+      "note": "B60",
+      "delivery": "tense",
+      "narrative_jump": true
+    },
+    {
+      "id": 421,
+      "narration": "Two men in suits come in; someone has reported how long he has been gone. His head snaps up, then back to the values.",
+      "clip_start": "01:31:06.458",
+      "clip_end": "01:31:24.917",
+      "note": "B60",
+      "delivery": "tense",
+      "narrative_jump": false
+    },
+    {
+      "id": 422,
+      "narration": "The phone goes into the bowl and the flush carries it away. Outside, a proctor tilts his face up at the door.",
+      "clip_start": "01:32:11.542",
+      "clip_end": "01:32:28.000",
+      "note": "B61",
+      "delivery": "tense",
+      "narrative_jump": false
+    },
+    {
+      "id": 423,
+      "narration": "In the corridor a grey-haired man jabs a finger at Bank, then grabs a fistful of his jacket. Lynn watches from the doorway.",
+      "clip_start": "01:33:12.333",
+      "clip_end": "01:33:25.000",
+      "note": "B62",
+      "delivery": "tense",
+      "narrative_jump": true
+    },
+    {
+      "id": 424,
+      "narration": "Her face crumples and holds. Then she turns and walks back down the hall, because the exam is still running without him.",
+      "clip_start": "01:33:25.000",
+      "clip_end": "01:33:38.583",
+      "note": "B62",
+      "delivery": "sad",
+      "narrative_jump": false
+    },
+    {
+      "id": 425,
+      "narration": "At the water cooler a hand dips into her boot, tears a wrapper, lifts the cup. She walks off, hands behind her back.",
+      "clip_start": "01:33:46.833",
+      "clip_end": "01:34:10.667",
+      "note": "B63",
+      "delivery": "mystery",
+      "narrative_jump": false
+    },
+    {
+      "id": 426,
+      "narration": "Section 4: thirty questions, thirty-five minutes. The pencil reaches thirty, and there is nothing left to carry it out on.",
+      "clip_start": "01:34:50.792",
+      "clip_end": "01:35:01.625",
+      "note": "B64",
+      "delivery": "tense",
+      "narrative_jump": true
+    },
+    {
+      "id": 427,
+      "narration": "So she shuts her eyes, and the rows on her paper - A A D, C D B, B C A - become the piano she learned on.",
+      "clip_start": "01:35:40.708",
+      "clip_end": "01:35:56.625",
+      "note": "B65",
+      "delivery": "reveal",
+      "narrative_jump": false
+    },
+    {
+      "id": 428,
+      "narration": "The clock behind her reads 10:42. The code she built to sell answers is now the only place she can keep them.",
+      "clip_start": "01:35:56.625",
+      "clip_end": "01:36:19.500",
+      "note": "B65",
+      "delivery": "sad",
+      "narrative_jump": false
+    }
+  ]
+}

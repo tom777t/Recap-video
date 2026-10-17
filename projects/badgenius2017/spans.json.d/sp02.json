@@ -1,0 +1,68 @@
+{
+  "span": "sp02",
+  "moments": [
+    {
+      "shots": [0, 1, 2, 3],
+      "clip_start": "01:01:31.458",
+      "clip_end": "01:01:51.750",
+      "depicts": ["establishing", "setup"],
+      "chars": [],
+      "action": "A barcode fills a projection screen; the frame widens to a girl in school uniform presenting it on a dark auditorium stage. The slide then tags two bars 'A' and 'B', and the seated students watch, grinning.",
+      "censor": "none"
+    },
+    {
+      "shots": [4, 5],
+      "clip_start": "01:01:51.750",
+      "clip_end": "01:02:03.958",
+      "depicts": ["action", "setup"],
+      "chars": ["Pat"],
+      "action": "Pat takes the spotlight in front of a slide of a giant 2B pencil carrying the same barcode, turning a real pencil in his fingers; the cut then drops him entirely and leaves only the pencil on screen.",
+      "censor": "none"
+    },
+    {
+      "shots": [6, 7, 8, 9],
+      "clip_start": "01:02:03.958",
+      "clip_end": "01:02:19.792",
+      "depicts": ["montage", "setup"],
+      "chars": ["Lynn"],
+      "action": "Cutaways out of the hall: Lynn reads an exam booklet aloud among printing presses, a laughing boy and girl plant coloured flag pins across a map beside an STIC box, then Lynn turns away from the booklet.",
+      "censor": "none"
+    },
+    {
+      "shots": [10, 11, 12],
+      "clip_start": "01:02:19.792",
+      "clip_end": "01:02:38.458",
+      "depicts": ["dialogue", "setup"],
+      "chars": ["Pat"],
+      "action": "Back on stage Pat speaks in half-light; a wide shows the uniformed girl at the lectern under the pencil slide, then Pat swings round to the crowd mid-shout, the pitch turning into a performance.",
+      "censor": "none"
+    },
+    {
+      "shots": [13, 14],
+      "clip_start": "01:02:38.458",
+      "clip_end": "01:02:54.542",
+      "depicts": ["action", "emotion"],
+      "chars": ["Pat"],
+      "action": "Pat works the edge of the blank screen with his shadow thrown huge across it, arms open to the room, then the camera tightens to a dark profile as he lowers the pencil and quiets down.",
+      "censor": "none"
+    },
+    {
+      "shots": [15],
+      "clip_start": "01:02:54.542",
+      "clip_end": "01:03:00.667",
+      "depicts": ["transition", "emotion"],
+      "chars": ["Bank"],
+      "action": "Cut away to a laundry: Bank, framed through a doorway with an armful of white sheets, stops and looks off to one side, alone and nowhere near the auditorium.",
+      "censor": "none"
+    },
+    {
+      "shots": [16, 17, 18, 19, 20],
+      "clip_start": "01:03:00.667",
+      "clip_end": "01:03:18.167",
+      "depicts": ["reaction", "action"],
+      "chars": [],
+      "action": "The hall erupts: students shoot up from their chairs clapping and whooping. A boy stands arms-folded in the spotlight, then breaks into a mock dance as the cheering spills across the rows behind him.",
+      "censor": "none"
+    }
+  ]
+}

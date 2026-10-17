@@ -1,0 +1,69 @@
+{
+  "span": "a38",
+  "moments": [
+    {
+      "shots": [0, 1, 2, 3],
+      "clip_start": "00:56:59.750",
+      "clip_end": "00:57:17.250",
+      "depicts": ["dialogue", "setup"],
+      "chars": ["Lynn", "Grace", "Pat"],
+      "action": "Lynn stands in profile at a bright barred window, talking. Cut to Grace and Pat at a table covered with a world map, looking up at her; by the last shot Pat has clapped a hand over his mouth.",
+      "censor": "none"
+    },
+    {
+      "shots": [4, 5, 6],
+      "clip_start": "00:57:17.250",
+      "clip_end": "00:57:38.917",
+      "depicts": ["dialogue", "setup"],
+      "chars": ["Lynn", "Grace", "Pat"],
+      "action": "Lynn keeps talking at the window while Pat drops his hand and sits thinking, chin propped. In the last shot Lynn has crossed the room and stands over the table, looking down at them.",
+      "censor": "none"
+    },
+    {
+      "shots": [7, 8, 9],
+      "clip_start": "00:57:38.917",
+      "clip_end": "00:57:46.792",
+      "depicts": ["transition", "setup"],
+      "chars": ["Bank"],
+      "action": "Night. Bank rides his laundry scooter down a wet street, shot from behind with cars sliding past, then the camera flips to face him head-on with his headlight burning into the lens.",
+      "censor": "none"
+    },
+    {
+      "shots": [10],
+      "clip_start": "00:57:46.792",
+      "clip_end": "00:58:06.292",
+      "depicts": ["action", "setup"],
+      "chars": ["Bank"],
+      "action": "One long take at a green gate: Bank parks, unties the bungee cords and works the big laundry basket loose from the bike, ending hunched over it alone in the dark.",
+      "censor": "none"
+    },
+    {
+      "shots": [11, 12, 13],
+      "clip_start": "00:58:06.292",
+      "clip_end": "00:58:16.333",
+      "depicts": ["action", "reveal"],
+      "chars": ["Bank"],
+      "action": "A windscreen POV from a parked car watches Bank carry the basket; a figure sits in the driver's seat as the door is opened. Bank stops and turns to stare straight back at the car.",
+      "censor": "none"
+    },
+    {
+      "shots": [14],
+      "clip_start": "00:58:16.333",
+      "clip_end": "00:58:28.417",
+      "depicts": ["action"],
+      "chars": ["Bank"],
+      "action": "Black-and-white CCTV, timecode running 19:53:21 to 19:53:26: men stand around Bank at the gate, then rush him and drag him down beside the pickup truck.",
+      "censor": "none"
+    },
+    {
+      "shots": [15, 16, 17],
+      "clip_start": "00:58:28.417",
+      "clip_end": "00:58:46.792",
+      "depicts": ["aftermath", "reveal"],
+      "chars": ["Bank"],
+      "action": "Extreme close-up of Bank's face, one eye swollen shut and bloodied. The camera pulls back to show him lying in rubbish, then a wide shot of him sprawled alone on a vast landfill.",
+      "censor": "blur_heavy",
+      "censor_note": "blood and a swollen, split eye wound fill the frame in the close-up and remain prominent in the following shot"
+    }
+  ]
+}

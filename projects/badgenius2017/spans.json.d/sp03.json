@@ -1,0 +1,59 @@
+{
+  "span": "sp03",
+  "moments": [
+    {
+      "shots": [0, 1, 2, 3, 4],
+      "clip_start": "01:03:00.667",
+      "clip_end": "01:03:18.167",
+      "depicts": ["action", "reaction"],
+      "chars": [],
+      "action": "In a darkened school hall, students in uniform clap and cheer while a boy dances alone in a spotlight on stage; by the last shots the crowd is out of their seats, one boy flailing into the aisle.",
+      "censor": "none"
+    },
+    {
+      "shots": [5],
+      "clip_start": "01:03:18.167",
+      "clip_end": "01:03:28.292",
+      "depicts": ["reaction", "aftermath"],
+      "chars": ["Bank"],
+      "action": "Hard cut out of the hall to a dim back room: a held close-up on Bank, a dark bruise under his eye, staring off while a hand passes through the foreground.",
+      "censor": "none"
+    },
+    {
+      "shots": [6],
+      "clip_start": "01:03:28.292",
+      "clip_end": "01:03:35.500",
+      "depicts": ["establishing"],
+      "chars": ["Lynn"],
+      "action": "Daylight on the laundry's open wooden door and its posted price list; Lynn walks in off the bright street and disappears inside.",
+      "censor": "none"
+    },
+    {
+      "shots": [7],
+      "clip_start": "01:03:35.500",
+      "clip_end": "01:04:09.042",
+      "depicts": ["dialogue", "setup"],
+      "chars": ["Lynn", "Bank"],
+      "action": "A long take shot through the hanging clothes racks: Lynn stands alone in the shop with her back to camera, then Bank comes out to the counter and stops opposite her.",
+      "censor": "none"
+    },
+    {
+      "shots": [8, 9, 10, 11],
+      "clip_start": "01:04:09.042",
+      "clip_end": "01:04:38.875",
+      "depicts": ["dialogue"],
+      "chars": ["Lynn", "Bank"],
+      "action": "Lynn and Bank talk in matched singles across the shop, she in front of the shelves of wrapped laundry, he by the irons and the wall calendar. Neither crosses to the other.",
+      "censor": "none"
+    },
+    {
+      "shots": [12, 13],
+      "clip_start": "01:04:38.875",
+      "clip_end": "01:04:52.625",
+      "depicts": ["dialogue", "emotion"],
+      "chars": ["Lynn", "Bank"],
+      "action": "Lynn presses her case, mouth working as she argues; the cut goes tighter on Bank, who stays still and looks off past her instead of answering.",
+      "censor": "none"
+    }
+  ]
+}

@@ -1,0 +1,86 @@
+{
+  "span": "sp29",
+  "moments": [
+    {
+      "shots": [0, 1, 2, 3, 4],
+      "clip_start": "01:42:00.167",
+      "clip_end": "01:42:12.875",
+      "depicts": ["action", "setup"],
+      "chars": ["Lynn"],
+      "action": "Lynn pushes out through the station fare gates, phone in hand, and heads away down a tunnel corridor; brief cuts to a phone waiting on a glass table and a blurred pass of two figures elsewhere.",
+      "censor": "none"
+    },
+    {
+      "shots": [5, 6, 7, 8, 9, 10, 11],
+      "clip_start": "01:42:12.875",
+      "clip_end": "01:42:26.917",
+      "depicts": ["action", "setup"],
+      "chars": ["Lynn"],
+      "action": "A man in a dark suit scans the concourse. Lynn looks back over her shoulder, then twists her hair up into a knot as she keeps walking; by the end the suited man has pushed past, still searching.",
+      "censor": "none"
+    },
+    {
+      "shots": [12, 13, 14, 15, 16, 17, 18],
+      "clip_start": "01:42:26.917",
+      "clip_end": "01:42:40.042",
+      "depicts": ["action", "montage"],
+      "chars": ["Lynn"],
+      "action": "Hair down, Lynn walks on thumbing a coded 'speech transcript' message into her phone; the alert then lands on a phone lying on cardboard, and a tearful woman faces a man in glasses in a print room.",
+      "censor": "none"
+    },
+    {
+      "shots": [19, 20, 21, 22, 23, 24],
+      "clip_start": "01:42:40.042",
+      "clip_end": "01:42:48.208",
+      "depicts": ["action", "montage"],
+      "chars": ["Lynn"],
+      "action": "Lynn whips round and keeps typing as she passes the Way Out signs; intercut, the woman in the blue uniform and the man in glasses go on talking until a second alert lights the phone on the cardboard.",
+      "censor": "none"
+    },
+    {
+      "shots": [25, 26, 27, 28, 29, 30],
+      "clip_start": "01:42:48.208",
+      "clip_end": "01:42:57.583",
+      "depicts": ["reaction", "emotion"],
+      "chars": [],
+      "action": "In the print room the man in glasses drops his eyes while the woman in the blue uniform breaks down crying; it ends on a wide of her and a young man in a brown striped shirt staring, stunned.",
+      "censor": "none"
+    },
+    {
+      "shots": [31, 32, 33, 34, 35],
+      "clip_start": "01:42:57.583",
+      "clip_end": "01:43:07.292",
+      "depicts": ["action", "montage"],
+      "chars": ["Lynn"],
+      "action": "Lynn taps another block of numbers into the group chat and keeps moving through the crowded concourse, head down over the screen; the cut returns to the couple still frozen in the print room.",
+      "censor": "none"
+    },
+    {
+      "shots": [36, 37, 38, 39, 40],
+      "clip_start": "01:43:07.292",
+      "clip_end": "01:43:27.000",
+      "depicts": ["dialogue", "reveal"],
+      "chars": [],
+      "action": "Print room: the young man in the brown shirt presses the man in the cream polo, who answers quietly, then stands and walks back among the presses while the couple watch him go.",
+      "censor": "none"
+    },
+    {
+      "shots": [41, 42, 43, 44, 45],
+      "clip_start": "01:43:27.000",
+      "clip_end": "01:43:40.000",
+      "depicts": ["action", "emotion"],
+      "chars": ["Lynn"],
+      "action": "Lynn drops to her knees on the station floor beside her phone, then hunches over it wide-eyed and hammers out another set of answers; by the last shot she is typing two-handed as commuters stream past.",
+      "censor": "none"
+    },
+    {
+      "shots": [46, 47, 48, 49, 50],
+      "clip_start": "01:43:40.000",
+      "clip_end": "01:43:50.042",
+      "depicts": ["action", "reaction"],
+      "chars": [],
+      "action": "At the glass table a laptop and two phones sit idle until a pair of hands slams down on it; in the print room the man in the cream polo walks off between the presses as the young man stares, then leans in.",
+      "censor": "none"
+    }
+  ]
+}

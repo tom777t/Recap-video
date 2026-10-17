@@ -1,0 +1,59 @@
+{
+  "span": "a17",
+  "moments": [
+    {
+      "shots": [0, 1, 2, 3],
+      "clip_start": "00:25:25.542",
+      "clip_end": "00:25:51.500",
+      "depicts": ["dialogue", "emotion"],
+      "chars": ["Lynn", "Bank"],
+      "action": "Lynn stands against a wood-panelled wall facing Bank. She holds his eye at first, then drops her gaze and shuts her eyes, while he keeps staring at her from the dark side of the room.",
+      "censor": "none"
+    },
+    {
+      "shots": [4, 5, 6],
+      "clip_start": "00:25:51.500",
+      "clip_end": "00:26:04.000",
+      "depicts": ["dialogue", "setup"],
+      "chars": ["Lynn", "Bank"],
+      "action": "Lynn argues her case, lit warm against the panelling; Bank listens in silhouette by the studio lamp. She goes from guarded to insistent and is still talking when he looks away without answering.",
+      "censor": "none"
+    },
+    {
+      "shots": [7, 8, 9, 10],
+      "clip_start": "00:26:04.000",
+      "clip_end": "00:26:24.583",
+      "depicts": ["action", "setup"],
+      "chars": ["Lynn", "Bank"],
+      "action": "A wide catches Lynn laying a hand on Bank in the lit set doorway; back in close-up she holds out a fist. He stares at it, then raises his own and bumps it - the pact is made.",
+      "censor": "none"
+    },
+    {
+      "shots": [11, 12, 13, 14],
+      "clip_start": "00:26:24.583",
+      "clip_end": "00:26:44.500",
+      "depicts": ["reaction", "emotion"],
+      "chars": ["Lynn", "Bank"],
+      "action": "The bump over, neither will look at the other. Lynn turns to profile, Bank's eyes drift off, and the last shots leave her ponytail to the camera and him staring into the dark.",
+      "censor": "none"
+    },
+    {
+      "shots": [15, 16],
+      "clip_start": "00:26:44.500",
+      "clip_end": "00:26:56.750",
+      "depicts": ["establishing", "setup"],
+      "chars": ["Lynn", "Bank"],
+      "action": "Cut to the bright blue Teen Genius studio: Lynn and Bank sit side by side at the contestant desk with mics, then the suited host steps into frame in front of the logo to open the show.",
+      "censor": "none"
+    },
+    {
+      "shots": [17, 18, 19, 20],
+      "clip_start": "00:26:56.750",
+      "clip_end": "00:27:21.500",
+      "depicts": ["dialogue", "setup"],
+      "chars": ["Lynn", "Bank"],
+      "action": "In a sunlit office the bobbed woman in the white blouse perches on the desk with a tablet, smiling at a student. Lynn and Bank stand stiffly in the doorway; by the end she is talking at them and neither has moved.",
+      "censor": "none"
+    }
+  ]
+}

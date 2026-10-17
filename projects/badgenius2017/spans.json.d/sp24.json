@@ -1,0 +1,86 @@
+{
+  "span": "sp24",
+  "moments": [
+    {
+      "shots": [0, 1, 2, 3],
+      "clip_start": "01:34:30.292",
+      "clip_end": "01:34:41.292",
+      "depicts": ["action", "setup"],
+      "chars": ["Lynn"],
+      "action": "Lynn hunches over her desk in the exam hall, pencil scratching answer letters into the margin of her sheet. The opening hand insert widens to the whole hall, then closes back on her sweating face.",
+      "censor": "none"
+    },
+    {
+      "shots": [4, 5, 6, 7],
+      "clip_start": "01:34:41.292",
+      "clip_end": "01:34:50.792",
+      "depicts": ["action", "emotion"],
+      "chars": ["Lynn"],
+      "action": "The pencilled code grows from one row of letters to two. Between inserts Lynn's face tightens, and by the last shot her eyes are screwed shut and a hand is raised beside her head.",
+      "censor": "none"
+    },
+    {
+      "shots": [8, 9, 10, 11, 12],
+      "clip_start": "01:34:50.792",
+      "clip_end": "01:35:01.625",
+      "depicts": ["action", "setup"],
+      "chars": [],
+      "action": "The Section 4 maths booklet opens: 30 questions, 35 minutes. The pencil skims a question, fills bubble 8, moves to another, and by the last insert it is darkening number 30.",
+      "censor": "none"
+    },
+    {
+      "shots": [13, 14, 15],
+      "clip_start": "01:35:01.625",
+      "clip_end": "01:35:13.250",
+      "depicts": ["reaction", "emotion"],
+      "chars": ["Lynn"],
+      "action": "Lynn's face runs with sweat as she finishes. An overhead shows the Section 4 grid fully bubbled with letter rows and figures written beneath it, then she lifts her head and stares up off-camera.",
+      "censor": "none"
+    },
+    {
+      "shots": [16, 17, 18, 19],
+      "clip_start": "01:35:13.250",
+      "clip_end": "01:35:20.083",
+      "depicts": ["action"],
+      "chars": [],
+      "action": "A hand works across an answer sheet, a sweating face bears down on it, then fingers flatten over the pencilled letter rows to hide them as black boots pass along the carpet between desks.",
+      "censor": "none"
+    },
+    {
+      "shots": [20, 21, 22, 23],
+      "clip_start": "01:35:20.083",
+      "clip_end": "01:35:40.708",
+      "depicts": ["reaction", "emotion"],
+      "chars": ["Lynn"],
+      "action": "Lynn sits with eyes shut and mouth open, a palm spread over her written code. She drops her head, then twists round in her seat, arm braced on the chair back, to look behind her.",
+      "censor": "none"
+    },
+    {
+      "shots": [24, 25, 26, 27, 28, 29, 30, 31, 32, 33],
+      "clip_start": "01:35:40.708",
+      "clip_end": "01:35:56.625",
+      "depicts": ["montage", "reveal"],
+      "chars": ["Lynn"],
+      "action": "Montage: an empty rehearsal-room piano cuts against Lynn's closed eyes and macro shots of her pencilled letters - A A D, C D B, B C A, B D A - each answered by a tighter angle on the keyboard.",
+      "censor": "none"
+    },
+    {
+      "shots": [34],
+      "clip_start": "01:35:56.625",
+      "clip_end": "01:36:04.208",
+      "depicts": ["reaction", "emotion"],
+      "chars": ["Lynn"],
+      "action": "Held wide of the hall: Lynn sits upright at her desk with her eyes closed and her hands still on the papers, no longer writing, while every other candidate around her keeps working.",
+      "censor": "none"
+    },
+    {
+      "shots": [35],
+      "clip_start": "01:36:04.208",
+      "clip_end": "01:36:19.500",
+      "depicts": ["action", "reveal"],
+      "chars": ["Lynn"],
+      "action": "From the back of the hall the wall clock reads 10:42:11 as Lynn leaves her desk and walks down the centre aisle past the seated candidates, ending standing at the upright piano at the front.",
+      "censor": "none"
+    }
+  ]
+}

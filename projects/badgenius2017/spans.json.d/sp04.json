@@ -1,0 +1,68 @@
+{
+  "span": "sp04",
+  "moments": [
+    {
+      "shots": [0, 1],
+      "clip_start": "01:04:30.000",
+      "clip_end": "01:04:47.333",
+      "depicts": ["establishing", "setup"],
+      "chars": ["Lynn", "Bank"],
+      "action": "Bank stands at the ironing table in his family's laundry and looks up, startled, mid-sentence. Lynn comes in past the shelves of wrapped laundry, talking, until she is standing in his workroom.",
+      "censor": "none"
+    },
+    {
+      "shots": [2, 3],
+      "clip_start": "01:04:47.333",
+      "clip_end": "01:04:58.458",
+      "depicts": ["dialogue", "setup"],
+      "chars": ["Lynn", "Bank"],
+      "action": "Bank faces her across the shop, guarded; Lynn answers from by the window. She stops moving and drops her eyes, so the two of them are left standing still on opposite sides of the room.",
+      "censor": "none"
+    },
+    {
+      "shots": [4, 5, 6],
+      "clip_start": "01:04:58.458",
+      "clip_end": "01:05:15.250",
+      "depicts": ["dialogue"],
+      "chars": ["Lynn", "Bank"],
+      "action": "The coverage tightens to over-the-shoulder singles. Bank listens with his eyes down, Lynn presses her case, and by the last shot he has lifted his head and is looking straight back at her.",
+      "censor": "none"
+    },
+    {
+      "shots": [7, 8, 9],
+      "clip_start": "01:05:15.250",
+      "clip_end": "01:05:33.750",
+      "depicts": ["dialogue", "setup"],
+      "chars": ["Lynn", "Bank"],
+      "action": "Lynn holds a long beat with her eyes lowered while Bank stares up at her, giving nothing. The talk ends in an insert: her hand slides a small card across an open ledger beside a calculator, to his hand on the pen.",
+      "censor": "none"
+    },
+    {
+      "shots": [10, 11, 12],
+      "clip_start": "01:05:33.750",
+      "clip_end": "01:05:51.083",
+      "depicts": ["dialogue", "setup"],
+      "chars": ["Lynn", "Bank"],
+      "action": "Lynn waits, Bank looks off past her, still not answering. Then his hand comes down on the ledger and picks the card up - the refusal has turned into him taking it.",
+      "censor": "none"
+    },
+    {
+      "shots": [13, 14, 15, 16],
+      "clip_start": "01:05:51.083",
+      "clip_end": "01:06:06.292",
+      "depicts": ["transition", "establishing"],
+      "chars": ["Lynn"],
+      "action": "Cut outside to the carved sign of a printing house, then a hand throwing breakers in a dark fuse panel. Lynn walks onto the shop floor as the lights come up, and a silhouette moves ahead of her into the dark.",
+      "censor": "none"
+    },
+    {
+      "shots": [17, 18, 19, 20],
+      "clip_start": "01:06:06.292",
+      "clip_end": "01:06:20.375",
+      "depicts": ["establishing", "setup"],
+      "chars": ["Lynn", "Grace", "Pat"],
+      "action": "Lynn scans the dim press floor; a young man walks up to her out of the shadows under a fluorescent tube. The lights reach full and she is almost smiling, Grace and Pat behind her, under a ceiling stencilled SAFETY FIRST.",
+      "censor": "none"
+    }
+  ]
+}

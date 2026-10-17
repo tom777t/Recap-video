@@ -1,0 +1,59 @@
+{
+  "span": "sp10",
+  "moments": [
+    {
+      "shots": [0, 1],
+      "clip_start": "01:13:20.583",
+      "clip_end": "01:13:56.792",
+      "depicts": ["action", "setup"],
+      "chars": ["M", "Mengju Amah Saejiu"],
+      "action": "In the back kitchen M squats on the tiles by the kettle while Amah sits beside him, neither looking at the other. By the last shot she is out of frame and M gets up and walks through to the dining room.",
+      "censor": "none"
+    },
+    {
+      "shots": [2],
+      "clip_start": "01:13:56.792",
+      "clip_end": "01:14:23.917",
+      "depicts": ["dialogue", "setup"],
+      "chars": ["Mengju Amah Saejiu"],
+      "action": "Amah comes to the locked green folding gate where a man in a maroon shirt waits outside. She reaches the latch but never opens it, ending the shot standing face to face with him through the bars.",
+      "censor": "none"
+    },
+    {
+      "shots": [3, 4],
+      "clip_start": "01:14:23.917",
+      "clip_end": "01:14:39.625",
+      "depicts": ["reaction", "reveal"],
+      "chars": ["Mengju Amah Saejiu"],
+      "action": "The man holds his phone up through the bars for Amah to see. The camera cuts past her to her face in close-up, and what is on the screen breaks her composure into tears.",
+      "censor": "none"
+    },
+    {
+      "shots": [5],
+      "clip_start": "01:14:39.625",
+      "clip_end": "01:14:51.750",
+      "depicts": ["reaction", "emotion"],
+      "chars": ["Mengju Amah Saejiu"],
+      "action": "Alone indoors among the shop shelves, Amah sits gripping the handle of her cane and stares off past the camera. The crying has stopped and her face hardens as the held shot runs out.",
+      "censor": "none"
+    },
+    {
+      "shots": [6, 7],
+      "clip_start": "01:14:51.750",
+      "clip_end": "01:15:17.292",
+      "depicts": ["action", "emotion"],
+      "chars": ["M", "Mengju Amah Saejiu"],
+      "action": "M appears in the back doorway holding a red envelope and crosses the room to offer it to Amah. She stays seated on her cane, and the closing close-up leaves her turned away, not taking it.",
+      "censor": "none"
+    },
+    {
+      "shots": [8],
+      "clip_start": "01:15:17.292",
+      "clip_end": "01:15:25.542",
+      "depicts": ["action", "aftermath"],
+      "chars": ["M", "Mengju Amah Saejiu"],
+      "action": "Framed through a doorway, M eats alone at the dining table while Amah sits apart in her rattan chair with her back to him, the two of them sharing the room without contact.",
+      "censor": "none"
+    }
+  ]
+}

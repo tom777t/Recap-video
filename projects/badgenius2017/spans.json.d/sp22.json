@@ -1,0 +1,86 @@
+{
+  "span": "sp22",
+  "moments": [
+    {
+      "shots": [0, 1, 2, 3],
+      "clip_start": "01:31:30.542",
+      "clip_end": "01:31:42.125",
+      "depicts": ["action", "setup"],
+      "chars": ["Bank"],
+      "action": "Hunched in a toilet stall, Bank stares at his phone and thumbs open the chat thread to delete it; outside, two suited proctors stop at the stall doors, and he lifts his head toward the voices.",
+      "censor": "none"
+    },
+    {
+      "shots": [4, 5, 6, 7, 8],
+      "clip_start": "01:31:42.125",
+      "clip_end": "01:31:55.000",
+      "depicts": ["action", "discovery"],
+      "chars": ["Bank"],
+      "action": "The bagged tablet sits on Bank's knees, then lies on the stall floor by his sneakers; a proctor's dress shoes stop beside it, both men look down, and Bank is left staring at the floor.",
+      "censor": "none"
+    },
+    {
+      "shots": [9],
+      "clip_start": "01:31:55.000",
+      "clip_end": "01:32:01.083",
+      "depicts": ["action", "setup"],
+      "chars": ["Lynn"],
+      "action": "Cut to the women's room: Lynn moves along the tiled wall in her argyle sweater, head down and hands at her chest, a figure reflected in the far mirror behind her.",
+      "censor": "none"
+    },
+    {
+      "shots": [10, 11, 12, 13, 14, 15],
+      "clip_start": "01:32:01.083",
+      "clip_end": "01:32:11.542",
+      "depicts": ["action"],
+      "chars": ["Bank"],
+      "action": "Bank hauls the toilet lid up with both hands; an insert shows his stall latch thrown shut. He ends bowed over the open bowl, hands braced on the seat, still not letting go.",
+      "censor": "none"
+    },
+    {
+      "shots": [16, 17, 18, 19, 20, 21],
+      "clip_start": "01:32:11.542",
+      "clip_end": "01:32:28.000",
+      "depicts": ["action", "aftermath"],
+      "chars": ["Bank"],
+      "action": "The phone drops into the bowl, his hand hits the flush, and it spirals away under the water. His head snaps up, and outside the suited proctor tilts his face up at the stall door.",
+      "censor": "none"
+    },
+    {
+      "shots": [22, 23, 24],
+      "clip_start": "01:32:28.000",
+      "clip_end": "01:32:36.417",
+      "depicts": ["action", "reaction"],
+      "chars": ["Lynn"],
+      "action": "Overhead, Lynn crouches at the cistern of her stall, then sits with the bagged tablet on her lap; her hands go still and she jerks her face up, mouth open, at a sound outside.",
+      "censor": "none"
+    },
+    {
+      "shots": [25, 26, 27, 28],
+      "clip_start": "01:32:36.417",
+      "clip_end": "01:32:54.958",
+      "depicts": ["action"],
+      "chars": ["Lynn"],
+      "action": "The woman proctor walks the row of stall doors, talking. Inside, Lynn looks up, then plants a bare foot on the cistern and climbs out of sight while the proctor keeps scanning the doors.",
+      "censor": "none"
+    },
+    {
+      "shots": [29, 30],
+      "clip_start": "01:32:54.958",
+      "clip_end": "01:33:06.167",
+      "depicts": ["action", "aftermath"],
+      "chars": ["Lynn"],
+      "action": "Lynn is out at the sinks with her head down, the proctor standing at the stall row behind her in the mirror; the moment closes on an insert of her black boots planted on the tiles.",
+      "censor": "none"
+    },
+    {
+      "shots": [31, 32, 33, 34],
+      "clip_start": "01:33:06.167",
+      "clip_end": "01:33:25.000",
+      "depicts": ["dialogue", "action"],
+      "chars": ["Lynn", "Bank"],
+      "action": "Lynn shouts from a doorway; in the corridor the suited proctor jabs a finger at Bank, and by the last shot he has taken hold of Bank's jacket to search him as Lynn watches from behind.",
+      "censor": "none"
+    }
+  ]
+}

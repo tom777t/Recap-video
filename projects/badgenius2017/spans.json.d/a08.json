@@ -1,0 +1,86 @@
+{
+  "span": "a08",
+  "moments": [
+    {
+      "shots": [0, 1, 2, 3, 4],
+      "clip_start": "00:11:59.500",
+      "clip_end": "00:12:09.708",
+      "depicts": ["action", "setup"],
+      "chars": ["Lynn"],
+      "action": "Under the exam desks a socked foot eases out of a black school shoe; Lynn's face is sweating and set, and by the last shot her eyes are screwed shut with effort while the proctor sits unaware at the front.",
+      "censor": "none"
+    },
+    {
+      "shots": [5, 6, 7, 8, 9],
+      "clip_start": "00:12:09.708",
+      "clip_end": "00:12:19.000",
+      "depicts": ["action", "setup"],
+      "chars": ["Lynn", "Grace"],
+      "action": "The bare foot shoves the shoe clear and withdraws, leaving it standing alone on the tiles. Grace half-smiles over her shoulder; the proctor leans forward on his desk, and Lynn keeps writing with Grace in front of her.",
+      "censor": "none"
+    },
+    {
+      "shots": [10, 11, 12, 13, 14, 15],
+      "clip_start": "00:12:19.000",
+      "clip_end": "00:12:33.500",
+      "depicts": ["action"],
+      "chars": ["Grace"],
+      "action": "Fast low-angle cuts of the proctor's black shoes stepping between the desk legs, closing in; the run ends with him passing right behind Grace, who keeps her head down over her paper.",
+      "censor": "none"
+    },
+    {
+      "shots": [16, 17],
+      "clip_start": "00:12:33.500",
+      "clip_end": "00:12:41.708",
+      "depicts": ["establishing", "reaction"],
+      "chars": ["Lynn", "Grace"],
+      "action": "Wide on the full exam room with the proctor at the edge of frame; then in close, Grace keeps her eyes down while Lynn, behind her, glances sideways at her.",
+      "censor": "none"
+    },
+    {
+      "shots": [18, 19, 20, 21],
+      "clip_start": "00:12:41.708",
+      "clip_end": "00:12:54.208",
+      "depicts": ["action"],
+      "chars": [],
+      "action": "Close on the pair of shoes tucked under a desk beside socked feet; one is kicked out and skids blurred across the tiles, ending upright and alone on open floor between the rows.",
+      "censor": "none"
+    },
+    {
+      "shots": [22, 23, 24],
+      "clip_start": "00:12:54.208",
+      "clip_end": "00:13:08.250",
+      "depicts": ["dialogue", "reaction"],
+      "chars": ["Lynn", "Grace"],
+      "action": "Lynn leans in and whispers to Grace at the next desk; cut to the shoe stranded in the open aisle near other students' feet, then back to Lynn staring wide-eyed while Grace faces front.",
+      "censor": "none"
+    },
+    {
+      "shots": [25, 26, 27],
+      "clip_start": "00:13:08.250",
+      "clip_end": "00:13:21.333",
+      "depicts": ["action", "setup"],
+      "chars": ["Lynn", "Grace"],
+      "action": "Insert of hands turning the question sheet over the bubbled answer card; Grace lowers her head while Lynn watches, and the shot ends on the shoe sitting out in the aisle in full view of the proctor's desk.",
+      "censor": "none"
+    },
+    {
+      "shots": [28, 29],
+      "clip_start": "00:13:21.333",
+      "clip_end": "00:13:34.208",
+      "depicts": ["action"],
+      "chars": ["Grace"],
+      "action": "Grace stands at her desk, expressionless, then walks the length of the room to the proctor's table at the whiteboard, leaving her seat empty behind her.",
+      "censor": "none"
+    },
+    {
+      "shots": [30, 31, 32, 33],
+      "clip_start": "00:13:34.208",
+      "clip_end": "00:13:46.625",
+      "depicts": ["action", "reveal"],
+      "chars": ["Lynn"],
+      "action": "Back under the desks on the recovered shoe; Lynn leans out over her desk, a hand digs inside the shoe, and the last shot is an extreme close-up of an eraser covered in handwritten Thai held over an answer sheet.",
+      "censor": "none"
+    }
+  ]
+}

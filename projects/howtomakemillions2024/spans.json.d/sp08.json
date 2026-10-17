@@ -1,0 +1,50 @@
+{
+  "span": "sp08",
+  "moments": [
+    {
+      "shots": [0],
+      "clip_start": "01:10:19.292",
+      "clip_end": "01:10:56.958",
+      "depicts": ["action", "setup"],
+      "chars": ["M"],
+      "action": "In one long take M works in the cramped kitchen, talking as he leans past a tall glass jar of food; by the end of the take he has carried a finished plate of stir-fry up to the serving window.",
+      "censor": "none"
+    },
+    {
+      "shots": [1, 2],
+      "clip_start": "01:10:56.958",
+      "clip_end": "01:11:16.167",
+      "depicts": ["reaction", "dialogue"],
+      "chars": ["Amah Saejiu", "M"],
+      "action": "Over a shoulder, a phone plays footage of that same kitchen; the wide shot reveals Amah Saejiu seated beside M on the porch as he holds the screen up, and she leans in toward it.",
+      "censor": "none"
+    },
+    {
+      "shots": [3, 4],
+      "clip_start": "01:11:16.167",
+      "clip_end": "01:11:32.542",
+      "depicts": ["establishing", "transition"],
+      "chars": ["M"],
+      "action": "Cut to a weathered apartment block under a bright cloudy sky, then its dim ground-floor motorbike park, empty until M walks in from the right and crosses toward the stairs.",
+      "censor": "none"
+    },
+    {
+      "shots": [5],
+      "clip_start": "01:11:32.542",
+      "clip_end": "01:11:47.208",
+      "depicts": ["action", "setup"],
+      "chars": ["M"],
+      "action": "M stands with his back to camera at a door in the cluttered walkway, handling something at the frame; getting no answer, he turns around and walks back down the corridor toward the camera.",
+      "censor": "none"
+    },
+    {
+      "shots": [6],
+      "clip_start": "01:11:47.208",
+      "clip_end": "01:12:14.167",
+      "depicts": ["action", "emotion"],
+      "chars": ["Soei", "M"],
+      "action": "Soei sits slumped on the floor outside among a motorbike wheel and a laundry basket, staring off; across the long take he lowers his head and turns a cigarette in his fingers while M waits in the doorway behind.",
+      "censor": "none"
+    }
+  ]
+}

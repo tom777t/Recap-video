@@ -1,0 +1,50 @@
+{
+  "span": "c04",
+  "moments": [
+    {
+      "shots": [0, 1, 2],
+      "clip_start": "01:49:28.917",
+      "clip_end": "01:49:52.208",
+      "depicts": ["dialogue", "reaction", "setup"],
+      "chars": ["Lynn"],
+      "action": "Lynn sits waiting under the strip lights, looking up; a woman in a white blazer with a staff lanyard stands over her, talking. By the last shot Lynn's blank stare has hardened into a wary one.",
+      "censor": "none"
+    },
+    {
+      "shots": [3, 4, 5],
+      "clip_start": "01:49:52.208",
+      "clip_end": "01:50:14.500",
+      "depicts": ["establishing", "reaction", "emotion"],
+      "chars": ["Lynn"],
+      "action": "Wide on the library stacks: Lynn sits in a row of chairs beside another student. Insert of a phone opening a beach photo of a smiling girl and boy; back on Lynn, her eyes have dropped to the floor.",
+      "censor": "none"
+    },
+    {
+      "shots": [6, 7, 8],
+      "clip_start": "01:50:14.500",
+      "clip_end": "01:50:38.167",
+      "depicts": ["reaction", "discovery"],
+      "chars": ["Lynn", "Bank"],
+      "action": "Through a glass wall Lynn watches Bank sit alone at a bare table with his jacket and a snack. She lifts her eyes, then the shot drifts out of focus onto an empty door frame and blurred shelves.",
+      "censor": "none"
+    },
+    {
+      "shots": [9, 10, 11, 12, 13],
+      "clip_start": "01:50:38.167",
+      "clip_end": "01:51:05.875",
+      "depicts": ["dialogue", "reaction", "emotion"],
+      "chars": ["Lynn", "Bank"],
+      "action": "Bank answers questions in the white-walled room while Lynn stands at the glass watching. He stays level; she begins fixed on him and ends with her head lowered, turning away from the glass.",
+      "censor": "none"
+    },
+    {
+      "shots": [14, 15],
+      "clip_start": "01:51:05.875",
+      "clip_end": "01:51:20.833",
+      "depicts": ["reaction", "emotion"],
+      "chars": ["Lynn"],
+      "action": "Lynn stands in profile against the bright window, eyes wet and jaw clenched; the film cuts from her face to a phone filling the frame with the beach snapshot of the smiling girl and boy.",
+      "censor": "none"
+    }
+  ]
+}

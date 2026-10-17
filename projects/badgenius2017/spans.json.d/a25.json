@@ -1,0 +1,86 @@
+{
+  "span": "a25",
+  "moments": [
+    {
+      "shots": [0, 1, 2, 3, 4, 5, 6],
+      "clip_start": "00:37:29.583",
+      "clip_end": "00:37:40.083",
+      "depicts": ["establishing", "action"],
+      "chars": ["Lynn", "Grace"],
+      "action": "Close-ups of a pencil filling answer bubbles, then a wide of Lynn stretching at her desk in the half-empty hall; a whip-pan lands on Grace glancing round and ends on Lynn, arms behind her head, eyes shut.",
+      "censor": "none"
+    },
+    {
+      "shots": [7, 8, 9, 10, 11, 12],
+      "clip_start": "00:37:40.083",
+      "clip_end": "00:37:54.292",
+      "depicts": ["action", "reveal"],
+      "chars": ["Lynn", "Grace"],
+      "action": "A hand drops onto the desk and an insert shows the paper header 'KHO. Set 2'. By the end the fingers sit splayed and drumming on the tabletop while Grace writes and a hand sweeps a dense printed sheet.",
+      "censor": "none"
+    },
+    {
+      "shots": [13, 14, 15, 16, 17, 18],
+      "clip_start": "00:37:54.292",
+      "clip_end": "00:38:01.875",
+      "depicts": ["action", "montage"],
+      "chars": ["Lynn", "Grace", "Bank", "Pat"],
+      "action": "Around the hall the code is received: a boy scribbles with Grace behind him, Lynn's head comes up, Bank mouths along, a pen fills a sheet; it ends on Pat leaning forward, then his hand flat on the desk.",
+      "censor": "none"
+    },
+    {
+      "shots": [19, 20, 21, 22, 23],
+      "clip_start": "00:38:01.875",
+      "clip_end": "00:38:13.917",
+      "depicts": ["action", "setup"],
+      "chars": ["Lynn"],
+      "action": "Cut to the invigilator's desk - his hand on dark wood, then he mops his face. Back on Lynn, sweating, her hand still drumming the desk, until the last shot has her bent low over her paper, writing.",
+      "censor": "none"
+    },
+    {
+      "shots": [24, 25, 26, 27, 28],
+      "clip_start": "00:38:13.917",
+      "clip_end": "00:38:25.583",
+      "depicts": ["action", "reaction"],
+      "chars": ["Grace", "Pat", "Bank"],
+      "action": "The invigilator tips his head back singing to himself, then stands at his lamp-lit desk swinging both arms. Grace twists round and Pat looks up; the moment ends with Bank staring over his glasses.",
+      "censor": "none"
+    },
+    {
+      "shots": [29, 30, 31, 32, 33],
+      "clip_start": "00:38:25.583",
+      "clip_end": "00:38:36.583",
+      "depicts": ["action", "reaction"],
+      "chars": ["Lynn", "Grace"],
+      "action": "Lynn sweats over her paper, left hand tapping while her right hand writes. Then the invigilator steps out from behind his desk into the hall; Grace's head snaps up and Lynn looks off, alert.",
+      "censor": "none"
+    },
+    {
+      "shots": [34, 35, 36, 37, 38],
+      "clip_start": "00:38:36.583",
+      "clip_end": "00:38:44.000",
+      "depicts": ["action"],
+      "chars": ["Lynn"],
+      "action": "An insert of a finger on the bubble grid; the invigilator walks straight down the aisle toward camera. Lynn breathes hard, a hand keeps writing as his legs pass, and he stops to lean over a girl's desk.",
+      "censor": "none"
+    },
+    {
+      "shots": [39, 40, 41],
+      "clip_start": "00:38:44.000",
+      "clip_end": "00:38:58.000",
+      "depicts": ["reaction", "emotion"],
+      "chars": ["Lynn"],
+      "action": "Lynn looks up, tense; the invigilator stands over a student, looking down at the desk. By the last shot Lynn has turned to profile, face settled and calm again, eyes forward.",
+      "censor": "none"
+    },
+    {
+      "shots": [42, 43, 44],
+      "clip_start": "00:38:58.000",
+      "clip_end": "00:39:16.792",
+      "depicts": ["action", "aftermath"],
+      "chars": ["Bank", "Grace"],
+      "action": "Bank, in profile, talks low over his paper. The invigilator hands Grace a sheet and she takes it grinning, then he walks away down the aisle while another boy holds his paper up for him.",
+      "censor": "none"
+    }
+  ]
+}

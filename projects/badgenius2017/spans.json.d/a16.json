@@ -1,0 +1,68 @@
+{
+  "span": "a16",
+  "moments": [
+    {
+      "shots": [0, 1, 2, 3],
+      "clip_start": "00:24:02.167",
+      "clip_end": "00:24:13.458",
+      "depicts": ["transition", "setup"],
+      "chars": ["Bank"],
+      "action": "Bank's portrait against a red backdrop drains to black and white, then a Thai title card comes up over a school toilet block, the focus settling on the stalls behind the lettering.",
+      "censor": "none"
+    },
+    {
+      "shots": [4, 5, 6, 7],
+      "clip_start": "00:24:13.458",
+      "clip_end": "00:24:24.500",
+      "depicts": ["action", "emotion"],
+      "chars": ["Bank"],
+      "action": "In the toilets Bank's face screws up and he doubles over; hands then hold up a name card reading 'Bank' and pin it to his shirt, and a wide finds him bent over the sink, composed again.",
+      "censor": "none"
+    },
+    {
+      "shots": [8, 9, 10],
+      "clip_start": "00:24:24.500",
+      "clip_end": "00:24:37.625",
+      "depicts": ["reaction", "setup"],
+      "chars": ["Lynn", "Bank"],
+      "action": "Seen from the wings, a suited host works the blue quiz-show set; Lynn stands against the corridor wall applauding with her eyes shut, and the cut moves back to Bank clapping in profile.",
+      "censor": "none"
+    },
+    {
+      "shots": [11, 12],
+      "clip_start": "00:24:37.625",
+      "clip_end": "00:24:45.417",
+      "depicts": ["dialogue", "setup"],
+      "chars": [],
+      "action": "Cut to a dark green room: a boy in a blue sweater, first seen in profile, turns to face front, alone at a bare table with a single glass of water, and begins to speak.",
+      "censor": "none"
+    },
+    {
+      "shots": [13, 14],
+      "clip_start": "00:24:45.417",
+      "clip_end": "00:24:58.750",
+      "depicts": ["action", "reaction"],
+      "chars": ["Bank", "Lynn"],
+      "action": "Bank crosses the wings towards the lit stage, Lynn standing off to his right; the cut then holds on his face in profile, stopped now, watching the set instead of moving.",
+      "censor": "none"
+    },
+    {
+      "shots": [15, 16, 17],
+      "clip_start": "00:24:58.750",
+      "clip_end": "00:25:25.542",
+      "depicts": ["dialogue", "emotion"],
+      "chars": ["Lynn", "Bank"],
+      "action": "Lynn keeps her eyes closed against the wall while Bank, now planted in front of her, lowers his head and talks; by the end of the long wide he has turned off the stage to face her.",
+      "censor": "none"
+    },
+    {
+      "shots": [18, 19],
+      "clip_start": "00:25:25.542",
+      "clip_end": "00:25:43.917",
+      "depicts": ["dialogue", "emotion"],
+      "chars": ["Lynn", "Bank"],
+      "action": "Lynn opens her eyes and looks straight at Bank, her contestant tag showing; the cut back finds him in profile, facing the stage rather than her, taking the answer without turning.",
+      "censor": "none"
+    }
+  ]
+}

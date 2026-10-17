@@ -1,0 +1,1594 @@
+{
+  "project": "howtomakemillions2024",
+  "generated_by": "tools/assemble_moments.py",
+  "source": "LLM per-span grouping (tools/span_prompt.md)",
+  "region": [
+    3600.0,
+    5400.0
+  ],
+  "span_sec": 90.0,
+  "overlap_sec": 20.0,
+  "stats": {
+    "spans_total": 20,
+    "spans_missing": 0,
+    "moments_raw": 98,
+    "moments_kept": 79,
+    "dropped_not_owned": 17,
+    "seam_overlap_fixed": 6,
+    "seam_gap_fixed": 0,
+    "seam_total_shift_sec": 71.54,
+    "coverage_pct": 100.8,
+    "median_window": 21.58,
+    "validation_problems": 0
+  },
+  "missing_spans": [],
+  "problems": [],
+  "windows": [
+    {
+      "id": "m0001",
+      "span": "sp01",
+      "clip_start": "00:59:38.708",
+      "clip_end": "01:00:44.250",
+      "start_sec": 3578.708,
+      "end_sec": 3644.25,
+      "raw_duration_sec": 65.542,
+      "n_shots": 1,
+      "depicts": [
+        "dialogue",
+        "setup"
+      ],
+      "chars": [
+        "M",
+        "Amah"
+      ],
+      "action": "A held take at a blue temple table: M fills in a small paper slip beside Amah, who sits turned away from him. By the end of the take the pen is down and he is holding the finished slip.",
+      "censor": "none"
+    },
+    {
+      "id": "m0002",
+      "span": "sp01",
+      "clip_start": "01:00:44.250",
+      "clip_end": "01:00:58.667",
+      "start_sec": 3644.25,
+      "end_sec": 3658.667,
+      "raw_duration_sec": 14.417,
+      "n_shots": 2,
+      "depicts": [
+        "action",
+        "reveal"
+      ],
+      "chars": [
+        "M"
+      ],
+      "action": "M walks past the shelves of gold Buddhas and amulet baskets, eyes down. Cut to an insert of the pink wall he reaches: rows of handwritten coffin-donation receipts pinned up.",
+      "censor": "none"
+    },
+    {
+      "id": "m0003",
+      "span": "sp01",
+      "clip_start": "01:00:58.667",
+      "clip_end": "01:01:20.583",
+      "start_sec": 3658.667,
+      "end_sec": 3680.583,
+      "raw_duration_sec": 21.916,
+      "n_shots": 4,
+      "depicts": [
+        "dialogue",
+        "emotion"
+      ],
+      "chars": [
+        "M",
+        "Amah"
+      ],
+      "action": "At the counter, shot/reverse-shot: Amah bends over it in her glasses while M talks at her side. Across the exchange he stops talking and his face drops, ending looking down at her in silence.",
+      "censor": "none"
+    },
+    {
+      "id": "m0004",
+      "span": "sp02",
+      "clip_start": "01:01:20.583",
+      "clip_end": "01:01:42.167",
+      "start_sec": 3680.583,
+      "end_sec": 3702.167,
+      "raw_duration_sec": 21.584,
+      "n_shots": 1,
+      "depicts": [
+        "establishing",
+        "setup"
+      ],
+      "chars": [
+        "M",
+        "Amah Saejiu"
+      ],
+      "action": "A held take at a temple: M's bowed head fills frame, then the camera pulls back to a sunlit courtyard under red lanterns as he walks barefoot beside Amah, who follows slowly on her cane.",
+      "censor": "none"
+    },
+    {
+      "id": "m0005",
+      "span": "sp02",
+      "clip_start": "01:01:42.167",
+      "clip_end": "01:02:15.667",
+      "start_sec": 3702.167,
+      "end_sec": 3735.667,
+      "raw_duration_sec": 33.5,
+      "n_shots": 2,
+      "depicts": [
+        "dialogue",
+        "discovery"
+      ],
+      "chars": [
+        "Amah Saejiu"
+      ],
+      "action": "Close on Amah in profile, talking as she looks across the temple yard; the film then cuts down to handwritten coffin-donation slips on a pink table, hers joined by a second slip in different handwriting.",
+      "censor": "none"
+    },
+    {
+      "id": "m0006",
+      "span": "sp02",
+      "clip_start": "01:02:15.667",
+      "clip_end": "01:02:26.667",
+      "start_sec": 3735.667,
+      "end_sec": 3746.667,
+      "raw_duration_sec": 11.0,
+      "n_shots": 1,
+      "depicts": [
+        "establishing",
+        "transition"
+      ],
+      "chars": [
+        "M",
+        "Amah Saejiu"
+      ],
+      "action": "New location: a wide of a packed third-class train carriage, greenery streaming past the windows, with M seated mid-aisle turned back toward Amah's white head at the window seat behind him.",
+      "censor": "none"
+    },
+    {
+      "id": "m0007",
+      "span": "sp02",
+      "clip_start": "01:02:26.667",
+      "clip_end": "01:02:51.875",
+      "start_sec": 3746.667,
+      "end_sec": 3771.875,
+      "raw_duration_sec": 25.208,
+      "n_shots": 4,
+      "depicts": [
+        "dialogue",
+        "emotion"
+      ],
+      "chars": [
+        "M",
+        "Amah Saejiu"
+      ],
+      "action": "Shot/reverse between M and Amah on the moving train: he faces front and talks, she watches him over her cane; by the last pair he has turned sideways, sullen, and she has turned away to the window.",
+      "censor": "none"
+    },
+    {
+      "id": "m0008",
+      "span": "sp03",
+      "clip_start": "01:02:51.875",
+      "clip_end": "01:03:11.917",
+      "start_sec": 3771.875,
+      "end_sec": 3791.917,
+      "raw_duration_sec": 20.042,
+      "n_shots": 1,
+      "depicts": [
+        "establishing",
+        "transition"
+      ],
+      "chars": [],
+      "action": "A commuter train slides across the elevated track above a cramped canal lane, tower blocks behind it; once it clears the frame, the walkway it hid is revealed with people strolling along it.",
+      "censor": "none"
+    },
+    {
+      "id": "m0009",
+      "span": "sp03",
+      "clip_start": "01:03:11.917",
+      "clip_end": "01:03:20.542",
+      "start_sec": 3791.917,
+      "end_sec": 3800.542,
+      "raw_duration_sec": 8.625,
+      "n_shots": 1,
+      "depicts": [
+        "establishing",
+        "setup"
+      ],
+      "chars": [
+        "M"
+      ],
+      "action": "Wide of a bright Big C shoe department; M stands among the low display tables of flats, head down over the rows, working his way deeper into the aisle.",
+      "censor": "none"
+    },
+    {
+      "id": "m0010",
+      "span": "sp03",
+      "clip_start": "01:03:20.542",
+      "clip_end": "01:03:47.750",
+      "start_sec": 3800.542,
+      "end_sec": 3827.75,
+      "raw_duration_sec": 27.208,
+      "n_shots": 1,
+      "depicts": [
+        "action",
+        "emotion"
+      ],
+      "chars": [
+        "M",
+        "Amah Saejiu"
+      ],
+      "action": "Amah sits alone on the fitting bench craning up at the wall of shoeboxes; M arrives, drops cross-legged on the floor and takes her bare foot in his hands, pairs piling up beside them.",
+      "censor": "none"
+    },
+    {
+      "id": "m0011",
+      "span": "sp03",
+      "clip_start": "01:03:47.750",
+      "clip_end": "01:04:18.292",
+      "start_sec": 3827.75,
+      "end_sec": 3858.292,
+      "raw_duration_sec": 30.542,
+      "n_shots": 3,
+      "depicts": [
+        "dialogue",
+        "emotion"
+      ],
+      "chars": [
+        "M",
+        "Amah Saejiu"
+      ],
+      "action": "Close shot/reverse across the aisle: M answers Amah flatly, almost sullen, she looks back at him and softens into a smile, and by the last shot he is grinning and laughing with her.",
+      "censor": "none"
+    },
+    {
+      "id": "m0012",
+      "span": "sp03",
+      "clip_start": "01:04:18.292",
+      "clip_end": "01:04:30.917",
+      "start_sec": 3858.292,
+      "end_sec": 3870.917,
+      "raw_duration_sec": 12.625,
+      "n_shots": 1,
+      "depicts": [
+        "action",
+        "emotion"
+      ],
+      "chars": [
+        "M",
+        "Amah Saejiu"
+      ],
+      "action": "Back to the wide: M holds up a white shoe, then bends to work it onto Amah's foot while she watches from the bench, her old sandals and the rejected pairs scattered across the floor.",
+      "censor": "none"
+    },
+    {
+      "id": "m0013",
+      "span": "sp04",
+      "clip_start": "01:04:30.917",
+      "clip_end": "01:04:42.333",
+      "start_sec": 3870.917,
+      "end_sec": 3882.333,
+      "raw_duration_sec": 11.416,
+      "n_shots": 2,
+      "depicts": [
+        "action",
+        "emotion"
+      ],
+      "chars": [
+        "Amah Saejiu",
+        "M"
+      ],
+      "action": "In the sunlit sitting room Amah pushes a hand through her thin white hair, head down, while M sits on the floor below her chair; the cut tightens until her arm has come over the armrest to rest against him.",
+      "censor": "none"
+    },
+    {
+      "id": "m0014",
+      "span": "sp04",
+      "clip_start": "01:04:42.333",
+      "clip_end": "01:05:12.750",
+      "start_sec": 3882.333,
+      "end_sec": 3912.75,
+      "raw_duration_sec": 30.417,
+      "n_shots": 4,
+      "depicts": [
+        "action",
+        "dialogue"
+      ],
+      "chars": [
+        "Amah Saejiu",
+        "M"
+      ],
+      "action": "M points his phone at Amah and they watch the screen together, both laughing as she bats at his arm; the screen starts on her own face and ends with her swapped into a bald old man.",
+      "censor": "none"
+    },
+    {
+      "id": "m0015",
+      "span": "sp04",
+      "clip_start": "01:05:12.750",
+      "clip_end": "01:06:03.125",
+      "start_sec": 3912.75,
+      "end_sec": 3963.125,
+      "raw_duration_sec": 50.375,
+      "n_shots": 1,
+      "depicts": [
+        "dialogue",
+        "emotion"
+      ],
+      "chars": [
+        "Amah Saejiu",
+        "M"
+      ],
+      "action": "One long held take against the bright window: Amah laughs openly, teeth showing, then the frame settles on M looking up at her, no longer smiling, his hand closed around her wrist.",
+      "censor": "none"
+    },
+    {
+      "id": "m0016",
+      "span": "sp05",
+      "clip_start": "01:06:03.125",
+      "clip_end": "01:06:22.500",
+      "start_sec": 3963.125,
+      "end_sec": 3982.5,
+      "raw_duration_sec": 19.375,
+      "n_shots": 3,
+      "depicts": [
+        "transition",
+        "establishing"
+      ],
+      "chars": [],
+      "action": "A commuter train slides past in near darkness, then the view pulls back to palms and a rainbow over the tracks as the lit train runs under it - night gives way to a bright wet day.",
+      "censor": "none"
+    },
+    {
+      "id": "m0017",
+      "span": "sp05",
+      "clip_start": "01:06:22.500",
+      "clip_end": "01:06:35.458",
+      "start_sec": 3982.5,
+      "end_sec": 3995.458,
+      "raw_duration_sec": 12.958,
+      "n_shots": 2,
+      "depicts": [
+        "action",
+        "setup"
+      ],
+      "chars": [
+        "M",
+        "Amah"
+      ],
+      "action": "A pot of pork-and-greens soup boils; the camera finds the cramped kitchen where Amah sits with her back to us and M, plate in hand, spoons food out for her.",
+      "censor": "none"
+    },
+    {
+      "id": "m0018",
+      "span": "sp05",
+      "clip_start": "01:06:35.458",
+      "clip_end": "01:06:50.042",
+      "start_sec": 3995.458,
+      "end_sec": 4010.042,
+      "raw_duration_sec": 14.584,
+      "n_shots": 4,
+      "depicts": [
+        "montage",
+        "action"
+      ],
+      "chars": [
+        "M",
+        "Amah"
+      ],
+      "action": "Chores in close-up: a charcoal stove lit beside bare crouched legs, hands pulling pandan leaves from a pot plant, the knotted leaves dropped into a pan of rice water. By the last shot Amah has come to the doorway to watch M stir.",
+      "censor": "none"
+    },
+    {
+      "id": "m0019",
+      "span": "sp05",
+      "clip_start": "01:06:50.042",
+      "clip_end": "01:07:21.250",
+      "start_sec": 4010.042,
+      "end_sec": 4041.25,
+      "raw_duration_sec": 31.208,
+      "n_shots": 2,
+      "depicts": [
+        "action",
+        "emotion"
+      ],
+      "chars": [
+        "M",
+        "Amah"
+      ],
+      "action": "A long held wide of the kitchen: Amah seated in the foreground, M behind her stirring a steaming pot, glancing over at her. It cuts back outside past his stirring hands to Amah, who now steps forward out of the doorway towards him.",
+      "censor": "none"
+    },
+    {
+      "id": "m0020",
+      "span": "sp05",
+      "clip_start": "01:07:21.250",
+      "clip_end": "01:07:24.542",
+      "start_sec": 4041.25,
+      "end_sec": 4044.542,
+      "raw_duration_sec": 3.292,
+      "n_shots": 1,
+      "depicts": [
+        "transition",
+        "establishing"
+      ],
+      "chars": [],
+      "action": "An empty alley at night, wet underfoot, shuttered gates and potted plants lit by a single lamp - time has jumped to evening.",
+      "censor": "none"
+    },
+    {
+      "id": "m0021",
+      "span": "sp05",
+      "clip_start": "01:07:24.542",
+      "clip_end": "01:07:47.542",
+      "start_sec": 4044.542,
+      "end_sec": 4067.542,
+      "raw_duration_sec": 23.0,
+      "n_shots": 2,
+      "depicts": [
+        "dialogue",
+        "emotion"
+      ],
+      "chars": [
+        "M",
+        "Amah"
+      ],
+      "action": "High wide of the night kitchen: Amah works at a green-topped table while M stands over her. Closer in, he leans on the table talking as she presses something into a blue basket; by the end he has broken into a grin.",
+      "censor": "none"
+    },
+    {
+      "id": "m0022",
+      "span": "sp06",
+      "clip_start": "01:07:47.542",
+      "clip_end": "01:08:00.000",
+      "start_sec": 4067.542,
+      "end_sec": 4080.0,
+      "raw_duration_sec": 12.458,
+      "n_shots": 2,
+      "depicts": [
+        "dialogue",
+        "setup"
+      ],
+      "chars": [
+        "M",
+        "Amah Saejiu"
+      ],
+      "action": "In the kitchen M leans over the table on both hands while Amah lays small white cards out on the green mat. By the second shot he has come down to her level, forearm on the table, as she keeps handling the cards.",
+      "censor": "none"
+    },
+    {
+      "id": "m0023",
+      "span": "sp06",
+      "clip_start": "01:08:00.000",
+      "clip_end": "01:08:40.917",
+      "start_sec": 4080.0,
+      "end_sec": 4120.917,
+      "raw_duration_sec": 40.917,
+      "n_shots": 3,
+      "depicts": [
+        "dialogue",
+        "emotion"
+      ],
+      "chars": [
+        "M",
+        "Amah Saejiu"
+      ],
+      "action": "A wide shows the two sat across the mat, M slouched back on his stool. The camera closes to Amah, whose face tightens as she talks, then reverses to M, no longer joking, holding her look.",
+      "censor": "none"
+    },
+    {
+      "id": "m0024",
+      "span": "sp06",
+      "clip_start": "01:08:40.917",
+      "clip_end": "01:09:19.000",
+      "start_sec": 4120.917,
+      "end_sec": 4159.0,
+      "raw_duration_sec": 38.083,
+      "n_shots": 1,
+      "depicts": [
+        "dialogue",
+        "emotion"
+      ],
+      "chars": [
+        "M",
+        "Amah Saejiu"
+      ],
+      "action": "A long held two-shot of the card game: M squares the deck and feeds cards to Amah, who picks one up. By the end of the take he has sat up grinning, laughing at her across the table.",
+      "censor": "none"
+    },
+    {
+      "id": "m0025",
+      "span": "sp07",
+      "clip_start": "01:09:19.000",
+      "clip_end": "01:09:51.500",
+      "start_sec": 4159.0,
+      "end_sec": 4191.5,
+      "raw_duration_sec": 32.5,
+      "n_shots": 2,
+      "depicts": [
+        "dialogue",
+        "setup"
+      ],
+      "chars": [
+        "Amah Saejiu",
+        "M"
+      ],
+      "action": "At the kitchen table Amah leans in over her glasses, pressing something on M; the reverse holds on M, who answers at first but by the end has dropped his eyes to the table instead of meeting hers.",
+      "censor": "none"
+    },
+    {
+      "id": "m0026",
+      "span": "sp07",
+      "clip_start": "01:09:51.500",
+      "clip_end": "01:10:19.292",
+      "start_sec": 4191.5,
+      "end_sec": 4219.292,
+      "raw_duration_sec": 27.792,
+      "n_shots": 2,
+      "depicts": [
+        "establishing",
+        "emotion"
+      ],
+      "chars": [
+        "Amah Saejiu"
+      ],
+      "action": "A wide held take down the plant-choked alley: Amah sits alone by the gate at the far end while a cat crosses the lane. The camera moves in closer and she is hunched on a bench, both hands on her cane, head sinking, a neighbour working on behind her.",
+      "censor": "none"
+    },
+    {
+      "id": "m0027",
+      "span": "sp08",
+      "clip_start": "01:10:19.292",
+      "clip_end": "01:10:56.958",
+      "start_sec": 4219.292,
+      "end_sec": 4256.958,
+      "raw_duration_sec": 37.666,
+      "n_shots": 1,
+      "depicts": [
+        "action",
+        "setup"
+      ],
+      "chars": [
+        "M"
+      ],
+      "action": "In one long take M works in the cramped kitchen, talking as he leans past a tall glass jar of food; by the end of the take he has carried a finished plate of stir-fry up to the serving window.",
+      "censor": "none"
+    },
+    {
+      "id": "m0028",
+      "span": "sp08",
+      "clip_start": "01:10:56.958",
+      "clip_end": "01:11:16.167",
+      "start_sec": 4256.958,
+      "end_sec": 4276.167,
+      "raw_duration_sec": 19.209,
+      "n_shots": 2,
+      "depicts": [
+        "reaction",
+        "dialogue"
+      ],
+      "chars": [
+        "Amah Saejiu",
+        "M"
+      ],
+      "action": "Over a shoulder, a phone plays footage of that same kitchen; the wide shot reveals Amah Saejiu seated beside M on the porch as he holds the screen up, and she leans in toward it.",
+      "censor": "none"
+    },
+    {
+      "id": "m0029",
+      "span": "sp08",
+      "clip_start": "01:11:16.167",
+      "clip_end": "01:11:32.542",
+      "start_sec": 4276.167,
+      "end_sec": 4292.542,
+      "raw_duration_sec": 16.375,
+      "n_shots": 2,
+      "depicts": [
+        "establishing",
+        "transition"
+      ],
+      "chars": [
+        "M"
+      ],
+      "action": "Cut to a weathered apartment block under a bright cloudy sky, then its dim ground-floor motorbike park, empty until M walks in from the right and crosses toward the stairs.",
+      "censor": "none"
+    },
+    {
+      "id": "m0030",
+      "span": "sp08",
+      "clip_start": "01:11:32.542",
+      "clip_end": "01:11:47.208",
+      "start_sec": 4292.542,
+      "end_sec": 4307.208,
+      "raw_duration_sec": 14.666,
+      "n_shots": 1,
+      "depicts": [
+        "action",
+        "setup"
+      ],
+      "chars": [
+        "M"
+      ],
+      "action": "M stands with his back to camera at a door in the cluttered walkway, handling something at the frame; getting no answer, he turns around and walks back down the corridor toward the camera.",
+      "censor": "none"
+    },
+    {
+      "id": "m0031",
+      "span": "sp09",
+      "clip_start": "01:11:47.208",
+      "clip_end": "01:12:14.167",
+      "start_sec": 4307.208,
+      "end_sec": 4334.167,
+      "raw_duration_sec": 26.959,
+      "n_shots": 1,
+      "depicts": [
+        "dialogue",
+        "setup"
+      ],
+      "chars": [
+        "Soei"
+      ],
+      "action": "In a cramped back room Soei sits on the floor beside a bare motorbike wheel, talking off to one side while a figure moves in the hallway behind him. By the end he has stopped looking up, head down over the cigarette in his hands.",
+      "censor": "none"
+    },
+    {
+      "id": "m0032",
+      "span": "sp09",
+      "clip_start": "01:12:14.167",
+      "clip_end": "01:12:42.500",
+      "start_sec": 4334.167,
+      "end_sec": 4362.5,
+      "raw_duration_sec": 28.333,
+      "n_shots": 2,
+      "depicts": [
+        "dialogue",
+        "emotion"
+      ],
+      "chars": [
+        "M",
+        "Soei"
+      ],
+      "action": "M and Soei sit shoulder to shoulder in the doorway light, both hunched over something in M's lap; Soei turns to speak at him. The last shot drops back to M alone against the wallpapered wall, knees pulled up, Soei now only a back in the foreground.",
+      "censor": "none"
+    },
+    {
+      "id": "m0033",
+      "span": "sp09",
+      "clip_start": "01:12:42.500",
+      "clip_end": "01:12:56.875",
+      "start_sec": 4362.5,
+      "end_sec": 4376.875,
+      "raw_duration_sec": 14.375,
+      "n_shots": 3,
+      "depicts": [
+        "action",
+        "setup"
+      ],
+      "chars": [
+        "M",
+        "Soei"
+      ],
+      "action": "Daylight: M walks head-down into the junk-filled bike yard and finds Soei crouched over a motorbike, wheel in hand. By the last shot M is at the handlebars, hanging a knotted plastic bag of food on the bike.",
+      "censor": "none"
+    },
+    {
+      "id": "m0034",
+      "span": "sp09",
+      "clip_start": "01:12:56.875",
+      "clip_end": "01:13:20.583",
+      "start_sec": 4376.875,
+      "end_sec": 4400.583,
+      "raw_duration_sec": 23.708,
+      "n_shots": 3,
+      "depicts": [
+        "dialogue",
+        "emotion"
+      ],
+      "chars": [
+        "M",
+        "Soei"
+      ],
+      "action": "M stands in the yard staring at the ground as a hand at the frame edge holds something out to him; he and Soei square off in a tight two-shot, Soei doing the talking. It ends on M alone, chin lifted, looking past him.",
+      "censor": "none"
+    },
+    {
+      "id": "m0035",
+      "span": "sp10",
+      "clip_start": "01:13:20.583",
+      "clip_end": "01:13:56.792",
+      "start_sec": 4400.583,
+      "end_sec": 4436.792,
+      "raw_duration_sec": 36.209,
+      "n_shots": 2,
+      "depicts": [
+        "action",
+        "setup"
+      ],
+      "chars": [
+        "M",
+        "Mengju Amah Saejiu"
+      ],
+      "action": "In the back kitchen M squats on the tiles by the kettle while Amah sits beside him, neither looking at the other. By the last shot she is out of frame and M gets up and walks through to the dining room.",
+      "censor": "none"
+    },
+    {
+      "id": "m0036",
+      "span": "sp10",
+      "clip_start": "01:13:56.792",
+      "clip_end": "01:14:23.917",
+      "start_sec": 4436.792,
+      "end_sec": 4463.917,
+      "raw_duration_sec": 27.125,
+      "n_shots": 1,
+      "depicts": [
+        "dialogue",
+        "setup"
+      ],
+      "chars": [
+        "Mengju Amah Saejiu"
+      ],
+      "action": "Amah comes to the locked green folding gate where a man in a maroon shirt waits outside. She reaches the latch but never opens it, ending the shot standing face to face with him through the bars.",
+      "censor": "none"
+    },
+    {
+      "id": "m0037",
+      "span": "sp10",
+      "clip_start": "01:14:23.917",
+      "clip_end": "01:14:39.625",
+      "start_sec": 4463.917,
+      "end_sec": 4479.625,
+      "raw_duration_sec": 15.708,
+      "n_shots": 2,
+      "depicts": [
+        "reaction",
+        "reveal"
+      ],
+      "chars": [
+        "Mengju Amah Saejiu"
+      ],
+      "action": "The man holds his phone up through the bars for Amah to see. The camera cuts past her to her face in close-up, and what is on the screen breaks her composure into tears.",
+      "censor": "none"
+    },
+    {
+      "id": "m0038",
+      "span": "sp10",
+      "clip_start": "01:14:39.625",
+      "clip_end": "01:14:51.750",
+      "start_sec": 4479.625,
+      "end_sec": 4491.75,
+      "raw_duration_sec": 12.125,
+      "n_shots": 1,
+      "depicts": [
+        "reaction",
+        "emotion"
+      ],
+      "chars": [
+        "Mengju Amah Saejiu"
+      ],
+      "action": "Alone indoors among the shop shelves, Amah sits gripping the handle of her cane and stares off past the camera. The crying has stopped and her face hardens as the held shot runs out.",
+      "censor": "none"
+    },
+    {
+      "id": "m0039",
+      "span": "sp10",
+      "clip_start": "01:14:51.750",
+      "clip_end": "01:15:17.292",
+      "start_sec": 4491.75,
+      "end_sec": 4517.292,
+      "raw_duration_sec": 25.542,
+      "n_shots": 2,
+      "depicts": [
+        "action",
+        "emotion"
+      ],
+      "chars": [
+        "M",
+        "Mengju Amah Saejiu"
+      ],
+      "action": "M appears in the back doorway holding a red envelope and crosses the room to offer it to Amah. She stays seated on her cane, and the closing close-up leaves her turned away, not taking it.",
+      "censor": "none"
+    },
+    {
+      "id": "m0040",
+      "span": "sp11",
+      "clip_start": "01:15:17.292",
+      "clip_end": "01:15:35.583",
+      "start_sec": 4517.292,
+      "end_sec": 4535.583,
+      "raw_duration_sec": 18.291,
+      "n_shots": 3,
+      "depicts": [
+        "dialogue",
+        "setup"
+      ],
+      "chars": [
+        "Amah",
+        "M"
+      ],
+      "action": "Amah sits in profile, hands on her cane, watching M eat at the shophouse table in his grey tee. By the last shot she has stopped watching and he has turned away, reaching for something off-table.",
+      "censor": "none"
+    },
+    {
+      "id": "m0041",
+      "span": "sp11",
+      "clip_start": "01:15:35.583",
+      "clip_end": "01:15:43.083",
+      "start_sec": 4535.583,
+      "end_sec": 4543.083,
+      "raw_duration_sec": 7.5,
+      "n_shots": 2,
+      "depicts": [
+        "action",
+        "setup"
+      ],
+      "chars": [
+        "Amah",
+        "M"
+      ],
+      "action": "Amah stands by the folding gate unwrapping a white shirt and hands it to M. In the wide that follows he is wearing it and she is bent at his waist, tucking it in for him.",
+      "censor": "none"
+    },
+    {
+      "id": "m0042",
+      "span": "sp11",
+      "clip_start": "01:15:43.083",
+      "clip_end": "01:16:13.167",
+      "start_sec": 4543.083,
+      "end_sec": 4573.167,
+      "raw_duration_sec": 30.084,
+      "n_shots": 3,
+      "depicts": [
+        "dialogue",
+        "emotion"
+      ],
+      "chars": [
+        "Amah",
+        "M"
+      ],
+      "action": "Close shot/reverse as Amah fusses over the white shirt's front and collar. M starts stiff and talking down at her; by the last shot she is grinning up at him and he has softened.",
+      "censor": "none"
+    },
+    {
+      "id": "m0043",
+      "span": "sp11",
+      "clip_start": "01:16:13.167",
+      "clip_end": "01:16:33.500",
+      "start_sec": 4573.167,
+      "end_sec": 4593.5,
+      "raw_duration_sec": 20.333,
+      "n_shots": 1,
+      "depicts": [
+        "dialogue",
+        "emotion"
+      ],
+      "chars": [
+        "M",
+        "Amah"
+      ],
+      "action": "A long held take on M in the finished white shirt, talking across the table. Mid-shot Amah leans into frame and her hand settles on his chest to straighten the tie, and he stops to let her.",
+      "censor": "none"
+    },
+    {
+      "id": "m0044",
+      "span": "sp12",
+      "clip_start": "01:16:33.500",
+      "clip_end": "01:16:46.000",
+      "start_sec": 4593.5,
+      "end_sec": 4606.0,
+      "raw_duration_sec": 12.5,
+      "n_shots": 1,
+      "depicts": [
+        "action",
+        "setup"
+      ],
+      "chars": [
+        "M",
+        "Amah Saejiu"
+      ],
+      "action": "In the dim front room Amah sits on a stool by the cabinet while M, standing over her, strips off a white shirt; by the end of the take he is in a grey tee, back to camera, facing her.",
+      "censor": "none"
+    },
+    {
+      "id": "m0045",
+      "span": "sp12",
+      "clip_start": "01:16:46.000",
+      "clip_end": "01:17:16.375",
+      "start_sec": 4606.0,
+      "end_sec": 4636.375,
+      "raw_duration_sec": 30.375,
+      "n_shots": 1,
+      "depicts": [
+        "establishing",
+        "setup"
+      ],
+      "chars": [
+        "M",
+        "Amah Saejiu"
+      ],
+      "action": "A long static wide shot through the green folding gate: Amah stands at a stool beside M's chair, then crosses out toward the camera, leaving the stool empty with only M's legs still in place.",
+      "censor": "none"
+    },
+    {
+      "id": "m0046",
+      "span": "sp12",
+      "clip_start": "01:17:16.375",
+      "clip_end": "01:17:24.583",
+      "start_sec": 4636.375,
+      "end_sec": 4644.583,
+      "raw_duration_sec": 8.208,
+      "n_shots": 2,
+      "depicts": [
+        "action",
+        "setup"
+      ],
+      "chars": [
+        "M",
+        "Amah Saejiu"
+      ],
+      "action": "Amah, back to camera, peels an apple while M sits in the wicker chair scrolling his phone; the camera drops to a tight insert of her hands turning the fruit against the knife.",
+      "censor": "none"
+    },
+    {
+      "id": "m0047",
+      "span": "sp12",
+      "clip_start": "01:17:24.583",
+      "clip_end": "01:17:39.333",
+      "start_sec": 4644.583,
+      "end_sec": 4659.333,
+      "raw_duration_sec": 14.75,
+      "n_shots": 2,
+      "depicts": [
+        "dialogue",
+        "emotion"
+      ],
+      "chars": [
+        "M",
+        "Amah Saejiu"
+      ],
+      "action": "Close on Amah in her glasses, head bowed over the peeling, talking without looking up; the reverse finds M in the wicker chair with the phone gone from his hands, eyes lowered, listening.",
+      "censor": "none"
+    },
+    {
+      "id": "m0048",
+      "span": "sp12",
+      "clip_start": "01:17:39.333",
+      "clip_end": "01:17:57.875",
+      "start_sec": 4659.333,
+      "end_sec": 4677.875,
+      "raw_duration_sec": 18.542,
+      "n_shots": 2,
+      "depicts": [
+        "dialogue",
+        "emotion"
+      ],
+      "chars": [
+        "M",
+        "Amah Saejiu"
+      ],
+      "action": "Amah lifts her head and looks straight at M with a faint smile; the reverse pushes past her bald head onto M, who holds her gaze, face tight and eyes glassy.",
+      "censor": "none"
+    },
+    {
+      "id": "m0049",
+      "span": "sp13",
+      "clip_start": "01:17:57.875",
+      "clip_end": "01:18:26.583",
+      "start_sec": 4677.875,
+      "end_sec": 4706.583,
+      "raw_duration_sec": 28.708,
+      "n_shots": 4,
+      "depicts": [
+        "dialogue",
+        "setup"
+      ],
+      "chars": [
+        "Amah Saejiu",
+        "M"
+      ],
+      "action": "Amah presses M in close-up while he listens and barely answers; the last cut pulls back to a wide that shows the two of them sitting among her clutter, her cane by her knee.",
+      "censor": "none"
+    },
+    {
+      "id": "m0050",
+      "span": "sp13",
+      "clip_start": "01:18:26.583",
+      "clip_end": "01:18:43.000",
+      "start_sec": 4706.583,
+      "end_sec": 4723.0,
+      "raw_duration_sec": 16.417,
+      "n_shots": 1,
+      "depicts": [
+        "establishing",
+        "setup"
+      ],
+      "chars": [
+        "Amah Saejiu",
+        "M"
+      ],
+      "action": "A held wide from behind: M and Amah, now in a knit cap, stand at an ornate gold gate facing a large white two-storey house. They wait without moving until a figure appears in the far doorway.",
+      "censor": "none"
+    },
+    {
+      "id": "m0051",
+      "span": "sp13",
+      "clip_start": "01:18:43.000",
+      "clip_end": "01:19:20.250",
+      "start_sec": 4723.0,
+      "end_sec": 4760.25,
+      "raw_duration_sec": 37.25,
+      "n_shots": 2,
+      "depicts": [
+        "action",
+        "setup"
+      ],
+      "chars": [
+        "M"
+      ],
+      "action": "Inside, M loads a plate from the buffet beside a boy in pink; the long take follows him through the room until he ends up alone at the edge of the party, eating with a gold gift bag in his hand.",
+      "censor": "none"
+    },
+    {
+      "id": "m0052",
+      "span": "sp13",
+      "clip_start": "01:19:20.250",
+      "clip_end": "01:19:42.708",
+      "start_sec": 4760.25,
+      "end_sec": 4782.708,
+      "raw_duration_sec": 22.458,
+      "n_shots": 2,
+      "depicts": [
+        "dialogue",
+        "reaction",
+        "emotion"
+      ],
+      "chars": [
+        "Amah Saejiu",
+        "Amah's brother",
+        "M"
+      ],
+      "action": "At the karaoke screen Amah holds a microphone low while her white-haired brother talks at her; she turns up to face him and answers. Cut across the room to M, mouth full, watching them.",
+      "censor": "none"
+    },
+    {
+      "id": "m0053",
+      "span": "sp14",
+      "clip_start": "01:19:42.708",
+      "clip_end": "01:20:00.250",
+      "start_sec": 4782.708,
+      "end_sec": 4800.25,
+      "raw_duration_sec": 17.542,
+      "n_shots": 2,
+      "depicts": [
+        "dialogue",
+        "setup"
+      ],
+      "chars": [
+        "M",
+        "Amah"
+      ],
+      "action": "M stands in the living room holding a plate of food and a gold gift bag, talking; cut to Amah seated at her table listening, and by the end a hand reaches in and sets a red tea caddy down beside her.",
+      "censor": "none"
+    },
+    {
+      "id": "m0054",
+      "span": "sp14",
+      "clip_start": "01:20:00.250",
+      "clip_end": "01:20:24.833",
+      "start_sec": 4800.25,
+      "end_sec": 4824.833,
+      "raw_duration_sec": 24.583,
+      "n_shots": 3,
+      "depicts": [
+        "dialogue"
+      ],
+      "chars": [
+        "Amah",
+        "Amah's brother",
+        "M"
+      ],
+      "action": "Amah's elderly brother speaks from his desk; Amah answers across the table, now with a blue-and-white porcelain jar and stacked boxes set in front of her. He ends up hunched over his cane at the green mat.",
+      "censor": "none"
+    },
+    {
+      "id": "m0055",
+      "span": "sp14",
+      "clip_start": "01:20:24.833",
+      "clip_end": "01:20:42.250",
+      "start_sec": 4824.833,
+      "end_sec": 4842.25,
+      "raw_duration_sec": 17.417,
+      "n_shots": 2,
+      "depicts": [
+        "dialogue",
+        "reaction"
+      ],
+      "chars": [
+        "Amah",
+        "Amah's brother",
+        "M"
+      ],
+      "action": "Amah stands behind the pile of boxes and looks away as her brother moves in at the frame edge; the reverse over his shoulder finds M on the carved sofa, who looks up and cuts into the conversation.",
+      "censor": "none"
+    },
+    {
+      "id": "m0056",
+      "span": "sp14",
+      "clip_start": "01:20:42.250",
+      "clip_end": "01:21:03.375",
+      "start_sec": 4842.25,
+      "end_sec": 4863.375,
+      "raw_duration_sec": 21.125,
+      "n_shots": 2,
+      "depicts": [
+        "dialogue",
+        "emotion"
+      ],
+      "chars": [
+        "Amah",
+        "Amah's brother",
+        "M"
+      ],
+      "action": "The brother is on his feet with his cane and Amah walks beside him, smiling. In the wide he stops by her hospital bed, head lowered over the cane, Amah facing him and M watching from the sofa.",
+      "censor": "none"
+    },
+    {
+      "id": "m0057",
+      "span": "sp15",
+      "clip_start": "01:21:03.375",
+      "clip_end": "01:21:19.833",
+      "start_sec": 4863.375,
+      "end_sec": 4879.833,
+      "raw_duration_sec": 16.458,
+      "n_shots": 3,
+      "depicts": [
+        "dialogue",
+        "setup"
+      ],
+      "chars": [
+        "Amah Saejiu",
+        "Amah's brother",
+        "M"
+      ],
+      "action": "Amah faces her elderly brother in the lounge; the angle widens to show him standing by her rented hospital bed, head bowed over his cane, and M on the carved sofa turning to look at them.",
+      "censor": "none"
+    },
+    {
+      "id": "m0058",
+      "span": "sp15",
+      "clip_start": "01:21:19.833",
+      "clip_end": "01:21:44.458",
+      "start_sec": 4879.833,
+      "end_sec": 4904.458,
+      "raw_duration_sec": 24.625,
+      "n_shots": 2,
+      "depicts": [
+        "reaction",
+        "emotion"
+      ],
+      "chars": [
+        "Amah Saejiu",
+        "M"
+      ],
+      "action": "Held close-up of Amah in her knit cap listening without answering; her eyes drop by the end of the take. Cut to M on the sofa, staring back across the room.",
+      "censor": "none"
+    },
+    {
+      "id": "m0059",
+      "span": "sp15",
+      "clip_start": "01:21:44.458",
+      "clip_end": "01:22:02.750",
+      "start_sec": 4904.458,
+      "end_sec": 4922.75,
+      "raw_duration_sec": 18.292,
+      "n_shots": 1,
+      "depicts": [
+        "dialogue",
+        "emotion"
+      ],
+      "chars": [
+        "Amah Saejiu",
+        "Amah's brother",
+        "M"
+      ],
+      "action": "Long wide take: the brother stands bowed on his cane beside the bed, Amah's back filling the foreground. By the end she has left the frame and M stands behind him, relatives visible through the window.",
+      "censor": "none"
+    },
+    {
+      "id": "m0060",
+      "span": "sp15",
+      "clip_start": "01:22:02.750",
+      "clip_end": "01:22:23.292",
+      "start_sec": 4922.75,
+      "end_sec": 4943.292,
+      "raw_duration_sec": 20.542,
+      "n_shots": 3,
+      "depicts": [
+        "action",
+        "emotion"
+      ],
+      "chars": [
+        "Amah Saejiu",
+        "M"
+      ],
+      "action": "On a crowded train Amah sits still in her cap, M reflected in the window behind her; a close-up catches him looking down, and by the last shot passengers press in and gesture around her.",
+      "censor": "none"
+    },
+    {
+      "id": "m0061",
+      "span": "sp16",
+      "clip_start": "01:22:23.292",
+      "clip_end": "01:23:12.875",
+      "start_sec": 4943.292,
+      "end_sec": 4992.875,
+      "raw_duration_sec": 49.583,
+      "n_shots": 2,
+      "depicts": [
+        "establishing",
+        "emotion"
+      ],
+      "chars": [
+        "M",
+        "Mengju Amah Saejiu"
+      ],
+      "action": "High wide of the trackside path at golden hour, figures tiny in the distance; the camera drops to ground level and M walks the alley behind Amah, reaching up to pull at an overhanging branch as other locals pass.",
+      "censor": "none"
+    },
+    {
+      "id": "m0062",
+      "span": "sp16",
+      "clip_start": "01:23:12.875",
+      "clip_end": "01:23:57.500",
+      "start_sec": 4992.875,
+      "end_sec": 5037.5,
+      "raw_duration_sec": 44.625,
+      "n_shots": 1,
+      "depicts": [
+        "action",
+        "emotion"
+      ],
+      "chars": [
+        "M",
+        "Mengju Amah Saejiu"
+      ],
+      "action": "A long held take on a shaded lane: M walks alone into frame carrying a bag, then stops; by the end of the take Amah in her sun hat has caught up and the two stand together facing down the empty road.",
+      "censor": "none"
+    },
+    {
+      "id": "m0063",
+      "span": "sp16",
+      "clip_start": "01:23:57.500",
+      "clip_end": "01:24:24.833",
+      "start_sec": 5037.5,
+      "end_sec": 5064.833,
+      "raw_duration_sec": 27.333,
+      "n_shots": 3,
+      "depicts": [
+        "transition",
+        "establishing"
+      ],
+      "chars": [
+        "Mengju Amah Saejiu"
+      ],
+      "action": "A hazy Bangkok skyline over rooftops marks the time jump, then a busy hospital lobby where Amah waits in wheelchair 24 in her knit cap; the last shot holds on a closed consulting-room door that opens onto a doctor at his desk with a patient.",
+      "censor": "none"
+    },
+    {
+      "id": "m0064",
+      "span": "sp17",
+      "clip_start": "01:24:24.833",
+      "clip_end": "01:24:39.750",
+      "start_sec": 5064.833,
+      "end_sec": 5079.75,
+      "raw_duration_sec": 14.917,
+      "n_shots": 1,
+      "depicts": [
+        "reaction"
+      ],
+      "chars": [
+        "Amah"
+      ],
+      "action": "A long held profile of Amah in her beanie, waiting alone in the wheelchair as staff and patients drift past behind her; by the end she has tipped her head back, eyes half-closed.",
+      "censor": "none"
+    },
+    {
+      "id": "m0065",
+      "span": "sp17",
+      "clip_start": "01:24:39.750",
+      "clip_end": "01:25:02.583",
+      "start_sec": 5079.75,
+      "end_sec": 5102.583,
+      "raw_duration_sec": 22.833,
+      "n_shots": 3,
+      "depicts": [
+        "dialogue",
+        "reveal"
+      ],
+      "chars": [
+        "Sew",
+        "M",
+        "Amah"
+      ],
+      "action": "Inside the consulting room Sew's face crumples as she listens, M sitting still beside her; a cutaway to his hand closing around Amah's outside, then back as he grips Sew's shoulder while she breaks down at the doctor's desk.",
+      "censor": "none"
+    },
+    {
+      "id": "m0066",
+      "span": "sp17",
+      "clip_start": "01:25:02.583",
+      "clip_end": "01:25:12.833",
+      "start_sec": 5102.583,
+      "end_sec": 5112.833,
+      "raw_duration_sec": 10.25,
+      "n_shots": 1,
+      "depicts": [
+        "action",
+        "aftermath"
+      ],
+      "chars": [
+        "Sew",
+        "M",
+        "Amah"
+      ],
+      "action": "Back in the wide lobby, Sew walks out towards Amah's wheelchair and stops short in front of it, M crouched low at Amah's side, the two of them composing themselves before her.",
+      "censor": "none"
+    },
+    {
+      "id": "m0067",
+      "span": "sp17",
+      "clip_start": "01:25:12.833",
+      "clip_end": "01:25:23.667",
+      "start_sec": 5112.833,
+      "end_sec": 5123.667,
+      "raw_duration_sec": 10.834,
+      "n_shots": 2,
+      "depicts": [
+        "dialogue",
+        "emotion"
+      ],
+      "chars": [
+        "Amah",
+        "M"
+      ],
+      "action": "Amah leans on the wheelchair arm and talks brightly to M; the reverse shows him answering her with a flat, careful face as she reaches over and takes hold of his arm.",
+      "censor": "none"
+    },
+    {
+      "id": "m0068",
+      "span": "sp17",
+      "clip_start": "01:25:23.667",
+      "clip_end": "01:25:34.250",
+      "start_sec": 5123.667,
+      "end_sec": 5134.25,
+      "raw_duration_sec": 10.583,
+      "n_shots": 2,
+      "depicts": [
+        "reaction",
+        "emotion"
+      ],
+      "chars": [
+        "Amah",
+        "Sew",
+        "M"
+      ],
+      "action": "Sew moves in behind the wheelchair, face wet, while Amah keeps smiling and chatting; the reverse holds on M, who answers her evenly without letting anything show.",
+      "censor": "none"
+    },
+    {
+      "id": "m0069",
+      "span": "sp18",
+      "clip_start": "01:25:34.250",
+      "clip_end": "01:25:56.000",
+      "start_sec": 5134.25,
+      "end_sec": 5156.0,
+      "raw_duration_sec": 21.75,
+      "n_shots": 2,
+      "depicts": [
+        "dialogue",
+        "emotion"
+      ],
+      "chars": [
+        "M",
+        "Amah Saejiu",
+        "Sew"
+      ],
+      "action": "In a hospital waiting area M crouches beside Amah's wheelchair, listening. The angle swings behind them as Sew, in the blue floral blouse, steps in and bends down over Amah.",
+      "censor": "none"
+    },
+    {
+      "id": "m0070",
+      "span": "sp18",
+      "clip_start": "01:25:56.000",
+      "clip_end": "01:26:18.917",
+      "start_sec": 5156.0,
+      "end_sec": 5178.917,
+      "raw_duration_sec": 22.917,
+      "n_shots": 2,
+      "depicts": [
+        "dialogue",
+        "reaction"
+      ],
+      "chars": [
+        "M",
+        "Amah Saejiu"
+      ],
+      "action": "M stares back at Amah across the wheelchair, stunned. By the reverse she has softened, reaching her hand out over the chair arm toward his.",
+      "censor": "none"
+    },
+    {
+      "id": "m0071",
+      "span": "sp18",
+      "clip_start": "01:26:18.917",
+      "clip_end": "01:26:49.167",
+      "start_sec": 5178.917,
+      "end_sec": 5209.167,
+      "raw_duration_sec": 30.25,
+      "n_shots": 2,
+      "depicts": [
+        "action",
+        "emotion"
+      ],
+      "chars": [
+        "M",
+        "Amah Saejiu"
+      ],
+      "action": "Night at home, very dim: a figure curled on the bed behind a mosquito net, then Amah lying flat in her floral shirt. M comes in and settles over her, taking her arm.",
+      "censor": "none"
+    },
+    {
+      "id": "m0072",
+      "span": "sp18",
+      "clip_start": "01:26:49.167",
+      "clip_end": "01:27:04.958",
+      "start_sec": 5209.167,
+      "end_sec": 5224.958,
+      "raw_duration_sec": 15.791,
+      "n_shots": 2,
+      "depicts": [
+        "action",
+        "emotion"
+      ],
+      "chars": [
+        "M",
+        "Amah Saejiu"
+      ],
+      "action": "M reaches across Amah on the pillow as her hand lifts weakly; the shot then closes on M alone in the pink half-light, head down, no longer looking at her.",
+      "censor": "none"
+    },
+    {
+      "id": "m0073",
+      "span": "sp19",
+      "clip_start": "01:27:04.958",
+      "clip_end": "01:27:38.750",
+      "start_sec": 5224.958,
+      "end_sec": 5258.75,
+      "raw_duration_sec": 33.792,
+      "n_shots": 3,
+      "depicts": [
+        "dialogue",
+        "setup"
+      ],
+      "chars": [
+        "M",
+        "Sew",
+        "Kiang"
+      ],
+      "action": "In the hospital lobby Sew waits on the bench while M sits up the stairs with his phone. Kiang walks in and crosses to them; by the last shot he is standing over M on the steps, talking down to him.",
+      "censor": "none"
+    },
+    {
+      "id": "m0074",
+      "span": "sp19",
+      "clip_start": "01:27:38.750",
+      "clip_end": "01:28:02.958",
+      "start_sec": 5258.75,
+      "end_sec": 5282.958,
+      "raw_duration_sec": 24.208,
+      "n_shots": 3,
+      "depicts": [
+        "dialogue",
+        "emotion"
+      ],
+      "chars": [
+        "Sew",
+        "Kiang"
+      ],
+      "action": "Out on the hospital walkway Kiang leans on the railing facing the buildings while Sew hangs back. She steps up beside him and he turns off the view to face her as they talk.",
+      "censor": "none"
+    },
+    {
+      "id": "m0075",
+      "span": "sp19",
+      "clip_start": "01:28:02.958",
+      "clip_end": "01:28:28.542",
+      "start_sec": 5282.958,
+      "end_sec": 5308.542,
+      "raw_duration_sec": 25.584,
+      "n_shots": 3,
+      "depicts": [
+        "dialogue",
+        "emotion"
+      ],
+      "chars": [
+        "Sew",
+        "Kiang"
+      ],
+      "action": "Tight shot/reverse at the railing: Kiang keeps talking and Sew's composure gives way. She drops her eyes, then looks back at him with wet eyes and a small, strained smile.",
+      "censor": "none"
+    },
+    {
+      "id": "m0076",
+      "span": "sp20",
+      "clip_start": "01:28:28.542",
+      "clip_end": "01:28:48.375",
+      "start_sec": 5308.542,
+      "end_sec": 5328.375,
+      "raw_duration_sec": 19.833,
+      "n_shots": 2,
+      "depicts": [
+        "establishing",
+        "action"
+      ],
+      "chars": [
+        "M",
+        "Amah"
+      ],
+      "action": "Seen from far off through a window, M and Amah stand at a hospital walkway rail. The camera then closes in: M waits alone at a stairwell window, and by the end he is holding her arm as they come down the stairs together.",
+      "censor": "none"
+    },
+    {
+      "id": "m0077",
+      "span": "sp20",
+      "clip_start": "01:28:48.375",
+      "clip_end": "01:29:16.500",
+      "start_sec": 5328.375,
+      "end_sec": 5356.5,
+      "raw_duration_sec": 28.125,
+      "n_shots": 3,
+      "depicts": [
+        "dialogue",
+        "reaction"
+      ],
+      "chars": [
+        "M",
+        "Amah",
+        "Soei"
+      ],
+      "action": "At the foot of the stairs M and Amah meet Soei, who is waiting by the ward lounge with papers and her bags. He talks her through the documents; the moment ends on M alone back on the steps, jaw set, staring after them.",
+      "censor": "none"
+    },
+    {
+      "id": "m0078",
+      "span": "sp20",
+      "clip_start": "01:29:16.500",
+      "clip_end": "01:29:33.083",
+      "start_sec": 5356.5,
+      "end_sec": 5373.083,
+      "raw_duration_sec": 16.583,
+      "n_shots": 1,
+      "depicts": [
+        "establishing",
+        "emotion"
+      ],
+      "chars": [
+        "Amah"
+      ],
+      "action": "A held wide shot from the corridor into room 410: Amah lies small and still in the bed under a drip as the dusk light on the curtains fades, nobody moving in the frame.",
+      "censor": "none"
+    },
+    {
+      "id": "m0079",
+      "span": "sp20",
+      "clip_start": "01:29:33.083",
+      "clip_end": "01:29:52.458",
+      "start_sec": 5373.083,
+      "end_sec": 5392.458,
+      "raw_duration_sec": 19.375,
+      "n_shots": 1,
+      "depicts": [
+        "reaction",
+        "emotion"
+      ],
+      "chars": [
+        "M"
+      ],
+      "action": "M stands outside the glass, his reflection doubled over the lit room behind it. He starts composed in profile, then braces a hand flat on the frame, mouth open, barely holding himself together.",
+      "censor": "none"
+    }
+  ]
+}

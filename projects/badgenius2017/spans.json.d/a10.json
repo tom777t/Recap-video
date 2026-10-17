@@ -1,0 +1,86 @@
+{
+  "span": "a10",
+  "moments": [
+    {
+      "shots": [0, 1, 2],
+      "clip_start": "00:14:59.875",
+      "clip_end": "00:15:05.917",
+      "depicts": ["montage", "setup"],
+      "chars": [],
+      "action": "A pen finishes a signature on a payment slip reading 10,875.48, then a boy poses against a red photo backdrop, ending on the finished black-and-white portrait of him smiling in a white school shirt.",
+      "censor": "none"
+    },
+    {
+      "shots": [3, 4, 5],
+      "clip_start": "00:15:05.917",
+      "clip_end": "00:15:16.500",
+      "depicts": ["establishing", "setup"],
+      "chars": ["Lynn", "Grace", "Pat"],
+      "action": "A champagne flute held at the pool edge opens out to a wide of a lit rooftop pool at night, Lynn robed on the rim, Grace swimming, Pat adrift on an inflatable; it closes tight on Pat floating with a bottle, eyes shut.",
+      "censor": "none"
+    },
+    {
+      "shots": [6, 7, 8, 9],
+      "clip_start": "00:15:16.500",
+      "clip_end": "00:15:29.708",
+      "depicts": ["dialogue"],
+      "chars": ["Lynn", "Pat", "Grace"],
+      "action": "Lynn talks across the water from the pool edge and Pat answers grinning from his float; Grace surfaces in goggles to join in, and by the last shot Lynn is laughing and looking away.",
+      "censor": "none"
+    },
+    {
+      "shots": [10, 11, 12, 13],
+      "clip_start": "00:15:29.708",
+      "clip_end": "00:15:43.042",
+      "depicts": ["dialogue", "emotion"],
+      "chars": ["Pat", "Lynn"],
+      "action": "Pat keeps talking from the float and Lynn drops her eyes; his grin falls into wide-eyed alarm, and she comes back at him with a strained, pained face.",
+      "censor": "none"
+    },
+    {
+      "shots": [14, 15, 16, 17],
+      "clip_start": "00:15:43.042",
+      "clip_end": "00:16:02.333",
+      "depicts": ["dialogue", "emotion"],
+      "chars": ["Pat", "Lynn", "Grace"],
+      "action": "From a waterline shot of Pat's bottle hand, Lynn leans in over his shoulder and presses her case while Grace watches from the water; Lynn ends turned away in profile, no longer facing him.",
+      "censor": "none"
+    },
+    {
+      "shots": [18, 19, 20, 21],
+      "clip_start": "00:16:02.333",
+      "clip_end": "00:16:17.958",
+      "depicts": ["dialogue", "reaction"],
+      "chars": ["Pat", "Lynn", "Grace"],
+      "action": "Pat ducks his head and slicks his wet hair back beside the float as Lynn stares down at the deck with her eyes closed; Grace pushes her goggles up onto her forehead and surfaces into the argument.",
+      "censor": "none"
+    },
+    {
+      "shots": [22, 23, 24],
+      "clip_start": "00:16:17.958",
+      "clip_end": "00:16:33.958",
+      "depicts": ["reaction", "dialogue"],
+      "chars": ["Pat", "Lynn"],
+      "action": "Pat bursts out laughing and slaps a sheet of water into the air; Lynn lifts her head and looks past him, weighing it, while Pat drifts to the pool wall and goes quiet, staring off.",
+      "censor": "none"
+    },
+    {
+      "shots": [25, 26, 27],
+      "clip_start": "00:16:33.958",
+      "clip_end": "00:16:46.583",
+      "depicts": ["dialogue", "emotion"],
+      "chars": ["Lynn", "Pat"],
+      "action": "Lynn holds silent in profile by the lights; Pat turns from the pool wall with the bottle to speak to her, and she answers him straight on, jaw set.",
+      "censor": "none"
+    },
+    {
+      "shots": [28, 29],
+      "clip_start": "00:16:46.583",
+      "clip_end": "00:16:53.792",
+      "depicts": ["reaction", "reveal"],
+      "chars": ["Grace", "Pat"],
+      "action": "Grace watches from the water with her goggles pushed up, then Pat rises off the pool edge and stares back open-mouthed, the easy grin gone.",
+      "censor": "none"
+    }
+  ]
+}

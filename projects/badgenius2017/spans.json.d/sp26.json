@@ -1,0 +1,86 @@
+{
+  "span": "sp26",
+  "moments": [
+    {
+      "shots": [0, 1, 2],
+      "clip_start": "01:37:28.375",
+      "clip_end": "01:37:37.958",
+      "depicts": ["transition", "establishing", "setup"],
+      "chars": [],
+      "action": "A blurred pan across a rank of orange-vested motorbike riders, then a wall clock reading 6:59 on 18-10-2016; cut to a second digital clock on wood panelling reading 10:57:59, moving the action to the exam hall.",
+      "censor": "none"
+    },
+    {
+      "shots": [3, 4, 5, 6, 7],
+      "clip_start": "01:37:37.958",
+      "clip_end": "01:37:53.750",
+      "depicts": ["action", "setup"],
+      "chars": ["Lynn"],
+      "action": "A proctor in a cream blazer stares down the room; Lynn sits with her eyes shut, then a hand sweeps over the answer sheet and the paper turns to the 'Essay' section and its Witwatersrand heading.",
+      "censor": "none"
+    },
+    {
+      "shots": [8, 9, 10, 11],
+      "clip_start": "01:37:53.750",
+      "clip_end": "01:38:01.958",
+      "depicts": ["action", "emotion"],
+      "chars": ["Lynn"],
+      "action": "Lynn bends over the paper reading the Nelson Mandela speech prompt dated July 16, 2003. By the last shot she has lifted her head slightly, face damp with sweat and brow pinched.",
+      "censor": "none"
+    },
+    {
+      "shots": [12, 13, 14, 15],
+      "clip_start": "01:38:01.958",
+      "clip_end": "01:38:23.500",
+      "depicts": ["reaction", "setup"],
+      "chars": ["Lynn"],
+      "action": "Lynn stops writing and looks off to the side across the library; an insert shows her pencil lying idle on the desk. She tilts her face up, and a wide shot reveals her alone among rows of writing candidates.",
+      "censor": "none"
+    },
+    {
+      "shots": [16, 17, 18, 19],
+      "clip_start": "01:38:23.500",
+      "clip_end": "01:38:44.333",
+      "depicts": ["action", "setup"],
+      "chars": ["Lynn"],
+      "action": "Lynn holds the pencil upright in front of her face, steadying herself, then doubles into a cough behind her fist. Her other hand clamps the desk edge, and the coughing grows harder and more visible to the room.",
+      "censor": "none"
+    },
+    {
+      "shots": [20, 21, 22, 23, 24],
+      "clip_start": "01:38:44.333",
+      "clip_end": "01:38:52.958",
+      "depicts": ["action", "reveal"],
+      "chars": ["Lynn"],
+      "action": "A flurry of extreme close-ups: her neck, eye and open mouth, ending on her own fingers pushed between her lips - she is deliberately forcing the fit rather than suffering it.",
+      "censor": "none"
+    },
+    {
+      "shots": [25, 26, 27],
+      "clip_start": "01:38:52.958",
+      "clip_end": "01:39:05.958",
+      "depicts": ["action", "reaction"],
+      "chars": ["Lynn"],
+      "action": "Lynn buckles forward over her desk coughing; nearby candidates stop writing and turn to stare. By the end she is folded flat over the paper with the whole row watching her.",
+      "censor": "none"
+    },
+    {
+      "shots": [28, 29, 30, 31],
+      "clip_start": "01:39:05.958",
+      "clip_end": "01:39:11.792",
+      "depicts": ["action", "aftermath"],
+      "chars": ["Lynn"],
+      "action": "The proctor takes Lynn by the arm and walks her, face screwed up and crying, out between the desks past the staring hall; the last shot leaves the proctor alone at the front, Lynn gone.",
+      "censor": "none"
+    },
+    {
+      "shots": [32],
+      "clip_start": "01:39:11.792",
+      "clip_end": "01:39:17.792",
+      "depicts": ["transition", "establishing"],
+      "chars": [],
+      "action": "Cut away to a dim print works: a young man in a short-sleeved shirt walks away from camera between a Heidelberg press and the machinery, carrying papers.",
+      "censor": "none"
+    }
+  ]
+}

@@ -1,0 +1,104 @@
+{
+  "span": "a15",
+  "moments": [
+    {
+      "shots": [0, 1, 2],
+      "clip_start": "00:22:27.875",
+      "clip_end": "00:22:35.375",
+      "depicts": ["action", "setup"],
+      "chars": ["Lynn"],
+      "action": "Lynn sits an exam, pencil at her lips, then lays her hand flat on the desk edge and works her fingers; the cut lands on those same fingers running over piano keys.",
+      "censor": "none"
+    },
+    {
+      "shots": [3, 4, 5, 6],
+      "clip_start": "00:22:35.375",
+      "clip_end": "00:22:45.208",
+      "depicts": ["montage", "setup"],
+      "chars": ["Grace", "Pat"],
+      "action": "At home Grace and Pat drill the fingering on their knees; in the exam room Grace sits watching for Lynn's hand, and the moment ends on a pen tip settling into a circled answer.",
+      "censor": "none"
+    },
+    {
+      "shots": [7, 8, 9, 10, 11, 12, 13, 14],
+      "clip_start": "00:22:45.208",
+      "clip_end": "00:22:56.583",
+      "depicts": ["montage", "setup"],
+      "chars": ["Grace", "Pat"],
+      "action": "The code spreads: piano keys, a hand ticking on a desk, more clients mouthing it back at the house, bubbles filled in. By the end the scheme is outdoors, a black sedan at the school gate and Pat on his phone beside it.",
+      "censor": "none"
+    },
+    {
+      "shots": [15, 16, 17, 18, 19, 20, 21],
+      "clip_start": "00:22:56.583",
+      "clip_end": "00:23:10.708",
+      "depicts": ["montage", "action"],
+      "chars": ["Lynn"],
+      "action": "Lynn works the piano at home while boy after boy in the exam room grins back at the tapping hand and sheets fill in; it closes on Lynn's face, eyes down, giving nothing away.",
+      "censor": "none"
+    },
+    {
+      "shots": [22, 23, 24, 25],
+      "clip_start": "00:23:10.708",
+      "clip_end": "00:23:20.792",
+      "depicts": ["montage", "discovery"],
+      "chars": ["Lynn's father"],
+      "action": "A hand sketches on paper, then a bank book opens on rows of deposits climbing into the hundreds of thousands. The scene turns to Lynn's house after dark, her father standing across the dim room.",
+      "censor": "none"
+    },
+    {
+      "shots": [26, 27, 28, 29],
+      "clip_start": "00:23:20.792",
+      "clip_end": "00:23:33.875",
+      "depicts": ["dialogue", "emotion"],
+      "chars": ["Lynn", "Grace", "Pat", "Lynn's father"],
+      "action": "Lynn turns from the piano and her clients whoop in the living room; back in the dark house she sits at her study desk answering her father, and the last shot leaves him standing alone, silent.",
+      "censor": "none"
+    },
+    {
+      "shots": [30, 31, 32],
+      "clip_start": "00:23:33.875",
+      "clip_end": "00:23:42.833",
+      "depicts": ["action", "setup"],
+      "chars": ["Lynn"],
+      "action": "Lynn lifts her chin in the bright classroom with a small smile; the film cuts to her alone at night working a school photocopier, and ends pulled into blur.",
+      "censor": "none"
+    },
+    {
+      "shots": [33, 34],
+      "clip_start": "00:23:42.833",
+      "clip_end": "00:23:51.625",
+      "depicts": ["dialogue", "aftermath"],
+      "chars": ["Lynn", "Pat"],
+      "action": "In a school walkway Pat leans in close to Lynn's ear while a classmate watches; the next shot has four students lined up grinning straight at the camera.",
+      "censor": "none"
+    },
+    {
+      "shots": [35, 36],
+      "clip_start": "00:23:51.625",
+      "clip_end": "00:24:02.167",
+      "depicts": ["establishing", "reveal"],
+      "chars": [],
+      "action": "A low angle on the school tower, figures on the roof handling a banner; the camera then holds on the hung banner itself, a student's portrait and a congratulation on her scholarship.",
+      "censor": "none"
+    },
+    {
+      "shots": [37, 38, 39, 40],
+      "clip_start": "00:24:02.167",
+      "clip_end": "00:24:13.458",
+      "depicts": ["transition"],
+      "chars": ["Bank"],
+      "action": "Bank stands square to camera against flat red, not moving; the image drains to black and white, then a Thai chapter title fades up over an empty school toilet block.",
+      "censor": "none"
+    },
+    {
+      "shots": [41, 42, 43, 44],
+      "clip_start": "00:24:13.458",
+      "clip_end": "00:24:24.500",
+      "depicts": ["action", "emotion"],
+      "chars": ["Bank"],
+      "action": "In the toilets Bank screws his face up, then fits his name tag back onto a white shirt; the last shot pulls wide and leaves him bent over the sink, scrubbing, alone.",
+      "censor": "none"
+    }
+  ]
+}

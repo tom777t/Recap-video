@@ -1,0 +1,68 @@
+{
+  "span": "a18",
+  "moments": [
+    {
+      "shots": [0, 1, 2],
+      "clip_start": "00:27:01.292",
+      "clip_end": "00:27:21.500",
+      "depicts": ["dialogue", "setup"],
+      "chars": ["Lynn", "Bank"],
+      "action": "Lynn and Bank wait stiffly in a school office doorway, Bank clutching his backpack; a woman in a white blouse stands apart, talking to someone off-screen. By the last shot the pair are still waiting, unaddressed.",
+      "censor": "none"
+    },
+    {
+      "shots": [3, 4, 5],
+      "clip_start": "00:27:21.500",
+      "clip_end": "00:27:45.292",
+      "depicts": ["dialogue", "setup"],
+      "chars": ["Lynn", "Bank"],
+      "action": "The woman in white sweeps into the meeting room laughing and crosses to the long table; Lynn and Bank, tense in the doorway, soften. She ends seated across from them, hands clasped, pitching something.",
+      "censor": "none"
+    },
+    {
+      "shots": [6, 7, 8, 9],
+      "clip_start": "00:27:45.292",
+      "clip_end": "00:28:13.625",
+      "depicts": ["dialogue", "reaction"],
+      "chars": ["Lynn", "Bank"],
+      "action": "Shot/reverse across the table as the woman keeps talking and smiling. Bank's face goes from startled to blank; by the last reverse she has leaned forward over clasped hands, no longer smiling.",
+      "censor": "none"
+    },
+    {
+      "shots": [10, 11],
+      "clip_start": "00:28:13.625",
+      "clip_end": "00:28:22.042",
+      "depicts": ["dialogue", "reaction"],
+      "chars": ["Lynn", "Bank"],
+      "action": "Tight profiles: Lynn stares ahead, jaw set and unhappy, with Bank blurred behind her; the cut reverses and it is Bank who answers while Lynn turns away out of focus.",
+      "censor": "none"
+    },
+    {
+      "shots": [12, 13, 14],
+      "clip_start": "00:28:22.042",
+      "clip_end": "00:28:31.917",
+      "depicts": ["transition", "action"],
+      "chars": ["Bank"],
+      "action": "Night. A motorbike headlight flares at camera, then Bank pulls on a battered helmet with earphones in. He ends wheeling the bike off the street into the lit laundry shopfront.",
+      "censor": "none"
+    },
+    {
+      "shots": [15, 16],
+      "clip_start": "00:28:31.917",
+      "clip_end": "00:28:38.458",
+      "depicts": ["establishing", "setup"],
+      "chars": [],
+      "action": "A hand lifts a framed certificate up to a wooden shrine holding a portrait of a man in academic robes; the camera then pulls outside to the laundry's signage, Bank small at a machine within.",
+      "censor": "none"
+    },
+    {
+      "shots": [17, 18, 19],
+      "clip_start": "00:28:38.458",
+      "clip_end": "00:28:49.292",
+      "depicts": ["establishing", "emotion"],
+      "chars": ["Bank"],
+      "action": "Near-black interior resolves past Bank's shoulder onto his mother crouched alone beside the washing machine among baskets. The last shot lands on Bank's face, earphone in, watching her and saying nothing.",
+      "censor": "none"
+    }
+  ]
+}

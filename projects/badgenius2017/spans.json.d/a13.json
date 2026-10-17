@@ -1,0 +1,68 @@
+{
+  "span": "a13",
+  "moments": [
+    {
+      "shots": [0, 1],
+      "clip_start": "00:19:25.917",
+      "clip_end": "00:19:44.292",
+      "depicts": ["dialogue", "setup"],
+      "chars": ["Lynn", "Lynn's father"],
+      "action": "Seen past Lynn's blurred shoulder, her father stands in the kitchen in a vest holding a white bottle. The cut reverses to Lynn at the piano, watching him steadily.",
+      "censor": "none"
+    },
+    {
+      "shots": [2, 3, 4],
+      "clip_start": "00:19:44.292",
+      "clip_end": "00:19:56.250",
+      "depicts": ["dialogue", "emotion"],
+      "chars": ["Lynn", "Lynn's father"],
+      "action": "Her father tips a pill into his hand and swallows it; Lynn drops her eyes. By the last shot he has set the bottle down and crosses the room toward her, smiling.",
+      "censor": "none"
+    },
+    {
+      "shots": [5],
+      "clip_start": "00:19:56.250",
+      "clip_end": "00:20:18.958",
+      "depicts": ["dialogue", "emotion"],
+      "chars": ["Lynn", "Lynn's father"],
+      "action": "A long held take: her father's shoulder enters the foreground as he reaches the piano and talks to her. Lynn, first facing him, ends with her back to camera, head tilted up toward the window.",
+      "censor": "none"
+    },
+    {
+      "shots": [6, 7, 8],
+      "clip_start": "00:20:18.958",
+      "clip_end": "00:20:31.333",
+      "depicts": ["action", "setup"],
+      "chars": ["Lynn"],
+      "action": "Tight inserts close in on the piano: the brass pedals on scratched wood, a face reflected in the dark glass past Lynn's shoulder, then her face in profile lowering as she settles to play.",
+      "censor": "none"
+    },
+    {
+      "shots": [9],
+      "clip_start": "00:20:31.333",
+      "clip_end": "00:20:49.125",
+      "depicts": ["action", "emotion"],
+      "chars": ["Lynn"],
+      "action": "One unbroken shot of Lynn's hands on the Kriebel keyboard. The camera pushes in from her seated body to the hands alone, her fingers moving across the keys.",
+      "censor": "none"
+    },
+    {
+      "shots": [10, 11, 12],
+      "clip_start": "00:20:49.125",
+      "clip_end": "00:21:07.500",
+      "depicts": ["action", "emotion"],
+      "chars": ["Lynn"],
+      "action": "Lynn is glimpsed through a wooden lattice, head down and half-smiling. Back at the piano she folds the fallboard shut and the frame widens to her alone with the closed instrument.",
+      "censor": "none"
+    },
+    {
+      "shots": [13, 14],
+      "clip_start": "00:21:07.500",
+      "clip_end": "00:21:20.208",
+      "depicts": ["dialogue", "reaction"],
+      "chars": ["Pat"],
+      "action": "Cut to a bare dark room: Pat sits alone at a table in a floral shirt, hands clasped, staring straight at camera. The closer shot shows him lowering his eyes, brow tightening.",
+      "censor": "none"
+    }
+  ]
+}

@@ -1,0 +1,59 @@
+{
+  "span": "c09",
+  "moments": [
+    {
+      "shots": [0, 1],
+      "clip_start": "01:57:00.750",
+      "clip_end": "01:57:19.542",
+      "depicts": ["establishing", "setup"],
+      "chars": ["Lynn"],
+      "action": "Lynn walks out along the bright school corridor as other students drift away down it. Cut to her phone in hand: a chat message from Bank, so she ends the moment stopped over the screen instead of walking.",
+      "censor": "none"
+    },
+    {
+      "shots": [2, 3, 4],
+      "clip_start": "01:57:19.542",
+      "clip_end": "01:57:39.375",
+      "depicts": ["action", "discovery"],
+      "chars": ["Lynn"],
+      "action": "Night: Lynn stands in the street outside a lit laundry shop with a scooter parked in its doorway. A crumpled white school shirt scrawled in red and black lies on the tiles; by the last shot she is standing over it, head lowered.",
+      "censor": "none"
+    },
+    {
+      "shots": [5, 6, 7, 8],
+      "clip_start": "01:57:39.375",
+      "clip_end": "01:57:55.167",
+      "depicts": ["establishing", "reveal"],
+      "chars": ["Lynn"],
+      "action": "The shop has been rebuilt: a new \"Mister Bank\" wash-dry-iron sign, then rows of brand-new washing machines still sealed in bubble wrap. Lynn takes it in, and the last shot leaves her small behind the glass, inside the new place.",
+      "censor": "none"
+    },
+    {
+      "shots": [9, 10, 11],
+      "clip_start": "01:57:55.167",
+      "clip_end": "01:58:16.208",
+      "depicts": ["dialogue", "setup"],
+      "chars": ["Lynn", "Bank"],
+      "action": "A wooden door opens onto the back workshop, where Bank waits leaning against a bench with his arms folded. Lynn stops in the doorway and stays there, talking across the room without closing the distance.",
+      "censor": "none"
+    },
+    {
+      "shots": [12, 13, 14, 15],
+      "clip_start": "01:58:16.208",
+      "clip_end": "01:58:31.292",
+      "depicts": ["dialogue", "emotion"],
+      "chars": ["Lynn", "Bank"],
+      "action": "Shot/reverse across the workshop: Bank stares back flat and unmoving while Lynn speaks. By the last shot she has stopped talking and her eyes have slid away from him.",
+      "censor": "none"
+    },
+    {
+      "shots": [16, 17, 18],
+      "clip_start": "01:58:31.292",
+      "clip_end": "01:58:50.083",
+      "depicts": ["reaction", "emotion"],
+      "chars": ["Lynn", "Bank"],
+      "action": "The stand-off holds: Bank keeps his chin up and his face hard while Lynn's expression tightens and her brow creases. On the final shot Bank drops his eyes and turns his head down and away.",
+      "censor": "none"
+    }
+  ]
+}

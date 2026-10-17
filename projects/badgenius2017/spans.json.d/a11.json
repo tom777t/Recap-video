@@ -1,0 +1,68 @@
+{
+  "span": "a11",
+  "moments": [
+    {
+      "shots": [0, 1, 2, 3],
+      "clip_start": "00:16:33.958",
+      "clip_end": "00:16:50.333",
+      "depicts": ["dialogue", "setup"],
+      "chars": ["Lynn", "Pat", "Grace"],
+      "action": "Lynn listens on a dark street strung with bokeh lights; the cut goes to Pat answering from a lit night pool, bottle in hand. She starts talking back, and Grace surfaces at the pool edge in goggles.",
+      "censor": "none"
+    },
+    {
+      "shots": [4, 5, 6, 7],
+      "clip_start": "00:16:50.333",
+      "clip_end": "00:17:04.083",
+      "depicts": ["dialogue", "setup"],
+      "chars": ["Lynn", "Pat", "Grace"],
+      "action": "Pat leans on the pool wall pitching, bottle raised; Lynn drops her eyes and goes quiet. He gestures harder, grinning, while Grace floats behind him with her eyes shut.",
+      "censor": "none"
+    },
+    {
+      "shots": [8, 9, 10, 11],
+      "clip_start": "00:17:04.083",
+      "clip_end": "00:17:20.167",
+      "depicts": ["dialogue", "reaction"],
+      "chars": ["Lynn", "Pat"],
+      "action": "Lynn stands head down, then lifts a hand to her chin, weighing it; Pat keeps smiling at the pool edge and brings the phone back to his ear. She shifts from just listening to considering.",
+      "censor": "none"
+    },
+    {
+      "shots": [12, 13],
+      "clip_start": "00:17:20.167",
+      "clip_end": "00:17:41.375",
+      "depicts": ["dialogue", "emotion"],
+      "chars": ["Lynn", "Pat", "Grace"],
+      "action": "Lynn bows her head on the street; the cut then holds long on Pat and Grace side by side at the pool wall, both talking up into the call. She is alone on her end, they are a pair on theirs.",
+      "censor": "none"
+    },
+    {
+      "shots": [14, 15, 16],
+      "clip_start": "00:17:41.375",
+      "clip_end": "00:17:56.500",
+      "depicts": ["dialogue", "reaction"],
+      "chars": ["Lynn", "Pat", "Grace"],
+      "action": "Lynn turns her face away mid-call; Pat pulls Grace in under his arm as he keeps talking. By the last shot Lynn's eyes have dropped and she has stopped answering.",
+      "censor": "none"
+    },
+    {
+      "shots": [17, 18, 19],
+      "clip_start": "00:17:56.500",
+      "clip_end": "00:18:09.208",
+      "depicts": ["action", "discovery"],
+      "chars": ["Lynn"],
+      "action": "Hands ease open a dark cabinet drawer in a dim room; Lynn crouches at the desk under framed certificates and lifts out a sealed official document, now held up close and readable.",
+      "censor": "none"
+    },
+    {
+      "shots": [20, 21],
+      "clip_start": "00:18:09.208",
+      "clip_end": "00:18:17.500",
+      "depicts": ["action", "discovery"],
+      "chars": ["Lynn"],
+      "action": "Seen through door slats, Lynn has moved up to the lamplit desk and sits reading; the last shot pushes in close on her arm moving across the pale stack of papers.",
+      "censor": "none"
+    }
+  ]
+}

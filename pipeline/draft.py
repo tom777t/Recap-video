@@ -401,11 +401,23 @@ def validate_draft(project: str, *, write_state: bool = False,
         sys.exit(1)
 
     # write readable script.txt
-    est_min = total_words / config.TTS_WORDS_PER_MINUTE
+    # 2026-09-09: day la con so NGUOI DOC THAT SU NHIN THAY, va no tung chay
+    # tren 170 WPM trong khi DRAFT-TARGET chay tren nhip do duoc - hai con so
+    # runtime cho cung mot ban draft. Phai dung CHINH mot co so, nen no doc
+    # cung mot profile, va no NOI RA no dang dung co so nao.
+    from pipeline import calibration as _cal_s
+    _prof = _cal_s.get_profile(getattr(config, "DEFAULT_TTS_VOICE", None),
+                               getattr(config, "DEFAULT_TTS_RATE", "+22%"))
+    _wpm = (_prof.words_per_minute if _prof.is_measured
+            else float(config.TTS_WORDS_PER_MINUTE))
+    _basis = (f"measured {_prof.voice_id}" if _prof.is_measured
+              else "config fallback (voice not measured)")
+    est_min = total_words / _wpm
     script_lines = [
         f"TITLE: {draft.get('title', '(untitled)')}",
         f"Lines: {len(draft['lines'])}   Words: {total_words}   "
-        f"Est. narration: {est_min:.1f} min   Target: {draft.get('target_minutes', '?')} min",
+        f"Est. narration: {est_min:.1f} min @ {_wpm:.0f} WPM [{_basis}]   "
+        f"Target: {draft.get('target_minutes', '?')} min",
         "=" * 60,
         "",
     ]
@@ -672,6 +684,30 @@ _FORMAL = [
     r"\butilize\b", r"\bthereafter\b", r"\bwhom\b", r"\balbeit\b",
     r"\bnevertheless\b", r"\bcommences\b",
 ]
+# [CAMERA-LANGUAGE] 2026-09-09.
+# Narration describes the STORY. The moment it describes the apparatus - the
+# camera, the cut, the frame, the take - it has stopped telling the viewer what
+# happened and started telling them how it was filmed. The viewer is already
+# watching the footage; they do not need it announced.
+#
+# This leaked in because the machine catalogue's `action` field is written by a
+# tagger looking at frames, so it is FULL of shot language ("the frame pulls
+# back", "one held take", "cut to"). I1 says `action` is never the prose source,
+# and the draft prompt says rewrite it - but nothing MEASURED whether that had
+# happened. 27 lines of the first machine draft narrated the camera.
+_CAMERA = [
+    r"\bthe camera\b", r"\bcamera (?:pushes|pulls|backs|holds|stays|leaves|closes)\b",
+    r"\bthe (?:cut|cuts)\b", r"\bcut (?:to|back|against|out)\b", r"\bhard cut\b",
+    r"\bthe frame\b", r"\bframe (?:pulls|widens|settles|closes|leaves)\b",
+    r"\bin frame\b", r"\bon(?:-| )screen\b", r"\boff(?:-| )screen\b",
+    r"\ban? insert\b", r"\bthe insert\b", r"\binsert cuts?\b",
+    r"\bshot and reverse\b", r"\bthe reverse\b", r"\breverse shot\b",
+    r"\blast (?:shot|frame)\b", r"\bfirst shot\b", r"\bfinal shot\b",
+    r"\bone (?:long |held )?take\b", r"\bheld take\b", r"\bacross one take\b",
+    r"\bclose(?:-| )up\b", r"\bthe wide\b", r"\bwide shot\b", r"\bthe shot\b",
+    r"\bracks? (?:focus|past)\b", r"\bthe lens\b", r"\bintercut\b",
+    r"\bfades? (?:in|out|into)\b", r"\bthe (?:opening|closing) shot\b",
+]
 # Generic action TOKENS, matched against the parts of a family name
 # ("warehouse_shootout" -> {"warehouse", "shootout"} -> action). This is a
 # FALLBACK; the primary signal is `depicts: action` on the shot or pool entry.
@@ -858,6 +894,182 @@ def _lint_script(pdir, draft, src_dur, pool_meta=None, explicit_times=None):
                              f"({pat.strip(chr(92)+'b')}) - say it plainly.")
                 break
 
+    # --- [NAME-LEAK]: a capitalised token with no source ------------------
+    # 2026-09-09. Noi transcript vao payload lam cach romanise cua may chui
+    # thang vao narration: "Lin", "Rin" (deu la Lynn) va "Toe" (mot nhan vat
+    # CHI ton tai trong ban dich may). Toi di bat chung bang MAT, bat duoc hai,
+    # sot hai; mot lan quet regex moi ra het. Mot danh sach doc bang mat khong
+    # phai mot phep do.
+    #
+    # Nguon hop le cho mot ten rieng trong narration:
+    #   names.json  - danh sach nhan vat chinh thuc
+    #   beat map    - cac DONG BEAT (Bxx | ...), noi dia danh / to chuc that su
+    #                 song (Sydney, Boston, STIC, GAT, Bangkok)
+    # Phan PROSE o dau beat map CO Y KHONG duoc tinh: do chinh la cho viet
+    # 'transcript romanises the lead as "Lin"' - mot canh bao, khong phai mot
+    # su cho phep.
+    #
+    # Rule B ton tai vi beat map TU MAU THUAN: header cam "Lin", nhung B05 lai
+    # viet "the nickname on the form: Lin". Chi dua vao allowlist thi "Lin" lot
+    # luoi. Nen mot token GAN GIONG mot ten trong names.json (edit distance <=2)
+    # bi bat KE CA khi no co trong beat map - do dung la hinh dang cua loi
+    # romanise-variant.
+    import json as _json, glob as _glob
+
+    def _lev(a, b):
+        if a == b:
+            return 0
+        prev = list(range(len(b) + 1))
+        for i, ca in enumerate(a, 1):
+            cur = [i]
+            for j, cb in enumerate(b, 1):
+                cur.append(min(prev[j] + 1, cur[j - 1] + 1,
+                               prev[j - 1] + (ca != cb)))
+            prev = cur
+        return prev[-1]
+
+    # Hai LOP DONG cua tieng Anh. Liet ke duoc HET, nen day khong phai mot
+    # stoplist moc dan theo tung false positive nhin thay - do chinh la kieu
+    # "sua theo cai minh nho" ma rule nay sinh ra de thay the.
+    _CLOSED = set("""
+    one two three four five six seven eight nine ten eleven twelve thirteen
+    fourteen fifteen sixteen seventeen eighteen nineteen twenty thirty forty
+    fifty sixty seventy eighty ninety hundred thousand million billion dozen
+    first second third fourth fifth sixth seventh eighth ninth tenth
+    meanwhile however afterwards nevertheless moreover therefore besides
+    otherwise likewise instead suddenly finally eventually afterward
+    """.split())
+
+    _proper, _allow = set(), set()
+    try:
+        _nj = _json.loads((pdir / "names.json").read_text(encoding="utf-8-sig"))
+        for e in (_nj.get("names") or []):
+            _t = _re.findall(r"[A-Za-z][A-Za-z'-]*", str(e.get("character", "")))
+            if _t:
+                # "Lynn's father" -> ten rieng la "lynn"; "father" la VAI TRO
+                _proper.add(_t[0].split("'")[0].lower())
+    except Exception:
+        pass
+    _allow |= _proper
+    # CHI cac DONG BEAT. Phan prose dau beat map co y khong duoc tinh: do la
+    # cho viet 'transcript romanises the lead as "Lin"' - mot canh bao, khong
+    # phai mot su cho phep.
+    try:
+        _bl = (pdir / "beats_proposal.md").read_text(
+            encoding="utf-8-sig").splitlines()
+        _rows = " ".join(l for l in _bl if _re.match(r"^\s*B\d+\s*\|", l))
+        for t in _re.findall(r"\b[A-Z][A-Za-z'-]*\b", _rows):
+            _allow.add(t.split("'")[0].lower())
+    except Exception:
+        pass
+
+    # Tu dien VIET THUONG: mot tu xuat hien o dang thuong trong tai lieu tieng
+    # Anh cua repo thi no la tu thuong, khong phai ten rieng. Dung ca kho de
+    # "Sixty / Daylight / Backstage / Whatever" khong bi goi la ten ma khong
+    # can ai go tay chung vao mot danh sach.
+    _lower = set(_CLOSED)
+    _texts = [(pdir / "beats_proposal.md")]
+    _corpus = []
+    try:
+        _corpus += [str(s.get("action", "")) for s in
+                    _json.loads((pdir / "shots.json").read_text(
+                        encoding="utf-8-sig")).get("shots", [])]
+    except Exception:
+        pass
+    _corpus += [str(l.get("narration", "")) for l in draft["lines"]]
+    _root = str(pdir.parent)
+    # 2026-09-09: o day tung goi io.open(), nhung draft.py KHONG import io.
+    # NameError bi chinh `except Exception` nay nuot, nen kho corpus toan repo
+    # lang le khong bao gio nap - va rule bao 21 loi thay vi 15, trong do co
+    # "Bar"/"Bad" bi goi la bien the cua "Bank". Mot except qua rong bien mot
+    # loi lap trinh thanh mot ket qua sai IM LANG. Bat dung loai I/O thoi.
+    _loaded = 0
+    for _p in _glob.glob(_root + r"\*\transcript.json"):
+        try:
+            _corpus += [str(s.get("text", "")) for s in
+                        _json.loads(Path(_p).read_text(encoding="utf-8-sig"))
+                        .get("segments", [])]
+            _loaded += 1
+        except (OSError, ValueError):
+            pass
+    for _p in _glob.glob(_root + r"\*\beats_proposal.md"):
+        try:
+            _corpus.append(Path(_p).read_text(encoding="utf-8-sig"))
+        except OSError:
+            pass
+    if _loaded == 0:
+        warns.append("[NAME-LEAK] no transcript corpus loaded - the "
+                     "capitalised-token check is running on a thin vocabulary "
+                     "and will over-report. This is a setup fault, not a draft "
+                     "fault.")
+    for _txt in _corpus:
+        for _w in _re.findall(r"\b[a-z][a-z'-]*\b", _txt):
+            _lower.add(_w.split("'")[0])
+            for _part in _w.split("-"):
+                if _part:
+                    _lower.add(_part.split("'")[0])
+
+    for ln in draft["lines"]:
+        text = str(ln.get("narration", ""))
+        seen = set()
+        for tok in _re.findall(r"\b[A-Z][A-Za-z'-]*\b", text):
+            base = tok.lower().split("'")[0]      # "I'm"->"i", "Lynn's"->"lynn"
+            if len(base) < 2 or base in seen or base in _lower:
+                continue
+            if "-" in base and all(p in _lower for p in base.split("-") if p):
+                continue
+            seen.add(base)
+            # Mot BIEN THE cua ten that phai giu CHU CAI DAU, neu khong thi
+            # "Venn"~"Lynn" / "Bar"~"Bank" deu bi goi la bien the chi vi tinh
+            # co. Token VIET HOA TOAN BO la viet tat (STIC, GAT, CCTV), khong
+            # bao gio la mot cach danh van sai cua ten nguoi.
+            near = ([] if (tok.isupper() and len(tok) > 1) else
+                    [c for c in _proper
+                     if base != c and base[:1] == c[:1]
+                     and _lev(base, c) <= 2 and abs(len(base) - len(c)) <= 1])
+            if base in _allow and not near:
+                continue
+            if near:
+                warns.append(
+                    f"[NAME-LEAK] line {ln['id']}: '{tok}' is "
+                    f"{_lev(base, near[0])} edit(s) from '{near[0].title()}' in "
+                    f"names.json - almost certainly a transcript romanisation, "
+                    f"not a second character. Use the names.json spelling.")
+            else:
+                warns.append(
+                    f"[NAME-LEAK] line {ln['id']}: '{tok}' is in neither "
+                    f"names.json nor the beat map. Verify it is real on-screen "
+                    f"text, or use a generic role - never invent a name.")
+
+    # --- [CAMERA-LANGUAGE]: narrate the story, not the apparatus ---------
+    for ln in draft["lines"]:
+        t = str(ln.get("narration", "")).lower()
+        hits = [pat for pat in _CAMERA if _re.search(pat, t)]
+        if hits:
+            warns.append(
+                f"[CAMERA-LANGUAGE] line {ln['id']}: narrates the camera "
+                f"({', '.join(p.strip(chr(92)+'b')[:28] for p in hits[:2])}) - "
+                f"say what HAPPENS, not how it was shot.")
+
+    # --- [TONE-FLAT]: a draft that is all one tone is untagged, not calm --
+    # 2026-09-09: the first machine draft was 186/187 lines `normal`, against a
+    # human draft of 70 tense / 45 normal / 24 sad. One tone across a whole film
+    # is not an editorial choice, it is the field never being filled - and it
+    # renders as a flat read for 20 minutes. This fires on the DISTRIBUTION, not
+    # on any line, because no single line is wrong.
+    _tones = [str(ln.get("delivery") or "normal").lower()
+              for ln in draft["lines"]]
+    if len(_tones) >= 20:
+        from collections import Counter as _Counter
+        _top, _n = _Counter(_tones).most_common(1)[0]
+        _share = _n / len(_tones)
+        if _share > 0.90:
+            warns.append(
+                f"[TONE-FLAT] {_n}/{len(_tones)} lines ({_share*100:.0f}%) are "
+                f"'{_top}' - over the 90% limit. A whole film at one tone is an "
+                f"unfilled field, not a choice; it renders flat. Assign tone per "
+                f"line (hook/tense/sad/mystery/reveal/normal).")
+
     # --- [ACTION-SETUP]: action beats need setup in the prior 4 lines ----
     lines = draft["lines"]
 
@@ -994,9 +1206,27 @@ def _lint_script(pdir, draft, src_dur, pool_meta=None, explicit_times=None):
                          f"confirm they are distinct stages / scenes.")
 
     if warns:
+        # 2026-09-09: truoc day la `warns[:40]` CAM LANG - 62 phat hien, in 40,
+        # 22 cai bien mat khong mot dong nao noi rang chung ton tai. [TONE-FLAT]
+        # roi dung vao phan bi cat, nen mot gate vua viet xong da "im" ngay lan
+        # chay dau tien va toi suyt ket luan no khong fire. Cat thi duoc, GIAU
+        # thi khong (D-GREEN). Phat hien o CAP DU THAO (khong gan voi mot dong
+        # cu the) luon duoc in truoc vi chi co mot dong moi.
+        _draft_level = [w for w in warns if w.startswith(("[TONE-FLAT]",))]
+        _rest = [w for w in warns if w not in _draft_level]
         console.print(f"[yellow]Quality linter: {len(warns)} item(s) to review[/]")
-        for w in warns[:40]:
+        for w in _draft_level:
             console.print(f"  {w}")
+        _cap = 40
+        for w in _rest[:_cap]:
+            console.print(f"  {w}")
+        if len(_rest) > _cap:
+            from collections import Counter as _C
+            _hidden = _C(w.split(']')[0] + ']' for w in _rest[_cap:])
+            console.print(f"  [yellow]... {len(_rest)-_cap} further item(s) NOT "
+                          f"shown: "
+                          + ", ".join(f"{k} x{v}" for k, v in _hidden.most_common())
+                          + "[/]")
     else:
         console.print("[green]Quality linter: clean.[/]")
 
@@ -2072,24 +2302,53 @@ def _draft_target_report(project, d, cmap):
         total_words += w
         real_sec += profile.estimate_narration_seconds(getattr(ln, "narration", "") or "")
     real_sec += sil_sec
-    real_min = real_sec / 60.0
-    cons_min = total_words / float(getattr(config, "TTS_WORDS_PER_MINUTE", 170))
+    # --- ONE runtime basis: the MEASURED rate of the voice being rendered ---
+    # 2026-09-09: truoc day o day in RA HAI con so runtime - `real_min` theo
+    # nhip do duoc cua giong (3.5 w/s = 210 WPM) va `cons_min` theo 170 WPM -
+    # trong khi script.txt chi in con so 170. Hai co so cung song, va ngan sach
+    # tu duoc lap tu con so nho hon: draft "dat" 20.6 phut trong khi tai lieu
+    # nguoi doc that su noi 24.7. Mot dai luong, mot co so.
+    # Nhip do duoc 3.5 w/s KHONG bi xoa khoi repo - no van la phep do that cho
+    # voice_profiles.json va van dung cho TRAN capacity (max_words_for_capacity,
+    # thu no duoc hieu chuan de lam). No chi khong con la mot co so runtime
+    # thu hai nua. He qua phai noi ro: uoc tinh 170 WPM la CO Y BAO THU, va
+    # video that se ngan hon con so nay khoang 19%.
+    # 2026-09-09 (v2): co so la NHIP DO DUOC cua chinh giong se duoc render.
+    # Ban truoc chon 170 WPM lam co so duy nhat; 170 la mot heuristic bao thu,
+    # con 3.5 w/s la mot phep DO tren dau ra TTS that cua giong do. Lay con so
+    # te hon lam chuan chi vi no "an toan" la danh doi do chinh xac lay su de
+    # chiu. config.TTS_WORDS_PER_MINUTE gio chi la DU PHONG cho giong chua tung
+    # duoc do - va ban in ra luon noi ro no dang dung co so nao.
+    if profile.is_measured:
+        wpm = profile.words_per_minute
+        basis = f"measured rate of {profile.voice_id}"
+    else:
+        wpm = float(getattr(config, "TTS_WORDS_PER_MINUTE", 170))
+        basis = (f"config.TTS_WORDS_PER_MINUTE fallback - no measured profile "
+                 f"for this voice")
+    est_min = total_words / wpm + sil_sec / 60.0
+    cons_min = est_min
 
-    console.print(f"[bold cyan][DRAFT-TARGET][/] real-rate est: "
-                  f"[bold]{real_min:.1f} min[/] "
-                  f"(calibrated {profile.words_per_sec:.2f} w/s) | "
-                  f"conservative est: {cons_min:.1f} min")
+    console.print(f"[bold cyan][DRAFT-TARGET][/] runtime est: "
+                  f"[bold]{est_min:.1f} min[/] "
+                  f"({total_words} words at {wpm:.0f} WPM"
+                  + (f" + {sil_sec:.0f}s silence" if sil_sec else "")
+                  + f"; basis: {basis})")
+    if not profile.is_measured:
+        console.print(f"    [yellow]no measured profile for "
+                      f"{getattr(config, 'DEFAULT_TTS_VOICE', '?')} - this "
+                      f"figure is a heuristic, not a measurement. Calibrate "
+                      f"with: python -m pipeline.calibration --project "
+                      f"{project} --voice <id>[/]")
     if n_sil:
         console.print(f"    [dim]includes {sil_sec:.0f}s of authored silence "
                       f"across {n_sil} beat(s), read from draft lines[/]")
 
-    # divergence note (conservative overshoots when real rate is faster)
-    div_thr = float(getattr(config, "DRAFT_ESTIMATE_DIVERGENCE_NOTE", 0.15))
-    if cons_min > 0 and (cons_min - real_min) / cons_min > div_thr:
-        pct = 100.0 * (cons_min - real_min) / cons_min
-        console.print(f"    [dim]note: the conservative estimate overshoots real "
-                      f"runtime by ~{pct:.0f}% (voice speaks faster than 170 WPM); "
-                      f"trust the real-rate figure for tier targeting.[/]")
+    # 2026-09-09: o day tung co mot "divergence note" bao nguoi doc HAY TIN con
+    # so real-rate thay vi con so 170 WPM. Do chinh la cai lam cho hai co so
+    # cung ton tai va khien toi lap ngan sach tu con so sai. Da bo. Phan cong bo
+    # ve nhip do duoc nay nam ngay duoi con so runtime duy nhat, va no noi ro
+    # con so nao la co so lap ngan sach.
 
     # --- tier floor check ----------------------------------------------------
     tiers = getattr(config, "DEPTH_TIERS", {})

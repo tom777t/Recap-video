@@ -1,0 +1,104 @@
+{
+  "span": "sp30",
+  "moments": [
+    {
+      "shots": [0, 1, 2],
+      "clip_start": "01:43:29.625",
+      "clip_end": "01:43:40.000",
+      "depicts": ["action", "setup"],
+      "chars": ["Lynn"],
+      "action": "Lynn thumbs blocks of exam answers into a LINE group chat; between the phone inserts she looks up, rattled, moving through a station corridor. By the last shot one batch is sent and she is already typing the next.",
+      "censor": "none"
+    },
+    {
+      "shots": [3, 4, 5, 6],
+      "clip_start": "01:43:40.000",
+      "clip_end": "01:43:44.958",
+      "depicts": ["action", "discovery"],
+      "chars": ["Pat"],
+      "action": "In the dim print shop a phone lights up on the glass desk beside a laptop. An older man in a striped polo walks over, Pat's face drops, and the man slams both hands on the table, pinning the phone.",
+      "censor": "none"
+    },
+    {
+      "shots": [7, 8, 9],
+      "clip_start": "01:43:44.958",
+      "clip_end": "01:43:58.875",
+      "depicts": ["action", "emotion"],
+      "chars": ["Pat", "Grace"],
+      "action": "Pat lurches up from the desk at the older man, who holds his ground and stares him down through his glasses. By the last shot Pat has gone still, Grace watching tensely over his shoulder.",
+      "censor": "none"
+    },
+    {
+      "shots": [10, 11, 12],
+      "clip_start": "01:43:58.875",
+      "clip_end": "01:44:06.875",
+      "depicts": ["action"],
+      "chars": ["Lynn"],
+      "action": "Lynn keeps moving through the station with the phone up; focus racks past her shoulder to the commuters behind her, then she turns straight into the lens, frowning, and picks up speed.",
+      "censor": "none"
+    },
+    {
+      "shots": [13, 14, 15],
+      "clip_start": "01:44:06.875",
+      "clip_end": "01:44:19.708",
+      "depicts": ["action"],
+      "chars": ["Grace"],
+      "action": "A blurred figure bolts past Grace's laptop and runs between the printing presses. The shot settles outside on the shop's upper windows, where the figure crosses behind the glass and disappears.",
+      "censor": "none"
+    },
+    {
+      "shots": [16, 17, 18],
+      "clip_start": "01:44:19.708",
+      "clip_end": "01:44:34.208",
+      "depicts": ["dialogue", "action"],
+      "chars": ["Pat"],
+      "action": "Pat argues face to face with a bespectacled customer in a blue polo among parked motorbikes; the camera lifts to a high angle over them, then widens to the print-shop gate where a crowd of students has massed.",
+      "censor": "none"
+    },
+    {
+      "shots": [19, 20, 21],
+      "clip_start": "01:44:34.208",
+      "clip_end": "01:44:40.958",
+      "depicts": ["montage", "discovery"],
+      "chars": ["Grace"],
+      "action": "On screen, \"Lighting your way to better\" is typed into Google and the results fill with Nelson Mandela speech transcripts; cut to Grace at the laptop, who breaks into a grin.",
+      "censor": "none"
+    },
+    {
+      "shots": [22, 23, 24, 25, 26, 27],
+      "clip_start": "01:44:40.958",
+      "clip_end": "01:44:53.042",
+      "depicts": ["action", "dialogue"],
+      "chars": ["Pat"],
+      "action": "Pat presses his palms together begging the crowd at the gate, then shouts them down. A phone pings with a new message, a packed hall of students erupts, and Pat ends up ringed by them, all on their phones.",
+      "censor": "none"
+    },
+    {
+      "shots": [28, 29, 30, 31, 32, 33],
+      "clip_start": "01:44:53.042",
+      "clip_end": "01:45:03.042",
+      "depicts": ["action", "setup"],
+      "chars": ["Lynn"],
+      "action": "A man in a dark suit strides down the station corridor while hurrying legs cross the tiles. Lynn keeps typing, and the closing insert shows her answer strings already delivered in the \"L,B(3)\" thread.",
+      "censor": "none"
+    },
+    {
+      "shots": [34, 35, 36, 37, 38, 39],
+      "clip_start": "01:45:03.042",
+      "clip_end": "01:45:12.917",
+      "depicts": ["action", "reaction"],
+      "chars": ["Grace"],
+      "action": "Grace works a file of black bars and the numbers 4 36, hand on the mouse; her look flips from concentration to wide-eyed alarm, and the last shot pulls back to her lit desk alone in the dark press hall.",
+      "censor": "none"
+    },
+    {
+      "shots": [40, 41, 42, 43, 44],
+      "clip_start": "01:45:12.917",
+      "clip_end": "01:45:19.417",
+      "depicts": ["action"],
+      "chars": ["Lynn"],
+      "action": "Lynn hurries on with a hand to her mouth, thumbing \"BDAB\" into the thread, then lowers the phone. The camera leaves her for a busker at a keyboard against the station tiles as she passes.",
+      "censor": "none"
+    }
+  ]
+}

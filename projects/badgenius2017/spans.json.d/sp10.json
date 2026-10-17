@@ -1,0 +1,68 @@
+{
+  "span": "sp10",
+  "moments": [
+    {
+      "shots": [0, 1, 2, 3, 4, 5, 6, 7],
+      "clip_start": "01:13:29.333",
+      "clip_end": "01:13:50.708",
+      "depicts": ["action", "dialogue", "emotion"],
+      "chars": ["Pat", "Bank", "Lynn", "Grace"],
+      "action": "At the wooden door under a JESUS plaque, Bank has Pat by the collar and they shout nose to nose through a flurry of short cuts; the burst ends on Lynn and Grace standing frozen in the laundry, watching.",
+      "censor": "none"
+    },
+    {
+      "shots": [8, 9, 10],
+      "clip_start": "01:13:50.708",
+      "clip_end": "01:14:16.958",
+      "depicts": ["dialogue", "action"],
+      "chars": ["Pat", "Bank"],
+      "action": "The fight settles into one long face-off, Pat smirking while Bank shouts him down, until Bank turns away to the door. The wide that follows shows Pat walking out into the dark with his bag, the girls left lit behind the window.",
+      "censor": "none"
+    },
+    {
+      "shots": [11, 12],
+      "clip_start": "01:14:16.958",
+      "clip_end": "01:14:28.833",
+      "depicts": ["reaction", "emotion", "aftermath"],
+      "chars": ["Grace", "Lynn", "Bank"],
+      "action": "Inside the laundry Grace is crying beside Lynn; Lynn then turns her back on her and faces Bank across the room, where he stands by the barred window wiping his face.",
+      "censor": "none"
+    },
+    {
+      "shots": [13, 14],
+      "clip_start": "01:14:28.833",
+      "clip_end": "01:14:47.250",
+      "depicts": ["reaction", "aftermath"],
+      "chars": ["Lynn", "Grace", "Bank"],
+      "action": "Lynn holds Bank's look in close-up, then the camera pulls outside to the window: she is gone from the lit room, leaving Grace alone with Bank, whose back finally fills the glass.",
+      "censor": "none"
+    },
+    {
+      "shots": [15, 16],
+      "clip_start": "01:14:47.250",
+      "clip_end": "01:14:54.833",
+      "depicts": ["action", "transition"],
+      "chars": ["Lynn"],
+      "action": "Lynn strides past the camera and away through the folding gate toward the stairwell, going out of focus as she reaches the stairs.",
+      "censor": "none"
+    },
+    {
+      "shots": [17, 18, 19, 20],
+      "clip_start": "01:14:54.833",
+      "clip_end": "01:15:04.292",
+      "depicts": ["action", "aftermath"],
+      "chars": ["Pat"],
+      "action": "On a night footbridge Pat walks alone with his bag, from his feet on the painted line to a wide of him; he glances off to the side once and keeps walking away down the empty walkway.",
+      "censor": "none"
+    },
+    {
+      "shots": [21, 22, 23, 24, 25, 26],
+      "clip_start": "01:15:04.292",
+      "clip_end": "01:15:17.167",
+      "depicts": ["reaction", "emotion"],
+      "chars": ["Lynn", "Grace"],
+      "action": "Lynn stops in the folding gate, shaken, a red smear on her lip, and speaks into the dark; she turns away and finds Grace has followed her out, the two ending face to face in the corridor.",
+      "censor": "none"
+    }
+  ]
+}

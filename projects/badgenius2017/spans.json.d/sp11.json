@@ -1,0 +1,86 @@
+{
+  "span": "sp11",
+  "moments": [
+    {
+      "shots": [0],
+      "clip_start": "01:14:59.375",
+      "clip_end": "01:15:04.292",
+      "depicts": ["establishing", "transition"],
+      "chars": ["Bank"],
+      "action": "Night. Bank walks alone along an elevated pedestrian bridge, head down, moving out of the dark truss-work toward camera.",
+      "censor": "none"
+    },
+    {
+      "shots": [1, 2, 3, 4],
+      "clip_start": "01:15:04.292",
+      "clip_end": "01:15:10.792",
+      "depicts": ["reaction", "reveal"],
+      "chars": ["Lynn"],
+      "action": "Lynn stands in a lit school gateway, close to tears; three quick dark cuts flash in of her face with blood under her nose, and the last leaves her turned away into shadow.",
+      "censor": "none"
+    },
+    {
+      "shots": [5, 6, 7, 8],
+      "clip_start": "01:15:10.792",
+      "clip_end": "01:15:26.458",
+      "depicts": ["dialogue", "emotion"],
+      "chars": ["Lynn"],
+      "action": "A woman in a patterned dress faces Lynn in the corridor. The exchange tightens from a wary two-shot into singles: the woman's face buckles as she talks, while Lynn holds her ground.",
+      "censor": "none"
+    },
+    {
+      "shots": [9, 10],
+      "clip_start": "01:15:26.458",
+      "clip_end": "01:15:38.500",
+      "depicts": ["action", "emotion"],
+      "chars": ["Bank"],
+      "action": "Bank, out of focus and head down among street lights, walks on until he stops dead in front of a lit laundry-detergent billboard and stands staring up at it.",
+      "censor": "none"
+    },
+    {
+      "shots": [11, 12, 13],
+      "clip_start": "01:15:38.500",
+      "clip_end": "01:15:49.667",
+      "depicts": ["dialogue", "emotion"],
+      "chars": ["Lynn"],
+      "action": "Wide through the open folding gates: Lynn and the woman stand metres apart. The woman closes the gap pleading, and the moment ends on an insert of her hand gripping Lynn's wrist.",
+      "censor": "none"
+    },
+    {
+      "shots": [14, 15],
+      "clip_start": "01:15:49.667",
+      "clip_end": "01:15:59.458",
+      "depicts": ["dialogue", "emotion"],
+      "chars": ["Lynn"],
+      "action": "The woman keeps pleading, face crumpling; Lynn swings round and shouts back at her, the exchange flipping from begging to open confrontation.",
+      "censor": "none"
+    },
+    {
+      "shots": [16],
+      "clip_start": "01:15:59.458",
+      "clip_end": "01:16:19.000",
+      "depicts": ["dialogue", "emotion"],
+      "chars": ["Lynn"],
+      "action": "One long held take on the woman: she starts speaking quietly with her eyes shut, then breaks into a laugh through the tears, Lynn only a blur at the edge of frame.",
+      "censor": "none"
+    },
+    {
+      "shots": [17, 18, 19, 20],
+      "clip_start": "01:16:19.000",
+      "clip_end": "01:16:34.000",
+      "depicts": ["reaction", "emotion"],
+      "chars": ["Lynn"],
+      "action": "Lynn listens in profile, unmoved, while the woman sobs openly; the moment pulls back to the wide and leaves the two of them still standing apart in the empty corridor.",
+      "censor": "none"
+    },
+    {
+      "shots": [21, 22, 23, 24],
+      "clip_start": "01:16:34.000",
+      "clip_end": "01:16:52.792",
+      "depicts": ["action", "emotion"],
+      "chars": ["Lynn", "Bank"],
+      "action": "Back on the night bridge, lane signals glow green and red; Lynn stands at the railing with a hand clamped over her nose and mouth, and Bank walks up along the ramp toward her.",
+      "censor": "none"
+    }
+  ]
+}

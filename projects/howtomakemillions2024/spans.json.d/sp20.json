@@ -1,0 +1,41 @@
+{
+  "span": "sp20",
+  "moments": [
+    {
+      "shots": [0, 1],
+      "clip_start": "01:28:28.542",
+      "clip_end": "01:28:48.375",
+      "depicts": ["establishing", "action"],
+      "chars": ["M", "Amah"],
+      "action": "Seen from far off through a window, M and Amah stand at a hospital walkway rail. The camera then closes in: M waits alone at a stairwell window, and by the end he is holding her arm as they come down the stairs together.",
+      "censor": "none"
+    },
+    {
+      "shots": [2, 3, 4],
+      "clip_start": "01:28:48.375",
+      "clip_end": "01:29:16.500",
+      "depicts": ["dialogue", "reaction"],
+      "chars": ["M", "Amah", "Soei"],
+      "action": "At the foot of the stairs M and Amah meet Soei, who is waiting by the ward lounge with papers and her bags. He talks her through the documents; the moment ends on M alone back on the steps, jaw set, staring after them.",
+      "censor": "none"
+    },
+    {
+      "shots": [5],
+      "clip_start": "01:29:16.500",
+      "clip_end": "01:29:33.083",
+      "depicts": ["establishing", "emotion"],
+      "chars": ["Amah"],
+      "action": "A held wide shot from the corridor into room 410: Amah lies small and still in the bed under a drip as the dusk light on the curtains fades, nobody moving in the frame.",
+      "censor": "none"
+    },
+    {
+      "shots": [6],
+      "clip_start": "01:29:33.083",
+      "clip_end": "01:29:52.458",
+      "depicts": ["reaction", "emotion"],
+      "chars": ["M"],
+      "action": "M stands outside the glass, his reflection doubled over the lit room behind it. He starts composed in profile, then braces a hand flat on the frame, mouth open, barely holding himself together.",
+      "censor": "none"
+    }
+  ]
+}

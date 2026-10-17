@@ -1,0 +1,77 @@
+{
+  "span": "a28",
+  "moments": [
+    {
+      "shots": [0, 1, 2],
+      "clip_start": "00:42:04.875",
+      "clip_end": "00:42:21.000",
+      "depicts": ["establishing", "dialogue", "setup"],
+      "chars": ["Lynn", "Lynn's father"],
+      "action": "Seen through the office glass: a woman in dark blouse seated left, Lynn standing at the blinds, her father seated right. The camera closes in from the wide group to the father's worried face, then to Lynn alone in profile, turned away.",
+      "censor": "none"
+    },
+    {
+      "shots": [3, 4, 5],
+      "clip_start": "00:42:21.000",
+      "clip_end": "00:42:28.958",
+      "depicts": ["dialogue", "reaction"],
+      "chars": ["Lynn", "Lynn's father"],
+      "action": "A dark, blocked over-shoulder of Lynn at the window gives way to a clear frame of her turning to face the room; her father then swings his head round toward her.",
+      "censor": "none"
+    },
+    {
+      "shots": [6, 7, 8],
+      "clip_start": "00:42:28.958",
+      "clip_end": "00:42:52.292",
+      "depicts": ["dialogue", "reaction"],
+      "chars": ["Pat", "Lynn's father"],
+      "action": "Pat, in school uniform, talks and jabs his finger off-screen. The cuts leave him for the listeners: the woman in dark blouse frowning, then Lynn's father staring off with his mouth half open.",
+      "censor": "none"
+    },
+    {
+      "shots": [9],
+      "clip_start": "00:42:52.292",
+      "clip_end": "00:43:05.208",
+      "depicts": ["reaction", "emotion"],
+      "chars": ["Lynn"],
+      "action": "A long held shot of Lynn standing against the bright blinds, head lowered and eyes down. She says nothing and never raises her head across the whole take.",
+      "censor": "none"
+    },
+    {
+      "shots": [10, 11, 12],
+      "clip_start": "00:43:05.208",
+      "clip_end": "00:43:21.292",
+      "depicts": ["dialogue", "reaction"],
+      "chars": ["Lynn", "Lynn's father"],
+      "action": "The woman in dark blouse, in profile, looks away as she speaks; the father answers in close-up; the cut returns to Lynn, still standing with her head bowed, unchanged.",
+      "censor": "none"
+    },
+    {
+      "shots": [13],
+      "clip_start": "00:43:21.292",
+      "clip_end": "00:43:33.458",
+      "depicts": ["establishing", "dialogue"],
+      "chars": ["Lynn", "Lynn's father", "Pat"],
+      "action": "One sustained wide opens the room out: Lynn standing at left, her father seated at the desk centre, and Pat now visible standing apart at the right, with the woman's back in the foreground. Nobody moves; the father's head stays down.",
+      "censor": "none"
+    },
+    {
+      "shots": [14, 15],
+      "clip_start": "00:43:33.458",
+      "clip_end": "00:43:46.250",
+      "depicts": ["dialogue", "reaction"],
+      "chars": ["Lynn"],
+      "action": "The woman in dark blouse lifts her face and speaks in tight profile; the cut drops to Lynn, head bowed and eyes on the floor, taking it in silence.",
+      "censor": "none"
+    },
+    {
+      "shots": [16, 17, 18],
+      "clip_start": "00:43:46.250",
+      "clip_end": "00:43:55.250",
+      "depicts": ["dialogue", "reaction", "emotion"],
+      "chars": ["Lynn", "Lynn's father"],
+      "action": "The woman keeps talking; Lynn finally raises her head and stares straight back, level and unblinking, after shots of looking down. The last cut is her father, eyes lowered, looking away.",
+      "censor": "none"
+    }
+  ]
+}

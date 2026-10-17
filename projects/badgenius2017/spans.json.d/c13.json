@@ -1,0 +1,41 @@
+{
+  "span": "c13",
+  "moments": [
+    {
+      "shots": [0, 1],
+      "clip_start": "02:02:55.042",
+      "clip_end": "02:03:25.000",
+      "depicts": ["dialogue", "emotion"],
+      "chars": ["Lynn", "Bank"],
+      "action": "In the dim room Lynn holds a tight, troubled close-up with Bank blurred behind her; by the end she has crossed to the wooden door, turned back for one last look, and is on her way out.",
+      "censor": "none"
+    },
+    {
+      "shots": [2],
+      "clip_start": "02:03:25.000",
+      "clip_end": "02:03:34.292",
+      "depicts": ["action", "setup"],
+      "chars": ["Lynn"],
+      "action": "Shot from behind, Lynn is walked through a bare white room past men in suits toward a camcorder standing on a tripod, which the frame settles on.",
+      "censor": "none"
+    },
+    {
+      "shots": [3, 4],
+      "clip_start": "02:03:34.292",
+      "clip_end": "02:03:44.083",
+      "depicts": ["montage", "reveal"],
+      "chars": ["Bank", "Lynn's father"],
+      "action": "Two statements straight to camera: Bank speaking in the dim room, then a cut to Lynn's father against a blank white wall, the setting flipping from shadow to clinical light.",
+      "censor": "none"
+    },
+    {
+      "shots": [5],
+      "clip_start": "02:03:44.083",
+      "clip_end": "02:03:57.208",
+      "depicts": ["dialogue", "emotion"],
+      "chars": ["Lynn"],
+      "action": "Lynn sits across a white table from a suited man while the camcorder records; by the shot's end she has turned her back to him, facing away in her chair.",
+      "censor": "none"
+    }
+  ]
+}

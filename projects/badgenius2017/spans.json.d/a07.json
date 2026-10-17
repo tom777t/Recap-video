@@ -1,0 +1,122 @@
+{
+  "span": "a07",
+  "moments": [
+    {
+      "shots": [0, 1, 2],
+      "clip_start": "00:10:29.292",
+      "clip_end": "00:10:35.375",
+      "depicts": ["dialogue", "setup"],
+      "chars": ["Grace"],
+      "action": "Grace leans across the desks whispering urgently to the classmate beside her; her face shifts from wide-eyed pleading to a screwed-up, near-crying grimace, and by the last shot she is scowling with no answer given.",
+      "censor": "none"
+    },
+    {
+      "shots": [3, 4, 5, 6],
+      "clip_start": "00:10:35.375",
+      "clip_end": "00:10:43.792",
+      "depicts": ["establishing", "setup"],
+      "chars": [],
+      "action": "Insert of the classroom wall map, then a wide of the silent exam room and a sweating girl bent over her paper; the moment ends on the proctor standing with his back to camera, surveying the full rows of desks.",
+      "censor": "none"
+    },
+    {
+      "shots": [7, 8],
+      "clip_start": "00:10:43.792",
+      "clip_end": "00:10:51.833",
+      "depicts": ["reaction", "emotion"],
+      "chars": [],
+      "action": "Close on the sweating student labouring over her paper, then the camera moves behind the rows of ponytailed heads all facing the whiteboard, pulling the focus off her and onto the whole hall.",
+      "censor": "none"
+    },
+    {
+      "shots": [9, 10, 11],
+      "clip_start": "00:10:51.833",
+      "clip_end": "00:11:08.750",
+      "depicts": ["action", "setup"],
+      "chars": ["Grace", "Lynn"],
+      "action": "Grace writes with a small pleased smile, an insert catches a hand clicking a pen, then a wide finds Lynn working steadily alone at her desk while the students around her slump and clutch their heads.",
+      "censor": "none"
+    },
+    {
+      "shots": [12, 13, 14, 15, 16],
+      "clip_start": "00:11:08.750",
+      "clip_end": "00:11:14.583",
+      "depicts": ["montage", "action"],
+      "chars": [],
+      "action": "Fast inserts of the maths paper: algebra questions, bubbles already blacked in on the answer sheet, Lynn's page flipped over in a blur, then a macro of the pen tip filling one more circle. The sheet goes from part-done to deep into the paper.",
+      "censor": "none"
+    },
+    {
+      "shots": [17, 18, 19, 20],
+      "clip_start": "00:11:14.583",
+      "clip_end": "00:11:21.250",
+      "depicts": ["montage", "reaction"],
+      "chars": [],
+      "action": "Extreme close-ups of a sweating student's face cut against question 51 and the answer grid; her eyes drop, then shut entirely, while the pen beside her keeps inking rows 50-52.",
+      "censor": "none"
+    },
+    {
+      "shots": [21, 22],
+      "clip_start": "00:11:21.250",
+      "clip_end": "00:11:26.542",
+      "depicts": ["action", "setup"],
+      "chars": ["Lynn"],
+      "action": "The proctor slouches at the front desk stifling a yawn; cut wide to the hall where Lynn, alone among the bent heads, has lifted her eyes off her paper and is watching him.",
+      "censor": "none"
+    },
+    {
+      "shots": [23, 24, 25, 26],
+      "clip_start": "00:11:26.542",
+      "clip_end": "00:11:38.167",
+      "depicts": ["action", "reveal"],
+      "chars": ["Lynn"],
+      "action": "Lynn's hand holds up a metal pen, macro on its tip, then she sits back at her desk working something small in her fingers; the insert reveals Thai answer letters written along the side of a white eraser laid over the answer sheet.",
+      "censor": "none"
+    },
+    {
+      "shots": [27, 28, 29, 30],
+      "clip_start": "00:11:38.167",
+      "clip_end": "00:11:51.833",
+      "depicts": ["reaction", "emotion"],
+      "chars": ["Grace", "Lynn"],
+      "action": "Grace writes with her head down, then the shot holds on the back of Lynn's blue-ribboned head as she checks the front of the room; Grace's head snaps up, eyes wide and expectant, and the moment cuts back to Lynn still facing away.",
+      "censor": "none"
+    },
+    {
+      "shots": [31, 32, 33, 34, 35],
+      "clip_start": "00:11:51.833",
+      "clip_end": "00:11:59.500",
+      "depicts": ["action"],
+      "chars": ["Lynn", "Grace"],
+      "action": "Under the desks Lynn slips her foot out of her shoe, reaches down and drops the pink eraser inside it; she then turns and looks back over her shoulder, and above the desks she and Grace lock eyes across the aisle.",
+      "censor": "none"
+    },
+    {
+      "shots": [36, 37, 38],
+      "clip_start": "00:11:59.500",
+      "clip_end": "00:12:06.542",
+      "depicts": ["action"],
+      "chars": ["Grace"],
+      "action": "Lynn's sock foot shoves the loaded shoe across the tiles; cut to Grace staring dead ahead, rigid; back below, the shoe has been pushed clear of Lynn's desk leg.",
+      "censor": "none"
+    },
+    {
+      "shots": [39, 40, 41, 42],
+      "clip_start": "00:12:06.542",
+      "clip_end": "00:12:13.208",
+      "depicts": ["action", "emotion"],
+      "chars": ["Grace"],
+      "action": "The proctor's head sinks as he dozes at his desk; Grace squeezes her eyes shut, straining; the foot nudges the shoe the last stretch and withdraws, leaving it sitting alone on the floor as another sock foot comes for it.",
+      "censor": "none"
+    },
+    {
+      "shots": [43, 44, 45],
+      "clip_start": "00:12:13.208",
+      "clip_end": "00:12:19.000",
+      "depicts": ["reaction", "aftermath"],
+      "chars": ["Lynn", "Grace"],
+      "action": "Lynn glances back over her shoulder with a small smile, the proctor is still slumped and oblivious at the front, and Grace, behind her, leans in watching Lynn as she keeps writing. The handoff is done unnoticed.",
+      "censor": "none"
+    }
+  ]
+}

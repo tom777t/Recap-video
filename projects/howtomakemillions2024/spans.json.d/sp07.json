@@ -1,0 +1,32 @@
+{
+  "span": "sp07",
+  "moments": [
+    {
+      "shots": [0, 1],
+      "clip_start": "01:09:19.000",
+      "clip_end": "01:09:51.500",
+      "depicts": ["dialogue", "setup"],
+      "chars": ["Amah Saejiu", "M"],
+      "action": "At the kitchen table Amah leans in over her glasses, pressing something on M; the reverse holds on M, who answers at first but by the end has dropped his eyes to the table instead of meeting hers.",
+      "censor": "none"
+    },
+    {
+      "shots": [2, 3],
+      "clip_start": "01:09:51.500",
+      "clip_end": "01:10:19.292",
+      "depicts": ["establishing", "emotion"],
+      "chars": ["Amah Saejiu"],
+      "action": "A wide held take down the plant-choked alley: Amah sits alone by the gate at the far end while a cat crosses the lane. The camera moves in closer and she is hunched on a bench, both hands on her cane, head sinking, a neighbour working on behind her.",
+      "censor": "none"
+    },
+    {
+      "shots": [4],
+      "clip_start": "01:10:19.292",
+      "clip_end": "01:10:56.958",
+      "depicts": ["action"],
+      "chars": ["M"],
+      "action": "In the cramped shop kitchen M peers through a big glass jar of dark preserved food, then turns away with a plate of cooked prawns and greens, carrying it out to the counter trays.",
+      "censor": "none"
+    }
+  ]
+}

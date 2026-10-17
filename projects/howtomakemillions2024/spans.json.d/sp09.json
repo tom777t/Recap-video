@@ -1,0 +1,50 @@
+{
+  "span": "sp09",
+  "moments": [
+    {
+      "shots": [0],
+      "clip_start": "01:11:47.208",
+      "clip_end": "01:12:14.167",
+      "depicts": ["dialogue", "setup"],
+      "chars": ["Soei"],
+      "action": "In a cramped back room Soei sits on the floor beside a bare motorbike wheel, talking off to one side while a figure moves in the hallway behind him. By the end he has stopped looking up, head down over the cigarette in his hands.",
+      "censor": "none"
+    },
+    {
+      "shots": [1, 2],
+      "clip_start": "01:12:14.167",
+      "clip_end": "01:12:42.500",
+      "depicts": ["dialogue", "emotion"],
+      "chars": ["M", "Soei"],
+      "action": "M and Soei sit shoulder to shoulder in the doorway light, both hunched over something in M's lap; Soei turns to speak at him. The last shot drops back to M alone against the wallpapered wall, knees pulled up, Soei now only a back in the foreground.",
+      "censor": "none"
+    },
+    {
+      "shots": [3, 4, 5],
+      "clip_start": "01:12:42.500",
+      "clip_end": "01:12:56.875",
+      "depicts": ["action", "setup"],
+      "chars": ["M", "Soei"],
+      "action": "Daylight: M walks head-down into the junk-filled bike yard and finds Soei crouched over a motorbike, wheel in hand. By the last shot M is at the handlebars, hanging a knotted plastic bag of food on the bike.",
+      "censor": "none"
+    },
+    {
+      "shots": [6, 7, 8],
+      "clip_start": "01:12:56.875",
+      "clip_end": "01:13:20.583",
+      "depicts": ["dialogue", "emotion"],
+      "chars": ["M", "Soei"],
+      "action": "M stands in the yard staring at the ground as a hand at the frame edge holds something out to him; he and Soei square off in a tight two-shot, Soei doing the talking. It ends on M alone, chin lifted, looking past him.",
+      "censor": "none"
+    },
+    {
+      "shots": [9],
+      "clip_start": "01:13:20.583",
+      "clip_end": "01:13:42.458",
+      "depicts": ["dialogue", "emotion"],
+      "chars": ["M", "Amah Saejiu"],
+      "action": "Back in the narrow tiled kitchen, M crouches on the floor beside a kettle on the gas ring while a bald, frail Amah sits in the doorway watching him. Across the long take nothing moves but her head turning toward him.",
+      "censor": "none"
+    }
+  ]
+}

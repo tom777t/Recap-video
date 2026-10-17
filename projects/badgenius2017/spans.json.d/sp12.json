@@ -1,0 +1,77 @@
+{
+  "span": "sp12",
+  "moments": [
+    {
+      "shots": [0],
+      "clip_start": "01:16:31.458",
+      "clip_end": "01:16:34.000",
+      "depicts": ["dialogue", "emotion"],
+      "chars": ["Lynn", "Grace"],
+      "action": "Framed through an open folding gate, Lynn and Grace stand facing each other in a dim stairwell, neither moving closer; the held wide ends with them still apart.",
+      "censor": "none"
+    },
+    {
+      "shots": [1, 2, 3],
+      "clip_start": "01:16:34.000",
+      "clip_end": "01:16:42.750",
+      "depicts": ["establishing", "emotion"],
+      "chars": ["Lynn"],
+      "action": "A lit pedestrian overpass at night, lane signals glowing green arrow and red X. Cut in to Lynn alone at the rail, hand clamped over her mouth; she turns away, fighting tears.",
+      "censor": "none"
+    },
+    {
+      "shots": [4, 5],
+      "clip_start": "01:16:42.750",
+      "clip_end": "01:16:53.750",
+      "depicts": ["action", "setup"],
+      "chars": ["Bank"],
+      "action": "Bank, in a blue polo, walks up the ramp past the foliage onto the bridge; the cut lands tight on his face as he stops and fixes on her, breathing hard.",
+      "censor": "none"
+    },
+    {
+      "shots": [6, 7, 8],
+      "clip_start": "01:16:53.750",
+      "clip_end": "01:17:10.333",
+      "depicts": ["dialogue", "emotion"],
+      "chars": ["Lynn", "Bank"],
+      "action": "Lynn jabs a finger at Bank as she argues, shot against the bridge trusses; from behind his shoulder she keeps at him, and by the last shot her hand has dropped and her face hardens.",
+      "censor": "none"
+    },
+    {
+      "shots": [9, 10],
+      "clip_start": "01:17:10.333",
+      "clip_end": "01:17:37.500",
+      "depicts": ["dialogue", "reveal"],
+      "chars": ["Bank", "Lynn"],
+      "action": "Bank answers in profile, jaw set and eyes forward. The long reverse holds on Lynn listening; she stares off, then slowly turns her head toward him as the take ends.",
+      "censor": "none"
+    },
+    {
+      "shots": [11, 12],
+      "clip_start": "01:17:37.500",
+      "clip_end": "01:18:03.083",
+      "depicts": ["dialogue", "emotion"],
+      "chars": ["Bank", "Lynn"],
+      "action": "A tight two-shot puts their faces inches apart over city bokeh, Bank talking, Lynn unblinking; the film pulls back to a wide of the pair as small figures on the lit overpass.",
+      "censor": "none"
+    },
+    {
+      "shots": [13],
+      "clip_start": "01:18:03.083",
+      "clip_end": "01:18:12.250",
+      "depicts": ["dialogue", "aftermath"],
+      "chars": ["Bank", "Lynn"],
+      "action": "Inside a dark vehicle, Bank and Lynn sit separated by the aisle, both staring straight ahead; neither looks at the other for the length of the shot.",
+      "censor": "none"
+    },
+    {
+      "shots": [14],
+      "clip_start": "01:18:12.250",
+      "clip_end": "01:18:22.417",
+      "depicts": ["transition", "establishing"],
+      "chars": [],
+      "action": "Hard cut to daylight: a gull on a railing with a pale harbour city skyline beyond, the focus racking from the blurred foreground to the skyline as the scene resets abroad.",
+      "censor": "none"
+    }
+  ]
+}

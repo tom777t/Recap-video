@@ -1,0 +1,86 @@
+{
+  "span": "sp15",
+  "moments": [
+    {
+      "shots": [0, 1],
+      "clip_start": "01:21:00.333",
+      "clip_end": "01:21:08.333",
+      "depicts": ["establishing", "setup"],
+      "chars": [],
+      "action": "A low shot of the empty, glass-walled test-centre lobby; the next, overhead, fills the same floor with a crowd of candidates streaming in with their bags.",
+      "censor": "none"
+    },
+    {
+      "shots": [2, 3, 4, 5, 6],
+      "clip_start": "01:21:08.333",
+      "clip_end": "01:21:29.375",
+      "depicts": ["dialogue", "setup"],
+      "chars": ["Lynn", "Bank"],
+      "action": "A grey-suited official briefs the assembled candidates from below a crest; an insert shows a wrist watch being unclasped. Lynn and Bank, first just faces in the crowd, end tilted up at him, hands empty.",
+      "censor": "none"
+    },
+    {
+      "shots": [7, 8, 9, 10],
+      "clip_start": "01:21:29.375",
+      "clip_end": "01:21:39.125",
+      "depicts": ["action", "setup"],
+      "chars": ["Bank"],
+      "action": "Bank walks into the men's toilet past the stalls with a bundled jacket. Overhead shots then show two adjacent cubicles being entered and the doors shut, one occupant each.",
+      "censor": "none"
+    },
+    {
+      "shots": [11, 12, 13, 14],
+      "clip_start": "01:21:39.125",
+      "clip_end": "01:21:47.167",
+      "depicts": ["action", "setup"],
+      "chars": ["Lynn"],
+      "action": "In the dark a flat rectangle is uncovered; Lynn pulls the lead out of a mechanical pencil. A watched hand holds a phone taped under a white tray, and by the last shot the tray is on Lynn's lap.",
+      "censor": "none"
+    },
+    {
+      "shots": [15, 16, 17, 18, 19],
+      "clip_start": "01:21:47.167",
+      "clip_end": "01:21:54.208",
+      "depicts": ["action", "discovery"],
+      "chars": ["Lynn", "Bank"],
+      "action": "Lynn swings round to the partition and Bank's face appears framed in a gap in it; the screen blacks out, then overhead shots show both reaching across toward the hole from their own cubicles.",
+      "censor": "none"
+    },
+    {
+      "shots": [20, 21, 22],
+      "clip_start": "01:21:54.208",
+      "clip_end": "01:22:07.292",
+      "depicts": ["action"],
+      "chars": ["Lynn", "Bank"],
+      "action": "Bank checks the corridor from the toilet doorway and slips out; Lynn stays hidden behind the door frame, then leans out and looks back the other way once he has gone.",
+      "censor": "none"
+    },
+    {
+      "shots": [23, 24, 25],
+      "clip_start": "01:22:07.292",
+      "clip_end": "01:22:20.417",
+      "depicts": ["action", "transition"],
+      "chars": ["Lynn", "Bank"],
+      "action": "A pencil gripped tight at Lynn's hip as she passes a blurred invigilator; she climbs the stairs with Bank trailing, and the shot ends tilted up into the beamed ceiling of the exam hall.",
+      "censor": "none"
+    },
+    {
+      "shots": [26, 27, 28, 29],
+      "clip_start": "01:22:20.417",
+      "clip_end": "01:22:36.083",
+      "depicts": ["action", "reaction"],
+      "chars": ["Lynn", "Bank"],
+      "action": "Back in the library hall Lynn stands at her desk as the invigilator crosses the room; the woman walks out through the dark doorway, and Lynn and Bank are left turning to look after her.",
+      "censor": "none"
+    },
+    {
+      "shots": [30, 31, 32, 33],
+      "clip_start": "01:22:36.083",
+      "clip_end": "01:22:48.792",
+      "depicts": ["action", "setup"],
+      "chars": ["Lynn", "Bank"],
+      "action": "The wall clock reads 8:29:58. Bank flips open the STIC booklet, a close-up lands on the Reading Test page, and the last shot has Lynn head down, already writing among the rows.",
+      "censor": "none"
+    }
+  ]
+}
