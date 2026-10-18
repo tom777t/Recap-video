@@ -127,26 +127,27 @@ B113 | 02:02:55 | Lynn crosses to the door, looks back once and walks out of the
 B114 | 02:03:25 | Lynn is led to a camcorder and asked if she is ready to confess to the STIC cheating, with Bank and her father giving statements of their own | Lynn, Bank, Lynn's father | reveal
 
 ```reveal-map
-R1 | land: 00:44:02 | hold: two million baht, 2 million baht, tea money, her father paid the school, her father bribed the school, the waiver was not free, the school took money too, under-the-table payment, bought her place at the school, a secret donation, the tuition waiver was paid for, the director was paid off
-R2 | land: 01:13:50 | hold: Pat ordered the beating, Pat sent the men, Pat paid to have Bank beaten, Pat had Bank jumped, Pat is behind the attack, Pat hired the thugs, Pat arranged the ambush, on Pat's orders, Pat wanted Bank out of the way, Pat put Bank in hospital, Pat had him attacked, the attack was Pat's doing
-R3 | land: 01:35:40 | hold: memorised as a piano piece, memorises the answers as music, the answers are a piano piece, turns the answer key into music, the answer key as a melody, the letters are musical notes, recalls the answers by playing them, plays the answers back in her head, remembers them as a song, music is her memory trick, encodes the answers as a tune, a melody she can replay
-R4 | land: 02:03:25 | hold: Lynn confesses, her recorded confession, she turns herself in, confessing to the STIC cheating, the white room is a confession, the interviews are her confession, the interrogation is her own confession, she gives a statement on camera, the framing scenes are a confession, she admits everything, camcorder confession, she owns up in the end
+R1 | land: 00:43:50 | hold: two million baht, 2,000,000 baht, tea money, her father paid the school, her father bribed the school, the waiver was not free, the school took money too, under-the-table payment, bought her place at the school, the tuition waiver was paid for, the director was paid off, a secret donation
+R2 | land: 01:05:33 | hold: Bank joins the scheme, Bank joins the cheating, Bank agrees to cheat, Bank becomes a cheater, Bank takes the job, Bank signs on, the informer joins them, the whistle-blower joins the scheme, Bank will cheat too, Bank ends up cheating, Bank sells out, Bank gives in and cheats
+R3 | land: 01:11:19 | hold: Pat ordered the beating, Pat sent the men, Pat paid to have Bank beaten, Pat had Bank jumped, Pat is behind the attack, Pat hired the thugs, Pat arranged the ambush, on Pat's orders, Pat wanted Bank out of the way, Pat put Bank in hospital, Pat had him attacked, the attack was Pat's doing
+R4 | land: 01:58:31 | hold: Bank runs his own operation, Bank becomes the boss, Bank blackmails Lynn, Bank threatens to tell everything, Bank takes over the business, Bank wants Lynn as his teacher, Bank's GAT/PAT scheme, Bank extorts Lynn, Bank ends up demanding the money, Bank turns into the ringleader, Bank sets up a bigger operation, Bank coerces Lynn
+R5 | land: 02:02:05 | hold: Lynn confesses, her recorded confession, she turns herself in, confessing to the STIC cheating, the white room is a confession, the interviews are her confession, the interrogation is her own confession, she gives a statement on camera, the framing scenes are a confession, she admits it all to the investigators, camcorder confession, she owns up in the end
 ```
 
 ```set-pieces
-SP1 | Admissions negotiation at the new school | 00:02:38 - 00:04:42 | verified: unverified | drop
-SP2 | Maths midterm: eraser code kicked across the aisle | 00:09:00 - 00:13:46 | verified: unverified | keep
-SP3 | Piano-code operation: client drill and the final-exam run | 00:21:26 - 00:23:10 | verified: unverified | keep
-SP4 | Scholarship exam: two question sets and the finger-tap code | 00:30:46 - 00:38:58 | verified: unverified | keep
-SP5 | Office interrogation, the tea-money counter-attack and the verdict | 00:40:02 - 00:45:43 | verified: unverified | keep
-SP6 | Sydney plan: time-zone deduction and the print-shop pitch | 00:53:23 - 00:57:17 | verified: unverified | keep
-SP7 | Bank's ambush, the landfill and the rooftop gloat | 00:57:38 - 01:00:27 | verified: unverified | keep
-SP8 | Fake STIC seminar: method briefing, pencil barcode and rules | 01:00:27 - 01:03:35 | verified: unverified | keep
-SP9 | Recruiting Bank, forging the paperwork and the timed rehearsal | 01:06:06 - 01:10:35 | verified: unverified | keep
-SP10 | Cover-story rehearsal collapsing into the fight and the walk-out | 01:10:35 - 01:15:10 | verified: unverified | keep
-SP11 | Sydney STIC exam and the Thailand relay, through Bank's capture | 01:20:53 - 01:33:38 | verified: unverified | keep
-SP12 | Section 4 alone: piano recall and the faked-illness walk-out | 01:33:38 - 01:39:11 | verified: unverified | keep
-SP13 | Sydney chase and the Bangkok print-and-courier pipeline | 01:39:11 - 01:48:39 | verified: unverified | keep
-SP14 | Capture on the platform and the Sydney interrogation | 01:48:39 - 01:51:43 | verified: unverified | keep
-SP15 | Laundry negotiation: the GAT/PAT pitch, the threat and the refusal | 01:57:19 - 02:03:25 | verified: unverified | keep
+SP1 | Maths midterm: the answer-letter eraser kicked across the aisle | 00:09:00 - 00:14:00 | verified: unverified | keep
+SP2 | Piano-chord code: the client drill and the final-exam run | 00:21:26 - 00:23:10 | verified: unverified | keep
+SP3 | Scholarship exam: two question sets and the finger-tap code | 00:30:46 - 00:39:23 | verified: unverified | keep
+SP4 | Designing the Sydney job: time-zone deduction to the memorisation plan | 00:54:13 - 00:58:06 | verified: unverified | keep
+SP5 | Fake STIC seminar: phone under the sink, pencil barcode, client rules | 01:00:27 - 01:03:35 | verified: unverified | keep
+SP6 | Forged registrations, the split memory drill and the timed rehearsal | 01:06:06 - 01:10:35 | verified: unverified | keep
+SP7 | Sydney STIC exam and the Bangkok relay, through Bank's capture | 01:21:08 - 01:33:38 | verified: unverified | keep
+SP8 | Section 4 alone: piano recall and the faked-illness walk-out | 01:33:38 - 01:39:11 | verified: unverified | keep
+SP9 | Sydney chase intercut with the Bangkok print-and-courier pipeline | 01:39:11 - 01:48:39 | verified: unverified | keep
+SP10 | Admissions negotiation at the new school | 00:02:38 - 00:05:21 | verified: unverified | drop
+SP11 | Office interrogation, the tea-money counter-attack and the verdict | 00:40:02 - 00:45:43 | verified: unverified | drop
+SP12 | Bank's ambush, the landfill and the rooftop gloat | 00:58:06 - 01:00:27 | verified: unverified | drop
+SP13 | Cover-story rehearsal collapsing into the fight and Pat's walk-out | 01:10:35 - 01:15:10 | verified: unverified | drop
+SP14 | Capture on the Redfern platform and the Sydney interrogation | 01:48:39 - 01:51:43 | verified: unverified | drop
+SP15 | Laundry negotiation: the GAT/PAT pitch, the threat and the refusal | 01:57:19 - 02:03:25 | verified: unverified | drop
 ```
