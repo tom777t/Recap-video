@@ -1,0 +1,83 @@
+{
+  "chunk": 5,
+  "beats": [
+    {
+      "ts": "01:03:35",
+      "what": "Lynn comes to Bank's laundry, apologizes for the scholarship exam he missed, and pitches cheating the STIC - buyers have money, they have scores, everyone wins - until Bank takes her card",
+      "chars": ["Lynn", "Bank"],
+      "kind": "dialogue"
+    },
+    {
+      "ts": "01:06:06",
+      "what": "Bank turns up at the printing works and Lynn lays out the plan: she and Bank will sit the S6 exam in Sydney, ahead of Bangkok",
+      "chars": ["Lynn", "Bank", "Pat", "Grace"],
+      "kind": "setup"
+    },
+    {
+      "ts": "01:06:50",
+      "what": "The team forges Teen Genius letterhead and files exam registrations and visa papers, and Lynn tells her father the genius team invited her and Bank to Sydney",
+      "chars": ["Lynn", "Pat", "Grace", "Lynn's father"],
+      "kind": "montage"
+    },
+    {
+      "ts": "01:07:39",
+      "what": "They drill the method at mock desks: Bank memorizes the first half of every answer, Lynn the second, section by section",
+      "chars": ["Bank", "Lynn", "Pat", "Grace"],
+      "kind": "setup"
+    },
+    {
+      "ts": "01:08:04",
+      "what": "Lynn tells Bank to fake being sick so he can leave the hall early, and the timed run begins - he sprints out, pulls the phone taped inside a toilet cistern and thumbs the answers through",
+      "chars": ["Lynn", "Bank", "Pat", "Grace"],
+      "kind": "action"
+    },
+    {
+      "ts": "01:08:42",
+      "what": "Buyers queue with fistfuls of cash and Bank is told the price - a million a head, two million for him, 7,500,000 in the bag - and he says yes",
+      "chars": ["Bank", "Lynn", "Pat", "Grace"],
+      "kind": "reveal"
+    },
+    {
+      "ts": "01:10:35",
+      "what": "At the last rehearsal before the airport they drill what each of them will say if they are caught",
+      "chars": ["Lynn", "Pat", "Grace", "Bank"],
+      "kind": "setup"
+    },
+    {
+      "ts": "01:11:19",
+      "what": "Pat dictates Bank's cover story: a friendless weirdo who was dumped in a trash can",
+      "chars": ["Pat", "Lynn", "Bank", "Grace"],
+      "kind": "dialogue"
+    },
+    {
+      "ts": "01:11:40",
+      "what": "Bank goes over the desk at Pat, shouting that he never told anyone he woke up in a trash can",
+      "chars": ["Bank", "Pat", "Lynn", "Grace"],
+      "kind": "discovery"
+    },
+    {
+      "ts": "01:13:50",
+      "what": "Pat admits he sent the men who beat Bank because Lynn wanted Bank on the team, then walks out into the night",
+      "chars": ["Pat", "Bank", "Lynn", "Grace"],
+      "kind": "reveal"
+    },
+    {
+      "ts": "01:15:10",
+      "what": "Grace corners Lynn at the gate and begs her to understand Pat; Lynn calls the whole job off and Grace breaks down",
+      "chars": ["Grace", "Lynn"],
+      "kind": "emotion"
+    },
+    {
+      "ts": "01:16:42",
+      "what": "Bank finds Lynn on the night overpass, tells her he will go through with it alone for the money, and blames her for the beating and the trash can until she agrees to take responsibility",
+      "chars": ["Bank", "Lynn"],
+      "kind": "dialogue"
+    },
+    {
+      "ts": "01:18:03",
+      "what": "Lynn and Bank sit side by side on the plane to Sydney, not speaking",
+      "chars": ["Lynn", "Bank"],
+      "kind": "transition"
+    }
+  ]
+}

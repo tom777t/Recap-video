@@ -20,6 +20,7 @@ config.TTS_WORDS_PER_MINUTE (the existing conservative WPM heuristic).
 """
 from __future__ import annotations
 
+import datetime as _dt
 import json
 import os
 from dataclasses import dataclass
@@ -215,6 +216,40 @@ def calibrate(project: str, voice_key: str, ffprobe: Optional[str] = None) -> di
         "total_words": tot_w,
         "total_speaking_sec": round(tot_s, 1),
     }
+
+    # 2026-09-10: ham nay TUNG chi tra ve stats roi thoi, du docstring cua no
+    # viet la "write/update config/voice_profiles.json". Nghia la lenh ma
+    # DRAFT-TARGET bao nguoi dung chay de hieu chuan lai KHONG he cap nhat gi -
+    # con so 3.5 w/s nam trong file la do go tay tu bao gio khong ai biet, va
+    # no lech 6% so voi phep do that. Mot cong cu quang cao mot tac dung no
+    # khong lam la te hon khong co cong cu.
+    _PROFILES_PATH.parent.mkdir(parents=True, exist_ok=True)
+    try:
+        blob = json.loads(_PROFILES_PATH.read_text(encoding="utf-8-sig"))
+    except Exception:
+        blob = {}
+    blob.setdefault("profiles", {})
+    voice_id = voice_key.rsplit("_", 1)[0]
+    rate = voice_key.rsplit("_", 1)[1] if "_" in voice_key else ""
+    prev = blob["profiles"].get(voice_key, {})
+    blob["profiles"][voice_key] = {
+        "voice_id": prev.get("voice_id", voice_id),
+        "rate_adjustment": prev.get("rate_adjustment", rate),
+        "words_per_sec": stats["words_per_sec"],
+        "words_per_sec_conservative": stats["words_per_sec_conservative"],
+        "syllables_per_sec": stats["syllables_per_sec"],
+        "pause_overhead_sec": prev.get("pause_overhead_sec", 0.18),
+        "measured_from": project,
+        "measured_samples": stats["samples"],
+        "measured_total_words": stats["total_words"],
+        "measured_total_speaking_sec": stats["total_speaking_sec"],
+        "measured_utc": _dt.datetime.now(_dt.timezone.utc)
+                           .strftime("%Y-%m-%dT%H:%M:%SZ"),
+    }
+    _PROFILES_PATH.write_text(
+        json.dumps(blob, ensure_ascii=False, indent=2), encoding="utf-8")
+    stats["written_to"] = str(_PROFILES_PATH)
+    stats["previous_words_per_sec"] = prev.get("words_per_sec")
     return stats
 
 

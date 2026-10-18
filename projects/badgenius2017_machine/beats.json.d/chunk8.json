@@ -1,0 +1,95 @@
+{
+  "chunk": 8,
+  "beats": [
+    {
+      "ts": "01:48:39",
+      "what": "An invigilator seizes Lynn on the Redfern platform and orders her back to the test centre while she swallows the last of the evidence",
+      "chars": ["Lynn"],
+      "kind": "action"
+    },
+    {
+      "ts": "01:49:21",
+      "what": "An official tells Lynn that another Thai candidate has confessed to smuggling in a phone, so her score will be cancelled and she must sit the exam again",
+      "chars": ["Lynn"],
+      "kind": "reveal"
+    },
+    {
+      "ts": "01:50:14",
+      "what": "Lynn watches through the glass while Bank is questioned alone, then lowers her head and turns away from him",
+      "chars": ["Lynn", "Bank"],
+      "kind": "emotion"
+    },
+    {
+      "ts": "01:51:43",
+      "what": "Pat and Grace meet Lynn at the airport with their scores and the news that Bank has been arrested, and invite her to a party",
+      "chars": ["Lynn", "Pat", "Grace"],
+      "kind": "reveal"
+    },
+    {
+      "ts": "01:51:55",
+      "what": "Lynn refuses to apply for a new exam, tells Pat and Grace the score is theirs, and walks past them",
+      "chars": ["Lynn", "Pat", "Grace"],
+      "kind": "dialogue"
+    },
+    {
+      "ts": "01:53:19",
+      "what": "Lynn's father finds her waiting outside the terminal and she breaks down sobbing in his arms",
+      "chars": ["Lynn", "Lynn's father"],
+      "kind": "emotion"
+    },
+    {
+      "ts": "01:54:23",
+      "what": "Questioned alone in a bare white room, Lynn says she applied because she wants to teach like her father and admits she has taught others a special lesson",
+      "chars": ["Lynn"],
+      "kind": "setup"
+    },
+    {
+      "ts": "01:55:24",
+      "what": "Pat messages that Bank has already collected his million and her cut is waiting, and Lynn leaves the chat",
+      "chars": ["Lynn", "Pat"],
+      "kind": "reveal"
+    },
+    {
+      "ts": "01:56:17",
+      "what": "A signed school letter ends Bank's scholarship and he goes back to working the laundry alone",
+      "chars": ["Bank"],
+      "kind": "aftermath"
+    },
+    {
+      "ts": "01:57:19",
+      "what": "Bank's message brings Lynn to the laundry at night, past a school shirt scrawled with abuse, to a shop rebuilt with new machines and a new sign bought with his payoff",
+      "chars": ["Lynn", "Bank"],
+      "kind": "reveal"
+    },
+    {
+      "ts": "01:58:31",
+      "what": "Bank pitches a bigger operation on the GATPAT exam, asks Lynn to be the teacher, and offers her all the money he has left",
+      "chars": ["Bank", "Lynn"],
+      "kind": "dialogue"
+    },
+    {
+      "ts": "02:00:56",
+      "what": "Bank threatens that if Lynn refuses he will tell everything, cancelling Grace's, Pat's and every customer's score and shaming her father",
+      "chars": ["Bank", "Lynn"],
+      "kind": "reveal"
+    },
+    {
+      "ts": "02:02:05",
+      "what": "Lynn sits beside her bowed father in a white corridor and he lifts his head to give her a small smile",
+      "chars": ["Lynn", "Lynn's father"],
+      "kind": "emotion"
+    },
+    {
+      "ts": "02:02:55",
+      "what": "Lynn crosses to the door, looks back once and walks out of the laundry, refusing Bank's offer",
+      "chars": ["Lynn", "Bank"],
+      "kind": "action"
+    },
+    {
+      "ts": "02:03:25",
+      "what": "Lynn is led to a camcorder and asked if she is ready to confess to the STIC cheating, with Bank and her father giving statements of their own",
+      "chars": ["Lynn", "Bank", "Lynn's father"],
+      "kind": "reveal"
+    }
+  ]
+}

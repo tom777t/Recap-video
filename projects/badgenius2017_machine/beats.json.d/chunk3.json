@@ -1,0 +1,83 @@
+{
+  "chunk": 3,
+  "beats": [
+    {
+      "ts": "00:32:30",
+      "what": "Lynn reads her booklet cover and finds the hall has been split into two different exam sets, breaking her code",
+      "chars": ["Lynn", "Bank"],
+      "kind": "discovery"
+    },
+    {
+      "ts": "00:33:51",
+      "what": "Bank leaves his desk to report the cheating to the invigilator, who leans back and waves him off",
+      "chars": ["Bank"],
+      "kind": "reveal"
+    },
+    {
+      "ts": "00:34:55",
+      "what": "Lynn holds back the code and works out she must answer both sets herself",
+      "chars": ["Lynn"],
+      "kind": "discovery"
+    },
+    {
+      "ts": "00:35:23",
+      "what": "Lynn taps out the Set 1 answers as finger code and her clients fill in their sheets",
+      "chars": ["Lynn", "Pat", "Grace"],
+      "kind": "action"
+    },
+    {
+      "ts": "00:37:40",
+      "what": "With the hall emptying Lynn finishes Set 2 and drums out the second code before time is called",
+      "chars": ["Lynn", "Grace", "Bank", "Pat"],
+      "kind": "action"
+    },
+    {
+      "ts": "00:39:23",
+      "what": "The answers spread through a LINE group chat while Pat counts the takings on the steps",
+      "chars": ["Lynn", "Pat", "Grace"],
+      "kind": "setup"
+    },
+    {
+      "ts": "00:40:02",
+      "what": "Two students hauled into the office crack and tell the staff the exam leaked and that there were two sets",
+      "chars": [],
+      "kind": "reveal"
+    },
+    {
+      "ts": "00:40:44",
+      "what": "The teacher accuses Bank of leaking the exam and holds Lynn back for questioning",
+      "chars": ["Lynn", "Bank"],
+      "kind": "dialogue"
+    },
+    {
+      "ts": "00:42:04",
+      "what": "The headmistress confronts Lynn in front of her father with evidence she sat the exam for Pat, and Pat puts the fee at 3,000 baht",
+      "chars": ["Lynn", "Lynn's father", "Pat"],
+      "kind": "reveal"
+    },
+    {
+      "ts": "00:44:02",
+      "what": "Lynn hits back that the school takes money too, naming the two million baht her father paid it",
+      "chars": ["Lynn", "Lynn's father"],
+      "kind": "reveal"
+    },
+    {
+      "ts": "00:44:28",
+      "what": "Lynn's father begs for her place and the headmistress lets her stay but cuts her Singapore scholarship",
+      "chars": ["Lynn's father", "Lynn"],
+      "kind": "dialogue"
+    },
+    {
+      "ts": "00:45:43",
+      "what": "At his scholarship interview Bank tells the panel Lynn cheated and that he is nothing like her",
+      "chars": ["Bank"],
+      "kind": "reveal"
+    },
+    {
+      "ts": "00:46:11",
+      "what": "Her father opens Lynn's bank passbook and confronts her across the dinner table over the money",
+      "chars": ["Lynn", "Lynn's father"],
+      "kind": "discovery"
+    }
+  ]
+}

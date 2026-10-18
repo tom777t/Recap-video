@@ -1,5 +1,5 @@
 TITLE: Bad Genius (2017)
-Lines: 190   Words: 3428   Est. narration: 16.3 min @ 210 WPM [measured en-US-AndrewMultilingualNeural]   Target: 20.0 min
+Lines: 190   Words: 3428   Est. narration: 17.3 min @ 198 WPM [measured en-US-AndrewMultilingualNeural]   Target: 20.0 min
 ============================================================
 
 [  1] (00:01:36.542 -> 00:01:59.875)  <hook>

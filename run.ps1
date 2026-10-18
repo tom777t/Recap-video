@@ -21,7 +21,8 @@
 param(
     [string]$Source,
     [Parameter(Mandatory = $true)][string]$Project,
-    [ValidateSet('ingest', 'frames', 'catalogue', 'beats', 'draft', 'render', 'verify')]
+    [ValidateSet('ingest', 'frames', 'spans', 'tags', 'catalogue', 'beats',
+                 'draft', 'render', 'verify')]
     [string]$From = 'ingest',
     [switch]$Translate,
     [string]$Model = 'medium',
@@ -77,7 +78,8 @@ function Need-File ($path, $hint) {
 
 # --------------------------------------------------------------------------- #
 # Cac buoc, theo thu tu. $From quyet dinh bat dau tu dau.
-$order = @('ingest', 'frames', 'catalogue', 'beats', 'draft', 'render', 'verify')
+$order = @('ingest', 'frames', 'spans', 'tags', 'catalogue', 'beats',
+           'draft', 'render', 'verify')
 $start = [array]::IndexOf($order, $From)
 function Should ($step) { return ([array]::IndexOf($order, $step) -ge $start) }
 
@@ -191,53 +193,131 @@ print(f"STEP={step}")
 }
 
 # --------------------------------------------------------------------------- #
-# 3. NAMES + CATALOGUE  (checkpoint nguoi / LLM)
+# 3. SPANS  (co hoc - chia phim thanh span ~90s + trich frame)
+# --------------------------------------------------------------------------- #
+# Ba buoc tiep theo (spans / tags / beats) la vong LLM. Chung KHONG tu chay
+# duoc tu PowerShell: khong co API key nao dung duoc (Gemini chan ca hai tang,
+# ANTHROPIC_API_KEY chua dat), nen tagger la subagent do mot agent dieu phoi.
+# Nen moi buoc lam het phan CO HOC roi DUNG lai voi danh sach viec chinh xac.
+# Noi thang: "mot lenh, phim vao, video ra" chua dat duoc o day, va cho ket
+# la ba diem nay - khong phai mot chi tiet con thieu.
+if (Should 'spans') {
+    Say "3. SPANS (co hoc)"
+
+    $spansOk = $false
+    if (Test-Path "$Pdir\spans.json") {
+        # "Co file" khong phai la "xong". Hop le = moi span co frame cho MOI
+        # shot cua no. Tran MAX_FRAMES tung cat mat duoi 12/30 span va khong
+        # gi phat hien ra, vi file van ton tai.
+        $spansOk = (python tools\check_stage.py $Project spans) -eq 'OK'
+    }
+    if ($spansOk -and -not $Force) { Ok "spans.json hop le - bo qua" }
+    else {
+        if (-not (Test-Path "$Pdir\_cuts.json")) { Bad "thieu _cuts.json"; exit 1 }
+        $dur = python tools\check_stage.py $Project duration
+        & python tools\make_spans.py $Project --from 0 --to $dur | Out-Host
+        if ($LASTEXITCODE -ne 0) { Bad "make_spans that bai"; exit 1 }
+        if ((python tools\check_stage.py $Project spans) -ne 'OK') {
+            Bad "spans.json sinh ra nhung KHONG hop le - xem canh bao tren"
+            exit 1
+        }
+    }
+}
+
+# --------------------------------------------------------------------------- #
+# 4. TAGS  (vong LLM: mot subagent moi span)
+# --------------------------------------------------------------------------- #
+if (Should 'tags') {
+    Say "4. TAG SPANS (vong LLM)"
+
+    $todo = python tools\check_stage.py $Project tags-todo
+    if ($todo -and $todo -ne 'NONE' -and -not $Force) {
+        $n = ($todo -split ' ').Count
+        Halt "TAG SPANS - $n span chua duoc tag" @(
+            "Moi span mot subagent, context rieng. Prompt: tools\span_prompt.md"
+            ""
+            "Span con thieu:"
+            "  $todo"
+            ""
+            "Moi subagent:"
+            "  1. doc tools\span_prompt.md"
+            "  2. chay: python tools\act_payload.py  <- KHONG phai cai nay;"
+            "     dung: python ""tools\beat_payload.py"" chi cho beat map."
+            "     Lay danh sach shot bang payload cua span (xem span_prompt.md)."
+            "  3. doc MOI frame duoc liet ke"
+            "  4. ghi $Pdir\spans.json.d\<span>.json"
+            ""
+            "KHONG duoc doc shots.json hay beats_proposal.md - do la dap an."
+        ) ".\run.ps1 -Project $Project -From tags"
+        exit 0
+    }
+    Ok "moi span da co tag"
+}
+
+# --------------------------------------------------------------------------- #
+# 5. NAMES + CATALOGUE MAY  (co hoc: lap rap moment thanh shots_machine.json)
 # --------------------------------------------------------------------------- #
 if (Should 'catalogue') {
-    Say "3. NAMES + CATALOGUE"
+    Say "5. NAMES + CATALOGUE MAY"
 
     if (-not (Test-Path "$Pdir\names.json")) {
         Warn "chua co names.json"
         Write-Host "    python recap.py names --project $Project --wiki ""<Ten phim (film)>"" --dry-run"
-        Write-Host "    Trang dinh huong thi loi se liet ke cac muc co tren trang."
-        Write-Host "    Muc Cast dang VAN XUOI hoac BANG -> co the phai viet tay."
     }
     else { Ok "names.json co" }
 
-    if (-not (Test-Path "$Pdir\shots.json")) {
-        $pages = (Get-ChildItem "$Pdir\frames\overview" -Filter '*.jpg' -EA SilentlyContinue).Count
-        Halt "CATALOGUE - viec cua LLM, khong tu dong hoa duoc o day" @(
-            "$pages trang montage trong $Pdir\frames\overview"
-            ""
-            "Giao cho LLM, VA CHIA THEO PASS - moi pass mot phien moi."
-            "Ly do: context day dan. Bad Genius pass 1 doc 11 trang, pass 4 con 1."
-            ""
-            "Ba rang buoc phai noi ro trong prompt:"
-            "  - Khong entry nao vao shots.json ma chua nhin frame"
-            "  - Noi ro DUNG O DAU, dung lap not bang Wikipedia plot"
-            "  - Ghi buoc verify vao action text: [grid Ns] hoac [dense Ns]"
-        ) ".\run.ps1 -Project $Project -From beats"
-        exit 0
+    if ((Test-Path "$Pdir\shots_machine.json") -and -not $Force) {
+        Ok "shots_machine.json da co"
     }
-    Ok "shots.json co"
+    else {
+        & python tools\assemble_moments.py $Project | Out-Host
+        if ($LASTEXITCODE -ne 0) { Bad "assemble_moments that bai"; exit 1 }
+    }
+    if (-not (Test-Path "$Pdir\shots.json")) {
+        Copy-Item "$Pdir\shots_machine.json" "$Pdir\shots.json"
+        Ok "shots.json <- shots_machine.json (catalogue may la catalogue)"
+    }
 }
 
 # --------------------------------------------------------------------------- #
-# 4. BEAT MAP + CHOT DU LIEU  (checkpoint nguoi)
+# 6. BEAT MAP + CHOT DU LIEU  (vong LLM + checkpoint nguoi)
 # --------------------------------------------------------------------------- #
 if (Should 'beats') {
-    Say "4. BEAT MAP + CHOT DU LIEU"
+    Say "6. BEAT MAP + CHOT DU LIEU"
 
     if (-not (Test-Path "$Pdir\beats_proposal.md")) {
-        Halt "BEAT MAP - viec cua LLM" @(
-            "Thieu beats_proposal.md."
-            "CANH BAO: thieu file nay thi project roi ve style: review va TAT"
-            "TOAN BO gate linear trong im lang."
-            ""
-            "Can co: header 'style: linear', beat lines, khoi ```reveal-map```,"
-            "va khoi ```set-pieces``` (hoac 'none, because ...')."
-        ) ".\run.ps1 -Project $Project -From draft"
-        exit 0
+        $bt = python tools\check_stage.py $Project beats-todo
+        if ($bt -and $bt -ne 'NONE') {
+            Halt "BEAT MAP - $bt chunk chua de xuat beat (vong LLM)" @(
+                "Mot subagent moi chunk. Prompt: tools\beats_prompt.md"
+                ""
+                "Moi subagent:"
+                "  1. doc tools\beats_prompt.md"
+                "  2. chay: python tools\beat_payload.py $Project <k> 8"
+                "  3. ghi $Pdir\beats.json.d\chunk<k>.json"
+                ""
+                "Sau khi du 8 chunk, mot subagent nua gop reveal-map +"
+                "set-pieces toan phim vao $Pdir\reveals.json, roi:"
+                "  python tools\assemble_beats.py $Project --out beats_proposal.md"
+                ""
+                "CANH BAO: thieu beats_proposal.md thi project roi ve"
+                "style: review va TAT TOAN BO gate linear trong im lang."
+            ) ".\run.ps1 -Project $Project -From beats"
+            exit 0
+        }
+        if (Test-Path "$Pdir\reveals.json") {
+            & python tools\assemble_beats.py $Project --out beats_proposal.md | Out-Host
+            if ($LASTEXITCODE -ne 0) { Bad "assemble_beats that bai"; exit 1 }
+        }
+        else {
+            Halt "BEAT MAP - du chunk nhung thieu reveals.json" @(
+                "8 chunk da xong. Con thieu buoc gop toan phim:"
+                "  reveal-map (2-4 muc, chi nhung gi phim CO Y giau roi tra)"
+                "  set-pieces (gop cac doan bi cat doi o ranh chunk)"
+                "Ghi vao $Pdir\reveals.json roi chay lai."
+            ) ".\run.ps1 -Project $Project -From beats"
+            exit 0
+        }
     }
 
     # Kiem beat map doc duoc khong - va style co phai linear khong.
@@ -276,28 +356,52 @@ print(f"  reveal-map: {len(D.parse_reveal_map(proj))} muc")
 }
 
 # --------------------------------------------------------------------------- #
-# 5. DRAFT  (checkpoint nguoi)
+# 7. DRAFT  (vong LLM toi da 3 + checkpoint nguoi #1)
 # --------------------------------------------------------------------------- #
 if (Should 'draft') {
-    Say "5. DRAFT"
+    Say "7. DRAFT (vong toi da 3)"
 
-    if (-not (Test-Path "$Pdir\draft.json")) {
-        Halt "DRAFT - viec cua LLM" @(
-            "Prompt phai noi ro:"
-            "  - Doc docs\RULES.md TRUOC. No de len prompts\style_linear_vn.md."
-            "  - I1: KHONG doc 'action' text lam nguon cho van xuoi. Dung no de"
-            "    biet trong khung co gi, roi viet ve cai dang xay ra GIUA nhung"
-            "    nguoi trong do. Viet CAU, khong viet chu thich khung hinh."
-            "  - Beat nao khong co shot -> NOI RA va DUNG, dung bia cua so."
-            "  - Stage 3a (outline) co y MONG. Dung enrich o buoc nay."
+    # Vong draft: toi da 3 vong. Dem vong nam trong state.json nen mot lan
+    # crash khong lam mat so vong va khong khoi dong lai tu 0.
+    $round = [int](python tools\check_stage.py $Project draft-round)
+    $acts  = python tools\check_stage.py $Project acts-todo
+
+    if ($acts -and $acts -ne 'NONE') {
+        Halt "DRAFT - $acts act chua viet (vong LLM, vong $($round+1)/3)" @(
+            "Mot subagent moi act. Prompt: tools\draft_prompt.md"
+            ""
+            "Moi subagent:"
+            "  1. doc tools\draft_prompt.md"
+            "  2. chay: python tools\act_payload.py $Project <n>"
+            "     (payload da gom ca transcript cho tung moment)"
+            "  3. ghi $Pdir\draft.json.d\act<n>.json"
+            ""
+            "Roi: python tools\assemble_draft.py $Project"
         ) ".\run.ps1 -Project $Project -From draft"
         exit 0
     }
 
+    if (-not (Test-Path "$Pdir\draft.json")) {
+        & python tools\assemble_draft.py $Project | Out-Host
+        if ($LASTEXITCODE -ne 0) { Bad "assemble_draft that bai"; exit 1 }
+    }
+
     $code = Recap @('draft', '--project', $Project) -AllowSoftFail
     if ($code -eq 1) {
-        Bad "draft bi CHAN CUNG - doc canh bao do o tren roi sua"
-        exit 1
+        if ($round -ge 3) {
+            Bad "draft van bi CHAN CUNG sau 3 vong - DUNG, can nguoi vao"
+            Write-Host "    Khong tu sua them. Ba vong la tran, va mot vong thu tu"
+            Write-Host "    thuong la model tu bien minh chu khong phai sua that."
+            exit 1
+        }
+        python tools\check_stage.py $Project draft-round-inc | Out-Null
+        Halt "DRAFT vong $($round+1)/3 - gate tra ve loi, feed nguoc cho LLM" @(
+            "Doc cac phat hien o tren va giao lai cho subagent theo tung act."
+            "Chi sua nhung gi gate chi ra. Khong viet lai toan bo."
+            ""
+            "Het 3 vong ma van do thi DUNG va goi nguoi - dung vong thu tu."
+        ) ".\run.ps1 -Project $Project -From draft"
+        exit 0
     }
 
     Halt "DUYET DRAFT - checkpoint nguoi #1, khong bo duoc" @(
@@ -319,10 +423,10 @@ if (Should 'draft') {
 }
 
 # --------------------------------------------------------------------------- #
-# 6. RENDER
+# 8. RENDER
 # --------------------------------------------------------------------------- #
 if (Should 'render') {
-    Say "6. RENDER"
+    Say "8. RENDER"
 
     if (-not (Test-Path "$Pdir\music.mp3")) {
         Warn "khong thay music.mp3 - render se khong co nhac nen"
@@ -350,10 +454,10 @@ if (Should 'render') {
 }
 
 # --------------------------------------------------------------------------- #
-# 7. VERIFY + checkpoint xem video
+# 9. VERIFY + checkpoint xem video
 # --------------------------------------------------------------------------- #
 if (Should 'verify') {
-    Say "7. VERIFY"
+    Say "9. VERIFY"
 
     $null = Recap @('verify', '--project', $Project) -AllowSoftFail
 

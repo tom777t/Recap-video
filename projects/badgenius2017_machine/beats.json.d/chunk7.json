@@ -1,0 +1,107 @@
+{
+  "chunk": 7,
+  "beats": [
+    {
+      "ts": "01:33:12",
+      "what": "A suited exam official seizes Bank by the jacket outside the hall and orders Lynn back to her test; she walks away and leaves him caught",
+      "chars": ["Lynn", "Bank"],
+      "kind": "action"
+    },
+    {
+      "ts": "01:33:38",
+      "what": "Lynn is frisked and her shoes checked with the other candidates, then digs a hidden wrapper out of her boot at the water cooler",
+      "chars": ["Lynn"],
+      "kind": "action"
+    },
+    {
+      "ts": "01:34:36",
+      "what": "At her desk Lynn pencils rows of memorised answer letters into the margin, bubbles all 30 Section 4 maths answers off them, and palms the code whenever an invigilator passes",
+      "chars": ["Lynn"],
+      "kind": "action"
+    },
+    {
+      "ts": "01:35:40",
+      "what": "The letter rows turn out to be a piano piece - Lynn recalls the answers by playing them back, fingering the exam desk like a keyboard",
+      "chars": ["Lynn"],
+      "kind": "reveal"
+    },
+    {
+      "ts": "01:37:03",
+      "what": "In Bangkok the print works' phone rings unanswered, its number the one posted on a car-window advert, while students watch the clocks toward 7 p.m. and motorbike taxis wait",
+      "chars": [],
+      "kind": "setup"
+    },
+    {
+      "ts": "01:37:37",
+      "what": "Lynn's paper turns to the essay section - a Mandela speech prompt that no memorised answer code can cover",
+      "chars": ["Lynn"],
+      "kind": "setup"
+    },
+    {
+      "ts": "01:38:23",
+      "what": "Lynn fakes a coughing fit at her desk, forcing her own fingers down her throat until the whole row stops writing to stare",
+      "chars": ["Lynn"],
+      "kind": "action"
+    },
+    {
+      "ts": "01:39:05",
+      "what": "Warned that leaving will cancel her score, Lynn lets the proctor walk her out of the hall in tears",
+      "chars": ["Lynn"],
+      "kind": "action"
+    },
+    {
+      "ts": "01:39:11",
+      "what": "Pat and Grace corner the print-shop owner on the press floor and push him to run their job",
+      "chars": ["Pat", "Grace"],
+      "kind": "dialogue"
+    },
+    {
+      "ts": "01:41:00",
+      "what": "Suited officials sweep the exam building by radio hunting Lynn while she climbs the stairwell, slips a door and breaks out into the courtyard",
+      "chars": ["Lynn"],
+      "kind": "action"
+    },
+    {
+      "ts": "01:42:12",
+      "what": "Lynn knots her hair up to change her look as a searcher pushes past her in the station concourse",
+      "chars": ["Lynn"],
+      "kind": "action"
+    },
+    {
+      "ts": "01:42:26",
+      "what": "Lynn starts thumbing coded answer strings into the group chat as she walks, and the alerts begin landing on the phone in the print shop",
+      "chars": ["Lynn"],
+      "kind": "action"
+    },
+    {
+      "ts": "01:43:40",
+      "what": "The print-shop owner slams both hands over the pinging phone and stares Pat down as a crowd of students masses at the shop gate",
+      "chars": ["Pat", "Grace"],
+      "kind": "action"
+    },
+    {
+      "ts": "01:44:34",
+      "what": "Grace googles the essay prompt, pulls up the Mandela speech transcript and grins - the essay is solved without Lynn",
+      "chars": ["Grace"],
+      "kind": "discovery"
+    },
+    {
+      "ts": "01:46:26",
+      "what": "A suited pursuer comes down into the station; Lynn looks up from her phone and sees him coming",
+      "chars": ["Lynn"],
+      "kind": "reveal"
+    },
+    {
+      "ts": "01:47:02",
+      "what": "Outside the Bangkok exam centre students shout and clutch their heads as a courier bike tears away and a figure hauls himself up through a ceiling panel",
+      "chars": [],
+      "kind": "aftermath"
+    },
+    {
+      "ts": "01:47:57",
+      "what": "Grace encodes the answers as an A-B-C-D barcode, Pat carries off the printed roll, and the orange-vested couriers are shouted into line and sent out with the slips",
+      "chars": ["Pat", "Grace"],
+      "kind": "montage"
+    }
+  ]
+}

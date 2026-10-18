@@ -1,0 +1,89 @@
+{
+  "chunk": 2,
+  "beats": [
+    {
+      "ts": "00:17:04",
+      "what": "Lynn turns Pat's flat-rate pitch into a sliding scale, pricing each client by how badly he needs her and demanding her school fees on top",
+      "chars": ["Lynn", "Pat", "Grace"],
+      "kind": "dialogue"
+    },
+    {
+      "ts": "00:17:56",
+      "what": "Lynn opens her father's cabinet at night and reads through the school's fee paperwork",
+      "chars": ["Lynn"],
+      "kind": "discovery"
+    },
+    {
+      "ts": "00:19:25",
+      "what": "Lynn asks her father why he moved her to this school; he says it was for the chance he never had, then takes his pills",
+      "chars": ["Lynn", "Lynn's father"],
+      "kind": "dialogue"
+    },
+    {
+      "ts": "00:21:26",
+      "what": "Lynn drills her paying clients in a four-chord piano code for the answers and caps how high their scores may go",
+      "chars": ["Lynn", "Grace", "Pat"],
+      "kind": "setup"
+    },
+    {
+      "ts": "00:22:20",
+      "what": "The final exam runs: Lynn taps the chords on her desk and client after client fills in the bubbles",
+      "chars": ["Lynn", "Grace", "Pat"],
+      "kind": "montage"
+    },
+    {
+      "ts": "00:23:10",
+      "what": "Lynn's bank book shows deposits climbing into the hundreds of thousands, and she tells her father the money comes from teaching piano to a rich classmate",
+      "chars": ["Lynn", "Lynn's father"],
+      "kind": "reveal"
+    },
+    {
+      "ts": "00:23:42",
+      "what": "Word spreads and Pat lines up new buyers while the school hangs a banner honouring Lynn's scholarship",
+      "chars": ["Lynn", "Pat"],
+      "kind": "aftermath"
+    },
+    {
+      "ts": "00:24:13",
+      "what": "Sick with nerves before the Teen Genius taping, Bank warms to Lynn backstage and bumps fists with her as her teammate",
+      "chars": ["Bank", "Lynn"],
+      "kind": "emotion"
+    },
+    {
+      "ts": "00:26:44",
+      "what": "On air Bank answers by reciting pi from memory, and the win puts him and Lynn in the teacher's office, where she offers them a free Singapore Institute scholarship exam",
+      "chars": ["Lynn", "Bank"],
+      "kind": "action"
+    },
+    {
+      "ts": "00:27:45",
+      "what": "The teacher adds that only one student per school can have the scholarship, turning Lynn and Bank into rivals",
+      "chars": ["Lynn", "Bank"],
+      "kind": "reveal"
+    },
+    {
+      "ts": "00:28:38",
+      "what": "At the family laundry Bank finds his mother scrubbing with an injured hand, abandons his textbook and takes over the tubs",
+      "chars": ["Bank"],
+      "kind": "emotion"
+    },
+    {
+      "ts": "00:29:55",
+      "what": "Tong offers Bank 3,000 baht to cheat for him; Bank refuses and walks off down the corridor",
+      "chars": ["Bank", "Tong"],
+      "kind": "dialogue"
+    },
+    {
+      "ts": "00:30:46",
+      "what": "The group scholarship exam opens, candidates spaced out across the hall and forbidden to sit together",
+      "chars": ["Bank", "Lynn", "Pat"],
+      "kind": "setup"
+    },
+    {
+      "ts": "00:31:47",
+      "what": "Bank sweats and stalls on the last questions while a candidate's query to the proctor exposes that two different question sets are in the room",
+      "chars": ["Bank", "Lynn", "Pat"],
+      "kind": "discovery"
+    }
+  ]
+}

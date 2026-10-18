@@ -2217,6 +2217,38 @@ def _run_phase1_audits(project, pdir):
     # "soft" if any hit, but NEVER downgrade an existing "hard". No-op when the
     # project has no reveal-map block.
     reveal_hits = reveal_timing_check(project, d) if style == "linear" else []
+    # 2026-09-10: REVEAL-TIMING truoc day KHONG tra cuu reviewed_exceptions.md.
+    # Viet mot muc cho no vao file do se la mot ghi chep CHET - trong giong nhu
+    # da duoc xu ly, ma khong he duoc doc. Khoa la "<reveal_id> L<line_id>".
+    # `_revd` song trong validate_draft, khong phai trong ham nay - lan dau toi
+    # dung thang no o day va duoc NameError. Nap lai tai cho.
+    _revd, _ = _reviewed.load(pdir)
+    _revd_hit = set()
+    _rt_reviewed = []
+    if reveal_hits:
+        _keep = []
+        for h in reveal_hits:
+            _k = f"{h['reveal_id']} L{h['line_id']}"
+            _exc = _revd.get(("REVEAL-TIMING", _k))
+            if _exc:
+                _revd_hit.add(("REVEAL-TIMING", _k))
+                _rt_reviewed.append((_k, _exc))
+            else:
+                _keep.append(h)
+        reveal_hits = _keep
+    for _k, (_dt_, _rs) in _rt_reviewed:
+        console.print(f"[dim][REVEAL-TIMING] {_k}: REVIEWED {_dt_} - "
+                      f"{_rs[:120]}[/]")
+    # Kiem tra "stale" cho REVEAL-TIMING phai nam O DAY, khong phai cung cho
+    # voi VISUAL-REPEAT o dau ham: vong lap kia chay TRUOC khi reveal check
+    # chay, nen luc do _revd_hit con rong va moi muc REVEAL-TIMING deu se bi
+    # goi nham la stale.
+    for (_g, _k), (_d2, _r2) in _revd.items():
+        if _g == "REVEAL-TIMING" and (_g, _k) not in _revd_hit:
+            console.print(f"[yellow][REVIEWED-EXCEPTION][/] STALE - "
+                          f"REVEAL-TIMING '{_k}' (reviewed {_d2}) no longer "
+                          f"occurs; delete the entry so it cannot cover a "
+                          f"future finding.")
     if reveal_hits:
         console.print(f"[yellow][REVEAL-TIMING][/] {len(reveal_hits)} "
                       f"possible early reveal(s) - a protected term appears "
@@ -2326,13 +2358,21 @@ def _draft_target_report(project, d, cmap):
         wpm = float(getattr(config, "TTS_WORDS_PER_MINUTE", 170))
         basis = (f"config.TTS_WORDS_PER_MINUTE fallback - no measured profile "
                  f"for this voice")
-    est_min = total_words / wpm + sil_sec / 60.0
+    # Khoang nghi giua cac dong la runtime THAT. Bo qua no thi uoc tinh luon
+    # ngan hon thuc te mot cach co he thong: tren ban render badgenius2017_machine
+    # loi do do la +7.4%, trong do 190 x 0.18s = 34s la khoang nghi.
+    _n_narr = sum(1 for ln in d.lines
+                  if not getattr(ln, "narration_silence_seconds", None)
+                  and str(getattr(ln, "narration", "") or "").strip())
+    gap_sec = _n_narr * float(profile.pause_overhead_sec)
+    est_min = total_words / wpm + (sil_sec + gap_sec) / 60.0
     cons_min = est_min
 
     console.print(f"[bold cyan][DRAFT-TARGET][/] runtime est: "
                   f"[bold]{est_min:.1f} min[/] "
                   f"({total_words} words at {wpm:.0f} WPM"
                   + (f" + {sil_sec:.0f}s silence" if sil_sec else "")
+                  + f" + {gap_sec:.0f}s line gaps"
                   + f"; basis: {basis})")
     if not profile.is_measured:
         console.print(f"    [yellow]no measured profile for "

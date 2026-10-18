@@ -50,7 +50,15 @@ def main() -> int:
     a = ap.parse_args()
     pdir = config.project_dir(a.project)
 
-    meta = json.load(io.open(pdir / "spans.json", encoding="utf-8"))
+    sp = pdir / "spans.json"
+    if not sp.exists():
+        # Mot stage cua pipeline phai that bai bang MOT CAU, khong phai bang
+        # traceback - nguoi doc can biet chay lai cai gi, khong can stack.
+        print(f"thieu {sp}\n"
+              f"  chay truoc: python tools/make_spans.py {a.project} "
+              f"--from 0 --to <duration>")
+        return 1
+    meta = json.load(io.open(sp, encoding="utf-8"))
     cuts = sorted(float(x) for x in
                   json.load(io.open(pdir / "_cuts.json", encoding="utf-8"))["cuts"])
     d = pdir / "spans.json.d"

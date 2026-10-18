@@ -1,0 +1,89 @@
+{
+  "chunk": 1,
+  "beats": [
+    {
+      "ts": "00:01:36",
+      "what": "Under interrogation beside a bagged phone, Lynn insists her exam result matches her real ability",
+      "chars": ["Lynn"],
+      "kind": "setup"
+    },
+    {
+      "ts": "00:02:38",
+      "what": "Lynn's father pitches her prizes and grades to the school director while Lynn itemises the fees and argues the transfer is not worth the money",
+      "chars": ["Lynn", "Lynn's father", "School director"],
+      "kind": "dialogue"
+    },
+    {
+      "ts": "00:04:22",
+      "what": "The director waives Lynn's tuition on condition she prove the school's investment, and Lynn enrols",
+      "chars": ["Lynn", "Lynn's father", "School director"],
+      "kind": "dialogue"
+    },
+    {
+      "ts": "00:05:21",
+      "what": "Years on at ID photo day, Grace adopts Lynn as a friend, fixing her hair and taking off her glasses",
+      "chars": ["Lynn", "Grace"],
+      "kind": "setup"
+    },
+    {
+      "ts": "00:06:50",
+      "what": "Grace tells Lynn she needs a 3.25 to keep the lead in the school play and cannot pass maths even with tutors",
+      "chars": ["Lynn", "Grace"],
+      "kind": "dialogue"
+    },
+    {
+      "ts": "00:08:06",
+      "what": "Grace trades milk tea and homework for lessons, and Lynn agrees to coach her off an old exam paper",
+      "chars": ["Lynn", "Grace"],
+      "kind": "dialogue"
+    },
+    {
+      "ts": "00:09:00",
+      "what": "The maths midterm starts and Grace recognises every question from the practice sheet she studied with Lynn, but still cannot answer them",
+      "chars": ["Lynn", "Grace"],
+      "kind": "discovery"
+    },
+    {
+      "ts": "00:10:09",
+      "what": "Grace sees the proctor buried in his phone and whispers back to Lynn for the answers",
+      "chars": ["Lynn", "Grace"],
+      "kind": "discovery"
+    },
+    {
+      "ts": "00:11:26",
+      "what": "Lynn pencils the answer letters along the side of her eraser",
+      "chars": ["Lynn"],
+      "kind": "action"
+    },
+    {
+      "ts": "00:11:51",
+      "what": "Lynn drops the eraser into her shoe and kicks it out into the aisle toward Grace",
+      "chars": ["Lynn", "Grace"],
+      "kind": "action"
+    },
+    {
+      "ts": "00:13:21",
+      "what": "Grace walks up to the proctor's desk as cover and the eraser is dug out of the shoe, letting her fill in her sheet",
+      "chars": ["Lynn", "Grace"],
+      "kind": "action"
+    },
+    {
+      "ts": "00:14:00",
+      "what": "Grace's report card comes back at 3.87 and she thanks Lynn in the corridor",
+      "chars": ["Lynn", "Grace"],
+      "kind": "aftermath"
+    },
+    {
+      "ts": "00:14:26",
+      "what": "Grace brings Lynn to Pat's family hotel, where Pat throws a rooftop pool party with champagne",
+      "chars": ["Lynn", "Grace", "Pat"],
+      "kind": "setup"
+    },
+    {
+      "ts": "00:16:17",
+      "what": "Pat admits he cannot pass and offers Lynn 3,000 baht a head for the answers, with five more buyers already lined up",
+      "chars": ["Lynn", "Pat", "Grace"],
+      "kind": "action"
+    }
+  ]
+}

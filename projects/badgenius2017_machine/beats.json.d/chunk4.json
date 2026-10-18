@@ -1,0 +1,89 @@
+{
+  "chunk": 4,
+  "beats": [
+    {
+      "ts": "00:47:32",
+      "what": "Lynn's father refuses the scholarship money and orders her to give it all back to Grace, leaving Lynn in tears",
+      "chars": ["Lynn", "Lynn's father"],
+      "kind": "dialogue"
+    },
+    {
+      "ts": "00:48:40",
+      "what": "Grace corners Lynn over a drink, insists she is a real friend and not acting, and gets nothing back",
+      "chars": ["Lynn", "Grace"],
+      "kind": "dialogue"
+    },
+    {
+      "ts": "00:50:40",
+      "what": "At dinner Pat's father offers to send Lynn to Boston with Pat if she tutors him, and his mother slides over the university brochure",
+      "chars": ["Lynn", "Pat", "Pat's father", "Pat's mother"],
+      "kind": "dialogue"
+    },
+    {
+      "ts": "00:51:52",
+      "what": "Grace explains the STIC: one exam sat worldwide, and they must pass it this year or they cannot apply",
+      "chars": ["Lynn", "Grace"],
+      "kind": "setup"
+    },
+    {
+      "ts": "00:52:37",
+      "what": "Grace names Pat's price of 600,000 baht and Lynn picks up the envelope",
+      "chars": ["Lynn", "Grace"],
+      "kind": "action"
+    },
+    {
+      "ts": "00:54:13",
+      "what": "Waiting at a hotel desk, Lynn reads the wall of world clocks and realises Sydney runs hours ahead of Bangkok",
+      "chars": ["Lynn"],
+      "kind": "discovery"
+    },
+    {
+      "ts": "00:55:26",
+      "what": "Lynn pins Australia on a map and pitches sitting STIC in Sydney, selling the answers back to Bangkok students and splitting the profits",
+      "chars": ["Lynn", "Grace", "Pat"],
+      "kind": "setup"
+    },
+    {
+      "ts": "00:56:46",
+      "what": "Lynn says she will memorise the answers so no evidence exists, admits she can only hold half, and names the one person who could cover the rest",
+      "chars": ["Lynn", "Grace", "Pat"],
+      "kind": "setup"
+    },
+    {
+      "ts": "00:58:06",
+      "what": "Men waiting in a parked car jump Bank on his laundry round and dump him beaten and bloodied on a landfill",
+      "chars": ["Bank"],
+      "kind": "action"
+    },
+    {
+      "ts": "00:59:12",
+      "what": "On the school roof a classmate sets the price at 150,000 baht a head and shows a STIC group chat with thirty clients already waiting",
+      "chars": ["Lynn", "Grace", "Pat"],
+      "kind": "dialogue"
+    },
+    {
+      "ts": "00:59:46",
+      "what": "The classmate gloats that Bank was beaten into hospital and will miss the exam, and Lynn realises why he was attacked",
+      "chars": ["Lynn", "Grace", "Pat"],
+      "kind": "reveal"
+    },
+    {
+      "ts": "01:00:27",
+      "what": "The trio stage a fake STIC seminar for the paying clients and lay out the method: a phone hidden under the exam-hall sink, answers sent out during the two breaks",
+      "chars": ["Lynn", "Grace", "Pat"],
+      "kind": "setup"
+    },
+    {
+      "ts": "01:01:28",
+      "what": "Lynn and Pat demonstrate the barcode: each answer encoded as stripe thickness printed along the clients' 2B pencils",
+      "chars": ["Lynn", "Pat"],
+      "kind": "setup"
+    },
+    {
+      "ts": "01:02:19",
+      "what": "Pat sets the rules - clear the drop point by 7:30, private motorbikes to the exam site, pay within two weeks, and tell nobody",
+      "chars": ["Pat"],
+      "kind": "dialogue"
+    }
+  ]
+}

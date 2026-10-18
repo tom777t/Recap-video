@@ -1,0 +1,179 @@
+{
+  "reveals": [
+    {
+      "land": "00:44:02",
+      "hold": [
+        "two million baht",
+        "2 million baht",
+        "tea money",
+        "her father paid the school",
+        "her father bribed the school",
+        "the waiver was not free",
+        "the school took money too",
+        "under-the-table payment",
+        "bought her place at the school",
+        "a secret donation",
+        "the tuition waiver was paid for",
+        "the director was paid off"
+      ]
+    },
+    {
+      "land": "01:13:50",
+      "hold": [
+        "Pat ordered the beating",
+        "Pat sent the men",
+        "Pat paid to have Bank beaten",
+        "Pat had Bank jumped",
+        "Pat is behind the attack",
+        "Pat hired the thugs",
+        "Pat arranged the ambush",
+        "on Pat's orders",
+        "Pat wanted Bank out of the way",
+        "Pat put Bank in hospital",
+        "Pat had him attacked",
+        "the attack was Pat's doing"
+      ]
+    },
+    {
+      "land": "01:35:40",
+      "hold": [
+        "memorised as a piano piece",
+        "memorises the answers as music",
+        "the answers are a piano piece",
+        "turns the answer key into music",
+        "the answer key as a melody",
+        "the letters are musical notes",
+        "recalls the answers by playing them",
+        "plays the answers back in her head",
+        "remembers them as a song",
+        "music is her memory trick",
+        "encodes the answers as a tune",
+        "a melody she can replay"
+      ]
+    },
+    {
+      "land": "02:03:25",
+      "hold": [
+        "Lynn confesses",
+        "her recorded confession",
+        "she turns herself in",
+        "confessing to the STIC cheating",
+        "the white room is a confession",
+        "the interviews are her confession",
+        "the interrogation is her own confession",
+        "she gives a statement on camera",
+        "the framing scenes are a confession",
+        "she admits everything",
+        "camcorder confession",
+        "she owns up in the end"
+      ]
+    }
+  ],
+  "set_pieces": [
+    {
+      "name": "Admissions negotiation at the new school",
+      "start": "00:02:38",
+      "end": "00:04:42",
+      "verified": "unverified",
+      "keep": false
+    },
+    {
+      "name": "Maths midterm: eraser code kicked across the aisle",
+      "start": "00:09:00",
+      "end": "00:13:46",
+      "verified": "unverified",
+      "keep": true
+    },
+    {
+      "name": "Piano-code operation: client drill and the final-exam run",
+      "start": "00:21:26",
+      "end": "00:23:10",
+      "verified": "unverified",
+      "keep": true
+    },
+    {
+      "name": "Scholarship exam: two question sets and the finger-tap code",
+      "start": "00:30:46",
+      "end": "00:38:58",
+      "verified": "unverified",
+      "keep": true
+    },
+    {
+      "name": "Office interrogation, the tea-money counter-attack and the verdict",
+      "start": "00:40:02",
+      "end": "00:45:43",
+      "verified": "unverified",
+      "keep": true
+    },
+    {
+      "name": "Sydney plan: time-zone deduction and the print-shop pitch",
+      "start": "00:53:23",
+      "end": "00:57:17",
+      "verified": "unverified",
+      "keep": true
+    },
+    {
+      "name": "Bank's ambush, the landfill and the rooftop gloat",
+      "start": "00:57:38",
+      "end": "01:00:27",
+      "verified": "unverified",
+      "keep": true
+    },
+    {
+      "name": "Fake STIC seminar: method briefing, pencil barcode and rules",
+      "start": "01:00:27",
+      "end": "01:03:35",
+      "verified": "unverified",
+      "keep": true
+    },
+    {
+      "name": "Recruiting Bank, forging the paperwork and the timed rehearsal",
+      "start": "01:06:06",
+      "end": "01:10:35",
+      "verified": "unverified",
+      "keep": true
+    },
+    {
+      "name": "Cover-story rehearsal collapsing into the fight and the walk-out",
+      "start": "01:10:35",
+      "end": "01:15:10",
+      "verified": "unverified",
+      "keep": true
+    },
+    {
+      "name": "Sydney STIC exam and the Thailand relay, through Bank's capture",
+      "start": "01:20:53",
+      "end": "01:33:38",
+      "verified": "unverified",
+      "keep": true
+    },
+    {
+      "name": "Section 4 alone: piano recall and the faked-illness walk-out",
+      "start": "01:33:38",
+      "end": "01:39:11",
+      "verified": "unverified",
+      "keep": true
+    },
+    {
+      "name": "Sydney chase and the Bangkok print-and-courier pipeline",
+      "start": "01:39:11",
+      "end": "01:48:39",
+      "verified": "unverified",
+      "keep": true
+    },
+    {
+      "name": "Capture on the platform and the Sydney interrogation",
+      "start": "01:48:39",
+      "end": "01:51:43",
+      "verified": "unverified",
+      "keep": true
+    },
+    {
+      "name": "Laundry negotiation: the GAT/PAT pitch, the threat and the refusal",
+      "start": "01:57:19",
+      "end": "02:03:25",
+      "verified": "unverified",
+      "keep": true
+    }
+  ]
+}

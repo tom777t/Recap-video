@@ -1,0 +1,95 @@
+{
+  "chunk": 6,
+  "beats": [
+    {
+      "ts": "01:18:43",
+      "what": "On the Sydney waterfront Lynn and Bank make peace over his broken nose",
+      "chars": ["Lynn", "Bank"],
+      "kind": "dialogue"
+    },
+    {
+      "ts": "01:19:12",
+      "what": "Bank tells Lynn he has never been abroad and that from tomorrow he can go anywhere in the world",
+      "chars": ["Lynn", "Bank"],
+      "kind": "emotion"
+    },
+    {
+      "ts": "01:20:19",
+      "what": "A news bulletin tells Bank the STIC has been cancelled across Asia because the questions leaked, and that security is being tightened",
+      "chars": ["Bank"],
+      "kind": "discovery"
+    },
+    {
+      "ts": "01:21:08",
+      "what": "Officials confiscate every phone and bag at the door before letting the last candidates in",
+      "chars": ["Lynn", "Bank"],
+      "kind": "setup"
+    },
+    {
+      "ts": "01:21:29",
+      "what": "Lynn and Bank take adjoining stalls, retrieve the phone taped inside the toilet and signal to each other through a gap in the partition",
+      "chars": ["Lynn", "Bank"],
+      "kind": "action"
+    },
+    {
+      "ts": "01:22:36",
+      "what": "Section 1 starts at 8:30 and Lynn works the reading test while Bank memorises the answers",
+      "chars": ["Lynn", "Bank"],
+      "kind": "action"
+    },
+    {
+      "ts": "01:24:47",
+      "what": "In Thailand Pat and Grace wait at the printing house with students and motorbike couriers ready to run the answers out",
+      "chars": ["Pat", "Grace"],
+      "kind": "setup"
+    },
+    {
+      "ts": "01:25:22",
+      "what": "At the ten-minute break both unwrap the hidden phones and start thumbing the Section 1 answer strings into the chat",
+      "chars": ["Lynn", "Bank"],
+      "kind": "action"
+    },
+    {
+      "ts": "01:26:59",
+      "what": "Bank stops sending and demands another million baht, transferred within five minutes",
+      "chars": ["Bank", "Lynn", "Pat"],
+      "kind": "reveal"
+    },
+    {
+      "ts": "01:27:43",
+      "what": "Bank prices the second million as payment for the beating he took, and Pat wires everything left in the account with the rest due on delivery",
+      "chars": ["Bank", "Pat"],
+      "kind": "reveal"
+    },
+    {
+      "ts": "01:28:33",
+      "what": "The answers are turned into barcode strips printed onto pencils and handed out to the waiting students",
+      "chars": ["Lynn", "Bank"],
+      "kind": "montage"
+    },
+    {
+      "ts": "01:28:56",
+      "what": "Lynn and Bank sit Sections 2 and 3, then at the next break Bank sends the answers and grid-in values while Lynn keeps watch",
+      "chars": ["Lynn", "Bank"],
+      "kind": "action"
+    },
+    {
+      "ts": "01:31:06",
+      "what": "Proctors enter the washroom saying Bank has been reported for staying out too long",
+      "chars": ["Bank"],
+      "kind": "reveal"
+    },
+    {
+      "ts": "01:31:24",
+      "what": "Bank deletes the chat thread and flushes the phone away as the proctors close in, while Lynn climbs out over her cistern",
+      "chars": ["Bank", "Lynn"],
+      "kind": "action"
+    },
+    {
+      "ts": "01:33:12",
+      "what": "An official seizes Bank in the corridor demanding to know what he did, with Lynn watching from the doorway",
+      "chars": ["Lynn", "Bank"],
+      "kind": "aftermath"
+    }
+  ]
+}
