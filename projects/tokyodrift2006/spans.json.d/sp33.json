@@ -1,0 +1,95 @@
+{
+  "span": "sp33",
+  "moments": [
+    {
+      "shots": [0, 1, 2],
+      "clip_start": "00:47:58.074",
+      "clip_end": "00:48:09.794",
+      "depicts": ["dialogue", "setup"],
+      "chars": ["the grey-haired man in the grey henley", "the young American in the school blazer"],
+      "action": "In a cluttered workshop the grey-haired man hunches over an open engine bay, talking down at it. Reverse shows the young American in his school blazer leaning in from the bright doorway, and an insert of hands seating a part.",
+      "censor": "none"
+    },
+    {
+      "shots": [3, 4, 5],
+      "clip_start": "00:48:09.794",
+      "clip_end": "00:48:18.094",
+      "depicts": ["dialogue"],
+      "chars": ["the grey-haired man in the grey henley", "the young American in the school blazer"],
+      "action": "The man keeps his head buried in the engine, then straightens and turns to look off to one side under the hanging lamp. Cut back to the teenager outside the open door, eyes down on the work, a passer-by behind him.",
+      "censor": "none"
+    },
+    {
+      "shots": [6, 7, 8],
+      "clip_start": "00:48:18.094",
+      "clip_end": "00:48:35.069",
+      "depicts": ["dialogue", "setup"],
+      "chars": ["the grey-haired man in the grey henley", "the young American in the school blazer"],
+      "action": "The man drops his gaze and talks on; the teenager lifts his head and answers. A wide two-shot opens out the scene: the pair face each other across the red car's open bay, tools laid out, the man wiping his hands on a rag.",
+      "censor": "none"
+    },
+    {
+      "shots": [9, 10],
+      "clip_start": "00:48:35.069",
+      "clip_end": "00:48:45.079",
+      "depicts": ["dialogue", "emotion"],
+      "chars": ["the grey-haired man in the grey henley", "the young American in the school blazer"],
+      "action": "Both men lean over the engine, the teenager looking across at the older man while he stays bent to the work. By the last shot the man is alone in frame, head down over the red fender, no longer answering.",
+      "censor": "none"
+    },
+    {
+      "shots": [11, 12, 13, 14],
+      "clip_start": "00:48:45.079",
+      "clip_end": "00:48:55.297",
+      "depicts": ["transition", "setup"],
+      "chars": ["the young American in the school blazer"],
+      "action": "The American strides fast down a school corridor past noticeboards, tracked from behind toward a far door, then out through a doorway where students are spilling past. A whipped blur of Tokyo towers carries the cut outside.",
+      "censor": "none"
+    },
+    {
+      "shots": [15, 16, 17],
+      "clip_start": "00:48:55.297",
+      "clip_end": "00:49:06.976",
+      "depicts": ["action", "establishing"],
+      "chars": ["the young American in the school blazer", "the blond-haired student"],
+      "action": "On the rooftop a wide ring of uniformed students has closed around the blond-haired student. The American shoulders into the back of the crowd, and the blond boy turns to play the moment up to his laughing crew.",
+      "censor": "none"
+    },
+    {
+      "shots": [18, 19, 20, 21, 22],
+      "clip_start": "00:49:06.976",
+      "clip_end": "00:49:15.859",
+      "depicts": ["action", "reveal"],
+      "chars": ["the student in the white durag", "the blond-haired student", "the young American in the school blazer"],
+      "action": "The ring opens on the student in the white durag down on hands and knees while the blond boy shouts over him and the crew jeer. He is dragged and pinned on the concrete as the American forces his way forward through the bodies.",
+      "censor": "none"
+    },
+    {
+      "shots": [23, 24, 25, 26, 27],
+      "clip_start": "00:49:15.859",
+      "clip_end": "00:49:33.335",
+      "depicts": ["dialogue", "action"],
+      "chars": ["the young American in the school blazer", "the blond-haired student", "the student in the white durag"],
+      "action": "The American breaks out of the crowd into the circle and squares up, hand raised as he speaks. Schoolgirls arrive at the rooftop door; the blond boy grins back at him, and the durag student is on his feet behind the American.",
+      "censor": "none"
+    },
+    {
+      "shots": [28, 29, 30, 31],
+      "clip_start": "00:49:33.335",
+      "clip_end": "00:49:40.384",
+      "depicts": ["dialogue", "reaction"],
+      "chars": ["the young American in the school blazer", "the blond-haired student", "the girl with long dark hair"],
+      "action": "Onlookers crane in and the girl with long dark hair reaches the doorway. The American throws an arm out toward the blond boy as he argues, and the blond boy closes the gap between them, answering in his face.",
+      "censor": "none"
+    },
+    {
+      "shots": [32, 33, 34, 35, 36],
+      "clip_start": "00:49:40.384",
+      "clip_end": "00:49:52.729",
+      "depicts": ["dialogue", "reaction"],
+      "chars": ["the girl with long dark hair", "the blond-haired student", "the young American in the school blazer", "the student in the white durag"],
+      "action": "The dark-haired girl watches from the door as the blond boy keeps talking and the American stares him down, the durag student at his shoulder. The blond boy smirks, then turns his back and walks off into his crew.",
+      "censor": "none"
+    }
+  ]
+}

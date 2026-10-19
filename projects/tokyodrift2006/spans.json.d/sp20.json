@@ -1,0 +1,104 @@
+{
+  "span": "sp20",
+  "moments": [
+    {
+      "shots": [0, 1, 2],
+      "clip_start": "00:28:30.536",
+      "clip_end": "00:28:45.301",
+      "depicts": ["establishing", "setup"],
+      "chars": [],
+      "action": "Low-angle wide of the garage lane: two women in western outfits walk away between the two staged cars, clearing it. Cuts to each driver alone at the wheel, the Asian racer then the young American.",
+      "censor": "none"
+    },
+    {
+      "shots": [3, 4, 5, 6, 7, 8],
+      "clip_start": "00:28:45.301",
+      "clip_end": "00:28:56.687",
+      "depicts": ["action", "setup"],
+      "chars": [],
+      "action": "A man in a dark suit walks out into the lane and turns, arm swinging; whip-pans sweep the packed spectators and a woman in a red cowboy hat. He ends planted between the cars, head down.",
+      "censor": "none"
+    },
+    {
+      "shots": [9, 10, 11, 12, 13],
+      "clip_start": "00:28:56.687",
+      "clip_end": "00:29:06.655",
+      "depicts": ["action"],
+      "chars": [],
+      "action": "The crowd surges past a woman at a pillar; headlights push forward with spectators jammed along both walls and a phone held up to film. By the last shot a car is already rolling into the lane.",
+      "censor": "none"
+    },
+    {
+      "shots": [14, 15, 16, 17, 18, 19],
+      "clip_start": "00:29:06.655",
+      "clip_end": "00:29:15.289",
+      "depicts": ["action", "setup"],
+      "chars": [],
+      "action": "The two cars settle side by side at the line. The harnessed Asian driver looks over, the American grins back, then a hand flips a switch on the gauge panel and he takes a two-handed grip on the wheel.",
+      "censor": "none"
+    },
+    {
+      "shots": [20, 21, 22, 23, 24, 25],
+      "clip_start": "00:29:15.289",
+      "clip_end": "00:29:22.213",
+      "depicts": ["reaction"],
+      "chars": [],
+      "action": "A car noses past the cones while the crowd watches, a kid in a red beanie and a woman in black among them. Inside the cars the two drivers trade a last look; the Asian one smirks and turns into the wheel.",
+      "censor": "none"
+    },
+    {
+      "shots": [26, 27, 28, 29, 30],
+      "clip_start": "00:29:22.213",
+      "clip_end": "00:29:30.679",
+      "depicts": ["action"],
+      "chars": [],
+      "action": "Tyres smoke and the cars break away, the orange-and-blue coupe sliding past the level 6 sign. Out of the smoke they run off down an emptier deck past parked cars.",
+      "censor": "none"
+    },
+    {
+      "shots": [31, 32, 33, 34, 35, 36, 37, 38],
+      "clip_start": "00:29:30.679",
+      "clip_end": "00:29:39.271",
+      "depicts": ["reaction"],
+      "chars": [],
+      "action": "Spectators whoop and shout as the cars pass. The cutting settles away from them onto a long-haired man in a pale jacket beside a black car, snacking as he tracks the race and talks off-frame.",
+      "censor": "none"
+    },
+    {
+      "shots": [39, 40, 41, 42, 43, 44, 45],
+      "clip_start": "00:29:39.271",
+      "clip_end": "00:29:52.409",
+      "depicts": ["action"],
+      "chars": [],
+      "action": "The orange-and-blue car blasts past clapping spectators and both cars thread a wider deck; two phones relay the race on their screens. Inside, both drivers saw at the wheel, ending on a blurred spinning tyre.",
+      "censor": "none"
+    },
+    {
+      "shots": [46, 47],
+      "clip_start": "00:29:52.409",
+      "clip_end": "00:30:02.961",
+      "depicts": ["action", "transition"],
+      "chars": [],
+      "action": "A lift opens onto the garage deck with spectators crammed inside; the next shot is in among them, a man in a leather jacket at the front staring out over the others.",
+      "censor": "none"
+    },
+    {
+      "shots": [48, 49, 50, 51, 52],
+      "clip_start": "00:30:02.961",
+      "clip_end": "00:30:13.055",
+      "depicts": ["action"],
+      "chars": [],
+      "action": "A dark coupe drifts onto a near-empty lower deck ahead of the orange car and blurs past. Spectators lined along the wall break and run clear as the cars come through; the American driver watches ahead.",
+      "censor": "none"
+    },
+    {
+      "shots": [53, 54, 55, 56],
+      "clip_start": "00:30:13.055",
+      "clip_end": "00:30:21.522",
+      "depicts": ["action"],
+      "chars": [],
+      "action": "The American wrestles the wheel, shouting, then grimaces down before glaring out through the windscreen past the C-WEST banner. The orange car grinds its flank along the concrete wall, throwing sparks.",
+      "censor": "none"
+    }
+  ]
+}

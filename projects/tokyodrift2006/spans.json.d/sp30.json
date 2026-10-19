@@ -1,0 +1,70 @@
+{
+  "span": "sp30",
+  "moments": [
+    {
+      "shots": [0],
+      "clip_start": "00:43:30.682",
+      "clip_end": "00:44:01.713",
+      "depicts": ["establishing", "setup"],
+      "chars": [],
+      "action": "One long handheld take: the camera follows a back past a man in a white fur-trimmed jacket and a smiling woman in a brick back room, then settles on the man in the black jacket greeting people, the young American trailing behind.",
+      "censor": "none"
+    },
+    {
+      "shots": [1, 2],
+      "clip_start": "00:44:01.713",
+      "clip_end": "00:44:10.806",
+      "depicts": ["transition", "establishing"],
+      "chars": [],
+      "action": "They push on through a dim stockroom passage where a couple is making out against the shelves, then past two women in party dresses as the walls turn to bright pink and green club decor.",
+      "censor": "blur_light",
+      "censor_note": "clothed couple kissing in the background of the stockroom shot, roughly a quarter of the frame, not the subject"
+    },
+    {
+      "shots": [3, 4, 5, 6],
+      "clip_start": "00:44:10.806",
+      "clip_end": "00:44:21.066",
+      "depicts": ["montage", "action"],
+      "chars": [],
+      "action": "Inside, a wall of laughing women in party dresses closes in. In fast cuts the man in the black jacket is grabbed and kissed under the mirror ball, while the young American stands behind him, watching, not included.",
+      "censor": "none"
+    },
+    {
+      "shots": [7, 8, 9],
+      "clip_start": "00:44:21.066",
+      "clip_end": "00:44:30.283",
+      "depicts": ["montage"],
+      "chars": [],
+      "action": "The crowd swallows them: the man in the black jacket is wrapped up by more women on the packed floor, and the party widens out to a heavyset man in a graphic tee raising a shot glass, a girl dancing on each arm.",
+      "censor": "none"
+    },
+    {
+      "shots": [10, 11, 12, 13, 14],
+      "clip_start": "00:44:30.283",
+      "clip_end": "00:44:41.420",
+      "depicts": ["reaction", "montage"],
+      "chars": [],
+      "action": "Attention swings to the young American: a dark-haired woman corners him in the aisle, and by the last shot two women are draped over his shoulders and he looks stranded, while the man in the black jacket poses happily with three of his own.",
+      "censor": "blur_light",
+      "censor_note": "sheer lingerie top on one woman in the group shot, small part of frame, incidental"
+    },
+    {
+      "shots": [15, 16, 17],
+      "clip_start": "00:44:41.420",
+      "clip_end": "00:44:59.146",
+      "depicts": ["dialogue", "setup"],
+      "chars": [],
+      "action": "The friend with cornrows cuts in, hooks an arm around the young American's neck and steers him off the floor; they end up squared off face to face, the friend talking fast while the party blurs behind them.",
+      "censor": "none"
+    },
+    {
+      "shots": [18, 19, 20, 21, 22],
+      "clip_start": "00:44:59.146",
+      "clip_end": "00:45:15.662",
+      "depicts": ["dialogue", "emotion"],
+      "chars": [],
+      "action": "Shot and reverse across the same two: the friend with cornrows presses his point, the young American answers with a flat look, then the tension breaks - both are laughing by the final shot.",
+      "censor": "none"
+    }
+  ]
+}

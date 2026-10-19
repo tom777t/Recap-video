@@ -1,0 +1,86 @@
+{
+  "span": "sp34",
+  "moments": [
+    {
+      "shots": [0, 1, 2, 3, 4],
+      "clip_start": "00:49:33.335",
+      "clip_end": "00:49:42.344",
+      "depicts": ["action", "setup"],
+      "chars": [],
+      "action": "Students on the school roof turn to watch as the American in the dark jacket squares off with a blond boy in a pink tank top; he waves him back while the girl with long brown hair watches from the door, worried.",
+      "censor": "none"
+    },
+    {
+      "shots": [5, 6, 7, 8],
+      "clip_start": "00:49:42.344",
+      "clip_end": "00:49:52.729",
+      "depicts": ["dialogue", "action"],
+      "chars": [],
+      "action": "The blond boy leans in close, taunting, while the American holds his stare and says nothing. The blond ends it with a smirk and turns away past him, the standoff broken with no punch thrown.",
+      "censor": "none"
+    },
+    {
+      "shots": [9, 10, 11],
+      "clip_start": "00:49:52.729",
+      "clip_end": "00:50:00.112",
+      "depicts": ["action", "reaction"],
+      "chars": [],
+      "action": "The watching crowd breaks apart and drifts across the roof. The friend in the white head wrap cuts through it to the American and ends up shouting in his face at arm's length.",
+      "censor": "none"
+    },
+    {
+      "shots": [12, 13, 14, 15, 16],
+      "clip_start": "00:50:00.112",
+      "clip_end": "00:50:14.626",
+      "depicts": ["action", "aftermath"],
+      "chars": [],
+      "action": "Students file off the roof in pairs, a uniformed boy and girl crossing past camera and the girl with long brown hair glancing back with a small smile. The last wide shot leaves the American standing alone on the emptied deck.",
+      "censor": "none"
+    },
+    {
+      "shots": [17, 18, 19, 20, 21, 22, 23],
+      "clip_start": "00:50:14.626",
+      "clip_end": "00:50:29.975",
+      "depicts": ["reaction", "emotion"],
+      "chars": [],
+      "action": "Across the cleared roof the girl with long brown hair smiles at the American from the stairwell door; he turns and smiles back. By the last shot she has leaned into the doorway, still watching him.",
+      "censor": "none"
+    },
+    {
+      "shots": [24, 25, 26, 27, 28, 29, 30],
+      "clip_start": "00:50:29.975",
+      "clip_end": "00:50:48.243",
+      "depicts": ["reaction", "emotion"],
+      "chars": [],
+      "action": "Tight reverse close-ups hold the two trading looks: her smile widens in the doorway while his guarded expression loosens, until he is openly grinning to himself in the final shot.",
+      "censor": "none"
+    },
+    {
+      "shots": [31, 32, 33],
+      "clip_start": "00:50:48.243",
+      "clip_end": "00:50:57.752",
+      "depicts": ["transition", "establishing"],
+      "chars": [],
+      "action": "Cut from daylight to night: a lit tower signboard, a wall of neon billboards, then a high view down onto the packed streets around a Shibuya department store. The school roof is gone and the city is awake.",
+      "censor": "none"
+    },
+    {
+      "shots": [34, 35, 36, 37, 38],
+      "clip_start": "00:50:57.752",
+      "clip_end": "00:51:10.515",
+      "depicts": ["action"],
+      "chars": [],
+      "action": "On a floodlit rooftop futsal pitch the friend in the red beanie drives at the ball and is slid into by a dark-haired player in a maroon sweater. He leaves him down on the turf, then rounds on him shouting nose to nose.",
+      "censor": "none"
+    },
+    {
+      "shots": [39, 40, 41],
+      "clip_start": "00:51:10.515",
+      "clip_end": "00:51:21.067",
+      "depicts": ["dialogue", "establishing"],
+      "chars": [],
+      "action": "On a girder walkway above the neon crossing the long-haired man in the olive jacket digs into a snack tray, talking and laughing; the reverse reveals the American standing beside him, both looking out over Shibuya.",
+      "censor": "none"
+    }
+  ]
+}

@@ -1,0 +1,86 @@
+{
+  "span": "sp36",
+  "moments": [
+    {
+      "shots": [0, 1],
+      "clip_start": "00:52:31.220",
+      "clip_end": "00:52:44.484",
+      "depicts": ["establishing", "emotion"],
+      "chars": [],
+      "action": "A young American stares out over the street from the dark, neon washed night; the angle drops back to show him at a high railing with a second man beside him, who tips a drink back as they look down.",
+      "censor": "none"
+    },
+    {
+      "shots": [2, 3, 4, 5],
+      "clip_start": "00:52:44.484",
+      "clip_end": "00:52:58.122",
+      "depicts": ["establishing", "transition"],
+      "chars": [],
+      "action": "Aerials sweep over Tokyo at night, from a lit rooftop football pitch and a crowded crossing out to the whole glittering sprawl, then cut down to a blue road sign pointing on to Gaien and Shibuya.",
+      "censor": "none"
+    },
+    {
+      "shots": [6, 7, 8, 9, 10, 11, 12],
+      "clip_start": "00:52:58.122",
+      "clip_end": "00:53:13.012",
+      "depicts": ["action", "setup"],
+      "chars": [],
+      "action": "Two cars cruise an empty neon boulevard. From the back seat of the purple Skyline the two women watch the road, while the orange RX-7 draws level; by the end both women have turned to size it up.",
+      "censor": "none"
+    },
+    {
+      "shots": [13, 14, 15, 16],
+      "clip_start": "00:53:13.012",
+      "clip_end": "00:53:19.602",
+      "depicts": ["action"],
+      "chars": [],
+      "action": "The orange RX-7 swings in tight beside the Skyline and both cars break into a slide; the women lean to the open window laughing as the camera whips past, the cruise turning into a show.",
+      "censor": "none"
+    },
+    {
+      "shots": [17, 18, 19, 20, 21],
+      "clip_start": "00:53:19.602",
+      "clip_end": "00:53:28.986",
+      "depicts": ["action"],
+      "chars": [],
+      "action": "The RX-7 piles on smoke and an overhead shot shows the two cars carving a ring around each other; the women grin through the windscreen while their driver holds the wheel hard over.",
+      "censor": "none"
+    },
+    {
+      "shots": [22, 23, 24, 25, 26],
+      "clip_start": "00:53:28.986",
+      "clip_end": "00:53:45.169",
+      "depicts": ["action"],
+      "chars": [],
+      "action": "The pair orbit each other inside a thickening cloud of tyre smoke, swapping inside and outside lines, until the donut unwinds and both cars settle facing one another in the scorched circle.",
+      "censor": "none"
+    },
+    {
+      "shots": [27, 28, 29, 30],
+      "clip_start": "00:53:45.169",
+      "clip_end": "00:53:59.600",
+      "depicts": ["reaction", "emotion"],
+      "chars": [],
+      "action": "Through the RX-7 window the two men look across at the women, who smile back; the driver's grin widens and the woman in the other car dabs her flushed face with a napkin, laughing.",
+      "censor": "none"
+    },
+    {
+      "shots": [31, 32, 33, 34, 35, 36],
+      "clip_start": "00:53:59.600",
+      "clip_end": "00:54:14.323",
+      "depicts": ["dialogue", "emotion"],
+      "chars": [],
+      "action": "The two cars sit level under their headlights; inside the RX-7 the American and the driver trade a look and both break into grins, then the view lifts to an aerial of the cars crossing the night street.",
+      "censor": "none"
+    },
+    {
+      "shots": [37, 38, 39],
+      "clip_start": "00:54:14.323",
+      "clip_end": "00:54:20.037",
+      "depicts": ["establishing", "setup"],
+      "chars": [],
+      "action": "Daylight on a mountain road: the long-haired driver stands by a red hatchback with a green van and spectators behind him, a POV runs the empty curve, then he turns back toward the car and the watching group.",
+      "censor": "none"
+    }
+  ]
+}

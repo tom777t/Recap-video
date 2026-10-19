@@ -1,0 +1,86 @@
+{
+  "span": "sp48",
+  "moments": [
+    {
+      "shots": [0, 1, 2],
+      "clip_start": "01:10:29.252",
+      "clip_end": "01:10:39.345",
+      "depicts": ["establishing", "setup"],
+      "chars": [],
+      "action": "A dark side street at night; a black sports car sits idling with its headlights lit, then the view moves inside a car parked in the tuning garage, where the driver watches the lit workshop through the glass.",
+      "censor": "none"
+    },
+    {
+      "shots": [3, 4, 5, 6, 7],
+      "clip_start": "01:10:39.345",
+      "clip_end": "01:10:47.604",
+      "depicts": ["action", "setup"],
+      "chars": [],
+      "action": "The garage erupts: a mechanic dives flat as the red Evo is boarded and a blond figure in a leather jacket swings past, then the car bursts out of the bay in a shower of sparks and slews away down the lot.",
+      "censor": "none"
+    },
+    {
+      "shots": [8, 9, 10, 11],
+      "clip_start": "01:10:47.604",
+      "clip_end": "01:10:55.236",
+      "depicts": ["action"],
+      "chars": [],
+      "action": "Close on the driver in the white sweater at the wheel; behind him the crew scatters, one ducking under the rolling shutter and another vaulting at a silver coupe, and the black and yellow cars pull out after him.",
+      "censor": "none"
+    },
+    {
+      "shots": [12, 13, 14, 15, 16, 17],
+      "clip_start": "01:10:55.236",
+      "clip_end": "01:11:03.495",
+      "depicts": ["action"],
+      "chars": [],
+      "action": "Inside the red car the driver glances back with a passenger beside him, the road ahead is empty, a long-haired driver grips his own wheel, and the red car swings into a smoking drift out of the side street.",
+      "censor": "none"
+    },
+    {
+      "shots": [18, 19, 20, 21],
+      "clip_start": "01:11:03.495",
+      "clip_end": "01:11:17.884",
+      "depicts": ["action"],
+      "chars": [],
+      "action": "Under the elevated highway the yellow coupe drifts out in a wall of tyre smoke, headlights burning through it; the cars squeeze past red site barriers and one bears straight down on the camera before the road opens.",
+      "censor": "none"
+    },
+    {
+      "shots": [22, 23, 24],
+      "clip_start": "01:11:17.884",
+      "clip_end": "01:11:23.973",
+      "depicts": ["action"],
+      "chars": [],
+      "action": "A driver with bleached hair smiles down at his wheel as the silver coupe accelerates hard; the chase leaves the industrial back streets and reaches a lit main junction where crossing traffic is already moving.",
+      "censor": "none"
+    },
+    {
+      "shots": [25, 26, 27, 28],
+      "clip_start": "01:11:23.973",
+      "clip_end": "01:11:30.855",
+      "depicts": ["action", "reaction"],
+      "chars": [],
+      "action": "The pack spills into live traffic past a huge flower-show billboard, sliding around a yellow taxi in a haze of smoke; the white-sweater driver braces at the wheel as the cars thread between civilian vehicles.",
+      "censor": "none"
+    },
+    {
+      "shots": [29, 30, 31, 32],
+      "clip_start": "01:11:30.855",
+      "clip_end": "01:11:45.912",
+      "depicts": ["action", "reaction"],
+      "chars": [],
+      "action": "The long-haired driver works his wheel steadily; through the windscreen the lanes ahead are packed, then the white-sweater driver turns and points something out to his passenger as the cars carve past slower saloons.",
+      "censor": "none"
+    },
+    {
+      "shots": [33, 34, 35],
+      "clip_start": "01:11:45.912",
+      "clip_end": "01:12:15.066",
+      "depicts": ["action"],
+      "chars": [],
+      "action": "The yellow coupe comes head-on under the overpass lights and pulls clear of the chasing pack, then runs flat out through tunnel traffic, slicing between cars until a dark car sweeps across the frame beside it.",
+      "censor": "none"
+    }
+  ]
+}

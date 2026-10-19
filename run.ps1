@@ -137,6 +137,22 @@ for x in s[len(s)//3 : len(s)//3 + 8]:
     python "$env:TEMP\_tr.py" "$Pdir\transcript.json"
     Warn "Doc 8 dong tren. Neu la chu vo nghia hoac lap cau -> transcript chi"
     Warn "dung de DINH VI, khong dung de hieu noi dung (rule I4)."
+
+    # ---- [TRANSCRIPT-QUALITY] --------------------------------------------
+    # Mot transcript hong KHONG trong nhu hong. Ban cu cua tokyodrift2006 bao
+    # phu 89% thoi luong va chi 34% la dung duoc; phan con lai la mot cau bi
+    # dong len hang phut audio. Doc 8 dong mau o tren khong bao gio bat duoc
+    # dieu do - 8 dong do co the hoan toan sach. Nen co mot phep do rieng, va
+    # no chay NGAY SAU whisper chu khong phai sau khi da tag xong 70 span.
+    & python tools\check_transcript.py $Project --vad | Out-Host
+    if ($LASTEXITCODE -eq 2) {
+        Warn "Transcript co van de (xem tren). KHONG chan pipeline, nhung:"
+        Warn "  - loi thoai se thua va co cho bi gan sai thoi diem"
+        Warn "  - beat map va draft se yeu o dung nhung canh do"
+        Warn "Lam lai bang VAD + phat hien ngon ngu theo chunk:"
+        Warn "  python tools\retranscribe.py $Project --model medium"
+        Warn "  (chay duoc thanh nhieu lat: them --minutes N)"
+    }
 }
 
 # --------------------------------------------------------------------------- #

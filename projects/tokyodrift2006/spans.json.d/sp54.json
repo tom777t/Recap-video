@@ -1,0 +1,77 @@
+{
+  "span": "sp54",
+  "moments": [
+    {
+      "shots": [0, 1, 2, 3],
+      "clip_start": "01:19:31.125",
+      "clip_end": "01:19:43.012",
+      "depicts": ["dialogue", "emotion"],
+      "chars": [],
+      "action": "In a dim garage the young American in the white tee stands silent while his cornrowed friend argues at him, voice rising shot by shot; by the last cut the American still has not answered.",
+      "censor": "none"
+    },
+    {
+      "shots": [4, 5],
+      "clip_start": "01:19:43.012",
+      "clip_end": "01:19:53.939",
+      "depicts": ["dialogue", "reveal"],
+      "chars": [],
+      "action": "The American drops his eyes and answers quietly. Whatever he says kills the argument: his friend's anger slackens into open-mouthed shock and he just stares back instead of shouting.",
+      "censor": "none"
+    },
+    {
+      "shots": [6, 7, 8, 9, 10],
+      "clip_start": "01:19:53.939",
+      "clip_end": "01:20:10.247",
+      "depicts": ["action", "setup"],
+      "chars": [],
+      "action": "The friend goes to his green car, runs a hand over the panel, reaches past the boot speakers and hauls the hatch up, then crouches at the rear quarter prying open a hidden stash while the American waits.",
+      "censor": "none"
+    },
+    {
+      "shots": [11],
+      "clip_start": "01:20:10.247",
+      "clip_end": "01:20:31.310",
+      "depicts": ["action", "setup"],
+      "chars": [],
+      "action": "He swings a battered leather satchel out and shoves it at the American, who opens it, pulls out a thick wad of banknotes and counts it while his friend sits back on the car, watching without a word.",
+      "censor": "none"
+    },
+    {
+      "shots": [12, 13],
+      "clip_start": "01:20:31.310",
+      "clip_end": "01:20:49.453",
+      "depicts": ["establishing", "transition"],
+      "chars": [],
+      "action": "Cut to a crowded Tokyo street at night, steam venting across the passing crowd. The American, now in dark clothes, turns off it and walks away from camera into a narrow alley where men are waiting.",
+      "censor": "none"
+    },
+    {
+      "shots": [14, 15, 16, 17],
+      "clip_start": "01:20:49.453",
+      "clip_end": "01:21:02.466",
+      "depicts": ["action", "setup"],
+      "chars": [],
+      "action": "He walks the length of the packed alley past men in embroidered gang jackets, one carrying a bat, a woman in a yellow cap watching him go by. The crowd closes behind him until he is hemmed in.",
+      "censor": "none"
+    },
+    {
+      "shots": [18, 19, 20],
+      "clip_start": "01:21:02.466",
+      "clip_end": "01:21:11.850",
+      "depicts": ["dialogue", "setup"],
+      "chars": [],
+      "action": "He stops before a man in a dark suit flanked by an older bald man and asks to be taken to someone. Neither steps aside; the suited man only looks him over while the crowd stays pressed around them.",
+      "censor": "none"
+    },
+    {
+      "shots": [21, 22, 23, 24],
+      "clip_start": "01:21:11.850",
+      "clip_end": "01:21:21.193",
+      "depicts": ["action", "reveal"],
+      "chars": [],
+      "action": "The satchel is lifted between them and its flap pulled open. The suited man, the bald man and a long-haired man all look down into it, and the American watches their faces change as they see the contents.",
+      "censor": "none"
+    }
+  ]
+}

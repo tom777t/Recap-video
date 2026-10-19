@@ -1,0 +1,23 @@
+{
+  "span": "sp70",
+  "moments": [
+    {
+      "shots": [0, 1],
+      "clip_start": "01:43:34.062",
+      "clip_end": "01:44:06.595",
+      "depicts": ["transition"],
+      "chars": [],
+      "action": "End credits crawl vendor and thanks lists over black with faint tyre-smoke trails, then stops scrolling and settles into static cards: the Panavision logo, Dolby/SDDS/DTS marks and the 2006 copyright line.",
+      "censor": "none"
+    },
+    {
+      "shots": [2, 3],
+      "clip_start": "01:44:06.595",
+      "clip_end": "01:44:14.123",
+      "depicts": ["transition"],
+      "chars": [],
+      "action": "The credits cut to a blue MPAA card rating the picture PG-13 with the ratings web addresses, which then drops away to a fully black frame as the film ends.",
+      "censor": "none"
+    }
+  ]
+}

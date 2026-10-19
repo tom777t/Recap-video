@@ -1,0 +1,77 @@
+{
+  "span": "sp19",
+  "moments": [
+    {
+      "shots": [0, 1, 2, 3, 4, 5, 6],
+      "clip_start": "00:27:00.321",
+      "clip_end": "00:27:11.666",
+      "depicts": ["action", "reaction"],
+      "chars": [],
+      "action": "In the parking garage the American newcomer and his friend in the red beanie watch a yellow Evo and a blue RX-7 drift past the crowd; the cars sweep out of frame and he is left staring after them.",
+      "censor": "none"
+    },
+    {
+      "shots": [7, 8, 9],
+      "clip_start": "00:27:11.666",
+      "clip_end": "00:27:23.636",
+      "depicts": ["establishing", "setup"],
+      "chars": [],
+      "action": "Spectators and girls in heels filter through the neon-lit lane; the camera pulls off close legs and wheels to leave the blue-and-orange S15 sitting alone under the yellow pillars.",
+      "censor": "none"
+    },
+    {
+      "shots": [10, 11, 12, 13],
+      "clip_start": "00:27:23.636",
+      "clip_end": "00:27:54.250",
+      "depicts": ["dialogue", "setup"],
+      "chars": [],
+      "action": "The newcomer leans over the car, then drops into the driver's seat; his friend in the red beanie hangs in the window talking hard at him until the newcomer stops answering and faces front.",
+      "censor": "none"
+    },
+    {
+      "shots": [14, 15, 16, 17],
+      "clip_start": "00:27:54.250",
+      "clip_end": "00:28:07.471",
+      "depicts": ["action", "emotion"],
+      "chars": [],
+      "action": "The man in the black tank top closes on the dark-haired woman and they embrace against a car in front of the crowd, intercut with a hand settling on a shifter; it ends on the newcomer alone at the wheel.",
+      "censor": "none"
+    },
+    {
+      "shots": [18, 19, 20],
+      "clip_start": "00:28:07.471",
+      "clip_end": "00:28:17.148",
+      "depicts": ["action", "setup"],
+      "chars": [],
+      "action": "The friend in the red beanie walks out through the parked cars and works the crowd; by the last shot he is down among the long-haired man and the women on phones, cash in hand.",
+      "censor": "none"
+    },
+    {
+      "shots": [21, 22, 23, 24, 25],
+      "clip_start": "00:28:17.148",
+      "clip_end": "00:28:30.536",
+      "depicts": ["reaction", "setup"],
+      "chars": [],
+      "action": "Drivers settle in their cars: the newcomer looks down then out his window, a young driver leans on the door of the black car, and the rival checks his wristwatch before the newcomer stares ahead.",
+      "censor": "none"
+    },
+    {
+      "shots": [26, 27, 28],
+      "clip_start": "00:28:30.536",
+      "clip_end": "00:28:45.301",
+      "depicts": ["establishing", "setup"],
+      "chars": [],
+      "action": "Low between the two staged cars, girls in cowboy hats walk off down the empty lane; the cuts then tighten to the rival's face and the newcomer's, both locked forward on the wheel.",
+      "censor": "none"
+    },
+    {
+      "shots": [29, 30, 31, 32, 33],
+      "clip_start": "00:28:45.301",
+      "clip_end": "00:28:50.848",
+      "depicts": ["action", "setup"],
+      "chars": [],
+      "action": "A man in a black suit steps into the lane ahead of the cars and swings his arm out as the camera whips across the crowd, ending on the girl in the red cowboy hat planted at the start line.",
+      "censor": "none"
+    }
+  ]
+}

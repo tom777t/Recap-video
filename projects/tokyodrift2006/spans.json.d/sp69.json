@@ -1,0 +1,59 @@
+{
+  "span": "sp69",
+  "moments": [
+    {
+      "shots": [0, 1, 2],
+      "clip_start": "01:41:58.884",
+      "clip_end": "01:42:28.247",
+      "depicts": ["transition"],
+      "chars": [],
+      "action": "End credits scroll white-on-black over a faint tyre-tread graphic, moving from set decoration and camera crew through makeup, lighting and grips, and by the last page reaching production coordinators, special effects and casting.",
+      "censor": "none"
+    },
+    {
+      "shots": [3, 4],
+      "clip_start": "01:42:28.247",
+      "clip_end": "01:42:52.229",
+      "depicts": ["transition"],
+      "chars": [],
+      "action": "The roll continues through assistant directors, location, transportation and picture-car crew, then production assistants and caterers, until a '2ND UNIT TOKYO' header breaks in and a fresh crew list of stunt drivers and camera operators begins.",
+      "censor": "none"
+    },
+    {
+      "shots": [5, 6],
+      "clip_start": "01:42:52.229",
+      "clip_end": "01:43:03.741",
+      "depicts": ["transition"],
+      "chars": [],
+      "action": "Crew names give way to centred company cards: the co-production credit and the soundtrack and score label notices, after which the layout splits into two columns and the licensed-song credits start listing titles, writers and performers.",
+      "censor": "none"
+    },
+    {
+      "shots": [7, 8],
+      "clip_start": "01:43:03.741",
+      "clip_end": "01:43:18.005",
+      "depicts": ["transition"],
+      "chars": [],
+      "action": "The two-column song list keeps rolling, each entry naming a track with its writers, performers and record label, the titles turning over page by page as earlier songs slide off the top of frame.",
+      "censor": "none"
+    },
+    {
+      "shots": [9, 10],
+      "clip_start": "01:43:18.005",
+      "clip_end": "01:43:34.062",
+      "depicts": ["transition"],
+      "chars": [],
+      "action": "The music credits run out with the title track and the last featured songs, then the columns collapse into centred text listing vehicle, clutch, window-film and stock-footage suppliers and a 'filmmakers wish to gratefully acknowledge' heading.",
+      "censor": "none"
+    },
+    {
+      "shots": [11, 12],
+      "clip_start": "01:43:34.062",
+      "clip_end": "01:44:06.595",
+      "depicts": ["transition"],
+      "chars": [],
+      "action": "A long thank-you list of Japanese firms and aftermarket parts brands scrolls past, narrows to a short special-thanks block and a Panavision card, and settles on the final static plate of sound-format logos, MPAA number and copyright line.",
+      "censor": "none"
+    }
+  ]
+}

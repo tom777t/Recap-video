@@ -1,0 +1,68 @@
+{
+  "span": "sp35",
+  "moments": [
+    {
+      "shots": [0, 1, 2, 3],
+      "clip_start": "00:51:00.297",
+      "clip_end": "00:51:10.515",
+      "depicts": ["action", "emotion"],
+      "chars": [],
+      "action": "On a floodlit rooftop cage pitch a man in a red beanie barges through a tackle and leaves an opponent sprawled on the turf; play stops and he ends squared up nose to nose, shouting at the man in the purple sweater.",
+      "censor": "none"
+    },
+    {
+      "shots": [4, 5, 6],
+      "clip_start": "00:51:10.515",
+      "clip_end": "00:51:21.067",
+      "depicts": ["establishing", "dialogue"],
+      "chars": [],
+      "action": "Cut to a pedestrian bridge high over the neon crossing: a long-haired man in an olive jacket talks and swigs a drink, then a reverse angle reveals a short-haired man beside him, both now looking down at the lit street.",
+      "censor": "none"
+    },
+    {
+      "shots": [7, 8, 9, 10, 11],
+      "clip_start": "00:51:21.067",
+      "clip_end": "00:51:44.591",
+      "depicts": ["dialogue", "setup"],
+      "chars": [],
+      "action": "Tight profiles alternate above the glowing street: the long-haired man speaks, the short-haired man listens and answers, and the exchange tightens until the long-haired man lowers his gaze and goes quiet.",
+      "censor": "none"
+    },
+    {
+      "shots": [12, 13, 14],
+      "clip_start": "00:51:44.591",
+      "clip_end": "00:52:04.277",
+      "depicts": ["dialogue", "emotion"],
+      "chars": [],
+      "action": "A long held close-up sits on the short-haired man, eyes lowered and half-smiling; the other man also stares down, then the short-haired man's head comes up sharply, eyes wide and the smile gone.",
+      "censor": "none"
+    },
+    {
+      "shots": [15, 16, 17, 18, 19, 20, 21],
+      "clip_start": "00:52:04.277",
+      "clip_end": "00:52:20.835",
+      "depicts": ["dialogue", "reveal"],
+      "chars": [],
+      "action": "The long-haired man takes over the talking while the short-haired man stares back hard; twice the film cuts away to the crowd flooding the crossing far below, returning each time tighter on the speaker's face.",
+      "censor": "none"
+    },
+    {
+      "shots": [22, 23, 24],
+      "clip_start": "00:52:20.835",
+      "clip_end": "00:52:37.643",
+      "depicts": ["reaction", "emotion"],
+      "chars": [],
+      "action": "Both men fall quiet: the short-haired man's eyes drop shut, the long-haired man looks down past the rail, then the short-haired man lifts his head again with a set, hardened stare off into the neon.",
+      "censor": "none"
+    },
+    {
+      "shots": [25, 26],
+      "clip_start": "00:52:37.643",
+      "clip_end": "00:52:49.655",
+      "depicts": ["transition", "establishing"],
+      "chars": [],
+      "action": "The camera pulls back low and wide, leaving the pair small on the walkway under a red neon sign as one tips his drink back, then lifts away to an aerial of the glowing rooftop pitch beside the packed street.",
+      "censor": "none"
+    }
+  ]
+}

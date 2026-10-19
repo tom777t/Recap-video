@@ -1,0 +1,113 @@
+{
+  "span": "sp39",
+  "moments": [
+    {
+      "shots": [0, 1, 2, 3, 4, 5, 6],
+      "clip_start": "00:56:59.654",
+      "clip_end": "00:57:12.709",
+      "depicts": ["action"],
+      "chars": [],
+      "action": "Daylight mountain road: an orange sports car slides a guardrail bend with a red rally sedan on its tail. By the last shots the red car has drawn alongside and the driver sits back smirking, hands loose on the wheel.",
+      "censor": "none"
+    },
+    {
+      "shots": [7, 8, 9, 10, 11],
+      "clip_start": "00:57:12.709",
+      "clip_end": "00:57:20.091",
+      "depicts": ["action", "montage"],
+      "chars": [],
+      "action": "Cut to night: an empty elevated expressway, then the young foreign driver inside the orange car leaning into the wheel as the red sedan sweeps past the lit suspension bridge. His focus hardens shot to shot.",
+      "censor": "none"
+    },
+    {
+      "shots": [12, 13, 14, 15, 16, 17],
+      "clip_start": "00:57:20.091",
+      "clip_end": "00:57:33.021",
+      "depicts": ["action", "montage"],
+      "chars": [],
+      "action": "Headlights roll into an empty concrete parking deck. The red sedan starts throwing drifts between the pillars, and the cuts alternate between the young Asian driver and the foreign driver, both now working hard at the wheel.",
+      "censor": "none"
+    },
+    {
+      "shots": [18, 19, 20, 21, 22],
+      "clip_start": "00:57:33.021",
+      "clip_end": "00:57:41.237",
+      "depicts": ["action"],
+      "chars": [],
+      "action": "The garage deck opens out with parked cars and onlookers; the red sedan chases a white coupe across it, then drops down a lamp-lined spiral ramp and comes out drifting on a neon-lit street.",
+      "censor": "none"
+    },
+    {
+      "shots": [23, 24, 25, 26],
+      "clip_start": "00:57:41.237",
+      "clip_end": "00:57:47.202",
+      "depicts": ["action", "reaction"],
+      "chars": [],
+      "action": "A young woman with long dark hair watches from a cheering crowd. The shot widens to a neon-sign plaza ringed with spectators, and the red sedan slides past them trailing tyre smoke.",
+      "censor": "none"
+    },
+    {
+      "shots": [27, 28, 29, 30],
+      "clip_start": "00:57:47.202",
+      "clip_end": "00:57:57.629",
+      "depicts": ["action", "montage"],
+      "chars": [],
+      "action": "A gold coupe eases down the same spiral ramp; the Asian driver grits his teeth mid-slide, an overhead shot shows the red sedan spinning smoke inches from bystanders, and the light-haired driver whoops in the gold car.",
+      "censor": "none"
+    },
+    {
+      "shots": [31],
+      "clip_start": "00:57:57.629",
+      "clip_end": "00:58:08.389",
+      "depicts": ["establishing"],
+      "chars": [],
+      "action": "A held take tracks the dark-haired young woman and the Asian driver walking the packed neon street past a van with its hatch open and speakers stacked inside; they stop and turn to look off-screen.",
+      "censor": "none"
+    },
+    {
+      "shots": [32, 33, 34],
+      "clip_start": "00:58:08.389",
+      "clip_end": "00:58:19.943",
+      "depicts": ["reaction"],
+      "chars": [],
+      "action": "From above the crowd closes in around the smoking car; the foreign driver, in a green bomber jacket, grins as hands reach for him, and the young woman watches from the edge of the crowd with a small smile.",
+      "censor": "none"
+    },
+    {
+      "shots": [35],
+      "clip_start": "00:58:19.943",
+      "clip_end": "00:58:29.577",
+      "depicts": ["establishing", "transition"],
+      "chars": [],
+      "action": "Hard cut to daylight and a classroom: a teacher in a red top stands at a chalkboard covered in Japanese writing, reading aloud from a book as she moves along it.",
+      "censor": "none"
+    },
+    {
+      "shots": [36, 37, 38, 39],
+      "clip_start": "00:58:29.577",
+      "clip_end": "00:58:37.168",
+      "depicts": ["reaction", "discovery"],
+      "chars": [],
+      "action": "The young woman, now in school uniform, reads a Japanese text document on a laptop until a chat window interrupts it: 'bama_boy: how come i never c u drift ???'. Her blank study face sharpens into attention.",
+      "censor": "none"
+    },
+    {
+      "shots": [40, 41, 42, 43, 44, 45],
+      "clip_start": "00:58:37.168",
+      "clip_end": "00:58:45.385",
+      "depicts": ["reaction", "dialogue"],
+      "chars": [],
+      "action": "She types a reply, smiling to herself, and taps Enter. Cut to the foreign young man at a laptop by a bright window, the same chat line on his screen; he lowers his hand from his mouth and starts to smile.",
+      "censor": "none"
+    },
+    {
+      "shots": [46, 47],
+      "clip_start": "00:58:45.385",
+      "clip_end": "00:58:49.180",
+      "depicts": ["establishing"],
+      "chars": [],
+      "action": "Night again: a lot under a curving elevated expressway with banner flags, parked cars and people outside a lit shop, then a close push on a stocked drinks vending machine.",
+      "censor": "none"
+    }
+  ]
+}

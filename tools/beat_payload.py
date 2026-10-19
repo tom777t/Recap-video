@@ -20,6 +20,9 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import config
 
 
+MAX_SEG = 30.0      # giay; dai hon thi moc thoi gian cua segment khong dang tin
+
+
 def pt(ts) -> float:
     p = [float(x) for x in str(ts).split(":")]
     while len(p) < 3:
@@ -54,6 +57,14 @@ def main() -> int:
     tp = pdir / "transcript.json"
     if tp.exists():
         segs = json.load(io.open(tp, encoding="utf-8-sig")).get("segments") or []
+    # Whisper doi khi dong MOT cau len hang phut audio. Tren tokyodrift2006 co
+    # mot segment dai 569.6s mang dung mot cau; gan theo giao thoa thoi gian
+    # thi cau do se hien ra duoi ~60 moment lien tiep nhu the no duoc noi o
+    # tung cho - mot loi gan SAI, te hon im lang, va nguoi viet khong co cach
+    # nao biet. Segment dai hon nguong thi moc thoi gian cua no khong dang tin
+    # nua: bo ra va NOI RA la da bo.
+    _long = [s for s in segs if float(s["end"]) - float(s["start"]) > MAX_SEG]
+    segs = [s for s in segs if float(s["end"]) - float(s["start"]) <= MAX_SEG]
 
     M = [s for s in S if pt(s["clip_end"]) > a and pt(s["clip_start"]) < b]
     print(f"### CHUNK {k} of {n}   {hms(a)} - {hms(b)}   ({len(M)} moments)")
@@ -61,6 +72,18 @@ def main() -> int:
     print("")
     print("Each moment: TIME | chars | depicts | action")
     print("SPEECH lines under a moment are the transcript inside that window.")
+    _drop = [s for s in _long if float(s["end"]) > a and float(s["start"]) < b]
+    if _drop:
+        print("")
+        print(f"!! {len(_drop)} transcript segment(s) overlapping this chunk were "
+              f"SUPPRESSED: each is longer than {MAX_SEG:.0f}s, which means "
+              f"Whisper stamped one line across minutes of audio and its "
+              f"timestamps cannot be trusted. Those minutes have NO reliable "
+              f"speech. Do not invent dialogue for them; rely on `action`.")
+        for s in _drop[:4]:
+            print(f"   suppressed {float(s['start']):.0f}s "
+                  f"+{float(s['end'])-float(s['start']):.0f}s: "
+                  f"{str(s.get('text','')).strip()[:60]}")
     print("")
     for s in M:
         x0, x1 = pt(s["clip_start"]), pt(s["clip_end"])

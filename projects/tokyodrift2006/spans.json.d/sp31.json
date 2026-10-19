@@ -1,0 +1,89 @@
+{
+  "span": "sp31",
+  "moments": [
+    {
+      "shots": [0, 1, 2, 3, 4],
+      "clip_start": "00:44:59.146",
+      "clip_end": "00:45:15.662",
+      "depicts": ["dialogue"],
+      "chars": [],
+      "action": "At the party the young American in the open white shirt trades talk with his friend in cornrows while women dance behind them; the friend leans in laughing and by the last shot the American is grinning back.",
+      "censor": "none"
+    },
+    {
+      "shots": [5, 6, 7],
+      "clip_start": "00:45:15.662",
+      "clip_end": "00:45:27.299",
+      "depicts": ["action", "setup"],
+      "chars": [],
+      "action": "His attention slides off his friend to a knot of partygoers by the doorway; he pushes out through the crowd and passes a long-haired man in a pale jacket sipping a blue drink.",
+      "censor": "blur_light",
+      "censor_note": "party women in low-cut and lingerie-style tops at the frame edges, roughly a quarter of frame, not the subject"
+    },
+    {
+      "shots": [8, 9, 10, 11],
+      "clip_start": "00:45:27.299",
+      "clip_end": "00:45:40.270",
+      "depicts": ["action", "reveal"],
+      "chars": [],
+      "action": "He follows two women out of the doorway into the workshop beyond, and the camera pans off them along a red car raised on a blue lift to an orange chopper parked on the shop floor.",
+      "censor": "blur_light",
+      "censor_note": "woman in a pink lace camisole in the foreground, about a third of frame, no nudity"
+    },
+    {
+      "shots": [12, 13, 14],
+      "clip_start": "00:45:40.270",
+      "clip_end": "00:45:48.486",
+      "depicts": ["reaction", "discovery"],
+      "chars": [],
+      "action": "Standing among the drinkers he tips his head back to take the place in; the camera holds on the orange chopper, and his stunned stare has turned into a grin by the cut.",
+      "censor": "none"
+    },
+    {
+      "shots": [15, 16, 17, 18],
+      "clip_start": "00:45:48.486",
+      "clip_end": "00:46:10.008",
+      "depicts": ["establishing", "reveal"],
+      "chars": [],
+      "action": "The tour of the garage continues: a silver coupe held up on a rotary lift against the lit Tokyo street outside, then a tilt up to a mezzanine where people lounge on sofas and eat at a table above the shop.",
+      "censor": "none"
+    },
+    {
+      "shots": [19, 20, 21],
+      "clip_start": "00:46:10.008",
+      "clip_end": "00:46:20.059",
+      "depicts": ["reaction", "discovery"],
+      "chars": [],
+      "action": "He walks past a red Evo, stops and turns back to it; a close-up holds his face with the grin gone, and the car is shown head-on, squared up on the lift.",
+      "censor": "none"
+    },
+    {
+      "shots": [22, 23, 24, 25, 26],
+      "clip_start": "00:46:20.059",
+      "clip_end": "00:46:34.699",
+      "depicts": ["dialogue", "setup"],
+      "chars": [],
+      "action": "The long-haired man, flanked by two women pouring champagne, talks across the shop while the American walks the length of the red car; by the last close-ups the American has stopped smiling and stares back hard.",
+      "censor": "blur_light",
+      "censor_note": "the two women in low-cut party tops beside him, about a third of frame, no nudity"
+    },
+    {
+      "shots": [27, 28, 29],
+      "clip_start": "00:46:34.699",
+      "clip_end": "00:46:43.666",
+      "depicts": ["establishing", "transition"],
+      "chars": [],
+      "action": "Hard cut from night to daylight: an aerial over Tokyo's industrial waterfront, then hands working a fishing reel and a wide of two men settled on a concrete quay with the city across the water.",
+      "censor": "none"
+    },
+    {
+      "shots": [30, 31, 32],
+      "clip_start": "00:46:43.666",
+      "clip_end": "00:46:48.713",
+      "depicts": ["action"],
+      "chars": [],
+      "action": "A red car slews past a parked trailer in a cloud of dust behind them; the two fishermen break off and turn toward the noise, and an overhead shot catches the car sliding across the empty yard.",
+      "censor": "none"
+    }
+  ]
+}

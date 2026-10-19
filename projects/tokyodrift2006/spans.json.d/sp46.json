@@ -1,0 +1,68 @@
+{
+  "span": "sp46",
+  "moments": [
+    {
+      "shots": [0, 1, 2],
+      "clip_start": "01:07:29.823",
+      "clip_end": "01:07:46.090",
+      "depicts": ["dialogue", "setup"],
+      "chars": [],
+      "action": "In a blue-lit office a young man in a black henley stands before an elderly man in a white suit and panama hat sunk in a leather armchair; the accusation that his partner is stealing lands and he drops his eyes.",
+      "censor": "none"
+    },
+    {
+      "shots": [3, 4, 5],
+      "clip_start": "01:07:46.090",
+      "clip_end": "01:08:09.947",
+      "depicts": ["dialogue"],
+      "chars": [],
+      "action": "The seated man in white keeps talking over the younger man's shoulder, eyes lowered, then lifts them to him; the reverse finds the young man standing stiff and silent, offering nothing back.",
+      "censor": "none"
+    },
+    {
+      "shots": [6, 7, 8, 9],
+      "clip_start": "01:08:09.947",
+      "clip_end": "01:08:27.005",
+      "depicts": ["dialogue", "emotion"],
+      "chars": [],
+      "action": "The old man works through a proverb, 'For want of a steed... the war was lost,' the camera pushing tighter on him each cut; the younger man first looks away, then lowers his head as the point lands.",
+      "censor": "none"
+    },
+    {
+      "shots": [10, 11, 12],
+      "clip_start": "01:08:27.005",
+      "clip_end": "01:08:40.644",
+      "depicts": ["action", "reveal"],
+      "chars": [],
+      "action": "The old man's face sinks into shadow under his hat brim as he looks down; a white-sleeved hand lifts a small framed picture from the cluttered desk, and he stands holding it, still not raising his eyes.",
+      "censor": "none"
+    },
+    {
+      "shots": [13, 14, 15],
+      "clip_start": "01:08:40.644",
+      "clip_end": "01:09:03.458",
+      "depicts": ["action", "emotion"],
+      "chars": [],
+      "action": "Wide: the old man comes round the desk and holds the framed picture out to the young man. The next shot finds the younger man doubled over, head hanging, before focus slides off onto the blurred desktop.",
+      "censor": "none"
+    },
+    {
+      "shots": [16],
+      "clip_start": "01:09:03.458",
+      "clip_end": "01:09:13.343",
+      "depicts": ["establishing", "setup"],
+      "chars": [],
+      "action": "A held shot at an ordinary table elsewhere: a man in a cream sweater lifts a patterned cup while an older hand rests by a smaller cup, pens scattered across the wood. The office tension is gone.",
+      "censor": "none"
+    },
+    {
+      "shots": [17, 18, 19, 20, 21],
+      "clip_start": "01:09:13.343",
+      "clip_end": "01:09:23.145",
+      "depicts": ["montage", "transition"],
+      "chars": [],
+      "action": "Fast cuts fan out: a garage crew stare off past a car on the lift, then night in a parking structure as a blonde woman climbs from a gold coupe and a man in black walks in among the cars; ends on a girl at a bright school table turning to the boy beside her.",
+      "censor": "none"
+    }
+  ]
+}

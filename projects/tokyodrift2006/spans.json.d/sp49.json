@@ -1,0 +1,104 @@
+{
+  "span": "sp49",
+  "moments": [
+    {
+      "shots": [0],
+      "clip_start": "01:11:47.956",
+      "clip_end": "01:12:15.066",
+      "depicts": ["action"],
+      "chars": [],
+      "action": "A pack of tuned cars tears along an underpass road at night, the orange RX-7 holding the middle lane between a yellow sedan and red rivals; by the end of the take it is sliding past a pillar as a dark car cuts the foreground.",
+      "censor": "none"
+    },
+    {
+      "shots": [1, 2],
+      "clip_start": "01:12:15.066",
+      "clip_end": "01:12:26.744",
+      "depicts": ["action"],
+      "chars": [],
+      "action": "The black coupe with green stripes comes head-on through oncoming traffic, then the view drops inside its cabin: the driver works the wheel while the orange car and a red rival run ahead down the lit underpass.",
+      "censor": "none"
+    },
+    {
+      "shots": [3, 4, 5, 6],
+      "clip_start": "01:12:26.744",
+      "clip_end": "01:12:37.004",
+      "depicts": ["action", "aftermath"],
+      "chars": [],
+      "action": "The chase breaks: a dark car pins the orange one into a concrete pillar under the parking signs, debris bursting, its front wheel shearing away against a sedan's flank, before the camera whips off in a smeared blur.",
+      "censor": "none"
+    },
+    {
+      "shots": [7, 8, 9],
+      "clip_start": "01:12:37.004",
+      "clip_end": "01:12:43.845",
+      "depicts": ["action", "reaction"],
+      "chars": [],
+      "action": "Traffic scatters under the overpass as a dark car slices between a taxi and a blue sedan; the camera climbs its hood and settles on the driver's face through the glass, eyes narrowed and locked on the road.",
+      "censor": "none"
+    },
+    {
+      "shots": [10, 11, 12],
+      "clip_start": "01:12:43.845",
+      "clip_end": "01:12:50.852",
+      "depicts": ["action"],
+      "chars": [],
+      "action": "The cars burst out of the underpass past orange cones into neon streets trailing tyre smoke; a head-on shot of the dark coupe with headlights blazing gives way to an overhead of it drawn level with a gold rival.",
+      "censor": "none"
+    },
+    {
+      "shots": [13, 14, 15, 16, 17],
+      "clip_start": "01:12:50.852",
+      "clip_end": "01:12:59.652",
+      "depicts": ["montage", "action"],
+      "chars": [],
+      "action": "Wide views look down over Tokyo's lit avenues, then the camera goes tight on a hand at the gearstick and drops to bumper height, charging down an emptied stretch of road into the neon of the district ahead.",
+      "censor": "none"
+    },
+    {
+      "shots": [18, 19, 20, 21],
+      "clip_start": "01:12:59.652",
+      "clip_end": "01:13:05.116",
+      "depicts": ["action", "reaction"],
+      "chars": [],
+      "action": "In the Sparco seat the driver turns to look off to his right; after a near-black frame of passing lights the cars are threading oncoming traffic on a street strung with illuminated reindeer, a taxi sliding clear.",
+      "censor": "none"
+    },
+    {
+      "shots": [22, 23],
+      "clip_start": "01:13:05.116",
+      "clip_end": "01:13:11.539",
+      "depicts": ["action"],
+      "chars": [],
+      "action": "Tight on the orange car's flank with a hand steady on the wheel behind the glass; the angle then flips head-on as a dark coupe and a red Evo bear down the lane, forcing a taxi over to the far side.",
+      "censor": "none"
+    },
+    {
+      "shots": [24],
+      "clip_start": "01:13:11.539",
+      "clip_end": "01:13:29.807",
+      "depicts": ["action", "emotion"],
+      "chars": [],
+      "action": "A long take holds on a driver hunched over his wheel, hand reaching across the dash, then finds the red car alongside: the man at its wheel stares ahead while the woman beside him turns toward her window.",
+      "censor": "none"
+    },
+    {
+      "shots": [25, 26],
+      "clip_start": "01:13:29.807",
+      "clip_end": "01:13:39.483",
+      "depicts": ["action", "reaction"],
+      "chars": [],
+      "action": "From alongside the orange car the road ahead fills with a red hatchback and dark cars under lit tree decorations; the cut lands on a young driver behind an Evo windshield banner, who snaps his eyes sideways.",
+      "censor": "none"
+    },
+    {
+      "shots": [27, 28],
+      "clip_start": "01:13:39.483",
+      "clip_end": "01:13:51.203",
+      "depicts": ["action", "establishing"],
+      "chars": [],
+      "action": "The red car breaks sideways across the lane in a high-angle slide past slower traffic, then the camera settles into a forward run down the neon avenue, light-wrapped trees sliding by as the cars string out ahead.",
+      "censor": "none"
+    }
+  ]
+}

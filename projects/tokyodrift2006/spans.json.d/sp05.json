@@ -1,0 +1,131 @@
+{
+  "span": "sp05",
+  "moments": [
+    {
+      "shots": [0, 1, 2, 3],
+      "clip_start": "00:06:00.984",
+      "clip_end": "00:06:06.823",
+      "depicts": ["action"],
+      "chars": ["the dark-haired teenager in the blue T-shirt"],
+      "action": "The cream Monte Carlo breaks away down the half-built housing street with the red Viper on its flank; from inside, the driver stares ahead over a trash-strewn dash as the tract whips past.",
+      "censor": "none"
+    },
+    {
+      "shots": [4, 5, 6, 7],
+      "clip_start": "00:06:06.823",
+      "clip_end": "00:06:12.496",
+      "depicts": ["action", "setup"],
+      "chars": ["the blond man in the purple jersey"],
+      "action": "Cut to the blond driver of the open red Viper working the wheel. The Monte Carlo's POV shows a spectator pickup ahead and the Viper to the right; the blond man ends up shouting across at it.",
+      "censor": "none"
+    },
+    {
+      "shots": [8, 9, 10, 11],
+      "clip_start": "00:06:12.496",
+      "clip_end": "00:06:17.417",
+      "depicts": ["action"],
+      "chars": ["the blond man in the purple jersey", "the blonde woman in the red convertible"],
+      "action": "Boots stamp the pedals; the two cars bear down on a pickup loaded with cheering fans. The view moves into the Viper, revealing a blonde woman riding beside the blond driver.",
+      "censor": "none"
+    },
+    {
+      "shots": [12, 13, 14, 15],
+      "clip_start": "00:06:17.417",
+      "clip_end": "00:06:24.508",
+      "depicts": ["action"],
+      "chars": ["the dark-haired teenager in the blue T-shirt"],
+      "action": "The Monte Carlo's driver glances right through his cracked windshield. The pair run level past the framed houses, then the Viper pulls clear in a dust cloud and leads into the next straight.",
+      "censor": "none"
+    },
+    {
+      "shots": [16, 17, 18, 19, 20, 21],
+      "clip_start": "00:06:24.508",
+      "clip_end": "00:06:38.104",
+      "depicts": ["action", "setup"],
+      "chars": ["the blond man in the purple jersey"],
+      "action": "Both cars close on the black pickup whose bed is packed with jersey-wearing fans dancing and waving. They sweep past it; by the end the blond driver has turned to shout up at the truck.",
+      "censor": "none"
+    },
+    {
+      "shots": [22, 23, 24, 25],
+      "clip_start": "00:06:38.104",
+      "clip_end": "00:06:46.905",
+      "depicts": ["action"],
+      "chars": ["the dark-haired teenager in the blue T-shirt", "the blond man in the purple jersey"],
+      "action": "The Monte Carlo slews sideways through dirt beside a framed house, its driver grinning. The blond man sets his jaw at the Viper's wheel and the Monte Carlo slides in behind him, still chasing.",
+      "censor": "none"
+    },
+    {
+      "shots": [26],
+      "clip_start": "00:06:46.905",
+      "clip_end": "00:06:55.997",
+      "depicts": ["action"],
+      "chars": ["the dark-haired teenager in the blue T-shirt"],
+      "action": "One long held take: the Monte Carlo swings out of a bend past stacked lumber and straightens up the empty street, the red Viper a small shape far ahead that it slowly reels in.",
+      "censor": "none"
+    },
+    {
+      "shots": [27, 28, 29, 30, 31],
+      "clip_start": "00:06:55.997",
+      "clip_end": "00:07:03.630",
+      "depicts": ["action"],
+      "chars": ["the dark-haired teenager in the blue T-shirt"],
+      "action": "Blue chemical splatters across the Monte Carlo's windshield. It breaks loose through dust past oil drums and shrinks into the distance, then returns broadside in a cloud of tyre smoke.",
+      "censor": "none"
+    },
+    {
+      "shots": [32, 33, 34, 35],
+      "clip_start": "00:07:03.630",
+      "clip_end": "00:07:10.428",
+      "depicts": ["establishing", "action"],
+      "chars": ["the dark-haired teenager in the blue T-shirt"],
+      "action": "A wide of the desert valley, a pumpjack over the raw subdivision, then back inside the Monte Carlo as the driver hauls on the wheel and the car accelerates hard down the lane.",
+      "censor": "none"
+    },
+    {
+      "shots": [36, 37, 38, 39],
+      "clip_start": "00:07:10.428",
+      "clip_end": "00:07:19.437",
+      "depicts": ["action"],
+      "chars": [],
+      "action": "The speedometer needle passes 100 mph. In the Viper's wing mirror the Monte Carlo has caught up, and the wide that follows shows the two cars running almost level between the houses.",
+      "censor": "none"
+    },
+    {
+      "shots": [40, 41, 42, 43, 44],
+      "clip_start": "00:07:19.437",
+      "clip_end": "00:07:30.907",
+      "depicts": ["action"],
+      "chars": ["the dark-haired teenager in the blue T-shirt"],
+      "action": "The Monte Carlo's driver squints through dust, then yells. An aerial shows him abandoning the road and cutting straight across the raw dirt lots while the Viper stays on the pavement.",
+      "censor": "none"
+    },
+    {
+      "shots": [45, 46, 47, 48, 49],
+      "clip_start": "00:07:30.907",
+      "clip_end": "00:07:38.123",
+      "depicts": ["action"],
+      "chars": ["the dark-haired teenager in the blue T-shirt"],
+      "action": "Grinning, he drives the Monte Carlo at a dirt bank; rear wheels scrabble, the car launches nose-up over the mound and lands, the windshield POV tipping as it crosses the graded ground.",
+      "censor": "none"
+    },
+    {
+      "shots": [50, 51, 52, 53],
+      "clip_start": "00:07:38.123",
+      "clip_end": "00:07:47.799",
+      "depicts": ["action"],
+      "chars": ["the dark-haired teenager in the blue T-shirt"],
+      "action": "From above the Monte Carlo carves across the dirt lot and comes head-on out of the dust; the driver is laughing openly now, and the camera whips past a house frame as he rejoins the street.",
+      "censor": "none"
+    },
+    {
+      "shots": [54, 55],
+      "clip_start": "00:07:47.799",
+      "clip_end": "00:07:51.136",
+      "depicts": ["reaction"],
+      "chars": ["the blonde woman in the red convertible", "the blond man in the purple jersey"],
+      "action": "Inside the open Viper the blonde passenger twists round, hair streaming, mouth open in shock at what she sees; the blond driver then looks across himself, his cocky grin gone.",
+      "censor": "none"
+    }
+  ]
+}

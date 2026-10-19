@@ -1,0 +1,86 @@
+{
+  "span": "sp11",
+  "moments": [
+    {
+      "shots": [0, 1, 2, 3],
+      "clip_start": "00:15:00.355",
+      "clip_end": "00:15:10.198",
+      "depicts": ["dialogue", "setup"],
+      "chars": [],
+      "action": "In a cramped apartment the American teenager stands just inside the door, pack still on his shoulder, while the older man in the grey NAVY shirt talks at him. The cutting tightens to close-ups and the boy stops answering.",
+      "censor": "none"
+    },
+    {
+      "shots": [4, 5, 6, 7],
+      "clip_start": "00:15:10.198",
+      "clip_end": "00:15:25.421",
+      "depicts": ["dialogue", "setup"],
+      "chars": [],
+      "action": "A wide shot shows the whole tiny room, the two standing apart across a bed. The camera cuts in over the boy's shoulder to the man laying something out, then back to the boy's face, silent.",
+      "censor": "none"
+    },
+    {
+      "shots": [8, 9],
+      "clip_start": "00:15:25.421",
+      "clip_end": "00:15:37.767",
+      "depicts": ["dialogue", "emotion"],
+      "chars": [],
+      "action": "Close on the older man as he finishes against the bookshelves; the reverse holds on the teenager, who stares back and gives no reply. The exchange ends with neither moving.",
+      "censor": "none"
+    },
+    {
+      "shots": [10],
+      "clip_start": "00:15:37.767",
+      "clip_end": "00:15:53.616",
+      "depicts": ["dialogue", "setup"],
+      "chars": [],
+      "action": "One held take: the man turns away to the crowded bookshelf and fan, then turns back as the boy, pack on, walks past him toward the rear of the room. The talk is over and they separate.",
+      "censor": "none"
+    },
+    {
+      "shots": [11, 12, 13, 14, 15],
+      "clip_start": "00:15:53.616",
+      "clip_end": "00:16:01.374",
+      "depicts": ["action"],
+      "chars": [],
+      "action": "The teenager squeezes into a narrow closet-like alcove hung with coats, head down, and sets his things down. By the last shot his dark jacket is dumped on a narrow striped bed - this is his room.",
+      "censor": "none"
+    },
+    {
+      "shots": [16, 17, 18],
+      "clip_start": "00:16:01.374",
+      "clip_end": "00:16:08.297",
+      "depicts": ["action", "discovery"],
+      "chars": [],
+      "action": "Alone among the hanging clothes, he looks up and around the alcove, then turns in profile. The cut goes to his dark POV: a lit window across the gap with an elderly woman sitting inside.",
+      "censor": "none"
+    },
+    {
+      "shots": [19, 20, 21],
+      "clip_start": "00:16:08.297",
+      "clip_end": "00:16:15.304",
+      "depicts": ["reaction", "discovery"],
+      "chars": [],
+      "action": "Close on the elderly neighbour slurping noodles, staring straight back at him. He registers it in profile, then a tight low angle catches him looking up and away, caught watching.",
+      "censor": "none"
+    },
+    {
+      "shots": [22, 23, 24, 25],
+      "clip_start": "00:16:15.304",
+      "clip_end": "00:16:31.779",
+      "depicts": ["establishing", "transition", "montage"],
+      "chars": [],
+      "action": "Morning arrives over Tokyo: the skyline at dawn, rooftop laundry tangled in power lines, a woman cycling across a bridge. The run ends inside, on the teenager asleep on the low bed.",
+      "censor": "none"
+    },
+    {
+      "shots": [26],
+      "clip_start": "00:16:31.779",
+      "clip_end": "00:16:57.847",
+      "depicts": ["action", "reveal"],
+      "chars": [],
+      "action": "A long take: the man in the grey shirt leans in and holds a small wind-up alarm clock out at arm's length to wake him, then turns and holds up a school uniform on a hanger with a handwritten note pinned to it.",
+      "censor": "none"
+    }
+  ]
+}

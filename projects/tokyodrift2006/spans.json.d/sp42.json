@@ -1,0 +1,108 @@
+{
+  "span": "sp42",
+  "moments": [
+    {
+      "shots": [0, 1],
+      "clip_start": "01:01:30.007",
+      "clip_end": "01:01:46.148",
+      "depicts": ["dialogue", "transition"],
+      "chars": [],
+      "action": "Night interior: a young man at the wheel glances at the woman beside him as they talk, the cabin lit only by dash glow. The shot opens out to the empty mountain road far below, the car gone from view.",
+      "censor": "none"
+    },
+    {
+      "shots": [2, 3, 4, 5, 6, 7],
+      "clip_start": "01:01:46.148",
+      "clip_end": "01:01:54.406",
+      "depicts": ["action", "establishing"],
+      "chars": [],
+      "action": "Daylight at the dockside yard: a red sedan slides through its own tyre smoke, seen from overhead, then at the rear bumper and down at the burning wheel. The driver leans out of the window as he swings past the parked crew.",
+      "censor": "none"
+    },
+    {
+      "shots": [8, 9, 10, 11],
+      "clip_start": "01:01:54.406",
+      "clip_end": "01:02:01.538",
+      "depicts": ["establishing", "setup"],
+      "chars": [],
+      "action": "The crew lounges on salvaged couches between the cars, one reading a magazine, another playing a handheld. The red car stops and its driver, in a grey shirt, climbs out and walks over, pulling their attention up.",
+      "censor": "none"
+    },
+    {
+      "shots": [12, 13, 14],
+      "clip_start": "01:02:01.538",
+      "clip_end": "01:02:12.716",
+      "depicts": ["dialogue", "setup"],
+      "chars": [],
+      "action": "The camera whips round to the grey-shirt driver facing the young man in the yellow jacket under a blue tarp; they trade words. A wide pulls back across the yard, other cars still drifting in the distance.",
+      "censor": "none"
+    },
+    {
+      "shots": [15, 16],
+      "clip_start": "01:02:12.716",
+      "clip_end": "01:02:18.347",
+      "depicts": ["reaction", "setup"],
+      "chars": [],
+      "action": "The long-haired man in the dark coat sits slouched in a chair, hand at his mouth, then his head snaps toward something off-screen as the camera swings away with him.",
+      "censor": "none"
+    },
+    {
+      "shots": [17, 18, 19, 20, 21, 22],
+      "clip_start": "01:02:18.347",
+      "clip_end": "01:02:31.985",
+      "depicts": ["action"],
+      "chars": [],
+      "action": "A heavyset man in a tank top strides in across the lot with the long-haired man and the others falling in behind. Without warning he swings down hard, and the grey-shirt driver ends up face-down on the concrete.",
+      "censor": "none"
+    },
+    {
+      "shots": [23, 24, 25, 26, 27, 28, 29],
+      "clip_start": "01:02:31.985",
+      "clip_end": "01:02:46.375",
+      "depicts": ["action", "emotion"],
+      "chars": [],
+      "action": "The crew stands watching while the tank-top man crouches over the beaten driver and talks down at him. The driver, brow and mouth split open, lifts his head and glares back instead of staying down.",
+      "censor": "blur_light",
+      "censor_note": "blood from a cut brow and lip on the downed man's face, a small part of the frame in the close-ups"
+    },
+    {
+      "shots": [30, 31, 32, 33],
+      "clip_start": "01:02:46.375",
+      "clip_end": "01:02:59.388",
+      "depicts": ["aftermath", "reaction"],
+      "chars": [],
+      "action": "The tank-top man turns and walks off; the yellow-jacket youth and the long-haired man watch each other in silence. A young woman drops to her knees beside the bleeding driver as the crew leaves the lot.",
+      "censor": "blur_light",
+      "censor_note": "blood on the downed man's face, small portion of frame"
+    },
+    {
+      "shots": [34, 35, 36],
+      "clip_start": "01:02:59.388",
+      "clip_end": "01:03:04.810",
+      "depicts": ["aftermath", "emotion"],
+      "chars": [],
+      "action": "The yellow-jacket youth stands with the long-haired man behind him, then the shot cuts down to the woman steadying the driver by the shoulder, blood now running freely from his mouth as he sags.",
+      "censor": "blur_light",
+      "censor_note": "blood from mouth and brow in close-up, roughly a tenth of the frame"
+    },
+    {
+      "shots": [37, 38, 39, 40],
+      "clip_start": "01:03:04.810",
+      "clip_end": "01:03:12.526",
+      "depicts": ["dialogue", "emotion"],
+      "chars": [],
+      "action": "The long-haired man speaks to the yellow-jacket youth, who first stares straight ahead and then drops his eyes. Behind them the woman is still holding the bloodied driver on the ground.",
+      "censor": "blur_light",
+      "censor_note": "blood on the injured man's face in the final shot, small portion of frame"
+    },
+    {
+      "shots": [41],
+      "clip_start": "01:03:12.526",
+      "clip_end": "01:03:17.072",
+      "depicts": ["transition", "establishing"],
+      "chars": [],
+      "action": "Cut away to a crowded city street: racked bicycles in the foreground, uniformed students streaming past in the late light, the dockyard and the fight left behind entirely.",
+      "censor": "none"
+    }
+  ]
+}

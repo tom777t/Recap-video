@@ -1,0 +1,87 @@
+{
+  "span": "sp50",
+  "moments": [
+    {
+      "shots": [0, 1, 2, 3],
+      "clip_start": "01:13:29.807",
+      "clip_end": "01:13:51.203",
+      "depicts": ["action"],
+      "chars": [],
+      "action": "An orange sports car and a red sedan tear through night traffic on a neon boulevard; the sedan's young driver glances sideways, then cuts past the pack until the road ahead opens into a wide avenue.",
+      "censor": "none"
+    },
+    {
+      "shots": [4, 5, 6, 7],
+      "clip_start": "01:13:51.203",
+      "clip_end": "01:14:02.506",
+      "depicts": ["action", "setup"],
+      "chars": [],
+      "action": "From above, the crossing is solid with people. Hands tighten on a wheel as the car bears down on it, and in the crowd a man in a tan coat turns and looks back as the walkers realise what is coming.",
+      "censor": "none"
+    },
+    {
+      "shots": [8, 9, 10, 11],
+      "clip_start": "01:14:02.506",
+      "clip_end": "01:14:13.309",
+      "depicts": ["action"],
+      "chars": [],
+      "action": "The cars shoulder into the packed crossing, nosing bodies aside while the man and woman in the front seats brace against the dash. The battered red sedan breaks clear on the far side and accelerates off.",
+      "censor": "none"
+    },
+    {
+      "shots": [12, 13, 14, 15, 16, 17],
+      "clip_start": "01:14:13.309",
+      "clip_end": "01:14:20.649",
+      "depicts": ["action"],
+      "chars": [],
+      "action": "Clear of the crowd, the cars swing back onto open road past staring onlookers; one driver hunches over the wheel, another stares ahead. Smoke drifts over the junction and traffic fills the lanes ahead.",
+      "censor": "none"
+    },
+    {
+      "shots": [18],
+      "clip_start": "01:14:20.649",
+      "clip_end": "01:14:50.721",
+      "depicts": ["action"],
+      "chars": [],
+      "action": "One long held shot down the avenue: distant headlights grow until two cars arrive together and go sideways through the junction in a cloud of tyre smoke, still locked wheel to wheel as they pass.",
+      "censor": "none"
+    },
+    {
+      "shots": [19, 20],
+      "clip_start": "01:14:50.721",
+      "clip_end": "01:15:07.905",
+      "depicts": ["action"],
+      "chars": [],
+      "action": "The orange car slings broadside across a lit junction, then threads head-on past an oncoming silver sedan; the dark coupe closes up behind it and the two run together into the next block.",
+      "censor": "none"
+    },
+    {
+      "shots": [21, 22, 23],
+      "clip_start": "01:15:07.905",
+      "clip_end": "01:15:13.785",
+      "depicts": ["action", "reveal"],
+      "chars": [],
+      "action": "Debris is strewn across the junction; the orange car is struck and cartwheels past the camera. The young man in the white shirt stops dead in the street, staring at what has just happened.",
+      "censor": "none"
+    },
+    {
+      "shots": [24, 25, 26, 27],
+      "clip_start": "01:15:13.785",
+      "clip_end": "01:15:22.920",
+      "depicts": ["aftermath", "action"],
+      "chars": [],
+      "action": "The orange car lies crushed on its roof, a tyre still rolling loose. The driver is pinned inside; a woman climbs out of a red car and stares across, and a close shot finds his bloodied face on broken glass.",
+      "censor": "blur_light",
+      "censor_note": "blood smeared on the trapped driver's forehead and cheek in one close shot, a small part of the frame"
+    },
+    {
+      "shots": [28, 29, 30],
+      "clip_start": "01:15:22.920",
+      "clip_end": "01:15:28.175",
+      "depicts": ["action", "aftermath"],
+      "chars": [],
+      "action": "The man in the white shirt sprints toward the wreck, then the car erupts; he throws an arm across his face as the fireball fills the street and bystanders flinch back behind their own cars.",
+      "censor": "none"
+    }
+  ]
+}

@@ -1,0 +1,122 @@
+{
+  "span": "sp38",
+  "moments": [
+    {
+      "shots": [0, 1, 2, 3, 4],
+      "clip_start": "00:55:30.357",
+      "clip_end": "00:55:38.073",
+      "depicts": ["montage", "setup"],
+      "chars": ["the American teen driver", "the teen in the varsity jacket", "the long-haired mentor"],
+      "action": "A neon street where the teen and his friend walk off laughing cuts into a cockpit: the long-haired mentor talks him through it from the next seat, the teen wrenches the wheel and ducks, and the red Evo breaks loose on a dusk mountain bend.",
+      "censor": "none"
+    },
+    {
+      "shots": [5, 6, 7, 8, 9],
+      "clip_start": "00:55:38.073",
+      "clip_end": "00:55:46.790",
+      "depicts": ["montage", "action"],
+      "chars": ["the American teen driver", "the long-haired mentor"],
+      "action": "A boot stabs the pedal and the red car carves smoking circles through an empty fish-market lot; the mentor keeps coaching from the seat beside him as the camera drops to the spinning front wheel.",
+      "censor": "none"
+    },
+    {
+      "shots": [10, 11, 12, 13],
+      "clip_start": "00:55:46.790",
+      "clip_end": "00:55:54.798",
+      "depicts": ["montage", "reaction"],
+      "chars": ["the dock worker in the blue vest", "the dock worker in the red cap"],
+      "action": "The red car keeps sliding past the warehouses until two dock workers stop to watch; the one in the blue vest ends up grinning sideways at his friend in the red cap, won over by the kid.",
+      "censor": "none"
+    },
+    {
+      "shots": [14, 15, 16, 17, 18],
+      "clip_start": "00:55:54.798",
+      "clip_end": "00:56:00.595",
+      "depicts": ["montage", "action"],
+      "chars": ["the American teen driver", "the long-haired mentor"],
+      "action": "In the cockpit the driver points through the windscreen and the mentor twists to check behind; the lesson jumps to a hillside hairpin, the Evo swinging wide in smoke, then back inside with him still talking.",
+      "censor": "none"
+    },
+    {
+      "shots": [19, 20, 21],
+      "clip_start": "00:56:00.595",
+      "clip_end": "00:56:08.103",
+      "depicts": ["montage", "transition"],
+      "chars": [],
+      "action": "A hand works a cigarette in near darkness, cut against the red car's wheel still blurring past the warehouses in daylight; the montage tips from practice into night.",
+      "censor": "none"
+    },
+    {
+      "shots": [22, 23, 24, 25],
+      "clip_start": "00:56:08.103",
+      "clip_end": "00:56:26.121",
+      "depicts": ["action", "discovery"],
+      "chars": ["the greying naval officer"],
+      "action": "Night on a quiet street by a vending machine, then a greying naval officer lets himself into a dark flat, reaches for the light switch and stands in the small kitchen, scanning rooms that stay empty.",
+      "censor": "none"
+    },
+    {
+      "shots": [26, 27, 28],
+      "clip_start": "00:56:26.121",
+      "clip_end": "00:56:32.711",
+      "depicts": ["reaction", "discovery"],
+      "chars": ["the greying naval officer"],
+      "action": "He parts the hanging coats to look through, the camera swings onto a flat untouched bed, and in close-up his face hardens from searching to certainty: the boy is not home.",
+      "censor": "none"
+    },
+    {
+      "shots": [29, 30],
+      "clip_start": "00:56:32.711",
+      "clip_end": "00:56:42.721",
+      "depicts": ["establishing", "setup"],
+      "chars": [],
+      "action": "A red-lit parlour: players crowd a mahjong table while the TV behind them replays street-race footage. By the second shot a woman in a dark jacket has stood up and is walking out past the screen.",
+      "censor": "none"
+    },
+    {
+      "shots": [31],
+      "clip_start": "00:56:42.721",
+      "clip_end": "00:56:53.315",
+      "depicts": ["dialogue", "setup"],
+      "chars": ["the woman in the satin dress", "the long-haired mentor"],
+      "action": "One held take on the garage walkway: the woman in the satin dress comes to the rail beside the long-haired man and tells him 'You have a visitor', nodding down at the man waiting alone by a car below.",
+      "censor": "none"
+    },
+    {
+      "shots": [32, 33, 34],
+      "clip_start": "00:56:53.315",
+      "clip_end": "00:56:59.654",
+      "depicts": ["action"],
+      "chars": [],
+      "action": "Back on the mountain road an orange RX-7 drops in alongside the red Evo; they run door to door through the trees until the frame tightens to their bumpers nearly touching in shadow.",
+      "censor": "none"
+    },
+    {
+      "shots": [35, 36, 37, 38],
+      "clip_start": "00:56:59.654",
+      "clip_end": "00:57:05.952",
+      "depicts": ["action"],
+      "chars": ["the long-haired mentor"],
+      "action": "The pair sweep a guard-railed curve together, the mentor's arm hooked out of the orange car's window, and come back round the next bend still locked side by side, neither one giving way.",
+      "censor": "none"
+    },
+    {
+      "shots": [39, 40, 41],
+      "clip_start": "00:57:05.952",
+      "clip_end": "00:57:12.709",
+      "depicts": ["reaction", "emotion"],
+      "chars": ["the American teen driver"],
+      "action": "Both cars slide the same corner in a cloud of tyre smoke; inside the red car the teen squints into a grin and his hands settle loose and easy on the wheel, the gauges holding steady.",
+      "censor": "none"
+    },
+    {
+      "shots": [42, 43, 44, 45, 46],
+      "clip_start": "00:57:12.709",
+      "clip_end": "00:57:20.091",
+      "depicts": ["action", "transition"],
+      "chars": ["the American teen driver"],
+      "action": "Night swallows the mountain: an empty lit expressway curve, the teen braced at the wheel behind glass, then the red car drifting past the bridge towers and him sitting back, calm and alone in the dark.",
+      "censor": "none"
+    }
+  ]
+}

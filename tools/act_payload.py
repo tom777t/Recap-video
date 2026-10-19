@@ -73,6 +73,13 @@ def main() -> int:
         except Exception:
             segs = []
     segs = [s for s in segs if isinstance(s.get("start"), (int, float))]
+    # Xem ghi chu trong tools/beat_payload.py: mot segment dai hon 30s la mot
+    # cau bi dong len hang phut audio, va gan no theo giao thoa thoi gian se
+    # dan mot cau duy nhat xuong hang chuc moment nhu the no duoc noi o tung
+    # cho. Loai ra, va noi ra.
+    MAX_SEG = 30.0
+    _long = [s for s in segs if float(s["end"]) - float(s["start"]) > MAX_SEG]
+    segs = [s for s in segs if float(s["end"]) - float(s["start"]) <= MAX_SEG]
 
     def speech_for(x0, x1):
         return [s for s in segs if s["end"] > x0 and s["start"] < x1]
@@ -92,6 +99,17 @@ def main() -> int:
             print(f"       SPEECH {sp['start']:.1f}-{sp['end']:.1f}: "
                   f"{str(sp.get('text','')).strip()}")
 
+    _drop = [s for s in _long if float(s["end"]) > a and float(s["start"]) < b]
+    if _drop:
+        print(f"\n!! {len(_drop)} transcript segment(s) overlapping this act were "
+              f"SUPPRESSED (longer than {MAX_SEG:.0f}s). Whisper stamped one "
+              f"line across minutes of audio there, so its timestamps are not "
+              f"trustworthy. Those stretches have NO reliable speech - write "
+              f"them from `action` and do not invent dialogue.")
+        for s in _drop[:4]:
+            print(f"   suppressed {float(s['start']):.0f}s "
+                  f"+{float(s['end'])-float(s['start']):.0f}s: "
+                  f"{str(s.get('text','')).strip()[:60]}")
     if not segs:
         print("\n!! NO transcript.json - this act has NO speech evidence at all. "
               "Causal links carried by dialogue cannot be written and must not "

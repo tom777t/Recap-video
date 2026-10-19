@@ -1,0 +1,77 @@
+{
+  "span": "sp15",
+  "moments": [
+    {
+      "shots": [0, 1, 2, 3],
+      "clip_start": "00:20:59.212",
+      "clip_end": "00:21:16.187",
+      "depicts": ["dialogue", "setup"],
+      "chars": ["the American newcomer", "the friend in the red beanie"],
+      "action": "At an open wash bay the two stand watching the green Hulk-painted van run through the brushes, talking in reverse angles against the neon street. By the last shot the friend in the beanie is laughing.",
+      "censor": "none"
+    },
+    {
+      "shots": [4, 5, 6],
+      "clip_start": "00:21:16.187",
+      "clip_end": "00:21:33.913",
+      "depicts": ["establishing", "setup"],
+      "chars": [],
+      "action": "A car rolls through a wet underpass at night, then a hooded attendant waiting arms-crossed by a white wall pushes off and works the yellow barrier arm as the pale car noses up to the gate.",
+      "censor": "none"
+    },
+    {
+      "shots": [7, 8, 9],
+      "clip_start": "00:21:33.913",
+      "clip_end": "00:21:44.173",
+      "depicts": ["reaction", "discovery"],
+      "chars": ["the American newcomer", "the friend in the red beanie"],
+      "action": "Inside the van the newcomer stares out as they roll into a parking garage crowded with girls and parked cars. The wide gives way to a close-up of him, mouth open, taking it in.",
+      "censor": "none"
+    },
+    {
+      "shots": [10, 11, 12, 13, 14, 15],
+      "clip_start": "00:21:44.173",
+      "clip_end": "00:21:57.770",
+      "depicts": ["montage", "establishing"],
+      "chars": [],
+      "action": "The Hulk-painted van creeps down the garage lane past girls crossing in front of it, a tiger-striped car, a red race car with its hood up, ending on a close insert of an exposed engine bay.",
+      "censor": "none"
+    },
+    {
+      "shots": [16, 17],
+      "clip_start": "00:21:57.770",
+      "clip_end": "00:22:11.075",
+      "depicts": ["reaction", "montage"],
+      "chars": ["the American newcomer", "the friend in the red beanie"],
+      "action": "A long held two-shot in the van, both of them turning their heads to follow something off-screen, then a cut to dancers' hips moving right past the parked cars.",
+      "censor": "none"
+    },
+    {
+      "shots": [18, 19, 20, 21, 22, 23, 24],
+      "clip_start": "00:22:11.075",
+      "clip_end": "00:22:24.422",
+      "depicts": ["montage", "establishing"],
+      "chars": [],
+      "action": "Fast cuts across the garage party: crowds threading between parked tuners, a yellow coupe filling the foreground, arms thrown up dancing, finishing on a DJ's turntables.",
+      "censor": "none"
+    },
+    {
+      "shots": [25, 26, 27, 28, 29, 30, 31],
+      "clip_start": "00:22:24.422",
+      "clip_end": "00:22:38.811",
+      "depicts": ["reaction", "montage"],
+      "chars": ["the American newcomer", "the friend in the red beanie"],
+      "action": "The friend points something out: a blonde woman and a bleach-haired man wrapped around each other, then kissing, then a tattooed girl and a man in a horned red beanie passing. The newcomer's face hardens from curious to flat.",
+      "censor": "none"
+    },
+    {
+      "shots": [32, 33, 34, 35],
+      "clip_start": "00:22:38.811",
+      "clip_end": "00:22:49.155",
+      "depicts": ["action", "discovery"],
+      "chars": ["the American newcomer"],
+      "action": "Out of the van now, the newcomer walks the garage floor past cars with hoods up and a man in white leaning into an engine. He drops his eyes, then passes a girl texting on an open trunk full of nitrous bottles.",
+      "censor": "none"
+    }
+  ]
+}

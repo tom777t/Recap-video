@@ -1,0 +1,149 @@
+{
+  "span": "sp21",
+  "moments": [
+    {
+      "shots": [0, 1, 2],
+      "clip_start": "00:30:02.961",
+      "clip_end": "00:30:10.260",
+      "depicts": ["action", "setup"],
+      "chars": [],
+      "action": "A dark green coupe slides sideways through a concrete parking deck beside an orange-and-blue car; the camera pulls back to a wide of the whole level, spectators pressed in a line along the far wall.",
+      "censor": "none"
+    },
+    {
+      "shots": [3, 4, 5, 6, 7, 8],
+      "clip_start": "00:30:10.260",
+      "clip_end": "00:30:21.522",
+      "depicts": ["action", "reaction"],
+      "chars": [],
+      "action": "Behind the wheel a young Western driver sets his jaw; spectators break and run back along the wall as the cars come at them. He grins, then winces, and the orange-and-blue car grinds the concrete in a spray of sparks.",
+      "censor": "none"
+    },
+    {
+      "shots": [9],
+      "clip_start": "00:30:21.522",
+      "clip_end": "00:30:25.609",
+      "depicts": ["establishing", "setup"],
+      "chars": [],
+      "action": "Cut away to a lift crammed with young partygoers in club clothes, a man in a red cap squeezing in last as the doors hold open; more of the crowd is still arriving.",
+      "censor": "none"
+    },
+    {
+      "shots": [10, 11, 12, 13],
+      "clip_start": "00:30:25.609",
+      "clip_end": "00:30:33.575",
+      "depicts": ["action"],
+      "chars": [],
+      "action": "The dark coupe's Asian driver fixes on the road and a gloved hand works the wheel in near-black; the car launches, then swings its tail out and slides past the watching crowd.",
+      "censor": "none"
+    },
+    {
+      "shots": [14, 15, 16],
+      "clip_start": "00:30:33.575",
+      "clip_end": "00:30:41.166",
+      "depicts": ["action"],
+      "chars": [],
+      "action": "The orange-and-blue car flicks past a striped pillar, then the dark coupe takes the same line, drifting broadside down the deck until spectators on the left throw their arms up as it passes.",
+      "censor": "none"
+    },
+    {
+      "shots": [17, 18, 19],
+      "clip_start": "00:30:41.166",
+      "clip_end": "00:30:46.797",
+      "depicts": ["action", "reaction"],
+      "chars": [],
+      "action": "A man alone in a green-tiled washroom looks off towards the noise, drink in hand; back on the deck a foot stamps the throttle pedal and the dark coupe swings head-on at the camera past the crowd.",
+      "censor": "none"
+    },
+    {
+      "shots": [20, 21, 22],
+      "clip_start": "00:30:46.797",
+      "clip_end": "00:30:54.304",
+      "depicts": ["action"],
+      "chars": [],
+      "action": "Light smears along the coupe's flank as it runs the length of the deck past yellow lamps, then it arrives front-on, slewing to a halt wreathed in its own tyre smoke.",
+      "censor": "none"
+    },
+    {
+      "shots": [23, 24, 25, 26, 27],
+      "clip_start": "00:30:54.304",
+      "clip_end": "00:30:59.434",
+      "depicts": ["reaction", "action"],
+      "chars": [],
+      "action": "The dark coupe's driver looks out as the wall blurs by; from his dashboard the parked cars and bystanders slide into view, he settles calm, and two men on the floor turn and shout after him.",
+      "censor": "none"
+    },
+    {
+      "shots": [28, 29, 30],
+      "clip_start": "00:30:59.434",
+      "clip_end": "00:31:05.691",
+      "depicts": ["action", "reaction"],
+      "chars": [],
+      "action": "The orange-and-blue car rolls out with headlights blazing past the crowd and a yellow coupe; from inside the dark car the driver watches it come alongside, face unmoved.",
+      "censor": "none"
+    },
+    {
+      "shots": [31, 32, 33],
+      "clip_start": "00:31:05.691",
+      "clip_end": "00:31:10.696",
+      "depicts": ["reaction", "action"],
+      "chars": [],
+      "action": "Two men sit in the orange-and-blue car, one leaning across; spectators beside the yellow coupe clap and punch the air, and the Western driver turns his head to look out of his window.",
+      "censor": "none"
+    },
+    {
+      "shots": [34, 35, 36, 37],
+      "clip_start": "00:31:10.696",
+      "clip_end": "00:31:20.247",
+      "depicts": ["dialogue", "setup"],
+      "chars": [],
+      "action": "The dark coupe's driver leans on his wheel and talks across to the Western driver through open windows, half smiling. The younger man listens in profile, then drops his eyes and looks away.",
+      "censor": "none"
+    },
+    {
+      "shots": [38, 39, 40, 41],
+      "clip_start": "00:31:20.247",
+      "clip_end": "00:31:32.801",
+      "depicts": ["action", "aftermath"],
+      "chars": [],
+      "action": "A wheel spins up at ground level and the dark coupe sits alone in the empty deck. The orange-and-blue car creeps past the crowd with its front bumper torn off, debris on the floor, and drives away.",
+      "censor": "none"
+    },
+    {
+      "shots": [42, 43, 44, 45, 46],
+      "clip_start": "00:31:32.801",
+      "clip_end": "00:31:38.056",
+      "depicts": ["action"],
+      "chars": [],
+      "action": "Eyes narrow over the wheel; he takes the shifter, pulls away across a deserted level and drops the coupe onto the garage's curved exit ramp under Japanese signage.",
+      "censor": "none"
+    },
+    {
+      "shots": [47, 48, 49, 50],
+      "clip_start": "00:31:38.056",
+      "clip_end": "00:31:42.602",
+      "depicts": ["action"],
+      "chars": [],
+      "action": "He locks on through the wheel spokes and breaks traction, the coupe sliding down the ramp trailing smoke; he winds on opposite lock as the curving wall sweeps across the windscreen.",
+      "censor": "none"
+    },
+    {
+      "shots": [51, 52, 53],
+      "clip_start": "00:31:42.602",
+      "clip_end": "00:31:46.022",
+      "depicts": ["action"],
+      "chars": [],
+      "action": "A foot pins the throttle, he steers hard and talks to himself, and the shot jumps to a high aerial of the coupe spiralling down the open exterior ramp with onlookers on the tier above.",
+      "censor": "none"
+    },
+    {
+      "shots": [54, 55, 56],
+      "clip_start": "00:31:46.022",
+      "clip_end": "00:31:52.404",
+      "depicts": ["action", "reaction"],
+      "chars": [],
+      "action": "The patterned coupe bursts out of the garage into neon-lit Tokyo traffic, its driver visible through the glass; outside a crowd cheers, and a second car blurs down the ramp behind him.",
+      "censor": "none"
+    }
+  ]
+}

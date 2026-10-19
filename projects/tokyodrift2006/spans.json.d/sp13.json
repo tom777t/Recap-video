@@ -1,0 +1,86 @@
+{
+  "span": "sp13",
+  "moments": [
+    {
+      "shots": [0, 1, 2, 3],
+      "clip_start": "00:18:00.451",
+      "clip_end": "00:18:14.631",
+      "depicts": ["dialogue", "setup"],
+      "chars": ["the teacher in the pink cardigan", "the American student", "the long-haired girl at the desk"],
+      "action": "The teacher in the pink cardigan beams at the new American student by the blackboard; a long-haired girl at a desk turns and smiles at him, and he answers the room with a flat, wary stare.",
+      "censor": "none"
+    },
+    {
+      "shots": [4, 5, 6, 7],
+      "clip_start": "00:18:14.631",
+      "clip_end": "00:18:22.180",
+      "depicts": ["dialogue", "setup"],
+      "chars": ["the teacher in the pink cardigan", "the American student", "the long-haired girl at the desk"],
+      "action": "Wide on the seated class: the teacher gestures over his paperwork while the girl keeps smiling at him. By the last shot the teacher has stopped and he stands alone at the front with his bag.",
+      "censor": "none"
+    },
+    {
+      "shots": [8, 9, 10, 11],
+      "clip_start": "00:18:22.180",
+      "clip_end": "00:18:34.693",
+      "depicts": ["action"],
+      "chars": ["the American student"],
+      "action": "In an empty corridor he bends into the shoe cubbies and pulls a blue-and-white school slipper out; a low angle tracks him past a wall of posters, ending on one slipper left by a doorway.",
+      "censor": "none"
+    },
+    {
+      "shots": [12, 13, 14],
+      "clip_start": "00:18:34.693",
+      "clip_end": "00:18:40.407",
+      "depicts": ["action", "setup"],
+      "chars": ["the American student", "the long-haired girl at the desk"],
+      "action": "He shoulders his bag strap in the corridor, then a whip past his jacket carries into a classroom where the girl and a row of students turn from their desks to watch him go by.",
+      "censor": "none"
+    },
+    {
+      "shots": [15, 16, 17, 18, 19],
+      "clip_start": "00:18:40.407",
+      "clip_end": "00:18:57.424",
+      "depicts": ["establishing"],
+      "chars": ["the American student", "the spiky-haired student"],
+      "action": "In the cafeteria a spiky-haired student crowds in behind him with a plate; the camera leaves them for trays of elaborately garnished food, the packed hall, and rows of students already eating.",
+      "censor": "none"
+    },
+    {
+      "shots": [20, 21, 22, 23],
+      "clip_start": "00:18:57.424",
+      "clip_end": "00:19:12.481",
+      "depicts": ["dialogue"],
+      "chars": ["the American student", "the student in the white headwrap"],
+      "action": "He eats alone with chopsticks until the student in the white headwrap leans in and starts talking at him across the table; he keeps chewing, grimacing at the food, and never looks up.",
+      "censor": "none"
+    },
+    {
+      "shots": [24, 25, 26, 27],
+      "clip_start": "00:19:12.481",
+      "clip_end": "00:19:23.158",
+      "depicts": ["dialogue", "setup"],
+      "chars": ["the American student", "the student in the white headwrap"],
+      "action": "Wide on the pair: the headwrapped student sets a flat silver case on the table and talks it up while the American keeps eating; by the end he is bent over his tray and the other is looking off.",
+      "censor": "none"
+    },
+    {
+      "shots": [28, 29, 30, 31],
+      "clip_start": "00:19:23.158",
+      "clip_end": "00:19:40.800",
+      "depicts": ["dialogue", "reaction"],
+      "chars": ["the American student", "the student in the white headwrap"],
+      "action": "He raises his cup of tea and turns a flat stare on the headwrapped student mid-pitch; both go back to the food, then he fixes him with an open scowl and the other quietly holds his gaze.",
+      "censor": "none"
+    },
+    {
+      "shots": [32, 33, 34],
+      "clip_start": "00:19:40.800",
+      "clip_end": "00:19:52.145",
+      "depicts": ["dialogue"],
+      "chars": ["the American student", "the student in the white headwrap"],
+      "action": "Alone in close-up he picks at his food again; the frame widens to the two side by side, still talking, as Japanese students shoulder past behind them carrying bags and gear.",
+      "censor": "none"
+    }
+  ]
+}

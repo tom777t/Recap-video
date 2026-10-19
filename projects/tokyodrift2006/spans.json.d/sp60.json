@@ -1,0 +1,113 @@
+{
+  "span": "sp60",
+  "moments": [
+    {
+      "shots": [0, 1],
+      "clip_start": "01:28:27.576",
+      "clip_end": "01:28:44.009",
+      "depicts": ["establishing", "setup"],
+      "chars": ["the young American driver"],
+      "action": "The young American sits behind the wheel of the dark Mustang with his eyes shut, breathing himself calm; the shot pulls out to an overhead of three cars rolling up the unlit mountain road on their taillights.",
+      "censor": "none"
+    },
+    {
+      "shots": [2, 3, 4, 5, 6],
+      "clip_start": "01:28:44.009",
+      "clip_end": "01:29:00.317",
+      "depicts": ["reaction", "setup"],
+      "chars": ["the young American driver", "the driver in the white tank top"],
+      "action": "Cockpit close-ups trade back and forth: the driver in the white tank top stares flat ahead, the American glances sideways at him. By the last shot the American has both hands locked on the wheel, leaning in.",
+      "censor": "none"
+    },
+    {
+      "shots": [7, 8, 9, 10, 11],
+      "clip_start": "01:29:00.317",
+      "clip_end": "01:29:08.700",
+      "depicts": ["action", "setup"],
+      "chars": ["the bald man in the dark suit"],
+      "action": "A bald man in a dark suit steps between the Mustang and the black coupe under the strung bulbs and throws both arms up. His hands drop, and the next shots are the lit start gate shrinking away and a fist shoving the shifter.",
+      "censor": "none"
+    },
+    {
+      "shots": [12, 13, 14, 15, 16, 17, 18, 19, 20],
+      "clip_start": "01:29:08.700",
+      "clip_end": "01:29:20.629",
+      "depicts": ["action"],
+      "chars": ["the young American driver", "the driver in the white tank top"],
+      "action": "Both cars dig into the climb: the American grim at the wheel, the other driver smirking, the coupe swinging its tail through the first bend. A foot buries the pedal and the Mustang goes from chasing lights to sliding a hairpin on its own.",
+      "censor": "none"
+    },
+    {
+      "shots": [21, 22, 23, 24],
+      "clip_start": "01:29:20.629",
+      "clip_end": "01:29:25.509",
+      "depicts": ["reaction", "discovery"],
+      "chars": ["the young American driver", "the driver in the white tank top"],
+      "action": "The American shouts behind the glass. The driver in the tank top is grinning as he steers, then his mirror fills with the Mustang's headlights right on his bumper, and the grin drops to a hard stare.",
+      "censor": "none"
+    },
+    {
+      "shots": [25, 26, 27],
+      "clip_start": "01:29:25.509",
+      "clip_end": "01:29:27.803",
+      "depicts": ["reaction"],
+      "chars": ["the woman in the fur-collared coat", "the older man in the dark suit"],
+      "action": "Cut to the crowd left behind at the cars: knots of spectators huddle over lit phone screens following the run. The woman in the fur-collared coat turns away from the older man in the dark suit standing at her shoulder.",
+      "censor": "none"
+    },
+    {
+      "shots": [28, 29, 30, 31],
+      "clip_start": "01:29:27.803",
+      "clip_end": "01:29:38.814",
+      "depicts": ["action"],
+      "chars": ["the young American driver"],
+      "action": "Back in the Mustang the American works the wheel, jaw set. A low roadside angle shows the two sets of headlights coming through a curve together, then the camera drops to the tarmac streaming under the car.",
+      "censor": "none"
+    },
+    {
+      "shots": [32, 33, 34, 35, 36, 37],
+      "clip_start": "01:29:38.814",
+      "clip_end": "01:29:44.861",
+      "depicts": ["action"],
+      "chars": ["the young American driver"],
+      "action": "The Mustang's front end throws sparks off the road, and the two cars pull level nose to nose. From the American's windscreen the coupe is ahead again; a wheel-height shot ends with the Mustang drawn back alongside.",
+      "censor": "none"
+    },
+    {
+      "shots": [38, 39, 40, 41],
+      "clip_start": "01:29:44.861",
+      "clip_end": "01:29:56.081",
+      "depicts": ["action"],
+      "chars": ["the driver in the white tank top"],
+      "action": "The driver in the tank top glares out over his wheel as the coupe slides wide against the rock face. The road POV goes dark and empty, then the coupe is seen gathering itself up out of the turn and away.",
+      "censor": "none"
+    },
+    {
+      "shots": [42, 43, 44, 45, 46, 47, 48],
+      "clip_start": "01:29:56.081",
+      "clip_end": "01:30:05.966",
+      "depicts": ["action"],
+      "chars": ["the young American driver", "the driver in the white tank top"],
+      "action": "The tank-top driver hauls the wheel hard over, and an aerial shows the cars running the cliff edge with the road coiled far below. The American yells at a pair of taillights in the dust; the other driver's face sets as he pulls clear.",
+      "censor": "none"
+    },
+    {
+      "shots": [49, 50, 51],
+      "clip_start": "01:30:05.966",
+      "clip_end": "01:30:11.846",
+      "depicts": ["action"],
+      "chars": [],
+      "action": "The coupe fires around a hairpin dragging a plume of smoke, then both cars come at the camera side by side over a tangle of black tyre marks. The POV lifts to parked cars and figures waiting at the next bend.",
+      "censor": "none"
+    },
+    {
+      "shots": [52, 53, 54, 55, 56, 57, 58],
+      "clip_start": "01:30:11.846",
+      "clip_end": "01:30:20.480",
+      "depicts": ["action", "reaction"],
+      "chars": ["the young American driver", "the driver in the white tank top"],
+      "action": "A heavy-set man leans out of a parked car to watch the pair go by door to door; roadside spectators throw their arms up and cheer. The tank-top driver bares his teeth, while a hand grabs the shifter and the American breaks into a grin.",
+      "censor": "none"
+    }
+  ]
+}

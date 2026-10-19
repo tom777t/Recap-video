@@ -1,0 +1,68 @@
+{
+  "span": "sp67",
+  "moments": [
+    {
+      "shots": [0, 1, 2, 3],
+      "clip_start": "01:39:04.460",
+      "clip_end": "01:39:13.553",
+      "depicts": ["transition"],
+      "chars": [],
+      "action": "End credits scroll upward over a black field patterned with glowing tyre-tread swirls. The grip and rigging lists climb off the top and are replaced by the special effects crew.",
+      "censor": "none"
+    },
+    {
+      "shots": [4, 5, 6],
+      "clip_start": "01:39:13.553",
+      "clip_end": "01:39:31.070",
+      "depicts": ["transition"],
+      "chars": [],
+      "action": "The crawl continues past special effects technicians into accounting, payroll and casting names, then into location managers and construction crew as the tread pattern behind it curls into a wider spiral.",
+      "censor": "none"
+    },
+    {
+      "shots": [7, 8],
+      "clip_start": "01:39:31.070",
+      "clip_end": "01:39:47.670",
+      "depicts": ["transition"],
+      "chars": [],
+      "action": "Dense columns of picture car and production assistant credits fill the frame, then the list thins sharply to a handful of sound design and sound mixer names on near-empty black.",
+      "censor": "none"
+    },
+    {
+      "shots": [9, 10, 11],
+      "clip_start": "01:39:47.670",
+      "clip_end": "01:40:10.109",
+      "depicts": ["transition"],
+      "chars": [],
+      "action": "Text drops away entirely and the screen is only the swirling particle tyre-track graphic, before the crawl returns with sound effects, foley, music editors and scoring credits.",
+      "censor": "none"
+    },
+    {
+      "shots": [12, 13],
+      "clip_start": "01:40:10.109",
+      "clip_end": "01:40:33.758",
+      "depicts": ["transition"],
+      "chars": [],
+      "action": "The roll moves into visual effects: supervisors and compositors give way to long lists of texture painters, matchmovers and modelers as the tread streaks sweep across behind the type.",
+      "censor": "none"
+    },
+    {
+      "shots": [14, 15],
+      "clip_start": "01:40:33.758",
+      "clip_end": "01:40:45.686",
+      "depicts": ["transition"],
+      "chars": [],
+      "action": "Rotoscope and rigging artist names scroll past into the Tokyo on-set data and pipeline staff, ending on render and digital production supervisors as the background darkens.",
+      "censor": "none"
+    },
+    {
+      "shots": [16, 17],
+      "clip_start": "01:40:45.686",
+      "clip_end": "01:40:53.778",
+      "depicts": ["transition"],
+      "chars": [],
+      "action": "A new heading, visual effects by CIS Hollywood, rises into frame and the crawl restarts with its own supervisors, compositors and 3D artists stacking up beneath it.",
+      "censor": "none"
+    }
+  ]
+}

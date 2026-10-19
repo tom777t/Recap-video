@@ -1,0 +1,113 @@
+{
+  "span": "sp17",
+  "moments": [
+    {
+      "shots": [0, 1],
+      "clip_start": "00:24:00.976",
+      "clip_end": "00:24:14.156",
+      "depicts": ["establishing", "setup"],
+      "chars": [],
+      "action": "A knot of men in leather jackets and women in going-out clothes push through the crowded parking garage. The camera tightens until the long-haired man in the pale jacket and the leather-jacket man lead the pack past the parked cars.",
+      "censor": "none"
+    },
+    {
+      "shots": [2, 3, 4, 5],
+      "clip_start": "00:24:14.156",
+      "clip_end": "00:24:20.621",
+      "depicts": ["action"],
+      "chars": [],
+      "action": "The young man in the red-and-white beanie plays up to a ring of laughing girls, then the camera whip-pans off him across the garage, landing on a woman walking past a white van and the tuning bays.",
+      "censor": "none"
+    },
+    {
+      "shots": [6, 7, 8],
+      "clip_start": "00:24:20.621",
+      "clip_end": "00:24:27.294",
+      "depicts": ["action", "setup"],
+      "chars": [],
+      "action": "The beanie guy is still working the girls when the shot cuts away: the leather-jacket man strides up the aisle between the parked cars straight at camera, and a whip-pan carries the garage past.",
+      "censor": "none"
+    },
+    {
+      "shots": [9, 10, 11],
+      "clip_start": "00:24:27.294",
+      "clip_end": "00:24:36.595",
+      "depicts": ["dialogue", "setup"],
+      "chars": [],
+      "action": "The man in the grey tee and the beanie guy stand with the dark-haired woman, who looks away. A wide reveals the leather-jacket man and his crew fronting them; the long-haired man in the pale jacket watches, faintly amused.",
+      "censor": "none"
+    },
+    {
+      "shots": [12, 13, 14],
+      "clip_start": "00:24:36.595",
+      "clip_end": "00:24:47.064",
+      "depicts": ["dialogue", "emotion"],
+      "chars": [],
+      "action": "Over the grey-tee man's shoulder, the spiky-haired man presses his cheek to the woman's to needle him. The grey-tee man squares up and answers; by the last shot the woman has turned to speak to him herself.",
+      "censor": "none"
+    },
+    {
+      "shots": [15, 16],
+      "clip_start": "00:24:47.064",
+      "clip_end": "00:24:52.110",
+      "depicts": ["action", "setup"],
+      "chars": [],
+      "action": "The leather-jacket crew close in behind, one of them carrying a metal bar, while the grey-tee man holds his ground face to face with the spiky-haired man.",
+      "censor": "none"
+    },
+    {
+      "shots": [17, 18, 19, 20],
+      "clip_start": "00:24:52.110",
+      "clip_end": "00:25:09.961",
+      "depicts": ["dialogue", "emotion"],
+      "chars": [],
+      "action": "The standoff holds: the spiky-haired man keeps the woman pinned cheek to cheek and taunts across her while the grey-tee man stares back. It ends wide, the beanie guy craning up at the gathering crowd.",
+      "censor": "none"
+    },
+    {
+      "shots": [21],
+      "clip_start": "00:25:09.961",
+      "clip_end": "00:25:27.229",
+      "depicts": ["dialogue", "emotion"],
+      "chars": [],
+      "action": "One long held take on the argument: the spiky-haired man grins beside the woman, then leans in until he and the grey-tee man are nose to nose with her caught between them, her eyes flicking from one to the other.",
+      "censor": "none"
+    },
+    {
+      "shots": [22, 23, 24],
+      "clip_start": "00:25:27.229",
+      "clip_end": "00:25:32.651",
+      "depicts": ["reaction", "dialogue"],
+      "chars": [],
+      "action": "The long-haired man in the pale jacket smirks at the spectacle; the woman cuts in and speaks up herself, and the beanie guy swings through frame in a blur.",
+      "censor": "none"
+    },
+    {
+      "shots": [25, 26, 27, 28],
+      "clip_start": "00:25:32.651",
+      "clip_end": "00:25:40.533",
+      "depicts": ["dialogue", "emotion"],
+      "chars": [],
+      "action": "The spiky-haired man nuzzles the woman again; the grey-tee man rounds on the beanie guy beside him instead. The spiky man laughs into her hair, and the two outsiders end up staring off together.",
+      "censor": "none"
+    },
+    {
+      "shots": [29, 30, 31],
+      "clip_start": "00:25:40.533",
+      "clip_end": "00:25:44.663",
+      "depicts": ["reaction", "dialogue"],
+      "chars": [],
+      "action": "The woman turns to the smiling spiky-haired man, the camera blurs past a head, and the shot settles on the leather-jacket crew talking at the long-haired man in the pale jacket.",
+      "censor": "none"
+    },
+    {
+      "shots": [32, 33, 34],
+      "clip_start": "00:25:44.663",
+      "clip_end": "00:25:49.084",
+      "depicts": ["reaction", "dialogue"],
+      "chars": [],
+      "action": "The grey-tee man and the beanie guy watch, stone-faced. The woman slides her arms around the spiky-haired man and they lock eyes; the grey-tee man finally shouts something back.",
+      "censor": "none"
+    }
+  ]
+}

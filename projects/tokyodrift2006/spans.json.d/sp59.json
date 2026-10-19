@@ -1,0 +1,77 @@
+{
+  "span": "sp59",
+  "moments": [
+    {
+      "shots": [0],
+      "clip_start": "01:26:53.148",
+      "clip_end": "01:27:21.260",
+      "depicts": ["establishing", "setup"],
+      "chars": [],
+      "action": "A long held take: the young driver in the black tee stands alone at the roadside, back to camera, looking down the mountain road as it falls away in a chain of blue marker lights. He never moves off.",
+      "censor": "none"
+    },
+    {
+      "shots": [1, 2, 3],
+      "clip_start": "01:27:21.260",
+      "clip_end": "01:27:31.854",
+      "depicts": ["establishing", "setup"],
+      "chars": [],
+      "action": "Cut wide to the gathering point above a floodlit dam, cars and people lining the ledge, then in among them: the kid in the red-and-white striped track jacket works a phone as spectators crowd the lot.",
+      "censor": "none"
+    },
+    {
+      "shots": [4, 5, 6],
+      "clip_start": "01:27:31.854",
+      "clip_end": "01:27:45.993",
+      "depicts": ["action", "setup"],
+      "chars": [],
+      "action": "Heads in the crowd all turn one way. The heavyset bald man breaks off, strides over and hauls open the door of a black sedan; a hard-faced man in a dark coat is already standing over it as a woman gets out.",
+      "censor": "none"
+    },
+    {
+      "shots": [7, 8, 9],
+      "clip_start": "01:27:45.993",
+      "clip_end": "01:27:57.087",
+      "depicts": ["reaction", "reveal"],
+      "chars": [],
+      "action": "Reverse on the onlookers staring back, the foreign kids blurred behind them, then the reason walks in: an older man in a black fedora and overcoat, flanked by two minders, passing the woman in fur who turns to watch.",
+      "censor": "none"
+    },
+    {
+      "shots": [10, 11],
+      "clip_start": "01:27:57.087",
+      "clip_end": "01:28:04.678",
+      "depicts": ["reaction", "setup"],
+      "chars": [],
+      "action": "In the crowd a dark-haired boy flips open his phone and reads the screen while the girl beside him keeps her eyes on the arrivals; the next shot drops almost to black on the kid in the striped jacket beside a car.",
+      "censor": "none"
+    },
+    {
+      "shots": [12, 13, 14, 15],
+      "clip_start": "01:28:04.678",
+      "clip_end": "01:28:13.061",
+      "depicts": ["action", "transition"],
+      "chars": [],
+      "action": "Hard cut away from the crowd to the pass itself: a rush of blurred night road, black trees and verge tearing past the lens, the camera flying downhill until figures and pale rock smear by at the roadside.",
+      "censor": "none"
+    },
+    {
+      "shots": [16],
+      "clip_start": "01:28:13.061",
+      "clip_end": "01:28:27.576",
+      "depicts": ["action", "establishing"],
+      "chars": [],
+      "action": "The ride settles into one long run down the empty two-lane, bending through the dark hillside; a painted arrow flicks under the camera and a lit truck sits parked on the shoulder further down.",
+      "censor": "none"
+    },
+    {
+      "shots": [17, 18, 19],
+      "clip_start": "01:28:27.576",
+      "clip_end": "01:28:47.304",
+      "depicts": ["action", "emotion"],
+      "chars": [],
+      "action": "Inside his car the young American shuts his eyes a beat with lights ahead; then from above three cars are already running the mountain road, tail-lights flaring, and the rival driver sits locked over his wheel.",
+      "censor": "none"
+    }
+  ]
+}

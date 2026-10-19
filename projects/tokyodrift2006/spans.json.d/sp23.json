@@ -1,0 +1,95 @@
+{
+  "span": "sp23",
+  "moments": [
+    {
+      "shots": [0, 1, 2],
+      "clip_start": "00:33:02.265",
+      "clip_end": "00:33:07.645",
+      "depicts": ["dialogue", "setup"],
+      "chars": [],
+      "action": "A greying man in a NAVY hoodie sits alone with a beer in the dim room; the young man eases his head around the doorframe to check the coast, and the older man is already talking - he has been waiting up.",
+      "censor": "none"
+    },
+    {
+      "shots": [3, 4, 5],
+      "clip_start": "00:33:07.645",
+      "clip_end": "00:33:21.993",
+      "depicts": ["dialogue", "setup"],
+      "chars": [],
+      "action": "The young man comes all the way in and stops at the cluttered table; the older man stays seated and talks him down, and by the last shot the kid is standing off across the room, answering back.",
+      "censor": "none"
+    },
+    {
+      "shots": [6, 7, 8, 9],
+      "clip_start": "00:33:21.993",
+      "clip_end": "00:33:32.211",
+      "depicts": ["dialogue", "emotion"],
+      "chars": [],
+      "action": "The older man is on his feet now, face to face with the kid in the dark; they trade looks in tight singles until the young man breaks the stare and turns away past the lamp.",
+      "censor": "none"
+    },
+    {
+      "shots": [10, 11, 12, 13, 14],
+      "clip_start": "00:33:32.211",
+      "clip_end": "00:33:38.635",
+      "depicts": ["action", "discovery"],
+      "chars": [],
+      "action": "A hand snatches a car key off the paper-piled desk; the older man comes after it in a blur of movement, and the young man, stopped in the blue-lit back room, turns to find him right there.",
+      "censor": "none"
+    },
+    {
+      "shots": [15, 16, 17],
+      "clip_start": "00:33:38.635",
+      "clip_end": "00:33:58.529",
+      "depicts": ["dialogue", "emotion"],
+      "chars": [],
+      "action": "Pressed close in the blue-lit room, the older man leans into the young man's face and keeps on at him; the singles tighten into a held two-shot of profiles with neither of them giving ground.",
+      "censor": "none"
+    },
+    {
+      "shots": [18, 19, 20, 21],
+      "clip_start": "00:33:58.529",
+      "clip_end": "00:34:14.128",
+      "depicts": ["dialogue", "emotion"],
+      "chars": [],
+      "action": "The young man takes the last of it without answering, then backs off; the older man is left watching the doorway with the kid a dim shape in it, and the scene settles on his face alone.",
+      "censor": "none"
+    },
+    {
+      "shots": [22],
+      "clip_start": "00:34:14.128",
+      "clip_end": "00:34:24.972",
+      "depicts": ["establishing", "transition"],
+      "chars": [],
+      "action": "Cut to daylight and a dense crowd of Tokyo commuters in dark coats pushing toward the camera; one young man in the middle holds still and in focus while the rest stream past him.",
+      "censor": "none"
+    },
+    {
+      "shots": [23, 24, 25, 26],
+      "clip_start": "00:34:24.972",
+      "clip_end": "00:34:30.436",
+      "depicts": ["establishing", "setup"],
+      "chars": [],
+      "action": "In a school corridor the foreign kid in a black uniform walks past a 2006 college poster as Japanese students cut across him; he keeps his head down until he lifts it straight into the lens.",
+      "censor": "none"
+    },
+    {
+      "shots": [27, 28, 29, 30],
+      "clip_start": "00:34:30.436",
+      "clip_end": "00:34:40.905",
+      "depicts": ["reaction", "setup"],
+      "chars": [],
+      "action": "He clocks classmates coming the other way - a kid in a white du-rag, a girl in uniform, another student - and watches them pass; a grinning student goes by and he ends up staring off, unsmiling.",
+      "censor": "none"
+    },
+    {
+      "shots": [31, 32],
+      "clip_start": "00:34:40.905",
+      "clip_end": "00:34:49.455",
+      "depicts": ["establishing", "reveal"],
+      "chars": [],
+      "action": "He trails another student out past the bike racks into the street, where uniformed kids crowd the pavement around a parked orange sports car with a man sitting back on its hood.",
+      "censor": "none"
+    }
+  ]
+}

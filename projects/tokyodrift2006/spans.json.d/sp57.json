@@ -1,0 +1,77 @@
+{
+  "span": "sp57",
+  "moments": [
+    {
+      "shots": [0, 1, 2, 3],
+      "clip_start": "01:24:06.024",
+      "clip_end": "01:24:33.801",
+      "depicts": ["establishing", "setup"],
+      "chars": ["the grey-haired man in the olive jacket", "the young American", "the young woman in the vest"],
+      "action": "A grey-haired man in an olive jacket crosses the dim workshop past the lift; the young American walks in through the shop floor; the young woman follows and ends up stopped in a doorway, framed by stripped car parts.",
+      "censor": "none"
+    },
+    {
+      "shots": [4, 5, 6, 7],
+      "clip_start": "01:24:33.801",
+      "clip_end": "01:24:49.025",
+      "depicts": ["discovery", "action"],
+      "chars": ["the young American", "the young woman in the vest"],
+      "action": "Out of a near-black frame the woman and the American appear bent over an open engine bay, studying the inline-six. The shop goes dark again and a man hauls the roller shutter up, the car now backlit against the street.",
+      "censor": "none"
+    },
+    {
+      "shots": [8, 9, 10, 11],
+      "clip_start": "01:24:49.025",
+      "clip_end": "01:25:00.036",
+      "depicts": ["dialogue", "emotion"],
+      "chars": ["the young American", "the older man in the plaid shirt"],
+      "action": "The American and the older man in the plaid shirt stand apart across a gutted car, then talk face to face outside in tight close-ups. By the last shot they are back at the car's nose, hands open over the empty engine bay.",
+      "censor": "none"
+    },
+    {
+      "shots": [12, 13, 14, 15, 16, 17],
+      "clip_start": "01:25:00.036",
+      "clip_end": "01:25:16.594",
+      "depicts": ["montage", "setup"],
+      "chars": ["the young American"],
+      "action": "Men shove the striped Mustang through the shutter door, and the build takes over: a turbocharged engine swings down on a hoist, welders work beneath the lifted body in showers of sparks, until the bare shell stands finished on its wheels.",
+      "censor": "none"
+    },
+    {
+      "shots": [18, 19, 20, 21],
+      "clip_start": "01:25:16.594",
+      "clip_end": "01:25:24.310",
+      "depicts": ["montage", "action"],
+      "chars": ["the young American"],
+      "action": "Outside by stacked tyres the American turns a helmet over in his hands while others bolt the turbo onto the motor; the cut jumps to the Mustang already out on the mountain road, hood off, sliding through a bend.",
+      "censor": "none"
+    },
+    {
+      "shots": [22, 23, 24, 25, 26, 27],
+      "clip_start": "01:25:24.310",
+      "clip_end": "01:25:34.111",
+      "depicts": ["action"],
+      "chars": ["the young American"],
+      "action": "A look at the Nissan motor sitting in the Ford's bay cuts to the American harnessed behind the wheel, eyes fixed ahead. The car then breaks loose onto dirt, throwing a wall of dust as it drifts the hillside turn.",
+      "censor": "none"
+    },
+    {
+      "shots": [28, 29, 30, 31, 32],
+      "clip_start": "01:25:34.111",
+      "clip_end": "01:25:42.036",
+      "depicts": ["montage", "setup"],
+      "chars": ["the young American", "the older man in the plaid shirt", "the heavyset bald man"],
+      "action": "Back in the shop hands seat the Nissan twin-cam cover, work a wrench along the head and probe the valvetrain; the American and two helpers crowd one engine bay, and the man in plaid lifts a single injector up to the light.",
+      "censor": "none"
+    },
+    {
+      "shots": [33, 34, 35, 36, 37, 38],
+      "clip_start": "01:25:42.036",
+      "clip_end": "01:25:50.586",
+      "depicts": ["action", "aftermath"],
+      "chars": ["the young American", "the heavyset bald man"],
+      "action": "The battered Mustang attacks the tarmac bends, then drops onto dirt. The crew watch from beside a green hatchback with toy figures on its roof as the car sweeps past in dust, and they set off walking toward it.",
+      "censor": "none"
+    }
+  ]
+}

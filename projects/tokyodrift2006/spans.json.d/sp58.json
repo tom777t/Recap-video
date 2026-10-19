@@ -1,0 +1,86 @@
+{
+  "span": "sp58",
+  "moments": [
+    {
+      "shots": [0, 1, 2],
+      "clip_start": "01:25:29.732",
+      "clip_end": "01:25:34.111",
+      "depicts": ["action"],
+      "chars": [],
+      "action": "A bare-nosed Mustang slides through dirt in a cloud of dust and drops down a sandy bank; the camera then pulls level with the windscreen to show two people riding inside as the car powers away.",
+      "censor": "none"
+    },
+    {
+      "shots": [3, 4, 5, 6, 7],
+      "clip_start": "01:25:34.111",
+      "clip_end": "01:25:42.036",
+      "depicts": ["montage", "setup"],
+      "chars": ["the man in the plaid shirt", "the heavyset bald mechanic"],
+      "action": "Cut to the workshop: hands lower a Nissan Twin Cam 24-valve cover onto a bare block and tighten it, and a crew of four crowd the open engine bay until the man in plaid lifts an injector up to the light.",
+      "censor": "none"
+    },
+    {
+      "shots": [8, 9, 10, 11, 12, 13],
+      "clip_start": "01:25:42.036",
+      "clip_end": "01:25:50.586",
+      "depicts": ["action"],
+      "chars": [],
+      "action": "Practice runs: the stripped Mustang swings through a paved hillside bend, then onto dirt, where three men beside a green hatchback watch it slide past them. As the dust thins they walk out to meet it.",
+      "censor": "none"
+    },
+    {
+      "shots": [14, 15, 16, 17, 18, 19],
+      "clip_start": "01:25:50.586",
+      "clip_end": "01:26:00.137",
+      "depicts": ["montage", "setup"],
+      "chars": ["the short-haired driver"],
+      "action": "Tuning between runs: hands probe the engine with a yellow meter while the crew crouch over the open bay in daylight, and the work carries on into a night garage, ending on the driver bent close, frowning.",
+      "censor": "none"
+    },
+    {
+      "shots": [20, 21, 22],
+      "clip_start": "01:26:00.137",
+      "clip_end": "01:26:06.060",
+      "depicts": ["action"],
+      "chars": [],
+      "action": "Back on the dirt track the crew watch from behind as the Mustang drifts the long bend; it flashes past the camera through grass with the driver visible, then slides broadside across open ground.",
+      "censor": "none"
+    },
+    {
+      "shots": [23, 24, 25, 26, 27],
+      "clip_start": "01:26:06.060",
+      "clip_end": "01:26:23.911",
+      "depicts": ["dialogue", "emotion"],
+      "chars": ["the young man in the black durag", "the short-haired driver"],
+      "action": "The young man in the black durag and the short-haired driver stand side by side at the roadside talking in profile. The driver's reply hardens into a frown and he turns to stare off down the road.",
+      "censor": "none"
+    },
+    {
+      "shots": [28, 29, 30, 31, 32, 33],
+      "clip_start": "01:26:23.911",
+      "clip_end": "01:26:34.547",
+      "depicts": ["montage", "setup"],
+      "chars": ["the heavyset bald mechanic", "the young man in the black durag"],
+      "action": "Assembly in the shop: the bare shell is pushed into place and ground smooth, the dark interior is fitted out, then brake rotor, wheel and impact gun go on, taking the car from skeleton to standing on tyres.",
+      "censor": "none"
+    },
+    {
+      "shots": [34, 35],
+      "clip_start": "01:26:34.547",
+      "clip_end": "01:26:53.148",
+      "depicts": ["establishing", "reveal"],
+      "chars": [],
+      "action": "Hands polish the finished Mustang's tail, black with twin white stripes and a Japanese plate; the camera comes round to the nose and holds on the rebuilt car, whole again under the shop lights.",
+      "censor": "none"
+    },
+    {
+      "shots": [36],
+      "clip_start": "01:26:53.148",
+      "clip_end": "01:27:21.260",
+      "depicts": ["transition", "setup"],
+      "chars": ["the short-haired driver"],
+      "action": "A long hold on black opens onto a night mountain road lined with glowing markers; the short-haired driver stands beside his car, looking up the lit switchbacks ahead of him.",
+      "censor": "none"
+    }
+  ]
+}

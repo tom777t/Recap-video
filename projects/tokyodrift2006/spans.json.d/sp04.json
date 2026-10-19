@@ -1,0 +1,104 @@
+{
+  "span": "sp04",
+  "moments": [
+    {
+      "shots": [0, 1, 2, 3],
+      "clip_start": "00:04:30.769",
+      "clip_end": "00:04:38.569",
+      "depicts": ["dialogue", "setup"],
+      "chars": [],
+      "action": "Tight reverse shots in a sunlit crowd: the dark-haired American teenager smirks, the blond jock in the purple jersey glares back. The last shot widens to show the jock flanked by teammates.",
+      "censor": "none"
+    },
+    {
+      "shots": [4, 5, 6, 7, 8],
+      "clip_start": "00:04:38.569",
+      "clip_end": "00:04:49.747",
+      "depicts": ["dialogue", "setup"],
+      "chars": [],
+      "action": "A whip pan rips off the purple jerseys onto a blonde girl in a white shirt watching from the crowd. Cutting back, the two boys start trading words, the jock's face hardening as he answers.",
+      "censor": "none"
+    },
+    {
+      "shots": [9, 10, 11, 12, 13],
+      "clip_start": "00:04:49.747",
+      "clip_end": "00:04:57.755",
+      "depicts": ["reaction", "dialogue"],
+      "chars": [],
+      "action": "Onlookers packed around the cars gape and shout. The teenager answers from under open sky; by the end the crowd behind the jock is laughing at him and the teenager is grinning.",
+      "censor": "none"
+    },
+    {
+      "shots": [14, 15, 16],
+      "clip_start": "00:04:57.755",
+      "clip_end": "00:05:09.308",
+      "depicts": ["dialogue", "setup"],
+      "chars": [],
+      "action": "A wide shot sets the terms: the jock at one end of the crowd, the blonde girl standing apart at the other. Cut in close, the teenager is calm while the jock's look curdles.",
+      "censor": "none"
+    },
+    {
+      "shots": [17],
+      "clip_start": "00:05:09.308",
+      "clip_end": "00:05:24.865",
+      "depicts": ["action", "establishing"],
+      "chars": [],
+      "action": "One long take at a half-built housing tract: jersey-wearing boys crouch at a 'Shang-Ri-La Estates' billboard start line, then the camera swings to the dirt street as the cars tear away in dust.",
+      "censor": "none"
+    },
+    {
+      "shots": [18, 19, 20, 21, 22],
+      "clip_start": "00:05:24.865",
+      "clip_end": "00:05:35.375",
+      "depicts": ["action"],
+      "chars": [],
+      "action": "A hand slams the shifter in a dim interior. Spectators dance on a pickup bed, then the jock is driving the red convertible with the blonde beside him and the teenager pulls level, glancing across.",
+      "censor": "none"
+    },
+    {
+      "shots": [23, 24, 25, 26, 27],
+      "clip_start": "00:05:35.375",
+      "clip_end": "00:05:43.091",
+      "depicts": ["action", "reaction"],
+      "chars": [],
+      "action": "The jock drops his eyes to the gauges as fans whoop on the pickup. The blonde twists round to look back at the chasing car, and the teenager breaks into a grin at his wheel.",
+      "censor": "none"
+    },
+    {
+      "shots": [28, 29, 30, 31, 32, 33, 34],
+      "clip_start": "00:05:43.091",
+      "clip_end": "00:05:53.393",
+      "depicts": ["action"],
+      "chars": [],
+      "action": "Sky and lens flare as the cars crest a rise, then a low angle catches an undercarriage slamming down. Both drivers grip in: a fist yanks the shifter and the pair blast past the ground-level camera.",
+      "censor": "none"
+    },
+    {
+      "shots": [35, 36, 37],
+      "clip_start": "00:05:53.393",
+      "clip_end": "00:06:01.818",
+      "depicts": ["action"],
+      "chars": [],
+      "action": "Side-on and then from behind inside the red convertible, the jock drives with the blonde silent next to him. The last shot pulls out wide: cream muscle car and convertible neck-and-neck between unfinished houses.",
+      "censor": "none"
+    },
+    {
+      "shots": [38, 39, 40, 41, 42, 43, 44],
+      "clip_start": "00:06:01.818",
+      "clip_end": "00:06:12.496",
+      "depicts": ["action"],
+      "chars": [],
+      "action": "The teenager glares sideways, then his cracked-windshield POV runs down the tract road as scaffolding smears past. By the end both cars are closing on the spectators' pickup and the jock is shouting.",
+      "censor": "none"
+    },
+    {
+      "shots": [45, 46, 47, 48, 49, 50],
+      "clip_start": "00:06:12.496",
+      "clip_end": "00:06:20.295",
+      "depicts": ["action"],
+      "chars": [],
+      "action": "A boot stamps the pedal in the dark footwell. The cars sweep past the spectator pickup, a jersey-clad fan leaning out as they pass, and the final wide leaves the two cars dead level past the houses.",
+      "censor": "none"
+    }
+  ]
+}

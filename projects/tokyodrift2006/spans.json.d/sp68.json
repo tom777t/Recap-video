@@ -1,0 +1,68 @@
+{
+  "span": "sp68",
+  "moments": [
+    {
+      "shots": [0, 1],
+      "clip_start": "01:40:33.758",
+      "clip_end": "01:40:45.686",
+      "depicts": ["transition"],
+      "chars": [],
+      "action": "End credits scroll white over black, tyre-tread smears curling at frame right. Rigger and animator lines climb away and the roll reaches the VFX editor and render support blocks as the tread swings diagonally.",
+      "censor": "none"
+    },
+    {
+      "shots": [2, 3, 4],
+      "clip_start": "01:40:45.686",
+      "clip_end": "01:41:01.160",
+      "depicts": ["transition", "montage"],
+      "chars": [],
+      "action": "The roll passes the executive producer line into vendor blocks: CIS Hollywood's supervisors and compositors rise through, then the rotoscope lists, and by the last frame a new Cafe FX Inc. heading has taken the screen.",
+      "censor": "none"
+    },
+    {
+      "shots": [5, 6],
+      "clip_start": "01:41:01.160",
+      "clip_end": "01:41:23.599",
+      "depicts": ["transition", "montage"],
+      "chars": [],
+      "action": "Behind the scroll the tread pattern thins into a dark smoky curve. Cafe FX gives way to Pacific Title and Art Studio, then Illusion Arts' matte painters, and the frame ends on an Industrial Light and Magic heading.",
+      "censor": "none"
+    },
+    {
+      "shots": [7],
+      "clip_start": "01:41:23.599",
+      "clip_end": "01:41:33.025",
+      "depicts": ["transition"],
+      "chars": [],
+      "action": "A bright streak of skid marks cuts across the left of frame as the ILM crew list scrolls up and is replaced by two smaller vendor blocks, Perpetual Motion Pictures and Digital Backlot.",
+      "censor": "none"
+    },
+    {
+      "shots": [8, 9, 10],
+      "clip_start": "01:41:33.025",
+      "clip_end": "01:41:49.875",
+      "depicts": ["transition"],
+      "chars": [],
+      "action": "Specialty services roll by, lidar scanning then motion control and previsualization, before an underlined 2ND UNIT header arrives and the list turns to assistant directors, camera crew, grips and script supervisor.",
+      "censor": "none"
+    },
+    {
+      "shots": [11, 12],
+      "clip_start": "01:41:49.875",
+      "clip_end": "01:42:04.765",
+      "depicts": ["transition"],
+      "chars": [],
+      "action": "The background empties to near black for the production assistants and craft service, then an underlined TOKYO CREW header scrolls in and the names switch to Japanese as set dressers and camera assistants appear.",
+      "censor": "none"
+    },
+    {
+      "shots": [13],
+      "clip_start": "01:42:04.765",
+      "clip_end": "01:42:16.777",
+      "depicts": ["transition", "montage"],
+      "chars": [],
+      "action": "Dense looping tyre tracks fill the right of frame as the Tokyo crew list runs on through makeup and hair, lighting and grips, ending on payroll, casting and the additional assistant directors.",
+      "censor": "none"
+    }
+  ]
+}

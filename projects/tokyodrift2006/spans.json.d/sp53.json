@@ -1,0 +1,77 @@
+{
+  "span": "sp53",
+  "moments": [
+    {
+      "shots": [0, 1, 2],
+      "clip_start": "01:18:01.202",
+      "clip_end": "01:18:17.760",
+      "depicts": ["dialogue", "setup"],
+      "chars": ["the young man in the white thermal shirt", "the grey-haired man in the olive jacket"],
+      "action": "In a dim Tokyo alley the young man in the white thermal and the grey-haired man in the olive jacket talk in tight close-ups; the shot then opens to a wide that shows them squared up a pace apart.",
+      "censor": "none"
+    },
+    {
+      "shots": [3, 4, 5],
+      "clip_start": "01:18:17.760",
+      "clip_end": "01:18:31.232",
+      "depicts": ["dialogue", "emotion"],
+      "chars": ["the young man in the white thermal shirt", "the grey-haired man in the olive jacket"],
+      "action": "Close-ups trade back and forth: the older man leans in to press his point hard, and the younger man's face shifts from listening to a flat, closed-off stare by the end of the exchange.",
+      "censor": "none"
+    },
+    {
+      "shots": [6, 7],
+      "clip_start": "01:18:31.232",
+      "clip_end": "01:18:37.613",
+      "depicts": ["reaction", "emotion"],
+      "chars": ["the young man in the white thermal shirt", "the grey-haired man in the olive jacket"],
+      "action": "Left alone in frame, the older man turns to watch. Past his shoulder the young man is already walking away down the dark street, not looking back.",
+      "censor": "none"
+    },
+    {
+      "shots": [8, 9, 10],
+      "clip_start": "01:18:37.613",
+      "clip_end": "01:18:52.753",
+      "depicts": ["establishing", "setup"],
+      "chars": ["the young man in the white thermal shirt", "the friend in the mint-green shirt"],
+      "action": "A wide shot finds the young man alone against a pillar in an empty night garage. He looks up as the friend in the mint-green shirt walks in past a green car, ending his wait.",
+      "censor": "none"
+    },
+    {
+      "shots": [11, 12, 13],
+      "clip_start": "01:18:52.753",
+      "clip_end": "01:19:06.100",
+      "depicts": ["dialogue"],
+      "chars": ["the young man in the white thermal shirt", "the friend in the mint-green shirt"],
+      "action": "Face to face by the car they start talking in close-up; the friend answers steadily while the young man keeps glancing aside, and his look comes back harder on the third shot.",
+      "censor": "none"
+    },
+    {
+      "shots": [14, 15, 16],
+      "clip_start": "01:19:06.100",
+      "clip_end": "01:19:18.696",
+      "depicts": ["dialogue", "emotion"],
+      "chars": ["the young man in the white thermal shirt", "the friend in the mint-green shirt"],
+      "action": "The exchange continues in close-up until the camera pulls back to a two-shot: the young man has folded his arms and dropped his head while the friend stands facing him, still talking.",
+      "censor": "none"
+    },
+    {
+      "shots": [17, 18, 19],
+      "clip_start": "01:19:18.696",
+      "clip_end": "01:19:36.547",
+      "depicts": ["dialogue", "reaction"],
+      "chars": ["the young man in the white thermal shirt", "the friend in the mint-green shirt"],
+      "action": "The young man says something that lands badly; the friend's face screws up and he snaps back at him. The cut returns to the young man with his eyes lowered, taking it without reply.",
+      "censor": "none"
+    },
+    {
+      "shots": [20, 21, 22, 23, 24],
+      "clip_start": "01:19:36.547",
+      "clip_end": "01:19:53.939",
+      "depicts": ["dialogue", "emotion"],
+      "chars": ["the young man in the white thermal shirt", "the friend in the mint-green shirt"],
+      "action": "The friend keeps pressing, mouth twisting as his voice rises. The young man stares straight ahead, then lets his eyes fall shut; the last shot leaves the friend wide-eyed and pleading rather than angry.",
+      "censor": "none"
+    }
+  ]
+}

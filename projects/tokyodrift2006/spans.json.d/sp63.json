@@ -1,0 +1,113 @@
+{
+  "span": "sp63",
+  "moments": [
+    {
+      "shots": [0, 1, 2, 3],
+      "clip_start": "01:33:00.389",
+      "clip_end": "01:33:07.980",
+      "depicts": ["action"],
+      "chars": ["the young American driver", "the driver in the white tank top"],
+      "action": "Both drivers are braced at their wheels in the dark, the American grinning, the man in the white harness glaring. The cars tear past a roadside verge and a panel rips loose off the rear of the lead car.",
+      "censor": "none"
+    },
+    {
+      "shots": [4, 5, 6, 7, 8],
+      "clip_start": "01:33:07.980",
+      "clip_end": "01:33:13.069",
+      "depicts": ["action"],
+      "chars": ["the young American driver"],
+      "action": "The American driver works the shifter and hardens from a grin to a stare. Through his cracked windscreen the rival's taillights sit far ahead at first, then fill the glass as he closes right onto its tail.",
+      "censor": "none"
+    },
+    {
+      "shots": [9, 10, 11, 12, 13],
+      "clip_start": "01:33:13.069",
+      "clip_end": "01:33:23.329",
+      "depicts": ["action"],
+      "chars": ["the young American driver", "the driver in the white tank top"],
+      "action": "The other driver's face tightens as the two cars slide the mountain bends nose to tail. They sweep past a knot of spectators on the verge and the pursuing car draws up level into the next dark corner.",
+      "censor": "none"
+    },
+    {
+      "shots": [14, 15, 16, 17, 18, 19],
+      "clip_start": "01:33:23.329",
+      "clip_end": "01:33:32.171",
+      "depicts": ["action"],
+      "chars": ["the young American driver", "the driver in the white tank top"],
+      "action": "The two cars come alongside, headlights level. The American bares his teeth over the wheel, the other man snarls, and the bodies slam together and grind, throwing smoke and sparks between the doors.",
+      "censor": "none"
+    },
+    {
+      "shots": [20, 21, 22, 23, 24, 25],
+      "clip_start": "01:33:32.171",
+      "clip_end": "01:33:41.305",
+      "depicts": ["action"],
+      "chars": ["the young American driver", "the driver in the white tank top"],
+      "action": "Still locked side by side, the pair rush a guardrail bend. The man in the tank top hangs over his wheel through the open window, and inside his cockpit he hauls the car across, crowding the other over.",
+      "censor": "none"
+    },
+    {
+      "shots": [26, 27, 28, 29],
+      "clip_start": "01:33:41.305",
+      "clip_end": "01:33:51.649",
+      "depicts": ["action"],
+      "chars": [],
+      "action": "The older coupe shoves its rival wide in a cloud of tyre smoke; the frame blurs through the impact and the pushed car ends up ploughing through roadside brush. Spectators erupt, screaming and punching the air.",
+      "censor": "none"
+    },
+    {
+      "shots": [30, 31, 32, 33, 34, 35],
+      "clip_start": "01:33:51.649",
+      "clip_end": "01:34:01.367",
+      "depicts": ["action"],
+      "chars": ["the young American driver"],
+      "action": "The American throws his head back gasping as strings of lights pass overhead through the screen. His face snaps round in alarm: the other car drops off the shoulder into the dirt and something strikes his glass.",
+      "censor": "none"
+    },
+    {
+      "shots": [36, 37, 38, 39],
+      "clip_start": "01:34:01.367",
+      "clip_end": "01:34:08.332",
+      "depicts": ["action", "aftermath"],
+      "chars": ["the driver in the white tank top", "the young American driver"],
+      "action": "Inside the losing car the windscreen webs over as it leaves the road, and from above it tumbles across the dirt. The coupe keeps running alone down the tarmac and its driver drags a hand over his face.",
+      "censor": "none"
+    },
+    {
+      "shots": [40, 41, 42, 43, 44],
+      "clip_start": "01:34:08.332",
+      "clip_end": "01:34:17.258",
+      "depicts": ["reaction", "aftermath"],
+      "chars": ["the young American driver", "the woman in the fur-collared coat", "the older man in the black hat"],
+      "action": "The coupe halts and its driver stares out. The crowd breaks and sprints at the car, swarming him through the window, while the woman in the fur collar and two older men in black coats watch without moving.",
+      "censor": "none"
+    },
+    {
+      "shots": [45, 46, 47, 48],
+      "clip_start": "01:34:17.258",
+      "clip_end": "01:34:25.891",
+      "depicts": ["aftermath", "reaction"],
+      "chars": ["the young American driver", "the woman in the fur-collared coat", "the older man in the black hat"],
+      "action": "The wrecked car lies upside down smoking as someone runs past it. The watching trio look on, then the celebration closes in: friends laughing around the winner before the group turns toward the stopped car.",
+      "censor": "none"
+    },
+    {
+      "shots": [49, 50, 51],
+      "clip_start": "01:34:25.891",
+      "clip_end": "01:34:34.275",
+      "depicts": ["reaction", "emotion"],
+      "chars": ["the young American driver", "the woman in the fur-collared coat"],
+      "action": "The woman in the fur-collared coat gets to him and they stand face to face. His strained look breaks into a grin, and the shot widens to show friends crowding in beside them as they stay turned to each other.",
+      "censor": "none"
+    },
+    {
+      "shots": [52, 53, 54, 55, 56],
+      "clip_start": "01:34:34.275",
+      "clip_end": "01:34:48.997",
+      "depicts": ["dialogue", "reveal"],
+      "chars": ["the young American driver", "the woman in the fur-collared coat", "the older man in the black hat"],
+      "action": "Three men in black suits walk up out of the parked cars and the celebration dies; the group lines up facing them. The older man in the hat stops in front of the winner, who lowers his eyes as the man speaks.",
+      "censor": "none"
+    }
+  ]
+}

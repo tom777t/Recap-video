@@ -1,0 +1,123 @@
+{
+  "span": "sp51",
+  "moments": [
+    {
+      "shots": [0, 1, 2],
+      "clip_start": "01:15:07.905",
+      "clip_end": "01:15:13.785",
+      "depicts": ["action", "aftermath"],
+      "chars": [],
+      "action": "A lit city intersection full of stopped traffic and scattered debris; the orange sports car cartwheels past camera in a blur, and the cut lands on the young American in the white thermal staring, stunned.",
+      "censor": "none"
+    },
+    {
+      "shots": [3, 4, 5, 6],
+      "clip_start": "01:15:13.785",
+      "clip_end": "01:15:22.920",
+      "depicts": ["action", "discovery"],
+      "chars": [],
+      "action": "The orange car settles upside down against a kerb, a loose tyre rolling clear. Camera pushes under the wreck to find the trapped driver motionless; the woman with long dark hair climbs out of a car nearby to look.",
+      "censor": "blur_light",
+      "censor_note": "blood smeared around the trapped driver's eye and cheek in the close-up through the shattered windscreen, a small part of the frame"
+    },
+    {
+      "shots": [7, 8, 9],
+      "clip_start": "01:15:22.920",
+      "clip_end": "01:15:28.175",
+      "depicts": ["action"],
+      "chars": [],
+      "action": "The young American sprints across the road toward the wreck; before he reaches it the car detonates, the frame whiting out as he throws an arm up, and a fireball rises over the watching crowd.",
+      "censor": "none"
+    },
+    {
+      "shots": [10, 11, 12, 13],
+      "clip_start": "01:15:28.175",
+      "clip_end": "01:15:33.263",
+      "depicts": ["action", "aftermath"],
+      "chars": [],
+      "action": "The blast wave scatters bystanders and knocks the young American down behind a yellow taxi. He gets back on his feet and the camera pulls wide: the car burns alone in the middle of the avenue.",
+      "censor": "none"
+    },
+    {
+      "shots": [14, 15, 16, 17],
+      "clip_start": "01:15:33.263",
+      "clip_end": "01:15:39.770",
+      "depicts": ["action", "reveal"],
+      "chars": [],
+      "action": "Inside a racing-seat cockpit the young Asian driver stares out hard, then his black coupe rolls past the stunned crowd, swings toward camera and accelerates away down the street, leaving the fire behind.",
+      "censor": "none"
+    },
+    {
+      "shots": [18, 19, 20, 21, 22],
+      "clip_start": "01:15:39.770",
+      "clip_end": "01:15:50.822",
+      "depicts": ["reaction", "emotion"],
+      "chars": [],
+      "action": "The young American turns after the departing coupe; an overhead shot isolates him beside the burning wreck. Close-ups hold on his firelit face and on the dark-haired woman's, both going from shock to grief.",
+      "censor": "none"
+    },
+    {
+      "shots": [23, 24, 25, 26],
+      "clip_start": "01:15:50.822",
+      "clip_end": "01:15:59.373",
+      "depicts": ["transition"],
+      "chars": [],
+      "action": "He walks away from the fire between the taxis. Feet cross a tiled station floor, the two of them head down a walkway, and they stop on a platform as a commuter train slides in behind them.",
+      "censor": "none"
+    },
+    {
+      "shots": [27],
+      "clip_start": "01:15:59.373",
+      "clip_end": "01:16:14.513",
+      "depicts": ["emotion", "aftermath"],
+      "chars": [],
+      "action": "A long held two-shot in the empty carriage: he sits hunched with his head down and his arm over his knee while she stares out past him. Neither speaks or moves for the whole take.",
+      "censor": "none"
+    },
+    {
+      "shots": [28, 29, 30],
+      "clip_start": "01:16:14.513",
+      "clip_end": "01:16:20.936",
+      "depicts": ["dialogue", "setup"],
+      "chars": [],
+      "action": "A hand works a latch in near darkness. The two of them step into the narrow lane outside the house; he looks up at something above and she turns from the gate to watch his face instead.",
+      "censor": "none"
+    },
+    {
+      "shots": [31, 32, 33, 34],
+      "clip_start": "01:16:20.936",
+      "clip_end": "01:16:30.904",
+      "depicts": ["reaction", "setup"],
+      "chars": [],
+      "action": "They stand close in the unlit lane, her looking at him, then both heads turn the same way. By the wider shots they have stopped moving entirely and are staring off into the dark street together.",
+      "censor": "none"
+    },
+    {
+      "shots": [35, 36, 37, 38],
+      "clip_start": "01:16:30.904",
+      "clip_end": "01:16:36.868",
+      "depicts": ["reaction", "reveal"],
+      "chars": [],
+      "action": "A tight two-shot catches the alarm on both faces. A cut to the shadows shows a figure leaning over a parked car; the young American's expression hardens into anger while she keeps staring past him.",
+      "censor": "none"
+    },
+    {
+      "shots": [39, 40, 41, 42],
+      "clip_start": "01:16:36.868",
+      "clip_end": "01:16:46.253",
+      "depicts": ["action"],
+      "chars": [],
+      "action": "The young Asian driver walks out of the dark toward them. The American lunges and is caught from behind, an older man wrenching his arm across his throat; the woman flinches back as the struggle spills past her.",
+      "censor": "none"
+    },
+    {
+      "shots": [43, 44],
+      "clip_start": "01:16:46.253",
+      "clip_end": "01:16:50.382",
+      "depicts": ["action", "reveal"],
+      "chars": [],
+      "action": "The young Asian driver raises a pistol straight down the lens; the reverse shows the older man with the shaved head levelling his own handgun back at him. The fight stops in a standoff.",
+      "censor": "none"
+    }
+  ]
+}

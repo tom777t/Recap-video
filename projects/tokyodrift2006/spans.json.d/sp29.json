@@ -1,0 +1,86 @@
+{
+  "span": "sp29",
+  "moments": [
+    {
+      "shots": [0, 1, 2, 3],
+      "clip_start": "00:41:59.758",
+      "clip_end": "00:42:20.321",
+      "depicts": ["dialogue", "setup"],
+      "chars": ["the long-haired man", "the young American"],
+      "action": "Night drive through the city, cut back and forth between the long-haired passenger and the young American at the wheel. The passenger talks, eyes half-closed; by the last shot the American has stopped answering and only stares ahead.",
+      "censor": "none"
+    },
+    {
+      "shots": [4, 5, 6, 7],
+      "clip_start": "00:42:20.321",
+      "clip_end": "00:42:28.954",
+      "depicts": ["dialogue", "emotion"],
+      "chars": ["the long-haired man", "the young American"],
+      "action": "The talk keeps going in tighter close-ups, the passenger turning to face the driver. The camera finally pulls back to a two-shot inside the cabin, the American's hand on the wheel as he glances across at him.",
+      "censor": "none"
+    },
+    {
+      "shots": [8, 9, 10, 11, 12, 13],
+      "clip_start": "00:42:28.954",
+      "clip_end": "00:42:40.048",
+      "depicts": ["action", "setup"],
+      "chars": ["the long-haired man", "the young American"],
+      "action": "A blue car streaks past and the orange car takes off after it. The passenger says something through the side window, the driver breaks into a grin, the tachometer swings into the red and his hand clamps the wheel.",
+      "censor": "none"
+    },
+    {
+      "shots": [14, 15, 16, 17, 18, 19],
+      "clip_start": "00:42:40.048",
+      "clip_end": "00:42:50.809",
+      "depicts": ["action", "montage"],
+      "chars": ["the long-haired man", "the young American"],
+      "action": "An empty night street, then the orange car blurs through frame and runs away up the road between office towers. Inside, the driver is laughing open-mouthed, settling into a grin as the POV over the wheel opens onto the elevated expressway.",
+      "censor": "none"
+    },
+    {
+      "shots": [20, 21, 22, 23, 24],
+      "clip_start": "00:42:50.809",
+      "clip_end": "00:42:58.901",
+      "depicts": ["action", "discovery"],
+      "chars": ["the long-haired man", "the young American"],
+      "action": "A white police car with a helmeted officer slides into view; a dash readout reads 197 KM/H. The rear-view mirror catches it tucked in behind them, and the driver's grin drops as he twists to look back.",
+      "censor": "none"
+    },
+    {
+      "shots": [25, 26, 27, 28, 29],
+      "clip_start": "00:42:58.901",
+      "clip_end": "00:43:12.831",
+      "depicts": ["dialogue", "reaction"],
+      "chars": ["the long-haired man", "the young American"],
+      "action": "The passenger stays calm in profile and talks the driver through it. The American argues back across the cabin, then gives in laughing; the last shot has both of them smiling at each other instead of at the road.",
+      "censor": "none"
+    },
+    {
+      "shots": [30, 31],
+      "clip_start": "00:43:12.831",
+      "clip_end": "00:43:18.670",
+      "depicts": ["action"],
+      "chars": [],
+      "action": "A boot stamps the accelerator to the floor, and a high wide shot shows the orange car pulling away down the lit expressway, leaving the white car trailing behind on the far lane.",
+      "censor": "none"
+    },
+    {
+      "shots": [32, 33, 34, 35],
+      "clip_start": "00:43:18.670",
+      "clip_end": "00:43:30.682",
+      "depicts": ["establishing", "transition"],
+      "chars": ["the long-haired man"],
+      "action": "Cut to a steaming brick garage where people stand around parked tuner cars. The orange car's door swings open and the long-haired man climbs out, walks around the black car in front of it and heads into the crowd.",
+      "censor": "none"
+    },
+    {
+      "shots": [36],
+      "clip_start": "00:43:30.682",
+      "clip_end": "00:44:01.713",
+      "depicts": ["dialogue", "setup"],
+      "chars": ["the long-haired man", "the young American"],
+      "action": "A held take follows him from behind as he greets a grinning man and a woman in a white fur coat, then moves on into a warm lantern-lit room to talk with someone there, the American trailing a step behind him.",
+      "censor": "none"
+    }
+  ]
+}

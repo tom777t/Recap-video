@@ -843,6 +843,46 @@ def test_window_bad_cut() -> tuple[bool, str]:
                   f"giong het lo sach, rc=0")
 
 
+def test_transcript_quality() -> tuple[bool, str]:
+    """[TRANSCRIPT-QUALITY] - mot transcript hong khong TRONG nhu hong.
+
+    FIRES  : mot segment dai nuot phan lon thoi luong + mot cau lap 3 lan.
+    SILENT : cung so segment, cung so chu, nhung do dai binh thuong.
+
+    Hai nua phai doi xung, vi ban hong that (tokyodrift2006) bao phu 89% thoi
+    luong - cao HON ban sach - va chi co do dai segment moi phan biet duoc.
+    """
+    import subprocess as _sp
+
+    def run(proj, segs, dur):
+        _mk(proj, {"transcript.json": {"language": "en", "duration": dur,
+                                       "segments": segs}})
+        r = _sp.run([sys.executable, 'tools/check_transcript.py', proj],
+                    cwd=ROOT, capture_output=True, text=True,
+                    encoding='utf-8', errors='replace', timeout=300)
+        return (r.stdout or '') + (r.stderr or ''), r.returncode
+
+    dur = 600.0
+    bad = [{"start": 0.0, "end": 400.0, "text": "one line over everything"}]
+    bad += [{"start": 400.0 + i, "end": 401.0 + i, "text": "same line"}
+            for i in range(4)]
+    out_b, code_b = run('_selftest_tq_bad', bad, dur)
+    if 'longer than' not in out_b or code_b != 2:
+        return False, f'KHONG bat duoc segment khong lo (rc={code_b})'
+    if 'repetition loop' not in out_b:
+        return False, 'KHONG bat duoc vong lap'
+
+    good = [{"start": float(i * 6), "end": float(i * 6 + 4),
+             "text": f"line number {i}"} for i in range(80)]
+    out_g, code_g = run('_selftest_tq_good', good, dur)
+    if 'longer than' in out_g or 'repetition loop' in out_g:
+        return False, f'keu tren transcript SACH: {out_g[:120]}'
+    if code_g != 0:
+        return False, f'transcript sach nhung rc={code_g}: {out_g[:120]}'
+    return True, ('bat segment khong lo + vong lap; im tren transcript sach '
+                  'cung so segment')
+
+
 def test_name_leak() -> tuple[bool, str]:
     """[NAME-LEAK] - mot ten rieng khong co nguon trong narration.
 
@@ -1034,6 +1074,7 @@ TESTS = {
     'BEAT-MAP':        test_beat_map,
     'WINDOW-GROUPING': test_window_grouping,
     'WINDOW-BAD-CUT':  test_window_bad_cut,
+    'TRANSCRIPT-QUALITY': test_transcript_quality,
     'NAME-LEAK':       test_name_leak,
     'MOMENT-SEAM':     test_moment_seam,
     'MOMENT-BAD-SPAN': test_moment_bad_span,

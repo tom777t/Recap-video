@@ -1,0 +1,86 @@
+{
+  "span": "sp27",
+  "moments": [
+    {
+      "shots": [0, 1, 2, 3, 4, 5, 6],
+      "clip_start": "00:39:00.705",
+      "clip_end": "00:39:12.884",
+      "depicts": ["dialogue", "setup"],
+      "chars": ["the blond-streaked young man", "the man in the black T-shirt", "the American in the white shirt", "the long-haired man in the dark jacket"],
+      "action": "In the dim green-lit mahjong parlour the blond-streaked young man is laughing hard; the man in the black T-shirt grins back while the American in the white shirt watches from the side. The laughter settles into a quiet two-shot at the table.",
+      "censor": "none"
+    },
+    {
+      "shots": [7, 8, 9],
+      "clip_start": "00:39:12.884",
+      "clip_end": "00:39:25.355",
+      "depicts": ["establishing", "dialogue"],
+      "chars": ["the American in the white shirt", "the long-haired man in the dark jacket", "the man in the black T-shirt", "the blond-streaked young man"],
+      "action": "Wider coverage: the American and the long-haired man stand together facing the seated group by a race-poster wall, then the camera pulls out to the whole gambling den, tiles on the table and a figure crossing to the blue door.",
+      "censor": "none"
+    },
+    {
+      "shots": [10, 11, 12, 13, 14, 15],
+      "clip_start": "00:39:25.355",
+      "clip_end": "00:39:42.830",
+      "depicts": ["dialogue", "setup"],
+      "chars": ["the man in the black T-shirt", "the long-haired man in the dark jacket"],
+      "action": "Tight shot/reverse: the man in the black T-shirt leans across the table talking with a sly grin, the long-haired man answers from the doorway. By the last shot the long-haired man has dropped his eyes and the smile is gone.",
+      "censor": "none"
+    },
+    {
+      "shots": [16, 17, 18],
+      "clip_start": "00:39:42.830",
+      "clip_end": "00:39:47.377",
+      "depicts": ["action", "transition"],
+      "chars": ["the American in the white shirt"],
+      "action": "Out on a neon pachinko street the American walks away from a parked orange sports car, stops to count coins in his hand, then turns and looks off toward something at the kerb.",
+      "censor": "none"
+    },
+    {
+      "shots": [19],
+      "clip_start": "00:39:47.377",
+      "clip_end": "00:40:05.686",
+      "depicts": ["dialogue", "emotion"],
+      "chars": ["the American in the white shirt"],
+      "action": "One long held take at a street payphone: a hand lifts the green receiver off the hook, and the American listens with his brow tightening, the easy look from the street gone by the end of the call.",
+      "censor": "none"
+    },
+    {
+      "shots": [20, 21, 22, 23],
+      "clip_start": "00:40:05.686",
+      "clip_end": "00:40:14.195",
+      "depicts": ["action", "reveal"],
+      "chars": ["the woman in the fur-collar coat", "the American in the white shirt"],
+      "action": "Intercut: the woman in the fur-collar coat comes up a shuttered side alley toward camera while the American keeps talking on the payphone. His frown softens into a small smile as she reaches him.",
+      "censor": "none"
+    },
+    {
+      "shots": [24, 25, 26, 27, 28],
+      "clip_start": "00:40:14.195",
+      "clip_end": "00:40:30.544",
+      "depicts": ["dialogue", "emotion"],
+      "chars": ["the American in the white shirt", "the woman in the fur-collar coat"],
+      "action": "He puts the phone down and turns to find her standing behind him. They talk in over-shoulder singles by the orange car; her smile widens while his grin fades and he goes quiet and serious.",
+      "censor": "none"
+    },
+    {
+      "shots": [29, 30, 31, 32],
+      "clip_start": "00:40:30.544",
+      "clip_end": "00:40:43.015",
+      "depicts": ["dialogue", "emotion"],
+      "chars": ["the woman in the fur-collar coat", "the American in the white shirt"],
+      "action": "The street conversation runs on in tight singles: she smiles at him, he breaks into a laugh, then both faces settle. By the last shot his grin is gone and he is just holding her look.",
+      "censor": "none"
+    },
+    {
+      "shots": [33, 34, 35, 36, 37],
+      "clip_start": "00:40:43.015",
+      "clip_end": "00:40:51.399",
+      "depicts": ["action", "dialogue"],
+      "chars": ["the long-haired man in the dark jacket", "the American in the white shirt", "the woman in the fur-collar coat"],
+      "action": "Cutaway to the pachinko parlour doors: the long-haired man steps out and scans the crowded arcade aisles and vending machines, searching. Back on the street the American smiles at the woman and she holds his gaze.",
+      "censor": "none"
+    }
+  ]
+}

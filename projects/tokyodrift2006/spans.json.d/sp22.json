@@ -1,0 +1,95 @@
+{
+  "span": "sp22",
+  "moments": [
+    {
+      "shots": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+      "clip_start": "00:31:32.801",
+      "clip_end": "00:31:46.022",
+      "depicts": ["action"],
+      "chars": [],
+      "action": "A driver in a black tank top throws a black coupe down the spiral ramps of an empty parking garage, smoke off the rear tyres; the cutting tightens to his eyes and the pedal, then pulls out to an aerial of the car swinging round the tower.",
+      "censor": "none"
+    },
+    {
+      "shots": [11, 12, 13, 14],
+      "clip_start": "00:31:46.022",
+      "clip_end": "00:31:54.489",
+      "depicts": ["action"],
+      "chars": [],
+      "action": "The coupe bursts out of the garage onto a neon-lit street and swings into a long smoking drift; the crowd packed behind the barriers goes up, arms and phones in the air.",
+      "censor": "none"
+    },
+    {
+      "shots": [15, 16, 17, 18, 19],
+      "clip_start": "00:31:54.489",
+      "clip_end": "00:32:03.957",
+      "depicts": ["reaction"],
+      "chars": [],
+      "action": "Reaction cuts along the crowd line: a young man in a red-and-white beanie and the girl beside him stay flat-faced while everyone around them cheers; the car swings round to face them, headlights full on, and a bleached-hair man grins.",
+      "censor": "none"
+    },
+    {
+      "shots": [20, 21, 22, 23, 24],
+      "clip_start": "00:32:03.957",
+      "clip_end": "00:32:13.925",
+      "depicts": ["action"],
+      "chars": [],
+      "action": "The driver climbs out and walks straight at the bleached-hair man in the leather jacket, then breaks into a grin as a woman reaches him; by the last shot he has turned away into the applauding crowd.",
+      "censor": "none"
+    },
+    {
+      "shots": [25, 26, 27, 28, 29],
+      "clip_start": "00:32:13.925",
+      "clip_end": "00:32:18.763",
+      "depicts": ["action"],
+      "chars": [],
+      "action": "A second driver, a young man in a grey sleeveless shirt and green harness, starts his run grinning and hammers an orange-and-blue race car down the same ramps; by the fourth shot its front end is torn open and he is fighting the wheel.",
+      "censor": "none"
+    },
+    {
+      "shots": [30, 31, 32, 33],
+      "clip_start": "00:32:18.763",
+      "clip_end": "00:32:24.269",
+      "depicts": ["reaction", "emotion"],
+      "chars": [],
+      "action": "Down in the street the crowd mills and then turns to face the garage exit; inside it the first driver and the dark-haired woman press their foreheads together, and the beanie man and the girl watch, saying nothing.",
+      "censor": "none"
+    },
+    {
+      "shots": [34, 35, 36, 37, 38],
+      "clip_start": "00:32:24.269",
+      "clip_end": "00:32:43.455",
+      "depicts": ["action"],
+      "chars": [],
+      "action": "The battered orange car slides out and stops smoking in front of the crowd. The bleached-hair man leans in to talk to a spiky-haired man, a long-haired man in a grey jacket pushes forward, and the barrier line breaks and swarms the car.",
+      "censor": "none"
+    },
+    {
+      "shots": [39, 40, 41, 42, 43],
+      "clip_start": "00:32:43.455",
+      "clip_end": "00:32:56.426",
+      "depicts": ["dialogue", "emotion"],
+      "chars": [],
+      "action": "The couple lean together one last time and she looks down; the orange car's driver sits tense in his seat as the long-haired man in the grey jacket stoops to his window to speak, then the crowd closes over the frame into blurred bodies.",
+      "censor": "none"
+    },
+    {
+      "shots": [44, 45, 46, 47],
+      "clip_start": "00:32:56.426",
+      "clip_end": "00:33:07.645",
+      "depicts": ["dialogue", "setup"],
+      "chars": [],
+      "action": "From a dark wooden doorway the scene lands in a dim house at night: a grey-haired man in a NAVY hoodie sits alone with a beer. The young driver edges round the sliding door, caught coming in, and the older man begins talking.",
+      "censor": "none"
+    },
+    {
+      "shots": [48, 49, 50],
+      "clip_start": "00:33:07.645",
+      "clip_end": "00:33:21.993",
+      "depicts": ["dialogue", "emotion"],
+      "chars": [],
+      "action": "The young man comes to the lit table and stands over it rather than sitting; the older man keeps pressing from his chair, bottles in front of him, and the last shot holds tight on the young man as his face goes blank.",
+      "censor": "none"
+    }
+  ]
+}

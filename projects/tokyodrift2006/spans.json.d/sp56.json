@@ -1,0 +1,86 @@
+{
+  "span": "sp56",
+  "moments": [
+    {
+      "shots": [0, 1, 2],
+      "clip_start": "01:22:29.845",
+      "clip_end": "01:22:46.403",
+      "depicts": ["dialogue", "setup"],
+      "chars": [],
+      "action": "In a lamplit club the young American makes his case to the older man with the cigar, who reclines on a couch and answers nothing. Back on the American, his face has set harder as he keeps pushing.",
+      "censor": "none"
+    },
+    {
+      "shots": [3, 4, 5],
+      "clip_start": "01:22:46.403",
+      "clip_end": "01:22:50.407",
+      "depicts": ["dialogue", "reaction"],
+      "chars": [],
+      "action": "A young Japanese man cuts in - \"Don't listen to this gaijin\" - and the camera moves off him to the young woman, who slides her eyes sideways, then to him standing beside a man in a grey suit.",
+      "censor": "none"
+    },
+    {
+      "shots": [6, 7, 8],
+      "clip_start": "01:22:50.407",
+      "clip_end": "01:23:00.709",
+      "depicts": ["dialogue", "emotion"],
+      "chars": [],
+      "action": "The older man shuts his eyes over the cigar, unmoved. The young Japanese man turns and throws it back - \"after everything you've done, you're giving me orders?\" - and the older man only smokes on.",
+      "censor": "none"
+    },
+    {
+      "shots": [9, 10, 11],
+      "clip_start": "01:23:00.709",
+      "clip_end": "01:23:09.676",
+      "depicts": ["reaction", "emotion"],
+      "chars": [],
+      "action": "The American watches, the woman behind him. The younger man's defiance collapses and he drops his head into a bow; the older man leans back on the couch, mouth open, delivering his answer loudly.",
+      "censor": "none"
+    },
+    {
+      "shots": [12, 13, 14, 15],
+      "clip_start": "01:23:09.676",
+      "clip_end": "01:23:22.981",
+      "depicts": ["dialogue", "setup"],
+      "chars": [],
+      "action": "The American lays out his terms; the younger man glares back from beside the grey-suited man. By the end the camera has left both of them for the young woman alone, listening with her face tightening.",
+      "censor": "none"
+    },
+    {
+      "shots": [16, 17, 18],
+      "clip_start": "01:23:22.981",
+      "clip_end": "01:23:35.410",
+      "depicts": ["dialogue", "emotion"],
+      "chars": [],
+      "action": "The younger man holds a sidelong stare while the American answers steadily. On the last shot the younger man has squared up to the camera, jaw set, the argument hardened into a standoff.",
+      "censor": "none"
+    },
+    {
+      "shots": [19, 20, 21, 22],
+      "clip_start": "01:23:35.410",
+      "clip_end": "01:23:46.463",
+      "depicts": ["reaction", "setup"],
+      "chars": [],
+      "action": "The older man draws on the cigar; the younger man turns his head away. In profile the older man weighs it in silence, and the American waits, eyes fixed, the woman blurred behind him.",
+      "censor": "none"
+    },
+    {
+      "shots": [23],
+      "clip_start": "01:23:46.463",
+      "clip_end": "01:24:06.024",
+      "depicts": ["transition", "establishing"],
+      "chars": [],
+      "action": "Cut out of the club to daylight: yellow KEEP OUT tape strung tight across a metal shutter, then a grey street under an elevated expressway where a handful of young men jog toward the camera.",
+      "censor": "none"
+    },
+    {
+      "shots": [24, 25, 26],
+      "clip_start": "01:24:06.024",
+      "clip_end": "01:24:22.957",
+      "depicts": ["establishing", "aftermath"],
+      "chars": [],
+      "action": "Inside the garage an older man in a green jacket shuffles past the shelves by the roller door. The American walks in across the empty shop floor, and a girl comes out past more yellow tape.",
+      "censor": "none"
+    }
+  ]
+}

@@ -1,0 +1,113 @@
+{
+  "span": "sp26",
+  "moments": [
+    {
+      "shots": [0, 1, 2],
+      "clip_start": "00:37:29.323",
+      "clip_end": "00:37:36.163",
+      "depicts": ["dialogue", "setup"],
+      "chars": [],
+      "action": "Two men talk inside a parked car at night, faces lit by street neon. The long-haired passenger in the dark jacket turns from the windscreen to look across at the young man behind the wheel, mid-answer.",
+      "censor": "none"
+    },
+    {
+      "shots": [3, 4, 5, 6],
+      "clip_start": "00:37:36.163",
+      "clip_end": "00:37:45.797",
+      "depicts": ["establishing", "setup"],
+      "chars": [],
+      "action": "The camera tilts across a glowing pink 'Botan Pachinko' frontage, then drops to the crowded street below, where their orange sports car now sits at the kerb as salarymen stream past it.",
+      "censor": "none"
+    },
+    {
+      "shots": [7, 8, 9, 10],
+      "clip_start": "00:37:45.797",
+      "clip_end": "00:37:55.557",
+      "depicts": ["action", "setup"],
+      "chars": [],
+      "action": "They leave the car behind: figures cross past its nose through the crowd, then the pair push through the parlour's glass doors, the long-haired man leading the young man in white inside past the foil decorations.",
+      "censor": "none"
+    },
+    {
+      "shots": [11, 12, 13, 14, 15],
+      "clip_start": "00:37:55.557",
+      "clip_end": "00:38:03.857",
+      "depicts": ["montage"],
+      "chars": [],
+      "action": "Close inserts run down a bank of pachinko machines - steel balls heaped in the trays, lit playfields, a cartoon strongman - the frames pushing further along the row until the machines fill the screen.",
+      "censor": "none"
+    },
+    {
+      "shots": [16, 17, 18, 19],
+      "clip_start": "00:38:03.857",
+      "clip_end": "00:38:11.281",
+      "depicts": ["establishing", "reveal"],
+      "chars": [],
+      "action": "Past the machines the room turns dim and private. Men in the back look up as the pair arrive, a wide reveals a mahjong table and a lit side desk, and two players raise their heads grinning at the newcomers.",
+      "censor": "none"
+    },
+    {
+      "shots": [20, 21],
+      "clip_start": "00:38:11.281",
+      "clip_end": "00:38:21.958",
+      "depicts": ["dialogue", "setup"],
+      "chars": [],
+      "action": "A wide holds on four men around the mahjong table mid-game, then cuts to the long-haired man standing in the crowd, the young man in the white shirt hanging back behind his shoulder, just watching.",
+      "censor": "none"
+    },
+    {
+      "shots": [22, 23, 24, 25],
+      "clip_start": "00:38:21.958",
+      "clip_end": "00:38:30.884",
+      "depicts": ["dialogue"],
+      "chars": [],
+      "action": "The exchange opens across the room: the pair at the table speak up, one sipping his drink, while the long-haired man turns to answer. By the last shot the young man in white has been drawn in, facing them himself.",
+      "censor": "none"
+    },
+    {
+      "shots": [26, 27, 28, 29],
+      "clip_start": "00:38:30.884",
+      "clip_end": "00:38:37.098",
+      "depicts": ["dialogue"],
+      "chars": [],
+      "action": "The heavy-set man in the black tee leans in over the table and the blond beside him takes over the talking, grinning between swigs. The young man in white only stares back, giving nothing away.",
+      "censor": "none"
+    },
+    {
+      "shots": [30, 31, 32, 33],
+      "clip_start": "00:38:37.098",
+      "clip_end": "00:38:48.818",
+      "depicts": ["dialogue", "reaction"],
+      "chars": [],
+      "action": "A wide finds a man counting a handful under a desk lamp at the far end of the room, then back: the young man's flat face has broken into a small smile, the blond sizing him up as the smile holds.",
+      "censor": "none"
+    },
+    {
+      "shots": [34, 35, 36, 37],
+      "clip_start": "00:38:48.818",
+      "clip_end": "00:39:01.915",
+      "depicts": ["dialogue", "emotion"],
+      "chars": [],
+      "action": "The heavy-set man stands from the table to speak; the young man and the long-haired one stand shoulder to shoulder in reply. Whatever is said lands - he leans in laughing and the blond cracks up beside him.",
+      "censor": "none"
+    },
+    {
+      "shots": [38, 39, 40, 41],
+      "clip_start": "00:39:01.915",
+      "clip_end": "00:39:08.838",
+      "depicts": ["dialogue", "reaction"],
+      "chars": [],
+      "action": "The laughter carries on: the long-haired man turns to add a line of his own, the young man glances off to the side, and at the table the big man doubles over while the blond settles into a smirk.",
+      "censor": "none"
+    },
+    {
+      "shots": [42, 43, 44, 45],
+      "clip_start": "00:39:08.838",
+      "clip_end": "00:39:20.225",
+      "depicts": ["dialogue", "transition"],
+      "chars": [],
+      "action": "The room cools. The young man's face goes flat again, the two at the table trade an amused look, and he and the long-haired man stand together among the others as the players turn back to their tiles.",
+      "censor": "none"
+    }
+  ]
+}

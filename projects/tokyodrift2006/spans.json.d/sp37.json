@@ -1,0 +1,104 @@
+{
+  "span": "sp37",
+  "moments": [
+    {
+      "shots": [0, 1, 2, 3, 4, 5],
+      "clip_start": "00:53:59.600",
+      "clip_end": "00:54:14.323",
+      "depicts": ["dialogue", "setup"],
+      "chars": ["the American driver", "the friend in the dark print shirt"],
+      "action": "A yellow coupe idles beside a silver Skyline on a neon street; inside, the American at the wheel and his friend trade words until both are grinning, then an overhead shot shows the cars pulling away.",
+      "censor": "none"
+    },
+    {
+      "shots": [6, 7, 8, 9, 10, 11],
+      "clip_start": "00:54:14.323",
+      "clip_end": "00:54:25.167",
+      "depicts": ["dialogue", "establishing", "setup"],
+      "chars": ["the friend in the pink hoodie", "the American driver"],
+      "action": "Daylight mountain pull-out: the friend in the pink hoodie briefs the American beside a red Evo while a crew lounges by a green van. POV runs of the empty hairpin road cut in, and the American turns to the car.",
+      "censor": "none"
+    },
+    {
+      "shots": [12, 13, 14, 15, 16, 17, 18, 19],
+      "clip_start": "00:54:25.167",
+      "clip_end": "00:54:38.097",
+      "depicts": ["action", "montage"],
+      "chars": ["the American driver"],
+      "action": "Aerials catch the red Evo sweeping the clifftop hairpin, then it drifts past camera with the harness-strapped driver sawing at the wheel. It slides back into the pull-out and dust swallows the watching crew.",
+      "censor": "none"
+    },
+    {
+      "shots": [20, 21, 22],
+      "clip_start": "00:54:38.097",
+      "clip_end": "00:54:45.145",
+      "depicts": ["dialogue", "montage"],
+      "chars": ["the American driver", "the young man in the red beanie"],
+      "action": "Cut to a packed daytime shopping street: the American and the young man in the red beanie push through a crowd of costumed girls, then corner a heavyset man and start pitching to him.",
+      "censor": "none"
+    },
+    {
+      "shots": [23, 24, 25, 26],
+      "clip_start": "00:54:45.145",
+      "clip_end": "00:54:57.324",
+      "depicts": ["montage", "action"],
+      "chars": ["the American driver", "the young man in the red beanie"],
+      "action": "The sale closes - a whip-pan onto the hawker shouting, goods handed to a big man in a maroon cap and gold chain - and the pair stroll off through the shoppers, the red-beanie kid thumbing a roll of cash.",
+      "censor": "none"
+    },
+    {
+      "shots": [27, 28],
+      "clip_start": "00:54:57.324",
+      "clip_end": "00:55:03.205",
+      "depicts": ["montage", "transition"],
+      "chars": ["the friend in the pink hoodie", "the American driver", "the young man in the red beanie"],
+      "action": "Back on the mountain the crew watches from the bank with the friend in the pink hoodie standing apart; then a jump to a school crowd where the American walks in uniform shirt beside his friend in a bandana.",
+      "censor": "none"
+    },
+    {
+      "shots": [29, 30, 31, 32, 33, 34],
+      "clip_start": "00:55:03.205",
+      "clip_end": "00:55:17.386",
+      "depicts": ["montage", "dialogue"],
+      "chars": ["the American driver", "the friend in the pink hoodie"],
+      "action": "Night in the warm-lit garage: the American stocks the parts shelves, two of the crew eat in a lit doorway, and he glances back over his shoulder. Deeper inside, his friend talks over a red couch and a grinning man leans in.",
+      "censor": "none"
+    },
+    {
+      "shots": [35, 36, 37],
+      "clip_start": "00:55:17.386",
+      "clip_end": "00:55:24.768",
+      "depicts": ["montage", "reaction"],
+      "chars": ["the friend in the pink hoodie"],
+      "action": "The first shot's frame is solid black and was not visually verified. Out of it the mountain pull-out returns: dust rolls over the seated crew and green van, and the friend in the pink hoodie stands arms folded, watching the road.",
+      "censor": "none"
+    },
+    {
+      "shots": [38, 39, 40, 41, 42],
+      "clip_start": "00:55:24.768",
+      "clip_end": "00:55:32.734",
+      "depicts": ["montage", "action"],
+      "chars": ["the American driver", "the young man in the red beanie"],
+      "action": "Neon night street: the pair hawk sneakers to passers-by, a local slaps a high-five, and the American waves a banknote in his friend's face. They end up walking off shoulder to shoulder, both laughing.",
+      "censor": "none"
+    },
+    {
+      "shots": [43, 44, 45, 46, 47, 48],
+      "clip_start": "00:55:32.734",
+      "clip_end": "00:55:41.201",
+      "depicts": ["action", "montage"],
+      "chars": ["the friend in the pink hoodie", "the American driver"],
+      "action": "Riding shotgun in the Evo, the friend shouts instructions while the American wrenches the wheel and the car bucks. It cuts to the Evo drifting a dusk mountain curve, a boot stamping the pedal, then smoking through a dock yard.",
+      "censor": "none"
+    },
+    {
+      "shots": [49, 50, 51, 52, 53, 54],
+      "clip_start": "00:55:41.201",
+      "clip_end": "00:55:49.835",
+      "depicts": ["action", "reaction"],
+      "chars": ["the American driver", "the girl in the passenger seat"],
+      "action": "Now a girl rides shotgun as the American drifts; low shots ride the front wheel and the Evo slews past the warehouses. It ends on two dock workers watching from the quay, one smirking around his cigarette.",
+      "censor": "none"
+    }
+  ]
+}

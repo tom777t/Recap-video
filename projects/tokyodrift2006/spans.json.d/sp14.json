@@ -1,0 +1,86 @@
+{
+  "span": "sp14",
+  "moments": [
+    {
+      "shots": [0, 1],
+      "clip_start": "00:19:28.705",
+      "clip_end": "00:19:39.007",
+      "depicts": ["dialogue", "setup"],
+      "chars": [],
+      "action": "In a school cafeteria the American student hunches over his tray fumbling chopsticks while the friend in the white durag talks beside him; by the second shot he has stopped eating and turned a flat stare on him.",
+      "censor": "none"
+    },
+    {
+      "shots": [2, 3, 4, 5],
+      "clip_start": "00:19:39.007",
+      "clip_end": "00:19:52.145",
+      "depicts": ["dialogue"],
+      "chars": [],
+      "action": "The friend answers with a sideways glance; the student jabs at his food. The angle widens to a two-shot with classmates behind them and a dark steering wheel resting on the table beside the trays.",
+      "censor": "none"
+    },
+    {
+      "shots": [6, 7, 8, 9],
+      "clip_start": "00:19:52.145",
+      "clip_end": "00:20:03.948",
+      "depicts": ["dialogue", "setup"],
+      "chars": [],
+      "action": "The student scowls down at his tray, the camera drops to the steering wheel laid by his elbow, then he leans in talking and the friend comes back grinning.",
+      "censor": "none"
+    },
+    {
+      "shots": [10, 11, 12, 13],
+      "clip_start": "00:20:03.948",
+      "clip_end": "00:20:16.753",
+      "depicts": ["dialogue", "setup"],
+      "chars": [],
+      "action": "They keep trading lines across lunch, the student flat and skeptical, the friend laughing him off; by the last shot the friend is smirking straight at him, the pitch made.",
+      "censor": "none"
+    },
+    {
+      "shots": [14, 15, 16, 17],
+      "clip_start": "00:20:16.753",
+      "clip_end": "00:20:30.266",
+      "depicts": ["establishing", "dialogue"],
+      "chars": [],
+      "action": "Night street: pedestrians cross in front of a lit automated garage bay. The student, backpack on, and the friend, now in a red beanie with a steering wheel under his arm, stop to face the lift; the student turns to look at him.",
+      "censor": "none"
+    },
+    {
+      "shots": [18, 19, 20, 21],
+      "clip_start": "00:20:30.266",
+      "clip_end": "00:20:45.281",
+      "depicts": ["action", "reveal"],
+      "chars": [],
+      "action": "The lift shuffles its platforms behind the glass, a yellow sports car and a black roadster sliding past, while the two wait in the street; a bright green car finally drops into the opening.",
+      "censor": "none"
+    },
+    {
+      "shots": [22, 23],
+      "clip_start": "00:20:45.281",
+      "clip_end": "00:20:54.457",
+      "depicts": ["reveal", "reaction"],
+      "chars": [],
+      "action": "Close on the green car's tailgate, embossed with a huge clenched green fist and forearm; cut back to the street and the friend is beaming while the student stays blank.",
+      "censor": "none"
+    },
+    {
+      "shots": [24, 25, 26],
+      "clip_start": "00:20:54.457",
+      "clip_end": "00:21:01.381",
+      "depicts": ["reveal", "action"],
+      "chars": [],
+      "action": "The green minivan sits out of the lift and the pair walk in to it; at the side window a shaggy green monster toy is propped up in the driver's seat.",
+      "censor": "none"
+    },
+    {
+      "shots": [27, 28, 29],
+      "clip_start": "00:21:01.381",
+      "clip_end": "00:21:16.187",
+      "depicts": ["reaction", "dialogue"],
+      "chars": [],
+      "action": "In the street the student grips his backpack straps, unimpressed; they face the van's nose with its brush bolted across the roof, and the friend ends up laughing openly at him.",
+      "censor": "none"
+    }
+  ]
+}

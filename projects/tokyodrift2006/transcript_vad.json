@@ -1,0 +1,2801 @@
+{
+  "language": "en (per-chunk detect+translate, misdetections corrected)",
+  "duration": 6254.19,
+  "model": "medium vad+perchunk+langfix",
+  "chunk_languages": {
+    "en": 344,
+    "ja": 27
+  },
+  "segments": [
+    {
+      "start": 26.36,
+      "end": 28.16,
+      "text": "I get a feeling there's gonna be a riot."
+    },
+    {
+      "start": 32.92,
+      "end": 36.54,
+      "text": "I don't read the newspapers because they all have"
+    },
+    {
+      "start": 188.6,
+      "end": 189.4,
+      "text": "It's a nice ride."
+    },
+    {
+      "start": 190.94,
+      "end": 196.58,
+      "text": "does the job. What job? Delivering pizzas?"
+    },
+    {
+      "start": 196.7,
+      "end": 199.3,
+      "text": "It's not the ride. It's the rider."
+    },
+    {
+      "start": 203.9,
+      "end": 204.7,
+      "text": "What the hell was that?"
+    },
+    {
+      "start": 207.8,
+      "end": 208.94,
+      "text": "You talking to my girl?"
+    },
+    {
+      "start": 208.94,
+      "end": 211.1,
+      "text": "Oh, shit. Here we go."
+    },
+    {
+      "start": 211.1,
+      "end": 214.44,
+      "text": "She was just admiring my ride."
+    },
+    {
+      "start": 215.86,
+      "end": 219.66,
+      "text": "My grandma's beauty could smoke that piece of shit, Trailer Trash."
+    },
+    {
+      "start": 219.66,
+      "end": 221.66,
+      "text": "What about your daddy's Viper?"
+    },
+    {
+      "start": 223.16,
+      "end": 225.96,
+      "text": "This beast's got 500 horsepower and a Borla exhaust system."
+    },
+    {
+      "start": 225.96,
+      "end": 228.46,
+      "text": "It does zero to 60 in, like, 4.3 seconds."
+    },
+    {
+      "start": 228.46,
+      "end": 229.96,
+      "text": "That's about right. That's about right."
+    },
+    {
+      "start": 229.96,
+      "end": 232.96,
+      "text": "Wow. You can read the brochure."
+    },
+    {
+      "start": 278.62,
+      "end": 280.42,
+      "text": "Guys, boys, let your cars do the talking."
+    },
+    {
+      "start": 282.39,
+      "end": 284.19,
+      "text": "Only race for pink slips"
+    },
+    {
+      "start": 285.13,
+      "end": 289.35,
+      "text": "This car goes for 80 grand. What would I do with a broken-ass piece of shit like that?"
+    },
+    {
+      "start": 299.8,
+      "end": 301.6,
+      "text": "winner gets"
+    },
+    {
+      "start": 302.97,
+      "end": 303.77,
+      "text": "Me."
+    },
+    {
+      "start": 606.26,
+      "end": 608.06,
+      "text": "Can I get a copy of that?"
+    },
+    {
+      "start": 610.36,
+      "end": 612.16,
+      "text": "You think this is a joke, huh?"
+    },
+    {
+      "start": 614.04,
+      "end": 615.84,
+      "text": "You see Ken and Barbie over there?"
+    },
+    {
+      "start": 615.84,
+      "end": 618.84,
+      "text": "They're gonna walk out of here without even a slap on the wrist."
+    },
+    {
+      "start": 618.84,
+      "end": 620.84,
+      "text": "Mommy and Daddy are too hooked up."
+    },
+    {
+      "start": 624.15,
+      "end": 626.31,
+      "text": "But I like screw-ups like you."
+    },
+    {
+      "start": 626.31,
+      "end": 627.63,
+      "text": "You know why?"
+    },
+    {
+      "start": 627.63,
+      "end": 630.99,
+      "text": "Because you're 100% guaranteed conviction."
+    },
+    {
+      "start": 630.99,
+      "end": 631.91,
+      "text": "Where's my car?"
+    },
+    {
+      "start": 631.91,
+      "end": 633.07,
+      "text": "I crushed it."
+    },
+    {
+      "start": 633.07,
+      "end": 633.71,
+      "text": "You did what?"
+    },
+    {
+      "start": 633.71,
+      "end": 634.31,
+      "text": "Sit down."
+    },
+    {
+      "start": 634.31,
+      "end": 634.71,
+      "text": "Easy."
+    },
+    {
+      "start": 634.71,
+      "end": 635.19,
+      "text": "You're done."
+    },
+    {
+      "start": 635.19,
+      "end": 635.75,
+      "text": "You understand me?"
+    },
+    {
+      "start": 635.75,
+      "end": 636.39,
+      "text": "You're done."
+    },
+    {
+      "start": 636.39,
+      "end": 637.67,
+      "text": "And all before your 18th birthday."
+    },
+    {
+      "start": 637.67,
+      "end": 638.51,
+      "text": "Now, sit down."
+    },
+    {
+      "start": 638.51,
+      "end": 639.51,
+      "text": "Thank you."
+    },
+    {
+      "start": 639.51,
+      "end": 639.53,
+      "text": "Thank you."
+    },
+    {
+      "start": 644.54,
+      "end": 646.34,
+      "text": "What the hell were you thinking, huh?"
+    },
+    {
+      "start": 647.51,
+      "end": 649.31,
+      "text": "Mrs. Boswell, please."
+    },
+    {
+      "start": 650.71,
+      "end": 652.51,
+      "text": "It's um, it's me, yes"
+    },
+    {
+      "start": 655.61,
+      "end": 660.01,
+      "text": "Officer, is it, um, illegal to smoke in here?"
+    },
+    {
+      "start": 667.9,
+      "end": 671.22,
+      "text": "It's a tough state. It's a pretty clear-cut case."
+    },
+    {
+      "start": 672.47,
+      "end": 674.27,
+      "text": "He'll be lucky if they don't try him as an adult."
+    },
+    {
+      "start": 677.5,
+      "end": 679.3,
+      "text": "This is our third..."
+    },
+    {
+      "start": 681.46,
+      "end": 683.76,
+      "text": "Your son's got two priors for reckless driving,"
+    },
+    {
+      "start": 683.76,
+      "end": 685.88,
+      "text": "willful destruction of property."
+    },
+    {
+      "start": 685.88,
+      "end": 688.0,
+      "text": "This makes it strike three."
+    },
+    {
+      "start": 688.0,
+      "end": 690.4,
+      "text": "They're definitely going to get him off the streets."
+    },
+    {
+      "start": 690.4,
+      "end": 692.16,
+      "text": "Well, there's just got to be another way."
+    },
+    {
+      "start": 692.16,
+      "end": 694.16,
+      "text": "Thanks for watching!"
+    },
+    {
+      "start": 702.74,
+      "end": 704.04,
+      "text": "Where are we moving this time?"
+    },
+    {
+      "start": 707.9,
+      "end": 709.7,
+      "text": "We're not moving anywhere."
+    },
+    {
+      "start": 824.47,
+      "end": 826.27,
+      "text": "Sure"
+    },
+    {
+      "start": 826.87,
+      "end": 829.59,
+      "text": "Thought you're gonna be here on the 7 today is the 7"
+    },
+    {
+      "start": 831.58,
+      "end": 833.38,
+      "text": "Look, just hold on one second."
+    },
+    {
+      "start": 847.86,
+      "end": 849.66,
+      "text": "Come on, I got it."
+    },
+    {
+      "start": 852.63,
+      "end": 853.43,
+      "text": "See you later."
+    },
+    {
+      "start": 855.19,
+      "end": 856.99,
+      "text": "Yeah"
+    },
+    {
+      "start": 860.54,
+      "end": 861.34,
+      "text": "Come on in."
+    },
+    {
+      "start": 867.03,
+      "end": 867.63,
+      "text": "This is it."
+    },
+    {
+      "start": 875.42,
+      "end": 878.22,
+      "text": "You know, Sean, I was, uh, I was gonna be there."
+    },
+    {
+      "start": 878.22,
+      "end": 880.22,
+      "text": "But your mom, she said the 7th scene."
+    },
+    {
+      "start": 880.22,
+      "end": 882.22,
+      "text": "We're a day ahead of you in Japan."
+    },
+    {
+      "start": 890.52,
+      "end": 892.32,
+      "text": "So, uh, I wish you well."
+    },
+    {
+      "start": 894.74,
+      "end": 896.54,
+      "text": "Where do I sleep?"
+    },
+    {
+      "start": 897.88,
+      "end": 901.68,
+      "text": "And you know she had no other choice, I mean, it was either this or Juvie Hall."
+    },
+    {
+      "start": 903.67,
+      "end": 906.47,
+      "text": "I mean, you just can't keep moving away every time you get into trouble."
+    },
+    {
+      "start": 907.45,
+      "end": 909.25,
+      "text": "Or for you"
+    },
+    {
+      "start": 912.54,
+      "end": 917.46,
+      "text": "Look neither of us asked for this, but I promise you mom might take care of you"
+    },
+    {
+      "start": 919.03,
+      "end": 921.13,
+      "text": "So you just go by the rules her and I agreed to,"
+    },
+    {
+      "start": 921.13,
+      "end": 924.31,
+      "text": "and I'm sure you'll manage just fine."
+    },
+    {
+      "start": 924.31,
+      "end": 925.47,
+      "text": "Rules?"
+    },
+    {
+      "start": 925.47,
+      "end": 927.27,
+      "text": "Yeah, rules."
+    },
+    {
+      "start": 927.27,
+      "end": 928.77,
+      "text": "Real simple."
+    },
+    {
+      "start": 928.77,
+      "end": 932.15,
+      "text": "You go to school, you come back here right after,"
+    },
+    {
+      "start": 932.15,
+      "end": 933.61,
+      "text": "and I don't want to see or hear"
+    },
+    {
+      "start": 933.61,
+      "end": 935.69,
+      "text": "about you anywhere near a car."
+    },
+    {
+      "start": 935.69,
+      "end": 937.69,
+      "text": "Thanks for watching!"
+    },
+    {
+      "start": 938.14,
+      "end": 939.94,
+      "text": "Yes, the bedroom is yours."
+    },
+    {
+      "start": 946.46,
+      "end": 947.26,
+      "text": "Make yourself comfortable."
+    },
+    {
+      "start": 950.71,
+      "end": 952.51,
+      "text": "Lights out in ten."
+    },
+    {
+      "start": 1012.44,
+      "end": 1014.24,
+      "text": "She's gotta be a kid."
+    },
+    {
+      "start": 1064.02,
+      "end": 1065.82,
+      "text": "There's no water in the warehouse."
+    },
+    {
+      "start": 1065.82,
+      "end": 1066.82,
+      "text": "Where are you looking?"
+    },
+    {
+      "start": 1066.82,
+      "end": 1067.82,
+      "text": "Oh, my."
+    },
+    {
+      "start": 1069.94,
+      "end": 1073.74,
+      "text": "Wrong train. I'm new here"
+    },
+    {
+      "start": 1075.29,
+      "end": 1077.09,
+      "text": "Ah, a transfer student."
+    },
+    {
+      "start": 1078.68,
+      "end": 1079.76,
+      "text": "Are you Boswell?"
+    },
+    {
+      "start": 1079.76,
+      "end": 1080.76,
+      "text": "Boswell, yes, ma'am."
+    },
+    {
+      "start": 1081.96,
+      "end": 1082.96,
+      "text": "Nice to meet you."
+    },
+    {
+      "start": 1084.09,
+      "end": 1086.83,
+      "text": "Oh, you haven't heard of the"
+    },
+    {
+      "start": 1086.83,
+      "end": 1087.83,
+      "text": "Uwabaki?"
+    },
+    {
+      "start": 1087.83,
+      "end": 1088.83,
+      "text": "Uwabaki."
+    },
+    {
+      "start": 1088.83,
+      "end": 1089.83,
+      "text": "Uwabaki."
+    },
+    {
+      "start": 1089.83,
+      "end": 1090.83,
+      "text": "Uwabaki."
+    },
+    {
+      "start": 1090.83,
+      "end": 1091.83,
+      "text": "It's not a greeting."
+    },
+    {
+      "start": 1091.83,
+      "end": 1092.83,
+      "text": "It's Uwabaki."
+    },
+    {
+      "start": 1092.83,
+      "end": 1094.83,
+      "text": "It's forbidden in Japan."
+    },
+    {
+      "start": 1094.83,
+      "end": 1095.83,
+      "text": "You have to wear Uwabaki properly."
+    },
+    {
+      "start": 1095.83,
+      "end": 1096.83,
+      "text": "Uwabaki."
+    },
+    {
+      "start": 1096.83,
+      "end": 1097.83,
+      "text": "Everyone wears it."
+    },
+    {
+      "start": 1097.83,
+      "end": 1098.83,
+      "text": "Uwabaki."
+    },
+    {
+      "start": 1098.83,
+      "end": 1099.83,
+      "text": "It's Uwabaki."
+    },
+    {
+      "start": 1099.83,
+      "end": 1100.83,
+      "text": "Uwabaki."
+    },
+    {
+      "start": 1100.83,
+      "end": 1101.83,
+      "text": "Uwabaki."
+    },
+    {
+      "start": 1101.83,
+      "end": 1103.83,
+      "text": "Thank you for watching."
+    },
+    {
+      "start": 1108.7,
+      "end": 1110.5,
+      "text": "Wabaki"
+    },
+    {
+      "start": 1142.26,
+      "end": 1144.06,
+      "text": "Japanese food is like the army."
+    },
+    {
+      "start": 1145.24,
+      "end": 1147.04,
+      "text": "Don't ask don't tell"
+    },
+    {
+      "start": 1148.25,
+      "end": 1149.55,
+      "text": "Name's Twinkie."
+    },
+    {
+      "start": 1149.55,
+      "end": 1151.55,
+      "text": "Hey, I know this show ain't have a laptop."
+    },
+    {
+      "start": 1153.62,
+      "end": 1157.04,
+      "text": "Yeah, I hope you have price"
+    },
+    {
+      "start": 1159.0,
+      "end": 1160.14,
+      "text": "Nah, I'm cool."
+    },
+    {
+      "start": 1160.14,
+      "end": 1163.14,
+      "text": "60% off, since we're both army brats and everything."
+    },
+    {
+      "start": 1164.22,
+      "end": 1166.02,
+      "text": "I ain't got no cash, man."
+    },
+    {
+      "start": 1166.02,
+      "end": 1168.02,
+      "text": "And I ain't an army brat."
+    },
+    {
+      "start": 1168.02,
+      "end": 1170.02,
+      "text": "All right, all right."
+    },
+    {
+      "start": 1170.02,
+      "end": 1172.02,
+      "text": "Well, what about a cell phone, huh?"
+    },
+    {
+      "start": 1172.25,
+      "end": 1174.55,
+      "text": "Everybody needs a cell phone."
+    },
+    {
+      "start": 1174.55,
+      "end": 1179.05,
+      "text": "No offense, but I'm probably not gonna be here long enough to remember your name."
+    },
+    {
+      "start": 1180.25,
+      "end": 1182.05,
+      "text": "You're gonna need some new shoes to book town with me"
+    },
+    {
+      "start": 1183.7,
+      "end": 1186.26,
+      "text": "Like Michael Jordan, I love my"
+    },
+    {
+      "start": 1188.15,
+      "end": 1189.95,
+      "text": "Check this out."
+    },
+    {
+      "start": 1189.95,
+      "end": 1190.95,
+      "text": "Brand new Jordans."
+    },
+    {
+      "start": 1190.95,
+      "end": 1191.95,
+      "text": "Not even out yet."
+    },
+    {
+      "start": 1191.95,
+      "end": 1193.95,
+      "text": "But Bron James can't even get his hands on those."
+    },
+    {
+      "start": 1197.43,
+      "end": 1199.23,
+      "text": "You selling Sparco stand with?"
+    },
+    {
+      "start": 1200.09,
+      "end": 1204.21,
+      "text": "I don't know that's mine right there when I even pay retail for"
+    },
+    {
+      "start": 1205.88,
+      "end": 1210.98,
+      "text": "What you driving? On my ride? Yeah. Yeah, my ride's one of a kind. Show me."
+    },
+    {
+      "start": 1212.34,
+      "end": 1214.14,
+      "text": "Thought you weren't sticking around"
+    },
+    {
+      "start": 1215.74,
+      "end": 1217.54,
+      "text": "All right"
+    },
+    {
+      "start": 1279.0,
+      "end": 1280.8,
+      "text": "I see somebody got jokes, huh?"
+    },
+    {
+      "start": 1280.8,
+      "end": 1283.8,
+      "text": "All right. I don't know if you're ready for them, though."
+    },
+    {
+      "start": 1283.8,
+      "end": 1285.8,
+      "text": "You look a little nervous."
+    },
+    {
+      "start": 1287.0,
+      "end": 1287.8,
+      "text": "What up, Toast?"
+    },
+    {
+      "start": 1392.7,
+      "end": 1393.5,
+      "text": "Then we're done here."
+    },
+    {
+      "start": 1396.09,
+      "end": 1397.89,
+      "text": "You wouldn't have that problem with a V8."
+    },
+    {
+      "start": 1399.64,
+      "end": 1403.44,
+      "text": "Boy, all they care about is who's got the biggest engine."
+    },
+    {
+      "start": 1404.98,
+      "end": 1407.28,
+      "text": "I'm a guy. It's in my DNA."
+    },
+    {
+      "start": 1408.7,
+      "end": 1410.5,
+      "text": "So y'all race with these things, huh?"
+    },
+    {
+      "start": 1410.5,
+      "end": 1412.5,
+      "text": "Cute little toys."
+    },
+    {
+      "start": 1413.94,
+      "end": 1416.74,
+      "text": "You know, I almost didn't recognize you without your slippers on."
+    },
+    {
+      "start": 1416.74,
+      "end": 1418.74,
+      "text": "Don't you mean wabaki?"
+    },
+    {
+      "start": 1420.31,
+      "end": 1422.11,
+      "text": "Nilo, right?"
+    },
+    {
+      "start": 1422.74,
+      "end": 1424.54,
+      "text": "You're a quick learner."
+    },
+    {
+      "start": 1427.32,
+      "end": 1433.2,
+      "text": "So where are you from anyway here? No, I mean not where you live. Where'd you come from?"
+    },
+    {
+      "start": 1448.57,
+      "end": 1450.73,
+      "text": "That's what you're in the school, girls, D."
+    },
+    {
+      "start": 1450.81,
+      "end": 1453.77,
+      "text": "You're moving up in the world. You gotta elevate your company."
+    },
+    {
+      "start": 1453.85,
+      "end": 1456.37,
+      "text": "Wednesday, Wednesday, meet Thursday. God!"
+    },
+    {
+      "start": 1461.85,
+      "end": 1463.65,
+      "text": "Ladies hold that thought all right"
+    },
+    {
+      "start": 1467.22,
+      "end": 1468.32,
+      "text": "He was just leaving."
+    },
+    {
+      "start": 1468.32,
+      "end": 1469.32,
+      "text": "Who are you?"
+    },
+    {
+      "start": 1471.0,
+      "end": 1472.8,
+      "text": "Bye, we're coming."
+    },
+    {
+      "start": 1473.37,
+      "end": 1475.17,
+      "text": "I'm sorry, I don't speak Japanese."
+    },
+    {
+      "start": 1481.24,
+      "end": 1482.34,
+      "text": "Gaijin."
+    },
+    {
+      "start": 1482.34,
+      "end": 1483.84,
+      "text": "Takashi."
+    },
+    {
+      "start": 1483.84,
+      "end": 1485.44,
+      "text": "We were just talking."
+    },
+    {
+      "start": 1485.44,
+      "end": 1486.94,
+      "text": "This isn't your scene."
+    },
+    {
+      "start": 1488.22,
+      "end": 1490.02,
+      "text": "That word you common"
+    },
+    {
+      "start": 1490.71,
+      "end": 1492.51,
+      "text": "Gaijin or something"
+    },
+    {
+      "start": 1492.75,
+      "end": 1494.75,
+      "text": "What does that mean exactly?"
+    },
+    {
+      "start": 1495.99,
+      "end": 1497.79,
+      "text": "means"
+    },
+    {
+      "start": 1501.46,
+      "end": 1502.36,
+      "text": "That's exactly what we're gonna do."
+    },
+    {
+      "start": 1502.36,
+      "end": 1503.36,
+      "text": "Come on, man, let's rock."
+    },
+    {
+      "start": 1503.36,
+      "end": 1504.86,
+      "text": "Hey, yo, look, man, it's Yakuza."
+    },
+    {
+      "start": 1504.86,
+      "end": 1505.86,
+      "text": "Have a seat."
+    },
+    {
+      "start": 1507.06,
+      "end": 1510.68,
+      "text": "That's funny cuz I thought this was like a free country"
+    },
+    {
+      "start": 1512.06,
+      "end": 1513.86,
+      "text": "where a girl can talk to whoever she wants."
+    },
+    {
+      "start": 1521.88,
+      "end": 1523.68,
+      "text": "You like the Justin Timberlake of Japan, right?"
+    },
+    {
+      "start": 1523.68,
+      "end": 1524.68,
+      "text": "Mm-hmm."
+    },
+    {
+      "start": 1530.68,
+      "end": 1531.68,
+      "text": "Leave."
+    },
+    {
+      "start": 1531.68,
+      "end": 1532.68,
+      "text": "Damn, man!"
+    },
+    {
+      "start": 1532.68,
+      "end": 1533.68,
+      "text": "You know Yakuza?"
+    },
+    {
+      "start": 1533.68,
+      "end": 1534.68,
+      "text": "The mafia?"
+    },
+    {
+      "start": 1536.95,
+      "end": 1543.19,
+      "text": "Look sorry DK son monkey didn't have his banana today. Hey D. Let's go. It's time a race"
+    },
+    {
+      "start": 1548.09,
+      "end": 1549.89,
+      "text": "Good luck, Timberlake."
+    },
+    {
+      "start": 1565.94,
+      "end": 1566.58,
+      "text": "Let's race."
+    },
+    {
+      "start": 1569.98,
+      "end": 1571.78,
+      "text": "With what, huh?"
+    },
+    {
+      "start": 1571.78,
+      "end": 1573.78,
+      "text": "Your skateboard?"
+    },
+    {
+      "start": 1575.7,
+      "end": 1577.5,
+      "text": "You like to sound cocky when you've got no ride?"
+    },
+    {
+      "start": 1578.68,
+      "end": 1580.48,
+      "text": "Take mine"
+    },
+    {
+      "start": 1584.25,
+      "end": 1585.05,
+      "text": "Let's race."
+    },
+    {
+      "start": 1589.4,
+      "end": 1591.5,
+      "text": "What I want to see what the kids got"
+    },
+    {
+      "start": 1598.68,
+      "end": 1600.48,
+      "text": "Can he drive?"
+    },
+    {
+      "start": 1601.3,
+      "end": 1603.1,
+      "text": "Can he drive?"
+    },
+    {
+      "start": 1604.76,
+      "end": 1606.56,
+      "text": "You know what DK stands for?"
+    },
+    {
+      "start": 1607.9,
+      "end": 1609.7,
+      "text": "Donkey Kong?"
+    },
+    {
+      "start": 1609.7,
+      "end": 1611.7,
+      "text": "Drift King."
+    },
+    {
+      "start": 1612.73,
+      "end": 1614.53,
+      "text": "Dream"
+    },
+    {
+      "start": 1614.84,
+      "end": 1616.64,
+      "text": "What do you mean driven?"
+    },
+    {
+      "start": 1629.91,
+      "end": 1631.71,
+      "text": "Still need a dictionary."
+    },
+    {
+      "start": 1632.63,
+      "end": 1635.93,
+      "text": "That real famous painting, the one and the woman who's smiling all the time?"
+    },
+    {
+      "start": 1635.93,
+      "end": 1636.93,
+      "text": "The Mona Lisa."
+    },
+    {
+      "start": 1636.93,
+      "end": 1637.93,
+      "text": "Right, right, right, right."
+    },
+    {
+      "start": 1637.93,
+      "end": 1638.93,
+      "text": "Mona Lisa."
+    },
+    {
+      "start": 1638.93,
+      "end": 1639.93,
+      "text": "But look, man."
+    },
+    {
+      "start": 1639.93,
+      "end": 1641.93,
+      "text": "This car right here is like the Mona Lisa, the drift work."
+    },
+    {
+      "start": 1641.93,
+      "end": 1644.93,
+      "text": "The time we built this bad boy from ground up."
+    },
+    {
+      "start": 1644.93,
+      "end": 1646.93,
+      "text": "We talking forged pistons."
+    },
+    {
+      "start": 1646.93,
+      "end": 1649.93,
+      "text": "Bigger turbo, new rides, new crankshaft."
+    },
+    {
+      "start": 1649.93,
+      "end": 1651.93,
+      "text": "Hey, man, Hansley, it ain't cheap, man."
+    },
+    {
+      "start": 1651.93,
+      "end": 1652.93,
+      "text": "You feel me?"
+    },
+    {
+      "start": 1654.58,
+      "end": 1656.94,
+      "text": "if I needed a 30 second lesson on how to drift."
+    },
+    {
+      "start": 1658.55,
+      "end": 1660.83,
+      "text": "All right, look man, there's lots of ways you can do this, all right?"
+    },
+    {
+      "start": 1660.83,
+      "end": 1661.83,
+      "text": "Hand breaking is the easiest."
+    },
+    {
+      "start": 1661.83,
+      "end": 1663.63,
+      "text": "So the first thing I want you to do, I want you to rip that E-brake."
+    },
+    {
+      "start": 1663.63,
+      "end": 1664.63,
+      "text": "All right?"
+    },
+    {
+      "start": 1664.63,
+      "end": 1665.87,
+      "text": "After you rip the E-brake, then I want you to power over."
+    },
+    {
+      "start": 1668.82,
+      "end": 1671.62,
+      "text": "You know what? Just don't mess up Moana, alright?"
+    },
+    {
+      "start": 1679.48,
+      "end": 1681.28,
+      "text": "Without you, it's enormous When you got it, you got it"
+    },
+    {
+      "start": 1682.17,
+      "end": 1684.97,
+      "text": "I can't even call it, ain't really more to say about me now, call us"
+    },
+    {
+      "start": 1721.75,
+      "end": 1722.55,
+      "text": "Welcome."
+    },
+    {
+      "start": 1988.6,
+      "end": 1990.4,
+      "text": "I thought it was around seven o'clock."
+    },
+    {
+      "start": 1991.26,
+      "end": 1994.06,
+      "text": "You know, U.S. is a few hours behind."
+    },
+    {
+      "start": 1997.08,
+      "end": 1998.88,
+      "text": "Looks like the party was better here anyway."
+    },
+    {
+      "start": 2003.32,
+      "end": 2005.12,
+      "text": "Have you been racing, Sean?"
+    },
+    {
+      "start": 2014.39,
+      "end": 2015.03,
+      "text": "Go ahead."
+    },
+    {
+      "start": 2017.27,
+      "end": 2018.83,
+      "text": "You don't get it, do you?"
+    },
+    {
+      "start": 2018.83,
+      "end": 2021.31,
+      "text": "You have nowhere else to go."
+    },
+    {
+      "start": 2021.31,
+      "end": 2023.51,
+      "text": "If it doesn't work out here, you're going to jail."
+    },
+    {
+      "start": 2023.51,
+      "end": 2024.51,
+      "text": "Do you get that?"
+    },
+    {
+      "start": 2028.34,
+      "end": 2030.14,
+      "text": "This isn't a game."
+    },
+    {
+      "start": 2030.14,
+      "end": 2032.14,
+      "text": "And I'm gonna tell you one more time."
+    },
+    {
+      "start": 2032.14,
+      "end": 2034.14,
+      "text": "If you're gonna live under my roof,"
+    },
+    {
+      "start": 2034.14,
+      "end": 2037.14,
+      "text": "you're gonna go by my rules or get out."
+    },
+    {
+      "start": 2037.14,
+      "end": 2039.14,
+      "text": "Understand?"
+    },
+    {
+      "start": 2040.41,
+      "end": 2042.21,
+      "text": "Understand!"
+    },
+    {
+      "start": 2042.21,
+      "end": 2044.21,
+      "text": "Yes, sir."
+    },
+    {
+      "start": 2097.02,
+      "end": 2097.82,
+      "text": "I'll get you your money."
+    },
+    {
+      "start": 2099.32,
+      "end": 2101.12,
+      "text": "Why are you talking like you have a choice?"
+    },
+    {
+      "start": 2115.86,
+      "end": 2118.66,
+      "text": "There's a guy in there with a paw that owes me some money."
+    },
+    {
+      "start": 2118.66,
+      "end": 2119.66,
+      "text": "A paw?"
+    },
+    {
+      "start": 2121.85,
+      "end": 2123.65,
+      "text": "The game in my mind"
+    },
+    {
+      "start": 2126.49,
+      "end": 2128.29,
+      "text": "Okay"
+    },
+    {
+      "start": 2144.25,
+      "end": 2145.05,
+      "text": "It's over."
+    },
+    {
+      "start": 2177.69,
+      "end": 2179.49,
+      "text": "Some of them are sad."
+    },
+    {
+      "start": 2181.56,
+      "end": 2183.36,
+      "text": "Hon said"
+    },
+    {
+      "start": 2185.69,
+      "end": 2187.49,
+      "text": "Okay"
+    },
+    {
+      "start": 2195.51,
+      "end": 2197.55,
+      "text": "I said, I will walk and eat."
+    },
+    {
+      "start": 2236.6,
+      "end": 2238.2,
+      "text": "pick up and delivery business now."
+    },
+    {
+      "start": 2239.36,
+      "end": 2241.8,
+      "text": "I might call you once a week or once an hour."
+    },
+    {
+      "start": 2241.8,
+      "end": 2243.32,
+      "text": "I don't care if you're sick as a dog"
+    },
+    {
+      "start": 2243.32,
+      "end": 2245.32,
+      "text": "or in bed with Beyonce."
+    },
+    {
+      "start": 2245.32,
+      "end": 2246.46,
+      "text": "I call you show."
+    },
+    {
+      "start": 2247.8,
+      "end": 2249.6,
+      "text": "Only if you teach me how to drift."
+    },
+    {
+      "start": 2249.6,
+      "end": 2251.6,
+      "text": "This ain't a negotiation."
+    },
+    {
+      "start": 2251.6,
+      "end": 2253.6,
+      "text": "I wasn't negotiating."
+    },
+    {
+      "start": 2291.96,
+      "end": 2292.6,
+      "text": "Bye."
+    },
+    {
+      "start": 2302.42,
+      "end": 2304.22,
+      "text": "What's he doing here?"
+    },
+    {
+      "start": 2304.22,
+      "end": 2308.22,
+      "text": "He's paying me back for that crumpled beer can sitting in my garage."
+    },
+    {
+      "start": 2308.22,
+      "end": 2310.22,
+      "text": "Hope he's not a driving, huh?"
+    },
+    {
+      "start": 2313.27,
+      "end": 2315.07,
+      "text": "Guys"
+    },
+    {
+      "start": 2315.54,
+      "end": 2318.86,
+      "text": "When is the next race? I do really like to be there"
+    },
+    {
+      "start": 2320.66,
+      "end": 2322.46,
+      "text": "Why not be in it?"
+    },
+    {
+      "start": 2322.46,
+      "end": 2323.46,
+      "text": "Oh, man."
+    },
+    {
+      "start": 2323.46,
+      "end": 2324.46,
+      "text": "Cowboy, no."
+    },
+    {
+      "start": 2324.46,
+      "end": 2325.46,
+      "text": "It's a molly car."
+    },
+    {
+      "start": 2327.38,
+      "end": 2328.18,
+      "text": "You heard me."
+    },
+    {
+      "start": 2329.72,
+      "end": 2334.56,
+      "text": "Ready to do this another time ready to take the 86 Corolla off your hands"
+    },
+    {
+      "start": 2337.46,
+      "end": 2338.26,
+      "text": "Alright."
+    },
+    {
+      "start": 2339.26,
+      "end": 2341.06,
+      "text": "Put up the 72 skydive."
+    },
+    {
+      "start": 2342.14,
+      "end": 2343.94,
+      "text": "Done"
+    },
+    {
+      "start": 2345.37,
+      "end": 2347.17,
+      "text": "What do you think, Morimoto?"
+    },
+    {
+      "start": 2350.9,
+      "end": 2352.7,
+      "text": "Get him out of here"
+    },
+    {
+      "start": 2353.66,
+      "end": 2355.46,
+      "text": "We've got business to discuss."
+    },
+    {
+      "start": 2365.66,
+      "end": 2369.76,
+      "text": "今までのディテールについて 心配してるんだ"
+    },
+    {
+      "start": 2372.95,
+      "end": 2374.75,
+      "text": "When is the shipment arriving home?"
+    },
+    {
+      "start": 2376.92,
+      "end": 2378.72,
+      "text": "Sit pretty and let me handle it"
+    },
+    {
+      "start": 2379.96,
+      "end": 2381.76,
+      "text": "Gosh Luka"
+    },
+    {
+      "start": 2401.11,
+      "end": 2405.91,
+      "text": "Hey Dad, it's me. I had to stay at the school for some extracurricular activities."
+    },
+    {
+      "start": 2407.45,
+      "end": 2409.25,
+      "text": "So I'll be home a little later"
+    },
+    {
+      "start": 2411.9,
+      "end": 2412.7,
+      "text": "Sir."
+    },
+    {
+      "start": 2415.42,
+      "end": 2417.22,
+      "text": "You really need to stop following me around."
+    },
+    {
+      "start": 2418.55,
+      "end": 2423.61,
+      "text": "What are you doing here? I thought I'd stop by and ask your boyfriend for some drifting lessons"
+    },
+    {
+      "start": 2425.43,
+      "end": 2429.83,
+      "text": "Trust me you don't want to be a part of this world. It's good enough for you"
+    },
+    {
+      "start": 2430.51,
+      "end": 2433.79,
+      "text": "You don't know anything about me, but why don't you think I know?"
+    },
+    {
+      "start": 2435.26,
+      "end": 2437.18,
+      "text": "Cuz I'm a gajin an outsider"
+    },
+    {
+      "start": 2439.22,
+      "end": 2441.02,
+      "text": "Let me guess."
+    },
+    {
+      "start": 2441.02,
+      "end": 2442.02,
+      "text": "You're an army brat."
+    },
+    {
+      "start": 2442.02,
+      "end": 2444.02,
+      "text": "You moved around a lot."
+    },
+    {
+      "start": 2444.02,
+      "end": 2446.02,
+      "text": "Your mom and data was never home."
+    },
+    {
+      "start": 2446.02,
+      "end": 2449.02,
+      "text": "So you walked around pissed off all the time."
+    },
+    {
+      "start": 2449.02,
+      "end": 2452.02,
+      "text": "And now you're fanning your family with these drift nuts."
+    },
+    {
+      "start": 2456.6,
+      "end": 2458.4,
+      "text": "Zero for one cowboy."
+    },
+    {
+      "start": 2470.26,
+      "end": 2473.54,
+      "text": "Can't you go find a nice Japanese girl like the rest of the white guys around here?"
+    },
+    {
+      "start": 2479.9,
+      "end": 2481.7,
+      "text": "Is everything okay back there?"
+    },
+    {
+      "start": 2483.0,
+      "end": 2486.8,
+      "text": "I can handle this guy, I thought he was a Jacuzzi."
+    },
+    {
+      "start": 2488.06,
+      "end": 2489.86,
+      "text": "It's a hunk of the huckoosa"
+    },
+    {
+      "start": 2490.84,
+      "end": 2493.36,
+      "text": "It's just plain gangster and there's a lot of storage room"
+    },
+    {
+      "start": 2497.02,
+      "end": 2498.82,
+      "text": "I need them"
+    },
+    {
+      "start": 2499.58,
+      "end": 2502.38,
+      "text": "Who keeps Uncle Kamada from poking around too much?"
+    },
+    {
+      "start": 2503.38,
+      "end": 2504.38,
+      "text": "What do you mean?"
+    },
+    {
+      "start": 2505.94,
+      "end": 2510.42,
+      "text": "His uncle gets a piece of the action from everyone on his turf on his turf"
+    },
+    {
+      "start": 2512.28,
+      "end": 2515.08,
+      "text": "50% of something is better than 100% of nothing."
+    },
+    {
+      "start": 2518.14,
+      "end": 2519.94,
+      "text": "So a V-Race DK."
+    },
+    {
+      "start": 2520.7,
+      "end": 2522.5,
+      "text": "Why not see that good?"
+    },
+    {
+      "start": 2523.18,
+      "end": 2525.18,
+      "text": "It's the point of a race"
+    },
+    {
+      "start": 2526.81,
+      "end": 2533.33,
+      "text": "See if I'm better than the other guy just proves you're faster. That's all that way to race. It would have to be for something important"
+    },
+    {
+      "start": 2534.37,
+      "end": 2536.37,
+      "text": "Well, why else do it at all?"
+    },
+    {
+      "start": 2539.03,
+      "end": 2540.83,
+      "text": "But why are you letting me race?"
+    },
+    {
+      "start": 2540.83,
+      "end": 2542.83,
+      "text": "That's your DK's kryptonite."
+    },
+    {
+      "start": 2544.92,
+      "end": 2546.72,
+      "text": "And you owe me a car"
+    },
+    {
+      "start": 2548.54,
+      "end": 2550.34,
+      "text": "I'll see you in the next one."
+    },
+    {
+      "start": 2550.34,
+      "end": 2550.84,
+      "text": "Bye!"
+    },
+    {
+      "start": 2579.54,
+      "end": 2581.34,
+      "text": "These cars are the only factory tuned."
+    },
+    {
+      "start": 2581.34,
+      "end": 2584.34,
+      "text": "You can do better than 180k, they can't catch you."
+    },
+    {
+      "start": 2584.34,
+      "end": 2586.34,
+      "text": "So they don't even try."
+    },
+    {
+      "start": 2588.34,
+      "end": 2589.34,
+      "text": "You know what?"
+    },
+    {
+      "start": 2589.34,
+      "end": 2592.34,
+      "text": "I'm beginning to like this country already."
+    },
+    {
+      "start": 2607.99,
+      "end": 2608.79,
+      "text": "Danny!"
+    },
+    {
+      "start": 2610.01,
+      "end": 2611.81,
+      "text": "You're looking good"
+    },
+    {
+      "start": 2617.02,
+      "end": 2618.82,
+      "text": "You"
+    },
+    {
+      "start": 2624.5,
+      "end": 2625.3,
+      "text": "We love you all."
+    },
+    {
+      "start": 2646.55,
+      "end": 2648.35,
+      "text": "Come on"
+    },
+    {
+      "start": 2682.33,
+      "end": 2684.13,
+      "text": "All these girls, man, they look like..."
+    },
+    {
+      "start": 2684.13,
+      "end": 2685.13,
+      "text": "What, models?"
+    },
+    {
+      "start": 2685.13,
+      "end": 2686.13,
+      "text": "Check it out."
+    },
+    {
+      "start": 2686.13,
+      "end": 2689.13,
+      "text": "See, Tokyo is the fashion capital on this side of the planet, right?"
+    },
+    {
+      "start": 2689.13,
+      "end": 2691.13,
+      "text": "Now, imagine you've been posing all day."
+    },
+    {
+      "start": 2691.13,
+      "end": 2692.13,
+      "text": "That's a lot of hard work."
+    },
+    {
+      "start": 2692.13,
+      "end": 2695.13,
+      "text": "Not only do you get tired, but on top of that, you want to have a little fun,"
+    },
+    {
+      "start": 2695.13,
+      "end": 2697.13,
+      "text": "but you can't, because you don't even know nobody in town."
+    },
+    {
+      "start": 2697.13,
+      "end": 2701.13,
+      "text": "Most of the guys around here are too chick as shit to even try picking up on you."
+    },
+    {
+      "start": 2701.13,
+      "end": 2702.13,
+      "text": "So what do you do?"
+    },
+    {
+      "start": 2704.54,
+      "end": 2706.62,
+      "text": "Man you talk to the little dude who makes you laugh"
+    },
+    {
+      "start": 2710.07,
+      "end": 2712.07,
+      "text": "Look, man, I don't just think outside the box."
+    },
+    {
+      "start": 2712.07,
+      "end": 2713.57,
+      "text": "I tear it up."
+    },
+    {
+      "start": 2713.57,
+      "end": 2715.27,
+      "text": "It's my thing."
+    },
+    {
+      "start": 2715.27,
+      "end": 2716.27,
+      "text": "Yo!"
+    },
+    {
+      "start": 2717.75,
+      "end": 2719.55,
+      "text": "Americanos niggas or shit"
+    },
+    {
+      "start": 2738.71,
+      "end": 2740.51,
+      "text": "Now"
+    },
+    {
+      "start": 2747.77,
+      "end": 2749.57,
+      "text": "It's time to whistle at a A."
+    },
+    {
+      "start": 2749.57,
+      "end": 2751.11,
+      "text": "Yeah."
+    },
+    {
+      "start": 2751.32,
+      "end": 2753.12,
+      "text": "My world"
+    },
+    {
+      "start": 2786.01,
+      "end": 2790.05,
+      "text": "You're representing me now, what you think? I'm gonna let you roll in in Hyundai?"
+    },
+    {
+      "start": 2825.66,
+      "end": 2826.46,
+      "text": "It's a bit late."
+    },
+    {
+      "start": 2831.16,
+      "end": 2832.96,
+      "text": "In one eye, she can trip better than that"
+    },
+    {
+      "start": 2836.73,
+      "end": 2838.53,
+      "text": "What did you find this guy?"
+    },
+    {
+      "start": 2840.38,
+      "end": 2842.18,
+      "text": "He's just got a drift!"
+    },
+    {
+      "start": 2861.69,
+      "end": 2863.49,
+      "text": "Good morning."
+    },
+    {
+      "start": 2865.85,
+      "end": 2867.65,
+      "text": "That's yours"
+    },
+    {
+      "start": 2868.47,
+      "end": 2869.27,
+      "text": "It sure is."
+    },
+    {
+      "start": 2877.34,
+      "end": 2879.14,
+      "text": "What happened?"
+    },
+    {
+      "start": 2879.7,
+      "end": 2881.5,
+      "text": "I don't know"
+    },
+    {
+      "start": 2881.62,
+      "end": 2883.42,
+      "text": "I found it this way at the base."
+    },
+    {
+      "start": 2887.26,
+      "end": 2889.06,
+      "text": "That's got potential."
+    },
+    {
+      "start": 2893.59,
+      "end": 2896.39,
+      "text": "Yeah, maybe. We'll see."
+    },
+    {
+      "start": 2900.98,
+      "end": 2903.34,
+      "text": "You know, Sean, the Japanese have a saying,"
+    },
+    {
+      "start": 2903.34,
+      "end": 2905.58,
+      "text": "deru kui wa utarero."
+    },
+    {
+      "start": 2906.74,
+      "end": 2908.54,
+      "text": "The nail that sticks out gets hammered."
+    },
+    {
+      "start": 2913.24,
+      "end": 2914.24,
+      "text": "You're gonna be late."
+    },
+    {
+      "start": 2948.09,
+      "end": 2949.89,
+      "text": "That's what I want to know"
+    },
+    {
+      "start": 2956.86,
+      "end": 2958.66,
+      "text": "Hey, whoa."
+    },
+    {
+      "start": 2958.66,
+      "end": 2961.66,
+      "text": "That must have been a misunderstanding."
+    },
+    {
+      "start": 2961.66,
+      "end": 2963.66,
+      "text": "Out of my way."
+    },
+    {
+      "start": 2963.66,
+      "end": 2964.66,
+      "text": "What's going on?"
+    },
+    {
+      "start": 2964.66,
+      "end": 2965.66,
+      "text": "Take it easy."
+    },
+    {
+      "start": 2965.66,
+      "end": 2967.66,
+      "text": "Hey, look, man, I don't do refunds, all right?"
+    },
+    {
+      "start": 2967.66,
+      "end": 2968.66,
+      "text": "Okay, let's go."
+    },
+    {
+      "start": 2968.66,
+      "end": 2969.66,
+      "text": "Let's go."
+    },
+    {
+      "start": 2969.66,
+      "end": 2970.66,
+      "text": "Let's go."
+    },
+    {
+      "start": 2970.66,
+      "end": 2972.66,
+      "text": "Let's do it again."
+    },
+    {
+      "start": 2975.83,
+      "end": 2977.63,
+      "text": "Here"
+    },
+    {
+      "start": 2978.1,
+      "end": 2979.9,
+      "text": "Try not to break this."
+    },
+    {
+      "start": 2994.39,
+      "end": 3000.35,
+      "text": "Say man, what the hell is wrong with you, huh? Now everybody's going exchanges around here. Damn"
+    },
+    {
+      "start": 3013.75,
+      "end": 3015.55,
+      "text": "Not easy saving the day, is it?"
+    },
+    {
+      "start": 3016.76,
+      "end": 3018.56,
+      "text": "Maybe you can give me some porn or sometime"
+    },
+    {
+      "start": 3019.77,
+      "end": 3021.57,
+      "text": "You're doing all right."
+    },
+    {
+      "start": 3022.62,
+      "end": 3023.42,
+      "text": "Thanks."
+    },
+    {
+      "start": 3027.29,
+      "end": 3029.09,
+      "text": "Hey"
+    },
+    {
+      "start": 3029.5,
+      "end": 3031.3,
+      "text": "Yeah"
+    },
+    {
+      "start": 3031.64,
+      "end": 3033.44,
+      "text": "Sorry about those and that"
+    },
+    {
+      "start": 3034.36,
+      "end": 3036.16,
+      "text": "Your life isn't any of my business."
+    },
+    {
+      "start": 3038.33,
+      "end": 3039.13,
+      "text": "It's okay."
+    },
+    {
+      "start": 3053.18,
+      "end": 3053.98,
+      "text": "No, no, no, no."
+    },
+    {
+      "start": 3056.54,
+      "end": 3058.84,
+      "text": "And I'm moving in the right direction"
+    },
+    {
+      "start": 3058.84,
+      "end": 3061.84,
+      "text": "And I dare you not to show me anything"
+    },
+    {
+      "start": 3063.99,
+      "end": 3065.79,
+      "text": "That was a foul!"
+    },
+    {
+      "start": 3065.79,
+      "end": 3067.79,
+      "text": "That was a foul!"
+    },
+    {
+      "start": 3069.05,
+      "end": 3069.85,
+      "text": "Wake her out!"
+    },
+    {
+      "start": 3069.85,
+      "end": 3070.85,
+      "text": "Wake her!"
+    },
+    {
+      "start": 3070.85,
+      "end": 3072.85,
+      "text": "What do I look like, a zebra?"
+    },
+    {
+      "start": 3080.06,
+      "end": 3081.86,
+      "text": "So how'd you end up over here anyway?"
+    },
+    {
+      "start": 3083.8,
+      "end": 3085.6,
+      "text": "Well, you know those old westerns?"
+    },
+    {
+      "start": 3087.1,
+      "end": 3088.9,
+      "text": "Did the cowboys make a run for the border?"
+    },
+    {
+      "start": 3092.7,
+      "end": 3094.0,
+      "text": "This is my Mexico."
+    },
+    {
+      "start": 3097.94,
+      "end": 3100.54,
+      "text": "Why didn't you let me race with your car?"
+    },
+    {
+      "start": 3100.54,
+      "end": 3102.04,
+      "text": "You knew I was gonna wreck it."
+    },
+    {
+      "start": 3103.61,
+      "end": 3104.41,
+      "text": "Why not?"
+    },
+    {
+      "start": 3105.94,
+      "end": 3107.74,
+      "text": "Because there's a lot of money."
+    },
+    {
+      "start": 3107.74,
+      "end": 3109.74,
+      "text": "I have money."
+    },
+    {
+      "start": 3111.1,
+      "end": 3112.9,
+      "text": "This trust in character I need around me."
+    },
+    {
+      "start": 3115.77,
+      "end": 3119.57,
+      "text": "who you choose to be around you, but you know who you are."
+    },
+    {
+      "start": 3121.69,
+      "end": 3124.27,
+      "text": "One car in exchange for knowing what a man's made of"
+    },
+    {
+      "start": 3125.66,
+      "end": 3127.46,
+      "text": "That's a prize I can live with."
+    },
+    {
+      "start": 3132.41,
+      "end": 3134.21,
+      "text": "Look at all those people down there."
+    },
+    {
+      "start": 3135.45,
+      "end": 3137.25,
+      "text": "They follow the rules for what?"
+    },
+    {
+      "start": 3139.06,
+      "end": 3140.46,
+      "text": "by letting fear lead them."
+    },
+    {
+      "start": 3143.1,
+      "end": 3144.9,
+      "text": "What happens if I don't?"
+    },
+    {
+      "start": 3146.17,
+      "end": 3147.97,
+      "text": "Life's simple."
+    },
+    {
+      "start": 3148.5,
+      "end": 3150.3,
+      "text": "You make choices and you don't look back."
+    },
+    {
+      "start": 3165.75,
+      "end": 3168.55,
+      "text": "So if you don't drift to win, what do you drift for?"
+    },
+    {
+      "start": 3169.85,
+      "end": 3170.85,
+      "text": "You really wanna know?"
+    },
+    {
+      "start": 3171.7,
+      "end": 3173.5,
+      "text": "Yeah"
+    },
+    {
+      "start": 3173.37,
+      "end": 3174.77,
+      "text": "Okay, let's go."
+    },
+    {
+      "start": 3257.27,
+      "end": 3260.59,
+      "text": "The first drifter is advantage drifting out here in the mounds by feeling."
+    },
+    {
+      "start": 3262.04,
+      "end": 3263.84,
+      "text": "So feel it"
+    },
+    {
+      "start": 3279.48,
+      "end": 3280.78,
+      "text": "What's in his bag?"
+    },
+    {
+      "start": 3280.78,
+      "end": 3281.78,
+      "text": "You'll see."
+    },
+    {
+      "start": 3283.93,
+      "end": 3285.73,
+      "text": "Keep going keep going"
+    },
+    {
+      "start": 3291.9,
+      "end": 3294.7,
+      "text": "I'm so good, man, I can sell rubbers to a monk."
+    },
+    {
+      "start": 3299.38,
+      "end": 3301.18,
+      "text": "Dan"
+    },
+    {
+      "start": 3322.55,
+      "end": 3323.19,
+      "text": "Again."
+    },
+    {
+      "start": 3397.08,
+      "end": 3398.88,
+      "text": "Let's take a look at this."
+    },
+    {
+      "start": 3402.58,
+      "end": 3403.22,
+      "text": "It's a touch."
+    },
+    {
+      "start": 3408.57,
+      "end": 3410.37,
+      "text": "Twink"
+    },
+    {
+      "start": 3410.81,
+      "end": 3412.61,
+      "text": "This man a bunk"
+    },
+    {
+      "start": 3503.13,
+      "end": 3505.93,
+      "text": "In the midst of all that I've done so far,"
+    },
+    {
+      "start": 3505.93,
+      "end": 3508.93,
+      "text": "I have nothing more to say,"
+    },
+    {
+      "start": 3508.93,
+      "end": 3511.93,
+      "text": "but I am proud and excited to be here."
+    },
+    {
+      "start": 3513.56,
+      "end": 3518.36,
+      "text": "Those who think of us and admire us from the beginning."
+    },
+    {
+      "start": 3519.36,
+      "end": 3522.36,
+      "text": "To those who wake up, please close your eyes and look at us."
+    },
+    {
+      "start": 3534.9,
+      "end": 3536.7,
+      "text": "It's actually not bad."
+    },
+    {
+      "start": 3536.7,
+      "end": 3538.7,
+      "text": "I didn't even have to put ketchup on it."
+    },
+    {
+      "start": 3539.74,
+      "end": 3541.54,
+      "text": "See, I'm not a cool guy, Jim"
+    },
+    {
+      "start": 3544.12,
+      "end": 3545.84,
+      "text": "I hate that word."
+    },
+    {
+      "start": 3545.84,
+      "end": 3548.08,
+      "text": "It's what they used to call me when I was a kid."
+    },
+    {
+      "start": 3549.37,
+      "end": 3551.17,
+      "text": "I thought you were born here."
+    },
+    {
+      "start": 3551.17,
+      "end": 3554.17,
+      "text": "Well, outside it can be many different things."
+    },
+    {
+      "start": 3559.93,
+      "end": 3561.73,
+      "text": "My mom died when I was 10."
+    },
+    {
+      "start": 3563.48,
+      "end": 3570.28,
+      "text": "She came out here from Australia when she finished high school and all I know about her is that she went to work in a hostess bar."
+    },
+    {
+      "start": 3574.17,
+      "end": 3575.97,
+      "text": "DK's grandmother took me in."
+    },
+    {
+      "start": 3579.48,
+      "end": 3581.44,
+      "text": "when my parents split up when I was three."
+    },
+    {
+      "start": 3583.67,
+      "end": 3587.47,
+      "text": "Me and mom moved around a lot, mostly because of me."
+    },
+    {
+      "start": 3588.73,
+      "end": 3591.53,
+      "text": "Well, it was all because of me."
+    },
+    {
+      "start": 3593.08,
+      "end": 3596.96,
+      "text": "Kind of made myself an outsider, you know without even thinking about it"
+    },
+    {
+      "start": 3600.22,
+      "end": 3603.62,
+      "text": "But I realize now, outside or inside, it doesn't really matter."
+    },
+    {
+      "start": 3604.98,
+      "end": 3606.78,
+      "text": "All that matters is knowing what you really want."
+    },
+    {
+      "start": 3609.37,
+      "end": 3610.17,
+      "text": "going after."
+    },
+    {
+      "start": 3631.16,
+      "end": 3632.96,
+      "text": "At least you come up here when we were kids."
+    },
+    {
+      "start": 3634.14,
+      "end": 3639.94,
+      "text": "Even before we could drive we'd cut class, sneak out, come up here and watch the older kids drift."
+    },
+    {
+      "start": 3647.42,
+      "end": 3649.22,
+      "text": "was a different back then."
+    },
+    {
+      "start": 3653.02,
+      "end": 3658.18,
+      "text": "once i got my license i practically lived up here i thank kids destroyed whatever they had"
+    },
+    {
+      "start": 3659.06,
+      "end": 3662.1,
+      "text": "no we just made do no one bothered us"
+    },
+    {
+      "start": 3663.35,
+      "end": 3672.15,
+      "text": "The day I got my losses, the day I got my first speeding ticket, the day after that I won my first race, I beat this rich kid by three lengths."
+    },
+    {
+      "start": 3673.82,
+      "end": 3676.62,
+      "text": "I gotta admit, it felt good."
+    },
+    {
+      "start": 3678.68,
+      "end": 3681.72,
+      "text": "Felt like like everything else disappears"
+    },
+    {
+      "start": 3684.28,
+      "end": 3686.08,
+      "text": "No past, no future."
+    },
+    {
+      "start": 3686.08,
+      "end": 3688.08,
+      "text": "No problems."
+    },
+    {
+      "start": 3689.85,
+      "end": 3690.65,
+      "text": "Just a moment."
+    },
+    {
+      "start": 3719.26,
+      "end": 3721.06,
+      "text": "Hey, Twink, I'm gonna grab another set."
+    },
+    {
+      "start": 3721.06,
+      "end": 3724.06,
+      "text": "Whoa! Whoa, whoa, whoa, whoa, whoa! Another set?"
+    },
+    {
+      "start": 3724.06,
+      "end": 3726.56,
+      "text": "No. Look, that was your third set today."
+    },
+    {
+      "start": 3726.56,
+      "end": 3728.06,
+      "text": "Minimum size ain't cheap!"
+    },
+    {
+      "start": 3738.9,
+      "end": 3742.3,
+      "text": "Okay, grab a chair. We're about to roast some marshmallows."
+    },
+    {
+      "start": 3743.35,
+      "end": 3745.15,
+      "text": "Come on, man, let's go."
+    },
+    {
+      "start": 3786.49,
+      "end": 3789.29,
+      "text": "He didn't just play with fire, he soaked the matches in gasoline."
+    },
+    {
+      "start": 3837.5,
+      "end": 3839.3,
+      "text": "I am a gaijin."
+    },
+    {
+      "start": 3841.72,
+      "end": 3843.52,
+      "text": "You've changed, DK."
+    },
+    {
+      "start": 3849.11,
+      "end": 3850.41,
+      "text": "You see, I've changed."
+    },
+    {
+      "start": 3853.34,
+      "end": 3855.14,
+      "text": "We're not so different, you and I."
+    },
+    {
+      "start": 3857.5,
+      "end": 3859.3,
+      "text": "These products are fuck-ups, aren't we?"
+    },
+    {
+      "start": 3865.78,
+      "end": 3871.1,
+      "text": "They say, your mom was the best trick in all of Kabukicho back in the day."
+    },
+    {
+      "start": 3872.02,
+      "end": 3873.82,
+      "text": "Leave my mother out of this."
+    },
+    {
+      "start": 3876.41,
+      "end": 3877.21,
+      "text": "Just like her."
+    },
+    {
+      "start": 3878.52,
+      "end": 3880.32,
+      "text": "anything for a buck."
+    },
+    {
+      "start": 3881.11,
+      "end": 3883.73,
+      "text": "Think anyone would take a second look at you if it wasn't for your uncle"
+    },
+    {
+      "start": 3899.38,
+      "end": 3900.18,
+      "text": "As-Salaamu Alaikum."
+    },
+    {
+      "start": 3905.18,
+      "end": 3906.98,
+      "text": "It's different if I know why."
+    },
+    {
+      "start": 3920.89,
+      "end": 3921.49,
+      "text": "What are you gonna-"
+    },
+    {
+      "start": 4004.34,
+      "end": 4006.44,
+      "text": "Thank you for last week."
+    },
+    {
+      "start": 4007.67,
+      "end": 4009.07,
+      "text": "What about work?"
+    },
+    {
+      "start": 4011.42,
+      "end": 4012.22,
+      "text": "Yes."
+    },
+    {
+      "start": 4013.11,
+      "end": 4014.91,
+      "text": "Dozer"
+    },
+    {
+      "start": 4024.79,
+      "end": 4025.91,
+      "text": "That's the truth."
+    },
+    {
+      "start": 4030.33,
+      "end": 4032.13,
+      "text": "I'm talking about the contents of the book."
+    },
+    {
+      "start": 4033.3,
+      "end": 4036.86,
+      "text": "I don't know. I can't even understand half of it."
+    },
+    {
+      "start": 4038.87,
+      "end": 4041.43,
+      "text": "It might be a little difficult."
+    },
+    {
+      "start": 4043.77,
+      "end": 4044.57,
+      "text": "Your..."
+    },
+    {
+      "start": 4061.53,
+      "end": 4062.33,
+      "text": "I'll see you guys next time."
+    },
+    {
+      "start": 4063.61,
+      "end": 4065.41,
+      "text": "I don't think so."
+    },
+    {
+      "start": 4070.39,
+      "end": 4072.19,
+      "text": "What was it?"
+    },
+    {
+      "start": 4079.93,
+      "end": 4082.73,
+      "text": "The horse can't run because of the lack of iron."
+    },
+    {
+      "start": 4084.95,
+      "end": 4085.75,
+      "text": "I still don't know."
+    },
+    {
+      "start": 4087.35,
+      "end": 4089.15,
+      "text": "Then we do"
+    },
+    {
+      "start": 4091.67,
+      "end": 4093.47,
+      "text": "I can't reach it."
+    },
+    {
+      "start": 4182.42,
+      "end": 4183.22,
+      "text": "side deals from me."
+    },
+    {
+      "start": 4186.07,
+      "end": 4187.79,
+      "text": "and the Boy Scouts?"
+    },
+    {
+      "start": 4187.79,
+      "end": 4189.47,
+      "text": "It's what we do."
+    },
+    {
+      "start": 4189.47,
+      "end": 4190.31,
+      "text": "Takashi!"
+    },
+    {
+      "start": 4197.66,
+      "end": 4198.46,
+      "text": "What about now?"
+    },
+    {
+      "start": 4201.34,
+      "end": 4202.38,
+      "text": "Is this what we do?"
+    },
+    {
+      "start": 4206.52,
+      "end": 4209.52,
+      "text": "You'd still be shaking down tea houses for chum change if it wasn't for me."
+    },
+    {
+      "start": 4209.52,
+      "end": 4210.92,
+      "text": "Takashi, stop!"
+    },
+    {
+      "start": 4210.92,
+      "end": 4211.92,
+      "text": "Shut up!"
+    },
+    {
+      "start": 4216.95,
+      "end": 4218.75,
+      "text": "Oh"
+    },
+    {
+      "start": 4664.22,
+      "end": 4665.3,
+      "text": "Don't argue with me."
+    },
+    {
+      "start": 4665.3,
+      "end": 4666.14,
+      "text": "I did this."
+    },
+    {
+      "start": 4667.19,
+      "end": 4668.99,
+      "text": "I can't run away."
+    },
+    {
+      "start": 4670.23,
+      "end": 4675.89,
+      "text": "John I'm your father. I'm responsible for your well-being and I'm responsible for my mess"
+    },
+    {
+      "start": 4679.54,
+      "end": 4681.34,
+      "text": "I gotta do this."
+    },
+    {
+      "start": 4683.74,
+      "end": 4685.54,
+      "text": "Can you understand that?"
+    },
+    {
+      "start": 4739.16,
+      "end": 4739.8,
+      "text": "Leave in town."
+    },
+    {
+      "start": 4744.57,
+      "end": 4745.25,
+      "text": "Can't do it, Twink."
+    },
+    {
+      "start": 4749.05,
+      "end": 4750.85,
+      "text": "DK, wash your head."
+    },
+    {
+      "start": 4751.03,
+      "end": 4751.67,
+      "text": "All right."
+    },
+    {
+      "start": 4752.82,
+      "end": 4754.62,
+      "text": "And the trouble you just made for Kamata?"
+    },
+    {
+      "start": 4756.18,
+      "end": 4757.98,
+      "text": "What have you done here, bruh?"
+    },
+    {
+      "start": 4759.8,
+      "end": 4761.2,
+      "text": "Maybe I should talk to Kamara."
+    },
+    {
+      "start": 4762.39,
+      "end": 4764.19,
+      "text": "What?"
+    },
+    {
+      "start": 4764.7,
+      "end": 4766.5,
+      "text": "DK answers to him."
+    },
+    {
+      "start": 4769.08,
+      "end": 4770.88,
+      "text": "I know I just didn't hit it."
+    },
+    {
+      "start": 4773.37,
+      "end": 4775.17,
+      "text": "I gotta end this."
+    },
+    {
+      "start": 4775.74,
+      "end": 4776.74,
+      "text": "I'm gonna go talk to him."
+    },
+    {
+      "start": 4776.74,
+      "end": 4778.04,
+      "text": "What, are you crazy?"
+    },
+    {
+      "start": 4778.04,
+      "end": 4779.04,
+      "text": "Huh?"
+    },
+    {
+      "start": 4779.04,
+      "end": 4780.54,
+      "text": "Hawn is dead, all right?"
+    },
+    {
+      "start": 4780.54,
+      "end": 4783.54,
+      "text": "Plus, you can't just walk into Kamata's place, man."
+    },
+    {
+      "start": 4786.74,
+      "end": 4788.54,
+      "text": "That's all I got."
+    },
+    {
+      "start": 4795.03,
+      "end": 4796.83,
+      "text": "Something I think Han would have wanted you to have"
+    },
+    {
+      "start": 4812.86,
+      "end": 4813.66,
+      "text": "What's this?"
+    },
+    {
+      "start": 4816.31,
+      "end": 4818.51,
+      "text": "if you're gonna make it out of Kamata's place alive."
+    },
+    {
+      "start": 4823.29,
+      "end": 4824.09,
+      "text": "Don't you need it?"
+    },
+    {
+      "start": 4829.43,
+      "end": 4830.23,
+      "text": "I'll figure it out."
+    },
+    {
+      "start": 4864.12,
+      "end": 4865.76,
+      "text": "What does that mean?"
+    },
+    {
+      "start": 4865.76,
+      "end": 4867.26,
+      "text": "What's that take who does that?"
+    },
+    {
+      "start": 4900.02,
+      "end": 4901.82,
+      "text": "Sean"
+    },
+    {
+      "start": 4910.46,
+      "end": 4912.26,
+      "text": "I didn't come here to see you."
+    },
+    {
+      "start": 4912.73,
+      "end": 4914.53,
+      "text": "there goes he"
+    },
+    {
+      "start": 4914.62,
+      "end": 4916.42,
+      "text": "Your friend, huh?"
+    },
+    {
+      "start": 4918.14,
+      "end": 4920.94,
+      "text": "It's nothing. Don't worry."
+    },
+    {
+      "start": 4922.23,
+      "end": 4925.79,
+      "text": "Kamata-san has something to give you."
+    },
+    {
+      "start": 4942.94,
+      "end": 4943.74,
+      "text": "You think?"
+    },
+    {
+      "start": 4951.74,
+      "end": 4954.54,
+      "text": "I know I'm only returning what belonged to you in the first place, sir."
+    },
+    {
+      "start": 4957.27,
+      "end": 4959.07,
+      "text": "That's not why I really came."
+    },
+    {
+      "start": 4960.09,
+      "end": 4961.89,
+      "text": "I came here to apologize."
+    },
+    {
+      "start": 4964.41,
+      "end": 4967.57,
+      "text": "I know your nephew and I have embarrassed ourselves badly."
+    },
+    {
+      "start": 4973.85,
+      "end": 4976.15,
+      "text": "Are you going to do this to me?"
+    },
+    {
+      "start": 4976.65,
+      "end": 4977.65,
+      "text": "Excuse me."
+    },
+    {
+      "start": 4979.8,
+      "end": 4981.6,
+      "text": "Sir"
+    },
+    {
+      "start": 4981.56,
+      "end": 4983.36,
+      "text": "I'm here to offer you a peaceful solution."
+    },
+    {
+      "start": 4986.23,
+      "end": 4988.03,
+      "text": "How do you plan that?"
+    },
+    {
+      "start": 4990.65,
+      "end": 4991.25,
+      "text": "A race."
+    },
+    {
+      "start": 4996.5,
+      "end": 5000.8,
+      "text": "D.K. and I have caused nothing but problems for you, for us."
+    },
+    {
+      "start": 5002.39,
+      "end": 5006.19,
+      "text": "I'm asking you to allow us to settle this once and for all."
+    },
+    {
+      "start": 5008.54,
+      "end": 5009.34,
+      "text": "We race."
+    },
+    {
+      "start": 5011.64,
+      "end": 5013.24,
+      "text": "And the loser leaves town for Buick."
+    },
+    {
+      "start": 5013.24,
+      "end": 5016.24,
+      "text": "I already beat this piece of shit once."
+    },
+    {
+      "start": 5016.24,
+      "end": 5017.24,
+      "text": "Good."
+    },
+    {
+      "start": 5060.09,
+      "end": 5060.89,
+      "text": "to call the cause."
+    },
+    {
+      "start": 5173.59,
+      "end": 5176.91,
+      "text": "DK picked this road for a reason, this is his mountain."
+    },
+    {
+      "start": 5179.38,
+      "end": 5181.18,
+      "text": "He's the only one to ever make it to the bottom."
+    },
+    {
+      "start": 5757.43,
+      "end": 5758.23,
+      "text": "and how I was family."
+    },
+    {
+      "start": 5810.33,
+      "end": 5811.13,
+      "text": "while he was into American..."
+    },
+    {
+      "start": 5817.88,
+      "end": 5819.68,
+      "text": "You know this ain't no 10-second race."
+    }
+  ]
+}

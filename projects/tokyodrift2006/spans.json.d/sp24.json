@@ -1,0 +1,79 @@
+{
+  "span": "sp24",
+  "moments": [
+    {
+      "shots": [0, 1, 2, 3],
+      "clip_start": "00:34:30.436",
+      "clip_end": "00:34:40.905",
+      "depicts": ["action", "setup"],
+      "chars": ["the American student", "the student in the white durag"],
+      "action": "End of day in a crowded school corridor: the student in the white durag and a girl move with the crowd past the American student, who pushes the other way and by the last shot has stopped, scowling ahead.",
+      "censor": "none"
+    },
+    {
+      "shots": [4, 5, 6],
+      "clip_start": "00:34:40.905",
+      "clip_end": "00:34:53.292",
+      "depicts": ["action", "discovery"],
+      "chars": ["the American student", "the long-haired man in the parka"],
+      "action": "He walks out past the bicycle racks as students stream into the street; across the road an orange sports car is parked with the long-haired man in the parka leaning on it, and he pulls up short when he sees them.",
+      "censor": "none"
+    },
+    {
+      "shots": [7, 8, 9, 10, 11],
+      "clip_start": "00:34:53.292",
+      "clip_end": "00:35:04.011",
+      "depicts": ["dialogue", "setup"],
+      "chars": ["the American student", "the long-haired man in the parka"],
+      "action": "Shot and reverse at the kerb: the man in the parka talks calmly while the student answers tight-jawed. By the last shot the older man has closed the distance and is grinning at him.",
+      "censor": "none"
+    },
+    {
+      "shots": [12, 13, 14],
+      "clip_start": "00:35:04.011",
+      "clip_end": "00:35:12.978",
+      "depicts": ["transition", "action"],
+      "chars": [],
+      "action": "The orange car pulls away from the high school gates, a low angle whips along its flank as it accelerates, then a wide of a quiet shopping street where it has already arrived far down the road.",
+      "censor": "none"
+    },
+    {
+      "shots": [15, 16, 17, 18],
+      "clip_start": "00:35:12.978",
+      "clip_end": "00:35:27.076",
+      "depicts": ["dialogue", "action"],
+      "chars": ["the American student", "the long-haired man in the parka"],
+      "action": "Inside the moving car the student watches the street go by, then turns as the driver talks across to him; the speed drops from blurred shopfronts to a slow roll through narrow backstreets.",
+      "censor": "none"
+    },
+    {
+      "shots": [19, 20],
+      "clip_start": "00:35:27.076",
+      "clip_end": "00:35:46.262",
+      "depicts": ["establishing", "transition"],
+      "chars": [],
+      "action": "The orange car stops outside an old tiled bathhouse and a cyclist crosses in front of it; the next shot is already inside, on the milk fridge, folded towels and empty reception desk.",
+      "censor": "none"
+    },
+    {
+      "shots": [21, 22, 23],
+      "clip_start": "00:35:46.262",
+      "clip_end": "00:36:08.617",
+      "depicts": ["establishing", "action"],
+      "chars": ["the American student"],
+      "action": "In the bath hall a man lathers his hair at a low tap and others soak in the tiled pool, one huge tattooed back filling it. The student walks in wrapped in a towel and stops dead, taking the room in.",
+      "censor": "blur_light",
+      "censor_note": "public bathhouse: bare male torsos and backs, towels covering below the waist; roughly a third of frame, incidental to the setting"
+    },
+    {
+      "shots": [24, 25, 26],
+      "clip_start": "00:36:08.617",
+      "clip_end": "00:36:16.667",
+      "depicts": ["reaction", "reveal"],
+      "chars": ["the American student"],
+      "action": "The student stares; a close-up finds a dark tattoo sprawled over the big bather's wet shoulder, and back on his face the look shifts from curiosity to recognition, mouth open.",
+      "censor": "blur_light",
+      "censor_note": "close-up of a bare wet shoulder and upper back, no explicit content; fills most of one shot"
+    }
+  ]
+}

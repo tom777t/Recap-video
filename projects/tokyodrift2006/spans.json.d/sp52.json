@@ -1,0 +1,95 @@
+{
+  "span": "sp52",
+  "moments": [
+    {
+      "shots": [0, 1, 2, 3, 4, 5],
+      "clip_start": "01:16:29.653",
+      "clip_end": "01:16:42.916",
+      "depicts": ["reaction", "reveal"],
+      "chars": ["the young man in the white shirt", "the young woman in the tan jacket", "the man in the black henley"],
+      "action": "The young man in white and the young woman in the tan jacket stand in a dark alley and turn sharply toward something off screen; a shadow moves at a parked car, and the man in the black henley emerges from the dark.",
+      "censor": "none"
+    },
+    {
+      "shots": [6, 7, 8, 9, 10, 11],
+      "clip_start": "01:16:42.916",
+      "clip_end": "01:16:51.633",
+      "depicts": ["action"],
+      "chars": ["the young man in the white shirt", "the young woman in the tan jacket", "the man in the black henley", "the older man in the olive jacket"],
+      "action": "A white-sleeved arm swings and twists a man's collar in the dark; the camera whips past the young woman, and the scuffle ends with the henley man levelling a pistol while an older man aims one back at him.",
+      "censor": "none"
+    },
+    {
+      "shots": [12, 13, 14, 15, 16],
+      "clip_start": "01:16:51.633",
+      "clip_end": "01:16:58.640",
+      "depicts": ["action", "reveal"],
+      "chars": ["the young man in the white shirt", "the young woman in the tan jacket", "the man in the black henley", "the older man in the olive jacket"],
+      "action": "A wide lays out the standoff: the couple at left, the henley man by his lit car with his gun out, the older man aiming from the right. The cuts then tighten onto each face and nobody lowers a weapon.",
+      "censor": "none"
+    },
+    {
+      "shots": [17, 18, 19, 20, 21, 22],
+      "clip_start": "01:16:58.640",
+      "clip_end": "01:17:06.064",
+      "depicts": ["dialogue", "emotion"],
+      "chars": ["the young man in the white shirt", "the young woman in the tan jacket"],
+      "action": "The young woman argues across the standoff, her face filling the frame, while the pistol stays locked at the young man's head; he keeps his eyes forward and does not move as her protest builds.",
+      "censor": "none"
+    },
+    {
+      "shots": [23, 24, 25, 26, 27],
+      "clip_start": "01:17:06.064",
+      "clip_end": "01:17:14.280",
+      "depicts": ["dialogue", "action"],
+      "chars": ["the young man in the white shirt", "the man in the black henley", "the older man in the olive jacket"],
+      "action": "The older man answers with his arm still extended and the henley man sneers back. The wide that closes the moment shows the young woman gone from the young man's side, leaving him alone facing the car.",
+      "censor": "none"
+    },
+    {
+      "shots": [28, 29, 30, 31, 32],
+      "clip_start": "01:17:14.280",
+      "clip_end": "01:17:26.000",
+      "depicts": ["action", "emotion"],
+      "chars": ["the young man in the white shirt", "the man in the black henley", "the older man in the olive jacket"],
+      "action": "Close coverage trades between the three: the young man steady, the henley man smirking, the older man re-sighting his pistol. It ends with the henley man stepping in and aiming point-blank at his head.",
+      "censor": "none"
+    },
+    {
+      "shots": [33],
+      "clip_start": "01:17:26.000",
+      "clip_end": "01:17:40.390",
+      "depicts": ["action", "aftermath"],
+      "chars": ["the young man in the white shirt", "the older man in the olive jacket"],
+      "action": "One held wide of the alley: the car's headlights blaze, the older man keeps his pistol raised, and the young man stands with his back to us watching until only the two of them and the lit car are left.",
+      "censor": "none"
+    },
+    {
+      "shots": [34, 35, 36],
+      "clip_start": "01:17:40.390",
+      "clip_end": "01:17:51.734",
+      "depicts": ["dialogue", "aftermath"],
+      "chars": ["the young man in the white shirt", "the older man in the olive jacket"],
+      "action": "The older man lowers his guard, speaks into the empty street and turns toward a shuttered doorway; the wide leaves him and the young man alone in the lantern-lit alley, now facing each other.",
+      "censor": "none"
+    },
+    {
+      "shots": [37, 38, 39, 40],
+      "clip_start": "01:17:51.734",
+      "clip_end": "01:18:05.415",
+      "depicts": ["dialogue"],
+      "chars": ["the young man in the white shirt", "the older man in the olive jacket"],
+      "action": "They talk in tight shot and reverse: the older man says something level, the young man answers hard with his jaw set, and by the last shot he has gone quiet and is only listening.",
+      "censor": "none"
+    },
+    {
+      "shots": [41, 42, 43],
+      "clip_start": "01:18:05.415",
+      "clip_end": "01:18:21.514",
+      "depicts": ["dialogue", "emotion"],
+      "chars": ["the young man in the white shirt", "the older man in the olive jacket"],
+      "action": "The exchange softens: the older man drops his eyes to the ground mid-sentence, and the young man, watching from a step away, loses the edge in his face and just looks back at him.",
+      "censor": "none"
+    }
+  ]
+}

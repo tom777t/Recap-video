@@ -1,0 +1,113 @@
+{
+  "span": "sp32",
+  "moments": [
+    {
+      "shots": [0, 1],
+      "clip_start": "00:46:29.277",
+      "clip_end": "00:46:34.699",
+      "depicts": ["dialogue", "reaction"],
+      "chars": [],
+      "action": "A young man in a white shirt stands in a bright garage beside a red car, looking off and answering someone. The cut pushes in tight and his open expression has hardened into a frown.",
+      "censor": "none"
+    },
+    {
+      "shots": [2, 3, 4],
+      "clip_start": "00:46:34.699",
+      "clip_end": "00:46:43.666",
+      "depicts": ["establishing", "transition"],
+      "chars": [],
+      "action": "An aerial sweeps the Tokyo waterfront and its industrial canals, then the film drops to a concrete pier: close on hands working a fishing reel, then wide on two men casting under the harbour skyline.",
+      "censor": "none"
+    },
+    {
+      "shots": [5, 6, 7, 8, 9, 10],
+      "clip_start": "00:46:43.666",
+      "clip_end": "00:46:53.301",
+      "depicts": ["action", "setup"],
+      "chars": [],
+      "action": "A red Evo tears through a dockside lot past a parked truck, caught from overhead and head-on. Between passes the two fishermen sit unmoved while a group lounging on sofas by a blue car sit up at it.",
+      "censor": "none"
+    },
+    {
+      "shots": [11, 12, 13, 14],
+      "clip_start": "00:46:53.301",
+      "clip_end": "00:46:57.555",
+      "depicts": ["action", "reaction"],
+      "chars": [],
+      "action": "Inside the car the driver is grinning as he swings it round; from the sofas an arm shoots out pointing at the pass and two watchers settle back on a blue car. Back inside, the grin is gone, jaw set.",
+      "censor": "none"
+    },
+    {
+      "shots": [15, 16, 17, 18],
+      "clip_start": "00:46:57.555",
+      "clip_end": "00:47:03.728",
+      "depicts": ["action"],
+      "chars": [],
+      "action": "Wide, the red car sits alone between the dock warehouses; an insert catches a foot stabbing the pedals, and it breaks loose, drifting past a parked yellow coupe while the driver saws at the wheel.",
+      "censor": "none"
+    },
+    {
+      "shots": [19, 20, 21],
+      "clip_start": "00:47:03.728",
+      "clip_end": "00:47:11.736",
+      "depicts": ["reaction", "action"],
+      "chars": [],
+      "action": "The two fishermen turn their heads toward the noise; inside, hands drag the wheel across red-lit gauges; at the sofas a man in an orange hoodie throws both arms wide as the run goes past him.",
+      "censor": "none"
+    },
+    {
+      "shots": [22, 23, 24, 25, 26],
+      "clip_start": "00:47:11.736",
+      "clip_end": "00:47:21.329",
+      "depicts": ["dialogue", "reaction"],
+      "chars": [],
+      "action": "Leaning on the yellow coupe with two beer bottles, a long-haired man talks over the run. The crowd laugh, one raising a can, the orange-hoodie fan flinging his arms out, and he keeps talking.",
+      "censor": "none"
+    },
+    {
+      "shots": [27, 28, 29, 30, 31],
+      "clip_start": "00:47:21.329",
+      "clip_end": "00:47:27.251",
+      "depicts": ["action"],
+      "chars": [],
+      "action": "The run tightens: the car blurs past a timber stack, then slews sideways in tyre smoke beside stacked steel plates. The driver is grimacing now, and the last cuts are hard on its nose and burning rear wheel.",
+      "censor": "none"
+    },
+    {
+      "shots": [32, 33],
+      "clip_start": "00:47:27.251",
+      "clip_end": "00:47:37.678",
+      "depicts": ["transition", "establishing"],
+      "chars": [],
+      "action": "Away from the docks to a narrow Tokyo backstreet in low sun: a man in a suit walks ahead of schoolgirls in sailor uniforms, and the camera swings in with them past a street sign as they pass.",
+      "censor": "none"
+    },
+    {
+      "shots": [34, 35, 36, 37],
+      "clip_start": "00:47:37.678",
+      "clip_end": "00:47:58.074",
+      "depicts": ["establishing", "setup"],
+      "chars": [],
+      "action": "Down the lane an older man works on a stripped vintage coupe in an open garage beside a Calpis machine. The young man, now in a school blazer, comes up the street and stops at the entrance, watching.",
+      "censor": "none"
+    },
+    {
+      "shots": [38, 39, 40],
+      "clip_start": "00:47:58.074",
+      "clip_end": "00:48:09.794",
+      "depicts": ["dialogue", "action"],
+      "chars": [],
+      "action": "Both men end up bent over the car's stripped nose, the older one close on his work and the younger leaning in beside him; an insert shows two pairs of hands prying at a blackened part together.",
+      "censor": "none"
+    },
+    {
+      "shots": [41, 42, 43],
+      "clip_start": "00:48:09.794",
+      "clip_end": "00:48:18.094",
+      "depicts": ["dialogue", "emotion"],
+      "chars": [],
+      "action": "The older man keeps his head down over the engine bay, then lifts it and looks off to the side as he answers. The younger stays bent over the car, eyes down, a figure crossing the lane behind him.",
+      "censor": "none"
+    }
+  ]
+}

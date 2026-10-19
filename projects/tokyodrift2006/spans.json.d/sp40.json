@@ -1,0 +1,86 @@
+{
+  "span": "sp40",
+  "moments": [
+    {
+      "shots": [0, 1, 2, 3],
+      "clip_start": "00:58:29.577",
+      "clip_end": "00:58:37.168",
+      "depicts": ["dialogue", "setup"],
+      "chars": [],
+      "action": "In a daylit classroom the dark-haired girl in the school uniform works at a laptop showing a Japanese text document; a chat window cuts in over it reading 'bama_boy: how come i never c u drift???' and she reads it.",
+      "censor": "none"
+    },
+    {
+      "shots": [4, 5, 6, 7, 8, 9],
+      "clip_start": "00:58:37.168",
+      "clip_end": "00:58:45.385",
+      "depicts": ["dialogue", "reaction"],
+      "chars": [],
+      "action": "Hands type on the laptop keyboard and she breaks into a private smile; a finger hits Enter and the cut lands on the American boy at his own laptop by a window, reading the same chat line and chewing his knuckle.",
+      "censor": "none"
+    },
+    {
+      "shots": [10, 11, 12, 13, 14, 15],
+      "clip_start": "00:58:45.385",
+      "clip_end": "00:58:54.394",
+      "depicts": ["establishing", "transition"],
+      "chars": [],
+      "action": "Night: a wide of a parking lot under a stacked highway overpass, then inserts of vending machines selling canned coffee, a lobster dinner and hot food, before the camera finds the two of them eating together at a table.",
+      "censor": "none"
+    },
+    {
+      "shots": [16, 17],
+      "clip_start": "00:58:54.394",
+      "clip_end": "00:59:08.032",
+      "depicts": ["dialogue", "emotion"],
+      "chars": [],
+      "action": "At the table he grins and jokes with her over the cans between them; by the long second shot they are both leaning into the noodle box with chopsticks and she is laughing, the mood loosening into something easy.",
+      "censor": "none"
+    },
+    {
+      "shots": [18, 19, 20],
+      "clip_start": "00:59:08.032",
+      "clip_end": "00:59:19.043",
+      "depicts": ["dialogue", "setup"],
+      "chars": [],
+      "action": "His grin fades as he turns to her with a question; he lifts one of the tall cans and holds it up to make a point, then the camera pushes in close and he is simply watching her face, waiting for an answer.",
+      "censor": "none"
+    },
+    {
+      "shots": [21, 22, 23],
+      "clip_start": "00:59:19.043",
+      "clip_end": "00:59:37.395",
+      "depicts": ["dialogue", "emotion"],
+      "chars": [],
+      "action": "Held close on her, she drops her eyes and smiles faintly as she talks; the reverse shows him staring hard, no longer smiling, and when it returns to her the smile has thinned into something more guarded.",
+      "censor": "none"
+    },
+    {
+      "shots": [24, 25, 26, 27],
+      "clip_start": "00:59:37.395",
+      "clip_end": "01:00:00.793",
+      "depicts": ["dialogue", "reveal"],
+      "chars": [],
+      "action": "Tight shot/reverse across the table: he presses her with a serious look, she meets his eyes instead of looking away, and his face softens as he answers, leaving her watching him steadily by the last shot.",
+      "censor": "none"
+    },
+    {
+      "shots": [28, 29],
+      "clip_start": "01:00:00.793",
+      "clip_end": "01:00:11.262",
+      "depicts": ["dialogue", "emotion"],
+      "chars": [],
+      "action": "Still in close-up, he keeps talking with his mouth open mid-sentence and an urgent look; the cut to her shows the smile gone entirely, her expression gone quiet and serious as she takes in what he says.",
+      "censor": "none"
+    },
+    {
+      "shots": [30, 31, 32],
+      "clip_start": "01:00:11.262",
+      "clip_end": "01:00:21.522",
+      "depicts": ["action", "transition"],
+      "chars": [],
+      "action": "Cut to night: two cars round a dark mountain hairpin, then a shot from the back seat shows her riding beside him as he drives, before both cars streak past in a blur against the city skyline below.",
+      "censor": "none"
+    }
+  ]
+}

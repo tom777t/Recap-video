@@ -1,0 +1,96 @@
+{
+  "span": "sp64",
+  "moments": [
+    {
+      "shots": [0, 1],
+      "clip_start": "01:34:29.728",
+      "clip_end": "01:34:34.275",
+      "depicts": ["dialogue", "setup"],
+      "chars": ["the young man in the black T-shirt", "the young woman in the fur-collared coat"],
+      "action": "On a dark hilltop the young man in the black tee grins down at the woman beside him; the shot widens to his friends packed around them, the mood still loose and celebratory.",
+      "censor": "none"
+    },
+    {
+      "shots": [2, 3, 4],
+      "clip_start": "01:34:34.275",
+      "clip_end": "01:34:43.575",
+      "depicts": ["action", "setup"],
+      "chars": ["the older man in the black hat and long coat", "the young man in the black T-shirt"],
+      "action": "Three men in black, one in a wide-brimmed hat, walk up out of the dark; a wide shot lines the whole crowd up facing them, and by the reverse the young man's smile is gone.",
+      "censor": "none"
+    },
+    {
+      "shots": [5, 6, 7, 8],
+      "clip_start": "01:34:43.575",
+      "clip_end": "01:34:58.215",
+      "depicts": ["dialogue", "emotion"],
+      "chars": ["the older man in the black hat and long coat", "the young man in the black T-shirt", "the young woman in the fur-collared coat"],
+      "action": "The hatted man speaks straight at the young man, who lowers his eyes and takes it; the older man's own face sags as he talks, and by the last shot the couple are staring back, braced.",
+      "censor": "none"
+    },
+    {
+      "shots": [9, 10, 11, 12],
+      "clip_start": "01:34:58.215",
+      "clip_end": "01:35:07.558",
+      "depicts": ["dialogue", "emotion"],
+      "chars": ["the older man in the black hat and long coat", "the young man in the black T-shirt", "the young woman in the fur-collared coat"],
+      "action": "The exchange hardens: the hatted man presses, the young man looks off past him, a wider shot puts the older man hemmed in by the group, then he drops his head and turns away from them.",
+      "censor": "none"
+    },
+    {
+      "shots": [13, 14, 15, 16, 17, 18],
+      "clip_start": "01:35:07.558",
+      "clip_end": "01:35:19.069",
+      "depicts": ["montage", "establishing"],
+      "chars": [],
+      "action": "Cut to a packed night garage meet - a blurred sweep past a blue coupe, a woman leaning into its door, a mechanic bent over a turbo engine, hands thrown up in the crowd, cars shown off.",
+      "censor": "blur_light",
+      "censor_note": "shot 14: woman leaning into the car door, bra and cleavage exposed, occupies roughly the centre third of frame; surrounding shots show midriffs and short skirts in passing"
+    },
+    {
+      "shots": [19, 20, 21, 22, 23, 24],
+      "clip_start": "01:35:19.069",
+      "clip_end": "01:35:32.165",
+      "depicts": ["montage", "setup"],
+      "chars": ["the young man in the green jacket and white do-rag"],
+      "action": "Money comes out - the young man in the green jacket collects fistfuls of cash handed over by the crowd - then the camera slides off onto engine bays, spoilers and race numbers as bets are settled.",
+      "censor": "none"
+    },
+    {
+      "shots": [25, 26, 27],
+      "clip_start": "01:35:32.165",
+      "clip_end": "01:35:38.797",
+      "depicts": ["action", "setup"],
+      "chars": ["the young man in the green jacket and white do-rag", "the young man in the black T-shirt", "the young woman in the red top"],
+      "action": "The green-jacketed man pushes through the crowd; across the garage the man in the black tee is leaning on a car working a group of women, and the newcomer closes in on him.",
+      "censor": "none"
+    },
+    {
+      "shots": [28, 29, 30, 31],
+      "clip_start": "01:35:38.797",
+      "clip_end": "01:35:49.766",
+      "depicts": ["dialogue"],
+      "chars": ["the young man in the black T-shirt", "the young man in the green jacket and white do-rag"],
+      "action": "The man in the black tee turns at being called and the two trade lines over his shoulder; his wary look loosens into a smirk while the younger man stays flat and serious.",
+      "censor": "none"
+    },
+    {
+      "shots": [32, 33, 34],
+      "clip_start": "01:35:49.766",
+      "clip_end": "01:36:03.030",
+      "depicts": ["dialogue", "emotion"],
+      "chars": ["the young woman in the red top", "the young man in the black T-shirt", "the young man in the green jacket and white do-rag"],
+      "action": "The woman in the red top steps in front of him and holds his eye, smiling; cut back to the younger man still talking, then to the man in the black tee - the smirk gone, her face blurred behind him.",
+      "censor": "none"
+    },
+    {
+      "shots": [35, 36, 37],
+      "clip_start": "01:36:03.030",
+      "clip_end": "01:36:19.463",
+      "depicts": ["reaction", "emotion"],
+      "chars": ["the young man in the black T-shirt"],
+      "action": "The crowd keeps drifting past the parked cars; the man in the black tee holds a long near-motionless close-up with his eyes lowered, then a low wide shot shows the garage carrying on around him.",
+      "censor": "none"
+    }
+  ]
+}

@@ -1,0 +1,68 @@
+{
+  "span": "sp65",
+  "moments": [
+    {
+      "shots": [0, 1, 2, 3],
+      "clip_start": "01:35:59.484",
+      "clip_end": "01:36:19.463",
+      "depicts": ["establishing", "setup"],
+      "chars": [],
+      "action": "In a packed neon parking garage the young crew-cut driver stands in the crowd, a woman in red watching him from behind; he drops his eyes, and a low wide shot shows the lot still filling with cars and spectators.",
+      "censor": "none"
+    },
+    {
+      "shots": [4, 5, 6, 7, 8],
+      "clip_start": "01:36:19.463",
+      "clip_end": "01:36:38.774",
+      "depicts": ["action", "setup"],
+      "chars": [],
+      "action": "He leaves the crowd for the driver's seat, hands on the wheel, watching the garage through the glass while girls lounge on the parked cars; the last shot slides blurred across his hood as he gets moving.",
+      "censor": "none"
+    },
+    {
+      "shots": [9, 10, 11],
+      "clip_start": "01:36:38.774",
+      "clip_end": "01:36:46.656",
+      "depicts": ["action", "reveal"],
+      "chars": [],
+      "action": "His green coupe noses up beside a hulking American muscle car with the crowd banked behind them; the camera pushes in on the rival machine and reveals its driver, a bald man in a white tee, at the wheel.",
+      "censor": "none"
+    },
+    {
+      "shots": [12, 13, 14, 15, 16, 17, 18],
+      "clip_start": "01:36:46.656",
+      "clip_end": "01:37:10.430",
+      "depicts": ["dialogue", "emotion"],
+      "chars": [],
+      "action": "The two drivers talk across the lane through their open windows. The wary, sizing-up stares of the first exchanges soften, and by the last shots the bald man is laughing and the young driver is grinning back.",
+      "censor": "none"
+    },
+    {
+      "shots": [19, 20, 21, 22, 23],
+      "clip_start": "01:37:10.430",
+      "clip_end": "01:37:24.402",
+      "depicts": ["action", "setup"],
+      "chars": [],
+      "action": "A woman in a red dress walks out between the lined-up cars as the crowd whoops and claps along the barrier; she plants herself mid-lane with hands on hips, and the young driver's grin hardens into a stare.",
+      "censor": "none"
+    },
+    {
+      "shots": [24, 25, 26, 27, 28, 29],
+      "clip_start": "01:37:24.402",
+      "clip_end": "01:37:33.745",
+      "depicts": ["action"],
+      "chars": [],
+      "action": "Both cars light up their tyres: smoke boils off the coupe's rear wheels, flame spits from an exhaust, the bald driver locks both hands on the wheel, and the woman in red throws her arms up to start the race.",
+      "censor": "none"
+    },
+    {
+      "shots": [30, 31, 32, 33],
+      "clip_start": "01:37:33.745",
+      "clip_end": "01:37:47.634",
+      "depicts": ["transition"],
+      "chars": [],
+      "action": "The launch cuts straight to black; out of the darkness a white stunt-safety disclaimer card fades up and holds to the end of the shown footage.",
+      "censor": "none"
+    }
+  ]
+}

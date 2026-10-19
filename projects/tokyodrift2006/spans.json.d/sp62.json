@@ -1,0 +1,86 @@
+{
+  "span": "sp62",
+  "moments": [
+    {
+      "shots": [0, 1, 2, 3, 4, 5, 6],
+      "clip_start": "01:31:30.383",
+      "clip_end": "01:31:43.062",
+      "depicts": ["action", "setup"],
+      "chars": ["the older man in the hat with a cigar", "the young woman in the fur-collared coat"],
+      "action": "Two cars tear off the line in a dust cloud and sweep down the dark mountain road; at the start the crowd screams into their phones, but the cut ends on the cigar-smoking man in the hat and the woman in the fur collar, who lowers her eyes.",
+      "censor": "none"
+    },
+    {
+      "shots": [7, 8, 9, 10],
+      "clip_start": "01:31:43.062",
+      "clip_end": "01:32:01.706",
+      "depicts": ["action", "establishing"],
+      "chars": [],
+      "action": "The striped Mustang bears down through the dark with headlights flaring, then the camera pulls far back to a near-black mountainside where both cars are only specks of light, before plunging back into tire smoke.",
+      "censor": "none"
+    },
+    {
+      "shots": [11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
+      "clip_start": "01:32:01.706",
+      "clip_end": "01:32:17.305",
+      "depicts": ["action", "reaction"],
+      "chars": ["the young American driver", "the older man in the hat with a cigar"],
+      "action": "From behind, the striped Mustang hangs its tail out through the bends while its driver fights the wheel and smoke pours off the tires; a cutaway to the crowd on their phones and the cigar man's hard stare, then back as the car slides head-on at camera.",
+      "censor": "none"
+    },
+    {
+      "shots": [21, 22, 23, 24, 25],
+      "clip_start": "01:32:17.305",
+      "clip_end": "01:32:25.521",
+      "depicts": ["action"],
+      "chars": ["the heavyset driver in the white tank top"],
+      "action": "The heavyset rival snarls at the wheel and drives his car into the Mustang's flank mid-drift; the two scrape along together at the cliff edge before the Mustang breaks free and carves the next corner alone.",
+      "censor": "none"
+    },
+    {
+      "shots": [26, 27, 28, 29, 30, 31],
+      "clip_start": "01:32:25.521",
+      "clip_end": "01:32:34.363",
+      "depicts": ["action"],
+      "chars": ["the young American driver"],
+      "action": "Eyes wide, the American driver snaps his look forward, grabs the shifter and throws the car into the next bend, leaving fresh black arcs on the asphalt; by the last shot the rival has pulled back alongside him.",
+      "censor": "none"
+    },
+    {
+      "shots": [32, 33, 34, 35],
+      "clip_start": "01:32:34.363",
+      "clip_end": "01:32:41.704",
+      "depicts": ["action", "reaction"],
+      "chars": ["the young American driver", "the heavyset driver in the white tank top"],
+      "action": "Grinning behind the wheel, the American driver sets his jaw and closes on the spoilered car ahead until its taillights fill his windshield; the rival, teeth bared, is laughing back at him.",
+      "censor": "none"
+    },
+    {
+      "shots": [36, 37, 38, 39, 40, 41, 42],
+      "clip_start": "01:32:41.704",
+      "clip_end": "01:32:55.426",
+      "depicts": ["action"],
+      "chars": ["the young American driver", "the heavyset driver in the white tank top"],
+      "action": "The two cars come down the road door to door, headlights blazing, trading paint as each tries to force the other wide; the drivers glare across at one another and neither gives, still locked level as the road straightens.",
+      "censor": "none"
+    },
+    {
+      "shots": [43, 44, 45, 46, 47, 48, 49, 50, 51],
+      "clip_start": "01:32:55.426",
+      "clip_end": "01:33:08.856",
+      "depicts": ["action", "reaction"],
+      "chars": ["the young American driver", "the heavyset driver in the white tank top"],
+      "action": "The American grins across at the rival, who only glowers back; the pair stay locked side by side past the dark treeline until the other car edges ahead, its taillights sitting square in the Mustang's windshield.",
+      "censor": "none"
+    },
+    {
+      "shots": [52, 53, 54, 55, 56, 57, 58],
+      "clip_start": "01:33:08.856",
+      "clip_end": "01:33:20.368",
+      "depicts": ["action"],
+      "chars": ["the young American driver", "the driver in the dark jacket", "the heavyset driver in the white tank top"],
+      "action": "Jaw set, the American grabs the handbrake as the car ahead swings sideways across his windshield; both drivers' faces tighten, the cars pull level again down the mountain and blow past a knot of spectators at the roadside.",
+      "censor": "none"
+    }
+  ]
+}

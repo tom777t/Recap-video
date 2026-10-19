@@ -1,0 +1,86 @@
+{
+  "span": "sp41",
+  "moments": [
+    {
+      "shots": [0, 1],
+      "clip_start": "01:00:00.793",
+      "clip_end": "01:00:11.262",
+      "depicts": ["dialogue", "setup"],
+      "chars": ["the young man with short brown hair", "the dark-haired young woman"],
+      "action": "In a brightly lit shop the young man leans in close, talking fast and earnest; the reverse cuts to the dark-haired young woman holding his gaze without answering, her face set and wary.",
+      "censor": "none"
+    },
+    {
+      "shots": [2, 3, 4, 5, 6],
+      "clip_start": "01:00:11.262",
+      "clip_end": "01:00:28.654",
+      "depicts": ["establishing", "action"],
+      "chars": ["the young man with short brown hair", "the dark-haired young woman"],
+      "action": "Cut to night: two cars sweep through a hairpin on a mountain road, and inside one of them she is at the wheel with him beside her. They blur past the lit city below and drop back into the trees.",
+      "censor": "none"
+    },
+    {
+      "shots": [7, 8, 9, 10, 11],
+      "clip_start": "01:00:28.654",
+      "clip_end": "01:00:44.587",
+      "depicts": ["dialogue", "action"],
+      "chars": ["the young man with short brown hair", "the dark-haired young woman"],
+      "action": "Inside the car the framing tightens, from a windshield two-shot to both in profile with the road streaming past. Her hand closes on the gearshift and the cut goes back out to the two cars running the road.",
+      "censor": "none"
+    },
+    {
+      "shots": [12, 13, 14, 15],
+      "clip_start": "01:00:44.587",
+      "clip_end": "01:01:02.897",
+      "depicts": ["reaction", "action"],
+      "chars": ["the young man with short brown hair", "the dark-haired young woman"],
+      "action": "She glances across at him with a small smile; he keeps his eyes forward. The camera then leaves the cabin for a silver car's tail-lights on wet tarmac and an aerial of three cars strung down the mountain.",
+      "censor": "none"
+    },
+    {
+      "shots": [16, 17, 18, 19],
+      "clip_start": "01:01:02.897",
+      "clip_end": "01:01:12.907",
+      "depicts": ["reaction", "emotion"],
+      "chars": ["the young man with short brown hair", "the dark-haired young woman"],
+      "action": "Back through the windshield his half-smile breaks into open laughter; she laughs back with one hand loose on the wheel, and the guarded mood they carried out of the shop is gone.",
+      "censor": "none"
+    },
+    {
+      "shots": [20, 21, 22, 23, 24],
+      "clip_start": "01:01:12.907",
+      "clip_end": "01:01:22.249",
+      "depicts": ["dialogue", "emotion"],
+      "chars": ["the young man with short brown hair", "the dark-haired young woman"],
+      "action": "The laughing settles into easy back-and-forth, cutting between her smiling at the road and him grinning across at her, until he says something that she answers properly rather than joking.",
+      "censor": "none"
+    },
+    {
+      "shots": [25, 26, 27],
+      "clip_start": "01:01:22.249",
+      "clip_end": "01:01:31.467",
+      "depicts": ["reaction", "emotion"],
+      "chars": ["the young man with short brown hair", "the dark-haired young woman"],
+      "action": "His grin fades and he looks away; a two-shot finds them side by side, her still smiling at the road, before he turns and just watches her, saying nothing.",
+      "censor": "none"
+    },
+    {
+      "shots": [28],
+      "clip_start": "01:01:31.467",
+      "clip_end": "01:01:46.148",
+      "depicts": ["dialogue", "transition"],
+      "chars": ["the young man with short brown hair", "the dark-haired young woman"],
+      "action": "One long held take: the pair sit framed through the windshield as the car keeps descending, then the camera lifts off them entirely and leaves the car as a lone light on the black mountain road.",
+      "censor": "none"
+    },
+    {
+      "shots": [29, 30, 31],
+      "clip_start": "01:01:46.148",
+      "clip_end": "01:01:50.027",
+      "depicts": ["action", "transition"],
+      "chars": ["the young man with short brown hair"],
+      "action": "Hard cut to daylight: a red coupe slides sideways across a concrete lot in its own tyre smoke, and the driver, the same young man, leans out of the window looking back along the line he just took.",
+      "censor": "none"
+    }
+  ]
+}

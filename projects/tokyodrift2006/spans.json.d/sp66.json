@@ -1,0 +1,68 @@
+{
+  "span": "sp66",
+  "moments": [
+    {
+      "shots": [0, 1],
+      "clip_start": "01:37:30.074",
+      "clip_end": "01:37:33.745",
+      "depicts": ["action"],
+      "chars": [],
+      "action": "In the underground garage two cars sit side by side roasting their tyres, the rear of the brown Silvia filling the frame in tyre smoke. The flag girl in the red outfit throws both arms up and the launch is swallowed by smoke.",
+      "censor": "none"
+    },
+    {
+      "shots": [2, 3, 4, 5],
+      "clip_start": "01:37:33.745",
+      "clip_end": "01:37:47.634",
+      "depicts": ["transition"],
+      "chars": [],
+      "action": "The image cuts to full black, then a white stunt-safety disclaimer card fades up warning that the motor vehicle sequences are dangerous and should not be duplicated. It holds, then dims out.",
+      "censor": "none"
+    },
+    {
+      "shots": [6, 7, 8],
+      "clip_start": "01:37:47.634",
+      "clip_end": "01:37:59.062",
+      "depicts": ["transition"],
+      "chars": [],
+      "action": "End credits begin over black with drifting tyre-track graphics curling across frame. Unit production manager and the assistant director cards scroll up, and by the last shot the 'Cast in order of appearance' heading has arrived.",
+      "censor": "none"
+    },
+    {
+      "shots": [9, 10, 11, 12],
+      "clip_start": "01:37:59.062",
+      "clip_end": "01:38:17.413",
+      "depicts": ["transition"],
+      "chars": [],
+      "action": "The cast list scrolls up the right of frame against the tyre-mark pattern, running from the lead role down through the supporting parts. By the end of the run the cast column has given way to the stunt coordinator credits.",
+      "censor": "none"
+    },
+    {
+      "shots": [13, 14, 15, 16],
+      "clip_start": "01:38:17.413",
+      "clip_end": "01:38:33.137",
+      "depicts": ["transition"],
+      "chars": [],
+      "action": "The roll reaches second unit and stunt coordination, then the heading 'Stunt Players' opens into three dense columns of names that fill the frame edge to edge before scrolling clear at the top.",
+      "censor": "none"
+    },
+    {
+      "shots": [17, 18, 19, 20, 21],
+      "clip_start": "01:38:33.137",
+      "clip_end": "01:39:04.460",
+      "depicts": ["transition"],
+      "chars": [],
+      "action": "The stunt columns clear and the credits thin to single-line department cards: production supervisor, visual effects, art director and set decorators, then camera and sound crew, with tyre-track swirls still drifting behind.",
+      "censor": "none"
+    },
+    {
+      "shots": [22, 23, 24, 25, 26, 27],
+      "clip_start": "01:39:04.460",
+      "clip_end": "01:39:22.186",
+      "depicts": ["transition"],
+      "chars": [],
+      "action": "The roll continues through grip and rigging crews into production coordination, then special effects foremen and technicians, and by the final shot it has reached accounting, casting and the location department.",
+      "censor": "none"
+    }
+  ]
+}

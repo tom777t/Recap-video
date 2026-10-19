@@ -1,0 +1,68 @@
+{
+  "span": "sp10",
+  "moments": [
+    {
+      "shots": [0, 1],
+      "clip_start": "00:13:33.435",
+      "clip_end": "00:13:42.235",
+      "depicts": ["establishing", "setup"],
+      "chars": [],
+      "action": "Night in a narrow alley. The young American in the hooded jacket steps up to a lit sliding door and knocks, then the cut holds on his face as he waits, glancing back down the lantern-lit street.",
+      "censor": "none"
+    },
+    {
+      "shots": [2, 3, 4, 5, 6],
+      "clip_start": "00:13:42.235",
+      "clip_end": "00:14:02.380",
+      "depicts": ["dialogue", "setup"],
+      "chars": [],
+      "action": "The door slides back and a greying older man in a dark robe leans out. Reverse close-ups trade between them; the older man's guarded half-smile gives way to the teenager's flat, unimpressed stare.",
+      "censor": "none"
+    },
+    {
+      "shots": [7, 8, 9, 10],
+      "clip_start": "00:14:02.380",
+      "clip_end": "00:14:14.350",
+      "depicts": ["reaction", "reveal"],
+      "chars": [],
+      "action": "The older man, now in a grey Navy T-shirt, steps into the doorway holding a pale coat. A young Japanese woman emerges behind him, takes it and edges past the boy into the alley.",
+      "censor": "none"
+    },
+    {
+      "shots": [11, 12, 13],
+      "clip_start": "00:14:14.350",
+      "clip_end": "00:14:23.151",
+      "depicts": ["reaction", "emotion"],
+      "chars": [],
+      "action": "The boy tracks the woman as she walks off past him. The older man drops his eyes, caught out, and the last shot snaps back to the boy, jaw set and openly contemptuous.",
+      "censor": "none"
+    },
+    {
+      "shots": [14, 15, 16, 17],
+      "clip_start": "00:14:23.151",
+      "clip_end": "00:14:44.255",
+      "depicts": ["establishing", "setup"],
+      "chars": [],
+      "action": "Inside the cramped one-room flat the older man scoops up a black cat and clears space while the boy hovers in the doorway. By the last shot the boy has come in and is drifting past the tiny bathroom.",
+      "censor": "none"
+    },
+    {
+      "shots": [18, 19, 20, 21],
+      "clip_start": "00:14:44.255",
+      "clip_end": "00:15:03.316",
+      "depicts": ["dialogue"],
+      "chars": [],
+      "action": "The two talk across the crowded room, the older man gesturing at the bedding and shelves. The boy keeps his pack on his shoulder; by the last two-shot he has turned to face the man squarely.",
+      "censor": "none"
+    },
+    {
+      "shots": [22, 23, 24, 25, 26],
+      "clip_start": "00:15:03.316",
+      "clip_end": "00:15:19.540",
+      "depicts": ["dialogue", "emotion"],
+      "chars": [],
+      "action": "Tight reverse close-ups: the older man lays out terms, the boy answers without looking at him. A wide shows them standing apart over the futon before the cut returns to the boy, still unmoved.",
+      "censor": "none"
+    }
+  ]
+}

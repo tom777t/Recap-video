@@ -1,0 +1,86 @@
+{
+  "span": "sp16",
+  "moments": [
+    {
+      "shots": [0, 1, 2, 3, 4],
+      "clip_start": "00:22:29.885",
+      "clip_end": "00:22:38.811",
+      "depicts": ["establishing", "montage"],
+      "chars": ["the young American driver"],
+      "action": "The young American driver sits watching from a car, then the garage meet takes over: a couple kissing, a girl's hips passing between parked cars, a man in a horned red hat with cameras pushing through.",
+      "censor": "none"
+    },
+    {
+      "shots": [5, 6, 7, 8],
+      "clip_start": "00:22:38.811",
+      "clip_end": "00:22:49.155",
+      "depicts": ["establishing", "setup"],
+      "chars": ["the young American driver"],
+      "action": "Wide of the underground meet: hoods up, mechanics bent over engines. The driver threads through the crowd and ends up past a girl perched on a hatch of nitrous bottles, texting.",
+      "censor": "none"
+    },
+    {
+      "shots": [9, 10, 11, 12, 13, 14, 15, 16],
+      "clip_start": "00:22:49.155",
+      "clip_end": "00:23:03.502",
+      "depicts": ["reaction", "action"],
+      "chars": ["the young American driver", "the man in the green shirt", "the girl in the black jacket"],
+      "action": "The driver stops and scans the crowd as a blue car rolls past. It parks by the tyre van; the man in the green shirt leans into it, a woman swings out of the car beside it, and the girl in the black jacket walks off into the meet.",
+      "censor": "none"
+    },
+    {
+      "shots": [17, 18, 19, 20, 21, 22, 23],
+      "clip_start": "00:23:03.502",
+      "clip_end": "00:23:14.889",
+      "depicts": ["dialogue", "setup"],
+      "chars": ["the girl in the black jacket", "the girl with the laptop", "the man in the green shirt"],
+      "action": "The girl in the black jacket talks over an open hood while nearby the girl with the laptop snaps 'the way you drive is wrong' and jabs at the engine; the man in the green shirt just smirks and stands by her.",
+      "censor": "none"
+    },
+    {
+      "shots": [24, 25, 26, 27, 28],
+      "clip_start": "00:23:14.889",
+      "clip_end": "00:23:27.776",
+      "depicts": ["dialogue", "setup"],
+      "chars": ["the girl in the black jacket", "the young American driver"],
+      "action": "She walks to a teal car with its hatch open and the driver follows. They end up facing each other across the raised panel, him leaning on it and talking, her watching with a small smile.",
+      "censor": "none"
+    },
+    {
+      "shots": [29, 30, 31, 32, 33, 34],
+      "clip_start": "00:23:27.776",
+      "clip_end": "00:23:45.335",
+      "depicts": ["dialogue", "emotion"],
+      "chars": ["the young American driver", "the girl in the black jacket"],
+      "action": "Tight shot/reverse across the hatch. He starts out looking down, awkward; by the end both are grinning openly at each other and she is doing the talking.",
+      "censor": "none"
+    },
+    {
+      "shots": [35, 36, 37, 38],
+      "clip_start": "00:23:45.335",
+      "clip_end": "00:23:56.054",
+      "depicts": ["dialogue", "emotion"],
+      "chars": ["the girl in the black jacket", "the young American driver"],
+      "action": "She lifts a dark garment between them as they stand shoulder to shoulder. The smiles hold, but her eyes drift off past him and the exchange trails away.",
+      "censor": "none"
+    },
+    {
+      "shots": [39, 40, 41, 42, 43],
+      "clip_start": "00:23:56.054",
+      "clip_end": "00:24:14.156",
+      "depicts": ["action", "reveal"],
+      "chars": ["the man in the black leather jacket"],
+      "action": "Attention shifts across the garage: the man in the black leather jacket sits flanked by women, then rises glowering. A blurred pan lands on his whole crew lined up with him, cash and phones in hand, moving through the meet.",
+      "censor": "none"
+    },
+    {
+      "shots": [44, 45, 46, 47],
+      "clip_start": "00:24:14.156",
+      "clip_end": "00:24:20.621",
+      "depicts": ["transition", "montage"],
+      "chars": ["the girl in the black jacket"],
+      "action": "A man in a red beanie clowns and dances for laughing girls, then whip pans smear the garage and settle on the girl in the black jacket walking away toward the tyre van.",
+      "censor": "none"
+    }
+  ]
+}

@@ -1,0 +1,95 @@
+{
+  "span": "sp44",
+  "moments": [
+    {
+      "shots": [0, 1, 2],
+      "clip_start": "01:04:29.686",
+      "clip_end": "01:04:44.242",
+      "depicts": ["dialogue", "emotion"],
+      "chars": [],
+      "action": "In a blue-lit room the young man with the shaved-side haircut backs the girl in the school uniform against a perforated wall. She answers him at first, but by the third shot she is cornered and talking fast.",
+      "censor": "none"
+    },
+    {
+      "shots": [3, 4, 5, 6],
+      "clip_start": "01:04:44.242",
+      "clip_end": "01:05:04.345",
+      "depicts": ["dialogue", "emotion"],
+      "chars": [],
+      "action": "He closes the last of the gap until their faces almost touch. She stops answering, turns her head aside and drops her eyes, and the camera pushes into extreme close-up on the two of them.",
+      "censor": "none"
+    },
+    {
+      "shots": [7, 8, 9, 10],
+      "clip_start": "01:05:04.345",
+      "clip_end": "01:05:24.407",
+      "depicts": ["reaction", "emotion"],
+      "chars": [],
+      "action": "Held in extreme close-up, he keeps talking low into her face. Her expression breaks: a tear runs down her cheek, and she ends the exchange with her lips parted, saying nothing.",
+      "censor": "none"
+    },
+    {
+      "shots": [11, 12],
+      "clip_start": "01:05:24.407",
+      "clip_end": "01:05:34.125",
+      "depicts": ["establishing", "setup"],
+      "chars": [],
+      "action": "Cut to the garage: three of the crew work under a car on the lift. Outside, the girl, now in a fur-collared coat, walks in off the dark street toward the open bay.",
+      "censor": "none"
+    },
+    {
+      "shots": [13, 14, 15, 16],
+      "clip_start": "01:05:34.125",
+      "clip_end": "01:05:41.883",
+      "depicts": ["reaction", "discovery"],
+      "chars": [],
+      "action": "The American under the car spots her and stares; the woman beside him turns to look, and the man at the office desk straightens up. He steps out from under the lift and walks toward her.",
+      "censor": "none"
+    },
+    {
+      "shots": [17, 18, 19, 20],
+      "clip_start": "01:05:41.883",
+      "clip_end": "01:05:50.308",
+      "depicts": ["dialogue", "emotion"],
+      "chars": [],
+      "action": "Face to face at the garage mouth, she keeps her eyes down with a tear on her cheek while he searches her face. The moment ends on a blurred whip-pan off her hair.",
+      "censor": "none"
+    },
+    {
+      "shots": [21, 22],
+      "clip_start": "01:05:50.308",
+      "clip_end": "01:05:55.938",
+      "depicts": ["transition", "establishing"],
+      "chars": [],
+      "action": "A man in a beige coat walks the aisle of a crowded pachinko parlour, then the camera whips away through the bright arcade front into the street.",
+      "censor": "none"
+    },
+    {
+      "shots": [23, 24, 25, 26],
+      "clip_start": "01:05:55.938",
+      "clip_end": "01:06:03.112",
+      "depicts": ["action", "setup"],
+      "chars": [],
+      "action": "A black Mercedes sits on a neon-lit alley. Its doors swing open and two men in dark suits climb out: a heavy-set bald older man, then a long-haired man who leans out over the door frame.",
+      "censor": "none"
+    },
+    {
+      "shots": [27, 28, 29],
+      "clip_start": "01:06:03.112",
+      "clip_end": "01:06:12.413",
+      "depicts": ["action", "transition"],
+      "chars": [],
+      "action": "A young man in a leather jacket turns in the street toward them. A low shot under the car wheel, then the camera follows a dark figure through a lit doorway into a building.",
+      "censor": "none"
+    },
+    {
+      "shots": [30, 31, 32],
+      "clip_start": "01:06:12.413",
+      "clip_end": "01:06:20.796",
+      "depicts": ["establishing", "reveal"],
+      "chars": [],
+      "action": "Inside a dim smoky parlour, players hunch over a green mahjong table. The camera passes a silhouette and settles on the arrivals standing among the regulars: the leather-jacketed young man beside the bald man in the suit.",
+      "censor": "none"
+    }
+  ]
+}

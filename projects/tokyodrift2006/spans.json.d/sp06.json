@@ -1,0 +1,104 @@
+{
+  "span": "sp06",
+  "moments": [
+    {
+      "shots": [0, 1, 2, 3, 4],
+      "clip_start": "00:07:30.907",
+      "clip_end": "00:07:38.123",
+      "depicts": ["action"],
+      "chars": ["the dark-haired teenager in the cream muscle car"],
+      "action": "The dark-haired teenager grins at the wheel; a low shot catches the two cars' wheels running level, then his cream muscle car launches off a dirt mound. By the last shot his windshield POV is tilted hard sideways.",
+      "censor": "none"
+    },
+    {
+      "shots": [5, 6, 7, 8],
+      "clip_start": "00:07:38.123",
+      "clip_end": "00:07:47.799",
+      "depicts": ["action"],
+      "chars": ["the dark-haired teenager in the cream muscle car"],
+      "action": "From above, the muscle car slides through the dirt lanes of a half-built housing tract, then a head-on low angle; the driver is still grinning. The moment ends on a blurred whip past dark house frames.",
+      "censor": "none"
+    },
+    {
+      "shots": [9, 10, 11, 12],
+      "clip_start": "00:07:47.799",
+      "clip_end": "00:07:54.931",
+      "depicts": ["reaction"],
+      "chars": ["the blonde girl in the red convertible", "the blond man in the purple polo"],
+      "action": "Inside the open-top car, the blonde girl's hair whips as she shouts. The blond driver in the purple polo looks across at her, then turns back to the road in profile, no longer smiling.",
+      "censor": "none"
+    },
+    {
+      "shots": [13, 14, 15, 16, 17],
+      "clip_start": "00:07:54.931",
+      "clip_end": "00:08:06.943",
+      "depicts": ["action"],
+      "chars": ["the dark-haired teenager in the cream muscle car"],
+      "action": "The teenager laughs behind the wheel; his POV runs down the dirt track past framed houses toward a parked bulldozer. His grin turns into an open-mouthed yell and the shot drops to the dark footwell.",
+      "censor": "none"
+    },
+    {
+      "shots": [18, 19, 20, 21],
+      "clip_start": "00:08:06.943",
+      "clip_end": "00:08:13.157",
+      "depicts": ["action", "setup"],
+      "chars": ["the blond man in the purple polo"],
+      "action": "A still wide of the lumber-strewn site is broken as the cream car sails off a mound and the red convertible streaks past underneath it. The car lands hard; inside the convertible the blond driver grips the wheel.",
+      "censor": "none"
+    },
+    {
+      "shots": [22, 23, 24, 25, 26],
+      "clip_start": "00:08:13.157",
+      "clip_end": "00:08:17.287",
+      "depicts": ["action", "reaction"],
+      "chars": ["the blonde girl in the red convertible", "the blond man in the purple polo"],
+      "action": "The girl ducks from the wind, the blond driver glances right, and a wide shows the cream car canted up on two wheels alongside them. She lifts her head to watch and a hand closes on the shifter.",
+      "censor": "none"
+    },
+    {
+      "shots": [27, 28, 29, 30, 31, 32, 33, 34],
+      "clip_start": "00:08:17.287",
+      "clip_end": "00:08:29.424",
+      "depicts": ["reaction", "emotion"],
+      "chars": ["the dark-haired teenager in the cream muscle car", "the blond man in the purple polo", "the blonde girl in the red convertible"],
+      "action": "The teenager drapes an arm on the door and smirks across; the blond driver's face sags. The girl speaks to him and half-smiles at the other car, and by the last shots he is staring dead ahead, jaw set.",
+      "censor": "none"
+    },
+    {
+      "shots": [35, 36, 37, 38, 39, 40],
+      "clip_start": "00:08:29.424",
+      "clip_end": "00:08:44.814",
+      "depicts": ["action"],
+      "chars": ["the dark-haired teenager in the cream muscle car", "the blond man in the purple polo", "the blonde girl in the red convertible"],
+      "action": "Head-on and from behind, the red convertible and the muscle car run wheel to wheel through the site. The cream car tips onto two wheels against the convertible; the blond driver wrestles his wheel as they close to touching.",
+      "censor": "none"
+    },
+    {
+      "shots": [41, 42, 43],
+      "clip_start": "00:08:44.814",
+      "clip_end": "00:09:07.045",
+      "depicts": ["action"],
+      "chars": ["the blonde girl in the red convertible", "the dark-haired teenager in the cream muscle car"],
+      "action": "The girl screams with her hair over her face; the cream car is fully up on two wheels leaning on the convertible, now out on open blacktop. In the long last shot the teenager twists to look back and the red car slews sideways in dust.",
+      "censor": "none"
+    },
+    {
+      "shots": [44, 45, 46],
+      "clip_start": "00:09:07.045",
+      "clip_end": "00:09:13.551",
+      "depicts": ["action", "reveal"],
+      "chars": ["the dark-haired teenager in the cream muscle car"],
+      "action": "A POV through a spiderwebbed windshield; a young man leans out of an SUV filming on a camcorder at sunset. Then the cream car leaves the road and flips past the roadside spectators, who scatter.",
+      "censor": "none"
+    },
+    {
+      "shots": [47, 48, 49, 50, 51],
+      "clip_start": "00:09:13.551",
+      "clip_end": "00:09:26.981",
+      "depicts": ["action", "aftermath"],
+      "chars": ["the dark-haired teenager in the cream muscle car"],
+      "action": "The muscle car flies through the air shedding its rear end, tumbles through desert brush, and the teenager is thrown around inside, braced and yelling. It ends on the front end crumpling into the dirt.",
+      "censor": "none"
+    }
+  ]
+}

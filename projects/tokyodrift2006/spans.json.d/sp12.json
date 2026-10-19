@@ -1,0 +1,77 @@
+{
+  "span": "sp12",
+  "moments": [
+    {
+      "shots": [0],
+      "clip_start": "00:16:31.779",
+      "clip_end": "00:16:57.847",
+      "depicts": ["action", "setup"],
+      "chars": [],
+      "action": "In a cramped tatami room a man in a grey T-shirt holds out a small alarm clock, then turns to a black school uniform on a hanger and leaves a handwritten note pinned to it.",
+      "censor": "none"
+    },
+    {
+      "shots": [1, 2, 3, 4, 5, 6, 7],
+      "clip_start": "00:16:57.847",
+      "clip_end": "00:17:07.523",
+      "depicts": ["montage", "establishing"],
+      "chars": [],
+      "action": "The American teenager, now buttoned into the black school uniform, works through Shibuya's morning crowd clutching a map. Shouldered aside by commuters, he ends trailing the crowd from behind into a wide plaza.",
+      "censor": "none"
+    },
+    {
+      "shots": [8, 9, 10, 11],
+      "clip_start": "00:17:07.523",
+      "clip_end": "00:17:17.032",
+      "depicts": ["montage"],
+      "chars": [],
+      "action": "He stands baffled at a wall of green ticket machines, then rides a packed escalator down. By the last shots a guard is pressing bodies into a train and his plastic bag hangs trapped outside the closed door.",
+      "censor": "none"
+    },
+    {
+      "shots": [12, 13],
+      "clip_start": "00:17:17.032",
+      "clip_end": "00:17:36.385",
+      "depicts": ["establishing", "setup"],
+      "chars": [],
+      "action": "A gate sign reads Wadakura High School over an empty street; the cut inside finds a deserted locker-lined corridor with only a cleaner at the far end - lessons have already started.",
+      "censor": "none"
+    },
+    {
+      "shots": [14, 15, 16, 17, 18, 19],
+      "clip_start": "00:17:36.385",
+      "clip_end": "00:17:49.565",
+      "depicts": ["action", "reaction"],
+      "chars": [],
+      "action": "The teenager appears at a classroom door mid-lesson. A dark-haired girl twists round in her seat to stare and he smirks back; by the last shot the teacher in the pink cardigan has stopped writing and turned from the blackboard.",
+      "censor": "none"
+    },
+    {
+      "shots": [20, 21, 22],
+      "clip_start": "00:17:49.565",
+      "clip_end": "00:18:00.451",
+      "depicts": ["dialogue", "setup"],
+      "chars": [],
+      "action": "He crosses to the front of the class and hands a sheet of paper to the teacher. She reads it in close-up while he waits; by the reverse he has shifted from wary to a crooked smirk.",
+      "censor": "none"
+    },
+    {
+      "shots": [23, 24, 25, 26],
+      "clip_start": "00:18:00.451",
+      "clip_end": "00:18:14.631",
+      "depicts": ["dialogue", "reaction"],
+      "chars": [],
+      "action": "The teacher breaks into a broad smile as she speaks to him and his guarded look loosens. The cut finds the dark-haired girl turned in her seat smiling straight at him, and he glances back.",
+      "censor": "none"
+    },
+    {
+      "shots": [27, 28, 29],
+      "clip_start": "00:18:14.631",
+      "clip_end": "00:18:20.554",
+      "depicts": ["dialogue", "reaction"],
+      "chars": [],
+      "action": "A wide shot shows the teacher talking him through something at the blackboard in front of the whole class while he stands with his bag. The moment ends away from her, on the girl's smile and his answering look.",
+      "censor": "none"
+    }
+  ]
+}

@@ -1,0 +1,95 @@
+{
+  "span": "sp09",
+  "moments": [
+    {
+      "shots": [0],
+      "clip_start": "00:11:49.790",
+      "clip_end": "00:12:10.686",
+      "depicts": ["reaction", "setup"],
+      "chars": ["the crew-cut American teenager"],
+      "action": "Tight on the American teenager's face in an airline seat, eyes flicking sideways; the shot widens to show him wedged between elderly Japanese passengers and a toddler, slumped and resigned.",
+      "censor": "none"
+    },
+    {
+      "shots": [1, 2, 3, 4],
+      "clip_start": "00:12:10.686",
+      "clip_end": "00:12:26.493",
+      "depicts": ["establishing", "transition"],
+      "chars": ["the crew-cut American teenager"],
+      "action": "A jet's wheels drop onto the runway lights, then the teenager rides an escalator past Japanese ad posters, pushes out through the terminal doors into a crowd, and stops to stare up at the signage.",
+      "censor": "none"
+    },
+    {
+      "shots": [5, 6, 7, 8],
+      "clip_start": "00:12:26.493",
+      "clip_end": "00:12:35.210",
+      "depicts": ["action"],
+      "chars": ["the crew-cut American teenager"],
+      "action": "The teenager scans the terminal windows, lost among commuters, then checks something in his hand under the taxi sign and finally walks out along the rank of waiting cabs with his bag.",
+      "censor": "none"
+    },
+    {
+      "shots": [9, 10, 11],
+      "clip_start": "00:12:35.210",
+      "clip_end": "00:12:49.057",
+      "depicts": ["transition", "setup"],
+      "chars": ["the crew-cut American teenager"],
+      "action": "An orange taxi runs an elevated expressway at dusk; inside, the teenager tilts his head up at the passing blocks, and the view ahead opens onto a traffic-choked city under a fading sunset.",
+      "censor": "none"
+    },
+    {
+      "shots": [12, 13, 14, 15],
+      "clip_start": "00:12:49.057",
+      "clip_end": "00:13:03.613",
+      "depicts": ["establishing", "montage"],
+      "chars": ["the crew-cut American teenager"],
+      "action": "The cab reaches a packed neon shopping district, crowds pouring across the crossing, and the camera lands on the teenager's reflection in the taxi window as headlights and traffic slide past him.",
+      "censor": "none"
+    },
+    {
+      "shots": [16, 17, 18, 19],
+      "clip_start": "00:13:03.613",
+      "clip_end": "00:13:15.667",
+      "depicts": ["montage", "establishing"],
+      "chars": [],
+      "action": "A run of Tokyo night signage - a lit glass tower, stacked neon billboards, a KFC storefront - before the montage drops back to the lone taxi rolling down a quieter lantern-lined street.",
+      "censor": "none"
+    },
+    {
+      "shots": [20, 21, 22],
+      "clip_start": "00:13:15.667",
+      "clip_end": "00:13:22.716",
+      "depicts": ["action"],
+      "chars": ["the crew-cut American teenager"],
+      "action": "Out of the cab, the teenager looks up at the buildings, then walks away from camera down a narrow lantern-lit back alley, slowing and turning his head to check the shopfronts as he goes.",
+      "censor": "none"
+    },
+    {
+      "shots": [23],
+      "clip_start": "00:13:22.716",
+      "clip_end": "00:13:33.435",
+      "depicts": ["action", "discovery"],
+      "chars": ["the crew-cut American teenager"],
+      "action": "A held take: the teenager comes past a rack of parked bicycles to a lit wooden-framed sliding door, stops dead in front of it and stands looking it over instead of going in.",
+      "censor": "none"
+    },
+    {
+      "shots": [24, 25],
+      "clip_start": "00:13:33.435",
+      "clip_end": "00:13:42.235",
+      "depicts": ["action", "emotion"],
+      "chars": ["the crew-cut American teenager"],
+      "action": "He steps up to the paper-screen door and reaches for it, then the cut to his face shows him hanging back, jaw set, glancing off down the alley rather than knocking straight away.",
+      "censor": "none"
+    },
+    {
+      "shots": [26, 27, 28, 29],
+      "clip_start": "00:13:42.235",
+      "clip_end": "00:13:54.205",
+      "depicts": ["dialogue", "reveal"],
+      "chars": ["the crew-cut American teenager", "the grey-haired man in the doorway"],
+      "action": "The door slides open and a grey-haired man in a dark robe leans out. Shot-reverse close-ups: the teenager stares back blank and guarded, and the man's wary look softens into recognition.",
+      "censor": "none"
+    }
+  ]
+}

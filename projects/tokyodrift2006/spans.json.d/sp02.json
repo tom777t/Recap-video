@@ -1,0 +1,104 @@
+{
+  "span": "sp02",
+  "moments": [
+    {
+      "shots": [0, 1, 2],
+      "clip_start": "00:01:32.175",
+      "clip_end": "00:01:40.684",
+      "depicts": ["montage", "setup"],
+      "chars": ["the dark-haired teenager"],
+      "action": "A hand shades a sketched car over lined class notes; the dark-haired student stares down at the page, then the film cuts away to the teacher working equations at the whiteboard.",
+      "censor": "none"
+    },
+    {
+      "shots": [3, 4, 5, 6],
+      "clip_start": "00:01:40.684",
+      "clip_end": "00:01:49.651",
+      "depicts": ["establishing", "montage"],
+      "chars": [],
+      "action": "Outside, a student carries a loaded food tray through the crowd; a whip-pan across blonde hair opens onto a pep rally - players in purple jerseys up on a truck bed under signs and a mascot effigy.",
+      "censor": "none"
+    },
+    {
+      "shots": [7, 8, 9, 10],
+      "clip_start": "00:01:49.651",
+      "clip_end": "00:02:04.541",
+      "depicts": ["montage", "reaction", "setup"],
+      "chars": ["the dark-haired teenager", "the blond teenager in headphones"],
+      "action": "The dark-haired teen stands in the rally crowd with a grinning blond kid in headphones at his shoulder; cheerleaders and DUCK FOOTBALL placards fill the frame, then he is alone in close-up as students file past.",
+      "censor": "none"
+    },
+    {
+      "shots": [11, 12],
+      "clip_start": "00:02:04.541",
+      "clip_end": "00:02:19.472",
+      "depicts": ["transition"],
+      "chars": [],
+      "action": "Credits run over two long out-of-focus macro shots - a smear of red and chrome, then a soft blue wash. Neither image ever resolves, carrying the picture off the school exteriors.",
+      "censor": "none"
+    },
+    {
+      "shots": [13, 14, 15, 16],
+      "clip_start": "00:02:19.472",
+      "clip_end": "00:02:36.739",
+      "depicts": ["establishing", "setup"],
+      "chars": ["the dark-haired teenager"],
+      "action": "Auto shop: seen past a lift, boys scuffle by the green lockers while the dark-haired teen works a wrench at a tan race car and the instructor slumps at his desk; by the last shot the teen is on his feet, looking off.",
+      "censor": "none"
+    },
+    {
+      "shots": [17, 18, 19, 20],
+      "clip_start": "00:02:36.739",
+      "clip_end": "00:02:48.042",
+      "depicts": ["action", "reaction"],
+      "chars": ["the dark-haired teenager"],
+      "action": "Three boys pin a classmate to a roller door and haul his shirt up to scrawl a purple mark on his bare stomach; the cuts tighten from the dark-haired teen's stare to the mark and back to his hardened face.",
+      "censor": "none"
+    },
+    {
+      "shots": [21, 22, 23],
+      "clip_start": "00:02:48.042",
+      "clip_end": "00:02:55.174",
+      "depicts": ["action", "setup"],
+      "chars": ["the dark-haired teenager"],
+      "action": "A hand slides open a tool drawer and lifts out jumper-cable clamps; the camera holds on the back of the teen's head as he turns, and across the shop a hand is now clamped over the pinned boy's mouth.",
+      "censor": "none"
+    },
+    {
+      "shots": [24, 25],
+      "clip_start": "00:02:55.174",
+      "clip_end": "00:03:03.308",
+      "depicts": ["establishing", "setup"],
+      "chars": ["the dark-haired teenager"],
+      "action": "Out in the student lot, players in purple jerseys load up between trucks; the angle reverses to the back of the dark-haired teen's head as he halts beside a red convertible and looks across the cars.",
+      "censor": "none"
+    },
+    {
+      "shots": [26, 27, 28, 29],
+      "clip_start": "00:03:03.308",
+      "clip_end": "00:03:09.355",
+      "depicts": ["establishing", "reveal"],
+      "chars": ["the blond girl in the floral top"],
+      "action": "A blond girl perches on the back of the convertible working her phone; the camera pans down her bare legs and back up, and on the last shot she lifts her eyes off the phone straight into the lens.",
+      "censor": "none"
+    },
+    {
+      "shots": [30, 31, 32],
+      "clip_start": "00:03:09.355",
+      "clip_end": "00:03:13.818",
+      "depicts": ["action", "setup"],
+      "chars": ["the dark-haired teenager", "the blond player in jersey 13"],
+      "action": "The teen crosses the lot to a tan muscle car as students stream past; the angle flips over the girl's shoulder to a line of purple-jerseyed players closing in, the blond in number 13 at the centre.",
+      "censor": "none"
+    },
+    {
+      "shots": [33, 34, 35],
+      "clip_start": "00:03:13.818",
+      "clip_end": "00:03:20.700",
+      "depicts": ["reaction", "emotion"],
+      "chars": ["the dark-haired teenager", "the blond girl in the floral top"],
+      "action": "She turns and smiles back over her shoulder; he holds her look, mouth easing into a half-smile, and the last shot stays on her as the grin widens.",
+      "censor": "none"
+    }
+  ]
+}

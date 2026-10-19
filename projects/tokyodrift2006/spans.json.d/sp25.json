@@ -1,0 +1,79 @@
+{
+  "span": "sp25",
+  "moments": [
+    {
+      "shots": [0, 1, 2, 3],
+      "clip_start": "00:36:00.901",
+      "clip_end": "00:36:16.667",
+      "depicts": ["dialogue", "setup"],
+      "chars": ["the young American", "the huge tattooed bather"],
+      "action": "In a tiled bathhouse a young American in a towel stands over a huge tattooed man soaking in the pool and starts questioning him. A cut to the tattoo on the man's back comes back to the young man's hardened stare.",
+      "censor": "blur_light",
+      "censor_note": "non-sexual bathhouse nudity; the bather's bare torso occupies roughly a third of the wide frames, no explicit detail"
+    },
+    {
+      "shots": [4, 5, 6, 7],
+      "clip_start": "00:36:16.667",
+      "clip_end": "00:36:39.815",
+      "depicts": ["dialogue", "action"],
+      "chars": ["the young American", "the huge tattooed bather"],
+      "action": "The young man keeps pressing and gestures at him. The bather's face hardens, the snarling wolf tattoo on his shoulder fills the frame, and by the last shot he has hauled himself out of the water to tower over his questioner.",
+      "censor": "blur_light",
+      "censor_note": "non-sexual bathhouse nudity; bare torso and shoulder close-ups, roughly half the frame, no explicit detail"
+    },
+    {
+      "shots": [8, 9, 10, 11, 12],
+      "clip_start": "00:36:39.815",
+      "clip_end": "00:36:47.573",
+      "depicts": ["action", "aftermath"],
+      "chars": ["the young American", "the long-haired man in the dark jacket"],
+      "action": "Outside the bathhouse's blue curtain the young man is hurled into the street and lands flat on the asphalt. As he pushes himself up, a long-haired man in a dark jacket watches calmly from beside a parked car.",
+      "censor": "none"
+    },
+    {
+      "shots": [13, 14, 15, 16, 17, 18, 19, 20],
+      "clip_start": "00:36:47.573",
+      "clip_end": "00:37:00.335",
+      "depicts": ["action"],
+      "chars": ["the young American", "the huge tattooed bather", "the long-haired man in the dark jacket"],
+      "action": "He sets his jaw, charges back at the doorway and is flung straight out again, sprawling in the road with a shoe knocked loose. The big man, now in a yukata and head towel, shoves through the curtain and plants himself in the doorway.",
+      "censor": "none"
+    },
+    {
+      "shots": [21, 22, 23, 24],
+      "clip_start": "00:37:00.335",
+      "clip_end": "00:37:09.595",
+      "depicts": ["dialogue", "aftermath"],
+      "chars": ["the young American", "the long-haired man in the dark jacket"],
+      "action": "The long-haired man crouches by his orange sports car with onlookers gathered behind, talking down at the beaten young man sitting in the road. By the last shot the young man is up and walking off past him.",
+      "censor": "none"
+    },
+    {
+      "shots": [25],
+      "clip_start": "00:37:09.595",
+      "clip_end": "00:37:18.186",
+      "depicts": ["transition", "establishing"],
+      "chars": [],
+      "action": "A single held wide shot: the orange sports car runs along an elevated expressway at dusk, tracking past the city skyline as traffic streams the other way behind it.",
+      "censor": "none"
+    },
+    {
+      "shots": [26, 27, 28, 29, 30, 31, 32, 33, 34],
+      "clip_start": "00:37:18.186",
+      "clip_end": "00:37:36.163",
+      "depicts": ["dialogue"],
+      "chars": ["the young American", "the long-haired man in the dark jacket"],
+      "action": "Night drive. Seen first through the windshield, then in close reverse shots, the long-haired man talks while the young man stares at the road; by the end he has turned to look across at him and the driver glances back.",
+      "censor": "none"
+    },
+    {
+      "shots": [35, 36, 37, 38, 39, 40],
+      "clip_start": "00:37:36.163",
+      "clip_end": "00:37:51.553",
+      "depicts": ["establishing", "transition"],
+      "chars": ["the long-haired man in the dark jacket"],
+      "action": "Neon pachinko signs over a night street, then down to the orange car parked at the kerb by vending machines. Salarymen and shoppers stream past, and the long-haired man walks away from it into the crowd.",
+      "censor": "none"
+    }
+  ]
+}
