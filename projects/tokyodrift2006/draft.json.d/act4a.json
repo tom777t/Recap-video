@@ -1,0 +1,251 @@
+{
+  "act": 4,
+  "lines": [
+    {
+      "id": 401,
+      "narration": "Han is in the ground. Sean walks away down the dark street, and his father only watches him go.",
+      "clip_start": "01:18:31.232",
+      "clip_end": "01:18:37.613",
+      "note": "B85",
+      "delivery": "hook",
+      "narrative_jump": false
+    },
+    {
+      "id": 402,
+      "narration": "In an empty garage Twinkie's answer is to leave town. Sean tells him flat he can't.",
+      "clip_start": "01:18:52.753",
+      "clip_end": "01:19:06.100",
+      "note": "B85",
+      "delivery": "tense",
+      "narrative_jump": true,
+      "claim": { "type": "speech", "subject": "the friend in the mint-green shirt" }
+    },
+    {
+      "id": 403,
+      "narration": "Twinkie tells him the trouble doesn't stop with DK. It runs all the way up to Kamata.",
+      "clip_start": "01:19:06.100",
+      "clip_end": "01:19:18.696",
+      "note": "B85",
+      "delivery": "tense",
+      "narrative_jump": false,
+      "claim": { "type": "speech", "subject": "the friend in the mint-green shirt" }
+    },
+    {
+      "id": 404,
+      "narration": "So Sean says it out loud: DK answers to Kamata, and he intends to talk to Kamata himself.",
+      "clip_start": "01:19:18.696",
+      "clip_end": "01:19:36.547",
+      "note": "B86",
+      "delivery": "tense",
+      "narrative_jump": false,
+      "claim": { "type": "speech", "subject": "the young man in the white thermal shirt" }
+    },
+    {
+      "id": 405,
+      "narration": "He answers quietly, eyes down, and whatever he says kills the argument dead.",
+      "clip_start": "01:19:43.012",
+      "clip_end": "01:19:53.939",
+      "note": "B86",
+      "delivery": "tense",
+      "narrative_jump": false
+    },
+    {
+      "id": 406,
+      "narration": "Twinkie hauls up his hatch and pries open a hidden compartment.",
+      "clip_start": "01:19:53.939",
+      "clip_end": "01:20:10.247",
+      "note": "B87",
+      "delivery": "normal",
+      "narrative_jump": false
+    },
+    {
+      "id": 407,
+      "narration": "Out comes a battered leather satchel. Sean counts a thick wad of banknotes; Twinkie says nothing.",
+      "clip_start": "01:20:10.247",
+      "clip_end": "01:20:31.310",
+      "note": "B87",
+      "delivery": "normal",
+      "narrative_jump": false
+    },
+    {
+      "id": 408,
+      "narration": "Night, steam venting over a crowded street. In dark clothes Sean turns into an alley where men are already waiting.",
+      "clip_start": "01:20:31.310",
+      "clip_end": "01:20:49.453",
+      "note": "B88",
+      "delivery": "tense",
+      "narrative_jump": true
+    },
+    {
+      "id": 409,
+      "narration": "He walks past gang jackets and a bat as the crowd closes behind him.",
+      "clip_start": "01:20:49.453",
+      "clip_end": "01:21:02.466",
+      "note": "B88",
+      "delivery": "tense",
+      "narrative_jump": false
+    },
+    {
+      "id": 410,
+      "narration": "At the guarded door he asks for Mr Kamata. A bald elder steps up to size the boy up.",
+      "clip_start": "01:21:02.466",
+      "clip_end": "01:21:11.850",
+      "note": "B88",
+      "delivery": "tense",
+      "narrative_jump": false
+    },
+    {
+      "id": 411,
+      "narration": "Hands open the bag in the doorway. The elder sees inside and goes still.",
+      "clip_start": "01:21:11.850",
+      "clip_end": "01:21:21.193",
+      "note": "B88",
+      "delivery": "reveal",
+      "narrative_jump": false
+    },
+    {
+      "id": 412,
+      "narration": "The money walks him in, down a dim corridor into a lantern-lit lounge where every head turns.",
+      "clip_start": "01:21:21.193",
+      "clip_end": "01:21:38.836",
+      "note": "B88",
+      "delivery": "mystery",
+      "narrative_jump": true
+    },
+    {
+      "id": 413,
+      "narration": "At a far booth Kamata smokes while an attendant pours. Sean stops at the bar, locked onto him.",
+      "clip_start": "01:21:38.836",
+      "clip_end": "01:21:47.678",
+      "note": "B88",
+      "delivery": "tense",
+      "narrative_jump": false
+    },
+    {
+      "id": 414,
+      "narration": "DK plants himself nose to nose and they trade words inches apart. Across the lounge, Kamata turns to watch.",
+      "clip_start": "01:21:47.678",
+      "clip_end": "01:21:56.520",
+      "note": "B89",
+      "delivery": "tense",
+      "narrative_jump": false
+    },
+    {
+      "id": 415,
+      "narration": "A guard holds him off the booth. He lowers his eyes, and the bag goes forward to the table.",
+      "clip_start": "01:22:05.612",
+      "clip_end": "01:22:15.455",
+      "note": "B89",
+      "delivery": "tense",
+      "narrative_jump": false
+    },
+    {
+      "id": 416,
+      "narration": "The attendant holds the bag open over Kamata. The old man stays behind his cigar and doesn't reach.",
+      "clip_start": "01:22:15.455",
+      "clip_end": "01:22:29.845",
+      "note": "B89",
+      "delivery": "tense",
+      "narrative_jump": false
+    },
+    {
+      "id": 417,
+      "narration": "He gives the money back and apologises - and names the arrangement out loud: DK is Kamata's nephew.",
+      "clip_start": "01:22:29.845",
+      "clip_end": "01:22:46.403",
+      "note": "B89",
+      "delivery": "reveal",
+      "narrative_jump": false
+    },
+    {
+      "id": 418,
+      "narration": "Kamata shuts his eyes, unmoved. DK throws it back at him - after everything you've done, you're giving me orders.",
+      "clip_start": "01:22:50.407",
+      "clip_end": "01:23:00.709",
+      "note": "B90",
+      "delivery": "tense",
+      "narrative_jump": false
+    },
+    {
+      "id": 419,
+      "narration": "Nothing from the booth. The defiance collapses, DK's head goes down into a bow, and Kamata answers loudly.",
+      "clip_start": "01:23:00.709",
+      "clip_end": "01:23:09.676",
+      "note": "B90",
+      "delivery": "tense",
+      "narrative_jump": false
+    },
+    {
+      "id": 420,
+      "narration": "Sean's peaceful solution is a race. He and DK have caused Kamata nothing but problems; let them settle it.",
+      "clip_start": "01:23:09.676",
+      "clip_end": "01:23:22.981",
+      "note": "B91",
+      "delivery": "tense",
+      "narrative_jump": false
+    },
+    {
+      "id": 421,
+      "narration": "One race, and the loser leaves Tokyo for good. DK barely looks over - he's beaten this kid once already.",
+      "clip_start": "01:23:22.981",
+      "clip_end": "01:23:35.410",
+      "note": "B91",
+      "delivery": "normal",
+      "narrative_jump": false
+    },
+    {
+      "id": 422,
+      "narration": "Kamata draws on the cigar, weighing it in silence while the boy waits. Then he grants the race.",
+      "clip_start": "01:23:35.410",
+      "clip_end": "01:23:46.463",
+      "note": "B92",
+      "delivery": "reveal",
+      "narrative_jump": false
+    },
+    {
+      "id": 423,
+      "narration": "Daylight. Keep-out tape across the shutter of Han's garage - and the crew come jogging back to it anyway.",
+      "clip_start": "01:23:46.463",
+      "clip_end": "01:24:06.024",
+      "note": "B93",
+      "delivery": "sad",
+      "narrative_jump": true
+    },
+    {
+      "id": 424,
+      "narration": "Inside, Sean and Neela read an inline-six together, and the shutter goes up.",
+      "clip_start": "01:24:33.801",
+      "clip_end": "01:24:49.025",
+      "note": "B93",
+      "delivery": "normal",
+      "narrative_jump": false
+    },
+    {
+      "id": 425,
+      "narration": "They shove the striped Mustang in and the build takes it: turbo motor, welders showering sparks.",
+      "clip_start": "01:25:00.036",
+      "clip_end": "01:25:16.594",
+      "note": "B93",
+      "delivery": "normal",
+      "narrative_jump": false
+    },
+    {
+      "id": 426,
+      "narration": "A Nissan motor in a Ford's bay. Sean breaks loose onto dirt and dusts the hillside turn.",
+      "clip_start": "01:25:24.310",
+      "clip_end": "01:25:34.111",
+      "note": "B93",
+      "delivery": "normal",
+      "narrative_jump": false
+    },
+    {
+      "id": 427,
+      "narration": "Between runs they meter the engine, and the work carries on into the night with Sean frowning.",
+      "clip_start": "01:25:50.586",
+      "clip_end": "01:26:00.137",
+      "note": "B93",
+      "delivery": "normal",
+      "narrative_jump": false
+    }
+  ]
+}

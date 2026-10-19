@@ -1,0 +1,323 @@
+{
+  "act": 1,
+  "lines": [
+    {
+      "id": 101,
+      "narration": "A wrench in his hand, and behind his back three boys close on a classmate. He keeps working.",
+      "clip_start": "00:02:19.472",
+      "clip_end": "00:02:36.739",
+      "note": "B01",
+      "delivery": "hook",
+      "narrative_jump": false
+    },
+    {
+      "id": 102,
+      "narration": "They pin the boy to a roller door, haul his shirt up and mark his stomach.",
+      "clip_start": "00:02:36.739",
+      "clip_end": "00:02:48.042",
+      "note": "B01",
+      "delivery": "tense",
+      "narrative_jump": false
+    },
+    {
+      "id": 104,
+      "narration": "In the student lot a blonde asks if his beat-up muscle car delivers pizzas. It's not the ride, he says, it's the rider.",
+      "clip_start": "00:03:13.818",
+      "clip_end": "00:03:24.370",
+      "note": "B02",
+      "delivery": "normal",
+      "narrative_jump": true
+    },
+    {
+      "id": 106,
+      "narration": "Her boyfriend, the jock in thirteen, brags his grandmother could smoke that heap. The teenager recites the Viper's specs back - anyone can read a brochure.",
+      "clip_start": "00:03:30.460",
+      "clip_end": "00:03:45.975",
+      "note": "B02",
+      "delivery": "tense",
+      "narrative_jump": false
+    },
+    {
+      "id": 107,
+      "narration": "He only races for pink slips. The jock won't bet eighty thousand dollars of car against a heap.",
+      "clip_start": "00:04:38.569",
+      "clip_end": "00:04:49.747",
+      "note": "B03",
+      "delivery": "tense",
+      "narrative_jump": false
+    },
+    {
+      "id": 108,
+      "narration": "The girl settles it from the edge of the crowd. The winner gets her.",
+      "clip_start": "00:04:57.755",
+      "clip_end": "00:05:09.308",
+      "note": "B04",
+      "delivery": "reveal",
+      "narrative_jump": false
+    },
+    {
+      "id": 109,
+      "narration": "They line up in a half-built housing tract and tear away down the dirt street.",
+      "clip_start": "00:05:09.308",
+      "clip_end": "00:05:24.865",
+      "note": "B05",
+      "delivery": "tense",
+      "narrative_jump": true
+    },
+    {
+      "id": 112,
+      "narration": "Losing on pavement, he quits the road and cuts straight across the raw dirt lots while the Viper stays on it.",
+      "clip_start": "00:07:19.437",
+      "clip_end": "00:07:30.907",
+      "note": "B06",
+      "delivery": "tense",
+      "narrative_jump": false
+    },
+    {
+      "id": 114,
+      "narration": "The muscle car tips onto two wheels and leans on the convertible, close enough to touch.",
+      "clip_start": "00:08:29.424",
+      "clip_end": "00:08:44.814",
+      "note": "B07",
+      "delivery": "tense",
+      "narrative_jump": false
+    },
+    {
+      "id": 116,
+      "narration": "The crowd scatters as the muscle car launches off the dirt and goes end over end.",
+      "clip_start": "00:09:07.045",
+      "clip_end": "00:09:16.596",
+      "note": "B08",
+      "delivery": "tense",
+      "narrative_jump": false
+    },
+    {
+      "id": 117,
+      "narration": "It settles upside down, wheels still turning, and he hangs in the belt, face opened up.",
+      "clip_start": "00:09:26.981",
+      "clip_end": "00:09:43.414",
+      "note": "B08",
+      "delivery": "sad",
+      "narrative_jump": false
+    },
+    {
+      "id": 118,
+      "narration": "At the station a detective plays him a bystander's video of the race. He asks for a copy.",
+      "clip_start": "00:09:59.889",
+      "clip_end": "00:10:11.359",
+      "note": "B09",
+      "delivery": "tense",
+      "narrative_jump": true
+    },
+    {
+      "id": 120,
+      "narration": "Ken and Barbie walk free; their parents are hooked up. Screw-ups like him are a guaranteed conviction, and his car is already crushed.",
+      "clip_start": "00:10:23.412",
+      "clip_end": "00:10:35.216",
+      "note": "B10",
+      "delivery": "reveal",
+      "narrative_jump": false
+    },
+    {
+      "id": 122,
+      "narration": "His mother arrives swinging at him, demanding to know what he was thinking. He stops answering.",
+      "clip_start": "00:10:41.597",
+      "clip_end": "00:10:49.480",
+      "note": "B11",
+      "delivery": "tense",
+      "narrative_jump": false
+    },
+    {
+      "id": 123,
+      "narration": "Two priors for reckless driving make this strike three. They'll put him away unless someone finds another way.",
+      "clip_start": "00:11:23.847",
+      "clip_end": "00:11:33.232",
+      "note": "B12",
+      "delivery": "reveal",
+      "narrative_jump": false
+    },
+    {
+      "id": 124,
+      "narration": "In the corridor he asks where they are moving this time. Nowhere, she says.",
+      "clip_start": "00:11:33.232",
+      "clip_end": "00:11:49.790",
+      "note": "B13",
+      "delivery": "sad",
+      "narrative_jump": false
+    },
+    {
+      "id": 125,
+      "narration": "He flies out alone, wedged into an airline seat between strangers.",
+      "clip_start": "00:11:49.790",
+      "clip_end": "00:12:10.686",
+      "note": "B14",
+      "delivery": "sad",
+      "narrative_jump": true
+    },
+    {
+      "id": 126,
+      "narration": "A cab carries him into Tokyo at night; the city arrives as his own reflection.",
+      "clip_start": "00:12:49.057",
+      "clip_end": "00:13:03.613",
+      "note": "B14",
+      "delivery": "mystery",
+      "narrative_jump": false
+    },
+    {
+      "id": 128,
+      "narration": "Down a lantern-lit alley, his father opens a sliding door - greying, in a dark robe. He expected him tomorrow; Japan runs a day ahead.",
+      "clip_start": "00:13:42.235",
+      "clip_end": "00:14:02.380",
+      "note": "B15",
+      "delivery": "mystery",
+      "narrative_jump": true
+    },
+    {
+      "id": 129,
+      "narration": "He steps back for a coat. A young Japanese woman comes out behind him, takes it and slips past into the alley.",
+      "clip_start": "00:14:02.380",
+      "clip_end": "00:14:14.350",
+      "note": "B16",
+      "delivery": "reveal",
+      "narrative_jump": false
+    },
+    {
+      "id": 130,
+      "narration": "Inside, the flat is one room. He calls the boy Sean and says he meant to be at the airport.",
+      "clip_start": "00:14:23.151",
+      "clip_end": "00:14:44.255",
+      "note": "B17",
+      "delivery": "normal",
+      "narrative_jump": false
+    },
+    {
+      "id": 131,
+      "narration": "Sean asks where he sleeps. His mother had no other choice, his father says: it was this or juvenile hall.",
+      "clip_start": "00:14:44.255",
+      "clip_end": "00:15:03.316",
+      "note": "B17",
+      "delivery": "tense",
+      "narrative_jump": false
+    },
+    {
+      "id": 132,
+      "narration": "The rules came from both of them: school, straight back here, nowhere near a car. His bed is a coat alcove.",
+      "clip_start": "00:15:25.421",
+      "clip_end": "00:15:37.767",
+      "note": "B18",
+      "delivery": "tense",
+      "narrative_jump": false
+    },
+    {
+      "id": 134,
+      "narration": "Before he leaves, his father sets out an alarm clock, a black school uniform, and a note pinned to it.",
+      "clip_start": "00:16:31.779",
+      "clip_end": "00:16:57.847",
+      "note": "B19",
+      "delivery": "normal",
+      "narrative_jump": true
+    },
+    {
+      "id": 135,
+      "narration": "A wall of ticket machines stops him cold. He ends up on the wrong train, bag trapped outside the door.",
+      "clip_start": "00:17:07.523",
+      "clip_end": "00:17:17.032",
+      "note": "B20",
+      "delivery": "normal",
+      "narrative_jump": true
+    },
+    {
+      "id": 137,
+      "narration": "Boswell, he tells the teacher, and the class turns to stare at his street shoes. He has never heard of uwabaki.",
+      "clip_start": "00:18:00.451",
+      "clip_end": "00:18:14.631",
+      "note": "B21",
+      "delivery": "normal",
+      "narrative_jump": true,
+      "claim": { "type": "speech", "subject": "the American student" }
+    },
+    {
+      "id": 139,
+      "narration": "At lunch a student in a white headwrap gives his name as Twinkie and tries to sell him a laptop.",
+      "clip_start": "00:18:57.424",
+      "clip_end": "00:19:12.481",
+      "note": "B22",
+      "delivery": "normal",
+      "narrative_jump": true,
+      "claim": { "type": "speech", "subject": "the student in the white headwrap" }
+    },
+    {
+      "id": 141,
+      "narration": "Then he spots a racing wheel by the trays, asks what Twinkie drives, and tells him to show it.",
+      "clip_start": "00:20:03.948",
+      "clip_end": "00:20:16.753",
+      "note": "B23",
+      "delivery": "discovery",
+      "narrative_jump": false
+    },
+    {
+      "id": 143,
+      "narration": "Off the lift comes a minivan painted Hulk green, a monster toy at the wheel.",
+      "clip_start": "00:20:54.457",
+      "clip_end": "00:21:01.381",
+      "note": "B24",
+      "delivery": "reveal",
+      "narrative_jump": true
+    },
+    {
+      "id": 144,
+      "narration": "The van rolls into an underground garage packed with cars and people, and Sean's mouth opens.",
+      "clip_start": "00:21:33.913",
+      "clip_end": "00:21:44.173",
+      "note": "B25",
+      "delivery": "reveal",
+      "narrative_jump": true
+    },
+    {
+      "id": 145,
+      "narration": "He follows Neela, the girl from his class, to a teal car and tells her she wouldn't have that problem with a V8.",
+      "clip_start": "00:23:14.889",
+      "clip_end": "00:23:27.776",
+      "note": "B26",
+      "delivery": "normal",
+      "narrative_jump": false,
+      "claim": { "type": "speech", "subject": "the young American driver" }
+    },
+    {
+      "id": 148,
+      "narration": "DK works the meet in black leather, rising out of a ring of women, his crew collecting cash and phones. The garage is his.",
+      "clip_start": "00:23:56.054",
+      "clip_end": "00:24:14.156",
+      "note": "B27",
+      "delivery": "reveal",
+      "narrative_jump": false
+    },
+    {
+      "id": 150,
+      "narration": "He pulls her cheek to cheek, calls Sean gaijin, and tells him this is not his scene.",
+      "clip_start": "00:24:36.595",
+      "clip_end": "00:24:47.064",
+      "note": "B28",
+      "delivery": "tense",
+      "narrative_jump": false
+    },
+    {
+      "id": 151,
+      "narration": "Sean doesn't move. He thought a girl could talk to whoever she wants.",
+      "clip_start": "00:25:09.961",
+      "clip_end": "00:25:27.229",
+      "note": "B28",
+      "delivery": "tense",
+      "narrative_jump": false
+    },
+    {
+      "id": 152,
+      "narration": "She cuts across both of them and tells Sean to go.",
+      "clip_start": "00:25:27.229",
+      "clip_end": "00:25:32.651",
+      "note": "B28",
+      "delivery": "tense",
+      "narrative_jump": false
+    }
+  ]
+}

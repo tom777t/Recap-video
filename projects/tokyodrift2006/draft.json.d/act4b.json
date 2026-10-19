@@ -1,0 +1,258 @@
+{
+  "act": 4,
+  "lines": [
+    {
+      "id": 428,
+      "narration": "Twinkie tells him DK picked this road. It is his mountain, and nobody else has ever reached the bottom.",
+      "clip_start": "01:26:06.060",
+      "clip_end": "01:26:23.911",
+      "note": "B94",
+      "delivery": "tense",
+      "narrative_jump": false,
+      "claim": { "type": "speech", "subject": "the young man in the black durag" }
+    },
+    {
+      "id": 429,
+      "narration": "Hands polish the finished tail - black, twin white stripes, a Japanese plate. The Mustang is whole again.",
+      "clip_start": "01:26:34.547",
+      "clip_end": "01:26:53.148",
+      "note": "B93",
+      "delivery": "reveal",
+      "narrative_jump": false
+    },
+    {
+      "id": 430,
+      "narration": "Then he stands alone at the top, looking down a road that falls away into blue marker lights.",
+      "clip_start": "01:26:53.148",
+      "clip_end": "01:27:21.260",
+      "note": "B94",
+      "delivery": "mystery",
+      "narrative_jump": false
+    },
+    {
+      "id": 431,
+      "narration": "Race night above a floodlit dam. Cars and people line the ledge.",
+      "clip_start": "01:27:21.260",
+      "clip_end": "01:27:31.854",
+      "note": "B95",
+      "delivery": "normal",
+      "narrative_jump": true
+    },
+    {
+      "id": 432,
+      "narration": "Every head turns one way. Kamata walks in, fedora and overcoat, a minder at each shoulder, the crowd opening for him.",
+      "clip_start": "01:27:45.993",
+      "clip_end": "01:27:57.087",
+      "note": "B95",
+      "delivery": "tense",
+      "narrative_jump": false
+    },
+    {
+      "id": 433,
+      "narration": "In the Mustang Sean shuts his eyes and breathes himself calm. Taillights climb the unlit mountain.",
+      "clip_start": "01:28:27.576",
+      "clip_end": "01:28:44.009",
+      "note": "B96",
+      "delivery": "tense",
+      "narrative_jump": true
+    },
+    {
+      "id": 434,
+      "narration": "DK stares flat ahead. Sean glances across once, then locks both hands on the wheel.",
+      "clip_start": "01:28:44.009",
+      "clip_end": "01:29:00.317",
+      "note": "B96",
+      "delivery": "tense",
+      "narrative_jump": false
+    },
+    {
+      "id": 435,
+      "narration": "A starter in a dark suit throws both arms up between the cars. They drop.",
+      "clip_start": "01:29:00.317",
+      "clip_end": "01:29:08.700",
+      "note": "B96",
+      "delivery": "tense",
+      "narrative_jump": false
+    },
+    {
+      "id": 436,
+      "narration": "DK smirks through the first bend. The Mustang slides a hairpin of its own.",
+      "clip_start": "01:29:08.700",
+      "clip_end": "01:29:20.629",
+      "note": "B96",
+      "delivery": "tense",
+      "narrative_jump": false
+    },
+    {
+      "id": 437,
+      "narration": "They run the cliff edge, Sean shouting at the dust as DK pulls clear.",
+      "clip_start": "01:29:56.081",
+      "clip_end": "01:30:05.966",
+      "note": "B96",
+      "delivery": "tense",
+      "narrative_jump": false
+    },
+    {
+      "id": 438,
+      "narration": "A snap of the shifter brings them level, door to door in orange sparks.",
+      "clip_start": "01:30:34.202",
+      "clip_end": "01:30:46.381",
+      "note": "B97",
+      "delivery": "tense",
+      "narrative_jump": false
+    },
+    {
+      "id": 439,
+      "narration": "Headlights sweep low. They slide together in smoke, and the Mustang comes out of it ahead.",
+      "clip_start": "01:31:26.546",
+      "clip_end": "01:31:31.050",
+      "note": "B98",
+      "delivery": "tense",
+      "narrative_jump": false
+    },
+    {
+      "id": 440,
+      "narration": "DK drives into his flank and scrapes him along the edge. The Mustang breaks free.",
+      "clip_start": "01:32:17.305",
+      "clip_end": "01:32:25.521",
+      "note": "B99",
+      "delivery": "tense",
+      "narrative_jump": false
+    },
+    {
+      "id": 441,
+      "narration": "Door to door down the straight, trading paint, each driver hauling to force the other wide.",
+      "clip_start": "01:32:41.704",
+      "clip_end": "01:32:55.426",
+      "note": "B100",
+      "delivery": "tense",
+      "narrative_jump": false
+    },
+    {
+      "id": 442,
+      "narration": "Into a guardrail bend DK leans out of his window and drags his car across to crowd Sean off the road.",
+      "clip_start": "01:33:32.171",
+      "clip_end": "01:33:41.305",
+      "note": "B100",
+      "delivery": "tense",
+      "narrative_jump": false
+    },
+    {
+      "id": 443,
+      "narration": "Sean shoves him wide instead. DK ploughs off the shoulder through the brush, the mountain screams, and Tokyo has a new Drift King.",
+      "clip_start": "01:33:41.305",
+      "clip_end": "01:33:51.649",
+      "note": "B101",
+      "delivery": "reveal",
+      "narrative_jump": false
+    },
+    {
+      "id": 444,
+      "narration": "Inside the losing car the windscreen webs over as it leaves the road and tumbles. Sean runs on alone.",
+      "clip_start": "01:34:01.367",
+      "clip_end": "01:34:08.332",
+      "note": "B101",
+      "delivery": "sad",
+      "narrative_jump": false
+    },
+    {
+      "id": 445,
+      "narration": "He stops and stares. The crowd sprints the road to swarm his window while the wreck smokes behind them.",
+      "clip_start": "01:34:08.332",
+      "clip_end": "01:34:17.258",
+      "note": "B102",
+      "delivery": "tense",
+      "narrative_jump": false
+    },
+    {
+      "id": 446,
+      "narration": "Neela reaches him and his strained look breaks into a grin.",
+      "clip_start": "01:34:28.060",
+      "clip_end": "01:34:34.275",
+      "note": "B103",
+      "delivery": "normal",
+      "narrative_jump": false
+    },
+    {
+      "id": 447,
+      "narration": "Then three men in black come out of the dark. The crowd turns to face Kamata, and Sean's grin dies.",
+      "clip_start": "01:34:34.275",
+      "clip_end": "01:34:43.575",
+      "note": "B104",
+      "delivery": "tense",
+      "narrative_jump": false
+    },
+    {
+      "id": 448,
+      "narration": "Kamata says his piece straight at him. Sean takes it with his eyes down, and the face behind the cigar sags.",
+      "clip_start": "01:34:43.575",
+      "clip_end": "01:34:58.215",
+      "note": "B105",
+      "delivery": "tense",
+      "narrative_jump": false
+    },
+    {
+      "id": 449,
+      "narration": "He presses once more, Sean looks past him, and Kamata turns away from the crowd that beat his nephew.",
+      "clip_start": "01:34:58.215",
+      "clip_end": "01:35:07.558",
+      "note": "B105",
+      "delivery": "sad",
+      "narrative_jump": false
+    },
+    {
+      "id": 450,
+      "narration": "A packed night garage, Twinkie working the crowd for fistfuls of cash as the bets settle.",
+      "clip_start": "01:35:19.069",
+      "clip_end": "01:35:32.165",
+      "note": "B106",
+      "delivery": "normal",
+      "narrative_jump": true
+    },
+    {
+      "id": 451,
+      "narration": "Neela steps in front of Sean and holds his eye. Twinkie says something, and the smirk is gone.",
+      "clip_start": "01:35:49.766",
+      "clip_end": "01:36:03.030",
+      "note": "B107",
+      "delivery": "mystery",
+      "narrative_jump": false
+    },
+    {
+      "id": 452,
+      "narration": "He leaves the crowd for the driver's seat and rolls out to the line.",
+      "clip_start": "01:36:19.463",
+      "clip_end": "01:36:38.774",
+      "note": "B107",
+      "delivery": "tense",
+      "narrative_jump": false
+    },
+    {
+      "id": 453,
+      "narration": "His car noses up beside a hulking muscle car, and behind its wheel sits a bald American in a white tee.",
+      "clip_start": "01:36:38.774",
+      "clip_end": "01:36:46.656",
+      "note": "B108",
+      "delivery": "reveal",
+      "narrative_jump": false
+    },
+    {
+      "id": 454,
+      "narration": "They talk across the lane. The sizing-up drops away fast - the challenger laughs, and the new Drift King grins back.",
+      "clip_start": "01:36:46.656",
+      "clip_end": "01:37:10.430",
+      "note": "B108",
+      "delivery": "normal",
+      "narrative_jump": false
+    },
+    {
+      "id": 455,
+      "narration": "Smoke boils off the tyres, flame spits from the exhaust, and the starter in red throws her arms up.",
+      "clip_start": "01:37:24.402",
+      "clip_end": "01:37:33.745",
+      "note": "B109",
+      "delivery": "tense",
+      "narrative_jump": false
+    }
+  ]
+}

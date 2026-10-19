@@ -1,0 +1,217 @@
+{
+  "act": 3,
+  "lines": [
+    {
+      "id": 301,
+      "narration": "High above the crossing, Sean asks how Han ended up here. Old westerns, Han says - cowboys always ran for the border. This is his Mexico.",
+      "clip_start": "00:51:21.067",
+      "clip_end": "00:51:44.591",
+      "note": "B57",
+      "delivery": "hook",
+      "narrative_jump": false
+    },
+    {
+      "id": 302,
+      "narration": "Sean asks why Han handed him a car he knew would be wrecked. A fair price, Han says, for knowing what a man is made of.",
+      "clip_start": "00:51:44.591",
+      "clip_end": "00:52:04.277",
+      "note": "B57",
+      "delivery": "reveal",
+      "narrative_jump": false
+    },
+    {
+      "id": 304,
+      "narration": "Sean asks what happens if he refuses. Life is simple, Han says - you make your choices and don't look back.",
+      "clip_start": "00:52:20.835",
+      "clip_end": "00:52:37.643",
+      "note": "B58",
+      "delivery": "normal",
+      "narrative_jump": false
+    },
+    {
+      "id": 305,
+      "narration": "Over the glittering sprawl: if Han does not drift to win, what does he drift for? Come and find out.",
+      "clip_start": "00:52:44.484",
+      "clip_end": "00:52:58.122",
+      "note": "B58",
+      "delivery": "mystery",
+      "narrative_jump": true
+    },
+    {
+      "id": 307,
+      "narration": "Two cars run the empty boulevard. Through the window the women are laughing, and Han's grin widens. This is what he drifts for.",
+      "clip_start": "00:53:45.169",
+      "clip_end": "00:53:59.600",
+      "note": "B59",
+      "delivery": "reveal",
+      "narrative_jump": true
+    },
+    {
+      "id": 308,
+      "narration": "Daylight on the mountain hairpins. Out here you drift by feeling, the pink-hoodie friend tells him. So feel it.",
+      "clip_start": "00:54:14.323",
+      "clip_end": "00:54:25.167",
+      "note": "B60",
+      "delivery": "normal",
+      "narrative_jump": true,
+      "claim": { "type": "speech", "subject": "the friend in the pink hoodie" }
+    },
+    {
+      "id": 310,
+      "narration": "Shredded tyres cost money, so they work the shopping crowds - Twinkie reckons he could sell rubbers to a monk.",
+      "clip_start": "00:54:45.145",
+      "clip_end": "00:54:57.324",
+      "note": "B60",
+      "delivery": "normal",
+      "narrative_jump": false,
+      "claim": { "type": "speech", "subject": "the young man in the red beanie" }
+    },
+    {
+      "id": 312,
+      "narration": "Across town, the greying naval officer parts the coats of an empty flat. The bed has not been slept in; Sean never came home.",
+      "clip_start": "00:56:26.121",
+      "clip_end": "00:56:32.711",
+      "note": "B61",
+      "delivery": "sad",
+      "narrative_jump": true
+    },
+    {
+      "id": 313,
+      "narration": "At the garage rail, one of Han's crew in a satin dress tells him he has a visitor, waiting by a car below.",
+      "clip_start": "00:56:42.721",
+      "clip_end": "00:56:53.315",
+      "note": "B62",
+      "delivery": "tense",
+      "narrative_jump": true,
+      "claim": { "type": "speech", "subject": "the woman in the satin dress" }
+    },
+    {
+      "id": 314,
+      "narration": "Han and Sean run the mountain road door to door, and by the last bends Sean is alongside, hands loose.",
+      "clip_start": "00:56:59.654",
+      "clip_end": "00:57:12.709",
+      "note": "B63",
+      "delivery": "normal",
+      "narrative_jump": true
+    },
+    {
+      "id": 317,
+      "narration": "Under the overpass they eat vending-machine food out of a box, and her guard finally drops into laughter.",
+      "clip_start": "00:58:54.394",
+      "clip_end": "00:59:08.032",
+      "note": "B64",
+      "delivery": "normal",
+      "narrative_jump": true
+    },
+    {
+      "id": 318,
+      "narration": "Her mother died when she was ten - an Australian who worked a hostess bar. DK's grandmother took her in.",
+      "clip_start": "00:59:19.043",
+      "clip_end": "00:59:37.395",
+      "note": "B65",
+      "delivery": "sad",
+      "narrative_jump": false
+    },
+    {
+      "id": 319,
+      "narration": "Sean trades his own: parents split at three, then town after town because of him. He made himself an outsider; inside or outside, it stopped mattering.",
+      "clip_start": "00:59:37.395",
+      "clip_end": "01:00:00.793",
+      "note": "B65",
+      "delivery": "sad",
+      "narrative_jump": false
+    },
+    {
+      "id": 320,
+      "narration": "She drives him up the mountain. Before they could drive, she says, they cut class and snuck up here to watch the older kids drift.",
+      "clip_start": "01:00:28.654",
+      "clip_end": "01:00:44.587",
+      "note": "B66",
+      "delivery": "normal",
+      "narrative_jump": true,
+      "claim": { "type": "speech", "subject": "the dark-haired young woman" }
+    },
+    {
+      "id": 321,
+      "narration": "No past, no future, no problems - just a moment. Then he stops talking and watches her instead.",
+      "clip_start": "01:01:22.249",
+      "clip_end": "01:01:31.467",
+      "note": "B66",
+      "delivery": "reveal",
+      "narrative_jump": false,
+      "claim": { "type": "speech", "subject": "the young man with short brown hair" }
+    },
+    {
+      "id": 322,
+      "narration": "Daylight at the dockside yard. Sean wants another set of tyres - his third today, and rubber is not cheap.",
+      "clip_start": "01:02:01.538",
+      "clip_end": "01:02:12.716",
+      "note": "B67",
+      "delivery": "tense",
+      "narrative_jump": true
+    },
+    {
+      "id": 323,
+      "narration": "A heavyset man in a tank top crosses the lot, Han and the rest behind him. One swing without warning puts Sean face-down.",
+      "clip_start": "01:02:18.347",
+      "clip_end": "01:02:31.985",
+      "note": "B67",
+      "delivery": "tense",
+      "narrative_jump": false
+    },
+    {
+      "id": 324,
+      "narration": "Blood at his mouth, Neela at his shoulder. He did not just play with fire, a hooded crewman says - he soaked the matches in gasoline.",
+      "clip_start": "01:02:59.388",
+      "clip_end": "01:03:12.526",
+      "note": "B68",
+      "delivery": "sad",
+      "narrative_jump": false
+    },
+    {
+      "id": 325,
+      "narration": "Still in uniform, she stops in the doorway of a dim club. DK sits with a boot on the table between two hostesses.",
+      "clip_start": "01:03:28.708",
+      "clip_end": "01:03:47.519",
+      "note": "B69",
+      "delivery": "tense",
+      "narrative_jump": true
+    },
+    {
+      "id": 326,
+      "narration": "She tells him to his face that he has changed. DK smirks, then comes up out of the chair.",
+      "clip_start": "01:03:47.519",
+      "clip_end": "01:04:03.743",
+      "note": "B69",
+      "delivery": "tense",
+      "narrative_jump": false
+    },
+    {
+      "id": 327,
+      "narration": "He stands over her: her mother was the best trick in Kabukicho. Leave my mother out of this, she says, not stepping back.",
+      "clip_start": "01:04:22.095",
+      "clip_end": "01:04:33.314",
+      "note": "B70",
+      "delivery": "tense",
+      "narrative_jump": false
+    },
+    {
+      "id": 328,
+      "narration": "He backs her against the wall. Just like her mother, he says - anything for a buck. Would anyone look twice without her uncle?",
+      "clip_start": "01:04:33.314",
+      "clip_end": "01:04:44.242",
+      "note": "B70",
+      "delivery": "tense",
+      "narrative_jump": false
+    },
+    {
+      "id": 329,
+      "narration": "He keeps talking low into her face until she stops answering. A tear runs down her cheek.",
+      "clip_start": "01:05:04.345",
+      "clip_end": "01:05:24.407",
+      "note": "B70",
+      "delivery": "sad",
+      "narrative_jump": false
+    }
+  ]
+}

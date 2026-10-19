@@ -1,0 +1,133 @@
+{
+  "reveals": [
+    {
+      "land": "01:07:29",
+      "type": "A",
+      "fact": "Han has been stealing from the Yakuza operation he fronts for",
+      "hold": [
+        "has been stealing",
+        "stealing from",
+        "been skimming",
+        "skims off the top",
+        "robbing the Yakuza",
+        "stealing from the Yakuza",
+        "stealing from Kamata",
+        "cooking the books",
+        "the missing money",
+        "siphoning",
+        "a thief",
+        "where the money went"
+      ]
+    },
+    {
+      "land": "01:15:07",
+      "type": "A",
+      "fact": "Han is killed in the crash during the chase",
+      "hold": [
+        "dies",
+        "death",
+        "killed",
+        "his last",
+        "before he died",
+        "doesn't survive",
+        "does not survive",
+        "final ride",
+        "is dead",
+        "burns to death",
+        "won't make it",
+        "fatal crash",
+        "the late Han",
+        "not long for this world"
+      ]
+    },
+    {
+      "land": "01:33:41",
+      "type": "B",
+      "fact": "the mocked gaijin ends the film in DK's place as Drift King, his own crew taking the house cut from the same crowd",
+      "hold": [
+        "new Drift King",
+        "the new DK",
+        "becomes the Drift King",
+        "takes DK's place",
+        "takes his rival's crown",
+        "inherits the throne",
+        "runs the mountain",
+        "runs things in Tokyo",
+        "beats DK",
+        "DK leaves Tokyo",
+        "DK is the one who leaves",
+        "the outsider ends up on top",
+        "ends up king"
+      ]
+    },
+    {
+      "land": "01:36:38",
+      "type": "A",
+      "fact": "the challenger who turns up for the closing race is Dominic Toretto, a returning character from the earlier films who calls Han family",
+      "hold": [
+        "Dominic Toretto",
+        "Dom Toretto",
+        "Toretto",
+        "Dom",
+        "Vin Diesel",
+        "returning",
+        "a returning character",
+        "familiar face",
+        "from the earlier films",
+        "from the first film",
+        "cameo",
+        "he knew Han",
+        "Han's friend",
+        "an old friend of Han's",
+        "was family to him",
+        "family",
+        "the franchise",
+        "ties the film back to the others"
+      ]
+    }
+  ],
+  "set_pieces": [
+    {
+      "name": "Pink-slip race through the half-built housing tract, ending in the rollover",
+      "start": "00:05:09",
+      "end": "00:09:59",
+      "verified": "unverified",
+      "keep": true
+    },
+    {
+      "name": "Borrowed-car drift race against DK down the parking garage spiral",
+      "start": "00:29:06",
+      "end": "00:32:56",
+      "verified": "unverified",
+      "keep": true
+    },
+    {
+      "name": "Yakuza chase out of the garage through Tokyo traffic and the pedestrian crossing",
+      "start": "01:10:39",
+      "end": "01:15:07",
+      "verified": "unverified",
+      "keep": true
+    },
+    {
+      "name": "Han's crash: the car cartwheels, lands inverted and detonates",
+      "start": "01:15:07",
+      "end": "01:15:50",
+      "verified": "unverified",
+      "keep": true
+    },
+    {
+      "name": "Rebuilding the Mustang around the Nissan twin-cam while learning the mountain",
+      "start": "01:25:00",
+      "end": "01:26:06",
+      "verified": "unverified",
+      "keep": true
+    },
+    {
+      "name": "Downhill mountain race against DK for the right to stay in Tokyo",
+      "start": "01:29:00",
+      "end": "01:34:08",
+      "verified": "unverified",
+      "keep": true
+    }
+  ]
+}

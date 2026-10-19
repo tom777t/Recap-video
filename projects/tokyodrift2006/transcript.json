@@ -753,6 +753,12 @@
       "text": "So where are you from anyway here? No, I mean not where you live. Where'd you come from?"
     },
     {
+      "start": 1433.26,
+      "end": 1435.29,
+      "text": "Does it really matter where I'm from?",
+      "recovered_from": "whisper_v1"
+    },
+    {
       "start": 1448.57,
       "end": 1450.73,
       "text": "That's what you're in the school, girls, D."
@@ -2797,5 +2803,6 @@
       "end": 5819.68,
       "text": "You know this ain't no 10-second race."
     }
-  ]
+  ],
+  "merged_from_v1": 1
 }

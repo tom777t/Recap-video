@@ -1,0 +1,77 @@
+{
+  "chunk": 8,
+  "beats": [
+    {
+      "ts": "01:31:14",
+      "what": "The young American driver drags level with the rival through the mountain bends and carves past him out of a smoke-filled cliff-edge turn",
+      "chars": ["the young American driver", "the heavyset driver in the white tank top"],
+      "kind": "action"
+    },
+    {
+      "ts": "01:32:17",
+      "what": "The heavyset rival drives his car into the American's flank mid-drift and scrapes him along the cliff edge before the American breaks free",
+      "chars": ["the heavyset driver in the white tank top", "the young American driver"],
+      "kind": "action"
+    },
+    {
+      "ts": "01:32:41",
+      "what": "The two run door to door trading paint until the rival edges back in front, then grind together again as the man in the tank top hauls across to crowd the American off the road",
+      "chars": ["the young American driver", "the heavyset driver in the white tank top"],
+      "kind": "action"
+    },
+    {
+      "ts": "01:33:41",
+      "what": "The American shoves the rival wide instead, putting him off the shoulder into the brush, and the rival's car tumbles across the dirt",
+      "chars": ["the young American driver", "the driver in the white tank top"],
+      "kind": "action"
+    },
+    {
+      "ts": "01:34:08",
+      "what": "The American stops and the crowd sprints the road to swarm his window while the wrecked car lies upside down smoking behind them",
+      "chars": ["the young American driver"],
+      "kind": "aftermath"
+    },
+    {
+      "ts": "01:34:28",
+      "what": "The woman in the fur-collared coat reaches him and his strained look breaks into a grin as the friends crowd in around them",
+      "chars": ["the young American driver", "the woman in the fur-collared coat"],
+      "kind": "emotion"
+    },
+    {
+      "ts": "01:34:34",
+      "what": "Three men in black, one in a wide-brimmed hat, walk up out of the dark and the celebration stops dead in front of them",
+      "chars": ["the older man in the black hat and long coat", "the young man in the black T-shirt"],
+      "kind": "setup"
+    },
+    {
+      "ts": "01:34:43",
+      "what": "The hatted man says his piece straight at the young man, who takes it with lowered eyes, then the older man drops his head and turns away from the crowd",
+      "chars": ["the older man in the black hat and long coat", "the young man in the black T-shirt", "the young woman in the fur-collared coat"],
+      "kind": "dialogue"
+    },
+    {
+      "ts": "01:35:19",
+      "what": "At a packed night garage meet bets are settled and the man in the green jacket collects fistfuls of cash from the crowd",
+      "chars": ["the young man in the green jacket and white do-rag"],
+      "kind": "montage"
+    },
+    {
+      "ts": "01:35:38",
+      "what": "The green-jacketed man calls out the man in the black tee and claims he was family, and the man's smirk fades as the woman in the red top holds his eye",
+      "chars": ["the young man in the green jacket and white do-rag", "the young man in the black T-shirt", "the young woman in the red top"],
+      "kind": "dialogue"
+    },
+    {
+      "ts": "01:36:38",
+      "what": "The challenger lined up beside the young driver is revealed as a bald man in a white tee in a hulking American muscle car, who warns him this ain't no 10-second race",
+      "chars": ["the young crew-cut driver", "the bald man in the white tee"],
+      "kind": "reveal"
+    },
+    {
+      "ts": "01:37:10",
+      "what": "The woman in the red dress plants herself mid-lane, both cars light up their tyres, and she throws her arms up to launch the race as the film cuts to black",
+      "chars": ["the woman in the red dress", "the young crew-cut driver", "the bald man in the white tee"],
+      "kind": "action"
+    }
+  ]
+}

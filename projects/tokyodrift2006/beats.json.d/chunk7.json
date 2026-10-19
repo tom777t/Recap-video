@@ -1,0 +1,89 @@
+{
+  "chunk": 7,
+  "beats": [
+    {
+      "ts": "01:18:17",
+      "what": "The grey-haired man in the olive jacket presses the young American to get out of Tokyo, and the American walks off down the alley without answering",
+      "chars": ["the young man in the white thermal shirt", "the grey-haired man in the olive jacket"],
+      "kind": "dialogue"
+    },
+    {
+      "ts": "01:18:52",
+      "what": "In the empty garage the friend in the mint-green shirt refuses the leave-town plan and tells him the trouble he has made now runs up to Kamata",
+      "chars": ["the young man in the white thermal shirt", "the friend in the mint-green shirt"],
+      "kind": "dialogue"
+    },
+    {
+      "ts": "01:19:18",
+      "what": "The American decides to walk into Kamata's place and settle it himself; his friend calls it suicide and he answers that it is all he has left",
+      "chars": ["the young man in the white thermal shirt", "the friend in the mint-green shirt"],
+      "kind": "dialogue"
+    },
+    {
+      "ts": "01:19:53",
+      "what": "The friend pries open a hidden stash in his car and hands over a satchel of Han's money so the American can buy his way in alive",
+      "chars": ["the young man in the white thermal shirt", "the friend in the mint-green shirt"],
+      "kind": "action"
+    },
+    {
+      "ts": "01:21:02",
+      "what": "The American walks the gang-packed alley to the guarded door, asks for Mr Kamata, and the bag of money opened in the doorway gets him led inside",
+      "chars": ["the young man in the white thermal shirt"],
+      "kind": "action"
+    },
+    {
+      "ts": "01:22:29",
+      "what": "The American returns the money to Kamata and apologizes, naming the rival as Kamata's nephew and the two of them as the embarrassment",
+      "chars": ["the young man in the white thermal shirt", "the older man with the cigar"],
+      "kind": "reveal"
+    },
+    {
+      "ts": "01:22:50",
+      "what": "The nephew protests at being silenced and Kamata, without a word, stares him down until he drops into a bow",
+      "chars": ["the spiky-haired rival", "the older man with the cigar"],
+      "kind": "emotion"
+    },
+    {
+      "ts": "01:23:09",
+      "what": "The American offers his peaceful solution: one race, and the loser leaves Tokyo for good",
+      "chars": ["the young man in the white thermal shirt", "the older man with the cigar", "the spiky-haired rival"],
+      "kind": "dialogue"
+    },
+    {
+      "ts": "01:23:35",
+      "what": "Kamata weighs it over his cigar and grants the race",
+      "chars": ["the older man with the cigar", "the young man in the white thermal shirt"],
+      "kind": "reveal"
+    },
+    {
+      "ts": "01:25:00",
+      "what": "The crew rebuild the striped Mustang around the Nissan twin-cam engine while the American runs the stripped car on the mountain to learn the drift",
+      "chars": ["the young American", "the man in the plaid shirt", "the heavyset bald mechanic"],
+      "kind": "montage"
+    },
+    {
+      "ts": "01:26:06",
+      "what": "At the roadside the young man in the durag warns him the rival chose this mountain because he is the only one who has ever made it to the bottom",
+      "chars": ["the young man in the black durag", "the short-haired driver"],
+      "kind": "dialogue"
+    },
+    {
+      "ts": "01:27:45",
+      "what": "Kamata arrives at the clifftop gathering with his minders and the crowd parts to watch him take his place",
+      "chars": ["the older man with the cigar"],
+      "kind": "setup"
+    },
+    {
+      "ts": "01:29:00",
+      "what": "The starter drops his arms and the Mustang and the black coupe launch into the downhill run",
+      "chars": ["the bald man in the dark suit", "the young American driver", "the driver in the white tank top"],
+      "kind": "action"
+    },
+    {
+      "ts": "01:30:34",
+      "what": "The two cars grind door to door in a shower of sparks and the Mustang tears the coupe's flank open",
+      "chars": ["the young American driver", "the driver in the white tank top"],
+      "kind": "action"
+    }
+  ]
+}

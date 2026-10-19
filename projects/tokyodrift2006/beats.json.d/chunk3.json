@@ -1,0 +1,89 @@
+{
+  "chunk": 3,
+  "beats": [
+    {
+      "ts": "00:26:08",
+      "what": "The crowd mocks the American for having no car, and the blond-dyed man in the leather jacket offers him his own so the race can happen",
+      "chars": ["the American in the grey tee", "the spiky-haired man in the leather jacket", "the blond-dyed man in the leather jacket", "the long-haired man in the pale jacket"],
+      "kind": "dialogue"
+    },
+    {
+      "ts": "00:26:36",
+      "what": "In the lift his friend in the red beanie tells him DK stands for Drift King",
+      "chars": ["the American in the grey tee", "the friend in the red beanie"],
+      "kind": "discovery"
+    },
+    {
+      "ts": "00:27:23",
+      "what": "His friend talks him through the borrowed car's build and gives him a thirty-second drift lesson - rip the e-brake, then power over",
+      "chars": ["the American in the grey tee", "the friend in the red beanie"],
+      "kind": "setup"
+    },
+    {
+      "ts": "00:27:54",
+      "what": "The man in the black tank top embraces the dark-haired woman in front of the whole crowd, claiming her as his",
+      "chars": ["the man in the black tank top", "the dark-haired woman"],
+      "kind": "emotion"
+    },
+    {
+      "ts": "00:29:06",
+      "what": "The two cars settle side by side at the line, a man in a dark suit drops the start, and they break away into the garage in tyre smoke",
+      "chars": ["the American in the grey tee", "the man in the black tank top"],
+      "kind": "action"
+    },
+    {
+      "ts": "00:30:10",
+      "what": "He loses the borrowed car's line mid-drift and grinds it along the concrete in a spray of sparks",
+      "chars": ["the American in the grey tee"],
+      "kind": "action"
+    },
+    {
+      "ts": "00:31:38",
+      "what": "The man in the black tank top drifts the empty spiral ramps and bursts out onto the neon street first, the crowd erupting for him",
+      "chars": ["the man in the black tank top"],
+      "kind": "action"
+    },
+    {
+      "ts": "00:32:24",
+      "what": "His car slides out last with its front end torn open and the crowd swarms the wreck while the long-haired man in the grey jacket leans into his window",
+      "chars": ["the American in the grey tee", "the long-haired man in the grey jacket", "the blond-dyed man in the leather jacket"],
+      "kind": "aftermath"
+    },
+    {
+      "ts": "00:32:56",
+      "what": "He slips home after midnight to find the grey-haired man waiting with a beer, who demands to know whether he has been racing",
+      "chars": ["the American in the grey tee", "the grey-haired man in the NAVY hoodie"],
+      "kind": "dialogue"
+    },
+    {
+      "ts": "00:33:32",
+      "what": "He grabs a car key to walk out and the older man corners him in the back room: live by his rules or go to jail",
+      "chars": ["the American in the grey tee", "the grey-haired man in the NAVY hoodie"],
+      "kind": "dialogue"
+    },
+    {
+      "ts": "00:34:40",
+      "what": "The long-haired man in the parka is waiting outside the school to collect for the wrecked car, tells him he has no choice, and drives him off to work as his pickup and delivery runner",
+      "chars": ["the American student", "the long-haired man in the parka"],
+      "kind": "setup"
+    },
+    {
+      "ts": "00:36:16",
+      "what": "Sent into a bathhouse to collect, he leans on a huge tattooed bather and is hurled into the street twice",
+      "chars": ["the young American", "the huge tattooed bather", "the long-haired man in the dark jacket"],
+      "kind": "action"
+    },
+    {
+      "ts": "00:37:18",
+      "what": "On the night drive they strike their deal - he stays on call whenever he is phoned, in exchange for being taught to drift",
+      "chars": ["the young American", "the long-haired man in the dark jacket"],
+      "kind": "dialogue"
+    },
+    {
+      "ts": "00:38:37",
+      "what": "In the back room of a pachinko parlour the blond-streaked man goads him into entering the next race and the two sides put up their cars as the stakes",
+      "chars": ["the American in the white shirt", "the long-haired man in the dark jacket", "the blond-streaked young man", "the man in the black T-shirt"],
+      "kind": "setup"
+    }
+  ]
+}

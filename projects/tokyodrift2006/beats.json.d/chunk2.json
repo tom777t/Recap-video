@@ -1,0 +1,95 @@
+{
+  "chunk": 2,
+  "beats": [
+    {
+      "ts": "00:13:33",
+      "what": "The American teenager knocks at a lantern-lit sliding door and the greying older man who answers admits he expected him a day later, blaming the date his mother gave",
+      "chars": ["the crew-cut American teenager", "the greying older man"],
+      "kind": "dialogue"
+    },
+    {
+      "ts": "00:14:02",
+      "what": "A young Japanese woman slips out of the flat past the boy with her coat, and the older man drops his eyes, caught out",
+      "chars": ["the crew-cut American teenager", "the greying older man", "the young Japanese woman"],
+      "kind": "reveal"
+    },
+    {
+      "ts": "00:14:23",
+      "what": "Inside the cramped one-room flat the older man tells him this stay was the only alternative to juvenile hall, and that he cannot keep moving away from his own trouble",
+      "chars": ["the crew-cut American teenager", "the greying older man"],
+      "kind": "dialogue"
+    },
+    {
+      "ts": "00:15:10",
+      "what": "The older man sets the rules he agreed with the boy's mother - school, straight back here, and nowhere near a car - then hands him a coat alcove to sleep in",
+      "chars": ["the crew-cut American teenager", "the greying older man"],
+      "kind": "setup"
+    },
+    {
+      "ts": "00:16:31",
+      "what": "The older man leaves out an alarm clock, a black school uniform and a handwritten note before going",
+      "chars": ["the greying older man"],
+      "kind": "setup"
+    },
+    {
+      "ts": "00:16:57",
+      "what": "Lost with a map in the Shibuya rush, he is shoved through the ticket machines onto the wrong train and reaches the school gates after lessons have started",
+      "chars": ["the crew-cut American teenager"],
+      "kind": "montage"
+    },
+    {
+      "ts": "00:17:36",
+      "what": "He walks into the lesson late, hands the teacher his transfer paper, and the class works him over for arriving in street shoes without uwabaki - so he helps himself to a pair of slippers from the cubbies",
+      "chars": ["the American student", "the teacher in the pink cardigan", "the long-haired girl at the desk"],
+      "kind": "dialogue"
+    },
+    {
+      "ts": "00:18:57",
+      "what": "At lunch the student in the white headwrap introduces himself as Twinkie and tries to sell him a laptop, then shoes, then a phone; he refuses, saying he has no cash and will not be here long enough to remember the name",
+      "chars": ["the American student", "the student in the white headwrap"],
+      "kind": "dialogue"
+    },
+    {
+      "ts": "00:19:52",
+      "what": "He notices the racing steering wheel lying on the lunch table, asks what the other boy drives and tells him to show it - dropping his own line about not sticking around",
+      "chars": ["the American student", "the student in the white headwrap"],
+      "kind": "discovery"
+    },
+    {
+      "ts": "00:20:30",
+      "what": "The automated street lift delivers the car: a green Hulk-painted minivan with a monster toy in the driver's seat, and he mocks it through the wash bay",
+      "chars": ["the American newcomer", "the friend in the red beanie"],
+      "kind": "reveal"
+    },
+    {
+      "ts": "00:21:16",
+      "what": "An attendant waves the van through a barrier into an underground garage, and the newcomer takes in a packed tuner meet - open hoods, nitrous bottles, dancers, a DJ",
+      "chars": ["the American newcomer", "the friend in the red beanie"],
+      "kind": "discovery"
+    },
+    {
+      "ts": "00:23:14",
+      "what": "He follows the girl from his class to a teal car and flirts over the open hatch; she recognises him from the slipper episode and he asks where she is really from",
+      "chars": ["the young American driver", "the girl in the black jacket"],
+      "kind": "dialogue"
+    },
+    {
+      "ts": "00:23:56",
+      "what": "The spiky-haired man in the black leather jacket rises from his seat and moves through the meet with his crew taking cash and phones - the garage answers to him",
+      "chars": ["the spiky-haired man in the leather jacket"],
+      "kind": "reveal"
+    },
+    {
+      "ts": "00:24:27",
+      "what": "The leather-jacket man fronts the American with his crew behind him, pulls the woman cheek to cheek to needle him, calls him gaijin and tells him this is not his scene; she tells him to leave",
+      "chars": ["the American in the grey tee", "the spiky-haired man in the leather jacket", "the dark-haired woman", "the friend in the red beanie"],
+      "kind": "emotion"
+    },
+    {
+      "ts": "00:25:32",
+      "what": "His friend warns him that the man is Yakuza, but he calls him out across the floor anyway and the man squares up nose to nose and takes the bait: let's race",
+      "chars": ["the American in the grey tee", "the friend in the red beanie", "the spiky-haired man in the leather jacket"],
+      "kind": "action"
+    }
+  ]
+}

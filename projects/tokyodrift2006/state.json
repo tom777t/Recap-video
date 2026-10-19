@@ -1,0 +1,117 @@
+{
+  "stage": "outline",
+  "ratchet": {
+    "beats": 109,
+    "reveals": {
+      "R1": {
+        "land_sec": 4049.0,
+        "holds": [
+          "a thief",
+          "been skimming",
+          "cooking the books",
+          "has been stealing",
+          "robbing the yakuza",
+          "siphoning",
+          "skims off the top",
+          "stealing from",
+          "stealing from kamata",
+          "stealing from the yakuza",
+          "the missing money",
+          "where the money went"
+        ]
+      },
+      "R2": {
+        "land_sec": 4507.0,
+        "holds": [
+          "before he died",
+          "burns to death",
+          "death",
+          "dies",
+          "does not survive",
+          "doesn't survive",
+          "fatal crash",
+          "final ride",
+          "his last",
+          "is dead",
+          "killed",
+          "not long for this world",
+          "the late han",
+          "won't make it"
+        ]
+      },
+      "R3": {
+        "land_sec": 5621.0,
+        "holds": [
+          "beats dk",
+          "becomes the drift king",
+          "dk is the one who leaves",
+          "dk leaves tokyo",
+          "ends up king",
+          "inherits the throne",
+          "new drift king",
+          "runs the mountain",
+          "runs things in tokyo",
+          "takes dk's place",
+          "takes his rival's crown",
+          "the new dk",
+          "the outsider ends up on top"
+        ]
+      },
+      "R4": {
+        "land_sec": 5798.0,
+        "holds": [
+          "a returning character",
+          "an old friend of han's",
+          "cameo",
+          "dom",
+          "dom toretto",
+          "dominic toretto",
+          "familiar face",
+          "family",
+          "from the earlier films",
+          "from the first film",
+          "han's friend",
+          "he knew han",
+          "returning",
+          "the franchise",
+          "ties the film back to the others",
+          "toretto",
+          "vin diesel",
+          "was family to him"
+        ]
+      }
+    },
+    "set_pieces": {
+      "SP1": {
+        "start": 309.0,
+        "end": 599.0,
+        "keep": true
+      },
+      "SP2": {
+        "start": 1746.0,
+        "end": 1976.0,
+        "keep": true
+      },
+      "SP3": {
+        "start": 4239.0,
+        "end": 4507.0,
+        "keep": true
+      },
+      "SP4": {
+        "start": 4507.0,
+        "end": 4550.0,
+        "keep": true
+      },
+      "SP5": {
+        "start": 5100.0,
+        "end": 5166.0,
+        "keep": true
+      },
+      "SP6": {
+        "start": 5340.0,
+        "end": 5648.0,
+        "keep": true
+      }
+    }
+  }
+}

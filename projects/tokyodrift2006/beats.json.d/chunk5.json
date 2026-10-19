@@ -1,0 +1,83 @@
+{
+  "chunk": 5,
+  "beats": [
+    {
+      "ts": "00:52:20",
+      "what": "On the rooftop the long-haired mentor tells the American that life is choices you never look back on, and that he doesn't drift to win",
+      "chars": ["the long-haired mentor", "the American driver"],
+      "kind": "dialogue"
+    },
+    {
+      "ts": "00:53:13",
+      "what": "To answer what he drifts for, the mentor takes him out and the two cars orbit each other in tyre smoke on an empty boulevard while the women in the back seat laugh",
+      "chars": ["the long-haired mentor", "the American driver"],
+      "kind": "action"
+    },
+    {
+      "ts": "00:54:14",
+      "what": "Training starts: told to drift by feeling, he runs the hairpins again and again with the mentor coaching from the passenger seat, funding the shredded tyres by hawking goods on the street with the kid in the red beanie",
+      "chars": ["the friend in the pink hoodie", "the American driver", "the long-haired mentor", "the young man in the red beanie"],
+      "kind": "montage"
+    },
+    {
+      "ts": "00:56:08",
+      "what": "The greying naval officer lets himself into the dark flat, finds the bed untouched and realises the boy has not been coming home",
+      "chars": ["the greying naval officer"],
+      "kind": "discovery"
+    },
+    {
+      "ts": "00:56:42",
+      "what": "With street-race footage playing in the mahjong parlour, the woman in the satin dress comes to the garage rail and tells the mentor he has a visitor waiting below",
+      "chars": ["the woman in the satin dress", "the long-haired mentor"],
+      "kind": "setup"
+    },
+    {
+      "ts": "00:56:53",
+      "what": "Mentor and American run door to door from the mountain road onto the expressway and down through a parking deck, and the neon-plaza crowd swarms the American's car",
+      "chars": ["the long-haired mentor", "the American driver", "the dark-haired young woman"],
+      "kind": "action"
+    },
+    {
+      "ts": "00:58:29",
+      "what": "The dark-haired schoolgirl messages him from class asking why she never sees him drift, and they end up eating vending-machine food together under the overpass",
+      "chars": ["the dark-haired young woman", "the American driver"],
+      "kind": "dialogue"
+    },
+    {
+      "ts": "00:59:19",
+      "what": "She tells him her mother came from Australia to work a hostess bar and died when she was ten, and that DK's grandmother took her in",
+      "chars": ["the dark-haired young woman", "the American driver"],
+      "kind": "reveal"
+    },
+    {
+      "ts": "01:00:28",
+      "what": "She drives him up the mountain and talks about sneaking up here as a kid to watch the older drifters, and the guard between them drops into laughter",
+      "chars": ["the dark-haired young woman", "the American driver"],
+      "kind": "emotion"
+    },
+    {
+      "ts": "01:02:18",
+      "what": "The heavyset man in the tank top walks into the dockside yard and beats the American to the concrete while the mentor and the whole crew stand and watch",
+      "chars": ["the heavyset man in the tank top", "the American driver", "the long-haired mentor"],
+      "kind": "action"
+    },
+    {
+      "ts": "01:02:59",
+      "what": "Left bleeding on the asphalt, he is steadied by the schoolgirl while the crew files out and the man in the hooded jacket says he soaked the matches in gasoline before playing with fire",
+      "chars": ["the American driver", "the dark-haired young woman", "the man in the hooded jacket"],
+      "kind": "aftermath"
+    },
+    {
+      "ts": "01:03:28",
+      "what": "Still in school uniform, she walks into DK's club lounge and tells him to his face that he has changed",
+      "chars": ["the dark-haired young woman", "DK"],
+      "kind": "action"
+    },
+    {
+      "ts": "01:04:22",
+      "what": "DK turns it back on her, throws her mother's hostess past at her and corners her against the wall until she stops answering and a tear runs down her face",
+      "chars": ["DK", "the dark-haired young woman"],
+      "kind": "emotion"
+    }
+  ]
+}

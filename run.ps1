@@ -21,8 +21,8 @@
 param(
     [string]$Source,
     [Parameter(Mandatory = $true)][string]$Project,
-    [ValidateSet('ingest', 'frames', 'spans', 'tags', 'catalogue', 'beats',
-                 'draft', 'render', 'verify')]
+    [ValidateSet('ingest', 'frames', 'names', 'spans', 'tags', 'catalogue',
+                 'beats', 'draft', 'render', 'verify')]
     [string]$From = 'ingest',
     [switch]$Translate,
     [string]$Model = 'medium',
@@ -78,7 +78,13 @@ function Need-File ($path, $hint) {
 
 # --------------------------------------------------------------------------- #
 # Cac buoc, theo thu tu. $From quyet dinh bat dau tu dau.
-$order = @('ingest', 'frames', 'spans', 'tags', 'catalogue', 'beats',
+# 2026-09-11: 'names' da duoc chuyen len TRUOC 'spans'/'tags'.
+# Truoc day no nam trong khau 'catalogue', tuc la SAU khi 70 span da duoc tag.
+# He qua tren tokyodrift2006: tagger khong co danh sach dien vien, nen `chars`
+# chua toan mo ta ("the American student"), va 31/33 speech claim cua draft
+# thanh KHONG kiem duoc (SPEAKER_UNNAMED) - chua duoc bang gi ngoai viec tag
+# lai ca phim. Danh sach ten la DAU VAO cua khau tag, khong phai phu luc.
+$order = @('ingest', 'frames', 'names', 'spans', 'tags', 'catalogue', 'beats',
            'draft', 'render', 'verify')
 $start = [array]::IndexOf($order, $From)
 function Should ($step) { return ([array]::IndexOf($order, $step) -ge $start) }
@@ -209,7 +215,40 @@ print(f"STEP={step}")
 }
 
 # --------------------------------------------------------------------------- #
-# 3. SPANS  (co hoc - chia phim thanh span ~90s + trich frame)
+# 3. NAMES  (phai xong TRUOC khi tag - tagger can danh sach dien vien)
+# --------------------------------------------------------------------------- #
+if (Should 'names') {
+    Say "3. NAMES (truoc khi tag)"
+
+    if ((Test-Path "$Pdir\names.json") -and -not $Force) {
+        $n = python -c "import json,io,sys;print(len(json.load(io.open(sys.argv[1],encoding='utf-8-sig')).get('names') or []))" "$Pdir\names.json"
+        Ok "names.json da co ($n nhan vat)"
+    }
+    else {
+        Halt "NAMES - can danh sach dien vien tu WIKIPEDIA" @(
+            "Chay:"
+            "  python recap.py names --project $Project --wiki ""<Ten phim (film)>"" --dry-run"
+            "roi bo --dry-run khi ket qua dung."
+            ""
+            "WIKIPEDIA quyet dinh AI TON TAI. Transcript chi dung de doi chieu"
+            "CHINH TA va cach romanise - KHONG BAO GIO dung de quyet dinh ai co"
+            "mat trong phim."
+            ""
+            "Tokyo Drift 2026-09-11: names.json tung duoc dung tu transcript, va"
+            "Neela - vai nu chinh - bi loai vi Whisper khong he phat am ra ten"
+            "co. Tim mo rong toan bo transcript: khong token nao giong 'Neela'"
+            "toi 0.67. Earl, Reiko, Clay, Cindy, Dominic, Toretto cung vang mat."
+            "Mot transcript la bang chung ve CHINH TA, khong phai mot danh sach."
+            ""
+            "Neu phim that su khong co trang Wikipedia, hay noi ro dieu do trong"
+            "names.json va ghi nguon da dung thay the."
+        ) ".\run.ps1 -Project $Project -From names"
+        exit 0
+    }
+}
+
+# --------------------------------------------------------------------------- #
+# 4. SPANS  (co hoc - chia phim thanh span ~90s + trich frame)
 # --------------------------------------------------------------------------- #
 # Ba buoc tiep theo (spans / tags / beats) la vong LLM. Chung KHONG tu chay
 # duoc tu PowerShell: khong co API key nao dung duoc (Gemini chan ca hai tang,
@@ -218,7 +257,7 @@ print(f"STEP={step}")
 # Noi thang: "mot lenh, phim vao, video ra" chua dat duoc o day, va cho ket
 # la ba diem nay - khong phai mot chi tiet con thieu.
 if (Should 'spans') {
-    Say "3. SPANS (co hoc)"
+    Say "4. SPANS (co hoc)"
 
     $spansOk = $false
     if (Test-Path "$Pdir\spans.json") {
@@ -244,7 +283,7 @@ if (Should 'spans') {
 # 4. TAGS  (vong LLM: mot subagent moi span)
 # --------------------------------------------------------------------------- #
 if (Should 'tags') {
-    Say "4. TAG SPANS (vong LLM)"
+    Say "5. TAG SPANS (vong LLM)"
 
     $todo = python tools\check_stage.py $Project tags-todo
     if ($todo -and $todo -ne 'NONE' -and -not $Force) {
@@ -272,7 +311,7 @@ if (Should 'tags') {
 # 5. NAMES + CATALOGUE MAY  (co hoc: lap rap moment thanh shots_machine.json)
 # --------------------------------------------------------------------------- #
 if (Should 'catalogue') {
-    Say "5. NAMES + CATALOGUE MAY"
+    Say "6. CATALOGUE MAY"
 
     if (-not (Test-Path "$Pdir\names.json")) {
         Warn "chua co names.json"
@@ -297,7 +336,7 @@ if (Should 'catalogue') {
 # 6. BEAT MAP + CHOT DU LIEU  (vong LLM + checkpoint nguoi)
 # --------------------------------------------------------------------------- #
 if (Should 'beats') {
-    Say "6. BEAT MAP + CHOT DU LIEU"
+    Say "7. BEAT MAP + CHOT DU LIEU"
 
     if (-not (Test-Path "$Pdir\beats_proposal.md")) {
         $bt = python tools\check_stage.py $Project beats-todo
@@ -373,7 +412,7 @@ print(f"  reveal-map: {len(D.parse_reveal_map(proj))} muc")
 # 7. DRAFT  (vong LLM toi da 3 + checkpoint nguoi #1)
 # --------------------------------------------------------------------------- #
 if (Should 'draft') {
-    Say "7. DRAFT (vong toi da 3)"
+    Say "8. DRAFT (vong toi da 3)"
 
     # Vong draft: toi da 3 vong. Dem vong nam trong state.json nen mot lan
     # crash khong lam mat so vong va khong khoi dong lai tu 0.
@@ -440,7 +479,7 @@ if (Should 'draft') {
 # 8. RENDER
 # --------------------------------------------------------------------------- #
 if (Should 'render') {
-    Say "8. RENDER"
+    Say "9. RENDER"
 
     if (-not (Test-Path "$Pdir\music.mp3")) {
         Warn "khong thay music.mp3 - render se khong co nhac nen"
@@ -471,7 +510,7 @@ if (Should 'render') {
 # 9. VERIFY + checkpoint xem video
 # --------------------------------------------------------------------------- #
 if (Should 'verify') {
-    Say "9. VERIFY"
+    Say "10. VERIFY"
 
     $null = Recap @('verify', '--project', $Project) -AllowSoftFail
 

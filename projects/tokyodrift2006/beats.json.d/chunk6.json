@@ -1,0 +1,83 @@
+{
+  "chunk": 6,
+  "beats": [
+    {
+      "ts": "01:05:41",
+      "what": "The dark-haired young woman walks into the garage in tears and the young American searches her face without either of them speaking",
+      "chars": ["the dark-haired young woman", "the young American"],
+      "kind": "emotion"
+    },
+    {
+      "ts": "01:06:39",
+      "what": "Kamata collects last week's take from the man in the black shirt and sits down at the desk to go through the books",
+      "chars": ["Kamata", "the man in the black shirt"],
+      "kind": "setup"
+    },
+    {
+      "ts": "01:07:29",
+      "what": "Kamata tells him his own partner has been stealing from the operation",
+      "chars": ["Kamata", "the man in the black shirt"],
+      "kind": "reveal"
+    },
+    {
+      "ts": "01:08:09",
+      "what": "Kamata turns the missing money into the proverb about a lost nail losing the war, then hands him a framed picture and leaves him doubled over the desk",
+      "chars": ["Kamata", "the man in the black shirt"],
+      "kind": "emotion"
+    },
+    {
+      "ts": "01:09:28",
+      "what": "The man in the black shirt storms the garage and slams the long-haired mechanic into the tyre racks over the side deals he has been running",
+      "chars": ["the man in the black shirt", "the long-haired mechanic", "the young American", "the dark-haired young woman"],
+      "kind": "action"
+    },
+    {
+      "ts": "01:09:58",
+      "what": "He levels a pistol at the mechanic's face and the mechanic tells him he would still be shaking down tea houses without the skimming",
+      "chars": ["the man in the black shirt", "the long-haired mechanic", "the young American", "the dark-haired young woman"],
+      "kind": "reveal"
+    },
+    {
+      "ts": "01:10:39",
+      "what": "The mechanic bolts from the bay in a shower of sparks and the whole crew pours into the street after him, the young American and the young woman joining the chase in the red Evo",
+      "chars": ["the long-haired mechanic", "the young American", "the dark-haired young woman", "the man in the black shirt"],
+      "kind": "action"
+    },
+    {
+      "ts": "01:13:51",
+      "what": "The pack drives straight into a packed pedestrian crossing, nosing bodies aside to get through",
+      "chars": ["the young American", "the dark-haired young woman"],
+      "kind": "action"
+    },
+    {
+      "ts": "01:15:07",
+      "what": "The orange car cartwheels down the avenue, lands upside down with the mechanic trapped inside and detonates as the young American sprints for it",
+      "chars": ["the long-haired mechanic", "the young American", "the dark-haired young woman"],
+      "kind": "action"
+    },
+    {
+      "ts": "01:15:33",
+      "what": "The man in the black coupe looks at the burning wreck, drives off past the crowd, and leaves the young American and the young woman standing in the firelight",
+      "chars": ["the man in the black shirt", "the young American", "the dark-haired young woman"],
+      "kind": "reveal"
+    },
+    {
+      "ts": "01:16:30",
+      "what": "The man in the black henley is waiting in the dark lane at the house and gets a pistol to the young American's head, while the older man in the olive jacket draws on him in return",
+      "chars": ["the man in the black henley", "the young American", "the dark-haired young woman", "the older man in the olive jacket"],
+      "kind": "reveal"
+    },
+    {
+      "ts": "01:16:58",
+      "what": "The young woman argues across the standoff and then goes with the henley man to get the gun off the young American",
+      "chars": ["the dark-haired young woman", "the young American", "the man in the black henley"],
+      "kind": "emotion"
+    },
+    {
+      "ts": "01:17:40",
+      "what": "Alone in the alley the older man claims the mess as his responsibility as the boy's father, and the young American answers that he caused this and cannot run from it",
+      "chars": ["the young American", "the older man in the olive jacket"],
+      "kind": "dialogue"
+    }
+  ]
+}

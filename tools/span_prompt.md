@@ -92,6 +92,21 @@ Named characters **visible in the frames of this moment**. Empty list if none
 can be identified. Do not list a character because the plot implies they are
 nearby - only if they are on screen.
 
+**Use the CAST list printed at the top of your payload, with its exact
+spellings.** That list comes from the film's Wikipedia cast and is the only
+source for who exists.
+
+This matters more than it looks. Everything downstream that checks *who said
+what* resolves a speaker against `chars`. If `chars` holds a description
+instead of a name, that check can never pass. On Tokyo Drift the cast list was
+built **after** tagging, so `chars` was full of phrases like "the American
+student", and **31 of the draft's 33 speech claims became unverifiable** - not
+wrong, just uncheckable, and unfixable without re-tagging the whole film.
+
+If you genuinely cannot tell who someone is, write a short stable description
+instead. **Never guess a name off the list** because it would fit: an
+unidentified person is a description, not a coin flip.
+
 ## 5. `action`
 
 One or two sentences describing what happens across the moment, written from

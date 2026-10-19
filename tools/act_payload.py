@@ -26,17 +26,41 @@ def main() -> int:
     bp = io.open(pdir / "beats_proposal.md", encoding="utf-8").read().splitlines()
 
     heads = [(i, l) for i, l in enumerate(bp) if re.match(r"^ACT \d", l.strip())]
-    if actn < 1 or actn > len(heads):
-        print(f"act {actn} khong ton tai (co {len(heads)} act)")
-        return 1
-    i0 = heads[actn - 1][0]
-    i1 = heads[actn][0] if actn < len(heads) else len(bp)
-    head = heads[actn - 1][1].strip()
-    m = re.search(r"\(([\d:]+)\s*-\s*([\d:]+)\)", head)
-    a, b = (pt(m.group(1)), pt(m.group(2))) if m else (0.0, 1e9)
+    all_beats = [l.rstrip() for l in bp if re.match(r"^\s*B\d+\s*\|", l)]
 
-    beats = [l.rstrip() for l in bp[i0:i1]
-             if re.match(r"^\s*B\d+\s*\|", l)]
+    if heads:
+        if actn < 1 or actn > len(heads):
+            print(f"act {actn} khong ton tai (co {len(heads)} act)")
+            return 1
+        i0 = heads[actn - 1][0]
+        i1 = heads[actn][0] if actn < len(heads) else len(bp)
+        head = heads[actn - 1][1].strip()
+        m = re.search(r"\(([\d:]+)\s*-\s*([\d:]+)\)", head)
+        a, b = (pt(m.group(1)), pt(m.group(2))) if m else (0.0, 1e9)
+        beats = [l.rstrip() for l in bp[i0:i1]
+                 if re.match(r"^\s*B\d+\s*\|", l)]
+    else:
+        # Beat map do MAY sinh ra khong co dong "ACT n" - do la mot quy uoc
+        # cua beat map NGUOI. Chia deu theo SO BEAT, va cat thoi gian dung tai
+        # moc cua beat dau tien thuoc nua sau, de hai act khong chong lan.
+        n_acts = int(os.environ.get("RECAP_ACTS", "4"))
+        if actn < 1 or actn > n_acts:
+            print(f"act {actn} khong ton tai (chia deu thanh {n_acts} act)")
+            return 1
+        if not all_beats:
+            print("beats_proposal.md khong co dong beat nao")
+            return 1
+        per = (len(all_beats) + n_acts - 1) // n_acts
+        lo_i, hi_i = per * (actn - 1), min(per * actn, len(all_beats))
+        beats = all_beats[lo_i:hi_i]
+        if not beats:
+            print(f"act {actn} rong")
+            return 1
+        ts = [pt(re.split(r"\s*\|\s*", l.strip())[1]) for l in all_beats]
+        a = ts[lo_i]
+        b = ts[hi_i] if hi_i < len(ts) else 1e9
+        head = (f"ACT {actn} of {n_acts} (machine beat map has no ACT "
+                f"headings - split evenly by beat count)")
 
     # Act dai qua mot luot subagent thi chia doi THEO BEAT, va cat thoi gian
     # dung tai moc cua beat dau tien cua nua sau - khong de hai nua chong lan.
@@ -56,7 +80,16 @@ def main() -> int:
     for l in beats:
         print("  " + l.strip())
 
-    shots = json.load(io.open(pdir / "shots.json", encoding="utf-8-sig"))["shots"]
+    # Chap nhan ca hai ten, nhu beat_payload.py: trong luong that catalogue may
+    # ten la shots_machine.json va chi duoc doi ten o khau catalogue cua
+    # run.ps1. Mot tool bat nguoi goi phai nho dang o buoc nao la mot tool de
+    # vo, va no vua vo that.
+    _cp = next((p for p in (pdir / "shots.json", pdir / "shots_machine.json")
+                if p.exists()), None)
+    if _cp is None:
+        print(f"khong co shots.json hay shots_machine.json trong {pdir}")
+        return 1
+    shots = json.load(io.open(_cp, encoding="utf-8-sig"))["shots"]
     S = [s for s in shots if a - 30 <= pt(s["clip_start"]) and pt(s["clip_end"]) <= b + 30]
 
     # --- SPEECH ------------------------------------------------------------

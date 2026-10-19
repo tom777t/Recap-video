@@ -1,0 +1,89 @@
+{
+  "chunk": 1,
+  "beats": [
+    {
+      "ts": "00:02:36",
+      "what": "In the auto shop the dark-haired teenager watches three boys pin a classmate and mark him, and quietly pulls jumper-cable clamps out of a tool drawer",
+      "chars": ["the dark-haired teenager"],
+      "kind": "setup"
+    },
+    {
+      "ts": "00:03:09",
+      "what": "The blond jock in the #13 jersey crosses the student lot with his teammates and squares up to the dark-haired teenager for talking to his girlfriend",
+      "chars": ["the dark-haired teenager", "the blond jock in the #13 jersey", "the blonde girl"],
+      "kind": "dialogue"
+    },
+    {
+      "ts": "00:04:38",
+      "what": "The jock refuses to put his $80,000 Viper up for pink slips against the teenager's beat-up muscle car",
+      "chars": ["the dark-haired teenager", "the blond jock in the #13 jersey"],
+      "kind": "dialogue"
+    },
+    {
+      "ts": "00:04:57",
+      "what": "The blonde girl names herself as the prize, and the race is on",
+      "chars": ["the blonde girl", "the dark-haired teenager", "the blond jock in the #13 jersey"],
+      "kind": "dialogue"
+    },
+    {
+      "ts": "00:05:09",
+      "what": "The two cars launch from a start line at the Shang-Ri-La Estates billboard into the half-built housing tract, the girl riding with the jock",
+      "chars": ["the dark-haired teenager", "the blond jock in the #13 jersey", "the blonde girl"],
+      "kind": "action"
+    },
+    {
+      "ts": "00:07:19",
+      "what": "Losing ground on the pavement, the teenager abandons the road and cuts straight across the raw dirt lots to make up the gap",
+      "chars": ["the dark-haired teenager"],
+      "kind": "action"
+    },
+    {
+      "ts": "00:08:29",
+      "what": "The teenager runs his car up on two wheels and leans it against the Viper, taunting the jock as the girl starts to enjoy it",
+      "chars": ["the dark-haired teenager", "the blond jock in the #13 jersey", "the blonde girl"],
+      "kind": "action"
+    },
+    {
+      "ts": "00:09:07",
+      "what": "The cars collide and tumble end over end in front of the spectators, leaving the teenager hanging bloodied upside down in his belt",
+      "chars": ["the dark-haired teenager", "the blond jock in the #13 jersey", "the blonde girl"],
+      "kind": "action"
+    },
+    {
+      "ts": "00:09:59",
+      "what": "At the station a detective plays him the bystander video of the race and tells him the rich kids will walk while he is a guaranteed conviction",
+      "chars": ["the dark-haired teenager", "the detective"],
+      "kind": "discovery"
+    },
+    {
+      "ts": "00:10:23",
+      "what": "Told his car has been crushed, the teenager comes out of his chair at the detective and is shoved back down",
+      "chars": ["the dark-haired teenager", "the detective"],
+      "kind": "reveal"
+    },
+    {
+      "ts": "00:10:41",
+      "what": "His mother storms in swinging at him, then sits down and works the detective into a deal over his head",
+      "chars": ["the dark-haired teenager", "his mother", "the detective"],
+      "kind": "action"
+    },
+    {
+      "ts": "00:11:07",
+      "what": "The detective lays out the arithmetic: two priors for reckless driving make this strike three and prison unless there is another way",
+      "chars": ["the detective", "his mother", "the dark-haired teenager"],
+      "kind": "reveal"
+    },
+    {
+      "ts": "00:11:33",
+      "what": "In the corridor his mother tells him they are not moving this time, and he takes the sentence in silence",
+      "chars": ["the dark-haired teenager", "his mother"],
+      "kind": "emotion"
+    },
+    {
+      "ts": "00:12:10",
+      "what": "The teenager lands alone in Tokyo and rides a taxi out through the neon city",
+      "chars": ["the crew-cut American teenager"],
+      "kind": "transition"
+    }
+  ]
+}

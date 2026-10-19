@@ -1,0 +1,89 @@
+{
+  "chunk": 4,
+  "beats": [
+    {
+      "ts": "00:39:12",
+      "what": "In the mahjong den the gangsters send the young American out so they can talk business, then press the long-haired man about a shipment that has not arrived; he tells them to sit tight and let him handle it",
+      "chars": ["the long-haired man in the dark jacket", "the man in the black T-shirt", "the blond-streaked young man", "the young American"],
+      "kind": "setup"
+    },
+    {
+      "ts": "00:39:47",
+      "what": "At a street payphone the young American lies to his father that he is staying late at school for extracurricular activities",
+      "chars": ["the young American"],
+      "kind": "dialogue"
+    },
+    {
+      "ts": "00:40:14",
+      "what": "The woman in the fur-collar coat tracks him down to ask for drifting lessons; he tells her to stop following him and that this world is not good enough for her, and she answers by reading his army-brat past back to him",
+      "chars": ["the young American", "the woman in the fur-collar coat"],
+      "kind": "dialogue"
+    },
+    {
+      "ts": "00:41:27",
+      "what": "Driving home, the long-haired man explains that DK's uncle takes a cut of everyone's action on his turf and keeps the police off them, because 50% of something beats 100% of nothing",
+      "chars": ["the long-haired man", "the young American"],
+      "kind": "reveal"
+    },
+    {
+      "ts": "00:41:54",
+      "what": "They argue about what a race is for; the long-haired man says DK's pride is his kryptonite and reminds the American he still owes him a car",
+      "chars": ["the long-haired man", "the young American"],
+      "kind": "dialogue"
+    },
+    {
+      "ts": "00:42:50",
+      "what": "A patrol car tucks in behind them at 197 km/h; the long-haired man says police cars top out at 180 so they will not even try, and the American floors it and leaves them behind",
+      "chars": ["the long-haired man", "the young American"],
+      "kind": "action"
+    },
+    {
+      "ts": "00:43:18",
+      "what": "They arrive at the long-haired man's garage party, where he is mobbed and kissed by the crowd while the American is left standing on the outside of it",
+      "chars": ["the long-haired man", "the young American"],
+      "kind": "montage"
+    },
+    {
+      "ts": "00:44:41",
+      "what": "The friend with cornrows pulls him off the floor to explain the room is full of worked-out models nobody else dares approach, and that he is the one who makes them laugh",
+      "chars": ["the friend with cornrows", "the young American"],
+      "kind": "dialogue"
+    },
+    {
+      "ts": "00:46:20",
+      "what": "After touring the garage's lifts and bikes he stops at the red Evo, and the long-haired man hands it to him because he represents him now and will not be rolling in a Hyundai",
+      "chars": ["the long-haired man", "the young American"],
+      "kind": "reveal"
+    },
+    {
+      "ts": "00:46:43",
+      "what": "Drift practice in the dockside lot: he slews the Evo through tyre smoke past the warehouses, sawing at the wheel while the watching crowd laughs at how badly he drifts",
+      "chars": ["the young American", "the long-haired man"],
+      "kind": "action"
+    },
+    {
+      "ts": "00:47:58",
+      "what": "In the neighbourhood garage the grey-haired man works on the stripped coupe he found wrecked on the base, says it has potential, and warns the schoolboy that the nail that sticks out gets hammered",
+      "chars": ["the grey-haired man in the grey henley", "the young American in the school blazer"],
+      "kind": "dialogue"
+    },
+    {
+      "ts": "00:48:55",
+      "what": "On the school roof he shoves through the ring of students to stop the blond-haired student beating the pinned student in the white durag, and the blond backs off with no punch thrown",
+      "chars": ["the young American in the school blazer", "the blond-haired student", "the student in the white durag"],
+      "kind": "action"
+    },
+    {
+      "ts": "00:49:52",
+      "what": "The crowd disperses and his friend rounds on him for wrecking business on the roof, while the girl with long brown hair stays behind to tell him he did all right and apologise for prying",
+      "chars": ["the young American", "the friend in the white head wrap", "the girl with long brown hair"],
+      "kind": "aftermath"
+    },
+    {
+      "ts": "00:51:21",
+      "what": "On the pedestrian bridge above the crossing the long-haired man calls Tokyo his Mexico and admits he lent out the car on purpose: one car in exchange for knowing what a man is made of is a prize he can live with, unlike the crowd below who let fear lead them",
+      "chars": ["the long-haired man", "the young American"],
+      "kind": "reveal"
+    }
+  ]
+}

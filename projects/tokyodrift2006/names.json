@@ -1,0 +1,28 @@
+{
+  "_source": "Cast list from the film's English Wikipedia article, section 'Cast' (https://en.wikipedia.org/wiki/The_Fast_and_the_Furious:_Tokyo_Drift). Wikipedia decides WHO EXISTS. The transcript is used only to check spelling and romanisation, never to decide membership.",
+  "_why_this_matters": "An earlier version of this file was built FROM THE TRANSCRIPT, and dropped Neela - the female lead - because Whisper never produced her name. A fuzzy search over every word in the transcript found nothing within 0.67 similarity of 'Neela'; the closest tokens were 'need', 'near', 'feel'. Earl, Reiko, Clay, Cindy, Dominic and Toretto are likewise absent. A transcript is evidence about SPELLING, not about existence, and using it as a roster silently deletes anyone the ASR missed.",
+  "_transcript_check": {
+    "confirmed_spelling": "Sean x4, Boswell x3, Twinkie x1 (+ 'Twink' x3), Han x1, Takashi x3, Kamata x1 (+ Kamata's x2), Morimoto x1",
+    "absent_from_transcript": "Neela, Earl, Reiko, Clay, Cindy, Dominic, Toretto - present in the film, absent from the ASR output. Kept anyway, on Wikipedia's authority.",
+    "near_misses_seen": "Kamara/Kamada for Kamata, Hawn for Han, Twink for Twinkie - ASR variants, not separate characters."
+  },
+  "_spoiler_note": "Dominic Toretto is listed here because he IS in the cast. Listing him does NOT license naming him early: reveal R4 protects him until 01:36:38, the frame his face first appears. names.json answers 'does this person exist'; the reveal-map answers 'when may the recap say so'. The two are separate and both apply.",
+  "_discrepancy": "Asked for as 'Major Boswell'. Wikipedia credits Brian Goodman as 'Lieutenant Boswell' and the plot text calls him a U.S. Navy lieutenant. Following Wikipedia, as instructed; flagging the difference rather than silently picking one.",
+  "names": [
+    { "character": "Sean", "actor": "Lucas Black" },
+    { "character": "Boswell", "actor": "Lucas Black" },
+    { "character": "Neela", "actor": "Nathalie Kelley" },
+    { "character": "Han", "actor": "Sung Kang" },
+    { "character": "Takashi", "actor": "Brian Tee" },
+    { "character": "DK", "actor": "Brian Tee" },
+    { "character": "Twinkie", "actor": "Bow Wow" },
+    { "character": "Kamata", "actor": "Sonny Chiba" },
+    { "character": "Morimoto", "actor": "Leonardo Nam" },
+    { "character": "Earl", "actor": "Jason Tobin" },
+    { "character": "Reiko", "actor": "Keiko Kitagawa" },
+    { "character": "Clay", "actor": "Zachery Ty Bryan" },
+    { "character": "Cindy", "actor": "Nikki Griffin" },
+    { "character": "Dominic", "actor": "Vin Diesel" },
+    { "character": "Toretto", "actor": "Vin Diesel" }
+  ]
+}
