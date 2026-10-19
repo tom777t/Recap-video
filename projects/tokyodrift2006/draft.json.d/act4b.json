@@ -9,7 +9,10 @@
       "note": "B94",
       "delivery": "tense",
       "narrative_jump": false,
-      "claim": { "type": "speech", "subject": "the young man in the black durag" }
+      "claim": {
+        "type": "speech",
+        "subject": "the young man in the black durag"
+      }
     },
     {
       "id": 429,
@@ -17,7 +20,7 @@
       "clip_start": "01:26:34.547",
       "clip_end": "01:26:53.148",
       "note": "B93",
-      "delivery": "reveal",
+      "delivery": "normal",
       "narrative_jump": false
     },
     {
@@ -184,7 +187,7 @@
     },
     {
       "id": 448,
-      "narration": "Kamata says his piece straight at him. Sean takes it with his eyes down, and the face behind the cigar sags.",
+      "narration": "Kamata keeps his word. The loser leaves Tokyo, and the loser is his nephew. Sean takes it with his eyes down, and the face behind the cigar sags.",
       "clip_start": "01:34:43.575",
       "clip_end": "01:34:58.215",
       "note": "B105",
@@ -193,7 +196,7 @@
     },
     {
       "id": 449,
-      "narration": "He presses once more, Sean looks past him, and Kamata turns away from the crowd that beat his nephew.",
+      "narration": "He presses once more and Sean looks past him. Then Kamata turns away from the crowd that beat his nephew. DK goes. Sean stays.",
       "clip_start": "01:34:58.215",
       "clip_end": "01:35:07.558",
       "note": "B105",
@@ -229,7 +232,7 @@
     },
     {
       "id": 453,
-      "narration": "His car noses up beside a hulking muscle car, and behind its wheel sits a bald American in a white tee.",
+      "narration": "His car noses up beside a hulking American muscle car. Behind its wheel, bald and in a white tee, sits Dominic Toretto.",
       "clip_start": "01:36:38.774",
       "clip_end": "01:36:46.656",
       "note": "B108",
@@ -238,7 +241,7 @@
     },
     {
       "id": 454,
-      "narration": "They talk across the lane. The sizing-up drops away fast - the challenger laughs, and the new Drift King grins back.",
+      "narration": "They talk across the lane. Toretto came for Han - Han was family to him - and when he says that, Sean's wariness goes. The challenger laughs, and the new Drift King grins back.",
       "clip_start": "01:36:46.656",
       "clip_end": "01:37:10.430",
       "note": "B108",
@@ -252,6 +255,15 @@
       "clip_end": "01:37:33.745",
       "note": "B109",
       "delivery": "tense",
+      "narrative_jump": false
+    },
+    {
+      "id": 456,
+      "narration": "The kid who was shipped to Tokyo to stay out of jail is the one everybody lines up against now. And this race, for once, he never went looking for.",
+      "clip_start": "01:37:33.745",
+      "clip_end": "01:37:47.634",
+      "note": "B109",
+      "delivery": "normal",
       "narrative_jump": false
     }
   ]

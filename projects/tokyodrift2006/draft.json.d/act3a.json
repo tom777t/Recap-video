@@ -16,7 +16,7 @@
       "clip_start": "00:51:44.591",
       "clip_end": "00:52:04.277",
       "note": "B57",
-      "delivery": "reveal",
+      "delivery": "normal",
       "narrative_jump": false
     },
     {
@@ -48,7 +48,7 @@
     },
     {
       "id": 308,
-      "narration": "Daylight on the mountain hairpins. Out here you drift by feeling, the pink-hoodie friend tells him. So feel it.",
+      "narration": "Daylight on the mountain hairpins. Out here you drift by feeling, Han tells him. So feel it.",
       "clip_start": "00:54:14.323",
       "clip_end": "00:54:25.167",
       "note": "B60",
@@ -68,7 +68,7 @@
     },
     {
       "id": 312,
-      "narration": "Across town, the greying naval officer parts the coats of an empty flat. The bed has not been slept in; Sean never came home.",
+      "narration": "Across town, Sean's father parts the coats of an empty flat. The bed has not been slept in; Sean never came home.",
       "clip_start": "00:56:26.121",
       "clip_end": "00:56:32.711",
       "note": "B61",
@@ -137,7 +137,7 @@
       "clip_start": "01:01:22.249",
       "clip_end": "01:01:31.467",
       "note": "B66",
-      "delivery": "reveal",
+      "delivery": "normal",
       "narrative_jump": false,
       "claim": { "type": "speech", "subject": "the young man with short brown hair" }
     },
@@ -152,7 +152,7 @@
     },
     {
       "id": 323,
-      "narration": "A heavyset man in a tank top crosses the lot, Han and the rest behind him. One swing without warning puts Sean face-down.",
+      "narration": "DK crosses the lot in a tank top, Han and the rest behind him. One swing without warning puts Sean face-down.",
       "clip_start": "01:02:18.347",
       "clip_end": "01:02:31.985",
       "note": "B67",
@@ -161,7 +161,7 @@
     },
     {
       "id": 324,
-      "narration": "Blood at his mouth, Neela at his shoulder. He did not just play with fire, a hooded crewman says - he soaked the matches in gasoline.",
+      "narration": "Blood at his mouth, Neela at his shoulder. He did not just play with fire, Han says - he soaked the matches in gasoline.",
       "clip_start": "01:02:59.388",
       "clip_end": "01:03:12.526",
       "note": "B68",

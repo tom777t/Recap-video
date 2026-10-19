@@ -6,7 +6,7 @@ Dung:
     python tools/assemble_draft.py <project> [--title "..."]
 """
 from __future__ import annotations
-import argparse, io, json, os, sys
+import argparse, io, json, os, re, sys
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import config
@@ -22,7 +22,12 @@ def pt(ts) -> float:
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("project")
-    ap.add_argument("--title", default="Bad Genius (2017)")
+    # 2026-09-11: mac dinh o day tung la "Bad Genius (2017)" - ten mot phim
+    # KHAC. Moi project khong truyen --title deu in ra tieu de do, va
+    # tokyodrift2006/script.txt da mang no suot. Mot gia tri mac dinh la ten
+    # rieng cua mot du an khac khong bao gio dung; tot nhat la khong co mac
+    # dinh, roi suy ra tu beat map.
+    ap.add_argument("--title", default=None)
     ap.add_argument("--target", type=float, default=20.0)
     a = ap.parse_args()
     pdir = config.project_dir(a.project)
@@ -47,7 +52,19 @@ def main() -> int:
 
     adj = [l["id"] for l in lines if l.get("window_adjusted")]
     words = sum(len(str(l.get("narration", "")).split()) for l in lines)
-    out = {"title": a.title, "target_minutes": a.target,
+    title = a.title
+    if not title:
+        # H1 cua beat map la nguon gan nhat cho ten phim.
+        bp = pdir / "beats_proposal.md"
+        if bp.exists():
+            for ln in io.open(bp, encoding="utf-8-sig").read().splitlines():
+                if ln.startswith("# "):
+                    title = re.sub(r"\s*[-\u2013]\s*Beat List.*$", "",
+                                   ln[2:]).strip()
+                    break
+    if not title:
+        title = a.project
+    out = {"title": title, "target_minutes": a.target,
            "voice": "en-US",
            "stage_note": ("Draft MAY. Viet tu shots_machine.json + "
                           "beats_proposal.md bang vong draft act-by-act. "

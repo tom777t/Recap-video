@@ -92,7 +92,7 @@
       "clip_start": "01:09:58.805",
       "clip_end": "01:10:11.067",
       "note": "B76",
-      "delivery": "reveal",
+      "delivery": "tense",
       "narrative_jump": false,
       "claim": { "type": "speech", "subject": "the long-haired mechanic" }
     },
@@ -165,7 +165,7 @@
       "clip_start": "01:15:33.263",
       "clip_end": "01:15:39.770",
       "note": "B80",
-      "delivery": "reveal",
+      "delivery": "sad",
       "narrative_jump": false
     },
     {
@@ -201,7 +201,7 @@
       "clip_start": "01:16:42.916",
       "clip_end": "01:16:51.633",
       "note": "B81",
-      "delivery": "reveal",
+      "delivery": "tense",
       "narrative_jump": false
     },
     {

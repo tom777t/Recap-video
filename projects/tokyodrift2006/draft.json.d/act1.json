@@ -3,7 +3,7 @@
   "lines": [
     {
       "id": 101,
-      "narration": "A wrench in his hand, and behind his back three boys close on a classmate. He keeps working.",
+      "narration": "A wrench in Sean's hand, and behind his back three boys close on a classmate. He keeps working.",
       "clip_start": "00:02:19.472",
       "clip_end": "00:02:36.739",
       "note": "B01",
@@ -21,7 +21,7 @@
     },
     {
       "id": 104,
-      "narration": "In the student lot a blonde asks if his beat-up muscle car delivers pizzas. It's not the ride, he says, it's the rider.",
+      "narration": "In the student lot Cindy asks if Sean's beat-up muscle car delivers pizzas. It's not the ride, he says, it's the rider.",
       "clip_start": "00:03:13.818",
       "clip_end": "00:03:24.370",
       "note": "B02",
@@ -30,7 +30,7 @@
     },
     {
       "id": 106,
-      "narration": "Her boyfriend, the jock in thirteen, brags his grandmother could smoke that heap. The teenager recites the Viper's specs back - anyone can read a brochure.",
+      "narration": "Her boyfriend Clay brags that his grandmother could smoke that heap. Sean recites the Viper's specs back - anyone can read a brochure.",
       "clip_start": "00:03:30.460",
       "clip_end": "00:03:45.975",
       "note": "B02",
@@ -39,7 +39,7 @@
     },
     {
       "id": 107,
-      "narration": "He only races for pink slips. The jock won't bet eighty thousand dollars of car against a heap.",
+      "narration": "Sean only races for pink slips. Clay won't bet eighty thousand dollars of car against a heap.",
       "clip_start": "00:04:38.569",
       "clip_end": "00:04:49.747",
       "note": "B03",
@@ -48,11 +48,11 @@
     },
     {
       "id": 108,
-      "narration": "The girl settles it from the edge of the crowd. The winner gets her.",
+      "narration": "Cindy settles it from the edge of the crowd. The winner gets her.",
       "clip_start": "00:04:57.755",
       "clip_end": "00:05:09.308",
       "note": "B04",
-      "delivery": "reveal",
+      "delivery": "tense",
       "narrative_jump": false
     },
     {
@@ -66,7 +66,7 @@
     },
     {
       "id": 112,
-      "narration": "Losing on pavement, he quits the road and cuts straight across the raw dirt lots while the Viper stays on it.",
+      "narration": "Losing on pavement, Sean quits the road and cuts straight across the raw dirt lots while the Viper stays on it.",
       "clip_start": "00:07:19.437",
       "clip_end": "00:07:30.907",
       "note": "B06",
@@ -178,12 +178,12 @@
       "clip_start": "00:14:02.380",
       "clip_end": "00:14:14.350",
       "note": "B16",
-      "delivery": "reveal",
+      "delivery": "mystery",
       "narrative_jump": false
     },
     {
       "id": 130,
-      "narration": "Inside, the flat is one room. He calls the boy Sean and says he meant to be at the airport.",
+      "narration": "Inside, the flat is one room. His father says he meant to be at the airport.",
       "clip_start": "00:14:23.151",
       "clip_end": "00:14:44.255",
       "note": "B17",
@@ -238,7 +238,7 @@
     },
     {
       "id": 139,
-      "narration": "At lunch a student in a white headwrap gives his name as Twinkie and tries to sell him a laptop.",
+      "narration": "At lunch a classmate called Twinkie sits down and tries to sell Sean a laptop.",
       "clip_start": "00:18:57.424",
       "clip_end": "00:19:12.481",
       "note": "B22",
@@ -261,7 +261,7 @@
       "clip_start": "00:20:54.457",
       "clip_end": "00:21:01.381",
       "note": "B24",
-      "delivery": "reveal",
+      "delivery": "normal",
       "narrative_jump": true
     },
     {
@@ -270,7 +270,7 @@
       "clip_start": "00:21:33.913",
       "clip_end": "00:21:44.173",
       "note": "B25",
-      "delivery": "reveal",
+      "delivery": "mystery",
       "narrative_jump": true
     },
     {

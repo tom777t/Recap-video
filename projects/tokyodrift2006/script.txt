@@ -1,30 +1,30 @@
-TITLE: Bad Genius (2017)
-Lines: 182   Words: 3398   Est. narration: 17.1 min @ 198 WPM [measured en-US-AndrewMultilingualNeural]   Target: 20.0 min
+TITLE: The Fast and the Furious: Tokyo Drift (2006)
+Lines: 182   Words: 3428   Est. narration: 17.3 min @ 198 WPM [measured en-US-AndrewMultilingualNeural]   Target: 20.0 min
 ============================================================
 
 [  1] (00:02:19.472 -> 00:02:36.739)  <hook>
-      A wrench in his hand, and behind his back three boys close on a classmate. He keeps working.
+      A wrench in Sean's hand, and behind his back three boys close on a classmate. He keeps working.
 
 [  2] (00:02:36.739 -> 00:02:48.042)  <tense>
       They pin the boy to a roller door, haul his shirt up and mark his stomach.
 
 [  3] (00:03:13.818 -> 00:03:24.370)  <normal>
-      In the student lot a blonde asks if his beat-up muscle car delivers pizzas. It's not the ride, he says, it's the rider.
+      In the student lot Cindy asks if Sean's beat-up muscle car delivers pizzas. It's not the ride, he says, it's the rider.
 
 [  4] (00:03:30.460 -> 00:03:45.975)  <tense>
-      Her boyfriend, the jock in thirteen, brags his grandmother could smoke that heap. The teenager recites the Viper's specs back - anyone can read a brochure.
+      Her boyfriend Clay brags that his grandmother could smoke that heap. Sean recites the Viper's specs back - anyone can read a brochure.
 
 [  5] (00:04:38.569 -> 00:04:49.747)  <tense>
-      He only races for pink slips. The jock won't bet eighty thousand dollars of car against a heap.
+      Sean only races for pink slips. Clay won't bet eighty thousand dollars of car against a heap.
 
-[  6] (00:04:57.755 -> 00:05:09.308)  <reveal>
-      The girl settles it from the edge of the crowd. The winner gets her.
+[  6] (00:04:57.755 -> 00:05:09.308)  <tense>
+      Cindy settles it from the edge of the crowd. The winner gets her.
 
 [  7] (00:05:09.308 -> 00:05:24.865)  <tense>
       They line up in a half-built housing tract and tear away down the dirt street.
 
 [  8] (00:07:19.437 -> 00:07:30.907)  <tense>
-      Losing on pavement, he quits the road and cuts straight across the raw dirt lots while the Viper stays on it.
+      Losing on pavement, Sean quits the road and cuts straight across the raw dirt lots while the Viper stays on it.
 
 [  9] (00:08:29.424 -> 00:08:44.814)  <tense>
       The muscle car tips onto two wheels and leans on the convertible, close enough to touch.
@@ -59,11 +59,11 @@ Lines: 182   Words: 3398   Est. narration: 17.1 min @ 198 WPM [measured en-US-An
 [ 19] (00:13:42.235 -> 00:14:02.380)  <mystery>
       Down a lantern-lit alley, his father opens a sliding door - greying, in a dark robe. He expected him tomorrow; Japan runs a day ahead.
 
-[ 20] (00:14:02.380 -> 00:14:14.350)  <reveal>
+[ 20] (00:14:02.380 -> 00:14:14.350)  <mystery>
       He steps back for a coat. A young Japanese woman comes out behind him, takes it and slips past into the alley.
 
 [ 21] (00:14:23.151 -> 00:14:44.255)  <normal>
-      Inside, the flat is one room. He calls the boy Sean and says he meant to be at the airport.
+      Inside, the flat is one room. His father says he meant to be at the airport.
 
 [ 22] (00:14:44.255 -> 00:15:03.316)  <tense>
       Sean asks where he sleeps. His mother had no other choice, his father says: it was this or juvenile hall.
@@ -81,15 +81,15 @@ Lines: 182   Words: 3398   Est. narration: 17.1 min @ 198 WPM [measured en-US-An
       Boswell, he tells the teacher, and the class turns to stare at his street shoes. He has never heard of uwabaki.
 
 [ 27] (00:18:57.424 -> 00:19:12.481)  <normal>
-      At lunch a student in a white headwrap gives his name as Twinkie and tries to sell him a laptop.
+      At lunch a classmate called Twinkie sits down and tries to sell Sean a laptop.
 
 [ 28] (00:20:03.948 -> 00:20:16.753)  <discovery>
       Then he spots a racing wheel by the trays, asks what Twinkie drives, and tells him to show it.
 
-[ 29] (00:20:54.457 -> 00:21:01.381)  <reveal>
+[ 29] (00:20:54.457 -> 00:21:01.381)  <normal>
       Off the lift comes a minivan painted Hulk green, a monster toy at the wheel.
 
-[ 30] (00:21:33.913 -> 00:21:44.173)  <reveal>
+[ 30] (00:21:33.913 -> 00:21:44.173)  <mystery>
       The van rolls into an underground garage packed with cars and people, and Sean's mouth opens.
 
 [ 31] (00:23:14.889 -> 00:23:27.776)  <normal>
@@ -114,7 +114,7 @@ Lines: 182   Words: 3398   Est. narration: 17.1 min @ 198 WPM [measured en-US-An
       Sean calls him out anyway. Nose to nose, he says it first: let's race.
 
 [ 38] (00:26:08.520 -> 00:26:19.614)  <tense>
-      The crowd jeers that he has nothing to race with. Han offers his own car.
+      The crowd jeers that he has nothing to race with. Then DK's own business partner, Han, offers up his car.
 
 [ 39] (00:26:36.381 -> 00:27:00.321)  <reveal>
       In the lift down, Twinkie spells out what DK stands for. Not Donkey Kong. Drift King.
@@ -171,7 +171,7 @@ Lines: 182   Words: 3398   Est. narration: 17.1 min @ 198 WPM [measured en-US-An
       On the night drive the terms land: pick-up, delivery, phone answered at any hour. Sean names his price - teach me to drift.
 
 [ 57] (00:38:30.884 -> 00:38:37.098)  <tense>
-      The blond-streaked man at the table does the talking. Sean asks when the next race is.
+      Morimoto, DK's right hand, does the talking. Sean asks when the next race is.
 
 [ 58] (00:38:48.818 -> 00:39:01.915)  <normal>
       Cars go up as the stakes - an eighty-six Corolla against a seventy-two Skyline - and the table cracks up.
@@ -180,7 +180,7 @@ Lines: 182   Words: 3398   Est. narration: 17.1 min @ 198 WPM [measured en-US-An
       Then the room changes: business to discuss, and Sean is sent out of it.
 
 [ 60] (00:39:25.355 -> 00:39:42.830)  <mystery>
-      The gangster in the black tee leans across the table, grinning. By the end Han has dropped his eyes.
+      The gangster leans across the table, grinning. By the end Han has dropped his eyes.
 
 [ 61] (00:39:47.377 -> 00:40:05.686)  <normal>
       At a payphone he tells his father he stayed late at school for extracurricular activities.
@@ -191,7 +191,7 @@ Lines: 182   Words: 3398   Est. narration: 17.1 min @ 198 WPM [measured en-US-An
 [ 63] (00:40:30.544 -> 00:40:43.015)  <normal>
       She reads him straight back: army brat, moved constantly, parents never home, angry at everything ever since.
 
-[ 64] (00:41:27.017 -> 00:41:54.587)  <reveal>
+[ 64] (00:41:27.017 -> 00:41:54.587)  <tense>
       Driving home, Han explains the arrangement. DK's uncle takes a piece of everything on his turf. Fifty percent of something beats a hundred percent of nothing.
 
 [ 65] (00:41:54.587 -> 00:42:20.321)  <tense>
@@ -209,7 +209,7 @@ Lines: 182   Words: 3398   Est. narration: 17.1 min @ 198 WPM [measured en-US-An
 [ 69] (00:44:41.420 -> 00:44:59.146)  <normal>
       Twinkie steers him off the floor to explain the room: Tokyo's working models, off the clock and bored.
 
-[ 70] (00:46:20.059 -> 00:46:34.699)  <reveal>
+[ 70] (00:46:20.059 -> 00:46:34.699)  <normal>
       Han hands over the keys to a red Evo. Sean represents him now, not rolling in a Hyundai.
 
 [ 71] (00:47:11.736 -> 00:47:21.329)  <normal>
@@ -233,7 +233,7 @@ Lines: 182   Words: 3398   Est. narration: 17.1 min @ 198 WPM [measured en-US-An
 [ 77] (00:51:21.067 -> 00:51:44.591)  <hook>
       High above the crossing, Sean asks how Han ended up here. Old westerns, Han says - cowboys always ran for the border. This is his Mexico.
 
-[ 78] (00:51:44.591 -> 00:52:04.277)  <reveal>
+[ 78] (00:51:44.591 -> 00:52:04.277)  <normal>
       Sean asks why Han handed him a car he knew would be wrecked. A fair price, Han says, for knowing what a man is made of.
 
 [ 79] (00:52:20.835 -> 00:52:37.643)  <normal>
@@ -246,13 +246,13 @@ Lines: 182   Words: 3398   Est. narration: 17.1 min @ 198 WPM [measured en-US-An
       Two cars run the empty boulevard. Through the window the women are laughing, and Han's grin widens. This is what he drifts for.
 
 [ 82] (00:54:14.323 -> 00:54:25.167)  <normal>
-      Daylight on the mountain hairpins. Out here you drift by feeling, the pink-hoodie friend tells him. So feel it.
+      Daylight on the mountain hairpins. Out here you drift by feeling, Han tells him. So feel it.
 
 [ 83] (00:54:45.145 -> 00:54:57.324)  <normal>
       Shredded tyres cost money, so they work the shopping crowds - Twinkie reckons he could sell rubbers to a monk.
 
 [ 84] (00:56:26.121 -> 00:56:32.711)  <sad>
-      Across town, the greying naval officer parts the coats of an empty flat. The bed has not been slept in; Sean never came home.
+      Across town, Sean's father parts the coats of an empty flat. The bed has not been slept in; Sean never came home.
 
 [ 85] (00:56:42.721 -> 00:56:53.315)  <tense>
       At the garage rail, one of Han's crew in a satin dress tells him he has a visitor, waiting by a car below.
@@ -272,17 +272,17 @@ Lines: 182   Words: 3398   Est. narration: 17.1 min @ 198 WPM [measured en-US-An
 [ 90] (01:00:28.654 -> 01:00:44.587)  <normal>
       She drives him up the mountain. Before they could drive, she says, they cut class and snuck up here to watch the older kids drift.
 
-[ 91] (01:01:22.249 -> 01:01:31.467)  <reveal>
+[ 91] (01:01:22.249 -> 01:01:31.467)  <normal>
       No past, no future, no problems - just a moment. Then he stops talking and watches her instead.
 
 [ 92] (01:02:01.538 -> 01:02:12.716)  <tense>
       Daylight at the dockside yard. Sean wants another set of tyres - his third today, and rubber is not cheap.
 
 [ 93] (01:02:18.347 -> 01:02:31.985)  <tense>
-      A heavyset man in a tank top crosses the lot, Han and the rest behind him. One swing without warning puts Sean face-down.
+      DK crosses the lot in a tank top, Han and the rest behind him. One swing without warning puts Sean face-down.
 
 [ 94] (01:02:59.388 -> 01:03:12.526)  <sad>
-      Blood at his mouth, Neela at his shoulder. He did not just play with fire, a hooded crewman says - he soaked the matches in gasoline.
+      Blood at his mouth, Neela at his shoulder. He did not just play with fire, Han says - he soaked the matches in gasoline.
 
 [ 95] (01:03:28.708 -> 01:03:47.519)  <tense>
       Still in uniform, she stops in the doorway of a dim club. DK sits with a boot on the table between two hostesses.
@@ -326,7 +326,7 @@ Lines: 182   Words: 3398   Est. narration: 17.1 min @ 198 WPM [measured en-US-An
 [108] (01:09:46.209 -> 01:09:58.805)  <tense>
       Han answers evenly: skimming is what they do, what they have always done. The crew only watches from the rail.
 
-[109] (01:09:58.805 -> 01:10:11.067)  <reveal>
+[109] (01:09:58.805 -> 01:10:11.067)  <tense>
       DK pulls a pistol and levels it at his face. Han holds still: without him, DK would still be shaking down tea houses for pocket change.
 
 [110] (01:10:39.345 -> 01:10:47.604)  <tense>
@@ -350,7 +350,7 @@ Lines: 182   Words: 3398   Est. narration: 17.1 min @ 198 WPM [measured en-US-An
 [116] (01:15:28.175 -> 01:15:33.263)  <sad>
       The blast knocks him flat. He gets up. The car burns alone in the avenue with Han inside.
 
-[117] (01:15:33.263 -> 01:15:39.770)  <reveal>
+[117] (01:15:33.263 -> 01:15:39.770)  <sad>
       DK stares out at the fire, then rolls past the crowd and accelerates away, leaving Han burning behind him.
 
 [118] (01:15:39.770 -> 01:15:50.822)  <sad>
@@ -362,7 +362,7 @@ Lines: 182   Words: 3398   Est. narration: 17.1 min @ 198 WPM [measured en-US-An
 [120] (01:16:30.904 -> 01:16:42.916)  <tense>
       In the unlit lane outside the house the two of them turn toward the dark. A shadow moves, and DK walks out of it.
 
-[121] (01:16:42.916 -> 01:16:51.633)  <reveal>
+[121] (01:16:42.916 -> 01:16:51.633)  <tense>
       A scuffle in the dark ends with DK's pistol at Sean's head and Sean's father stepping out with a gun levelled back.
 
 [122] (01:16:58.640 -> 01:17:06.064)  <tense>
@@ -383,167 +383,167 @@ Lines: 182   Words: 3398   Est. narration: 17.1 min @ 198 WPM [measured en-US-An
 [127] (01:18:31.232 -> 01:18:37.613)  <sad>
       He walks away down the dark street without answering, and his father is left watching him go.
 
-[128] (01:18:31.232 -> 01:18:37.613)  <hook>
-      Han is in the ground. Sean walks away down the dark street, and his father only watches him go.
-
-[129] (01:18:52.753 -> 01:19:06.100)  <tense>
+[128] (01:18:52.753 -> 01:19:06.100)  <tense>
       In an empty garage Twinkie's answer is to leave town. Sean tells him flat he can't.
 
-[130] (01:19:06.100 -> 01:19:18.696)  <tense>
+[129] (01:19:06.100 -> 01:19:18.696)  <tense>
       Twinkie tells him the trouble doesn't stop with DK. It runs all the way up to Kamata.
 
-[131] (01:19:18.696 -> 01:19:36.547)  <tense>
+[130] (01:19:18.696 -> 01:19:36.547)  <tense>
       So Sean says it out loud: DK answers to Kamata, and he intends to talk to Kamata himself.
 
-[132] (01:19:43.012 -> 01:19:53.939)  <tense>
+[131] (01:19:43.012 -> 01:19:53.939)  <tense>
       He answers quietly, eyes down, and whatever he says kills the argument dead.
 
-[133] (01:19:53.939 -> 01:20:10.247)  <normal>
+[132] (01:19:53.939 -> 01:20:10.247)  <normal>
       Twinkie hauls up his hatch and pries open a hidden compartment.
 
-[134] (01:20:10.247 -> 01:20:31.310)  <normal>
-      Out comes a battered leather satchel. Sean counts a thick wad of banknotes; Twinkie says nothing.
+[133] (01:20:10.247 -> 01:20:31.310)  <normal>
+      Out comes a battered satchel. Sean counts banknotes - Han's skim off Kamata's books, passed on to him.
 
-[135] (01:20:31.310 -> 01:20:49.453)  <tense>
+[134] (01:20:31.310 -> 01:20:49.453)  <tense>
       Night, steam venting over a crowded street. In dark clothes Sean turns into an alley where men are already waiting.
 
-[136] (01:20:49.453 -> 01:21:02.466)  <tense>
+[135] (01:20:49.453 -> 01:21:02.466)  <tense>
       He walks past gang jackets and a bat as the crowd closes behind him.
 
-[137] (01:21:02.466 -> 01:21:11.850)  <tense>
+[136] (01:21:02.466 -> 01:21:11.850)  <tense>
       At the guarded door he asks for Mr Kamata. A bald elder steps up to size the boy up.
 
-[138] (01:21:11.850 -> 01:21:21.193)  <reveal>
+[137] (01:21:11.850 -> 01:21:21.193)  <tense>
       Hands open the bag in the doorway. The elder sees inside and goes still.
 
-[139] (01:21:21.193 -> 01:21:38.836)  <mystery>
+[138] (01:21:21.193 -> 01:21:38.836)  <mystery>
       The money walks him in, down a dim corridor into a lantern-lit lounge where every head turns.
 
-[140] (01:21:38.836 -> 01:21:47.678)  <tense>
+[139] (01:21:38.836 -> 01:21:47.678)  <tense>
       At a far booth Kamata smokes while an attendant pours. Sean stops at the bar, locked onto him.
 
-[141] (01:21:47.678 -> 01:21:56.520)  <tense>
+[140] (01:21:47.678 -> 01:21:56.520)  <tense>
       DK plants himself nose to nose and they trade words inches apart. Across the lounge, Kamata turns to watch.
 
-[142] (01:22:05.612 -> 01:22:15.455)  <tense>
+[141] (01:22:05.612 -> 01:22:15.455)  <tense>
       A guard holds him off the booth. He lowers his eyes, and the bag goes forward to the table.
 
-[143] (01:22:15.455 -> 01:22:29.845)  <tense>
+[142] (01:22:15.455 -> 01:22:29.845)  <tense>
       The attendant holds the bag open over Kamata. The old man stays behind his cigar and doesn't reach.
 
-[144] (01:22:29.845 -> 01:22:46.403)  <reveal>
-      He gives the money back and apologises - and names the arrangement out loud: DK is Kamata's nephew.
+[143] (01:22:29.845 -> 01:22:46.403)  <tense>
+      He gives it back - it was Kamata's in the first place - then apologises for himself and for Kamata's nephew.
 
-[145] (01:22:50.407 -> 01:23:00.709)  <tense>
+[144] (01:22:50.407 -> 01:23:00.709)  <tense>
       Kamata shuts his eyes, unmoved. DK throws it back at him - after everything you've done, you're giving me orders.
 
-[146] (01:23:00.709 -> 01:23:09.676)  <tense>
+[145] (01:23:00.709 -> 01:23:09.676)  <tense>
       Nothing from the booth. The defiance collapses, DK's head goes down into a bow, and Kamata answers loudly.
 
-[147] (01:23:09.676 -> 01:23:22.981)  <tense>
+[146] (01:23:09.676 -> 01:23:22.981)  <tense>
       Sean's peaceful solution is a race. He and DK have caused Kamata nothing but problems; let them settle it.
 
-[148] (01:23:22.981 -> 01:23:35.410)  <normal>
+[147] (01:23:22.981 -> 01:23:35.410)  <normal>
       One race, and the loser leaves Tokyo for good. DK barely looks over - he's beaten this kid once already.
 
-[149] (01:23:35.410 -> 01:23:46.463)  <reveal>
+[148] (01:23:35.410 -> 01:23:46.463)  <reveal>
       Kamata draws on the cigar, weighing it in silence while the boy waits. Then he grants the race.
 
-[150] (01:23:46.463 -> 01:24:06.024)  <sad>
+[149] (01:23:46.463 -> 01:24:06.024)  <sad>
       Daylight. Keep-out tape across the shutter of Han's garage - and the crew come jogging back to it anyway.
 
-[151] (01:24:33.801 -> 01:24:49.025)  <normal>
+[150] (01:24:33.801 -> 01:24:49.025)  <normal>
       Inside, Sean and Neela read an inline-six together, and the shutter goes up.
 
-[152] (01:25:00.036 -> 01:25:16.594)  <normal>
-      They shove the striped Mustang in and the build takes it: turbo motor, welders showering sparks.
+[151] (01:25:00.036 -> 01:25:16.594)  <normal>
+      They shove in the striped Mustang - the wreck his father found on the base, the one with potential. The build takes it: turbo motor, welders showering sparks.
 
-[153] (01:25:24.310 -> 01:25:34.111)  <normal>
+[152] (01:25:24.310 -> 01:25:34.111)  <normal>
       A Nissan motor in a Ford's bay. Sean breaks loose onto dirt and dusts the hillside turn.
 
-[154] (01:25:50.586 -> 01:26:00.137)  <normal>
+[153] (01:25:50.586 -> 01:26:00.137)  <normal>
       Between runs they meter the engine, and the work carries on into the night with Sean frowning.
 
-[155] (01:26:06.060 -> 01:26:23.911)  <tense>
+[154] (01:26:06.060 -> 01:26:23.911)  <tense>
       Twinkie tells him DK picked this road. It is his mountain, and nobody else has ever reached the bottom.
 
-[156] (01:26:34.547 -> 01:26:53.148)  <reveal>
+[155] (01:26:34.547 -> 01:26:53.148)  <normal>
       Hands polish the finished tail - black, twin white stripes, a Japanese plate. The Mustang is whole again.
 
-[157] (01:26:53.148 -> 01:27:21.260)  <mystery>
+[156] (01:26:53.148 -> 01:27:21.260)  <mystery>
       Then he stands alone at the top, looking down a road that falls away into blue marker lights.
 
-[158] (01:27:21.260 -> 01:27:31.854)  <normal>
+[157] (01:27:21.260 -> 01:27:31.854)  <normal>
       Race night above a floodlit dam. Cars and people line the ledge.
 
-[159] (01:27:45.993 -> 01:27:57.087)  <tense>
+[158] (01:27:45.993 -> 01:27:57.087)  <tense>
       Every head turns one way. Kamata walks in, fedora and overcoat, a minder at each shoulder, the crowd opening for him.
 
-[160] (01:28:27.576 -> 01:28:44.009)  <tense>
+[159] (01:28:27.576 -> 01:28:44.009)  <tense>
       In the Mustang Sean shuts his eyes and breathes himself calm. Taillights climb the unlit mountain.
 
-[161] (01:28:44.009 -> 01:29:00.317)  <tense>
+[160] (01:28:44.009 -> 01:29:00.317)  <tense>
       DK stares flat ahead. Sean glances across once, then locks both hands on the wheel.
 
-[162] (01:29:00.317 -> 01:29:08.700)  <tense>
+[161] (01:29:00.317 -> 01:29:08.700)  <tense>
       A starter in a dark suit throws both arms up between the cars. They drop.
 
-[163] (01:29:08.700 -> 01:29:20.629)  <tense>
+[162] (01:29:08.700 -> 01:29:20.629)  <tense>
       DK smirks through the first bend. The Mustang slides a hairpin of its own.
 
-[164] (01:29:56.081 -> 01:30:05.966)  <tense>
+[163] (01:29:56.081 -> 01:30:05.966)  <tense>
       They run the cliff edge, Sean shouting at the dust as DK pulls clear.
 
-[165] (01:30:34.202 -> 01:30:46.381)  <tense>
+[164] (01:30:34.202 -> 01:30:46.381)  <tense>
       A snap of the shifter brings them level, door to door in orange sparks.
 
-[166] (01:31:26.546 -> 01:31:31.050)  <tense>
+[165] (01:31:26.546 -> 01:31:31.050)  <tense>
       Headlights sweep low. They slide together in smoke, and the Mustang comes out of it ahead.
 
-[167] (01:32:17.305 -> 01:32:25.521)  <tense>
+[166] (01:32:17.305 -> 01:32:25.521)  <tense>
       DK drives into his flank and scrapes him along the edge. The Mustang breaks free.
 
-[168] (01:32:41.704 -> 01:32:55.426)  <tense>
+[167] (01:32:41.704 -> 01:32:55.426)  <tense>
       Door to door down the straight, trading paint, each driver hauling to force the other wide.
 
-[169] (01:33:32.171 -> 01:33:41.305)  <tense>
+[168] (01:33:32.171 -> 01:33:41.305)  <tense>
       Into a guardrail bend DK leans out of his window and drags his car across to crowd Sean off the road.
 
-[170] (01:33:41.305 -> 01:33:51.649)  <reveal>
+[169] (01:33:41.305 -> 01:33:51.649)  <reveal>
       Sean shoves him wide instead. DK ploughs off the shoulder through the brush, the mountain screams, and Tokyo has a new Drift King.
 
-[171] (01:34:01.367 -> 01:34:08.332)  <sad>
+[170] (01:34:01.367 -> 01:34:08.332)  <sad>
       Inside the losing car the windscreen webs over as it leaves the road and tumbles. Sean runs on alone.
 
-[172] (01:34:08.332 -> 01:34:17.258)  <tense>
+[171] (01:34:08.332 -> 01:34:17.258)  <tense>
       He stops and stares. The crowd sprints the road to swarm his window while the wreck smokes behind them.
 
-[173] (01:34:28.060 -> 01:34:34.275)  <normal>
+[172] (01:34:28.060 -> 01:34:34.275)  <normal>
       Neela reaches him and his strained look breaks into a grin.
 
-[174] (01:34:34.275 -> 01:34:43.575)  <tense>
+[173] (01:34:34.275 -> 01:34:43.575)  <tense>
       Then three men in black come out of the dark. The crowd turns to face Kamata, and Sean's grin dies.
 
-[175] (01:34:43.575 -> 01:34:58.215)  <tense>
-      Kamata says his piece straight at him. Sean takes it with his eyes down, and the face behind the cigar sags.
+[174] (01:34:43.575 -> 01:34:58.215)  <tense>
+      Kamata keeps his word. The loser leaves Tokyo, and the loser is his nephew. Sean takes it with his eyes down, and the face behind the cigar sags.
 
-[176] (01:34:58.215 -> 01:35:07.558)  <sad>
-      He presses once more, Sean looks past him, and Kamata turns away from the crowd that beat his nephew.
+[175] (01:34:58.215 -> 01:35:07.558)  <sad>
+      He presses once more and Sean looks past him. Then Kamata turns away from the crowd that beat his nephew. DK goes. Sean stays.
 
-[177] (01:35:19.069 -> 01:35:32.165)  <normal>
+[176] (01:35:19.069 -> 01:35:32.165)  <normal>
       A packed night garage, Twinkie working the crowd for fistfuls of cash as the bets settle.
 
-[178] (01:35:49.766 -> 01:36:03.030)  <mystery>
+[177] (01:35:49.766 -> 01:36:03.030)  <mystery>
       Neela steps in front of Sean and holds his eye. Twinkie says something, and the smirk is gone.
 
-[179] (01:36:19.463 -> 01:36:38.774)  <tense>
+[178] (01:36:19.463 -> 01:36:38.774)  <tense>
       He leaves the crowd for the driver's seat and rolls out to the line.
 
-[180] (01:36:38.774 -> 01:36:46.656)  <reveal>
-      His car noses up beside a hulking muscle car, and behind its wheel sits a bald American in a white tee.
+[179] (01:36:38.774 -> 01:36:46.656)  <reveal>
+      His car noses up beside a hulking American muscle car. Behind its wheel, bald and in a white tee, sits Dominic Toretto.
 
-[181] (01:36:46.656 -> 01:37:10.430)  <normal>
-      They talk across the lane. The sizing-up drops away fast - the challenger laughs, and the new Drift King grins back.
+[180] (01:36:46.656 -> 01:37:10.430)  <normal>
+      They talk across the lane. Toretto came for Han - Han was family to him - and when he says that, Sean's wariness goes. The challenger laughs, and the new Drift King grins back.
 
-[182] (01:37:24.402 -> 01:37:33.745)  <tense>
+[181] (01:37:24.402 -> 01:37:33.745)  <tense>
       Smoke boils off the tyres, flame spits from the exhaust, and the starter in red throws her arms up.
+
+[182] (01:37:33.745 -> 01:37:47.634)  <normal>
+      The kid who was shipped to Tokyo to stay out of jail is the one everybody lines up against now. And this race, for once, he never went looking for.

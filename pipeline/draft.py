@@ -394,6 +394,73 @@ def validate_draft(project: str, *, write_state: bool = False,
                       "footage on screen with nothing said over it.[/]")
         sys.exit(1)
 
+    # ---- [TITLE-MATCH] ---------------------------------------------------
+    # 2026-09-11: tokyodrift2006/script.txt in ra "TITLE: Bad Genius (2017)".
+    # Tieu de duoc chep sang tu mot project khac va khong mot gate nao thay,
+    # vi khong gate nao tung doc truong `title`. Mot cai ten sai o dong dau
+    # cua tai lieu nguoi doc la loi re nhat de tao ra va de nhat de bo sot.
+    _title = str(draft.get("title", "") or "").strip()
+    if not _title:
+        # KHONG phai loi chan. Bug can bat la tieu de SAI (chep tu project
+        # khac), khong phai tieu de THIEU. Lan dau toi de no la error va no
+        # lam chet 4 self-test truoc khi gate dang duoc kiem kip chay - mot
+        # gate moi giet cac gate cu, va "runs=False" la tat ca nhung gi hien
+        # ra. Mot kiem tra phu khong duoc chan duong kiem tra chinh.
+        console.print("[yellow][TITLE-MATCH][/] draft.json has no 'title' - "
+                      "script.txt will have no heading.")
+    # Chi so sanh trung lap khi tieu de TRONG NHU mot ten phim that. Mot
+    # placeholder ("t") trung nhau giua hai project khong chung minh dieu gi -
+    # va lan dau toi bo qua dieu do, bon fixture dung chung title "t" lam gate
+    # nay bao loi va sys.exit() TRUOC khi gate dang duoc kiem kip chay.
+    elif len(_title) >= 8 and (" " in _title or any(c.isdigit() for c in _title)):
+        for _other in sorted(pdir.parent.glob("*/draft.json")):
+            if _other.resolve() == (pdir / "draft.json").resolve():
+                continue
+            try:
+                _ot = str(json.loads(_other.read_text(encoding="utf-8-sig"))
+                          .get("title", "") or "").strip()
+            except Exception:
+                continue
+            if _ot and _ot.lower() == _title.lower():
+                errors.append(
+                    f"[TITLE-MATCH] title {_title!r} is identical to "
+                    f"{_other.parent.name}'s. It was almost certainly carried "
+                    f"over when this project was copied. Set the real title.")
+                break
+        else:
+            # Khong trung project nao -> kiem long: tieu de co dinh dang gi do
+            # toi ten project khong. Chi CANH BAO, vi mot tieu de that su co
+            # the khong chia se ky tu nao voi ten thu muc.
+            _slug = re.sub(r"[^a-z0-9]", "", project.lower())
+            _tslug = re.sub(r"[^a-z0-9]", "", _title.lower())
+            if _tslug and _slug and not (_tslug[:6] in _slug or _slug[:6] in _tslug):
+                console.print(
+                    f"[yellow][TITLE-MATCH][/] title {_title!r} does not "
+                    f"resemble project {project!r}. Not necessarily wrong - "
+                    f"but check it is this film's title and not a leftover.")
+
+    # ---- [WINDOW-OVERLAP] ------------------------------------------------
+    # Hai dong cung chiem mot khoang footage thi khi render chung chong len
+    # nhau: mot dong se noi de len hinh cua dong kia. Tren tokyodrift2006 co
+    # dung mot cap (127/128) - cung cua so, cung noi dung, va dong thu hai
+    # con them mot su that khong he duoc chieu o do.
+    _wins = []
+    for ln in draft["lines"]:
+        if ln.get("clip_start") and ln.get("clip_end"):
+            try:
+                _wins.append((parse_ts(ln["clip_start"]),
+                              parse_ts(ln["clip_end"]), ln.get("id")))
+            except Exception:
+                pass
+    _wins.sort()
+    for (_a1, _b1, _i1), (_a2, _b2, _i2) in zip(_wins, _wins[1:]):
+        if _a2 < _b1 - 1e-6:
+            errors.append(
+                f"[WINDOW-OVERLAP] line {_i1} and line {_i2} share footage "
+                f"({_a1:.1f}-{_b1:.1f}s vs {_a2:.1f}-{_b2:.1f}s). Two lines "
+                f"over the same frames means one of them speaks over the "
+                f"other's picture. Merge them or move one.")
+
     if errors:
         console.print("[red]draft.json has problems:[/]")
         for e in errors:

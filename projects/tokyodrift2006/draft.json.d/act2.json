@@ -23,7 +23,7 @@
     },
     {
       "id": 203,
-      "narration": "The crowd jeers that he has nothing to race with. Han offers his own car.",
+      "narration": "The crowd jeers that he has nothing to race with. Then DK's own business partner, Han, offers up his car.",
       "clip_start": "00:26:08.520",
       "clip_end": "00:26:19.614",
       "note": "B30",
@@ -199,7 +199,7 @@
     },
     {
       "id": 227,
-      "narration": "The blond-streaked man at the table does the talking. Sean asks when the next race is.",
+      "narration": "Morimoto, DK's right hand, does the talking. Sean asks when the next race is.",
       "clip_start": "00:38:30.884",
       "clip_end": "00:38:37.098",
       "note": "B43",
@@ -227,7 +227,7 @@
     },
     {
       "id": 230,
-      "narration": "The gangster in the black tee leans across the table, grinning. By the end Han has dropped his eyes.",
+      "narration": "The gangster leans across the table, grinning. By the end Han has dropped his eyes.",
       "clip_start": "00:39:25.355",
       "clip_end": "00:39:42.830",
       "note": "B44",
@@ -269,7 +269,7 @@
       "clip_start": "00:41:27.017",
       "clip_end": "00:41:54.587",
       "note": "B47",
-      "delivery": "reveal",
+      "delivery": "tense",
       "narrative_jump": true
     },
     {
@@ -325,7 +325,7 @@
       "clip_start": "00:46:20.059",
       "clip_end": "00:46:34.699",
       "note": "B52",
-      "delivery": "reveal",
+      "delivery": "normal",
       "narrative_jump": false
     },
     {

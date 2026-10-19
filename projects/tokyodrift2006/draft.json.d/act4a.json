@@ -2,15 +2,6 @@
   "act": 4,
   "lines": [
     {
-      "id": 401,
-      "narration": "Han is in the ground. Sean walks away down the dark street, and his father only watches him go.",
-      "clip_start": "01:18:31.232",
-      "clip_end": "01:18:37.613",
-      "note": "B85",
-      "delivery": "hook",
-      "narrative_jump": false
-    },
-    {
       "id": 402,
       "narration": "In an empty garage Twinkie's answer is to leave town. Sean tells him flat he can't.",
       "clip_start": "01:18:52.753",
@@ -18,7 +9,10 @@
       "note": "B85",
       "delivery": "tense",
       "narrative_jump": true,
-      "claim": { "type": "speech", "subject": "the friend in the mint-green shirt" }
+      "claim": {
+        "type": "speech",
+        "subject": "the friend in the mint-green shirt"
+      }
     },
     {
       "id": 403,
@@ -28,7 +22,10 @@
       "note": "B85",
       "delivery": "tense",
       "narrative_jump": false,
-      "claim": { "type": "speech", "subject": "the friend in the mint-green shirt" }
+      "claim": {
+        "type": "speech",
+        "subject": "the friend in the mint-green shirt"
+      }
     },
     {
       "id": 404,
@@ -38,7 +35,10 @@
       "note": "B86",
       "delivery": "tense",
       "narrative_jump": false,
-      "claim": { "type": "speech", "subject": "the young man in the white thermal shirt" }
+      "claim": {
+        "type": "speech",
+        "subject": "the young man in the white thermal shirt"
+      }
     },
     {
       "id": 405,
@@ -60,7 +60,7 @@
     },
     {
       "id": 407,
-      "narration": "Out comes a battered leather satchel. Sean counts a thick wad of banknotes; Twinkie says nothing.",
+      "narration": "Out comes a battered satchel. Sean counts banknotes - Han's skim off Kamata's books, passed on to him.",
       "clip_start": "01:20:10.247",
       "clip_end": "01:20:31.310",
       "note": "B87",
@@ -100,7 +100,7 @@
       "clip_start": "01:21:11.850",
       "clip_end": "01:21:21.193",
       "note": "B88",
-      "delivery": "reveal",
+      "delivery": "tense",
       "narrative_jump": false
     },
     {
@@ -150,11 +150,11 @@
     },
     {
       "id": 417,
-      "narration": "He gives the money back and apologises - and names the arrangement out loud: DK is Kamata's nephew.",
+      "narration": "He gives it back - it was Kamata's in the first place - then apologises for himself and for Kamata's nephew.",
       "clip_start": "01:22:29.845",
       "clip_end": "01:22:46.403",
       "note": "B89",
-      "delivery": "reveal",
+      "delivery": "tense",
       "narrative_jump": false
     },
     {
@@ -222,7 +222,7 @@
     },
     {
       "id": 425,
-      "narration": "They shove the striped Mustang in and the build takes it: turbo motor, welders showering sparks.",
+      "narration": "They shove in the striped Mustang - the wreck his father found on the base, the one with potential. The build takes it: turbo motor, welders showering sparks.",
       "clip_start": "01:25:00.036",
       "clip_end": "01:25:16.594",
       "note": "B93",
