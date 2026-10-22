@@ -1,0 +1,29 @@
+{
+  "verdicts": [
+    {"id": 9, "author": "stake", "auditor": "stake", "ok": true, "why": ""},
+    {"id": 16, "author": "stake", "auditor": "stake", "ok": true, "why": ""},
+    {"id": 17, "author": "rest", "auditor": "rest", "ok": true, "why": ""},
+    {"id": 21, "author": "rest", "auditor": "rest", "ok": true, "why": ""},
+    {"id": 38, "author": "rest", "auditor": "rest", "ok": true, "why": ""},
+    {"id": 53, "author": "stake", "auditor": "judgment", "ok": false, "why": "nothing is costed, risked or made irreversible here; it is description of DK's entrance plus the narrator's own read of it ('The meet is not public. It is his.'), which is judgment, not stake"},
+    {"id": 55, "author": "reasoning", "auditor": "reasoning", "ok": true, "why": ""},
+    {"id": 64, "author": "judgment", "auditor": "judgment", "ok": true, "why": ""},
+    {"id": 81, "author": "stake", "auditor": "rest", "ok": false, "why": "pure on-screen description of a debtor standing up and being taller; no cost named, nothing risked in words, nothing irreversible - delete it and neither the story nor the viewer's reason to continue changes"},
+    {"id": 83, "author": "rest", "auditor": "rest", "ok": true, "why": ""},
+    {"id": 110, "author": "reasoning", "auditor": "reasoning", "ok": true, "why": ""},
+    {"id": 118, "author": "judgment", "auditor": "judgment", "ok": true, "why": ""},
+    {"id": 124, "author": "stake", "auditor": "stake", "ok": true, "why": ""},
+    {"id": 127, "author": "reasoning", "auditor": "reasoning", "ok": true, "why": ""},
+    {"id": 131, "author": "loop", "auditor": "loop", "ok": true, "why": ""},
+    {"id": 169, "author": "reasoning", "auditor": "reasoning", "ok": true, "why": ""},
+    {"id": 193, "author": "stake", "auditor": "stake", "ok": true, "why": ""},
+    {"id": 201, "author": "loop", "auditor": "loop", "ok": true, "why": ""},
+    {"id": 207, "author": "rest", "auditor": "rest", "ok": true, "why": ""},
+    {"id": 213, "author": "loop", "auditor": "loop", "ok": true, "why": ""}
+  ],
+  "hook": {
+    "raised": true,
+    "held": true,
+    "why": "The clamps held next to three boys pinning a classmate genuinely create the 'what is he about to do' question, and nothing in lines 1-15 pays off the auto-shop moment; the Clay race shows the pattern of answering trouble but line 15 stops before the consequence lands, so the question is still open."
+  }
+}

@@ -1,0 +1,305 @@
+{
+  "act": "1b",
+  "lines": [
+    {
+      "id": 151,
+      "narration": "The address his mother gave him is a sliding door at the end of an alley. He knocks twice, then checks the street behind him.",
+      "clip_start": "00:13:33.435",
+      "clip_end": "00:13:42.235",
+      "note": "B15",
+      "delivery": "normal",
+      "payload": "rest",
+      "narrative_jump": false
+    },
+    {
+      "id": 153,
+      "narration": "The door slides back on Boswell - Sean's father, a Navy lieutenant he has not seen in years - and his first words are that he expected him tomorrow. Sean's mother gave him an American date; Japan is already a day ahead.",
+      "clip_start": "00:13:42.235",
+      "clip_end": "00:14:02.380",
+      "note": "B15",
+      "delivery": "normal",
+      "payload": "reasoning",
+      "narrative_jump": false
+    },
+    {
+      "id": 154,
+      "narration": "Boswell asks him to hold on. He comes back with a pale coat for a young Japanese woman, who takes it, says see you later, and edges past Sean into the alley. Boswell drops his eyes; Sean's face is a seventeen-year-old filing it away for later.",
+      "clip_start": "00:14:02.380",
+      "clip_end": "00:14:14.350",
+      "note": "B16",
+      "delivery": "reveal",
+      "payload": "loop",
+      "narrative_jump": false
+    },
+    {
+      "id": 156,
+      "narration": "Inside is one room. A black cat, a bookshelf, a bathroom you could not turn around in, and a father saying this is it as though he knows how it sounds. Sean keeps his pack on his shoulder the whole time, which tells you how long he plans to stay.",
+      "clip_start": "00:14:23.151",
+      "clip_end": "00:14:44.255",
+      "note": "B17",
+      "delivery": "normal",
+      "payload": "reasoning",
+      "narrative_jump": false
+    },
+    {
+      "id": 157,
+      "narration": "He asks exactly one question - where do I sleep - and Boswell answers something else entirely: his mother had no other choice, because the only thing on the table besides a one-room flat in Tokyo was juvenile hall. And you can't keep moving away every time you get in trouble.",
+      "clip_start": "00:14:44.255",
+      "clip_end": "00:15:03.316",
+      "note": "B17",
+      "delivery": "normal",
+      "payload": "stake",
+      "narrative_jump": false
+    },
+    {
+      "id": 160,
+      "narration": "Three rules, and his father lays them out like a man who knows they are unenforceable. Go to school. Come straight back here. Do not go anywhere near a car.",
+      "clip_start": "00:15:25.421",
+      "clip_end": "00:15:37.767",
+      "note": "B18",
+      "delivery": "tense",
+      "payload": "stake",
+      "narrative_jump": false
+    },
+    {
+      "id": 161,
+      "narration": "The bedroom is yours, Boswell says. Make yourself comfortable. Lights out in ten. The bedroom turns out to be a coat alcove with a striped single bed shoved into it.",
+      "clip_start": "00:15:37.767",
+      "clip_end": "00:15:53.616",
+      "note": "B18",
+      "delivery": "normal",
+      "payload": "judgment",
+      "narrative_jump": false
+    },
+    {
+      "id": 165,
+      "narration": "Morning comes up over the city - laundry strung through power lines, a woman cycling a bridge - and finds him asleep on the low bed.",
+      "clip_start": "00:16:15.304",
+      "clip_end": "00:16:31.779",
+      "note": "B19",
+      "delivery": "normal",
+      "payload": "rest",
+      "narrative_jump": true
+    },
+    {
+      "id": 166,
+      "narration": "Boswell does not wake him for a talk. He leaves out a small alarm clock, hangs a black school uniform where Sean will see it, pins a handwritten note to it, and goes to work - which is exactly what the rules looked like on paper, and also the last piece of parenting he gets in before his son goes looking for a car.",
+      "clip_start": "00:16:31.779",
+      "clip_end": "00:16:57.847",
+      "note": "B19",
+      "delivery": "normal",
+      "payload": "loop",
+      "narrative_jump": false
+    },
+    {
+      "id": 168,
+      "narration": "A wall of green ticket machines beats him, the crowd posts him onto the wrong train, and his shopping bag stays on the platform when the doors shut. Day one.",
+      "clip_start": "00:17:07.523",
+      "clip_end": "00:17:17.032",
+      "note": "B20",
+      "delivery": "normal",
+      "payload": "rest",
+      "narrative_jump": true
+    },
+    {
+      "id": 169,
+      "narration": "Wadakura High School, gates open, street empty, corridors lined with lockers and one cleaner at the far end. Lessons started without him. This arrangement is the only thing standing between Sean and a cell, and he is late to it on day one.",
+      "clip_start": "00:17:17.032",
+      "clip_end": "00:17:36.385",
+      "note": "B20",
+      "delivery": "tense",
+      "payload": "stake",
+      "narrative_jump": true
+    },
+    {
+      "id": 173,
+      "narration": "He is late, and the teacher still has his transfer paper when the class starts chanting one word. Uwabaki. Indoor slippers - everybody wears them, nobody wears street shoes.",
+      "clip_start": "00:18:14.631",
+      "clip_end": "00:18:22.180",
+      "note": "B21",
+      "delivery": "normal",
+      "payload": "reasoning",
+      "narrative_jump": false
+    },
+    {
+      "id": 174,
+      "narration": "His solution is to walk down an empty corridor and help himself to a pair out of the cubbies. Somebody else's slippers, first morning, and he does not look back to see whose.",
+      "clip_start": "00:18:22.180",
+      "clip_end": "00:18:34.693",
+      "note": "B21",
+      "delivery": "normal",
+      "payload": "judgment",
+      "narrative_jump": false
+    },
+    {
+      "id": 177,
+      "narration": "Japanese food is like the army, says the classmate who sits down across from him with a sales pitch already loaded - don't ask, don't tell. Name's Twinkie.",
+      "clip_start": "00:18:57.424",
+      "clip_end": "00:19:12.481",
+      "note": "B22",
+      "delivery": "normal",
+      "payload": "reasoning",
+      "narrative_jump": true,
+      "claim": {
+        "type": "speech",
+        "subject": "Twinkie"
+      }
+    },
+    {
+      "id": 179,
+      "narration": "He has no cash, Sean says, and he is not an army brat. The pitch moves on to a cell phone, and he shuts it down: no offence, but I probably won't be here long enough to remember your name. Remember that sentence. It ages badly.",
+      "clip_start": "00:19:23.158",
+      "clip_end": "00:19:40.800",
+      "note": "B22",
+      "delivery": "normal",
+      "payload": "loop",
+      "narrative_jump": false,
+      "claim": {
+        "type": "speech",
+        "subject": "Sean"
+      }
+    },
+    {
+      "id": 181,
+      "narration": "None of the pitch moves him. Then he notices what is lying on the table beside the trays - a racing steering wheel, Sparco, sitting there like a business card.",
+      "clip_start": "00:19:52.145",
+      "clip_end": "00:20:03.948",
+      "note": "B23",
+      "delivery": "normal",
+      "payload": "loop",
+      "narrative_jump": false
+    },
+    {
+      "id": 182,
+      "narration": "What do you drive, Sean asks, and Twinkie says his ride is one of a kind. Show me. Thought you weren't sticking around, Twinkie says - his own line, back at him, inside ten minutes.",
+      "clip_start": "00:20:03.948",
+      "clip_end": "00:20:16.753",
+      "note": "B23",
+      "delivery": "normal",
+      "payload": "reasoning",
+      "narrative_jump": false
+    },
+    {
+      "id": 184,
+      "narration": "Platforms shuffle behind the glass of an automated garage that delivers cars to the kerb by machine. A yellow sports car slides past, then a black roadster, and Sean does the arithmetic on what a one-of-a-kind ride might be. Then something bright green drops into the opening.",
+      "clip_start": "00:20:30.266",
+      "clip_end": "00:20:45.281",
+      "note": "B24",
+      "delivery": "mystery",
+      "payload": "loop",
+      "narrative_jump": true
+    },
+    {
+      "id": 185,
+      "narration": "A minivan. Painted Hulk green, with a giant clenched fist stamped across the tailgate. Twinkie is beaming. One of a kind, to be fair.",
+      "clip_start": "00:20:45.281",
+      "clip_end": "00:20:54.457",
+      "note": "B24",
+      "delivery": "reveal",
+      "payload": "judgment",
+      "narrative_jump": false
+    },
+    {
+      "id": 192,
+      "narration": "A hooded attendant waved the van past a barrier arm for this: an underground tuner meet. Hundreds of people, hoods up, a DJ, money moving, and every car down here modified well past anything legal on the street above.",
+      "clip_start": "00:22:11.075",
+      "clip_end": "00:22:24.422",
+      "note": "B25",
+      "delivery": "normal",
+      "payload": "stake",
+      "narrative_jump": true
+    },
+    {
+      "id": 194,
+      "narration": "He threads through the crowd past the open hoods and the men bent over engines, and he is not really looking at any of it. He is looking for one person.",
+      "clip_start": "00:22:38.811",
+      "clip_end": "00:22:49.155",
+      "note": "B25",
+      "delivery": "mystery",
+      "payload": "loop",
+      "narrative_jump": false
+    },
+    {
+      "id": 197,
+      "narration": "Sean's opening line, delivered over the raised hatch of her teal hatchback, is that she wouldn't have that problem with a V8. All you care about is who has the biggest engine, she says. I'm a guy. It's in my DNA.",
+      "clip_start": "00:23:14.889",
+      "clip_end": "00:23:27.776",
+      "note": "B26",
+      "delivery": "normal",
+      "payload": "reasoning",
+      "narrative_jump": false,
+      "claim": {
+        "type": "speech",
+        "subject": "Sean"
+      }
+    },
+    {
+      "id": 198,
+      "narration": "She is Neela, a classmate from his own homeroom. She almost didn't recognise him without his slippers on, which is how he learns that he has been saying the word wrong, and that she saw him take them. You're a quick learner, she says.",
+      "clip_start": "00:23:27.776",
+      "clip_end": "00:23:45.335",
+      "note": "B26",
+      "delivery": "reveal",
+      "payload": "reasoning",
+      "narrative_jump": false,
+      "claim": {
+        "type": "speech",
+        "subject": "Neela"
+      }
+    },
+    {
+      "id": 199,
+      "narration": "He asks where she is from - not where she lives, where she came from. Does it really matter where I'm from, she says, and her eyes go somewhere else.",
+      "clip_start": "00:23:45.335",
+      "clip_end": "00:23:56.054",
+      "note": "B26",
+      "delivery": "mystery",
+      "payload": "loop",
+      "narrative_jump": false,
+      "claim": {
+        "type": "speech",
+        "subject": "Neela"
+      }
+    },
+    {
+      "id": 200,
+      "narration": "Across the garage a spiky-haired driver in a black leather jacket gets up out of a seat with women on both sides of him. His crew works down the aisles, collecting cash and phones from drivers who hand them over without being asked twice. The meet is not public. It is his.",
+      "clip_start": "00:23:56.054",
+      "clip_end": "00:24:14.156",
+      "note": "B27",
+      "delivery": "tense",
+      "payload": "judgment",
+      "narrative_jump": false
+    },
+    {
+      "id": 204,
+      "narration": "Gaijin, says the driver in the leather jacket. Takashi, Neela calls him, and says they were only talking. This isn't your scene, Takashi tells Sean.",
+      "clip_start": "00:24:36.595",
+      "clip_end": "00:24:47.064",
+      "note": "B28",
+      "delivery": "tense",
+      "payload": "stake",
+      "narrative_jump": false
+    },
+    {
+      "id": 206,
+      "narration": "Sean asks out loud what gaijin actually means, which is the wrong question to be asking here. Twinkie leans in with the information that matters: that is Yakuza, man, sit down. Sean's answer is that he thought this was a free country.",
+      "clip_start": "00:24:52.110",
+      "clip_end": "00:25:09.961",
+      "note": "B28",
+      "delivery": "tense",
+      "payload": "reasoning",
+      "narrative_jump": false
+    },
+    {
+      "id": 208,
+      "narration": "Neela says one word to Sean. Leave.",
+      "clip_start": "00:25:27.229",
+      "clip_end": "00:25:32.651",
+      "note": "B28",
+      "delivery": "tense",
+      "payload": "stake",
+      "narrative_jump": false
+    }
+  ]
+}

@@ -90,7 +90,20 @@ def main() -> int:
         print(f"khong co shots.json hay shots_machine.json trong {pdir}")
         return 1
     shots = json.load(io.open(_cp, encoding="utf-8-sig"))["shots"]
-    S = [s for s in shots if a - 30 <= pt(s["clip_start"]) and pt(s["clip_end"]) <= b + 30]
+    # 2026-10-20 START-OWNERSHIP. Truoc day dong nay la:
+    #     S = [s for s in shots if a - 30 <= pt(s["clip_start"])
+    #                              and pt(s["clip_end"]) <= b + 30]
+    # Phan dem +-30s khien MOT moment nam vat ranh gioi act xuat hien trong
+    # payload cua CA HAI act, va khong co gi noi voi nguoi viet rang no khong
+    # thuoc ve ho. Ket qua that: act1b va act2a cung buoc dong vao ba moment
+    # 00:25:32-00:25:53, va [WINDOW-OVERLAP] bat duoc ba cap dong noi de len
+    # hinh cua nhau. Day dung la loi MOMENT-SEAM cu o mot do cao khac: quyen
+    # so huu phai tinh theo DIEM BAT DAU, va dung mot lan duy nhat.
+    # Moment van duoc CHO THAY lam ngu canh, nhung duoc danh dau khong-buoc.
+    S = [s for s in shots if a <= pt(s["clip_start"]) < b]
+    CTX = [s for s in shots
+           if (a - 30 <= pt(s["clip_start"]) < a
+               or b <= pt(s["clip_start"]) <= b + 30)]
 
     # --- SPEECH ------------------------------------------------------------
     # 2026-09-09: khau nay TRUOC DAY khong he ton tai. Nguoi viet chi nhan
@@ -131,6 +144,17 @@ def main() -> int:
         for sp in speech_for(x0, x1):
             print(f"       SPEECH {sp['start']:.1f}-{sp['end']:.1f}: "
                   f"{str(sp.get('text','')).strip()}")
+
+    if CTX:
+        print(f"\nCONTEXT ONLY - {len(CTX)} neighbouring moment(s). "
+              f"DO NOT BIND A LINE TO THESE.")
+        print("They belong to the adjacent act and another writer owns them. "
+              "They are shown so you know what happens either side of your "
+              "range. Binding a line here puts two lines over the same "
+              "footage, which [WINDOW-OVERLAP] rejects.")
+        for s in CTX:
+            print(f"  (ctx) {s['id']} | {s['clip_start']} -> {s['clip_end']} | "
+                  f"{s['action'][:90]}")
 
     _drop = [s for s in _long if float(s["end"]) > a and float(s["start"]) < b]
     if _drop:

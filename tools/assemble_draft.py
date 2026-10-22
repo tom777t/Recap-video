@@ -83,6 +83,38 @@ def main() -> int:
         beats.setdefault(l.get("note", "?"), 0)
         beats[l["note"]] += 1
     print(f"beat duoc phuc vu: {len(beats)}")
+
+    # --- PHASE 1: bao cao ngay tai cho, truoc khi validator chay -----------
+    import statistics as _st
+    narr = [l for l in lines if str(l.get("narration", "")).strip()]
+    if narr:
+        wl = [len(str(l["narration"]).split()) for l in narr]
+        sd = _st.pstdev(wl) if len(wl) > 1 else 0.0
+        print(f"words/line: mean {_st.mean(wl):.1f}  SD {sd:.1f} "
+              f"(bar 9.0; human reference 13.7)")
+        pay = {}
+        for l in narr:
+            pay[l.get("payload") or "(none)"] = pay.get(
+                l.get("payload") or "(none)", 0) + 1
+        print("payload: " + "  ".join(f"{k}={v}" for k, v in sorted(pay.items())))
+        if pay.get("(none)"):
+            print(f"  CANH BAO: {pay['(none)']} dong khong co `payload` - "
+                  f"[PAYLOAD-MIX] se tu choi draft nay.")
+        tags = {}
+        for l in lines:
+            tags[l.get("delivery") or "(none)"] = tags.get(
+                l.get("delivery") or "(none)", 0) + 1
+        print("delivery: " + "  ".join(f"{k}={v}" for k, v in sorted(tags.items())))
+        for need in ("intro", "outro", "hook"):
+            if not tags.get(need):
+                print(f"  CANH BAO: khong co dong <{need}>.")
+
+    # Tieu de "<Phim> (<nam>)" la mau tieu de yeu nhat cua the loai va bay gio
+    # bi [HOOK] tu choi. Bao o day de khong phai cho den luc validator chay.
+    if re.search(r"\(\s*(19|20)\d{2}\s*\)\s*$", title):
+        print(f"  CANH BAO: tieu de {title!r} co dang '<Phim> (<nam>)'. "
+              f"[HOOK] se tu choi. Dung --title de dat mot tieu de tien de: "
+              f"[vai] + [tien de phi thuong] + [he qua bi giau].")
     print(f"da ghi {pdir / 'draft.json'}")
     return 0
 

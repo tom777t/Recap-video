@@ -461,6 +461,28 @@ def validate_draft(project: str, *, write_state: bool = False,
                 f"over the same frames means one of them speaks over the "
                 f"other's picture. Merge them or move one.")
 
+    # ---- PHASE 1 writing-craft gates -------------------------------------
+    # Nguong duoc chot tai docs/WRITING_CRAFT_CRITERION.md TRUOC khi viet gate,
+    # va duoc do tren hai ban draft that (badgenius2017 = chuan vang phai pass,
+    # tokyodrift2006 = ban bi che phai fail). Nam nguong trong bao cao goc da bi
+    # doi vi chuan vang truot chung - chi tiet trong criterion.
+    # Cac cong nay CHI ra loi cung khi draft du lon (>=40 dong co loi doc);
+    # duoi do chung chi bao cao. Day khong phai su nuong tay: thong ke nhip vo
+    # nghia tren fixture 3 dong, va mot gate moi giet fixture se lam chet cac
+    # gate CU truoc khi chung kip chay (xem [TITLE-MATCH] ~404).
+    try:
+        from pipeline import craft_gates as _craft
+        _cr = _craft.craft_report(draft)
+        errors.extend(_cr["errors"])
+        for _w in _cr["warns"]:
+            console.print(f"[yellow]{_w}[/]")
+        for _nt in _cr["notes"]:
+            console.print(f"[dim]{_nt}[/]")
+    except Exception as _ce:                              # pragma: no cover
+        # D-GREEN: mot audit thieu dau vao phai NOI RA, khong duoc im lang xanh.
+        console.print(f"[red][CRAFT] gates did not run: {_ce}[/] "
+                      f"Treat this draft as UNCHECKED for writing craft.")
+
     if errors:
         console.print("[red]draft.json has problems:[/]")
         for e in errors:
@@ -494,7 +516,19 @@ def validate_draft(project: str, *, write_state: bool = False,
         else:
             src = f"{ln.get('clip_start','?')} -> {ln.get('clip_end','?')}"
         deliv = ln.get("delivery", "normal")
-        script_lines.append(f"[{ln['id']:>3}] ({src})  <{deliv}>")
+        # 2026-10-20: script.txt tung KHONG in narration_silence_seconds, nen
+        # ba dong giu hinh co chu y cua badgenius2017 doc nhu dead air, va mot
+        # ban bao cao nghien cuu da ket luan sai dung tu cho do. Cai gi draft
+        # mang thi script phai hien - neu khong nguoi doc se danh gia mot tai
+        # lieu khac voi tai lieu dang chay.
+        _pl = ln.get("payload")
+        _tag = f"<{deliv}>" + (f" {{{_pl}}}" if _pl else "")
+        _sil = ln.get("narration_silence_seconds")
+        if _sil:
+            _tag += f" [HOLD {float(_sil):.1f}s - no narration]"
+        script_lines.append(f"[{ln['id']:>3}] ({src})  {_tag}")
+        if ln.get("hook_question"):
+            script_lines.append(f"      Q: {ln['hook_question']}")
         script_lines.append(f"      {ln['narration']}")
         script_lines.append("")
 
@@ -947,13 +981,30 @@ def _lint_script(pdir, draft, src_dur, pool_meta=None, explicit_times=None):
                              f"({pat.strip(chr(92)+'b')}) - name the character.")
                 break
 
-    # --- [READ-ALOUD]: long/formal sentences -----------------------------
+    # --- [READ-ALOUD]: unbreathable sentences ----------------------------
+    # 2026-10-20 RECALIBRATED. Luat cu la "cau > 28 tu -> canh bao", va no
+    # MAU THUAN truc tiep voi [RHYTHM] moi (doi >=2% cau dai >=30 tu). Trong
+    # tai la ban NGUOI badgenius2017: luat cu bat no 12 lan, tuc chuan vang
+    # vi pham chinh cai luat nay mot tuc nam; luat moi bat no 0 lan.
+    # Van de that chua bao gio la DO DAI - la HOI. Mot cau 45 tu co dau phay
+    # moi 12 tu thi doc duoc; mot cau 30 tu lien mot hoi thi khong. Bao cao
+    # nghien cuu cung noi dung dieu do ("vai dong dai tren 40 tu se can dau
+    # ngat hoi cho TTS"), khong noi phai cat ngan.
+    # Do duoc: HUMAN 0 hit, TD cu 0 hit, TD moi 23 hit.
     for ln in draft["lines"]:
         text = ln.get("narration", "")
         for sent in _re.split(r"(?<=[.!?])\s+", text):
-            if len(sent.split()) > 28:
-                warns.append(f"[READ-ALOUD] line {ln['id']}: a sentence is "
-                             f"{len(sent.split())} words - break it up.")
+            _w = len(sent.split())
+            if _w <= 28:
+                continue
+            _parts = _re.split(r"[,;:\u2014\u2013-]", sent)
+            _run = max((len(p.split()) for p in _parts), default=_w)
+            if _run > 20:
+                warns.append(
+                    f"[READ-ALOUD] line {ln['id']}: a {_w}-word sentence runs "
+                    f"{_run} words with no comma, dash or semicolon to breathe "
+                    f"at. Long sentences are REQUIRED by [RHYTHM] - add breath "
+                    f"points, do not shorten it.")
                 break
         for pat in _FORMAL:
             if _re.search(pat, text.lower()):

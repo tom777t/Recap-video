@@ -1,269 +1,275 @@
 {
-  "act": 4,
+  "act": "4b",
   "lines": [
     {
-      "id": 428,
-      "narration": "Twinkie tells him DK picked this road. It is his mountain, and nobody else has ever reached the bottom.",
-      "clip_start": "01:26:06.060",
-      "clip_end": "01:26:23.911",
-      "note": "B94",
-      "delivery": "tense",
-      "narrative_jump": false,
-      "claim": {
-        "type": "speech",
-        "subject": "the young man in the black durag"
-      }
-    },
-    {
-      "id": 429,
-      "narration": "Hands polish the finished tail - black, twin white stripes, a Japanese plate. The Mustang is whole again.",
-      "clip_start": "01:26:34.547",
-      "clip_end": "01:26:53.148",
-      "note": "B93",
-      "delivery": "normal",
-      "narrative_jump": false
-    },
-    {
-      "id": 430,
-      "narration": "Then he stands alone at the top, looking down a road that falls away into blue marker lights.",
-      "clip_start": "01:26:53.148",
-      "clip_end": "01:27:21.260",
-      "note": "B94",
-      "delivery": "mystery",
-      "narrative_jump": false
-    },
-    {
-      "id": 431,
-      "narration": "Race night above a floodlit dam. Cars and people line the ledge.",
-      "clip_start": "01:27:21.260",
-      "clip_end": "01:27:31.854",
-      "note": "B95",
-      "delivery": "normal",
-      "narrative_jump": true
-    },
-    {
-      "id": 432,
-      "narration": "Every head turns one way. Kamata walks in, fedora and overcoat, a minder at each shoulder, the crowd opening for him.",
-      "clip_start": "01:27:45.993",
-      "clip_end": "01:27:57.087",
-      "note": "B95",
-      "delivery": "tense",
-      "narrative_jump": false
-    },
-    {
-      "id": 433,
-      "narration": "In the Mustang Sean shuts his eyes and breathes himself calm. Taillights climb the unlit mountain.",
-      "clip_start": "01:28:27.576",
-      "clip_end": "01:28:44.009",
-      "note": "B96",
-      "delivery": "tense",
-      "narrative_jump": true
-    },
-    {
-      "id": 434,
-      "narration": "DK stares flat ahead. Sean glances across once, then locks both hands on the wheel.",
-      "clip_start": "01:28:44.009",
-      "clip_end": "01:29:00.317",
-      "note": "B96",
-      "delivery": "tense",
-      "narrative_jump": false
-    },
-    {
-      "id": 435,
-      "narration": "A starter in a dark suit throws both arms up between the cars. They drop.",
-      "clip_start": "01:29:00.317",
-      "clip_end": "01:29:08.700",
-      "note": "B96",
-      "delivery": "tense",
-      "narrative_jump": false
-    },
-    {
-      "id": 436,
-      "narration": "DK smirks through the first bend. The Mustang slides a hairpin of its own.",
-      "clip_start": "01:29:08.700",
-      "clip_end": "01:29:20.629",
-      "note": "B96",
-      "delivery": "tense",
-      "narrative_jump": false
-    },
-    {
-      "id": 437,
-      "narration": "They run the cliff edge, Sean shouting at the dust as DK pulls clear.",
-      "clip_start": "01:29:56.081",
-      "clip_end": "01:30:05.966",
-      "note": "B96",
-      "delivery": "tense",
-      "narrative_jump": false
-    },
-    {
-      "id": 438,
-      "narration": "A snap of the shifter brings them level, door to door in orange sparks.",
+      "id": 451,
+      "narration": "So this is what the whole film comes down to: one run down a mountain in the dark, and whoever loses is on a plane out of Tokyo. Sean set those terms himself.",
       "clip_start": "01:30:34.202",
       "clip_end": "01:30:46.381",
       "note": "B97",
       "delivery": "tense",
-      "narrative_jump": false
-    },
-    {
-      "id": 439,
-      "narration": "Headlights sweep low. They slide together in smoke, and the Mustang comes out of it ahead.",
-      "clip_start": "01:31:26.546",
-      "clip_end": "01:31:31.050",
-      "note": "B98",
-      "delivery": "tense",
-      "narrative_jump": false
-    },
-    {
-      "id": 440,
-      "narration": "DK drives into his flank and scrapes him along the edge. The Mustang breaks free.",
-      "clip_start": "01:32:17.305",
-      "clip_end": "01:32:25.521",
-      "note": "B99",
-      "delivery": "tense",
-      "narrative_jump": false
-    },
-    {
-      "id": 441,
-      "narration": "Door to door down the straight, trading paint, each driver hauling to force the other wide.",
-      "clip_start": "01:32:41.704",
-      "clip_end": "01:32:55.426",
-      "note": "B100",
-      "delivery": "tense",
-      "narrative_jump": false
-    },
-    {
-      "id": 442,
-      "narration": "Into a guardrail bend DK leans out of his window and drags his car across to crowd Sean off the road.",
-      "clip_start": "01:33:32.171",
-      "clip_end": "01:33:41.305",
-      "note": "B100",
-      "delivery": "tense",
-      "narrative_jump": false
-    },
-    {
-      "id": 443,
-      "narration": "Sean shoves him wide instead. DK ploughs off the shoulder through the brush, the mountain screams, and Tokyo has a new Drift King.",
-      "clip_start": "01:33:41.305",
-      "clip_end": "01:33:51.649",
-      "note": "B101",
-      "delivery": "reveal",
-      "narrative_jump": false
-    },
-    {
-      "id": 444,
-      "narration": "Inside the losing car the windscreen webs over as it leaves the road and tumbles. Sean runs on alone.",
-      "clip_start": "01:34:01.367",
-      "clip_end": "01:34:08.332",
-      "note": "B101",
-      "delivery": "sad",
-      "narrative_jump": false
-    },
-    {
-      "id": 445,
-      "narration": "He stops and stares. The crowd sprints the road to swarm his window while the wreck smokes behind them.",
-      "clip_start": "01:34:08.332",
-      "clip_end": "01:34:17.258",
-      "note": "B102",
-      "delivery": "tense",
-      "narrative_jump": false
-    },
-    {
-      "id": 446,
-      "narration": "Neela reaches him and his strained look breaks into a grin.",
-      "clip_start": "01:34:28.060",
-      "clip_end": "01:34:34.275",
-      "note": "B103",
-      "delivery": "normal",
-      "narrative_jump": false
-    },
-    {
-      "id": 447,
-      "narration": "Then three men in black come out of the dark. The crowd turns to face Kamata, and Sean's grin dies.",
-      "clip_start": "01:34:34.275",
-      "clip_end": "01:34:43.575",
-      "note": "B104",
-      "delivery": "tense",
-      "narrative_jump": false
-    },
-    {
-      "id": 448,
-      "narration": "Kamata keeps his word. The loser leaves Tokyo, and the loser is his nephew. Sean takes it with his eyes down, and the face behind the cigar sags.",
-      "clip_start": "01:34:43.575",
-      "clip_end": "01:34:58.215",
-      "note": "B105",
-      "delivery": "tense",
-      "narrative_jump": false
-    },
-    {
-      "id": 449,
-      "narration": "He presses once more and Sean looks past him. Then Kamata turns away from the crowd that beat his nephew. DK goes. Sean stays.",
-      "clip_start": "01:34:58.215",
-      "clip_end": "01:35:07.558",
-      "note": "B105",
-      "delivery": "sad",
-      "narrative_jump": false
-    },
-    {
-      "id": 450,
-      "narration": "A packed night garage, Twinkie working the crowd for fistfuls of cash as the bets settle.",
-      "clip_start": "01:35:19.069",
-      "clip_end": "01:35:32.165",
-      "note": "B106",
-      "delivery": "normal",
-      "narrative_jump": true
-    },
-    {
-      "id": 451,
-      "narration": "Neela steps in front of Sean and holds his eye. Twinkie says something, and the smirk is gone.",
-      "clip_start": "01:35:49.766",
-      "clip_end": "01:36:03.030",
-      "note": "B107",
-      "delivery": "mystery",
-      "narrative_jump": false
-    },
-    {
-      "id": 452,
-      "narration": "He leaves the crowd for the driver's seat and rolls out to the line.",
-      "clip_start": "01:36:19.463",
-      "clip_end": "01:36:38.774",
-      "note": "B107",
-      "delivery": "tense",
+      "payload": "stake",
       "narrative_jump": false
     },
     {
       "id": 453,
-      "narration": "His car noses up beside a hulking American muscle car. Behind its wheel, bald and in a white tee, sits Dominic Toretto.",
-      "clip_start": "01:36:38.774",
-      "clip_end": "01:36:46.656",
-      "note": "B108",
-      "delivery": "reveal",
+      "narration": "Bets are being tracked live on phone screens all the way down. Nobody expects Sean at the bottom.",
+      "clip_start": "01:30:54.848",
+      "clip_end": "01:30:59.853",
+      "note": "B97",
+      "delivery": "normal",
+      "payload": "loop",
       "narrative_jump": false
     },
     {
       "id": 454,
-      "narration": "They talk across the lane. Toretto came for Han - Han was family to him - and when he says that, Sean's wariness goes. The challenger laughs, and the new Drift King grins back.",
-      "clip_start": "01:36:46.656",
-      "clip_end": "01:37:10.430",
-      "note": "B108",
-      "delivery": "normal",
-      "narrative_jump": false
-    },
-    {
-      "id": 455,
-      "narration": "Smoke boils off the tyres, flame spits from the exhaust, and the starter in red throws her arms up.",
-      "clip_start": "01:37:24.402",
-      "clip_end": "01:37:33.745",
-      "note": "B109",
+      "narration": "Takashi chose this mountain himself - he is the only driver anyone can name who has ever reached the bottom of it.",
+      "clip_start": "01:30:59.853",
+      "clip_end": "01:31:07.235",
+      "note": "B97",
       "delivery": "tense",
+      "payload": "reasoning",
       "narrative_jump": false
     },
     {
       "id": 456,
-      "narration": "The kid who was shipped to Tokyo to stay out of jail is the one everybody lines up against now. And this race, for once, he never went looking for.",
-      "clip_start": "01:37:33.745",
-      "clip_end": "01:37:47.634",
-      "note": "B109",
+      "narration": "One correction nearly puts Sean into the trees, and the drop on his right does not care whose nephew is winning.",
+      "clip_start": "01:31:14.117",
+      "clip_end": "01:31:20.540",
+      "note": "B98",
+      "delivery": "action",
+      "payload": "stake",
+      "narrative_jump": false
+    },
+    {
+      "id": 458,
+      "narration": "Both cars go into one wall of smoke. Only one comes out in front.",
+      "clip_start": "01:31:26.546",
+      "clip_end": "01:31:31.050",
+      "note": "B98",
+      "delivery": "action",
+      "payload": "loop",
+      "narrative_jump": false
+    },
+    {
+      "id": 461,
+      "narration": "It is Sean. Watch him fight the wheel and remember what he is driving for. Not a trophy, not Neela, not the mountain. He is driving so the last thing Han did - lending a wrecked kid a car, and dying on a Tokyo avenue for it - was not for nothing.",
+      "clip_start": "01:32:01.706",
+      "clip_end": "01:32:17.305",
+      "note": "B98",
+      "delivery": "tense",
+      "payload": "stake",
+      "narrative_jump": false
+    },
+    {
+      "id": 462,
+      "narration": "Takashi stops racing and starts aiming. Mid-drift he puts his front wing into the Mustang's flank and grinds Sean along the cliff edge.",
+      "clip_start": "01:32:17.305",
+      "clip_end": "01:32:25.521",
+      "note": "B99",
+      "delivery": "action",
+      "payload": "reasoning",
+      "narrative_jump": false
+    },
+    {
+      "id": 465,
+      "narration": "Door to door now, both of them trading paint, each trying to shove the other wide - and whoever gets shoved wide packs a bag and never races this road again. Neither gives.",
+      "clip_start": "01:32:41.704",
+      "clip_end": "01:32:55.426",
+      "note": "B100",
+      "delivery": "action",
+      "payload": "stake",
+      "narrative_jump": false
+    },
+    {
+      "id": 468,
+      "narration": "Nose to tail through the bends, past people standing where a guardrail should be, and Sean drags back up level. Not much hill left.",
+      "clip_start": "01:33:13.069",
+      "clip_end": "01:33:23.329",
+      "note": "B100",
+      "delivery": "action",
+      "payload": "loop",
+      "narrative_jump": false
+    },
+    {
+      "id": 470,
+      "narration": "And on the guardrail bend Takashi makes his decision: hanging out of his own window, he hauls the car across to put Sean off the road entirely.",
+      "clip_start": "01:33:32.171",
+      "clip_end": "01:33:41.305",
+      "note": "B100",
+      "delivery": "tense",
+      "payload": "reasoning",
+      "narrative_jump": false
+    },
+    {
+      "id": 471,
+      "narration": "Sean shoves first. Takashi goes off the shoulder at speed, ploughs into the brush and starts cartwheeling - and that is the Drift King off his own mountain, and out of Tokyo for good.",
+      "clip_start": "01:33:41.305",
+      "clip_end": "01:33:51.649",
+      "note": "B101",
+      "delivery": "action",
+      "payload": "stake",
+      "narrative_jump": false
+    },
+    {
+      "id": 472,
+      "narration": "",
+      "narration_silence_seconds": 6.0,
+      "clip_start": "01:33:51.649",
+      "clip_end": "01:34:01.367",
+      "note": "B101",
+      "delivery": "action",
+      "payload": "rest",
+      "narrative_jump": false
+    },
+    {
+      "id": 473,
+      "narration": "Sean drives on alone, drags a hand down his face, and does not look like a man who just won anything.",
+      "clip_start": "01:34:01.367",
+      "clip_end": "01:34:08.332",
+      "note": "B101",
+      "delivery": "sad",
+      "payload": "rest",
+      "narrative_jump": false
+    },
+    {
+      "id": 475,
+      "narration": "The Mustang stops and the crowd swarms it. Behind the shouting, Takashi's car lies upside down, with nobody running toward it. He walks away alive and loses everything anyway - the mountain, the crew, the city, the girl.",
+      "clip_start": "01:34:17.258",
+      "clip_end": "01:34:28.060",
+      "note": "B102",
       "delivery": "normal",
+      "payload": "stake",
+      "narrative_jump": false
+    },
+    {
+      "id": 476,
+      "narration": "Then Neela reaches him, and the strain finally breaks into a grin.",
+      "clip_start": "01:34:28.060",
+      "clip_end": "01:34:34.275",
+      "note": "B103",
+      "delivery": "normal",
+      "payload": "rest",
+      "narrative_jump": false
+    },
+    {
+      "id": 477,
+      "narration": "And then the party stops dead. Three men in black coats walk up out of the dark, the one in front in a wide-brimmed hat, and Sean's grin is gone before they reach him.",
+      "clip_start": "01:34:34.275",
+      "clip_end": "01:34:43.575",
+      "note": "B104",
+      "delivery": "tense",
+      "payload": "loop",
+      "narrative_jump": false
+    },
+    {
+      "id": 478,
+      "narration": "It is Kamata, and he is why the deal holds. The terms were his to grant, and they are his to enforce - so the boss has come up this mountain in person, to tell his nephew's conqueror that the result stands. Sean takes it with his eyes down.",
+      "clip_start": "01:34:43.575",
+      "clip_end": "01:34:58.215",
+      "note": "B105",
+      "delivery": "normal",
+      "payload": "reasoning",
+      "narrative_jump": false
+    },
+    {
+      "id": 479,
+      "narration": "Then Kamata lowers his own head to him, and turns away through the crowd. A yakuza boss bowing to a foreign schoolboy is as close to a coronation as this film gets.",
+      "clip_start": "01:34:58.215",
+      "clip_end": "01:35:07.558",
+      "note": "B105",
+      "delivery": "normal",
+      "payload": "judgment",
+      "narrative_jump": false
+    },
+    {
+      "id": 480,
+      "narration": "Some time later, a garage under Tokyo is packed again - hoods up, turbos out, money changing hands. Nothing in this room has changed except who everybody in it answers to.",
+      "clip_start": "01:35:07.558",
+      "clip_end": "01:35:19.069",
+      "note": "B106",
+      "delivery": "normal",
+      "payload": "loop",
+      "narrative_jump": true
+    },
+    {
+      "id": 481,
+      "narration": "Twinkie works the crowd for fistfuls of cash, collecting on bets that nobody in this garage would have taken a month ago.",
+      "clip_start": "01:35:19.069",
+      "clip_end": "01:35:32.165",
+      "note": "B106",
+      "delivery": "normal",
+      "payload": "rest",
+      "narrative_jump": false
+    },
+    {
+      "id": 483,
+      "narration": "Twinkie pushes through to Sean, holding court against a car, and he is not smiling: there is a challenger outside. The thing that kills Sean's smirk is not the car. It is who the driver says he knew.",
+      "clip_start": "01:35:38.797",
+      "clip_end": "01:35:49.766",
+      "note": "B107",
+      "delivery": "normal",
+      "payload": "loop",
+      "narrative_jump": false
+    },
+    {
+      "id": 484,
+      "narration": "Some American has turned up asking for the one to beat, and told Twinkie he knew Han - that Han was family. Neela steps in front of Sean and holds his eye, and the grin is gone.",
+      "clip_start": "01:35:49.766",
+      "clip_end": "01:36:03.030",
+      "note": "B107",
+      "delivery": "reveal",
+      "payload": "reasoning",
+      "narrative_jump": false
+    },
+    {
+      "id": 485,
+      "narration": "That name is the one thing in Tokyo that can still move him. Han pulled Sean off the floor when he had nothing, handed him a car, taught him the mountain. Then he died on a public street, over a mess Sean helped start. So Sean drops his eyes, and goes to the car.",
+      "clip_start": "01:36:03.030",
+      "clip_end": "01:36:19.463",
+      "note": "B107",
+      "delivery": "normal",
+      "payload": "reasoning",
+      "narrative_jump": false
+    },
+    {
+      "id": 487,
+      "narration": "And it is Dominic Toretto - out of nowhere, in a hulking American muscle car, come to Tokyo to find Sean.",
+      "clip_start": "01:36:38.774",
+      "clip_end": "01:36:46.656",
+      "note": "B108",
+      "delivery": "reveal",
+      "payload": "loop",
+      "narrative_jump": false
+    },
+    {
+      "id": 488,
+      "narration": "They size each other up through open windows, and then Toretto gives him the only warning he gets: this ain't no ten-second race. It is a joke for whoever was there at the beginning. For everybody else it is a promise - up a mountain, in the dark, Sean just learned to drive for longer than ten seconds.",
+      "clip_start": "01:36:46.656",
+      "clip_end": "01:37:10.430",
+      "note": "B108",
+      "delivery": "normal",
+      "payload": "reasoning",
+      "narrative_jump": false
+    },
+    {
+      "id": 489,
+      "narration": "A woman in a red dress walks out between the two cars, and plants herself in the middle of the lane. Sean's grin hardens into the stare he wore on the mountain. Nobody laughs now.",
+      "clip_start": "01:37:10.430",
+      "clip_end": "01:37:24.402",
+      "note": "B109",
+      "delivery": "tense",
+      "payload": "judgment",
+      "narrative_jump": false
+    },
+    {
+      "id": 490,
+      "narration": "Sean spent his whole life being moved on, and he only wins the day he stops running. Han paid for that. If you made it this far, subscribe and tell me what to recap next.",
+      "clip_start": "01:37:24.402",
+      "clip_end": "01:37:33.745",
+      "note": "B109",
+      "delivery": "outro",
+      "payload": "judgment",
       "narrative_jump": false
     }
   ]

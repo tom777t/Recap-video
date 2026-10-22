@@ -157,34 +157,108 @@ curiosity gap the viewer needs closed, tease the movie's biggest reversal withou
 spoiling it, keep it specific and front-loaded. Self-grade 1-10; under 9 = rewrite
 before anything else.
 
-### 1. Open on the most SHOCKING, SPECIFIC moment — never the start of the film
+### 1. Open on the image that raises a QUESTION
 The first line is the single most important sentence. Do NOT open with "this
 movie is about a girl who…". Throw the viewer straight into the most jarring,
 concrete beat. Specific + weird beats vague + dramatic.
 - Bad: "A young woman was afraid of the water."
 - Good: "This girl had no idea that the moment she swam out, something would tear
   her apart — and leave only a pink swimsuit floating on the surface."
-Use the most violent / mysterious / high-stakes 2–4 beats as a COLD OPEN, with
-NO setup. Then hard-pivot: "But to understand how this town got this insane, we
-have to rewind."
+
+The test is not *where in the film the shot comes from* — it is **whether you
+can name the question it raises.** If you cannot name it, you have written a
+statement, not a hook. Declare it in `hook_question` on the line.
+
+MEASURED CORRECTION (2026-10-20): this section used to say "never the start of
+the film". That turned out to be wrong, and it was wrong in a way that would
+have scored our own best draft badly. The human Bad Genius draft opens on a
+clip from **00:01:22 of a 2h10m film** — 1.05% of the runtime, *earlier* than
+the Tokyo Drift draft we rejected (2.23%). It works because the film's own
+opening is a flash-forward that poses a question, not because it is late.
+A timestamp rule was proposed for the validator and **dropped** for this
+reason. What is gated is `hook_question`.
+
+Then hard-pivot: "But to understand how this town got this insane, we have to
+rewind."
 
 ### 2. Dangle an OPEN LOOP every ~20–30 seconds
 The brain hates being left hanging. End beats on a hook that forces the next one:
 - "But what was waiting under that boat was so much worse."
 - "And that one decision would get someone killed."
-- "He didn't know it yet — but he'd have to choose between his friend and the
-  whole town."
-Open a loop, delay the payoff, open another. Never let the viewer feel "done".
 
-### 3. FAST, relentless pacing — no dead air
-Short sentences. The narration never stops. Each line pushes into the next.
-Trim ruthlessly (see below). Delivery is brisk (handled by per-line `delivery`).
+A loop **does not need a question mark.** The human reference draft contains
+**zero** question marks and still opens loops constantly, with flat promises:
+- "Now meet the other one."
+- "Then she sits down at the piano, and this is where the whole idea comes from."
+- "That should be the end of it. Then Bank walks onto a footbridge…"
 
-### 4. EMOTIONAL, intimate voice — like gossiping with a close friend
+Mark these lines `"payload": "loop"`. The validator fails any draft with a
+stretch longer than **12 lines** carrying no loop.
+
+### 3. VARY THE RHYTHM — this is a measured gate, not a feeling
+This section used to read *"Short sentences. The narration never stops."* That
+instruction produced a draft with a words-per-line standard deviation of
+**3.9** — a metronome in prose, monotonous before TTS ever read it. The human
+draft scores **13.7**.
+
+The validator now **rejects any draft below SD 9.0.** To clear it:
+
+- Let a loaded line run **30, 40, even 70 words** when it carries a mechanism
+  or a piece of reasoning. At least one sentence in fifty must be 30+ words.
+- **Then hit it with a short one.** A ≤5-word sentence straight after a ≥20-word
+  sentence is the device that most separates the two drafts (5.9% vs 1.3%).
+  "The bars are the answers." "She is googling the essay." "He stops."
+- Short sentences **on their own are not the goal.** The rejected draft had
+  *more* of them than the human draft — all the same stunted shape, with
+  nothing long for them to land against.
+- Vary how lines **open.** Six consecutive lines beginning with a place or a
+  time ("Night, steam venting…" / "At the guarded door…") is a pattern the
+  ear hears even when the words are good.
+
+"No dead air" is also retired: see LET ACTION BREATHE below. Deliberate
+silence is a tool, and the human draft uses three of them.
+
+### 4. EMOTIONAL, intimate voice — HAVE AN OPINION
 Rise at the tense bits, drop to a hush for mystery, slip in personal asides:
 "honestly, this part gave me chills", "and yeah — it's exactly as insane as it
 sounds." Tag each line with a `delivery` preset (below) so the voice actually
 rises and hushes.
+
+This pillar was in the guide all along and the machine ignored it, because
+nothing measured it: the Tokyo Drift draft contained **zero** lines where the
+narrator had a view. It is now gated — **at least one judgment or aside every
+30 lines, minimum 4 per draft.**
+
+What counts:
+- An opinion about a person: *"He is rich in the way that never has to be
+  explained to anyone, least of all to him."*
+- An opinion about a choice: *"Her father takes it sitting down without
+  raising his voice, which is worse than if he had."*
+- A remark about the filmmaking **as meaning**: *"the camera stays on her face
+  for all of it rather than his, because the answer was never going to come
+  from him."*
+- A joke **played**, not reported. Understatement wins.
+
+Address the viewer as **you**. Speak as **I**. The audiences who praise this
+genre never praise completeness — they praise the voice.
+
+### 5. EVERY LINE CARRIES A PAYLOAD
+Each line declares `"payload"`: one of `stake`, `reasoning`, `judgment`,
+`loop`, `rest`.
+
+- `stake` — what it costs, what cannot be undone. Numbers are best.
+- `reasoning` — what a character thinks and **why** they act.
+- `judgment` — your opinion, an aside, a joke.
+- `loop` — a promise that pulls the viewer forward.
+- `rest` — pure description, a breath between loaded lines.
+
+`rest` is capped at **25%** of lines, and **three `rest` lines in a row is a
+hard failure**. Description is not banned — the human draft has plenty. It
+works because it sits between loaded lines. The rejected draft's problem was
+that *every* line was a rest line.
+
+Label honestly: a fresh auditor samples 20 lines and checks the labels against
+the text. **More than 3 wrong labels fails the round.**
 
 ---
 
@@ -195,10 +269,32 @@ rises and hushes.
   consequence that explains why the next scene happens. A beat that improves
   understanding of what comes next is not filler (see SHIP_CHECKLIST H). When in
   doubt between a slightly longer recap and a rushed one, choose the longer.
-- **Show, don't tell.** Not "she was scared" → "her chest is pounding, the water
-  goes dead still, and something brushes her leg." Strong verbs. Concrete images.
-- **Simple, visual language.** Easy words. One idea per sentence.
+- **Show, don't tell — but SHOW SOMETHING THAT COSTS.** Not "she was scared" →
+  "her chest is pounding, the water goes dead still, and something brushes her
+  leg." Strong verbs. Concrete images.
+  **The failure mode to avoid:** the machine read this rule as "describe the
+  frame" and produced 182 lines of clean, accurate, stakeless screen
+  description — *"Tyres haze and the two cars break away together."* Apply the
+  test: **delete the line. Does anybody lose anything?** If not, it is a `rest`
+  line, and you are allowed only 25% of those.
+- **Simple, visual language.** Easy words. One idea per sentence — but see
+  PILLAR 3: "one idea per sentence" governs clarity, **not** sentence length,
+  and it never justifies making every line the same size.
 - **Accurate.** Don't invent plot points. Retell, don't transcribe.
+- **Never narrate around dialogue you did not read.** Banned outright, and
+  gated: *"whatever he says…"*, *"says something"*, *"answers loudly"* with no
+  content, or introducing *"a visitor"* you never resolve. These are the
+  narrator confessing it wrote from frames alone. Read the transcript and say
+  what was said.
+- **Name people and give them a role on first mention.** *"Kamata, the yakuza
+  boss whose turf all of this runs on."* Never "the gangster" / "the man" /
+  "one of them" once a name exists. Within 45 seconds of the hook the viewer
+  must know who this is about, what they want, and what is in the way.
+- **There is no length target.** Nothing in the validator compares your draft
+  against a runtime; `target_minutes` is advisory and is only checked for not
+  changing silently. Cover the beats and carry the payloads. Do not pad, and —
+  more importantly — do not trim every line to a uniform size to hit a number,
+  which is how the rejected draft reached SD 3.9.
 - **Match the footage.** Pick clip_start/clip_end using the frame montages
   (`frames/overview/*.jpg` and zoom bursts) so the VISUAL matches the words.
   Never guess timestamps from transcript text alone.
@@ -211,10 +307,19 @@ rises and hushes.
    completely off the rails." Tease the central question.
 3. **BODY** — setup fast, then rising beats with an open loop every ~20–30s,
    midpoint turn, climax (slow slightly on the biggest moment, `delivery: "tense"`).
-4. **OUTRO** (one line, `delivery: "outro"`):
-   "If you made it this far — subscribe, smash that like, and tell me in the
-   comments what I should recap next." (For multi-part / chaptered films, you may
-   add a teaser line for the next part; for standalone films, skip the teaser.)
+4. **OUTRO** (one line, `delivery: "outro"`) — **thesis first, THEN the CTA.**
+   The template that used to sit here was CTA-only ("If you made it this far —
+   subscribe, smash that like…") and the validator now **fails** it. An outro
+   that only reports the last event, or only asks for a subscribe, is the exact
+   thing audiences name when they call a recap shallow: it strips the ending of
+   what it meant.
+
+   Say what the ending **means**, then ask:
+   "The only one who pays in full is the one who decides to stop. If you made
+   it this far, subscribe and tell me what to recap next."
+
+   (For multi-part / chaptered films you may add a teaser line for the next
+   part; for standalone films, skip the teaser.)
 
 ## STORY UNIT PLANNING (mandatory — plan BEFORE you write, Stage 6B)
 
@@ -318,6 +423,24 @@ feel the breach, the attack, the explosion.
   breach ~5-6s, a big attack ~6-8s). Don't hold dull footage.
 - Make sure a held clip's clip_start/clip_end window is long enough to show real
   motion for the whole hold (don't freeze on a still frame).
+
+### `hold` vs `narration_silence_seconds` — two different things
+
+| field | the line | what happens |
+|---|---|---|
+| `hold: 8` | **has** narration | the clip keeps playing after the words stop |
+| `narration_silence_seconds: 6` | **has no** narration at all | a wordless held shot; music carries it |
+
+Use `narration_silence_seconds` **after a reveal, a death, or a climax** —
+never as filler. 4–10 seconds, and **3 to 6 across the whole film**. The
+validator warns outside that range, errors under 2s, and a blank `narration`
+*without* the field is a hard failure, not a pause.
+
+This is not a new invention: the human Bad Genius draft already uses three of
+them (6s, 10s and 20s). A research pass once read that draft's `script.txt`,
+which did not print the field, and concluded those three lines were dead air.
+They were deliberate. `script.txt` now prints `[HOLD 6.0s — no narration]` so
+nobody makes that mistake again.
 
 ## ACTION SCENE CHECK — every fight/chase/explosion is EARNED (criteria S + U)
 

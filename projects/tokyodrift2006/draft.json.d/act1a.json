@@ -1,0 +1,286 @@
+{
+  "act": "1a",
+  "lines": [
+    {
+      "id": 101,
+      "narration": "A kid in an auto shop opens a drawer and lifts out jumper-cable clamps. Across the room, three boys have a classmate pinned, a hand over his mouth.",
+      "clip_start": "00:02:48.042",
+      "clip_end": "00:02:55.174",
+      "note": "B01",
+      "delivery": "hook",
+      "payload": "loop",
+      "hook_question": "What is he going to do with those jumper cables, and what happens to a kid who keeps answering trouble this way?",
+      "narrative_jump": false
+    },
+    {
+      "id": 102,
+      "narration": "This is Serabudabu. The film is The Fast and the Furious: Tokyo Drift, and Sean Boswell races because it is the one thing that travels with him.",
+      "clip_start": "00:02:55.174",
+      "clip_end": "00:03:03.308",
+      "note": "B01",
+      "delivery": "intro",
+      "payload": "reasoning",
+      "narrative_jump": false
+    },
+    {
+      "id": 103,
+      "narration": "Cindy looks up from her phone at Sean's beat-up Monte Carlo and tells him: nice ride. That compliment is the whole plot.",
+      "clip_start": "00:03:03.308",
+      "clip_end": "00:03:09.355",
+      "note": "B02",
+      "delivery": "normal",
+      "payload": "judgment",
+      "narrative_jump": true
+    },
+    {
+      "id": 106,
+      "narration": "Clay plants himself on the convertible beside her: you talking to my girl? Five words, and the afternoon is already decided.",
+      "clip_start": "00:03:24.370",
+      "clip_end": "00:03:30.460",
+      "note": "B02",
+      "delivery": "tense",
+      "payload": "loop",
+      "narrative_jump": false
+    },
+    {
+      "id": 107,
+      "narration": "Sean says she was just admiring his ride. Clay - blond, rich, number thirteen on the football team - says his grandma's car could smoke that piece of shit, Trailer Trash, then recites his father's Viper: five hundred horsepower, Borla exhaust, zero to sixty in four point three seconds. Like a boy reading out his own birthday list.",
+      "clip_start": "00:03:30.460",
+      "clip_end": "00:03:45.975",
+      "note": "B02",
+      "delivery": "normal",
+      "payload": "judgment",
+      "narrative_jump": false
+    },
+    {
+      "id": 109,
+      "narration": "Five jerseys walk at him and Sean backs toward his car. That is the first honest look at his situation: he is alone here, and he has been the new kid often enough to know how this goes.",
+      "clip_start": "00:04:20.092",
+      "clip_end": "00:04:30.769",
+      "note": "B02",
+      "delivery": "tense",
+      "payload": "reasoning",
+      "narrative_jump": false
+    },
+    {
+      "id": 110,
+      "narration": "A kid in the crowd yells at them to let their cars do the talking. Sean races for pink slips only. Clay says his Viper goes for eighty grand and asks what he would want with a broken-ass piece of shit like Sean's.",
+      "clip_start": "00:04:38.569",
+      "clip_end": "00:04:49.747",
+      "note": "B03",
+      "delivery": "tense",
+      "payload": "stake",
+      "narrative_jump": false
+    },
+    {
+      "id": 111,
+      "narration": "So the money is off the table, and the crowd is laughing at Clay now, which for a boy like Clay is the only currency that was ever at risk.",
+      "clip_start": "00:04:49.747",
+      "clip_end": "00:04:57.755",
+      "note": "B03",
+      "delivery": "normal",
+      "payload": "reasoning",
+      "narrative_jump": false
+    },
+    {
+      "id": 112,
+      "narration": "Cindy settles it herself from the edge of the crowd. Winner gets me.",
+      "clip_start": "00:04:57.755",
+      "clip_end": "00:05:09.308",
+      "note": "B04",
+      "delivery": "reveal",
+      "payload": "stake",
+      "narrative_jump": false
+    },
+    {
+      "id": 113,
+      "narration": "The start line is a billboard for Shang-Ri-La Estates - a half-built subdivision, no residents, no asphalt worth the name. The two cars go off into it in a wall of dust, Cindy riding shotgun in the Viper.",
+      "clip_start": "00:05:09.308",
+      "clip_end": "00:05:24.865",
+      "note": "B05",
+      "delivery": "normal",
+      "payload": "rest",
+      "narrative_jump": true
+    },
+    {
+      "id": 115,
+      "narration": "Then the Viper simply leaves. Eighty thousand dollars of factory engineering walks away through the dust, and on pavement that is how this ends.",
+      "clip_start": "00:06:17.417",
+      "clip_end": "00:06:24.508",
+      "note": "B05",
+      "delivery": "tense",
+      "payload": "loop",
+      "narrative_jump": false
+    },
+    {
+      "id": 117,
+      "narration": "So Sean quits the road. He points the Monte Carlo straight across the raw dirt lots, cutting the corner off the course, because the only way to beat a better car is to change the race itself - into something that car was never built for.",
+      "clip_start": "00:07:19.437",
+      "clip_end": "00:07:30.907",
+      "note": "B06",
+      "delivery": "action",
+      "payload": "reasoning",
+      "narrative_jump": false
+    },
+    {
+      "id": 118,
+      "narration": "He launches off a dirt mound and lands sideways, still grinning.",
+      "clip_start": "00:07:30.907",
+      "clip_end": "00:07:38.123",
+      "note": "B06",
+      "delivery": "action",
+      "payload": "rest",
+      "narrative_jump": false
+    },
+    {
+      "id": 120,
+      "narration": "Sean gets the Monte Carlo up on two wheels and leans it against the Viper, an arm draped through the window like a man waiting at a red light. Cindy half-smiles across at him, and Clay stops smiling. That, not the race, is what breaks him.",
+      "clip_start": "00:08:17.287",
+      "clip_end": "00:08:29.424",
+      "note": "B07",
+      "delivery": "normal",
+      "payload": "judgment",
+      "narrative_jump": false
+    },
+    {
+      "id": 121,
+      "narration": "They come off the dirt onto open blacktop, Sean still up on two wheels, leaning his car on Clay's while Cindy screams in the passenger seat. Then Sean, who has won this and knows it, turns his head to look back at the crowd. That is the last thing he does before the two cars touch.",
+      "clip_start": "00:08:44.814",
+      "clip_end": "00:09:07.045",
+      "note": "B07",
+      "delivery": "tense",
+      "payload": "loop",
+      "narrative_jump": false
+    },
+    {
+      "id": 122,
+      "narration": "The crowd scatters. The Monte Carlo launches off the dirt and goes end over end, and a bystander hanging out of an SUV window gets all of it on video.",
+      "clip_start": "00:09:07.045",
+      "clip_end": "00:09:16.596",
+      "note": "B08",
+      "delivery": "action",
+      "payload": "stake",
+      "narrative_jump": false
+    },
+    {
+      "id": 123,
+      "narration": "The car settles upside down with the wheels still turning, and Sean hangs in his belt with blood down his face.",
+      "clip_start": "00:09:26.981",
+      "clip_end": "00:09:43.414",
+      "note": "B08",
+      "delivery": "sad",
+      "payload": "rest",
+      "narrative_jump": false
+    },
+    {
+      "id": 125,
+      "narration": "A detective in a striped shirt plays him the bystander footage on a monitor. Sean asks if he can get a copy. The detective asks if he thinks this is a joke.",
+      "clip_start": "00:09:59.889",
+      "clip_end": "00:10:11.359",
+      "note": "B09",
+      "delivery": "normal",
+      "payload": "rest",
+      "narrative_jump": true
+    },
+    {
+      "id": 126,
+      "narration": "The detective points through the glass at Ken and Barbie - his words. Those two walk out of here without a slap on the wrist, because Mommy and Daddy are too hooked up.",
+      "clip_start": "00:10:11.359",
+      "clip_end": "00:10:23.412",
+      "note": "B09",
+      "delivery": "tense",
+      "payload": "stake",
+      "narrative_jump": false
+    },
+    {
+      "id": 127,
+      "narration": "Sean, he likes. Screw-ups like Sean are a hundred percent guaranteed conviction. Sean asks where his car is. The detective tells him he crushed it.",
+      "clip_start": "00:10:23.412",
+      "clip_end": "00:10:35.216",
+      "note": "B10",
+      "delivery": "reveal",
+      "payload": "stake",
+      "narrative_jump": false
+    },
+    {
+      "id": 128,
+      "narration": "Sean is out of the chair and nose to nose with him before anyone finishes a sentence. A deputy's hand puts him back down.",
+      "clip_start": "00:10:35.216",
+      "clip_end": "00:10:41.597",
+      "note": "B10",
+      "delivery": "action",
+      "payload": "rest",
+      "narrative_jump": false
+    },
+    {
+      "id": 129,
+      "narration": "Then Sean's mother arrives, swinging at him. What the hell were you thinking.",
+      "clip_start": "00:10:41.597",
+      "clip_end": "00:10:49.480",
+      "note": "B11",
+      "delivery": "action",
+      "payload": "rest",
+      "narrative_jump": false
+    },
+    {
+      "id": 130,
+      "narration": "Thirty seconds later she is asking the officer whether it is illegal to smoke in here, and he is leaning across the desk with a lighter. Watch her work. The shouting was for Sean; this is the part that actually does something.",
+      "clip_start": "00:10:56.779",
+      "clip_end": "00:11:07.581",
+      "note": "B11",
+      "delivery": "normal",
+      "payload": "judgment",
+      "narrative_jump": false
+    },
+    {
+      "id": 131,
+      "narration": "The detective lays the arithmetic out over Sean's head while Sean sits there listening to it: tough state, clear-cut case, lucky if they don't try him as an adult. Two priors for reckless driving and willful destruction of property already on the sheet.",
+      "clip_start": "00:11:07.581",
+      "clip_end": "00:11:23.847",
+      "note": "B12",
+      "delivery": "tense",
+      "payload": "stake",
+      "narrative_jump": false
+    },
+    {
+      "id": 132,
+      "narration": "This makes it strike three. They will get him off the streets. Sean's mother says there has to be another way - and through the glass, Clay and Cindy are being patched up and sent home.",
+      "clip_start": "00:11:23.847",
+      "clip_end": "00:11:33.232",
+      "note": "B12",
+      "delivery": "reveal",
+      "payload": "loop",
+      "narrative_jump": false
+    },
+    {
+      "id": 133,
+      "narration": "Out in the corridor Sean asks where they are moving this time, which tells you everything about how the last few years have gone. His mother says they are not moving anywhere. He is going to his father in Tokyo, and he takes that standing against the wall without saying a word.",
+      "clip_start": "00:11:33.232",
+      "clip_end": "00:11:49.790",
+      "note": "B13",
+      "delivery": "sad",
+      "payload": "reasoning",
+      "narrative_jump": false
+    },
+    {
+      "id": 134,
+      "narration": "Sean on a plane, wedged between strangers, going as far from a courtroom as his mother could get him.",
+      "clip_start": "00:11:49.790",
+      "clip_end": "00:12:10.686",
+      "note": "B14",
+      "delivery": "sad",
+      "payload": "stake",
+      "narrative_jump": true
+    },
+    {
+      "id": 136,
+      "narration": "The deal is simple, and nobody has spelled it out: stay out of trouble in Tokyo until he turns eighteen, or go home to a cell. He is looking at his own reflection in the window of a city where he cannot speak the language, and he is about to find the one thing in it that he can.",
+      "clip_start": "00:12:49.057",
+      "clip_end": "00:13:03.613",
+      "note": "B14",
+      "delivery": "normal",
+      "payload": "loop",
+      "narrative_jump": true
+    }
+  ]
+}
