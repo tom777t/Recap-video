@@ -60,14 +60,39 @@ def selftest() -> int:
     """Hai chieu. Mot cong chi duoc tin khi no PASS cai dung VA FAIL cai sai."""
     root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     ok = True
-    print("### POSITIVE: the human reference draft must pass every hard gate")
+    print("### POSITIVE: the human reference draft, with ONE declared exception")
+    # 2026-10-21: the invariant used to be "no hard gate may fire on the human
+    # draft". It now has exactly one documented exception, because the VOICE
+    # MODEL CHANGED. The narrator-presence bar is calibrated on SAKURA REVIEW
+    # (1.82-2.35 markers/min), and measured against that model the Bad Genius
+    # draft is under-voiced at 0.79/min - roughly a third of it. That is a real
+    # finding about the draft, not a broken gate: the draft was written before
+    # there was a voice model at all.
+    # The exception is pinned to ONE gate by name. If any OTHER hard gate ever
+    # fires on the human draft, that is still a broken gate and this still
+    # fails - which is the part that keeps the invariant useful.
+    HUMAN_EXPECTED = {"[VOICE-PRESENCE]"}
     h = show(os.path.join(root, HUMAN), _load(os.path.join(root, HUMAN)))
-    if h["errors"]:
-        print("  FAIL: the gold standard tripped a hard gate. The GATE is "
-              "wrong, not the draft.")
+    _unexpected = [e for e in h["errors"]
+                   if not any(e.startswith(g) for g in HUMAN_EXPECTED)]
+    _missing = [g for g in HUMAN_EXPECTED
+                if not any(e.startswith(g) for e in h["errors"])]
+    if _unexpected:
+        print("  FAIL: the gold standard tripped a hard gate that is NOT the "
+              "declared exception. The GATE is wrong, not the draft:")
+        for e in _unexpected:
+            print("     ", e[:150])
+        ok = False
+    elif _missing:
+        print("  FAIL: %s was declared as an expected failure on the human "
+              "draft but did not fire. Either the bar moved or the draft "
+              "changed - re-derive it, do not delete this check."
+              % ", ".join(_missing))
         ok = False
     else:
-        print("  PASS: no hard gate fires on the human draft.")
+        print("  PASS: the only hard gate firing on the human draft is "
+              "[VOICE-PRESENCE], which is expected - the voice model is now "
+              "SAKURA (1.82-2.35 markers/min) and this draft measures 0.79.")
 
     print()
     print("### NEGATIVE: the rejected machine draft must fail")
@@ -97,8 +122,12 @@ def selftest() -> int:
     MED = ("The guard signs the log without looking up, and that signature is "
            "the only thing standing between them and twenty years.")
     SHORT = "Nobody moves."
-    OPIN = ("He is the kind of careful that only ever protects himself, which "
-            "is why nobody in this building will miss him.")
+    # Fixture nay phai mang ca GIONG KE: [VOICE-PRESENCE] doi 1.2-3.0
+    # markers/min, va mot "positive control" khong sach thi khong chung minh
+    # duoc gi. Dong OPIN xuat hien 6 lan va mang 2 marker ("I", "your"), cong
+    # voi outro -> khoang 2.1/min, dung giua dai cua Sakura.
+    OPIN = ("He is the kind of careful that only ever protects himself, and I "
+            "would not trust him with your coat.")
 
     for i in range(1, 61):
         # 5 dong dai tren 60 -> ~7% cau >=30 tu (nguoi 4.3%, tran 12%)

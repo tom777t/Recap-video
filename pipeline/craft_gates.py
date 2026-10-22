@@ -74,6 +74,39 @@ BAR_LINES_PER_BEAT_MAX = 2.5   # nguoi 1.93  (du 1.3x) | lan chay lai 3.24 truot
 #     tokyodrift lan chay lai 58 phut    105.7
 BAR_WORDS_PER_BEAT_MAX = 60.0  # du 1.32x so voi 45.6 | ban 58 phut 105.7 truot
 
+# --- [NARRATOR-VOICE] do bang MARKERS PER MINUTE (C2, 2026-10-21) ---------
+# Thanh do cu la "% dong mang judgment", calibrate tu ban Bad Genius nguoi
+# viet (7.5%). Hai van de:
+#   1. no khong cung don vi voi phep do giong ke (markers/1000 tu), nen khong
+#      the so sanh voi kenh mau duoc;
+#   2. no calibrate tu SAI MAU. Mau bay gio la SAKURA REVIEW.
+# Per-minute lam MAU SO trung tinh ngon ngu. TU SO chi dung GIAO cua nhung gi
+# ca hai ngon ngu dien dat duoc - tu chi nguoi ke, noi voi nguoi xem, the hien
+# thai do, cau hoi. Tieu tu cuoi cau tieng Viet bi LOAI khoi thanh do (tieng
+# Anh khong co o tuong duong) va duoc bao cao rieng nhu mot thiet bi phai adapt.
+# Do duoc (docs/NARRATOR_VOICE.md):
+#   SAKURA 3 video       1.82 - 2.35/min, trung binh 2.05
+#   SAKURA 1/3 cuoi      3.15 - 3.74/min  <- hinh dang TANG DAN phai duoc phep
+#   Vua Phim             1.41/min
+#   Movie Recaps x4      0.00/min   (zero, sau khi boc loi thoai)
+#   TheCutFrame          0.00/min
+#   ban Bad Genius nguoi 0.79/min
+#   TD pre-craft         0.58/min
+#   TD final             1.88/min
+BAR_VOICE_PER_MIN_MIN = 1.2    # duoi Sakura-min 1.82 va duoi Vua Phim 1.41;
+                               # tu choi 0.00 / 0.47 / 0.58 / 0.79
+BAR_VOICE_PER_MIN_MAX = 3.0    # tren Sakura-max 2.35
+BAR_VOICE_THIRD_MAX = 4.5      # tren 1/3 cuoi cao nhat cua Sakura (3.74)
+
+# Giao cua hai ngon ngu. KHONG gom tieu tu cuoi cau.
+_VOICE_SHARED = {
+    "self": re.compile(r"\b(i|i'm|i've|i'd|me|my)\b", re.I),
+    "address": re.compile(r"\b(you|your|you're)\b", re.I),
+    "stance": re.compile(r"\b(honestly|frankly|of course|apparently|somehow|"
+                         r"obviously|clearly|naturally|turns out)\b", re.I),
+    "question": re.compile(r"\?"),
+}
+
 # Duoi nguong nay, thong ke nhip khong co nghia -> KHONG ra loi cung.
 # Ly do thuc dung: gate_selftest.py chay hang chuc fixture 2-5 dong. Mot gate
 # moi giet cac fixture do se lam CHET cac gate cu truoc khi chung kip chay -
@@ -484,13 +517,62 @@ def craft_report(draft: dict) -> dict:
                  f"draft needs {need:.0f} (>=1 per {BAR_JUDGE_EVERY} lines, "
                  f"minimum {BAR_JUDGE_MIN}). The human reference has 6 in 147. "
                  f"A narrator with no opinion is the \"chi Google\" read.")
-        elif len(judged) / n > BAR_JUDGE_SHARE_MAX:
-            hard(f"[NARRATOR-VOICE] {len(judged)}/{n} lines "
-                 f"({len(judged)*100.0/n:.0f}%) carry a judgment or aside, "
-                 f"above the ceiling of {BAR_JUDGE_SHARE_MAX*100:.0f}% "
-                 f"(human reference 7.5%). An opinion on every line is not a "
-                 f"point of view, it is a running commentary - and it leaves "
-                 f"the story no room. Keep the best ones.")
+
+    # ---- [VOICE-PRESENCE]: markers per MINUTE, calibrated on SAKURA -------
+    # Replaces the old judgment-share ceiling, which was calibrated on the Bad
+    # Genius draft and could not be compared with any measured channel because
+    # it was in a different unit. See the bar comments above.
+    if n:
+        _text = " ".join(_narr(l) for l in narrated)
+        _words = len(_text.split())
+        try:
+            import config as _c2
+            _wpm = float(getattr(_c2, "TTS_WORDS_PER_MINUTE", 186) or 186)
+            _gap = float(getattr(_c2, "GAP_BETWEEN_LINES", 0.18) or 0.18)
+        except Exception:                                  # pragma: no cover
+            _wpm, _gap = 186.0, 0.18
+        _mins = (_words / _wpm) + (_gap * n / 60.0)
+        _mk = {k: len(rx.findall(_text)) for k, rx in _VOICE_SHARED.items()}
+        _tot = sum(_mk.values())
+        _pm = _tot / max(1e-9, _mins)
+        m["voice_markers"] = _mk
+        m["voice_per_min"] = round(_pm, 2)
+        m["narration_min"] = round(_mins, 1)
+        if _pm < BAR_VOICE_PER_MIN_MIN:
+            hard(f"[VOICE-PRESENCE] {_tot} narrator markers over "
+                 f"{_mins:.1f} min = {_pm:.2f}/min, below the floor of "
+                 f"{BAR_VOICE_PER_MIN_MIN}. Measured: SAKURA REVIEW (the voice "
+                 f"model) runs 1.82-2.35/min; Movie Recaps and TheCutFrame run "
+                 f"**0.00** across five videos. A narrator who never says "
+                 f"\"I\", never says \"you\" and never asks anything is the "
+                 f"plot-summary service, not the host. Counted: "
+                 f"{', '.join(f'{k}={v}' for k, v in _mk.items())}.")
+        elif _pm > BAR_VOICE_PER_MIN_MAX:
+            hard(f"[VOICE-PRESENCE] {_pm:.2f} markers/min is above the ceiling "
+                 f"of {BAR_VOICE_PER_MIN_MAX} (SAKURA peaks at 2.35 over a "
+                 f"whole video). Presence is not the same as chatter.")
+        # Hinh dang TANG DAN phai duoc phep: Sakura len 3.15-3.74 o 1/3 cuoi.
+        # Chi chan khi MOT phan ba vuot han nguong rieng, cao hon ca dinh cua
+        # Sakura - neu khong, cong nay se phat dung cai nhip ma mau co.
+        if n >= 30:
+            _k = n // 3
+            for _i, _seg in enumerate((narrated[:_k], narrated[_k:2 * _k],
+                                       narrated[2 * _k:])):
+                if not _seg:
+                    continue
+                _st_ = " ".join(_narr(l) for l in _seg)
+                _sw = len(_st_.split())
+                _sm = (_sw / _wpm) + (_gap * len(_seg) / 60.0)
+                _sc = sum(len(rx.findall(_st_)) for rx in _VOICE_SHARED.values())
+                _spm = _sc / max(1e-9, _sm)
+                m[f"voice_third{_i+1}"] = round(_spm, 2)
+                if _spm > BAR_VOICE_THIRD_MAX:
+                    warns.append(
+                        f"[VOICE-PRESENCE] third {_i+1} runs {_spm:.2f} "
+                        f"markers/min, above {BAR_VOICE_THIRD_MAX}. A rising "
+                        f"final third is the model's own shape (SAKURA reaches "
+                        f"3.74) so this is a warning, not an error - but this "
+                        f"is past anything measured.")
 
     # ---- dong tren mot beat: tran, khong phai muc tieu thoi luong ---------
     # Beat o day la so beat ban draft THUC SU phuc vu (so gia tri `note` khac
