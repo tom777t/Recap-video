@@ -1050,8 +1050,109 @@ def test_moment_bad_span() -> tuple[bool, str]:
                   f"giong het lo sach, rc=0")
 
 
+def test_exception_key() -> tuple[bool, str]:
+    """reviewed_exceptions.md keys must survive renumbering, not survive edits.
+
+    The bug: the REVEAL-TIMING key was "<reveal_id> L<line_id>". Line ids are
+    assigned by assemble_draft.py in clip order, so redrafting tokyodrift2006
+    renumbered everything and 'R2 L103' went STALE on its own - the human's
+    reviewed decision evaporated silently.
+
+    Asserts, in both directions:
+      1. the key does NOT change when only line ids change (renumber-proof)
+      2. the key DOES change when the narration is edited (nobody reviewed the
+         new sentence)
+      3. the key DOES change when the beat changes
+      4. a NEW-style entry is matched by reviewed.load and suppresses
+      5. an OLD-style "L<id>" entry is NOT matched, so it cannot grant
+         suppression, and reviewed.stale() reports it
+    """
+    import pathlib
+    # Cac test khac goi validator qua subprocess, nen module nay chua bao gio
+    # can import `pipeline`. Test nay kiem mot HAM THUAN (khoa exception) nen
+    # no import truc tiep - va do do phai tu dua ROOT vao sys.path.
+    if ROOT not in sys.path:
+        sys.path.insert(0, ROOT)
+    from pipeline.draft import exception_key, reveal_timing_check
+    from pipeline import draft as _d
+    from pipeline import reviewed as _rv
+
+    TEXT = "Then the old man just sits there in silence, and the smile dies."
+    k_a = exception_key("R2", "B61", TEXT)
+    k_b = exception_key("R2", "B61", "  Then the OLD man just sits there in "
+                                     "silence,   and the smile dies. ")
+    k_edit = exception_key("R2", "B61", TEXT + " He knew.")
+    k_beat = exception_key("R2", "B62", TEXT)
+    renumber_proof = (k_a == k_b)          # whitespace/case normalised, no id
+    edit_sensitive = (k_a != k_edit)
+    beat_sensitive = (k_a != k_beat)
+
+    # --- integration: the hit must CARRY the key, built from beat + text ----
+    class _L:
+        def __init__(self, i, note, narr):
+            self.id, self.note, self.narration = i, note, narr
+            self.clip_start, self.clip_end = "00:10:00.0", "00:10:05.0"
+
+    class _D:
+        pass
+
+    dd = _D()
+    dd.lines = [_L(103, "B61", TEXT)]
+    _orig = _d.parse_reveal_map
+    _d.parse_reveal_map = lambda project: [
+        {"id": "R2", "land_ref": "01:15:07", "land_sec": 4507.0,
+         "holds": ["dies"]}]
+    try:
+        hits = reveal_timing_check("_irrelevant", dd)
+        carries = (len(hits) == 1 and hits[0].get("key") == k_a)
+        # cung mot dong, id khac -> khoa KHONG doi
+        dd.lines = [_L(7, "B61", TEXT)]
+        hits2 = reveal_timing_check("_irrelevant", dd)
+        stable = (hits2 and hits2[0]["key"] == hits[0]["key"])
+    finally:
+        _d.parse_reveal_map = _orig
+
+    # --- the file side: new key matches, old key does not, stale reports ----
+    proj = '_selftest_exckey'
+    p = _mk(proj, {'draft.json': {"project": proj, "title": "selftest",
+                                  "target_minutes": 1, "voice": "tts",
+                                  "lines": [{"id": 1, "narration": "x.",
+                                             "clip_start": "00:00:01.0",
+                                             "clip_end": "00:00:02.0"}]}})
+    try:
+        io.open(os.path.join(p, 'reviewed_exceptions.md'), 'w',
+                encoding='utf-8').write(
+            "# Reviewed exceptions\n\n"
+            "```reviewed-exceptions\n"
+            f"REVEAL-TIMING | {k_a} | 2026-10-20 | new-style key, should match\n"
+            "REVEAL-TIMING | R2 L103 | 2026-09-11 | old line-number key\n"
+            "```\n")
+        declared, bad = _rv.load(pathlib.Path(p))
+        new_found = ("REVEAL-TIMING", k_a) in declared
+        old_not_key = ("REVEAL-TIMING", k_a) != ("REVEAL-TIMING", "R2 L103")
+        # khoa cu van nam trong file, nhung KHONG trung voi khoa cua finding
+        old_cannot_grant = ("REVEAL-TIMING", "R2 L103") in declared and \
+            "R2 L103" != k_a
+        st = _rv.stale(declared, {("REVEAL-TIMING", k_a)}, ("REVEAL-TIMING",))
+        stale_reports_old = any(k == "R2 L103" for _g, k, _d2, _r in st)
+        no_malformed = not bad
+    finally:
+        shutil.rmtree(os.path.join(ROOT, 'projects', proj), ignore_errors=True)
+
+    ok = (renumber_proof and edit_sensitive and beat_sensitive and carries
+          and stable and new_found and old_cannot_grant and stale_reports_old
+          and no_malformed)
+    return ok, ('key is renumber-proof and edit-sensitive; hit carries it; '
+                'old L<id> key cannot grant and is reported STALE' if ok else
+                f'renumber_proof={renumber_proof} edit={edit_sensitive} '
+                f'beat={beat_sensitive} carries={carries} stable={stable} '
+                f'new_found={new_found} old_cannot_grant={old_cannot_grant} '
+                f'stale_old={stale_reports_old} malformed_ok={no_malformed}')
+
+
 TESTS = {
     'VISUAL-REPEAT':   test_visual_repeat,
+    'EXCEPTION-KEY':   test_exception_key,
     # 'VISUAL-REPEAT-SHOTS' is NOT registered: the feature it specifies was
     # wired on 2026-09-05 and reverted the same day (shots.json `family` is a
     # scene label, not a set of interchangeable alternates - it flagged 22

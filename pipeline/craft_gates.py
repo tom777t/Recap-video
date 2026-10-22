@@ -61,6 +61,19 @@ BAR_LONG_SHARE_MAX = 0.12      # nguoi 4.3%  (du 2.8x) | lan chay lai 18.9% truo
 BAR_JUDGE_SHARE_MAX = 0.15     # nguoi 7.5%  (du 2.0x) | lan chay lai 27.5% truot
 BAR_LINES_PER_BEAT_MAX = 2.5   # nguoi 1.93  (du 1.3x) | lan chay lai 3.24 truot
 
+# --- [DENSITY] tran TU-TREN-BEAT ------------------------------------------
+# Day la dai luong chan viec PHINH TONG. Khong phai words-per-line: dat tran
+# len do dai DONG chinh la cach ban pre-craft dat SD 3.9 - moi dong bi cat
+# bang nhau. Tu-tren-beat chan tong ma van de nguoi viet dai ngan tuy y, vi
+# san SD (BAR_SD) van bat buoc phai co bien thien.
+# Do duoc tren hai ban da duoc nguoi duyet:
+#     badgenius2017 (nguoi viet)          45.6 w/beat
+#     badgenius2017_machine (da render)   42.9 w/beat
+# va tren hai ban bi tu choi:
+#     tokyodrift pre-craft                31.4  (khong phinh - no NGHEO noi dung)
+#     tokyodrift lan chay lai 58 phut    105.7
+BAR_WORDS_PER_BEAT_MAX = 60.0  # du 1.32x so voi 45.6 | ban 58 phut 105.7 truot
+
 # Duoi nguong nay, thong ke nhip khong co nghia -> KHONG ra loi cung.
 # Ly do thuc dung: gate_selftest.py chay hang chuc fixture 2-5 dong. Mot gate
 # moi giet cac fixture do se lam CHET cac gate cu truoc khi chung kip chay -
@@ -111,6 +124,27 @@ _CTA = re.compile(r"\b(subscribe|comment|like (this|the) video|tell me what|"
                   r"hit the bell|the channel)\b", re.I)
 
 _TITLE_YEAR = re.compile(r"\(\s*(19|20)\d{2}\s*\)\s*$")
+
+# Mot tieu de tien de la MOT MENH DE ("Students Don't Realise Their Teacher Is
+# A Kungfu Legend"), con mot tieu de ten phim la mot CUM DANH TU ("Tokyo
+# Drift", "Bad Genius (2017)"). Thu phan biet duoc hai thu do bang may la: co
+# mot dong tu hay khong. Day la PROXY, khong phai phan tich cu phap - nhung do
+# tren bay tieu de that thi no phan loai dung ca bay:
+#   premise  : badgenius nguoi (11 tu), tokyodrift moi (17), hai cua
+#              Mystery Recapped (9, 10)
+#   name-only: "The Fast and the Furious: Tokyo Drift (2006)", "Tokyo Drift",
+#              "Bad Genius (2017)"
+_TITLE_VERB = re.compile(
+    r"\b("
+    r"is|are|was|were|be|been|has|have|had|do|does|did|can|can't|cant|could|"
+    r"will|would|won't|wont|must|should|may|might|gets?|got|goes|went|makes?|"
+    r"made|takes?|took|owes?|owed|pays?|paid|steps?|stepped|crossed|realises?|"
+    r"realizes?|moves?|moved|finds?|found|keeps?|kept|turns?|turned|leaves?|"
+    r"left|wins?|won|loses?|lost|shipped|avoids?|becomes?|became|discovers?|"
+    r"learns?|refuses?|dies|died|kills?|killed|sells?|sold|buys?|bought|"
+    r"breaks?|broke|builds?|built|runs?|ran|hides?|hid|saves?|saved"
+    r")\b", re.I)
+_TITLE_EDING = re.compile(r"\b\w{4,}(ed|ing)\b", re.I)
 
 _ACTION_DELIVERY = {"action", "tense"}
 
@@ -305,6 +339,20 @@ def craft_report(draft: dict) -> dict:
             f"premise stated as fact] + [withheld consequence]. The human "
             f"reference uses \"Bad Genius - the exam heist that crossed a "
             f"time zone\".")
+    elif (title and stats_ok
+          and not (_TITLE_VERB.search(title) or _TITLE_EDING.search(title))):
+        # Nua CON LAI cua item 4: khong chi "khong duoc la ten phim + nam", ma
+        # phai LA mot tien de. Mot tien de la mot menh de; mot ten phim la mot
+        # cum danh tu. Proxy: co dong tu hay khong.
+        errors.append(
+            f"[HOOK] title {title!r} reads as a name, not a premise - there is "
+            f"no verb in it, so nothing is being claimed. The pattern is "
+            f"[role] + [extraordinary premise stated as fact] + [withheld "
+            f"consequence]: \"Students Don't Realise Their Teacher Is A Kungfu "
+            f"Legend\", \"Bad Genius - the exam heist that crossed a time "
+            f"zone\". NOTE: this is a verb-presence proxy, not grammar "
+            f"analysis; whether the premise is actually withheld and actually "
+            f"extraordinary is checked by the payload auditor, not here.")
     hooks = [ln for ln in lines if ln.get("delivery") == "hook"]
     m["hook_lines"] = len(hooks)
     if not v2:
@@ -314,8 +362,11 @@ def craft_report(draft: dict) -> dict:
             ">=20% into the runtime) was DROPPED - measured, the human hook "
             "sits at 1.05% of runtime, earlier than the machine draft's 2.23%.")
     else:
+        # Size-gated like the rhythm statistics: a six-line fixture has no hook
+        # because it is not a film, and hard-failing it would stop the gates
+        # under test from running at all.
         if not hooks:
-            errors.append("[HOOK] no line is tagged <hook>.")
+            hard("[HOOK] no line is tagged <hook>.")
         for h in hooks:
             q = str(h.get("hook_question", "") or "").strip()
             if len(q) < 10:
@@ -323,6 +374,31 @@ def craft_report(draft: dict) -> dict:
                     f"[HOOK] line {h.get('id')} is tagged <hook> but names no "
                     f"`hook_question`. If you cannot name the specific "
                     f"question the hook raises, it is a statement, not a hook.")
+
+    # ---- [DELIVERY-UNKNOWN]: catch a dead tag at DRAFT time ---------------
+    # tts.py now refuses an unknown tag, but that is at render time - minutes
+    # of work later, and only if somebody renders. The writer should hear about
+    # it while the draft is still the thing being edited.
+    try:
+        import config as _cfg
+        _known = set(getattr(_cfg, "TTS_DELIVERY", {}) or {})
+    except Exception:                                     # pragma: no cover
+        _known = set()
+    if _known:
+        _bad = {}
+        for ln in narrated:
+            _t = ln.get("delivery")
+            if _t in (None, ""):
+                continue
+            if str(_t) not in _known:
+                _bad.setdefault(str(_t), []).append(ln.get("id"))
+        for _t, _ids in sorted(_bad.items()):
+            errors.append(
+                f"[DELIVERY-UNKNOWN] {len(_ids)} line(s) tagged <{_t}>, which "
+                f"has no TTS preset: {_ids[:10]}"
+                + (" ..." if len(_ids) > 10 else "")
+                + f". Known: {', '.join(sorted(_known))}. An unknown tag used "
+                  f"to be read at normal pace in silence.")
 
     # ---- item 5: [INTRO-OUTRO] -------------------------------------------
     tags = [ln.get("delivery") for ln in lines]
@@ -423,6 +499,22 @@ def craft_report(draft: dict) -> dict:
     _beats = {str(ln.get("note")) for ln in lines if ln.get("note")}
     m["beats_served"] = len(_beats)
     if _beats and n:
+        # ---- [DENSITY]: tu tren beat ------------------------------------
+        _words = sum(_wc(_narr(ln)) for ln in narrated)
+        wpb = _words / len(_beats)
+        m["words"] = _words
+        m["words_per_beat"] = round(wpb, 1)
+        if wpb > BAR_WORDS_PER_BEAT_MAX:
+            hard(f"[DENSITY] {_words} words over {len(_beats)} beats = "
+                 f"{wpb:.1f} words per beat, above the ceiling of "
+                 f"{BAR_WORDS_PER_BEAT_MAX:.0f}. Measured references: the "
+                 f"human draft 45.6, the rendered machine draft 42.9. This "
+                 f"caps the TOTAL, not the line - vary line length as much as "
+                 f"you like (the SD floor of {BAR_SD:.0f} requires it), but a "
+                 f"beat cannot be told twice as fully as the reference tells "
+                 f"it. Cut {int(_words - BAR_WORDS_PER_BEAT_MAX * len(_beats))} "
+                 f"words.")
+
         lpb = n / len(_beats)
         m["lines_per_beat"] = round(lpb, 2)
         if lpb > BAR_LINES_PER_BEAT_MAX:
@@ -446,7 +538,7 @@ def craft_report(draft: dict) -> dict:
                 bad_gaps.append((prev + 1, p))
             prev = p
         if not pos:
-            errors.append(
+            hard(
                 f"[LOOP-CADENCE] no line carries `payload: loop`. Nothing in "
                 f"this draft promises the viewer a reason to stay.")
         elif bad_gaps:

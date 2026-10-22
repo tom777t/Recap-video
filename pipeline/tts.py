@@ -73,19 +73,38 @@ async def _edge_one(text: str, out: Path, voice: str,
     raise last_err if last_err else RuntimeError("TTS failed")
 
 
+class UnknownDelivery(Exception):
+    """A draft asked for a delivery tag that has no preset."""
+
+
 def _delivery_for(ln: dict, base_rate: str) -> dict:
     """
     Resolve the per-line delivery. Priority:
       explicit rate/pitch/volume on the line  >  named 'delivery' preset  >
       default preset (with base_rate substituted for the global default).
+
+    An UNKNOWN tag raises. It used to fall back to "normal", and that fallback
+    is why every <reveal> line in tokyodrift2006 (ten of them) and the <action>
+    line in badgenius2017 were read at exactly the pace of an ordinary
+    sentence: the preset simply did not exist, the writer's mark was silently
+    discarded, and nothing anywhere said so. A silent fallback on the one field
+    whose entire purpose is to make lines sound different is worse than a
+    crash - the render completes and looks finished.
     """
-    preset_name = ln.get("delivery", config.DEFAULT_DELIVERY)
-    preset = dict(config.TTS_DELIVERY.get(preset_name, config.TTS_DELIVERY["normal"]))
+    raw = ln.get("delivery", config.DEFAULT_DELIVERY)
+    # A missing or null tag is "normal" - that is an absent choice, not a wrong
+    # one. Only a NAMED tag with no preset is an error.
+    preset_name = str(raw).strip() if raw not in (None, "") else config.DEFAULT_DELIVERY
+    if preset_name not in config.TTS_DELIVERY:
+        raise UnknownDelivery(
+            f"line {ln.get('id')} asks for delivery '{preset_name}', which has "
+            f"no preset in config.TTS_DELIVERY. Known tags: "
+            f"{', '.join(sorted(config.TTS_DELIVERY))}. Either add a preset "
+            f"with a deliberate rate/pitch, or change the line's tag - do not "
+            f"let it read as a normal line, which is what used to happen.")
+    preset = dict(config.TTS_DELIVERY[preset_name])
     # "normal" carries no rate of its own - the CLI/base rate is the rate.
-    # Also covers an UNKNOWN preset name, which falls back to the "normal" dict
-    # above: without this it would reach the caller with no "rate" key at all
-    # and raise a KeyError on the first line that used it.
-    if preset_name == "normal" or "rate" not in preset:
+    if "rate" not in preset:
         preset["rate"] = base_rate
     # explicit per-line overrides win
     for k in ("rate", "pitch", "volume"):
@@ -115,8 +134,37 @@ def generate_tts(project: str, draft: dict,
     except Exception:
         manifest = {}
 
+    # ---- pre-flight: every delivery tag must resolve BEFORE we synthesize ---
+    # Fail on line 1, not on line 97 of 219 after eight minutes of network
+    # calls. Collect ALL of them so one run names every tag that needs a
+    # preset, instead of making the author discover them one render at a time.
+    _bad_tags: dict = {}
+    for ln in draft["lines"]:
+        if ln.get("narration_silence_seconds") is not None:
+            continue
+        if not str(ln.get("narration", "")).strip():
+            continue
+        try:
+            _delivery_for(ln, rate)
+        except UnknownDelivery as e:
+            _bad_tags.setdefault(str(ln.get("delivery")), []).append(ln.get("id"))
+    if _bad_tags:
+        console.print("[red][DELIVERY-UNKNOWN][/] the draft uses delivery tags "
+                      "with no preset:")
+        for _t, _ids in sorted(_bad_tags.items()):
+            console.print(f"    '{_t}' on {len(_ids)} line(s): "
+                          f"{_ids[:12]}{' ...' if len(_ids) > 12 else ''}")
+        console.print(
+            f"[red]  Known tags: {', '.join(sorted(config.TTS_DELIVERY))}.[/]\n"
+            f"  These used to fall back to 'normal' in silence, which is how "
+            f"ten <reveal> lines were read at ordinary pace while every gate "
+            f"stayed green. Add a preset with a deliberate rate and pitch, or "
+            f"retag the lines.")
+        sys.exit(1)
+
     results: list[tuple[int, Path, float]] = []
-    console.print(f"[cyan]Generating voiceover[/] with Edge-TTS '{voice}' (per-line delivery)")
+    console.print(f"[cyan]Generating voiceover[/] with Edge-TTS '{voice}' "
+                  f"at base rate {rate} (per-line delivery)")
 
     for ln in draft["lines"]:
         # Gap 3 / S9 silence line: no narration -> no TTS. The render builds a

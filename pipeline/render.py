@@ -101,7 +101,10 @@ def _build_clip(ff: str, source: Path, start: float, end: float,
                 narr_audio: Path, narr_dur: float, out: Path, idx: int = 0,
                 crop_top: float = 0.0, hold: float = 0.0,
                 censor: str = "none", censor_region=None, exposure: float = 0.0,
-                lead_in: float | None = None):
+                lead_in: float | None = None,
+                film_audio: bool = False, pre_reveal: bool = False):
+    # `film_audio` / `pre_reveal` are LAST on purpose - see the note in
+    # _build_silence_clip. This function is called positionally.
     """
     Cut from `start`, normalise to canvas, fit to clip_len WITHOUT slowing
     footage:
@@ -257,11 +260,60 @@ def _build_clip(ff: str, source: Path, start: float, end: float,
     if setpts_factor > 1.0001 and shot_dur > 0:
         src_in += ["-t", f"{shot_dur:.3f}"]
     src_in += ["-i", str(source)]
+
+    # ---- FILM AUDIO under the voice (2026-10-20) -------------------------
+    # The clip's audio used to be the narration and nothing else, so every
+    # engine, gunshot and line of dialogue in the film was thrown away. Mix the
+    # source audio in underneath.
+    # Two things have to track the picture:
+    #   - when the footage is slowed (setpts_factor > 1) the audio is stretched
+    #     by the same ratio with atempo, or it drifts out of sync. The ratio is
+    #     bounded by BINDING_SLOWDOWN_MAX (1.4), so 1/1.4 = 0.714 stays inside
+    #     atempo's legal 0.5-100 range.
+    #   - `pre_reveal` raises the bed over the tail of the clip that sits
+    #     immediately before a <reveal> line, so the reveal arrives out of the
+    #     film's own sound instead of out of nothing.
+    use_film = (film_audio and config.FILM_AUDIO_ENABLE
+                and float(config.FILM_AUDIO_DB) > -60.0)
+    if use_film:
+        _atempo = ""
+        if setpts_factor > 1.0001:
+            _atempo = f"atempo={1.0/setpts_factor:.5f},"
+        _base_db = float(config.FILM_AUDIO_DB)
+        if pre_reveal:
+            _hi = float(config.FILM_AUDIO_PRE_REVEAL_DB)
+            _sec = max(0.2, float(config.FILM_AUDIO_PRE_REVEAL_SEC))
+            _from = max(0.0, clip_len - _sec)
+            # linear ramp in dB over the last _sec seconds of the clip
+            _vol = (f"volume='{_base_db}+({_hi - _base_db})"
+                    f"*clip((t-{_from:.3f})/{_sec:.3f}\\,0\\,1)':"
+                    f"eval=frame:precision=float")
+        else:
+            _vol = f"volume={_base_db}dB"
+        film_af = (
+            f"{_atempo}{_vol},"
+            f"apad=whole_dur={clip_len:.3f},"
+            f"atrim=duration={clip_len:.3f},asetpts=PTS-STARTPTS,"
+            f"aformat=sample_rates=48000:channel_layouts=stereo"
+        )
+        # amix with normalize=0 SUMS the two tracks, so voice near full scale
+        # plus film audio raised to FILM_AUDIO_PRE_REVEAL_DB can exceed 1.0 and
+        # clip. Measured: the pre-reveal clip came out at max_volume 0.0 dB -
+        # samples pinned at full scale, distortion baked into the clip file
+        # where loudnorm (which runs later, on the mix) cannot undo it.
+        # A limiter at -1 dBFS costs nothing audible and makes that impossible.
+        graph = (f"[0:v]{vf}{v_label};[1:a]{af}[narrv];[0:a]{film_af}[filmv];"
+                 f"[narrv][filmv]amix=inputs=2:duration=first:"
+                 f"dropout_transition=0:normalize=0,"
+                 f"alimiter=limit=0.891:level=disabled[a]{partial_graph}")
+    else:
+        graph = f"[0:v]{vf}{v_label};[1:a]{af}[a]{partial_graph}"
+
     cmd = [
         ff, "-y",
         *src_in,
         "-i", str(narr_audio),
-        "-filter_complex", f"[0:v]{vf}{v_label};[1:a]{af}[a]{partial_graph}",
+        "-filter_complex", graph,
         "-map", "[v]", "-map", "[a]",
         "-t", f"{clip_len:.3f}",
         "-c:v", "libx264", "-preset", "veryfast",
@@ -277,7 +329,12 @@ def _build_silence_clip(ff: str, source: Path, start: float, end: float,
                         out: Path, silence_dur: float, idx: int = 0,
                         crop_top: float = 0.0,
                         censor: str = "none", censor_region=None,
-                        exposure: float = 0.0):
+                        exposure: float = 0.0,
+                        film_audio: bool = False):
+    # NOTE: `film_audio` is LAST on purpose. It was briefly added after `idx`,
+    # which silently shifted every positional argument at the call site -
+    # crop_top became film_audio, censor became crop_top. New parameters go on
+    # the end of a function that is called positionally.
     """
     Gap 3: a SILENCE shot - visual holds for `silence_dur` seconds with NO
     narration (a silent audio track is baked so the downstream xfade/music mix
@@ -346,13 +403,35 @@ def _build_silence_clip(ff: str, source: Path, start: float, end: float,
     else:
         v_label = "[v]"
 
-    # Silent stereo 48k audio for exactly clip_len (anullsrc input, trimmed by -t).
+    # 2026-10-20: this used to be `anullsrc` - a hold was literally a hole in
+    # the soundtrack. A hold is the one moment the FILM should be loudest: the
+    # narrator has stopped on purpose and the picture is carrying the beat. So
+    # the source audio plays here, well above its level under narration
+    # (FILM_AUDIO_HOLD_DB vs FILM_AUDIO_DB), and the music swells over it as it
+    # already did.
+    _use_film = (film_audio and config.FILM_AUDIO_ENABLE
+                 and float(config.FILM_AUDIO_HOLD_DB) > -60.0)
+    if _use_film:
+        _hold_af = (
+            f"volume={float(config.FILM_AUDIO_HOLD_DB)}dB,"
+            f"apad=whole_dur={clip_len:.3f},"
+            f"atrim=duration={clip_len:.3f},asetpts=PTS-STARTPTS,"
+            f"aformat=sample_rates=48000:channel_layouts=stereo"
+        )
+        a_in = []
+        graph = f"[0:v]{vf}{v_label}{partial_graph};[0:a]{_hold_af}[a]"
+        a_map = "[a]"
+    else:
+        a_in = ["-f", "lavfi",
+                "-i", "anullsrc=channel_layout=stereo:sample_rate=48000"]
+        graph = f"[0:v]{vf}{v_label}{partial_graph}"
+        a_map = "1:a"
     cmd = [
         ff, "-y",
         "-ss", f"{start:.3f}", "-i", str(source),
-        "-f", "lavfi", "-i", "anullsrc=channel_layout=stereo:sample_rate=48000",
-        "-filter_complex", f"[0:v]{vf}{v_label}{partial_graph}",
-        "-map", "[v]", "-map", "1:a",
+        *a_in,
+        "-filter_complex", graph,
+        "-map", "[v]", "-map", a_map,
         "-t", f"{clip_len:.3f}",
         "-c:v", "libx264", "-preset", "veryfast",
         "-crf", str(config.VIDEO_CRF), "-pix_fmt", "yuv420p",
@@ -643,7 +722,8 @@ def _clip_signature(source: Path, start: float, end: float, hold: float,
                     idx: int, crop_top: float, narr_dur: float,
                     audio_path: Path, censor: str = "none",
                     censor_region=None, exposure: float = 0.0, silence=None,
-                    lead_in: float = 0.0) -> str:
+                    lead_in: float = 0.0, film_audio: bool = False,
+                    pre_reveal: bool = False) -> str:
     """Hash everything that determines a clip's pixels+audio, for caching."""
     import hashlib
     try:
@@ -674,6 +754,17 @@ def _clip_signature(source: Path, start: float, end: float, hold: float,
         # Gap 3: a silence shot has a different duration + silent audio than a
         # narrated build of the same clip -> must bust the cache.
         f"silence={'none' if silence is None else f'{float(silence):.3f}'}",
+        # 2026-10-20 FILM AUDIO. The clip's audio track now contains the film's
+        # own sound as well as the voice, so every level here changes the
+        # rendered audio. Without these in the signature, a cached clip from
+        # before this change would be reused silently and the render would come
+        # out with narration-only audio while the log claimed success.
+        f"film={bool(film_audio)}:{bool(config.FILM_AUDIO_ENABLE)}:"
+        f"{float(config.FILM_AUDIO_DB):.2f}:"
+        f"{float(config.FILM_AUDIO_HOLD_DB):.2f}",
+        f"prerev={bool(pre_reveal)}:"
+        f"{float(config.FILM_AUDIO_PRE_REVEAL_DB):.2f}:"
+        f"{float(config.FILM_AUDIO_PRE_REVEAL_SEC):.2f}",
     ]
     return hashlib.sha1("|".join(parts).encode("utf-8")).hexdigest()[:20]
 
@@ -859,6 +950,51 @@ def render(project: str, draft: dict,
 
     # absolute (start, end) windows on the timeline where music should swell.
     silence_windows: list[tuple[float, float]] = []
+    # absolute timeline positions of <reveal> lines, for the music drop.
+    reveal_positions: list[float] = []
+
+    # ---- does the source actually HAVE an audio stream? ------------------
+    # FILM_AUDIO_ENABLE is an intention; this is the fact. A source with no
+    # audio track would make every clip's filter graph reference a stream that
+    # does not exist and ffmpeg would fail on clip 1 - so ask once, say the
+    # answer out loud, and fall back to narration-only if there is nothing to
+    # mix. D-GREEN: an audit missing an input has to say so.
+    has_film_audio = False
+    if config.FILM_AUDIO_ENABLE:
+        try:
+            _pr = subprocess.run(
+                [ffp, "-v", "error", "-select_streams", "a:0",
+                 "-show_entries", "stream=codec_type",
+                 "-of", "default=noprint_wrappers=1:nokey=1", str(source)],
+                capture_output=True, text=True)
+            has_film_audio = ("audio" in (_pr.stdout or ""))
+        except Exception as _e:                            # pragma: no cover
+            has_film_audio = False
+        if has_film_audio:
+            console.print(
+                f"[cyan]Film audio:[/] source audio mixed under the voice at "
+                f"{config.FILM_AUDIO_DB:.0f} dB "
+                f"({config.FILM_AUDIO_HOLD_DB:.0f} dB inside holds, "
+                f"{config.FILM_AUDIO_PRE_REVEAL_DB:.0f} dB for "
+                f"{config.FILM_AUDIO_PRE_REVEAL_SEC:.1f}s before a reveal)")
+        else:
+            console.print(
+                "[yellow]Film audio:[/] FILM_AUDIO_ENABLE is on but "
+                f"{source.name} has NO audio stream - clips will carry "
+                "narration only. This is the condition every render before "
+                "2026-10-20 shipped in silently.")
+    else:
+        console.print("[dim]Film audio: disabled in config.[/]")
+
+    # ---- which clip sits immediately BEFORE a <reveal> line? -------------
+    # That clip's tail gets the film audio raised, so the reveal lands out of
+    # the film's own sound rather than out of nothing.
+    _rev_prev_ids = set()
+    _prev_id = None
+    for _ln in draft["lines"]:
+        if _ln.get("delivery") == "reveal" and _prev_id is not None:
+            _rev_prev_ids.add(_prev_id)
+        _prev_id = _ln.get("id")
 
     console.print("[cyan]Building clips (with baked narration)...[/]")
     clips: list[tuple[Path, float]] = []
@@ -898,7 +1034,8 @@ def render(project: str, draft: dict,
             exposure = exposure_by_clip.get(_skey, 0.0)
             sig = _clip_signature(source, start, end, 0.0, idx, crop_top,
                                   0.0, source, censor, censor_region,
-                                  exposure=exposure, silence=sil_secs)
+                                  exposure=exposure, silence=sil_secs,
+                                  film_audio=has_film_audio)
             cached = cache_dir / f"{sig}.mp4"
             reused = False
             if not force_clips and cached.exists():
@@ -910,7 +1047,8 @@ def render(project: str, draft: dict,
             else:
                 clip_len = _build_silence_clip(ff, source, start, end, cout,
                                                sil_secs, idx, crop_top,
-                                               censor, censor_region, exposure)
+                                               censor, censor_region, exposure,
+                                               film_audio=has_film_audio)
                 try:
                     import shutil
                     shutil.copy2(cout, cached)
@@ -1037,9 +1175,11 @@ def render(project: str, draft: dict,
         lead = _lead_for(narr_dur, max(0.0, end - start))
 
         # ---- clip cache: reuse an identical previously-built clip -----------
+        _is_pre_reveal = lid in _rev_prev_ids
         sig = _clip_signature(source, start, end, hold, idx, crop_top,
                               narr_dur, audio_path, censor, censor_region, exposure,
-                              lead_in=lead)
+                              lead_in=lead, film_audio=has_film_audio,
+                              pre_reveal=_is_pre_reveal)
         cached = cache_dir / f"{sig}.mp4"
         reused = False
         if not force_clips and cached.exists():
@@ -1053,7 +1193,9 @@ def render(project: str, draft: dict,
         else:
             clip_len = _build_clip(ff, source, start, end, audio_path, narr_dur,
                                    cout, idx, crop_top, hold, censor, censor_region,
-                                   exposure, lead_in=lead)
+                                   exposure, lead_in=lead,
+                                   film_audio=has_film_audio,
+                                   pre_reveal=_is_pre_reveal)
             try:
                 import shutil
                 shutil.copy2(cout, cached)
@@ -1073,6 +1215,10 @@ def render(project: str, draft: dict,
                          "text": ln["narration"], "id": lid,
                          "clip_start": ln.get("clip_start"),
                          "clip_end": ln.get("clip_end")})
+        # Where the reveal's VOICE starts on the finished timeline - the music
+        # drop is measured backwards from here, not from the cut.
+        if ln.get("delivery") == "reveal":
+            reveal_positions.append(cursor + lead)
         cursor += clip_len - XFADE
 
         held = f" +hold{hold:.0f}s" if hold else ""
@@ -1108,19 +1254,73 @@ def render(project: str, draft: dict,
     if getattr(config, "SFX_ENABLE", False):
         from pipeline import sfx as sfxmod
         sfxmod.ensure_sfx()
+        # plan_events emits on REVEALS and HOLDS only - the restriction lives
+        # there, where the events are decided, not as a screen here.
         sfx_events = sfxmod.plan_events(draft, boundaries)
         if sfx_events:
-            console.print(f"[cyan]Sound design:[/] {len(sfx_events)} SFX hits "
-                          "(whoosh/boom/riser/sting)")
+            _why: dict = {}
+            for ev in sfx_events:
+                _why[ev.get("why", "?")] = _why.get(ev.get("why", "?"), 0) + 1
+            console.print(
+                "[cyan]Sound design:[/] "
+                + ", ".join(f"{v} on {k}s" for k, v in sorted(_why.items()))
+                + " (no whoosh on ordinary cuts)")
+        else:
+            console.print("[dim]Sound design: no reveals or holds to hit.[/]")
 
     # ----- final: (optional captions), mix music, encode --------------------
     label = ("Burning captions + " if captions else "") + ("mixing music " if music else "") + "encoding..."
     console.print(f"[cyan]{label}[/]")
     final = pdir / "final.mp4"
 
-    if music and music.exists():
-        _render_with_music(ff, av, music, ass_for_filter, total_dur, final,
-                           sfx_events, silence_windows)
+    # ----- MOOD BEDS --------------------------------------------------------
+    # One bed for a whole film reads as wallpaper. Pick a bed per story stretch
+    # from the dominant delivery tag there. A missing mood file is NOT an
+    # error: fall back to the single music.mp3 and say so, because a
+    # half-populated music/ folder must not silently produce a render where
+    # some stretches have a bed and others do not.
+    _bed_used = music
+    _prebuilt = False
+    _segs = mood_segments(draft, timeline, total_dur)
+    _beds, _missing, _usable = resolve_mood_beds(pdir, _segs)
+    if _usable:
+        _bedfile = work / "music_bed.wav"
+        try:
+            build_music_bed(ff, _segs, _beds, _bedfile, total_dur)
+            _bed_used = _bedfile
+            _prebuilt = True
+            _counts: dict = {}
+            for s in _segs:
+                _counts[s["mood"]] = _counts.get(s["mood"], 0.0) + (s["end"] - s["start"])
+            console.print(
+                "[cyan]Music:[/] mood bed over "
+                f"{len(_segs)} stretch(es) - "
+                + ", ".join(f"{k} {v/60:.1f}min" for k, v in sorted(_counts.items()))
+                + f"; ducked {config.MUSIC_DUCK_DB:.0f} dB under the voice "
+                  f"({config.MUSIC_DUCK_ACTION_DB:.0f} dB in action)")
+        except Exception as _e:
+            console.print(f"[yellow]Music:[/] mood bed build failed ({_e}); "
+                          f"falling back to a single bed.")
+            _bed_used, _prebuilt = music, False
+    elif _missing:
+        console.print(
+            f"[yellow]Music:[/] no bed for mood(s) "
+            f"{', '.join(_missing)} - looked for "
+            f"{pdir.name}/music/<mood>.(mp3|m4a|wav|ogg). Falling back to a "
+            f"single bed for the whole film. Add the files to get a bed that "
+            f"changes with the story.")
+
+    if _bed_used and Path(_bed_used).exists():
+        if reveal_positions:
+            console.print(
+                f"[cyan]Music:[/] dipping the bed to "
+                f"{config.MUSIC_PRE_REVEAL_LEVEL:.2f} for "
+                f"{config.MUSIC_PRE_REVEAL_DROP_SEC:.1f}s around "
+                f"{len(reveal_positions)} reveal(s)")
+        _render_with_music(ff, av, Path(_bed_used), ass_for_filter, total_dur,
+                           final, sfx_events, silence_windows,
+                           reveal_positions=reveal_positions,
+                           prebuilt_bed=_prebuilt)
     else:
         vf = f"subtitles='{ass_for_filter}'" if ass_for_filter else None
         cmd = [ff, "-y", "-i", str(av)]
@@ -1230,7 +1430,122 @@ def _loudnorm_filter() -> str:
             f"LRA={config.LOUDNORM_LRA}")
 
 
-def _music_volume_expr(base_vol: float, silence_windows: list) -> str:
+def mood_segments(draft: dict, timeline: list, total_dur: float) -> list:
+    """Split the finished timeline into stretches, each with ONE music mood.
+
+    The mood of a stretch comes from the dominant `delivery` tag of the lines
+    in it (config.MUSIC_MOOD_FOR_TAG). Consecutive lines that map to the same
+    mood merge; any stretch shorter than MUSIC_MOOD_MIN_SEC is absorbed into
+    its neighbour, because a bed that changes every fifteen seconds is worse
+    than one that never changes.
+
+    Returns [{"start": s, "end": e, "mood": name}] covering 0..total_dur.
+    """
+    by_id = {ln.get("id"): ln for ln in draft.get("lines", [])}
+    tag_map = dict(getattr(config, "MUSIC_MOOD_FOR_TAG", {}) or {})
+    runs: list = []
+    for t in timeline:
+        ln = by_id.get(t.get("id")) or {}
+        mood = tag_map.get(str(ln.get("delivery") or "normal"), "neutral")
+        if runs and runs[-1]["mood"] == mood:
+            runs[-1]["end"] = float(t["end"])
+        else:
+            runs.append({"start": float(t["start"]), "end": float(t["end"]),
+                         "mood": mood})
+    if not runs:
+        return [{"start": 0.0, "end": float(total_dur), "mood": "neutral"}]
+
+    # absorb stretches that are too short to be heard as a change
+    floor = float(getattr(config, "MUSIC_MOOD_MIN_SEC", 25.0))
+    merged: list = [runs[0]]
+    for r in runs[1:]:
+        if (r["end"] - r["start"]) < floor:
+            merged[-1]["end"] = r["end"]          # absorb into the one before
+        elif merged[-1]["mood"] == r["mood"]:
+            merged[-1]["end"] = r["end"]
+        else:
+            merged.append(r)
+    # a too-short FIRST stretch gets absorbed forwards instead
+    if len(merged) > 1 and (merged[0]["end"] - merged[0]["start"]) < floor:
+        merged[1]["start"] = merged[0]["start"]
+        merged.pop(0)
+    merged[0]["start"] = 0.0
+    merged[-1]["end"] = float(total_dur)
+    for a, b in zip(merged, merged[1:]):
+        b["start"] = a["end"]
+    return merged
+
+
+def resolve_mood_beds(pdir, segments: list):
+    """Find projects/<name>/music/<mood>.mp3 for each mood actually used.
+
+    Returns (beds, missing, usable). `usable` is False when not every mood in
+    play has a file - the caller then falls back to the single music.mp3 and
+    SAYS SO. A half-populated music/ directory must not produce a render where
+    some stretches have a bed and others are silent.
+    """
+    mdir = pdir / "music"
+    moods = []
+    for s in segments:
+        if s["mood"] not in moods:
+            moods.append(s["mood"])
+    beds, missing = {}, []
+    for m in moods:
+        hit = None
+        for ext in (".mp3", ".m4a", ".wav", ".ogg"):
+            p = mdir / f"{m}{ext}"
+            if p.exists():
+                hit = p
+                break
+        if hit:
+            beds[m] = hit
+        else:
+            missing.append(m)
+    return beds, missing, (bool(beds) and not missing)
+
+
+def build_music_bed(ff: str, segments: list, beds: dict, out: Path,
+                    total_dur: float) -> Path:
+    """Concatenate one continuous bed from the per-mood files.
+
+    Built as a FILE rather than as a branch of the final filter graph. The
+    graph version needed one input and one timed volume expression per mood and
+    was unreadable; a pre-built bed is inspectable on its own, and if it is
+    wrong you can play it.
+    """
+    parts, inputs, filt = [], [], []
+    for i, s in enumerate(segments):
+        dur = max(0.05, float(s["end"]) - float(s["start"]))
+        src = beds[s["mood"]]
+        # `-t` BEFORE `-i` bounds the looped read. Without it every segment is
+        # an infinite input and concat sits waiting on the ones it has not
+        # reached yet: the first attempt at this failed its own build and left a
+        # truncated bed behind.
+        inputs += ["-stream_loop", "-1", "-t", f"{dur:.3f}", "-i", str(src)]
+        # Duck depth is baked in PER MOOD, relative to the ordinary narration
+        # level: the guides say 20-25 dB under the voice while the narrator is
+        # talking, but only 8-12 dB in action, where the bed should be felt.
+        # The difference is applied here so the final mix stays one simple
+        # volume expression instead of a second time-varying one.
+        _rel = (float(config.MUSIC_DUCK_ACTION_DB)
+                - float(config.MUSIC_DUCK_DB)) if s["mood"] == "action" else 0.0
+        _g = f"volume={_rel:+.1f}dB," if abs(_rel) > 0.05 else ""
+        filt.append(f"[{i}:a]aformat=sample_rates=48000:channel_layouts=stereo,"
+                    f"atrim=duration={dur:.3f},asetpts=PTS-STARTPTS,{_g}"
+                    f"afade=t=in:st=0:d=1.0,"
+                    f"afade=t=out:st={max(0.0, dur-1.0):.3f}:d=1.0[m{i}]")
+        parts.append(f"[m{i}]")
+    graph = ";".join(filt) + ";" + "".join(parts) + \
+        f"concat=n={len(parts)}:v=0:a=1[bed]"
+    cmd = [ff, "-y", *inputs, "-filter_complex", graph,
+           "-map", "[bed]", "-t", f"{total_dur:.3f}",
+           "-c:a", "pcm_s16le", "-ar", "48000", "-ac", "2", str(out)]
+    _run(cmd, f"build mood music bed ({len(segments)} stretches)")
+    return out
+
+
+def _music_volume_expr(base_vol: float, silence_windows: list,
+                       reveal_positions: list | None = None) -> str:
     """
     Build an ffmpeg `volume` filter string for the music bed.
 
@@ -1260,28 +1575,64 @@ def _music_volume_expr(base_vol: float, silence_windows: list) -> str:
         terms.append(trap)
     # total = base + sum of trapezoids (windows do not overlap by construction)
     expr = f"{base_vol}+" + "+".join(terms) if terms else f"{base_vol}"
+
+    # ---- drop the bed just BEFORE each reveal ---------------------------
+    # "Drop or cut the music briefly before a major reveal" - the line should
+    # arrive into a hole. Implemented as a multiplier that dips to
+    # MUSIC_PRE_REVEAL_LEVEL over the window [t_reveal - drop, t_reveal] and
+    # comes back over the same length afterwards. Near-zero rather than a hard
+    # 0 so the bed does not click.
+    rp = [float(x) for x in (reveal_positions or [])]
+    if rp:
+        drop = max(0.3, float(getattr(config, "MUSIC_PRE_REVEAL_DROP_SEC", 1.5)))
+        lvl = float(getattr(config, "MUSIC_PRE_REVEAL_LEVEL", 0.02))
+        gates = []
+        for t0 in rp:
+            a = max(0.0, t0 - drop)
+            b = t0 + drop
+            # dip = 1 outside [a,b]; lvl at t0; linear either side
+            gates.append(
+                f"if(between(t\\,{a:.3f}\\,{b:.3f})\\,"
+                f"{lvl:.4f}+(1-{lvl:.4f})*abs(t-{t0:.3f})/{drop:.3f}\\,1)")
+        # several reveals never overlap closely enough to matter; take the min
+        dip = gates[0] if len(gates) == 1 else \
+            "min(" + "\\,".join(gates) + ")" if len(gates) == 2 else None
+        if dip is None:
+            # ffmpeg's min() takes two args, so fold
+            dip = gates[0]
+            for g in gates[1:]:
+                dip = f"min({dip}\\,{g})"
+        expr = f"({expr})*({dip})"
     return f"volume='{expr}':eval=frame"
 
 
 def _render_with_music(ff: str, av: Path, music: Path, ass_filter: str | None,
                        total_dur: float, final: Path,
                        sfx_events: list[dict] | None = None,
-                       silence_windows: list[tuple[float, float]] | None = None):
+                       silence_windows: list[tuple[float, float]] | None = None,
+                       reveal_positions: list | None = None,
+                       prebuilt_bed: bool = False):
     """Burn captions (optional), mix ducked music + timed SFX, master loudness.
 
     Gap 3: during each (start, end) silence window the music swells from the
-    ducked narration level (MUSIC_VOLUME) up to SILENCE_MUSIC_VOLUME with a
-    SILENCE_FADE-second rise/fall, then returns to the narration level.
+    ducked narration level up to SILENCE_MUSIC_VOLUME with a SILENCE_FADE
+    rise/fall, then returns to the narration level.
+
+    2026-10-20: the bed level under the voice now comes from MUSIC_DUCK_DB
+    (20-25 dB under, per the retention guides) instead of a bare 0.15, and the
+    bed dips to near-silence for MUSIC_PRE_REVEAL_DROP_SEC before every
+    <reveal> so the line lands into a hole. `prebuilt_bed` means input 1 is
+    already a full-length mood bed with its per-mood duck baked in, so it must
+    NOT be looped.
     """
-    vol = config.MUSIC_VOLUME
+    vol = 10.0 ** (float(config.MUSIC_DUCK_DB) / 20.0)
     fade = config.MUSIC_FADEOUT
     fade_start = max(0.0, total_dur - fade)
     sfx_events = sfx_events or []
     silence_windows = silence_windows or []
 
-    # Base music volume is `vol`. For silence windows, build a piecewise volume
-    # expression that ramps up to SILENCE_MUSIC_VOLUME over SILENCE_FADE and back.
-    vol_expr = _music_volume_expr(vol, silence_windows)
+    # Base music volume is `vol`. Silence windows swell it; reveals dip it.
+    vol_expr = _music_volume_expr(vol, silence_windows, reveal_positions)
 
     # music: loop to cover total_dur, set volume (static or swelling), fade out.
     music_chain = (
@@ -1343,10 +1694,14 @@ def _render_with_music(ff: str, av: Path, music: Path, ass_filter: str | None,
         vmap = "0:v"
         graph = mix
 
+    # A prebuilt mood bed is already exactly total_dur long with its moods in
+    # order - looping it would restart the first mood over the ending.
+    _music_in = ["-i", str(music)] if prebuilt_bed else \
+        ["-stream_loop", "-1", "-i", str(music)]
     cmd = [
         ff, "-y",
         "-i", str(av),
-        "-stream_loop", "-1", "-i", str(music),
+        *_music_in,
         *sfx_inputs,
         "-filter_complex", graph,
         "-map", vmap, "-map", "[aout]",

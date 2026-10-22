@@ -40,6 +40,9 @@ def show(path, draft):
              round(100 * (m.get("punch_share") or 0), 1),
              round(100 * (m.get("opener_share") or 0), 1),
              m.get("judgment_lines"), m.get("silence_units")))
+    print("  words=%s  beats=%s  words/beat=%s  lines/beat=%s"
+          % (m.get("words"), m.get("beats_served"),
+             m.get("words_per_beat"), m.get("lines_per_beat")))
     if m.get("payload"):
         print("  payload:", m["payload"],
               " rest_share=%.0f%%" % (100 * (m.get("rest_share") or 0)))
@@ -151,6 +154,72 @@ def selftest() -> int:
         ok = False
     else:
         print("     PASS: 100%-rest draft rejected")
+
+    print()
+    print("### TITLE: premise title vs film name, both directions")
+    # Item 4 co hai nua. Nua am ("khong duoc la '<phim> (<nam>)'") da co tu
+    # truoc. Nua duong ("phai LA mot tien de") duoc them 2026-10-20 bang mot
+    # proxy: mot tien de la mot MENH DE, mot ten phim la mot CUM DANH TU, nen
+    # dau hieu may doc duoc la co dong tu hay khong.
+    _tbase = _load(os.path.join(root, HUMAN))
+    TITLES = [
+        ("human badgenius", "Bad Genius - the exam heist that crossed a time zone", True),
+        ("tokyodrift premise", "Shipped to Tokyo to Avoid Jail, He Owes the Yakuza a Debt Only a Race Can Pay", True),
+        ("MysteryRecapped A", "Students Don't Realise Their Teacher Is A Kungfu Legend", True),
+        ("MysteryRecapped B", "Man Steps On Landmine & Can't Move For 52 Hours", True),
+        ("film + year", "The Fast and the Furious: Tokyo Drift (2006)", False),
+        ("bare film name", "Tokyo Drift", False),
+        ("name + year short", "Bad Genius (2017)", False),
+        ("name, no verb", "The Fast and the Furious: Tokyo Drift", False),
+    ]
+    for nm, t, should_pass in TITLES:
+        dd = dict(_tbase)
+        dd["title"] = t
+        hits = [e for e in craft_report(dd)["errors"]
+                if e.startswith("[HOOK] title")]
+        passed = not hits
+        good = (passed == should_pass)
+        print("  %-20s %-8s -> %-8s %s"
+              % (nm, "pass" if should_pass else "reject",
+                 "passed" if passed else "rejected", "OK" if good else "WRONG"))
+        if not good:
+            ok = False
+
+    print()
+    print("### DENSITY: words-per-beat ceiling, both directions")
+    # Chieu DUONG: hai ban da duoc nguoi duyet phai pass.
+    for nm, rel in (("human badgenius", HUMAN),
+                    ("rendered machine bg", "projects/badgenius2017_machine/draft.json")):
+        p = os.path.join(root, rel)
+        if not os.path.exists(p):
+            print("  %-20s (missing - NOT counted as a pass)" % nm)
+            continue
+        mm = craft_report(_load(p))
+        dens = [e for e in mm["errors"] if e.startswith("[DENSITY]")]
+        print("  %-20s %5.1f w/beat  %s"
+              % (nm, mm["metrics"].get("words_per_beat") or -1,
+                 "FAILS <-- unexpected" if dens else "passes"))
+        if dens:
+            print("     ", dens[0])
+            ok = False
+    # Chieu AM: dung chinh ban 58 phut da bi tu choi, dung lai tu cac shard
+    # KHONG con ton tai -> tai tao bang cach nhan doi do dai moi dong cua ban
+    # cuoi. Mot fixture tong hop, nhung ty le dung voi cai da do: 105.7 w/beat.
+    infl = _load(os.path.join(root, MACHINE))
+    for i, l in enumerate(infl["lines"]):
+        t = str(l.get("narration", "")).strip()
+        if t:
+            l["narration"] = (t + " ") * 4          # phinh x4, beat khong doi
+            l["payload"] = ("loop" if i % 9 == 0 else
+                            "judgment" if i % 17 == 0 else
+                            "rest" if i % 11 == 0 else "stake")
+    ir = craft_report(infl)
+    idens = [e for e in ir["errors"] if e.startswith("[DENSITY]")]
+    print("  %-20s %5.1f w/beat  %s"
+          % ("inflated x4", ir["metrics"].get("words_per_beat") or -1,
+             "REJECTED as it should be" if idens else "PASSED <-- gate is blind"))
+    if not idens:
+        ok = False
 
     print()
     print("### GUARD: a short fixture must NOT be hard-failed")

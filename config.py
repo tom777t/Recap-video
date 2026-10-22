@@ -29,12 +29,25 @@ DEFAULT_WHISPER_MODEL = "small"      # tiny | base | small | medium | large-v3
 # (DEFAULT_TARGET_MINUTES removed 2026-08-09 - it was referenced nowhere and
 #  contradicted DEPTH_TIERS, which is the real source of target runtime.)
 DEFAULT_TTS_VOICE = "en-US-AndrewMultilingualNeural"  # natural male US voice
-DEFAULT_TTS_RATE = "+22%"            # brisk "review phim" delivery = hooks the viewer
+# 2026-10-20: was "+22%", which measured 198 WPM - 64% faster than the 121 WPM
+# of the largest channel in the genre and 24% above the 160 WPM ceiling two
+# independent production guides give as the point where comprehension suffers.
+# Lowered to -15% after MEASURING the rate->WPM curve instead of assuming it.
+# The curve is NOT linear, so arithmetic from a single data point would have
+# been wrong: same 87-word passage, same voice, one take per rate -
+#   -30% 132.9 | -28% 136.2 | -22% 148.8 | -18% 156.5 | -15% 158.5
+#    -5% 178.3 | +0% 189.5
+# A 22-point rate change moves WPM by only ~5%, so the old "+22% = brisk"
+# intuition was buying very little speed for a lot of strain.
+# Continuous prose reads FASTER than a real draft, which is full of short punch
+# sentences and their pauses, so -15% lands mid-band (140-160) on real text.
+# Verified against a real render - see docs/RENDER_CRAFT_CRITERION.md.
+DEFAULT_TTS_RATE = "-15%"
 
-# Words-per-minute estimate for English neural TTS at the rate above.
-# Used to estimate narration duration when planning the draft.
-# Lowered from 185 after the pacing slow-down (normal/tense rates reduced).
-TTS_WORDS_PER_MINUTE = 170
+# Words-per-minute FALLBACK, used only when the voice has no measured profile
+# in config/voice_profiles.json. The measured profile is always primary and the
+# output names which basis it used.
+TTS_WORDS_PER_MINUTE = 150
 
 # --------------------------------------------------------------------------- #
 # Stage 2 depth targets (2026-06-22 depth-target enhancement).
@@ -140,8 +153,45 @@ SHOWCASE_HOLD_MAX = 10.0   # never silent-hold longer than this
 # A line can set "hold": 8 for a single held shot, or "montage": ["A4","A7",..]
 # to cut through several action shots during the (mostly silent) hold.
 
+# --------------------------------------------------------------------------- #
+# FILM AUDIO under the narration (2026-10-20).
+# Until now every clip's audio track was the narration ALONE: _build_clip maps
+# [0:v] from the source and [1:a] from the narration mp3, so the film's own
+# tyres, gunshots, score and dialogue were discarded on every clip in every
+# render. Silence clips were worse - literally `anullsrc`.
+# Now the source audio is mixed in underneath the voice.
+# --------------------------------------------------------------------------- #
+FILM_AUDIO_ENABLE = True
+FILM_AUDIO_DB = -17.0      # under narration (-15..-20 is the band in the guides)
+FILM_AUDIO_HOLD_DB = -6.0  # inside a narration_silence hold: let the film carry it
+FILM_AUDIO_PRE_REVEAL_DB = -8.0   # raised in the seconds before a <reveal>
+FILM_AUDIO_PRE_REVEAL_SEC = 1.5   # how long before the reveal the raise starts
+
 # Background music
 MUSIC_VOLUME = 0.15        # music level under the voice (0..1). History: 0.13 was judged too subtle, 0.18 too present. 0.15 from 2026-08-13.
+# --------------------------------------------------------------------------- #
+# MOOD BEDS (2026-10-20). One fixed bed for a whole film reads as wallpaper.
+# Drop files in projects/<name>/music/{tense,neutral,action,sad}.mp3 and the
+# render picks a bed per story stretch from the dominant delivery tag there.
+# Missing files are NOT an error: the render falls back to music.mp3 and says
+# so out loud.
+# --------------------------------------------------------------------------- #
+MUSIC_MOODS = ("tense", "neutral", "action", "sad")
+MUSIC_MOOD_FOR_TAG = {
+    "action": "action", "hook": "action",
+    "tense": "tense", "mystery": "tense",
+    "sad": "sad",
+    "normal": "neutral", "intro": "neutral", "outro": "neutral",
+    "reveal": "neutral",       # the music DROPS before a reveal anyway
+}
+MUSIC_MOOD_MIN_SEC = 25.0   # do not switch beds more often than this
+# Ducking depth under the voice. The retention guides give 20-25 dB for
+# ordinary narration and 8-12 dB in action, where the bed should be felt.
+MUSIC_DUCK_DB = -22.0
+MUSIC_DUCK_ACTION_DB = -10.0
+# Cut the bed just before a reveal so the line lands into a hole.
+MUSIC_PRE_REVEAL_DROP_SEC = 1.5
+MUSIC_PRE_REVEAL_LEVEL = 0.02    # near-silence, not a hard zero (avoids a click)
 MUSIC_DUCK = True          # duck music slightly whenever narration plays
 MUSIC_FADEOUT = 3.0        # fade music out over N seconds at the very end
 # Gap 3 silence shots: during a narration-free "silence" shot the music swells
@@ -170,11 +220,15 @@ LOUDNORM_LRA = 11.0        # loudness range
 # --------------------------------------------------------------------------- #
 # Sound design (synthesized SFX, mixed under music, below the voice)
 # --------------------------------------------------------------------------- #
-SFX_ENABLE = False         # master switch for sound design (Joker v2 render: --no-sfx)
-SFX_WHOOSH = True          # transition whooshes between clips
-SFX_BOOM = True            # low boom on hold/reveal action beats
-SFX_STING = True           # bright sting on the channel-intro line
-SFX_RISER = True           # rising tension on mystery beats
+# 2026-10-20: SFX back ON, but only on REVEALS and HOLDS - see
+# sfx.plan_events(). It used to emit a transition whoosh before every clip
+# (~190 of them on a 190-line draft), a sting on the intro and a riser on every
+# mystery beat, which is why it was switched off wholesale instead of aimed.
+SFX_ENABLE = True          # master switch for sound design
+SFX_WHOOSH = False         # retired: a whoosh on every cut is the cheap-recap tell
+SFX_BOOM = True            # low boom on a reveal line and on a hold
+SFX_STING = False          # retired with the intro sting
+SFX_RISER = False          # retired: fired on every mystery beat
 # gains in dB (negative = quieter); kept subtle so they sit under the mix
 SFX_WHOOSH_DB = -16.0
 SFX_BOOM_DB = -12.0        # nudged down from -10 (booms were the loudest hits)
@@ -203,17 +257,39 @@ MAX_FAMILY_USES = 2    # each VISUAL FAMILY (fin/explosion/chase...) at most 2x
 # --------------------------------------------------------------------------- #
 TTS_DELIVERY = {
     # NOTE: "normal" carries no rate. _delivery_for() always overrides it with
-    # base_rate (DEFAULT_TTS_RATE, +22%), so a rate here was dead - the "+16%"
+    # base_rate (DEFAULT_TTS_RATE), so a rate here would be dead - the "+16%"
     # that used to sit on this line never reached a single rendered word.
-    "normal":  {"pitch": "+0Hz",  "volume": "+0%"},
-    "hook":    {"rate": "+30%", "pitch": "+2Hz",  "volume": "+8%"},  # energetic open
-    "tense":   {"rate": "+26%", "pitch": "+3Hz",  "volume": "+8%"},  # slowed from +34 (action/urgency)
-    "mystery": {"rate": "+10%", "pitch": "-3Hz",  "volume": "-2%"},  # hushed, slow
-    "sad":     {"rate": "+6%",  "pitch": "-4Hz",  "volume": "-4%"},  # somber beats
-    "intro":   {"rate": "+20%", "pitch": "+1Hz",  "volume": "+6%"},  # channel intro
-    "outro":   {"rate": "+18%", "pitch": "+0Hz",  "volume": "+4%"},  # sign-off
+    #
+    # 2026-10-20 REBUILT. Two faults were fixed at once:
+    #
+    # 1. `reveal`, `action` and `discovery` had NO preset, and _delivery_for()
+    #    silently fell back to "normal" for any unknown tag. So all 10 <reveal>
+    #    lines in tokyodrift2006 and the <action> line in badgenius2017 were
+    #    read at exactly the pace of an ordinary line: the writer marked the
+    #    biggest moments in the film and the renderer ignored the marks. An
+    #    unknown tag is now a hard ERROR - see _delivery_for().
+    # 2. `tense` was +26% against a +22% base: 4 points apart, and 52% of the
+    #    tokyodrift draft carried it. "Tense" had no flat ground to rise from.
+    #
+    # WPM figures below are measured on one 87-word passage, one take each, so
+    # they compare with each other - not with a different text.
+    "normal":  {              "pitch": "+0Hz", "volume": "+0%"},  # base -15% ~158
+    "hook":    {"rate": "+0%",  "pitch": "+2Hz", "volume": "+8%"},  # ~190 energetic open
+    "action":  {"rate": "+0%",  "pitch": "+1Hz", "volume": "+6%"},  # ~190 fastest
+    "tense":   {"rate": "-5%",  "pitch": "+3Hz", "volume": "+8%"},  # ~178, 20 WPM clear of normal
+    "intro":   {"rate": "-10%", "pitch": "+1Hz", "volume": "+6%"},  # ~173 channel intro
+    "outro":   {"rate": "-14%", "pitch": "+0Hz", "volume": "+4%"},  # ~159 sign-off
+    "mystery": {"rate": "-22%", "pitch": "-3Hz", "volume": "-2%"},  # ~149 hushed
+    "reveal":  {"rate": "-26%", "pitch": "-2Hz", "volume": "+2%"},  # ~140 slow, lower, lands
+    "sad":     {"rate": "-30%", "pitch": "-4Hz", "volume": "-4%"},  # ~133 slowest
 }
 DEFAULT_DELIVERY = "normal"
+
+# Silence inserted BEFORE a <reveal> line so the reveal arrives out of a gap
+# rather than on the heels of the previous sentence. 400-800ms is the range the
+# retention guides give; 0.6s is the middle. GAP_BETWEEN_LINES still applies
+# everywhere else.
+PRE_REVEAL_PAUSE = 0.6
 
 # --------------------------------------------------------------------------- #
 # Caption styling (burned in via ffmpeg subtitles filter, ASS overrides)

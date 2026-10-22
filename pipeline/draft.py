@@ -1759,10 +1759,31 @@ def parse_reveal_map(project) -> list:
     return reveals
 
 
+def exception_key(reveal_id, beat_id, narration) -> str:
+    """Durable key for reviewed_exceptions.md: reveal id + beat id + text hash.
+
+    2026-10-20. The key USED to be "<reveal_id> L<line_id>", and line ids are
+    assigned by assemble_draft.py in clip order - so renumbering the draft
+    silently invalidated every declared exception. It happened: 'R2 L103' went
+    stale the moment tokyodrift2006 was redrafted, and a stale entry is exactly
+    how a gate dies quietly in the other direction (the finding moves, the note
+    stays, and it covers the next one).
+
+    Beat id survives renumbering. The text hash makes the entry specific to the
+    WORDING a human actually reviewed: edit the line and the exception stops
+    applying, which is correct - nobody reviewed the new sentence.
+    """
+    import hashlib as _hl
+    import re as _re2
+    norm = _re2.sub(r"\s+", " ", str(narration or "")).strip().lower()
+    h8 = _hl.sha1(norm.encode("utf-8")).hexdigest()[:8]
+    return f"{reveal_id} {beat_id or '?'} {h8}"
+
+
 def reveal_timing_check(project, d) -> list:
     """REVEAL-TIMING: flag any protected reveal term spoken in narration BEFORE
     its landing time. Returns a list of hits:
-        {reveal_id, term, line_id, line_sec, land_ref, land_sec}
+        {reveal_id, term, line_id, beat_id, key, line_sec, land_ref, land_sec}
     LITERAL word-boundary text scan only - see the printed limit note. No-op
     (returns []) when there is no reveal-map block.
     """
@@ -1789,11 +1810,16 @@ def reveal_timing_check(project, d) -> list:
             line_sec = parse_ts(cs)
         except Exception:
             continue
+        _beat = (getattr(ln, "note", None)
+                 or getattr(ln, "beat_id", None) or None)
         for rv, term, pat in compiled:
             if line_sec < rv["land_sec"] and pat.search(narr):
                 hits.append({
                     "reveal_id": rv["id"], "term": term,
-                    "line_id": getattr(ln, "id", "?"), "line_sec": line_sec,
+                    "line_id": getattr(ln, "id", "?"),
+                    "beat_id": _beat,
+                    "key": exception_key(rv["id"], _beat, narr),
+                    "line_sec": line_sec,
                     "land_ref": rv["land_ref"], "land_sec": rv["land_sec"],
                 })
     return hits
@@ -2337,7 +2363,13 @@ def _run_phase1_audits(project, pdir):
     reveal_hits = reveal_timing_check(project, d) if style == "linear" else []
     # 2026-09-10: REVEAL-TIMING truoc day KHONG tra cuu reviewed_exceptions.md.
     # Viet mot muc cho no vao file do se la mot ghi chep CHET - trong giong nhu
-    # da duoc xu ly, ma khong he duoc doc. Khoa la "<reveal_id> L<line_id>".
+    # da duoc xu ly, ma khong he duoc doc.
+    # 2026-10-20: khoa KHONG con la "<reveal_id> L<line_id>". Line id do
+    # assemble_draft.py gan theo thu tu clip, nen danh so lai lam moi muc da
+    # khai bao mat hieu luc trong im lang - va dieu do da xay ra: 'R2 L103'
+    # thanh STALE ngay khi tokyodrift2006 duoc viet lai. Khoa moi la
+    # "<reveal_id> <beat_id> <hash8 cua loi>": beat id song qua danh so lai, va
+    # hash buoc muc nay vao DUNG cau ma nguoi ta da doc.
     # `_revd` song trong validate_draft, khong phai trong ham nay - lan dau toi
     # dung thang no o day va duoc NameError. Nap lai tai cho.
     _revd, _ = _reviewed.load(pdir)
@@ -2346,8 +2378,20 @@ def _run_phase1_audits(project, pdir):
     if reveal_hits:
         _keep = []
         for h in reveal_hits:
-            _k = f"{h['reveal_id']} L{h['line_id']}"
+            _k = h["key"]
             _exc = _revd.get(("REVEAL-TIMING", _k))
+            if not _exc:
+                # Khoa cu ("R2 L103") van duoc NHAN RA de bao cho nguoi dung
+                # biet phai doi sang dang nao - nhung KHONG duoc dung de mien
+                # tru. Mot khoa het han thi phai het han.
+                _legacy = f"{h['reveal_id']} L{h['line_id']}"
+                if ("REVEAL-TIMING", _legacy) in _revd:
+                    console.print(
+                        f"[yellow][REVIEWED-EXCEPTION][/] '{_legacy}' uses the "
+                        f"OLD line-number key and no longer grants anything. "
+                        f"Line numbers move when a draft is renumbered. "
+                        f"Replace it with:\n    REVEAL-TIMING | {_k} | "
+                        f"<YYYY-MM-DD> | <reason>")
             if _exc:
                 _revd_hit.add(("REVEAL-TIMING", _k))
                 _rt_reviewed.append((_k, _exc))
@@ -2376,6 +2420,9 @@ def _run_phase1_audits(project, pdir):
             console.print(
                 f"    {h['reveal_id']}: \"{h['term']}\" in line {h['line_id']} "
                 f"(~{h['line_sec']/60:.1f} min) lands before {land}")
+            # In ra DUNG khoa can dan vao reviewed_exceptions.md. Khong co no,
+            # nguoi dung phai tu doan hash, va se quay ve dat khoa theo so dong.
+            console.print(f"[dim]      key: {h['key']}[/]")
         # escalate to soft, never downgrade hard
         sev = "hard" if sev == "hard" else "soft"
     # Honest-limit note prints whenever a reveal-map exists (hits or not), so no

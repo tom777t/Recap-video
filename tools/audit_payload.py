@@ -98,6 +98,28 @@ def emit(project, n, seed):
     print("  raised  - does the hook line genuinely raise that question?")
     print("  held    - is the question still unanswered after these 15 lines?")
     print()
+    print("## Part 3 - the title")
+    print()
+    print("Title as written:")
+    print("    %s" % (d.get("title") or "(none)"))
+    print()
+    print("A good title for this genre follows: [a role or character named by")
+    print("a trait] + [an extraordinary premise stated as plain fact] +")
+    print("[a consequence that is withheld]. Examples that work:")
+    print('    "Students Don\'t Realise Their Teacher Is A Kungfu Legend"')
+    print('    "Man Steps On Landmine & Can\'t Move For 52 Hours"')
+    print('    "Bad Genius - the exam heist that crossed a time zone"')
+    print("A title that is just the film\'s name, or the name plus a year,")
+    print("wastes the strongest device the format has.")
+    print()
+    print("Judge three things, and do NOT be generous - a validator already")
+    print("checked that the title contains a verb and is not '<film> (<year>)',")
+    print("so those are not what you are being asked:")
+    print("  premise  - does it state an extraordinary premise as fact?")
+    print("  withheld - does it hold back the consequence rather than telling")
+    print("             the ending?")
+    print("  spoils   - does it give away a reveal it should not?")
+    print()
     print("## Output - write ONLY this JSON to %s"
           % (pdir / "payload_audit.json"))
     print()
@@ -107,6 +129,8 @@ def emit(project, n, seed):
                       "why": "<only if ok is false>"} for l in sample[:2]]
         + ["... one entry per sampled line ..."],
         "hook": {"raised": True, "held": True, "why": ""},
+        "title": {"premise": True, "withheld": True, "spoils": False,
+                  "why": ""},
     }, indent=2, ensure_ascii=False))
     return 0
 
@@ -141,6 +165,24 @@ def score(project, path):
         print("FAIL: the hook's stated question is not raised by the hook "
               "line, or is already answered early.")
         failed = True
+    ti = a.get("title") or {}
+    if ti:
+        print("title premise : %s" % ti.get("premise"))
+        print("title withheld: %s" % ti.get("withheld"))
+        print("title spoils  : %s" % ti.get("spoils"))
+        if ti.get("why"):
+            print("   %s" % ti["why"])
+        if ti.get("premise") is False or ti.get("withheld") is False:
+            print("FAIL: the title is not a premise title, or it gives the "
+                  "consequence away instead of withholding it.")
+            failed = True
+        if ti.get("spoils") is True:
+            print("FAIL: the title spoils a reveal.")
+            failed = True
+    else:
+        print("title        : NOT AUDITED - the verdict file has no `title` "
+              "block. The verb-presence check in [HOOK] is a proxy only, so "
+              "with no audit the premise-title rule is unverified.")
     if not failed:
         print("PASS: labels hold up (%d/%d wrong, limit %d)."
               % (len(wrong), len(v), FAIL_AT))

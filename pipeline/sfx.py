@@ -93,22 +93,32 @@ def plan_events(draft: dict, boundaries: list[float]) -> list[dict]:
     if not getattr(config, "SFX_ENABLE", False):
         return events
 
+    # 2026-10-20 REVEALS AND HOLDS ONLY.
+    # This used to emit a transition whoosh before EVERY clip (so ~190 whooshes
+    # on a 190-line draft), a sting on the intro and a riser on every mystery
+    # beat. "Use these in moderation" is the one point every sound-design guide
+    # agrees on, and a whoosh on every cut is the most recognisable mark of a
+    # cheap recap.
+    # The filtering lives HERE, at the point the events are decided, not as a
+    # screen applied afterwards in render.py: the first version of this change
+    # filtered downstream on `ev["line_id"]`, and since these dicts never
+    # carried a line_id it silently dropped every single event while printing a
+    # confident count. Every event now carries its line id.
     lines = draft["lines"]
     for i, ln in enumerate(lines):
         at = boundaries[i] if i < len(boundaries) else 0.0
-        deliv = ln.get("delivery", "normal")
-        # transition whoosh just before each clip (except the first)
-        if i > 0 and config.SFX_WHOOSH:
-            events.append({"sfx": "whoosh", "at": max(0.0, at - 0.15),
-                           "gain": config.SFX_WHOOSH_DB})
-        # boom on the reveal of a hold beat
-        if ln.get("hold") and config.SFX_BOOM:
-            events.append({"sfx": "boom", "at": at, "gain": config.SFX_BOOM_DB})
-        # sting on the intro line
-        if deliv == "intro" and config.SFX_STING:
-            events.append({"sfx": "sting", "at": at, "gain": config.SFX_STING_DB})
-        # riser on a mystery beat (tension build)
-        if deliv == "mystery" and config.SFX_RISER:
-            events.append({"sfx": "riser", "at": max(0.0, at - 0.5),
-                           "gain": config.SFX_RISER_DB})
+        lid = ln.get("id")
+        deliv = str(ln.get("delivery") or "normal")
+        is_hold = (ln.get("narration_silence_seconds") is not None
+                   or bool(ln.get("hold")))
+        # A reveal gets a low boom ON the line.
+        if deliv == "reveal" and config.SFX_BOOM:
+            events.append({"sfx": "boom", "at": at,
+                           "gain": config.SFX_BOOM_DB, "line_id": lid,
+                           "why": "reveal"})
+        # A hold gets one boom as the picture takes over.
+        elif is_hold and config.SFX_BOOM:
+            events.append({"sfx": "boom", "at": at,
+                           "gain": config.SFX_BOOM_DB, "line_id": lid,
+                           "why": "hold"})
     return events
