@@ -195,9 +195,21 @@ def main() -> int:
     ap.add_argument("--n", type=int, default=SAMPLE)
     ap.add_argument("--seed", type=int, default=20261020)
     ap.add_argument("--score")
+    # Xem ghi chu trong tools/audit_punchup.py: `>` cua PowerShell ghi UTF-16LE
+    # va trinh doc file cua subagent coi do la binary. Ghi UTF-8 truc tiep.
+    ap.add_argument("--out", help="write the task to this path as UTF-8")
     a = ap.parse_args()
     if a.score:
         return score(a.project, a.score)
+    if a.out:
+        import contextlib
+        buf = io.StringIO()
+        with contextlib.redirect_stdout(buf):
+            rc = emit(a.project, a.n, a.seed)
+        io.open(a.out, "w", encoding="utf-8").write(buf.getvalue())
+        print("wrote %s (%d bytes, utf-8)"
+              % (a.out, len(buf.getvalue().encode("utf-8"))))
+        return rc
     return emit(a.project, a.n, a.seed)
 
 

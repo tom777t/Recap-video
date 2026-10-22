@@ -273,68 +273,124 @@ overwhelmingly use names. `[SPINE]` stands.
 ## Flat → voiced: ten pairs from the old Tokyo Drift draft
 
 Left column is the shipped pre-craft line, unedited. Right column applies the
-devices above. **Facts only from the film** - nothing invented, no dialogue put
-in anyone's mouth that the transcript does not support. Each pair names the
-device it is demonstrating.
+devices above. Each pair names the device it demonstrates.
 
-**1. Opening race** — device 5 (rhythm: long then punch) + device 3 (shared "you")
+### These were wrong the first time, and how
+
+The first version of this section invented facts and leaked reveals in 4 of 10
+pairs. Recording it because it is the exact failure the punch-up pass will have
+by default, and it is why the two audits below exist:
+
+| pair | what I wrote | what the data says |
+|---|---|---|
+| 5 | named the man at 00:39:25 **"Kamata"** | `chars` are *the man in the black T-shirt, the long-haired man in the dark jacket*. Kamata appears at **01:07** in a white suit and panama hat. Wrong person by 28 minutes |
+| 6 | "He has been doing it **for months**" | invented duration, **and** it leaks R1 (the skim) 4.5 min before its land at 01:07:29 |
+| 7 | "That is the part that **costs Han his life**" | foreshadows R2 7.6 min before its land at 01:15:07 |
+| 9 | "the engine out of **Han's drift car**" | tags confirm a *Nissan Twin Cam 24-valve* in *the Ford's bay* - they never say whose car it came from |
+
+Two more found on re-check, which nobody had flagged:
+
+| pair | what I wrote | what the data says |
+|---|---|---|
+| 3 | "a **fist on the tailgate**" | the tag says *a shaggy green monster toy propped up in the driver's seat* |
+| 4 | "calling him Donkey Kong **all night**" | another invented duration; the tag for that shot is two people standing in a lift in silence |
+
+Every claim below was checked against `shots.json` `chars`/`action`, the
+transcript, and the reveal-map land times. Line 104 turns out to sit at 4050s
+with R1 landing at 4049s - so naming the skim there is legal by one second,
+which is worth knowing rather than guessing.
+
+**1. Opening race** (line 7, 309s) — device 5 (long then punch) + device 3
 > *flat:* They line up in a half-built housing tract and tear away down the dirt street.
 >
-> *voiced:* They line up in a housing development nobody has finished building, which tells you how much either of them cares where this ends. Then the dirt takes them.
+> *voiced:* They line up at a billboard for a housing development nobody has finished building, which tells you how much either of them cares where this ends. Then the dirt takes them.
 
-**2. The detective's arithmetic** — device 1 (narrator has a view) + device 4 (dry understatement)
+*Checked:* tag names a `Shang-Ri-La Estates` billboard at a half-built tract.
+
+**2. The detective's arithmetic** (line 13, 623s) — device 1 + device 4
 > *flat:* Ken and Barbie walk free; their parents are hooked up. Screw-ups like him are a guaranteed conviction, and his car is already crushed.
 >
-> *voiced:* Clay and Cindy go home, because their parents know people. Sean is a guaranteed conviction, and his car is already scrap. Same crash. Two different countries of consequence.
+> *voiced:* The detective calls the other two Ken and Barbie, and says their parents are connected enough that they go home tonight. Sean is a guaranteed conviction. Same crash, two different countries of consequence.
 
-**3. Twinkie's minivan** — device 4 (play the joke, don't report it)
+*Checked:* keeps the detective's own words rather than asserting which
+characters he means - the tag for this shot shows only him and Sean.
+
+**3. Twinkie's minivan** (line 29, 1254s) — device 4 (play the joke)
 > *flat:* Off the lift comes a minivan painted Hulk green, a monster toy at the wheel.
 >
-> *voiced:* What comes down the lift is a minivan. Hulk green, with a fist on the tailgate. He is so proud of it, and I am not going to be the one to tell him.
+> *voiced:* What comes out of the lift is a minivan. Hulk green, with a shaggy green monster propped up in the driver's seat. He is so proud of it, and I am not going to be the one to tell him.
 
-**4. The name reveal** — device 5 (punch) + withholding
+*Checked:* the monster toy in the driver's seat is in the tag. The tailgate
+fist I invented first time round is not.
+
+**4. The name reveal** (line 39, 1596s) — device 5 (punch)
 > *flat:* In the lift down, Twinkie spells out what DK stands for. Not Donkey Kong. Drift King.
 >
-> *voiced:* Sean has been calling him Donkey Kong all night. On the way down, Twinkie explains what DK actually stands for, and it is the kind of correction you only need once. Drift King.
+> *voiced:* On the way down, Twinkie explains what the DK everybody keeps saying actually stands for. It is not Donkey Kong. Drift King.
 
-**5. Kamata at the table** — device 7 (name + role, never "the gangster")
+*Checked:* no duration asserted. The tag is two people in a lift; the content
+comes from the beat, not from anything I added.
+
+**5. The table** (line 60, 2365s) — device 7, with no name available
 > *flat:* The gangster leans across the table, grinning. By the end Han has dropped his eyes.
 >
-> *voiced:* Kamata runs the turf every one of these races happens on, and he is smiling the whole way through this conversation. By the end of it Han is the one looking at the table.
+> *voiced:* One of the men at the table leans across it, grinning, and asks when a shipment is arriving. Han tells him to sit pretty and let him handle it. Watch who is comfortable in this room, and who is answering questions in it.
 
-**6. Han's warning** — device 1 (opinion) + keeping the film's own phrase
+*Checked:* `chars` give no name for this man, so he gets none. The shipment
+exchange is in the transcript at 2372.9-2378.7. The closing judgment is about
+the power in the room, deliberately **not** about Han having a secret - that
+would foreshadow R1, 28 minutes early.
+
+**6. Han's warning** (line 94, 3779s — 4.5 min before R1) — device 1
 > *flat:* Blood at his mouth, Neela at his shoulder. He did not just play with fire, Han says - he soaked the matches in gasoline.
 >
-> *voiced:* Sean has blood at his mouth and Neela at his shoulder, and Han gives him the only telling-off in this film worth quoting: he didn't just play with fire, he soaked the matches in gasoline. Han would know. He has been doing it for months.
+> *voiced:* Sean is on the asphalt with blood at his mouth and Neela steadying his shoulder, and Han gives him the only telling-off in this film worth quoting: he didn't just play with fire, he soaked the matches in gasoline.
 
-**7. The skim** — device 5 (long mechanism, then punch)
+*Checked:* the line is verbatim in the transcript at 3786.5. Nothing is added,
+because anything added here about Han's own position leaks R1.
+
+**7. The skim** (line 104, 4050s — R1 lands at 4049s) — device 5
 > *flat:* In the blue-lit office DK hears it: his own partner has been stealing from the operation. Han has been taking money out of the books.
 >
-> *voiced:* Kamata goes through the books in front of his nephew and explains, without raising his voice, that the partner Takashi built all of this with has been taking money out of it for months. He finds out from his uncle. That is the part that costs Han his life.
+> *voiced:* In a blue-lit office Takashi stands in front of his uncle's armchair while the accusation lands: the partner he built all of this with has been taking money out of the books. He does not deny it. He drops his eyes, which tells you he did not know either.
 
-**8. Walking into the alley** — device 3 ("you") + dropping the place-opener
+*Checked:* legal by one second. No duration, and no reference forward to R2.
+"Drops his eyes" is in the tag; the inference from it is reasoning, not a fact
+claim.
+
+**8. Walking into the alley** (line 134, 4831s — after R2) — device 3
 > *flat:* Night, steam venting over a crowded street. In dark clothes Sean turns into an alley where men are already waiting.
 >
-> *voiced:* Sean turns into an alley that is already full of men waiting for him, carrying a bag of a dead man's money, to ask a yakuza boss for a favour. You can see him deciding not to think about it.
+> *voiced:* Sean turns off a crowded street into a narrow alley where men are already waiting for him, carrying a bag of a dead man's money, to ask a yakuza boss for a favour. You can watch him decide not to think about it.
 
-**9. The rebuild** — device 1 + device 4 (afterthought clause)
+*Checked:* 4831s is after R2's land at 4507s, so "a dead man's money" is legal
+here. It would not have been eleven minutes earlier.
+
+**9. The rebuild** (line 155, 5195s) — device 1 + device 4
 > *flat:* Hands polish the finished tail - black, twin white stripes, a Japanese plate. The Mustang is whole again.
 >
-> *voiced:* His father's wrecked Mustang goes back together around the engine out of Han's drift car - American shell, Japanese heart, built in the same room by both of them. It is the best idea the film has, and it never says a word about it.
+> *voiced:* Hands polish the finished tail, black with twin white stripes and a Japanese plate on the back of a Mustang. A Nissan twin-cam sitting in a Ford's engine bay. It is the best idea the film has, and it never says a word about it.
+
+*Checked:* tags at 01:25:24 and 01:25:34 give *Nissan motor sitting in the
+Ford's bay* and *Nissan Twin Cam 24-valve cover*. They do **not** say the motor
+came from Han's car, so that is gone.
 
 **10. The outro** — device 2 (thesis, then ask)
 > *flat:* The kid who was shipped to Tokyo to stay out of jail is the one everybody lines up against now. And this race, for once, he never went looking for.
 >
 > *voiced:* Sean spent his whole life being moved on, and he only wins the day he stops running. Han paid for that, and the film lets him stay. If that landed, tell me what to recap next.
 
-Two notes on what these deliberately avoid:
+*Checked:* last line of the draft, so every reveal has already landed.
 
-- No scattered "right?" or "you know?" — the literal rendering of Vietnamese
-  final particles, and the fastest way to make this sound like filler rather
-  than voice (device 4).
-- No invented dialogue. Pair 6 keeps the film's own line because it is better
-  than a paraphrase; pair 7 states the outcome of a scene whose dialogue the
-  transcript does carry.
+Three things these deliberately avoid:
+
+- **No invented durations.** "For months", "all night" - both were in the first
+  version, both are the same error, and neither is in any tag or transcript.
+- **No scattered "right?" or "you know?"** - the literal rendering of Vietnamese
+  final particles, and the fastest way to make this read as filler (device 4).
+- **No judgment that points forward.** The opinion in pair 5 is about the room,
+  not about Han, precisely because an opinion can foreshadow without using any
+  of R1's protected keywords.
 
 ## What this document does not establish
 
