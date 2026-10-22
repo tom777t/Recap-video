@@ -29,25 +29,36 @@ DEFAULT_WHISPER_MODEL = "small"      # tiny | base | small | medium | large-v3
 # (DEFAULT_TARGET_MINUTES removed 2026-08-09 - it was referenced nowhere and
 #  contradicted DEPTH_TIERS, which is the real source of target runtime.)
 DEFAULT_TTS_VOICE = "en-US-AndrewMultilingualNeural"  # natural male US voice
-# 2026-10-20: was "+22%", which measured 198 WPM - 64% faster than the 121 WPM
-# of the largest channel in the genre and 24% above the 160 WPM ceiling two
-# independent production guides give as the point where comprehension suffers.
-# Lowered to -15% after MEASURING the rate->WPM curve instead of assuming it.
-# The curve is NOT linear, so arithmetic from a single data point would have
-# been wrong: same 87-word passage, same voice, one take per rate -
-#   -30% 132.9 | -28% 136.2 | -22% 148.8 | -18% 156.5 | -15% 158.5
-#    -5% 178.3 | +0% 189.5
-# A 22-point rate change moves WPM by only ~5%, so the old "+22% = brisk"
-# intuition was buying very little speed for a lot of strain.
-# Continuous prose reads FASTER than a real draft, which is full of short punch
-# sentences and their pauses, so -15% lands mid-band (140-160) on real text.
-# Verified against a real render - see docs/RENDER_CRAFT_CRITERION.md.
-DEFAULT_TTS_RATE = "-15%"
+# 2026-10-21 REVERTED to +10%. History, because the number moved twice:
+#
+#   +22%  original. Measured 198 WPM.
+#   -15%  set on the research report's claim that the genre's biggest channel
+#         runs 121 WPM, making 198 "64% too fast". That figure came from a
+#         third-party site's declared word count and the report itself flagged
+#         it as unverified. It was wrong to build on.
+#   +10%  set from OUR OWN measurement of real recap channels' captions:
+#         Movie Recaps 236/239/239/245 WPM across four videos, TheCutFrame 205
+#         (de-rolled auto-captions, duration cross-checked against info.json
+#         and against an isolated 60-second window). Every English channel
+#         sampled is FASTER than our original 198. SAKURA REVIEW, the voice
+#         model, runs 257-264 Vietnamese syllables/min, which is roughly
+#         175-200 English WPM at 1.3-1.5 syllables per word.
+#         See docs/NARRATOR_VOICE.md.
+#
+# The target is 185 WPM MEASURED ON REAL DRAFT TEXT, and that qualifier is the
+# whole lesson. A continuous passage reads faster than a draft: a draft is full
+# of short punch sentences, and each line is a separate file with
+# GAP_BETWEEN_LINES between them. Measured on 14 real badgenius2017_machine
+# lines including the gaps:
+#       +10% -> 186.1 WPM      +14% -> 192.3 WPM
+# while the same voice on one continuous 87-word passage read +0% as 189.5.
+# Calibrating on continuous prose is exactly how -15% ended up 35 WPM low.
+DEFAULT_TTS_RATE = "+10%"
 
 # Words-per-minute FALLBACK, used only when the voice has no measured profile
 # in config/voice_profiles.json. The measured profile is always primary and the
-# output names which basis it used.
-TTS_WORDS_PER_MINUTE = 150
+# output names which basis it used. 186 = measured at the base rate above.
+TTS_WORDS_PER_MINUTE = 186
 
 # --------------------------------------------------------------------------- #
 # Stage 2 depth targets (2026-06-22 depth-target enhancement).
@@ -271,17 +282,22 @@ TTS_DELIVERY = {
     # 2. `tense` was +26% against a +22% base: 4 points apart, and 52% of the
     #    tokyodrift draft carried it. "Tense" had no flat ground to rise from.
     #
-    # WPM figures below are measured on one 87-word passage, one take each, so
-    # they compare with each other - not with a different text.
-    "normal":  {              "pitch": "+0Hz", "volume": "+0%"},  # base -15% ~158
-    "hook":    {"rate": "+0%",  "pitch": "+2Hz", "volume": "+8%"},  # ~190 energetic open
-    "action":  {"rate": "+0%",  "pitch": "+1Hz", "volume": "+6%"},  # ~190 fastest
-    "tense":   {"rate": "-5%",  "pitch": "+3Hz", "volume": "+8%"},  # ~178, 20 WPM clear of normal
-    "intro":   {"rate": "-10%", "pitch": "+1Hz", "volume": "+6%"},  # ~173 channel intro
-    "outro":   {"rate": "-14%", "pitch": "+0Hz", "volume": "+4%"},  # ~159 sign-off
-    "mystery": {"rate": "-22%", "pitch": "-3Hz", "volume": "-2%"},  # ~149 hushed
-    "reveal":  {"rate": "-26%", "pitch": "-2Hz", "volume": "+2%"},  # ~140 slow, lower, lands
-    "sad":     {"rate": "-30%", "pitch": "-4Hz", "volume": "-4%"},  # ~133 slowest
+    # 2026-10-21: every rate shifted +25 points with the base (-15% -> +10%),
+    # so the RELATIVE structure is unchanged - reveal still sits ~11 points
+    # below normal, tense ~10 above, action/hook fastest, sad slowest. The
+    # presets are deliberately expressed as absolute rates rather than offsets
+    # because edge-tts takes an absolute rate; if the base moves again, these
+    # must move with it or the spread silently collapses, which is what
+    # happened when tense sat 4 points from a +22% base.
+    "normal":  {              "pitch": "+0Hz", "volume": "+0%"},  # base +10%, 186 WPM measured
+    "hook":    {"rate": "+25%", "pitch": "+2Hz", "volume": "+8%"},  # fastest, energetic open
+    "action":  {"rate": "+25%", "pitch": "+1Hz", "volume": "+6%"},  # fastest
+    "tense":   {"rate": "+20%", "pitch": "+3Hz", "volume": "+8%"},  # ~10 pts clear of normal
+    "intro":   {"rate": "+15%", "pitch": "+1Hz", "volume": "+6%"},  # channel intro
+    "outro":   {"rate": "+11%", "pitch": "+0Hz", "volume": "+4%"},  # sign-off, near normal
+    "mystery": {"rate": "+3%",  "pitch": "-3Hz", "volume": "-2%"},  # hushed
+    "reveal":  {"rate": "-1%",  "pitch": "-2Hz", "volume": "+2%"},  # slower + lower: it lands
+    "sad":     {"rate": "-5%",  "pitch": "-4Hz", "volume": "-4%"},  # slowest
 }
 DEFAULT_DELIVERY = "normal"
 
