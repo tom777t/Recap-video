@@ -3,9 +3,18 @@
 Scope: items 10-13 of `docs/RECAP_CRAFT_RESEARCH.md`, as amended by the user.
 **Captions stay off** and **no runtime target** is introduced (both amendments).
 
-Status at time of writing: **2a-2e built and validated. 2f and 2g NOT built.**
-See "What is not done" at the bottom - it is not a to-do list for later, it is
-the honest boundary of what has been tested.
+Status: **2a-2g built and validated.** See "What is not done" at the bottom -
+it is not a to-do list for later, it is the honest boundary of what has been
+tested.
+
+> **The 2a section below is superseded.** It describes a base rate of `-15%`
+> chosen from the research report's unverified 121 WPM figure. That was
+> reverted to **`+10%` = 186.1 WPM measured on real draft text** after
+> measuring real channels' captions (Movie Recaps 236-245, TheCutFrame 205).
+> See `docs/NARRATOR_VOICE.md` conflict C1 and commit `6696aed`. The section
+> is kept rather than rewritten because the reasoning error it records -
+> calibrating on continuous prose instead of real draft text - is the useful
+> part.
 
 ## 2a TTS rate and per-tag presets
 
@@ -181,16 +190,75 @@ test from running, which is the `[TITLE-MATCH]` lesson again.
 
 `gate_selftest.py` 23/23 exit 0. `check_craft.py --selftest` passes.
 
+## 2f Splitting a long line's picture across 2-3 shots
+
+Built, commit `e0ab747`. A clip playing longer than `SPLIT_CLIP_SEC` (8s) shows
+its picture across 2-3 contiguous sub-windows of its own window, cut **only at
+real cuts from `_cuts.json`**. With no cut list the line stays on one shot and
+the render says so - a missing cut is a reason not to split, not a licence to
+jump-cut inside a continuous take.
+
+Implemented inside `_build_clip`, not by routing through
+`_build_montage_clip`: that builder predates the film-audio work, so reusing
+it would have silently dropped the -17 dB film bed.
+
+A defect the verification caught: the first version gave each sub-shot screen
+time *proportional to its source length*, to protect audio sync. There was no
+sync to protect - the audio is read from `start` for the whole clip - and the
+rule handed one sub-shot 1.4s of an 8.8s clip. Equal shares now. Scene
+detection: 7.4s clip 0 cuts, 8.8s clip a cut at exactly 4.4s, 5.6s clip 0 cuts.
+
+## PRE_REVEAL_PAUSE
+
+Wired, commit `1fc2ec6`. A `<reveal>` gets 0.6s of extra front silence, added
+inside `_lead_for` **before** its clamp so it cannot cause a BindingViolation.
+Sweep of 2204 (narration, shot) combinations: the pause newly breaks zero.
+End to end, identical narration text: `<normal>` 4.6s clip, `<reveal>` 5.2s.
+
+## 2g Music intro montage
+
+Built and tested on **tokyodrift2006**. `pipeline/intro.py` +
+`tools/make_intro.py`, output `intro_preview.mp4` - the intro and hook only,
+about 30s, not the film.
+
+- **Beats** from a spectral-flux onset envelope, peak-picked against a *local*
+  median rather than a global threshold, because music that gets louder would
+  otherwise put every detected beat in its loud half. 59 beats in the first
+  40s, median interval 0.65s.
+- **The drop** is the largest (mean energy of the next 2s) minus (mean of the
+  previous 2s) - sustained level, not a transient, because a drum hit is a
+  beat and a drop is where the track changes gear and stays there. Found at
+  4.40s, and confirmed against the raw envelope: the track sits at ~0.13 RMS
+  for four seconds, jumps to ~0.44 at 4.5s and holds.
+- **The hook enters on the drop** with the music ducked to `MUSIC_DUCK_DB`.
+  The hook line is read from `draft.json` at build time, never baked in - the
+  draft gets rewritten and the montage has to follow it.
+- **`[INTRO-MONTAGE]`** fails if any chosen clip touches the first reveal's
+  land. A montage is the most spoiler-prone part of a recap: it picks frames
+  for being striking, and the most striking frames in any film are after the
+  twist. Moments are chosen *spread evenly* across the allowed range rather
+  than by any notion of "best", because there is no measure of best here and
+  choosing by eye is exactly what puts the twist in the montage.
+- **Missing `intro_music.*` prints a notice and skips.** Not an error.
+
+Verified on the real output rather than the log: duration 13.70s, 1920x1080,
+**20 picture cuts** landing on the detected beats (0.57 / 1.53 / 2.27 / 2.83 /
+3.43 / 4.40 against beats at 0.58 / 1.533 / 2.252 / 2.81 / 3.413 / 4.389),
+latest clip used 3956s against a land of 4049s. The duck is confirmed
+indirectly but soundly: the raw track *triples* in level at its own drop, so
+if the music were still at full the output would be far louder after 4.4s than
+before - measured, it is quieter.
+
+Gate self-tested on five boundary cases including a clip starting exactly *at*
+the land (rejected) and one ending exactly at it (allowed), plus the skip path.
+
 ## What is not done
 
 Stated plainly rather than left to be discovered:
 
-- **2f - splitting narration lines longer than ~8s across 2-3 clips.** Not
-  built. This is a structural change to the clip loop, not a parameter.
-- **2g - the music intro edit** (beat-cut montage from `intro_music.mp3`, using
-  only moments before the first reveal's land, with a gate for that). Not
-  built. It has never existed.
-- **`PRE_REVEAL_PAUSE`** is defined in config and read by nothing.
+- **Nobody has watched the intro preview.** Beat alignment is asserted from
+  scene-change timestamps matching onset timestamps, which is evidence that
+  the cuts are *where the beats are*, not that it looks good.
 - **No full-length render has been produced or watched.** Everything above is a
   six-line fixture and per-clip measurements. The claim "this sounds better"
   is not supported by anything here; the claims that ARE supported are that
