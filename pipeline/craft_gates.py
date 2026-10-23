@@ -156,6 +156,23 @@ _ANON = re.compile(
 _CTA = re.compile(r"\b(subscribe|comment|like (this|the) video|tell me what|"
                   r"hit the bell|the channel)\b", re.I)
 
+BAR_HOOK_OPENER_WORDS = 6      # it has to land on the music drop
+
+# A PROXY for "this reads like a shot description", not a decision procedure.
+# The real separation - "the cars drive sideways" (premise, allowed) versus
+# "he lifts out the clamps" (frame, banned) - is a judgment no regex makes, so
+# this is a WARNING and the auditor rules. What it catches is the commonest
+# shape of a shot tag: a concrete article-noun performing a physical action,
+# or an explicit spatial placement.
+_FRAME_DESC = re.compile(
+    r"\b(?:a|an|the)\s+\w+(?:\s+\w+)??\s+"
+    r"(?:sits?|stands?|lies?|leans?|walks?|opens?|closes?|lifts?|picks?|"
+    r"puts?|drops?|holds?|turns?|reaches?|pulls?|pushes?|hands?|slides?|"
+    r"kneels?|steps?)\b"
+    r"|\b(?:in the (?:frame|foreground|background|corner)|"
+    r"on the (?:left|right)|behind (?:him|her|them)|across the room)\b",
+    re.I)
+
 _TITLE_YEAR = re.compile(r"\(\s*(19|20)\d{2}\s*\)\s*$")
 
 # Mot tieu de tien de la MOT MENH DE ("Students Don't Realise Their Teacher Is
@@ -464,6 +481,79 @@ def craft_report(draft: dict) -> dict:
             f"extraordinary is checked by the payload auditor, not here.")
     hooks = [ln for ln in lines if ln.get("delivery") == "hook"]
     m["hook_lines"] = len(hooks)
+
+    # ---- the hook plays OVER THE MONTAGE, so it cannot describe a frame ----
+    # See docs/NARRATOR_VOICE.md "Hooks". On tokyodrift2006 the montage is 20
+    # cuts in 13.7s: a line describing one shot is describing something that
+    # is on screen for 0.65s, if at all. These rules apply to EVERY line
+    # spoken over the montage, not only the one tagged `hook`.
+    # A draft is MONTAGE-ERA once any line declares `over_montage`. Before
+    # that it was written against the old design, where the hook was bound to
+    # a shot like any other line - the human badgenius2017 draft is such a
+    # draft and its hook is correctly shot-bound FOR ITS ERA. Hard-failing it
+    # on a rule invented afterwards would be the same mistake as calibrating a
+    # bar the gold standard cannot meet, so legacy drafts get warnings and
+    # montage-era drafts get errors.
+    _montage_era = any(ln.get("over_montage") for ln in lines)
+    m["montage_era"] = _montage_era
+
+    def _hook_fail(msg):
+        (errors if _montage_era else warns).append(
+            msg if _montage_era
+            else msg + " (WARNING: this draft predates the intro montage - "
+                       "the rule becomes an error once any line is marked "
+                       "`over_montage`)")
+
+    _over = [ln for ln in narrated
+             if ln.get("over_montage") or ln.get("delivery") == "hook"]
+    m["over_montage_lines"] = len(_over)
+    for ln in _over:
+        _t = _narr(ln)
+        _lid = ln.get("id")
+        if ln.get("clip_start"):
+            # A line that CLAIMS over_montage and still carries a window is a
+            # contradiction in the same line, so that is always an error.
+            (errors if ln.get("over_montage") else warns).append(
+                f"[HOOK] line {_lid} is spoken over the montage but carries a "
+                f"clip window. It binds to the montage, which keeps cutting "
+                f"under it - binding one cut is how a hook turns into a shot "
+                f"description.")
+        # 4: opener <= 6 words, so it can land on the music drop
+        _s = _sentences(_t)
+        if _s and _wc(_s[0]) > BAR_HOOK_OPENER_WORDS:
+            _hook_fail(
+                f"[HOOK] line {_lid}: the opening sentence is {_wc(_s[0])} "
+                f"words ({BAR_HOOK_OPENER_WORDS} max). It has to land on the "
+                f"music drop. The reference openers are 2, 8 and 7 words and "
+                f"the two-word one lands hardest.")
+        # 2: no visual description of a specific frame. MECHANICAL PROXY ONLY -
+        # the real check is the auditor's, because "the cars drive sideways"
+        # is a premise and "he lifts out the clamps" is a frame, and no regex
+        # separates those. This catches the commonest shape: a concrete thing
+        # doing a physical action, which is what a shot tag reads like.
+        if _FRAME_DESC.search(_t):
+            warns.append(
+                f"[HOOK] line {_lid} reads like a shot description: "
+                f"{_FRAME_DESC.search(_t).group(0)!r}. The hook plays over a "
+                f"montage of many cuts. Test: would this line still be true "
+                f"if the montage cut to twenty different shots? The auditor "
+                f"decides this one.")
+    # 3: the hook has to pay off the title's promise
+    if hooks and title and stats_ok:
+        _stop = {"the", "a", "an", "and", "or", "to", "of", "in", "on", "for",
+                 "he", "she", "his", "her", "it", "is", "are", "who", "that",
+                 "with", "from", "at", "by", "but", "can", "cannot", "only"}
+        _tw = {w.lower().strip(".,:;!?-") for w in title.split()}
+        _tw = {w for w in _tw if w and w not in _stop and len(w) > 2}
+        _hw = set()
+        for h in hooks:
+            _hw |= {w.lower().strip(".,:;!?-") for w in _narr(h).split()}
+        if _tw and not (_tw & _hw):
+            warns.append(
+                f"[HOOK] the hook shares no content word with the title. The "
+                f"title sells a promise ({', '.join(sorted(_tw)[:6])}) and the "
+                f"hook should pay it off - a title and a hook pulling in "
+                f"different directions waste each other.")
     if not v2:
         notes.append(
             "[HOOK] question NOT-MEASURABLE - no `hook_question` field on this "

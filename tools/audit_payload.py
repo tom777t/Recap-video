@@ -94,9 +94,27 @@ def emit(project, n, seed):
     for l in first15:
         print("  %s: %s" % (l.get("id"), l["narration"]))
     print()
-    print("Answer two things:")
-    print("  raised  - does the hook line genuinely raise that question?")
-    print("  held    - is the question still unanswered after these 15 lines?")
+    print("IMPORTANT CONTEXT: the hook is spoken OVER A BEAT-CUT MONTAGE of")
+    print("many different shots - roughly 20 cuts in 14 seconds. It is not")
+    print("bound to any one shot. So it must read as a trailer voice selling")
+    print("the premise and the stakes, never as a description of a frame.")
+    print()
+    print("Answer five things:")
+    print("  raised   - does the hook line genuinely raise that question?")
+    print("  held     - is the question still unanswered after these 15 lines?")
+    print("  no_frame - does it avoid describing any SPECIFIC frame? Apply this")
+    print("             test: would the line still be true if the montage cut")
+    print("             to twenty completely different shots? A generic")
+    print("             property of the film's world is fine ('the cars drive")
+    print("             sideways', 'he can't drift'). A particular object or")
+    print("             person doing a particular physical action in a")
+    print("             particular shot is NOT ('he opens a drawer and lifts")
+    print("             out jumper-cable clamps').")
+    print("  film_q   - is the question FILM-level (will he survive, win, get")
+    print("             out) rather than scene-level ('what is in the")
+    print("             drawer?')? A scene-level question is a fail.")
+    print("  promise  - does the hook pay off what the title sells? The title")
+    print("             is printed in Part 3 below.")
     print()
     print("## Part 3 - the title")
     print()
@@ -128,7 +146,8 @@ def emit(project, n, seed):
                       "auditor": "<your label>", "ok": True,
                       "why": "<only if ok is false>"} for l in sample[:2]]
         + ["... one entry per sampled line ..."],
-        "hook": {"raised": True, "held": True, "why": ""},
+        "hook": {"raised": True, "held": True, "no_frame": True,
+                 "film_q": True, "promise": True, "why": ""},
         "title": {"premise": True, "withheld": True, "spoils": False,
                   "why": ""},
     }, indent=2, ensure_ascii=False))
@@ -164,6 +183,25 @@ def score(project, path):
     if hk and (hk.get("raised") is False or hk.get("held") is False):
         print("FAIL: the hook's stated question is not raised by the hook "
               "line, or is already answered early.")
+        failed = True
+    # The hook plays over a montage of ~20 cuts, so these three are as hard a
+    # requirement as the question itself. A regex cannot separate "the cars
+    # drive sideways" from "he lifts out the clamps"; this is where that call
+    # actually gets made.
+    for _k, _msg in (
+            ("no_frame", "the hook describes a specific frame. It plays over "
+                         "a montage of many cuts, so it must sell the premise, "
+                         "not a shot."),
+            ("film_q", "the hook's question is scene-level. It has to be "
+                       "film-level - will he survive, win, get out."),
+            ("promise", "the hook does not pay off what the title sells.")):
+        if hk and hk.get(_k) is False:
+            print("FAIL: %s" % _msg)
+            failed = True
+    if hk and any(hk.get(k) is None for k in ("no_frame", "film_q", "promise")):
+        print("INCOMPLETE: the hook verdict is missing no_frame / film_q / "
+              "promise. Those are the montage rules and an audit that skipped "
+              "them has not checked the hook.")
         failed = True
     ti = a.get("title") or {}
     if ti:

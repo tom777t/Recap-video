@@ -208,10 +208,21 @@ shape is unambiguous:
 > **C.** "Sean Boswell never backs down from a race. In Arizona, that got him a
 > criminal record. In Tokyo, it gets him a race against the yakuza."
 
+**Read B and C for premise and stakes, NOT for opener length.** Their first
+sentences are 8 words each and the gate's bar is 6, so both would be
+rejected as written. That is not a mistake in the bar - the bar is the spec,
+and "Strike three." is the one that actually lands on a drop. It is recorded
+here because an example that fails the rule it illustrates is a trap: a writer
+handed all three will produce an 8-word opener and be surprised.
+
+Measured openers: **A 2 words, B 8, C 8.**
+
 What to read off them:
 
-- Openers are **2, 8 and 7 words** - A's "Strike three." is the one that lands
-  hardest on a drop, and it is two words.
+- A's "Strike three." is the one that lands hardest on a drop, and it is two
+  words. B and C would need their openers cut - "He's in Tokyo to stay out of
+  jail" becomes "He's in Tokyo to stay out of jail." -> something like
+  "Tokyo, or jail."
 - Every one states a **consequence** (jail, a debt, the yakuza), not a sight.
 - "the cars drive sideways" and "he can't drift" are about the *premise* - the
   kind of film this is - not about a frame. That is the line the rule draws:

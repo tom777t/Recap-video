@@ -180,6 +180,19 @@ def validate_draft(project: str, *, write_state: bool = False,
                 errors.append(f"{where}: unknown pool label '{ln['pool']}'")
             else:
                 pool_uses[ln["pool"]] = pool_uses.get(ln["pool"], 0) + 1
+        elif ln.get("over_montage"):
+            # 2026-10-21: a line spoken OVER THE INTRO MONTAGE is bound to the
+            # montage, not to a shot. The montage keeps cutting underneath it
+            # until the line ends, so there is no single window to bind to and
+            # demanding one would be asking which of twenty cuts the line
+            # describes - the question the no-frame-description rule exists to
+            # forbid. These lines carry no clip_start and are skipped by
+            # binding_integrity (which already ignores lines without one).
+            if ln.get("clip_start") or ln.get("clip_end"):
+                errors.append(
+                    f"{where}: `over_montage` lines must NOT carry a clip "
+                    f"window. The montage is the picture; binding one of its "
+                    f"cuts would make the line describe a frame.")
         else:
             # explicit-timestamp line
             for key in ("clip_start", "clip_end"):
