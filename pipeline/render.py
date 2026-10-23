@@ -1135,6 +1135,7 @@ def render(project: str, draft: dict,
     cursor = 0.0  # start time of current clip on the overlapped timeline
     n_pool = 0
     n_cached = 0
+    n_over_montage = 0
     # Gap 3 SILENCE lines build a clip but carry no narration audio and no
     # caption window, so they are deliberately absent from BOTH `narration` and
     # `timeline`. RENDER-CHECK has to know how many there were, or it reports
@@ -1143,6 +1144,15 @@ def render(project: str, draft: dict,
 
     for idx, ln in enumerate(draft["lines"]):
         lid = ln["id"]
+
+        # A line spoken OVER THE MONTAGE has no clip window and is not a clip
+        # here - it is baked into the intro block, which gets prepended to the
+        # finished film below. Rendering it in this loop would need a shot to
+        # bind to, which is exactly what the no-frame-description rule forbids
+        # it from having.
+        if ln.get("over_montage"):
+            n_over_montage += 1
+            continue
 
         # ---- Gap 3 SILENCE line: the LINE itself carries the silence ---------
         # A silence line has narration_silence_seconds (set on the draft line,
@@ -1496,6 +1506,27 @@ def render(project: str, draft: dict,
         ]
         _run(cmd, "final encode")
 
+    # ----- prepend the beat-cut intro block ---------------------------------
+    # final.mp4 = [montage with the over_montage line(s)] + [film intro block,
+    # which is shot-bound and already in the timeline above] + [story].
+    intro_offset = 0.0
+    if n_over_montage:
+        try:
+            from pipeline import intro as _intro
+            intro_offset = _intro.prepend_to_final(project, final) or 0.0
+        except Exception as _e:
+            # A spoiler in the montage must NOT be downgraded to a notice -
+            # [INTRO-MONTAGE] exists to stop the twist appearing in the first
+            # ten seconds, and swallowing it here would undo that gate.
+            from pipeline.intro import IntroSpoiler as _Spoil
+            if isinstance(_e, _Spoil):
+                console.print(f"[red]{_e}[/]")
+                raise
+            console.print(f"[yellow]Intro block not prepended: {_e}[/]")
+    else:
+        console.print("[dim]No over_montage line in the draft - final.mp4 "
+                      "opens straight on the story.[/]")
+
     # Clean up intermediate render artifacts in _work/ (clip_*.mp4, _batch_*.mp4,
     # av_xfade.mp4). These are throwaway and can total hundreds of MB. We never
     # touch source.mp4 here.
@@ -1515,13 +1546,20 @@ def render(project: str, draft: dict,
     # caption TEXT and no line id - so a QA note could only ever say "something
     # is off around minute 7" instead of "line 36 drifts".
     try:
+        # Every position below is SHIFTED BY THE INTRO. The timeline was built
+        # against a film with nothing on the front; prepending the montage
+        # moves every line later by its length, and timeline.json is what
+        # captions and the positional gate read. Writing unshifted positions
+        # would make the whole file quietly wrong by ~14 seconds.
         tl = [{"id": t.get("id"),
-               "out_start": round(t["start"], 3),
-               "out_end": round(t["end"], 3),
+               "out_start": round(t["start"] + intro_offset, 3),
+               "out_end": round(t["end"] + intro_offset, 3),
                "clip_start": t.get("clip_start"),
                "clip_end": t.get("clip_end")} for t in timeline]
         (pdir / "timeline.json").write_text(
-            json.dumps({"project": project, "total_duration": round(total_dur, 3),
+            json.dumps({"project": project,
+                        "total_duration": round(total_dur + intro_offset, 3),
+                        "intro_offset": round(intro_offset, 3),
                         "lines": tl}, ensure_ascii=False, indent=2),
             encoding="utf-8")
         console.print(f"[dim]Wrote timeline.json ({len(tl)} lines) - "
@@ -1537,9 +1575,12 @@ def render(project: str, draft: dict,
     # A SILENCE line builds a clip but has no TTS audio and no caption window,
     # so it is absent from `narration` and from `timeline` by design. Count it
     # in, or every film using a silence beat reports a false mismatch.
-    if len(clips) != len(narration) + n_silence:
+    # An over_montage line HAS narration audio but builds no clip here - it is
+    # baked into the prepended intro block. Counting it as expecting a clip
+    # makes every draft with a montage report a false mismatch.
+    if len(clips) != len(narration) + n_silence - n_over_montage:
         problems.append(f"{len(narration)} narration line(s) + {n_silence} silence "
-                        f"line(s) but {len(clips)} clip(s) built")
+                        f"- {n_over_montage} over-montage but {len(clips)} clip(s) built")
     if len(timeline) != len(clips) - n_silence:
         problems.append(f"{len(clips)} clip(s) - {n_silence} silence = "
                         f"{len(clips)-n_silence} expected, but {len(timeline)} "

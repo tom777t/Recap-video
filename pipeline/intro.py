@@ -230,6 +230,91 @@ def _tts_hook(project: str, ln: dict, out: Path) -> float:
     raise RuntimeError(f"hook TTS failed: {last}")
 
 
+def prepend_to_final(project: str, final: Path) -> float:
+    """Put the intro block in front of the finished film.
+
+    Returns the intro's DURATION in seconds, or 0.0 if nothing was prepended.
+    The caller needs that number: every position in timeline.json was measured
+    against a film that did not yet have an intro on the front, and captions
+    and every downstream timing gate read those positions.
+
+    The two halves are concatenated AFTER each has been mixed, rather than the
+    montage being spliced into the main timeline before the music pass. That
+    keeps each half's audio treatment intact: the intro has its own track at
+    full level ducking under the hook, the story has its mood bed. Mixing them
+    in one pass would put the story's bed under the montage.
+
+    Uses the concat DEMUXER, which requires identical codec parameters - both
+    files come from this module's own encoder with the same canvas, fps and
+    codecs, so that holds. It is also stream-copy, so a 20-minute film is not
+    re-encoded to glue 14 seconds onto the front.
+    """
+    pdir = config.project_dir(project)
+    work = pdir / "_work"
+    work.mkdir(exist_ok=True)
+    block = build_intro(project, out_name="_work/intro_block.mp4",
+                        max_total=40.0)
+    if block is None:
+        return 0.0
+    ff = config.ffmpeg()
+    _pr = subprocess.run(
+        [config.ffprobe(), "-v", "error", "-show_entries", "format=duration",
+         "-of", "default=nw=1:nk=1", str(block)],
+        capture_output=True, text=True)
+    try:
+        block_dur = float((_pr.stdout or "0").strip())
+    except ValueError:
+        block_dur = 0.0
+    lst = work / "concat_intro.txt"
+    tmp = work / "final_with_intro.mp4"
+    lst.write_text("file '%s'\nfile '%s'\n"
+                   % (Path(block).as_posix(), final.as_posix()),
+                   encoding="utf-8")
+    # Video is stream-copied - a 20-minute film must not be re-encoded to glue
+    # 14 seconds onto the front. AUDIO IS RE-ENCODED, and that is not
+    # optional: with `-c copy` on both, the concat demuxer produced a file
+    # whose video stream was a correct 39.63s (1188 packets at 30fps) and
+    # whose AUDIO stream was 79.35s - exactly double. AAC priming and the two
+    # halves' timestamps do not survive a stream-copy concat, and the result
+    # is a film that drifts further out of sync the longer it plays. Measured,
+    # not guessed: ffprobe the two streams separately, because the container
+    # header reports only one of them and looked fine.
+    cmd = [ff, "-y", "-f", "concat", "-safe", "0", "-i", str(lst),
+           "-c:v", "copy", "-c:a", "aac", "-b:a", "192k", "-ar", "48000",
+           "-ac", "2", str(tmp)]
+    r = subprocess.run(cmd, capture_output=True, text=True)
+    if r.returncode != 0 or not tmp.exists():
+        # The demuxer needs byte-identical stream parameters and the two files
+        # do not always have them - the story half goes through the music mix
+        # and loudnorm, the intro does not. Fall back to the concat FILTER,
+        # which re-encodes and therefore always works.
+        # The cost is real and worth stating: this re-encodes the WHOLE film
+        # to put 14 seconds on the front. It is the correct trade only because
+        # the alternative is shipping a film with no opening, or one whose
+        # audio is twice the length of its video.
+        console.print("[yellow]Intro join:[/] stream-copy refused (the two "
+                      "halves differ); re-encoding to concatenate. This is "
+                      "slower on a long film.")
+        cmd = [ff, "-y", "-i", str(block), "-i", str(final),
+               "-filter_complex",
+               "[0:v][0:a][1:v][1:a]concat=n=2:v=1:a=1[v][a]",
+               "-map", "[v]", "-map", "[a]",
+               "-c:v", "libx264", "-preset", config.VIDEO_PRESET,
+               "-crf", str(config.VIDEO_CRF), "-pix_fmt", "yuv420p",
+               "-c:a", "aac", "-b:a", "192k", "-ar", "48000", "-ac", "2",
+               str(tmp)]
+        r = subprocess.run(cmd, capture_output=True, text=True)
+    if r.returncode != 0 or not tmp.exists():
+        console.print("[yellow]Intro block built but could not be joined to "
+                      "the film; leaving final.mp4 without it.[/]")
+        console.print((r.stderr or "")[-500:])
+        return 0.0
+    tmp.replace(final)
+    console.print(f"[green]Intro block prepended:[/] final.mp4 now opens on "
+                  f"the montage ({block_dur:.1f}s)")
+    return block_dur
+
+
 def build_intro(project: str, out_name: str = "intro_preview.mp4",
                 max_total: float = 30.0) -> Path | None:
     """Build the beat-cut intro montage + hook. None if there is no music."""
