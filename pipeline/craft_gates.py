@@ -174,6 +174,33 @@ _FRAME_DESC = re.compile(
     r"on the (?:left|right)|behind (?:him|her|them)|across the room)\b",
     re.I)
 
+# The story's first shot-bound line has to anchor the viewer in a time or a
+# place. Three shapes are accepted, all of which read as "here is how it
+# started":
+#   "It starts in Arizona."            - an explicit opening formula
+#   "Arizona, and a boy who ..."       - a proper noun, then a comma
+#   "In 2001, a boy ..." / "One night" - a time or place preposition
+# NOTE this deliberately asks for the construction [RHYTHM] caps at 15% of
+# lines. One such line is the point; fifteen in a row is the problem [RHYTHM]
+# is for, and the two rules do not collide at one line.
+_ANCHOR = re.compile(
+    r"^\s*(?:"
+    # "It starts in ...", "The story begins ..."
+    r"(?i:(?:it|this|the\s+story|everything)\s+(?:all\s+)?"
+    r"(?:starts?|start(?:s|ed)\s+out|begins?|began|opens?|opened|"
+    r"kicks?\s+off)\b)"
+    # "Arizona," / "Oro Valley, Arizona." - a CAPITALISED place, then a comma
+    # or full stop. Case-sensitive on purpose: under re.I this branch matched
+    # "A wrench in his hand," because [A-Z] stops meaning capital.
+    r"|(?-i:[A-Z][\w.'-]*(?:\s+[A-Z][\w.'-]*)*\s*[,.])"
+    # a place preposition, or a real time expression
+    r"|(?i:(?:in|on|at|back\s+in|out\s+in|deep\s+in|somewhere\s+in)\b)"
+    r"|(?i:(?:one|two|three|four|five|six|a\s+few|several)\s+"
+    r"(?:years?|months?|weeks?|days?|nights?|hours?|minutes?)\b)"
+    r"|(?i:(?:one\s+(?:night|morning|afternoon|evening)|late\s+one|"
+    r"long\s+before|years?\s+before|the\s+night\s+before)\b)"
+    r")")
+
 _TITLE_YEAR = re.compile(r"\(\s*(19|20)\d{2}\s*\)\s*$")
 
 # Mot tieu de tien de la MOT MENH DE ("Students Don't Realise Their Teacher Is
@@ -737,6 +764,34 @@ def craft_report(draft: dict) -> dict:
                             f"auditor decides, but an unsourced name in the "
                             f"intro block is the easiest thing here to get "
                             f"wrong.")
+
+    # ---- [TRANSITION]: where the story actually starts -------------------
+    # Everything before this point is spoken over a montage or over the
+    # film-intro block. The first SHOT-BOUND line is where narration starts
+    # pointing at the picture again, and it has to tell the viewer they have
+    # arrived somewhere: a time or a place. Without it the recap cuts from a
+    # trailer voice straight into the middle of a scene.
+    if _fi or any(l.get("over_montage") for l in lines):
+        _last_unbound = -1
+        for i, ln in enumerate(lines):
+            if ln.get("film_intro") or ln.get("over_montage"):
+                _last_unbound = i
+        _first_bound = None
+        for ln in lines[_last_unbound + 1:]:
+            if ln.get("clip_start") and _narr(ln):
+                _first_bound = ln
+                break
+        if _first_bound is not None:
+            _t = _narr(_first_bound).strip()
+            m["transition_line"] = _first_bound.get("id")
+            if not _ANCHOR.match(_t):
+                hard(f"[TRANSITION] line {_first_bound.get('id')} is the first "
+                     f"shot-bound line after the opening, and it opens without "
+                     f"a time or place anchor: {_t[:70]!r}. This is where the "
+                     f"story starts and the viewer has just come off a montage "
+                     f"and a block of credits - they need telling where they "
+                     f"are. \"It starts in Arizona.\", \"Arizona, and a boy who "
+                     f"cannot stop racing.\", \"Three years before Tokyo, ...\"")
 
     # ---- item 5: [INTRO-OUTRO] -------------------------------------------
     tags = [ln.get("delivery") for ln in lines]
