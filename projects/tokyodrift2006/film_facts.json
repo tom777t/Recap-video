@@ -1,0 +1,186 @@
+{
+  "_source": "English Wikipedia, 'The Fast and the Furious: Tokyo Drift', revision oldid=1381287967, fetched 2026-10-21. Every claim below carries the section it came from. Wikipedia decides what is true here; the transcript and the catalogue are not sources for production facts.",
+  "_why_this_file": "The film-intro block states facts about the real world - a director, a cast, a production story - and none of those are visible in the footage, so no existing gate could check them. The FACT audit checks every claim in that block against THIS FILE and rejects anything not here. A fact that is not in this file may not be said.",
+  "_spoiler_rule": "Two things are withheld even though Wikipedia states them plainly: a cast member whose APPEARANCE is itself a reveal, and any franchise fact that implies a character's fate. Both are listed under `withheld` with the reveal they would give away, so the omission is visible rather than looking like an oversight.",
+  "title": "The Fast and the Furious: Tokyo Drift",
+  "year": 2006,
+  "runtime_minutes": 104,
+  "franchise_position": "the third film in the Fast & Furious series, and a standalone sequel to The Fast and the Furious (2001) and 2 Fast 2 Furious (2003)",
+  "director": "Justin Lin",
+  "writer": "Chris Morgan",
+  "composer": "Brian Tyler",
+  "studio": "Universal Pictures",
+  "cast": [
+    {
+      "actor": "Lucas Black",
+      "role": "Sean Boswell",
+      "lead": true,
+      "note": "a young man interested in street racing"
+    },
+    {
+      "actor": "Bow Wow",
+      "role": "Twinkie",
+      "lead": true,
+      "note": "the first friend Sean meets in Tokyo, who sells consumer goods and introduces him to drift racing"
+    },
+    {
+      "actor": "Sung Kang",
+      "role": "Han Lue",
+      "lead": true,
+      "note": "DK's business partner, who befriends Sean and teaches him to drift"
+    },
+    {
+      "actor": "Brian Tee",
+      "role": "Takashi",
+      "lead": true,
+      "note": "acknowledged as the best drift racer, and given the title Drift King"
+    },
+    {
+      "actor": "Nathalie Kelley",
+      "role": "Neela Ezar",
+      "lead": true,
+      "note": "Takashi's girlfriend, who later falls for Sean"
+    },
+    {
+      "actor": "Sonny Chiba",
+      "role": "Kamata",
+      "lead": false,
+      "note": "Takashi's uncle, the head of the yakuza; credited as JJ Sonny Chiba"
+    },
+    {
+      "actor": "Leonardo Nam",
+      "role": "Morimoto",
+      "lead": false,
+      "note": "Takashi's right-hand man"
+    },
+    {
+      "actor": "Brian Goodman",
+      "role": "Lieutenant Boswell",
+      "lead": false,
+      "note": "Sean's father"
+    },
+    {
+      "actor": "Zachery Ty Bryan",
+      "role": "Clay",
+      "lead": false,
+      "note": "the quarterback Sean races at the start of the film"
+    },
+    {
+      "actor": "Lynda Boyd",
+      "role": "Ms. Boswell",
+      "lead": false,
+      "note": "Sean's mother"
+    },
+    {
+      "actor": "Jason Tobin",
+      "role": "Earl",
+      "lead": false,
+      "note": "one of Han's crew, who tunes the cars"
+    },
+    {
+      "actor": "Keiko Kitagawa",
+      "role": "Reiko",
+      "lead": false,
+      "note": "Earl's friend and fellow tuner"
+    },
+    {
+      "actor": "Nikki Griffin",
+      "role": "Cindy",
+      "lead": false,
+      "note": "Clay's girlfriend, who suggests the two race for her"
+    }
+  ],
+  "facts": [
+    {
+      "id": "F1",
+      "text": "The production could not get permits to film in Tokyo, so they shot in Shibuya without permission. Universal quietly hired a stand-in who told the police he was the director and spent the night in a cell instead of Justin Lin.",
+      "source": "Wikipedia, Production > Development",
+      "interesting": true
+    },
+    {
+      "id": "F2",
+      "text": "None of Universal's own stunt drivers could drift, so the production hired working drift racers to do the driving.",
+      "source": "Wikipedia, Production > Technical",
+      "interesting": true
+    },
+    {
+      "id": "F3",
+      "text": "The film used almost 250 vehicles, cut up 25 of them and destroyed more than 80.",
+      "source": "Wikipedia, Production > Technical",
+      "interesting": true
+    },
+    {
+      "id": "F4",
+      "text": "It is the lowest-grossing film in the franchise, taking $159 million against an $85 million budget, and opened at number three behind Cars and Nacho Libre.",
+      "source": "Wikipedia, Reception > Box office",
+      "interesting": false
+    },
+    {
+      "id": "F5",
+      "text": "Critics were lukewarm at the time - 38% on Rotten Tomatoes - but audiences graded it A-minus on CinemaScore, and its reputation has risen since.",
+      "source": "Wikipedia, Reception > Critical response and Retrospective reviews",
+      "interesting": false
+    },
+    {
+      "id": "F6",
+      "text": "Director Justin Lin did not want the job at first, calling an early draft of the script offensive and dated, and took it only once the producers let him rebuild the film his way.",
+      "source": "Wikipedia, Production > Development",
+      "interesting": true
+    }
+  ],
+  "withheld": [
+    {
+      "what": "Vin Diesel as Dominic Toretto (uncredited cameo)",
+      "reveal": "R4",
+      "why": "His appearance IS the reveal, landing at 01:36:38. Naming him in a cast list in the first minute destroys the last scene of the film. reveals.json protects 'Vin Diesel', 'Dominic Toretto', 'Dom', 'cameo' and 'from the earlier films' as held terms.",
+      "ban": [
+        "Vin Diesel",
+        "Dominic Toretto",
+        "Dom Toretto",
+        "Toretto"
+      ]
+    },
+    {
+      "what": "Vin Diesel took the cameo in exchange for Universal's rights to the Riddick character rather than a fee",
+      "reveal": "R4",
+      "why": "A genuinely good production story, and unusable: it cannot be told without naming the cameo.",
+      "ban": [
+        "Riddick"
+      ]
+    },
+    {
+      "what": "Han Lue returns in Fast Five, Fast & Furious 6, F9 and Fast X; Sean, Twinkie and Earl also return in F9",
+      "reveal": "R2",
+      "why": "A franchise fact that implies a character's fate. Saying a character appears in four later films tells the viewer whether he survives this one, 40 minutes before the crash at 01:15:07.",
+      "ban": [
+        "Fast Five",
+        "Fast & Furious 6",
+        "F9",
+        "Fast X",
+        "returns in the series",
+        "returns in Fast",
+        "later films",
+        "appears in four"
+      ]
+    },
+    {
+      "what": "The film is set between Fast & Furious 6 (2013) and Furious 7 (2015) in the series chronology",
+      "reveal": "R2",
+      "why": "The retcon exists BECAUSE of what happens to Han, and an audience that knows the franchise reads it straight back to his fate. The safe franchise position is release order: the third film.",
+      "ban": [
+        "Furious 7",
+        "set between"
+      ]
+    },
+    {
+      "what": "Keiichi Tsuchiya, the real-world 'Drift King', has an uncredited cameo as an elderly fisherman",
+      "reveal": "R3 (precautionary)",
+      "why": "Not a reveal in itself, and the film uses 'Drift King' for Takashi from early on. Withheld from the intro block only because R3 protects who ENDS the film as Drift King, and a narrator introducing a second Drift King in the first minute invites the comparison. Usable later if wanted.",
+      "ban": [
+        "Keiichi Tsuchiya",
+        "Tsuchiya"
+      ]
+    }
+  ],
+  "_ban_note": "Each `withheld` entry carries an explicit `ban` list of the exact phrases that would give it away. The gate uses THAT, never terms inferred from the prose. The first version inferred proper nouns from the description and so banned 'Han Lue' - a lead who must be named - because he is the subject of a withheld FACT, and banned 'Fast', which is in the title. What is withheld is the claim, not the name."
+}

@@ -25,6 +25,7 @@ khong co audit thi PAYLOAD-MIX chi la trang tri.
 """
 from __future__ import annotations
 
+import json
 import re
 import statistics as _st
 
@@ -210,6 +211,52 @@ def _sentences(text: str) -> list:
 
 def _wc(s: str) -> int:
     return len(s.split())
+
+
+def facts_for(draft: dict):
+    """Load projects/<name>/film_facts.json, or None.
+
+    The draft carries no project name, so the path comes from the caller via
+    `draft['_facts_path']` when craft_report is driven by a tool, or is found
+    next to the draft when the validator runs. Returns None rather than
+    raising: a draft with no film_intro lines does not need the file, and the
+    gate only demands it when the block exists.
+    """
+    import os
+    p = draft.get("_facts_path")
+    if not p:
+        p = draft.get("_dir")
+        p = os.path.join(p, "film_facts.json") if p else None
+    if not p or not os.path.exists(p):
+        return None
+    try:
+        return json.loads(io_open_text(p))
+    except Exception:
+        return None
+
+
+def io_open_text(p: str) -> str:
+    import io as _io
+    return _io.open(p, encoding="utf-8-sig").read()
+
+
+def _withheld_tokens(what: str) -> list:
+    """Distinctive names/titles inside a `withheld` entry.
+
+    Matching the whole sentence would never fire; matching every word would
+    fire on 'the' and 'film'. Proper nouns and franchise titles are what
+    actually give a reveal away.
+    """
+    toks = re.findall(r"\b[A-Z][A-Za-z0-9']+(?:\s+[A-Z][A-Za-z0-9']+)*\b", what)
+    out = []
+    for t in toks:
+        if len(t) < 3:
+            continue
+        if t.lower() in ("the", "his", "her", "a", "an", "it", "naming",
+                         "director", "universal", "wikipedia"):
+            continue
+        out.append(t)
+    return out
 
 
 def ln_by_id(lines: list, lid) -> dict:
@@ -598,6 +645,98 @@ def craft_report(draft: dict) -> dict:
                 + (" ..." if len(_ids) > 10 else "")
                 + f". Known: {', '.join(sorted(_known))}. An unknown tag used "
                   f"to be read at normal pace in silence.")
+
+    # ---- [FILM-INTRO]: the block of real-world facts after the hook ------
+    # These lines say things that are NOT in the footage - a director, a cast,
+    # a production story - so no footage-based gate can check them. They are
+    # checked against projects/<name>/film_facts.json, and anything that file
+    # marks `withheld` may not be said at all.
+    _fi = [ln for ln in narrated if ln.get("film_intro")]
+    m["film_intro_lines"] = len(_fi)
+    if _fi:
+        _facts = facts_for(draft)
+        if _facts is None:
+            errors.append(
+                "[FILM-INTRO] the draft has film_intro lines but no "
+                "film_facts.json. Every claim in that block has to be checked "
+                "against a sourced file - without it the block is unverifiable "
+                "assertion about the real world.")
+        else:
+            _blob = " ".join(_narr(l) for l in _fi)
+            _low = _blob.lower()
+            # 1. nothing the facts file withholds may appear.
+            # Uses the entry's EXPLICIT `ban` list. Inferring the terms from
+            # the description was tried and was badly wrong: "Han Lue returns
+            # in Fast Five..." made the gate ban the name "Han Lue", who is a
+            # lead and must be named, and ban "Fast", which is in the title.
+            # What a withheld entry withholds is the CLAIM, not the name.
+            for w in _facts.get("withheld", []):
+                _bans = w.get("ban")
+                if not _bans:
+                    warns.append(
+                        f"[FILM-INTRO] withheld entry {w.get('what','')[:50]!r} "
+                        f"has no `ban` list, so nothing enforces it. Add the "
+                        f"exact phrases that would give it away.")
+                    continue
+                for _tok in _bans:
+                    if re.search(r"\b" + re.escape(str(_tok).lower()) + r"\b",
+                                 _low):
+                        errors.append(
+                            f"[FILM-INTRO] the intro block says {_tok!r}, which "
+                            f"film_facts.json withholds ({w.get('reveal','?')}): "
+                            f"{w.get('why','')[:150]}")
+                        break
+            # 2. required elements
+            _need = {
+                "title": str(_facts.get("title", "")).split(":")[-1].strip(),
+                "year": str(_facts.get("year", "")),
+                "director": str(_facts.get("director", "")),
+            }
+            for _k, _v in _need.items():
+                if _v and _v.lower() not in _low:
+                    errors.append(
+                        f"[FILM-INTRO] the block never states the {_k} "
+                        f"({_v!r}). Required: channel greeting, title and "
+                        f"year, franchise position, director, 2-4 leads with "
+                        f"their roles, and one interesting fact.")
+            # 3. 2-4 leads, each with a role
+            _named = [c for c in _facts.get("cast", [])
+                      if c.get("actor", "").lower() in _low]
+            m["film_intro_actors"] = len(_named)
+            if not (2 <= len(_named) <= 4):
+                errors.append(
+                    f"[FILM-INTRO] {len(_named)} cast member(s) named; the "
+                    f"block wants 2-4 leads. Naming nobody is a listings "
+                    f"entry, naming everybody is a credits roll.")
+            for c in _named:
+                if str(c.get("role", "")).split()[0].lower() not in _low:
+                    warns.append(
+                        f"[FILM-INTRO] {c['actor']} is named without the role "
+                        f"({c.get('role')}). An actor with no character is a "
+                        f"name the viewer cannot place.")
+            # 4. any actor named must EXIST in the facts file
+            for _m2 in re.finditer(r"\b[A-Z][a-z]+ [A-Z][a-z]+\b", _blob):
+                _cand = _m2.group(0)
+                if _cand.lower() in _low and not any(
+                        _cand.lower() == c.get("actor", "").lower()
+                        or _cand.lower() in str(c.get("role", "")).lower()
+                        for c in _facts.get("cast", [])):
+                    # "The Fast" is two capitalised words and is part of the
+                    # title, not a person. Anything contained in the title,
+                    # or in a crew name, is not an unsourced person.
+                    _tl = str(_facts.get("title", "")).lower()
+                    if (_cand.lower() not in _tl
+                            and _cand.lower() not in (
+                                str(_facts.get("director", "")).lower(),
+                                str(_facts.get("writer", "")).lower(),
+                                str(_facts.get("composer", "")).lower(),
+                                str(_facts.get("studio", "")).lower())):
+                        warns.append(
+                            f"[FILM-INTRO] {_cand!r} reads like a person's "
+                            f"name and is not in film_facts.json. The FACT "
+                            f"auditor decides, but an unsourced name in the "
+                            f"intro block is the easiest thing here to get "
+                            f"wrong.")
 
     # ---- item 5: [INTRO-OUTRO] -------------------------------------------
     tags = [ln.get("delivery") for ln in lines]
