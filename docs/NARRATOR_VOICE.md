@@ -160,6 +160,73 @@ channels narrate by role label ("the invigilator", "the CEO") is **not what the
 captions show**. Our `[SPINE]` warning, which pushes toward names and against
 bare "the man", is supported.
 
+## Hooks: the pattern, and why it is not a frame description
+
+The hook is spoken **over the beat-cut intro montage** - on tokyodrift2006
+that is 20 cuts in 13.7 seconds. Any line that describes a specific frame is
+therefore describing something that is not on screen, or is on screen for
+0.65 of a second. The old Tokyo Drift hook did exactly that: *"A kid in an
+auto shop opens a drawer and lifts out jumper-cable clamps"* - a precise
+account of one shot at 02:48, played over twenty different shots.
+
+So the hook is a **trailer voice**, not a shot description. It sells the
+premise and the stakes. This is a rule about the writing, enforced partly by
+gate and finally by the auditor, and it applies to **any** line spoken during
+the montage, not just the one tagged `hook`.
+
+### The pattern
+
+1. **Not bound to a shot.** The hook binds to the montage, which keeps cutting
+   underneath it until the line ends. No `clip_start`.
+2. **No visual description of any specific frame** - no objects, positions or
+   actions seen on screen.
+3. **Delivers the title's promise.** If the title sells Tokyo, jail, a debt
+   and a race, the hook pays those off. A title and a hook pulling in
+   different directions wastes both.
+4. **First sentence <= 6 words, landing on the music drop.** Short sentences
+   after it.
+5. **The question is film-level** - will he survive, win, get out - never
+   scene-level ("what is in the drawer?").
+6. **No spoilers**: nothing from after the first reveal's land.
+7. The first line **after** the montage is where narration starts binding to
+   shots again, and it should read as *here is how it started*.
+
+### Three examples of the PATTERN
+
+These are illustrations of the shape, written for *The Fast and the Furious:
+Tokyo Drift*. **They are examples of a pattern, not a library.** Never copy one
+for another film, and never copy one into a Tokyo Drift draft either - the
+writer generates its own hook and the auditor checks it. They are here so the
+shape is unambiguous:
+
+> **A.** "Strike three. One more crash and he goes to jail. So they send him to
+> the one city on earth where the cars drive sideways."
+
+> **B.** "He's in Tokyo to stay out of jail. He can't drift. And after one race,
+> he owes a stranger a car."
+
+> **C.** "Sean Boswell never backs down from a race. In Arizona, that got him a
+> criminal record. In Tokyo, it gets him a race against the yakuza."
+
+What to read off them:
+
+- Openers are **2, 8 and 7 words** - A's "Strike three." is the one that lands
+  hardest on a drop, and it is two words.
+- Every one states a **consequence** (jail, a debt, the yakuza), not a sight.
+- "the cars drive sideways" and "he can't drift" are about the *premise* - the
+  kind of film this is - not about a frame. That is the line the rule draws:
+  a generic property of the world is allowed, a specific thing happening in a
+  specific shot is not.
+- None of them names an object you could point at in one cut.
+- All three would still be true if the montage cut to entirely different
+  footage, which is the practical test.
+
+### The practical test
+
+**Would this line still be true if the montage cut to twenty different
+shots?** If yes, it is a hook. If no, it is a shot description wearing a
+hook's tag.
+
 ## Titles: the formula, measured (item A6)
 
 The English corpus, with views:
