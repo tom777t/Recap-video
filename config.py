@@ -195,6 +195,13 @@ FILM_SPEAKS_MAX_SEC = 15.0  # over this it stops being a recap
 FILM_SPEAKS_MAX_PER_FILM = 5          # about one per act on a 4-5 act film
 FILM_SPEAKS_MIN_SPACING_LINES = 15    # cannot cluster
 
+# A clip that plays longer than this gets its PICTURE split across 2-3
+# contiguous sub-windows cut at real shot boundaries (render 2f). The genre's
+# own floor is clips under 8 seconds; the Voz practitioners quoted in the
+# research report cut at 4. A twelve-second line on one shot is twelve seconds
+# of the same frame drifting under a Ken Burns zoom.
+SPLIT_CLIP_SEC = 8.0
+
 # Background music
 MUSIC_VOLUME = 0.15        # music level under the voice (0..1). History: 0.13 was judged too subtle, 0.18 too present. 0.15 from 2026-08-13.
 # --------------------------------------------------------------------------- #

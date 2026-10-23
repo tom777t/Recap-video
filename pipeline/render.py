@@ -102,9 +102,10 @@ def _build_clip(ff: str, source: Path, start: float, end: float,
                 crop_top: float = 0.0, hold: float = 0.0,
                 censor: str = "none", censor_region=None, exposure: float = 0.0,
                 lead_in: float | None = None,
-                film_audio: bool = False, pre_reveal: bool = False):
-    # `film_audio` / `pre_reveal` are LAST on purpose - see the note in
-    # _build_silence_clip. This function is called positionally.
+                film_audio: bool = False, pre_reveal: bool = False,
+                split_segments: list | None = None):
+    # `film_audio` / `pre_reveal` / `split_segments` are LAST on purpose - see
+    # the note in _build_silence_clip. This function is called positionally.
     """
     Cut from `start`, normalise to canvas, fit to clip_len WITHOUT slowing
     footage:
@@ -256,6 +257,20 @@ def _build_clip(ff: str, source: Path, start: float, end: float,
     )
     # When slowing down, bound the SOURCE read to exactly the [start, end]
     # window so setpts stretches the intended footage (not frames past `end`).
+    # ---- 2f: split a long line's picture across 2-3 cuts -----------------
+    # A twelve-second line on ONE shot is twelve seconds of the same frame
+    # drifting under a Ken Burns zoom; the genre's own floor is clips under 8
+    # seconds. `split_segments` is a list of CONTIGUOUS sub-windows of
+    # [start, end], chosen by the caller at real cut points, so the picture
+    # cuts while the film's audio keeps running underneath without a seam.
+    # Contiguity is the whole reason this is safe: the audio is still read as
+    # one continuous stretch from `start`, so it stays in sync with the
+    # pictures as long as each sub-window plays for about its own real length.
+    _segs = [(float(a), float(b)) for a, b in (split_segments or [])
+             if float(b) > float(a)]
+    if len(_segs) < 2:
+        _segs = []
+
     src_in = ["-ss", f"{start:.3f}"]
     if setpts_factor > 1.0001 and shot_dur > 0:
         src_in += ["-t", f"{shot_dur:.3f}"]
@@ -302,12 +317,57 @@ def _build_clip(ff: str, source: Path, start: float, end: float,
         # samples pinned at full scale, distortion baked into the clip file
         # where loudnorm (which runs later, on the mix) cannot undo it.
         # A limiter at -1 dBFS costs nothing audible and makes that impossible.
-        graph = (f"[0:v]{vf}{v_label};[1:a]{af}[narrv];[0:a]{film_af}[filmv];"
+        graph = (f"{{VCHAIN}};[{{NA}}:a]{af}[narrv];[0:a]{film_af}[filmv];"
                  f"[narrv][filmv]amix=inputs=2:duration=first:"
                  f"dropout_transition=0:normalize=0,"
                  f"alimiter=limit=0.891:level=disabled[a]{partial_graph}")
     else:
-        graph = f"[0:v]{vf}{v_label};[1:a]{af}[a]{partial_graph}"
+        graph = f"{{VCHAIN}};[{{NA}}:a]{af}[a]{partial_graph}"
+
+    if _segs:
+        # One input per sub-window, each normalised and trimmed to its share of
+        # clip_len in proportion to its real length, then concatenated.
+        # EQUAL screen time per sub-shot, not time proportional to how long the
+        # source shot happens to run. Proportional shares were tried first, to
+        # keep the continuously-read film audio in sync - but the audio is read
+        # from `start` for the whole clip and never follows the segments, so
+        # there was no sync to protect. What proportional shares DID do was
+        # give one sub-shot 1.4 seconds of an 8.8-second clip, which is too
+        # short to register as a shot at all and defeats the point of splitting.
+        vin, vparts, labels = [], [], []
+        for _i, (_a, _b) in enumerate(_segs):
+            _share = clip_len / len(_segs)
+            vin += ["-ss", f"{_a:.3f}", "-t", f"{_b - _a + 0.5:.3f}",
+                    "-i", str(source)]
+            _m = ""
+            if config.MOTION_ENABLE and config.MOTION_ZOOM > 0:
+                _tf = max(1, int(round(_share * fps)))
+                _z = config.MOTION_ZOOM
+                _ze = (f"min(zoom+{_z/_tf:.6f},{1.0+_z:.4f})" if _i % 2 == 0
+                       else f"if(eq(on,0),{1.0+_z:.4f},max(zoom-{_z/_tf:.6f},1.0))")
+                _m = (f",zoompan=z='{_ze}':d=1:x='iw/2-(iw/zoom/2)':"
+                      f"y='ih/2-(ih/zoom/2)':s={w}x{h}:fps={fps}")
+            vparts.append(
+                f"[{_i}:v]{crop}{expo}scale={w}:{h}:"
+                f"force_original_aspect_ratio=decrease,"
+                f"pad={w}:{h}:(ow-iw)/2:(oh-ih)/2:black,setsar=1,fps={fps}{_m},"
+                f"tpad=stop_mode=clone:stop_duration={_share:.3f},"
+                f"trim=duration={_share:.3f},setpts=PTS-STARTPTS[s{_i}]")
+            labels.append(f"[s{_i}]")
+        _censor_tail = (f",boxblur={cb}:enable='between(t,0,{clip_len:.3f})'"
+                        if (cb > 0 and censor_region is None) else "")
+        vchain = (";".join(vparts) + ";" + "".join(labels)
+                  + f"concat=n={len(_segs)}:v=1:a=0"
+                  + (f",{_censor_tail[1:]}" if _censor_tail else "")
+                  + v_label)
+        # film audio still comes from input 0, which is the FIRST sub-window and
+        # therefore the start of the contiguous stretch.
+        src_in = vin
+        na = len(_segs)
+    else:
+        vchain = f"[0:v]{vf}{v_label}"
+        na = 1
+    graph = graph.replace("{VCHAIN}", vchain).replace("{NA}", str(na))
 
     cmd = [
         ff, "-y",
@@ -723,12 +783,46 @@ def _position_offsets(ff: str, final: Path, timeline: list, narration: list,
     return out
 
 
+def _split_points(window_dur: float, clip_len: float, cuts: list,
+                  start: float, end: float) -> list:
+    """2f: pick 2-3 CONTIGUOUS sub-windows of [start, end] at real cut points.
+
+    Only splits when the clip will play longer than SPLIT_CLIP_SEC. The genre's
+    own floor is clips under 8 seconds; a 12-second line on one shot is twelve
+    seconds of the same frame drifting under a zoom.
+
+    Splits only at timestamps that are ACTUAL CUTS in the source, so the result
+    is a real shot change rather than a jump cut inside one continuous take.
+    If the window contains no usable interior cut, this returns [] and the line
+    renders as a single clip - a missing cut is a reason not to split, not a
+    reason to invent a boundary.
+    """
+    thr = float(getattr(config, "SPLIT_CLIP_SEC", 8.0))
+    if clip_len <= thr or window_dur <= 0.5 or not cuts:
+        return []
+    want = 3 if clip_len > thr * 2 else 2
+    inner = [c for c in cuts if start + 1.2 < c < end - 1.2]
+    if not inner:
+        return []
+    bounds = [start]
+    for i in range(1, want):
+        ideal = start + window_dur * i / want
+        pick = min(inner, key=lambda c: abs(c - ideal))
+        if pick - bounds[-1] >= 1.2:
+            bounds.append(pick)
+    bounds.append(end)
+    segs = [(bounds[i], bounds[i + 1]) for i in range(len(bounds) - 1)]
+    segs = [(a, b) for a, b in segs if b - a >= 1.2]
+    return segs if len(segs) >= 2 else []
+
+
 def _clip_signature(source: Path, start: float, end: float, hold: float,
                     idx: int, crop_top: float, narr_dur: float,
                     audio_path: Path, censor: str = "none",
                     censor_region=None, exposure: float = 0.0, silence=None,
                     lead_in: float = 0.0, film_audio: bool = False,
-                    pre_reveal: bool = False) -> str:
+                    pre_reveal: bool = False,
+                    split_segments: list | None = None) -> str:
     """Hash everything that determines a clip's pixels+audio, for caching."""
     import hashlib
     try:
@@ -770,6 +864,10 @@ def _clip_signature(source: Path, start: float, end: float, hold: float,
         f"prerev={bool(pre_reveal)}:"
         f"{float(config.FILM_AUDIO_PRE_REVEAL_DB):.2f}:"
         f"{float(config.FILM_AUDIO_PRE_REVEAL_SEC):.2f}",
+        # 2f: the sub-windows change the PICTURE, so a cached one-shot clip
+        # must not be reused for a split line.
+        "split=" + ("|".join(f"{a:.2f}-{b:.2f}" for a, b in (split_segments or []))
+                    or "none"),
     ]
     return hashlib.sha1("|".join(parts).encode("utf-8")).hexdigest()[:20]
 
@@ -991,6 +1089,26 @@ def render(project: str, draft: dict,
     else:
         console.print("[dim]Film audio: disabled in config.[/]")
 
+    # ---- cut list, for 2f picture splitting ------------------------------
+    # Splitting only ever happens AT A REAL CUT. With no cut data, long lines
+    # render as single clips - which is the old behaviour, and is correct: a
+    # missing cut list is a reason not to split, not a reason to invent a
+    # boundary inside a continuous take.
+    _cutlist: list = []
+    try:
+        from pipeline import cuts as _cutsmod
+        _cutlist = sorted(float(c) for c in (_cutsmod.load_cuts(project) or []))
+    except Exception as _e:
+        _cutlist = []
+    if _cutlist:
+        console.print(f"[cyan]Clip splitting:[/] lines over "
+                      f"{float(getattr(config, 'SPLIT_CLIP_SEC', 8.0)):.0f}s "
+                      f"are cut across 2-3 shots ({len(_cutlist)} cuts available)")
+    else:
+        console.print("[yellow]Clip splitting:[/] no cut list - long lines stay "
+                      "on one shot. Splitting without real cut points would "
+                      "make jump cuts inside a single take.")
+
     # ---- which clip sits immediately BEFORE a <reveal> line? -------------
     # That clip's tail gets the film audio raised, so the reveal lands out of
     # the film's own sound rather than out of nothing.
@@ -1190,10 +1308,13 @@ def render(project: str, draft: dict,
 
         # ---- clip cache: reuse an identical previously-built clip -----------
         _is_pre_reveal = lid in _rev_prev_ids
+        # ---- 2f: does this line's picture need splitting? ----------------
+        _split = _split_points(end - start, lead + narr_dur + GAP, _cutlist,
+                               start, end)
         sig = _clip_signature(source, start, end, hold, idx, crop_top,
                               narr_dur, audio_path, censor, censor_region, exposure,
                               lead_in=lead, film_audio=has_film_audio,
-                              pre_reveal=_is_pre_reveal)
+                              pre_reveal=_is_pre_reveal, split_segments=_split)
         cached = cache_dir / f"{sig}.mp4"
         reused = False
         if not force_clips and cached.exists():
@@ -1209,7 +1330,8 @@ def render(project: str, draft: dict,
                                    cout, idx, crop_top, hold, censor, censor_region,
                                    exposure, lead_in=lead,
                                    film_audio=has_film_audio,
-                                   pre_reveal=_is_pre_reveal)
+                                   pre_reveal=_is_pre_reveal,
+                                   split_segments=_split)
             try:
                 import shutil
                 shutil.copy2(cout, cached)
@@ -1237,7 +1359,16 @@ def render(project: str, draft: dict,
 
         held = f" +hold{hold:.0f}s" if hold else ""
         tag = " [dim](cached)[/]" if reused else ""
-        console.print(f"  line {lid:>3}: [{src_label:<5}] -> {clip_len:4.1f}s{held}{tag}")
+        # 2f has to be VISIBLE in the log. Scene detection on the finished clip
+        # cannot tell my boundary from a cut that was already inside the
+        # footage, so the only honest record of what the splitter did is the
+        # splitter saying so.
+        _sp = ""
+        if _split:
+            _sp = (" [dim]split %d: %s[/]"
+                   % (len(_split),
+                      " | ".join(f"{a:.1f}-{b:.1f}" for a, b in _split)))
+        console.print(f"  line {lid:>3}: [{src_label:<5}] -> {clip_len:4.1f}s{held}{tag}{_sp}")
 
     if clips:
         pct = 100.0 * n_pool / len(clips)
