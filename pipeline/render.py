@@ -700,12 +700,23 @@ POSITION_TOLERANCE = 0.25   # seconds a line may sit off its timeline slot
 
 
 def _position_offsets(ff: str, final: Path, timeline: list, narration: list,
-                      n_probe: int = 3) -> list:
+                      n_probe: int = 3, intro_offset: float = 0.0) -> list:
     """Does the narration actually LAND where timeline.json says it does?
 
     Cross-correlates a line's own TTS audio against the finished mix, near the
     position timeline.json claims for it. Returns [(line_id, want, measured,
     delta)] for the sampled lines, or [] if the check could not run.
+
+    `intro_offset` is the length of the beat-cut intro block prepended to
+    `final` AFTER the in-memory `timeline` was built. The timeline's `start`
+    values are measured against a film with nothing on the front, but `final`
+    has the intro on it, so each line actually sits `intro_offset` seconds
+    later in the file. The search is centred on `want + intro_offset` so the
+    check measures REAL drift (audio vs video chains) rather than re-reporting
+    the constant intro shift as drift. When no intro is prepended this is 0.0
+    and the behaviour is unchanged. `want` returned to the caller stays the
+    unshifted slot, so the reported delta is drift about zero, not about the
+    offset.
 
     This replaced a duration comparison that could never fail. The old check
     computed `sum(clip durations) - XFADE*(n-1)` and compared it to the total
@@ -778,17 +789,22 @@ def _position_offsets(ff: str, final: Path, timeline: list, narration: list,
     for i in idxs:
         t = usable[i]
         want = _slot(t)
+        # Where the line actually sits in `final`: the timeline slot plus the
+        # prepended intro's length. Search is centred here; the reported delta
+        # is still (measured - here), i.e. drift about the position the render
+        # honours, so a correct render reads ~0 and real drift still shows.
+        want_in_file = want + intro_offset
         ref = envelope(decode(audio_by_id[t["id"]], t=probe))
         if ref is None:
             continue
-        lo = max(0.0, want - pad)
-        seg = full[int(lo * sr): int((want + pad + probe) * sr)]
+        lo = max(0.0, want_in_file - pad)
+        seg = full[int(lo * sr): int((want_in_file + pad + probe) * sr)]
         hay = envelope(seg)
         if hay is None or len(hay) <= len(ref) + 2:
             continue
         c = np.correlate(hay, ref - ref.mean(), mode="valid")
         measured = lo + int(np.argmax(c)) * win / sr
-        out.append((t["id"], want, measured, measured - want))
+        out.append((t["id"], want, measured, measured - want_in_file))
     return out
 
 
@@ -1591,7 +1607,8 @@ def render(project: str, draft: dict,
     # voice arrive where timeline.json says it does". Drift between the video
     # chain (explicit xfade offsets) and the audio chain compounds per junction
     # and is invisible in any total.
-    offsets = _position_offsets(ff, final, timeline, narration)
+    offsets = _position_offsets(ff, final, timeline, narration,
+                                intro_offset=intro_offset)
     if not offsets:
         console.print("[dim][RENDER-CHECK] position check skipped "
                       "(numpy missing, or no narration to sample).[/]")
