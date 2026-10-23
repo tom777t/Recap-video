@@ -55,7 +55,12 @@ def build_ass(timeline: list[dict], out_path: Path) -> Path:
         f"Style: Recap,{config.CAPTION_FONT},{config.CAPTION_FONT_SIZE * 2},"
         f"{config.CAPTION_PRIMARY_COLOUR},&H000000FF,{config.CAPTION_OUTLINE_COLOUR},"
         f"{config.CAPTION_BACK_COLOUR},{bold},0,0,0,100,100,0,0,1,"
-        f"{config.CAPTION_OUTLINE},2,80,80,{config.CAPTION_MARGIN_V},1\n\n"
+        # 2026-10-21: the Shadow slot was the literal `2` while
+        # config.CAPTION_SHADOW sat at 1, read by nothing - so setting it had
+        # no effect and the real shadow was whatever this line said. Caught by
+        # tools/check_config_usage.py.
+        f"{config.CAPTION_OUTLINE},{config.CAPTION_SHADOW},80,80,"
+        f"{config.CAPTION_MARGIN_V},1\n\n"
         "[Events]\n"
         "Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, "
         "Effect, Text\n"

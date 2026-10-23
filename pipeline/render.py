@@ -43,8 +43,16 @@ GAP = config.GAP_BETWEEN_LINES
 LEAD_IN = float(getattr(config, "NARRATION_LEAD_IN", 0.0))
 
 
-def _lead_for(narr_dur: float, shot_dur: float) -> float:
+def _lead_for(narr_dur: float, shot_dur: float, extra: float = 0.0) -> float:
     """Per-line lead-in, CLAMPED to what the shot can actually carry.
+
+    `extra` is additional front silence for this line specifically - currently
+    config.PRE_REVEAL_PAUSE on a <reveal> line, so the reveal arrives out of a
+    gap instead of on the heels of the previous sentence. It is added BEFORE
+    the clamp, deliberately: the clamp is the thing that stops a comfort
+    feature turning a rendering project into a BindingViolation, and a second
+    source of front-padding that skipped it would walk straight into the bug
+    this function exists to prevent.
 
     The lead-in is a comfort feature; the binding contract is a correctness one.
     A flat LEAD_IN added to every line pushes any line already near its shot's
@@ -57,17 +65,18 @@ def _lead_for(narr_dur: float, shot_dur: float) -> float:
     the line simply behaves as it did before. Lines with spare footage (the
     normal case, and the whole reason this exists) get the full value.
     """
-    if LEAD_IN <= 0.0:
+    want = LEAD_IN + max(0.0, float(extra or 0.0))
+    if want <= 0.0:
         return 0.0
     if shot_dur <= 0.0:          # pool/unknown window: nothing to clamp against
-        return LEAD_IN
+        return want
     from pipeline.schemas import BINDING_SLOWDOWN_MAX
     capacity = shot_dur * BINDING_SLOWDOWN_MAX
     # 1ms of slack: without it a line whose room is EXACTLY the lead lands on
     # `narr_need == capacity` and float error tips the `>` comparison into a
     # BindingViolation. Measured at shot_dur=7.3s in the clamp test.
     room = capacity - (narr_dur + GAP) - 1e-3
-    return max(0.0, min(LEAD_IN, room))
+    return max(0.0, min(want, room))
 
 
 def _run(cmd: list[str], desc: str):
@@ -1304,7 +1313,12 @@ def render(project: str, draft: dict,
         # per-line lead-in, clamped to what this shot can carry. The SAME value
         # is used for the clip, the cache key and the timeline entry - if they
         # ever disagree the captions and the positional gate drift.
-        lead = _lead_for(narr_dur, max(0.0, end - start))
+        # A <reveal> gets PRE_REVEAL_PAUSE of extra front silence so the line
+        # lands out of a gap. Clamped by _lead_for like every other lead, so a
+        # tight shot loses the pause rather than failing the binding contract.
+        _is_reveal = (ln.get("delivery") == "reveal")
+        _extra = float(getattr(config, "PRE_REVEAL_PAUSE", 0.0)) if _is_reveal else 0.0
+        lead = _lead_for(narr_dur, max(0.0, end - start), extra=_extra)
 
         # ---- clip cache: reuse an identical previously-built clip -----------
         _is_pre_reveal = lid in _rev_prev_ids

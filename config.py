@@ -20,7 +20,9 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent
 PROJECTS_DIR = ROOT / "projects"
 BIN_DIR = ROOT / "bin"
-PROMPTS_DIR = ROOT / "prompts"
+# PROMPTS_DIR removed 2026-10-21: nothing read it. The two places that mention
+# the prompts folder print a literal path as guidance text, they do not open a
+# file through a constant. Caught by tools/check_config_usage.py.
 
 # --------------------------------------------------------------------------- #
 # Defaults (override most of these with CLI flags)
@@ -107,9 +109,10 @@ DEPTH_TIERS = {
 DRAFT_FILL_TARGET = (0.70, 0.85)
 DRAFT_FILL_UNDER_WARN = 0.65     # warn below this (clearly under-authored)
 DRAFT_FILL_OVER_WARN = 0.90      # warn above this (over-stuffed -> slow-mo everywhere)
-# When the conservative and real-rate runtime estimates diverge by more than
-# this fraction, print a one-line note that the conservative estimate overshoots.
-DRAFT_ESTIMATE_DIVERGENCE_NOTE = 0.15
+# DRAFT_ESTIMATE_DIVERGENCE_NOTE removed 2026-10-21: nothing read it. It
+# described a divergence note that no longer exists - the draft now reports a
+# single runtime basis and names it, so there are no two estimates to compare.
+# Caught by tools/check_config_usage.py.
 # When a proposal declares no explicit depth_target, infer the tier from the
 # midpoint of its "Target: N-M min" runtime line against these upper bounds.
 DEPTH_TIER_RUNTIME_CEIL = [(13, "recap"), (17, "fuller_recap"), (9999, "video_essay")]
@@ -160,7 +163,12 @@ MOTION_ZOOM = 0.08         # max extra zoom over a clip (0.08 = up to +8%)
 
 # Silent action beats (no-voiceover holds that let action breathe).
 SHOWCASE_HOLD = 8.0        # default seconds for a big "showcase" action beat
-SHOWCASE_HOLD_MAX = 10.0   # never silent-hold longer than this
+# SHOWCASE_HOLD_MAX removed 2026-10-21. It said "never silent-hold longer than
+# this" and nothing enforced it - a stated ceiling that does not hold is worse
+# than no ceiling, because it reads as a guarantee. It was NOT moved to the
+# allowed list: that list is for keys deliberately unread, and an unenforced
+# promise is a bug, not a decision. If a hold ceiling is wanted, it should be
+# implemented on purpose. Caught by tools/check_config_usage.py.
 # A line can set "hold": 8 for a single held shot, or "montage": ["A4","A7",..]
 # to cut through several action shots during the (mostly silent) hold.
 
@@ -211,7 +219,10 @@ MUSIC_VOLUME = 0.15        # music level under the voice (0..1). History: 0.13 w
 # Missing files are NOT an error: the render falls back to music.mp3 and says
 # so out loud.
 # --------------------------------------------------------------------------- #
-MUSIC_MOODS = ("tense", "neutral", "action", "sad")
+# MUSIC_MOODS removed 2026-10-21: I added it during the mood-bed work and then
+# never read it - resolve_mood_beds() derives the moods it needs from the
+# segments actually present, which is the better source. The distinct VALUES of
+# MUSIC_MOOD_FOR_TAG below are the canonical mood names.
 MUSIC_MOOD_FOR_TAG = {
     "action": "action", "hook": "action",
     "tense": "tense", "mystery": "tense",
@@ -259,16 +270,15 @@ LOUDNORM_LRA = 11.0        # loudness range
 # sfx.plan_events(). It used to emit a transition whoosh before every clip
 # (~190 of them on a 190-line draft), a sting on the intro and a riser on every
 # mystery beat, which is why it was switched off wholesale instead of aimed.
+# 2026-10-21: the retired switches (SFX_WHOOSH / SFX_STING / SFX_RISER and
+# their _DB gains) are DELETED rather than left sitting at False. plan_events()
+# no longer has a code path for any of them, so a switch left behind would
+# invite someone to set SFX_WHOOSH = True and watch nothing happen - a config
+# key that silently does nothing is the exact failure this file's usage check
+# was written to catch, and these six were caught by it.
 SFX_ENABLE = True          # master switch for sound design
-SFX_WHOOSH = False         # retired: a whoosh on every cut is the cheap-recap tell
 SFX_BOOM = True            # low boom on a reveal line and on a hold
-SFX_STING = False          # retired with the intro sting
-SFX_RISER = False          # retired: fired on every mystery beat
-# gains in dB (negative = quieter); kept subtle so they sit under the mix
-SFX_WHOOSH_DB = -16.0
 SFX_BOOM_DB = -12.0        # nudged down from -10 (booms were the loudest hits)
-SFX_STING_DB = -14.0
-SFX_RISER_DB = -18.0
 
 # --------------------------------------------------------------------------- #
 # Channel branding (used by the script style guide; not enforced in code)
