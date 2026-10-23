@@ -195,6 +195,13 @@ def _wc(s: str) -> int:
     return len(s.split())
 
 
+def ln_by_id(lines: list, lid) -> dict:
+    for l in lines:
+        if l.get("id") == lid:
+            return l
+    return {}
+
+
 def is_v2(draft: dict) -> bool:
     """A draft is v2 once any line declares `payload` or `hook_question`."""
     return any(("payload" in ln) or ("hook_question" in ln)
@@ -344,9 +351,78 @@ def craft_report(draft: dict) -> dict:
                          "DECORATIVE - it scored 0 on both reference drafts "
                          "too, so it has never discriminated anything.")
 
+    # ---- [FILM-SPEAKS] ----------------------------------------------------
+    # narration stops, the film's own exchange plays at full level.
+    _fs = [(ln.get("id"), float(ln.get("film_speaks_seconds") or 0))
+           for ln in lines if ln.get("film_speaks_seconds")]
+    m["film_speaks"] = len(_fs)
+    _order = [ln.get("id") for ln in lines]
+    try:
+        import config as _c3
+        _fmin = float(getattr(_c3, "FILM_SPEAKS_MIN_SEC", 3.0))
+        _fmax = float(getattr(_c3, "FILM_SPEAKS_MAX_SEC", 15.0))
+        _fcap = int(getattr(_c3, "FILM_SPEAKS_MAX_PER_FILM", 5))
+        _fspace = int(getattr(_c3, "FILM_SPEAKS_MIN_SPACING_LINES", 15))
+    except Exception:                                      # pragma: no cover
+        _fmin, _fmax, _fcap, _fspace = 3.0, 15.0, 5, 15
+    for lid, secs in _fs:
+        if secs < _fmin or secs > _fmax:
+            errors.append(
+                f"[FILM-SPEAKS] line {lid}: {secs:.1f}s is outside "
+                f"{_fmin:.0f}-{_fmax:.0f}s. Under {_fmin:.0f}s nobody registers "
+                f"an exchange; over {_fmax:.0f}s it stops being a recap and "
+                f"starts being a clip.")
+        if str(ln_by_id(lines, lid).get("narration", "") or "").strip():
+            errors.append(
+                f"[FILM-SPEAKS] line {lid} carries narration. The whole point "
+                f"is that the narrator stops - the film is talking.")
+    if len(_fs) > _fcap:
+        errors.append(
+            f"[FILM-SPEAKS] {len(_fs)} units, cap is {_fcap} (about one per "
+            f"act). Original audio is a copyright exposure and the device "
+            f"stops working when it is everywhere.")
+    _pos = [_order.index(lid) for lid, _ in _fs if lid in _order]
+    for a, b in zip(sorted(_pos), sorted(_pos)[1:]):
+        if b - a < _fspace:
+            errors.append(
+                f"[FILM-SPEAKS] two units only {b - a} lines apart "
+                f"(minimum {_fspace}). They cannot cluster.")
+    # The line BEFORE a film_speaks unit must not paraphrase what is about to
+    # be heard. That is a judgment a reader has to make, so this is a WARNING
+    # with a mechanical proxy: a speech-reporting verb right before the film
+    # speaks is the most likely way to say it twice.
+    _spverb = re.compile(r"\b(says?|told?|tells|asks?|answers?|replies|"
+                         r"explains?|admits?|argues?|insists?)\b", re.I)
+    for lid, _ in _fs:
+        i = _order.index(lid) if lid in _order else -1
+        if i <= 0:
+            continue
+        prev = None
+        for j in range(i - 1, -1, -1):
+            if _narr(lines[j]):
+                prev = lines[j]
+                break
+        if prev is not None and _spverb.search(_narr(prev)):
+            warns.append(
+                f"[FILM-SPEAKS] the line before unit {lid} "
+                f"(line {prev.get('id')}) reports speech. If the film is about "
+                f"to say it, do not say it first - the viewer hears it twice "
+                f"and the second time is the one that sounds padded.")
+
     # ---- item 3: [SPEECH-BLIND] ------------------------------------------
+    # Lines immediately before a <film_speaks> unit are EXEMPT: not saying what
+    # was said is correct there, because the film is about to say it.
+    _fs_exempt = set()
+    for lid, _ in _fs:
+        i = _order.index(lid) if lid in _order else -1
+        for j in range(i - 1, -1, -1):
+            if j >= 0 and _narr(lines[j]):
+                _fs_exempt.add(lines[j].get("id"))
+                break
     sb_hard, sb_soft = [], []
     for ln in narrated:
+        if ln.get("id") in _fs_exempt:
+            continue
         t = _narr(ln)
         has_quote = ('"' in t) or ("\u201c" in t)
         for rx, why in _SPEECH_HARD:

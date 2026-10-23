@@ -140,7 +140,8 @@ def generate_tts(project: str, draft: dict,
     # preset, instead of making the author discover them one render at a time.
     _bad_tags: dict = {}
     for ln in draft["lines"]:
-        if ln.get("narration_silence_seconds") is not None:
+        if (ln.get("narration_silence_seconds") is not None
+                or ln.get("film_speaks_seconds") is not None):
             continue
         if not str(ln.get("narration", "")).strip():
             continue
@@ -169,10 +170,18 @@ def generate_tts(project: str, draft: dict,
     for ln in draft["lines"]:
         # Gap 3 / S9 silence line: no narration -> no TTS. The render builds a
         # silent held clip for it (matched by clip_start/clip_end, not by_id).
-        if ln.get("narration_silence_seconds") is not None or not ln.get("narration", "").strip():
+        if (ln.get("narration_silence_seconds") is not None
+                or ln.get("film_speaks_seconds") is not None
+                or not ln.get("narration", "").strip()):
             sec = ln.get("narration_silence_seconds")
-            console.print(f"  line {ln['id']:>3}: [dim]silence ({float(sec):.0f}s)[/]"
-                          if sec else f"  line {ln['id']:>3}: [dim]skipped (empty)[/]")
+            fsp = ln.get("film_speaks_seconds")
+            if fsp:
+                console.print(f"  line {ln['id']:>3}: [dim]film speaks "
+                              f"({float(fsp):.0f}s, no narration)[/]")
+            elif sec:
+                console.print(f"  line {ln['id']:>3}: [dim]silence ({float(sec):.0f}s)[/]")
+            else:
+                console.print(f"  line {ln['id']:>3}: [dim]skipped (empty)[/]")
             continue
 
         out = ndir / f"line_{ln['id']:03d}.mp3"

@@ -178,6 +178,23 @@ FILM_AUDIO_HOLD_DB = -6.0  # inside a narration_silence hold: let the film carry
 FILM_AUDIO_PRE_REVEAL_DB = -8.0   # raised in the seconds before a <reveal>
 FILM_AUDIO_PRE_REVEAL_SEC = 1.5   # how long before the reveal the raise starts
 
+# --------------------------------------------------------------------------- #
+# <film_speaks>: narration STOPS and the film's own exchange plays at full
+# level (2026-10-21).
+# Measured on real channels: both English recap channels studied hand whole
+# exchanges to the film - 136 and 99 dialogue markers in their captions - while
+# this pipeline narrated over every second of every film. This is the one
+# device the "bland" baseline does that we did not.
+# A line declares `film_speaks_seconds: 6.0` and carries NO narration.
+# Deliberately kept SPARSE: using someone's original audio is a copyright
+# exposure, and the device stops working if it is everywhere.
+# --------------------------------------------------------------------------- #
+FILM_SPEAKS_DB = 0.0        # full level - this is the point of the unit
+FILM_SPEAKS_MIN_SEC = 3.0   # under this nobody registers an exchange
+FILM_SPEAKS_MAX_SEC = 15.0  # over this it stops being a recap
+FILM_SPEAKS_MAX_PER_FILM = 5          # about one per act on a 4-5 act film
+FILM_SPEAKS_MIN_SPACING_LINES = 15    # cannot cluster
+
 # Background music
 MUSIC_VOLUME = 0.15        # music level under the voice (0..1). History: 0.13 was judged too subtle, 0.18 too present. 0.15 from 2026-08-13.
 # --------------------------------------------------------------------------- #

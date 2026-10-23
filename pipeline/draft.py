@@ -382,10 +382,15 @@ def validate_draft(project: str, *, write_state: bool = False,
     # `narration_silence_seconds`, and render.py holds the visual for that long
     # with the music swelling. That is a feature, not a blank line - the first
     # version of this gate hard-failed three of four finished films for using it.
+    # 2026-10-21: `film_speaks_seconds` joins `narration_silence_seconds` as a
+    # deliberate wordless unit. Both are wordless ON PURPOSE - a silence hold
+    # lets the picture carry the beat, a film_speaks unit lets the film's own
+    # dialogue carry it at full level - so neither is an empty line.
     _blank = [ln for ln in draft["lines"]
               if ln.get("clip_start")
               and not (ln.get("narration") or "").strip()
-              and not ln.get("narration_silence_seconds")]
+              and not ln.get("narration_silence_seconds")
+              and not ln.get("film_speaks_seconds")]
     if _blank:
         console.print("[red][EMPTY-LINE][/] line(s) with a clip window but no narration:")
         for ln in _blank:

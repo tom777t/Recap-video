@@ -330,7 +330,8 @@ def _build_silence_clip(ff: str, source: Path, start: float, end: float,
                         crop_top: float = 0.0,
                         censor: str = "none", censor_region=None,
                         exposure: float = 0.0,
-                        film_audio: bool = False):
+                        film_audio: bool = False,
+                        film_speaks: bool = False):
     # NOTE: `film_audio` is LAST on purpose. It was briefly added after `idx`,
     # which silently shifted every positional argument at the call site -
     # crop_top became film_audio, censor became crop_top. New parameters go on
@@ -412,8 +413,12 @@ def _build_silence_clip(ff: str, source: Path, start: float, end: float,
     _use_film = (film_audio and config.FILM_AUDIO_ENABLE
                  and float(config.FILM_AUDIO_HOLD_DB) > -60.0)
     if _use_film:
+        # A hold keeps the film under a music swell; a <film_speaks> unit hands
+        # the moment over entirely, so its audio sits at full level.
+        _lvl = (float(getattr(config, "FILM_SPEAKS_DB", 0.0)) if film_speaks
+                else float(config.FILM_AUDIO_HOLD_DB))
         _hold_af = (
-            f"volume={float(config.FILM_AUDIO_HOLD_DB)}dB,"
+            f"volume={_lvl}dB,"
             f"apad=whole_dur={clip_len:.3f},"
             f"atrim=duration={clip_len:.3f},asetpts=PTS-STARTPTS,"
             f"aformat=sample_rates=48000:channel_layouts=stereo"
@@ -1020,7 +1025,15 @@ def render(project: str, draft: dict,
         # as a silence shot (e.g. a lead-in held just before the silence) and
         # must keep its narration.
         _skey = (ln.get("clip_start"), ln.get("clip_end"))
+        # <film_speaks>: same wordless clip as a silence hold, but the film's
+        # audio plays at FULL level instead of being held under a music swell.
+        # Handled here rather than as a separate branch because everything
+        # except the audio level is identical - and a second near-copy of the
+        # silence path is how the two would drift apart.
+        _fs_secs = ln.get("film_speaks_seconds")
         sil_secs = ln.get("narration_silence_seconds")
+        if _fs_secs is not None:
+            sil_secs = float(_fs_secs)
         if sil_secs is None:
             sil_secs = silence_by_clip.get(_skey) if not ln.get("narration", "").strip() else None
         if sil_secs is not None and not ln.get("montage"):
@@ -1048,7 +1061,8 @@ def render(project: str, draft: dict,
                 clip_len = _build_silence_clip(ff, source, start, end, cout,
                                                sil_secs, idx, crop_top,
                                                censor, censor_region, exposure,
-                                               film_audio=has_film_audio)
+                                               film_audio=has_film_audio,
+                                               film_speaks=(_fs_secs is not None))
                 try:
                     import shutil
                     shutil.copy2(cout, cached)
