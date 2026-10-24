@@ -130,7 +130,8 @@ def run(project: str, only: list[str] | None) -> int:
             print(f"   [fail] {label}: {bad}")
             continue
 
-        final = vdir / f"{label}_{p.voice.replace(' ', '-')}.mp3"
+        vname = (p.voice_label or p.voice).replace(" ", "-")
+        final = vdir / f"{label}_{vname}.mp3"
         concat(parts, final)
         dur = tp.audio_duration(final)
         wpm = total_words / dur * 60 if dur else 0.0
@@ -212,7 +213,11 @@ def selftest() -> int:
             len(sigs) >= 5, f"only {len(sigs)} distinct - tags barely matter")
 
     print("\n[4] cache key reacts to text, voice, tag AND control changes")
-    p = provs["elevenlabs"]
+    # Resolved dynamically: hardcoding "elevenlabs" broke this test the moment
+    # the registry gained one key per narrator voice. A test that breaks when
+    # a voice is added is a test nobody will keep.
+    el_label = next(k for k in provs if k.startswith("elevenlabs"))
+    p = provs[el_label]
     base = p.cache_signature("hello there", "normal")
     chk("same input -> same signature",
         base == p.cache_signature("hello there", "normal"))

@@ -125,6 +125,10 @@ class Provider:
     voice: str
     env_var: str | None
     commerce: Commerce
+    # Human-readable voice name for filenames. ElevenLabs voice ids are opaque
+    # strings like bIHbv24MWmeRgasZH58o, which make an unlistenable filename.
+    # Must carry a default, so it sits after the non-defaulted fields.
+    voice_label: str = ""
     control_kind: str = ""     # how delivery is expressed, for the report
     docs: str = ""
     # tag -> provider-specific control bundle
@@ -318,7 +322,8 @@ class ElevenProvider(Provider):
         out.write_bytes(audio)
 
 
-def _eleven() -> ElevenProvider:
+def _eleven(voice: str = "JBFqnCBsd6RMkjVDRZzb",
+            voice_label: str = "George") -> ElevenProvider:
     # Audio tags go inline in `text`. v4/v4-turbo/v3 support them; the older
     # multilingual_v2 does NOT, so changing the model silently disables all
     # the direction below - hence model id is part of the cache key.
@@ -337,8 +342,11 @@ def _eleven() -> ElevenProvider:
     for v in D.values():
         v["similarity_boost"] = 0.75
     return ElevenProvider(
-        name="elevenlabs", model="eleven_v4_turbo",
-        voice="bIHbv24MWmeRgasZH58o",   # "Will" - a public male narrator voice
+        name=f"elevenlabs-{voice_label.lower()}", model="eleven_v4_turbo",
+        # Voice ids confirmed present on this account via GET /v1/voices -
+        # not guessed. The first write hardcoded "Will", a young
+        # conversational voice, which is the wrong register for narration.
+        voice=voice, voice_label=voice_label,
         env_var="ELEVENLABS_API_KEY",
         control_kind="inline [audio tags] + stability/style/speed",
         docs="https://elevenlabs.io/docs/best-practices/prompting/eleven-v3",
@@ -499,19 +507,42 @@ def _inworld() -> InworldProvider:
     #  - instructions must be ENGLISH regardless of the script's language.
     #  - inworld-tts-2-flash ignores steering silently. Do not "optimise" the
     #    model id to flash; you would lose all direction and see no error.
+    # RATES ARE CALIBRATED FROM MEASUREMENT, not chosen to look sensible.
+    # First attempt read the 191-word passage at 137.7 WPM against a 185
+    # target. A one-variable-at-a-time sweep on a fixed 28-word line found
+    # the cause was this mapping, not the engine:
+    #     plain text, rate 1.0, BALANCED .... 181.7 WPM   (already on target)
+    #     + deliveryMode CREATIVE .......... 165.8 WPM   (-16)
+    #     + a steering cue ................. 127.9 WPM   (-38 more)
+    # So a cue costs roughly 23% of pace on its own, and CREATIVE another 9%.
+    # Two corrections follow from that:
+    #  1. BALANCED is the default now. CREATIVE is kept only for sad and
+    #     mystery, where its slower, more expressive read is what we want
+    #     anyway rather than a cost.
+    #  2. Every cued tag carries a speaking_rate ABOVE 1.0 to buy back what
+    #     the cue spends. These look high; they are not aggressive, they are
+    #     compensating for a measured loss.
+    # The reveal cue also lost the words "slow and deliberate" - it was
+    # literally instructing the slowdown it was then being blamed for.
+    # Inworld caps speakingRate at 1.5; nothing here goes near it.
     D = {
-      "normal":  dict(cue="",                                               delivery_mode="BALANCED", speaking_rate=1.00),
-      "tense":   dict(cue="[say with urgency, clipped and controlled]",     delivery_mode="CREATIVE", speaking_rate=1.06),
-      "sad":     dict(cue="[say quietly in a low, subdued tone]",           delivery_mode="BALANCED", speaking_rate=0.92),
-      "reveal":  dict(cue="[say with force, slow and deliberate]",          delivery_mode="CREATIVE", speaking_rate=0.95),
-      "mystery": dict(cue="[whisper in a hushed style]",                    delivery_mode="BALANCED", speaking_rate=0.93),
-      "hook":    dict(cue="[say with force]",                               delivery_mode="CREATIVE", speaking_rate=1.02),
-      "intro":   dict(cue="[articulate clearly]",                           delivery_mode="STABLE",   speaking_rate=1.00),
-      "outro":   dict(cue="[say with a falling pitch]",                     delivery_mode="STABLE",   speaking_rate=0.96),
-      "action":  dict(cue="[very fast]",                                    delivery_mode="CREATIVE", speaking_rate=1.15),
+      "normal":  dict(cue="",                                               delivery_mode="BALANCED", speaking_rate=1.02),
+      "tense":   dict(cue="[say with urgency, clipped and controlled]",     delivery_mode="BALANCED", speaking_rate=1.32),
+      "sad":     dict(cue="[say quietly in a low, subdued tone]",           delivery_mode="CREATIVE", speaking_rate=1.12),
+      "reveal":  dict(cue="[say with weight, letting it land]",             delivery_mode="BALANCED", speaking_rate=1.18),
+      "mystery": dict(cue="[whisper in a hushed style]",                    delivery_mode="CREATIVE", speaking_rate=1.15),
+      "hook":    dict(cue="[say with force]",                               delivery_mode="BALANCED", speaking_rate=1.30),
+      "intro":   dict(cue="[articulate clearly]",                           delivery_mode="STABLE",   speaking_rate=1.28),
+      "outro":   dict(cue="[say with a falling pitch]",                     delivery_mode="STABLE",   speaking_rate=1.20),
+      "action":  dict(cue="[say fast and driving]",                         delivery_mode="BALANCED", speaking_rate=1.42),
     }
     return InworldProvider(
-        name="inworld", model="inworld-tts-2", voice="Dennis",
+        name="inworld", model="inworld-tts-2",
+        # "Warren" - "mature, resonant male voice with a classic announcer
+        # quality", confirmed in the 303 voices returned by GET
+        # /tts/v1/voices. The first write used "Dennis" from a docs example,
+        # which was never checked against the live list.
+        voice="Warren", voice_label="Warren",
         env_var="INWORLD_API_KEY",
         control_kind="inline [steering instructions] + deliveryMode",
         docs="https://docs.inworld.ai/tts/capabilities/steering",
@@ -697,7 +728,13 @@ def all_providers() -> dict:
     """Every provider, keyed by the label used in output filenames."""
     return {
         "edge": _edge(),
-        "elevenlabs": _eleven(),
+        # Three narrator-register voices, all confirmed on the account:
+        # George is labelled narrative_story, Daniel is a steady British
+        # broadcaster, Brian is the deep American closest to Edge's Andrew so
+        # the comparison against the current baseline is like-for-like.
+        "elevenlabs-george": _eleven("JBFqnCBsd6RMkjVDRZzb", "George"),
+        "elevenlabs-daniel": _eleven("onwK4e9ZLuTAKqWW03F9", "Daniel"),
+        "elevenlabs-brian": _eleven("nPczCjzI2devNBz1zQrb", "Brian"),
         "fish-s21pro": _fish("s2.1-pro"),
         "fish-drama3": _fish("drama-3"),
         "inworld": _inworld(),
