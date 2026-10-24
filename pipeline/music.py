@@ -294,34 +294,63 @@ def build_music_track(ff: str, pdir: Path, out: Path, total_dur: float,
 # --------------------------------------------------------------------------- #
 def resolve_music(ff: str, pdir: Path, work: Path, draft: dict, timeline: list,
                   total_dur: float, reveal_positions: list | None = None,
-                  hold_windows: list | None = None):
+                  hold_windows: list | None = None,
+                  legacy: Path | None = None):
     """Return (track_path, is_prebuilt, note) for render.py to mix, applying the
-    fallback ladder and PRINTING each rung.
+    fallback ladder and PRINTING which design is active and which files it found.
 
       bed + cues  -> prebuilt bed+cues track           (is_prebuilt True)
       bed only    -> the bed, looped by render.py      (is_prebuilt False)
       music.mp3   -> the legacy single track           (is_prebuilt False)
       neither     -> (None, ...) : render with no music
+
+    PRECEDENCE: projects/<name>/music/ always wins over the legacy single track
+    that recap.py auto-discovers (or --music downloads) and passes as `legacy`.
+    If music/bed.* is absent but CUES exist, the legacy track is promoted to BE
+    the bed so the cues still layer - dropping to "legacy single track" there
+    silently threw away a populated music/cues/ directory.
     """
     bed = bed_file(pdir)
     cues = cue_files(pdir)
     # reveal stings live under 'reveal'; mood cues are the rest
     mood_cues = {m: f for m, f in cues.items() if m != "reveal"}
-
-    if bed is None:
+    if legacy is None:
         legacy = legacy_music(pdir)
-        if legacy is not None:
+
+    # ---- say what was FOUND, before saying what will be used ---------------
+    _found = []
+    _found.append(f"music/bed{bed.suffix}" if bed else "no music/bed.*")
+    if cues:
+        _found.append("music/cues: " + ", ".join(
+            f"{m} x{len(f)}" for m, f in sorted(cues.items())))
+    else:
+        _found.append("no music/cues/*")
+    _found.append(f"legacy {legacy.name}" if legacy else "no legacy music.*")
+    console.print(f"[dim]Music files: {' | '.join(_found)}[/]")
+
+    bed_is_legacy = False
+    if bed is None:
+        if legacy is not None and mood_cues:
+            # promote the legacy track to bed so the cues are not thrown away
+            bed, bed_is_legacy = legacy, True
             console.print(
-                f"[yellow]Music:[/] no music/bed.* - using the legacy single "
-                f"track {legacy.name}. Add music/bed.mp3 for the bed+cues design.")
+                f"[cyan]Music design: BED + CUES[/] - no music/bed.*, so "
+                f"{legacy.name} is used AS the bed, with the "
+                f"music/cues/ files layered on top.")
+        elif legacy is not None:
+            console.print(
+                f"[yellow]Music design: LEGACY SINGLE TRACK[/] - {legacy.name}, "
+                f"no music/bed.* and no music/cues/*. Add music/bed.mp3 + "
+                f"music/cues/<mood>*.mp3 for the bed+cues design.")
             return legacy, False, "legacy single track"
-        console.print("[yellow]Music:[/] no music/bed.* and no music.* - "
-                      "rendering with NO music.")
-        return None, False, "no music"
+        else:
+            console.print("[yellow]Music design: NONE[/] - no music/bed.*, no "
+                          "music/cues/* and no music.* - rendering with NO music.")
+            return None, False, "no music"
 
     if not mood_cues:
         console.print(
-            "[cyan]Music:[/] bed only (no music/cues/<mood>*.* found). "
+            "[cyan]Music design: BED ONLY[/] (no music/cues/<mood>*.* found). "
             "The bed runs under the whole recap, ducked under the voice and "
             "raised in holds. Add cue files for layered mood.")
         return bed, False, "bed only"
@@ -345,7 +374,8 @@ def resolve_music(ff: str, pdir: Path, work: Path, draft: dict, timeline: list,
     for p in plan:
         _by_mood[p["mood"]] = _by_mood.get(p["mood"], 0) + 1
     console.print(
-        "[cyan]Music:[/] bed + "
+        f"[cyan]Music design: BED + CUES[/] - bed {bed.name}"
+        + (" (legacy track promoted)" if bed_is_legacy else "") + " + "
         + ", ".join(f"{v} {k} cue(s)" for k, v in sorted(_by_mood.items()))
         + f" over {total_dur/60:.1f} min "
         f"(>= {config.MUSIC_CUE_MIN_GAP_SEC:.0f}s apart, bed dips "

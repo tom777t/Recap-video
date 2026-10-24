@@ -134,14 +134,23 @@ def _delivery_for(ln: dict, base_rate: str) -> dict:
     return preset
 
 
-def _select_provider():
-    """Inworld 'Warren' by default; Edge as the offline fallback, loudly.
+class VoiceUnavailable(RuntimeError):
+    """The production voice is unavailable and the Edge downgrade was not
+    explicitly allowed. Raised instead of silently narrating on Edge."""
+
+
+def _select_provider(allow_edge: bool = False):
+    """Inworld 'Warren' by default; Edge ONLY when explicitly allowed.
 
     Returns (provider, is_fallback). The default is Inworld because it can
     ACT - steer per tag, land ~185 WPM. Edge only shifts rate/pitch, so a
-    render on Edge is a DOWNGRADE, and the pipeline prints that it happened
-    rather than shipping it silently. Falls back when INWORLD_API_KEY is
-    missing or the provider is otherwise unavailable.
+    render on Edge is a DOWNGRADE of the finished video's narration.
+
+    A printed warning was NOT enough: the first production render had no
+    INWORLD_API_KEY set, the warning scrolled past inside a long render log,
+    and a full film was narrated on the fallback voice without anyone noticing
+    until it was watched. So the downgrade is now a STOP by default and the
+    caller must opt in with --allow-edge (allow_edge=True).
     """
     provs = all_providers()
     primary = provs.get(DEFAULT_PROVIDER)
@@ -149,22 +158,36 @@ def _select_provider():
         ok, why = primary.available()
         if ok:
             return primary, False
+        if not allow_edge:
+            raise VoiceUnavailable(
+                f"The production voice is unavailable: {primary.name} "
+                f"({primary.voice_label}) - {why}.\n"
+                f"  Edge is a DOWNGRADE: offline, rate/pitch only, it cannot "
+                f"act the delivery tags, so the whole recap would be narrated "
+                f"flat.\n"
+                f"  Fix it:      set INWORLD_API_KEY and re-run.\n"
+                f"  Or accept it: re-run with --allow-edge to narrate on Edge "
+                f"on purpose.")
         console.print(
-            f"[yellow]Voice fallback:[/] {primary.name} ({primary.voice_label}) "
-            f"is unavailable - {why}. Falling back to {FALLBACK_PROVIDER} "
-            f"(offline, rate/pitch only - no acting). Set INWORLD_API_KEY for "
-            f"the production voice.")
+            f"[yellow]Voice fallback (--allow-edge):[/] {primary.name} "
+            f"({primary.voice_label}) is unavailable - {why}. Narrating on "
+            f"{FALLBACK_PROVIDER} (offline, rate/pitch only - no acting).")
+    elif not allow_edge:
+        raise VoiceUnavailable(
+            f"The production voice provider '{DEFAULT_PROVIDER}' is not "
+            f"registered at all. Re-run with --allow-edge to narrate on Edge.")
     return provs[FALLBACK_PROVIDER], True
 
 
 def generate_tts(project: str, draft: dict,
                  voice: str = config.DEFAULT_TTS_VOICE,
-                 rate: str = config.DEFAULT_TTS_RATE) -> list[tuple[int, Path, float]]:
+                 rate: str = config.DEFAULT_TTS_RATE,
+                 allow_edge: bool = False) -> list[tuple[int, Path, float]]:
     pdir = config.ensure_project(project)
     ndir = pdir / "narration"
     ndir.mkdir(exist_ok=True)
 
-    provider, is_fallback = _select_provider()
+    provider, is_fallback = _select_provider(allow_edge=allow_edge)
 
     # ---- pre-flight: every delivery tag must resolve BEFORE we synthesize ----
     # Fail on line 1, not on line 97 of 219 after eight minutes of network
@@ -225,15 +248,28 @@ def generate_tts(project: str, draft: dict,
             was_cached, dur = synthesize_cached(
                 provider, str(ln["narration"]), tag, out, ndir)
         except (ProviderUnavailable, SynthesisFailed) as e:
-            # The primary went down mid-run (e.g. a network blip). Fall back to
-            # Edge for the rest rather than abort a 109-line render, and say so.
-            if provider.name != FALLBACK_PROVIDER:
+            # The primary went down mid-run (e.g. a network blip). Switching to
+            # Edge for the REST is worse than the start-of-run downgrade: it
+            # ships a film whose narration changes voice partway through. Only
+            # do it when the downgrade was explicitly allowed; otherwise stop.
+            # Lines already synthesized stay in the cache, so a re-run after
+            # fixing the key resumes instead of re-paying for them.
+            if provider.name != FALLBACK_PROVIDER and allow_edge:
                 console.print(f"[yellow]  line {ln['id']}: {provider.name} "
                               f"failed ({e}); switching to {FALLBACK_PROVIDER} "
-                              f"for the remainder.[/]")
+                              f"for the remainder (--allow-edge).[/]")
                 provider, is_fallback = all_providers()[FALLBACK_PROVIDER], True
                 was_cached, dur = synthesize_cached(
                     provider, str(ln["narration"]), tag, out, ndir)
+            elif provider.name != FALLBACK_PROVIDER:
+                raise VoiceUnavailable(
+                    f"{provider.name} failed on line {ln['id']} after "
+                    f"{len(results)} line(s) had already been synthesized: {e}\n"
+                    f"  Continuing on Edge would change the narrator's voice "
+                    f"partway through the film, so this is a STOP.\n"
+                    f"  The {len(results)} finished line(s) are cached - fix "
+                    f"the provider and re-run to resume, or re-run with "
+                    f"--allow-edge to finish on Edge on purpose.")
             else:
                 console.print(f"[red]TTS failed on line {ln['id']}:[/] {e}")
                 sys.exit(1)

@@ -46,7 +46,28 @@ def main() -> int:
         print("khong co dong nao - chua act nao duoc viet")
         return 1
 
-    lines.sort(key=lambda l: pt(l["clip_start"]))
+    # Sort into playback order by clip_start - but NOT every line HAS one.
+    # Intro-owned lines (over_montage hook, film_intro) carry no clip window by
+    # schema rule and play in the prepended block, so they sort to the FRONT in
+    # authored order. Pool/montage lines have no single timestamp either; they
+    # keep their authored position by inheriting the last timed line's stamp, so
+    # a b-roll line stays next to the beat it was written against.
+    # Subscripting l["clip_start"] here raised KeyError the same way the render
+    # clip loop did - see pipeline/render.py INTRO_OWNED.
+    _INTRO_OWNED = ("over_montage", "film_intro")
+    keys, last = {}, 0.0
+    for i, l in enumerate(lines):
+        if any(l.get(k) for k in _INTRO_OWNED):
+            keys[id(l)] = (0, -1.0, i)          # front, authored order
+            continue
+        cs = l.get("clip_start")
+        if cs:
+            try:
+                last = pt(cs)
+            except Exception:
+                missing.append(f"line {l.get('id')}: bad clip_start {cs!r}")
+        keys[id(l)] = (1, last, i)              # untimed -> stays in place
+    lines.sort(key=lambda l: keys[id(l)])
     for i, l in enumerate(lines, 1):
         l["id"] = i
 

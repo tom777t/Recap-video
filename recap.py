@@ -223,8 +223,14 @@ def cmd_render(args):
     draft = validate_draft(args.project)  # re-validate so render is always safe
 
     if args.voice == "tts":
-        narration = generate_tts(args.project, draft,
-                                 voice=args.tts_voice, rate=args.tts_rate)
+        from pipeline.tts import VoiceUnavailable
+        try:
+            narration = generate_tts(args.project, draft,
+                                     voice=args.tts_voice, rate=args.tts_rate,
+                                     allow_edge=args.allow_edge)
+        except VoiceUnavailable as e:
+            console.print(f"[red]VOICE: {e}[/]")
+            sys.exit(1)
     else:
         narration = collect_mine(args.project, draft)
 
@@ -382,6 +388,11 @@ def main():
     pr.add_argument("--voice", choices=["tts", "mine"], required=True)
     pr.add_argument("--tts-voice", default=config.DEFAULT_TTS_VOICE)
     pr.add_argument("--tts-rate", default=config.DEFAULT_TTS_RATE)
+    pr.add_argument("--allow-edge", action="store_true",
+                    help="narrate on the Edge fallback voice when the "
+                         "production voice (Inworld) is unavailable. Without "
+                         "this flag a missing INWORLD_API_KEY is a STOP, not a "
+                         "silent downgrade to a voice that cannot act.")
     pr.add_argument("--music", default=None,
                     help="background music: a URL (downloaded) or local file path")
     pr.add_argument("--captions", action="store_true",

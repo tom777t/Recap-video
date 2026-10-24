@@ -42,6 +42,22 @@ GAP = config.GAP_BETWEEN_LINES
 # GAP stays at the END of the clip; LEAD_IN is added at the FRONT.
 LEAD_IN = float(getattr(config, "NARRATION_LEAD_IN", 0.0))
 
+# Line flags whose picture is built by pipeline.intro, NOT by the clip loop.
+# Such a line has NO clip window at all (draft.py REJECTS a clip_start on one),
+# so every loop that reads ln["clip_start"] must skip it first.
+#
+# This is a LIST, not two if-statements, because that is how the bug happened:
+# `over_montage` was skipped and `film_intro` - added later, same category - was
+# not, and `parse_ts(ln["clip_start"])` raised KeyError on the first full
+# render. A new intro-owned flag is now one entry here, and tools/
+# test_render_smoke.py asserts every flag in this set survives a real render.
+INTRO_OWNED = ("over_montage", "film_intro")
+
+
+def intro_owned(ln: dict) -> bool:
+    """True if this line's picture comes from the intro builder (no clip window)."""
+    return any(ln.get(k) for k in INTRO_OWNED)
+
 
 def _lead_for(narr_dur: float, shot_dur: float, extra: float = 0.0) -> float:
     """Per-line lead-in, CLAMPED to what the shot can actually carry.
@@ -363,8 +379,20 @@ def _build_clip(ff: str, source: Path, start: float, end: float,
                 f"tpad=stop_mode=clone:stop_duration={_share:.3f},"
                 f"trim=duration={_share:.3f},setpts=PTS-STARTPTS[s{_i}]")
             labels.append(f"[s{_i}]")
+        # A split clip concatenates 2-3 DIFFERENT sub-windows, so a partial
+        # censor_region (coordinates measured on the host shot's framing) is
+        # meaningless for the other segments. The old condition here was
+        # `censor_region is None`, which meant a region-censored line that got
+        # split rendered with NO BLUR AT ALL - the region graph lives only in
+        # the non-split branch above. Blur the WHOLE frame instead: over-blurs
+        # two sub-windows, which is the safe direction, and says so.
+        if cb > 0 and censor_region is not None:
+            console.print(
+                f"[yellow]Censor:[/] {out.name} is a split clip with a partial "
+                f"blur region; blurring the WHOLE frame instead (the region's "
+                f"coordinates do not apply to the other sub-windows).")
         _censor_tail = (f",boxblur={cb}:enable='between(t,0,{clip_len:.3f})'"
-                        if (cb > 0 and censor_region is None) else "")
+                        if cb > 0 else "")
         vchain = (";".join(vparts) + ";" + "".join(labels)
                   + f"concat=n={len(_segs)}:v=1:a=0"
                   + (f",{_censor_tail[1:]}" if _censor_tail else "")
@@ -1026,6 +1054,15 @@ def render(project: str, draft: dict,
                 return kk
         return k
 
+    # ---- whole-video censor coverage ----------------------------------------
+    # Every footage path records what it puts on screen into `used_footage`,
+    # and the audit below compares that against the flagged set. "No line
+    # bound" is NOT an all-clear: the intro montage, the film-intro block and
+    # pool/montage windows all put footage in the video that no line owns.
+    from pipeline import censor as _censor
+    _flagged = _censor.flagged_shots(pdir)
+    used_footage = _censor.UsedFootage()
+
     # ---- census: how many LINES will actually render censored ---------------
     # The old line counted entries in shots.json, i.e. INTENT. It printed
     # "11 shot(s) flagged for blur" on a render that blurred one of them, which
@@ -1056,13 +1093,11 @@ def render(project: str, draft: dict,
         console.print(f"[cyan]Censor:[/] {_cen_lines} line(s) will render blurred"
                       f"{extra}, from {len(_cen_shots_hit)}/{len(censor_by_clip)} "
                       f"flagged shot(s)")
-        _orphans = [k for k in censor_by_clip if k not in _cen_shots_hit]
-        if _orphans:
-            console.print(f"[yellow]  {len(_orphans)} flagged shot(s) have NO line "
-                          f"bound - nothing will blur for them:[/]")
-            for k in _orphans[:8]:
-                console.print(f"[yellow]      {k[0]} -> {k[1]} "
-                              f"({censor_by_clip[k]})[/]")
+        # NOTE: the "no line bound" list used to be printed here as a warning.
+        # It is now resolved by the whole-video censor audit at the end of the
+        # render, which can tell "not in the video" (fine) from "in the video
+        # and unblurred" (a stop) - a distinction this message could not make
+        # and which made it read like an all-clear.
         if _cen_unresolved:
             console.print(f"[red]  {len(_cen_unresolved)} line(s) sit inside a "
                           f"flagged shot but resolved to no censor - this is a "
@@ -1166,7 +1201,15 @@ def render(project: str, draft: dict,
         # finished film below. Rendering it in this loop would need a shot to
         # bind to, which is exactly what the no-frame-description rule forbids
         # it from having.
-        if ln.get("over_montage"):
+        #
+        # film_intro lines are the SAME CASE and were missing from this test:
+        # they are spoken over the prepended intro block, carry no clip window
+        # by schema rule (draft.py rejects a film_intro line WITH one), and are
+        # baked by intro._build_film_intro_segment. Falling through here reached
+        # `parse_ts(ln["clip_start"])` below and crashed the first full render
+        # with KeyError 'clip_start'. Any line type that is rendered by the
+        # intro builder must be skipped here - see INTRO_OWNED.
+        if any(ln.get(k) for k in INTRO_OWNED):
             n_over_montage += 1
             continue
 
@@ -1223,6 +1266,10 @@ def render(project: str, draft: dict,
                     pass
             clips.append((cout, clip_len))
             boundaries.append(cursor)
+            # A hold/film_speaks clip shows [start, end) just like a narrated
+            # one, so it needs the same censor coverage - record it.
+            used_footage.add(start, end, "hold/film_speaks clip",
+                             blurred=(censor != "none"), line_id=lid)
             silence_windows.append((cursor, cursor + clip_len))
             n_silence += 1
             # no caption text for a silence shot
@@ -1285,6 +1332,13 @@ def render(project: str, draft: dict,
             n_pool += 1
             clips.append((cout, clip_len))
             boundaries.append(cursor)
+            # _build_montage_clip takes NO censor argument: every segment in a
+            # montage renders clear. Record them as unblurred so the audit
+            # catches a flagged shot that was cut into a montage - the clip
+            # loop's (clip_start, clip_end) lookup never saw these windows.
+            for _sa, _sb in segs:
+                used_footage.add(_sa, _sb, "montage segment",
+                                 blurred=False, line_id=lid)
             # narration now starts LEAD_IN after the clip does (see adelay).
             timeline.append({"start": cursor + LEAD_IN,
                              "end": cursor + LEAD_IN + narr_dur,
@@ -1379,6 +1433,21 @@ def render(project: str, draft: dict,
                 pass
         clips.append((cout, clip_len))
         boundaries.append(cursor)  # absolute start time of this clip
+        # Record what this clip actually SHOWS. For a split ("2f") clip that is
+        # each sub-window, not the whole [start, end) span - the gaps between
+        # sub-windows never reach the screen, so attributing them here would
+        # mark flagged footage as "used and blurred" when it was not shown at
+        # all. The whole-frame blur is applied after the concat, so when cb > 0
+        # every sub-window is covered.
+        _blurred = (censor != "none")
+        if _split:
+            for _sa, _sb in _split:
+                used_footage.add(_sa, _sb, "clip (split)",
+                                 blurred=_blurred, line_id=lid)
+        else:
+            used_footage.add(start, end,
+                             "pool clip" if ln.get("pool") else "clip",
+                             blurred=_blurred, line_id=lid)
 
         # caption window: narration starts LEAD_IN after the clip starts (the
         # audio is delayed by adelay in _build_clip), and lasts narr_dur. This
@@ -1453,6 +1522,18 @@ def render(project: str, draft: dict,
         else:
             console.print("[dim]Sound design: no reveals or holds to hit.[/]")
 
+    # ----- CENSOR AUDIT on the story footage, BEFORE anything is encoded -----
+    # Every clip/montage/pool/hold window is now recorded, so this can answer
+    # the question the old "no line bound" warning could not: is the flagged
+    # footage actually IN the video, and is it blurred? Run before the encode
+    # so a failure costs nothing and leaves no publishable file behind.
+    if _flagged:
+        _ca = _censor.audit(_flagged, used_footage)
+        if not _censor.report(_ca, used_footage):
+            console.print("[red]Render stopped before encoding: flagged "
+                          "footage would appear unblurred.[/]")
+            sys.exit(1)
+
     # ----- final: (optional captions), mix music, encode --------------------
     label = ("Burning captions + " if captions else "") + ("mixing music " if music else "") + "encoding..."
     console.print(f"[cyan]{label}[/]")
@@ -1465,10 +1546,15 @@ def render(project: str, draft: dict,
     # render.py then sidechains that single track under the voice, exactly as it
     # mixed a mood bed. Every fallback rung is printed by resolve_music.
     from pipeline import music as _music
+    # `music` is whatever the CALLER supplied (--music download, or recap.py's
+    # auto-discovered music.mp3). It is handed over as the LEGACY candidate
+    # only: projects/<name>/music/ takes precedence, and if there is no bed but
+    # there are cues, this track is promoted to be the bed so the cues survive.
     _bed_used, _prebuilt, _mnote = _music.resolve_music(
         ff, pdir, work, draft, timeline, total_dur,
         reveal_positions=reveal_positions,
-        hold_windows=silence_windows)
+        hold_windows=silence_windows,
+        legacy=Path(music) if music else None)
 
     if _bed_used and Path(_bed_used).exists():
         if reveal_positions:
@@ -1504,7 +1590,28 @@ def render(project: str, draft: dict,
     if n_over_montage:
         try:
             from pipeline import intro as _intro
+            _intro.reset_footage()
             intro_offset = _intro.prepend_to_final(project, final) or 0.0
+            # The intro paths apply NO censor filter and choose their own
+            # footage, so they avoid flagged shots up front (censor.
+            # avoid_windows / safe_window). This proves they did: if any
+            # flagged footage still reached the opening block, final.mp4 is
+            # unpublishable and is removed rather than left on disk looking
+            # finished.
+            if _flagged:
+                for _a, _b, _lbl in _intro.used_footage():
+                    used_footage.add(_a, _b, _lbl, blurred=False)
+                _ca2 = _censor.audit(_flagged, used_footage)
+                if not _censor.report(_ca2, used_footage):
+                    try:
+                        final.unlink()
+                    except OSError:
+                        pass
+                    console.print("[red]Flagged footage reached the INTRO "
+                                  "block unblurred. final.mp4 deleted.[/]")
+                    sys.exit(1)
+        except SystemExit:
+            raise
         except Exception as _e:
             # A spoiler in the montage must NOT be downgraded to a notice -
             # [INTRO-MONTAGE] exists to stop the twist appearing in the first

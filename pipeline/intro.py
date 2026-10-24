@@ -135,6 +135,32 @@ def _pt(ts) -> float:
     return p[0] * 3600 + p[1] * 60 + p[2]
 
 
+# ---- what footage the intro block puts on screen --------------------------
+# The intro block (montage + hook + film-intro) is built AFTER the story has
+# been rendered, and none of its paths apply a censor filter. Each path records
+# the source window it used here, as it uses it, so render.py's censor audit
+# sees the intro's footage too instead of only the footage bound to lines.
+# Recorded at the moment of choosing (not re-derived afterwards) so the audit
+# cannot drift away from what was actually built.
+_USED_FOOTAGE: list = []
+
+
+def reset_footage() -> None:
+    _USED_FOOTAGE.clear()
+
+
+def record_footage(a: float, b: float, label: str) -> None:
+    try:
+        _USED_FOOTAGE.append((float(a), float(b), str(label)))
+    except (TypeError, ValueError):
+        pass
+
+
+def used_footage() -> list:
+    """[(a, b, label)] source windows the intro block showed, unblurred."""
+    return list(_USED_FOOTAGE)
+
+
 def first_reveal_land(project: str) -> float:
     from pipeline.draft import parse_reveal_map
     r = parse_reveal_map(project)
@@ -169,6 +195,16 @@ def pick_moments(project: str, limit_sec: float, n: int) -> list:
         if b > limit_sec:            # strictly before the land, end included
             continue
         usable.append((a, b))
+    if not usable:
+        return []
+
+    # The montage picks its own footage from the whole catalogue, so it must not
+    # pick footage flagged for blur: _build_montage_clip applies no censor
+    # filter, so a flagged shot cut into the montage played CLEAR in the opening
+    # ten seconds of the video. There is always another shot to use.
+    from pipeline import censor as _censor
+    usable = _censor.avoid_windows(_censor.flagged_shots(pdir), usable,
+                                   "the intro montage")
     if not usable:
         return []
     usable.sort()
@@ -282,6 +318,23 @@ def _build_film_intro_segment(project: str, work: Path):
     vis_len = fi_dur + 0.4
     if vis_start + vis_len > land - 1.0:
         vis_len = max(3.0, land - 1.0 - vis_start)
+
+    # This block plays raw source footage under the intro facts with NO censor
+    # filter. If the film opens on flagged footage, slide to the first window
+    # that is clear rather than shipping it - and if there is none, build no
+    # film-intro block at all instead of an unblurred one.
+    from pipeline import censor as _censor
+    _flagged = _censor.flagged_shots(pdir)
+    if _flagged:
+        _safe = _censor.safe_window(_flagged, vis_len, 0.0, max(1.0, land - 1.0),
+                                    "the film-intro block")
+        if _safe is None:
+            console.print("[yellow]Film-intro:[/] no unflagged opening footage "
+                          "- skipping the intro-facts block rather than "
+                          "rendering flagged footage unblurred.")
+            return None
+        vis_start = _safe[0]
+    record_footage(vis_start, vis_start + vis_len, "film-intro block")
 
     w, h, fps = config.OUTPUT_WIDTH, config.OUTPUT_HEIGHT, config.OUTPUT_FPS
     # music bed under the voice, ducked; falls back to no bed if absent
@@ -521,7 +574,11 @@ def build_intro(project: str, out_name: str = "intro_preview.mp4",
         dur = b - a
         ms, me = moments[i % len(moments)]
         # read a touch more than needed so tpad never has to clone
-        inputs += ["-ss", f"{ms:.3f}", "-t", f"{min(me - ms, dur + 0.4):.3f}",
+        _read = min(me - ms, dur + 0.4)
+        # No censor filter is applied anywhere in this graph - record the exact
+        # window that reaches the screen so the render's audit can check it.
+        record_footage(ms, ms + _read, f"intro montage slot {i+1}")
+        inputs += ["-ss", f"{ms:.3f}", "-t", f"{_read:.3f}",
                    "-i", str(config.project_dir(project) / 'source.mp4')]
         z = config.MOTION_ZOOM if config.MOTION_ENABLE else 0.0
         motion = ""

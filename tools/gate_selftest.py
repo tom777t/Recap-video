@@ -23,7 +23,7 @@ Usage:  python tools/gate_selftest.py [gate ...]
         (no args = run all)
 """
 from __future__ import annotations
-import json, io, os, re, shutil, subprocess, sys
+import json, io, os, pathlib, re, shutil, subprocess, sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -1216,9 +1216,125 @@ def test_fact_scope_bridge() -> tuple[bool, str]:
                 if ok else f"bridge={ln.bridge} cb={ln.callback_beat} kept={kept}")
 
 
+def test_voice_no_silent_edge() -> tuple[bool, str]:
+    """A missing production-voice key must STOP, not silently use Edge.
+
+    The first production render had no INWORLD_API_KEY. The pipeline printed a
+    yellow "Voice fallback" line, that line scrolled past inside a long render
+    log, and a whole film was narrated on Edge - which cannot act the delivery
+    tags, only shift rate and pitch. A warning is not a gate.
+
+    Asserts both directions: no key -> VoiceUnavailable; no key + allow_edge ->
+    the Edge provider, flagged as a fallback.
+    """
+    if ROOT not in sys.path:
+        sys.path.insert(0, ROOT)
+    from pipeline.tts import _select_provider, VoiceUnavailable, FALLBACK_PROVIDER
+    _saved = os.environ.pop("INWORLD_API_KEY", None)
+    try:
+        stopped, msg_names_fix = False, False
+        try:
+            _select_provider()
+        except VoiceUnavailable as e:
+            stopped = True
+            # the error has to say how to fix it, both ways
+            msg_names_fix = ("INWORLD_API_KEY" in str(e)
+                             and "--allow-edge" in str(e))
+        prov, is_fb = _select_provider(allow_edge=True)
+        opted_in = (prov.name == FALLBACK_PROVIDER and is_fb)
+    finally:
+        if _saved is not None:
+            os.environ["INWORLD_API_KEY"] = _saved
+    ok = stopped and msg_names_fix and opted_in
+    return ok, ("no key -> STOP naming both the fix and --allow-edge; "
+                "--allow-edge -> Edge, flagged as fallback" if ok else
+                f"stopped={stopped} msg_names_fix={msg_names_fix} "
+                f"opted_in={opted_in}")
+
+
+def test_music_precedence() -> tuple[bool, str]:
+    """projects/<name>/music/ beats the legacy track, and a missing bed.mp3
+    must not throw away a populated music/cues/.
+
+    recap.py auto-discovers music.mp3 and hands it to render as the bed. The
+    old resolve_music saw no music/bed.* and returned "legacy single track",
+    which silently ignored every cue file on disk - the bed+cues design looked
+    like it was doing nothing. Now the legacy track is PROMOTED to be the bed
+    and the cues still layer.
+
+    Asserts: (1) cues present + no bed + legacy -> bed+cues using the legacy
+    file as the bed; (2) a real bed wins over the legacy track; (3) no bed and
+    no cues -> legacy single track; (4) nothing at all -> no music.
+    """
+    if ROOT not in sys.path:
+        sys.path.insert(0, ROOT)
+    from pipeline import music as _mu
+
+    proj = '_selftest_music'
+    p = pathlib.Path(_mk(proj, {'draft.json': {
+        "project": proj, "title": "t", "target_minutes": 1, "voice": "tts",
+        "lines": [{"id": 1, "narration": "x.", "clip_start": "00:00:01.0",
+                   "clip_end": "00:00:02.0"}]}}))
+    # build_music_track needs real audio + ffmpeg; the DECISION is what is
+    # under test, so stub the builder and the planner.
+    _ob, _op = _mu.build_music_track, _mu.plan_cues
+    _mu.build_music_track = lambda *a, **k: True
+    _mu.plan_cues = lambda *a, **k: [{"mood": "tense", "start": 1.0, "end": 9.0,
+                                      "file": pathlib.Path("tense1.mp3"),
+                                      "why": "stub"}]
+    draft = {"lines": []}
+    try:
+        (p / "music" / "cues").mkdir(parents=True, exist_ok=True)
+        (p / "music" / "cues" / "tense1.mp3").write_bytes(b"x")
+
+        # (1) cues + legacy, NO bed -> legacy promoted to bed, cues layered
+        (p / "music.mp3").write_bytes(b"x")
+        _t, _pre, n1 = _mu.resolve_music("ff", p, p, draft, [], 60.0)
+        promoted = (n1 == "bed + cues" and _pre is True)
+
+        # (2) a real bed wins over the legacy track
+        (p / "music" / "bed.mp3").write_bytes(b"x")
+        _t2, _pre2, n2 = _mu.resolve_music("ff", p, p, draft, [], 60.0)
+        bed_wins = (n2 == "bed + cues")
+
+        # (3) no bed, no cues -> legacy single track
+        (p / "music" / "bed.mp3").unlink()
+        (p / "music" / "cues" / "tense1.mp3").unlink()
+        _t3, _pre3, n3 = _mu.resolve_music("ff", p, p, draft, [], 60.0)
+        legacy_only = (n3 == "legacy single track"
+                       and pathlib.Path(_t3).name == "music.mp3")
+
+        # (4) nothing at all -> no music
+        (p / "music.mp3").unlink()
+        _t4, _pre4, n4 = _mu.resolve_music("ff", p, p, draft, [], 60.0)
+        none_at_all = (_t4 is None and n4 == "no music")
+
+        # (5) the caller's --music file is accepted as the legacy candidate
+        #     even when it is not named music.* in the project dir
+        (p / "downloaded.mp3").write_bytes(b"x")
+        _t5, _pre5, n5 = _mu.resolve_music("ff", p, p, draft, [], 60.0,
+                                           legacy=p / "downloaded.mp3")
+        caller_legacy = (n5 == "legacy single track"
+                         and pathlib.Path(_t5).name == "downloaded.mp3")
+    finally:
+        _mu.build_music_track, _mu.plan_cues = _ob, _op
+        shutil.rmtree(os.path.join(ROOT, 'projects', proj), ignore_errors=True)
+
+    ok = (promoted and bed_wins and legacy_only and none_at_all
+          and caller_legacy)
+    return ok, ("music/ beats the legacy track; a missing bed.* promotes the "
+                "legacy file to bed so cues still layer; --music is honoured"
+                if ok else
+                f"promoted={promoted} bed_wins={bed_wins} "
+                f"legacy_only={legacy_only} none={none_at_all} "
+                f"caller_legacy={caller_legacy}")
+
+
 TESTS = {
     'VISUAL-REPEAT':   test_visual_repeat,
     'EXCEPTION-KEY':   test_exception_key,
+    'VOICE-NO-SILENT-EDGE': test_voice_no_silent_edge,
+    'MUSIC-PRECEDENCE':     test_music_precedence,
     'APPEARANCE-ID':   test_appearance_id,
     'CALLBACK-CITE':   test_callback_cite,
     'FACT-SCOPE-BRIDGE': test_fact_scope_bridge,
