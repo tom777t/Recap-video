@@ -299,6 +299,42 @@ the text. **More than 3 wrong labels fails the round.**
   (`frames/overview/*.jpg` and zoom bursts) so the VISUAL matches the words.
   Never guess timestamps from transcript text alone.
 
+## FACTS IN BRIDGE / FOLD / COMPRESSED LINES (hard-won, each a shipped error)
+
+These three rules exist because each error below **shipped** in a compressed
+Tokyo Drift draft and was caught only afterwards. Each is now backed by a gate
+and a regression fixture, but the gate is a floor — read these.
+
+1. **Take place/time facts from the BEATS you skip, never from memory.** A
+   bridge or fold line spans beats you are not narrating in full. Every location,
+   time, and who-is-where in that line must come from the beat map's own text for
+   those beats (the `what happens` and character columns), not from what you
+   remember of the film. *The miss:* a bridge line put the first DK race "on the
+   mountain" — it is in a multi-storey car park; the mountain is the final race.
+   The beat map said "spiral ramps… out onto the neon street" and the line
+   ignored it. **The FACT audit now covers 100% of every line written or edited
+   in any compress/punch-up pass** (bridge lines, fold lines, re-anchored lines)
+   — sampling is only ever allowed on untouched lines. Newly compressed lines are
+   the highest-risk lines in the draft; they get full coverage, not a sample.
+
+2. **Name people; never hide an identity behind a description.** If a person is
+   in `names.json` or has a known role, name them or give the role — do not write
+   "the greying man", "the long-haired guy", "the old man". *The miss:* "the
+   greying man he is shipped to" was Sean's **father, a US Navy officer** — the
+   description hid the one fact that made the scene make sense. `[APPEARANCE-ID]`
+   flags a looks-descriptor + person when the film has a names.json. A genuine
+   one-scene extra with no role may stay unnamed; a named character may not.
+
+3. **Any callback to an earlier event must cite the beat it refers to.** A line
+   that says "the same move that got him…", "just like back in…", "what got him
+   shipped out" is a claim about the plot's past, and those are easy to invent.
+   Add `"callback_beat": "B07"` naming the beat where that event actually
+   happens, so the FACT audit can check it. *The miss:* "the same move that got
+   him shipped out of Arizona" — what got him shipped out was the **race crash**,
+   not the thing he was doing (defending someone); the callback linked to a beat
+   that does not say that. `[CALLBACK-CITE]` demands the citation. If a line is
+   not really a callback, reword it so it does not read as one.
+
 ## STRUCTURE (in playback order)
 
 1. **COLD OPEN** (lines tagged `delivery: "hook"` or `"tense"`) — the shocking beats.

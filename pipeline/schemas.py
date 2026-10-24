@@ -275,6 +275,10 @@ class Line:
     # [BRIDGE] gate accepts a flagged bridge OR a time-jump phrase as proof that
     # a skip was declared rather than a teleport.
     bridge: bool = False
+    # --- [CALLBACK-CITE] (permanence rule 3): a line asserting a link to an
+    # earlier event cites the beat id that event happens in, so the FACT audit
+    # can verify the callback is real rather than invented.
+    callback_beat: Optional[str] = None
 
     def __post_init__(self):
         if isinstance(self.claim, dict):

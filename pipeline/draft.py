@@ -819,6 +819,40 @@ _VAGUE = [
     r"\bone of them\b", r"\bthe other guy\b", r"\bthis guy\b",
     r"\bthe man\b(?! named)", r"\bthe woman\b(?! named)",
 ]
+
+# [APPEARANCE-ID] (permanence rule 2): a person referred to by physical
+# APPEARANCE ("the greying man", "the long-haired guy", "the blond kid", "the
+# old man") when that person is a named character or has a known role is
+# identity hidden behind a descriptor. This is exactly the "the greying man" =
+# his father miss. The descriptor must be a LOOKS word (hair, colour, age,
+# build, clothing) immediately before the person-noun - an evaluative adjective
+# ("the best driver", "the quiet man") is a characterisation, not a hidden
+# identity, so those do not fire.
+_PERSON_NOUN = r"(?:man|woman|guy|kid|boy|girl|teenager|teen|driver|" \
+               r"gentleman|lady|fellow|figure|stranger|officer|cop|" \
+               r"detective|player|racer|friend)"
+# physical-appearance descriptors only (incl. hyphenated: long-haired, crew-cut)
+_LOOKS = (r"grey(?:ing)?|gray(?:ing)?|greying|balding|bald|blond(?:e)?|"
+          r"dark-haired|long-haired|short-haired|red-haired|crew-cut|"
+          r"spiky-haired|older|old|young|younger|elderly|heavyset|burly|"
+          r"tall|short|tattooed|leather-jacketed|suited|scarred|"
+          r"white-suited|dark-jacketed")
+_APPEARANCE = _re.compile(
+    r"\bthe\s+(?:[a-z]+\s+){0,2}(?:" + _LOOKS + r")(?:\s+[a-z]+){0,1}\s+"
+    + _PERSON_NOUN + r"\b", _re.IGNORECASE)
+# a bare descriptor with no adjective ("the man") is already covered by _VAGUE.
+
+# [CALLBACK-CITE] (permanence rule 3): a line that asserts a link to an EARLIER
+# event ("the same move that got him...", "just like back in...", "the way he
+# did before") is a claim about the plot's past that is easy to invent. Such a
+# line must carry `callback_beat: "B07"` naming the beat it refers to, so the
+# FACT auditor can check that beat actually contains the referenced event.
+_CALLBACK = _re.compile(
+    r"\b(the same\b[^.]*\bthat\b|just like\b|just as\b|the way he (did|had)\b|"
+    r"back (home|in|when)\b|like (he|she|they) did\b|earlier[, ]|"
+    r"as (he|she|they) (did|had)\b|what got (him|her|them)\b|"
+    r"the one (who|that)\b.*\bbefore\b|remember\b)",
+    _re.IGNORECASE)
 _FORMAL = [
     r"\bproceeds to\b", r"\bsubsequently\b", r"\bin order to\b",
     r"\butilize\b", r"\bthereafter\b", r"\bwhom\b", r"\balbeit\b",
@@ -1019,6 +1053,48 @@ def _lint_script(pdir, draft, src_dur, pool_meta=None, explicit_times=None):
                 warns.append(f"[CLARITY] line {ln['id']}: vague reference "
                              f"({pat.strip(chr(92)+'b')}) - name the character.")
                 break
+
+    # --- [APPEARANCE-ID] (permanence rule 2): identity hidden behind a looks
+    # descriptor. Fires when a line says "the <adjective> <person>" AND this
+    # project has a names.json (so names/roles are available to use instead).
+    # The lint cannot know WHICH named person it is - that is the writer's job -
+    # but it can say "this film has names; use one". WARNING, because a genuinely
+    # unnamed extra is legitimate (a one-scene bystander with no role).
+    try:
+        _names_present = bool(_schemas.load_name_tokens(pdir.name))
+    except Exception:
+        _names_present = False
+    if _names_present:
+        for ln in draft["lines"]:
+            _t = ln.get("narration", "")
+            m = _APPEARANCE.search(_t)
+            if m:
+                warns.append(
+                    f"[APPEARANCE-ID] line {ln['id']} identifies someone by "
+                    f"appearance: {m.group(0)!r}. This film has a names.json - "
+                    f"name the person or give the role the viewer can place "
+                    f"(this is the 'the greying man' = his father miss). If it "
+                    f"is a genuine unnamed extra, leave it.")
+
+    # --- [CALLBACK-CITE] (permanence rule 3): a line asserting a link to an
+    # earlier event must cite the beat id it refers to, so the FACT auditor can
+    # verify that beat actually says that (the invented 'same move that got him
+    # shipped out' miss). ERROR when the citation is absent: an uncheckable
+    # callback is how an invented one ships.
+    for ln in draft["lines"]:
+        _t = ln.get("narration", "")
+        if not str(_t).strip():
+            continue
+        m = _CALLBACK.search(_t)
+        if m and not str(ln.get("callback_beat", "")).strip():
+            warns.append(
+                f"[CALLBACK-CITE] line {ln['id']} asserts a link to an earlier "
+                f"event ({m.group(0)!r}) but cites no beat. Add "
+                f"\"callback_beat\": \"B07\" naming the beat that event happens "
+                f"in, so the FACT audit can check the callback is real. If it is "
+                f"not actually a callback, reword so it does not read as one. "
+                f"(The 'same move that got him shipped out' invented-callback "
+                f"miss is why this exists.)")
 
     # --- [READ-ALOUD]: unbreathable sentences ----------------------------
     # 2026-10-20 RECALIBRATED. Luat cu la "cau > 28 tu -> canh bao", va no

@@ -208,26 +208,154 @@ def hook_line(project: str) -> dict | None:
     return None
 
 
-def _tts_hook(project: str, ln: dict, out: Path) -> float:
-    """Synthesize the hook with its own delivery preset. Returns duration."""
-    import asyncio
-    import edge_tts
-    from pipeline.tts import _delivery_for, _audio_duration
-    d = _delivery_for(ln, config.DEFAULT_TTS_RATE)
+def _tts_line(project: str, ln: dict, out: Path) -> float:
+    """Synthesize one opening line (hook or film-intro) through the PRODUCTION
+    provider, so the intro block speaks in the same voice as the body.
 
-    async def go():
-        await edge_tts.Communicate(
-            str(ln["narration"]), voice=config.DEFAULT_TTS_VOICE,
-            rate=d["rate"], pitch=d["pitch"], volume=d["volume"]).save(str(out))
-    last = None
-    for _ in range(4):
+    Uses the same provider-selection + caching as the main narration path
+    (Inworld 'Warren' by default, Edge fallback). Returns the duration.
+    """
+    from pipeline.tts import _select_provider
+    from pipeline.tts_providers import synthesize_cached
+    provider, _is_fallback = _select_provider()
+    tag = str(ln.get("delivery") or "normal")
+    _was_cached, dur = synthesize_cached(
+        provider, str(ln["narration"]), tag, out, out.parent)
+    if dur <= 0:
+        raise RuntimeError(f"intro line TTS produced no audio ({out.name})")
+    return dur
+
+
+def film_intro_lines(project: str) -> list[dict]:
+    """The film-intro block lines, READ FROM THE DRAFT every time (like the
+    hook). These carry film_intro: true and play after the montage+hook."""
+    pdir = config.project_dir(project)
+    df = pdir / "draft.json"
+    if not df.exists():
+        return []
+    d = json.loads(df.read_text(encoding="utf-8-sig"))
+    return [ln for ln in d.get("lines", [])
+            if ln.get("film_intro") and str(ln.get("narration", "")).strip()]
+
+
+def _build_film_intro_segment(project: str, work: Path):
+    """Render the film-intro lines as a video segment: the 3 lines spoken one
+    after another over the film's own calm opening footage, with the music bed
+    under them. Returns the segment Path, or None if there are no film-intro
+    lines (then the opening is just montage+hook, as before).
+
+    The visual is a slow pan over the first slice of source footage that ends
+    BEFORE the first reveal lands (same spoiler rule as the montage). No frame
+    is described by the narration, so any calm opening footage is safe.
+    """
+    lines = film_intro_lines(project)
+    if not lines:
+        return None
+    pdir = config.project_dir(project)
+    ff = config.ffmpeg()
+    src = pdir / "source.mp4"
+    if not src.exists():
+        console.print("[yellow]Film-intro:[/] no source.mp4 - skipping the "
+                      "intro-facts block.")
+        return None
+
+    # 1. synthesize each line (production voice, cached) and concat to one mp3
+    parts = []
+    for ln in lines:
+        p = work / f"intro_fi_{ln['id']}.mp3"
         try:
-            asyncio.run(go())
-            if out.exists() and out.stat().st_size > 0:
-                return _audio_duration(out)
-        except Exception as e:                            # transient edge-tts
-            last = e
-    raise RuntimeError(f"hook TTS failed: {last}")
+            _tts_line(project, ln, p)
+        except Exception as e:
+            console.print(f"[yellow]Film-intro:[/] line {ln['id']} TTS failed "
+                          f"({e}); skipping the intro-facts block.")
+            return None
+        parts.append(p)
+    fi_mp3 = work / "intro_fi.mp3"
+    _concat_audio(ff, parts, fi_mp3)
+    fi_dur = _audio_dur(ff, fi_mp3)
+    if fi_dur <= 0:
+        return None
+
+    # 2. pick a calm opening window that ends before the first reveal
+    land = first_reveal_land(project)
+    vis_start = 0.0
+    vis_len = fi_dur + 0.4
+    if vis_start + vis_len > land - 1.0:
+        vis_len = max(3.0, land - 1.0 - vis_start)
+
+    w, h, fps = config.OUTPUT_WIDTH, config.OUTPUT_HEIGHT, config.OUTPUT_FPS
+    # music bed under the voice, ducked; falls back to no bed if absent
+    bed = None
+    for cand in ("music/bed.mp3", "music.mp3"):
+        if (pdir / cand).exists():
+            bed = pdir / cand
+            break
+    duck = 10.0 ** (float(getattr(config, "MUSIC_DUCK_DB", -22.0)) / 20.0)
+
+    out = work / "intro_filmblock.mp4"
+    vf = (f"scale={w}:{h}:force_original_aspect_ratio=increase,"
+          f"crop={w}:{h},setsar=1,fps={fps}")
+    if bed is not None:
+        cmd = [ff, "-y",
+               "-ss", f"{vis_start:.3f}", "-t", f"{fi_dur+0.3:.3f}", "-i", str(src),
+               "-i", str(fi_mp3),
+               "-stream_loop", "-1", "-t", f"{fi_dur+0.3:.3f}", "-i", str(bed),
+               "-filter_complex",
+               f"[0:v]{vf}[v];"
+               f"[1:a]aformat=sample_rates=48000:channel_layouts=stereo[nar];"
+               f"[2:a]aformat=sample_rates=48000:channel_layouts=stereo,"
+               f"volume={duck:.4f}[bed];"
+               f"[bed][nar]amix=inputs=2:duration=first:normalize=0,"
+               f"alimiter=limit=0.891[a]",
+               "-map", "[v]", "-map", "[a]", "-t", f"{fi_dur+0.3:.3f}",
+               "-c:v", "libx264", "-preset", config.VIDEO_PRESET,
+               "-crf", str(config.VIDEO_CRF), "-pix_fmt", "yuv420p",
+               "-c:a", "aac", "-b:a", "192k", "-ar", "48000", "-ac", "2",
+               str(out)]
+    else:
+        console.print("[yellow]Film-intro:[/] no music bed found "
+                      "(music/bed.mp3 or music.mp3); intro facts over footage "
+                      "only.")
+        cmd = [ff, "-y",
+               "-ss", f"{vis_start:.3f}", "-t", f"{fi_dur+0.3:.3f}", "-i", str(src),
+               "-i", str(fi_mp3),
+               "-filter_complex",
+               f"[0:v]{vf}[v];"
+               f"[1:a]aformat=sample_rates=48000:channel_layouts=stereo[a]",
+               "-map", "[v]", "-map", "[a]", "-t", f"{fi_dur+0.3:.3f}",
+               "-c:v", "libx264", "-preset", config.VIDEO_PRESET,
+               "-crf", str(config.VIDEO_CRF), "-pix_fmt", "yuv420p",
+               "-c:a", "aac", "-b:a", "192k", "-ar", "48000", "-ac", "2",
+               str(out)]
+    r = subprocess.run(cmd, capture_output=True, text=True)
+    if r.returncode != 0 or not out.exists():
+        console.print("[yellow]Film-intro:[/] segment build failed; opening "
+                      "will be montage+hook only.")
+        console.print((r.stderr or "")[-400:])
+        return None
+    console.print(f"[green]Film-intro block:[/] {len(lines)} line(s), "
+                  f"{fi_dur:.1f}s")
+    return out
+
+
+def _concat_audio(ff: str, parts: list, out: Path) -> None:
+    """Join mp3s by RE-ENCODING (stream-copy concat doubles AAC duration)."""
+    lst = out.parent / f"_{out.stem}_list.txt"
+    lst.write_text("".join(f"file '{p.as_posix()}'\n" for p in parts),
+                   encoding="utf-8")
+    subprocess.run([ff, "-y", "-f", "concat", "-safe", "0", "-i", str(lst),
+                    "-c:a", "libmp3lame", "-b:a", "192k", str(out)],
+                   capture_output=True, text=True)
+
+
+def _audio_dur(ff: str, p: Path) -> float:
+    r = subprocess.run(
+        [config.ffprobe(), "-v", "error", "-show_entries", "format=duration",
+         "-of", "default=nw=1:nk=1", str(p)], capture_output=True, text=True)
+    try:
+        return float((r.stdout or "0").strip())
+    except ValueError:
+        return 0.0
 
 
 def prepend_to_final(project: str, final: Path) -> float:
@@ -257,18 +385,33 @@ def prepend_to_final(project: str, final: Path) -> float:
     if block is None:
         return 0.0
     ff = config.ffmpeg()
-    _pr = subprocess.run(
-        [config.ffprobe(), "-v", "error", "-show_entries", "format=duration",
-         "-of", "default=nw=1:nk=1", str(block)],
-        capture_output=True, text=True)
-    try:
-        block_dur = float((_pr.stdout or "0").strip())
-    except ValueError:
-        block_dur = 0.0
+
+    # The film-intro block (channel greeting + title/year/director + leads + a
+    # fact) is a SECOND segment, after the montage+hook, before the story. It
+    # was gated by [FILM-INTRO] but never rendered - build_intro baked only the
+    # hook - so a shipped film opened on the montage and cut straight into the
+    # story with the greeting silently dropped. Synthesize those lines now and
+    # lay them over the film's own calm opening footage.
+    fi_block = _build_film_intro_segment(project, work)
+
+    def _dur(p):
+        _pr = subprocess.run(
+            [config.ffprobe(), "-v", "error", "-show_entries",
+             "format=duration", "-of", "default=nw=1:nk=1", str(p)],
+            capture_output=True, text=True)
+        try:
+            return float((_pr.stdout or "0").strip())
+        except ValueError:
+            return 0.0
+
+    block_dur = _dur(block)
+    fi_dur = _dur(fi_block) if fi_block else 0.0
+
     lst = work / "concat_intro.txt"
     tmp = work / "final_with_intro.mp4"
-    lst.write_text("file '%s'\nfile '%s'\n"
-                   % (Path(block).as_posix(), final.as_posix()),
+    _parts = [block] + ([fi_block] if fi_block else []) + [final]
+    lst.write_text("".join("file '%s'\n" % Path(p).as_posix()
+                           for p in _parts),
                    encoding="utf-8")
     # Video is stream-copied - a 20-minute film must not be re-encoded to glue
     # 14 seconds onto the front. AUDIO IS RE-ENCODED, and that is not
@@ -284,20 +427,22 @@ def prepend_to_final(project: str, final: Path) -> float:
            "-ac", "2", str(tmp)]
     r = subprocess.run(cmd, capture_output=True, text=True)
     if r.returncode != 0 or not tmp.exists():
-        # The demuxer needs byte-identical stream parameters and the two files
+        # The demuxer needs byte-identical stream parameters and the segments
         # do not always have them - the story half goes through the music mix
-        # and loudnorm, the intro does not. Fall back to the concat FILTER,
-        # which re-encodes and therefore always works.
-        # The cost is real and worth stating: this re-encodes the WHOLE film
-        # to put 14 seconds on the front. It is the correct trade only because
-        # the alternative is shipping a film with no opening, or one whose
-        # audio is twice the length of its video.
-        console.print("[yellow]Intro join:[/] stream-copy refused (the two "
-                      "halves differ); re-encoding to concatenate. This is "
-                      "slower on a long film.")
-        cmd = [ff, "-y", "-i", str(block), "-i", str(final),
-               "-filter_complex",
-               "[0:v][0:a][1:v][1:a]concat=n=2:v=1:a=1[v][a]",
+        # and loudnorm, the intro segments do not. Fall back to the concat
+        # FILTER, which re-encodes and therefore always works. The cost is real:
+        # it re-encodes the WHOLE film to put the opening on the front, worth it
+        # only because the alternative is shipping a film with no opening.
+        console.print("[yellow]Intro join:[/] stream-copy refused (segments "
+                      "differ); re-encoding to concatenate. Slower on a long "
+                      "film.")
+        _n = len(_parts)
+        _ins = []
+        for p in _parts:
+            _ins += ["-i", str(p)]
+        _cat = "".join(f"[{i}:v][{i}:a]" for i in range(_n))
+        cmd = [ff, "-y", *_ins, "-filter_complex",
+               f"{_cat}concat=n={_n}:v=1:a=1[v][a]",
                "-map", "[v]", "-map", "[a]",
                "-c:v", "libx264", "-preset", config.VIDEO_PRESET,
                "-crf", str(config.VIDEO_CRF), "-pix_fmt", "yuv420p",
@@ -310,9 +455,12 @@ def prepend_to_final(project: str, final: Path) -> float:
         console.print((r.stderr or "")[-500:])
         return 0.0
     tmp.replace(final)
-    console.print(f"[green]Intro block prepended:[/] final.mp4 now opens on "
-                  f"the montage ({block_dur:.1f}s)")
-    return block_dur
+    total_intro = block_dur + fi_dur
+    _fi_note = (f" + film-intro {fi_dur:.1f}s" if fi_dur else
+                " (no film-intro lines in draft)")
+    console.print(f"[green]Intro block prepended:[/] final.mp4 now opens on the "
+                  f"montage ({block_dur:.1f}s){_fi_note} = {total_intro:.1f}s")
+    return total_intro
 
 
 def build_intro(project: str, out_name: str = "intro_preview.mp4",
@@ -345,7 +493,7 @@ def build_intro(project: str, out_name: str = "intro_preview.mp4",
     work = pdir / "_work"
     work.mkdir(exist_ok=True)
     hook_mp3 = work / "intro_hook.mp3"
-    hook_dur = _tts_hook(project, hook, hook_mp3)
+    hook_dur = _tts_line(project, hook, hook_mp3)
     total = min(max_total, drop + hook_dur + 0.8)
 
     # cut points: the music's own beats, bounded to `total`

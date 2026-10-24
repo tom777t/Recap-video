@@ -1,5 +1,5 @@
 TITLE: Teenager Is Shipped to Tokyo to Dodge Jail and Ends Up Owing the Yakuza a Car He Cannot Pay For
-Lines: 109   Words: 3165   Est. narration: 17.0 min @ 186 WPM [config fallback (voice not measured)]   Target: 17 min
+Lines: 109   Words: 3165   Est. narration: 17.1 min @ 185 WPM [config fallback (voice not measured)]   Target: 17 min
 ============================================================
 
 [  1] (? -> ?)  <hook> {loop}

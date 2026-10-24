@@ -1458,42 +1458,17 @@ def render(project: str, draft: dict,
     console.print(f"[cyan]{label}[/]")
     final = pdir / "final.mp4"
 
-    # ----- MOOD BEDS --------------------------------------------------------
-    # One bed for a whole film reads as wallpaper. Pick a bed per story stretch
-    # from the dominant delivery tag there. A missing mood file is NOT an
-    # error: fall back to the single music.mp3 and say so, because a
-    # half-populated music/ folder must not silently produce a render where
-    # some stretches have a bed and others do not.
-    _bed_used = music
-    _prebuilt = False
-    _segs = mood_segments(draft, timeline, total_dur)
-    _beds, _missing, _usable = resolve_mood_beds(pdir, _segs)
-    if _usable:
-        _bedfile = work / "music_bed.wav"
-        try:
-            build_music_bed(ff, _segs, _beds, _bedfile, total_dur)
-            _bed_used = _bedfile
-            _prebuilt = True
-            _counts: dict = {}
-            for s in _segs:
-                _counts[s["mood"]] = _counts.get(s["mood"], 0.0) + (s["end"] - s["start"])
-            console.print(
-                "[cyan]Music:[/] mood bed over "
-                f"{len(_segs)} stretch(es) - "
-                + ", ".join(f"{k} {v/60:.1f}min" for k, v in sorted(_counts.items()))
-                + f"; ducked {config.MUSIC_DUCK_DB:.0f} dB under the voice "
-                  f"({config.MUSIC_DUCK_ACTION_DB:.0f} dB in action)")
-        except Exception as _e:
-            console.print(f"[yellow]Music:[/] mood bed build failed ({_e}); "
-                          f"falling back to a single bed.")
-            _bed_used, _prebuilt = music, False
-    elif _missing:
-        console.print(
-            f"[yellow]Music:[/] no bed for mood(s) "
-            f"{', '.join(_missing)} - looked for "
-            f"{pdir.name}/music/<mood>.(mp3|m4a|wav|ogg). Falling back to a "
-            f"single bed for the whole film. Add the files to get a bed that "
-            f"changes with the story.")
+    # ----- MUSIC: one BED under the whole recap + mood CUES layered on top ---
+    # Replaces the per-unit mood-bed switching. pipeline/music.py plans the cues
+    # (runs of >=3 same-mood lines, holds after sad/reveal), applies the density
+    # caps and rotation, and builds ONE track (bed looped + cues + reveal dips).
+    # render.py then sidechains that single track under the voice, exactly as it
+    # mixed a mood bed. Every fallback rung is printed by resolve_music.
+    from pipeline import music as _music
+    _bed_used, _prebuilt, _mnote = _music.resolve_music(
+        ff, pdir, work, draft, timeline, total_dur,
+        reveal_positions=reveal_positions,
+        hold_windows=silence_windows)
 
     if _bed_used and Path(_bed_used).exists():
         if reveal_positions:

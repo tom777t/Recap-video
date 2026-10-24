@@ -1150,9 +1150,78 @@ def test_exception_key() -> tuple[bool, str]:
                 f'stale_old={stale_reports_old} malformed_ok={no_malformed}')
 
 
+def test_appearance_id() -> tuple[bool, str]:
+    """[APPEARANCE-ID] (permanence rule 2) - identity hidden behind a looks
+    descriptor. Built from the exact Tokyo Drift miss: 'the greying man he is
+    shipped to' turned out to be Sean's father. Must FIRE on a looks descriptor
+    + person, and must STAY SILENT on the 'his father' fix and on evaluative
+    (non-appearance) descriptors like 'the best driver'."""
+    if ROOT not in sys.path:
+        sys.path.insert(0, ROOT)
+    from pipeline.draft import _APPEARANCE
+    fire = ["the greying man he is shipped to",
+            "the long-haired man waits to collect",
+            "the old man says his piece", "the bald man at the wheel"]
+    silent = ["his father, a US Navy officer, lays it out",
+              "the best driver in the city", "the quiet man nods",
+              "the whole crowd swarms the wreck"]
+    bad = [s for s in fire if not _APPEARANCE.search(s)] + \
+          [s for s in silent if _APPEARANCE.search(s)]
+    ok = not bad
+    return ok, ("fires on looks descriptors (greying/long-haired/old/bald), "
+                "silent on 'his father' + evaluative descriptors"
+                if ok else f"wrong on: {bad}")
+
+
+def test_callback_cite() -> tuple[bool, str]:
+    """[CALLBACK-CITE] (permanence rule 3) - a link to an earlier event needs a
+    cited beat. Built from the exact miss: 'the same move that got him shipped
+    out of Arizona' was invented. Must FIRE on backward-link phrasings and stay
+    SILENT on plain description."""
+    if ROOT not in sys.path:
+        sys.path.insert(0, ROOT)
+    from pipeline.draft import _CALLBACK
+    fire = ["It's the same move that got him shipped out of Arizona",
+            "It is the same thing he did in the very first scene back home",
+            "just like he did before", "what got him shipped out"]
+    silent = ["Sean slides out dead last, front end smoking",
+              "He walks into the garage and hands over the keys"]
+    bad = [s for s in fire if not _CALLBACK.search(s)] + \
+          [s for s in silent if _CALLBACK.search(s)]
+    ok = not bad
+    return ok, ("fires on backward-link phrasings, silent on plain description"
+                if ok else f"wrong on: {bad}")
+
+
+def test_fact_scope_bridge() -> tuple[bool, str]:
+    """Permanence rule 1 (FACT audit scope): a bridge/edited line carries a
+    marker (bridge:true, or callback_beat) that the FACT-audit tooling uses to
+    put it in the 100%-coverage set. Asserts the schema TYPES these fields so a
+    draft can declare them - the exact gap that let 'on the mountain' (a wrong
+    location taken from memory, not the skipped beats) ship inside a bridge line
+    that was sampled past."""
+    if ROOT not in sys.path:
+        sys.path.insert(0, ROOT)
+    from pipeline.schemas import Line
+    ln = Line(id=1, narration="x", bridge=True, callback_beat="B07")
+    ok = (ln.bridge is True and ln.callback_beat == "B07")
+    # and a bridge line must survive a round-trip through _drop_unknown (the
+    # mechanism that silently dropped over_montage/film_intro before)
+    from pipeline.schemas import _drop_unknown
+    kept = _drop_unknown(Line, {"id": 2, "narration": "y", "bridge": True,
+                                "callback_beat": "B09", "junk": 1})
+    ok = ok and kept.get("bridge") is True and kept.get("callback_beat") == "B09" \
+        and "junk" not in kept
+    return ok, ("bridge + callback_beat are typed and survive _drop_unknown"
+                if ok else f"bridge={ln.bridge} cb={ln.callback_beat} kept={kept}")
+
+
 TESTS = {
     'VISUAL-REPEAT':   test_visual_repeat,
     'EXCEPTION-KEY':   test_exception_key,
+    'APPEARANCE-ID':   test_appearance_id,
+    'CALLBACK-CITE':   test_callback_cite,
+    'FACT-SCOPE-BRIDGE': test_fact_scope_bridge,
     # 'VISUAL-REPEAT-SHOTS' is NOT registered: the feature it specifies was
     # wired on 2026-09-05 and reverted the same day (shots.json `family` is a
     # scene label, not a set of interchangeable alternates - it flagged 22

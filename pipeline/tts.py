@@ -21,7 +21,28 @@ from rich.console import Console
 
 import config
 
+# The multi-provider abstraction lives in pipeline/tts_providers.py and is
+# re-exported here so `from pipeline import tts` reaches it. It is a separate
+# module rather than 700 more lines in this file because this file is the
+# SHIPPING path the render depends on; the import is cheap (stdlib + config).
+from pipeline.tts_providers import (  # noqa: F401
+    TAGS,
+    ProviderUnavailable,
+    SynthesisFailed,
+    UnknownTag,
+    all_providers,
+    synthesize_cached,
+)
+
 console = Console()
+
+# The production narrator. Inworld "Warren" (mature announcer voice), steered
+# per tag and calibrated to ~185 WPM on this draft - see tts_providers._inworld.
+# Edge is the OFFLINE FALLBACK only: it cannot act, it only shifts rate/pitch,
+# so a render that falls back to it is a degraded render and the pipeline says
+# so out loud rather than shipping the downgrade silently.
+DEFAULT_PROVIDER = "inworld"
+FALLBACK_PROVIDER = "edge"
 
 
 def _audio_duration(path: Path) -> float:
@@ -113,6 +134,29 @@ def _delivery_for(ln: dict, base_rate: str) -> dict:
     return preset
 
 
+def _select_provider():
+    """Inworld 'Warren' by default; Edge as the offline fallback, loudly.
+
+    Returns (provider, is_fallback). The default is Inworld because it can
+    ACT - steer per tag, land ~185 WPM. Edge only shifts rate/pitch, so a
+    render on Edge is a DOWNGRADE, and the pipeline prints that it happened
+    rather than shipping it silently. Falls back when INWORLD_API_KEY is
+    missing or the provider is otherwise unavailable.
+    """
+    provs = all_providers()
+    primary = provs.get(DEFAULT_PROVIDER)
+    if primary is not None:
+        ok, why = primary.available()
+        if ok:
+            return primary, False
+        console.print(
+            f"[yellow]Voice fallback:[/] {primary.name} ({primary.voice_label}) "
+            f"is unavailable - {why}. Falling back to {FALLBACK_PROVIDER} "
+            f"(offline, rate/pitch only - no acting). Set INWORLD_API_KEY for "
+            f"the production voice.")
+    return provs[FALLBACK_PROVIDER], True
+
+
 def generate_tts(project: str, draft: dict,
                  voice: str = config.DEFAULT_TTS_VOICE,
                  rate: str = config.DEFAULT_TTS_RATE) -> list[tuple[int, Path, float]]:
@@ -120,24 +164,12 @@ def generate_tts(project: str, draft: dict,
     ndir = pdir / "narration"
     ndir.mkdir(exist_ok=True)
 
-    try:
-        import edge_tts  # noqa: F401
-    except ImportError:
-        console.print("[red]edge-tts not installed.[/] Run: pip install -r requirements.txt")
-        sys.exit(1)
+    provider, is_fallback = _select_provider()
 
-    # cache manifest: line_id -> signature. Regenerate only when text/delivery
-    # for that line changes.
-    manifest_path = ndir / "_cache.json"
-    try:
-        manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
-    except Exception:
-        manifest = {}
-
-    # ---- pre-flight: every delivery tag must resolve BEFORE we synthesize ---
+    # ---- pre-flight: every delivery tag must resolve BEFORE we synthesize ----
     # Fail on line 1, not on line 97 of 219 after eight minutes of network
-    # calls. Collect ALL of them so one run names every tag that needs a
-    # preset, instead of making the author discover them one render at a time.
+    # calls. Resolve each tag against the CHOSEN provider's mapping so an
+    # unmappable tag is caught up front, naming every bad tag in one pass.
     _bad_tags: dict = {}
     for ln in draft["lines"]:
         if (ln.get("narration_silence_seconds") is not None
@@ -146,26 +178,26 @@ def generate_tts(project: str, draft: dict,
         if not str(ln.get("narration", "")).strip():
             continue
         try:
-            _delivery_for(ln, rate)
-        except UnknownDelivery as e:
+            provider.controls_for(str(ln.get("delivery") or "normal"))
+        except UnknownTag:
             _bad_tags.setdefault(str(ln.get("delivery")), []).append(ln.get("id"))
     if _bad_tags:
-        console.print("[red][DELIVERY-UNKNOWN][/] the draft uses delivery tags "
-                      "with no preset:")
+        console.print(f"[red][DELIVERY-UNKNOWN][/] the draft uses delivery tags "
+                      f"with no mapping for provider '{provider.name}':")
         for _t, _ids in sorted(_bad_tags.items()):
             console.print(f"    '{_t}' on {len(_ids)} line(s): "
                           f"{_ids[:12]}{' ...' if len(_ids) > 12 else ''}")
         console.print(
-            f"[red]  Known tags: {', '.join(sorted(config.TTS_DELIVERY))}.[/]\n"
-            f"  These used to fall back to 'normal' in silence, which is how "
-            f"ten <reveal> lines were read at ordinary pace while every gate "
-            f"stayed green. Add a preset with a deliberate rate and pitch, or "
-            f"retag the lines.")
+            f"[red]  Known tags: {', '.join(sorted(TAGS))}.[/]\n"
+            f"  A tag with no mapping used to fall back to 'normal' in silence, "
+            f"which is how ten <reveal> lines were read at ordinary pace while "
+            f"every gate stayed green. Add a mapping or retag the lines.")
         sys.exit(1)
 
     results: list[tuple[int, Path, float]] = []
-    console.print(f"[cyan]Generating voiceover[/] with Edge-TTS '{voice}' "
-                  f"at base rate {rate} (per-line delivery)")
+    _tag = "[yellow]FALLBACK[/] " if is_fallback else ""
+    console.print(f"[cyan]Generating voiceover[/] {_tag}with "
+                  f"{provider.name} '{provider.voice_label}' (per-line delivery)")
 
     for ln in draft["lines"]:
         # Gap 3 / S9 silence line: no narration -> no TTS. The render builds a
@@ -185,31 +217,35 @@ def generate_tts(project: str, draft: dict,
             continue
 
         out = ndir / f"line_{ln['id']:03d}.mp3"
-        d = _delivery_for(ln, rate)
-        sig_src = json.dumps({
-            "text": ln["narration"], "voice": voice,
-            "rate": d["rate"], "pitch": d["pitch"], "volume": d["volume"],
-        }, sort_keys=True, ensure_ascii=False)
-        sig = hashlib.sha1(sig_src.encode("utf-8")).hexdigest()
-
-        stale = (not out.exists()) or manifest.get(str(ln["id"])) != sig
-        if stale:
-            try:
-                asyncio.run(_edge_one(ln["narration"], out, voice,
-                                      d["rate"], d["pitch"], d["volume"]))
-                manifest[str(ln["id"])] = sig
-            except Exception as e:
+        tag = str(ln.get("delivery") or "normal")
+        # synthesize_cached owns its own manifest (text + voice + tag + model +
+        # resolved controls), so retuning a tag's controls busts the cache for
+        # just the affected lines - which a plain text+voice+tag key would miss.
+        try:
+            was_cached, dur = synthesize_cached(
+                provider, str(ln["narration"]), tag, out, ndir)
+        except (ProviderUnavailable, SynthesisFailed) as e:
+            # The primary went down mid-run (e.g. a network blip). Fall back to
+            # Edge for the rest rather than abort a 109-line render, and say so.
+            if provider.name != FALLBACK_PROVIDER:
+                console.print(f"[yellow]  line {ln['id']}: {provider.name} "
+                              f"failed ({e}); switching to {FALLBACK_PROVIDER} "
+                              f"for the remainder.[/]")
+                provider, is_fallback = all_providers()[FALLBACK_PROVIDER], True
+                was_cached, dur = synthesize_cached(
+                    provider, str(ln["narration"]), tag, out, ndir)
+            else:
                 console.print(f"[red]TTS failed on line {ln['id']}:[/] {e}")
-                console.print("  (Edge-TTS needs internet. Check your connection.)")
                 sys.exit(1)
 
-        dur = _audio_duration(out)
         results.append((ln["id"], out, dur))
-        tag = ln.get("delivery", "normal")
-        flag = "[yellow]new[/]" if stale else "cached"
+        flag = "cached" if was_cached else "[yellow]new[/]"
         console.print(f"  line {ln['id']:>3}: {dur:5.2f}s  ({tag:<7}) {flag}")
 
-    manifest_path.write_text(json.dumps(manifest, indent=2), encoding="utf-8")
+    if is_fallback:
+        console.print(
+            "[yellow]  NOTE: this narration was rendered on the Edge fallback "
+            "(rate/pitch only). It is not the production Warren voice.[/]")
     return results
 
 

@@ -59,8 +59,10 @@ DEFAULT_TTS_RATE = "+10%"
 
 # Words-per-minute FALLBACK, used only when the voice has no measured profile
 # in config/voice_profiles.json. The measured profile is always primary and the
-# output names which basis it used. 186 = measured at the base rate above.
-TTS_WORDS_PER_MINUTE = 186
+# output names which basis it used. 185 = measured on the Tokyo Drift draft
+# through the production voice (Inworld "Warren"), calibrated per tag to land on
+# this target - see pipeline/tts_providers._inworld for the rate tuning.
+TTS_WORDS_PER_MINUTE = 185
 
 # --------------------------------------------------------------------------- #
 # [RUNTIME-BAND] soft band: a recap should run roughly this fraction of the
@@ -233,6 +235,34 @@ MUSIC_VOLUME = 0.15        # music level under the voice (0..1). History: 0.13 w
 # never read it - resolve_mood_beds() derives the moods it needs from the
 # segments actually present, which is the better source. The distinct VALUES of
 # MUSIC_MOOD_FOR_TAG below are the canonical mood names.
+# --------------------------------------------------------------------------- #
+# MUSIC DESIGN (2026-11): a single BED under the whole recap + CUES layered on
+# top for mood, replacing the per-unit mood-bed switching. See pipeline/music.py.
+#   projects/<name>/music/bed.mp3                 - the one bed, looped
+#   projects/<name>/music/cues/<mood>*.mp3        - tense|sad|action|mystery
+#   projects/<name>/music/cues/reveal*.mp3        - the reveal sting(s)
+# --------------------------------------------------------------------------- #
+# A cue fires only on a RUN of >=N consecutive lines sharing one mood (or a hold
+# after a sad/reveal line), never on a single line.
+MUSIC_CUE_MIN_RUN = 3
+# Which delivery tags map to a cue mood. Tags not listed here (normal/intro/
+# outro) never trigger a cue - they ride the bed alone.
+MUSIC_CUE_MOOD_FOR_TAG = {
+    "tense": "tense", "mystery": "mystery",
+    "sad": "sad", "action": "action", "hook": "action",
+}
+MUSIC_CUE_FADE_SEC = 1.75        # fade a cue in/out (1.5-2s band, middle)
+MUSIC_CUE_BED_DIP_DB = -6.0      # the bed dips this much WHILE a cue plays
+MUSIC_CUE_DUCK_DB = -22.0        # a cue ducks under narration like the bed...
+MUSIC_CUE_DUCK_ACTION_DB = -10.0 # ...8-12 dB in action runs, where it's felt
+# Cue density caps: at most ~1 per this many seconds on average, and never two
+# cues closer than the floor.
+MUSIC_CUE_AVG_SPACING_SEC = 90.0
+MUSIC_CUE_MIN_GAP_SEC = 20.0
+# The bed is raised this much inside a narration-silence hold (felt, not loud).
+MUSIC_BED_HOLD_DB = -6.0
+
+# --- legacy mood-bed switching (2c) - retained for fallback / older projects -
 MUSIC_MOOD_FOR_TAG = {
     "action": "action", "hook": "action",
     "tense": "tense", "mystery": "tense",

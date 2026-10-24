@@ -139,6 +139,61 @@ def main() -> int:
     if not (0 < lo < hi < 100):
         fails.append(f"runtime band is malformed: lo={lo} hi={hi}")
 
+    # ===== PERMANENCE REGRESSION FIXTURES =================================
+    # Each is built from the EXACT bad line that shipped in the Tokyo Drift
+    # compress pass, so the gate fails if that class of error comes back.
+    from pipeline.draft import _APPEARANCE, _CALLBACK
+
+    # Rule 2 - APPEARANCE-ID: identity hidden behind a looks descriptor.
+    # The exact miss: 'the greying man he is shipped to' = his father.
+    bad_appearance = "the greying man he is shipped to lays it out plain"
+    good_appearance = ("his father, a US Navy officer posted there, lays it "
+                       "out plain")  # the fix that shipped
+    # more looks descriptors that must fire:
+    must_fire_app = ["the long-haired man waits to collect",
+                     "the old man says his piece", "the bald man at the wheel"]
+    # characterisations that must NOT fire (not hidden identity):
+    must_not_app = ["the best driver in the city", "the quiet man nods",
+                    "the whole crowd swarms the wreck"]
+    a_fire = bool(_APPEARANCE.search(bad_appearance))
+    a_silent = not _APPEARANCE.search(good_appearance)
+    print(f"APPEARANCE-ID bad line     : {'FIRES' if a_fire else 'SILENT'} "
+          f"(expected FIRES on 'the greying man')")
+    print(f"APPEARANCE-ID fixed line   : {'SILENT' if a_silent else 'FIRES'} "
+          f"(expected SILENT on 'his father')")
+    if not a_fire:
+        fails.append("APPEARANCE-ID must fire on 'the greying man he is shipped to'")
+    if not a_silent:
+        fails.append("APPEARANCE-ID must stay silent on the 'his father' fix")
+    for s in must_fire_app:
+        if not _APPEARANCE.search(s):
+            fails.append(f"APPEARANCE-ID should fire on {s!r}")
+    for s in must_not_app:
+        if _APPEARANCE.search(s):
+            fails.append(f"APPEARANCE-ID should NOT fire on {s!r}")
+
+    # Rule 3 - CALLBACK-CITE: a link to an earlier event needs a beat citation.
+    # The exact miss: 'the same move that got him shipped out of Arizona'.
+    bad_callback = ("It's the same move that got him shipped out of Arizona")
+    good_callback_reworded = ("It is the same thing he did in the very first "
+                              "scene back home")  # reads as a callback -> cite
+    c_fire = bool(_CALLBACK.search(bad_callback))
+    print(f"CALLBACK-CITE bad line     : {'FIRES' if c_fire else 'SILENT'} "
+          f"(expected FIRES - a callback with no cited beat)")
+    if not c_fire:
+        fails.append("CALLBACK-CITE must fire on the 'same move that got him "
+                     "shipped out' callback")
+    # a plain description with no backward link must NOT fire:
+    if _CALLBACK.search("Sean slides out dead last, front end smoking"):
+        fails.append("CALLBACK-CITE should not fire on a plain description")
+    # the gate is satisfied when the line carries callback_beat: a line object
+    # WITH the field present does not warn (checked in the live validator; here
+    # we assert the regex detects the callback so the validator can demand the
+    # cite).
+    if not _CALLBACK.search(good_callback_reworded):
+        fails.append("CALLBACK-CITE should detect the reworded roof callback "
+                     "('the very first scene') so a cite is demanded")
+
     print("-" * 60)
     if fails:
         for f in fails:
