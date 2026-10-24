@@ -21,6 +21,31 @@ from rich.console import Console
 
 import config
 
+# The multi-provider abstraction lives in pipeline/tts_providers.py and is
+# re-exported here, so `from pipeline import tts` reaches it as the brief
+# asked. It is a separate module rather than 500 more lines in this file
+# because this file is the SHIPPING path - the one the render depends on - and
+# six HTTP clients landing in it would make every future change to the
+# working Edge path riskier than it needs to be. The import is cheap: the
+# module pulls in nothing beyond the stdlib and config.
+from pipeline.tts_providers import (  # noqa: F401
+    TAGS,
+    Commerce,
+    EdgeProvider,
+    ElevenProvider,
+    FishProvider,
+    HumeProvider,
+    InworldProvider,
+    Provider,
+    ProviderUnavailable,
+    QwenProvider,
+    SynthesisFailed,
+    UnknownTag,
+    all_providers,
+    audio_duration,
+    synthesize_cached,
+)
+
 console = Console()
 
 
