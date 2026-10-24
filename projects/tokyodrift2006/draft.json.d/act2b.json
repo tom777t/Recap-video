@@ -2,315 +2,255 @@
   "act": "2b",
   "lines": [
     {
-      "id": 251,
-      "narration": "Sean goes where Han goes now, and that means standing at the back of a mahjong room while the men who own the night play tiles.",
-      "clip_start": "00:38:11.281",
-      "clip_end": "00:38:21.958",
-      "note": "B43",
-      "delivery": "mystery",
-      "payload": "loop",
-      "narrative_jump": true
-    },
-    {
-      "id": 254,
-      "narration": "Morimoto, DK's wingman, asks when the next race is. That is not a question, that is bait. Han takes it: why not be in it. And the smile that cracks Sean's flat face is the first thing in Tokyo he has actually wanted.",
+      "id": 1401,
+      "narration": "Sean goes where Han goes now. In a pachinko back room, Morimoto — DK's wingman — asks when the next race is. That is bait, not curiosity. Why not be in it, Han says, and the smile that cracks Sean's flat face is the first thing in Tokyo he has openly wanted.",
       "clip_start": "00:38:37.098",
       "clip_end": "00:38:48.818",
       "note": "B43",
       "delivery": "reveal",
       "payload": "reasoning",
-      "narrative_jump": false
+      "claim": {
+        "type": "reaction",
+        "subject": "the American in the white shirt"
+      },
+      "narrative_jump": true
     },
     {
-      "id": 255,
-      "narration": "Terms in nine seconds. Morimoto takes Han's 86 Corolla if Sean loses; Han puts up a 72 Skyline against it. Neither of them asks Sean whether he can drive.",
-      "clip_start": "00:38:48.818",
-      "clip_end": "00:39:01.915",
+      "id": 1402,
+      "narration": "Terms land in nine seconds. Morimoto takes Han's 86 Corolla if Sean loses; Han puts up a 72 Skyline against it. Nobody once asks the kid whether he can drive.",
+      "clip_start": "00:39:01.915",
+      "clip_end": "00:39:12.884",
       "note": "B43",
       "delivery": "tense",
       "payload": "stake",
+      "claim": {
+        "type": "speech",
+        "subject": "the man in the black T-shirt"
+      },
       "narrative_jump": false
     },
     {
-      "id": 256,
-      "narration": "Done, Morimoto says. Then the table is finished with Sean. Get him out of here.",
-      "clip_start": "00:39:01.915",
-      "clip_end": "00:39:12.884",
-      "note": "B44",
-      "delivery": "normal",
-      "payload": "reasoning",
-      "narrative_jump": false,
-      "claim": {
-        "type": "speech",
-        "subject": "the blond-streaked young man"
-      }
-    },
-    {
-      "id": 258,
-      "narration": "What the table actually wants to know is where a shipment has gone. Han tells them to sit pretty and let him handle it, and he grins while he says it. Then the grin goes and his eyes drop. Everything that kills people later is wired to the thing Han just smiled his way past.",
+      "id": 1403,
+      "narration": "Then the table is finished with Sean — get him out of here. With him gone, they press Han about a shipment that has not arrived. Sit pretty and let me handle it, he says — easily, then his eyes drop and the smile is gone.",
       "clip_start": "00:39:25.355",
       "clip_end": "00:39:42.830",
       "note": "B44",
-      "delivery": "mystery",
-      "payload": "loop",
-      "narrative_jump": false,
+      "delivery": "normal",
+      "payload": "reasoning",
       "claim": {
         "type": "speech",
         "subject": "the long-haired man in the dark jacket"
-      }
+      },
+      "narrative_jump": false
     },
     {
-      "id": 260,
-      "narration": "Out on the neon street he feeds a payphone and tells his father that school kept him late for extracurricular activities. He needs the night free. The lie buys it.",
+      "id": 1404,
+      "narration": "Out on the neon street Sean feeds a payphone and tells his father he had to stay late at school for extracurricular activities. The lie buys him the night.",
       "clip_start": "00:39:47.377",
       "clip_end": "00:40:05.686",
       "note": "B45",
       "delivery": "normal",
       "payload": "reasoning",
-      "narrative_jump": true,
       "claim": {
         "type": "speech",
         "subject": "the American in the white shirt"
-      }
+      },
+      "narrative_jump": true
     },
     {
-      "id": 262,
-      "narration": "He tells Neela she really needs to stop following him around. She says she only stopped by to ask his boyfriend for drifting lessons. He kills it dead: she does not want to be part of this world.",
+      "id": 1405,
+      "narration": "Neela has tracked him down. Stop following me around, he says; she only stopped by to ask his boyfriend for drifting lessons. He shuts it flat — she does not want to be part of this world.",
       "clip_start": "00:40:14.195",
       "clip_end": "00:40:30.544",
       "note": "B46",
       "delivery": "normal",
       "payload": "reasoning",
-      "narrative_jump": false,
       "claim": {
         "type": "speech",
         "subject": "the woman in the fur-collar coat"
-      }
-    },
-    {
-      "id": 263,
-      "narration": "She tells him he knows nothing about her, then proves she knows everything about him. Army brat. A new school every year, and a mother and a father who were never home.",
-      "clip_start": "00:40:30.544",
-      "clip_end": "00:40:43.015",
-      "note": "B46",
-      "delivery": "sad",
-      "payload": "reasoning",
+      },
       "narrative_jump": false
     },
     {
-      "id": 264,
-      "narration": "The part that lands is the last of it: he walks around angry all the time, and he has swapped his family for a crowd of drift nuts. Zero for one, cowboy, he says, and neither of them believes it.",
+      "id": 1406,
+      "narration": "So she reads him back to himself. Army brat, moved around a lot, parents never home, so he walked around angry — and now he has swapped his family for a crowd of drift nuts. Zero for one, cowboy, he says, and neither of them buys it.",
       "clip_start": "00:40:46.686",
       "clip_end": "00:40:58.864",
       "note": "B46",
       "delivery": "sad",
       "payload": "stake",
+      "claim": {
+        "type": "emotion",
+        "subject": "the young American"
+      },
       "narrative_jump": false
     },
     {
-      "id": 266,
-      "narration": "Driving out of the lantern-lit lane, Sean asks whether everything is okay back there. Han says he can handle it. That is twice.",
+      "id": 1407,
+      "narration": "Driving home, Sean asks if everything is okay back there. Han says he can handle it. Then he lays out the actual shape of Tokyo.",
       "clip_start": "00:41:14.296",
       "clip_end": "00:41:27.017",
       "note": "B47",
-      "delivery": "mystery",
+      "delivery": "normal",
       "payload": "loop",
+      "claim": {
+        "type": "dialogue",
+        "subject": "the young American"
+      },
       "narrative_jump": true
     },
     {
-      "id": 267,
-      "narration": "Then Han lays out the actual shape of Tokyo. DK is Yakuza. His uncle Kamata takes a piece of everything on his turf, which is why nobody on these streets ever meets a policeman they cannot drive away from. Fifty percent of something beats a hundred percent of nothing, Han says, cheerful as weather.",
+      "id": 1408,
+      "narration": "DK's uncle Kamata takes a cut of everyone's action on his turf and keeps the police off them. Fifty percent of something beats a hundred percent of nothing, Han says, cheerful as weather.",
       "clip_start": "00:41:27.017",
       "clip_end": "00:41:54.587",
       "note": "B47",
       "delivery": "reveal",
       "payload": "reasoning",
+      "claim": {
+        "type": "dialogue",
+        "subject": "the long-haired man"
+      },
       "narrative_jump": false
     },
     {
-      "id": 268,
-      "narration": "Sean asks what the point of racing DK even is. Han pushes back: beating somebody only proves you are faster, so it has to be for something that matters. It is a strange creed from a man running on other people's money, and the film does not step in to defend him.",
-      "clip_start": "00:41:54.587",
-      "clip_end": "00:42:20.321",
-      "note": "B48",
-      "delivery": "normal",
-      "payload": "judgment",
-      "narrative_jump": false
-    },
-    {
-      "id": 269,
-      "narration": "So why let him race at all? DK's pride is his kryptonite, Han says. Also, Sean still owes him a car.",
+      "id": 1409,
+      "narration": "Then they argue over what a race is for. Beating somebody only proves you are faster, Han says — it has to be for something that matters. So why let him race DK? DK's pride is his kryptonite — also, Sean still owes him a car.",
       "clip_start": "00:42:20.321",
       "clip_end": "00:42:28.954",
       "note": "B48",
-      "delivery": "tense",
+      "delivery": "normal",
       "payload": "stake",
-      "narrative_jump": false,
       "claim": {
         "type": "speech",
         "subject": "the long-haired man"
-      }
+      },
+      "narrative_jump": false
     },
     {
-      "id": 271,
-      "narration": "The needle hits a hundred and ninety-seven kilometres an hour and a patrol car slots in behind them. Sean's grin falls off his face. In Arizona this cost him his third strike.",
+      "id": 1410,
+      "narration": "The needle hits a hundred and ninety-seven and a patrol car slots in behind them. Sean's grin drops as he twists to look back.",
       "clip_start": "00:42:50.809",
       "clip_end": "00:42:58.901",
       "note": "B49",
       "delivery": "tense",
       "payload": "stake",
+      "claim": {
+        "type": "reaction",
+        "subject": "the young American"
+      },
       "narrative_jump": false
     },
     {
-      "id": 272,
-      "narration": "Han does not even sit up. These cars are factory tuned and top out at a hundred and eighty, he says, so above that the police do not bother. Sean argues, loses, and announces that he is beginning to like this country.",
+      "id": 1411,
+      "narration": "Han does not even sit up. Police cars top out at a hundred and eighty, he says, so above that they will not even try. Sean floors it, and announces he is beginning to like this country already.",
       "clip_start": "00:42:58.901",
       "clip_end": "00:43:12.831",
       "note": "B49",
       "delivery": "normal",
       "payload": "reasoning",
-      "narrative_jump": false,
       "claim": {
         "type": "speech",
         "subject": "the long-haired man"
-      }
+      },
+      "narrative_jump": false
     },
     {
-      "id": 274,
-      "narration": "They pull in at Han's garage, which turns out to have a party bolted onto it. Watch how the room treats each of them.",
+      "id": 1412,
+      "narration": "They pull in at Han's garage, which has a party bolted onto it. Han moves through it like a mayor, mobbed and kissed under the mirror ball. Sean trails two steps behind, known by nobody, left on the outside of all of it.",
       "clip_start": "00:43:18.670",
       "clip_end": "00:43:30.682",
       "note": "B50",
       "delivery": "normal",
-      "payload": "loop",
+      "payload": "judgment",
+      "claim": {
+        "type": "establishing",
+        "subject": "the long-haired man"
+      },
       "narrative_jump": true
     },
     {
-      "id": 275,
-      "narration": "Han moves through it like a mayor, a hand here, a name there, the room lighting up at the sight of him, while Sean trails two steps behind, carrying nothing, known by nobody. In Arizona he was the dangerous one. Here he is furniture.",
-      "clip_start": "00:43:30.682",
-      "clip_end": "00:44:01.713",
-      "note": "B50",
-      "delivery": "normal",
-      "payload": "judgment",
-      "narrative_jump": false
-    },
-    {
-      "id": 278,
-      "narration": "Twinkie, his one friend at school, hooks an arm round his neck and explains the economics of the room: these women have been posing all day, they know nobody in town, and every man here is too scared to speak to them. So you talk to the little dude who makes you laugh.",
+      "id": 1413,
+      "narration": "Twinkie, his one friend from school, hooks an arm round his neck and explains the economics of the room. These women have posed all day, know nobody in town, and every man here is too scared to approach them. So you talk to the little dude who makes you laugh.",
       "clip_start": "00:44:41.420",
       "clip_end": "00:44:59.146",
       "note": "B51",
       "delivery": "normal",
       "payload": "reasoning",
+      "claim": {
+        "type": "dialogue",
+        "subject": "the friend with cornrows"
+      },
       "narrative_jump": false
     },
     {
-      "id": 281,
-      "narration": "Then he walks past a red Evo, and walks back to it.",
-      "clip_start": "00:46:10.008",
-      "clip_end": "00:46:20.059",
-      "note": "B52",
-      "delivery": "reveal",
-      "payload": "loop",
-      "narrative_jump": false
-    },
-    {
-      "id": 282,
-      "narration": "Han gives it to him. Not lends. Sean represents him now, and Han is not letting his own name roll around Tokyo in a Hyundai. Generosity and branding in one sentence, and Han never does separate the two.",
+      "id": 1414,
+      "narration": "Sean walks past a red Evo, and walks back to it. Han hands it over — not lends, hands. Sean represents him now, and Han will not let his name roll around Tokyo in a Hyundai. Generosity and branding in one breath.",
       "clip_start": "00:46:20.059",
       "clip_end": "00:46:34.699",
       "note": "B52",
       "delivery": "reveal",
       "payload": "reasoning",
+      "claim": {
+        "type": "reveal",
+        "subject": "the long-haired man"
+      },
       "narrative_jump": false
     },
     {
-      "id": 283,
-      "narration": "The first thing Sean does with the gift is take it to a dockside lot and try to destroy it.",
+      "id": 1415,
+      "narration": "The first thing Sean does with the gift is take it to a dockside lot and try to wreck it, slewing it through tyre smoke. On the sofas the crew laugh — a race coming against the best drifter in Tokyo, and he still cannot drift. He keeps going anyway.",
       "clip_start": "00:46:43.666",
       "clip_end": "00:46:53.301",
       "note": "B53",
       "delivery": "action",
-      "payload": "loop",
-      "narrative_jump": true
-    },
-    {
-      "id": 285,
-      "narration": "On the sofas the crew are laughing. Sean has a race coming against the best drifter in Tokyo, and he still cannot drift. He keeps going anyway.",
-      "clip_start": "00:47:11.736",
-      "clip_end": "00:47:21.329",
-      "note": "B53",
-      "delivery": "tense",
       "payload": "stake",
-      "narrative_jump": false
-    },
-    {
-      "id": 287,
-      "narration": "Morning. School blazer. Boswell in a neighbourhood garage with his hands deep in a stripped vintage coupe.",
-      "clip_start": "00:47:37.678",
-      "clip_end": "00:47:58.074",
-      "note": "B54",
-      "delivery": "normal",
-      "payload": "rest",
+      "claim": {
+        "type": "action",
+        "subject": "the young American"
+      },
       "narrative_jump": true
     },
     {
-      "id": 289,
-      "narration": "Then Boswell offers him a proverb he has clearly been saving: deru kui wa utarero. The nail that sticks out gets hammered. It is good advice and it is completely useless, because Sean has never once managed to be the nail that lies flat.",
+      "id": 1416,
+      "narration": "Morning, school blazer. Boswell works a stripped coupe he found wrecked on the base — says it has potential. Then he offers a proverb he has clearly been saving: deru kui wa utarero. The nail that sticks out gets hammered. Good advice, and completely useless on this particular kid.",
       "clip_start": "00:48:18.094",
       "clip_end": "00:48:35.069",
       "note": "B54",
       "delivery": "normal",
       "payload": "judgment",
-      "narrative_jump": false,
       "claim": {
         "type": "speech",
         "subject": "the grey-haired man in the grey henley"
-      }
-    },
-    {
-      "id": 292,
-      "narration": "On the school roof, Twinkie is down on his hands and knees, and the blond classmate standing over him is playing it up for a laughing crew. Nobody in that ring will stop it.",
-      "clip_start": "00:49:06.976",
-      "clip_end": "00:49:15.859",
-      "note": "B55",
-      "delivery": "tense",
-      "payload": "stake",
+      },
       "narrative_jump": true
     },
     {
-      "id": 293,
-      "narration": "Sean breaks into the circle with a hand up and calls it a misunderstanding, which is generous for a kid who sells knock-offs and does not do refunds. Nobody asked him to do this. He does it because standing at the back of a crowd is the one thing he has never managed.",
+      "id": 1417,
+      "narration": "On the school roof Twinkie is pinned on the concrete while a blond classmate plays it up for a laughing crew. Sean shoves through the ring, hand raised, and calls it a misunderstanding. Standing quietly at the back of a crowd is the one thing he has never managed. The blond backs off, no punch thrown.",
       "clip_start": "00:49:15.859",
       "clip_end": "00:49:33.335",
       "note": "B55",
       "delivery": "tense",
       "payload": "reasoning",
-      "narrative_jump": false,
       "claim": {
         "type": "speech",
         "subject": "the young American in the school blazer"
-      }
+      },
+      "narrative_jump": false
     },
     {
-      "id": 296,
-      "narration": "Neela stays behind on the emptied roof. Not easy, saving the day, is it, she says, and then tells him he is doing all right. First approval anybody in this city has handed him for free.",
+      "id": 1418,
+      "narration": "Twinkie rounds on him for wrecking business up here. Neela stays behind on the emptied deck. Not easy, saving the day, is it, she says — then tells him he is doing all right. First approval this city has handed him for free, and the thing between them still has a nickname and an uncle.",
       "clip_start": "00:50:14.626",
       "clip_end": "00:50:29.975",
       "note": "B56",
       "delivery": "normal",
-      "payload": "judgment",
-      "narrative_jump": false
-    },
-    {
-      "id": 297,
-      "narration": "She apologises for prying into his family. He tells her it is okay. Two people handed somebody else's country, feeling for the edges of each other, carefully, because the thing standing between them has a nickname and an uncle.",
-      "clip_start": "00:50:29.975",
-      "clip_end": "00:50:48.243",
-      "note": "B56",
-      "delivery": "normal",
       "payload": "loop",
+      "claim": {
+        "type": "emotion",
+        "subject": "the young American"
+      },
       "narrative_jump": false
     }
   ]

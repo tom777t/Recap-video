@@ -2,98 +2,74 @@
   "act": "2a",
   "lines": [
     {
-      "id": 201,
-      "narration": "Twinkie spells it out: that is Yakuza, actual mafia. Sean hears the word and treats it as a dare.",
+      "id": 1301,
+      "narration": "Twinkie, his one friend here in the red beanie, spells it out: that spiky-haired man is Yakuza, actual mafia. Sean hears the word and takes it as a dare.",
       "clip_start": "00:25:32.651",
       "clip_end": "00:25:38.823",
       "note": "B29",
       "delivery": "tense",
       "payload": "reasoning",
-      "narrative_jump": false,
-      "claim": {
-        "type": "speech",
-        "subject": "Twinkie"
-      }
+      "claim": {"type": "speech", "subject": "the friend in the red beanie"},
+      "narrative_jump": false
     },
     {
-      "id": 204,
-      "narration": "DK comes through the crowd and stops with his face an inch from Sean's. Nobody moves. He takes a cut of every engine in this room, and he has just been called a monkey's son in front of all of them. Two words settle it. Let's race.",
+      "id": 1302,
+      "narration": "He calls the man out anyway. The spiky-haired man in the leather jacket breaks from the crowd and stops with his face an inch from Sean's. Neither backs off. Two words close it. Let's race.",
       "clip_start": "00:25:53.380",
       "clip_end": "00:26:08.520",
       "note": "B29",
       "delivery": "tense",
       "payload": "stake",
-      "narrative_jump": false,
-      "claim": {
-        "type": "speech",
-        "subject": "DK"
-      }
+      "claim": {"type": "speech", "subject": "the spiky-haired man in the leather jacket"},
+      "narrative_jump": false
     },
     {
-      "id": 205,
-      "narration": "The crowd wants to know with what, his skateboard, and that should be the end of it. Then a voice from the back of the room says take mine.",
+      "id": 1303,
+      "narration": "The crowd asks with what — his skateboard — and a voice from the back says take mine. That is Han, who runs his own garage, handing a kid he's never met a car he built from the block up just to see what he's got.",
       "clip_start": "00:26:08.520",
-      "clip_end": "00:26:19.614",
-      "note": "B30",
-      "delivery": "mystery",
-      "payload": "loop",
-      "narrative_jump": false,
-      "claim": {
-        "type": "speech",
-        "subject": "Han"
-      }
-    },
-    {
-      "id": 206,
-      "narration": "That is Han, who runs his own crew out of this garage, and he has just handed a kid he has never met a car he built from the block up — for no reason he will explain, beyond wanting to see what Sean can do. Keep an eye on Han. He is the most interesting person in this film.",
-      "clip_start": "00:26:19.614",
       "clip_end": "00:26:36.381",
       "note": "B30",
       "delivery": "reveal",
       "payload": "loop",
-      "narrative_jump": false,
-      "claim": {
-        "type": "speech",
-        "subject": "Han"
-      }
+      "claim": {"type": "speech", "subject": "the blond-dyed man in the leather jacket"},
+      "narrative_jump": false
     },
     {
-      "id": 207,
-      "narration": "In the lift Twinkie asks whether he even knows what DK stands for. Sean guesses Donkey Kong. It is Drift King — not a nickname his friends stuck him with, a job title, and nobody in Tokyo races against it for fun.",
+      "id": 1304,
+      "narration": "In the lift Twinkie asks if he even knows what DK stands for. Sean guesses Donkey Kong. It's Drift King — not a nickname, a job title, and nobody in Tokyo races it for fun.",
       "clip_start": "00:26:36.381",
       "clip_end": "00:27:00.321",
       "note": "B31",
       "delivery": "normal",
       "payload": "reasoning",
-      "narrative_jump": false,
-      "claim": {
-        "type": "speech",
-        "subject": "Twinkie"
-      }
+      "claim": {"type": "speech", "subject": "the friend in the red beanie"},
+      "narrative_jump": false
     },
     {
-      "id": 209,
-      "narration": "Twinkie's valuation of the car he is about to be handed is that it is the Mona Lisa of drift work. He sells trainers out of a backpack, so of course it is the Mona Lisa.",
+      "id": 1305,
+      "narration": "Twinkie's valuation of the borrowed car: it's the Mona Lisa of drift work. He sells sneakers out of a backpack — of course it's the Mona Lisa.",
       "clip_start": "00:27:11.666",
       "clip_end": "00:27:23.636",
       "note": "B32",
       "delivery": "normal",
       "payload": "judgment",
-      "narrative_jump": true
+      "claim": {"type": "speech", "subject": "the friend in the red beanie"},
+      "narrative_jump": false
     },
     {
-      "id": 210,
-      "narration": "Sean drops into the seat. The complete drift education he gets before racing the Drift King lasts about thirty seconds, and it is two moves: rip the e-brake so the back end comes loose, then get on the power and hold it there. That is the whole curriculum. He has never drifted in his life, and he is about to try it in someone else's hand-built car, in front of a few hundred people, against the best driver in the city.",
+      "id": 1306,
+      "narration": "Sean drops into the seat and gets his whole drift education in thirty seconds: rip the e-brake to loosen the back end, then power over and hold it. That's the entire curriculum. He's never drifted in his life — and he's about to try it against the best driver in the city.",
       "clip_start": "00:27:23.636",
       "clip_end": "00:27:54.250",
       "note": "B32",
       "delivery": "tense",
       "payload": "stake",
+      "claim": {"type": "speech", "subject": "the friend in the red beanie"},
       "narrative_jump": false
     },
     {
-      "id": 211,
-      "narration": "Before the start DK pulls Neela into him in front of everyone, holds it, and lets the whole garage watch. That is not affection. That is inventory.",
+      "id": 1307,
+      "narration": "Before the start the man in the black tank top pulls the dark-haired woman into him in front of everyone and holds it, letting the garage watch. Her name is Neela, and he's claiming her as his.",
       "clip_start": "00:27:54.250",
       "clip_end": "00:28:07.471",
       "note": "B33",
@@ -102,28 +78,18 @@
       "narrative_jump": false
     },
     {
-      "id": 213,
-      "narration": "Sean looks across at the harness and the helmet and grins at him. He has no idea what he is doing, and the grin is the only thing he brought.",
+      "id": 1308,
+      "narration": "The cars settle side by side, a man in a dark suit drops his arm, and they break away into the deck in tyre smoke.",
       "clip_start": "00:29:06.655",
       "clip_end": "00:29:15.289",
       "note": "B34",
-      "delivery": "tense",
-      "payload": "reasoning",
+      "delivery": "normal",
+      "payload": "rest",
       "narrative_jump": false
     },
     {
-      "id": 215,
-      "narration": "Up on the other levels, the crowd is watching it relayed on each other's phones. Whatever happens in the next two minutes, everyone in Tokyo who matters knows by morning.",
-      "clip_start": "00:29:39.271",
-      "clip_end": "00:29:52.409",
-      "note": "B34",
-      "delivery": "mystery",
-      "payload": "loop",
-      "narrative_jump": false
-    },
-    {
-      "id": 216,
-      "narration": "Then he gets greedy on a corner, the back end goes further than he meant it to, and Han's car lays a line of sparks down the concrete. Twenty seconds in, he has already damaged the one thing he was lent.",
+      "id": 1310,
+      "narration": "Then he gets greedy on a corner, the tail goes further than he meant, and Han's car lays a line of sparks down the concrete. Twenty seconds in, he's already wrecked the one thing he was lent.",
       "clip_start": "00:30:10.260",
       "clip_end": "00:30:21.522",
       "note": "B35",
@@ -132,8 +98,8 @@
       "narrative_jump": false
     },
     {
-      "id": 217,
-      "narration": "DK takes the identical corner broadside and makes it look like the corner was built for him. That contrast is the only thing this race is about.",
+      "id": 1311,
+      "narration": "The man in the black tank top takes the identical corner broadside and makes it look like the corner was built for him. That contrast is the whole race.",
       "clip_start": "00:30:33.575",
       "clip_end": "00:30:41.166",
       "note": "B35",
@@ -142,38 +108,38 @@
       "narrative_jump": false
     },
     {
-      "id": 220,
-      "narration": "DK has the spiral to himself now and takes it sideways the whole way down.",
+      "id": 1312,
+      "narration": "He has the spiral ramps to himself and drops down them sideways, bursting out onto the neon street first while the crowd erupts for him.",
       "clip_start": "00:31:38.056",
       "clip_end": "00:31:46.022",
       "note": "B36",
-      "delivery": "action",
+      "delivery": "normal",
       "payload": "rest",
       "narrative_jump": false
     },
     {
-      "id": 222,
-      "narration": "In all that noise two people are not cheering: Twinkie, and Neela beside him, watching the exit with nothing on their faces at all.",
+      "id": 1313,
+      "narration": "In all that noise, two people aren't cheering. Twinkie, and Neela beside him, watching the exit with nothing on their faces at all.",
       "clip_start": "00:31:54.489",
       "clip_end": "00:32:03.957",
       "note": "B36",
-      "delivery": "mystery",
+      "delivery": "normal",
       "payload": "reasoning",
       "narrative_jump": false
     },
     {
-      "id": 223,
-      "narration": "Sean comes out dead last, the front of Han's car torn open and smoking. The barrier breaks and the crowd swarms him. He has lost in front of four hundred people who all know exactly what that repair bill is.",
+      "id": 1314,
+      "narration": "Sean's car slides out dead last, front end torn open and smoking. The barrier breaks and the crowd swarms the wreck. He's lost in front of hundreds who all know exactly what that repair bill looks like.",
       "clip_start": "00:32:24.269",
       "clip_end": "00:32:43.455",
       "note": "B37",
-      "delivery": "sad",
+      "delivery": "normal",
       "payload": "stake",
       "narrative_jump": false
     },
     {
-      "id": 224,
-      "narration": "Han comes to the window of his own ruined car and does not raise his voice. Sean has been in Tokyo barely a week, and he already owes a stranger an entire car.",
+      "id": 1315,
+      "narration": "A long-haired man in a grey jacket leans into his window to tell him what he already knows: barely a week in Tokyo and he owes a stranger an entire car.",
       "clip_start": "00:32:43.455",
       "clip_end": "00:32:56.426",
       "note": "B37",
@@ -182,136 +148,79 @@
       "narrative_jump": false
     },
     {
-      "id": 225,
-      "narration": "He gets home after midnight and finds Lieutenant Boswell, his father, sitting in the dark with a beer, waiting up.",
+      "id": 1316,
+      "narration": "He slips home after midnight to find the grey-haired man in the navy hoodie — his father — waiting in the dark with a beer.",
       "clip_start": "00:32:56.426",
       "clip_end": "00:33:07.645",
       "note": "B38",
       "delivery": "normal",
       "payload": "rest",
-      "narrative_jump": true
+      "narrative_jump": false
     },
     {
-      "id": 227,
-      "narration": "Boswell is on his feet now. Have you been racing, Sean.",
+      "id": 1317,
+      "narration": "His father is on his feet now, and the question is flat. Have you been racing, Sean.",
       "clip_start": "00:33:21.993",
       "clip_end": "00:33:32.211",
       "note": "B38",
       "delivery": "tense",
       "payload": "loop",
+      "claim": {"type": "speech", "subject": "the grey-haired man in the NAVY hoodie"},
       "narrative_jump": false
     },
     {
-      "id": 228,
-      "narration": "Sean's answer is to lift a car key off the desk and head for the door.",
-      "clip_start": "00:33:32.211",
-      "clip_end": "00:33:38.635",
-      "note": "B39",
-      "delivery": "tense",
-      "payload": "reasoning",
-      "narrative_jump": false
-    },
-    {
-      "id": 229,
-      "narration": "In the back room his father lays out exactly where he stands. There is nowhere else left to send him. If this does not work out here, he goes to jail — live under this roof by these rules, or get out. Sean has heard this speech in every town they ever lived in. This is the first one with a cell at the end of it.",
+      "id": 1318,
+      "narration": "Sean lifts a car key off the desk and heads for the door. His father corners him in the back room: there's nowhere else to send him. If this doesn't work out, he goes to jail — live by these rules, or get out. Sean has heard this speech in every town. This is the first one with a cell at the end of it.",
       "clip_start": "00:33:38.635",
       "clip_end": "00:33:58.529",
       "note": "B39",
       "delivery": "tense",
       "payload": "stake",
+      "claim": {"type": "speech", "subject": "the grey-haired man in the NAVY hoodie"},
       "narrative_jump": false
     },
     {
-      "id": 230,
-      "narration": "Yes, sir. That is all he gives him, and he gives it from the doorway.",
-      "clip_start": "00:33:58.529",
-      "clip_end": "00:34:14.128",
-      "note": "B39",
-      "delivery": "sad",
-      "payload": "rest",
-      "narrative_jump": false
-    },
-    {
-      "id": 232,
-      "narration": "Sean tells him he will get him his money. Han asks why he is talking like he has a choice. Sean does not set the terms of anything anymore.",
+      "id": 1319,
+      "narration": "Next day the long-haired man in the parka waits outside school to collect for the wrecked car. Sean says he'll get him his money. The man asks why he's talking like he has a choice — and drives him off to work as his delivery runner.",
       "clip_start": "00:34:53.292",
       "clip_end": "00:35:04.011",
       "note": "B40",
       "delivery": "tense",
       "payload": "stake",
-      "narrative_jump": true,
-      "claim": {
-        "type": "speech",
-        "subject": "Han"
-      }
+      "claim": {"type": "speech", "subject": "the long-haired man in the parka"},
+      "narrative_jump": true
     },
     {
-      "id": 233,
-      "narration": "Han explains the arrangement on the drive: a debtor is holding out on him, and Sean is the one going in to collect. Sean does not ask one question about what collecting means.",
+      "id": 1320,
+      "narration": "He explains the job on the drive. A guy owes him money, and Sean is the one going in to collect. Sean doesn't ask a single question about what collecting means.",
       "clip_start": "00:35:12.978",
       "clip_end": "00:35:27.076",
       "note": "B40",
       "delivery": "normal",
       "payload": "reasoning",
-      "narrative_jump": false,
-      "claim": {
-        "type": "speech",
-        "subject": "Han"
-      }
+      "claim": {"type": "speech", "subject": "the long-haired man in the parka"},
+      "narrative_jump": false
     },
     {
-      "id": 234,
-      "narration": "The place turns out to be a bathhouse, and the debtor is a mountain with a wolf inked across his whole back, soaking in the pool. Sean walks in wearing a towel.",
-      "clip_start": "00:35:46.262",
-      "clip_end": "00:36:08.617",
-      "note": "B41",
-      "delivery": "normal",
-      "payload": "stake",
-      "narrative_jump": true
-    },
-    {
-      "id": 235,
-      "narration": "He stands over him and keeps pressing anyway. The debtor stops answering, stands up out of the water, and turns out to be a foot taller than the kid doing the asking.",
+      "id": 1321,
+      "narration": "The place is a bathhouse; the debtor, a mountain of a man with a wolf inked across his back, soaking in the pool. Sean leans on him in a towel and gets hurled into the street — goes back in, gets hurled out again, one shoe short.",
       "clip_start": "00:36:16.667",
       "clip_end": "00:36:39.815",
       "note": "B41",
-      "delivery": "tense",
-      "payload": "rest",
+      "delivery": "normal",
+      "payload": "stake",
       "narrative_jump": false
     },
     {
-      "id": 237,
-      "narration": "He gets up, goes straight back in, and comes straight back out, one shoe short. Han sent a seventeen-year-old to lean on a man twice his size, and got the result he expected.",
-      "clip_start": "00:36:47.573",
-      "clip_end": "00:37:00.335",
-      "note": "B41",
-      "delivery": "normal",
-      "payload": "reasoning",
-      "narrative_jump": false
-    },
-    {
-      "id": 239,
-      "narration": "The orange car runs the expressway at dusk with the whole city going the other way.",
-      "clip_start": "00:37:09.595",
-      "clip_end": "00:37:18.186",
-      "note": "B42",
-      "delivery": "normal",
-      "payload": "rest",
-      "narrative_jump": true
-    },
-    {
-      "id": 240,
-      "narration": "On the night drive they make the actual deal. Sean is in the pick-up and delivery business now. Han might call once a week or once an hour. He does not care if Sean is sick as a dog or in bed with Beyonce — he calls, Sean shows. Only if you teach me to drift, Sean says. Han tells him this is not a negotiation. Sean tells him he wasn't negotiating.",
+      "id": 1322,
+      "narration": "On the night drive they strike the deal. Sean stays on call — once a week or once an hour, sick as a dog or in bed with Beyonce, the man calls and Sean shows. Only if you teach me to drift, Sean says. This isn't a negotiation. I wasn't negotiating, Sean says back.",
       "clip_start": "00:37:18.186",
       "clip_end": "00:37:36.163",
       "note": "B42",
       "delivery": "reveal",
       "payload": "stake",
-      "narrative_jump": false,
-      "claim": {
-        "type": "speech",
-        "subject": "Han"
-      }
+      "claim": {"type": "speech", "subject": "the long-haired man in the dark jacket"},
+      "narrative_jump": false
     }
   ]
 }

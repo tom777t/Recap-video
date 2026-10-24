@@ -1,0 +1,18 @@
+{
+  "verdicts": [
+    {"id": 17, "location_ok": true, "identity_ok": true, "event_ok": true, "invented": [], "problem": ""},
+    {"id": 19, "location_ok": true, "identity_ok": true, "event_ok": true, "invented": [], "problem": ""},
+    {"id": 20, "location_ok": true, "identity_ok": true, "event_ok": true, "invented": [], "problem": ""},
+    {"id": 28, "location_ok": true, "identity_ok": true, "event_ok": true, "invented": [], "problem": ""},
+    {"id": 29, "location_ok": true, "identity_ok": true, "event_ok": true, "invented": ["\"Twenty seconds in\" - a specific duration with no basis in any beat or transcript line; the beats (B34-B36) do not time the race"], "problem": "\"Twenty seconds in\" is an invented duration not supported by any beat or transcript. Location is correct (car park/spiral decks/neon street per B34-B36, not the mountain)."},
+    {"id": 42, "location_ok": true, "identity_ok": true, "event_ok": true, "invented": [], "problem": ""},
+    {"id": 46, "location_ok": true, "identity_ok": true, "event_ok": true, "invented": [], "problem": ""},
+    {"id": 51, "location_ok": true, "identity_ok": true, "event_ok": true, "invented": [], "problem": ""},
+    {"id": 57, "location_ok": true, "identity_ok": true, "event_ok": true, "invented": [], "problem": ""},
+    {"id": 72, "location_ok": true, "identity_ok": true, "event_ok": true, "invented": [], "problem": ""},
+    {"id": 80, "location_ok": true, "identity_ok": true, "event_ok": true, "invented": [], "problem": ""},
+    {"id": 108, "location_ok": true, "identity_ok": true, "event_ok": true, "invented": [], "problem": ""}
+  ],
+  "pass": false,
+  "summary": "1 line with a failure: LINE 29 (invented duration \"twenty seconds in\" - no beat/transcript support). All locations, identities, and callbacks otherwise check out, including LINE 29's corrected location (car park, not the mountain), LINE 46's callback to the opening-scene bullying intervention (B01), LINE 72's Mexico callback, and LINE 108's Toretto/\"family\"/\"ten-second race\" facts."
+}

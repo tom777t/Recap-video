@@ -1,29 +1,141 @@
 {
   "verdicts": [
-    {"id": 9, "author": "stake", "auditor": "stake", "ok": true, "why": ""},
-    {"id": 16, "author": "stake", "auditor": "stake", "ok": true, "why": ""},
-    {"id": 17, "author": "rest", "auditor": "rest", "ok": true, "why": ""},
-    {"id": 21, "author": "rest", "auditor": "rest", "ok": true, "why": ""},
-    {"id": 38, "author": "rest", "auditor": "rest", "ok": true, "why": ""},
-    {"id": 53, "author": "stake", "auditor": "judgment", "ok": false, "why": "nothing is costed, risked or made irreversible here; it is description of DK's entrance plus the narrator's own read of it ('The meet is not public. It is his.'), which is judgment, not stake"},
-    {"id": 55, "author": "reasoning", "auditor": "reasoning", "ok": true, "why": ""},
-    {"id": 64, "author": "judgment", "auditor": "judgment", "ok": true, "why": ""},
-    {"id": 81, "author": "stake", "auditor": "rest", "ok": false, "why": "pure on-screen description of a debtor standing up and being taller; no cost named, nothing risked in words, nothing irreversible - delete it and neither the story nor the viewer's reason to continue changes"},
-    {"id": 83, "author": "rest", "auditor": "rest", "ok": true, "why": ""},
-    {"id": 110, "author": "reasoning", "auditor": "reasoning", "ok": true, "why": ""},
-    {"id": 118, "author": "judgment", "auditor": "judgment", "ok": true, "why": ""},
-    {"id": 124, "author": "stake", "auditor": "stake", "ok": true, "why": ""},
-    {"id": 127, "author": "reasoning", "auditor": "reasoning", "ok": true, "why": ""},
-    {"id": 131, "author": "loop", "auditor": "loop", "ok": true, "why": ""},
-    {"id": 169, "author": "reasoning", "auditor": "reasoning", "ok": true, "why": ""},
-    {"id": 193, "author": "stake", "auditor": "stake", "ok": true, "why": ""},
-    {"id": 201, "author": "loop", "auditor": "loop", "ok": true, "why": ""},
-    {"id": 207, "author": "rest", "auditor": "rest", "ok": true, "why": ""},
-    {"id": 213, "author": "loop", "auditor": "loop", "ok": true, "why": ""}
+    {
+      "id": 4,
+      "author": "judgment",
+      "auditor": "judgment",
+      "ok": true
+    },
+    {
+      "id": 7,
+      "author": "loop",
+      "auditor": "judgment",
+      "ok": false,
+      "why": "No forward promise pulling to the next line. 'She's the trophy, and nobody asked her twice' is the narrator's opinion/aside about the moment, which is judgment, not a loop."
+    },
+    {
+      "id": 8,
+      "author": "rest",
+      "auditor": "rest",
+      "ok": true
+    },
+    {
+      "id": 11,
+      "author": "stake",
+      "auditor": "stake",
+      "ok": true
+    },
+    {
+      "id": 15,
+      "author": "reasoning",
+      "auditor": "stake",
+      "ok": false,
+      "why": "No character's thinking or WHY is given. 'Every time he loses, an adult relocates him' states a recurring consequence/cost that befalls him, which is stake, not reasoning."
+    },
+    {
+      "id": 27,
+      "author": "judgment",
+      "auditor": "judgment",
+      "ok": true
+    },
+    {
+      "id": 33,
+      "author": "reasoning",
+      "auditor": "reasoning",
+      "ok": true
+    },
+    {
+      "id": 35,
+      "author": "stake",
+      "auditor": "stake",
+      "ok": true
+    },
+    {
+      "id": 37,
+      "author": "judgment",
+      "auditor": "judgment",
+      "ok": true
+    },
+    {
+      "id": 44,
+      "author": "reasoning",
+      "auditor": "reasoning",
+      "ok": true
+    },
+    {
+      "id": 45,
+      "author": "judgment",
+      "auditor": "judgment",
+      "ok": true
+    },
+    {
+      "id": 47,
+      "author": "reasoning",
+      "auditor": "reasoning",
+      "ok": true
+    },
+    {
+      "id": 50,
+      "author": "loop",
+      "auditor": "loop",
+      "ok": true
+    },
+    {
+      "id": 53,
+      "author": "rest",
+      "auditor": "rest",
+      "ok": true
+    },
+    {
+      "id": 72,
+      "author": "loop",
+      "auditor": "judgment",
+      "ok": false,
+      "why": "'Tonight he's running again' is a reflective callback commenting on the meaning of the moment; it does not promise or pull toward the next line. That is judgment, not a loop."
+    },
+    {
+      "id": 82,
+      "author": "stake",
+      "auditor": "stake",
+      "ok": true
+    },
+    {
+      "id": 93,
+      "author": "rest",
+      "auditor": "rest",
+      "ok": true
+    },
+    {
+      "id": 94,
+      "author": "stake",
+      "auditor": "stake",
+      "ok": true
+    },
+    {
+      "id": 95,
+      "author": "loop",
+      "auditor": "loop",
+      "ok": true
+    },
+    {
+      "id": 108,
+      "author": "loop",
+      "auditor": "loop",
+      "ok": true
+    }
   ],
   "hook": {
     "raised": true,
     "held": true,
-    "why": "The clamps held next to three boys pinning a classmate genuinely create the 'what is he about to do' question, and nothing in lines 1-15 pays off the auto-shop moment; the Clay race shows the pattern of answering trouble but line 15 stops before the consequence lands, so the question is still open."
+    "no_frame": true,
+    "film_q": true,
+    "promise": true,
+    "why": "The hook sells the premise as a trailer voice: a boy who only crashes dropped into a city built on control. The question is film-level (will he survive), stays unanswered through line 15, uses only generic world properties (cars drive sideways, owes a stranger a car, hasn't learned to turn) with no specific frame, and pays off the title's shipped-to-Tokyo/owing-a-car premise."
+  },
+  "title": {
+    "premise": true,
+    "withheld": true,
+    "spoils": false,
+    "why": "States an extraordinary premise as plain fact (shipped to Tokyo to dodge jail, ends up owing the yakuza a car) and withholds the outcome with 'He Cannot Pay For'. It frames the setup without revealing the ending."
   }
 }

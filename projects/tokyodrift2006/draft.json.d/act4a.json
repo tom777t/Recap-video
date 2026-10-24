@@ -2,243 +2,241 @@
   "act": "4a",
   "lines": [
     {
-      "id": 401,
-      "narration": "Sean waits in Han's emptied garage, and everyone keeps handing him the same plan: get on a plane and let Tokyo close over the hole he tore in it. Twinkie says it plainly - leave town. Sean's answer is three words. Can't do it, Twink.",
-      "clip_start": "01:18:37.613",
-      "clip_end": "01:18:52.753",
-      "note": "B85",
-      "delivery": "sad",
-      "payload": "reasoning",
-      "narrative_jump": true
-    },
-    {
-      "id": 403,
-      "narration": "Twinkie does the arithmetic out loud. DK is coming, and behind DK sits Kamata - the yakuza boss whose turf every race, every garage and every shakedown in this city runs on. What have you done here, bruh.",
-      "clip_start": "01:19:06.100",
-      "clip_end": "01:19:18.696",
+      "id": 1701,
+      "narration": "In the empty garage Twinkie, the friend in the mint-green shirt, won't hear the leave-town plan — and he lays it out plainly: the trouble Sean has made doesn't stop at Takashi, it runs all the way up to Kamata now.",
+      "clip_start": "01:18:52.753",
+      "clip_end": "01:19:06.100",
       "note": "B85",
       "delivery": "tense",
-      "payload": "stake",
+      "payload": "reasoning",
+      "claim": {
+        "type": "speech",
+        "subject": "the friend in the mint-green shirt"
+      },
       "narrative_jump": false
     },
     {
-      "id": 404,
-      "narration": "So Sean says the thing nobody in that garage would ever say. Maybe I should talk to Kamata. The logic is sound enough to be frightening: DK answers to his uncle, so the only person who can call DK off is Kamata himself - and Sean has no business anywhere near him. Twinkie's objection is short, and correct. Han is dead, and nobody just walks in there.",
+      "id": 1702,
+      "narration": "Sean says it quietly: he's going to go talk to Kamata himself. Twinkie stares at him like he's lost his mind — Han is gone, you can't just walk into Kamata's place. And Sean's answer stops the argument cold: that's all I've got.",
       "clip_start": "01:19:18.696",
-      "clip_end": "01:19:36.547",
-      "note": "B86",
-      "delivery": "tense",
-      "payload": "reasoning",
-      "narrative_jump": false
-    },
-    {
-      "id": 406,
-      "narration": "Sean answers that it is all he has left, and the argument dies there.",
-      "clip_start": "01:19:43.012",
       "clip_end": "01:19:53.939",
       "note": "B86",
-      "delivery": "sad",
-      "payload": "reasoning",
+      "delivery": "emotion",
+      "payload": "stake",
+      "claim": {
+        "type": "speech",
+        "subject": "the young man in the white thermal shirt"
+      },
       "narrative_jump": false
     },
     {
-      "id": 407,
-      "narration": "Twinkie stops arguing and goes to his car, hauls the hatch up and pries at the rear quarter panel. What he digs out of that gap is the only reason Sean gets through Kamata's door alive.",
+      "id": 1703,
+      "narration": "So Twinkie goes to his green car, runs a hand along the panel, and pries open a hidden stash in the quarter.",
       "clip_start": "01:19:53.939",
       "clip_end": "01:20:10.247",
       "note": "B87",
       "delivery": "normal",
-      "payload": "loop",
+      "payload": "rest",
+      "claim": {
+        "type": "action",
+        "subject": "the friend in the mint-green shirt"
+      },
       "narrative_jump": false
     },
     {
-      "id": 408,
-      "narration": "A battered leather satchel of Han's cash - the skim off the top, the money that got him killed. Sean counts it and asks whether Twinkie needs it. He'll figure it out, Twinkie says, which is what you say when you have just handed over everything you had.",
+      "id": 1704,
+      "narration": "He shoves a battered leather satchel at Sean — something Han would have wanted him to have — a thick wad of banknotes to buy his way through Kamata's door alive. Sean asks if he needs it. He'll figure it out.",
       "clip_start": "01:20:10.247",
       "clip_end": "01:20:31.310",
       "note": "B87",
-      "delivery": "sad",
-      "payload": "stake",
+      "delivery": "emotion",
+      "payload": "reasoning",
+      "claim": {
+        "type": "speech",
+        "subject": "the friend in the mint-green shirt"
+      },
       "narrative_jump": false
     },
     {
-      "id": 410,
-      "narration": "The alley runs wall to wall with embroidered gang jackets and a bat, and it closes up behind him as he walks. That is the part Sean has to keep not thinking about.",
+      "id": 1705,
+      "narration": "Night, dark clothes, a narrow alley packed with men in embroidered gang jackets — one of them carrying a bat — and the crowd closing behind him as he walks to the guarded door and asks for Mr Kamata.",
       "clip_start": "01:20:49.453",
-      "clip_end": "01:21:02.466",
+      "clip_end": "01:21:11.850",
       "note": "B88",
       "delivery": "tense",
       "payload": "stake",
-      "narrative_jump": true
+      "claim": {
+        "type": "action",
+        "subject": "the young man in the white thermal shirt"
+      },
+      "narrative_jump": false
     },
     {
-      "id": 412,
-      "narration": "He asks for Mr Kamata by name at the guarded door, politely, like someone with an appointment. Then the bag opens, and Han's money buys what Sean's name never could.",
+      "id": 1706,
+      "narration": "He opens the bag in the doorway. A bald elder looks in, goes still — and that is the whole password. They walk him inside, past the Fuji print, into a warm lantern-lit lounge where every head turns to track the gaijin coming through.",
       "clip_start": "01:21:11.850",
-      "clip_end": "01:21:21.193",
+      "clip_end": "01:21:47.678",
       "note": "B88",
-      "delivery": "reveal",
-      "payload": "loop",
+      "delivery": "normal",
+      "payload": "reasoning",
+      "claim": {
+        "type": "action",
+        "subject": "the young man in the white thermal shirt"
+      },
       "narrative_jump": false
     },
     {
-      "id": 415,
-      "narration": "DK reaches him first, nose to nose, and Sean tells him he didn't come to see him. Sean steps past and says it to the room: he has something that belongs to Kamata-san.",
+      "id": 1707,
+      "narration": "Takashi gets nose to nose with him first. Sean doesn't flinch — I didn't come here to see you — and Kamata-san has something to give you. The bag is carried forward and lifted open at the old man's table.",
       "clip_start": "01:21:47.678",
-      "clip_end": "01:21:56.520",
-      "note": "B89",
-      "delivery": "tense",
-      "payload": "stake",
-      "narrative_jump": false
-    },
-    {
-      "id": 419,
-      "narration": "So Sean makes the case himself. He is only returning what was Kamata's, and that is not why he came - he came to apologize, because he and Kamata's nephew have embarrassed themselves. Naming DK as the nephew, out loud, in front of the family, puts the shame where Kamata cannot pretend not to see it.",
-      "clip_start": "01:22:29.845",
-      "clip_end": "01:22:46.403",
+      "clip_end": "01:22:29.845",
       "note": "B89",
       "delivery": "tense",
       "payload": "reasoning",
+      "claim": {
+        "type": "speech",
+        "subject": "the young man in the white thermal shirt"
+      },
       "narrative_jump": false
     },
     {
-      "id": 421,
-      "narration": "Kamata shuts his eyes over the cigar and says nothing, and DK cannot leave it alone - after everything he has done for this family, now he takes orders in front of an outsider.",
-      "clip_start": "01:22:50.407",
+      "id": 1708,
+      "narration": "Then Sean says it to Kamata's face. He's only returning what was his in the first place. That's not why he came — he came to apologize, because he and Takashi have embarrassed themselves badly in front of this man.",
+      "clip_start": "01:22:29.845",
+      "clip_end": "01:22:46.403",
+      "note": "B89",
+      "delivery": "reveal",
+      "payload": "stake",
+      "claim": {
+        "type": "speech",
+        "subject": "the young man in the white thermal shirt"
+      },
+      "narrative_jump": false
+    },
+    {
+      "id": 1709,
+      "narration": "Takashi cuts in — don't listen to this gaijin — and throws it back at the old man: after everything you've done, you're giving me orders? Kamata just shuts his eyes over the cigar and lets him hang himself.",
+      "clip_start": "01:22:46.403",
       "clip_end": "01:23:00.709",
       "note": "B90",
       "delivery": "tense",
       "payload": "reasoning",
+      "claim": {
+        "type": "speech",
+        "subject": "the spiky-haired rival"
+      },
       "narrative_jump": false
     },
     {
-      "id": 422,
-      "narration": "Kamata never raises his voice. He looks at his nephew until the defiance folds and DK bows.",
+      "id": 1710,
+      "narration": "And then the old man doesn't say a word. He just stares, and Takashi's defiance folds — the nephew drops his head into a bow. One look does what no shouting could.",
       "clip_start": "01:23:00.709",
       "clip_end": "01:23:09.676",
       "note": "B90",
-      "delivery": "reveal",
-      "payload": "stake",
+      "delivery": "emotion",
+      "payload": "judgment",
+      "claim": {
+        "type": "emotion",
+        "subject": "the older man with the cigar"
+      },
       "narrative_jump": false
     },
     {
-      "id": 423,
-      "narration": "Sean's peaceful solution turns out to be the only currency either of them respects. A race. He and DK have caused nothing but problems, and he is asking to settle it once and for all.",
+      "id": 1711,
+      "narration": "Sean lays out his peaceful solution. A race — he and Takashi settle it once and for all, and the loser leaves Tokyo for good. Takashi sneers that he's already beaten him once. Kamata weighs it over the cigar, and says one word. Good.",
       "clip_start": "01:23:09.676",
-      "clip_end": "01:23:22.981",
-      "note": "B91",
-      "delivery": "tense",
-      "payload": "reasoning",
-      "narrative_jump": false
-    },
-    {
-      "id": 424,
-      "narration": "Here are the terms, and hold on to them, because the whole finale is built on them. One race, down the mountain, and the loser leaves Tokyo for good. DK's only answer: he has beaten this piece of shit once already.",
-      "clip_start": "01:23:22.981",
-      "clip_end": "01:23:35.410",
-      "note": "B91",
-      "delivery": "reveal",
-      "payload": "stake",
-      "narrative_jump": false
-    },
-    {
-      "id": 425,
-      "narration": "Kamata draws on the cigar, takes his time, and grants it. Sean has just talked the yakuza boss whose turf all of Tokyo runs on into staking his own nephew's place in it, on a single run. Good, Kamata says.",
-      "clip_start": "01:23:35.410",
       "clip_end": "01:23:46.463",
-      "note": "B92",
+      "note": "B91",
       "delivery": "reveal",
       "payload": "stake",
+      "claim": {
+        "type": "speech",
+        "subject": "the young man in the white thermal shirt"
+      },
       "narrative_jump": false
     },
     {
-      "id": 427,
-      "narration": "By daylight Sean's problem has changed shape. He has a race to run and nothing to run it in. Which is why he goes back to the one room he walked out of - his father's workshop, and the stripped Mustang his father found wrecked on the base and never finished. Sean comes in through the shop floor, Neela stops in the doorway behind him, and neither of them has to say out loud what is being asked for. The plan gets settled standing over a gutted car: Han's Nissan twin-cam comes out of the drift car and goes into his father's Ford.",
+      "id": 1712,
+      "narration": "The terms are brutally simple, and they cut both ways: win and Takashi is gone — lose and Sean leaves the only place he's got left.",
       "clip_start": "01:24:06.024",
       "clip_end": "01:24:33.801",
-      "note": "B93",
-      "delivery": "sad",
-      "payload": "reasoning",
-      "narrative_jump": true
-    },
-    {
-      "id": 430,
-      "narration": "And this is the best idea the film has. His father's wrecked American muscle car, rebuilt around the heart of a Japanese drift car, welded up by Han's crew and his father in the same room. The whole argument about where Sean belongs, assembled without one line of explanation.",
-      "clip_start": "01:25:00.036",
-      "clip_end": "01:25:16.594",
-      "note": "B93",
-      "delivery": "reveal",
+      "note": "B92",
+      "delivery": "tense",
       "payload": "judgment",
+      "claim": {
+        "type": "setup",
+        "subject": "the young American"
+      },
       "narrative_jump": false
     },
     {
-      "id": 434,
-      "narration": "The practice runs are not pretty, and they are not meant to be - Sean has a fortnight to learn the one advantage DK never had to share.",
-      "clip_start": "01:25:42.036",
-      "clip_end": "01:25:50.586",
+      "id": 1713,
+      "narration": "Now the crew builds. They rebuild the striped Mustang around the Nissan twin-cam engine — a turbo swings down on the hoist, welders throw sparks under the lifted body, Earl in the plaid shirt lifting an injector to the light.",
+      "clip_start": "01:25:00.036",
+      "clip_end": "01:25:42.036",
       "note": "B93",
       "delivery": "normal",
-      "payload": "loop",
+      "payload": "rest",
+      "claim": {
+        "type": "setup",
+        "subject": "the young American"
+      },
       "narrative_jump": false
     },
     {
-      "id": 436,
-      "narration": "Twinkie gives him the warning at the roadside. DK picked this road for a reason: it is his mountain, and he is the only driver who has ever made it to the bottom. Not the fastest down. The only one down.",
+      "id": 1714,
+      "narration": "And out on the mountain Sean runs the stripped car, learning the drift — the Mustang breaking loose onto dirt and throwing a wall of dust through the hillside turns, over and over.",
+      "clip_start": "01:25:42.036",
+      "clip_end": "01:26:06.060",
+      "note": "B93",
+      "delivery": "normal",
+      "payload": "reasoning",
+      "claim": {
+        "type": "action",
+        "subject": "the young American"
+      },
+      "narrative_jump": false
+    },
+    {
+      "id": 1715,
+      "narration": "At the roadside the warning lands. DK picked this road for a reason — it's his mountain, and he's the only one who has ever made it to the bottom. Sean's reply hardens into a frown, and he turns to stare off down the road.",
       "clip_start": "01:26:06.060",
       "clip_end": "01:26:23.911",
       "note": "B94",
       "delivery": "tense",
-      "payload": "stake",
-      "narrative_jump": false
-    },
-    {
-      "id": 438,
-      "narration": "Then it is finished - black with twin white stripes, a Japanese plate bolted to the back of his father's Ford. Sean has built himself exactly one car and exactly one chance, and he spends both on the same road on the same night.",
-      "clip_start": "01:26:34.547",
-      "clip_end": "01:26:53.148",
-      "note": "B93",
-      "delivery": "reveal",
       "payload": "loop",
+      "claim": {
+        "type": "speech",
+        "subject": "the young man in the black durag"
+      },
       "narrative_jump": false
     },
     {
-      "id": 441,
-      "narration": "Race night, and every head in the lot turns at once.",
-      "clip_start": "01:27:31.854",
-      "clip_end": "01:27:45.993",
-      "note": "B95",
-      "delivery": "tense",
-      "payload": "rest",
-      "narrative_jump": true
-    },
-    {
-      "id": 442,
-      "narration": "Kamata arrives under a fedora with two minders, and the crowd opens for him without being asked. This is not a street race any more. It is a hearing, and the boss whose turf all Tokyo runs on has come in person.",
-      "clip_start": "01:27:45.993",
+      "id": 1716,
+      "narration": "Race night. The crowd lines the ledge above the floodlit dam, and then every head turns one way at once: Kamata arrives with his minders, and the people part to let him take his place.",
+      "clip_start": "01:27:21.260",
       "clip_end": "01:27:57.087",
       "note": "B95",
-      "delivery": "reveal",
-      "payload": "reasoning",
+      "delivery": "normal",
+      "payload": "stake",
+      "claim": {
+        "type": "reveal",
+        "subject": "the older man with the cigar"
+      },
       "narrative_jump": false
     },
     {
-      "id": 444,
-      "narration": "Sean shuts his eyes behind the wheel and breathes himself down, the way Han taught him to stop fighting a car and start feeling it. DK stares flat ahead and never looks over. Either Sean or DK leaves Tokyo tonight, and the mountain belongs to the one who stays.",
-      "clip_start": "01:28:44.009",
-      "clip_end": "01:29:00.317",
+      "id": 1717,
+      "narration": "Sean sits behind the wheel with his eyes shut, breathing himself calm, Takashi flat-faced beside him in the black coupe. The starter throws both arms up — and drops them. Both cars launch into the downhill dark.",
+      "clip_start": "01:28:27.576",
+      "clip_end": "01:29:08.700",
       "note": "B96",
       "delivery": "tense",
       "payload": "stake",
-      "narrative_jump": false
-    },
-    {
-      "id": 445,
-      "narration": "The starter steps between them under the strung bulbs, throws both arms up, and drops them.",
-      "clip_start": "01:29:00.317",
-      "clip_end": "01:29:08.700",
-      "note": "B96",
-      "delivery": "action",
-      "payload": "loop",
+      "claim": {
+        "type": "action",
+        "subject": "the bald man in the dark suit"
+      },
       "narrative_jump": false
     }
   ]

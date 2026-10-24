@@ -2,288 +2,284 @@
   "act": "3b",
   "lines": [
     {
-      "id": 351,
-      "narration": "Neela walks into the garage with a tear still drying on her face and neither says a word about it. Sean does not need the sentence; he can read it off her.",
+      "id": 1601,
+      "narration": "Neela walks into the garage with a tear still drying on her cheek, and Sean reads her face without either of them saying a word. He doesn't need the sentence. He can see it.",
       "clip_start": "01:05:41.883",
       "clip_end": "01:05:50.308",
       "note": "B71",
-      "delivery": "sad",
+      "delivery": "emotion",
       "payload": "reasoning",
+      "claim": {
+        "type": "emotion",
+        "subject": "the dark-haired young woman"
+      },
       "narrative_jump": false
     },
     {
-      "id": 353,
-      "narration": "Across town, behind a pachinko hall, the white suit and panama hat belong to Kamata, the yakuza boss whose turf every street race here runs on. DK, whose real name is Takashi, is his nephew - the only reason he gets to act like he owns Tokyo.",
-      "clip_start": "01:06:27.762",
-      "clip_end": "01:06:39.648",
+      "id": 1602,
+      "narration": "Across town, the white suit and panama hat belong to Kamata, the uncle DK has been going to see. Takashi hands over the week's take and the old man sits down to the books.",
+      "clip_start": "01:06:39.648",
+      "clip_end": "01:06:51.994",
       "note": "B72",
-      "delivery": "reveal",
-      "payload": "loop",
+      "delivery": "normal",
+      "payload": "reasoning",
+      "claim": {
+        "type": "speech",
+        "subject": "Kamata"
+      },
       "narrative_jump": true
     },
     {
-      "id": 356,
-      "narration": "Kamata sits down with the week's ledger and says he does not understand half of what is in it. Takashi laughs: the accounts are more complicated than they look. Free advice - if you are ever explaining your own books to the boss who owns them, he is not confused. He is giving you one chance to say it yourself.",
+      "id": 1603,
+      "narration": "Kamata works the printouts and admits he doesn't understand half of what he's looking at. Takashi laughs it off — it's more complicated than it looks. Then the smile dies, because the old man just sits there, silent, and keeps reading.",
       "clip_start": "01:07:09.762",
       "clip_end": "01:07:29.823",
       "note": "B72",
       "delivery": "tense",
       "payload": "judgment",
-      "narrative_jump": false,
       "claim": {
         "type": "speech",
         "subject": "Kamata"
-      }
+      },
+      "narrative_jump": false
     },
     {
-      "id": 357,
-      "narration": "Takashi has no answer ready. So Kamata says it plainly: Han, the partner he has run this whole operation with, has been stealing from them.",
+      "id": 1604,
+      "narration": "In a blue-lit office the accusation lands: Han, the partner Takashi fronts this whole operation with, has been taking money out of the books. Takashi doesn't deny it. He drops his eyes.",
       "clip_start": "01:07:29.823",
       "clip_end": "01:07:46.090",
       "note": "B73",
       "delivery": "reveal",
       "payload": "stake",
+      "claim": {
+        "type": "speech",
+        "subject": "Kamata"
+      },
       "narrative_jump": false
     },
     {
-      "id": 358,
-      "narration": "And Takashi says nothing. Not a denial, not a defence - the silence tells Kamata his nephew genuinely did not know. Being robbed is bad. Being robbed for months by your own partner, and finding out from your uncle because he reads your books better than you do, is a humiliation that has to be paid for in public.",
+      "id": 1605,
+      "narration": "Being robbed by your own partner, and hearing it from the uncle who reads your ledgers better than you do, is a humiliation paid for in public.",
       "clip_start": "01:07:46.090",
       "clip_end": "01:08:09.947",
       "note": "B73",
       "delivery": "tense",
       "payload": "reasoning",
+      "claim": {
+        "type": "reveal",
+        "subject": "Kamata"
+      },
       "narrative_jump": false
     },
     {
-      "id": 359,
-      "narration": "Kamata turns it into a proverb. For want of a nail the shoe is lost, for want of the shoe the horse, for want of the horse the war. He is not talking about money. He is telling his nephew that the small thing he failed to notice is how everything above it comes down.",
+      "id": 1606,
+      "narration": "Kamata turns it into a proverb — for want of a nail the shoe was lost, and the war with it — then lifts a framed picture off the desk and leaves Takashi doubled over it. The thing you overlook is how everything above it comes down.",
       "clip_start": "01:08:09.947",
-      "clip_end": "01:08:27.005",
+      "clip_end": "01:08:40.644",
       "note": "B74",
-      "delivery": "mystery",
+      "delivery": "emotion",
       "payload": "reasoning",
+      "claim": {
+        "type": "speech",
+        "subject": "Kamata"
+      },
       "narrative_jump": false
     },
     {
-      "id": 361,
-      "narration": "Takashi drives straight to Han's garage with Morimoto, his blond lieutenant, swinging out of a gold coupe behind him. He has not come to talk.",
-      "clip_start": "01:09:13.343",
-      "clip_end": "01:09:22.227",
-      "note": "B75",
-      "delivery": "tense",
-      "payload": "loop",
-      "narrative_jump": true
-    },
-    {
-      "id": 362,
-      "narration": "He hauls Han out from under the lift, gets in his face about the side deals, and throws him into the tyre racks hard enough to shake them. The whole crew watches, Sean included, and nobody moves - everyone in that bay draws their pay from Han or from Takashi.",
+      "id": 1607,
+      "narration": "Takashi drives straight to the garage, Morimoto behind him. He hauls Han out from under the lift, shouts about the side deals, and slams him into the tyre racks. The whole crew watches, Sean included, and nobody moves.",
       "clip_start": "01:09:28.942",
       "clip_end": "01:09:46.209",
       "note": "B75",
-      "delivery": "action",
+      "delivery": "tense",
       "payload": "reasoning",
-      "narrative_jump": false
+      "claim": {
+        "type": "action",
+        "subject": "the man in the black shirt"
+      },
+      "narrative_jump": true
     },
     {
-      "id": 364,
-      "narration": "The pistol comes up into Han's face. Han answers it the way he would a late invoice: Takashi would still be shaking down tea houses for chump change if it was not for him. True - and the worst thing he could possibly have said.",
+      "id": 1608,
+      "narration": "The pistol comes up into Han's face. Han answers the way he'd answer a late invoice — Takashi would still be shaking down tea houses for chump change if it wasn't for him. True. Also the worst thing he could have said.",
       "clip_start": "01:09:58.805",
       "clip_end": "01:10:11.067",
       "note": "B76",
       "delivery": "tense",
       "payload": "judgment",
+      "claim": {
+        "type": "speech",
+        "subject": "the long-haired mechanic"
+      },
       "narrative_jump": false
     },
     {
-      "id": 366,
-      "narration": "Sean goes after him too, Neela beside him, in the red Evo that Han handed over for nothing - which tells you exactly who he is driving for.",
-      "clip_start": "01:10:55.236",
+      "id": 1609,
+      "narration": "Han bolts the bay in a shower of sparks and the crew pours into the street after him. Sean goes too, Neela beside him, in the red Evo Han handed over for nothing — which tells you who he's driving for.",
+      "clip_start": "01:10:39.345",
       "clip_end": "01:11:03.495",
-      "note": "B77",
-      "delivery": "action",
-      "payload": "reasoning",
-      "narrative_jump": false
-    },
-    {
-      "id": 367,
-      "narration": "Understand what this chase is. Takashi is not collecting a debt - he is chasing the partner who made him look like a fool in front of Kamata, and Han is trying to reach the edge of Tokyo first.",
-      "clip_start": "01:11:03.495",
-      "clip_end": "01:11:17.884",
       "note": "B77",
       "delivery": "tense",
       "payload": "stake",
+      "claim": {
+        "type": "action",
+        "subject": "the long-haired mechanic"
+      },
       "narrative_jump": false
     },
     {
-      "id": 369,
-      "narration": "Han runs flat out through the tunnels, slicing between cars at a speed the traffic around him cannot register. He once told Sean that Tokyo was his Mexico - the place he had stopped running to. Tonight he is running again, through the one city he picked because nobody would make him.",
+      "id": 1610,
+      "narration": "Han runs flat out through the tunnels, slicing between cars faster than the traffic can register. He once called Tokyo his Mexico — the place he'd stopped running to. Tonight he's running again.",
       "clip_start": "01:11:45.912",
       "clip_end": "01:12:15.066",
       "note": "B77",
       "delivery": "tense",
       "payload": "loop",
+      "claim": {
+        "type": "action",
+        "subject": "the long-haired mechanic"
+      },
       "narrative_jump": false
     },
     {
-      "id": 371,
-      "narration": "Inside the Evo, Neela has stopped watching the road. She grew up in Takashi's grandmother's house. Of everyone in these cars, she is the only one who knows both of them well enough to know that neither will stop.",
+      "id": 1611,
+      "narration": "Inside the Evo, Neela has stopped watching the road. She grew up in Takashi's grandmother's house — of everyone in these cars, she alone knows both men well enough to know neither will stop.",
       "clip_start": "01:13:11.539",
       "clip_end": "01:13:29.807",
       "note": "B77",
-      "delivery": "sad",
+      "delivery": "emotion",
       "payload": "reasoning",
+      "claim": {
+        "type": "emotion",
+        "subject": "the dark-haired young woman"
+      },
       "narrative_jump": false
     },
     {
-      "id": 372,
-      "narration": "And then the road ahead of them fills with people.",
+      "id": 1612,
+      "narration": "Then the road ahead fills with people. They drive straight into the packed crossing anyway, nosing bodies aside at speed. Nobody lifts off the throttle.",
       "clip_start": "01:13:51.203",
-      "clip_end": "01:14:02.506",
-      "note": "B78",
-      "delivery": "tense",
-      "payload": "loop",
-      "narrative_jump": false
-    },
-    {
-      "id": 373,
-      "narration": "They go through the crossing anyway, nosing bodies out of the way at speed. Nobody in the convoy lifts off the throttle.",
-      "clip_start": "01:14:02.506",
       "clip_end": "01:14:13.309",
       "note": "B78",
-      "delivery": "action",
+      "delivery": "tense",
       "payload": "stake",
+      "claim": {
+        "type": "action",
+        "subject": "the young American"
+      },
       "narrative_jump": false
     },
     {
-      "id": 374,
-      "narration": "Han slings the orange car broadside across a lit junction, threads past an oncoming sedan head on, and for four seconds, it looks like he gets out of this the way he has got out of everything else.",
+      "id": 1613,
+      "narration": "Han slings the orange car broadside across a lit junction and threads head-on past an oncoming sedan, and for a few seconds it looks like he gets out of this the way he's got out of everything else.",
       "clip_start": "01:14:50.721",
       "clip_end": "01:15:07.905",
       "note": "B78",
       "delivery": "tense",
       "payload": "loop",
+      "claim": {
+        "type": "action",
+        "subject": "the long-haired mechanic"
+      },
       "narrative_jump": false
     },
     {
-      "id": 376,
-      "narration": "The orange car comes down the avenue end over end and lands upside down against a kerb, one wheel still rolling away from it. Han does not move inside it.",
-      "clip_start": "01:15:13.785",
-      "clip_end": "01:15:22.920",
-      "note": "B79",
-      "delivery": "sad",
-      "payload": "stake",
-      "narrative_jump": false
-    },
-    {
-      "id": 377,
-      "narration": "Sean runs for him. He is still running when the car goes up.",
-      "clip_start": "01:15:22.920",
+      "id": 1614,
+      "narration": "The orange car cartwheels down the avenue and lands upside down against a kerb, one wheel rolling clear. Han is trapped inside and does not move. Sean sprints for him and is still running when it detonates.",
+      "clip_start": "01:15:07.905",
       "clip_end": "01:15:28.175",
       "note": "B79",
-      "delivery": "action",
+      "delivery": "reveal",
       "payload": "stake",
+      "claim": {
+        "type": "action",
+        "subject": "the long-haired mechanic"
+      },
       "narrative_jump": false
     },
     {
-      "id": 378,
+      "id": 1615,
       "narration": "",
-      "narration_silence_seconds": 5.0,
+      "narration_silence_seconds": 5,
       "clip_start": "01:15:28.175",
       "clip_end": "01:15:33.263",
       "note": "B79",
-      "delivery": "sad",
+      "delivery": "emotion",
       "payload": "rest",
+      "claim": {
+        "type": "aftermath",
+        "subject": "the young American"
+      },
       "narrative_jump": false
     },
     {
-      "id": 379,
-      "narration": "Takashi watches the fire from his driver's seat, then drives away. He leaves his own partner burning in the middle of the road.",
+      "id": 1616,
+      "narration": "Takashi watches the fire, then drives away and leaves Sean and Neela in the firelight. Sean's face does the arithmetic in two seconds — he came here to race for fun, and the bill for all of it just landed on somebody else.",
       "clip_start": "01:15:33.263",
-      "clip_end": "01:15:39.770",
-      "note": "B80",
-      "delivery": "sad",
-      "payload": "judgment",
-      "narrative_jump": false
-    },
-    {
-      "id": 380,
-      "narration": "Sean's face does the arithmetic in about two seconds. He came to Tokyo, he raced DK for fun, he took Han's car and Han's protection, and the bill for all of it just landed on somebody else.",
-      "clip_start": "01:15:39.770",
       "clip_end": "01:15:50.822",
       "note": "B80",
-      "delivery": "sad",
-      "payload": "reasoning",
+      "delivery": "emotion",
+      "payload": "judgment",
+      "claim": {
+        "type": "reveal",
+        "subject": "the man in the black shirt"
+      },
       "narrative_jump": false
     },
     {
-      "id": 382,
-      "narration": "Takashi is waiting for them in the dark lane outside the house. He has had the whole evening to decide what Sean owes him for tonight.",
+      "id": 1617,
+      "narration": "Takashi is waiting in the dark lane outside the house. He twists a hand into Sean's collar and puts a pistol to his head — and Sean's father, the naval officer, steps out with his own gun up. Neither man lowers it.",
       "clip_start": "01:16:30.904",
-      "clip_end": "01:16:42.916",
-      "note": "B81",
-      "delivery": "mystery",
-      "payload": "loop",
-      "narrative_jump": true
-    },
-    {
-      "id": 383,
-      "narration": "He twists a hand into Sean's collar and puts a pistol to his head - and Sean's father steps out of the dark with his own gun up. Neither man lowers it.",
-      "clip_start": "01:16:42.916",
       "clip_end": "01:16:51.633",
       "note": "B81",
       "delivery": "tense",
       "payload": "reasoning",
-      "narrative_jump": false
+      "claim": {
+        "type": "reveal",
+        "subject": "the man in the black henley"
+      },
+      "narrative_jump": true
     },
     {
-      "id": 386,
-      "narration": "Neela breaks it. She is the only thing in that lane Takashi actually wants, so she goes with him. Nobody says the terms aloud: Takashi gets Neela, Sean keeps his head.",
-      "clip_start": "01:17:06.064",
-      "clip_end": "01:17:14.280",
-      "note": "B82",
-      "delivery": "sad",
-      "payload": "stake",
-      "narrative_jump": false
-    },
-    {
-      "id": 387,
-      "narration": "The headlights pull out of the lane and leave two people standing in it. In one night Sean has lost Han and handed Neela back to Takashi, and all he got in return was permission to go on standing there.",
-      "clip_start": "01:17:26.000",
+      "id": 1618,
+      "narration": "Neela breaks the standoff. She's the only thing in that lane Takashi actually wants, so she goes with him to get the gun off Sean's head. Nobody says the terms aloud. Takashi gets Neela; Sean keeps his head.",
+      "clip_start": "01:16:58.640",
       "clip_end": "01:17:40.390",
       "note": "B82",
-      "delivery": "sad",
+      "delivery": "emotion",
       "payload": "stake",
+      "claim": {
+        "type": "emotion",
+        "subject": "the dark-haired young woman"
+      },
       "narrative_jump": false
     },
     {
-      "id": 388,
-      "narration": "His father tries to take it off him - I am responsible for you, for my own mess. Sean will not have it. I did this. I have to do this. Every other time his mother moved him; this is the first time he refuses.",
+      "id": 1619,
+      "narration": "In the alley his father tries to take it off him — I'm your father, I'm responsible for my own mess. Sean won't have it. I did this, he says. I can't run away from it.",
       "clip_start": "01:17:40.390",
       "clip_end": "01:17:51.734",
       "note": "B83",
-      "delivery": "sad",
-      "payload": "judgment",
+      "delivery": "emotion",
+      "payload": "reasoning",
+      "claim": {
+        "type": "speech",
+        "subject": "the older man in the olive jacket"
+      },
       "narrative_jump": false
     },
     {
-      "id": 390,
-      "narration": "His father presses him hard to get out of Tokyo while there is still a plane he can be put on, and Sean's face closes like a door.",
+      "id": 1620,
+      "narration": "His father presses him to get out of Tokyo while there's still a plane he can be put on, and Sean's face closes like a door. He doesn't answer. He walks off down the dark street, working on the only move he has left.",
       "clip_start": "01:18:17.760",
-      "clip_end": "01:18:31.232",
-      "note": "B84",
-      "delivery": "tense",
-      "payload": "stake",
-      "narrative_jump": false
-    },
-    {
-      "id": 391,
-      "narration": "He does not answer. He walks off down the dark street, already working on the only move he has left.",
-      "clip_start": "01:18:31.232",
       "clip_end": "01:18:37.613",
       "note": "B84",
       "delivery": "normal",
       "payload": "loop",
+      "claim": {
+        "type": "speech",
+        "subject": "the grey-haired man in the olive jacket"
+      },
       "narrative_jump": false
     }
   ]

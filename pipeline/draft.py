@@ -193,6 +193,20 @@ def validate_draft(project: str, *, write_state: bool = False,
                     f"{where}: `over_montage` lines must NOT carry a clip "
                     f"window. The montage is the picture; binding one of its "
                     f"cuts would make the line describe a frame.")
+        elif ln.get("film_intro"):
+            # A film-intro line (channel greeting, title/year/director, the
+            # leads, one production fact) is spoken over the prepended INTRO
+            # BLOCK, not over a story shot. Like an over_montage line it has no
+            # single window to bind to and is baked into the intro block at
+            # render time, so it neither needs nor may carry a clip window. The
+            # schema exempted over_montage but not film_intro, which hard-failed
+            # every draft using the film-intro feature for "missing clip_start"
+            # even though the [FILM-INTRO] gate had already accepted the block.
+            if ln.get("clip_start") or ln.get("clip_end"):
+                errors.append(
+                    f"{where}: `film_intro` lines must NOT carry a clip window. "
+                    f"They play over the prepended intro block, not over a "
+                    f"story shot.")
         else:
             # explicit-timestamp line
             for key in ("clip_start", "clip_end"):
@@ -490,6 +504,13 @@ def validate_draft(project: str, *, write_state: bool = False,
     # gate CU truoc khi chung kip chay (xem [TITLE-MATCH] ~404).
     try:
         from pipeline import craft_gates as _craft
+        # facts_for() resolves film_facts.json from draft["_dir"]; the validator
+        # is the one caller that knows the project directory, so it must set it.
+        # Without this the [FILM-INTRO] gate's facts_for() always returns None
+        # and any draft WITH a film_intro block hard-errors "no film_facts.json"
+        # even when the file is present - the FILM-INTRO feature could never pass
+        # a real validate (bug from the gate's introduction, commit 49cb142).
+        draft.setdefault("_dir", str(config.project_dir(project)))
         _cr = _craft.craft_report(draft)
         errors.extend(_cr["errors"])
         for _w in _cr["warns"]:
@@ -1708,8 +1729,121 @@ def beat_coverage(project, d) -> dict:
         max_consecutive_uncovered=max_run,
         consecutive_gaps=consecutive_gaps,
         unplaceable=unplaceable,
+        bounds=bounds,
     )
     return result
+
+
+def _coverage_policy(project) -> set:
+    """The set of MANDATORY beat ids for a recap that selects by angle.
+
+    A full "cover every beat" rule fights the whole point of an angled recap:
+    the narrator chooses what to tell. coverage_policy.json names the beats that
+    MUST be covered regardless - the plot spine's load-bearing points, every
+    reveal, and every reveal's setup. Everything else may be covered, bridged in
+    one line, or held on footage. Returns an empty set when the file is absent,
+    in which case BEAT-COVERAGE keeps its old "no >=2 gap anywhere" behaviour.
+    """
+    import json as _json
+    p = config.project_dir(project) / "coverage_policy.json"
+    if not p.exists():
+        return set()
+    try:
+        data = _json.loads(p.read_text(encoding="utf-8-sig"))
+        return {str(b).upper() for b in data.get("mandatory", [])}
+    except Exception:
+        return set()
+
+
+def bridge_audit(project, d, bc) -> dict:
+    """[BRIDGE]: no SKIPPED stretch may leave an unexplained jump in the story.
+
+    An angled recap deliberately skips beats that do not serve its angle. That
+    is allowed - but a viewer must never feel the film teleport. Every run of
+    >=2 consecutive uncovered NON-MANDATORY beats has to be accounted for by
+    one of two things, placed at the seam:
+      - a BRIDGE line: a narrated line (flag `bridge: true`, or a line whose
+        narration carries an explicit time-jump phrase) that lands just after
+        the gap and tells the viewer time passed - "Two weeks and a lot of
+        crashed cars later, ...".
+      - a HOLD: a `narration_silence_seconds` line sitting in the gap, letting
+        footage + music carry it.
+
+    A gap that contains a MANDATORY beat is not a legal skip at all - that is a
+    BEAT-COVERAGE failure, reported separately, not a bridge question.
+
+    Returns {"gaps": [...], "unbridged": [...]} where each gap is
+    {beats, start_sec, end_sec, bridged_by}.
+    """
+    import re as _re
+    bounds = bc.get("bounds") or []
+    counts = bc.get("counts") or {}
+    if not bounds:
+        return {"gaps": [], "unbridged": []}
+    mandatory = _coverage_policy(project)
+    ts_by_id = {bid: t for bid, t in bounds}
+
+    # line positions (clip_start seconds) + which carry a bridge / hold
+    _JUMP = _re.compile(
+        r"\b(later|next (morning|day|night|week)|the next|days? later|"
+        r"weeks? later|months? later|long story short|by (morning|now|then)|"
+        r"soon(er)? enough|before long|in the end|eventually|meanwhile|"
+        r"and a lot of|fast forward|skip ahead|that (night|evening|week))\b",
+        _re.IGNORECASE)
+    bridges = []    # (sec, is_hold)
+    for ln in d.lines:
+        cs = getattr(ln, "clip_start", None)
+        sec = None
+        if cs:
+            try:
+                sec = parse_ts(cs)
+            except Exception:
+                sec = None
+        hold = bool(getattr(ln, "narration_silence_seconds", None))
+        narr = getattr(ln, "narration", "") or ""
+        is_bridge = bool(getattr(ln, "bridge", False)) or bool(_JUMP.search(narr))
+        if sec is not None and (is_bridge or hold):
+            bridges.append((sec, hold, getattr(ln, "id", None)))
+
+    # every run of >=2 consecutive uncovered beats
+    gaps = []
+    cur = []
+    ordered = [bid for bid, _ in bounds]
+    for bid in ordered:
+        if counts.get(bid, 0) == 0:
+            cur.append(bid)
+        else:
+            if len(cur) >= 2:
+                gaps.append(list(cur))
+            cur = []
+    if len(cur) >= 2:
+        gaps.append(list(cur))
+
+    out_gaps = []
+    unbridged = []
+    for g in gaps:
+        has_mand = [b for b in g if b in mandatory] if mandatory else []
+        g_start = ts_by_id[g[0]]
+        # the gap extends to the start of the first covered beat after it
+        last_i = ordered.index(g[-1])
+        g_end = ts_by_id[ordered[last_i + 1]] if last_i + 1 < len(ordered) else g_start + 1e9
+        # a bridge/hold counts if it sits inside the gap OR within one beat of
+        # either seam (a "two weeks later" line lands on the first beat AFTER
+        # the gap; a hold sits inside it).
+        pad = 0.0
+        seam_lo = g_start - 1.0
+        seam_hi = g_end + 1.0
+        covering = [b for b in bridges if seam_lo <= b[0] <= seam_hi]
+        entry = {"beats": g, "start_sec": round(g_start, 1),
+                 "end_sec": round(g_end, 1),
+                 "mandatory_in_gap": has_mand,
+                 "bridged_by": [b[2] for b in covering]}
+        out_gaps.append(entry)
+        # A gap with a mandatory beat is a BEAT-COVERAGE failure, not a bridge
+        # failure - don't double-report it here.
+        if not has_mand and not covering:
+            unbridged.append(entry)
+    return {"gaps": out_gaps, "unbridged": unbridged}
 
 
 def parse_reveal_map(project) -> list:
@@ -2239,8 +2373,84 @@ def _run_phase1_audits(project, pdir):
                 f"clip_start - pool/montage): they cover no beat in this "
                 f"count, so an 'uncovered' beat above may in fact be shown by "
                 f"one of them.[/]")
+
+        # ---- BEAT-COVERAGE, policy-aware: only MANDATORY beats must be covered.
+        # An angled recap selects what to tell. coverage_policy.json names the
+        # beats the selection may NOT drop (spine load-bearing points + every
+        # reveal + its setup); everything else may be skipped, as long as the
+        # skip is bridged or held (the [BRIDGE] gate below). With no policy file
+        # this is silent and the old behaviour stands.
+        _mand = _coverage_policy(project)
+        if _mand:
+            _missing = sorted(
+                (b for b in _mand if bc.get("counts", {}).get(b, 0) == 0),
+                key=lambda x: int(x[1:]) if x[1:].isdigit() else 0)
+            if _missing:
+                console.print(
+                    f"[red][BEAT-COVERAGE][/] {len(_missing)} MANDATORY beat(s) "
+                    f"have no bound line: {', '.join(_missing)}. These are "
+                    f"spine / reveal / setup beats named in coverage_policy.json "
+                    f"and cannot be skipped. Cover each with a line, or - if it "
+                    f"is genuinely not load-bearing - remove it from the policy.")
+                sev = "hard"   # block render until resolved
+            else:
+                console.print(
+                    f"[bold][BEAT-COVERAGE][/] all {len(_mand)} mandatory "
+                    f"beat(s) covered [dim](angle policy; non-mandatory beats "
+                    f"may be bridged or held)[/]")
+
+            # ---- [BRIDGE]: every skipped stretch is bridged or held ----------
+            _ba = bridge_audit(project, d, bc)
+            if _ba["unbridged"]:
+                for g in _ba["unbridged"]:
+                    console.print(
+                        f"[red][BRIDGE][/] beats {g['beats'][0]}-"
+                        f"{g['beats'][-1]} ({g['start_sec']:.0f}-"
+                        f"{g['end_sec']:.0f}s) are skipped with no bridge line "
+                        f"and no hold at the seam. A skipped stretch must not "
+                        f"teleport the story: add one voiced bridge ('Two weeks "
+                        f"and a lot of crashed cars later, ...') landing just "
+                        f"after it, or a narration_silence_seconds hold inside.")
+                sev = "hard"   # block render until resolved
+            elif _ba["gaps"]:
+                _nb = sum(1 for g in _ba["gaps"] if not g["mandatory_in_gap"])
+                console.print(
+                    f"[dim][BRIDGE] {_nb} skipped stretch(es), each carried by a "
+                    f"bridge line or a hold.[/]")
+
     for _prob in bc.get("ts_problems", []):
         console.print(f"[red][BEAT-MAP][/] {_prob}")
+
+    # ---- [RUNTIME-BAND]: soft warn outside ~15-20% of the film's runtime -----
+    # A recap that tells everything is not a recap. The human reference (Bad
+    # Genius) sits near 15% of film runtime. This is a SOFT band: it warns,
+    # never blocks - a film can honestly want more or less, and hard-failing on
+    # runtime is how the pre-craft work drifted into padding to hit a number.
+    try:
+        import config as _cfg3
+        _wpm = float(getattr(_cfg3, "TTS_WORDS_PER_MINUTE", 186) or 186)
+        _film_sec = _film_duration(project)
+        _words = sum(len((getattr(l, "narration", "") or "").split())
+                     for l in d.lines)
+        if _film_sec and _words:
+            _est_min = _words / _wpm
+            _film_min = _film_sec / 60.0
+            _pct = 100.0 * _est_min / _film_min
+            _lo, _hi = (float(getattr(_cfg3, "RECAP_RUNTIME_PCT_LO", 15.0)),
+                        float(getattr(_cfg3, "RECAP_RUNTIME_PCT_HI", 20.0)))
+            _band = (f"{_lo:.0f}-{_hi:.0f}% of the {_film_min:.0f}-min film "
+                     f"= {_film_min*_lo/100:.1f}-{_film_min*_hi/100:.1f} min")
+            if _pct < _lo or _pct > _hi:
+                console.print(
+                    f"[yellow][RUNTIME-BAND][/] est. {_est_min:.1f} min "
+                    f"({_pct:.0f}% of runtime) is outside the soft band {_band}. "
+                    f"Warning only - a film may honestly want this length.")
+            else:
+                console.print(
+                    f"[dim][RUNTIME-BAND] est. {_est_min:.1f} min ({_pct:.0f}%) "
+                    f"within the soft band {_band}.[/]")
+    except Exception:
+        pass
 
     # ---- BINDING-INTEGRITY (stage 1: report only, never blocks) -------------
     pdir = config.project_dir(project)

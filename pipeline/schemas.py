@@ -263,6 +263,18 @@ class Line:
     # Optional; if set, validated against the bind segments. Informational +
     # lets authors assert intent so a silent drift is caught.
     total_visual_duration: Optional[float] = None
+    # --- montage-era opening lines (spoken over the prepended intro, not a shot)
+    # These were read off raw draft dicts by the craft gates but never typed, so
+    # the typed Draft dropped them and any gate reading d.lines was blind to
+    # them. over_montage = spoken over the beat-cut montage; film_intro = the
+    # facts block after it. Both windowless, both baked into the intro block.
+    over_montage: bool = False
+    film_intro: bool = False
+    # --- angle-era compression: a BRIDGE line explicitly spans a skipped
+    # stretch of film ("Two weeks and a lot of crashed cars later, ..."). The
+    # [BRIDGE] gate accepts a flagged bridge OR a time-jump phrase as proof that
+    # a skip was declared rather than a teleport.
+    bridge: bool = False
 
     def __post_init__(self):
         if isinstance(self.claim, dict):

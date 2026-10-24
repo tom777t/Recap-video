@@ -63,6 +63,16 @@ DEFAULT_TTS_RATE = "+10%"
 TTS_WORDS_PER_MINUTE = 186
 
 # --------------------------------------------------------------------------- #
+# [RUNTIME-BAND] soft band: a recap should run roughly this fraction of the
+# film's own runtime. The human reference (Bad Genius) sits near 15%. This is a
+# SOFT warning band only - outside it prints a note, never blocks. A recap that
+# tells everything is not a recap, but a film can honestly want more or less,
+# and hard-failing on runtime is how a draft drifts into padding to hit a number.
+# --------------------------------------------------------------------------- #
+RECAP_RUNTIME_PCT_LO = 15.0
+RECAP_RUNTIME_PCT_HI = 20.0
+
+# --------------------------------------------------------------------------- #
 # Stage 2 depth targets (2026-06-22 depth-target enhancement).
 # A "tier" maps a film's intended runtime to how full the shot catalogue should
 # be FROM THE START, so Stage 2 aims for the film's natural shot capacity rather

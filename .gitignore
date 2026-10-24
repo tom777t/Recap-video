@@ -51,3 +51,5 @@ projects/_selftest_*/
 # videos, pulled for voice analysis. This repo is PUBLIC and this text is
 # someone else's copyright - it is studied locally and never committed.
 references/
+
+projects/*/_briefs/

@@ -28,6 +28,11 @@ def _load(path):
 
 
 def show(path, draft):
+    # facts_for() reads draft["_dir"] to find film_facts.json; set it from the
+    # draft's own location so the [FILM-INTRO] gate can run (same wiring the
+    # validator does). Without it a draft with a film_intro block always errors
+    # "no film_facts.json" even when the file sits right next to it.
+    draft.setdefault("_dir", os.path.dirname(os.path.abspath(path)))
     r = craft_report(draft)
     m = r["metrics"]
     print("=" * 70)

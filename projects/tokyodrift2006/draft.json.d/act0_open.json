@@ -1,0 +1,43 @@
+{
+  "act": "0-open",
+  "_title": "Teenager Is Shipped to Tokyo to Dodge Jail and Ends Up Owing the Yakuza a Car He Cannot Pay For",
+  "lines": [
+    {
+      "id": 1001,
+      "narration": "Strike three. One more wrecked car and this kid goes to jail, so they ship him to the one city on earth where the cars drive sideways. In Tokyo he owes a stranger a car before he has even learned to turn.",
+      "note": "HOOK",
+      "delivery": "hook",
+      "payload": "loop",
+      "over_montage": true,
+      "hook_question": "Can a boy who only knows how to crash survive in the one place where the whole game is control he does not have?",
+      "narrative_jump": true
+    },
+    {
+      "id": 1002,
+      "narration": "This is Serabudabu, and today I am walking you through all of The Fast and the Furious: Tokyo Drift, from 2006 - the third film in the Fast and Furious series, and the one that quietly became its soul.",
+      "note": "INTRO",
+      "delivery": "intro",
+      "payload": "reasoning",
+      "film_intro": true,
+      "narrative_jump": true
+    },
+    {
+      "id": 1003,
+      "narration": "Director Justin Lin takes an American kid - Lucas Black as Sean Boswell, a boy who races because it is the one thing that travels with him - and drops him into a world run by Sung Kang as Han, the calm man behind a garage, and Brian Tee as Takashi, the drift champion the whole mountain answers to.",
+      "note": "INTRO",
+      "delivery": "intro",
+      "payload": "reasoning",
+      "film_intro": true,
+      "narrative_jump": true
+    },
+    {
+      "id": 1004,
+      "narration": "Here is the odd part: almost every stunt was a real car, really sliding, filmed on real roads - no cheat, no green screen doing the hard work. That is why it still holds up. Let me take you to where it starts.",
+      "note": "INTRO",
+      "delivery": "intro",
+      "payload": "judgment",
+      "film_intro": true,
+      "narrative_jump": true
+    }
+  ]
+}

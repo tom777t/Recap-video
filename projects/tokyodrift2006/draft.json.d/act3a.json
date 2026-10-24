@@ -2,267 +2,242 @@
   "act": "3a",
   "lines": [
     {
-      "id": 302,
-      "narration": "Up on the footbridge over the crossing, Sean asks Han how he ended up in Tokyo at all. Han answers sideways, the way he answers everything: you know those old westerns, where the cowboys make a run for the border? This is my Mexico. It is a joke with a confession inside it.",
+      "id": 1501,
+      "narration": "Up on the footbridge over the crossing, Sean asks Han how he ended up over here. Han answers sideways, the way he answers everything. You know those old westerns, where the cowboys make a run for the border? This is my Mexico.",
       "clip_start": "00:51:21.067",
       "clip_end": "00:51:44.591",
       "note": "B57",
-      "delivery": "mystery",
-      "payload": "loop",
+      "delivery": "normal",
+      "payload": "reasoning",
+      "claim": {
+        "type": "speech",
+        "subject": "the long-haired man"
+      },
       "narrative_jump": true
     },
     {
-      "id": 303,
-      "narration": "Because there's a lot of money, Sean guesses, and Han's reply is the thesis of the whole film in three sentences. I have money. Trust in character is what I need around me. One car in exchange for knowing what a man is made of.",
+      "id": 1502,
+      "narration": "Why didn't you let me race your car, Sean asks — you knew I'd wreck it. Because there's a lot of money, Han says, and I have money. One car for knowing what a man's made of is a prize he can live with. Look at those people down there, following the rules, letting fear lead them. The closest Han gets to a creed.",
       "clip_start": "00:51:44.591",
-      "clip_end": "00:52:04.277",
+      "clip_end": "00:52:20.835",
       "note": "B57",
       "delivery": "reveal",
-      "payload": "judgment"
+      "payload": "reasoning",
+      "claim": {
+        "type": "speech",
+        "subject": "the long-haired man"
+      },
+      "narrative_jump": false
     },
     {
-      "id": 305,
-      "narration": "What happens if I don't, Sean asks - and Han gives him the only rule he lives by. Life's simple. You make choices and you don't look back.",
+      "id": 1504,
+      "narration": "What happens if I don't, Sean asks. Han gives him the only rule he lives by. Life's simple — you make choices and you don't look back. So what do you drift for, then? You really wanna know? Let's go.",
       "clip_start": "00:52:20.835",
       "clip_end": "00:52:37.643",
       "note": "B58",
       "delivery": "normal",
-      "payload": "reasoning"
+      "payload": "reasoning",
+      "claim": {
+        "type": "speech",
+        "subject": "the long-haired man"
+      },
+      "narrative_jump": false
     },
     {
-      "id": 307,
-      "narration": "So if you don't drift to win, Sean asks, what do you drift for? You really wanna know? Okay, let's go - and the answer turns out not to be a sentence at all.",
-      "clip_start": "00:52:44.484",
-      "clip_end": "00:52:58.122",
-      "note": "B58",
-      "delivery": "mystery",
-      "payload": "loop"
-    },
-    {
-      "id": 308,
-      "narration": "Two cars, one empty boulevard, and two women in the back seat.",
-      "clip_start": "00:53:13.012",
-      "clip_end": "00:53:19.602",
-      "note": "B59",
-      "delivery": "normal",
-      "payload": "rest",
-      "narrative_jump": true
-    },
-    {
-      "id": 309,
-      "narration": "The Skyline and the RX-7 lock into orbit around each other inside their own smoke, swapping lines for nothing - no finish line, no money, no crowd. That is the answer. Han drifts because for about forty seconds it is the only thing in his life he fully controls.",
+      "id": 1505,
+      "narration": "The RX-7 swings in beside the Skyline and the two cars orbit each other inside a cloud of their own smoke, the women laughing out the back window. No finish line, no money, no crowd. That is the answer.",
       "clip_start": "00:53:28.986",
       "clip_end": "00:53:45.169",
       "note": "B59",
-      "delivery": "action",
-      "payload": "judgment"
+      "delivery": "normal",
+      "payload": "judgment",
+      "claim": {
+        "type": "action",
+        "subject": "the long-haired mentor"
+      },
+      "narrative_jump": true
     },
     {
-      "id": 311,
-      "narration": "On a mountain pull-out the next morning the whole lesson is one instruction: out here, you drift by feeling. So feel it.",
+      "id": 1506,
+      "narration": "Next morning, one instruction: out here you drift by feeling. So feel it. Sean runs the clifftop hairpin again and again, sawing at the wheel — and every run shreds a set of tyres he cannot pay for.",
       "clip_start": "00:54:14.323",
       "clip_end": "00:54:25.167",
       "note": "B60",
       "delivery": "normal",
-      "payload": "reasoning",
+      "payload": "stake",
+      "claim": {
+        "type": "speech",
+        "subject": "the friend in the pink hoodie"
+      },
       "narrative_jump": true
     },
     {
-      "id": 312,
-      "narration": "He runs the same clifftop hairpin again and again, harness-strapped, sawing at the wheel, sliding back into the pull-out in a cloud of his own dust. Every one of those runs costs a set of tyres he cannot pay for.",
-      "clip_start": "00:54:25.167",
-      "clip_end": "00:54:38.097",
+      "id": 1507,
+      "narration": "He funds the rubber the only way he can. Down a packed street he and Twinkie hawk goods to strangers — I'm so good, man, I can sell rubbers to a monk — and walk off thumbing a roll of cash.",
+      "clip_start": "00:54:45.145",
+      "clip_end": "00:54:57.324",
       "note": "B60",
-      "delivery": "action",
-      "payload": "stake"
+      "delivery": "normal",
+      "payload": "rest",
+      "claim": {
+        "type": "speech",
+        "subject": "the young man in the red beanie"
+      },
+      "narrative_jump": false
     },
     {
-      "id": 316,
-      "narration": "Meanwhile Boswell has no idea. Sean's father - the naval officer who took him in on condition he went to school and came straight home - lets himself into the flat and hits the light. Dark rooms, and a kitchen nobody has eaten in.",
+      "id": 1508,
+      "narration": "Meanwhile Boswell has no idea. Sean's father lets himself into the flat, hits the light, finds dark rooms and a bed nobody has slept in. His face hardens from searching to certainty. The boy has not been coming home.",
       "clip_start": "00:56:08.103",
       "clip_end": "00:56:26.121",
       "note": "B61",
-      "delivery": "sad",
+      "delivery": "normal",
       "payload": "reasoning",
+      "claim": {
+        "type": "discovery",
+        "subject": "the greying naval officer"
+      },
       "narrative_jump": true
     },
     {
-      "id": 317,
-      "narration": "He parts the hanging coats, looks at a bed that has not been slept in, and stops pretending he does not know.",
-      "clip_start": "00:56:26.121",
-      "clip_end": "00:56:32.711",
-      "note": "B61",
-      "delivery": "sad",
-      "payload": "reasoning"
-    },
-    {
-      "id": 319,
-      "narration": "Upstairs at the garage rail, Reiko, who runs Han's floor, tells him someone is waiting below. It is Sean, back for more. The lessons are about to stop being lessons.",
+      "id": 1509,
+      "narration": "At the garage rail, Reiko leans in beside Han and tells him he has a visitor waiting below.",
       "clip_start": "00:56:42.721",
       "clip_end": "00:56:53.315",
       "note": "B62",
       "delivery": "normal",
-      "payload": "loop",
+      "payload": "rest",
+      "claim": {
+        "type": "speech",
+        "subject": "the woman in the satin dress"
+      },
       "narrative_jump": true
     },
     {
-      "id": 322,
-      "narration": "Han lets him off the leash: two cars door to door down a mountain road, then an empty expressway, then a concrete parking deck, pillar to pillar. Sean has stopped looking frightened, which matters, because next time there will be a debt and a crowd attached.",
+      "id": 1510,
+      "narration": "Han lets him off the leash. The two run door to door off the mountain road, onto the expressway, down through a parking deck, until the neon-plaza crowd swarms Sean's car. He grins through the reaching hands. The frightened look is gone.",
       "clip_start": "00:57:20.091",
       "clip_end": "00:57:33.021",
       "note": "B63",
-      "delivery": "action",
-      "payload": "stake"
-    },
-    {
-      "id": 324,
-      "narration": "The crowd closes on his car in the neon plaza and he grins through the hands reaching in. Neela - the girl from his class - watches from the edge with a small smile she would not want anyone else to see.",
-      "clip_start": "00:58:08.389",
-      "clip_end": "00:58:19.943",
-      "note": "B63",
       "delivery": "normal",
-      "payload": "rest"
+      "payload": "loop",
+      "claim": {
+        "type": "action",
+        "subject": "the long-haired mentor"
+      },
+      "narrative_jump": true
     },
     {
-      "id": 325,
-      "narration": "Daylight, a classroom, and a chat window open on her laptop: bama boy, how come i never c u drift.",
+      "id": 1511,
+      "narration": "Daylight, a classroom, a chat window on Neela's laptop: bama boy, how come i never c u drift. She reads it, smiles to herself, and hits enter.",
       "clip_start": "00:58:29.577",
       "clip_end": "00:58:37.168",
       "note": "B64",
       "delivery": "normal",
       "payload": "loop",
+      "claim": {
+        "type": "setup",
+        "subject": "the dark-haired young woman"
+      },
       "narrative_jump": true
     },
     {
-      "id": 327,
-      "narration": "Over vending-machine noodles under a stacked highway overpass, he calls her a gaijin, and she stops him cold. She hates that word; it is what the other kids used on her. Outsider, she tells him, can mean a lot of things.",
+      "id": 1512,
+      "narration": "That night they eat vending-machine food under an overpass, and the guard drops away. He calls himself a cool guy; she stops him cold — she hates that word, it is what the kids called her. Outsider, he says, can mean a lot of things.",
       "clip_start": "00:59:08.032",
       "clip_end": "00:59:19.043",
       "note": "B64",
       "delivery": "normal",
-      "payload": "reasoning"
+      "payload": "reasoning",
+      "claim": {
+        "type": "speech",
+        "subject": "the American driver"
+      },
+      "narrative_jump": false
     },
     {
-      "id": 328,
-      "narration": "Then she gives him the whole thing in three sentences. Her mother came out from Australia straight after high school and went to work in a hostess bar; she died when Neela was ten; and the grandmother who took her in afterwards was DK's. Which means the Drift King who owns her is also the family that saved her.",
+      "id": 1513,
+      "narration": "Then she gives him the whole thing. Her mother came from Australia and worked a hostess bar; she died when Neela was ten; and the grandmother who took her in was DK's. The family that saved her is the one that owns her now.",
       "clip_start": "00:59:19.043",
       "clip_end": "00:59:37.395",
       "note": "B65",
-      "delivery": "sad",
-      "payload": "stake"
+      "delivery": "emotion",
+      "payload": "stake",
+      "claim": {
+        "type": "speech",
+        "subject": "the dark-haired young woman"
+      },
+      "narrative_jump": false
     },
     {
-      "id": 329,
-      "narration": "So Sean gives her his: parents split when he was three, and after that he and his mother moved, and moved again, mostly because of him. No - all because of him. She is the first person in Tokyo who did not need that explained.",
-      "clip_start": "00:59:37.395",
-      "clip_end": "01:00:00.793",
-      "note": "B65",
-      "delivery": "normal",
-      "payload": "reasoning"
-    },
-    {
-      "id": 331,
-      "narration": "That night she drives. Up the hairpins with the city burning below, she tells him she has been coming here since before she had a licence. Cutting class, sneaking out, watching the older kids drift. It was different back then, she says. Nobody bothered them.",
+      "id": 1514,
+      "narration": "She drives him up the hairpins, telling him she has been sneaking up here since before she had a licence, cutting class to watch the older kids drift. It was different back then, she says. Nobody bothered them. And the mood breaks open into laughter.",
       "clip_start": "01:00:28.654",
       "clip_end": "01:00:44.587",
       "note": "B66",
-      "delivery": "normal",
+      "delivery": "emotion",
       "payload": "reasoning",
+      "claim": {
+        "type": "speech",
+        "subject": "the dark-haired young woman"
+      },
       "narrative_jump": true
     },
     {
-      "id": 335,
-      "narration": "No past, no future, no problems, she finishes for him. Just a moment. Then he stops talking and watches her drive, and that is the second this becomes a problem for everybody.",
-      "clip_start": "01:01:22.249",
-      "clip_end": "01:01:31.467",
-      "note": "B66",
-      "delivery": "tense",
-      "payload": "loop"
-    },
-    {
-      "id": 336,
-      "narration": "Back at the dockside yard he asks Twinkie - the hustler from his class - for another set of tyres. Third set today, and sticky rubber is not cheap.",
-      "clip_start": "01:02:01.538",
-      "clip_end": "01:02:12.716",
-      "note": "B67",
-      "delivery": "normal",
-      "payload": "stake",
-      "narrative_jump": true
-    },
-    {
-      "id": 339,
-      "narration": "Morimoto, DK's enforcer, puts Sean face down on the concrete with one swing, and Han and the whole crew just watch - on yakuza turf, stepping in turns a beating into a war. Sean glares back instead of staying down - brave, and exactly the instinct that got him shipped out of Alabama.",
+      "id": 1515,
+      "narration": "Then Morimoto, DK's enforcer, strides across the lot and puts Sean face down on the concrete with one swing — and Han, and the whole crew, just watch. Sean lifts his split face and glares back instead of staying down. Brave. Also the instinct that got him shipped out of Alabama.",
       "clip_start": "01:02:31.985",
       "clip_end": "01:02:46.375",
       "note": "B67",
       "delivery": "tense",
-      "payload": "judgment"
-    },
-    {
-      "id": 341,
-      "narration": "Han's only comment: he didn't just play with fire, he soaked the matches in gasoline.",
-      "clip_start": "01:02:59.388",
-      "clip_end": "01:03:12.526",
-      "note": "B68",
-      "delivery": "normal",
-      "payload": "loop"
-    },
-    {
-      "id": 342,
-      "narration": "By morning he is shouldering through the school gates with his face still coming apart. Neela breaks off mid-conversation to look at him - which, in a city where DK decides who she talks to, is not a small thing to do in public.",
-      "clip_start": "01:03:12.526",
-      "clip_end": "01:03:28.708",
-      "note": "B68",
-      "delivery": "tense",
       "payload": "stake",
+      "claim": {
+        "type": "action",
+        "subject": "the heavyset man in the tank top"
+      },
       "narrative_jump": true
     },
     {
-      "id": 343,
-      "narration": "So she does something worse. Still in her school uniform, she walks through the back of DK's club and stops in the doorway of the lounge. He is sitting with a boot on the table between two hostesses.",
+      "id": 1516,
+      "narration": "Neela kneels beside him as the crew files out, and Han's warning lands on the kid's recklessness: he didn't just play with fire, he soaked the matches in gasoline. Pushed Neela and DK far past where Han can pull him back.",
+      "clip_start": "01:02:59.388",
+      "clip_end": "01:03:12.526",
+      "note": "B68",
+      "delivery": "tense",
+      "payload": "judgment",
+      "claim": {
+        "type": "speech",
+        "subject": "the man in the hooded jacket"
+      },
+      "narrative_jump": false
+    },
+    {
+      "id": 1517,
+      "narration": "So Neela does something worse. Still in her school uniform, she walks into DK's club, stops in the doorway where he lounges between two hostesses, and says three words to his face, in front of his men. You've changed, DK.",
       "clip_start": "01:03:28.708",
       "clip_end": "01:03:47.519",
       "note": "B69",
       "delivery": "tense",
-      "payload": "loop",
+      "payload": "stake",
+      "claim": {
+        "type": "speech",
+        "subject": "the dark-haired young woman"
+      },
       "narrative_jump": true
     },
     {
-      "id": 344,
-      "narration": "You've changed, DK, she says. Three words, in front of his men - and for someone whose whole position rests on never being contradicted, that is the one thing he cannot let go.",
-      "clip_start": "01:03:47.519",
-      "clip_end": "01:04:03.743",
-      "note": "B69",
-      "delivery": "tense",
-      "payload": "stake"
-    },
-    {
-      "id": 346,
-      "narration": "Then DK reaches for the only thing he knows will land: they say your mother was the best trick in all of Kabukicho. Leave my mother out of this, she tells him.",
+      "id": 1518,
+      "narration": "He reaches for the thing that will land: your mother was the best trick in all of Kabukicho, back in the day. Leave my mother out of this, she tells him. He keeps going, backs her against the wall, asks who would look twice at her if not for her uncle — until she stops answering and a tear runs down her cheek. He never raises his voice.",
       "clip_start": "01:04:22.095",
       "clip_end": "01:04:33.314",
       "note": "B70",
-      "delivery": "tense",
-      "payload": "stake"
-    },
-    {
-      "id": 348,
-      "narration": "He backs her against a perforated wall and closes the gap until their faces almost touch, and she stops answering, turns her head aside and drops her eyes. It is the first time in this film anybody takes something off her, and he does it without once raising his voice, which is somehow worse than if he had.",
-      "clip_start": "01:04:44.242",
-      "clip_end": "01:05:04.345",
-      "note": "B70",
-      "delivery": "sad",
-      "payload": "judgment"
-    },
-    {
-      "id": 349,
-      "narration": "",
-      "narration_silence_seconds": 6.0,
-      "clip_start": "01:05:04.345",
-      "clip_end": "01:05:24.407",
-      "note": "B70",
-      "delivery": "sad",
-      "payload": "rest"
+      "delivery": "emotion",
+      "payload": "stake",
+      "claim": {
+        "type": "speech",
+        "subject": "DK"
+      },
+      "narrative_jump": false
     }
   ]
 }
