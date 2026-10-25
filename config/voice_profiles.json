@@ -13,6 +13,77 @@
       "measured_total_words": 3428,
       "measured_total_speaking_sec": 1036.3,
       "measured_utc": "2026-10-18T07:38:00Z"
+    },
+    "inworld-Warren_default": {
+      "voice_id": "inworld-Warren",
+      "rate_adjustment": "default",
+      "words_per_sec": 3.188,
+      "words_per_sec_conservative": 2.879,
+      "syllables_per_sec": 4.12,
+      "by_tag": {
+        "hook": {
+          "samples": 1,
+          "words_per_sec": 3.71,
+          "words_per_sec_mean": 3.71,
+          "words_per_sec_std": 0.0,
+          "words_per_sec_conservative": 3.71,
+          "words_per_sec_slowest": 3.71
+        },
+        "intro": {
+          "samples": 3,
+          "words_per_sec": 3.464,
+          "words_per_sec_mean": 3.48,
+          "words_per_sec_std": 0.145,
+          "words_per_sec_conservative": 3.341,
+          "words_per_sec_slowest": 3.341
+        },
+        "normal": {
+          "samples": 20,
+          "words_per_sec": 3.139,
+          "words_per_sec_mean": 3.145,
+          "words_per_sec_std": 0.203,
+          "words_per_sec_conservative": 2.942,
+          "words_per_sec_slowest": 2.905
+        },
+        "outro": {
+          "samples": 1,
+          "words_per_sec": 3.685,
+          "words_per_sec_mean": 3.685,
+          "words_per_sec_std": 0.0,
+          "words_per_sec_conservative": 3.685,
+          "words_per_sec_slowest": 3.685
+        },
+        "reveal": {
+          "samples": 15,
+          "words_per_sec": 2.555,
+          "words_per_sec_mean": 2.497,
+          "words_per_sec_std": 0.3,
+          "words_per_sec_conservative": 2.196,
+          "words_per_sec_slowest": 2.092
+        },
+        "sad": {
+          "samples": 13,
+          "words_per_sec": 2.524,
+          "words_per_sec_mean": 2.499,
+          "words_per_sec_std": 0.212,
+          "words_per_sec_conservative": 2.287,
+          "words_per_sec_slowest": 2.252
+        },
+        "tense": {
+          "samples": 37,
+          "words_per_sec": 4.448,
+          "words_per_sec_mean": 4.338,
+          "words_per_sec_std": 0.546,
+          "words_per_sec_conservative": 3.792,
+          "words_per_sec_slowest": 2.64
+        }
+      },
+      "pause_overhead_sec": 0.18,
+      "measured_from": "tokyodrift2006",
+      "measured_samples": 106,
+      "measured_total_words": 3091,
+      "measured_total_speaking_sec": 969.5,
+      "measured_utc": "2026-10-25T08:21:40Z"
     }
   }
 }

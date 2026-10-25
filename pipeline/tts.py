@@ -244,9 +244,16 @@ def generate_tts(project: str, draft: dict,
         # synthesize_cached owns its own manifest (text + voice + tag + model +
         # resolved controls), so retuning a tag's controls busts the cache for
         # just the affected lines - which a plain text+voice+tag key would miss.
+        # `rate_bump` is a per-line rate multiplier written into draft.json by
+        # tools/fit_narration.py when a line's audio overran its footage window
+        # by a few percent. It lives in the DRAFT, not in a side-file, so every
+        # future render of this draft reproduces the fitted length instead of
+        # regenerating the slow version and failing the pre-flight again.
+        _bump = float(ln.get("rate_bump") or 1.0)
         try:
             was_cached, dur = synthesize_cached(
-                provider, str(ln["narration"]), tag, out, ndir)
+                provider, str(ln["narration"]), tag, out, ndir,
+                speed_mult=_bump)
         except (ProviderUnavailable, SynthesisFailed) as e:
             # The primary went down mid-run (e.g. a network blip). Switching to
             # Edge for the REST is worse than the start-of-run downgrade: it
@@ -260,7 +267,8 @@ def generate_tts(project: str, draft: dict,
                               f"for the remainder (--allow-edge).[/]")
                 provider, is_fallback = all_providers()[FALLBACK_PROVIDER], True
                 was_cached, dur = synthesize_cached(
-                    provider, str(ln["narration"]), tag, out, ndir)
+                    provider, str(ln["narration"]), tag, out, ndir,
+                    speed_mult=_bump)
             elif provider.name != FALLBACK_PROVIDER:
                 raise VoiceUnavailable(
                     f"{provider.name} failed on line {ln['id']} after "

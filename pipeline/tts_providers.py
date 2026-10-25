@@ -149,12 +149,27 @@ class Provider:
         return True, "key present"
 
     # ---- delivery --------------------------------------------------------- #
-    def controls_for(self, tag: str) -> dict:
+    # Hard ceilings per control, so a per-line speed bump cannot push a voice
+    # into gabbling. Keys are whatever a provider happens to call its rate.
+    _SPEED_KEYS = {
+        # key              (min,  max)
+        "speaking_rate":   (0.60, 1.60),   # Inworld
+        "speed":           (0.70, 1.20),   # ElevenLabs (API hard limit)
+    }
+
+    def controls_for(self, tag: str, speed_mult: float = 1.0) -> dict:
         """Resolve a tone tag to this provider's real controls.
 
         Raises on an unmapped tag. The whole point of the module is that a tag
         changes the performance; a tag that silently maps to nothing is a
         defect that looks like success.
+
+        `speed_mult` is a PER-LINE multiplier on this provider's rate control,
+        used by tools/fit_narration.py when one line's audio overruns its
+        footage window by a few percent. It is deliberately a multiplier on the
+        tag's own rate rather than a replacement: a `sad` line that has to fit
+        should still be slower than a `tense` one. Clamped per control so the
+        fix can never become the defect.
         """
         t = (tag or "normal").strip() or "normal"
         if t not in self.delivery:
@@ -162,10 +177,43 @@ class Provider:
                 f"{self.name}: no delivery mapping for tag '{t}'. "
                 f"Mapped: {', '.join(sorted(self.delivery))}. Add a deliberate "
                 f"mapping - do not let it read as a normal line.")
-        return dict(self.delivery[t])
+        c = dict(self.delivery[t])
+        m = float(speed_mult or 1.0)
+        if abs(m - 1.0) > 1e-9:
+            c = self._scale_speed(c, m)
+        return c
+
+    def _scale_speed(self, c: dict, m: float) -> dict:
+        """Apply a rate multiplier to whichever control this provider uses.
+
+        Raises if the provider has no recognised rate control: silently
+        returning an unscaled copy would make a requested rate bump look
+        applied (the cache key would change, the audio would not), which is the
+        failure mode this module exists to avoid.
+        """
+        for key, (lo, hi) in self._SPEED_KEYS.items():
+            if key in c:
+                c[key] = round(min(hi, max(lo, float(c[key]) * m)), 4)
+                return c
+        if "rate" in c:      # Edge: a percent string like "+22%"
+            base = str(c["rate"]).strip().rstrip("%")
+            try:
+                pct = float(base)
+            except ValueError:
+                pct = 0.0
+            new = (1.0 + pct / 100.0) * m - 1.0
+            # Edge takes the whole range but past ~+60% it is unintelligible.
+            new = min(0.60, max(-0.40, new))
+            c["rate"] = f"{new * 100:+.0f}%"
+            return c
+        raise UnknownTag(
+            f"{self.name}: asked for a {m:.3f}x rate bump but this provider "
+            f"exposes no rate control among {sorted(c)}. Refusing to pretend "
+            f"it was applied.")
 
     # ---- cache ------------------------------------------------------------ #
-    def cache_signature(self, text: str, tag: str) -> str:
+    def cache_signature(self, text: str, tag: str,
+                        speed_mult: float = 1.0) -> str:
         """Cache key: text + voice + tag, PLUS model and the RESOLVED controls.
 
         The brief said text + voice + tag. That key is not sufficient and the
@@ -176,9 +224,11 @@ class Provider:
         Hashing the resolved controls and the model id closes that.
         """
         return hashlib.sha1(
-            self.signature_payload(text, tag).encode("utf-8")).hexdigest()
+            self.signature_payload(text, tag, speed_mult)
+            .encode("utf-8")).hexdigest()
 
-    def signature_payload(self, text: str, tag: str) -> str:
+    def signature_payload(self, text: str, tag: str,
+                          speed_mult: float = 1.0) -> str:
         """The exact string that gets hashed.
 
         Exposed separately so a test can inspect what actually goes into the
@@ -192,10 +242,13 @@ class Provider:
             "voice": self.voice,
             "tag": tag,
             "text": text,
-            "controls": self.controls_for(tag),
+            # The RESOLVED controls already carry the speed bump, so the key
+            # changes when a line is re-fitted and the old audio is not served.
+            "controls": self.controls_for(tag, speed_mult),
         }, sort_keys=True, ensure_ascii=False)
 
-    def synthesize(self, text: str, tag: str, out: Path) -> None:
+    def synthesize(self, text: str, tag: str, out: Path,
+                   speed_mult: float = 1.0) -> None:
         raise NotImplementedError
 
     # ---- shared HTTP helper ---------------------------------------------- #
@@ -237,13 +290,14 @@ class EdgeProvider(Provider):
     config.TTS_DELIVERY so this is exactly what the pipeline ships today.
     """
 
-    def synthesize(self, text: str, tag: str, out: Path) -> None:
+    def synthesize(self, text: str, tag: str, out: Path,
+                   speed_mult: float = 1.0) -> None:
         import asyncio
         try:
             import edge_tts
         except ImportError as e:
             raise ProviderUnavailable(f"edge-tts not installed: {e}") from e
-        c = self.controls_for(tag)
+        c = self.controls_for(tag, speed_mult)
 
         async def go():
             last = None
@@ -298,11 +352,12 @@ def _edge() -> EdgeProvider:
 # 2. ElevenLabs eleven_v4_turbo - inline audio tags + voice_settings
 # --------------------------------------------------------------------------- #
 class ElevenProvider(Provider):
-    def synthesize(self, text: str, tag: str, out: Path) -> None:
+    def synthesize(self, text: str, tag: str, out: Path,
+                   speed_mult: float = 1.0) -> None:
         k = self.key()
         if not k:
             raise ProviderUnavailable(f"{self.env_var} not set")
-        c = self.controls_for(tag)
+        c = self.controls_for(tag, speed_mult)
         cue = c.get("cue") or ""
         body = {
             "text": (cue + " " + text).strip() if cue else text,
@@ -369,11 +424,12 @@ def _eleven(voice: str = "JBFqnCBsd6RMkjVDRZzb",
 # 3. Fish Audio - s2.1-pro and drama-3
 # --------------------------------------------------------------------------- #
 class FishProvider(Provider):
-    def synthesize(self, text: str, tag: str, out: Path) -> None:
+    def synthesize(self, text: str, tag: str, out: Path,
+                   speed_mult: float = 1.0) -> None:
         k = self.key()
         if not k:
             raise ProviderUnavailable(f"{self.env_var} not set")
-        c = self.controls_for(tag)
+        c = self.controls_for(tag, speed_mult)
         cue = c.get("cue") or ""
         body = {
             "text": (cue + " " + text).strip() if cue else text,
@@ -467,11 +523,12 @@ def _fish(model: str = "s2.1-pro") -> FishProvider:
 # 4. Inworld inworld-tts-2 - inline steering instructions
 # --------------------------------------------------------------------------- #
 class InworldProvider(Provider):
-    def synthesize(self, text: str, tag: str, out: Path) -> None:
+    def synthesize(self, text: str, tag: str, out: Path,
+                   speed_mult: float = 1.0) -> None:
         k = self.key()
         if not k:
             raise ProviderUnavailable(f"{self.env_var} not set")
-        c = self.controls_for(tag)
+        c = self.controls_for(tag, speed_mult)
         cue = c.get("cue") or ""
         body = {
             "text": (cue + " " + text).strip() if cue else text,
@@ -565,11 +622,12 @@ def _inworld() -> InworldProvider:
 # 5. Alibaba Qwen - natural-language instruction + inline tags
 # --------------------------------------------------------------------------- #
 class QwenProvider(Provider):
-    def synthesize(self, text: str, tag: str, out: Path) -> None:
+    def synthesize(self, text: str, tag: str, out: Path,
+                   speed_mult: float = 1.0) -> None:
         k = self.key()
         if not k:
             raise ProviderUnavailable(f"{self.env_var} not set")
-        c = self.controls_for(tag)
+        c = self.controls_for(tag, speed_mult)
         cue = c.get("cue") or ""
         body = {
             "model": self.model,
@@ -656,11 +714,12 @@ class HumeProvider(Provider):
         super().__init__(*a, **kw)
         self.octave_version = octave_version
 
-    def synthesize(self, text: str, tag: str, out: Path) -> None:
+    def synthesize(self, text: str, tag: str, out: Path,
+                   speed_mult: float = 1.0) -> None:
         k = self.key()
         if not k:
             raise ProviderUnavailable(f"{self.env_var} not set")
-        c = self.controls_for(tag)
+        c = self.controls_for(tag, speed_mult)
         utt: dict = {"text": text,
                      "voice": {"name": self.voice, "provider": "HUME_AI"},
                      "speed": c["speed"],
@@ -748,10 +807,14 @@ def all_providers() -> dict:
 # Cached synthesis
 # --------------------------------------------------------------------------- #
 def synthesize_cached(p: Provider, text: str, tag: str, out: Path,
-                      cache_dir: Path) -> tuple[bool, float]:
+                      cache_dir: Path,
+                      speed_mult: float = 1.0) -> tuple[bool, float]:
     """Synthesize unless an identical request is already on disk.
 
     Returns (was_cached, duration_seconds).
+
+    `speed_mult` is part of the cache key via the resolved controls, so
+    re-fitting one line's rate re-synthesizes exactly that line.
     """
     cache_dir.mkdir(parents=True, exist_ok=True)
     manifest_path = cache_dir / "_cache.json"
@@ -760,12 +823,12 @@ def synthesize_cached(p: Provider, text: str, tag: str, out: Path,
     except Exception:
         manifest = {}
 
-    sig = p.cache_signature(text, tag)
+    sig = p.cache_signature(text, tag, speed_mult)
     mkey = str(out.name)
     if out.exists() and out.stat().st_size > 0 and manifest.get(mkey) == sig:
         return True, audio_duration(out)
 
-    p.synthesize(text, tag, out)
+    p.synthesize(text, tag, out, speed_mult)
     if not out.exists() or out.stat().st_size == 0:
         raise SynthesisFailed(f"{p.name} wrote no audio for tag '{tag}'")
     manifest[mkey] = sig

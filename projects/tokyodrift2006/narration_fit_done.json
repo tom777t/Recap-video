@@ -1,0 +1,154 @@
+{
+  "lines": [
+    {
+      "line_id": 108,
+      "words_before": 72,
+      "words_after": 47,
+      "target_words": 52,
+      "narration": "And the car that noses up beside him is no tuner coupe - it is hulking American muscle, and the man at the wheel is Dominic Toretto, who came because Han was family to him. Toretto grins. Then the film's last word. This ain't no ten-second race.",
+      "facts_kept": [
+        "the challenger's car is hulking American muscle, not a tuner coupe",
+        "the driver is Dominic Toretto",
+        "he came because Han was family to him",
+        "his warning: this ain't no ten-second race",
+        "it is the film's closing line"
+      ],
+      "dropped": "Dropped 'the bald man at the wheel' (appearance descriptor replaced by the name, per [APPEARANCE-ID]); dropped 'come all the way from the mainland' - B108 does not state where he travelled from, so it was an unsupported claim, not a fact worth protecting; dropped 'They size each other up, the wariness thaws' (interpretive description absent from the beat map) but kept 'Toretto grins'; folded 'the warning that doubles as the film's last word' into 'Then the film's last word.' Normalised two U+2019 apostrophes to ASCII.",
+      "payload_intact": true
+    },
+    {
+      "line_id": 62,
+      "words_before": 31,
+      "words_after": 19,
+      "target_words": 21,
+      "narration": "He reaches for her mother, Kabukicho, and backs her against the wall until a tear runs down her cheek.",
+      "facts_kept": [
+        "DK throws her mother at her",
+        "Kabukicho",
+        "he corners her against the wall",
+        "a tear runs down her face"
+      ],
+      "dropped": "Dropped 'the thing that will land' (restatement of the same idea as 'reaches for') and 'He never raises his voice' - a narrator judgment, not a fact; B70 does not state it, and line 63 immediately carries the judgment on DK's pride, so the opinion slot is not lost. See flag in report: this is the one real cost.",
+      "payload_intact": true
+    },
+    {
+      "line_id": 14,
+      "words_before": 30,
+      "words_after": 24,
+      "target_words": 24,
+      "narration": "Out in the corridor Sean asks the only question that matters. Where are we moving this time? We're not moving anywhere, his mother says.",
+      "facts_kept": [
+        "the corridor",
+        "Sean's question: where are we moving this time",
+        "his mother's answer: we're not moving anywhere",
+        "the answer comes from his mother"
+      ],
+      "dropped": "Dropped 'to a kid who's done this before' - it reads as a callback with no cited beat, and line 15 right after already says 'Every time he loses, an adult relocates him.' Swapped the vague 'she says' for 'his mother says', which keeps the speaker explicit at no word cost.",
+      "payload_intact": true
+    },
+    {
+      "line_id": 77,
+      "words_before": 22,
+      "words_after": 14,
+      "target_words": 15,
+      "narration": "Takashi waits in the dark lane, pistol to Sean's head, until his father draws.",
+      "facts_kept": [
+        "Takashi",
+        "the dark lane",
+        "pistol to Sean's head",
+        "Sean's father draws his gun in return"
+      ],
+      "dropped": "Dropped 'with a' and 'steps out with his own gun up' in favour of 'draws', which carries the same fact (the father pulls a gun in return) in one word; the pistol is named in the same sentence, so 'draws' cannot be misread. Kept the place fact 'dark lane' from B81.",
+      "payload_intact": true
+    },
+    {
+      "line_id": 86,
+      "words_before": 36,
+      "words_after": 27,
+      "target_words": 31,
+      "narration": "Then Kamata doesn't say a word. He just stares, and Takashi's defiance folds into a bow. Kamata is the only still thing in a film about motion.",
+      "facts_kept": [
+        "Kamata (named, not described)",
+        "he says nothing",
+        "he just stares",
+        "Takashi's defiance collapses into a bow"
+      ],
+      "dropped": "Replaced 'the old man' with 'Kamata' per [APPEARANCE-ID]. Dropped 'One look does what no shouting could' - it restates the action already on the line (no word, just a stare, then the bow); kept the sharper judgment, 'the only still thing in a film about motion', so the opinion payload survives.",
+      "payload_intact": true
+    },
+    {
+      "line_id": 43,
+      "words_before": 19,
+      "words_after": 16,
+      "target_words": 16,
+      "narration": "Sean walks past a red Evo, then walks back. Han hands it over. Not lends. Hands.",
+      "facts_kept": [
+        "the red Evo",
+        "Sean stops at it",
+        "Han gives him the car outright, not as a loan"
+      ],
+      "dropped": "Dropped 'to it' after 'walks back' (the Evo is the only antecedent) and split the dash clause into two short sentences, which costs the '-' token and sharpens the gives-not-lends point. No fact removed; the reason Han does it is already on line 44.",
+      "payload_intact": true
+    },
+    {
+      "line_id": 39,
+      "words_before": 24,
+      "words_after": 22,
+      "target_words": 23,
+      "narration": "Driving home, Han explains how Tokyo works. DK's uncle Kamata takes a cut of everyone's action and keeps the police off them.",
+      "facts_kept": [
+        "they are driving home",
+        "Han is the one explaining",
+        "Kamata is DK's uncle",
+        "he takes a cut of everyone's action",
+        "he keeps the police off them"
+      ],
+      "dropped": "Dropped 'lays out the shape of' for 'explains how Tokyo works' - same meaning, two words cheaper. Nothing else removed; the 50-percent-of-something line stays on line 40 where it already is.",
+      "payload_intact": true
+    },
+    {
+      "line_id": 48,
+      "words_before": 28,
+      "words_after": 26,
+      "target_words": 27,
+      "narration": "Sean asks why Han never let him race the good car. One car, Han says, was the price for learning what the kid was made of.",
+      "facts_kept": [
+        "Sean asks why Han never let him race the good car",
+        "Han's answer is spoken by Han",
+        "one car bought Han the knowledge of what Sean was made of"
+      ],
+      "dropped": "Dropped the connective 'Because,' and the adjective 'fair' ('a fair price' -> 'the price'). The valuation still reads as a trade Han accepted, and line 49 immediately says it is a price he can live with.",
+      "payload_intact": true
+    },
+    {
+      "line_id": 36,
+      "words_before": 24,
+      "words_after": 22,
+      "target_words": 23,
+      "narration": "Then the table sends Sean out and presses Han about a shipment that hasn't arrived. Sit pretty and let me handle it.",
+      "facts_kept": [
+        "the gangsters send Sean out of the room",
+        "they press Han about a shipment that hasn't arrived",
+        "Han's reply: sit pretty and let me handle it"
+      ],
+      "dropped": "Dropped the tag 'he says'. The previous clause names Han as the one being pressed, so the quote cannot be attributed to anyone else, and the draft already uses unattributed quotes in this register (line 47, 'This is my Mexico.').",
+      "payload_intact": true
+    },
+    {
+      "line_id": 64,
+      "words_before": 31,
+      "words_after": 29,
+      "target_words": 30,
+      "narration": "Across town, the white suit and panama hat belong to Kamata, the uncle DK answers to. Takashi hands over the week's take and Kamata sits down to the books.",
+      "facts_kept": [
+        "the scene is across town",
+        "the white suit and panama hat are Kamata's",
+        "Kamata is the uncle DK answers to",
+        "Takashi hands over the week's take",
+        "Kamata sits down to the books"
+      ],
+      "dropped": "Replaced the second reference 'the old man' with 'Kamata' - two words cheaper and it removes a looks/age descriptor for a named character, which also kills the ambiguity with Takashi in that clause.",
+      "payload_intact": true
+    }
+  ]
+}

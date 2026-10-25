@@ -1,0 +1,120 @@
+{
+  "_audit": "FACT + SPOILER audit of the ten post-trim narration lines (ids 14, 36, 39, 43, 48, 62, 64, 77, 86, 108). New text read from draft.json; pre-trim text read from draft_prefit.json; trimmer claims in narration_fit_done.json treated as unverified. Authorities: beats_proposal.md (beat map), film_facts.json, names.json, transcript.json (559 segments, indices cited), reveals.json, shots.json (shot-level visual descriptions, used only to confirm on-screen appearance facts such as 'white suit and panama hat').",
+  "_method_note": "Spoiler check was run programmatically: every hold term in reveals.json was regex-matched against each of the ten lines. The only hits were on line 108 (Dominic Toretto / Toretto / Dom / was family to him / family), whose beat B108 is 01:36:38, exactly the R4 landing frame. The other nine lines are clean of all held terms for R1-R4.",
+  "lines": [
+    {
+      "line_id": 14,
+      "beat": "B13",
+      "verdict": "PASS",
+      "fact": "ok - B13 (beats_proposal.md:26) reads 'In the corridor his mother tells him they are not moving this time, and he takes the sentence in silence'. The corridor, the speaker being his MOTHER, and the content of both lines are all stated in the beat. The trim's swap of 'she says' -> 'his mother says' makes the beat's own attribution explicit and is an improvement, not a change of fact.",
+      "fact_loss": "none - the dropped clause 'to a kid who's done this before' is a narrator gloss, not a fact, and the same idea is stated outright on the next line (draft.json line 15: 'Every time he loses, an adult relocates him.').",
+      "invention": "none - new text asserts nothing the pre-trim text did not. Pre-trim: 'Out in the corridor Sean asks the only question that matters to a kid who's done this before. Where are we moving this time? We're not moving anywhere, she says.'",
+      "spoiler": "ok - no R1/R2/R3/R4 hold term present.",
+      "dialogue": "transcript supports both quotes verbatim: segment [53] 00:11:42.7 'Where are we moving this time?' and segment [54] 00:11:47.9 'We're not moving anywhere.' Speaker is not labelled in the transcript, but B13 names the mother as the one who says it.",
+      "notes": ""
+    },
+    {
+      "line_id": 36,
+      "beat": "B44",
+      "verdict": "FAIL",
+      "fact": "The two narrated actions are correct: B44 (beats_proposal.md:57) has the gangsters send the young American out and then press the long-haired man about a shipment that has not arrived. Transcript [267] 'Get him out of here' / [268] 'We've got business to discuss' / [270] 'When is the shipment arriving home?' confirm both. PROBLEM: the trim deleted the speech tag 'he says', and the only grammatical subject available in the preceding sentence is 'the table'. As the line now stands the default reading hands Han's line to the gangsters who were just described as doing the sending and the pressing - Han appears only as the OBJECT of 'presses'. The sources say the opposite: B44 states 'he tells them to sit tight and let him handle it'.",
+      "fact_loss": "YES - 'Han is the one who speaks this line' was carried ONLY by the deleted 'he says'. Checked the neighbours: line 35 is about race terms, line 37 is 'His eyes drop and the smile is gone. Watch who's comfortable in this room, and who's answering questions in it.' - 'His' there most naturally reads back to Sean (line 34 established Sean's smile), and 'who's answering questions' is a rhetorical prompt, not an attribution. The fact is not restated anywhere in the script.",
+      "invention": "none introduced by the trim itself.",
+      "spoiler": "ok - 'a shipment that hasn't arrived' is not on any R1 hold list (R1 holds 'the missing money', 'cooking the books', 'skimming' etc.), and the shipment is B44 text.",
+      "dialogue": "transcript supports the quote verbatim at segment [271] 00:39:36.9 'Sit pretty and let me handle it'. Note the narration correctly follows the TRANSCRIPT wording ('sit pretty'), not the beat map's paraphrase ('sit tight'). The quote is real; only its attribution is broken.",
+      "notes": "The trimmer's justification is wrong on its face: it argues 'The previous clause names Han as the one being pressed, so the quote cannot be attributed to anyone else.' Being the object of 'presses' makes Han LESS likely to be read as the next speaker, not more. The cited precedent (line 47, 'This is my Mexico.') is not comparable - there the preceding clause is 'Sean asks Han how he ended up over here', so the unattributed answer can only be Han's."
+    },
+    {
+      "line_id": 39,
+      "beat": "B47",
+      "verdict": "PASS",
+      "fact": "ok - B47 (beats_proposal.md:60): 'Driving home, the long-haired man explains that DK's uncle takes a cut of everyone's action on his turf and keeps the police off them, because 50% of something beats 100% of nothing.' Every element matches: driving home, Han speaking, DK's uncle, the cut, the police. The UNCLE = KAMATA identification is supported by film_facts.json cast entry 'Sonny Chiba / Kamata / Takashi's uncle, the head of the yakuza' plus names.json (Takashi and DK are the same character, Brian Tee), and the name is spoken in this very scene - transcript [294] 00:41:39.6 'Who keeps Uncle Kamada from poking around too much?' ('Kamada' is a listed ASR variant of Kamata per names.json:7).",
+      "fact_loss": "none - the dropped qualifier 'on his turf' and the 50/100 reasoning are both carried by the next line (line 40: 'Fifty percent of something beats a hundred percent of nothing. It's the uncle's turf, the uncle's cut.').",
+      "invention": "none - 'lays out the shape of Tokyo' -> 'explains how Tokyo works' is a like-for-like paraphrase and asserts no more.",
+      "spoiler": "ok - no hold term. Naming Kamata here is not protected by any reveal; only the phrase 'stealing from Kamata' is held, and it is absent.",
+      "dialogue": "no quoted dialogue in this line. Paraphrase support: transcript [296] 00:41:45.9 'His uncle gets a piece of the action from everyone on his turf' and [297] 00:41:52.3 '50% of something is better than 100% of nothing.'",
+      "notes": ""
+    },
+    {
+      "line_id": 43,
+      "beat": "B52",
+      "verdict": "PASS",
+      "fact": "ok - B52 (beats_proposal.md:65): 'After touring the garage's lifts and bikes he stops at the red Evo, and the long-haired man hands it to him because he represents him now and will not be rolling in a Hyundai.' The red Evo, Sean stopping at it, and Han HANDING it over (not lending) are all in the beat. 'Not lends. Hands.' is emphasis on the beat's own verb, not an added claim.",
+      "fact_loss": "none - the reason Han does it is on the next line (line 44: 'Sean represents him now, and Han won't let his name roll around Tokyo in a Hyundai.').",
+      "invention": "none - pre-trim was 'Han hands it over - not lends, hands.'; the trim only split the dash clause into two sentences. 'walks back to it' -> 'walks back' loses nothing, the Evo being the only antecedent.",
+      "spoiler": "ok - no hold term.",
+      "dialogue": "no quoted dialogue in this line.",
+      "notes": "Marginal, pre-existing: 'walks past a red Evo, then walks back' is a slightly fancier staging than the beat's 'stops at the red Evo'. Not introduced by the trim and not contradicted by anything."
+    },
+    {
+      "line_id": 48,
+      "beat": "B57",
+      "verdict": "PASS",
+      "fact": "ok - the question is verbatim in the transcript and the answer is Han's. Transcript [390] 00:51:30.5 'Why didn't you let me race with your car?' (Sean) and [397] 00:52:01.7 'One car in exchange for knowing what a man's made of' / [398] 00:52:05.7 'That's a prize I can live with.' (Han). B57 (beats_proposal.md:70) confirms the speaker: 'the long-haired man ... admits he lent out the car on purpose: one car in exchange for knowing what a man is made of'. The 'Han says' attribution survives the trim intact.",
+      "fact_loss": "none - the dropped connective 'Because,' carried no fact; the question it answered is in the same line.",
+      "invention": "none that the trim added. 'a fair price' -> 'the price' marginally hardens the valuation (from Han's judgement to a flat statement of what it cost), but the trade framing is the beat's and the transcript's own ('in exchange for').",
+      "spoiler": "ok - no hold term.",
+      "dialogue": "transcript supports the paraphrase at [397]-[398] as quoted above.",
+      "notes": "MARGINAL, worth knowing: Han's actual word is 'a PRIZE I can live with' (transcript [398]), and B57 preserves 'prize'. The script says 'price' on both line 48 and line 49. Price and prize are near-opposites in valence - what you pay vs what you win - and the script has standardised on the wrong one. Not a trim fault (pre-trim line 48 already said 'a fair price'), and the 'in exchange for' framing makes 'price' defensible, so this is not scored as a FAIL. Also marginal: 'what the kid was made of' narrows Han's generalisation 'what a MAN's made of'; line 49 restores 'a man'."
+    },
+    {
+      "line_id": 62,
+      "beat": "B70",
+      "verdict": "FAIL",
+      "fact": "The underlying beat is right - B70 (beats_proposal.md:83): 'DK turns it back on her, throws her mother's hostess past at her and corners her against the wall until she stops answering and a tear runs down her face.' But the NEW SENTENCE misstates it twice. (1) 'her mother, Kabukicho,' is a comma appositive, which in English names the mother: it reads as if the mother is called Kabukicho. Kabukicho is a Tokyo red-light district - transcript [466] 01:04:25.8 'They say, your mom was the best trick in all of Kabukicho back in the day.' No source anywhere calls anyone Kabukicho. (2) 'He reaches for her mother ... and backs HER against the wall' - with the appositive gone the nearest antecedent for 'her' is the mother, so the line can be read as DK cornering Neela's mother, who is dead (B65: 'her mother ... died when she was ten'). Who is cornered is exactly the kind of thing the beat map is authoritative on, and the trim has made it ambiguous.",
+      "fact_loss": "The trim also deleted 'He never raises his voice', which no neighbouring line replaces - line 63 is 'That's the whole of his pride. Borrowed, and ugly with it.' That is a judgement about pride, not about his manner. Not scored as the failing fact (the quiet-voice detail is a narrator observation, not stated in B70), but the trimmer's own note calls it 'the one real cost' and that is accurate.",
+      "invention": "YES - 'her mother, Kabukicho' invents a person. The pre-trim text was 'He reaches for the thing that will land - her mother, Kabukicho - and backs her against the wall ...', where the em-dashes set 'her mother, Kabukicho' off as a parenthetical gloss on 'the thing that will land'. Collapsing the dashes to commas is precisely what converts a gloss into a name.",
+      "spoiler": "ok - no hold term.",
+      "dialogue": "no quoted dialogue. The Kabukicho fact is sourced to transcript [466] (DK speaking), with Neela's reply at [467] 01:04:32.0 'Leave my mother out of this.'",
+      "notes": "Minimal correction, same 19-word budget (current line is 19 words): 'He throws her mother's Kabukicho past at her and backs her against the wall until a tear runs.' (19 words). This makes Kabukicho an attributive modifier rather than a name, puts 'at her' between mother and 'backs her' so the second 'her' resolves to Neela, and matches B70's verb 'throws'."
+    },
+    {
+      "line_id": 64,
+      "beat": "B72",
+      "verdict": "PASS",
+      "fact": "ok on all four claims. (a) WHITE SUIT AND PANAMA HAT = KAMATA: shots.json clip:01:06:27 (chars: Kamata) - 'An older man in a white suit and panama hat appears in the yellow corridor; the young man in the black shirt looks up, and by the last shot Kamata has stepped into the back room greeted as the uncle he was about to visit.' (b) KAMATA IS THE UNCLE DK ANSWERS TO: film_facts.json cast - 'Sonny Chiba / Kamata / Takashi's uncle, the head of the yakuza'; the same shot calls him 'the uncle he was about to visit'; and B90 has Takashi bow to him. Takashi and DK are one character (names.json, both Brian Tee). (c) TAKASHI HANDS OVER THE WEEK'S TAKE: shots.json clip:01:06:39 - 'the talk turns to business as he leans over the desk and hands across last week's take, Kamata standing over him'; B72 (beats_proposal.md:85) - 'Kamata collects last week's take from the man in the black shirt'. (d) KAMATA SITS DOWN TO THE BOOKS: shots.json clip:01:06:59 - 'the wide finds the old man at the desk with a ledger open, working through the books'; B72 - 'sits down at the desk to go through the books'.",
+      "fact_loss": "none - the only thing removed was the second reference 'the old man', replaced by the name already in the line.",
+      "invention": "none - new text is the pre-trim text with one noun phrase substituted.",
+      "spoiler": "ok - 'sits down to the books' is B72's own wording. The R1 hold list protects 'cooking the books', not the ledger itself, and R1's content (Han stealing) is not touched here. R1 lands at 01:07:29; this beat is 01:06:39, so the line sits just before the reveal and does not pre-empt it.",
+      "dialogue": "no quoted dialogue in this line.",
+      "notes": "Marginal: B72's roster calls the nephew 'the man in the black shirt' rather than naming Takashi. The identification is secure (the visiting nephew who hands over the take to his uncle), but it rests on film_facts + the shot description rather than on the beat map naming him."
+    },
+    {
+      "line_id": 77,
+      "beat": "B82 (tagged) / B81 (actual content)",
+      "verdict": "PASS",
+      "fact": "ok - every element is in B81 (beats_proposal.md:94): 'The man in the black henley is waiting in the dark lane at the house and gets a pistol to the young American's head, while the older man in the olive jacket draws on him in return.' So: Takashi waiting, the dark lane, pistol at Sean's head, and a second man drawing in return - all stated. WHOSE FATHER: Sean's. The older man in the olive jacket is identified as Sean's father by B83 (beats_proposal.md:96) - 'the older man claims the mess as his responsibility as the boy's father' - and by film_facts.json ('Brian Goodman / Lieutenant Boswell / Sean's father'). DOES HE DRAW A WEAPON IN THIS BEAT: yes - B81 says he 'draws on him in return', and shots.json clip:01:16:42 - 'the scuffle ends with the henley man levelling a pistol while an older man aims one back at him'.",
+      "fact_loss": "none - 'steps out with his own gun up' compressed to 'draws' keeps the fact that the father pulls a gun in return; nothing else in the line carried a unique fact.",
+      "invention": "none - 'until' was in the pre-trim text, not added by the trim. B81's 'in return' supports a response relation; 'until' states a sequence the beat does not contradict.",
+      "spoiler": "ok - no hold term.",
+      "dialogue": "no quoted dialogue in this line.",
+      "notes": "Two marginals, both pre-existing rather than trim-introduced. (1) BEAT TAG IS WRONG: draft.json tags line 77 as B82, but B82 is 'The young woman argues across the standoff and then goes with the henley man to get the gun off the young American' - that is line 78, which is also tagged B82. Line 77's content is B81. draft_prefit.json carries the same wrong tag, so the trimmer did not cause it, but it should be corrected to B81. The trimmer's own note correctly cites B81 for the 'dark lane' fact, which is further evidence the tag is stale. (2) 'his father' sits closer to 'Sean's' than to 'Takashi', so the intended reading wins, but the pronoun is strictly ambiguous between the two men named in the sentence."
+    },
+    {
+      "line_id": 86,
+      "beat": "B90",
+      "verdict": "PASS",
+      "fact": "ok - the man is Kamata, confirmed by name in the beat itself. B90 (beats_proposal.md:103): 'The nephew protests at being silenced and Kamata, without a word, stares him down until he drops into a bow.' That covers all three narrated actions: no word, the stare, and Takashi's defiance collapsing into a bow. The preceding beat B89 (beats_proposal.md:102) also names Kamata as the recipient of the apology, and the draft names him on line 85, so 'Kamata' is already established when line 86 uses it.",
+      "fact_loss": "none - 'One look does what no shouting could' restates the stare-then-bow action already on the line; the closing judgement ('the only still thing in a film about motion') is preserved.",
+      "invention": "none - pre-trim 'the old man' -> 'Kamata' is a substitution the beat map licenses by name.",
+      "spoiler": "ok - no hold term. Note the line does NOT say what Kamata is silencing Takashi about, so nothing of R1 leaks here.",
+      "dialogue": "no quoted dialogue in this line - and correctly so, since the beat's whole point is that Kamata says nothing.",
+      "notes": "'Kamata is the only still thing in a film about motion' is an explicit narrator judgement, not a factual claim, and is not scored."
+    },
+    {
+      "line_id": 108,
+      "beat": "B108",
+      "verdict": "FAIL",
+      "fact": "Three of the four checked claims hold; the fourth does not. (a) AMERICAN MUSCLE - supported, B108 (beats_proposal.md:121) 'a hulking American muscle car', and shots.json clip:01:36:38 'His green coupe noses up beside a hulking American muscle car ... reveals its driver, a bald man in a white tee, at the wheel.' (b) DRIVER IS DOMINIC TORETTO - supported by reveals.json R4 ('the challenger who turns up for the closing race is Dominic Toretto'), names.json, and film_facts.json withheld entry 1; permitted here because B108 is the R4 landing frame. (c) 'THIS AIN'T NO TEN-SECOND RACE' - supported, see dialogue field. (d) 'WHO CAME BECAUSE HAN WAS FAMILY TO HIM' - NOT SUPPORTED AS WRITTEN. B108 says nothing about why he came or about Han. reveals.json R4 says he 'calls Han family' - that licenses reporting what he SAYS, not asserting his motive for travelling. The pre-trim text was 'come all the way from the mainland because, HE SAYS, Han was family to him'; the trim deleted the speech tag 'he says' and left the narrator stating the man's motive as established fact. That is exactly the failure mode of removing a qualifier: reported speech became narration.",
+      "fact_loss": "none scored. The trimmer's removal of 'come all the way from the mainland' was CORRECT and is confirmed: 'mainland' appears nowhere in beats_proposal.md, film_facts.json, shots.json, windows_llm.json or transcript.json - the only occurrences in the whole project are in the script's own artefacts (draft_prefit.json:1407, script.txt:328, narration_fit_todo/done.json:16). No source states where the challenger travelled from, so the claim was unsupported and rightly dropped.",
+      "invention": "YES - the silent deletion of 'he says'. The trimmer's `dropped` field lists the mainland clause, 'the bald man at the wheel', 'They size each other up, the wariness thaws', and the folding of the warning clause. It does NOT disclose the removal of 'he says', so the one edit that changed the epistemic status of a claim went unreported.",
+      "spoiler": "ok - the hold-term scan hits 'Dominic Toretto', 'Toretto', 'Dom', 'family' and 'was family to him' on this line, and all belong to R4, which lands at 01:36:38. This line's beat B108 IS 01:36:38, so all are permitted. No earlier-landing reveal's terms appear.",
+      "dialogue": "SPLIT. 'This ain't no ten-second race' - FOUND: transcript segment [558] 01:36:57.9 'You know this ain't no 10-second race.' This is the LAST segment in the transcript (559 segments, final index 558), which also verifies the claim that it is the film's last word; the only shots after it are the stunt-safety disclaimer (clip:01:37:33) and credits. 'Han was family to him' - NOT FOUND. I searched all 559 segments for 'family'. The only hit is segment [556] 01:35:57.4 'and how I was family.' at 01:35:57, which falls inside B107 (01:35:38) - that is Twinkie's garage line, already narrated by draft line 107, not the challenger's. The only segment the ASR produced inside B108's dialogue window is [557] 01:36:50.3 'while he was into American...', which is garbled and contains nothing about Han or family. So the paraphrase has no transcript evidence at this beat; its only support is reveals.json R4's prose.",
+      "notes": "Minimal correction, same 47-word budget: replace 'who came because Han was family to him' with 'and he says Han was family to him' - the line then reads '... and the man at the wheel is Dominic Toretto, and he says Han was family to him. Toretto grins. Then the film's last word. This ain't no ten-second race.' Still 47 words, restores the attribution the pre-trim line had, and drops the unsupported motive. Separately verified and NOT a problem: 'Toretto grins' is supported by shots.json clip:01:36:46 - 'by the last shots the bald man is laughing and the young driver is grinning back' - which, incidentally, also supports the 'They size each other up, the wariness thaws' clause the trimmer discarded as 'interpretive description absent from the beat map'; that justification was wrong, though discarding the clause did no harm."
+    }
+  ],
+  "summary": {
+    "pass": 7,
+    "fail": 3
+  }
+}

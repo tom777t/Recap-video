@@ -222,6 +222,37 @@ def cmd_render(args):
 
     draft = validate_draft(args.project)  # re-validate so render is always safe
 
+    # The draft audit's findings have to reach the render too, not just
+    # `recap.py draft`: a draft carrying 17 [BINDING-VIOLATION]s rendered
+    # anyway and died in the clip loop much later.
+    #
+    # But only the findings that actually BREAK a render may block it. A
+    # [VOICE-VISUAL] mismatch means the footage may not match the words - a
+    # quality finding, already reported at draft time, and not a reason the
+    # encode will fail. Blocking on it would stop every render of this project
+    # over 86 pre-existing mismatches and teach everyone to pass
+    # --ignore-audit, which is how a gate becomes decoration.
+    _r = draft if isinstance(draft, dict) else {}
+    _fatal = []
+    if _r.get("binding_violations"):
+        _fatal.append(f"{_r['binding_violations']} BINDING-VIOLATION(s) - "
+                      f"line(s) exceed their shot capacity and would freeze")
+    if _r.get("reveal_hits"):
+        _fatal.append(f"{_r['reveal_hits']} REVEAL-TIMING hit(s) - a protected "
+                      f"term appears before its landing beat")
+    if _fatal and not args.ignore_audit:
+        console.print("[red]Refusing to render: " + "; ".join(_fatal) + ".[/]")
+        console.print(f"  See `python recap.py draft --project {args.project}`. "
+                      f"For capacity, `python tools/fit_narration.py --project "
+                      f"{args.project} --apply` resolves them in one pass.")
+        console.print("  --ignore-audit renders anyway.")
+        sys.exit(1)
+    if _r.get("_audit_severity") == "hard" and not _fatal:
+        console.print(
+            f"[yellow]Draft audit is HARD but nothing in it stops a render[/] "
+            f"(binding mismatches: {_r.get('binding_mismatch', '?')}). "
+            f"Rendering. Fix them before publishing - see `recap.py draft`.")
+
     if args.voice == "tts":
         from pipeline.tts import VoiceUnavailable
         try:
@@ -388,6 +419,10 @@ def main():
     pr.add_argument("--voice", choices=["tts", "mine"], required=True)
     pr.add_argument("--tts-voice", default=config.DEFAULT_TTS_VOICE)
     pr.add_argument("--tts-rate", default=config.DEFAULT_TTS_RATE)
+    pr.add_argument("--ignore-audit", action="store_true",
+                    help="render even though the draft audit failed hard "
+                         "(binding violations, reveal leaks). For diagnosis "
+                         "only - the render will likely fail or ship a defect.")
     pr.add_argument("--allow-edge", action="store_true",
                     help="narrate on the Edge fallback voice when the "
                          "production voice (Inworld) is unavailable. Without "

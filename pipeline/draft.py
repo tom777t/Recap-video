@@ -637,8 +637,20 @@ def validate_draft(project: str, *, write_state: bool = False,
         _stage_machine(project, audit, write_state=write_state, promote=promote)
 
     # expose the Phase 1 audit severity so the CLI can set an exit code.
+    # The CAUSE metrics travel with it: recap.py has to say WHAT failed, and
+    # without these it fell back to "a hard audit finding that is NOT a binding
+    # mismatch (binding reported 0)" on a run whose own report printed 86
+    # verified mismatches three lines earlier - a message that contradicted the
+    # data it was summarising. They also let `render` block on the findings that
+    # actually break a render and merely warn on the ones that do not.
     if isinstance(draft, dict):
         draft["_audit_severity"] = audit_sev or "clean"
+        if isinstance(audit, dict):
+            for _k in ("binding_mismatch", "binding_violations", "reveal_hits",
+                       "binding_unverified", "binding_checked",
+                       "continuity_issues", "beat_coverage", "stage", "style"):
+                if _k in audit:
+                    draft[_k] = audit[_k]
     return draft
 
 
@@ -2337,12 +2349,57 @@ def _run_phase1_audits(project, pdir):
     # render attempt, so the fix (split / multi-shot) happens at authoring time.
     try:
         from pipeline.schemas import binding_capacity_check, BINDING_SLOWDOWN_MAX
-        cap = binding_capacity_check(d, shots_by_id)
+        # Hand over the REAL audio length for every line whose narration file
+        # still matches its text. Those lines then get an exact verdict instead
+        # of a word-count guess - the same question the render's pre-flight
+        # answers, asked as early as the evidence allows.
+        _measured: dict = {}
+        try:
+            import subprocess as _sp
+            from pipeline import preflight as _pfm
+            _pd = config.project_dir(project)
+            _nd = _pd / "narration"
+            if _nd.is_dir():
+                _stale = set(_pfm.stale_audio(
+                    json.loads((_pd / "draft.json")
+                               .read_text(encoding="utf-8-sig")), _pd))
+                _ffp = config.ffprobe()
+                for _ln in d.lines:
+                    _lid = getattr(_ln, "id", None)
+                    if _lid is None or _lid in _stale:
+                        continue
+                    _p = _nd / f"line_{_lid:03d}.mp3"
+                    if not _p.exists():
+                        continue
+                    _dv = _pfm._audio_dur(_ffp, _p)
+                    if _dv > 0:
+                        _measured[_lid] = _dv
+        except Exception:
+            _measured = {}
+        cap = binding_capacity_check(d, shots_by_id, measured=_measured)
+        if _measured:
+            console.print(f"[dim]Binding capacity: {len(_measured)} line(s) "
+                          f"judged on their REAL audio, the rest estimated "
+                          f"from word count.[/]")
     except Exception as e:
         console.print(f"[dim]binding-capacity check unavailable: {e}[/]")
         cap = []
     violations = [c for c in cap if c["severity"] == "violation"]
     slowdowns = [c for c in cap if c["severity"] == "slowdown"]
+    at_risk = [c for c in cap if c["severity"] == "at-risk"]
+    if at_risk:
+        console.print(
+            f"[yellow][BINDING-AT-RISK][/] {len(at_risk)} line(s) fit at this "
+            f"voice's TYPICAL rate for their tag but not at the conservative "
+            f"one. Not blocking: once narration exists the pre-flight measures "
+            f"the real audio and decides. If it overruns, "
+            f"`tools/fit_narration.py` resolves it.")
+        for c in at_risk:
+            console.print(
+                f"    line {c['line_id']} ({c.get('tag') or 'normal'}): "
+                f"budget {c['narr_est']:.1f}s / typical "
+                f"{c.get('narr_typical', 0):.1f}s vs capacity "
+                f"{c['capacity']:.1f}s ({c['words']} words)")
     if slowdowns:
         console.print(
             f"[yellow][BINDING-SLOWDOWN][/] {len(slowdowns)} line(s) need mild "

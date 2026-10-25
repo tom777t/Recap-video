@@ -1,5 +1,5 @@
 TITLE: Teenager Is Shipped to Tokyo to Dodge Jail and Ends Up Owing the Yakuza a Car He Cannot Pay For
-Lines: 109   Words: 3165   Est. narration: 17.1 min @ 185 WPM [config fallback (voice not measured)]   Target: 17 min
+Lines: 109   Words: 3091   Est. narration: 16.7 min @ 185 WPM [config fallback (voice not measured)]   Target: 17 min
 ============================================================
 
 [  1] (? -> ?)  <hook> {loop}
@@ -42,10 +42,10 @@ Lines: 109   Words: 3165   Est. narration: 17.1 min @ 185 WPM [config fallback (
 [ 13] (00:11:07.581 -> 00:11:23.847)  <reveal> {stake}
       Two priors, willful destruction of property. This makes it strike three. Prison, unless there's another way.
 
-[ 14] (00:11:33.232 -> 00:11:36.232)  <sad> {loop}
-      Out in the corridor Sean asks the only question that matters to a kid who's done this before. Where are we moving this time? We're not moving anywhere, she says.
+[ 14] (00:11:33.232 -> 00:11:39.700)  <sad> {loop}
+      Out in the corridor Sean asks the only question that matters. Where are we moving this time? We're not moving anywhere, his mother says.
 
-[ 15] (00:11:36.232 -> 00:11:49.790)  <sad> {stake}
+[ 15] (00:11:39.700 -> 00:11:49.790)  <sad> {stake}
       He takes it in silence. Every time he loses, an adult relocates him.
 
 [ 16] (00:12:35.210 -> 00:12:49.057)  <normal> {stake}
@@ -66,16 +66,16 @@ Lines: 109   Words: 3165   Est. narration: 17.1 min @ 185 WPM [config fallback (
 [ 21] (00:23:14.889 -> 00:23:45.335)  <sad> {reasoning}
       He finds the girl from his class. Neela, he gets it right. Then he asks where she's really from - and her eyes drift past his shoulder, and the question trails off into the noise.
 
-[ 22] (00:24:27.294 -> 00:24:30.294)  <tense> {stake}
+[ 22] (00:24:27.294 -> 00:24:31.000)  <tense> {stake}
       A spiky-haired man in black leather rises and moves the meet, collecting cash and phones. The garage answers to him.
 
-[ 23] (00:24:30.294 -> 00:24:52.110)  <tense> {stake}
+[ 23] (00:24:31.000 -> 00:24:52.110)  <tense> {stake}
       He pulls Neela cheek to cheek to needle the newcomer, and calls Sean gaijin. His name is Takashi, and here that's a warning.
 
-[ 24] (00:25:53.380 -> 00:25:56.380)  <tense> {stake}
+[ 24] (00:25:53.380 -> 00:25:58.020)  <tense> {stake}
       Twinkie spells it out: that man is Yakuza. Sean takes it as a dare. He calls the man out, stops an inch from his face, and two words close it.
 
-[ 25] (00:25:56.380 -> 00:26:08.520)  <tense> {loop}
+[ 25] (00:25:58.020 -> 00:26:08.520)  <tense> {loop}
       Let's race.
 
 [ 26] (00:26:08.520 -> 00:26:36.381)  <reveal> {reasoning}
@@ -108,19 +108,19 @@ Lines: 109   Words: 3165   Est. narration: 17.1 min @ 185 WPM [config fallback (
 [ 35] (00:39:01.915 -> 00:39:12.884)  <tense> {stake}
       Terms land in nine seconds. Morimoto takes Han's Corolla if Sean loses; Han puts up a Skyline. Nobody asks the kid whether he can drive.
 
-[ 36] (00:39:25.355 -> 00:39:28.355)  <normal> {reasoning}
-      Then the table sends Sean out and presses Han about a shipment that hasn't arrived. Sit pretty and let me handle it, he says.
+[ 36] (00:39:25.355 -> 00:39:30.362)  <normal> {reasoning}
+      Then the table sends Sean out and presses Han about a late shipment. Sit pretty, Han says, and let me handle it.
 
-[ 37] (00:39:28.355 -> 00:39:42.830)  <normal> {judgment}
+[ 37] (00:39:30.362 -> 00:39:42.830)  <normal> {judgment}
       His eyes drop and the smile is gone. Watch who's comfortable in this room, and who's answering questions in it.
 
 [ 38] (00:40:14.195 -> 00:40:30.544)  <sad> {reasoning}
       Neela tracks him down. Stop following me around, he says. So she reads him back to himself. Army brat, moved around, so he walked around angry - and swapped his own people for a crowd of drift nuts.
 
-[ 39] (00:41:27.017 -> 00:41:30.017)  <reveal> {reasoning}
-      Driving home, Han lays out the shape of Tokyo. DK's uncle Kamata takes a cut of everyone's action and keeps the police off them.
+[ 39] (00:41:27.017 -> 00:41:33.565)  <reveal> {reasoning}
+      Driving home, Han explains how Tokyo works. DK's uncle Kamata takes a cut of everyone's action and keeps the police off them.
 
-[ 40] (00:41:30.017 -> 00:41:54.587)  <reveal> {reasoning}
+[ 40] (00:41:33.565 -> 00:41:54.587)  <reveal> {reasoning}
       Fifty percent of something beats a hundred percent of nothing. It's the uncle's turf, the uncle's cut.
 
 [ 41] (00:42:20.321 -> 00:42:28.954)  <normal> {loop}
@@ -129,10 +129,10 @@ Lines: 109   Words: 3165   Est. narration: 17.1 min @ 185 WPM [config fallback (
 [ 42] (00:44:41.420 -> 00:44:59.146)  <normal> {judgment}
       By the next party night, Twinkie is explaining the economics of the room. These women know nobody, and every man here is too scared to approach them. So you talk to the little dude who makes you laugh.
 
-[ 43] (00:46:20.059 -> 00:46:23.059)  <reveal> {reasoning}
-      Sean walks past a red Evo, then walks back to it. Han hands it over - not lends, hands.
+[ 43] (00:46:20.059 -> 00:46:24.888)  <reveal> {reasoning}
+      Sean walks past a red Evo, then walks back. Han hands it over. Not lends. Hands.
 
-[ 44] (00:46:23.059 -> 00:46:34.699)  <reveal> {reasoning}
+[ 44] (00:46:24.888 -> 00:46:34.699)  <reveal> {reasoning}
       Sean represents him now, and Han won't let his name roll around Tokyo in a Hyundai. Generosity and branding in one breath.
 
 [ 45] (00:48:18.094 -> 00:48:35.069)  <normal> {judgment}
@@ -144,11 +144,11 @@ Lines: 109   Words: 3165   Est. narration: 17.1 min @ 185 WPM [config fallback (
 [ 47] (00:51:21.067 -> 00:51:44.591)  <normal> {reasoning}
       Up on a footbridge, Sean asks Han how he ended up over here. You know those old westerns, where the cowboys run for the border? This is my Mexico.
 
-[ 48] (00:51:44.591 -> 00:51:47.591)  <reveal> {reasoning}
-      Sean asks why Han never let him race the good car. Because, Han says, one car was a fair price for learning what the kid was made of.
+[ 48] (00:51:44.591 -> 00:51:51.253)  <reveal> {reasoning}
+      Sean asks why Han never let him race the good car. One car, Han says, to learn what the kid was made of.
 
-[ 49] (00:51:47.591 -> 00:52:20.835)  <reveal> {reasoning}
-      One car, for knowing what a man is made of, is a price he can live with - and then he nods down at the crowd letting fear lead them, which is the closest this quiet man ever comes to saying a creed out loud.
+[ 49] (00:51:51.253 -> 00:52:20.835)  <reveal> {reasoning}
+      One car, for knowing what a man is made of, is a prize he can live with - and then he nods down at the crowd letting fear lead them, which is the closest this quiet man ever comes to saying a creed out loud.
 
 [ 50] (00:52:20.835 -> 00:52:37.643)  <normal> {loop}
       And when Sean asks what he drifts for, Han does not say winning. No finish line, no money, no crowd - just two cars orbiting in their own smoke. He does not drift to win. Hold that one; it comes back.
@@ -180,22 +180,22 @@ Lines: 109   Words: 3165   Est. narration: 17.1 min @ 185 WPM [config fallback (
 [ 59] (01:02:59.388 -> 01:03:12.526)  <tense> {judgment}
       Han gives him the only telling-off in this film worth quoting. He didn't just play with fire, he soaked the matches in gasoline. Pushed far past where Han can pull him back.
 
-[ 60] (01:03:28.708 -> 01:03:31.708)  <tense> {loop}
+[ 60] (01:03:28.708 -> 01:03:33.807)  <tense> {loop}
       So Neela walks straight into DK’s club still in her school uniform, past every man who is afraid of him, and says three words to his face that nobody else in Tokyo would dare.
 
-[ 61] (01:03:31.708 -> 01:03:47.519)  <tense> {rest}
+[ 61] (01:03:33.807 -> 01:03:47.519)  <tense> {rest}
       You've changed, DK.
 
-[ 62] (01:04:22.095 -> 01:04:25.095)  <sad> {rest}
-      He reaches for the thing that will land - her mother, Kabukicho - and backs her against the wall until a tear runs down her cheek. He never raises his voice.
+[ 62] (01:04:22.095 -> 01:04:27.626)  <sad> {rest}
+      He throws her mother's past in Kabukicho at her and backs her against the wall until a tear runs.
 
-[ 63] (01:04:25.095 -> 01:04:33.314)  <sad> {judgment}
+[ 63] (01:04:27.626 -> 01:04:33.314)  <sad> {judgment}
       That's the whole of his pride. Borrowed, and ugly with it.
 
-[ 64] (01:06:39.648 -> 01:06:42.648)  <tense> {rest}
-      Across town, the white suit and panama hat belong to Kamata, the uncle DK answers to. Takashi hands over the week's take and the old man sits down to the books.
+[ 64] (01:06:39.648 -> 01:06:44.294)  <tense> {rest}
+      Across town, the white suit and panama hat belong to Kamata, the uncle DK answers to. Takashi hands over the week's take and Kamata sits down to the books.
 
-[ 65] (01:06:42.648 -> 01:06:51.994)  <tense> {reasoning}
+[ 65] (01:06:44.294 -> 01:06:51.994)  <tense> {reasoning}
       He admits he doesn't understand half of it - then just keeps reading, silent.
 
 [ 66] (01:07:29.823 -> 01:07:41.823)  <reveal> {stake}
@@ -231,25 +231,25 @@ Lines: 109   Words: 3165   Est. narration: 17.1 min @ 185 WPM [config fallback (
 [ 76] (01:15:33.263 -> 01:15:50.263)  <sad> {stake}
       Takashi drives away and leaves Sean and Neela in the firelight. Sean came here to race for fun, and the bill for all of it just landed on somebody else.
 
-[ 77] (01:16:58.640 -> 01:17:01.640)  <sad> {stake}
-      Takashi waits in the dark lane with a pistol to Sean's head until his father steps out with his own gun up.
+[ 77] (01:16:58.640 -> 01:17:02.790)  <sad> {stake}
+      Takashi waits in the dark lane, pistol to Sean's head, until his father draws.
 
-[ 78] (01:17:01.640 -> 01:17:10.640)  <sad> {loop}
+[ 78] (01:17:02.790 -> 01:17:10.640)  <sad> {loop}
       Neela breaks it - she's the only thing Takashi wants, so she goes with him to get the gun off Sean. Nobody says the terms aloud.
 
 [ 79] (01:17:40.390 -> 01:17:52.390)  <sad> {reasoning}
       In the alley his father tries to take it off him. I'm your father, I'm responsible. Sean won't have it. I did this, he says. I can't run away from it. The first time Sean refuses to be moved on.
 
-[ 80] (01:19:18.696 -> 01:19:21.696)  <tense> {loop}
+[ 80] (01:19:18.696 -> 01:19:23.663)  <tense> {loop}
       In the end Sean tells Twinkie he is going to talk to Kamata himself. Twinkie stares like he has lost his mind. And Sean’s answer stops the argument cold.
 
-[ 81] (01:19:21.696 -> 01:19:30.696)  <tense> {stake}
+[ 81] (01:19:23.663 -> 01:19:32.663)  <tense> {stake}
       That's all I've got.
 
-[ 82] (01:20:10.247 -> 01:20:13.247)  <sad> {stake}
+[ 82] (01:20:10.247 -> 01:20:19.654)  <sad> {stake}
       So Twinkie pries a hidden stash out of his green minivan and shoves a satchel of banknotes at Sean - enough to buy his way through Kamata's door alive.
 
-[ 83] (01:20:13.247 -> 01:20:22.247)  <sad> {judgment}
+[ 83] (01:20:19.654 -> 01:20:28.654)  <sad> {judgment}
       The hustler with the ridiculous van is the loyalest person in this film.
 
 [ 84] (01:21:11.850 -> 01:21:23.850)  <tense> {stake}
@@ -259,7 +259,7 @@ Lines: 109   Words: 3165   Est. narration: 17.1 min @ 185 WPM [config fallback (
       Sean doesn't flinch. He came to apologize, he tells Kamata, because he and Takashi have embarrassed themselves in front of him. Takashi throws it back - after everything you've done, you're giving me orders? Kamata just lets him hang himself.
 
 [ 86] (01:23:00.709 -> 01:23:09.676)  <sad> {judgment}
-      Then the old man doesn't say a word. He just stares, and Takashi's defiance folds into a bow. One look does what no shouting could. Kamata is the only still thing in a film about motion.
+      Then Kamata doesn't say a word. He just stares, and Takashi's defiance folds into a bow. Kamata is the only still thing in a film about motion.
 
 [ 87] (01:23:09.676 -> 01:23:21.676)  <reveal> {stake}
       Sean lays out his solution. A race - he and Takashi settle it, and the loser leaves Tokyo for good. Kamata weighs it over the cigar, and says one word. Good.
@@ -267,10 +267,10 @@ Lines: 109   Words: 3165   Est. narration: 17.1 min @ 185 WPM [config fallback (
 [ 88] (01:24:06.024 -> 01:24:18.024)  <tense> {stake}
       The terms cut both ways. Win and Takashi is gone. Lose and Sean leaves the only place he's got left.
 
-[ 89] (01:25:00.036 -> 01:25:03.036)  <normal> {judgment}
+[ 89] (01:25:00.036 -> 01:25:05.854)  <normal> {judgment}
       Now the crew builds. They drop a Nissan twin-cam into a Ford's bay - the best idea the film has, and it never says a word about it.
 
-[ 90] (01:25:03.036 -> 01:25:42.036)  <normal> {reasoning}
+[ 90] (01:25:05.854 -> 01:25:42.036)  <normal> {reasoning}
       The car he races is a borrowed engine in the wreck his father found. He never did any of it alone.
 
 [ 91] (01:26:06.060 -> 01:26:18.060)  <tense> {loop}
@@ -325,7 +325,7 @@ Lines: 109   Words: 3165   Est. narration: 17.1 min @ 185 WPM [config fallback (
       Twinkie calls across the garage that Han was one of their own, and Sean's smirk fades. Then he takes the driver's seat, watches his mountain through the glass, and lines up for the next race himself.
 
 [108] (01:36:38.774 -> 01:36:50.774)  <reveal> {loop}
-      And the car that noses up beside him is no tuner coupe - it is a hulking American muscle car, and the bald man at the wheel is Dominic Toretto, come all the way from the mainland because, he says, Han was family to him. They size each other up, the wariness thaws, and Toretto grins. Then comes the warning that doubles as the film’s last word. This ain’t no ten-second race.
+      And the car that noses up beside him is no tuner coupe - it is hulking American muscle, and the man at the wheel is Dominic Toretto, and he says Han was family to him. Toretto grins. Then the film's last word. This ain't no ten-second race.
 
 [109] (01:37:10.430 -> 01:37:50.430)  <outro> {loop}
       Sean spent his whole life being moved on - new town, new school, new nobody - and he only wins the day he stops running and plants his feet on the one road everyone said he had no business on. Han, who never drifted to win, paid for that, and the film lets him stay. If that landed, tell me what to recap next, and I'll meet you at the start line.

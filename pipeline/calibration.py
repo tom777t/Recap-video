@@ -23,7 +23,7 @@ from __future__ import annotations
 import datetime as _dt
 import json
 import os
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Optional
 
@@ -40,6 +40,11 @@ class VoiceProfile:
     words_per_sec_conservative: float
     syllables_per_sec: float = 0.0
     pause_overhead_sec: float = 0.18
+    # {tag: {words_per_sec, words_per_sec_conservative, samples, ...}} measured
+    # per delivery tag. Empty when the voice has never been calibrated, in
+    # which case every tag falls back to the aggregate rate - the old
+    # behaviour, and the behaviour that produced 19 overruns on Warren.
+    by_tag: dict = field(default_factory=dict)
     # "measured"  = do that tu dau ra TTS cua CHINH giong se duoc render
     # "config-fallback" = suy ra tu config.TTS_WORDS_PER_MINUTE vi giong do
     #                     chua duoc do bao gio
@@ -55,10 +60,32 @@ class VoiceProfile:
     def words_per_minute(self) -> float:
         return self.words_per_sec * 60.0
 
-    def estimate_narration_seconds(self, text: str) -> float:
+    def rate_for(self, tag: str | None = None,
+                 conservative: bool = False) -> float:
+        """Words/sec for a delivery tag, falling back to the aggregate.
+
+        `conservative` returns the BUDGET rate (slower), which is what a
+        capacity question must use: over-estimating a line's length costs some
+        footage, under-estimating it costs a failed render.
+        """
+        key = "words_per_sec_conservative" if conservative else "words_per_sec"
+        t = str(tag or "").strip()
+        row = (self.by_tag or {}).get(t)
+        if row:
+            v = row.get(key) or row.get("words_per_sec")
+            if v:
+                return float(v)
+        agg = (self.words_per_sec_conservative if conservative
+               else self.words_per_sec)
+        return float(agg or (float(config.TTS_WORDS_PER_MINUTE) / 60.0))
+
+    def estimate_narration_seconds(self, text: str,
+                                   tag: str | None = None) -> float:
         """Best-estimate spoken length of `text` (seconds), incl. the inter-line
-        pause overhead. Uses the AGGREGATE rate (closest to reality)."""
+        pause overhead. Uses the tag's measured rate when there is one."""
         words = len(str(text).split())
+        if tag is not None:
+            return words / max(0.1, self.rate_for(tag)) + self.pause_overhead_sec
         # 2026-09-09: day tung la `or 3.5` - mot hang so DAT RA, khong do tu dau.
         # Mot truong thieu trong voice_profiles.json lang le sinh ra mot NHIP
         # THU HAI (3.5 w/s = 210 WPM) ben canh config.TTS_WORDS_PER_MINUTE=170,
@@ -68,11 +95,18 @@ class VoiceProfile:
         wps = self.words_per_sec or (float(config.TTS_WORDS_PER_MINUTE) / 60.0)
         return words / wps + self.pause_overhead_sec
 
-    def max_words_for_capacity(self, capacity_sec: float) -> int:
+    def max_words_for_capacity(self, capacity_sec: float,
+                               tag: str | None = None) -> int:
         """How many words can be spoken within `capacity_sec` WITHOUT overrunning.
-        Uses the CONSERVATIVE rate so the ceiling is safe (a line at this many
-        words is guaranteed to fit the real, faster-on-average audio)."""
+
+        Uses the CONSERVATIVE rate for the TAG, so the ceiling is safe for the
+        delivery this line will actually get. With a flat rate this returned
+        the same ceiling for a `sad` line and a `tense` one, and Warren speaks
+        those 110 WPM apart - the `sad` ceilings were the ones that overran.
+        """
         usable = max(0.0, float(capacity_sec) - self.pause_overhead_sec)
+        if tag is not None:
+            return int(usable * max(0.1, self.rate_for(tag, conservative=True)))
         wps = (self.words_per_sec_conservative or self.words_per_sec
                or (float(config.TTS_WORDS_PER_MINUTE) / 60.0))
         return int(usable * wps)
@@ -80,6 +114,51 @@ class VoiceProfile:
 
 def profile_key(voice_id: str, rate: str) -> str:
     return f"{voice_id}_{rate}"
+
+
+def production_voice_key() -> str:
+    """The profile key for the voice the pipeline will actually render with.
+
+    Derived from the TTS module's own provider selection rather than written
+    down twice, so re-pointing the production voice re-points the budget with
+    it instead of leaving a stale profile in use under a new voice.
+    """
+    try:
+        from pipeline.tts import DEFAULT_PROVIDER
+        from pipeline.tts_providers import all_providers
+        p = all_providers().get(DEFAULT_PROVIDER)
+        if p is not None:
+            return f"{p.name}-{p.voice_label}_default"
+    except Exception:
+        pass
+    return "(unknown)_default"
+
+
+def production_profile() -> VoiceProfile:
+    """Calibrated profile for the production voice, else the config fallback.
+
+    This is the one the capacity budget and DRAFT-TARGET should use: the
+    question "will this line fit" is about the voice that will speak it.
+    """
+    key = production_voice_key()
+    meta = _load_all().get(key)
+    if meta is not None:
+        vid = meta.get("voice_id") or key.rsplit("_", 1)[0]
+        rate = meta.get("rate_adjustment") or ""
+        p = load_profile(vid, rate)
+        if p is not None:
+            return p
+        return VoiceProfile(
+            voice_id=vid, rate_adjustment=rate,
+            words_per_sec=float(meta.get("words_per_sec", 0.0)),
+            words_per_sec_conservative=float(
+                meta.get("words_per_sec_conservative",
+                         meta.get("words_per_sec", 0.0))),
+            syllables_per_sec=float(meta.get("syllables_per_sec", 0.0)),
+            pause_overhead_sec=float(meta.get("pause_overhead_sec", 0.18)),
+            by_tag=dict(meta.get("by_tag") or {}),
+            source="measured")
+    return default_profile()
 
 
 def _load_all() -> dict:
@@ -116,6 +195,7 @@ def load_profile(voice_id: str, rate: str = "+22%") -> Optional[VoiceProfile]:
                               float(config.TTS_WORDS_PER_MINUTE) / 60.0))),
         syllables_per_sec=float(meta.get("syllables_per_sec", 0.0)),
         pause_overhead_sec=float(meta.get("pause_overhead_sec", 0.18)),
+        by_tag=dict(meta.get("by_tag") or {}),
         source="measured",
     )
 
@@ -182,9 +262,10 @@ def calibrate(project: str, voice_key: str, ffprobe: Optional[str] = None) -> di
             return 0.0
 
     wps, sps = [], []
+    by_tag: dict = {}
     tot_w = tot_s = tot_syl = 0
     for l in draft["lines"]:
-        if l.get("narration_silence_seconds"):
+        if l.get("narration_silence_seconds") or l.get("film_speaks_seconds"):
             continue
         text = (l.get("narration") or "").strip()
         if not text:
@@ -199,12 +280,47 @@ def calibrate(project: str, voice_key: str, ffprobe: Optional[str] = None) -> di
         syl = sum(_count_syllables(w) for w in text.split())
         wps.append(words / secs)
         sps.append(syl / secs)
+        # A line carrying a per-line rate_bump is NOT a sample of the voice's
+        # natural rate for its tag - including it would bake the fix into the
+        # baseline and quietly raise the budget for every future draft.
+        if not l.get("rate_bump"):
+            by_tag.setdefault(str(l.get("delivery") or "normal"),
+                              []).append((words, secs))
         tot_w += words
         tot_s += secs
         tot_syl += syl
 
     if not wps:
         raise RuntimeError(f"no usable TTS samples in {project}")
+
+    # ---- PER-TAG rates -----------------------------------------------------
+    # The single aggregate rate is what let the first Warren render produce 19
+    # capacity overruns. Measured on those 109 lines Warren runs 151 WPM on
+    # `sad` and 261 WPM on `tense` - a 1.7x spread - so one number was wrong in
+    # both directions at once: it over-estimated capacity on the slow tags
+    # (every large overrun was `sad` or `reveal`) and wasted footage on the
+    # fast ones. A delivery tag changes the performance; of course it changes
+    # the rate. Budget per tag.
+    tag_stats: dict = {}
+    for tag, rows in sorted(by_tag.items()):
+        each = [w / s for w, s in rows]
+        tw = sum(w for w, _ in rows)
+        ts = sum(s for _, s in rows)
+        slow = min(each)
+        mean = statistics.mean(each)
+        std = statistics.pstdev(each) if len(each) > 1 else 0.0
+        tag_stats[tag] = {
+            "samples": len(rows),
+            "words_per_sec": round(tw / ts, 3),
+            "words_per_sec_mean": round(mean, 3),
+            "words_per_sec_std": round(std, 3),
+            # The budget rate. Two samples cannot support a distribution, so
+            # with few samples fall back to the SLOWEST line seen rather than
+            # a mean-minus-sigma computed from almost nothing.
+            "words_per_sec_conservative": round(
+                (mean - 1.0 * std) if len(each) >= 5 else slow, 3),
+            "words_per_sec_slowest": round(slow, 3),
+        }
 
     stats = {
         "samples": len(wps),
@@ -215,6 +331,7 @@ def calibrate(project: str, voice_key: str, ffprobe: Optional[str] = None) -> di
         "syllables_per_sec": round(tot_syl / tot_s, 3),
         "total_words": tot_w,
         "total_speaking_sec": round(tot_s, 1),
+        "by_tag": tag_stats,
     }
 
     # 2026-09-10: ham nay TUNG chi tra ve stats roi thoi, du docstring cua no
@@ -238,6 +355,7 @@ def calibrate(project: str, voice_key: str, ffprobe: Optional[str] = None) -> di
         "words_per_sec": stats["words_per_sec"],
         "words_per_sec_conservative": stats["words_per_sec_conservative"],
         "syllables_per_sec": stats["syllables_per_sec"],
+        "by_tag": stats["by_tag"],
         "pause_overhead_sec": prev.get("pause_overhead_sec", 0.18),
         "measured_from": project,
         "measured_samples": stats["samples"],

@@ -279,6 +279,14 @@ class Line:
     # earlier event cites the beat id that event happens in, so the FACT audit
     # can verify the callback is real rather than invented.
     callback_beat: Optional[str] = None
+    # --- per-line rate multiplier, written by tools/fit_narration.py when this
+    # line's REAL audio overran its footage window by a few percent. Applied on
+    # top of the delivery tag's own rate (so a fitted `sad` line is still
+    # slower than a `tense` one) and part of the TTS cache key, so it
+    # re-synthesizes exactly this line. Stored in the draft deliberately: a
+    # bump kept in a side-file would be lost on the next render and the line
+    # would overrun again. 1.0 = untouched.
+    rate_bump: Optional[float] = None
 
     def __post_init__(self):
         if isinstance(self.claim, dict):
@@ -732,16 +740,47 @@ def load_shots(project: str):
     return shots_by_id, pool_families, problems
 
 
-def estimate_narration_seconds(words: int) -> float:
+def estimate_narration_seconds(words: int, tag: str | None = None,
+                               rate_bump: float | None = None) -> float:
     """Conservative draft-time estimate of a line's spoken length (seconds).
 
     No TTS audio exists at `recap.py draft` time, so we estimate from word count
-    using config.TTS_WORDS_PER_MINUTE plus the inter-line GAP. We deliberately
-    DO NOT discount for the faster real TTS rate here: a capacity safety check
-    should over- (not under-) estimate, so a line that JUST fits the estimate is
-    guaranteed to fit the (faster) real audio too.
+    plus the inter-line GAP. We deliberately OVER- rather than under-estimate: a
+    line that JUST fits the estimate must be guaranteed to fit the real audio.
+
+    When `tag` is given and the production voice has been CALIBRATED, this uses
+    that tag's measured conservative rate. That matters more than it looks: a
+    flat rate treated `sad` and `tense` as the same speed, and Warren speaks
+    them 110 WPM apart (151 vs 261 measured over 109 lines). The flat 185 WPM
+    over-stated capacity on every slow line, which is why the first Warren
+    render produced 19 capacity overruns and all the large ones were `sad` or
+    `reveal`. Falls back to config.TTS_WORDS_PER_MINUTE when the voice has
+    never been measured - a single baseline, never an invented second one.
     """
-    wpm = max(1.0, float(config.TTS_WORDS_PER_MINUTE))
+    # A line carrying `rate_bump` WILL be synthesized faster - the bump is part
+    # of the TTS cache key, so it is a property of the line, not a one-off. Not
+    # applying it here would make this gate permanently flag lines that the
+    # render then fits comfortably. Pauses do not scale fully with rate, so
+    # only 90% of the bump is credited (the same discount fit_narration uses).
+    _bump = 1.0
+    if rate_bump:
+        try:
+            _bump = max(1.0, 1.0 + (float(rate_bump) - 1.0) * 0.90)
+        except (TypeError, ValueError):
+            _bump = 1.0
+
+    if tag is not None:
+        try:
+            from pipeline.calibration import production_profile
+            prof = production_profile()
+            if prof.is_measured:
+                wps = prof.rate_for(tag, conservative=True)
+                if wps > 0:
+                    gap = float(getattr(config, "GAP_BETWEEN_LINES", 0.18))
+                    return max(0, int(words)) / (wps * _bump) + gap
+        except Exception:
+            pass
+    wpm = max(1.0, float(config.TTS_WORDS_PER_MINUTE)) * _bump
     gap = float(getattr(config, "GAP_BETWEEN_LINES", 0.18))
     # NARRATION_LEAD_IN is deliberately NOT added here. It looks like it should
     # be - a rendered clip is lead + narration + GAP long - but render.py
@@ -755,7 +794,8 @@ def estimate_narration_seconds(words: int) -> float:
     return (max(0, int(words)) / wpm) * 60.0 + gap
 
 
-def binding_capacity_check(draft: "Draft", shots: dict) -> list:
+def binding_capacity_check(draft: "Draft", shots: dict,
+                           measured: dict | None = None) -> list:
     """Mức 1 capacity audit. For every line bound to an explicit timed shot
     (clip_start/clip_end), check that its estimated narration fits the shot
     window within the BINDING_SLOWDOWN_MAX allowance.
@@ -808,18 +848,80 @@ def binding_capacity_check(draft: "Draft", shots: dict) -> list:
         if bad or total_dur <= 0:
             continue
 
-        narr_est = estimate_narration_seconds(words)
+        # The DELIVERY TAG is part of the capacity question, not a detail: it
+        # is what the voice is told to do, and it changes the rate by up to
+        # 1.7x. Passing it here is what turns this gate from "a line of about
+        # this many words" into "this line, spoken this way".
+        _tag = getattr(ln, "delivery", None)
+        _bump = getattr(ln, "rate_bump", None)
+        # MEASUREMENT BEATS ESTIMATION. This function exists because at draft
+        # time there is no audio - but when there IS fresh audio for a line
+        # there is no reason to estimate it. Per-line variance inside a tag is
+        # about +-25% (line 108 speaks at 2.96 w/s against a `reveal` mean of
+        # 2.56), so an estimate is simply weaker evidence, and letting it
+        # overrule a measurement produced four false hard failures on lines the
+        # real audio fits comfortably.
+        _meas = (measured or {}).get(getattr(ln, "id", None))
+        narr_est = (float(_meas) + float(getattr(config, "GAP_BETWEEN_LINES",
+                                                 0.18))
+                    if _meas else estimate_narration_seconds(words, _tag, _bump))
         capacity = total_dur * BINDING_SLOWDOWN_MAX
+
+        # TWO TIERS, because one tier made this gate lie in one direction or
+        # the other. The budget rate is deliberately ~1 sigma slower than the
+        # measured mean, so a line authored to fit its MEASURED length looks 9%
+        # over here. Failing those hard blocks renders that would have
+        # succeeded, and a gate that cries wolf gets bypassed - which is worse
+        # than no gate. So:
+        #   violation ("hard")  - will not fit even at the voice's TYPICAL rate
+        #                         for this tag. No take will save it.
+        #   at-risk ("warn")    - fits at the typical rate but not at the
+        #                         conservative one. The pre-flight decides on
+        #                         the real audio, which is the only authority
+        #                         once narration exists.
+        narr_typical = narr_est
+        try:
+            from pipeline.calibration import production_profile
+            _prof = production_profile()
+            if _prof.is_measured and _tag is not None:
+                _wps = _prof.rate_for(_tag, conservative=False)
+                if _wps > 0:
+                    _m = 1.0
+                    if _bump:
+                        _m = max(1.0, 1.0 + (float(_bump) - 1.0) * 0.90)
+                    narr_typical = words / (_wps * _m) + float(
+                        getattr(config, "GAP_BETWEEN_LINES", 0.18))
+        except Exception:
+            pass
+
         if narr_est <= total_dur:
             sev = "ok"
         elif narr_est <= capacity:
             sev = "slowdown"
-        else:
+        elif _meas:
+            # measured and genuinely over: no estimate to argue with
             sev = "violation"
+        elif narr_typical > capacity:
+            sev = "violation"
+        else:
+            sev = "at-risk"
+
+        # A line carrying `rate_bump` was fitted by tools/fit_narration.py
+        # against its REAL measured audio, with a safety margin. If its audio
+        # is now stale (the bump or the text changed, so it re-synthesizes on
+        # the next render) a word-count estimate is the weakest of the three
+        # kinds of evidence available and must not hard-block a render that the
+        # pre-flight will measure exactly. Downgrade to at-risk and let the
+        # measurement decide.
+        if sev == "violation" and not _meas and _bump:
+            sev = "at-risk"
+
         out.append({
             "line_id": ln.id, "words": words, "narr_est": narr_est,
+            "narr_typical": round(narr_typical, 2),
             "shot_dur": total_dur, "capacity": capacity, "severity": sev,
-            "n_shots": len(segs),
+            "n_shots": len(segs), "tag": _tag,
+            "measured": bool(_meas),
         })
     return out
 

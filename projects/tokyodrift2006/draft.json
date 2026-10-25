@@ -142,7 +142,8 @@
       "claim": {
         "type": "action",
         "subject": "Sean"
-      }
+      },
+      "rate_bump": 1.0699
     },
     {
       "id": 12,
@@ -172,21 +173,22 @@
     },
     {
       "id": 14,
-      "narration": "Out in the corridor Sean asks the only question that matters to a kid who's done this before. Where are we moving this time? We're not moving anywhere, she says.",
+      "narration": "Out in the corridor Sean asks the only question that matters. Where are we moving this time? We're not moving anywhere, his mother says.",
       "clip_start": "00:11:33.232",
-      "clip_end": "00:11:36.232",
+      "clip_end": "00:11:39.700",
       "note": "B13",
       "delivery": "sad",
       "payload": "loop",
       "claim": {
         "type": "speech",
         "subject": "his mother"
-      }
+      },
+      "rate_bump": 1.08
     },
     {
       "id": 15,
       "narration": "He takes it in silence. Every time he loses, an adult relocates him.",
-      "clip_start": "00:11:36.232",
+      "clip_start": "00:11:39.700",
       "clip_end": "00:11:49.790",
       "note": "B13",
       "delivery": "sad",
@@ -281,19 +283,20 @@
       "id": 22,
       "narration": "A spiky-haired man in black leather rises and moves the meet, collecting cash and phones. The garage answers to him.",
       "clip_start": "00:24:27.294",
-      "clip_end": "00:24:30.294",
+      "clip_end": "00:24:31.000",
       "note": "B28",
       "delivery": "tense",
       "payload": "stake",
       "claim": {
         "type": "speech",
         "subject": "Takashi"
-      }
+      },
+      "rate_bump": 1.042
     },
     {
       "id": 23,
       "narration": "He pulls Neela cheek to cheek to needle the newcomer, and calls Sean gaijin. His name is Takashi, and here that's a warning.",
-      "clip_start": "00:24:30.294",
+      "clip_start": "00:24:31.000",
       "clip_end": "00:24:52.110",
       "note": "B28",
       "delivery": "tense",
@@ -307,19 +310,20 @@
       "id": 24,
       "narration": "Twinkie spells it out: that man is Yakuza. Sean takes it as a dare. He calls the man out, stops an inch from his face, and two words close it.",
       "clip_start": "00:25:53.380",
-      "clip_end": "00:25:56.380",
+      "clip_end": "00:25:58.020",
       "note": "B29",
       "delivery": "tense",
       "payload": "stake",
       "claim": {
         "type": "speech",
         "subject": "Sean"
-      }
+      },
+      "rate_bump": 1.08
     },
     {
       "id": 25,
       "narration": "Let's race.",
-      "clip_start": "00:25:56.380",
+      "clip_start": "00:25:58.020",
       "clip_end": "00:26:08.520",
       "note": "B29",
       "delivery": "tense",
@@ -462,21 +466,22 @@
     },
     {
       "id": 36,
-      "narration": "Then the table sends Sean out and presses Han about a shipment that hasn't arrived. Sit pretty and let me handle it, he says.",
+      "narration": "Then the table sends Sean out and presses Han about a late shipment. Sit pretty, Han says, and let me handle it.",
       "clip_start": "00:39:25.355",
-      "clip_end": "00:39:28.355",
+      "clip_end": "00:39:30.362",
       "note": "B44",
       "delivery": "normal",
       "payload": "reasoning",
       "claim": {
         "type": "speech",
         "subject": "Han"
-      }
+      },
+      "rate_bump": 1.08
     },
     {
       "id": 37,
       "narration": "His eyes drop and the smile is gone. Watch who's comfortable in this room, and who's answering questions in it.",
-      "clip_start": "00:39:28.355",
+      "clip_start": "00:39:30.362",
       "clip_end": "00:39:42.830",
       "note": "B44",
       "delivery": "normal",
@@ -501,21 +506,22 @@
     },
     {
       "id": 39,
-      "narration": "Driving home, Han lays out the shape of Tokyo. DK's uncle Kamata takes a cut of everyone's action and keeps the police off them.",
+      "narration": "Driving home, Han explains how Tokyo works. DK's uncle Kamata takes a cut of everyone's action and keeps the police off them.",
       "clip_start": "00:41:27.017",
-      "clip_end": "00:41:30.017",
+      "clip_end": "00:41:33.565",
       "note": "B47",
       "delivery": "reveal",
       "payload": "reasoning",
       "claim": {
         "type": "dialogue",
         "subject": "Han"
-      }
+      },
+      "rate_bump": 1.08
     },
     {
       "id": 40,
       "narration": "Fifty percent of something beats a hundred percent of nothing. It's the uncle's turf, the uncle's cut.",
-      "clip_start": "00:41:30.017",
+      "clip_start": "00:41:33.565",
       "clip_end": "00:41:54.587",
       "note": "B47",
       "delivery": "reveal",
@@ -554,21 +560,22 @@
     },
     {
       "id": 43,
-      "narration": "Sean walks past a red Evo, then walks back to it. Han hands it over - not lends, hands.",
+      "narration": "Sean walks past a red Evo, then walks back. Han hands it over. Not lends. Hands.",
       "clip_start": "00:46:20.059",
-      "clip_end": "00:46:23.059",
+      "clip_end": "00:46:24.888",
       "note": "B52",
       "delivery": "reveal",
       "payload": "reasoning",
       "claim": {
         "type": "reveal",
         "subject": "Han"
-      }
+      },
+      "rate_bump": 1.08
     },
     {
       "id": 44,
       "narration": "Sean represents him now, and Han won't let his name roll around Tokyo in a Hyundai. Generosity and branding in one breath.",
-      "clip_start": "00:46:23.059",
+      "clip_start": "00:46:24.888",
       "clip_end": "00:46:34.699",
       "note": "B52",
       "delivery": "reveal",
@@ -619,21 +626,22 @@
     },
     {
       "id": 48,
-      "narration": "Sean asks why Han never let him race the good car. Because, Han says, one car was a fair price for learning what the kid was made of.",
+      "narration": "Sean asks why Han never let him race the good car. One car, Han says, to learn what the kid was made of.",
       "clip_start": "00:51:44.591",
-      "clip_end": "00:51:47.591",
+      "clip_end": "00:51:51.253",
       "note": "B57",
       "delivery": "reveal",
       "payload": "reasoning",
       "claim": {
         "type": "speech",
         "subject": "Han"
-      }
+      },
+      "rate_bump": 1.08
     },
     {
       "id": 49,
-      "narration": "One car, for knowing what a man is made of, is a price he can live with - and then he nods down at the crowd letting fear lead them, which is the closest this quiet man ever comes to saying a creed out loud.",
-      "clip_start": "00:51:47.591",
+      "narration": "One car, for knowing what a man is made of, is a prize he can live with - and then he nods down at the crowd letting fear lead them, which is the closest this quiet man ever comes to saying a creed out loud.",
+      "clip_start": "00:51:51.253",
       "clip_end": "00:52:20.835",
       "note": "B57",
       "delivery": "reveal",
@@ -707,7 +715,8 @@
       "claim": {
         "type": "setup",
         "subject": "Neela"
-      }
+      },
+      "rate_bump": 1.0559
     },
     {
       "id": 55,
@@ -778,19 +787,20 @@
       "id": 60,
       "narration": "So Neela walks straight into DK’s club still in her school uniform, past every man who is afraid of him, and says three words to his face that nobody else in Tokyo would dare.",
       "clip_start": "01:03:28.708",
-      "clip_end": "01:03:31.708",
+      "clip_end": "01:03:33.807",
       "note": "B69",
       "delivery": "tense",
       "payload": "loop",
       "claim": {
         "type": "speech",
         "subject": "Neela"
-      }
+      },
+      "rate_bump": 1.08
     },
     {
       "id": 61,
       "narration": "You've changed, DK.",
-      "clip_start": "01:03:31.708",
+      "clip_start": "01:03:33.807",
       "clip_end": "01:03:47.519",
       "note": "B69",
       "delivery": "tense",
@@ -802,21 +812,22 @@
     },
     {
       "id": 62,
-      "narration": "He reaches for the thing that will land - her mother, Kabukicho - and backs her against the wall until a tear runs down her cheek. He never raises his voice.",
+      "narration": "He throws her mother's past in Kabukicho at her and backs her against the wall until a tear runs.",
       "clip_start": "01:04:22.095",
-      "clip_end": "01:04:25.095",
+      "clip_end": "01:04:27.626",
       "note": "B70",
       "delivery": "sad",
       "payload": "rest",
       "claim": {
         "type": "speech",
         "subject": "DK"
-      }
+      },
+      "rate_bump": 1.08
     },
     {
       "id": 63,
       "narration": "That's the whole of his pride. Borrowed, and ugly with it.",
-      "clip_start": "01:04:25.095",
+      "clip_start": "01:04:27.626",
       "clip_end": "01:04:33.314",
       "note": "B70",
       "delivery": "sad",
@@ -828,21 +839,22 @@
     },
     {
       "id": 64,
-      "narration": "Across town, the white suit and panama hat belong to Kamata, the uncle DK answers to. Takashi hands over the week's take and the old man sits down to the books.",
+      "narration": "Across town, the white suit and panama hat belong to Kamata, the uncle DK answers to. Takashi hands over the week's take and Kamata sits down to the books.",
       "clip_start": "01:06:39.648",
-      "clip_end": "01:06:42.648",
+      "clip_end": "01:06:44.294",
       "note": "B72",
       "delivery": "tense",
       "payload": "rest",
       "claim": {
         "type": "speech",
         "subject": "Kamata"
-      }
+      },
+      "rate_bump": 1.08
     },
     {
       "id": 65,
       "narration": "He admits he doesn't understand half of it - then just keeps reading, silent.",
-      "clip_start": "01:06:42.648",
+      "clip_start": "01:06:44.294",
       "clip_end": "01:06:51.994",
       "note": "B72",
       "delivery": "tense",
@@ -999,21 +1011,22 @@
     },
     {
       "id": 77,
-      "narration": "Takashi waits in the dark lane with a pistol to Sean's head until his father steps out with his own gun up.",
+      "narration": "Takashi waits in the dark lane, pistol to Sean's head, until his father draws.",
       "clip_start": "01:16:58.640",
-      "clip_end": "01:17:01.640",
-      "note": "B82",
+      "clip_end": "01:17:02.790",
+      "note": "B81",
       "delivery": "sad",
       "payload": "stake",
       "claim": {
         "type": "action",
         "subject": "Neela"
-      }
+      },
+      "rate_bump": 1.08
     },
     {
       "id": 78,
       "narration": "Neela breaks it - she's the only thing Takashi wants, so she goes with him to get the gun off Sean. Nobody says the terms aloud.",
-      "clip_start": "01:17:01.640",
+      "clip_start": "01:17:02.790",
       "clip_end": "01:17:10.640",
       "note": "B82",
       "delivery": "sad",
@@ -1040,7 +1053,7 @@
       "id": 80,
       "narration": "In the end Sean tells Twinkie he is going to talk to Kamata himself. Twinkie stares like he has lost his mind. And Sean’s answer stops the argument cold.",
       "clip_start": "01:19:18.696",
-      "clip_end": "01:19:21.696",
+      "clip_end": "01:19:23.663",
       "note": "B86",
       "delivery": "tense",
       "payload": "loop",
@@ -1048,13 +1061,14 @@
         "type": "speech",
         "subject": "Sean"
       },
-      "bridge": true
+      "bridge": true,
+      "rate_bump": 1.024
     },
     {
       "id": 81,
       "narration": "That's all I've got.",
-      "clip_start": "01:19:21.696",
-      "clip_end": "01:19:30.696",
+      "clip_start": "01:19:23.663",
+      "clip_end": "01:19:32.663",
       "note": "B86",
       "delivery": "tense",
       "payload": "stake",
@@ -1067,20 +1081,21 @@
       "id": 82,
       "narration": "So Twinkie pries a hidden stash out of his green minivan and shoves a satchel of banknotes at Sean - enough to buy his way through Kamata's door alive.",
       "clip_start": "01:20:10.247",
-      "clip_end": "01:20:13.247",
+      "clip_end": "01:20:19.654",
       "note": "B87",
       "delivery": "sad",
       "payload": "stake",
       "claim": {
         "type": "action",
         "subject": "Twinkie"
-      }
+      },
+      "rate_bump": 1.026
     },
     {
       "id": 83,
       "narration": "The hustler with the ridiculous van is the loyalest person in this film.",
-      "clip_start": "01:20:13.247",
-      "clip_end": "01:20:22.247",
+      "clip_start": "01:20:19.654",
+      "clip_end": "01:20:28.654",
       "note": "B87",
       "delivery": "sad",
       "payload": "judgment",
@@ -1117,7 +1132,7 @@
     },
     {
       "id": 86,
-      "narration": "Then the old man doesn't say a word. He just stares, and Takashi's defiance folds into a bow. One look does what no shouting could. Kamata is the only still thing in a film about motion.",
+      "narration": "Then Kamata doesn't say a word. He just stares, and Takashi's defiance folds into a bow. Kamata is the only still thing in a film about motion.",
       "clip_start": "01:23:00.709",
       "clip_end": "01:23:09.676",
       "note": "B90",
@@ -1126,7 +1141,8 @@
       "claim": {
         "type": "reaction",
         "subject": "Takashi"
-      }
+      },
+      "rate_bump": 1.08
     },
     {
       "id": 87,
@@ -1158,19 +1174,20 @@
       "id": 89,
       "narration": "Now the crew builds. They drop a Nissan twin-cam into a Ford's bay - the best idea the film has, and it never says a word about it.",
       "clip_start": "01:25:00.036",
-      "clip_end": "01:25:03.036",
+      "clip_end": "01:25:05.854",
       "note": "B93",
       "delivery": "normal",
       "payload": "judgment",
       "claim": {
         "type": "action",
         "subject": "the crew"
-      }
+      },
+      "rate_bump": 1.0715
     },
     {
       "id": 90,
       "narration": "The car he races is a borrowed engine in the wreck his father found. He never did any of it alone.",
-      "clip_start": "01:25:03.036",
+      "clip_start": "01:25:05.854",
       "clip_end": "01:25:42.036",
       "note": "B93",
       "delivery": "normal",
@@ -1308,7 +1325,8 @@
       "claim": {
         "type": "reveal",
         "subject": "Sean"
-      }
+      },
+      "rate_bump": 1.0374
     },
     {
       "id": 101,
@@ -1404,7 +1422,7 @@
     },
     {
       "id": 108,
-      "narration": "And the car that noses up beside him is no tuner coupe - it is a hulking American muscle car, and the bald man at the wheel is Dominic Toretto, come all the way from the mainland because, he says, Han was family to him. They size each other up, the wariness thaws, and Toretto grins. Then comes the warning that doubles as the film’s last word. This ain’t no ten-second race.",
+      "narration": "And the car that noses up beside him is no tuner coupe - it is hulking American muscle, and the man at the wheel is Dominic Toretto, and he says Han was family to him. Toretto grins. Then the film's last word. This ain't no ten-second race.",
       "clip_start": "01:36:38.774",
       "clip_end": "01:36:50.774",
       "note": "B108",
@@ -1413,7 +1431,8 @@
       "claim": {
         "type": "reveal",
         "subject": "the bald man in the white tee"
-      }
+      },
+      "rate_bump": 1.08
     },
     {
       "id": 109,

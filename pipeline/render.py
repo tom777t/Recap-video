@@ -1149,6 +1149,29 @@ def render(project: str, draft: dict,
     else:
         console.print("[dim]Film audio: disabled in config.[/]")
 
+    # ---- CAPACITY PRE-FLIGHT, before a single clip is built -----------------
+    # The binding contract used to be enforced inside the clip loop, so the
+    # FIRST overrunning line raised BindingViolation and the rest stayed
+    # invisible - a 19-line problem presented as one line, nineteen times. All
+    # the narration exists by now, so the question can be answered exactly, for
+    # every line, here. The in-loop check stays as a backstop (a cached clip
+    # could otherwise bypass this), but it should never be the thing that fires.
+    from pipeline import preflight as _pf
+    # If any line's audio no longer matches its text, this render is being run
+    # against a draft whose narration was regenerated - judging the old audio
+    # would report overruns that no longer exist. In a normal render the TTS
+    # pass has already re-synthesized them, so this is a safety net for a
+    # render driven from pre-existing files.
+    _stale = _pf.stale_audio(draft, pdir)
+    if _stale:
+        console.print(f"[yellow]Pre-flight:[/] {len(_stale)} line(s) have audio "
+                      f"that does not match their current text "
+                      f"({_stale[:10]}{'...' if len(_stale) > 10 else ''}) - "
+                      f"not judging those; they re-synthesize on this run.")
+    _pf_find = _pf.capacity_findings(draft, narration, ffp, skip_ids=_stale)
+    if not _pf.report(_pf_find, project):
+        sys.exit(1)
+
     # ---- cut list, for 2f picture splitting ------------------------------
     # Splitting only ever happens AT A REAL CUT. With no cut data, long lines
     # render as single clips - which is the old behaviour, and is correct: a
