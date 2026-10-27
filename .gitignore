@@ -53,3 +53,10 @@ projects/_selftest_*/
 references/
 
 projects/*/_briefs/
+
+# Demucs stems: a full-length no-vocals wav is ~1 GB and is regenerable from
+# source.mp4 with `python -m pipeline.stems --project NAME`. Never commit it.
+projects/*/stems/
+# Scratch commit-message files
+_c.txt
+_commitmsg.txt
