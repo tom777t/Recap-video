@@ -402,12 +402,55 @@ CAPTION_FADE_MS = 120           # fade/animation duration in ms
 # or flip this to True to make them the default.
 DEFAULT_CAPTIONS = False
 
-# Output video
+# --------------------------------------------------------------------------- #
+# Output video - THE PICTURE-QUALITY CONTRACT
+# --------------------------------------------------------------------------- #
+# These are locked by pipeline/quality.py and tools/test_quality.py. Changing a
+# value here without changing the expected contract there fails the test, on
+# purpose: picture quality regressed silently once and nobody could say which
+# setting had moved.
+#
+# WHAT THESE DO AND DO NOT BUY YOU
+# A recap is only ever as sharp as its SOURCE. tokyodrift2006's source.mp4 is
+# 1280x544 (a 2.35:1 scope transfer), so the 1080p output is a 1.50x UPSCALE to
+# 1920x816 inside a padded 1920x1080 frame. No encoder setting adds detail that
+# was never captured. 1080p is still the right container - YouTube gives a
+# 1080p upload a better bitrate ladder than a 720p one - but do not read
+# "1920x1080" as "this is a 1080p picture".
 OUTPUT_WIDTH = 1920
 OUTPUT_HEIGHT = 1080
 OUTPUT_FPS = 30
 VIDEO_CRF = 20                  # lower = better quality / bigger file
-VIDEO_PRESET = "medium"
+VIDEO_PRESET = "medium"         # FINAL encode only
+
+# A frame is encoded THREE times on its way to final.mp4: clip -> xfade concat
+# -> music mix. All three used to run at CRF 20, so the two intermediates threw
+# away detail that the final encode could never recover - generation loss on a
+# source that is already being upscaled 1.5x. Intermediates are now near-
+# transparent and only the LAST encode is sized for delivery.
+VIDEO_CRF_INTERMEDIATE = 16
+VIDEO_PRESET_INTERMEDIATE = "veryfast"
+
+# swscale algorithm. ffmpeg's default is bicubic; on a 1.5x upscale lanczos
+# holds edges visibly better, which is most of what "looks sharper" means here.
+VIDEO_SCALER = "lanczos"
+VIDEO_PIX_FMT = "yuv420p"       # 8-bit 4:2:0 - required for broad playback
+
+# The contract pipeline/quality.py asserts on the finished file.
+RENDER_QUALITY_CONTRACT = {
+    "width": OUTPUT_WIDTH,
+    "height": OUTPUT_HEIGHT,
+    "fps": OUTPUT_FPS,
+    "pix_fmt": VIDEO_PIX_FMT,
+    "codec": "h264",
+}
+# Bitrate is deliberately NOT in the contract. Under CRF the bitrate is an
+# OUTPUT that tracks scene complexity - a dark or static stretch legitimately
+# encodes small - so a floor conflates "simple picture" with "broken encode".
+# It false-fired on a flat test pattern at 281 kbit/s. Reported for information
+# only; the format checks above are what actually catch a fallback encode.
+# (Measured reference: CRF 20 at 1080p30 on tokyodrift2006 = 2.77 Mbit/s.)
+RENDER_BITRATE_REFERENCE_KBPS = 2774
 
 
 # --------------------------------------------------------------------------- #

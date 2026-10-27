@@ -42,10 +42,10 @@ Lines: 109   Words: 3091   Est. narration: 16.7 min @ 185 WPM [config fallback (
 [ 13] (00:11:07.581 -> 00:11:23.847)  <reveal> {stake}
       Two priors, willful destruction of property. This makes it strike three. Prison, unless there's another way.
 
-[ 14] (00:11:33.232 -> 00:11:39.700)  <sad> {loop}
+[ 14] (00:11:33.232 -> 00:11:40.140)  <sad> {loop}
       Out in the corridor Sean asks the only question that matters. Where are we moving this time? We're not moving anywhere, his mother says.
 
-[ 15] (00:11:39.700 -> 00:11:49.790)  <sad> {stake}
+[ 15] (00:11:40.140 -> 00:11:49.790)  <sad> {stake}
       He takes it in silence. Every time he loses, an adult relocates him.
 
 [ 16] (00:12:35.210 -> 00:12:49.057)  <normal> {stake}
@@ -129,10 +129,10 @@ Lines: 109   Words: 3091   Est. narration: 16.7 min @ 185 WPM [config fallback (
 [ 42] (00:44:41.420 -> 00:44:59.146)  <normal> {judgment}
       By the next party night, Twinkie is explaining the economics of the room. These women know nobody, and every man here is too scared to approach them. So you talk to the little dude who makes you laugh.
 
-[ 43] (00:46:20.059 -> 00:46:24.888)  <reveal> {reasoning}
+[ 43] (00:46:20.059 -> 00:46:25.280)  <reveal> {reasoning}
       Sean walks past a red Evo, then walks back. Han hands it over. Not lends. Hands.
 
-[ 44] (00:46:24.888 -> 00:46:34.699)  <reveal> {reasoning}
+[ 44] (00:46:25.280 -> 00:46:34.699)  <reveal> {reasoning}
       Sean represents him now, and Han won't let his name roll around Tokyo in a Hyundai. Generosity and branding in one breath.
 
 [ 45] (00:48:18.094 -> 00:48:35.069)  <normal> {judgment}
@@ -231,10 +231,10 @@ Lines: 109   Words: 3091   Est. narration: 16.7 min @ 185 WPM [config fallback (
 [ 76] (01:15:33.263 -> 01:15:50.263)  <sad> {stake}
       Takashi drives away and leaves Sean and Neela in the firelight. Sean came here to race for fun, and the bill for all of it just landed on somebody else.
 
-[ 77] (01:16:58.640 -> 01:17:02.790)  <sad> {stake}
+[ 77] (01:16:58.640 -> 01:17:02.933)  <sad> {stake}
       Takashi waits in the dark lane, pistol to Sean's head, until his father draws.
 
-[ 78] (01:17:02.790 -> 01:17:10.640)  <sad> {loop}
+[ 78] (01:17:02.933 -> 01:17:10.640)  <sad> {loop}
       Neela breaks it - she's the only thing Takashi wants, so she goes with him to get the gun off Sean. Nobody says the terms aloud.
 
 [ 79] (01:17:40.390 -> 01:17:52.390)  <sad> {reasoning}

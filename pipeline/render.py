@@ -159,6 +159,7 @@ def _build_clip(ff: str, source: Path, start: float, end: float,
         if lead_in is None else float(lead_in)
     clip_len = max(lead + narr_dur + GAP, hold)
     w, h, fps = config.OUTPUT_WIDTH, config.OUTPUT_HEIGHT, config.OUTPUT_FPS
+    _SCALER = config.VIDEO_SCALER
     nf = config.NARRATION_FADE
 
     # ---- Mức 1: fit footage to narration via trim or mild slow-motion -------
@@ -208,7 +209,7 @@ def _build_clip(ff: str, source: Path, start: float, end: float,
 
     base = (
         f"{crop}{slowmo}{expo}"
-        f"scale={w}:{h}:force_original_aspect_ratio=decrease,"
+        f"scale={w}:{h}:force_original_aspect_ratio=decrease:flags={_SCALER},"
         f"pad={w}:{h}:(ow-iw)/2:(oh-ih)/2:black,setsar=1,fps={fps}"
     )
 
@@ -373,7 +374,7 @@ def _build_clip(ff: str, source: Path, start: float, end: float,
                 _m = (f",zoompan=z='{_ze}':d=1:x='iw/2-(iw/zoom/2)':"
                       f"y='ih/2-(ih/zoom/2)':s={w}x{h}:fps={fps}")
             vparts.append(
-                f"[{_i}:v]{crop}{expo}scale={w}:{h}:"
+                f"[{_i}:v]{crop}{expo}scale={w}:{h}:flags={_SCALER}:"
                 f"force_original_aspect_ratio=decrease,"
                 f"pad={w}:{h}:(ow-iw)/2:(oh-ih)/2:black,setsar=1,fps={fps}{_m},"
                 f"tpad=stop_mode=clone:stop_duration={_share:.3f},"
@@ -413,8 +414,9 @@ def _build_clip(ff: str, source: Path, start: float, end: float,
         "-filter_complex", graph,
         "-map", "[v]", "-map", "[a]",
         "-t", f"{clip_len:.3f}",
-        "-c:v", "libx264", "-preset", "veryfast",
-        "-crf", str(config.VIDEO_CRF), "-pix_fmt", "yuv420p",
+        "-c:v", "libx264", "-preset", config.VIDEO_PRESET_INTERMEDIATE,
+        "-crf", str(config.VIDEO_CRF_INTERMEDIATE),
+        "-pix_fmt", config.VIDEO_PIX_FMT,
         "-c:a", "aac", "-b:a", "192k", "-ar", "48000", "-ac", "2",
         str(out),
     ]
@@ -446,6 +448,7 @@ def _build_silence_clip(ff: str, source: Path, start: float, end: float,
     """
     clip_len = float(silence_dur)
     w, h, fps = config.OUTPUT_WIDTH, config.OUTPUT_HEIGHT, config.OUTPUT_FPS
+    _SCALER = config.VIDEO_SCALER
 
     crop = ""
     if crop_top and 0.0 < crop_top < 0.5:
@@ -456,7 +459,7 @@ def _build_silence_clip(ff: str, source: Path, start: float, end: float,
         expo = f"eq=brightness={e*0.6:.3f}:gamma={1.0+e:.3f}:saturation={1.0+e*0.5:.3f},"
     base = (
         f"{crop}{expo}"
-        f"scale={w}:{h}:force_original_aspect_ratio=decrease,"
+        f"scale={w}:{h}:force_original_aspect_ratio=decrease:flags={_SCALER},"
         f"pad={w}:{h}:(ow-iw)/2:(oh-ih)/2:black,setsar=1,fps={fps}"
     )
 
@@ -535,8 +538,9 @@ def _build_silence_clip(ff: str, source: Path, start: float, end: float,
         "-filter_complex", graph,
         "-map", "[v]", "-map", a_map,
         "-t", f"{clip_len:.3f}",
-        "-c:v", "libx264", "-preset", "veryfast",
-        "-crf", str(config.VIDEO_CRF), "-pix_fmt", "yuv420p",
+        "-c:v", "libx264", "-preset", config.VIDEO_PRESET_INTERMEDIATE,
+        "-crf", str(config.VIDEO_CRF_INTERMEDIATE),
+        "-pix_fmt", config.VIDEO_PIX_FMT,
         "-c:a", "aac", "-b:a", "192k", "-ar", "48000", "-ac", "2",
         str(out),
     ]
@@ -562,6 +566,7 @@ def _build_montage_clip(ff: str, source: Path, segments: list[tuple[float, float
     max(narration + GAP, hold) split EQUALLY across the sub-shots.
     """
     w, h, fps = config.OUTPUT_WIDTH, config.OUTPUT_HEIGHT, config.OUTPUT_FPS
+    _SCALER = config.VIDEO_SCALER
     nf = config.NARRATION_FADE
     k = max(1, len(segments))
 
@@ -600,7 +605,7 @@ def _build_montage_clip(ff: str, source: Path, segments: list[tuple[float, float
         motion = (f",zoompan=z='{zexpr}':d=1:x='iw/2-(iw/zoom/2)':"
                   f"y='ih/2-(ih/zoom/2)':s={w}x{h}:fps={fps}") if config.MOTION_ENABLE else ""
         vparts.append(
-            f"[{i}:v]scale={w}:{h}:force_original_aspect_ratio=decrease,"
+            f"[{i}:v]scale={w}:{h}:force_original_aspect_ratio=decrease:flags={_SCALER},"
             f"pad={w}:{h}:(ow-iw)/2:(oh-ih)/2:black,setsar=1,fps={fps}{motion},"
             f"tpad=stop_mode=clone:stop_duration={seg_len:.3f},"
             f"trim=duration={seg_len:.3f},setpts=PTS-STARTPTS[v{i}]"
@@ -626,8 +631,9 @@ def _build_montage_clip(ff: str, source: Path, segments: list[tuple[float, float
         "-filter_complex", f"{vchain};{af}",
         "-map", "[v]", "-map", "[a]",
         "-t", f"{clip_len:.3f}",
-        "-c:v", "libx264", "-preset", "veryfast",
-        "-crf", str(config.VIDEO_CRF), "-pix_fmt", "yuv420p",
+        "-c:v", "libx264", "-preset", config.VIDEO_PRESET_INTERMEDIATE,
+        "-crf", str(config.VIDEO_CRF_INTERMEDIATE),
+        "-pix_fmt", config.VIDEO_PIX_FMT,
         "-c:a", "aac", "-b:a", "192k", "-ar", "48000", "-ac", "2",
         str(out),
     ]
@@ -715,8 +721,9 @@ def _xfade_single(ff: str, clips: list[tuple[Path, float]], out: Path) -> float:
         ff, "-y", *inputs,
         "-filter_complex", filtergraph,
         "-map", f"[{prev_v}]", "-map", f"[{prev_a}]",
-        "-c:v", "libx264", "-preset", "veryfast",
-        "-crf", str(config.VIDEO_CRF), "-pix_fmt", "yuv420p",
+        "-c:v", "libx264", "-preset", config.VIDEO_PRESET_INTERMEDIATE,
+        "-crf", str(config.VIDEO_CRF_INTERMEDIATE),
+        "-pix_fmt", config.VIDEO_PIX_FMT,
         "-c:a", "aac", "-b:a", "192k",
         str(out),
     ]
@@ -1156,6 +1163,10 @@ def render(project: str, draft: dict,
     # the narration exists by now, so the question can be answered exactly, for
     # every line, here. The in-loop check stays as a backstop (a cached clip
     # could otherwise bypass this), but it should never be the thing that fires.
+    # ---- what the source can actually fill, said out loud -------------------
+    from pipeline import quality as _q
+    _q.report_source(ffp, source)
+
     from pipeline import preflight as _pf
     # If any line's audio no longer matches its text, this render is being run
     # against a draft whose narration was regenerated - judging the old audio
@@ -1600,7 +1611,8 @@ def render(project: str, draft: dict,
             cmd += ["-af", af]
         cmd += [
             "-c:v", "libx264", "-preset", config.VIDEO_PRESET,
-            "-crf", str(config.VIDEO_CRF), "-pix_fmt", "yuv420p",
+            "-crf", str(config.VIDEO_CRF),
+        "-pix_fmt", config.VIDEO_PIX_FMT,
             "-c:a", "aac", "-b:a", "192k",
             str(final),
         ]
@@ -1729,6 +1741,19 @@ def render(project: str, draft: dict,
         else:
             console.print(f"[dim][RENDER-CHECK] position: {detail} "
                           f"(tolerance {POSITION_TOLERANCE:.2f}s).[/]")
+
+    # ---- picture-quality contract on the FINISHED file ----------------------
+    # Every other check here asks whether the render matches the draft. This one
+    # asks whether it matches the format it is supposed to be in - resolution,
+    # frame rate, pix_fmt, codec, and a bitrate floor that catches an encode
+    # that quietly fell back. See pipeline/quality.py for what actually governs
+    # picture quality (the source, and how much slow-motion, before any flag).
+    _qok, _qbad = _q.check_output(ffp, final)
+    if _qok:
+        _q.report(ffp, final)
+    else:
+        for _b in _qbad:
+            problems.append(f"quality contract: {_b}")
 
     if problems:
         console.print("[red][RENDER-CHECK][/] the render does not match the draft:")
@@ -2029,7 +2054,8 @@ def _render_with_music(ff: str, av: Path, music: Path, ass_filter: str | None,
         "-map", vmap, "-map", "[aout]",
         "-t", f"{total_dur:.3f}",
         "-c:v", "libx264", "-preset", config.VIDEO_PRESET,
-        "-crf", str(config.VIDEO_CRF), "-pix_fmt", "yuv420p",
+        "-crf", str(config.VIDEO_CRF),
+        "-pix_fmt", config.VIDEO_PIX_FMT,
         "-c:a", "aac", "-b:a", "192k",
         str(final),
     ]

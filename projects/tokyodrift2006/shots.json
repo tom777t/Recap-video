@@ -6082,7 +6082,7 @@
         "discovery"
       ],
       "action": "The orange car settles upside down against a kerb, a loose tyre rolling clear. Camera pushes under the wreck to find the trapped driver motionless; the woman with long dark hair climbs out of a car nearby to look.",
-      "censor": "blur_light",
+      "censor": "none",
       "raw_duration_sec": 9.135,
       "extendable": true,
       "stretch_tolerance": 1.4,
