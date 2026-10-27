@@ -235,8 +235,10 @@ def cmd_render(args):
     _r = draft if isinstance(draft, dict) else {}
     _fatal = []
     if _r.get("binding_violations"):
+        from pipeline.schemas import BINDING_SLOWDOWN_MAX as _SM
         _fatal.append(f"{_r['binding_violations']} BINDING-VIOLATION(s) - "
-                      f"line(s) exceed their shot capacity and would freeze")
+                      f"line(s) exceed {_SM:.2f}x shot capacity and would "
+                      f"freeze")
     if _r.get("reveal_hits"):
         _fatal.append(f"{_r['reveal_hits']} REVEAL-TIMING hit(s) - a protected "
                       f"term appears before its landing beat")

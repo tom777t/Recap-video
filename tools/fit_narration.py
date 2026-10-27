@@ -159,7 +159,7 @@ def _host_of(shots: list, a: float) -> tuple[float, float, str] | None:
 # strategy (a): widen / re-allocate inside the host shot
 # --------------------------------------------------------------------------- #
 def plan_widen(draft: dict, pdir: Path, project: str,
-               durs: dict) -> tuple[dict, list]:
+               durs: dict, src_dur: float = 0.0) -> tuple[dict, list]:
     """Re-allocate window boundaries inside each host shot.
 
     Returns ({line_id: (new_start, new_end)}, [notes]). Only lines that need a
@@ -212,20 +212,33 @@ def plan_widen(draft: dict, pdir: Path, project: str,
         span_lo = min(m["a"] for m in members)
         limit = he
 
-        # A window that ALREADY runs past the host shot is grandfathered: it was
-        # authored that way and the render accepts it. Clamping it back to the
-        # shot boundary here would be this tool making a line WORSE - it did
-        # exactly that to line 108, cutting 12.00s to 7.88s and turning a 1.46x
-        # problem into a 2.24x one.
-        limit = max(limit, max(m["b"] for m in members))
+        # MULTI-SHOT EXTENSION (2026-10-27). This used to stop at the host
+        # shot's end, on the reasoning that crossing a real cut changes the
+        # picture mid-line. With BINDING_SLOWDOWN_MAX cut to 1.15 that
+        # reasoning inverts: the alternative to crossing a cut is stretching
+        # one shot, and setpts stretching is frame duplication that reads as
+        # judder. Real footage with a real cut in it is better picture than the
+        # same shot slowed down, so a window may now run on across the
+        # following cuts - which is what multi-shot binding means. The limit is
+        # the NEXT BOUND LINE, not the next cut.
+        #
+        # A window that ALREADY runs past its host shot stays grandfathered;
+        # clamping it back made a line worse (line 108 went from a 1.46x
+        # problem to 2.24x when it was cut from 12.00s to 7.88s).
+        limit = max(he, max(m["b"] for m in members))
         for r in bound:
-            if r["a"] >= members[-1]["b"] and not (hs - 0.6 <= r["a"] < he):
+            if r["a"] >= members[-1]["b"]:
                 limit = min(limit, r["a"])
                 break
+        # A reveal landing is still absolute: footage from after a reveal lands
+        # shows the reveal, and pulling it under an earlier line puts the twist
+        # on screen before the narration gets there.
         for L in lands:
             if L > span_lo:
                 limit = min(limit, L)
                 break
+        if src_dur:
+            limit = min(limit, float(src_dur))
 
         need = {m["id"]: required_window(durs.get(m["id"], 0.0))
                 for m in members}
@@ -363,7 +376,19 @@ def main() -> int:
     actions: dict = {}
 
     # ---- (a) widen inside the host shot ---------------------------------- #
-    widen, notes = plan_widen(draft, pdir, a.project, durs)
+    # Source duration bounds any extension: a window may not run off the end
+    # of the film.
+    _src_dur = 0.0
+    try:
+        import subprocess as _sp
+        _r = _sp.run([config.ffprobe(), "-v", "error", "-show_entries",
+                      "format=duration", "-of", "default=nw=1:nk=1",
+                      str(pdir / "source.mp4")], capture_output=True, text=True)
+        _src_dur = float((_r.stdout or "0").strip())
+    except Exception:
+        _src_dur = 0.0
+
+    widen, notes = plan_widen(draft, pdir, a.project, durs, src_dur=_src_dur)
     for n in notes:
         console.print(f"[yellow]  note: {n}[/]")
 

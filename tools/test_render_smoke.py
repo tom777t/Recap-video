@@ -240,6 +240,28 @@ def _teardown() -> None:
     shutil.rmtree(Path(config.project_dir(PROJ)), ignore_errors=True)
 
 
+def _no_stems():
+    """Turn stem separation OFF for the fixture, and restore it after.
+
+    The fixture's "film" is an ffmpeg test pattern with a sine tone - there is
+    no dialogue in it to separate, and running Demucs would add minutes to a
+    test that exists to check the render PATH. The stem gate itself is covered
+    by tools/test_stems.py.
+
+    Returns a restore callable. Note this sets FILM_AUDIO_USE_STEMS rather than
+    FILM_AUDIO_REQUIRE_STEMS: the point is to skip separation entirely, not to
+    exercise the degraded muted path.
+    """
+    prev = (getattr(config, "FILM_AUDIO_USE_STEMS", False),
+            getattr(config, "FILM_AUDIO_REQUIRE_STEMS", True))
+    config.FILM_AUDIO_USE_STEMS = False
+    config.FILM_AUDIO_REQUIRE_STEMS = False
+
+    def restore():
+        config.FILM_AUDIO_USE_STEMS, config.FILM_AUDIO_REQUIRE_STEMS = prev
+    return restore
+
+
 def _stub_intro_tts():
     """Make the intro block build OFFLINE.
 
@@ -270,6 +292,7 @@ def test_smoke() -> tuple[bool, str]:
     from pipeline.render import render
     from pipeline import intro as _intro
     orig = _stub_intro_tts()
+    _restore_stems = _no_stems()
     try:
         pdir, draft = _setup()
         narration = _narration_for(pdir, draft["lines"])
@@ -299,6 +322,7 @@ def test_smoke() -> tuple[bool, str]:
                       f"above: synthetic narration has no speech envelope)")
     finally:
         _intro._tts_line = orig
+        _restore_stems()
         _teardown()
 
 
@@ -312,6 +336,7 @@ def test_intro_owned() -> tuple[bool, str]:
     from pipeline.render import render
     from pipeline import intro as _intro
     orig = _stub_intro_tts()
+    _restore_stems = _no_stems()
     try:
         bad = []
         for flag in _r.INTRO_OWNED:
@@ -341,6 +366,7 @@ def test_intro_owned() -> tuple[bool, str]:
                     f"window" if ok else "; ".join(bad))
     finally:
         _intro._tts_line = orig
+        _restore_stems()
 
 
 def test_censor_montage() -> tuple[bool, str]:
@@ -353,6 +379,7 @@ def test_censor_montage() -> tuple[bool, str]:
     from pipeline.render import render
     from pipeline import intro as _intro
     orig = _stub_intro_tts()
+    _restore_stems = _no_stems()
     try:
         pdir, draft = _setup(flag_window=(60, 68))   # s06: flagged
         # nothing BINDS 60-68, but a montage cuts it in
@@ -381,6 +408,7 @@ def test_censor_montage() -> tuple[bool, str]:
                        "inside a montage - this is the bug")
     finally:
         _intro._tts_line = orig
+        _restore_stems()
         _teardown()
 
 
@@ -389,6 +417,7 @@ def test_censor_unused() -> tuple[bool, str]:
     from pipeline.render import render
     from pipeline import intro as _intro
     orig = _stub_intro_tts()
+    _restore_stems = _no_stems()
     try:
         pdir, draft = _setup(flag_window=(60, 68))   # s06 flagged, never used
         narration = _narration_for(pdir, draft["lines"])
@@ -405,6 +434,7 @@ def test_censor_unused() -> tuple[bool, str]:
                     "allowed" if ok else "render produced no usable final.mp4")
     finally:
         _intro._tts_line = orig
+        _restore_stems()
         _teardown()
 
 
@@ -417,6 +447,7 @@ def test_censor_bound() -> tuple[bool, str]:
     from pipeline import censor as _censor
     from pipeline import intro as _intro
     orig = _stub_intro_tts()
+    _restore_stems = _no_stems()
     try:
         pdir, draft = _setup(flag_window=(10, 18))   # s01, bound by line 3
         narration = _narration_for(pdir, draft["lines"])
@@ -434,6 +465,7 @@ def test_censor_bound() -> tuple[bool, str]:
                     f"final={final.exists()} flagged={len(flagged)}")
     finally:
         _intro._tts_line = orig
+        _restore_stems()
         _teardown()
 
 

@@ -2384,6 +2384,25 @@ def _run_phase1_audits(project, pdir):
     except Exception as e:
         console.print(f"[dim]binding-capacity check unavailable: {e}[/]")
         cap = []
+    # ---- FOOTAGE REUSE: the same shot must not appear twice ----------------
+    # Cheap, and catching it here costs nothing compared with finding it in a
+    # finished render. The post-render check in pipeline/motion_check.py is the
+    # authority on what reached the screen (a hold plays past its window, a
+    # split clip plays only its sub-windows); this one reads the declared
+    # windows, which is all that exists at draft time.
+    try:
+        from pipeline import motion_check as _mcd
+        _reuse_hits = _mcd.report_reuse(d if isinstance(d, dict)
+                                        else {"lines": [
+                                            {"id": getattr(_l, "id", None),
+                                             "clip_start": getattr(_l, "clip_start", None),
+                                             "clip_end": getattr(_l, "clip_end", None),
+                                             "montage": getattr(_l, "montage", None)}
+                                            for _l in d.lines]})
+    except Exception as _e:
+        console.print(f"[dim]footage-reuse check unavailable: {_e}[/]")
+        _reuse_hits = []
+
     violations = [c for c in cap if c["severity"] == "violation"]
     slowdowns = [c for c in cap if c["severity"] == "slowdown"]
     at_risk = [c for c in cap if c["severity"] == "at-risk"]

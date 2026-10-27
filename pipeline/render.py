@@ -128,9 +128,16 @@ def _build_clip(ff: str, source: Path, start: float, end: float,
                 censor: str = "none", censor_region=None, exposure: float = 0.0,
                 lead_in: float | None = None,
                 film_audio: bool = False, pre_reveal: bool = False,
-                split_segments: list | None = None):
-    # `film_audio` / `pre_reveal` / `split_segments` are LAST on purpose - see
-    # the note in _build_silence_clip. This function is called positionally.
+                split_segments: list | None = None,
+                film_src: Path | None = None):
+    # `film_audio` / `pre_reveal` / `split_segments` / `film_src` are LAST on
+    # purpose - see the note in _build_silence_clip. This function is called
+    # positionally.
+    #
+    # `film_src` is the audio the film is heard THROUGH: the Demucs no-vocals
+    # stem, so engines and impacts survive but the characters do not talk over
+    # the narrator. None means read the audio from `source` itself, which is
+    # the un-separated mix and must only happen inside a <film_speaks> unit.
     """
     Cut from `start`, normalise to canvas, fit to clip_len WITHOUT slowing
     footage:
@@ -243,10 +250,17 @@ def _build_clip(ff: str, source: Path, start: float, end: float,
         censor_f = f",boxblur={cb}:enable='between(t,0,{clip_len:.3f})'"
 
     # tpad clones the last frame if the segment is shorter than clip_len,
-    # then trim to exact length. This avoids any slow-motion.
+    # then trim to exact length.
+    # CAPPED at config.MAX_FREEZE_SEC. This used to be stop_duration=clip_len,
+    # i.e. no ceiling at all: a short window under a long line became a STILL
+    # IMAGE for seconds. A clone this brief reads as a held beat; past it, it
+    # reads as a bug. If a clip needs more picture than this, the window has to
+    # be widened (across the following cuts) - which is what the capacity
+    # pre-flight and tools/fit_narration.py now enforce.
+    _freeze_cap = min(float(clip_len), float(config.MAX_FREEZE_SEC))
     vf = (
         f"{base}{motion},"
-        f"tpad=stop_mode=clone:stop_duration={clip_len:.3f},"
+        f"tpad=stop_mode=clone:stop_duration={_freeze_cap:.3f},"
         f"trim=duration={clip_len:.3f},setpts=PTS-STARTPTS{censor_f}"
     )
 
@@ -316,6 +330,16 @@ def _build_clip(ff: str, source: Path, start: float, end: float,
     #     film's own sound instead of out of nothing.
     use_film = (film_audio and config.FILM_AUDIO_ENABLE
                 and float(config.FILM_AUDIO_DB) > -60.0)
+    # Where the film's audio is read from. A stem is a separate full-length
+    # file, so it is a separate input seeked to the same `start`; the narration
+    # occupies input index {NA}, so the stem lands at {NA}+1. Without a stem the
+    # audio comes off the video input, which is the un-separated mix.
+    _film_label = "[0:a]"
+    _film_extra: list = []
+    if use_film and film_src is not None:
+        _film_extra = ["-ss", f"{start:.3f}",
+                       "-t", f"{max(shot_dur, clip_len) + 0.5:.3f}",
+                       "-i", str(film_src)]
     if use_film:
         _atempo = ""
         if setpts_factor > 1.0001:
@@ -343,7 +367,7 @@ def _build_clip(ff: str, source: Path, start: float, end: float,
         # samples pinned at full scale, distortion baked into the clip file
         # where loudnorm (which runs later, on the mix) cannot undo it.
         # A limiter at -1 dBFS costs nothing audible and makes that impossible.
-        graph = (f"{{VCHAIN}};[{{NA}}:a]{af}[narrv];[0:a]{film_af}[filmv];"
+        graph = (f"{{VCHAIN}};[{{NA}}:a]{af}[narrv];{{FILMA}}{film_af}[filmv];"
                  f"[narrv][filmv]amix=inputs=2:duration=first:"
                  f"dropout_transition=0:normalize=0,"
                  f"alimiter=limit=0.891:level=disabled[a]{partial_graph}")
@@ -377,7 +401,8 @@ def _build_clip(ff: str, source: Path, start: float, end: float,
                 f"[{_i}:v]{crop}{expo}scale={w}:{h}:flags={_SCALER}:"
                 f"force_original_aspect_ratio=decrease,"
                 f"pad={w}:{h}:(ow-iw)/2:(oh-ih)/2:black,setsar=1,fps={fps}{_m},"
-                f"tpad=stop_mode=clone:stop_duration={_share:.3f},"
+                f"tpad=stop_mode=clone:stop_duration="
+                f"{min(_share, float(config.MAX_FREEZE_SEC)):.3f},"
                 f"trim=duration={_share:.3f},setpts=PTS-STARTPTS[s{_i}]")
             labels.append(f"[s{_i}]")
         # A split clip concatenates 2-3 DIFFERENT sub-windows, so a partial
@@ -405,12 +430,19 @@ def _build_clip(ff: str, source: Path, start: float, end: float,
     else:
         vchain = f"[0:v]{vf}{v_label}"
         na = 1
-    graph = graph.replace("{VCHAIN}", vchain).replace("{NA}", str(na))
+    # The stem, when present, is appended AFTER the narration input, so it is
+    # input index na+1. Resolved here (not where the graph string is built)
+    # because `na` is only known after the split branch has run.
+    if _film_extra:
+        _film_label = f"[{na + 1}:a]"
+    graph = (graph.replace("{VCHAIN}", vchain).replace("{NA}", str(na))
+                  .replace("{FILMA}", _film_label))
 
     cmd = [
         ff, "-y",
         *src_in,
         "-i", str(narr_audio),
+        *_film_extra,
         "-filter_complex", graph,
         "-map", "[v]", "-map", "[a]",
         "-t", f"{clip_len:.3f}",
@@ -430,7 +462,8 @@ def _build_silence_clip(ff: str, source: Path, start: float, end: float,
                         censor: str = "none", censor_region=None,
                         exposure: float = 0.0,
                         film_audio: bool = False,
-                        film_speaks: bool = False):
+                        film_speaks: bool = False,
+                        film_src: Path | None = None):
     # NOTE: `film_audio` is LAST on purpose. It was briefly added after `idx`,
     # which silently shifted every positional argument at the call site -
     # crop_top became film_audio, censor became crop_top. New parameters go on
@@ -486,7 +519,8 @@ def _build_silence_clip(ff: str, source: Path, start: float, end: float,
 
     vf = (
         f"{base}{motion},"
-        f"tpad=stop_mode=clone:stop_duration={clip_len:.3f},"
+        f"tpad=stop_mode=clone:stop_duration="
+        f"{min(float(clip_len), float(config.MAX_FREEZE_SEC)):.3f},"
         f"trim=duration={clip_len:.3f},setpts=PTS-STARTPTS{censor_f}"
     )
 
@@ -523,8 +557,22 @@ def _build_silence_clip(ff: str, source: Path, start: float, end: float,
             f"atrim=duration={clip_len:.3f},asetpts=PTS-STARTPTS,"
             f"aformat=sample_rates=48000:channel_layouts=stereo"
         )
-        a_in = []
-        graph = f"[0:v]{vf}{v_label}{partial_graph};[0:a]{_hold_af}[a]"
+        # A HOLD uses the no-vocals stem: the narrator stopped on purpose and
+        # the picture is carrying the beat, so the film should be LOUD - which
+        # at -6 dB made its dialogue the clearest thing in the recap. Engines
+        # and impacts carry a hold; characters talking do not.
+        # A <film_speaks> unit is the deliberate exception: it hands the moment
+        # over to the film, so it reads the ORIGINAL mix. That is the only place
+        # in the whole render where the un-separated audio is used.
+        _use_stem = (film_src is not None) and not film_speaks
+        if _use_stem:
+            a_in = ["-ss", f"{start:.3f}", "-t", f"{clip_len + 0.5:.3f}",
+                    "-i", str(film_src)]
+            _src_a = "[1:a]"
+        else:
+            a_in = []
+            _src_a = "[0:a]"
+        graph = f"[0:v]{vf}{v_label}{partial_graph};{_src_a}{_hold_af}[a]"
         a_map = "[a]"
     else:
         a_in = ["-f", "lavfi",
@@ -607,7 +655,8 @@ def _build_montage_clip(ff: str, source: Path, segments: list[tuple[float, float
         vparts.append(
             f"[{i}:v]scale={w}:{h}:force_original_aspect_ratio=decrease:flags={_SCALER},"
             f"pad={w}:{h}:(ow-iw)/2:(oh-ih)/2:black,setsar=1,fps={fps}{motion},"
-            f"tpad=stop_mode=clone:stop_duration={seg_len:.3f},"
+            f"tpad=stop_mode=clone:stop_duration="
+            f"{min(seg_len, float(config.MAX_FREEZE_SEC)):.3f},"
             f"trim=duration={seg_len:.3f},setpts=PTS-STARTPTS[v{i}]"
         )
     concat_in = "".join(f"[v{i}]" for i in range(len(segments)))
@@ -882,8 +931,16 @@ def _clip_signature(source: Path, start: float, end: float, hold: float,
                     censor_region=None, exposure: float = 0.0, silence=None,
                     lead_in: float = 0.0, film_audio: bool = False,
                     pre_reveal: bool = False,
-                    split_segments: list | None = None) -> str:
-    """Hash everything that determines a clip's pixels+audio, for caching."""
+                    split_segments: list | None = None,
+                    film_src: Path | None = None,
+                    film_speaks: bool = False) -> str:
+    """Hash everything that determines a clip's pixels+audio, for caching.
+
+    `film_src` is in the key because switching to (or from) the no-vocals stem
+    changes every clip's AUDIO while leaving its pixels identical. Without it,
+    turning stems on would serve the whole film from cache with the dialogue
+    still in it - the fix would appear to do nothing.
+    """
     import hashlib
     try:
         smtime = int(source.stat().st_mtime)
@@ -913,6 +970,14 @@ def _clip_signature(source: Path, start: float, end: float, hold: float,
         # Gap 3: a silence shot has a different duration + silent audio than a
         # narrated build of the same clip -> must bust the cache.
         f"silence={'none' if silence is None else f'{float(silence):.3f}'}",
+        # WHICH audio the film is heard through. The no-vocals stem leaves the
+        # pixels untouched and changes every clip's sound, so it has to be here
+        # or enabling stems serves the old dialogue-laden audio from cache.
+        f"filmsrc={'none' if film_src is None else Path(film_src).name}",
+        f"filmspeaks={bool(film_speaks)}",
+        # Also pinned: the scaler and intermediate CRF both change pixels.
+        f"scaler={config.VIDEO_SCALER}",
+        f"crfi={config.VIDEO_CRF_INTERMEDIATE}",
         # 2026-10-20 FILM AUDIO. The clip's audio track now contains the film's
         # own sound as well as the voice, so every level here changes the
         # rendered audio. Without these in the signature, a cached clip from
@@ -1129,6 +1194,33 @@ def render(project: str, draft: dict,
     # does not exist and ffmpeg would fail on clip 1 - so ask once, say the
     # answer out loud, and fall back to narration-only if there is nothing to
     # mix. D-GREEN: an audit missing an input has to say so.
+    # ---- STEMS: the film without its dialogue -------------------------------
+    # Separated once per project and cached. Used everywhere the narrator is
+    # speaking and inside every hold; the original mix is read only inside a
+    # <film_speaks> unit. A missing separation is a STOP, not a silent fallback
+    # to the un-separated mix - see config.FILM_AUDIO_REQUIRE_STEMS.
+    film_stem = None
+    if config.FILM_AUDIO_ENABLE and getattr(config, "FILM_AUDIO_USE_STEMS", False):
+        from pipeline import stems as _stems
+        film_stem, _snote = _stems.resolve(project)
+        if film_stem is None:
+            _ok, _why = _stems.available()
+            if getattr(config, "FILM_AUDIO_REQUIRE_STEMS", True):
+                console.print(
+                    f"[red]Film audio: no no-vocals stem ({_why}).[/]\n"
+                    f"  Without separation the film's DIALOGUE plays under "
+                    f"every line of narration, which is the defect stems exist "
+                    f"to remove.\n"
+                    f"  Install:  {_stems.install_hint()}\n"
+                    f"  Or set config.FILM_AUDIO_REQUIRE_STEMS = False to "
+                    f"render with the film audio MUTED instead (no dialogue, "
+                    f"but no engines either).")
+                sys.exit(1)
+            console.print(
+                "[yellow]Film audio: MUTED[/] - no no-vocals stem available "
+                "and FILM_AUDIO_REQUIRE_STEMS is False. The engines and "
+                "impacts are lost along with the dialogue.")
+
     has_film_audio = False
     if config.FILM_AUDIO_ENABLE:
         try:
@@ -1303,7 +1395,9 @@ def render(project: str, draft: dict,
             sig = _clip_signature(source, start, end, 0.0, idx, crop_top,
                                   0.0, source, censor, censor_region,
                                   exposure=exposure, silence=sil_secs,
-                                  film_audio=has_film_audio)
+                                  film_audio=has_film_audio,
+                                  film_src=film_stem,
+                                  film_speaks=(_fs_secs is not None))
             cached = cache_dir / f"{sig}.mp4"
             reused = False
             if not force_clips and cached.exists():
@@ -1317,7 +1411,8 @@ def render(project: str, draft: dict,
                                                sil_secs, idx, crop_top,
                                                censor, censor_region, exposure,
                                                film_audio=has_film_audio,
-                                               film_speaks=(_fs_secs is not None))
+                                               film_speaks=(_fs_secs is not None),
+                                               film_src=film_stem)
                 try:
                     import shutil
                     shutil.copy2(cout, cached)
@@ -1325,9 +1420,15 @@ def render(project: str, draft: dict,
                     pass
             clips.append((cout, clip_len))
             boundaries.append(cursor)
-            # A hold/film_speaks clip shows [start, end) just like a narrated
-            # one, so it needs the same censor coverage - record it.
-            used_footage.add(start, end, "hold/film_speaks clip",
+            # A hold shows [start, start+clip_len) - NOT [start, end).
+            # _build_silence_clip ignores its `end` argument: it reads `-ss
+            # start -t clip_len`, so a hold whose authored duration exceeds its
+            # window keeps playing into the FOLLOWING shots. Recording [start,
+            # end) here meant the censor audit never looked at the footage a
+            # long hold actually reaches, so a flagged shot just after a hold's
+            # window could play unblurred. Record what is really on screen.
+            _hold_end = max(float(end), float(start) + float(clip_len))
+            used_footage.add(start, _hold_end, "hold/film_speaks clip",
                              blurred=(censor != "none"), line_id=lid)
             silence_windows.append((cursor, cursor + clip_len))
             n_silence += 1
@@ -1467,7 +1568,8 @@ def render(project: str, draft: dict,
         sig = _clip_signature(source, start, end, hold, idx, crop_top,
                               narr_dur, audio_path, censor, censor_region, exposure,
                               lead_in=lead, film_audio=has_film_audio,
-                              pre_reveal=_is_pre_reveal, split_segments=_split)
+                              pre_reveal=_is_pre_reveal, split_segments=_split,
+                              film_src=film_stem)
         cached = cache_dir / f"{sig}.mp4"
         reused = False
         if not force_clips and cached.exists():
@@ -1484,7 +1586,8 @@ def render(project: str, draft: dict,
                                    exposure, lead_in=lead,
                                    film_audio=has_film_audio,
                                    pre_reveal=_is_pre_reveal,
-                                   split_segments=_split)
+                                   split_segments=_split,
+                                   film_src=film_stem)
             try:
                 import shutil
                 shutil.copy2(cout, cached)
@@ -1779,6 +1882,26 @@ def render(project: str, draft: dict,
     else:
         for _b in _qbad:
             problems.append(f"quality contract: {_b}")
+
+    # ---- FROZEN / REPEATED FOOTAGE on the finished file ---------------------
+    # The build rules cap slow-motion and freezes, but a freeze has sources
+    # those rules cannot see: static frames in the source itself, a filter
+    # graph that stalls, or a cached clip built under older rules. This measures
+    # the result. Unlike the checks above it is FATAL - a frozen picture or the
+    # same shot twice is not something to inspect and ship anyway.
+    from pipeline import motion_check as _mc
+    _mok, _mbad = _mc.check(ff, final, draft,
+                            shown=used_footage.items,
+                            intro_offset=intro_offset)
+    if not _mok:
+        console.print("[red][MOTION-CHECK][/] the finished video has frozen or "
+                      "repeated footage:")
+        for _b in _mbad:
+            console.print(f"[red]    {_b}[/]")
+        console.print("[red]  This is a publish blocker. Widen the windows "
+                      "that needed a freeze, or re-point the duplicated "
+                      "line.[/]")
+        sys.exit(1)
 
     if problems:
         console.print("[red][RENDER-CHECK][/] the render does not match the draft:")

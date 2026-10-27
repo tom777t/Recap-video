@@ -127,9 +127,14 @@ class BindingViolation(ValueError):
 
 # Mức 1 binding-capacity constants -------------------------------------------
 # A bound shot may be stretched at most this factor via mild slow-motion before
-# the binding contract is considered violated. 1.0 = no slowdown allowed; 1.4 =
-# allow up to 40% slow-motion (still reads as natural motion, not a freeze).
-BINDING_SLOWDOWN_MAX = 1.4
+# the binding contract is considered violated. 1.0 = no slowdown allowed.
+# 2026-10-27: 1.4 -> config (1.15). Sourced from config so the ceiling is a
+# tunable in one place rather than a constant buried in a schema module.
+# 1.4 was too generous: the stretch is setpts frame-duplication with no
+# interpolation, so above roughly 1.15x it reads as judder rather than as
+# slow motion. The answer to a line that needs more picture is more picture -
+# extend the window across the following cuts - not a slower shot.
+BINDING_SLOWDOWN_MAX = float(getattr(config, "BINDING_SLOWDOWN_MAX", 1.15))
 
 
 def _drop_unknown(cls, data: dict) -> dict:

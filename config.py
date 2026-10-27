@@ -239,6 +239,45 @@ FILM_AUDIO_PRE_REVEAL_DB = -8.0   # raised in the seconds before a <reveal>
 FILM_AUDIO_PRE_REVEAL_SEC = 1.5   # how long before the reveal the raise starts
 
 # --------------------------------------------------------------------------- #
+# STEMS: the film's audio WITHOUT its dialogue
+# --------------------------------------------------------------------------- #
+# At -17 dB under narration and -6 dB in holds, the film's dialogue was audible
+# almost continuously - narrator and characters talking over each other. But
+# the non-dialogue audio is the best thing in the mix (engines, tyres, gear
+# changes, impacts), so muting the film to fix it would be a worse trade.
+#
+# pipeline/stems.py separates the audio ONCE per project with Demucs and caches
+# it. Everywhere the narrator speaks, and inside every hold, the pipeline uses
+# the NO-VOCALS stem. The original mix is used only inside a <film_speaks>
+# unit, where hearing a character is the entire point.
+#
+# There is no ffmpeg filter that does this: centre-channel subtraction needs
+# true multichannel audio and wrecks a stereo mix. So separation is a real
+# dependency, and if it is missing this is a STOP rather than a silent fallback
+# to the un-separated mix - that fallback is the defect being removed.
+FILM_AUDIO_USE_STEMS = True
+# Separation model. MEASURED warm on a 60s sample with the output files
+# verified (12 CPU cores, no CUDA - Intel Iris Xe only):
+#   htdemucs     1.57 s/s   <- fastest WORKING model, and the best separator
+#   mdx_extra    2.35 s/s   (a bag of 4 models, hence slower)
+#   mdx_extra_q  unusable: needs `diffq`, which will not build on this machine.
+#
+# A correction worth recording: mdx_extra_q was first measured at 0.47 s/s and
+# chosen on that basis. That number was a FAST FAILURE being timed - the
+# benchmark suppressed output and never checked that any file appeared. Verify
+# the artefact, not just the exit of the clock.
+#
+# 1.57 s/s is 2.7 hours for a 104-minute film, which is why only the spans the
+# recap actually plays are separated (~25% of this film, ~41 min). See
+# pipeline/stems.needed_spans.
+DEMUCS_MODEL = "htdemucs"
+# True  -> a missing/failed separation stops the render with install
+#          instructions.
+# False -> the render continues with the film audio MUTED under narration and
+#          in holds. Honest but lossy: no dialogue, and no engines either.
+FILM_AUDIO_REQUIRE_STEMS = True
+
+# --------------------------------------------------------------------------- #
 # <film_speaks>: narration STOPS and the film's own exchange plays at full
 # level (2026-10-21).
 # Measured on real channels: both English recap channels studied hand whole
@@ -252,8 +291,16 @@ FILM_AUDIO_PRE_REVEAL_SEC = 1.5   # how long before the reveal the raise starts
 FILM_SPEAKS_DB = 0.0        # full level - this is the point of the unit
 FILM_SPEAKS_MIN_SEC = 3.0   # under this nobody registers an exchange
 FILM_SPEAKS_MAX_SEC = 15.0  # over this it stops being a recap
-FILM_SPEAKS_MAX_PER_FILM = 5          # about one per act on a 4-5 act film
+# 2026-10-27: 5 -> 3. This is now the ONLY place the film's own dialogue is
+# heard (everywhere else uses the no-vocals stem), which makes each one a
+# deliberate editorial event rather than one of many. Fewer original lines is
+# also less copyright exposure. Each surviving unit must earn its place against
+# FILM_SPEAKS_MUST_SERVE and carry a one-sentence justification.
+FILM_SPEAKS_MAX_PER_FILM = 3
 FILM_SPEAKS_MIN_SPACING_LINES = 15    # cannot cluster
+# A film_speaks unit must serve one of these, and say which in
+# `film_speaks_reason`. "It is a good line" is not one of them.
+FILM_SPEAKS_MUST_SERVE = ("reveal", "climax", "thesis")
 
 # A clip that plays longer than this gets its PICTURE split across 2-3
 # contiguous sub-windows cut at real shot boundaries (render 2f). The genre's
@@ -261,6 +308,35 @@ FILM_SPEAKS_MIN_SPACING_LINES = 15    # cannot cluster
 # research report cut at 4. A twelve-second line on one shot is twelve seconds
 # of the same frame drifting under a Ken Burns zoom.
 SPLIT_CLIP_SEC = 8.0
+
+# --------------------------------------------------------------------------- #
+# FROZEN / SLOW / REPEATED FOOTAGE
+# --------------------------------------------------------------------------- #
+# Three ways the picture stops being real footage, all previously allowed:
+#
+# 1. SLOW-MOTION. A bound shot was stretched up to 1.40x to cover long
+#    narration. Measured by eye on the Tokyo Drift render, visible slow-mo
+#    starts somewhere above ~1.15x - and because the stretch is done with
+#    setpts (frame duplication, no interpolation) it reads as judder, not as a
+#    slow-motion effect. 1.15 is the ceiling now, and the answer to "the
+#    narration needs more picture" is MORE PICTURE: extend the window across
+#    the following cuts (multi-shot), which the 2f splitter already renders as
+#    real cuts.
+# 2. FREEZE. tpad cloned the last frame for however long was needed, with no
+#    ceiling at all - a short window under a long line became a still image.
+#    A clone this brief reads as a held beat; beyond it, it reads as a bug.
+# 3. REUSE. Nothing stopped two lines binding overlapping footage, so the same
+#    shot could appear twice in one video.
+BINDING_SLOWDOWN_MAX = 1.15
+MAX_FREEZE_SEC = 0.30
+# Post-render detection thresholds (pipeline/motion_check.py). The render-time
+# rules above are the prevention; these measure the FINISHED file, because a
+# freeze can also come from the source itself or from a filter-graph mistake.
+FREEZE_FAIL_SEC = 0.50          # any frozen stretch longer than this fails
+FREEZE_NOISE_DB = -62           # freezedetect sensitivity
+# Two windows count as reuse when they overlap by more than this. Shot windows
+# are authored by hand and routinely abut by a frame or two.
+FOOTAGE_REUSE_MIN_OVERLAP_SEC = 0.40
 
 # Background music
 MUSIC_VOLUME = 0.15        # music level under the voice (0..1). History: 0.13 was judged too subtle, 0.18 too present. 0.15 from 2026-08-13.

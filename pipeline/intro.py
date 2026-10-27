@@ -169,6 +169,44 @@ def first_reveal_land(project: str) -> float:
     return min(x["land_sec"] for x in r)
 
 
+def bound_windows(project: str) -> list:
+    """Source windows the STORY already shows, as [(a, b)].
+
+    The intro montage must not replay footage a line is bound to: the same shot
+    appearing in the teaser and again in the body is the "repeated footage"
+    defect, and it is the montage that should move, because it is the one with
+    a free choice of material.
+    """
+    import json as _j
+    from pipeline.draft import parse_ts
+    pdir = config.project_dir(project)
+    try:
+        d = _j.loads((pdir / "draft.json").read_text(encoding="utf-8-sig"))
+    except Exception:
+        return []
+    out = []
+    for ln in d.get("lines") or []:
+        cs, ce = ln.get("clip_start"), ln.get("clip_end")
+        if cs and ce:
+            try:
+                a, b = parse_ts(cs), parse_ts(ce)
+            except Exception:
+                continue
+            hold = (ln.get("narration_silence_seconds")
+                    or ln.get("film_speaks_seconds"))
+            if hold:
+                b = max(b, a + float(hold))
+            out.append((a, b))
+        for seg in (ln.get("montage") or []):
+            if isinstance(seg, dict) and seg.get("clip_start"):
+                try:
+                    out.append((parse_ts(seg["clip_start"]),
+                                parse_ts(seg["clip_end"])))
+                except Exception:
+                    pass
+    return sorted(out)
+
+
 def pick_moments(project: str, limit_sec: float, n: int) -> list:
     """`n` catalogued moments spread across [0, limit_sec), none touching it.
 
@@ -207,6 +245,27 @@ def pick_moments(project: str, limit_sec: float, n: int) -> list:
                                    "the intro montage")
     if not usable:
         return []
+
+    # ...and it must not replay footage the STORY already shows. The montage is
+    # the element with free choice of material, so it is the one that moves.
+    import config as _cfg
+    _min_ov = float(getattr(_cfg, "FOOTAGE_REUSE_MIN_OVERLAP_SEC", 0.4))
+    _taken = bound_windows(project)
+    _free = [(a, b) for a, b in usable
+             if not any(min(b, tb) - max(a, ta) > _min_ov
+                        for ta, tb in _taken)]
+    if len(_free) < len(usable):
+        console.print(f"[dim]Intro montage: {len(usable) - len(_free)} "
+                      f"catalogued moment(s) skipped - the story already "
+                      f"shows them.[/]")
+    if not _free:
+        console.print(
+            "[yellow]Intro montage:[/] every catalogued moment before the "
+            "first reveal is already shown by the story, so a montage built "
+            "from them would repeat footage. Catalogue more early shots, or "
+            "accept no montage.")
+        return []
+    usable = _free
     usable.sort()
     out, used = [], set()
     for i in range(n):
