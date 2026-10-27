@@ -305,31 +305,45 @@ def test_tag_rate_budget() -> tuple[bool, str]:
     """
     if ROOT not in sys.path:
         sys.path.insert(0, ROOT)
-    from pipeline.calibration import production_profile
+    from pipeline import calibration as cal
     from pipeline.schemas import estimate_narration_seconds as est
 
-    prof = production_profile()
-    if not prof.is_measured or not prof.by_tag:
-        return False, ("the production voice has no calibrated per-tag "
-                       "profile - run pipeline/calibration.py on a project "
-                       "with real narration")
-    need = {"sad", "tense"}
-    if not need <= set(prof.by_tag):
-        return False, f"missing tags {need - set(prof.by_tag)} in the profile"
-
-    sad, tense = est(30, "sad"), est(30, "tense")
+    # Inject a profile stamped with the CURRENT mapping. The mechanism is what
+    # is under test, not whether a valid measurement happens to exist right
+    # now: changing the delivery mapping legitimately voids the stored profile
+    # (see PROFILE-STALE in tools/test_voice_consistency.py), and this test
+    # must not fail just because a re-measurement is pending.
+    _saved = cal._load_all
+    cal._load_all = lambda: {cal.production_voice_key(): {
+        "voice_id": "x", "rate_adjustment": "",
+        "words_per_sec": 3.2, "words_per_sec_conservative": 3.0,
+        "pause_overhead_sec": 0.18,
+        "by_tag": {
+            "sad":   {"words_per_sec": 2.52, "words_per_sec_conservative": 2.37,
+                      "samples": 13},
+            "tense": {"words_per_sec": 4.45, "words_per_sec_conservative": 3.79,
+                      "samples": 37},
+        },
+        "mapping_signature": cal.mapping_signature()}}
+    try:
+        prof = cal.production_profile()
+        if not prof.is_measured or not prof.by_tag:
+            return False, "the injected per-tag profile was not picked up"
+        sad, tense = est(30, "sad"), est(30, "tense")
+        flat = est(30)
+        bumped = est(30, "sad", 1.08)
+    finally:
+        cal._load_all = _saved
     if not sad > tense:
         return False, (f"30 words estimated at {sad:.2f}s on sad vs "
                        f"{tense:.2f}s on tense - the tag is being ignored")
     # the slow tag must also be budgeted SLOWER than the flat figure, or the
     # recalibration has not actually changed the thing that failed
-    flat = est(30)
     if not sad > flat:
         return False, (f"sad ({sad:.2f}s) is not budgeted longer than the flat "
                        f"estimate ({flat:.2f}s) - the slow tags are still "
                        f"under-budgeted")
     # a rate_bump must shorten the estimate, or a fitted line stays flagged
-    bumped = est(30, "sad", 1.08)
     if not bumped < sad:
         return False, "rate_bump does not shorten the estimate"
     return True, (f"30 words: sad {sad:.2f}s > flat {flat:.2f}s > tense "

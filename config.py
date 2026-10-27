@@ -65,6 +65,46 @@ DEFAULT_TTS_RATE = "+10%"
 TTS_WORDS_PER_MINUTE = 185
 
 # --------------------------------------------------------------------------- #
+# ONE NARRATOR - the voice-consistency contract
+# --------------------------------------------------------------------------- #
+# The first Warren render sounded like two or three different readers. Measured
+# over 106 real lines: sad 151 WPM, tense 267 WPM - a 1.77x spread. Three
+# separate causes, all in the tag -> controls mapping:
+#   1. deliveryMode varied (BALANCED / CREATIVE / STABLE). CREATIVE alone cost
+#      9% of pace AND changed the timbre.
+#   2. the steering cues instructed TEMPO and CHARACTER - "say fast and
+#      driving", "whisper in a hushed style", "say with force".
+#   3. speaking_rate ran 1.02 to 1.42 - a 1.39x spread on its own - added to
+#      compensate for the pace a cue costs (~23%). The compensation was per-tag
+#      and imperfect, so it traded a pace problem for a consistency problem.
+#
+# The contract now: ONE delivery mode, ONE speaking rate, and cues that may ask
+# only for PAUSES and EMPHASIS. Emotion is carried by where the reader breathes
+# and what they lean on, not by how fast they talk.
+#
+# Note the non-obvious part: EVERY tag carries a cue, including `normal`. A cue
+# costs pace whatever it says, so a tag with no cue reads ~23% faster than the
+# rest - leaving `normal` uncued would have been a new 1.2x spread. Uniform cue
+# presence buys uniform pace.
+VOICE_BASE_SPEAKING_RATE = 1.02
+VOICE_DELIVERY_MODE = "BALANCED"     # one mode for every tag; never CREATIVE
+# Tag rate x rate_bump must stay inside +-this fraction of the base rate. A
+# per-line rate_bump from tools/fit_narration.py counts against the SAME band -
+# fitting a line to its window may not be an exemption from sounding like the
+# same person.
+VOICE_RATE_BAND = 0.10
+# Measured on the real audio, neighbour to neighbour. A mood change ramps
+# across intervening lines rather than stepping.
+VOICE_ADJACENT_MAX_JUMP = 0.08
+# The ship gate: slowest to fastest line, measured. 1.25 is audibly "one
+# narrator with range"; 1.77 was audibly three people.
+VOICE_WPM_RATIO_MAX = 1.25
+# Lines shorter than this are excluded from the rate statistics. Words/sec on a
+# 4-word line is dominated by its lead-in and trailing silence, not by how fast
+# it was read, so including them measures noise and fails the gate for nothing.
+VOICE_RATE_MIN_WORDS = 6
+
+# --------------------------------------------------------------------------- #
 # [RUNTIME-BAND] soft band: a recap should run roughly this fraction of the
 # film's own runtime. The human reference (Bad Genius) sits near 15%. This is a
 # SOFT warning band only - outside it prints a note, never blocks. A recap that

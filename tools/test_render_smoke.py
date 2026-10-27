@@ -142,7 +142,15 @@ def _narration_for(pdir: Path, lines: list[dict]) -> list:
         txt = str(ln.get("narration") or "").strip()
         if not txt:
             continue
-        dur = max(1.0, len(txt.split()) / (185.0 / 60.0))   # ~185 WPM
+        # Duration from SYLLABLE count, not word count. Real speech runs at a
+        # roughly constant syllable rate, so deriving length from words makes
+        # lines of long words artificially fast in syllables/sec - which is the
+        # metric the voice-consistency gate measures tempo with. The earlier
+        # word-based model made this fixture fail [VOICE-CONSISTENCY] for its
+        # own vocabulary rather than for anything the render did.
+        from pipeline.voice_check import _syllables
+        syls = sum(_syllables(w) for w in txt.split()) or 1
+        dur = max(1.0, syls / 4.3)        # ~4.3 syllables/sec
         p = ndir / f"line_{ln['id']:03d}.mp3"
         _voice_mp3(p, dur)
         out.append((ln["id"], p, _dur(p)))

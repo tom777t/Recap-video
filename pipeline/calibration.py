@@ -116,6 +116,32 @@ def profile_key(voice_id: str, rate: str) -> str:
     return f"{voice_id}_{rate}"
 
 
+def mapping_signature() -> str:
+    """A hash of the production voice's tag -> controls mapping.
+
+    A measured voice profile is only valid for the mapping it was measured
+    under. Changing a steering cue or a speaking_rate changes the rate the
+    voice actually reads at, so a profile carried across that change reports
+    numbers the voice no longer produces - and the capacity budget silently
+    plans against a narrator that no longer exists. This is how a stale profile
+    is DETECTED instead of trusted: calibrate() records it, production_profile()
+    refuses a profile whose signature no longer matches.
+    """
+    import hashlib
+    try:
+        from pipeline.tts import DEFAULT_PROVIDER
+        from pipeline.tts_providers import all_providers
+        p = all_providers().get(DEFAULT_PROVIDER)
+        if p is None:
+            return ""
+        payload = json.dumps(
+            {t: p.controls_for(t) for t in sorted(p.delivery)},
+            sort_keys=True, ensure_ascii=False)
+        return hashlib.sha1(payload.encode("utf-8")).hexdigest()[:16]
+    except Exception:
+        return ""
+
+
 def production_voice_key() -> str:
     """The profile key for the voice the pipeline will actually render with.
 
@@ -142,6 +168,28 @@ def production_profile() -> VoiceProfile:
     """
     key = production_voice_key()
     meta = _load_all().get(key)
+    if meta is not None:
+        want = mapping_signature()
+        got = str(meta.get("mapping_signature") or "")
+        # An UNSIGNED profile is of unknown provenance, so it is treated as
+        # stale too. That is the safe direction: the fallback is the single
+        # config baseline, whereas trusting it means budgeting against rates
+        # that may be from any past mapping. The first profile measured here
+        # was exactly that case - it recorded sad at 151 WPM, which the new
+        # mapping no longer produces.
+        if want and got != want:
+            # Measured under a different delivery mapping - the rates in it are
+            # not this voice's rates any more. Fall back to the single config
+            # baseline rather than budgeting against a narrator that no longer
+            # exists, and say so: a silent stale profile is worse than none.
+            from rich.console import Console
+            Console().print(
+                "[yellow]Voice profile is STALE:[/] it was measured under a "
+                "different delivery mapping, so its per-tag rates no longer "
+                "describe this voice. Using the config baseline until you "
+                "re-run `python -m pipeline.calibration --project <p> "
+                f"--voice-key {key}` on freshly synthesized narration.")
+            return default_profile()
     if meta is not None:
         vid = meta.get("voice_id") or key.rsplit("_", 1)[0]
         rate = meta.get("rate_adjustment") or ""
@@ -356,6 +404,9 @@ def calibrate(project: str, voice_key: str, ffprobe: Optional[str] = None) -> di
         "words_per_sec_conservative": stats["words_per_sec_conservative"],
         "syllables_per_sec": stats["syllables_per_sec"],
         "by_tag": stats["by_tag"],
+        # What mapping these numbers were measured under. See
+        # mapping_signature(): the profile is void if the mapping changes.
+        "mapping_signature": mapping_signature(),
         "pause_overhead_sec": prev.get("pause_overhead_sec", 0.18),
         "measured_from": project,
         "measured_samples": stats["samples"],

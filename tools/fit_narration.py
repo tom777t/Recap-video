@@ -308,9 +308,24 @@ def main() -> int:
     ap.add_argument("--project", required=True)
     ap.add_argument("--apply", action="store_true",
                     help="write draft.json (default: report only)")
-    ap.add_argument("--max-bump", type=float, default=1.08,
-                    help="ceiling for the per-line rate bump (default 1.08)")
+    ap.add_argument("--max-bump", type=float, default=None,
+                    help="ceiling for the per-line rate bump. Defaults to the "
+                         "voice-consistency band (config.VOICE_RATE_BAND) - a "
+                         "bump big enough to fix a real overlength problem is "
+                         "a bump you can hear as a second narrator.")
     a = ap.parse_args()
+
+    # A rate bump is a voice change, so it answers to the voice band, not to a
+    # number of its own. Capping these separately is how one line ended up
+    # outside the band that every tag respects.
+    _band_cap = round(1.0 + float(config.VOICE_RATE_BAND), 4)
+    if a.max_bump is None:
+        a.max_bump = _band_cap
+    elif a.max_bump > _band_cap:
+        console.print(f"[yellow]--max-bump {a.max_bump:.3f} exceeds the "
+                      f"+-{config.VOICE_RATE_BAND:.0%} voice band; clamping to "
+                      f"{_band_cap:.3f}.[/]")
+        a.max_bump = _band_cap
 
     from pipeline import preflight as pf
     from pipeline.draft import parse_ts

@@ -582,16 +582,33 @@ def _inworld() -> InworldProvider:
     # The reveal cue also lost the words "slow and deliberate" - it was
     # literally instructing the slowdown it was then being blamed for.
     # Inworld caps speakingRate at 1.5; nothing here goes near it.
+    # 2026-10-27, ONE NARRATOR. The table above this comment used to vary
+    # deliveryMode, cue and speaking_rate per tag, and the result sounded like
+    # two or three different readers (measured: sad 151 WPM vs tense 267, a
+    # 1.77x spread). The compensation scheme was self-defeating - it bought back
+    # the pace a cue costs by making each tag a different speed.
+    #
+    # Now: one mode, one rate, and cues that may ask ONLY for pauses and
+    # emphasis. Nothing here may instruct tempo ("fast", "clipped", "driving",
+    # "slow") or alter the voice's character ("whisper", "low tone", "with
+    # force") - pipeline/voice_check.py asserts that against a banned-word list,
+    # so the old cues cannot come back one tag at a time.
+    #
+    # Every tag carries a cue, `normal` included. A cue costs ~23% of pace
+    # whatever it says, so an uncued tag would read 23% faster than the rest -
+    # the exact spread this is fixing. Uniform cue presence buys uniform pace.
+    _R = config.VOICE_BASE_SPEAKING_RATE
+    _M = config.VOICE_DELIVERY_MODE
     D = {
-      "normal":  dict(cue="",                                               delivery_mode="BALANCED", speaking_rate=1.02),
-      "tense":   dict(cue="[say with urgency, clipped and controlled]",     delivery_mode="BALANCED", speaking_rate=1.32),
-      "sad":     dict(cue="[say quietly in a low, subdued tone]",           delivery_mode="CREATIVE", speaking_rate=1.12),
-      "reveal":  dict(cue="[say with weight, letting it land]",             delivery_mode="BALANCED", speaking_rate=1.18),
-      "mystery": dict(cue="[whisper in a hushed style]",                    delivery_mode="CREATIVE", speaking_rate=1.15),
-      "hook":    dict(cue="[say with force]",                               delivery_mode="BALANCED", speaking_rate=1.30),
-      "intro":   dict(cue="[articulate clearly]",                           delivery_mode="STABLE",   speaking_rate=1.28),
-      "outro":   dict(cue="[say with a falling pitch]",                     delivery_mode="STABLE",   speaking_rate=1.20),
-      "action":  dict(cue="[say fast and driving]",                         delivery_mode="BALANCED", speaking_rate=1.42),
+      "normal":  dict(cue="[even phrasing]",                              delivery_mode=_M, speaking_rate=_R),
+      "tense":   dict(cue="[short pauses, emphasis on the action words]", delivery_mode=_M, speaking_rate=_R),
+      "sad":     dict(cue="[longer pauses, gentle emphasis]",             delivery_mode=_M, speaking_rate=_R),
+      "reveal":  dict(cue="[pause before the final phrase, emphasise it]", delivery_mode=_M, speaking_rate=_R),
+      "mystery": dict(cue="[pause between the phrases]",                  delivery_mode=_M, speaking_rate=_R),
+      "hook":    dict(cue="[emphasis on the opening phrase]",             delivery_mode=_M, speaking_rate=_R),
+      "intro":   dict(cue="[even phrasing, clear consonants]",            delivery_mode=_M, speaking_rate=_R),
+      "outro":   dict(cue="[pause before the closing phrase]",            delivery_mode=_M, speaking_rate=_R),
+      "action":  dict(cue="[emphasis on the impacts]",                    delivery_mode=_M, speaking_rate=_R),
     }
     return InworldProvider(
         name="inworld", model="inworld-tts-2",

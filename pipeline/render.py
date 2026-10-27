@@ -1183,6 +1183,31 @@ def render(project: str, draft: dict,
     if not _pf.report(_pf_find, project):
         sys.exit(1)
 
+    # ---- ONE NARRATOR: measure the real audio before building anything ------
+    # Steering is a request to a model, not a knob on a waveform, so the only
+    # honest check that the voice is consistent is to measure what came back.
+    # Runs here, next to the capacity pre-flight, because both answer questions
+    # about the narration that only become answerable once it exists.
+    from pipeline import voice_check as _vc
+    _vc_cue_bad = []
+    try:
+        from pipeline.tts import DEFAULT_PROVIDER
+        from pipeline.tts_providers import all_providers
+        _prov = all_providers().get(DEFAULT_PROVIDER)
+        if _prov is not None:
+            _vc_cue_bad = _vc.audit_cues(_prov) + _vc.rate_band_violations(_prov)
+    except Exception:
+        _vc_cue_bad = []
+    if _vc_cue_bad:
+        console.print("[red][VOICE-CUES][/] the delivery mapping breaks the "
+                      "one-narrator contract:")
+        for _b in _vc_cue_bad:
+            console.print(f"[red]    {_b}[/]")
+        sys.exit(1)
+    if not _vc.report(_vc.analyse(_vc.measure(draft, narration, ffp,
+                                              skip_ids=_stale)), project):
+        sys.exit(1)
+
     # ---- cut list, for 2f picture splitting ------------------------------
     # Splitting only ever happens AT A REAL CUT. With no cut data, long lines
     # render as single clips - which is the old behaviour, and is correct: a
