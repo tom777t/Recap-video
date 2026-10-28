@@ -375,6 +375,35 @@ MUSIC_VOLUME = 0.15        # music level under the voice (0..1). History: 0.13 w
 # `sad` means real loss or grief - a death, a bereavement, heartbreak - and
 # nothing else. A setback, a defeat, a humiliation or a sombre mood is not sad.
 # At 5% of lines it stays an event; at 17% it is the house style.
+# --------------------------------------------------------------------------- #
+# CENSOR CRITERIA - what gets blurred, and how much of the frame
+# --------------------------------------------------------------------------- #
+# tokyodrift2006 had 14 shots flagged for blur. A visual re-check of every one
+# (frames read, not inferred from the catalogue text) kept FOUR and dropped
+# TEN: the drops were a bathhouse with men in towels, a clothed couple kissing,
+# party guests in cocktail dresses, women pouring champagne, and a beaten
+# driver with no visible blood. Ten of fourteen flags were destroying footage
+# for nothing.
+#
+# Flag a shot ONLY for:
+#   * BLOOD or GORE  - visible blood, a wound, a body shown graphically
+#   * NUDITY         - exposed genitals, breasts or buttocks
+# NOT for: crashes, ordinary violence (punches, beatings, a gun held on
+# someone, a bruised face with no blood), clothed kissing, revealing clothing,
+# tattoos, bathhouses, or anything merely "adult in tone".
+CENSOR_CRITERIA = ("blood/gore", "nudity")
+# A censor flag must carry a region. Blurring the whole frame to hide a corner
+# of it throws away the shot, and every one of this film's 14 flags had NO
+# region - so all 14 would have been full-frame blurs.
+CENSOR_REQUIRE_REGION = True
+# With no region, prefer SWAPPING to a different shot over blurring everything.
+# A full-frame blur is never the right answer: it is indistinguishable from
+# losing the shot, while still costing the runtime.
+CENSOR_ALLOW_FULL_FRAME = False
+# A region bigger than this fraction of the frame is not a region, it is a
+# full-frame blur with extra steps - report it as such.
+CENSOR_REGION_MAX_FRACTION = 0.40
+
 TONE_SAD_MAX_FRACTION = 0.05
 # Tags that may appear in a draft at all. An unknown tag used to resolve to
 # whatever the provider happened to map, or raise mid-render.

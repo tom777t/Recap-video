@@ -90,6 +90,46 @@ def flagged_shots(pdir: Path) -> list[dict]:
     return out
 
 
+def criteria_problems(pdir: Path, frame_w: int = 0, frame_h: int = 0
+                      ) -> list[str]:
+    """Flags that break the censor policy. Empty list = clean.
+
+    Two rules, both learned from this film's 14 flags:
+      * a flag must carry a REGION. All 14 had none, so all 14 would have been
+        full-frame blurs - indistinguishable from losing the shot, while still
+        costing the runtime. With no region the answer is to swap the shot.
+      * a region covering most of the frame is a full-frame blur with extra
+        steps, so it is reported as one.
+    """
+    import config
+    out = []
+    need_region = bool(getattr(config, "CENSOR_REQUIRE_REGION", True))
+    allow_full = bool(getattr(config, "CENSOR_ALLOW_FULL_FRAME", False))
+    cap = float(getattr(config, "CENSOR_REGION_MAX_FRACTION", 0.40))
+    for f in flagged_shots(pdir):
+        reg = f.get("region")
+        if not reg:
+            if need_region and not allow_full:
+                out.append(
+                    f"{f['key'][0]} ({f['level']}) has NO censor_region, so it "
+                    f"would blur the whole frame. Either give it the box that "
+                    f"covers the content, or swap the line to a different shot "
+                    f"- a full-frame blur loses the shot anyway.")
+            continue
+        if frame_w and frame_h:
+            try:
+                frac = (int(reg["width"]) * int(reg["height"])) / float(
+                    frame_w * frame_h)
+            except (KeyError, TypeError, ValueError, ZeroDivisionError):
+                continue
+            if frac > cap:
+                out.append(
+                    f"{f['key'][0]} region covers {frac:.0%} of the frame, "
+                    f"over the {cap:.0%} cap - that is a full-frame blur with "
+                    f"extra steps. Tighten the box or swap the shot.")
+    return out
+
+
 def is_flagged(flagged: list[dict], a: float, b: float) -> dict | None:
     """The first flagged shot overlapping [a, b) by more than MIN_OVERLAP_SEC."""
     for f in flagged:

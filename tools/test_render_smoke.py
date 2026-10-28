@@ -204,6 +204,14 @@ def _shots(flag_window: tuple | None = None) -> dict:
         for s in shots:
             if s["clip_start"] == want:
                 s["censor"] = "blur"
+                # A region is MANDATORY (config.CENSOR_REQUIRE_REGION): a flag
+                # without one would blur the whole frame, which loses the shot.
+                # These tests are about censor COVERAGE, not about the policy,
+                # so the fixture complies with it rather than tripping it.
+                # Coordinates are in SOURCE pixels - the fixture source is
+                # 640x360 - and are transformed at render time.
+                s["censor_region"] = {"x": 160, "y": 90,
+                                      "width": 200, "height": 120}
     return {"shots": shots}
 
 

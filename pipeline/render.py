@@ -129,7 +129,8 @@ def _build_clip(ff: str, source: Path, start: float, end: float,
                 lead_in: float | None = None,
                 film_audio: bool = False, pre_reveal: bool = False,
                 split_segments: list | None = None,
-                film_src: Path | None = None):
+                film_src: Path | None = None,
+                src_wh: tuple | None = None):
     # `film_audio` / `pre_reveal` / `split_segments` / `film_src` are LAST on
     # purpose - see the note in _build_silence_clip. This function is called
     # positionally.
@@ -266,13 +267,12 @@ def _build_clip(ff: str, source: Path, start: float, end: float,
 
     if cb > 0 and censor_region is not None:
         # PARTIAL blur (Phase C): split the processed frame, crop the region,
-        # boxblur just that rectangle, and overlay it back. Coordinates are in
-        # OUTPUT-canvas pixels (the frame has already been scaled/padded to
-        # OUTPUT_WIDTHxHEIGHT by `base`). The region is clamped to the canvas.
-        rx = max(0, min(int(censor_region.x), w - 1))
-        ry = max(0, min(int(censor_region.y), h - 1))
-        rw = max(1, min(int(censor_region.width), w - rx))
-        rh = max(1, min(int(censor_region.height), h - ry))
+        # boxblur just that rectangle, and overlay it back.
+        # The region is authored in SOURCE pixels (that is what whoever drew
+        # the box was looking at) and the crop happens AFTER scale+pad, so it
+        # must be transformed - see region_to_output. These two units used to
+        # be conflated, which placed every partial blur wrong.
+        rx, ry, rw, rh = region_to_output(censor_region, *(src_wh or (0, 0)))
         partial_graph = (
             f";[v0]split[base][region];"
             f"[region]crop={rw}:{rh}:{rx}:{ry},boxblur={cb}[blurred];"
@@ -407,16 +407,26 @@ def _build_clip(ff: str, source: Path, start: float, end: float,
             labels.append(f"[s{_i}]")
         # A split clip concatenates 2-3 DIFFERENT sub-windows, so a partial
         # censor_region (coordinates measured on the host shot's framing) is
-        # meaningless for the other segments. The old condition here was
-        # `censor_region is None`, which meant a region-censored line that got
-        # split rendered with NO BLUR AT ALL - the region graph lives only in
-        # the non-split branch above. Blur the WHOLE frame instead: over-blurs
-        # two sub-windows, which is the safe direction, and says so.
+        # meaningless for the other segments.
+        #
+        # This branch has now been wrong twice in opposite directions. First it
+        # read `censor_region is None`, so a region-censored line that got
+        # split rendered with NO BLUR AT ALL. Then it blurred the WHOLE frame,
+        # which config.CENSOR_ALLOW_FULL_FRAME now forbids - a full-frame blur
+        # is indistinguishable from losing the shot while still costing the
+        # runtime.
+        #
+        # The right answer is not to choose between those: it is to NOT SPLIT a
+        # region-censored clip. _split_points refuses to, so reaching here with
+        # a region means that guard was bypassed, and the only safe thing left
+        # is to refuse rather than ship either wrong picture.
         if cb > 0 and censor_region is not None:
-            console.print(
-                f"[yellow]Censor:[/] {out.name} is a split clip with a partial "
-                f"blur region; blurring the WHOLE frame instead (the region's "
-                f"coordinates do not apply to the other sub-windows).")
+            raise ValueError(
+                f"{out.name}: a region-censored clip was split into "
+                f"{len(_segs)} sub-windows. The region's coordinates only "
+                f"describe the host shot, and full-frame blur is disallowed "
+                f"(config.CENSOR_ALLOW_FULL_FRAME). _split_points should have "
+                f"refused this clip - that guard has been bypassed.")
         _censor_tail = (f",boxblur={cb}:enable='between(t,0,{clip_len:.3f})'"
                         if cb > 0 else "")
         vchain = (";".join(vparts) + ";" + "".join(labels)
@@ -463,7 +473,8 @@ def _build_silence_clip(ff: str, source: Path, start: float, end: float,
                         exposure: float = 0.0,
                         film_audio: bool = False,
                         film_speaks: bool = False,
-                        film_src: Path | None = None):
+                        film_src: Path | None = None,
+                        src_wh: tuple | None = None):
     # NOTE: `film_audio` is LAST on purpose. It was briefly added after `idx`,
     # which silently shifted every positional argument at the call site -
     # crop_top became film_audio, censor became crop_top. New parameters go on
@@ -525,10 +536,8 @@ def _build_silence_clip(ff: str, source: Path, start: float, end: float,
     )
 
     if cb > 0 and censor_region is not None:
-        rx = max(0, min(int(censor_region.x), w - 1))
-        ry = max(0, min(int(censor_region.y), h - 1))
-        rw = max(1, min(int(censor_region.width), w - rx))
-        rh = max(1, min(int(censor_region.height), h - ry))
+        # source pixels -> output pixels; see region_to_output
+        rx, ry, rw, rh = region_to_output(censor_region, *(src_wh or (0, 0)))
         partial_graph = (
             f";[v0]split[base][region];"
             f"[region]crop={rw}:{rh}:{rx}:{ry},boxblur={cb}[blurred];"
@@ -893,6 +902,22 @@ def _position_offsets(ff: str, final: Path, timeline: list, narration: list,
 
 
 def _split_points(window_dur: float, clip_len: float, cuts: list,
+                  start: float = 0.0, end: float = 0.0,
+                  censor_region=None) -> list:
+    """Wrapper that refuses to split a REGION-CENSORED clip.
+
+    A censor region describes one shot's framing. Split the clip across other
+    shots and the box no longer covers the content - and the alternatives are
+    both unacceptable: no blur at all, or a full-frame blur that loses the
+    footage. So a region-censored clip simply does not get split; it renders as
+    one shot, with its region blurred, which is what the region was drawn for.
+    """
+    if censor_region is not None:
+        return []
+    return _split_points_impl(window_dur, clip_len, cuts, start, end)
+
+
+def _split_points_impl(window_dur: float, clip_len: float, cuts: list,
                   start: float, end: float) -> list:
     """2f: pick 2-3 CONTIGUOUS sub-windows of [start, end] at real cut points.
 
@@ -997,6 +1022,49 @@ def _clip_signature(source: Path, start: float, end: float, hold: float,
     return hashlib.sha1("|".join(parts).encode("utf-8")).hexdigest()[:20]
 
 
+def region_to_output(censor_region, src_w: int, src_h: int):
+    """Map a censor region from SOURCE pixels to OUTPUT pixels.
+
+    CensorRegion is documented as "pixel coordinates in the ORIGINAL source
+    frame" - which is the only sensible contract, because whoever draws the box
+    is looking at a source frame. But the filter graph applies the crop AFTER
+    the scale+pad to the output canvas, and clamped against OUTPUT_WIDTH /
+    OUTPUT_HEIGHT. So the documented units and the implemented units disagreed,
+    and every partial blur was placed wrong.
+
+    On tokyodrift2006 the error is gross, not subtle: the source is 1280x544,
+    scaled by 1.5 to 1920x816 and padded with 132px bars. A region authored at
+    source y=25 was being applied at output y=25 - inside the top black bar,
+    blurring nothing and leaving the content clear.
+
+    Returns (x, y, w, h) in output pixels, clamped to the canvas.
+    """
+    import config as _c
+    W, H = int(_c.OUTPUT_WIDTH), int(_c.OUTPUT_HEIGHT)
+    try:
+        sw, sh = int(src_w), int(src_h)
+    except (TypeError, ValueError):
+        sw = sh = 0
+    if sw <= 0 or sh <= 0:
+        # Unknown source size: assume the coordinates are already in output
+        # space (legacy behaviour) rather than guessing a transform.
+        x, y = int(censor_region.x), int(censor_region.y)
+        w, h = int(censor_region.width), int(censor_region.height)
+    else:
+        f = min(W / sw, H / sh)
+        ox = (W - sw * f) / 2.0
+        oy = (H - sh * f) / 2.0
+        x = int(round(int(censor_region.x) * f + ox))
+        y = int(round(int(censor_region.y) * f + oy))
+        w = int(round(int(censor_region.width) * f))
+        h = int(round(int(censor_region.height) * f))
+    x = max(0, min(x, W - 1))
+    y = max(0, min(y, H - 1))
+    w = max(1, min(w, W - x))
+    h = max(1, min(h, H - y))
+    return x, y, w, h
+
+
 def _region_sig(censor_region) -> str:
     """Stable cache token for a censor region (None -> 'none')."""
     if censor_region is None:
@@ -1020,6 +1088,17 @@ def render(project: str, draft: dict,
     cache_dir.mkdir(exist_ok=True)
     ff = config.ffmpeg()
     ffp = config.ffprobe()
+
+    # Source pixel dimensions. Needed to place a censor region: the box is
+    # authored against a SOURCE frame while the blur is applied after
+    # scale+pad, so the two spaces have to be reconciled (region_to_output).
+    # Resolved HERE, at the top, because the censor policy check runs long
+    # before the quality report does - defining it next to that report left it
+    # unbound on every render with a flagged shot.
+    from pipeline import quality as _q0
+    _hd0 = _q0.source_headroom(ffp, source)
+    src_wh = ((_hd0.get("src_w"), _hd0.get("src_h"))
+              if _hd0.get("src_w") else None)
 
     by_id = {n[0]: n for n in narration}
     # Last line of defence before anything is baked into an mp4. draft-stage
@@ -1134,6 +1213,21 @@ def render(project: str, draft: dict,
     from pipeline import censor as _censor
     _flagged = _censor.flagged_shots(pdir)
     used_footage = _censor.UsedFootage()
+    # Policy on the flags themselves, before anything is built: a flag with no
+    # region would blur the whole frame, which loses the shot while still
+    # costing the runtime. Swap the shot instead.
+    _cen_policy = _censor.criteria_problems(
+        pdir, *(src_wh or (0, 0)))
+    if _cen_policy:
+        console.print(f"[red][CENSOR-POLICY][/] {len(_cen_policy)} flag(s) "
+                      f"break the blur policy:")
+        for _p in _cen_policy:
+            console.print(f"[red]    {_p}[/]")
+        console.print(f"[yellow]  Criteria: blur only "
+                      f"{', '.join(getattr(config, 'CENSOR_CRITERIA', ()))} - "
+                      f"not crashes, ordinary violence, clothed kissing or "
+                      f"revealing clothing.[/]")
+        sys.exit(1)
 
     # ---- census: how many LINES will actually render censored ---------------
     # The old line counted entries in shots.json, i.e. INTENT. It printed
@@ -1412,7 +1506,7 @@ def render(project: str, draft: dict,
                                                censor, censor_region, exposure,
                                                film_audio=has_film_audio,
                                                film_speaks=(_fs_secs is not None),
-                                               film_src=film_stem)
+                                               film_src=film_stem, src_wh=src_wh)
                 try:
                     import shutil
                     shutil.copy2(cout, cached)
@@ -1564,7 +1658,7 @@ def render(project: str, draft: dict,
         _is_pre_reveal = lid in _rev_prev_ids
         # ---- 2f: does this line's picture need splitting? ----------------
         _split = _split_points(end - start, lead + narr_dur + GAP, _cutlist,
-                               start, end)
+                               start, end, censor_region=censor_region)
         sig = _clip_signature(source, start, end, hold, idx, crop_top,
                               narr_dur, audio_path, censor, censor_region, exposure,
                               lead_in=lead, film_audio=has_film_audio,
@@ -1587,7 +1681,7 @@ def render(project: str, draft: dict,
                                    film_audio=has_film_audio,
                                    pre_reveal=_is_pre_reveal,
                                    split_segments=_split,
-                                   film_src=film_stem)
+                                   film_src=film_stem, src_wh=src_wh)
             try:
                 import shutil
                 shutil.copy2(cout, cached)

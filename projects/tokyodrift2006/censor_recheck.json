@@ -1,0 +1,132 @@
+{
+  "frame_size": {"width": 1280, "height": 544},
+  "shots": [
+    {
+      "n": 1,
+      "id": "clip:00:09:26",
+      "verdict": "drop",
+      "what_i_see": "Frame 1 is an overturned race car settling in desert dust with no person visible; frame 2 is a dark, dust-hazed close-up of a man hanging inverted in his seatbelt whose face reads as dirt, shadow and flushed skin with no blood I can confirm.",
+      "criterion": "none",
+      "region": null,
+      "region_note": "Car wreck is explicitly not grounds. The 'face smeared with blood' in the action text is not supported by the frame: a red-saturation scan of the whole face area of f01_2 found max red-excess (R minus max(G,B)) of only 26 and zero pixels at or above 30, versus 68 with 3546 such pixels on the confirmed blood in f02_1. The red tones present are desert dust and skin, not blood."
+    },
+    {
+      "n": 2,
+      "id": "clip:00:09:53",
+      "verdict": "keep",
+      "what_i_see": "Close-ups of a blonde young woman with a raw bloody abrasion across her left forehead and brow, a dark bruised eye socket, a scabbed open graze on the bridge of her nose, and crusted blood at the left corner of her mouth and chin.",
+      "criterion": "blood/gore",
+      "region": {"x": 300, "y": 25, "width": 220, "height": 330},
+      "region_note": "Measured against f02_1 (1280x544); verified by cropping this exact rectangle, which contains the forehead wound, nose graze and mouth blood with margin. Note the catalogued action text for this shot (an athlete grinning with bloody teeth) does not match either frame, but the shot qualifies on her visible wounds. Her head shifts slightly in f02_2, where the equivalent injuries sit at roughly x=340-500, y=96-356, so the box above is frame-1 specific."
+    },
+    {
+      "n": 3,
+      "id": "clip:00:35:46",
+      "verdict": "drop",
+      "what_i_see": "A public bathhouse: a man in a white waist towel standing bare-chested, another man seated in a towel washing, and men soaking in a tiled pool showing bare backs and shoulders.",
+      "criterion": "none",
+      "region": null,
+      "region_note": "Shirtless men and bare backs in a bathhouse are explicitly excluded. No genitals, buttocks or female breasts are visible; towels cover the waist in every case."
+    },
+    {
+      "n": 4,
+      "id": "clip:00:36:08",
+      "verdict": "drop",
+      "what_i_see": "A close-up of a large man's tattooed shoulder, neck and the back of his head in the bath, then a close-up of a young man's face with bare shoulders.",
+      "criterion": "none",
+      "region": null,
+      "region_note": "Tattoos and bare shoulders are explicitly excluded. No genitals, buttocks or female breasts visible."
+    },
+    {
+      "n": 5,
+      "id": "clip:00:36:16",
+      "verdict": "drop",
+      "what_i_see": "Wide bathhouse shot with a young man standing in a waist towel, a large man in a towel in the foreground and a man with a bare back in the background, then a close-up of the large man's face and bare shoulder.",
+      "criterion": "none",
+      "region": null,
+      "region_note": "Shirtless men in towels in a bathhouse. Nothing explicit is visible anywhere in either frame."
+    },
+    {
+      "n": 6,
+      "id": "clip:00:44:01",
+      "verdict": "drop",
+      "what_i_see": "A dim stockroom with shelved boxes and a man's head in the foreground, then a very dark shot of a couple embracing against the shelves; brightened 5x the couple are clearly clothed, one in a dark tank top.",
+      "criterion": "none",
+      "region": null,
+      "region_note": "Clothed making-out is explicitly excluded. I brightened f06_2 heavily to check the shadows and found no exposed skin beyond arms and shoulders."
+    },
+    {
+      "n": 7,
+      "id": "clip:00:44:30",
+      "verdict": "drop",
+      "what_i_see": "A young man talking in a stockroom aisle, then women in party dresses and camisole tops around a man in a black jacket against pink and green club decor.",
+      "criterion": "none",
+      "region": null,
+      "region_note": "Revealing-but-clothed party outfits with visible cleavage only. Explicitly excluded; no exposed breasts."
+    },
+    {
+      "n": 8,
+      "id": "clip:00:45:15",
+      "verdict": "drop",
+      "what_i_see": "A crowded party room: a man showing something to the young American, women in cocktail dresses holding blue drinks, and a heavyset man in a brown vest behind them.",
+      "criterion": "none",
+      "region": null,
+      "region_note": "Women at a party in dresses. Fully clothed, nothing explicit."
+    },
+    {
+      "n": 9,
+      "id": "clip:00:45:27",
+      "verdict": "drop",
+      "what_i_see": "Two women in a red dress and a pink camisole walking through a garage workshop with champagne, with the young American following behind among tool lockers and parts.",
+      "criterion": "none",
+      "region": null,
+      "region_note": "Clothed party dresses with cleavage only. Explicitly excluded."
+    },
+    {
+      "n": 10,
+      "id": "clip:00:46:20",
+      "verdict": "drop",
+      "what_i_see": "The young American standing beside a red coupe in the shop, then the long-haired man in a black jacket holding a bottle in front of a painted mural of a train carriage.",
+      "criterion": "none",
+      "region": null,
+      "region_note": "No blood and no nudity in either frame. Ordinary garage and party staging."
+    },
+    {
+      "n": 11,
+      "id": "clip:01:02:31",
+      "verdict": "keep",
+      "what_i_see": "The beaten driver lying on asphalt with a bright red split gash through his right eyebrow running down toward his eye, and fresh blood smeared across his lips and lower lip; the second frame shows the same wounds wet and vivid as he lifts his head.",
+      "criterion": "blood/gore",
+      "region": {"x": 205, "y": 80, "width": 220, "height": 260},
+      "region_note": "Measured against f11_1 (1280x544); verified by cropping this exact rectangle, which contains the brow gash and the mouth blood with margin. IMPORTANT: his head moves a long way within this 15-second shot. In f11_2 the same blood occupies roughly x=412-568, y=44-384, which does not overlap this box in x. A single static rectangle will not cover the whole shot; the pipeline needs per-frame tracking, or the union box x=205, y=40, w=375, h=350."
+    },
+    {
+      "n": 12,
+      "id": "clip:01:02:46",
+      "verdict": "keep",
+      "what_i_see": "Frame 1 is the blond youth in sunglasses facing the braided-hair man with no injury visible; frame 2 shows the beaten driver propped up with a red blood streak running from his eyebrow past his eye and wet blood smeared across his mouth and chin, plus blood spots on his grey sweatshirt.",
+      "criterion": "blood/gore",
+      "region": {"x": 310, "y": 195, "width": 135, "height": 210},
+      "region_note": "Measured against f12_2 (1280x544), the only one of the two frames containing blood; verified by cropping this exact rectangle. Frame 1 is clean, so the blur need only apply to the latter part of the shot. There are also faint blood specks on his sweatshirt around x=300-360, y=430-470 which are not inside this box and are minor enough that I did not include them."
+    },
+    {
+      "n": 13,
+      "id": "clip:01:02:59",
+      "verdict": "keep",
+      "what_i_see": "Close-up of the beaten American on the asphalt with a bloody split through his eyebrow, a blood trail down the side of his face, and a heavy wet smear of blood across his mouth and running off his chin while the schoolgirl steadies him; frame 2 is the long-haired man talking, with no blood.",
+      "criterion": "blood/gore",
+      "region": {"x": 380, "y": 120, "width": 175, "height": 390},
+      "region_note": "Measured against f13_1 (1280x544); verified by cropping this exact rectangle, which contains the brow wound, the facial blood trail and the mouth and chin blood with margin. Frame 2 of this shot is clean, so only the first part of the shot needs the blur."
+    },
+    {
+      "n": 14,
+      "id": "clip:01:35:07",
+      "verdict": "drop",
+      "what_i_see": "A night garage meet: a woman in a black halter top leaning over the door of a blue coupe with her back and shoulders bare, another woman beside the car, then a mechanic in a t-shirt bent over a turbocharged engine bay.",
+      "criterion": "none",
+      "region": null,
+      "region_note": "A bare back and shoulders in a halter top is explicitly not nudity under these criteria. No blood and nothing explicit visible."
+    }
+  ],
+  "summary": {"keep": 4, "drop": 10}
+}

@@ -847,7 +847,6 @@
         "action"
       ],
       "action": "The car settles upside down in the dust, wheels still turning. The camera drops under the roof to a body hanging inverted in its belt, then pushes to a face smeared with blood.",
-      "censor": "blur_light",
       "raw_duration_sec": 16.433,
       "extendable": true,
       "stretch_tolerance": 1.4,
@@ -882,7 +881,13 @@
       "raw_duration_sec": 6.34,
       "extendable": true,
       "stretch_tolerance": 1.4,
-      "censor_note": "blood coating the teeth and lips in close-up, plus raw facial abrasions; roughly a fifth of the frame"
+      "censor_note": "blood coating the teeth and lips in close-up, plus raw facial abrasions; roughly a fifth of the frame",
+      "censor_region": {
+        "x": 300,
+        "y": 25,
+        "width": 220,
+        "height": 330
+      }
     },
     {
       "id": "clip:00:09:59",
@@ -2966,7 +2971,6 @@
         "action"
       ],
       "action": "In the bath hall a man lathers his hair at a low tap and others soak in the tiled pool, one huge tattooed back filling it. The student walks in wrapped in a towel and stops dead, taking the room in.",
-      "censor": "blur_light",
       "raw_duration_sec": 22.355,
       "extendable": true,
       "stretch_tolerance": 1.4,
@@ -2985,7 +2989,6 @@
         "setup"
       ],
       "action": "In a tiled bathhouse a young American in a towel stands over a huge tattooed man soaking in the pool and starts questioning him. A cut to the tattoo on the man's back comes back to the young man's hardened stare.",
-      "censor": "blur_light",
       "raw_duration_sec": 8.05,
       "extendable": true,
       "stretch_tolerance": 1.4,
@@ -3004,7 +3007,6 @@
         "action"
       ],
       "action": "The young man keeps pressing and gestures at him. The bather's face hardens, the snarling wolf tattoo on his shoulder fills the frame, and by the last shot he has hauled himself out of the water to tower over his questioner.",
-      "censor": "blur_light",
       "raw_duration_sec": 23.148,
       "extendable": true,
       "stretch_tolerance": 1.4,
@@ -3622,7 +3624,6 @@
         "establishing"
       ],
       "action": "They push on through a dim stockroom passage where a couple is making out against the shelves, then past two women in party dresses as the walls turn to bright pink and green club decor.",
-      "censor": "blur_light",
       "raw_duration_sec": 9.093,
       "extendable": true,
       "stretch_tolerance": 1.4,
@@ -3667,7 +3668,6 @@
         "montage"
       ],
       "action": "Attention swings to the young American: a dark-haired woman corners him in the aisle, and by the last shot two women are draped over his shoulders and he looks stranded, while the man in the black jacket poses happily with three of his own.",
-      "censor": "blur_light",
       "raw_duration_sec": 11.137,
       "extendable": true,
       "stretch_tolerance": 1.4,
@@ -3712,7 +3712,6 @@
         "setup"
       ],
       "action": "His attention slides off his friend to a knot of partygoers by the doorway; he pushes out through the crowd and passes a long-haired man in a pale jacket sipping a blue drink.",
-      "censor": "blur_light",
       "raw_duration_sec": 11.637,
       "extendable": true,
       "stretch_tolerance": 1.4,
@@ -3728,7 +3727,6 @@
         "reveal"
       ],
       "action": "He follows two women out of the doorway into the workshop beyond, and the camera pans off them along a red car raised on a blue lift to an orange chopper parked on the shop floor.",
-      "censor": "blur_light",
       "raw_duration_sec": 12.971,
       "extendable": true,
       "stretch_tolerance": 1.4,
@@ -3789,7 +3787,6 @@
         "setup"
       ],
       "action": "The long-haired man, flanked by two women pouring champagne, talks across the shop while the American walks the length of the red car; by the last close-ups the American has stopped smiling and stares back hard.",
-      "censor": "blur_light",
       "raw_duration_sec": 14.64,
       "extendable": true,
       "stretch_tolerance": 1.4,
@@ -5164,7 +5161,13 @@
       "raw_duration_sec": 14.39,
       "extendable": true,
       "stretch_tolerance": 1.4,
-      "censor_note": "blood from a cut brow and lip on the downed man's face, a small part of the frame in the close-ups"
+      "censor_note": "blood from a cut brow and lip on the downed man's face, a small part of the frame in the close-ups",
+      "censor_region": {
+        "x": 205,
+        "y": 40,
+        "width": 375,
+        "height": 350
+      }
     },
     {
       "id": "clip:01:02:46",
@@ -5180,7 +5183,13 @@
       "raw_duration_sec": 13.013,
       "extendable": true,
       "stretch_tolerance": 1.4,
-      "censor_note": "blood on the downed man's face, small portion of frame"
+      "censor_note": "blood on the downed man's face, small portion of frame",
+      "censor_region": {
+        "x": 310,
+        "y": 195,
+        "width": 135,
+        "height": 210
+      }
     },
     {
       "id": "clip:01:02:59",
@@ -5196,7 +5205,13 @@
       "raw_duration_sec": 13.138,
       "extendable": true,
       "stretch_tolerance": 1.4,
-      "censor_note": "smeared blood on the beaten man's mouth and brow in three close shots, roughly the upper third of frame"
+      "censor_note": "smeared blood on the beaten man's mouth and brow in three close shots, roughly the upper third of frame",
+      "censor_region": {
+        "x": 380,
+        "y": 120,
+        "width": 175,
+        "height": 390
+      }
     },
     {
       "id": "clip:01:03:12",
@@ -7893,7 +7908,6 @@
         "establishing"
       ],
       "action": "Cut to a packed night garage meet - a blurred sweep past a blue coupe, a woman leaning into its door, a mechanic bent over a turbo engine, hands thrown up in the crowd, cars shown off.",
-      "censor": "blur_light",
       "raw_duration_sec": 11.511,
       "extendable": true,
       "stretch_tolerance": 1.4,
