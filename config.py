@@ -368,9 +368,24 @@ MUSIC_CUE_MOOD_FOR_TAG = {
     "sad": "sad", "action": "action", "hook": "action",
 }
 MUSIC_CUE_FADE_SEC = 1.75        # fade a cue in/out (1.5-2s band, middle)
-MUSIC_CUE_BED_DIP_DB = -6.0      # the bed dips this much WHILE a cue plays
-MUSIC_CUE_DUCK_DB = -22.0        # a cue ducks under narration like the bed...
-MUSIC_CUE_DUCK_ACTION_DB = -10.0 # ...8-12 dB in action runs, where it's felt
+# 2026-10-27: THE CUES WERE INAUDIBLE, and the numbers say why. A cue was
+# ducked to -22 dB under narration - the same depth as the BED - so the thing
+# meant to mark a mood change sat at the level of the thing it was supposed to
+# rise above. The bed then dipped only 6 dB while a cue played, so the cue had
+# to compete with a bed that had barely moved. Net effect: a feature that
+# planned, placed, rotated and faded cues, and could not be heard.
+#
+# A cue is an EVENT; the bed is furniture. The gap between them has to be real:
+#   cue under narration   -12 dB  (-8 in action, where it is felt as much as heard)
+#   bed while a cue plays -12 dB  (was -6: it has to get out of the way)
+# That leaves ~10 dB between cue and bed during a cue, instead of the 16 dB the
+# WRONG WAY it had before.
+MUSIC_CUE_BED_DIP_DB = -12.0     # the bed dips this much WHILE a cue plays
+MUSIC_CUE_DUCK_DB = -12.0        # a cue under narration - clearly above the bed
+MUSIC_CUE_DUCK_ACTION_DB = -8.0  # action runs: felt as much as heard
+# Inside a hold the narrator has stopped on purpose, so a cue plays at close to
+# full level - this is the one moment it can carry the beat by itself.
+MUSIC_CUE_HOLD_DB = -2.0
 # Cue density caps: at most ~1 per this many seconds on average, and never two
 # cues closer than the floor.
 MUSIC_CUE_AVG_SPACING_SEC = 90.0

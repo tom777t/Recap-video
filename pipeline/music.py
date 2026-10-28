@@ -214,10 +214,12 @@ def build_music_track(ff: str, pdir: Path, out: Path, total_dur: float,
     """Render the bed (looped, crossfaded at the loop point) with the cues
     layered on top and the reveal dips, to one wav of length total_dur.
 
-    This bed+cues track still has NO narration in it and is NOT ducked - render.py
-    sidechains it under the voice afterwards, exactly as it does a mood bed. The
-    per-cue bed dip (-6 dB) and the reveal near-silence dip ARE baked here, so the
-    relationship between bed and cues is fixed before the voice mix.
+    This bed+cues track still has NO narration in it and is NOT ducked -
+    render.py sidechains it under the voice afterwards, exactly as it does a
+    mood bed. What IS baked here is every RELATIONSHIP that must survive that
+    single global duck: the per-cue bed dip, the reveal near-silence dip, and
+    each cue's level relative to the bed (see the cue loop below - this is what
+    makes a cue audible rather than another layer of bed).
     """
     reveal_positions = sorted(reveal_positions or [])
     hold_windows = hold_windows or []
@@ -251,6 +253,26 @@ def build_music_track(ff: str, pdir: Path, out: Path, total_dur: float,
     idx = 1
 
     # each cue: an input trimmed to its length, faded, placed at its start
+    #
+    # THE CUE LEVEL, and why it has to be baked in here.
+    # render.py mixes this finished track under the voice with ONE duck
+    # (MUSIC_DUCK_DB, -22 dB) applied to the whole thing. So a cue inside this
+    # track was ducked to exactly the same depth as the bed - the event sat at
+    # the level of the furniture it was supposed to rise above. That is why the
+    # cues could not be heard, and MUSIC_CUE_DUCK_DB / _ACTION_DB were DEAD
+    # CONFIG: nothing anywhere read them.
+    #
+    # The mix architecture does not need changing to fix it. Give each cue a
+    # RELATIVE gain of (cue duck - bed duck) here, and the single global duck
+    # then lands the bed at MUSIC_DUCK_DB and the cue at MUSIC_CUE_DUCK_DB:
+    #     bed  -22 dB          cue  -22 + 10 = -12 dB
+    #     action cue           -22 + 14 =  -8 dB
+    # It falls out correctly in holds too: the silence swell raises the whole
+    # track to SILENCE_MUSIC_VOLUME (about -10 dB), which puts a cue at roughly
+    # -0.5 dB - near full level, which is what a hold is for.
+    _bed_duck = float(getattr(config, "MUSIC_DUCK_DB", -22.0))
+    _cue_duck = float(getattr(config, "MUSIC_CUE_DUCK_DB", -12.0))
+    _cue_duck_action = float(getattr(config, "MUSIC_CUE_DUCK_ACTION_DB", -8.0))
     for k, p in enumerate(cue_plan):
         cue_len = p["end"] - p["start"]
         if cue_len < 1.0:
@@ -258,12 +280,17 @@ def build_music_track(ff: str, pdir: Path, out: Path, total_dur: float,
         inputs += ["-i", str(p["file"])]
         delay_ms = int(max(0.0, p["start"]) * 1000)
         lbl = f"cue{k}"
-        # fade in/out within the cue, delay to its start, pad to full length
+        _target = (_cue_duck_action if str(p.get("mood")) == "action"
+                   else _cue_duck)
+        _rel = _target - _bed_duck          # dB, positive = louder than bed
+        # fade in/out within the cue, lift to its level, delay to its start,
+        # pad to full length
         parts.append(
             f"[{idx}:a]aformat=sample_rates=48000:channel_layouts=stereo,"
             f"atrim=duration={cue_len:.3f},"
             f"afade=t=in:st=0:d={min(fade, cue_len/2):.2f},"
             f"afade=t=out:st={max(0.0, cue_len-fade):.2f}:d={min(fade, cue_len/2):.2f},"
+            f"volume={_rel:+.2f}dB,"
             f"adelay={delay_ms}|{delay_ms},apad=whole_dur={total_dur:.3f}[{lbl}]")
         labels.append(f"[{lbl}]")
         idx += 1
