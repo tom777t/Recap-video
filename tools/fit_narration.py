@@ -321,6 +321,22 @@ def main() -> int:
     ap.add_argument("--project", required=True)
     ap.add_argument("--apply", action="store_true",
                     help="write draft.json (default: report only)")
+    ap.add_argument("--widen-only", action="store_true",
+                    help="apply strategy (a) ONLY - widen windows - and skip "
+                         "the rate bumps and trim worklist. Widening depends "
+                         "only on knowing a line is short of room, so it is "
+                         "sound even from an estimate; a rate bump or a trim "
+                         "sized against a guess removes words that may not "
+                         "need removing. Use this before the first TTS pass, "
+                         "then run again without it once the audio is real.")
+    ap.add_argument("--use-estimate", action="store_true",
+                    help="work from the DRAFT-TIME estimate instead of the "
+                         "real audio. For when the narration is stale (the "
+                         "voice mapping or the text changed) or does not exist "
+                         "yet - this lets capacity be fixed BEFORE paying for "
+                         "TTS. Window widening is exact either way; only the "
+                         "rate/trim decisions depend on the duration, and the "
+                         "pre-flight re-checks them on the real audio.")
     ap.add_argument("--max-bump", type=float, default=None,
                     help="ceiling for the per-line rate bump. Defaults to the "
                          "voice-consistency band (config.VOICE_RATE_BAND) - a "
@@ -353,21 +369,56 @@ def main() -> int:
         p = ndir / f"line_{ln['id']:03d}.mp3"
         if p.exists():
             narration.append((ln["id"], p, 0.0))
-    if not narration:
-        console.print("[red]No narration/*.mp3 - run the render once (or "
-                      "`recap.py render`) so the real audio exists, then "
-                      "re-run this.[/]")
-        return 1
 
-    findings = pf.capacity_findings(draft, narration)
+    stale = set(pf.stale_audio(draft, pdir))
+    if a.use_estimate:
+        # Durations from the draft-time estimate. Honest about what this is:
+        # the estimate is weaker evidence than a measurement, so the pre-flight
+        # re-checks everything on the real audio at render time. But window
+        # WIDENING does not depend on the duration being exact - it only needs
+        # to know a line is short of room - so fixing capacity before paying
+        # for a TTS pass is worth doing.
+        from pipeline.schemas import estimate_narration_seconds as _est
+        durs = {}
+        for ln in draft["lines"]:
+            if (ln.get("narration_silence_seconds") is not None
+                    or ln.get("film_speaks_seconds") is not None):
+                continue
+            txt = str(ln.get("narration") or "").strip()
+            if not txt:
+                continue
+            durs[ln["id"]] = _est(len(txt.split()),
+                                  ln.get("delivery"), ln.get("rate_bump"))
+        narration = [(lid, ndir / f"line_{lid:03d}.mp3", d)
+                     for lid, d in durs.items()]
+        console.print(f"[yellow]Working from the draft-time ESTIMATE[/] for "
+                      f"{len(durs)} line(s)"
+                      + (f" ({len(stale)} have stale audio)" if stale else "")
+                      + ". The pre-flight will re-check on the real audio.")
+        findings = pf.capacity_findings(draft, narration)
+    else:
+        if not narration:
+            console.print("[red]No narration/*.mp3 - run the render once so "
+                          "the real audio exists, or pass --use-estimate to "
+                          "work from word counts.[/]")
+            return 1
+        if stale:
+            console.print(
+                f"[yellow]{len(stale)} line(s) have audio that no longer "
+                f"matches their text or rate_bump, so measuring them would "
+                f"judge the wrong waveform. They are SKIPPED. Pass "
+                f"--use-estimate to fit them from word counts instead.[/]")
+        findings = pf.capacity_findings(draft, narration, skip_ids=stale)
+        durs = {}
+        ffp = config.ffprobe()
+        for lid, p, _d in narration:
+            if lid in stale:
+                continue
+            durs[lid] = pf._audio_dur(ffp, p)
+
     if not findings:
         console.print("[green]No capacity overruns - nothing to fit.[/]")
         return 0
-
-    durs = {}
-    ffp = config.ffprobe()
-    for lid, p, _d in narration:
-        durs[lid] = pf._audio_dur(ffp, p)
 
     console.print(f"[cyan]fit_narration:[/] {len(findings)} overrun(s) on "
                   f"{a.project}")
@@ -410,6 +461,14 @@ def main() -> int:
         by_id[lid]["clip_end"] = act["new_end"]
 
     still = pf.capacity_findings(draft, narration)
+    if a.widen_only and still:
+        console.print(
+            f"[yellow]--widen-only:[/] {len(still)} line(s) still overrun "
+            f"after widening. Not sizing a rate bump or a trim against "
+            f"{'an estimate' if a.use_estimate else 'this audio'} - re-run "
+            f"without --widen-only once the narration is current, and the "
+            f"pre-flight will measure them.")
+        still = []
 
     # ---- (b) bounded rate bump ------------------------------------------- #
     trim_todo = []

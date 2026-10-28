@@ -172,8 +172,13 @@ def cmd_draft(args):
             causes.append(f"{r['binding_mismatch']} [VOICE-VISUAL] mismatch(es) "
                           f"- re-point those lines' footage")
         if r.get("binding_violations"):
+            # Read the live ceiling. This said "1.4x" from a hardcoded literal
+            # after the cap moved to 1.15, so the message described a limit the
+            # pipeline no longer used.
+            from pipeline.schemas import BINDING_SLOWDOWN_MAX as _SMd
             causes.append(f"{r['binding_violations']} BINDING-VIOLATION(s) "
-                          f"- lines exceed 1.4x shot capacity and would freeze")
+                          f"- lines exceed {_SMd:.2f}x shot capacity and would "
+                          f"freeze")
         if r.get("reveal_hits"):
             causes.append(f"{r['reveal_hits']} REVEAL-TIMING hit(s) "
                           f"- a protected term appears before its landing beat")

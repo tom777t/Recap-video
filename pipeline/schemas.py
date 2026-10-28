@@ -927,15 +927,24 @@ def binding_capacity_check(draft: "Draft", shots: dict,
         else:
             sev = "at-risk"
 
-        # A line carrying `rate_bump` was fitted by tools/fit_narration.py
-        # against its REAL measured audio, with a safety margin. If its audio
-        # is now stale (the bump or the text changed, so it re-synthesizes on
-        # the next render) a word-count estimate is the weakest of the three
-        # kinds of evidence available and must not hard-block a render that the
-        # pre-flight will measure exactly. Downgrade to at-risk and let the
-        # measurement decide.
-        if sev == "violation" and not _meas and _bump:
-            sev = "at-risk"
+        # BLOCK ON MEASUREMENT, WARN ON ESTIMATE.
+        # Without `_meas` the only evidence is a word-count estimate, and its
+        # quality depends entirely on whether the voice profile is current. If
+        # the profile is stale - which it is for a whole render cycle after the
+        # delivery mapping changes - the estimate is a flat config constant
+        # that knows nothing about this voice. Hard-failing a draft on that
+        # blocks renders the real audio would have fitted, and the render's own
+        # pre-flight measures every line exactly before building a single clip.
+        # So an estimate-only verdict is a warning; the pre-flight is the gate.
+        if sev == "violation" and not _meas:
+            _profile_current = False
+            try:
+                from pipeline.calibration import production_profile as _pp
+                _profile_current = _pp().is_measured
+            except Exception:
+                _profile_current = False
+            if _bump or not _profile_current:
+                sev = "at-risk"
 
         out.append({
             "line_id": ln.id, "words": words, "narr_est": narr_est,
