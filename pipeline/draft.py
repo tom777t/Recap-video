@@ -2384,6 +2384,59 @@ def _run_phase1_audits(project, pdir):
     except Exception as e:
         console.print(f"[dim]binding-capacity check unavailable: {e}[/]")
         cap = []
+    # ---- [FILM-SPEAKS]: the only place the film's own dialogue is heard -----
+    # Since the film audio under narration and in holds now comes from the
+    # no-vocals stem, a film_speaks unit is the ONLY original dialogue in the
+    # video. That makes each one an editorial event, and bounds how many there
+    # can be: too many and the device stops working, and every second of
+    # someone else's audio is copyright exposure.
+    try:
+        _fs = [ln for ln in d.lines
+               if getattr(ln, "film_speaks_seconds", None) is not None]
+        _fs_bad: list = []
+        _cap = int(getattr(config, "FILM_SPEAKS_MAX_PER_FILM", 3))
+        _must = tuple(getattr(config, "FILM_SPEAKS_MUST_SERVE",
+                              ("reveal", "climax", "thesis")))
+        _lo = float(getattr(config, "FILM_SPEAKS_MIN_SEC", 3.0))
+        _hi = float(getattr(config, "FILM_SPEAKS_MAX_SEC", 15.0))
+        _space = int(getattr(config, "FILM_SPEAKS_MIN_SPACING_LINES", 15))
+        if len(_fs) > _cap:
+            _fs_bad.append(
+                f"{len(_fs)} film_speaks unit(s), cap is {_cap}. This is the "
+                f"only original dialogue in the video; past {_cap} it stops "
+                f"being an event and becomes a copyright surface.")
+        for ln in _fs:
+            _sec = float(getattr(ln, "film_speaks_seconds", 0.0) or 0.0)
+            if not (_lo <= _sec <= _hi):
+                _fs_bad.append(f"line {ln.id}: {_sec:.1f}s is outside "
+                               f"{_lo:.0f}-{_hi:.0f}s")
+            _why = str(getattr(ln, "film_speaks_reason", "") or "").strip()
+            if not _why:
+                _fs_bad.append(
+                    f"line {ln.id}: no `film_speaks_reason`. Say in one "
+                    f"sentence which it serves ({'/'.join(_must)}).")
+            elif not any(m in _why.lower() for m in _must):
+                _fs_bad.append(
+                    f"line {ln.id}: reason {_why!r} does not name a "
+                    f"{'/'.join(_must)} - those are the only things that earn "
+                    f"original dialogue.")
+        _ids = sorted(int(getattr(ln, "id", 0) or 0) for ln in _fs)
+        for _a, _b in zip(_ids, _ids[1:]):
+            if _b - _a < _space:
+                _fs_bad.append(f"lines {_a} and {_b} are {_b - _a} apart; "
+                               f"film_speaks units must be >= {_space} lines "
+                               f"apart so they cannot cluster")
+        if _fs_bad:
+            console.print(f"[red][FILM-SPEAKS][/] {len(_fs_bad)} problem(s):")
+            for _b in _fs_bad:
+                console.print(f"    {_b}")
+            sev = "hard"   # original dialogue is not a soft matter
+        elif _fs:
+            console.print(f"[cyan][FILM-SPEAKS][/] {len(_fs)}/{_cap} unit(s), "
+                          f"each justified and spaced.")
+    except Exception as _e:
+        console.print(f"[dim]film-speaks check unavailable: {_e}[/]")
+
     # ---- FOOTAGE REUSE: the same shot must not appear twice ----------------
     # Cheap, and catching it here costs nothing compared with finding it in a
     # finished render. The post-render check in pipeline/motion_check.py is the

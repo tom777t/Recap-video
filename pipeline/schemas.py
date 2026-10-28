@@ -292,6 +292,22 @@ class Line:
     # bump kept in a side-file would be lost on the next render and the line
     # would overrun again. 1.0 = untouched.
     rate_bump: Optional[float] = None
+    # --- <film_speaks>: narration STOPS and the film's own exchange plays at
+    # full level. This is the ONLY place in a render where the film's
+    # un-separated audio is heard (everywhere else uses the Demucs no-vocals
+    # stem), so each one is a deliberate editorial event.
+    #
+    # These were MISSING from the schema until 2026-10-27, which meant
+    # _drop_unknown silently stripped them off every Line: render.py reads the
+    # raw draft dict so the feature worked, but every gate that inspects Line
+    # objects was blind to it - the cap, the spacing and the duration limits
+    # could not be enforced because the data was not there to enforce them on.
+    film_speaks_seconds: Optional[float] = None
+    # One sentence saying which of config.FILM_SPEAKS_MUST_SERVE this unit
+    # serves (a reveal, the climax, or the angle's thesis). "It is a good line"
+    # is not a reason; using someone's original audio is a copyright exposure
+    # and the device stops working if it is everywhere.
+    film_speaks_reason: Optional[str] = None
 
     def __post_init__(self):
         if isinstance(self.claim, dict):
