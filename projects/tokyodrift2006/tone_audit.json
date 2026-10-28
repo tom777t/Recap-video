@@ -1,0 +1,123 @@
+{
+  "lines": [
+    {"line_id": 8, "beat": "B05", "from": "normal", "to": "action",
+     "reason": "B05 is the pink-slip race launching from the billboard into the housing tract - two cars neck and neck through framed houses is physical kinetics, not plain narration."},
+
+    {"line_id": 9, "beat": "B06", "from": "tense", "to": "action",
+     "reason": "B06 is Sean abandoning the road mid-race to cut across the dirt lots; it is a driving manoeuvre being described, so action rather than generic pressure."},
+
+    {"line_id": 11, "beat": "B08", "from": "sad", "to": "action",
+     "reason": "B08 is the cars colliding and tumbling end over end in front of the crowd - a crash set-piece. Nobody dies and nothing is lost but two cars, so this is impact, not grief."},
+
+    {"line_id": 14, "beat": "B13", "from": "sad", "to": "tense",
+     "reason": "B13 is the mother refusing to relocate him again - the moment the jail threat becomes inescapable. That is pressure closing in, not bereavement."},
+
+    {"line_id": 15, "beat": "B13", "from": "sad", "to": "normal",
+     "reason": "Same beat; this line is the narrator naming the 'being moved on' pattern (angle.md running bit 1 setup). It is an editorial observation, so plain narration."},
+
+    {"line_id": 18, "beat": "B18", "from": "tense", "to": "normal",
+     "reason": "B18 is a setup beat - the father lists three house rules and hands over a sleeping alcove. Exposition plus a dry aside; nothing is about to go wrong in the scene itself."},
+
+    {"line_id": 21, "beat": "B26", "from": "sad", "to": "mystery",
+     "reason": "B26 is Sean asking Neela where she is really from and the question trailing off as her eyes go past his shoulder. Her origin is withheld here and not paid off until B65 - withheld, not sad."},
+
+    {"line_id": 29, "beat": "B35", "from": "tense", "to": "action",
+     "reason": "B35 is Sean losing the borrowed car's line mid-drift and grinding it along the concrete in sparks, intercut with DK's clean run. Pure race kinetics."},
+
+    {"line_id": 34, "beat": "B43", "from": "reveal", "to": "normal",
+     "reason": "B43 is a setup beat - Morimoto goads Sean into the next race. No fact lands that changes the viewer's understanding; it is a scene of Han enjoying himself."},
+
+    {"line_id": 36, "beat": "B44", "from": "normal", "to": "mystery",
+     "reason": "B44 is the gangsters sending Sean out so they can press Han about a shipment that never arrived - the R1 setup. Something is going on with Han that the film deliberately will not say yet."},
+
+    {"line_id": 37, "beat": "B44", "from": "normal", "to": "mystery",
+     "reason": "Same beat; Han's eyes drop and the narrator points at who is answering questions in the room. Quietly ominous and unexplained, which is what mystery is for."},
+
+    {"line_id": 38, "beat": "B46", "from": "sad", "to": "normal",
+     "reason": "B46 is a dialogue beat - Neela reads Sean's army-brat past back to him after he tells her to stop following him. Being accurately seen is not a loss; nothing is taken from him."},
+
+    {"line_id": 40, "beat": "B47", "from": "reveal", "to": "normal",
+     "reason": "B47's reveal (Kamata takes a cut and keeps the police off) already lands on line 39. This line is the aphorism and the narrator restating it, so it carries no new fact."},
+
+    {"line_id": 44, "beat": "B52", "from": "reveal", "to": "normal",
+     "reason": "B52's reveal (Han simply hands Sean the Evo) lands on line 43. This line is the reason-why plus a narrator judgment about branding - commentary, not a second turn."},
+
+    {"line_id": 49, "beat": "B57", "from": "reveal", "to": "normal",
+     "reason": "B57's reveal (Han lent the car on purpose, to learn what the kid is made of) lands on line 48. This line restates it and adds the narrator's read of Han's creed."},
+
+    {"line_id": 53, "beat": "B62", "from": "normal", "to": "mystery",
+     "reason": "B62 is Reiko telling Han there is a visitor waiting below, with street-race footage playing in the mahjong parlour. angle.md lists B62 as an R1 setup; the visitor is never named here."},
+
+    {"line_id": 55, "beat": "B65", "from": "sad", "to": "normal",
+     "reason": "This is the one-sentence lead-in ('then she gives him the whole thing'). The bereavement itself is on line 56, which keeps sad; a lead-in does not need the mournful read."},
+
+    {"line_id": 57, "beat": "B66", "from": "sad", "to": "normal",
+     "reason": "B66 is Neela driving him up the mountain and talking about sneaking up as a kid, and the beat ends with the guard between them dropping into laughter. Wistful warmth, not grief."},
+
+    {"line_id": 58, "beat": "B67", "from": "tense", "to": "action",
+     "reason": "B67 is Morimoto walking into the dockside yard and putting Sean on the concrete with one swing. A beating on screen is physical impact."},
+
+    {"line_id": 62, "beat": "B70", "from": "sad", "to": "tense",
+     "reason": "B70 is DK throwing Neela's mother's hostess past at her and cornering her against the wall. This is intimidation and humiliation in progress - a threatening confrontation, which the brief excludes from sad."},
+
+    {"line_id": 63, "beat": "B70", "from": "sad", "to": "normal",
+     "reason": "Same beat; this is the narrator's verdict on DK's borrowed pride (angle.md: 'his pride is the whole of him'). An editorial line, so plain narration."},
+
+    {"line_id": 65, "beat": "B72", "from": "tense", "to": "mystery",
+     "reason": "B72 is Kamata sitting down to the books; he admits he does not understand half of it and then reads on in silence. The whole point is that you cannot tell what he is thinking - quietly ominous and withheld."},
+
+    {"line_id": 71, "beat": "B77", "from": "tense", "to": "action",
+     "reason": "B77 is Han bolting the bay in a shower of sparks and the whole crew pouring into the street after him - the start of set-piece SP3. Kinetics."},
+
+    {"line_id": 72, "beat": "B77", "from": "tense", "to": "action",
+     "reason": "Same chase beat - Han running flat out through the tunnels, slicing between cars. The Mexico callback is commentary riding on top of an action shot."},
+
+    {"line_id": 73, "beat": "B78", "from": "tense", "to": "action",
+     "reason": "B78 is the pack driving into a packed pedestrian crossing and Han slinging the car broadside head-on past a sedan. Driving, impact and near-impact."},
+
+    {"line_id": 77, "beat": "B81", "from": "sad", "to": "tense",
+     "reason": "B81 is Takashi putting a pistol to Sean's head in the lane while the father draws in return. A two-gun standoff is maximum threat, not loss."},
+
+    {"line_id": 78, "beat": "B82", "from": "sad", "to": "tense",
+     "reason": "B82 is Neela arguing across that standoff and leaving with Takashi to get the gun off Sean. The gun is still raised while she does it; the beat resolves under duress, so tense."},
+
+    {"line_id": 79, "beat": "B83", "from": "sad", "to": "reveal",
+     "reason": "B83 is Sean answering his father's 'I'm responsible' with 'I did this, I can't run away from it' - the exact turn angle.md names as the thesis payoff (he stops running). A genuine turn in the viewer's understanding of him."},
+
+    {"line_id": 82, "beat": "B87", "from": "sad", "to": "tense",
+     "reason": "B87 is Twinkie prying open a hidden stash and handing over a satchel of money so Sean can buy his way into Kamata's alive. Fetching money with a death sentence attached is pressure, not grief."},
+
+    {"line_id": 83, "beat": "B87", "from": "sad", "to": "normal",
+     "reason": "Same beat; this is the narrator's affectionate verdict on Twinkie, lifted straight from angle.md. A punchline of a compliment, read plain."},
+
+    {"line_id": 86, "beat": "B90", "from": "sad", "to": "tense",
+     "reason": "B90 is Kamata staring his nephew's protest down into a bow while Sean stands in the room with his life on the table. Silent menace and a public humiliation - tense, not sad."},
+
+    {"line_id": 93, "beat": "B96", "from": "tense", "to": "action",
+     "reason": "B96 is the starter dropping his arms and both cars launching into the downhill dark - the opening of set-piece SP6."},
+
+    {"line_id": 94, "beat": "B97", "from": "tense", "to": "action",
+     "reason": "B97 is the two cars grinding door to door in sparks until the Mustang tears the coupe's flank open. Contact at speed."},
+
+    {"line_id": 95, "beat": "B98", "from": "tense", "to": "action",
+     "reason": "B98 is Sean dragging level through the bends and carving past DK out of a smoke-filled cliff-edge turn. An overtake is kinetics."},
+
+    {"line_id": 97, "beat": "B99", "from": "tense", "to": "action",
+     "reason": "B99 is DK driving into the Mustang's flank mid-drift and scraping it along the cliff edge until Sean breaks free. A deliberate ram."},
+
+    {"line_id": 100, "beat": "B101", "from": "reveal", "to": "action",
+     "reason": "R3 lands on line 99 at 01:33:41 ('the one thing DK never saw coming'); this line is the execution - Sean shoving him off the shoulder and the coupe tumbling through the dirt. The reveal's content is spelled out later on line 106, which keeps reveal."},
+
+    {"line_id": 104, "beat": "B105", "from": "sad", "to": "reveal",
+     "reason": "B105 is Kamata saying his piece to Sean with no threat left in it. The fact that lands is that the race was the hearing and his own nephew lost it - it reframes everything Kamata has been doing since B91."},
+
+    {"line_id": 107, "beat": "B107", "from": "normal", "to": "sad",
+     "reason": "B107 is Twinkie calling out that Han was family and Sean's smirk fading - the film's only mourning of Han, and the beat angle.md marks as his send-off. This is where sad is actually earned."}
+  ],
+  "summary": {
+    "changed": 38,
+    "final_counts": {"hook": 1, "intro": 3, "tense": 35, "normal": 29, "reveal": 18, "action": 13, "mystery": 5, "sad": 4, "outro": 1},
+    "sad_line_ids": [56, 75, 76, 107],
+    "sad_percent": 3.7
+  }
+}

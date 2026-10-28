@@ -2384,6 +2384,52 @@ def _run_phase1_audits(project, pdir):
     except Exception as e:
         console.print(f"[dim]binding-capacity check unavailable: {e}[/]")
         cap = []
+    # ---- [TONE-BUDGET]: `sad` is for grief, and nothing else ---------------
+    # A tag is heard twice - in the read and in the music cue - so a wrong one
+    # costs double. `sad` on a car crash gives a mournful delivery AND sad
+    # music over an action beat.
+    try:
+        import collections as _coll
+        _tags = _coll.Counter(
+            str(getattr(_l, "delivery", None) or "normal") for _l in d.lines)
+        _nl = max(1, len(d.lines))
+        _valid = set(getattr(config, "TONE_VALID", ()))
+        _tone_bad: list = []
+        _unknown = sorted(set(_tags) - _valid) if _valid else []
+        if _unknown:
+            _tone_bad.append(
+                f"unknown tag(s) {_unknown}. Valid: {sorted(_valid)}. An "
+                f"unmapped tag resolves to whatever the voice provider happens "
+                f"to do with it, or fails mid-render.")
+        _sad_cap = float(getattr(config, "TONE_SAD_MAX_FRACTION", 0.05))
+        _sad_frac = _tags.get("sad", 0) / _nl
+        if _sad_frac > _sad_cap + 1e-9:
+            _ids = sorted(getattr(_l, "id", 0) for _l in d.lines
+                          if str(getattr(_l, "delivery", "")) == "sad")
+            _tone_bad.append(
+                f"{_tags['sad']} line(s) tagged `sad` = {_sad_frac:.1%}, over "
+                f"the {_sad_cap:.0%} budget. `sad` is for real loss or grief - "
+                f"a death, a bereavement, heartbreak. A setback, a defeat or a "
+                f"tense confrontation is not sad, and tagging it so gives it a "
+                f"mournful read and sad music. Lines: {_ids}")
+        for _t in getattr(config, "TONE_SINGLETON", ()):
+            if _tags.get(_t, 0) > 1:
+                _tone_bad.append(f"{_tags[_t]} lines tagged `{_t}`; there "
+                                 f"should be one.")
+        if _tone_bad:
+            console.print(f"[red][TONE-BUDGET][/] {len(_tone_bad)} problem(s):")
+            for _b in _tone_bad:
+                console.print(f"    {_b}")
+            sev = "hard"
+        else:
+            console.print(
+                "[cyan][TONE-BUDGET][/] "
+                + ", ".join(f"{_t} {_tags[_t]}"
+                            for _t in sorted(_tags, key=lambda x: -_tags[x]))
+                + f" - sad {_sad_frac:.1%} of {_nl} (budget {_sad_cap:.0%})")
+    except Exception as _e:
+        console.print(f"[dim]tone-budget check unavailable: {_e}[/]")
+
     # ---- [FILM-SPEAKS]: the only place the film's own dialogue is heard -----
     # Since the film audio under narration and in holds now comes from the
     # no-vocals stem, a film_speaks unit is the ONLY original dialogue in the

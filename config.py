@@ -360,6 +360,30 @@ MUSIC_VOLUME = 0.15        # music level under the voice (0..1). History: 0.13 w
 # --------------------------------------------------------------------------- #
 # A cue fires only on a RUN of >=N consecutive lines sharing one mood (or a hold
 # after a sad/reveal line), never on a single line.
+# --------------------------------------------------------------------------- #
+# TONE TAG BUDGET
+# --------------------------------------------------------------------------- #
+# A tag drives two things: how the narrator reads the line, and which mood cue
+# plays under it. So a wrong tag is heard twice.
+#
+# The Tokyo Drift draft had 19 of 109 lines tagged `sad` (17.4%) - a car crash,
+# a gun standoff, and a character fetching a bag of money among them. Each got
+# a mournful read AND sad music, which reads as unintentionally comic. Mean-
+# while `action` and `mystery` were completely unused, so kinetics were filed
+# under `tense` and withheld information under `sad`.
+#
+# `sad` means real loss or grief - a death, a bereavement, heartbreak - and
+# nothing else. A setback, a defeat, a humiliation or a sombre mood is not sad.
+# At 5% of lines it stays an event; at 17% it is the house style.
+TONE_SAD_MAX_FRACTION = 0.05
+# Tags that may appear in a draft at all. An unknown tag used to resolve to
+# whatever the provider happened to map, or raise mid-render.
+TONE_VALID = ("normal", "tense", "action", "reveal", "sad", "mystery",
+              "hook", "intro", "outro")
+# Tags that are structural - exactly one or a known few per film - so a drift
+# in their count means something is wrong with the draft's shape.
+TONE_SINGLETON = ("hook", "outro")
+
 MUSIC_CUE_MIN_RUN = 3
 # Which delivery tags map to a cue mood. Tags not listed here (normal/intro/
 # outro) never trigger a cue - they ride the bed alone.

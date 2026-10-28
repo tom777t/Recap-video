@@ -98,7 +98,7 @@
       "clip_start": "00:05:09.308",
       "clip_end": "00:05:24.865",
       "note": "B05",
-      "delivery": "normal",
+      "delivery": "action",
       "payload": "rest",
       "claim": {
         "type": "action",
@@ -111,7 +111,7 @@
       "clip_start": "00:07:19.437",
       "clip_end": "00:07:30.907",
       "note": "B06",
-      "delivery": "tense",
+      "delivery": "action",
       "payload": "reasoning",
       "claim": {
         "type": "action",
@@ -137,7 +137,7 @@
       "clip_start": "00:09:07.045",
       "clip_end": "00:09:16.596",
       "note": "B08",
-      "delivery": "sad",
+      "delivery": "action",
       "payload": "stake",
       "claim": {
         "type": "action",
@@ -177,7 +177,7 @@
       "clip_start": "00:11:33.232",
       "clip_end": "00:11:40.140",
       "note": "B13",
-      "delivery": "sad",
+      "delivery": "tense",
       "payload": "loop",
       "claim": {
         "type": "speech",
@@ -191,7 +191,7 @@
       "clip_start": "00:11:40.140",
       "clip_end": "00:11:49.790",
       "note": "B13",
-      "delivery": "sad",
+      "delivery": "normal",
       "payload": "stake",
       "claim": {
         "type": "speech",
@@ -231,7 +231,7 @@
       "clip_start": "00:15:10.198",
       "clip_end": "00:15:37.767",
       "note": "B18",
-      "delivery": "tense",
+      "delivery": "normal",
       "payload": "stake",
       "claim": {
         "type": "speech",
@@ -272,7 +272,7 @@
       "clip_start": "00:23:14.889",
       "clip_end": "00:23:45.335",
       "note": "B26",
-      "delivery": "sad",
+      "delivery": "mystery",
       "payload": "reasoning",
       "claim": {
         "type": "speech",
@@ -378,7 +378,7 @@
       "clip_start": "00:30:10.260",
       "clip_end": "00:30:21.522",
       "note": "B35",
-      "delivery": "tense",
+      "delivery": "action",
       "payload": "reasoning",
       "claim": {
         "type": "action",
@@ -444,7 +444,7 @@
       "clip_start": "00:38:37.098",
       "clip_end": "00:38:48.818",
       "note": "B43",
-      "delivery": "reveal",
+      "delivery": "normal",
       "payload": "reasoning",
       "claim": {
         "type": "reaction",
@@ -470,7 +470,7 @@
       "clip_start": "00:39:25.355",
       "clip_end": "00:39:30.362",
       "note": "B44",
-      "delivery": "normal",
+      "delivery": "mystery",
       "payload": "reasoning",
       "claim": {
         "type": "speech",
@@ -484,7 +484,7 @@
       "clip_start": "00:39:30.362",
       "clip_end": "00:39:42.830",
       "note": "B44",
-      "delivery": "normal",
+      "delivery": "mystery",
       "payload": "judgment",
       "claim": {
         "type": "speech",
@@ -497,7 +497,7 @@
       "clip_start": "00:40:14.195",
       "clip_end": "00:40:30.544",
       "note": "B46",
-      "delivery": "sad",
+      "delivery": "normal",
       "payload": "reasoning",
       "claim": {
         "type": "speech",
@@ -524,7 +524,7 @@
       "clip_start": "00:41:33.565",
       "clip_end": "00:41:54.587",
       "note": "B47",
-      "delivery": "reveal",
+      "delivery": "normal",
       "payload": "reasoning",
       "claim": {
         "type": "dialogue",
@@ -578,7 +578,7 @@
       "clip_start": "00:46:25.280",
       "clip_end": "00:46:34.699",
       "note": "B52",
-      "delivery": "reveal",
+      "delivery": "normal",
       "payload": "reasoning",
       "claim": {
         "type": "reveal",
@@ -644,7 +644,7 @@
       "clip_start": "00:51:51.253",
       "clip_end": "00:52:20.835",
       "note": "B57",
-      "delivery": "reveal",
+      "delivery": "normal",
       "payload": "reasoning",
       "claim": {
         "type": "speech",
@@ -697,7 +697,7 @@
       "clip_start": "00:56:42.721",
       "clip_end": "00:56:53.315",
       "note": "B62",
-      "delivery": "normal",
+      "delivery": "mystery",
       "payload": "rest",
       "claim": {
         "type": "speech",
@@ -724,7 +724,7 @@
       "clip_start": "00:59:19.043",
       "clip_end": "00:59:22.043",
       "note": "B65",
-      "delivery": "sad",
+      "delivery": "normal",
       "payload": "loop",
       "claim": {
         "type": "speech",
@@ -750,7 +750,7 @@
       "clip_start": "01:00:28.654",
       "clip_end": "01:00:44.587",
       "note": "B66",
-      "delivery": "sad",
+      "delivery": "normal",
       "payload": "reasoning",
       "claim": {
         "type": "speech",
@@ -763,7 +763,7 @@
       "clip_start": "01:02:31.985",
       "clip_end": "01:02:46.375",
       "note": "B67",
-      "delivery": "tense",
+      "delivery": "action",
       "payload": "reasoning",
       "claim": {
         "type": "action",
@@ -816,8 +816,8 @@
       "clip_start": "01:04:22.095",
       "clip_end": "01:04:27.626",
       "note": "B70",
-      "delivery": "sad",
-      "payload": "rest",
+      "delivery": "tense",
+      "payload": "stake",
       "claim": {
         "type": "speech",
         "subject": "DK"
@@ -830,7 +830,7 @@
       "clip_start": "01:04:27.626",
       "clip_end": "01:04:33.314",
       "note": "B70",
-      "delivery": "sad",
+      "delivery": "normal",
       "payload": "judgment",
       "claim": {
         "type": "speech",
@@ -857,7 +857,7 @@
       "clip_start": "01:06:44.294",
       "clip_end": "01:06:51.994",
       "note": "B72",
-      "delivery": "tense",
+      "delivery": "mystery",
       "payload": "reasoning",
       "claim": {
         "type": "speech",
@@ -936,7 +936,7 @@
       "clip_start": "01:10:39.345",
       "clip_end": "01:10:51.345",
       "note": "B77",
-      "delivery": "tense",
+      "delivery": "action",
       "payload": "reasoning",
       "claim": {
         "type": "action",
@@ -949,7 +949,7 @@
       "clip_start": "01:11:45.912",
       "clip_end": "01:11:57.912",
       "note": "B77",
-      "delivery": "tense",
+      "delivery": "action",
       "payload": "loop",
       "claim": {
         "type": "action",
@@ -962,7 +962,7 @@
       "clip_start": "01:14:50.721",
       "clip_end": "01:15:02.721",
       "note": "B78",
-      "delivery": "tense",
+      "delivery": "action",
       "payload": "stake",
       "claim": {
         "type": "action",
@@ -1015,7 +1015,7 @@
       "clip_start": "01:16:58.640",
       "clip_end": "01:17:02.933",
       "note": "B81",
-      "delivery": "sad",
+      "delivery": "tense",
       "payload": "stake",
       "claim": {
         "type": "action",
@@ -1029,7 +1029,7 @@
       "clip_start": "01:17:02.933",
       "clip_end": "01:17:10.640",
       "note": "B82",
-      "delivery": "sad",
+      "delivery": "tense",
       "payload": "loop",
       "claim": {
         "type": "action",
@@ -1042,7 +1042,7 @@
       "clip_start": "01:17:40.390",
       "clip_end": "01:17:52.390",
       "note": "B83",
-      "delivery": "sad",
+      "delivery": "reveal",
       "payload": "reasoning",
       "claim": {
         "type": "speech",
@@ -1083,7 +1083,7 @@
       "clip_start": "01:20:10.247",
       "clip_end": "01:20:19.654",
       "note": "B87",
-      "delivery": "sad",
+      "delivery": "tense",
       "payload": "stake",
       "claim": {
         "type": "action",
@@ -1097,7 +1097,7 @@
       "clip_start": "01:20:19.654",
       "clip_end": "01:20:28.654",
       "note": "B87",
-      "delivery": "sad",
+      "delivery": "normal",
       "payload": "judgment",
       "claim": {
         "type": "action",
@@ -1136,7 +1136,7 @@
       "clip_start": "01:23:00.709",
       "clip_end": "01:23:09.676",
       "note": "B90",
-      "delivery": "sad",
+      "delivery": "tense",
       "payload": "judgment",
       "claim": {
         "type": "reaction",
@@ -1229,7 +1229,7 @@
       "clip_start": "01:29:08.700",
       "clip_end": "01:29:20.629",
       "note": "B96",
-      "delivery": "tense",
+      "delivery": "action",
       "payload": "rest",
       "claim": {
         "type": "action",
@@ -1242,7 +1242,7 @@
       "clip_start": "01:30:34.202",
       "clip_end": "01:30:46.202",
       "note": "B97",
-      "delivery": "tense",
+      "delivery": "action",
       "payload": "stake",
       "claim": {
         "type": "action",
@@ -1255,7 +1255,7 @@
       "clip_start": "01:31:31.050",
       "clip_end": "01:31:43.062",
       "note": "B98",
-      "delivery": "tense",
+      "delivery": "action",
       "payload": "loop",
       "claim": {
         "type": "action",
@@ -1281,7 +1281,7 @@
       "clip_start": "01:32:25.521",
       "clip_end": "01:32:34.363",
       "note": "B99",
-      "delivery": "tense",
+      "delivery": "action",
       "payload": "stake",
       "claim": {
         "type": "action",
@@ -1320,7 +1320,7 @@
       "clip_start": "01:34:01.367",
       "clip_end": "01:34:08.332",
       "note": "B101",
-      "delivery": "reveal",
+      "delivery": "action",
       "payload": "stake",
       "claim": {
         "type": "reveal",
@@ -1374,7 +1374,7 @@
       "clip_start": "01:34:43.575",
       "clip_end": "01:34:55.575",
       "note": "B105",
-      "delivery": "sad",
+      "delivery": "reveal",
       "payload": "judgment",
       "claim": {
         "type": "speech",
@@ -1413,7 +1413,7 @@
       "clip_start": "01:36:19.463",
       "clip_end": "01:36:31.463",
       "note": "B107",
-      "delivery": "normal",
+      "delivery": "sad",
       "payload": "reasoning",
       "claim": {
         "type": "action",
