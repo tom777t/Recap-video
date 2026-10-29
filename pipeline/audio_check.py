@@ -248,9 +248,22 @@ def check_film_audio_placement(final: Path, stem: Path, rows: list) -> tuple:
     return (not find), find, got
 
 
-# A <film_speaks> unit must measure clearly above the music around it. The
-# duck is -20 dB, so anything near zero means the duck did not happen.
-FILM_SPEAKS_MARGIN_MIN_DB = 3.0
+# A <film_speaks> unit must measure clearly above the music around it.
+#
+# CALIBRATED AGAINST THE DEFECT, which is the only honest way to site this bar.
+# Measured on the shipped final.mp4, the render that was described as "I heard
+# only music":
+#     line 110 at 3:01.2  film -17.5 dB vs music -20.8  margin +3.2 dB
+#     line 111 at 12:44.5 film -18.1 dB vs music -19.6  margin +1.5 dB
+# So +3.2 dB IS the inaudible case. A first version of this bar was 3.0 dB and
+# line 110 would have passed it - a check calibrated to accept the very render
+# it was written to catch. Dialogue needs far more headroom over music than the
+# ~3 dB "just noticeably louder" figure for a tone.
+#
+# With the music ducked by FILM_SPEAKS_MUSIC_DB (-20 dB) the achievable margin
+# is around +20 dB, so 10 dB is comfortably reachable and still well clear of
+# the measured failure.
+FILM_SPEAKS_MARGIN_MIN_DB = 10.0
 # A cue must rise out of the bed audibly. 3 dB is the usual "just noticeably
 # louder" figure; the configured intent is +10 to +14 dB, and a control mix
 # measured +15.1 (tense) and +19.3 (action), so this bar fails only a cue that

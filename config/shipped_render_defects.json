@@ -1,0 +1,75 @@
+{
+ "_comment": "Measurements taken on the SHIPPED projects/tokyodrift2006/final.mp4 (144.8 MB, 2026-10-29 16:29) - the render that was watched and reported as defective. Every threshold added in this series is sited against these numbers rather than against a rule of thumb, so a bar can be checked against the defect it was written to catch. All timestamps are OUTPUT positions in the finished file.",
+ "file": {
+  "video_stream_sec": 255.767,
+  "video_packets": 7673,
+  "video_fps": 30.0,
+  "audio_stream_sec": 1054.469,
+  "container_reported_sec": 1054.469,
+  "note": "The container header reports the LONGEST stream, which is why the file looked correct. The picture is ABSENT from 4:15.77 to 17:34.47 - 798.70s, 13m18.70s - and every player holds the last frame over it. freezedetect reported the film clean because it scanned only the 255s of frames that exist."
+ },
+ "intro_freezes_reported_by_gate": {
+  "windows_sec": [[19.17, 20.17], [20.17, 22.0], [42.6, 43.53], [47.9, 48.9]],
+  "intro_offset_sec": 53.433,
+  "note": "All four fall inside the prepended intro block, so all four were built by pipeline/intro.py, whose tpad was uncapped. Independently corroborated here: a frame sampled at t=20s of this file is entirely black (mean luma 0.0 across the row at y=540), while frames at 80s, 150s and 220s show normal content inside a 132px letterbox."
+ },
+ "film_speaks_margins": [
+  {"line_id": 110, "out_start_sec": 181.22, "out_hms": "3:01.22", "dur_sec": 8.59,
+   "film_db": -17.5, "music_before_db": -20.8, "music_after_db": -20.7,
+   "margin_db": 3.2, "verdict": "inaudible as dialogue"},
+  {"line_id": 111, "out_start_sec": 764.47, "out_hms": "12:44.47", "dur_sec": 4.77,
+   "film_db": -18.1, "music_before_db": -19.6, "music_after_db": -20.1,
+   "margin_db": 1.5, "verdict": "inaudible as dialogue"}
+ ],
+ "film_speaks_bar_note": "FILM_SPEAKS_MARGIN_MIN_DB was first written as 3.0 dB, which line 110 would have PASSED at +3.2 dB - a check calibrated to accept the render it was written to catch. Raised to 10.0 dB, which is reachable inside the 20 dB duck.",
+ "music_cue_lifts": [
+  {"mood": "tense",  "out_hms": "3:53.72",  "dur_sec": 25.2, "cue_db": -20.0, "bed_db": -22.1, "lift_db": 2.1},
+  {"mood": "tense",  "out_hms": "5:09.17",  "dur_sec": 23.6, "cue_db": -20.1, "bed_db": -22.1, "lift_db": 2.0},
+  {"mood": "tense",  "out_hms": "9:52.38",  "dur_sec": 27.3, "cue_db": -19.3, "bed_db": -19.5, "lift_db": 0.2},
+  {"mood": "tense",  "out_hms": "10:54.24", "dur_sec": 28.5, "cue_db": -19.7, "bed_db": -20.3, "lift_db": 0.6},
+  {"mood": "tense",  "out_hms": "12:49.36", "dur_sec": 20.3, "cue_db": -20.2, "bed_db": -20.6, "lift_db": 0.3},
+  {"mood": "action", "out_hms": "14:39.98", "dur_sec": 32.5, "cue_db": -18.6, "bed_db": -21.9, "lift_db": 3.4}
+ ],
+ "music_cue_note": "5 of 6 cues lifted under 3 dB where the configured intent was +10 dB (+14 for action). Cause: the cue source files' own integrated loudness spans 9.0 dB (action1 -3.5 LUFS to sad1 -12.5), which is larger than the gain differences the mix is built on, so a relative gain meant something different for every cue.",
+ "music_source_loudness_lufs": {
+  "bed": -11.1, "action1": -3.5, "mystery1": -9.6,
+  "reveal1": -12.4, "sad1": -12.5, "tense1": -11.2,
+  "spread_db": 9.0, "after_normalisation_spread_db": 0.0, "target_lufs": -23.0
+ },
+ "film_audio_stem_presence": {
+  "measured_by": "normalised cross-correlation of the finished mix against stems/no_vocals.wav, 4s windows",
+  "action_tense_mean_corr": 0.051,
+  "elsewhere_mean_corr": 0.035,
+  "absent_bar": 0.025,
+  "note": "Both groups are above the absent-bar, i.e. the stem played under every line. Level could not have detected this: on a control mix, adding a stem at -17 dB moved RMS by 0.3-0.4 dB while moving correlation from 0.006 to 0.270.",
+  "per_line": [
+   {"line_id": 8,  "out_hms": "1:24.97", "group": "action/tense", "corr": 0.038},
+   {"line_id": 9,  "out_hms": "1:32.61", "group": "action/tense", "corr": 0.050},
+   {"line_id": 10, "out_hms": "1:47.17", "group": "action/tense", "corr": 0.038},
+   {"line_id": 11, "out_hms": "1:53.94", "group": "action/tense", "corr": 0.114},
+   {"line_id": 22, "out_hms": "3:54.72", "group": "action/tense", "corr": 0.036},
+   {"line_id": 23, "out_hms": "4:01.28", "group": "action/tense", "corr": 0.032},
+   {"line_id": 5,  "out_hms": "0:54.93", "group": "should be OFF", "corr": 0.032},
+   {"line_id": 6,  "out_hms": "1:05.55", "group": "should be OFF", "corr": 0.032},
+   {"line_id": 7,  "out_hms": "1:18.75", "group": "should be OFF", "corr": 0.038},
+   {"line_id": 12, "out_hms": "2:06.09", "group": "should be OFF", "corr": 0.044},
+   {"line_id": 13, "out_hms": "2:17.65", "group": "should be OFF", "corr": 0.034},
+   {"line_id": 14, "out_hms": "2:24.55", "group": "should be OFF", "corr": 0.028}
+  ]
+ },
+ "shared_footage": {
+  "lines": [100, 101],
+  "source_overlap_sec": 0.48,
+  "source_at_sec": 5637.17,
+  "note": "Declared windows abut exactly and do not overlap. Line 101 is a 6.0s hold in a 5.52s window, and _build_silence_clip reads the authored hold straight from the source with no -t, so it really reached 0.48s into line 100's footage. Resolved by widening 101's window to 5.94s and shortening the hold to match."
+ },
+ "repeat_scene_scan": {
+  "crop": "crop=1920:821:0:130",
+  "frames_sampled": 256,
+  "flat_skipped": 6,
+  "pairs_compared": 29439,
+  "near_identical_found": 0,
+  "coverage_note": "Only 255.8s of video exists in this file, so this scan covers 4:15 of a 17:34 film. It is NOT evidence that the full render is free of repeated scenes - the remaining 13m19s has no frames to examine.",
+  "cross_shot_distance_distribution": {"min": 16, "p01": 22.0, "p05": 26.0, "p50": 32.0}
+ }
+}

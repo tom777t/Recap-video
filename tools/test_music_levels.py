@@ -290,7 +290,50 @@ def test_gates_catch() -> tuple[bool, str]:
                       f"{rows3[0]['lift_db']:+.1f} dB lift passes")
 
 
+def test_bars_calibrated_to_defect() -> tuple[bool, str]:
+    """The bars must reject the render that was actually complained about.
+
+    Measured on the shipped final.mp4 - the one described as "I heard only
+    music" and "cues not audible":
+
+        film_speaks line 110 at 3:01.2   margin +3.2 dB
+        film_speaks line 111 at 12:44.5  margin +1.5 dB
+        5 of 6 cues               lift +0.2 .. +3.4 dB
+
+    A first version of FILM_SPEAKS_MARGIN_MIN_DB was 3.0, which line 110 would
+    have PASSED at +3.2 dB - a check calibrated to accept the very render it
+    was written to catch. That is the failure mode this case exists to
+    prevent: a threshold chosen from a general rule of thumb (~3 dB is "just
+    noticeably louder") rather than from the defect in front of me.
+    """
+    worst_shipped_fs = 3.2
+    if float(ac.FILM_SPEAKS_MARGIN_MIN_DB) <= worst_shipped_fs:
+        return False, (f"FILM_SPEAKS_MARGIN_MIN_DB is "
+                       f"{ac.FILM_SPEAKS_MARGIN_MIN_DB:.1f} dB, which would "
+                       f"PASS the shipped unit that measured "
+                       f"{worst_shipped_fs:+.1f} dB and was inaudible")
+    # ...and it must still be reachable: the duck is -20 dB, so a bar above
+    # that could never be met.
+    duck = abs(float(config.FILM_SPEAKS_MUSIC_DB))
+    if float(ac.FILM_SPEAKS_MARGIN_MIN_DB) > duck:
+        return False, (f"the bar {ac.FILM_SPEAKS_MARGIN_MIN_DB:.1f} dB exceeds "
+                       f"the {duck:.0f} dB duck, so no render could ever "
+                       f"satisfy it")
+    best_shipped_cue = 3.4
+    if float(ac.CUE_LIFT_MIN_DB) > best_shipped_cue:
+        pass          # stricter than the shipped best is fine
+    if float(ac.CUE_LIFT_MIN_DB) <= 0.5:
+        return False, (f"CUE_LIFT_MIN_DB is {ac.CUE_LIFT_MIN_DB:.1f} dB, which "
+                       f"would pass the shipped cues that lifted +0.2 dB")
+    return True, (f"film_speaks bar {ac.FILM_SPEAKS_MARGIN_MIN_DB:.0f} dB "
+                  f"rejects the shipped {worst_shipped_fs:+.1f} dB unit and is "
+                  f"reachable inside the {duck:.0f} dB duck; cue bar "
+                  f"{ac.CUE_LIFT_MIN_DB:.0f} dB rejects the shipped +0.2 dB "
+                  f"lift")
+
+
 TESTS = {
+    "BARS-CALIBRATED-TO-DEFECT": test_bars_calibrated_to_defect,
     "NORMALISE-REAL-FILES":  test_normalise_real_files,
     "NORMALISE-CACHED":      test_normalise_cached,
     "NORMALISE-STATIC-GAIN": test_normalise_static_gain,
