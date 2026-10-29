@@ -1,0 +1,17 @@
+{
+ "pairs": 29439,
+ "crop": "crop=1920:821:0:130",
+ "sampled": 256,
+ "usable": 250,
+ "min": 16,
+ "p01": 22.0,
+ "p05": 26.0,
+ "p50": 32.0,
+ "mean": 31.884303135296715,
+ "note": "Cross-shot perceptual-hash distances measured on the real final.mp4 with the letterbox cropped. No two different shots came within 16 bits; an exact repeat measures 0. MAX_DISTANCE=10 sits between them.",
+ "max_distance": 10,
+ "min_gap_sec": 8.0,
+ "min_variance": 8.0,
+ "sample_interval_sec": 1.0,
+ "uncropped_min_distance": 12
+}

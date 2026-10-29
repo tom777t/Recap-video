@@ -2334,6 +2334,32 @@ def render(project: str, draft: dict,
                       "line.[/]")
         sys.exit(1)
 
+    # ---- REPEATED SCENES, judged on the PICTURE ----------------------------
+    # motion_check.reuse compares SOURCE windows, which catches literal reuse
+    # and cannot catch what a viewer notices: this film is shot/reverse-shot,
+    # so two different source windows minutes apart can hold a nearly
+    # identical frame. The bookkeeping says "different footage" and is right;
+    # the screen says "I have seen this" and is also right.
+    #
+    # Reported, not fatal. A perceptual hash is a fuzzy measure and a false
+    # positive must not block a publish - but it has to be visible, with
+    # OUTPUT timestamps, so it can be checked against the finished video.
+    try:
+        from pipeline import dupe_check as _dup
+        _dok, _dfind, _dinfo = _dup.check(final)
+        console.print(
+            f"[dim][REPEAT-SCENE] {_dinfo.get('sampled', 0)} frame(s) sampled, "
+            f"{_dinfo.get('skipped_flat', 0)} flat (fades/black) skipped, "
+            f"crop {_dinfo.get('crop')}[/]")
+        if not _dok:
+            console.print("[yellow][REPEAT-SCENE][/] near-identical picture "
+                          "at two different times:")
+            for _b in _dfind:
+                console.print(f"[yellow]    {_b}[/]")
+            problems.append("repeated scenes: " + "; ".join(_dfind))
+    except Exception as _de:                               # pragma: no cover
+        console.print(f"[yellow][REPEAT-SCENE] could not run: {_de}[/]")
+
     if problems:
         console.print("[red][RENDER-CHECK][/] the render does not match the draft:")
         for pr in problems:
