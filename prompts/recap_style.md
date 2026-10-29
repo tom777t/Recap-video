@@ -335,6 +335,50 @@ and a regression fixture, but the gate is a floor — read these.
    that does not say that. `[CALLBACK-CITE]` demands the citation. If a line is
    not really a callback, reword it so it does not read as one.
 
+## THE WORD BUDGET IS THE RENDER'S CONTRACT - write to fit
+
+One draft arrived with **42 capacity overruns**, every one of them trimmed
+afterwards. The lines were not careless; the budget was wrong. The writer was
+sizing lines with a different contract from the one the render enforces, in
+three separate ways at once:
+
+- **The rate.** The budget assumed **185 WPM**. Warren, measured on 87 clean
+  readings at the current delivery mapping, reads **140.6 WPM** - and only
+  **109.7 WPM** on a `sad` line. A 32% over-budget on every line, and worse on
+  the slow tags.
+- **The margin.** The budget filled the window to the ceiling; the fitter
+  refuses a line with no headroom, because re-synthesized audio lands a
+  percent either side of the prediction.
+- **The window.** The budget used the SHOT's duration. A line's real
+  allowance is its own window **plus the free footage either side that no
+  other line uses** - this film has 71 minutes of it in 75 gaps.
+
+So the contract, in one place (`pipeline.preflight.budget_words`):
+
+```
+words = (window x BINDING_SLOWDOWN_MAX  -  GAP  -  margin)  x  measured rate
+```
+
+with `window` from `preflight.available_window` (own window + free adjacent
+footage), `BINDING_SLOWDOWN_MAX` from config, `margin` =
+max(0.25s, 3% of capacity), and the rate the **measured per-tag rate** of the
+voice that will actually speak it.
+
+### What this means when you write
+- **A 3-second window is about 6 words. A 9-second window is about 20.** Not
+  10 and 28 - those were the old numbers.
+- **A `sad` or `reveal` line gets fewer words than a `tense` one** for the same
+  window. The voice genuinely reads them 30% slower.
+- **Ask for footage before cutting words.** If a line needs more room and the
+  footage next to it is unused, the fitter will extend into it across the cut -
+  that is better picture than a slowed shot and better writing than a trim.
+  Words are the LAST resort, not the first.
+- **Re-measure after changing the voice.** The 185 figure was measured on an
+  older delivery mapping whose speaking rates ran to 1.42. Flattening the
+  mapping for voice consistency slowed the voice by a third and nothing
+  re-measured, so the budget silently became fiction. `calibrate()` stamps the
+  mapping it measured under and `production_profile()` refuses a stale one.
+
 ## `<film_speaks>` - LET THE FILM TALK, 2-3 TIMES, ON PURPOSE
 
 Everywhere else in the video the film is heard through the **no-vocals stem** -

@@ -119,20 +119,25 @@ def main() -> int:
     def pct(words):
         return 100.0 * (words / wpm) / film_min
 
-    # 5726 words (the uncompressed draft) ~ 30% -> OUTSIDE
-    out_hi = pct(5726)
-    # ~3100 words -> ~16% -> INSIDE
-    in_band = pct(3100)
+    # RATE-INDEPENDENT fixtures. These used to be hardcoded word counts
+    # (5726 and 3100) chosen when the budget assumed 185 WPM. Correcting
+    # TTS_WORDS_PER_MINUTE to Warren's measured 141 made 3100 words read 21%,
+    # so the fixture failed on its own stale assumption rather than on the
+    # gate. Derive the counts from the rate under test: the gate is the thing
+    # being checked, not the rate.
+    words_at = lambda p: (p / 100.0) * film_min * wpm
+    out_hi = pct(words_at(hi) * 1.5)          # half again over the ceiling
+    in_band = pct(words_at((lo + hi) / 2.0))  # mid-band by construction
     outside = out_hi > hi
     inside = lo <= in_band <= hi
-    print(f"RUNTIME-BAND 5726w         : {out_hi:.0f}% -> "
+    print(f"RUNTIME-BAND over-ceiling  : {out_hi:.0f}% -> "
           f"{'OUTSIDE' if outside else 'inside'} (expected OUTSIDE, band {lo:.0f}-{hi:.0f}%)")
-    print(f"RUNTIME-BAND 3100w         : {in_band:.0f}% -> "
+    print(f"RUNTIME-BAND mid-band     : {in_band:.0f}% -> "
           f"{'INSIDE' if inside else 'outside'} (expected INSIDE)")
     if not outside:
-        fails.append(f"5726 words should read OUTSIDE the band; got {out_hi:.0f}%")
+        fails.append(f"a count 50% over the ceiling should read OUTSIDE; got {out_hi:.0f}%")
     if not inside:
-        fails.append(f"3100 words should read INSIDE the band; got {in_band:.0f}%")
+        fails.append(f"a mid-band count should read INSIDE; got {in_band:.0f}%")
 
     # ----- [RUNTIME-BAND] never-block: config band is a warn, so the bounds must
     # be a real (lo < hi) band and both soft-side. (Structural check.)

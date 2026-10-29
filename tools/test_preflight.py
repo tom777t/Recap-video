@@ -318,11 +318,16 @@ def test_tag_rate_budget() -> tuple[bool, str]:
         "voice_id": "x", "rate_adjustment": "",
         "words_per_sec": 3.2, "words_per_sec_conservative": 3.0,
         "pause_overhead_sec": 0.18,
+        # The REAL measured values for Warren at the flat delivery mapping
+        # (87 clean readings): sad 109.7 WPM, tense 143.8 WPM. Using the old
+        # pre-flattening numbers here made the fixture incoherent with
+        # config.TTS_WORDS_PER_MINUTE once that was corrected to 141, and the
+        # test then failed on its own stale assumption rather than on the code.
         "by_tag": {
-            "sad":   {"words_per_sec": 2.52, "words_per_sec_conservative": 2.37,
-                      "samples": 13},
-            "tense": {"words_per_sec": 4.45, "words_per_sec_conservative": 3.79,
-                      "samples": 37},
+            "sad":   {"words_per_sec": 1.828,
+                      "words_per_sec_conservative": 1.747, "samples": 3},
+            "tense": {"words_per_sec": 2.397,
+                      "words_per_sec_conservative": 1.847, "samples": 24},
         },
         "mapping_signature": cal.mapping_signature()}}
     try:
@@ -350,7 +355,123 @@ def test_tag_rate_budget() -> tuple[bool, str]:
                   f"{tense:.2f}s; rate_bump 1.08 -> {bumped:.2f}s")
 
 
+def test_writer_budget_matches_render() -> tuple[bool, str]:
+    """THE WRITER'S WORD BUDGET MUST SATISFY THE RENDER'S CONTRACT.
+
+    This is the regression for 42 capacity overruns in one draft. The writer
+    sized every line with a different contract from the one the render
+    enforces, in three separate ways:
+
+      * RATE - config.TTS_WORDS_PER_MINUTE was 185 while Warren, measured on
+        87 clean readings at the flat delivery mapping, runs 140.6 WPM. A 32%
+        over-budget on every single line.
+      * MARGIN - the fitter demanded headroom the writer's budget did not
+        leave, so a line written exactly at the ceiling was refused the moment
+        it was spoken.
+      * WINDOW - the budget came from the shot's own duration, ignoring the
+        free footage either side that the fitter will happily extend into.
+
+    The check: take the writer's budget for a window, spend it entirely, and
+    assert the render's own contract accepts the result.
+    """
+    if ROOT not in sys.path:
+        sys.path.insert(0, ROOT)
+    from pipeline import preflight as pf
+    from pipeline.calibration import production_profile
+    from pipeline.render import GAP, _lead_for
+    from pipeline.schemas import BINDING_SLOWDOWN_MAX as SM
+
+    prof = production_profile()
+    if not prof.is_measured:
+        return False, ("the production voice has no calibrated profile, so the "
+                       "writer is budgeting from a config constant - run "
+                       "pipeline/calibration.py on real narration")
+
+    bad = []
+    for window in (3.0, 4.5, 6.0, 9.0, 12.0, 20.0):
+        for tag in (None, "sad", "tense", "reveal"):
+            words = pf.budget_words(window, tag)
+            if words <= 0:
+                continue
+            # spend the whole budget, at the rate that tag really reads at
+            wps = prof.rate_for(tag, conservative=True) if tag else \
+                (prof.words_per_sec_conservative or prof.words_per_sec)
+            narr = words / max(0.1, wps)
+            need = _lead_for(narr, window) + narr + GAP
+            cap = window * SM
+            if need > cap + 1e-6:
+                bad.append(f"{window:.1f}s/{tag}: budget {words} words = "
+                           f"{narr:.2f}s, needs {need:.2f}s > capacity "
+                           f"{cap:.2f}s")
+    if bad:
+        return False, ("the writer's budget does not fit the render's "
+                       "contract: " + "; ".join(bad[:4]))
+
+    # the budget must also be STRICTLY inside capacity, not exactly on it -
+    # re-synthesized audio lands a percent either side of the prediction
+    w = pf.budget_words(9.0)
+    wps = prof.words_per_sec_conservative or prof.words_per_sec
+    slack = 9.0 * SM - (w / wps + GAP)
+    want = max(float(config.CAPACITY_MARGIN_MIN_SEC),
+               float(config.CAPACITY_MARGIN_FRACTION) * 9.0 * SM)
+    if slack < want - 1e-6:
+        return False, (f"a fully spent budget leaves only {slack:.2f}s of "
+                       f"headroom, under the {want:.2f}s the fitter demands")
+
+    # and the rate the writer uses must be the MEASURED one, not the old 185
+    if abs(prof.words_per_sec * 60.0 - 185.0) < 5.0:
+        return False, ("the writer is still budgeting at ~185 WPM - that was "
+                       "measured on the OLD per-tag mapping whose "
+                       "cue-compensating speaking_rate ran to 1.42")
+    if abs(float(config.TTS_WORDS_PER_MINUTE) - 185.0) < 1e-6:
+        return False, ("config.TTS_WORDS_PER_MINUTE is still 185, so an "
+                       "uncalibrated voice starts 32% over-budget")
+
+    # available_window must count free adjacent footage, not the shot
+    draft = {"lines": [
+        {"id": 1, "clip_start": "00:00:10.000", "clip_end": "00:00:13.000"},
+        {"id": 2, "clip_start": "00:01:00.000", "clip_end": "00:01:05.000"},
+    ]}
+    avail = pf.available_window(draft, 1, src_dur=600.0)
+    if avail < 50.0:
+        return False, (f"available_window gave line 1 only {avail:.1f}s - it "
+                       f"has 3s of its own plus ~47s free before the next "
+                       f"line, and budgeting from the shot alone is what sent "
+                       f"resolvable lines to the trim worklist")
+    # A line BOXED IN on both sides has only its own window. Note the fixture
+    # needs a line before it too: free footage before the FIRST line is
+    # genuinely free, so counting it there is correct, not a bug.
+    tight = {"lines": [
+        {"id": 1, "clip_start": "00:00:00.000", "clip_end": "00:00:10.000"},
+        {"id": 2, "clip_start": "00:00:10.000", "clip_end": "00:00:13.000"},
+        {"id": 3, "clip_start": "00:00:13.000", "clip_end": "00:00:20.000"},
+    ]}
+    if pf.available_window(tight, 2, src_dur=600.0) > 3.5:
+        return False, ("available_window ignored abutting neighbours - it "
+                       "would budget footage another line already uses")
+    # and a HOLD's real footprint must bound it, not the hold's declared end
+    # Line 2 must be bounded on BOTH sides for this to test the hold: a last
+    # line can legitimately reach the end of the film, so leaving it unbounded
+    # forward tested nothing.
+    held = {"lines": [
+        {"id": 1, "clip_start": "00:00:00.000", "clip_end": "00:00:02.000",
+         "narration": "", "narration_silence_seconds": 12.0},
+        {"id": 2, "clip_start": "00:00:20.000", "clip_end": "00:00:23.000"},
+        {"id": 3, "clip_start": "00:00:25.000", "clip_end": "00:00:30.000"},
+    ]}
+    got = pf.available_window(held, 2, src_dur=600.0)
+    if got > 14.0:
+        return False, (f"available_window gave line 2 {got:.1f}s - it reached "
+                       f"back into footage a HOLD actually plays (the hold "
+                       f"runs to 12s, not to its declared 2s end)")
+    return True, (f"the writer budgets at the measured "
+                  f"{prof.words_per_sec*60:.0f} WPM with the fitter's own "
+                  f"margin, over the footage actually available, and a fully "
+                  f"spent budget satisfies window x {SM:.2f} on every tag")
+
+
 TESTS = {
+    "WRITER-BUDGET-MATCHES-RENDER": test_writer_budget_matches_render,
     "PREFLIGHT-CATCHES":   test_preflight_catches,
     "PREFLIGHT-LISTS-ALL": test_preflight_lists_all,
     "PREFLIGHT-FORMULA":   test_preflight_formula,

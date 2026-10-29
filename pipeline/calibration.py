@@ -104,7 +104,17 @@ class VoiceProfile:
         the same ceiling for a `sad` line and a `tense` one, and Warren speaks
         those 110 WPM apart - the `sad` ceilings were the ones that overran.
         """
-        usable = max(0.0, float(capacity_sec) - self.pause_overhead_sec)
+        # THE SAME MARGIN THE FITTER USES. tools/fit_narration.py refuses to
+        # size a line to land exactly on its capacity, because re-synthesized
+        # audio comes back a percent or two either side of the prediction - so
+        # a line written exactly at the ceiling needs fitting the moment it is
+        # spoken. The writer's budget has to leave the same room, or the writer
+        # is being told a number the render will not honour.
+        cap = max(0.0, float(capacity_sec))
+        margin = max(float(getattr(config, "CAPACITY_MARGIN_MIN_SEC", 0.25)),
+                     float(getattr(config, "CAPACITY_MARGIN_FRACTION", 0.03))
+                     * cap)
+        usable = max(0.0, cap - self.pause_overhead_sec - margin)
         if tag is not None:
             return int(usable * max(0.1, self.rate_for(tag, conservative=True)))
         wps = (self.words_per_sec_conservative or self.words_per_sec
@@ -288,7 +298,8 @@ def _count_syllables(word: str) -> int:
     return max(1, count)
 
 
-def calibrate(project: str, voice_key: str, ffprobe: Optional[str] = None) -> dict:
+def calibrate(project: str, voice_key: str, ffprobe: Optional[str] = None,
+              only_ids: Optional[set] = None) -> dict:
     """Measure words/sec + syllables/sec from a project's narration/*.mp3 against
     its draft.json, and write/update config/voice_profiles.json[profiles][voice_key].
     Returns the computed stats dict."""
@@ -314,6 +325,14 @@ def calibrate(project: str, voice_key: str, ffprobe: Optional[str] = None) -> di
     tot_w = tot_s = tot_syl = 0
     for l in draft["lines"]:
         if l.get("narration_silence_seconds") or l.get("film_speaks_seconds"):
+            continue
+        # `only_ids` restricts the sample to lines whose audio on disk is known
+        # to be a CLEAN reading - no rate bump applied when it was synthesized.
+        # The draft's current rate_bump is not enough to know that: a bump can
+        # be reset after the audio was made, which leaves a bumped waveform
+        # attached to a line that now claims no bump. The caller recovers the
+        # truth from the TTS cache manifest.
+        if only_ids is not None and l.get("id") not in only_ids:
             continue
         text = (l.get("narration") or "").strip()
         if not text:

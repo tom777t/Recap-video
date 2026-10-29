@@ -98,6 +98,71 @@ def stale_audio(draft: dict, pdir: Path) -> list[int]:
     return sorted(out)
 
 
+def available_window(draft: dict, line_id, src_dur: float = 0.0) -> float:
+    """Seconds of footage a line could have - its own window PLUS the free
+    footage either side that no other line uses.
+
+    This is the number the WRITER needs, and it is not the shot's duration.
+    tokyodrift2006 has 71 minutes of unused footage in 75 gaps, so a line whose
+    shot is 3 seconds long may have 30 seconds available to it; budgeting from
+    the shot alone under-counts it badly. Conversely a line whose neighbour
+    abuts immediately really does have only its own window, and budgeting from
+    a generous shot over-counts it.
+
+    Bounded by the neighbours' REAL footprints (a hold plays past its declared
+    end) and by the source duration. Reveal landings are deliberately NOT
+    applied here: this is a budget, and the fitter applies the landing rule
+    when it actually moves a boundary.
+    """
+    from pipeline.draft import parse_ts
+    from pipeline.render import intro_owned
+    rows = []
+    for ln in draft.get("lines") or []:
+        if intro_owned(ln) or ln.get("pool") or ln.get("montage"):
+            continue
+        cs, ce = ln.get("clip_start"), ln.get("clip_end")
+        if not cs or not ce:
+            continue
+        try:
+            a, b = parse_ts(cs), parse_ts(ce)
+        except Exception:
+            continue
+        hold = (ln.get("narration_silence_seconds")
+                or ln.get("film_speaks_seconds"))
+        rows.append({"id": ln.get("id"), "a": a, "b": b,
+                     "real_b": max(b, a + float(hold)) if hold else b})
+    rows.sort(key=lambda r: r["a"])
+    for i, r in enumerate(rows):
+        if r["id"] != line_id:
+            continue
+        lo = rows[i - 1]["real_b"] if i else 0.0
+        hi = rows[i + 1]["a"] if i + 1 < len(rows) else (
+            float(src_dur) if src_dur else r["b"])
+        return max(0.0, min(hi, float(src_dur) if src_dur else hi) - lo)
+    return 0.0
+
+
+def budget_words(window_sec: float, tag: str | None = None) -> int:
+    """The writer's word budget for `window_sec` of footage.
+
+    THE SAME CONTRACT THE RENDER ENFORCES, in one place:
+        window x BINDING_SLOWDOWN_MAX          the capacity the render allows
+        - GAP                                   the inter-line gap it adds
+        - max(CAPACITY_MARGIN_MIN_SEC, 3%)      the headroom the fitter demands
+        / the MEASURED rate for this tag        what the voice actually does
+
+    Every one of those four was wrong somewhere at some point, which is how a
+    draft arrived with 42 overruns: the rate was 185 WPM against a measured
+    140.6, the margin existed only in the fitter, and the window was the shot's
+    own length rather than the footage available.
+    """
+    import config
+    from pipeline.calibration import production_profile
+    from pipeline.schemas import BINDING_SLOWDOWN_MAX
+    cap = max(0.0, float(window_sec)) * float(BINDING_SLOWDOWN_MAX)
+    return production_profile().max_words_for_capacity(cap, tag)
+
+
 def capacity_findings(draft: dict, narration: list,
                       ffprobe: str | None = None,
                       skip_ids: set | None = None) -> list[dict]:

@@ -1327,12 +1327,27 @@ def render(project: str, draft: dict,
         except Exception as _e:                            # pragma: no cover
             has_film_audio = False
         if has_film_audio:
+            # Say WHICH audio. This line used to read "source audio mixed
+            # under the voice", which was true before stems existed and
+            # actively misleading afterwards: a reader checking whether the
+            # dialogue fix had taken effect saw a message describing the
+            # behaviour it replaced. Verified by capturing the real ffmpeg
+            # command - with a stem the film-audio chain reads [N:a] (the stem
+            # input), not [0:a] (the source's own track).
+            _src_label = ("the NO-VOCALS stem" if film_stem is not None
+                          else f"{source.name}'s own track (UN-SEPARATED: "
+                               f"dialogue will be audible)")
             console.print(
-                f"[cyan]Film audio:[/] source audio mixed under the voice at "
+                f"[cyan]Film audio:[/] {_src_label} mixed under the voice at "
                 f"{config.FILM_AUDIO_DB:.0f} dB "
                 f"({config.FILM_AUDIO_HOLD_DB:.0f} dB inside holds, "
                 f"{config.FILM_AUDIO_PRE_REVEAL_DB:.0f} dB for "
                 f"{config.FILM_AUDIO_PRE_REVEAL_SEC:.1f}s before a reveal)")
+            if film_stem is not None:
+                console.print(
+                    "[dim]    the original mix is read ONLY inside a "
+                    "<film_speaks> unit - everywhere else the characters are "
+                    "silent and the engines are not.[/]")
         else:
             console.print(
                 "[yellow]Film audio:[/] FILM_AUDIO_ENABLE is on but "

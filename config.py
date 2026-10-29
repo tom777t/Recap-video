@@ -62,7 +62,21 @@ DEFAULT_TTS_RATE = "+10%"
 # output names which basis it used. 185 = measured on the Tokyo Drift draft
 # through the production voice (Inworld "Warren"), calibrated per tag to land on
 # this target - see pipeline/tts_providers._inworld for the rate tuning.
-TTS_WORDS_PER_MINUTE = 185
+# THE WRITER'S FALLBACK RATE. Used only when the production voice has never
+# been calibrated - a measured profile (config/voice_profiles.json) always wins.
+#
+# 2026-10-29: 185 -> 141. This single number caused 42 capacity overruns in one
+# draft. MEASURED on 87 clean, unbumped Warren readings at the flat delivery
+# mapping, the voice runs 140.6 WPM aggregate (127.4 WPM conservative). 185 was
+# a 32% over-budget: the writer sized every line for a voice that talks a third
+# faster than the one doing the talking, so the lines could not fit and the
+# overruns were discovered at render time and trimmed afterwards.
+#
+# The lesson is not the number, it is where the number came from: 185 was
+# measured on the OLD per-tag mapping, where cue-compensating speaking_rate
+# values ran as high as 1.42. Flattening the mapping for voice consistency
+# necessarily slowed the voice down, and nothing re-measured.
+TTS_WORDS_PER_MINUTE = 141
 
 # --------------------------------------------------------------------------- #
 # ONE NARRATOR - the voice-consistency contract
@@ -338,6 +352,14 @@ SPLIT_CLIP_SEC = 8.0
 #    shot could appear twice in one video.
 BINDING_SLOWDOWN_MAX = 1.15
 MAX_FREEZE_SEC = 0.30
+# Headroom between a line's audio and its capacity ceiling. ONE definition,
+# used by BOTH the writer's word budget (calibration.max_words_for_capacity)
+# and the fitter (tools/fit_narration.py). They used to carry separate numbers,
+# so the writer sized a line to land exactly on the ceiling and the fitter then
+# refused it for having no headroom - the writer was being told a number the
+# render would not honour.
+CAPACITY_MARGIN_MIN_SEC = 0.25
+CAPACITY_MARGIN_FRACTION = 0.03
 # Post-render detection thresholds (pipeline/motion_check.py). The render-time
 # rules above are the prevention; these measure the FINISHED file, because a
 # freeze can also come from the source itself or from a filter-graph mistake.

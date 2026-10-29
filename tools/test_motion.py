@@ -37,6 +37,7 @@ Run:  python tools/test_motion.py
 from __future__ import annotations
 
 import io
+import json
 import os
 import re
 import shutil
@@ -333,9 +334,101 @@ def test_static_source_excused() -> tuple[bool, str]:
         shutil.rmtree(TMP, ignore_errors=True)
 
 
+def test_bump_never_compounds() -> tuple[bool, str]:
+    """A rate_bump is ABSOLUTE. Re-fitting must not multiply onto the old one.
+
+    fit_narration used to write `cur * mult`, so two passes took 1.08 to 1.188
+    and three took line 86 to 1.283 - all outside the +-10% voice band that
+    every delivery tag respects. Every individual decision looked right; it
+    was the ACCUMULATION that broke the one-narrator contract, which is why
+    this is an invariant and not a code review.
+    """
+    src = io.open(os.path.join(ROOT, "tools", "fit_narration.py"),
+                  encoding="utf-8").read()
+    # Search CODE only. The comment above the fix quotes the old expression
+    # verbatim so the bug is documented where it happened, and a naive
+    # substring search flagged that comment as the bug itself.
+    code = "\n".join(l for l in src.splitlines()
+                     if not l.lstrip().startswith("#"))
+    for bad in ("cur * mult", "cur * a.max_bump"):
+        if bad in code:
+            return False, (f"fit_narration still compounds bumps ({bad!r}) - "
+                           f"a re-fit will push lines outside the voice band")
+    if "old_bumps" not in src:
+        return False, ("fit_narration does not reset previous bumps before "
+                       "re-fitting, so it cannot be starting from the base rate")
+    if "bump_in_band" not in src:
+        return False, ("fit_narration does not assert the band invariant after "
+                       "planning - an accumulation would go unnoticed again")
+    # the un-scaling of a previous bump must exist, or resetting throws away
+    # the measurement instead of correcting it
+    if "UN-SCALE" not in src:
+        return False, ("a reset discards the measured audio instead of "
+                       "dividing the old bump back out of it")
+    # and the shipped draft must satisfy the band
+    from pipeline import voice_check as vc
+    p = Path(config.project_dir("tokyodrift2006")) / "draft.json"
+    if p.exists():
+        d = json.loads(p.read_text(encoding="utf-8-sig"))
+        out = [(l["id"], float(l["rate_bump"])) for l in d["lines"]
+               if l.get("rate_bump") and not vc.bump_in_band(l["rate_bump"])]
+        if out:
+            return False, f"the shipped draft has out-of-band bumps: {out}"
+    return True, (f"bumps are absolute, previous ones are reset and un-scaled, "
+                  f"and the band invariant is asserted; the shipped draft is "
+                  f"inside +-{config.VOICE_RATE_BAND:.0%}")
+
+
+def test_multi_shot_before_trim() -> tuple[bool, str]:
+    """Free adjacent footage must be taken BEFORE rate bumps and trims.
+
+    The widener only ever grew a window inside its HOST SHOT, because the reach
+    limit was `max(host_end, ...)` and then only ever reduced - so it could
+    never exceed the host shot's end. Everything it could not fix went straight
+    to a rate bump or the trim worklist while 71 minutes of unused footage sat
+    in 75 gaps across the film.
+    """
+    src = io.open(os.path.join(ROOT, "tools", "fit_narration.py"),
+                  encoding="utf-8").read()
+    if "def plan_extend" not in src:
+        return False, "there is no multi-shot extension stage"
+    # the reach limit must be able to GROW to the next bound line
+    if "limit = max(limit, r[\"a\"])" not in src:
+        return False, ("the reach limit cannot exceed the host shot - it is "
+                       "being min()-ed downward only, which is the original bug")
+    # order: extension must be planned before the rate bump / trim loop
+    i_ext = src.find("plan_extend(draft")
+    i_rate = src.find("bounded rate bump")
+    i_merge = src.find("plan_merge_short(draft")
+    i_trim = src.find("the text is the problem")
+    for nm, idx in (("plan_extend", i_ext), ("rate bump", i_rate),
+                    ("plan_merge_short", i_merge), ("trim", i_trim)):
+        if idx < 0:
+            return False, f"could not locate the {nm} stage"
+    if not (i_ext < i_merge < i_rate or i_ext < i_rate):
+        return False, ("multi-shot extension is not planned before the rate "
+                       "bump")
+    if not i_ext < i_trim:
+        return False, "multi-shot extension is not planned before the trim"
+    # extension must refuse to overlap another line's footage
+    j = src.find("def plan_extend")
+    body = src[j:j + 5200]
+    for probe, why in (("real_b", "a hold's real footprint"),
+                       ("lands", "reveal landings"),
+                       ("src_dur", "the source duration"),
+                       ("AssertionError", "an overlap invariant")):
+        if probe not in body:
+            return False, f"plan_extend does not respect {why}"
+    return True, ("multi-shot extension exists, can reach past the host shot "
+                  "to the next bound line, runs before the rate bump and the "
+                  "trim, and asserts it never overlaps another line")
+
+
 TESTS = {
     "SLOWDOWN-CAPPED":      test_slowdown_capped,
     "STATIC-SOURCE-EXCUSED": test_static_source_excused,
+    "BUMP-NEVER-COMPOUNDS":  test_bump_never_compounds,
+    "MULTI-SHOT-BEFORE-TRIM": test_multi_shot_before_trim,
     "FREEZE-CAPPED":        test_freeze_capped,
     "FREEZE-DETECTED":      test_freeze_detected,
     "FREEZE-FATAL":         test_freeze_fatal,

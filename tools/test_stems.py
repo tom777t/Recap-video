@@ -375,8 +375,95 @@ def test_film_speaks_gate() -> tuple[bool, str]:
                   f"rule set as a hard failure")
 
 
+def test_stem_reaches_ffmpeg() -> tuple[bool, str]:
+    """The stem must actually be the audio ffmpeg reads - not just resolved.
+
+    Everything upstream can look right while the filter graph still reads
+    [0:a], the source's own track. So this captures the REAL ffmpeg command
+    for all four cases and checks which input the film-audio chain references.
+
+    It also pins the log message, which said "source audio mixed under the
+    voice" long after the stem was in use - a reader checking whether the
+    dialogue fix had taken effect saw a description of the behaviour it
+    replaced.
+    """
+    import re
+    import tempfile
+    from pipeline import render as R
+
+    cap: dict = {}
+    orig_run = R._run
+    R._run = lambda cmd, desc: cap.update(cmd=list(cmd))
+    tmp = Path(tempfile.mkdtemp(prefix="stemff_"))
+    try:
+        src, aud, stem = tmp / "s.mp4", tmp / "a.mp3", tmp / "no_vocals.wav"
+        for p in (src, aud, stem):
+            p.write_bytes(b"x" * 256)
+
+        def graph_uses_stem():
+            cmd = cap["cmd"]
+            g = cmd[cmd.index("-filter_complex") + 1]
+            ins = [cmd[i + 1] for i, x in enumerate(cmd) if x == "-i"]
+            si = ins.index(str(stem)) if str(stem) in ins else None
+            return (si is not None and f"[{si}:a]" in g), ("[0:a]" in g)
+
+        ff = config.ffmpeg()
+        # 1. narrated clip WITH a stem -> must read the stem, never [0:a]
+        R._build_clip(ff, src, 10.0, 20.0, aud, 5.0, tmp / "o.mp4", 0, 0.0,
+                      0.0, "none", None, 0.0, lead_in=0.5, film_audio=True,
+                      film_src=stem, src_wh=(1280, 544))
+        used, raw = graph_uses_stem()
+        if not used or raw:
+            return False, (f"a narrated clip did not read the stem "
+                           f"(stem={used}, source track={raw})")
+        # 2. narrated clip with NO stem -> falls back to the source track
+        R._build_clip(ff, src, 10.0, 20.0, aud, 5.0, tmp / "o.mp4", 0, 0.0,
+                      0.0, "none", None, 0.0, lead_in=0.5, film_audio=True,
+                      film_src=None, src_wh=(1280, 544))
+        used, raw = graph_uses_stem()
+        if used or not raw:
+            return False, "with no stem the clip did not fall back to [0:a]"
+        # 3. a HOLD must read the stem
+        R._build_silence_clip(ff, src, 10.0, 20.0, tmp / "o.mp4", 4.0, 0, 0.0,
+                              "none", None, 0.0, film_audio=True,
+                              film_speaks=False, film_src=stem,
+                              src_wh=(1280, 544))
+        used, raw = graph_uses_stem()
+        if not used or raw:
+            return False, ("a HOLD did not read the stem - at -6 dB its "
+                           "dialogue is the clearest thing in the recap")
+        # 4. a FILM_SPEAKS unit must read the ORIGINAL mix
+        R._build_silence_clip(ff, src, 10.0, 20.0, tmp / "o.mp4", 4.0, 0, 0.0,
+                              "none", None, 0.0, film_audio=True,
+                              film_speaks=True, film_src=stem,
+                              src_wh=(1280, 544))
+        used, raw = graph_uses_stem()
+        if used or not raw:
+            return False, ("a film_speaks unit read the STEM - it is the one "
+                           "place the characters are supposed to be heard")
+    finally:
+        R._run = orig_run
+        shutil.rmtree(tmp, ignore_errors=True)
+
+    # the message must name which audio it used
+    rsrc = io.open(os.path.join(ROOT, "pipeline", "render.py"),
+                   encoding="utf-8").read()
+    i = rsrc.find("Film audio:[/] {_src_label}")
+    if i < 0:
+        return False, ("the Film audio log line does not report WHICH audio "
+                       "was used - it said 'source audio mixed under the "
+                       "voice' for a whole release after stems landed")
+    if "NO-VOCALS stem" not in rsrc or "UN-SEPARATED" not in rsrc:
+        return False, "the message does not distinguish stem from source track"
+    return True, ("captured from the real ffmpeg command: narrated clips and "
+                  "holds read the stem, film_speaks reads the original mix, "
+                  "no stem falls back to the source track, and the log names "
+                  "which")
+
+
 TESTS = {
     "AVAILABILITY":          test_availability,
+    "STEM-REACHES-FFMPEG":   test_stem_reaches_ffmpeg,
     "FILM-SPEAKS-GATE":      test_film_speaks_gate,
     "NEEDED-SPANS":          test_needed_spans,
     "SPAN-COVERAGE":         test_span_coverage,
