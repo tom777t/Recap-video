@@ -30,6 +30,7 @@ already mixes a bed, so the final filter graph stays one expression.
 """
 from __future__ import annotations
 
+import json
 import random
 import subprocess
 from pathlib import Path
@@ -207,10 +208,70 @@ def plan_cues(draft: dict, timeline: list, cues: dict,
 # --------------------------------------------------------------------------- #
 # Building the one track
 # --------------------------------------------------------------------------- #
+def normalized(ff: str, pdir: Path, src: Path,
+               target: float | None = None) -> Path:
+    """`src` loudness-normalised to a common level, cached. Returns a path.
+
+    Measures integrated loudness with ebur128 and applies the difference as a
+    STATIC gain. Deliberately not two-pass `loudnorm`: its dynamic mode
+    compresses, which would flatten exactly the dynamics a cue depends on to
+    land as an event rather than as more bed.
+
+    Why this exists: the gains the mix is built on (-12 dB for a cue, -8 for an
+    action cue, -2 in a hold) are SMALLER than the loudness spread of the
+    files they are applied to - 9.0 dB across this project's five cues. So
+    "+10 dB above the bed" was a different instruction for every cue, and the
+    quiet ones never rose out of it. Normalising first is what makes a gain
+    mean something.
+    """
+    if not getattr(config, "MUSIC_NORMALIZE", True):
+        return src
+    target = float(getattr(config, "MUSIC_NORMALIZE_LUFS", -23.0)
+                   if target is None else target)
+    try:
+        stt = src.stat()
+        key = f"{src.name}:{stt.st_size}:{int(stt.st_mtime)}:{target:.1f}"
+    except OSError:
+        return src
+    import hashlib
+    h = hashlib.sha1(key.encode("utf-8")).hexdigest()[:16]
+    ndir = pdir / "music" / "_norm"
+    ndir.mkdir(parents=True, exist_ok=True)
+    outp = ndir / f"{h}.wav"
+    meta = ndir / f"{h}.json"
+    if outp.exists() and meta.exists():
+        return outp
+
+    from pipeline import audio_check as _ac
+    measured = _ac.integrated(src)
+    if measured is None:
+        console.print(f"[yellow]Music:[/] could not measure {src.name}'s "
+                      f"loudness; using it unnormalised.")
+        return src
+    gain = target - float(measured)
+    r = subprocess.run(
+        [ff, "-y", "-v", "error", "-i", str(src),
+         "-af", (f"volume={gain:+.2f}dB,"
+                 f"aformat=sample_rates=48000:channel_layouts=stereo"),
+         "-c:a", "pcm_s16le", str(outp)], capture_output=True, text=True)
+    if r.returncode != 0 or not outp.exists():
+        console.print(f"[yellow]Music:[/] normalising {src.name} failed; "
+                      f"using it as-is.")
+        return src
+    meta.write_text(json.dumps({"src": src.name, "measured_lufs": measured,
+                                "target_lufs": target,
+                                "gain_db": round(gain, 2)}),
+                    encoding="utf-8")
+    console.print(f"[dim]  music: {src.name} {measured:+.1f} -> "
+                  f"{target:+.1f} LUFS ({gain:+.1f} dB)[/]")
+    return outp
+
+
 def build_music_track(ff: str, pdir: Path, out: Path, total_dur: float,
                       bed: Path, cue_plan: list[dict],
                       reveal_positions: list | None = None,
-                      hold_windows: list | None = None) -> bool:
+                      hold_windows: list | None = None,
+                      film_speaks_windows: list | None = None) -> bool:
     """Render the bed (looped, crossfaded at the loop point) with the cues
     layered on top and the reveal dips, to one wav of length total_dur.
 
@@ -223,10 +284,14 @@ def build_music_track(ff: str, pdir: Path, out: Path, total_dur: float,
     """
     reveal_positions = sorted(reveal_positions or [])
     hold_windows = hold_windows or []
+    film_speaks_windows = film_speaks_windows or []
     fade = config.MUSIC_CUE_FADE_SEC
     dip = config.MUSIC_PRE_REVEAL_DROP_SEC
     near = config.MUSIC_PRE_REVEAL_LEVEL
     bed_dip = _db(config.MUSIC_CUE_BED_DIP_DB)
+
+    # EVERY source normalised to one loudness before any gain is applied.
+    bed = normalized(ff, pdir, Path(bed))
 
     inputs = ["-stream_loop", "-1", "-t", f"{total_dur:.3f}", "-i", str(bed)]
 
@@ -246,6 +311,25 @@ def build_music_track(ff: str, pdir: Path, out: Path, total_dur: float,
     for rp in reveal_positions:
         lo = max(0.0, rp - dip)
         bed_vol = f"if(between(t,{lo:.3f},{rp:.3f}),{near:.4f},{bed_vol})"
+
+    # ...and a <film_speaks> unit wins over THAT. The film is talking; the bed
+    # gets out of the way. Faded in and out over FILM_SPEAKS_MUSIC_FADE_SEC so
+    # the moment is lowered into and lifted out of, not cut out - a hard edge
+    # here reads as the audio breaking.
+    _fs_lvl = _db(float(getattr(config, "FILM_SPEAKS_MUSIC_DB", -20.0)))
+    _fs_fade = max(0.05, float(getattr(config, "FILM_SPEAKS_MUSIC_FADE_SEC",
+                                       0.75)))
+    for (fa, fb) in film_speaks_windows:
+        fa, fb = float(fa), float(fb)
+        if fb <= fa:
+            continue
+        # a trapezoid that goes DOWN to _fs_lvl, including the fade either
+        # side of the unit itself
+        ra, rb = max(0.0, fa - _fs_fade), fb + _fs_fade
+        ramp = (f"min(clip((t-{ra:.3f})/{_fs_fade:.3f},0,1),"
+                f"clip(({rb:.3f}-t)/{_fs_fade:.3f},0,1))")
+        bed_vol = (f"if(between(t,{ra:.3f},{rb:.3f}),"
+                   f"({bed_vol})*(1-(1-{_fs_lvl:.5f})*{ramp}),{bed_vol})")
 
     parts = [f"[0:a]aformat=sample_rates=48000:channel_layouts=stereo,"
              f"volume='{bed_vol}':eval=frame[bed]"]
@@ -277,12 +361,34 @@ def build_music_track(ff: str, pdir: Path, out: Path, total_dur: float,
         cue_len = p["end"] - p["start"]
         if cue_len < 1.0:
             continue
-        inputs += ["-i", str(p["file"])]
+        # normalised, like the bed - this is the whole point of item 5. The
+        # cue files here span 9.0 dB of integrated loudness, which is more
+        # than the gain differences below, so without this the +10 dB lift
+        # landed anywhere from +2 to +17 dB in practice.
+        inputs += ["-i", str(normalized(ff, pdir, Path(p["file"])))]
         delay_ms = int(max(0.0, p["start"]) * 1000)
         lbl = f"cue{k}"
         _target = (_cue_duck_action if str(p.get("mood")) == "action"
                    else _cue_duck)
         _rel = _target - _bed_duck          # dB, positive = louder than bed
+        # A cue overlapping a <film_speaks> unit must duck with the bed. It is
+        # the louder of the two by design (MUSIC_CUE_HOLD_DB puts it near full
+        # level in a hold), so leaving it out of the duck would leave exactly
+        # the layer that was drowning the dialogue.
+        _cvol = f"volume={_rel:+.2f}dB"
+        for (fa, fb) in film_speaks_windows:
+            fa, fb = float(fa), float(fb)
+            if fb <= fa or fb <= p["start"] or fa >= p["end"]:
+                continue
+            ra, rb = max(0.0, fa - _fs_fade), fb + _fs_fade
+            # relative to the CUE's own clock, which starts at p['start']
+            la, lb = ra - p["start"], rb - p["start"]
+            ramp = (f"min(clip((t-{la:.3f})/{_fs_fade:.3f}\\,0\\,1)\\,"
+                    f"clip(({lb:.3f}-t)/{_fs_fade:.3f}\\,0\\,1))")
+            _cvol = (f"volume='if(between(t\\,{la:.3f}\\,{lb:.3f})\\,"
+                     f"{_db(_rel):.5f}*(1-(1-{_fs_lvl:.5f})*{ramp})\\,"
+                     f"{_db(_rel):.5f})':eval=frame")
+            break
         # fade in/out within the cue, lift to its level, delay to its start,
         # pad to full length
         parts.append(
@@ -290,7 +396,7 @@ def build_music_track(ff: str, pdir: Path, out: Path, total_dur: float,
             f"atrim=duration={cue_len:.3f},"
             f"afade=t=in:st=0:d={min(fade, cue_len/2):.2f},"
             f"afade=t=out:st={max(0.0, cue_len-fade):.2f}:d={min(fade, cue_len/2):.2f},"
-            f"volume={_rel:+.2f}dB,"
+            f"{_cvol},"
             f"adelay={delay_ms}|{delay_ms},apad=whole_dur={total_dur:.3f}[{lbl}]")
         labels.append(f"[{lbl}]")
         idx += 1
@@ -303,6 +409,24 @@ def build_music_track(ff: str, pdir: Path, out: Path, total_dur: float,
         graph = ";".join(parts) + ";" + "".join(labels) + \
             f"amix=inputs={len(labels)}:duration=first:normalize=0," \
             f"alimiter=limit=0.95[mixout]"
+
+    # Record WHAT WAS PLACED, so the post-render check can measure the
+    # finished mix at those exact timestamps instead of guessing where a cue
+    # was meant to be. Written next to the track; harmless to keep.
+    try:
+        (out.parent / "music_plan.json").write_text(json.dumps({
+            "cues": [{"at": p["start"], "dur": p["end"] - p["start"],
+                      "mood": p.get("mood"),
+                      "file": Path(p["file"]).name} for p in cue_plan],
+            "film_speaks": [[float(a), float(b)]
+                            for a, b in film_speaks_windows],
+            "holds": [[float(a), float(b)] for a, b in hold_windows],
+            "normalize_lufs": (float(config.MUSIC_NORMALIZE_LUFS)
+                               if getattr(config, "MUSIC_NORMALIZE", True)
+                               else None),
+        }, indent=1), encoding="utf-8")
+    except OSError:
+        pass
 
     cmd = [ff, "-y", *inputs, "-filter_complex", graph,
            "-map", "[mixout]", "-t", f"{total_dur:.3f}",
@@ -322,7 +446,8 @@ def build_music_track(ff: str, pdir: Path, out: Path, total_dur: float,
 def resolve_music(ff: str, pdir: Path, work: Path, draft: dict, timeline: list,
                   total_dur: float, reveal_positions: list | None = None,
                   hold_windows: list | None = None,
-                  legacy: Path | None = None):
+                  legacy: Path | None = None,
+                  film_speaks_windows: list | None = None):
     """Return (track_path, is_prebuilt, note) for render.py to mix, applying the
     fallback ladder and PRINTING which design is active and which files it found.
 
@@ -393,7 +518,8 @@ def resolve_music(ff: str, pdir: Path, work: Path, draft: dict, timeline: list,
 
     out = work / "music_track.wav"
     ok = build_music_track(ff, pdir, out, total_dur, bed, plan,
-                           reveal_positions, hold_windows)
+                           reveal_positions, hold_windows,
+                           film_speaks_windows=film_speaks_windows)
     if not ok:
         return bed, False, "bed only (cue build failed)"
 

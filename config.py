@@ -407,6 +407,23 @@ FILM_AUDIO_REQUIRE_STEMS = True
 # exposure, and the device stops working if it is everywhere.
 # --------------------------------------------------------------------------- #
 FILM_SPEAKS_DB = 0.0        # full level - this is the point of the unit
+# WHAT THE MUSIC DOES while the film is speaking.
+#
+# THE DEFECT: both units were INAUDIBLE - only music was heard. A film_speaks
+# unit carries no narration, so it was recorded as a silence window like any
+# other hold, and a hold SWELLS the music: SILENCE_MUSIC_VOLUME raises the bed
+# to 0.30 (double the 0.15 it sits at under narration) and MUSIC_CUE_HOLD_DB
+# puts any cue in that window at -2 dB, near full level. So the one moment the
+# film is deliberately given the floor was also the loudest the music ever
+# gets, and FILM_SPEAKS_DB = 0.0 was "full level" against a doubled bed.
+#
+# A hold and a film_speaks unit want OPPOSITE things from the music, and
+# treating them as the same kind of event is the whole bug.
+FILM_SPEAKS_MUSIC_DB = -20.0     # bed AND cues duck this far under the film
+FILM_SPEAKS_MUSIC_FADE_SEC = 0.75   # ...faded, so the moment is not cut out
+# Not muted. A hard zero reads as a dropout - as if the audio broke - and the
+# scene stops feeling like part of the film. -20 dB is present but out of the
+# way of dialogue.
 FILM_SPEAKS_MIN_SEC = 3.0   # under this nobody registers an exchange
 FILM_SPEAKS_MAX_SEC = 15.0  # over this it stops being a recap
 # 2026-10-27: 5 -> 3. This is now the ONLY place the film's own dialogue is
@@ -568,6 +585,28 @@ MUSIC_CUE_FADE_SEC = 1.75        # fade a cue in/out (1.5-2s band, middle)
 #   bed while a cue plays -12 dB  (was -6: it has to get out of the way)
 # That leaves ~10 dB between cue and bed during a cue, instead of the 16 dB the
 # WRONG WAY it had before.
+# LOUDNESS-NORMALISE EVERY MUSIC FILE BEFORE ANY GAIN IS APPLIED.
+#
+# THE DEFECT: the cues were not audible, and the gains were not the problem -
+# they were real and in the filtergraph. Measured integrated loudness of this
+# project's own music:
+#     action1  -3.5 LUFS      mystery1  -9.6      tense1  -11.2
+#     reveal1 -12.4           sad1     -12.5      bed     -11.1
+# a 9.0 dB spread across the cue files alone. A "+10 dB relative to the bed"
+# gain therefore means something different for every cue: reveal1 starts 1.3 dB
+# QUIETER than the bed, action1 starts 7.6 dB LOUDER. The gain differences the
+# mix is built on (-12 vs -8 vs -2) are smaller than the variation in the
+# material they are applied to, so the intended relationships never survived.
+#
+# Normalising to a common loudness first is what makes a gain mean something.
+# -23 LUFS is the EBU R128 broadcast reference and leaves plenty of headroom
+# before the limiter. Applied as a STATIC gain from a measured integrated
+# reading - not two-pass dynamic loudnorm, which would compress the music and
+# flatten exactly the dynamics a cue relies on to feel like an event.
+# Cached per file (size+mtime+target), because measuring is a second per file
+# and the answer never changes for a file that has not changed.
+MUSIC_NORMALIZE_LUFS = -23.0
+MUSIC_NORMALIZE = True
 MUSIC_CUE_BED_DIP_DB = -12.0     # the bed dips this much WHILE a cue plays
 MUSIC_CUE_DUCK_DB = -12.0        # a cue under narration - clearly above the bed
 MUSIC_CUE_DUCK_ACTION_DB = -8.0  # action runs: felt as much as heard

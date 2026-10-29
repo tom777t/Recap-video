@@ -248,6 +248,48 @@ def check_film_audio_placement(final: Path, stem: Path, rows: list) -> tuple:
     return (not find), find, got
 
 
+# A <film_speaks> unit must measure clearly above the music around it. The
+# duck is -20 dB, so anything near zero means the duck did not happen.
+FILM_SPEAKS_MARGIN_MIN_DB = 3.0
+# A cue must rise out of the bed audibly. 3 dB is the usual "just noticeably
+# louder" figure; the configured intent is +10 to +14 dB, and a control mix
+# measured +15.1 (tense) and +19.3 (action), so this bar fails only a cue that
+# has genuinely not been lifted.
+CUE_LIFT_MIN_DB = 3.0
+
+
+def check_film_speaks_audible(final: Path, units: list) -> tuple:
+    """(ok, findings, rows) - is the film actually heard in each unit?"""
+    rows = film_speaks_margin(Path(final), units)
+    find = []
+    for r in rows:
+        if r["margin_db"] < FILM_SPEAKS_MARGIN_MIN_DB:
+            find.append(
+                f"film_speaks line {r.get('line_id')} at "
+                f"{r['final_at']:.1f}s measures {r['inside_db']:.1f} dB "
+                f"against {max(r['before_db'], r['after_db']):.1f} dB of "
+                f"music either side - a margin of {r['margin_db']:+.1f} dB, "
+                f"under the {FILM_SPEAKS_MARGIN_MIN_DB:.0f} dB bar. The unit "
+                f"hands the moment to the film, so the film has to be the "
+                f"loudest thing in it.")
+    return (not find), find, rows
+
+
+def check_cues_audible(final: Path, cues: list) -> tuple:
+    """(ok, findings, rows) - does every cue rise out of the bed?"""
+    rows = cue_vs_bed(Path(final), cues)
+    find = []
+    for r in rows:
+        if r["lift_db"] < CUE_LIFT_MIN_DB:
+            find.append(
+                f"{r.get('mood')} cue at {r['at']:.1f}s measures "
+                f"{r['inside_db']:.1f} dB against a {r['bed_db']:.1f} dB "
+                f"bed - a lift of {r['lift_db']:+.1f} dB, under the "
+                f"{CUE_LIFT_MIN_DB:.0f} dB bar. A cue at bed level is not a "
+                f"cue, it is more bed.")
+    return (not find), find, rows
+
+
 def integrated(path: Path) -> float | None:
     """Integrated loudness of a whole file, in LUFS."""
     cmd = [config.ffmpeg(), "-hide_banner", "-nostats", "-i", str(path),

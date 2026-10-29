@@ -57,6 +57,11 @@ projects/*/_briefs/
 # Demucs stems: a full-length no-vocals wav is ~1 GB and is regenerable from
 # source.mp4 with `python -m pipeline.stems --project NAME`. Never commit it.
 projects/*/stems/
+# Loudness-normalised music cache: uncompressed wavs (135 MB on tokyodrift2006)
+# regenerated on demand from the music/ sources by pipeline.music.normalized().
+# The sidecar .json next to each one records what was measured and applied, so
+# nothing about the decision is lost by not committing the audio.
+projects/*/music/_norm/
 # Scratch commit-message files
 _c.txt
 _commitmsg.txt

@@ -1410,6 +1410,12 @@ def render(project: str, draft: dict,
 
     # absolute (start, end) windows on the timeline where music should swell.
     silence_windows: list[tuple[float, float]] = []
+    # A <film_speaks> unit is NOT a music swell. Both kinds of unit carry no
+    # narration, so both used to land in silence_windows - and a hold SWELLS
+    # the music to SILENCE_MUSIC_VOLUME. That made the one moment the film is
+    # given the floor the loudest the music ever gets, which is why both units
+    # were inaudible. They are tracked separately and ducked, not swelled.
+    film_speaks_windows: list[tuple[float, float]] = []
     # absolute timeline positions of <reveal> lines, for the music drop.
     reveal_positions: list[float] = []
 
@@ -1707,7 +1713,10 @@ def render(project: str, draft: dict,
             used_footage.add(start, _hold_end, "hold/film_speaks clip",
                              blurred=(censor != "none"), line_id=lid,
                              out_a=cursor, out_b=cursor + clip_len)
-            silence_windows.append((cursor, cursor + clip_len))
+            if _fs_secs is not None:
+                film_speaks_windows.append((cursor, cursor + clip_len))
+            else:
+                silence_windows.append((cursor, cursor + clip_len))
             n_silence += 1
             # no caption text for a silence shot
             cursor += clip_len - XFADE
@@ -2003,6 +2012,7 @@ def render(project: str, draft: dict,
         ff, pdir, work, draft, timeline, total_dur,
         reveal_positions=reveal_positions,
         hold_windows=silence_windows,
+        film_speaks_windows=film_speaks_windows,
         legacy=Path(music) if music else None)
 
     if _bed_used and Path(_bed_used).exists():
@@ -2014,6 +2024,7 @@ def render(project: str, draft: dict,
                 f"{len(reveal_positions)} reveal(s)")
         _render_with_music(ff, av, Path(_bed_used), ass_for_filter, total_dur,
                            final, sfx_events, silence_windows,
+                           film_speaks_windows=film_speaks_windows,
                            reveal_positions=reveal_positions,
                            prebuilt_bed=_prebuilt)
     else:
@@ -2202,6 +2213,61 @@ def render(project: str, draft: dict,
                       "is invisible in every player until the moment the "
                       "picture stops.[/]")
         sys.exit(1)
+
+    # ---- MUSIC + FILM_SPEAKS, measured on the FINISHED MIX -----------------
+    # Both of these were reported from watching the render and neither could
+    # have been caught before, because the checks confirmed that a gain was
+    # written into a filtergraph and never that the result was audible.
+    _mplan = work / "music_plan.json"
+    if _mplan.exists():
+        from pipeline import audio_check as _ac
+        try:
+            _mp = json.loads(_mplan.read_text(encoding="utf-8"))
+        except (OSError, ValueError):
+            _mp = {}
+        # cues: each must rise out of the bed it sits in
+        _cues = [{"at": float(c["at"]) + intro_offset, "dur": float(c["dur"]),
+                  "mood": c.get("mood")} for c in (_mp.get("cues") or [])]
+        if _cues:
+            _cok, _cfind, _crows = _ac.check_cues_audible(final, _cues)
+            for _r in _crows:
+                console.print(
+                    f"[dim][MUSIC-CUE] {str(_r.get('mood')):<8} "
+                    f"{_r['at']:7.1f}s  {_r['inside_db']:+6.1f} dB vs bed "
+                    f"{_r['bed_db']:+6.1f} dB  lift {_r['lift_db']:+5.1f} dB"
+                    + (f"  ({_r['inside_lufs']:.1f} LUFS)"
+                       if _r.get("inside_lufs") is not None else "") + "[/]")
+            if not _cok:
+                console.print("[red][MUSIC-CUE][/] cue(s) are not audible "
+                              "above the bed:")
+                for _b in _cfind:
+                    console.print(f"[red]    {_b}[/]")
+                problems.append("music cues: " + "; ".join(_cfind))
+        # film_speaks: the film must be the loudest thing in its own unit
+        _fsw = _mp.get("film_speaks") or []
+        if _fsw:
+            _fs_by_pos = []
+            _fs_lines = [ln["id"] for ln in draft["lines"]
+                         if ln.get("film_speaks_seconds") is not None]
+            for _i, (_a, _b) in enumerate(_fsw):
+                _fs_by_pos.append({
+                    "line_id": (_fs_lines[_i] if _i < len(_fs_lines) else None),
+                    "final_at": float(_a) + intro_offset,
+                    "dur": float(_b) - float(_a)})
+            _sok, _sfind, _srows = _ac.check_film_speaks_audible(
+                final, _fs_by_pos)
+            for _r in _srows:
+                console.print(
+                    f"[dim][FILM-SPEAKS] line {_r.get('line_id')} "
+                    f"{_r['final_at']:7.1f}s  film {_r['inside_db']:+6.1f} dB "
+                    f"vs music {max(_r['before_db'], _r['after_db']):+6.1f} dB"
+                    f"  margin {_r['margin_db']:+5.1f} dB[/]")
+            if not _sok:
+                console.print("[red][FILM-SPEAKS][/] the film is not audible "
+                              "in its own unit:")
+                for _b in _sfind:
+                    console.print(f"[red]    {_b}[/]")
+                problems.append("film_speaks: " + "; ".join(_sfind))
 
     # ---- FILM AUDIO: is the stem where the rule says, and nowhere else? -----
     # Measured on the finished mix by CORRELATING it against the stem file,
@@ -2405,7 +2471,8 @@ def build_music_bed(ff: str, segments: list, beds: dict, out: Path,
 
 
 def _music_volume_expr(base_vol: float, silence_windows: list,
-                       reveal_positions: list | None = None) -> str:
+                       reveal_positions: list | None = None,
+                       film_speaks_windows: list | None = None) -> str:
     """
     Build an ffmpeg `volume` filter string for the music bed.
 
@@ -2442,6 +2509,24 @@ def _music_volume_expr(base_vol: float, silence_windows: list,
     # MUSIC_PRE_REVEAL_LEVEL over the window [t_reveal - drop, t_reveal] and
     # comes back over the same length afterwards. Near-zero rather than a hard
     # 0 so the bed does not click.
+    # A <film_speaks> unit DUCKS the music, faded either side. This is the
+    # same rule build_music_track bakes into the prebuilt bed+cues track, done
+    # here as well so the bed-only and legacy single-track paths get it too -
+    # otherwise the fix would only work on one of the three music designs.
+    for (fa, fb) in (film_speaks_windows or []):
+        fa, fb = float(fa), float(fb)
+        if fb <= fa:
+            continue
+        lvl = 10.0 ** (float(getattr(config, "FILM_SPEAKS_MUSIC_DB", -20.0))
+                       / 20.0)
+        fsf = max(0.05, float(getattr(config, "FILM_SPEAKS_MUSIC_FADE_SEC",
+                                      0.75)))
+        ra, rb = max(0.0, fa - fsf), fb + fsf
+        ramp = (f"min(clip((t-{ra:.3f})/{fsf:.3f}\\,0\\,1)\\,"
+                f"clip(({rb:.3f}-t)/{fsf:.3f}\\,0\\,1))")
+        expr = (f"if(between(t\\,{ra:.3f}\\,{rb:.3f})\\,"
+                f"({expr})*(1-(1-{lvl:.5f})*{ramp})\\,({expr}))")
+
     rp = [float(x) for x in (reveal_positions or [])]
     if rp:
         drop = max(0.3, float(getattr(config, "MUSIC_PRE_REVEAL_DROP_SEC", 1.5)))
@@ -2470,6 +2555,7 @@ def _render_with_music(ff: str, av: Path, music: Path, ass_filter: str | None,
                        total_dur: float, final: Path,
                        sfx_events: list[dict] | None = None,
                        silence_windows: list[tuple[float, float]] | None = None,
+                       film_speaks_windows: list | None = None,
                        reveal_positions: list | None = None,
                        prebuilt_bed: bool = False):
     """Burn captions (optional), mix ducked music + timed SFX, master loudness.
@@ -2492,7 +2578,8 @@ def _render_with_music(ff: str, av: Path, music: Path, ass_filter: str | None,
     silence_windows = silence_windows or []
 
     # Base music volume is `vol`. Silence windows swell it; reveals dip it.
-    vol_expr = _music_volume_expr(vol, silence_windows, reveal_positions)
+    vol_expr = _music_volume_expr(vol, silence_windows, reveal_positions,
+                                  film_speaks_windows=film_speaks_windows)
 
     # music: loop to cover total_dur, set volume (static or swelling), fade out.
     music_chain = (
