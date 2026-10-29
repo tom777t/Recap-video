@@ -418,14 +418,35 @@ def test_writer_budget_matches_render() -> tuple[bool, str]:
         return False, (f"a fully spent budget leaves only {slack:.2f}s of "
                        f"headroom, under the {want:.2f}s the fitter demands")
 
-    # and the rate the writer uses must be the MEASURED one, not the old 185
-    if abs(prof.words_per_sec * 60.0 - 185.0) < 5.0:
-        return False, ("the writer is still budgeting at ~185 WPM - that was "
-                       "measured on the OLD per-tag mapping whose "
-                       "cue-compensating speaking_rate ran to 1.42")
-    if abs(float(config.TTS_WORDS_PER_MINUTE) - 185.0) < 1e-6:
-        return False, ("config.TTS_WORDS_PER_MINUTE is still 185, so an "
-                       "uncalibrated voice starts 32% over-budget")
+    # The rate must come from a MEASUREMENT OF THE CURRENT MAPPING. This check
+    # used to assert the rate was NOT ~185, which was right while 185 was a
+    # stale figure inherited from the old per-tag mapping - and became wrong
+    # the moment the voice was corrected to actually deliver 185. The value is
+    # not the issue; its PROVENANCE is. A number that happens to equal the
+    # target is fine if it was measured under the mapping in force.
+    from pipeline.calibration import mapping_signature, production_voice_key
+    import json as _json
+    prof_path = Path(ROOT) / "config" / "voice_profiles.json"
+    if not prof_path.exists():
+        return False, "no voice_profiles.json - the writer has no measurement"
+    meta = (_json.loads(prof_path.read_text(encoding="utf-8-sig"))
+            .get("profiles", {}).get(production_voice_key(), {}))
+    if meta.get("mapping_signature") != mapping_signature():
+        return False, ("the writer's rate was measured under a DIFFERENT "
+                       "delivery mapping - that is how 185 WPM survived a "
+                       "change that made the voice read 134.6")
+    # and the measured rate must sit on the target, or the budget is fiction
+    tgt = float(config.TARGET_WPM)
+    if abs(prof.words_per_sec * 60.0 / tgt - 1.0) > \
+            float(config.VOICE_RATE_DRIFT_MAX):
+        return False, (f"the writer budgets at {prof.words_per_sec*60:.0f} WPM "
+                       f"against a {tgt:.0f} target - fix the voice, not the "
+                       f"budget")
+    if abs(float(config.TTS_WORDS_PER_MINUTE) / tgt - 1.0) > \
+            float(config.VOICE_RATE_DRIFT_MAX):
+        return False, (f"config.TTS_WORDS_PER_MINUTE is "
+                       f"{config.TTS_WORDS_PER_MINUTE} against a {tgt:.0f} "
+                       f"target - the fallback has drifted from the decision")
 
     # available_window must count free adjacent footage, not the shot
     draft = {"lines": [

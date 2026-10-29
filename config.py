@@ -64,19 +64,20 @@ DEFAULT_TTS_RATE = "+10%"
 # this target - see pipeline/tts_providers._inworld for the rate tuning.
 # THE WRITER'S FALLBACK RATE. Used only when the production voice has never
 # been calibrated - a measured profile (config/voice_profiles.json) always wins.
+# It must track TARGET_WPM, because TARGET_WPM is what the writing is built for.
 #
-# 2026-10-29: 185 -> 141. This single number caused 42 capacity overruns in one
-# draft. MEASURED on 87 clean, unbumped Warren readings at the flat delivery
-# mapping, the voice runs 140.6 WPM aggregate (127.4 WPM conservative). 185 was
-# a 32% over-budget: the writer sized every line for a voice that talks a third
-# faster than the one doing the talking, so the lines could not fit and the
-# overruns were discovered at render time and trimmed afterwards.
+# MEASURED 186.3 WPM on 23 real draft lines with the live per-tag mapping
+# (+0.7% of the 185 target), every tag inside +-4.7%, tag spread 1.10x.
 #
-# The lesson is not the number, it is where the number came from: 185 was
-# measured on the OLD per-tag mapping, where cue-compensating speaking_rate
-# values ran as high as 1.42. Flattening the mapping for voice consistency
-# necessarily slowed the voice down, and nothing re-measured.
-TTS_WORDS_PER_MINUTE = 141
+# THE HISTORY MATTERS, because the mistake was mine and it was a direction, not
+# a number. Flattening the delivery mapping for voice consistency gave every
+# tag a steering cue; a cue costs ~20-27% of pace; Warren fell to 134.6 WPM.
+# I then re-calibrated this constant DOWN to 141 to match - which "fixed" the
+# overruns by shrinking every line's word budget by a third to accommodate a
+# regression in the voice. The target is a decision about the writing; the
+# VOICE is what gets adjusted to meet it. [VOICE-RATE-DRIFT] now fails if this
+# relationship inverts again.
+TTS_WORDS_PER_MINUTE = 186
 
 # --------------------------------------------------------------------------- #
 # ONE NARRATOR - the voice-consistency contract
@@ -100,7 +101,45 @@ TTS_WORDS_PER_MINUTE = 141
 # costs pace whatever it says, so a tag with no cue reads ~23% faster than the
 # rest - leaving `normal` uncued would have been a new 1.2x spread. Uniform cue
 # presence buys uniform pace.
-VOICE_BASE_SPEAKING_RATE = 1.02
+# THE PACE THE WRITING IS BUILT FOR. Not a measurement - a decision, taken
+# against a reference channel's delivery. Every word budget in the pipeline
+# assumes it, so the VOICE has to be made to hit it rather than the budget
+# being re-cut to match whatever the voice happens to do.
+#
+# That inversion already happened once: flattening the delivery mapping for
+# voice consistency gave every tag a steering cue, a cue costs ~20% of pace,
+# Warren fell to 140.6 WPM, and the budget was re-calibrated DOWN to 141 -
+# shrinking every line's word allowance by a third to accommodate a regression.
+# [VOICE-RATE-DRIFT] now fails on exactly that.
+TARGET_WPM = 185.0
+# How far the MEASURED base rate may sit from TARGET_WPM before the gate fails.
+VOICE_RATE_DRIFT_MAX = 0.10
+
+# The one speaking_rate every tag shares. Raised from 1.02 to compensate for
+# the pace a steering cue costs, so the voice MEASURES near TARGET_WPM while
+# keeping the uniform mapping that made it one narrator.
+# Solved by measurement, not arithmetic - see tools/calibrate_rate.py.
+VOICE_BASE_SPEAKING_RATE = 1.393
+# Inworld rejects speakingRate outside [0.5, 1.5] with an HTTP 400. Measured,
+# not assumed - a code comment claimed 1.5 and that happened to be right, but
+# nothing had tested it.
+VOICE_SPEAKING_RATE_MAX = 1.5
+# PER-TAG COMPENSATION, solved by measurement (tools/calibrate_rate.py
+# --solve-per-tag). These differ ONLY to cancel each cue's measured pace cost,
+# so the DELIVERED rate is uniform. That is the inverse of the original defect,
+# where rates differed in order to make tags sound like different speeds.
+# A tag absent here falls back to VOICE_BASE_SPEAKING_RATE.
+VOICE_TAG_SPEAKING_RATE: dict = {
+    "action": 1.29,
+    "hook": 1.103,
+    "intro": 1.393,
+    "mystery": 1.493,
+    "normal": 1.205,
+    "outro": 1.052,
+    "reveal": 1.361,
+    "sad": 1.22,
+    "tense": 1.393
+}
 VOICE_DELIVERY_MODE = "BALANCED"     # one mode for every tag; never CREATIVE
 # Tag rate x rate_bump must stay inside +-this fraction of the base rate. A
 # per-line rate_bump from tools/fit_narration.py counts against the SAME band -

@@ -1405,6 +1405,18 @@ def render(project: str, draft: dict,
         for _b in _vc_cue_bad:
             console.print(f"[red]    {_b}[/]")
         sys.exit(1)
+
+    # ---- [VOICE-RATE-DRIFT] the voice must still hit the target pace -------
+    # The word budget everywhere assumes config.TARGET_WPM. If the voice has
+    # drifted off it - or has never been measured - every budget in the
+    # pipeline is fiction, which is exactly how a 17-minute recap became a
+    # 22-minute one without anything reporting a problem.
+    _rd_ok, _rd_msg = _vc.rate_drift()
+    if _rd_ok:
+        console.print(f"[cyan]Voice rate:[/] {_rd_msg}")
+    else:
+        console.print(f"[red][VOICE-RATE-DRIFT][/] {_rd_msg}")
+        sys.exit(1)
     if not _vc.report(_vc.analyse(_vc.measure(draft, narration, ffp,
                                               skip_ids=_stale)), project):
         sys.exit(1)

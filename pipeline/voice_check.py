@@ -123,32 +123,143 @@ def audit_cues(provider) -> list[str]:
         bad.append(f"tag(s) {uncued} carry no cue at all. A cue costs ~23% of "
                    f"pace whatever it says, so an uncued tag reads that much "
                    f"faster than every cued one - give it a mild cue.")
-    if len(seen_rates) > 1:
-        bad.append(f"speaking_rate differs across tags ({sorted(seen_rates)}). "
-                   f"Emotion is carried by pauses and emphasis, not tempo - "
-                   f"one rate for every tag.")
+    # NOTE ON WHAT IS AND IS NOT CHECKED HERE.
+    # This used to require ONE speaking_rate for every tag, and that was the
+    # right rule while rates were being used to CREATE different tempos - the
+    # original defect, where `tense` ran at 1.32 and `sad` at 1.12 and the
+    # narrator sounded like three people.
+    #
+    # It is the wrong rule now. A steering cue costs pace (measured: a pause
+    # instruction costs 27%), and different cues cost different amounts, so an
+    # identical control value DELIVERS different rates - 1.53x apart on this
+    # voice. The per-tag rates now exist only to CANCEL that, and the thing
+    # that must be uniform is the DELIVERED rate.
+    #
+    # So the control value is checked only against the ENGINE's limits, and
+    # uniformity is gated on the measurement instead - measured_uniformity()
+    # below, plus rate_drift() for the base pace. Gating the observable rather
+    # than the knob is strictly stronger: it cannot be satisfied by a setting
+    # that fails to take effect.
+    _cap = float(getattr(config_mod(), "VOICE_SPEAKING_RATE_MAX", 1.5))
+    for tag in sorted(provider.delivery):
+        try:
+            r = float(provider.controls_for(tag).get("speaking_rate", 1.0))
+        except Exception:
+            continue
+        if not (0.5 - 1e-9 <= r <= _cap + 1e-9):
+            bad.append(f"{tag}: speaking_rate {r:.3f} is outside the engine's "
+                       f"[0.50, {_cap:.2f}] range - Inworld rejects it with an "
+                       f"HTTP 400.")
     if len(seen_modes) > 1:
         bad.append(f"delivery_mode differs across tags ({sorted(seen_modes)}). "
                    f"Mode changes timbre; use one for every tag.")
     return bad
 
 
-def rate_band_violations(provider) -> list[str]:
-    """Tag rate x the allowed rate_bump must stay inside the band."""
+def config_mod():
     import config
-    base = float(config.VOICE_BASE_SPEAKING_RATE)
+    return config
+
+
+def measured_uniformity() -> list[str]:
+    """Is the DELIVERED rate uniform across tags, per the measured profile?
+
+    This replaces the old control-value check. The band applies to what the
+    voice actually does, not to the number it was asked for: identical
+    speaking_rates delivered rates 1.53x apart on this voice, because each
+    steering cue costs a different amount of pace.
+
+    An unmeasured voice returns a finding - rate_drift() says the same thing at
+    more length, and both exist because "nobody measured" is the state the
+    185 -> 134.6 WPM drift happened in.
+    """
+    import config
+    from pipeline.calibration import production_profile
     band = float(config.VOICE_RATE_BAND)
-    lo, hi = base * (1 - band), base * (1 + band)
+    prof = production_profile()
+    if not prof.is_measured or not prof.by_tag:
+        return ["no measured per-tag profile, so delivered-rate uniformity "
+                "cannot be checked (see [VOICE-RATE-DRIFT])"]
+    agg = prof.words_per_sec or 0.0
+    if agg <= 0:
+        return ["the measured profile carries no aggregate rate"]
     bad = []
-    for tag in sorted(provider.delivery):
-        try:
-            r = float(provider.controls_for(tag).get("speaking_rate", base))
-        except Exception:
+    for tag, row in sorted(prof.by_tag.items()):
+        v = float(row.get("words_per_sec") or 0.0)
+        if v <= 0:
             continue
-        if not (lo - 1e-9 <= r <= hi + 1e-9):
-            bad.append(f"{tag}: speaking_rate {r:.3f} is outside the "
-                       f"+-{band*100:.0f}% band [{lo:.3f}, {hi:.3f}]")
+        if int(row.get("samples") or 0) < 2:
+            continue          # one reading is not a rate
+        dev = v / agg - 1.0
+        if abs(dev) > band:
+            bad.append(f"{tag} DELIVERS {v*60:.0f} WPM, {dev:+.0%} off the "
+                       f"{agg*60:.0f} WPM mean - outside +-{band:.0%}. Adjust "
+                       f"that tag's speaking_rate to cancel its cue's pace "
+                       f"cost (tools/calibrate_rate.py --solve-per-tag).")
     return bad
+
+
+def rate_band_violations(provider) -> list[str]:
+    """Kept for callers; the band now applies to the MEASURED rate.
+
+    See measured_uniformity(). The control value is validated against the
+    engine's limits inside audit_cues().
+    """
+    return measured_uniformity()
+
+
+def rate_drift() -> tuple[bool, str]:
+    """[VOICE-RATE-DRIFT] - has the voice's MEASURED pace left the target?
+
+    Returns (ok, message).
+
+    THE FAILURE THIS EXISTS FOR, in order:
+      1. the delivery mapping was flattened for voice consistency
+      2. that gave every tag a steering cue, and a cue costs ~20-27% of pace
+      3. the voice fell from ~185 WPM to 134.6 WPM
+      4. nothing noticed, because nothing was measuring
+      5. the word budget was re-calibrated DOWN to 141 to match, shrinking
+         every line's allowance by a third to accommodate the regression
+      6. the draft then "fit" - at 21.7 minutes instead of 16.5
+
+    Step 4 is the one to kill. config.TARGET_WPM is a DECISION about the
+    writing; the voice is what gets adjusted to meet it. So this fails when the
+    measured rate drifts, and it fails when there is NO measurement at all -
+    because "unmeasured" is exactly the state in which the drift happened.
+
+    A mapping change invalidates the measured profile automatically
+    (calibration.mapping_signature), so changing a cue puts this gate into its
+    unmeasured state, which is the re-measurement trigger.
+    """
+    import config
+    from pipeline.calibration import production_profile, production_voice_key
+    target = float(getattr(config, "TARGET_WPM", 185.0))
+    tol = float(getattr(config, "VOICE_RATE_DRIFT_MAX", 0.10))
+    prof = production_profile()
+    if not prof.is_measured:
+        return False, (
+            f"the production voice has NO valid measurement, so its pace is "
+            f"unknown. That is the state the 185 -> 134.6 WPM drift happened "
+            f"in. Re-measure on real audio:\n"
+            f"    python tools/calibrate_rate.py --project <p>        "
+            f"(check the live mapping)\n"
+            f"    python -m pipeline.calibration --project <p> "
+            f"--voice-key {production_voice_key()}\n"
+            f"  A delivery-mapping change voids the profile on purpose - that "
+            f"is the trigger, not a bug.")
+    got = prof.words_per_sec * 60.0
+    dev = got / target - 1.0
+    if abs(dev) > tol:
+        return False, (
+            f"measured {got:.1f} WPM against a {target:.0f} WPM target "
+            f"({dev:+.1%}, tolerance +-{tol:.0%}). Fix the VOICE, not the "
+            f"budget: raise or lower the speaking rate until it measures on "
+            f"target -\n"
+            f"    python tools/calibrate_rate.py --project <p> "
+            f"--solve-per-tag --write\n"
+            f"  Re-cutting the word budget to match a slower voice is how a "
+            f"17-minute recap silently became a 22-minute one.")
+    return True, f"measured {got:.1f} WPM, {dev:+.1%} of the {target:.0f} target"
 
 
 def bump_in_band(rate_bump: float) -> bool:

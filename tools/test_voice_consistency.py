@@ -106,13 +106,19 @@ def test_cues_catch_old() -> tuple[bool, str]:
     bad = (vc.audit_cues(_FakeProvider(OLD_MAPPING))
            + vc.rate_band_violations(_FakeProvider(OLD_MAPPING)))
     blob = " | ".join(bad).lower()
+    # The two probes this list used to carry - "speaking_rate differs" and
+    # "outside the +-10% band" - were REMOVED from audit_cues on purpose, not
+    # lost. A per-tag speaking_rate is now legitimate: it cancels the pace cost
+    # of that tag's cue so the DELIVERED rate is uniform, which is gated
+    # separately by measured_uniformity(). The old mapping's rates (1.02-1.42)
+    # are all inside the engine's range, so the control value was never what
+    # convicted it - the tempo words, the character words, the uncued tag and
+    # the varying delivery MODE are, and all four still fire.
     need = {
         "a tempo word":          "fast",
         "a character word":      "subdued",
         "the uncued tag":        "carry no cue",
-        "the varying rate":      "speaking_rate differs",
         "the varying mode":      "delivery_mode differs",
-        "an out-of-band rate":   "outside the +-10% band",
     }
     missing = [label for label, probe in need.items() if probe not in blob]
     ok = not missing and len(bad) >= 10
@@ -121,19 +127,111 @@ def test_cues_catch_old() -> tuple[bool, str]:
                 f"did not report: {missing} (got {len(bad)} findings)")
 
 
-def test_one_rate_one_mode() -> tuple[bool, str]:
+def test_one_mode_uniform_delivered_rate() -> tuple[bool, str]:
+    """ONE delivery mode, every tag cued, and the DELIVERED rate uniform.
+
+    This test used to require one speaking_rate for every tag. That was right
+    while rates were being used to CREATE different tempos - the original
+    defect. It is wrong now: a steering cue costs pace (a pause instruction
+    costs a measured 27%), different cues cost different amounts, so one
+    control value DELIVERS rates 1.53x apart. The per-tag rates now exist only
+    to cancel that.
+
+    So the uniformity requirement moved to the OBSERVABLE - which is strictly
+    stronger, because a control value cannot satisfy it by failing to take
+    effect. The control value is checked against the engine's limits instead.
+    """
     p = _production_provider()
     if p is None:
         return False, "no production provider registered"
-    rates = {round(float(p.controls_for(t)["speaking_rate"]), 4)
-             for t in p.delivery}
     modes = {str(p.controls_for(t)["delivery_mode"]) for t in p.delivery}
     uncued = [t for t in p.delivery if not str(p.controls_for(t)["cue"]).strip()]
-    ok = (len(rates) == 1 and len(modes) == 1 and not uncued
-          and rates == {round(float(config.VOICE_BASE_SPEAKING_RATE), 4)})
-    return ok, (f"all {len(p.delivery)} tags share rate {rates.pop():.3f} and "
-                f"mode {modes.pop()}, and every tag is cued" if ok else
-                f"rates={sorted(rates)} modes={sorted(modes)} uncued={uncued}")
+    if len(modes) != 1:
+        return False, f"delivery modes differ: {sorted(modes)}"
+    if uncued:
+        return False, (f"tag(s) {uncued} carry no cue - an uncued tag reads "
+                       f"~20% faster than every cued one")
+    cap = float(getattr(config, "VOICE_SPEAKING_RATE_MAX", 1.5))
+    out = [(t, float(p.controls_for(t)["speaking_rate"])) for t in p.delivery]
+    bad = [(t, r) for t, r in out if not (0.5 <= r <= cap)]
+    if bad:
+        return False, f"speaking_rate outside the engine's range: {bad}"
+    # and the delivered rate must be uniform, per the measurement
+    uni = vc.measured_uniformity()
+    if uni:
+        return False, "; ".join(uni)
+    return True, (f"one mode ({modes.pop()}), all {len(p.delivery)} tags cued, "
+                  f"control rates {min(r for _t, r in out):.3f}-"
+                  f"{max(r for _t, r in out):.3f} inside the engine range, and "
+                  f"the DELIVERED rate is uniform within "
+                  f"{config.VOICE_RATE_BAND:.0%}")
+
+
+def test_rate_drift_gate() -> tuple[bool, str]:
+    """[VOICE-RATE-DRIFT] - the regression for the whole 185 -> 141 episode.
+
+    The sequence that must never repeat: the mapping was flattened, every tag
+    gained a cue, the voice fell to 134.6 WPM, NOTHING MEASURED IT, and the
+    word budget was then re-cut down to 141 to match - shrinking every line's
+    allowance by a third to accommodate a regression in the voice.
+
+    config.TARGET_WPM is a decision about the writing. The voice is what gets
+    adjusted to meet it.
+    """
+    from pipeline import calibration as cal
+    target = float(config.TARGET_WPM)
+    tol = float(config.VOICE_RATE_DRIFT_MAX)
+    if abs(target - 185.0) > 1e-6:
+        return False, f"TARGET_WPM is {target}, expected 185"
+
+    # the live voice must currently be on target
+    ok, msg = vc.rate_drift()
+    if not ok:
+        return False, f"the shipped voice fails its own drift gate: {msg}"
+
+    saved = cal._load_all
+    try:
+        # a voice measured well BELOW target must fail
+        cal._load_all = lambda: {cal.production_voice_key(): {
+            "voice_id": "x", "rate_adjustment": "",
+            "words_per_sec": (target * 0.72) / 60.0,
+            "words_per_sec_conservative": (target * 0.70) / 60.0,
+            "by_tag": {}, "mapping_signature": cal.mapping_signature()}}
+        if vc.rate_drift()[0]:
+            return False, (f"a voice measuring {target*0.72:.0f} WPM against a "
+                           f"{target:.0f} target passed the drift gate - that "
+                           f"is exactly the 134.6 WPM state that went "
+                           f"unnoticed")
+        # ...and so must one well ABOVE it
+        cal._load_all = lambda: {cal.production_voice_key(): {
+            "voice_id": "x", "rate_adjustment": "",
+            "words_per_sec": (target * 1.3) / 60.0,
+            "words_per_sec_conservative": (target * 1.25) / 60.0,
+            "by_tag": {}, "mapping_signature": cal.mapping_signature()}}
+        if vc.rate_drift()[0]:
+            return False, "a voice 30% FASTER than target passed the gate"
+        # an UNMEASURED voice must fail, not pass quietly
+        cal._load_all = lambda: {}
+        ok2, msg2 = vc.rate_drift()
+        if ok2:
+            return False, ("an unmeasured voice passed - 'nobody measured' is "
+                           "the state the drift happened in")
+        if "calibrate" not in msg2.lower():
+            return False, f"the finding does not say how to re-measure: {msg2}"
+    finally:
+        cal._load_all = saved
+
+    # and the writer's fallback must track the target, never be cut to match a
+    # slow voice
+    fb = float(config.TTS_WORDS_PER_MINUTE)
+    if abs(fb / target - 1.0) > tol:
+        return False, (f"config.TTS_WORDS_PER_MINUTE is {fb:.0f} against a "
+                       f"{target:.0f} target ({fb/target-1.0:+.0%}) - the "
+                       f"budget has been re-cut to match the voice instead of "
+                       f"the voice being fixed")
+    return True, (f"on target ({msg}); a voice 28% slow, 30% fast, or "
+                  f"unmeasured all fail; the writer's fallback {fb:.0f} WPM "
+                  f"tracks the {target:.0f} target")
 
 
 def test_cue_word_boundaries() -> tuple[bool, str]:
@@ -328,7 +426,8 @@ TESTS = {
     "CUES-CLEAN":           test_cues_clean,
     "PROFILE-STALE":        test_profile_stale_on_mapping_change,
     "CUES-CATCH-OLD":       test_cues_catch_old,
-    "ONE-RATE-ONE-MODE":    test_one_rate_one_mode,
+    "ONE-MODE-UNIFORM-RATE": test_one_mode_uniform_delivered_rate,
+    "RATE-DRIFT-GATE":      test_rate_drift_gate,
     "CUE-WORD-BOUNDARIES":  test_cue_word_boundaries,
     "BUMP-IN-BAND":         test_bump_in_band,
     "RATIO-GATE":           test_ratio_gate,

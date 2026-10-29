@@ -597,18 +597,44 @@ def _inworld() -> InworldProvider:
     # Every tag carries a cue, `normal` included. A cue costs ~23% of pace
     # whatever it says, so an uncued tag would read 23% faster than the rest -
     # the exact spread this is fixing. Uniform cue presence buys uniform pace.
-    _R = config.VOICE_BASE_SPEAKING_RATE
+    # 2026-10-29, THE PACE CORRECTION. The flat-rate version of this table
+    # measured 134.6 WPM against a 185 target, and the budget was wrongly
+    # re-cut downward to match. Two measurements fixed the direction:
+    #
+    #   1. A PAUSE INSTRUCTION COSTS 27% OF PACE. The same `sad` lines at the
+    #      same speaking_rate read 159.0 WPM with "[longer pauses, gentle
+    #      emphasis]" and 202.1 WPM with "[gentle emphasis]". The pauses were
+    #      the slowdown, not the engine.
+    #   2. INWORLD HARD-CAPS speakingRate AT 1.5 - confirmed by an HTTP 400,
+    #      not by a comment. So a pause-led cue cannot be rate-compensated back
+    #      to 185: `sad` would need 1.74.
+    #
+    # So the cues are EMPHASIS-led and uniform in KIND, and the per-tag
+    # speaking_rate exists only to CANCEL each cue's measured pace cost, so
+    # that the DELIVERED rate is the same for every tag. That is the opposite
+    # of the original defect, where rates differed in order to create
+    # different tempos: here they differ so the tempo does not.
+    #
+    # Emotion is carried by emphasis, by the mood cue underneath, and by the
+    # writing - not by making one tag slower than another. The honest cost:
+    # "longer pauses" as a direction is gone, because at 185 WPM with a 1.5
+    # engine ceiling it is unaffordable.
+    #
+    # Every rate below was SOLVED BY MEASUREMENT (tools/calibrate_rate.py
+    # --solve-per-tag), never computed. Re-run it after touching any cue.
     _M = config.VOICE_DELIVERY_MODE
+    _RT = config.VOICE_TAG_SPEAKING_RATE
+    _R = config.VOICE_BASE_SPEAKING_RATE
     D = {
-      "normal":  dict(cue="[even phrasing]",                              delivery_mode=_M, speaking_rate=_R),
-      "tense":   dict(cue="[short pauses, emphasis on the action words]", delivery_mode=_M, speaking_rate=_R),
-      "sad":     dict(cue="[longer pauses, gentle emphasis]",             delivery_mode=_M, speaking_rate=_R),
-      "reveal":  dict(cue="[pause before the final phrase, emphasise it]", delivery_mode=_M, speaking_rate=_R),
-      "mystery": dict(cue="[pause between the phrases]",                  delivery_mode=_M, speaking_rate=_R),
-      "hook":    dict(cue="[emphasis on the opening phrase]",             delivery_mode=_M, speaking_rate=_R),
-      "intro":   dict(cue="[even phrasing, clear consonants]",            delivery_mode=_M, speaking_rate=_R),
-      "outro":   dict(cue="[pause before the closing phrase]",            delivery_mode=_M, speaking_rate=_R),
-      "action":  dict(cue="[emphasis on the impacts]",                    delivery_mode=_M, speaking_rate=_R),
+      "normal":  dict(cue="[even phrasing]",                     delivery_mode=_M, speaking_rate=_RT.get("normal", _R)),
+      "tense":   dict(cue="[emphasis on the action words]",      delivery_mode=_M, speaking_rate=_RT.get("tense", _R)),
+      "sad":     dict(cue="[gentle emphasis]",                   delivery_mode=_M, speaking_rate=_RT.get("sad", _R)),
+      "reveal":  dict(cue="[emphasis on the final phrase]",      delivery_mode=_M, speaking_rate=_RT.get("reveal", _R)),
+      "mystery": dict(cue="[quiet emphasis]",                    delivery_mode=_M, speaking_rate=_RT.get("mystery", _R)),
+      "hook":    dict(cue="[emphasis on the opening phrase]",    delivery_mode=_M, speaking_rate=_RT.get("hook", _R)),
+      "intro":   dict(cue="[even phrasing, clear consonants]",   delivery_mode=_M, speaking_rate=_RT.get("intro", _R)),
+      "outro":   dict(cue="[emphasis on the closing phrase]",    delivery_mode=_M, speaking_rate=_RT.get("outro", _R)),
+      "action":  dict(cue="[emphasis on the impacts]",           delivery_mode=_M, speaking_rate=_RT.get("action", _R)),
     }
     return InworldProvider(
         name="inworld", model="inworld-tts-2",

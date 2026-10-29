@@ -1,5 +1,5 @@
 TITLE: Teenager Is Shipped to Tokyo to Dodge Jail and Ends Up Owing the Yakuza a Car He Cannot Pay For
-Lines: 111   Words: 3040   Est. narration: 21.6 min @ 141 WPM [config fallback (voice not measured)]   Target: 17 min
+Lines: 111   Words: 3065   Est. narration: 16.5 min @ 186 WPM [config fallback (voice not measured)]   Target: 17 min
 ============================================================
 
 [  1] (? -> ?)  <hook> {loop}
@@ -34,7 +34,7 @@ Lines: 111   Words: 3040   Est. narration: 21.6 min @ 141 WPM [config fallback (
       He comes back up on two wheels, smirking across the gap. There's the mistake. The two cars touch at speed.
 
 [ 11] (00:09:07.045 -> 00:09:20.318)  <action> {stake}
-      The muscle car launches off the dirt and tumbles end over end. It lands upside down, Sean hanging in his belt, bloody. Both cars wrecked in front of a crowd full of cameras.
+      The muscle car launches off the dirt and tumbles end over end. It lands upside down, Sean hanging in his belt, bloody - both cars wrecked in front of a crowd full of cameras.
 
 [ 12] (00:10:23.412 -> 00:10:40.203)  <reveal> {reasoning}
       At the station the rich kids walk - their parents too connected. I like screw-ups like you, the detective tells Sean, because you're a guaranteed conviction. Same crash, two different countries of consequence.
@@ -112,7 +112,7 @@ Lines: 111   Words: 3040   Est. narration: 21.6 min @ 141 WPM [config fallback (
       Terms land in nine seconds. Morimoto takes Han's Corolla if Sean loses; Han puts up a Skyline. Nobody asks the kid whether he can drive.
 
 [ 36] (00:39:25.355 -> 00:39:34.752)  <mystery> {reasoning}
-      The table sends Sean out, presses Han about a late shipment. Sit pretty, Han says, let me handle it.
+      Then the table sends Sean out and presses Han about a late shipment. Sit pretty, Han says, and let me handle it.
 
 [ 37] (00:39:34.752 -> 00:39:44.622)  <mystery> {judgment}
       His eyes drop and the smile is gone. Watch who's comfortable in this room, and who's answering questions in it.
@@ -121,7 +121,7 @@ Lines: 111   Words: 3040   Est. narration: 21.6 min @ 141 WPM [config fallback (
       Neela tracks him down. Stop following me around, he says. So she reads him back to himself. Army brat, moved around, so he walked around angry - and swapped his own people for a crowd of drift nuts.
 
 [ 39] (00:41:27.017 -> 00:41:37.845)  <reveal> {reasoning}
-      Driving home, Han explains how Tokyo works. DK's uncle Kamata takes a cut of everyone's action and keeps police off them.
+      Driving home, Han explains how Tokyo works. DK's uncle Kamata takes a cut of everyone's action and keeps the police off them.
 
 [ 40] (00:41:37.845 -> 00:41:55.963)  <normal> {reasoning}
       Fifty percent of something beats a hundred percent of nothing. It's the uncle's turf, the uncle's cut.
@@ -133,7 +133,7 @@ Lines: 111   Words: 3040   Est. narration: 21.6 min @ 141 WPM [config fallback (
       By the next party night, Twinkie is explaining the economics of the room. These women know nobody, and every man here is too scared to approach them. So you talk to the little dude who makes you laugh.
 
 [ 43] (00:46:20.059 -> 00:46:26.415)  <reveal> {reasoning}
-      Sean eyes a red Evo. Han hands it over. Not lends. Hands.
+      Sean walks past a red Evo, then walks back. Han hands it over. Not lends. Hands.
 
 [ 44] (00:46:26.415 -> 00:46:35.390)  <normal> {reasoning}
       Sean represents him now, and Han won't let his name roll around Tokyo in a Hyundai. Generosity and branding in one breath.
@@ -166,7 +166,7 @@ Lines: 111   Words: 3040   Est. narration: 21.6 min @ 141 WPM [config fallback (
       At the garage rail, Reiko tells Han he has a visitor waiting below.
 
 [ 54] (00:58:29.577 -> 00:58:40.113)  <normal> {rest}
-      On Neela's laptop: bama boy, how come i never c u drift. That night they eat vending-machine food under an overpass, and the guard drops away.
+      A chat window on Neela's laptop: bama boy, how come i never c u drift. That night they eat vending-machine food under an overpass, and the guard drops away.
 
 [ 55] (00:59:19.043 -> 00:59:22.460)  <normal> {loop}
       Then she gives him the whole thing.
@@ -184,7 +184,7 @@ Lines: 111   Words: 3040   Est. narration: 21.6 min @ 141 WPM [config fallback (
       Han gives him the only telling-off in this film worth quoting. He didn't just play with fire, he soaked the matches in gasoline. Pushed far past where Han can pull him back.
 
 [ 60] (01:03:28.708 -> 01:03:44.646)  <tense> {loop}
-      So Neela walks straight into DK's club still in her school uniform, past every man who's afraid of him, and says three words to his face that nobody else in Tokyo would dare.
+      So Neela walks straight into DK’s club still in her school uniform, past every man who is afraid of him, and says three words to his face that nobody else in Tokyo would dare.
 
 [ 61] (01:03:44.646 -> 01:03:52.992)  <tense> {rest}
       You've changed, DK.
@@ -196,7 +196,7 @@ Lines: 111   Words: 3040   Est. narration: 21.6 min @ 141 WPM [config fallback (
       That's the whole of his pride. Borrowed, and ugly with it.
 
 [ 64] (01:06:39.648 -> 01:06:51.817)  <tense> {rest}
-      Across town, the panama hat belongs to Kamata, the uncle DK answers to. Takashi hands over the week's take; Kamata sits down to the books.
+      Across town, the white suit and panama hat belong to Kamata, the uncle DK answers to. Takashi hands over the week's take and Kamata sits down to the books.
 
 [ 65] (01:06:51.817 -> 01:06:58.845)  <mystery> {reasoning}
       He admits he doesn't understand half of it - then just keeps reading, silent.
@@ -247,7 +247,7 @@ Lines: 111   Words: 3040   Est. narration: 21.6 min @ 141 WPM [config fallback (
       
 
 [ 80] (01:19:18.696 -> 01:19:32.279)  <tense> {loop}
-      That's the first time in his life he refuses to be moved on. So he tells Twinkie he is walking into Kamata's house himself. Twinkie calls it suicide.
+      That is the first time in his life he refuses to be moved on. So he tells Twinkie he is walking into Kamata's house himself. Twinkie calls it suicide.
 
 [ 81] (01:19:32.279 -> 01:19:39.518)  <tense> {stake}
       That's all I've got.
@@ -265,7 +265,7 @@ Lines: 111   Words: 3040   Est. narration: 21.6 min @ 141 WPM [config fallback (
       Sean doesn't flinch. He came to apologize, he tells Kamata, because he and Takashi have embarrassed themselves in front of him. Takashi throws it back - after everything you've done, you're giving me orders? Kamata just lets him hang himself.
 
 [ 86] (01:22:57.507 -> 01:23:09.676)  <tense> {judgment}
-      Then Kamata says nothing. He just stares, and Takashi's defiance folds into a bow. Kamata is the only still thing in a film about motion.
+      Then Kamata doesn't say a word. He just stares, and Takashi's defiance folds into a bow. Kamata is the only still thing in a film about motion.
 
 [ 87] (01:23:09.676 -> 01:23:25.473)  <reveal> {stake}
       Sean lays out his solution. A race - he and Takashi settle it, and the loser leaves Tokyo for good. Kamata weighs it over the cigar, and says one word. Good.
@@ -331,7 +331,7 @@ Lines: 111   Words: 3040   Est. narration: 21.6 min @ 141 WPM [config fallback (
       Twinkie calls across the garage that Han was one of their own, and Sean's smirk fades. Then he takes the driver's seat, watches his mountain through the glass, and lines up for the next race himself.
 
 [108] (01:36:38.774 -> 01:37:00.037)  <reveal> {loop}
-      And the car that noses up beside him is no tuner coupe but hulking American muscle, and the driver is Dominic Toretto, and he says Han was family to him. Toretto grins. Then the film's last word. This ain't no ten-second race.
+      And the car that noses up beside him is no tuner coupe - it is hulking American muscle, and the man at the wheel is Dominic Toretto, and he says Han was family to him. Toretto grins. Then the film's last word. This ain't no ten-second race.
 
 [109] (01:37:10.430 -> 01:37:50.430)  <outro> {loop}
       Sean spent his whole life being moved on - new town, new school, new nobody - and he only wins the day he stops running and plants his feet on the one road everyone said he had no business on. Han, who never drifted to win, paid for that, and the film lets him stay. If that landed, tell me what to recap next, and I'll meet you at the start line.

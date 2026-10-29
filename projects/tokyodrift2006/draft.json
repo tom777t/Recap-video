@@ -133,7 +133,7 @@
     },
     {
       "id": 11,
-      "narration": "The muscle car launches off the dirt and tumbles end over end. It lands upside down, Sean hanging in his belt, bloody. Both cars wrecked in front of a crowd full of cameras.",
+      "narration": "The muscle car launches off the dirt and tumbles end over end. It lands upside down, Sean hanging in his belt, bloody - both cars wrecked in front of a crowd full of cameras.",
       "clip_start": "00:09:07.045",
       "clip_end": "00:09:20.318",
       "note": "B08",
@@ -474,7 +474,7 @@
     },
     {
       "id": 36,
-      "narration": "The table sends Sean out, presses Han about a late shipment. Sit pretty, Han says, let me handle it.",
+      "narration": "Then the table sends Sean out and presses Han about a late shipment. Sit pretty, Han says, and let me handle it.",
       "clip_start": "00:39:25.355",
       "clip_end": "00:39:34.752",
       "note": "B44",
@@ -513,7 +513,7 @@
     },
     {
       "id": 39,
-      "narration": "Driving home, Han explains how Tokyo works. DK's uncle Kamata takes a cut of everyone's action and keeps police off them.",
+      "narration": "Driving home, Han explains how Tokyo works. DK's uncle Kamata takes a cut of everyone's action and keeps the police off them.",
       "clip_start": "00:41:27.017",
       "clip_end": "00:41:37.845",
       "note": "B47",
@@ -566,7 +566,7 @@
     },
     {
       "id": 43,
-      "narration": "Sean eyes a red Evo. Han hands it over. Not lends. Hands.",
+      "narration": "Sean walks past a red Evo, then walks back. Han hands it over. Not lends. Hands.",
       "clip_start": "00:46:20.059",
       "clip_end": "00:46:26.415",
       "note": "B52",
@@ -640,8 +640,7 @@
       "claim": {
         "type": "speech",
         "subject": "Han"
-      },
-      "rate_bump": 1.1
+      }
     },
     {
       "id": 49,
@@ -711,7 +710,7 @@
     },
     {
       "id": 54,
-      "narration": "On Neela's laptop: bama boy, how come i never c u drift. That night they eat vending-machine food under an overpass, and the guard drops away.",
+      "narration": "A chat window on Neela's laptop: bama boy, how come i never c u drift. That night they eat vending-machine food under an overpass, and the guard drops away.",
       "clip_start": "00:58:29.577",
       "clip_end": "00:58:40.113",
       "note": "B64",
@@ -789,7 +788,7 @@
     },
     {
       "id": 60,
-      "narration": "So Neela walks straight into DK's club still in her school uniform, past every man who's afraid of him, and says three words to his face that nobody else in Tokyo would dare.",
+      "narration": "So Neela walks straight into DK’s club still in her school uniform, past every man who is afraid of him, and says three words to his face that nobody else in Tokyo would dare.",
       "clip_start": "01:03:28.708",
       "clip_end": "01:03:44.646",
       "note": "B69",
@@ -841,7 +840,7 @@
     },
     {
       "id": 64,
-      "narration": "Across town, the panama hat belongs to Kamata, the uncle DK answers to. Takashi hands over the week's take; Kamata sits down to the books.",
+      "narration": "Across town, the white suit and panama hat belong to Kamata, the uncle DK answers to. Takashi hands over the week's take and Kamata sits down to the books.",
       "clip_start": "01:06:39.648",
       "clip_end": "01:06:51.817",
       "note": "B72",
@@ -876,8 +875,7 @@
       "claim": {
         "type": "reveal",
         "subject": "Han"
-      },
-      "rate_bump": 1.1
+      }
     },
     {
       "id": 67,
@@ -1064,7 +1062,7 @@
     },
     {
       "id": 80,
-      "narration": "That's the first time in his life he refuses to be moved on. So he tells Twinkie he is walking into Kamata's house himself. Twinkie calls it suicide.",
+      "narration": "That is the first time in his life he refuses to be moved on. So he tells Twinkie he is walking into Kamata's house himself. Twinkie calls it suicide.",
       "clip_start": "01:19:18.696",
       "clip_end": "01:19:32.279",
       "note": "B86",
@@ -1143,7 +1141,7 @@
     },
     {
       "id": 86,
-      "narration": "Then Kamata says nothing. He just stares, and Takashi's defiance folds into a bow. Kamata is the only still thing in a film about motion.",
+      "narration": "Then Kamata doesn't say a word. He just stares, and Takashi's defiance folds into a bow. Kamata is the only still thing in a film about motion.",
       "clip_start": "01:22:57.507",
       "clip_end": "01:23:09.676",
       "note": "B90",
@@ -1334,8 +1332,7 @@
       "claim": {
         "type": "reveal",
         "subject": "Sean"
-      },
-      "rate_bump": 1.0866
+      }
     },
     {
       "id": 101,
@@ -1431,7 +1428,7 @@
     },
     {
       "id": 108,
-      "narration": "And the car that noses up beside him is no tuner coupe but hulking American muscle, and the driver is Dominic Toretto, and he says Han was family to him. Toretto grins. Then the film's last word. This ain't no ten-second race.",
+      "narration": "And the car that noses up beside him is no tuner coupe - it is hulking American muscle, and the man at the wheel is Dominic Toretto, and he says Han was family to him. Toretto grins. Then the film's last word. This ain't no ten-second race.",
       "clip_start": "01:36:38.774",
       "clip_end": "01:37:00.037",
       "note": "B108",
