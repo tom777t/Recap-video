@@ -303,6 +303,17 @@ class Line:
     # objects was blind to it - the cap, the spacing and the duration limits
     # could not be enforced because the data was not there to enforce them on.
     film_speaks_seconds: Optional[float] = None
+    # Which of config.FILM_SPEAKS_MUST_SERVE this unit serves, and the exact
+    # words that play. The quote is stored so the gates can work on it: a
+    # paraphrase check needs the text, and so does the spoiler check - neither
+    # can read the audio.
+    film_speaks_criterion: Optional[str] = None
+    film_speaks_quote: Optional[str] = None
+    # The MEASURED margin, in dB, of the vocals stem over the music and
+    # effects across this quote's span. Recorded at selection time so the gate
+    # does not have to re-separate audio on every draft run, and so the number
+    # that justified the pick is auditable afterwards.
+    film_speaks_audio_margin_db: Optional[float] = None
     # One sentence saying which of config.FILM_SPEAKS_MUST_SERVE this unit
     # serves (a reveal, the climax, or the angle's thesis). "It is a good line"
     # is not a reason; using someone's original audio is a copyright exposure

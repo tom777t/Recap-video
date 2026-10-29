@@ -22,7 +22,7 @@ param(
     [string]$Source,
     [Parameter(Mandatory = $true)][string]$Project,
     [ValidateSet('ingest', 'frames', 'names', 'spans', 'tags', 'catalogue',
-                 'beats', 'draft', 'render', 'verify')]
+                 'beats', 'draft', 'filmspeaks', 'render', 'verify')]
     [string]$From = 'ingest',
     [switch]$Translate,
     [string]$Model = 'medium',
@@ -85,7 +85,7 @@ function Need-File ($path, $hint) {
 # thanh KHONG kiem duoc (SPEAKER_UNNAMED) - chua duoc bang gi ngoai viec tag
 # lai ca phim. Danh sach ten la DAU VAO cua khau tag, khong phai phu luc.
 $order = @('ingest', 'frames', 'names', 'spans', 'tags', 'catalogue', 'beats',
-           'draft', 'render', 'verify')
+           'draft', 'filmspeaks', 'render', 'verify')
 $start = [array]::IndexOf($order, $From)
 function Should ($step) { return ([array]::IndexOf($order, $step) -ge $start) }
 
@@ -476,7 +476,65 @@ if (Should 'draft') {
 }
 
 # --------------------------------------------------------------------------- #
-# 8. RENDER
+# 8b. FILM_SPEAKS - chon 2-3 cho de PHIM tu noi (vong LLM)
+# --------------------------------------------------------------------------- #
+# Moi phim phai co 2-3 unit film_speaks. Day la CHO DUY NHAT con nghe duoc
+# thoai goc: moi noi khac dung no-vocals stem. Mot phim 17 phut da ship voi
+# SO KHONG unit, vi khong co gi hoi den no. Gio la mot stage, va
+# [FILM-SPEAKS-COUNT] FAIL khi co ung vien ma draft khong co unit nao.
+if (Should 'filmspeaks') {
+    Say "8b. FILM_SPEAKS - de phim tu noi 2-3 lan"
+
+    $fsNeed = python -c @"
+import json, io, sys
+sys.path.insert(0, '.')
+try:
+    d = json.load(io.open(r'$Pdir\draft.json', encoding='utf-8'))
+except Exception:
+    print('NODRAFT'); raise SystemExit
+n = len([l for l in d.get('lines') or []
+         if l.get('film_speaks_seconds') is not None])
+print('OK' if n >= 2 else f'NEED:{n}')
+"@
+    if ($fsNeed -like 'NEED:*') {
+        if (-not (Test-Path "$Pdir\film_speaks_candidates.json")) {
+            Say "   sinh ung vien (co do sach thoai bang Demucs - cham)"
+            & python tools\film_speaks_candidates.py --project $Project | Out-Host
+        }
+        $nCand = python -c @"
+import json, io
+try:
+    print(len(json.load(io.open(r'$Pdir\film_speaks_candidates.json',
+                                encoding='utf-8')).get('candidates') or []))
+except Exception:
+    print(0)
+"@
+        if ([int]$nCand -gt 0) {
+            Halt "FILM_SPEAKS - $nCand ung vien, can chon 2-3 (vong LLM)" @(
+                "Mot subagent MOI (fresh context). Prompt:"
+                "  prompts\film_speaks_select.md"
+                ""
+                "Input:  $Pdir\film_speaks_candidates.json"
+                "Doc them: draft.json, angle.md, beats_proposal.md, reveals.json"
+                "Ghi:    $Pdir\film_speaks_selection.json"
+                ""
+                "Subagent phai: cham diem theo a-c, ghi criterion +"
+                "mot cau ly do moi pick, VA viet lai cau TRUOC (dan vao"
+                "ma khong noi truoc noi dung) + cau SAU (phan ung)."
+                ""
+                "Sau do ap dung vao draft.json: cua so cua line chu phai"
+                "KET THUC o cho quote bat dau, neu khong se trip"
+                "[FOOTAGE-REUSE]."
+            ) ".\run.ps1 -Project $Project -From filmspeaks"
+            exit 0
+        }
+        Warn "khong co ung vien nao du dieu kien - so khong la hop le cho phim nay"
+    }
+    else { Ok "film_speaks: du unit" }
+}
+
+# --------------------------------------------------------------------------- #
+# 9. RENDER
 # --------------------------------------------------------------------------- #
 if (Should 'render') {
     Say "9. RENDER"

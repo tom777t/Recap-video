@@ -262,8 +262,80 @@ def test_multi_shot_extension() -> tuple[bool, str]:
                   "bounded by reveal landings and the source duration")
 
 
+def test_static_source_excused() -> tuple[bool, str]:
+    """A shot the FILM holds still must not be reported as a render freeze.
+
+    freezedetect on the finished file cannot tell the two apart:
+      * the render froze the picture        - a defect
+      * the film is holding a static shot   - a shot
+    Locked-off establishing shots, held close-ups and title cards are all
+    legitimate, and flagging them produced findings with nothing to fix. A
+    freeze counts only where the SOURCE moved over the same span.
+    """
+    from pipeline import motion_check as mc
+    ff = config.ffmpeg()
+    TMP.mkdir(parents=True, exist_ok=True)
+    try:
+        # A genuinely STATIC source: a single colour, 4s. Nothing moves.
+        static = TMP / "static_src.mp4"
+        _ff("-f", "lavfi", "-i", "color=c=navy:size=320x180:rate=30:duration=4",
+            "-c:v", "libx264", "-preset", "ultrafast", "-crf", "18",
+            "-pix_fmt", "yuv420p", str(static))
+        # A MOVING source of the same length.
+        moving = TMP / "moving_src.mp4"
+        _ff("-f", "lavfi", "-i", "testsrc=size=320x180:rate=30:duration=4",
+            "-c:v", "libx264", "-preset", "ultrafast", "-crf", "18",
+            "-pix_fmt", "yuv420p", str(moving))
+
+        if mc.source_has_motion(ff, static, 0.5, 3.5) is not False:
+            return False, ("a single-colour source was reported as moving, so "
+                           "a held shot would still be flagged")
+        if mc.source_has_motion(ff, moving, 0.5, 3.5) is not True:
+            return False, "a testsrc source was not reported as moving"
+        if mc.source_has_motion(ff, TMP / "nope.mp4", 0.0, 1.0) is not None:
+            return False, ("an unreadable source returned a verdict instead "
+                           "of None - an unknown answer must not read as "
+                           "'static', which would suppress real freezes")
+
+        # ---- end to end: the same freeze, excused or not by its source ----
+        # A finished file that is frozen for 2s in the middle.
+        frozen_final = TMP / "final.mp4"
+        lst = TMP / "l.txt"
+        lst.write_text(f"file '{moving.as_posix()}'\n"
+                       f"file '{static.as_posix()}'\n"
+                       f"file '{moving.as_posix()}'\n", encoding="utf-8")
+        _ff("-f", "concat", "-safe", "0", "-i", str(lst),
+            "-c:v", "libx264", "-preset", "ultrafast", "-crf", "18",
+            "-pix_fmt", "yuv420p", str(frozen_final))
+        # the frozen stretch sits at 4-8s in the finished file, and came from
+        # 0-4s of whichever source we claim
+        shown = [{"a": 0.0, "b": 4.0, "out_a": 4.0, "out_b": 8.0,
+                  "source": "clip", "line_id": 1, "blurred": False}]
+        draft = {"lines": [{"id": 1, "clip_start": "00:00:00.000",
+                            "clip_end": "00:00:04.000"}]}
+
+        ok_static, bad_static = mc.check(ff, frozen_final, draft, shown=shown,
+                                         source=static)
+        if not ok_static:
+            return False, (f"the freeze was reported even though its SOURCE "
+                           f"span is static: {bad_static}")
+        ok_moving, bad_moving = mc.check(ff, frozen_final, draft, shown=shown,
+                                        source=moving)
+        if ok_moving:
+            return False, ("a freeze whose source MOVES was not reported - the "
+                           "check now excuses everything")
+        if not any("SOURCE moves" in b for b in bad_moving):
+            return False, f"the finding does not explain itself: {bad_moving}"
+        return True, ("a static source excuses the freeze; a moving source "
+                      "still fails it; an unreadable source is reported, not "
+                      "excused")
+    finally:
+        shutil.rmtree(TMP, ignore_errors=True)
+
+
 TESTS = {
     "SLOWDOWN-CAPPED":      test_slowdown_capped,
+    "STATIC-SOURCE-EXCUSED": test_static_source_excused,
     "FREEZE-CAPPED":        test_freeze_capped,
     "FREEZE-DETECTED":      test_freeze_detected,
     "FREEZE-FATAL":         test_freeze_fatal,

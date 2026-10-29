@@ -434,6 +434,65 @@ def separate(project: str, force: bool = False) -> Path | None:
     return no_vocals_path(pdir)
 
 
+def separate_span(project: str, a: float, b: float
+                  ) -> tuple[Path | None, Path | None]:
+    """Separate ONE span and return (vocals, no_vocals) part paths.
+
+    Used by the film_speaks candidate generator to measure whether a quote's
+    dialogue is actually clean - i.e. whether the vocals stem dominates the
+    music and effects over that span. A candidate may sit anywhere in the film,
+    including outside the spans the recap currently plays, so the full-film
+    separation cannot be relied on to cover it.
+
+    Cached per span under stems/parts/, keyed by model and timestamps, so the
+    same candidate is never separated twice and a selected quote's span is
+    already done by the time the render needs it.
+    """
+    import config
+    pdir = Path(config.project_dir(project))
+    source = pdir / "source.mp4"
+    if not source.exists():
+        return None, None
+    ok, _why = available()
+    if not ok:
+        return None, None
+
+    sdir = stem_dir(pdir)
+    parts = sdir / "parts"
+    parts.mkdir(parents=True, exist_ok=True)
+    tag = f"{DEMUCS_MODEL}_{a:.2f}-{b:.2f}"
+    nv = parts / f"{tag}.wav"
+    vo = parts / f"{tag}.vocals.wav"
+    if nv.exists() and vo.exists() and nv.stat().st_size and vo.stat().st_size:
+        return vo, nv
+
+    ff = config.ffmpeg()
+    work = sdir / "_spans"
+    work.mkdir(parents=True, exist_ok=True)
+    seg = work / f"seg_{a:.2f}_{b:.2f}.wav"
+    r = subprocess.run(
+        [ff, "-y", "-hide_banner", "-loglevel", "error",
+         "-ss", f"{a:.3f}", "-t", f"{max(0.5, b - a):.3f}", "-i", str(source),
+         "-vn", "-ac", "2", "-ar", "44100", "-c:a", "pcm_s16le", str(seg)],
+        capture_output=True, text=True)
+    if r.returncode != 0 or not seg.exists():
+        return None, None
+    outdir = work / f"out_{a:.2f}_{b:.2f}"
+    jobs = max(1, min(4, (os.cpu_count() or 2) // 3))
+    got = _run_demucs(seg, outdir, jobs)
+    if got is None:
+        shutil.rmtree(outdir, ignore_errors=True)
+        seg.unlink(missing_ok=True)
+        return None, None
+    shutil.move(str(got), str(nv))
+    for p in outdir.rglob("vocals.wav"):
+        shutil.move(str(p), str(vo))
+        break
+    shutil.rmtree(outdir, ignore_errors=True)
+    seg.unlink(missing_ok=True)
+    return (vo if vo.exists() else None), nv
+
+
 def resolve(project: str) -> tuple[Path | None, str]:
     """(no_vocals_path | None, note) for a render, applying the policy.
 

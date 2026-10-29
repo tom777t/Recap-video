@@ -1,0 +1,1228 @@
+{
+  "project": "tokyodrift2006",
+  "rules": {
+    "count": [
+      2,
+      3
+    ],
+    "seconds": [
+      3.0,
+      15.0
+    ],
+    "min_gap_sec": 180.0,
+    "max_per_act": 1,
+    "audio_clean_min_db": 3.0,
+    "paraphrase_max_overlap": 0.45,
+    "must_serve": [
+      "reveal",
+      "climax",
+      "thesis"
+    ]
+  },
+  "acts": [
+    156.0,
+    1532.0,
+    3081.0,
+    4732.0
+  ],
+  "candidates": [
+    {
+      "start": 894.74,
+      "end": 906.47,
+      "seconds": 11.73,
+      "text": "Where do I sleep? And you know she had no other choice, I mean, it was either this or Juvie Hall. I mean, you just can't keep moving away every time you get into trouble.",
+      "criteria": [
+        "thesis"
+      ],
+      "evidence": {
+        "angle_quote": {
+          "phrase": "you can't keep running from your trouble",
+          "match": 0.75
+        },
+        "in_angle_beat": true
+      },
+      "act": 1,
+      "language": "en (per-chunk detect+translate, misdetections corrected)",
+      "words": 35,
+      "rank": 5.5,
+      "narration_overlap": {
+        "worst": 0.35,
+        "line_id": 17
+      },
+      "audio": {
+        "vocals_db": -50.3,
+        "other_db": -71.7,
+        "margin_db": 21.4,
+        "measured": true,
+        "note": ""
+      }
+    },
+    {
+      "start": 894.74,
+      "end": 909.25,
+      "seconds": 14.51,
+      "text": "Where do I sleep? And you know she had no other choice, I mean, it was either this or Juvie Hall. I mean, you just can't keep moving away every time you get into trouble. Or for you",
+      "criteria": [
+        "thesis"
+      ],
+      "evidence": {
+        "angle_quote": {
+          "phrase": "you can't keep running from your trouble",
+          "match": 0.75
+        },
+        "in_angle_beat": true
+      },
+      "act": 1,
+      "language": "en (per-chunk detect+translate, misdetections corrected)",
+      "words": 38,
+      "rank": 5.5,
+      "narration_overlap": {
+        "worst": 0.35,
+        "line_id": 17
+      },
+      "audio": {
+        "vocals_db": -49.7,
+        "other_db": -72.9,
+        "margin_db": 23.2,
+        "measured": true,
+        "note": ""
+      }
+    },
+    {
+      "start": 897.88,
+      "end": 906.47,
+      "seconds": 8.59,
+      "text": "And you know she had no other choice, I mean, it was either this or Juvie Hall. I mean, you just can't keep moving away every time you get into trouble.",
+      "criteria": [
+        "thesis"
+      ],
+      "evidence": {
+        "angle_quote": {
+          "phrase": "you can't keep running from your trouble",
+          "match": 0.75
+        },
+        "in_angle_beat": true
+      },
+      "act": 1,
+      "language": "en (per-chunk detect+translate, misdetections corrected)",
+      "words": 31,
+      "rank": 5.5,
+      "narration_overlap": {
+        "worst": 0.38,
+        "line_id": 17
+      },
+      "audio": {
+        "vocals_db": -51.5,
+        "other_db": -72.3,
+        "margin_db": 20.8,
+        "measured": true,
+        "note": ""
+      }
+    },
+    {
+      "start": 2236.6,
+      "end": 2249.6,
+      "seconds": 13.0,
+      "text": "pick up and delivery business now. I might call you once a week or once an hour. I don't care if you're sick as a dog or in bed with Beyonce. I call you show. Only if you teach me how to drift.",
+      "criteria": [
+        "thesis"
+      ],
+      "evidence": {
+        "angle_quote": {
+          "phrase": "I don't drift to win",
+          "match": 0.67
+        },
+        "in_angle_beat": true
+      },
+      "act": 2,
+      "language": "en (per-chunk detect+translate, misdetections corrected)",
+      "words": 43,
+      "rank": 5.42,
+      "narration_overlap": {
+        "worst": 0.14,
+        "line_id": 33
+      },
+      "audio": {
+        "vocals_db": -37.8,
+        "other_db": -41.8,
+        "margin_db": 4.0,
+        "measured": true,
+        "note": ""
+      }
+    },
+    {
+      "start": 2236.6,
+      "end": 2251.6,
+      "seconds": 15.0,
+      "text": "pick up and delivery business now. I might call you once a week or once an hour. I don't care if you're sick as a dog or in bed with Beyonce. I call you show. Only if you teach me how to drift. This ain't a negotiation.",
+      "criteria": [
+        "thesis"
+      ],
+      "evidence": {
+        "angle_quote": {
+          "phrase": "I don't drift to win",
+          "match": 0.67
+        },
+        "in_angle_beat": true
+      },
+      "act": 2,
+      "language": "en (per-chunk detect+translate, misdetections corrected)",
+      "words": 47,
+      "rank": 5.42,
+      "narration_overlap": {
+        "worst": 0.13,
+        "line_id": 33
+      },
+      "audio": {
+        "vocals_db": -37.8,
+        "other_db": -41.9,
+        "margin_db": 4.1,
+        "measured": true,
+        "note": ""
+      }
+    },
+    {
+      "start": 2239.36,
+      "end": 2249.6,
+      "seconds": 10.24,
+      "text": "I might call you once a week or once an hour. I don't care if you're sick as a dog or in bed with Beyonce. I call you show. Only if you teach me how to drift.",
+      "criteria": [
+        "thesis"
+      ],
+      "evidence": {
+        "angle_quote": {
+          "phrase": "I don't drift to win",
+          "match": 0.67
+        },
+        "in_angle_beat": true
+      },
+      "act": 2,
+      "language": "en (per-chunk detect+translate, misdetections corrected)",
+      "words": 37,
+      "rank": 5.42,
+      "narration_overlap": {
+        "worst": 0.18,
+        "line_id": 33
+      },
+      "audio": {
+        "vocals_db": -37.6,
+        "other_db": -42.5,
+        "margin_db": 4.9,
+        "measured": true,
+        "note": ""
+      }
+    },
+    {
+      "start": 3165.75,
+      "end": 3170.85,
+      "seconds": 5.1,
+      "text": "So if you don't drift to win, what do you drift for? You really wanna know?",
+      "criteria": [
+        "thesis"
+      ],
+      "evidence": {
+        "angle_quote": {
+          "phrase": "He doesn't drift to win.",
+          "match": 0.67
+        },
+        "in_angle_beat": true
+      },
+      "act": 3,
+      "language": "en (per-chunk detect+translate, misdetections corrected)",
+      "words": 16,
+      "rank": 5.42,
+      "narration_overlap": {
+        "worst": 0.33,
+        "line_id": 50
+      },
+      "audio": {
+        "vocals_db": -42.6,
+        "other_db": -31.4,
+        "margin_db": -11.2,
+        "measured": true,
+        "note": ""
+      }
+    },
+    {
+      "start": 3165.75,
+      "end": 3173.5,
+      "seconds": 7.75,
+      "text": "So if you don't drift to win, what do you drift for? You really wanna know? Yeah",
+      "criteria": [
+        "thesis"
+      ],
+      "evidence": {
+        "angle_quote": {
+          "phrase": "He doesn't drift to win.",
+          "match": 0.67
+        },
+        "in_angle_beat": true
+      },
+      "act": 3,
+      "language": "en (per-chunk detect+translate, misdetections corrected)",
+      "words": 17,
+      "rank": 5.42,
+      "narration_overlap": {
+        "worst": 0.29,
+        "line_id": 50
+      },
+      "audio": {
+        "vocals_db": -44.2,
+        "other_db": -32.2,
+        "margin_db": -12.0,
+        "measured": true,
+        "note": ""
+      }
+    },
+    {
+      "start": 3165.75,
+      "end": 3174.77,
+      "seconds": 9.02,
+      "text": "So if you don't drift to win, what do you drift for? You really wanna know? Yeah Okay, let's go.",
+      "criteria": [
+        "thesis"
+      ],
+      "evidence": {
+        "angle_quote": {
+          "phrase": "He doesn't drift to win.",
+          "match": 0.67
+        },
+        "in_angle_beat": true
+      },
+      "act": 3,
+      "language": "en (per-chunk detect+translate, misdetections corrected)",
+      "words": 20,
+      "rank": 5.42,
+      "narration_overlap": {
+        "worst": 0.22,
+        "line_id": 50
+      },
+      "audio": {
+        "vocals_db": -44.4,
+        "other_db": -32.7,
+        "margin_db": -11.7,
+        "measured": true,
+        "note": ""
+      }
+    },
+    {
+      "start": 2425.43,
+      "end": 2437.18,
+      "seconds": 11.75,
+      "text": "Trust me you don't want to be a part of this world. It's good enough for you You don't know anything about me, but why don't you think I know? Cuz I'm a gajin an outsider",
+      "criteria": [
+        "thesis"
+      ],
+      "evidence": {
+        "angle_quote": {
+          "phrase": "I'm his father",
+          "match": 0.5
+        },
+        "in_angle_beat": true
+      },
+      "act": 2,
+      "language": "en (per-chunk detect+translate, misdetections corrected)",
+      "words": 36,
+      "rank": 5.25,
+      "narration_overlap": {
+        "worst": 0.0,
+        "line_id": null
+      },
+      "audio": {
+        "vocals_db": -45.9,
+        "other_db": -55.1,
+        "margin_db": 9.2,
+        "measured": true,
+        "note": ""
+      }
+    },
+    {
+      "start": 2430.51,
+      "end": 2437.18,
+      "seconds": 6.67,
+      "text": "You don't know anything about me, but why don't you think I know? Cuz I'm a gajin an outsider",
+      "criteria": [
+        "thesis"
+      ],
+      "evidence": {
+        "angle_quote": {
+          "phrase": "I'm his father",
+          "match": 0.5
+        },
+        "in_angle_beat": true
+      },
+      "act": 2,
+      "language": "en (per-chunk detect+translate, misdetections corrected)",
+      "words": 19,
+      "rank": 5.25,
+      "narration_overlap": {
+        "worst": 0.0,
+        "line_id": null
+      },
+      "audio": {
+        "vocals_db": -45.8,
+        "other_db": -55.1,
+        "margin_db": 9.3,
+        "measured": true,
+        "note": ""
+      }
+    },
+    {
+      "start": 2430.51,
+      "end": 2441.02,
+      "seconds": 10.51,
+      "text": "You don't know anything about me, but why don't you think I know? Cuz I'm a gajin an outsider Let me guess.",
+      "criteria": [
+        "thesis"
+      ],
+      "evidence": {
+        "angle_quote": {
+          "phrase": "I'm his father",
+          "match": 0.5
+        },
+        "in_angle_beat": true
+      },
+      "act": 2,
+      "language": "en (per-chunk detect+translate, misdetections corrected)",
+      "words": 22,
+      "rank": 5.25,
+      "narration_overlap": {
+        "worst": 0.0,
+        "line_id": null
+      },
+      "audio": {
+        "vocals_db": -47.3,
+        "other_db": -55.5,
+        "margin_db": 8.2,
+        "measured": true,
+        "note": ""
+      }
+    },
+    {
+      "start": 2520.7,
+      "end": 2533.33,
+      "seconds": 12.63,
+      "text": "Why not see that good? It's the point of a race See if I'm better than the other guy just proves you're faster. That's all that way to race. It would have to be for something important",
+      "criteria": [
+        "thesis"
+      ],
+      "evidence": {
+        "angle_quote": {
+          "phrase": "I'm his father",
+          "match": 0.5
+        },
+        "in_angle_beat": true
+      },
+      "act": 2,
+      "language": "en (per-chunk detect+translate, misdetections corrected)",
+      "words": 37,
+      "rank": 5.25,
+      "narration_overlap": {
+        "worst": 0.17,
+        "line_id": 41
+      },
+      "audio": {
+        "vocals_db": -39.6,
+        "other_db": -41.8,
+        "margin_db": 2.2,
+        "measured": true,
+        "note": ""
+      }
+    },
+    {
+      "start": 2523.18,
+      "end": 2533.33,
+      "seconds": 10.15,
+      "text": "It's the point of a race See if I'm better than the other guy just proves you're faster. That's all that way to race. It would have to be for something important",
+      "criteria": [
+        "thesis"
+      ],
+      "evidence": {
+        "angle_quote": {
+          "phrase": "I'm his father",
+          "match": 0.5
+        },
+        "in_angle_beat": true
+      },
+      "act": 2,
+      "language": "en (per-chunk detect+translate, misdetections corrected)",
+      "words": 32,
+      "rank": 5.25,
+      "narration_overlap": {
+        "worst": 0.12,
+        "line_id": 40
+      },
+      "audio": {
+        "vocals_db": -39.4,
+        "other_db": -41.7,
+        "margin_db": 2.3,
+        "measured": true,
+        "note": ""
+      }
+    },
+    {
+      "start": 3534.9,
+      "end": 3541.54,
+      "seconds": 6.64,
+      "text": "It's actually not bad. I didn't even have to put ketchup on it. See, I'm not a cool guy, Jim",
+      "criteria": [
+        "thesis"
+      ],
+      "evidence": {
+        "angle_quote": {
+          "phrase": "I'm his father",
+          "match": 0.5
+        },
+        "in_angle_beat": true
+      },
+      "act": 3,
+      "language": "en (per-chunk detect+translate, misdetections corrected)",
+      "words": 20,
+      "rank": 5.25,
+      "narration_overlap": {
+        "worst": 0.0,
+        "line_id": null
+      },
+      "audio": {
+        "vocals_db": -44.1,
+        "other_db": -50.1,
+        "margin_db": 6.0,
+        "measured": true,
+        "note": ""
+      }
+    },
+    {
+      "start": 3536.7,
+      "end": 3541.54,
+      "seconds": 4.84,
+      "text": "I didn't even have to put ketchup on it. See, I'm not a cool guy, Jim",
+      "criteria": [
+        "thesis"
+      ],
+      "evidence": {
+        "angle_quote": {
+          "phrase": "I'm his father",
+          "match": 0.5
+        },
+        "in_angle_beat": true
+      },
+      "act": 3,
+      "language": "en (per-chunk detect+translate, misdetections corrected)",
+      "words": 16,
+      "rank": 5.25,
+      "narration_overlap": {
+        "worst": 0.0,
+        "line_id": null
+      },
+      "audio": {
+        "vocals_db": -44.2,
+        "other_db": -51.5,
+        "margin_db": 7.3,
+        "measured": true,
+        "note": ""
+      }
+    },
+    {
+      "start": 4996.5,
+      "end": 5006.19,
+      "seconds": 9.69,
+      "text": "D.K. and I have caused nothing but problems for you, for us. I'm asking you to allow us to settle this once and for all.",
+      "criteria": [
+        "thesis"
+      ],
+      "evidence": {
+        "angle_quote": {
+          "phrase": "I'm his father",
+          "match": 0.5
+        },
+        "in_angle_beat": true
+      },
+      "act": 4,
+      "language": "en (per-chunk detect+translate, misdetections corrected)",
+      "words": 25,
+      "rank": 5.25,
+      "narration_overlap": {
+        "worst": 0.12,
+        "line_id": 87
+      },
+      "audio": {
+        "vocals_db": -44.1,
+        "other_db": -41.4,
+        "margin_db": -2.7,
+        "measured": true,
+        "note": ""
+      }
+    },
+    {
+      "start": 4996.5,
+      "end": 5009.34,
+      "seconds": 12.84,
+      "text": "D.K. and I have caused nothing but problems for you, for us. I'm asking you to allow us to settle this once and for all. We race.",
+      "criteria": [
+        "thesis"
+      ],
+      "evidence": {
+        "angle_quote": {
+          "phrase": "I'm his father",
+          "match": 0.5
+        },
+        "in_angle_beat": true
+      },
+      "act": 4,
+      "language": "en (per-chunk detect+translate, misdetections corrected)",
+      "words": 27,
+      "rank": 5.25,
+      "narration_overlap": {
+        "worst": 0.22,
+        "line_id": 87
+      },
+      "audio": {
+        "vocals_db": -45.0,
+        "other_db": -41.3,
+        "margin_db": -3.7,
+        "measured": true,
+        "note": ""
+      }
+    },
+    {
+      "start": 5002.39,
+      "end": 5006.19,
+      "seconds": 3.8,
+      "text": "I'm asking you to allow us to settle this once and for all.",
+      "criteria": [
+        "thesis"
+      ],
+      "evidence": {
+        "angle_quote": {
+          "phrase": "I'm his father",
+          "match": 0.5
+        },
+        "in_angle_beat": true
+      },
+      "act": 4,
+      "language": "en (per-chunk detect+translate, misdetections corrected)",
+      "words": 13,
+      "rank": 5.25,
+      "narration_overlap": {
+        "worst": 0.2,
+        "line_id": 87
+      },
+      "audio": {
+        "vocals_db": -44.2,
+        "other_db": -41.4,
+        "margin_db": -2.8,
+        "measured": true,
+        "note": ""
+      }
+    },
+    {
+      "start": 5173.59,
+      "end": 5176.91,
+      "seconds": 3.32,
+      "text": "DK picked this road for a reason, this is his mountain.",
+      "criteria": [
+        "climax_or_final"
+      ],
+      "evidence": {
+        "position": "final line",
+        "in_angle_beat": true
+      },
+      "act": 4,
+      "language": "en (per-chunk detect+translate, misdetections corrected)",
+      "words": 11,
+      "rank": 4.75,
+      "narration_overlap": {
+        "worst": 1.0,
+        "line_id": 91
+      },
+      "audio": {
+        "vocals_db": -38.1,
+        "other_db": -39.7,
+        "margin_db": 1.6,
+        "measured": true,
+        "note": ""
+      }
+    },
+    {
+      "start": 5173.59,
+      "end": 5181.18,
+      "seconds": 7.59,
+      "text": "DK picked this road for a reason, this is his mountain. He's the only one to ever make it to the bottom.",
+      "criteria": [
+        "climax_or_final"
+      ],
+      "evidence": {
+        "position": "final line",
+        "in_angle_beat": true
+      },
+      "act": 4,
+      "language": "en (per-chunk detect+translate, misdetections corrected)",
+      "words": 22,
+      "rank": 4.75,
+      "narration_overlap": {
+        "worst": 0.9,
+        "line_id": 91
+      },
+      "audio": {
+        "vocals_db": -39.6,
+        "other_db": -37.8,
+        "margin_db": -1.8,
+        "measured": true,
+        "note": ""
+      }
+    },
+    {
+      "start": 919.03,
+      "end": 924.31,
+      "seconds": 5.28,
+      "text": "So you just go by the rules her and I agreed to, and I'm sure you'll manage just fine.",
+      "criteria": [
+        "thesis"
+      ],
+      "evidence": {
+        "angle_quote": {
+          "phrase": "I'm his father",
+          "match": 0.5
+        }
+      },
+      "act": 1,
+      "language": "en (per-chunk detect+translate, misdetections corrected)",
+      "words": 19,
+      "rank": 4.5,
+      "narration_overlap": {
+        "worst": 0.14,
+        "line_id": 18
+      },
+      "audio": {
+        "vocals_db": -50.8,
+        "other_db": -73.8,
+        "margin_db": 23.0,
+        "measured": true,
+        "note": ""
+      }
+    },
+    {
+      "start": 919.03,
+      "end": 925.47,
+      "seconds": 6.44,
+      "text": "So you just go by the rules her and I agreed to, and I'm sure you'll manage just fine. Rules?",
+      "criteria": [
+        "thesis"
+      ],
+      "evidence": {
+        "angle_quote": {
+          "phrase": "I'm his father",
+          "match": 0.5
+        }
+      },
+      "act": 1,
+      "language": "en (per-chunk detect+translate, misdetections corrected)",
+      "words": 20,
+      "rank": 4.5,
+      "narration_overlap": {
+        "worst": 0.14,
+        "line_id": 18
+      },
+      "audio": {
+        "vocals_db": -48.7,
+        "other_db": -75.1,
+        "margin_db": 26.4,
+        "measured": true,
+        "note": ""
+      }
+    },
+    {
+      "start": 919.03,
+      "end": 927.27,
+      "seconds": 8.24,
+      "text": "So you just go by the rules her and I agreed to, and I'm sure you'll manage just fine. Rules? Yeah, rules.",
+      "criteria": [
+        "thesis"
+      ],
+      "evidence": {
+        "angle_quote": {
+          "phrase": "I'm his father",
+          "match": 0.5
+        }
+      },
+      "act": 1,
+      "language": "en (per-chunk detect+translate, misdetections corrected)",
+      "words": 22,
+      "rank": 4.5,
+      "narration_overlap": {
+        "worst": 0.12,
+        "line_id": 18
+      },
+      "audio": {
+        "vocals_db": -49.1,
+        "other_db": -75.1,
+        "margin_db": 26.0,
+        "measured": true,
+        "note": ""
+      }
+    },
+    {
+      "start": 1064.02,
+      "end": 1073.74,
+      "seconds": 9.72,
+      "text": "There's no water in the warehouse. Where are you looking? Oh, my. Wrong train. I'm new here",
+      "criteria": [
+        "thesis"
+      ],
+      "evidence": {
+        "angle_quote": {
+          "phrase": "I'm his father",
+          "match": 0.5
+        }
+      },
+      "act": 1,
+      "language": "en (per-chunk detect+translate, misdetections corrected)",
+      "words": 17,
+      "rank": 4.5,
+      "narration_overlap": {
+        "worst": 0.0,
+        "line_id": null
+      },
+      "audio": {
+        "vocals_db": -45.8,
+        "other_db": -72.3,
+        "margin_db": 26.5,
+        "measured": true,
+        "note": ""
+      }
+    },
+    {
+      "start": 1064.02,
+      "end": 1077.09,
+      "seconds": 13.07,
+      "text": "There's no water in the warehouse. Where are you looking? Oh, my. Wrong train. I'm new here Ah, a transfer student.",
+      "criteria": [
+        "thesis"
+      ],
+      "evidence": {
+        "angle_quote": {
+          "phrase": "I'm his father",
+          "match": 0.5
+        }
+      },
+      "act": 1,
+      "language": "en (per-chunk detect+translate, misdetections corrected)",
+      "words": 21,
+      "rank": 4.5,
+      "narration_overlap": {
+        "worst": 0.0,
+        "line_id": null
+      },
+      "audio": {
+        "vocals_db": -45.0,
+        "other_db": -73.1,
+        "margin_db": 28.1,
+        "measured": true,
+        "note": ""
+      }
+    },
+    {
+      "start": 1065.82,
+      "end": 1073.74,
+      "seconds": 7.92,
+      "text": "Where are you looking? Oh, my. Wrong train. I'm new here",
+      "criteria": [
+        "thesis"
+      ],
+      "evidence": {
+        "angle_quote": {
+          "phrase": "I'm his father",
+          "match": 0.5
+        }
+      },
+      "act": 1,
+      "language": "en (per-chunk detect+translate, misdetections corrected)",
+      "words": 11,
+      "rank": 4.5,
+      "narration_overlap": {
+        "worst": 0.0,
+        "line_id": null
+      },
+      "audio": {
+        "vocals_db": -47.3,
+        "other_db": -76.0,
+        "margin_db": 28.7,
+        "measured": true,
+        "note": ""
+      }
+    },
+    {
+      "start": 1145.24,
+      "end": 1160.14,
+      "seconds": 14.9,
+      "text": "Don't ask don't tell Name's Twinkie. Hey, I know this show ain't have a laptop. Yeah, I hope you have price Nah, I'm cool.",
+      "criteria": [
+        "thesis"
+      ],
+      "evidence": {
+        "angle_quote": {
+          "phrase": "I'm his father",
+          "match": 0.5
+        }
+      },
+      "act": 1,
+      "language": "en (per-chunk detect+translate, misdetections corrected)",
+      "words": 24,
+      "rank": 4.5,
+      "narration_overlap": {
+        "worst": 0.12,
+        "line_id": 19
+      },
+      "audio": {
+        "vocals_db": -45.7,
+        "other_db": -55.0,
+        "margin_db": 9.3,
+        "measured": true,
+        "note": ""
+      }
+    },
+    {
+      "start": 4769.08,
+      "end": 4776.74,
+      "seconds": 7.66,
+      "text": "I know I just didn't hit it. I gotta end this. I'm gonna go talk to him.",
+      "criteria": [
+        "thesis"
+      ],
+      "evidence": {
+        "angle_quote": {
+          "phrase": "I'm his father",
+          "match": 0.5
+        }
+      },
+      "act": 4,
+      "language": "en (per-chunk detect+translate, misdetections corrected)",
+      "words": 17,
+      "rank": 4.5,
+      "narration_overlap": {
+        "worst": 0.25,
+        "line_id": 80
+      },
+      "audio": {
+        "vocals_db": -46.1,
+        "other_db": -63.2,
+        "margin_db": 17.1,
+        "measured": true,
+        "note": ""
+      }
+    },
+    {
+      "start": 4769.08,
+      "end": 4778.04,
+      "seconds": 8.96,
+      "text": "I know I just didn't hit it. I gotta end this. I'm gonna go talk to him. What, are you crazy?",
+      "criteria": [
+        "thesis"
+      ],
+      "evidence": {
+        "angle_quote": {
+          "phrase": "I'm his father",
+          "match": 0.5
+        }
+      },
+      "act": 4,
+      "language": "en (per-chunk detect+translate, misdetections corrected)",
+      "words": 21,
+      "rank": 4.5,
+      "narration_overlap": {
+        "worst": 0.22,
+        "line_id": 80
+      },
+      "audio": {
+        "vocals_db": -43.6,
+        "other_db": -63.4,
+        "margin_db": 19.8,
+        "measured": true,
+        "note": ""
+      }
+    },
+    {
+      "start": 4973.85,
+      "end": 4983.36,
+      "seconds": 9.51,
+      "text": "Are you going to do this to me? Excuse me. Sir I'm here to offer you a peaceful solution.",
+      "criteria": [
+        "thesis"
+      ],
+      "evidence": {
+        "angle_quote": {
+          "phrase": "I'm his father",
+          "match": 0.5
+        }
+      },
+      "act": 4,
+      "language": "en (per-chunk detect+translate, misdetections corrected)",
+      "words": 19,
+      "rank": 4.5,
+      "narration_overlap": {
+        "worst": 0.12,
+        "line_id": 87
+      },
+      "audio": {
+        "vocals_db": -43.4,
+        "other_db": -45.2,
+        "margin_db": 1.8,
+        "measured": true,
+        "note": ""
+      }
+    },
+    {
+      "start": 4976.65,
+      "end": 4983.36,
+      "seconds": 6.71,
+      "text": "Excuse me. Sir I'm here to offer you a peaceful solution.",
+      "criteria": [
+        "thesis"
+      ],
+      "evidence": {
+        "angle_quote": {
+          "phrase": "I'm his father",
+          "match": 0.5
+        }
+      },
+      "act": 4,
+      "language": "en (per-chunk detect+translate, misdetections corrected)",
+      "words": 11,
+      "rank": 4.5,
+      "narration_overlap": {
+        "worst": 0.14,
+        "line_id": 87
+      },
+      "audio": {
+        "vocals_db": -46.6,
+        "other_db": -44.3,
+        "margin_db": -2.3,
+        "measured": true,
+        "note": ""
+      }
+    },
+    {
+      "start": 4665.3,
+      "end": 4668.99,
+      "seconds": 3.69,
+      "text": "I did this. I can't run away.",
+      "criteria": [
+        "thesis"
+      ],
+      "evidence": {
+        "thesis_overlap": 0.67,
+        "in_angle_beat": true
+      },
+      "act": 3,
+      "language": "en (per-chunk detect+translate, misdetections corrected)",
+      "words": 7,
+      "rank": 2.42,
+      "narration_overlap": {
+        "worst": 1.0,
+        "line_id": 79
+      },
+      "audio": {
+        "vocals_db": -45.4,
+        "other_db": -69.7,
+        "margin_db": 24.3,
+        "measured": true,
+        "note": ""
+      }
+    },
+    {
+      "start": 2968.66,
+      "end": 2972.66,
+      "seconds": 4.0,
+      "text": "Let's go. Let's go. Let's do it again.",
+      "criteria": [
+        "thesis"
+      ],
+      "evidence": {
+        "thesis_overlap": 0.5,
+        "in_angle_beat": true
+      },
+      "act": 2,
+      "language": "en (per-chunk detect+translate, misdetections corrected)",
+      "words": 8,
+      "rank": 2.25,
+      "narration_overlap": {
+        "worst": 0.0,
+        "line_id": null
+      },
+      "audio": {
+        "vocals_db": -37.5,
+        "other_db": -45.6,
+        "margin_db": 8.1,
+        "measured": true,
+        "note": ""
+      }
+    },
+    {
+      "start": 2969.66,
+      "end": 2972.66,
+      "seconds": 3.0,
+      "text": "Let's go. Let's do it again.",
+      "criteria": [
+        "thesis"
+      ],
+      "evidence": {
+        "thesis_overlap": 0.5,
+        "in_angle_beat": true
+      },
+      "act": 2,
+      "language": "en (per-chunk detect+translate, misdetections corrected)",
+      "words": 6,
+      "rank": 2.25,
+      "narration_overlap": {
+        "worst": 0.0,
+        "line_id": null
+      },
+      "audio": {
+        "vocals_db": -43.0,
+        "other_db": -44.9,
+        "margin_db": 1.9,
+        "measured": true,
+        "note": ""
+      }
+    },
+    {
+      "start": 3686.08,
+      "end": 3690.65,
+      "seconds": 4.57,
+      "text": "No problems. Just a moment.",
+      "criteria": [
+        "thesis"
+      ],
+      "evidence": {
+        "thesis_overlap": 0.5,
+        "in_angle_beat": true
+      },
+      "act": 3,
+      "language": "en (per-chunk detect+translate, misdetections corrected)",
+      "words": 5,
+      "rank": 2.25,
+      "narration_overlap": {
+        "worst": 0.0,
+        "line_id": null
+      },
+      "audio": {
+        "vocals_db": -44.8,
+        "other_db": -31.5,
+        "margin_db": -13.3,
+        "measured": true,
+        "note": ""
+      }
+    },
+    {
+      "start": 3663.35,
+      "end": 3672.15,
+      "seconds": 8.8,
+      "text": "The day I got my losses, the day I got my first speeding ticket, the day after that I won my first race, I beat this rich kid by three lengths.",
+      "criteria": [
+        "thesis"
+      ],
+      "evidence": {
+        "thesis_overlap": 0.43,
+        "in_angle_beat": true
+      },
+      "act": 3,
+      "language": "en (per-chunk detect+translate, misdetections corrected)",
+      "words": 31,
+      "rank": 2.18,
+      "narration_overlap": {
+        "worst": 0.0,
+        "line_id": null
+      },
+      "audio": {
+        "vocals_db": -38.5,
+        "other_db": -32.0,
+        "margin_db": -6.5,
+        "measured": true,
+        "note": ""
+      }
+    },
+    {
+      "start": 3659.06,
+      "end": 3672.15,
+      "seconds": 13.09,
+      "text": "no we just made do no one bothered us The day I got my losses, the day I got my first speeding ticket, the day after that I won my first race, I beat this rich kid by three lengths.",
+      "criteria": [
+        "thesis"
+      ],
+      "evidence": {
+        "thesis_overlap": 0.41,
+        "in_angle_beat": true
+      },
+      "act": 3,
+      "language": "en (per-chunk detect+translate, misdetections corrected)",
+      "words": 40,
+      "rank": 2.16,
+      "narration_overlap": {
+        "worst": 0.12,
+        "line_id": 57
+      },
+      "audio": {
+        "vocals_db": -38.8,
+        "other_db": -32.4,
+        "margin_db": -6.4,
+        "measured": true,
+        "note": ""
+      }
+    },
+    {
+      "start": 4664.22,
+      "end": 4668.99,
+      "seconds": 4.77,
+      "text": "Don't argue with me. I did this. I can't run away.",
+      "criteria": [
+        "thesis"
+      ],
+      "evidence": {
+        "thesis_overlap": 0.4,
+        "in_angle_beat": true
+      },
+      "act": 3,
+      "language": "en (per-chunk detect+translate, misdetections corrected)",
+      "words": 11,
+      "rank": 2.15,
+      "narration_overlap": {
+        "worst": 0.6,
+        "line_id": 79
+      },
+      "audio": {
+        "vocals_db": -44.2,
+        "other_db": -71.3,
+        "margin_db": 27.1,
+        "measured": true,
+        "note": ""
+      }
+    },
+    {
+      "start": 4780.54,
+      "end": 4783.54,
+      "seconds": 3.0,
+      "text": "Plus, you can't just walk into Kamata's place, man.",
+      "criteria": [
+        "thesis"
+      ],
+      "evidence": {
+        "thesis_overlap": 0.43
+      },
+      "act": 4,
+      "language": "en (per-chunk detect+translate, misdetections corrected)",
+      "words": 9,
+      "rank": 1.43,
+      "narration_overlap": {
+        "worst": 0.14,
+        "line_id": 82
+      },
+      "audio": {
+        "vocals_db": -38.3,
+        "other_db": -71.2,
+        "margin_db": 32.9,
+        "measured": true,
+        "note": ""
+      }
+    }
+  ]
+}

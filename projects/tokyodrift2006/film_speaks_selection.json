@@ -1,0 +1,159 @@
+{
+  "selected": [
+    {
+      "start": 897.88,
+      "end": 906.47,
+      "seconds": 8.59,
+      "quote": "And you know she had no other choice, I mean, it was either this or Juvie Hall. I mean, you just can't keep moving away every time you get into trouble.",
+      "criterion": "thesis",
+      "justification": "angle.md names B17 in prose as \"the exact words the thesis pays off\", and this span is those words with nothing else in them - so the sentence the whole recap then spends sixteen minutes testing is planted by the character who says it, not by the narrator paraphrasing him.",
+      "act": 1,
+      "audio_margin_db": 20.8,
+      "self_contained": "Everything the quote leans on is already in the draft before 897.88s. \"Juvie Hall\": line 13 established two priors, strike three, and \"prison, unless there's another way\". \"She\" has a referent: his mother speaks in line 14 and is the subject of line 15, and the rewritten line 17 puts her back in the frame one sentence before the hand-over. \"You just can't keep moving away every time you get into trouble\" lands against line 15's \"Every time he loses, an adult relocates him\" - the narrator has given the viewer the pattern, and this is the first character to name it. No name, relationship or plot fact in the quote is unintroduced; the speaker's identity is established by the rewritten line 17 immediately before it.",
+      "before": {
+        "line_id": 17,
+        "new_narration": "The next thing Sean knows he is in Tokyo, in a cramped one-room flat with a father he has barely seen - a US Navy officer posted here, suddenly a near-stranger with custody of him. His mother is an ocean away. The man has clearly been rehearsing this one. Listen.",
+        "why": "Line 17 as written IS the paraphrase - it says \"this stay is the only thing standing between him and juvenile hall, and you cannot keep running every single time trouble finds you\", which is both halves of the quote in the narrator's mouth, and it is where narration_overlap 0.38 comes from. The rewrite keeps line 17's job (ocean crossed, who the man is, the one-room flat per B17) and ends by turning the floor over to him, while saying none of the three things the quote says: not the mother's lack of choice, not this-or-juvenile-hall, not the running. It keeps the mother on screen so \"she\" has an antecedent four seconds later. Original 55 words, replacement 49."
+      },
+      "after": {
+        "line_id": 18,
+        "new_narration": "Hold onto that line. Then come the three rules - school, straight home, nowhere near a car - from a man with no standing to enforce any of them.",
+        "why": "Reacts rather than restates: it flags the sentence as load-bearing (the draft's own running-bit device, moved from line 17 to after the hand-over where it now belongs) and then says what the line is worth by pointing at who said it - a man with no standing. It does not repeat the words that just played. Line 18's own payload is preserved intact: the three rules of B18, which lines 31-32 and 45 pay off. Original 26 words, replacement 27."
+      }
+    },
+    {
+      "start": 4664.22,
+      "end": 4668.99,
+      "seconds": 4.77,
+      "quote": "Don't argue with me. I did this. I can't run away.",
+      "criterion": "thesis",
+      "justification": "It is the turn the angle is built on - the first time Sean refuses to be relocated out of his own trouble - and it answers the act-one hand-over almost word for word, so the film states the diagnosis and the cure in its own voice at both ends of the recap.",
+      "act": 3,
+      "audio_margin_db": 27.1,
+      "self_contained": "The viewer has the pattern from both directions by now: narration in line 15 (\"Every time he loses, an adult relocates him\") and the film's own voice in pick 1. \"I did this\" needs no antecedent - lines 71 to 76 just showed Sean in the chase and sprinting at the burning wreck, so the viewer knows exactly what \"this\" is and that R2 has landed. The father is established as a presence in the scene by line 77 (\"until his father draws\") and as the rule-setter by lines 17-18 and 32. \"I can't run away\" is the only phrase that carries weight, and it is the phrase the recap has been teaching since line 14.",
+      "before": {
+        "line_id": 79,
+        "new_narration": "In the alley his father tries to take the whole thing off his hands - his mess to answer for, his boy to get out of Tokyo. Every other time in Sean's life, an adult decided what happened next. Listen to him now.",
+        "why": "Line 79 as written quotes the beat outright - \"I did this, he says. I can't run away from it\" - which is the narration_overlap of 0.60 on this candidate and 1.00 on the 4665.3 variant. The rewrite gives only the father's side (B83's responsibility claim, B84's press to leave Tokyo, both inside or adjacent to line 79's clip window) and recalls the running bit, then stops. Sean's answer is left entirely to the film. It also drops line 79's closing verdict \"The first time Sean refuses to be moved on\", which is moved to the after line where it is a reaction instead of a spoiler. Original 40 words, replacement 42."
+      },
+      "after": {
+        "line_id": 80,
+        "new_narration": "That is the first time in his life he refuses to be moved on. So he tells Twinkie he is walking into Kamata's house himself. Twinkie calls it suicide.",
+        "why": "Tells the viewer what it meant rather than what was said: the refusal is the hinge of the angle, and the cost of it is the next sentence - having refused the only exit on offer, he has to go at Kamata himself. Line 80's B86 payload is kept and the hand-off into line 81 (\"That's all I've got.\") still reads as Sean's reply, now cued by \"Twinkie calls it suicide\", which is B86's own wording. Original 29 words, replacement 29."
+      }
+    }
+  ],
+  "rejected": [
+    {
+      "start": 894.74,
+      "reason": "Not a rule failure - a boundary loss. Same act 1 moment as the selected 897.88 span (rule c, max_per_act = 1), at 11.73s and 14.51s. Both measure clean (21.4 and 23.2 dB). Not chosen because the extra 3.14s at the head is Sean's \"Where do I sleep?\", which opens the hand-over on a question the rewritten line 17 would then have to set up separately; the 897.88 boundary is one speaker, one continuous thought, landing on the thesis sentence. The 14.51s version also trails off mid-phrase on \"Or for you\"."
+    },
+    {
+      "start": 919.03,
+      "reason": "Rule a (eligibility). The thesis criterion is a word-overlap false positive: evidence is angle_quote \"I'm his father\" at 0.50 against \"So you just go by the rules her and I agreed to, and I'm sure you'll manage just fine.\" The line is about house rules, not about running, staying, or fatherhood as the angle means it. 23.0 to 26.4 dB is the cleanest audio in act 1 and it still does not earn the film's voice. Also rule c: same act as pick 1."
+    },
+    {
+      "start": 1064.02,
+      "reason": "Rule a (eligibility). \"There's no water in the warehouse. Where are you looking? Oh, my. Wrong train. I'm new here\" - the \"I'm his father\" match at 0.50 is spurious, and the span states nothing resembling the angle. Also rule b (self-contained): the transcript is visibly garbled and the viewer could not tell who is speaking or why. Audio 26.5-28.1 dB, irrelevant."
+    },
+    {
+      "start": 1065.82,
+      "reason": "Rule a (eligibility), same span as 1064.02 trimmed to 7.92s. \"Where are you looking? Oh, my. Wrong train. I'm new here\" is arrival texture - B20-B23, which angle.md explicitly consigns to \"one bridge line\". Not the thesis."
+    },
+    {
+      "start": 1145.24,
+      "reason": "Rule a (eligibility). Twinkie's laptop pitch, matched on \"I'm his father\" at 0.50 - nonsense. Also rule b: the transcript is corrupt (\"Hey, I know this show ain't have a laptop. Yeah, I hope you have price\") so the words that would play cannot be certified. Also rule c: act 1 is taken."
+    },
+    {
+      "start": 2236.6,
+      "reason": "Rule a (eligibility). This is the one I argued hardest for and it does not hold. Evidence is angle_quote \"I don't drift to win\" at 0.67, which is overlap on the words I / don't / drift - the span (\"I call you show. Only if you teach me how to drift. This ain't a negotiation.\") states a bargain, not the angle. The angle is about being moved on and staying; nothing in Han's terms is about either. Per the brief: the generator matched on words, the line does not mean the thesis, so it is discarded. Audio 4.0-4.1 dB would have passed, narration_overlap 0.13-0.14 was the lowest of any strong candidate, and the scene is B42, mandatory spine. It is still not eligible."
+    },
+    {
+      "start": 2239.36,
+      "reason": "Rule a (eligibility), same as 2236.6 at a 10.24s boundary and the best margin of the family (4.9 dB). Discarded for the same reason: it is the deal, not the thesis."
+    },
+    {
+      "start": 2425.43,
+      "reason": "Rule a (eligibility) and rule b (self-contained). The \"I'm his father\" match at 0.50 is spurious. On content, B46 is Neela reading Sean back to himself, which angle.md keeps for the human thread, but this span does not state the angle. And the transcript is mangled past the point of trust - \"It's good enough for you\", \"but why don't you think I know?\" - so the hand-over would play words I cannot verify. 9.2 dB is clean; the text is not."
+    },
+    {
+      "start": 2430.51,
+      "reason": "Rule a and rule b, same span at 6.67s and 10.51s. \"You don't know anything about me, but why don't you think I know? Cuz I'm a gajin an outsider\" - gaijin is established by line 23, but the sentence around it is incoherent and the 10.51s version ends on the dangling \"Let me guess.\""
+    },
+    {
+      "start": 2520.7,
+      "reason": "Rule b (clean audio) - margin_db 2.2 < 3.0. Painful, because the content is the closest act 2 gets to a real thesis line: \"If I'm better than the other guy just proves you're faster... It would have to be for something important\" is B48, and line 41 already carries it as narration. Not arguing with the measurement."
+    },
+    {
+      "start": 2523.18,
+      "reason": "Rule b (clean audio) - margin_db 2.3 < 3.0, the tighter 10.15s boundary of the same B48 exchange. 0.7 dB short, and the gate is not negotiable."
+    },
+    {
+      "start": 2968.66,
+      "reason": "Rule a (eligibility). \"Let's go. Let's go. Let's do it again.\" with thesis_overlap 0.50 is overlap on go/again. It sits in B55/B56, the school-roof fight, which angle.md says to compress to one sentence. Also rule b (self-contained): no identifiable speaker, no identifiable subject. Audio 8.1 dB was fine; as the only original dialogue in a 17-minute video it would say nothing."
+    },
+    {
+      "start": 2969.66,
+      "reason": "Rule b (clean audio) - margin_db 1.9 < 3.0 for the 3.0s boundary. Also rule a, as above."
+    },
+    {
+      "start": 3165.75,
+      "reason": "Rule b (clean audio) - margin_db -11.2, -12.0 and -11.7 across the three boundaries. This is the candidate I most wanted and could not have. \"So if you don't drift to win, what do you drift for? You really wanna know?\" is not a word-overlap artefact: it is running bit 4 of angle.md verbatim, Han's thesis in Han's own mouth, at B58, which angle.md calls \"load-bearing for the outro\". The dialogue sits roughly 11 dB under the music, so at full level it would be unintelligible. Measured, negative, dead."
+    },
+    {
+      "start": 3534.9,
+      "reason": "Rule a (eligibility). \"It's actually not bad. I didn't even have to put ketchup on it. See, I'm not a cool guy, Jim\" - the \"I'm his father\" match at 0.50 is spurious and the span is table talk. Also rule b: the transcript renders a name the recap never uses (\"Jim\"; the film says Sean), and a wrong name at full level is the one error a hand-over cannot survive. 6.0 dB clean, still unusable."
+    },
+    {
+      "start": 3536.7,
+      "reason": "Rule a (eligibility), same span at 4.84s, same spurious match and same \"Jim\" problem."
+    },
+    {
+      "start": 3659.06,
+      "reason": "Rule b (clean audio) - margin_db -6.4 < 3.0. Music is over the dialogue across the whole 3659-3691s range. Also rule b (self-contained): the transcript stitches Neela's mountain scene to speeding-ticket and first-race lines that are not hers."
+    },
+    {
+      "start": 3663.35,
+      "reason": "Rule b (clean audio) - margin_db -6.5 < 3.0 for the 8.8s boundary of the same span. Not arguing with the measurement."
+    },
+    {
+      "start": 3686.08,
+      "reason": "Rule b (clean audio) - margin_db -13.3 < 3.0, the worst in the file. Also rule a: \"No problems. Just a moment.\" states nothing, and thesis_overlap 0.50 on five words is noise."
+    },
+    {
+      "start": 4665.3,
+      "reason": "Rule c (max_per_act = 1) - a boundary alternative inside the selected act 3 span, not an extra pick. \"I did this. I can't run away.\" at 3.69s is the purest thesis text in the whole file and measures 24.3 dB. Not chosen because at 3.69s it is barely over the legal floor, it has narration_overlap 1.00, and dropping \"Don't argue with me\" loses the signal that he is refusing somebody - which is the half that makes it a stand rather than a statement. The selected 4.77s span contains it and measures 2.8 dB cleaner."
+    },
+    {
+      "start": 4769.08,
+      "reason": "Rule c (min_gap_sec) - 4769.08 - 4664.22 = 104.86s < 180. This was the only act 4 candidate that passes audio (17.1 and 19.8 dB), so taking it would mean dropping pick 2, and it is the weaker of the two: the \"I'm his father\" match at 0.50 is spurious, the span opens on a garbled clause (\"I know I just didn't hit it\"), and \"I'm gonna go talk to him\" is already said outright by line 80, which the before/after mechanism does not reach. Fails rule a and rule b independently of the spacing."
+    },
+    {
+      "start": 4780.54,
+      "reason": "Rule c (min_gap_sec) - 4780.54 - 4664.22 = 116.32s < 180, the arithmetic trap. Also rule a: Twinkie's \"Plus, you can't just walk into Kamata's place, man.\" is an obstacle warning, not the angle in a character's words (thesis_overlap 0.43 on nine words, no in_angle_beat flag). Also rule b (self-contained): it begins on \"Plus,\" i.e. halfway through an argument whose first half is outside the span. It has the best margin in the file at 32.9 dB and fails on three separate counts."
+    },
+    {
+      "start": 4973.85,
+      "reason": "Rule b (clean audio) - margin_db 1.8 < 3.0. Also rule a: spurious \"I'm his father\" match on \"I'm here to offer you a peaceful solution.\""
+    },
+    {
+      "start": 4976.65,
+      "reason": "Rule b (clean audio) - margin_db -2.3 < 3.0 for the 6.71s boundary. Same spurious criterion."
+    },
+    {
+      "start": 4996.5,
+      "reason": "Rule b (clean audio) - margin_db -2.7 and -3.7 across the two boundaries. Content-wise this is Sean's settlement offer to Kamata, B89/B91, mandatory spine and genuinely the moment he stops running - but the criterion as filed is the spurious \"I'm his father\" match, and the measurement fails regardless."
+    },
+    {
+      "start": 5002.39,
+      "reason": "Rule b (clean audio) - margin_db -2.8 < 3.0 for the 3.8s boundary, \"I'm asking you to allow us to settle this once and for all.\" All three boundaries of the Kamata settlement are underwater."
+    },
+    {
+      "start": 5173.59,
+      "reason": "Rule b (clean audio) - margin_db 1.6 for the 3.32s boundary and -1.8 for the 7.59s one. The climax_or_final criterion genuinely holds and narration_overlap 1.00 against line 91 would have been fixable, but both boundaries miss the gate, so the film cannot speak at its own climax in this cut. This is the second candidate I wanted and could not take."
+    }
+  ],
+  "spacing_check": "Two picks: 897.88s in act 1 and 4664.22s in act 3. Start-to-start gap = 4664.22 - 897.88 = 3766.34s; 3766.34 >= 180, so min_gap_sec passes by a factor of 20.9. Measured end-to-start it is 4664.22 - 906.47 = 3757.75s, also >= 180. Acts: boundaries are [156.0, 1532.0, 3081.0, 4732.0], so 897.88 falls in act 1 (156.0-1532.0) and 4664.22 in act 3 (3081.0-4732.0); {1, 3} has two distinct members for two picks, so max_per_act = 1 holds. The arithmetic that kills the obvious third: the act 4 candidates that pass audio are 4769.08 and 4780.54, and 4769.08 - 4664.22 = 104.86s and 4780.54 - 4664.22 = 116.32s, both < 180, so neither can sit beside pick 2. Pushing pick 2 earlier does not help, because the whole act 3 family is inside an 11-second window (4664.22, 4665.3) and 4780.54 - 4675.89 = 104.65s end-to-start is worse still. The only act 4 candidates that clear 4664.22 + 180 = 4844.22 are 4973.85, 4976.65, 4996.5, 5002.39 and 5173.59, and every one of them measures below 3.0 dB.",
+  "count_note": "Two, not three, and this is not a shortfall of judgement - it is what the measurements leave. Act 2 contributes nothing eligible: the 2236-2251 Han deal family passes audio at 4.0-4.9 dB but fails rule a on inspection (the 0.67 match against \"I don't drift to win\" is overlap on I/don't/drift; the span states a bargain, not the angle), the 2520-2533 B48 exchange is the genuine thesis-adjacent line there and measures 2.2-2.3 dB, 0.7 dB short, and the rest of act 2 is garbled transcript or crowd noise. Act 4 contributes nothing usable: everything past the 180s line from pick 2 measures 1.8 dB or negative, including the climax line at 1.6 and -1.8 dB, and the two spans that are clean (4769.08, 4780.54) are inside 117s of pick 2 and fail rule a as well. So a third pick would have to break spacing, overrule a measurement, or hand the film's only voice to a line that means nothing. Two strong ones beat that. What the two are worth: they are the same sentence said twice, once by the man who diagnoses the pattern in act 1 and once by the boy who finally breaks it in act 3 - the angle's spine, in the film's own voice, at both ends of the recap.",
+  "generator_note": "No off-list additions and none needed. The gap the previous pass worked around is closed: the father's B17 line at 897.88-906.47 is now candidate 3 in film_speaks_candidates.json with its own measurement (20.8 dB), so the selection is entirely on-list. Both picks were reached by reading the draft and angle.md first and then checking them against the list, and both landed inside it. One standing complaint about the generator, which is not a missed candidate: nine of the forty candidates carry the thesis criterion on an angle_quote match of exactly 0.50 against the phrase \"I'm his father\", including the laptop pitch, the wrong-train exchange and the ketchup line. That match is firing on function words and is pure noise; it inflates the list without adding anything selectable. Separately, 5 of the 40 (3534.9, 3536.7, 1064.02, 1145.24, 2430.51) have transcripts too corrupt to certify as words that would play, which is worth a flag because a hand-over is the one place a bad transcript becomes audible."
+}

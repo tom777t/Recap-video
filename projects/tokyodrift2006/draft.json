@@ -213,9 +213,9 @@
     },
     {
       "id": 17,
-      "narration": "Across the ocean, the next thing Sean knows he is in Tokyo, moving in with his father - a US Navy officer posted there - who lays it out plain: this stay is the only thing standing between him and juvenile hall, and you cannot keep running every single time trouble finds you. Hold onto that line.",
+      "narration": "The next thing Sean knows he is in Tokyo, in a cramped one-room flat with a father he has barely seen - a US Navy officer posted here, suddenly a near-stranger with custody of him. His mother, an ocean away. The man has clearly been rehearsing this one. Listen.",
       "clip_start": "00:14:23.151",
-      "clip_end": "00:15:10.198",
+      "clip_end": "00:14:57.880",
       "note": "B17",
       "delivery": "normal",
       "payload": "stake",
@@ -226,8 +226,20 @@
       "bridge": true
     },
     {
+      "id": 110,
+      "narration": "",
+      "clip_start": "00:14:57.880",
+      "clip_end": "00:15:06.470",
+      "film_speaks_seconds": 8.59,
+      "film_speaks_criterion": "thesis",
+      "film_speaks_reason": "angle.md names B17 in prose as \"the exact words the thesis pays off\", and this span is those words with nothing else in them - so the sentence the whole recap then spends sixteen minutes testing is planted by the character who says it, not by the narrator paraphrasing him.",
+      "film_speaks_quote": "And you know she had no other choice, I mean, it was either this or Juvie Hall. I mean, you just can't keep moving away every time you get into trouble.",
+      "film_speaks_audio_margin_db": 20.8,
+      "note": "B17"
+    },
+    {
       "id": 18,
-      "narration": "The rules are three. Go to school, come straight back, stay away from cars. This is his father - setting rules he has no standing to enforce.",
+      "narration": "Hold onto that line. Then come the three rules - school, straight home, nowhere near a car - from a man with no standing to enforce any of them.",
       "clip_start": "00:15:10.198",
       "clip_end": "00:15:37.767",
       "note": "B18",
@@ -1038,9 +1050,9 @@
     },
     {
       "id": 79,
-      "narration": "In the alley his father tries to take it off him. I'm your father, I'm responsible. Sean won't have it. I did this, he says. I can't run away from it. The first time Sean refuses to be moved on.",
-      "clip_start": "01:17:40.390",
-      "clip_end": "01:17:52.390",
+      "narration": "In the alley his father tries to take the whole thing off his hands - his mess to carry, his boy to get out of Tokyo. Before, an adult always decided. Listen to him now.",
+      "clip_start": "01:17:31.680",
+      "clip_end": "01:17:44.220",
       "note": "B83",
       "delivery": "reveal",
       "payload": "reasoning",
@@ -1050,8 +1062,20 @@
       }
     },
     {
+      "id": 111,
+      "narration": "",
+      "clip_start": "01:17:44.220",
+      "clip_end": "01:17:48.990",
+      "film_speaks_seconds": 4.77,
+      "film_speaks_criterion": "thesis",
+      "film_speaks_reason": "It is the turn the angle is built on - the first time Sean refuses to be relocated out of his own trouble - and it answers the act-one hand-over almost word for word, so the film states the diagnosis and the cure in its own voice at both ends of the recap.",
+      "film_speaks_quote": "Don't argue with me. I did this. I can't run away.",
+      "film_speaks_audio_margin_db": 27.1,
+      "note": "B83"
+    },
+    {
       "id": 80,
-      "narration": "In the end Sean tells Twinkie he is going to talk to Kamata himself. Twinkie stares like he has lost his mind. And Sean’s answer stops the argument cold.",
+      "narration": "That is the first time in his life he refuses to be moved on. So he tells Twinkie he is walking into Kamata's house himself. Twinkie calls it suicide.",
       "clip_start": "01:19:18.696",
       "clip_end": "01:19:27.095",
       "note": "B86",

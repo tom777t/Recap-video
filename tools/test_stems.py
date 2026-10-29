@@ -348,24 +348,31 @@ def test_film_speaks_gate() -> tuple[bool, str]:
     must = tuple(getattr(config, "FILM_SPEAKS_MUST_SERVE", ()))
     if not {"reveal", "climax", "thesis"} <= set(must):
         return False, f"FILM_SPEAKS_MUST_SERVE is {must}"
+    # draft.py must DELEGATE to the one rule set rather than hold a second
+    # copy of the rules. It briefly held both, and they disagreed the moment
+    # the schema grew: the inline copy looked for the criterion inside
+    # `film_speaks_reason` after it moved to its own field, and spaced units by
+    # LINE ID - calling two units 3,766 seconds apart "1 apart". The individual
+    # gate behaviours are covered by tools/test_film_speaks.py; duplicating
+    # them here is how the two copies drifted in the first place.
     src = io.open(os.path.join(ROOT, "pipeline", "draft.py"),
                   encoding="utf-8").read()
     if "[FILM-SPEAKS]" not in src:
         return False, "no [FILM-SPEAKS] gate in draft.py"
     i = src.find("[FILM-SPEAKS]: the only place")
-    # Wide enough to reach the verdict: the gate is heavily commented, and a
-    # 2600-char window stopped short of the `sev = "hard"` line and reported a
-    # missing hard failure that was there.
-    window = src[i:i + 4200]
-    for probe, label in (("film_speaks_reason", "a required justification"),
-                         ("FILM_SPEAKS_MAX_PER_FILM", "the cap"),
-                         ("MIN_SPACING_LINES", "the spacing rule"),
+    window = src[i:i + 2600]
+    for probe, label in (("film_speaks as _fsmod", "the rule set import"),
+                         ("_fsmod.audit(", "the rule set call"),
                          ('sev = "hard"', "a hard failure")):
         if probe not in window:
-            return False, f"the gate does not enforce {label}"
+            return False, f"draft.py does not use {label}"
+    if "MIN_SPACING_LINES" in window:
+        return False, ("draft.py is spacing film_speaks units by LINE ID "
+                       "again - meaningless once units carry appended ids")
     return True, (f"film_speaks is typed, survives _drop_unknown, capped at "
-                  f"{config.FILM_SPEAKS_MAX_PER_FILM}, and must name a "
-                  f"{'/'.join(must)} - enforced as a hard failure")
+                  f"{config.FILM_SPEAKS_MAX_PER_FILM}, must name a "
+                  f"{'/'.join(must)}, and draft.py delegates to the single "
+                  f"rule set as a hard failure")
 
 
 TESTS = {

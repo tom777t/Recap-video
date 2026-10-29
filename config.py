@@ -297,8 +297,17 @@ FILM_SPEAKS_MAX_SEC = 15.0  # over this it stops being a recap
 # also less copyright exposure. Each surviving unit must earn its place against
 # FILM_SPEAKS_MUST_SERVE and carry a one-sentence justification.
 FILM_SPEAKS_MAX_PER_FILM = 3
+FILM_SPEAKS_MIN_PER_FILM = 2          # zero is an ERROR when candidates exist
 FILM_SPEAKS_MIN_SPACING_LINES = 15    # cannot cluster
+# Minimum SECONDS between two units. The line-count spacing above is a proxy
+# that breaks when lines are short; this is the real constraint - two
+# hand-overs inside three minutes read as a compilation, not as two events.
+FILM_SPEAKS_MIN_GAP_SEC = 180.0
+# At most one per act. Acts are the beat map split into RECAP_ACTS equal
+# groups, the same division tools/act_payload.py uses.
+FILM_SPEAKS_MAX_PER_ACT = 1
 # A film_speaks unit must serve one of these, and say which in
+# `film_speaks_criterion`, with a sentence of justification in
 # `film_speaks_reason`. "It is a good line" is not one of them.
 FILM_SPEAKS_MUST_SERVE = ("reveal", "climax", "thesis")
 

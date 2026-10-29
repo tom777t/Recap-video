@@ -335,6 +335,61 @@ and a regression fixture, but the gate is a floor — read these.
    that does not say that. `[CALLBACK-CITE]` demands the citation. If a line is
    not really a callback, reword it so it does not read as one.
 
+## `<film_speaks>` - LET THE FILM TALK, 2-3 TIMES, ON PURPOSE
+
+Everywhere else in the video the film is heard through the **no-vocals stem** -
+engines, tyres, impacts, no voices. So a `film_speaks` unit is the **only
+original dialogue in the finished video**. Two or three times, the narration
+stops and a character speaks for themselves.
+
+A recap with **zero** is a failure, not a style. It happened: a finished
+17-minute film shipped with none, because nothing asked for any. Selection is
+now a pipeline stage (`tools/film_speaks_candidates.py` →
+`prompts/film_speaks_select.md`) and `[FILM-SPEAKS-COUNT]` fails a draft that
+has none while eligible candidates exist.
+
+### Eligibility - at least one must hold
+1. **It IS a reveal, in the character's own words**, at or after that reveal's
+   landing in `reveals.json`. Before the landing it is a spoiler, not a quote.
+2. **It states the angle's thesis** (`angle.md`) in a character's words.
+3. **It is the climax line, or the film's final line.**
+
+### Quality - all of these
+- **3-15 seconds.** Under 3 nobody registers an exchange; over 15 it stops
+  being a recap.
+- **Self-contained.** Understandable with ONLY what the recap has already told
+  the viewer. A quote needing a name or a relationship the recap has not
+  introduced fails. This is the judgement the tooling cannot make.
+- **Clean audio, MEASURED.** The vocals stem must beat the music and effects by
+  >= 3 dB across the quote's own span. Not "it sounds fine" - a number, from
+  `pipeline.film_speaks.audio_cleanliness`. A span that was never measured
+  fails: a quote is not clean because nobody checked. On Tokyo Drift this
+  rejected the climax line (+1.6 dB) and Han's thesis line (-11.2 dB) - both
+  perfect choices, both buried under the music.
+- **In the narration language**, or captioned.
+- **Not already paraphrased** by the neighbouring narration.
+
+### Count and spacing
+- **2-3 per film**, at most **one per act**, never two within **3 minutes**.
+- Check the arithmetic. Two strong candidates 117 seconds apart fail.
+
+### Frame it, or it lands flat
+A hand-over only works if the narration gets out of the way:
+- **The line BEFORE sets it up WITHOUT paraphrasing it.** If that line already
+  says what the quote says, the viewer hears it twice and the second time
+  sounds padded. Rewrite it. Do not use a speech verb ("says", "tells",
+  "admits") in it either.
+- **The line AFTER reacts.** It does not summarise what was just heard; it says
+  what it meant or what it cost.
+- Both replacements keep roughly the original word count - capacity is bound to
+  the shot window.
+
+### Carving out the footage
+The quote's span usually sits INSIDE a line's existing window. The host line's
+window must then **end where the quote begins**, extended backwards toward the
+previous line if that leaves it too short to carry its narration. Leaving both
+on the same footage trips `[FOOTAGE-REUSE]`.
+
 ## STRUCTURE (in playback order)
 
 1. **COLD OPEN** (lines tagged `delivery: "hook"` or `"tense"`) — the shocking beats.

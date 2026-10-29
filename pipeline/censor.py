@@ -201,15 +201,30 @@ class UsedFootage:
         self.items: list[dict] = []
 
     def add(self, a: float, b: float, source: str, blurred: bool,
-            line_id=None) -> None:
+            line_id=None, out_a: float | None = None,
+            out_b: float | None = None) -> None:
+        """Record a source window that reaches the screen.
+
+        `out_a`/`out_b` are where it lands on the RENDER's timeline (before the
+        intro is prepended). They are optional because not every path knows
+        them, and they exist so the freeze check can map a frozen stretch in
+        the finished file back to the SOURCE span it came from - which is the
+        only way to tell a render freeze from a shot the film holds still.
+        """
         try:
             a, b = float(a), float(b)
         except (TypeError, ValueError):
             return
         if b <= a:
             return
-        self.items.append({"a": a, "b": b, "source": source,
-                           "blurred": bool(blurred), "line_id": line_id})
+        rec = {"a": a, "b": b, "source": source,
+               "blurred": bool(blurred), "line_id": line_id}
+        if out_a is not None and out_b is not None:
+            try:
+                rec["out_a"], rec["out_b"] = float(out_a), float(out_b)
+            except (TypeError, ValueError):
+                pass
+        self.items.append(rec)
 
     def overlaps(self, a: float, b: float) -> list[dict]:
         return [u for u in self.items

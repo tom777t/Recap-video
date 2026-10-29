@@ -1523,7 +1523,8 @@ def render(project: str, draft: dict,
             # window could play unblurred. Record what is really on screen.
             _hold_end = max(float(end), float(start) + float(clip_len))
             used_footage.add(start, _hold_end, "hold/film_speaks clip",
-                             blurred=(censor != "none"), line_id=lid)
+                             blurred=(censor != "none"), line_id=lid,
+                             out_a=cursor, out_b=cursor + clip_len)
             silence_windows.append((cursor, cursor + clip_len))
             n_silence += 1
             # no caption text for a silence shot
@@ -1590,9 +1591,13 @@ def render(project: str, draft: dict,
             # montage renders clear. Record them as unblurred so the audit
             # catches a flagged shot that was cut into a montage - the clip
             # loop's (clip_start, clip_end) lookup never saw these windows.
-            for _sa, _sb in segs:
+            for _si, (_sa, _sb) in enumerate(segs):
+                # each segment plays for its share of the montage clip
+                _share = clip_len / max(1, len(segs))
                 used_footage.add(_sa, _sb, "montage segment",
-                                 blurred=False, line_id=lid)
+                                 blurred=False, line_id=lid,
+                                 out_a=cursor + _si * _share,
+                                 out_b=cursor + (_si + 1) * _share)
             # narration now starts LEAD_IN after the clip does (see adelay).
             timeline.append({"start": cursor + LEAD_IN,
                              "end": cursor + LEAD_IN + narr_dur,
@@ -1697,13 +1702,18 @@ def render(project: str, draft: dict,
         # every sub-window is covered.
         _blurred = (censor != "none")
         if _split:
-            for _sa, _sb in _split:
+            _nsp = len(_split)
+            for _si, (_sa, _sb) in enumerate(_split):
+                _share = clip_len / max(1, _nsp)
                 used_footage.add(_sa, _sb, "clip (split)",
-                                 blurred=_blurred, line_id=lid)
+                                 blurred=_blurred, line_id=lid,
+                                 out_a=cursor + _si * _share,
+                                 out_b=cursor + (_si + 1) * _share)
         else:
             used_footage.add(start, end,
                              "pool clip" if ln.get("pool") else "clip",
-                             blurred=_blurred, line_id=lid)
+                             blurred=_blurred, line_id=lid,
+                             out_a=cursor, out_b=cursor + clip_len)
 
         # caption window: narration starts LEAD_IN after the clip starts (the
         # audio is delayed by adelay in _build_clip), and lasts narr_dur. This
@@ -1986,7 +1996,8 @@ def render(project: str, draft: dict,
     from pipeline import motion_check as _mc
     _mok, _mbad = _mc.check(ff, final, draft,
                             shown=used_footage.items,
-                            intro_offset=intro_offset)
+                            intro_offset=intro_offset,
+                            source=source)
     if not _mok:
         console.print("[red][MOTION-CHECK][/] the finished video has frozen or "
                       "repeated footage:")

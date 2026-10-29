@@ -143,8 +143,93 @@ def reuse(draft: dict, shown: list | None = None) -> list[dict]:
 # --------------------------------------------------------------------------- #
 # The combined post-render check
 # --------------------------------------------------------------------------- #
+def _to_source(freeze: dict, shown: list | None,
+               intro_offset: float = 0.0) -> tuple | None:
+    """Map a freeze in the FINISHED file back to the source span it came from.
+
+    `shown` records carry `out_a`/`out_b` - where each source window landed on
+    the render timeline, before the intro was prepended - so the finished-file
+    timestamp is offset by `intro_offset` to compare. Returns None when no
+    record covers it, which is reported rather than excused.
+    """
+    if not shown:
+        return None
+    mid = (float(freeze["start"]) + float(freeze["end"])) / 2.0 \
+        - float(intro_offset or 0.0)
+    for u in shown:
+        oa, ob = u.get("out_a"), u.get("out_b")
+        if oa is None or ob is None or ob <= oa:
+            continue
+        if not (oa <= mid < ob):
+            continue
+        # proportional position inside the clip -> position inside the window
+        frac = (mid - oa) / (ob - oa)
+        sa, sb = float(u["a"]), float(u["b"])
+        centre = sa + frac * (sb - sa)
+        half = max(0.25, float(freeze["dur"]) / 2.0)
+        return (max(sa, centre - half), min(sb, centre + half))
+    return None
+
+
+def source_has_motion(ff: str, source: Path, a: float, b: float,
+                      noise_db: float | None = None) -> bool | None:
+    """Does the SOURCE move over [a, b)? None = could not tell.
+
+    freezedetect on the finished file cannot distinguish the two things that
+    make a picture stop moving:
+
+      * the render froze it      - a defect
+      * the film is holding on a static shot - a shot, not a defect
+
+    A held close-up, a locked-off establishing shot, a title card and a beat of
+    stillness before an impact are all legitimate and common, and flagging them
+    produced findings with nothing to fix - which is how a check gets ignored.
+    So a freeze is only a freeze where the source MOVED over the same span and
+    the render does not.
+
+    Returns None rather than False when the probe fails, so an unknown answer
+    is never read as "the source was static" - that would silently suppress
+    real freezes.
+    """
+    import config
+    if not source.exists() or b <= a:
+        return None
+    noise = config.FREEZE_NOISE_DB if noise_db is None else noise_db
+    span = max(0.12, b - a)
+    r = subprocess.run(
+        [ff, "-hide_banner", "-nostats", "-ss", f"{a:.3f}", "-t", f"{span:.3f}",
+         "-i", str(source),
+         "-vf", f"freezedetect=n={noise}dB:d={min(span * 0.6, 0.2):.3f}",
+         "-map", "0:v:0", "-f", "null", "-"],
+        capture_output=True, text=True)
+    if r.returncode != 0:
+        return None
+    log = r.stderr or ""
+    if "freeze_start" not in log:
+        return True                   # no freeze found in the source: it moved
+    # The source froze too. Treat it as static only if the frozen stretch
+    # covers most of the span - a brief clone inside otherwise moving footage
+    # is still moving footage.
+    #
+    # An UNTERMINATED freeze has to be counted. When the picture is still
+    # frozen as the probed span ends, ffmpeg prints freeze_start with no
+    # matching freeze_duration - so summing durations alone gave 0 for a
+    # solid-colour source and called it "moving", which is exactly backwards
+    # and would have left every held shot being flagged.
+    starts = [float(m.group(1)) for m in
+              re.finditer(r"freeze_start\s*:\s*([\d.]+)", log)]
+    durs = [float(m.group(1)) for m in
+            re.finditer(r"freeze_duration\s*:\s*([\d.]+)", log)]
+    frozen = sum(durs)
+    if len(starts) > len(durs) and starts:
+        # the last freeze never ended: it runs to the end of the span
+        frozen += max(0.0, span - (starts[-1] - a if starts[-1] > a
+                                   else starts[-1]))
+    return frozen < span * 0.6
+
+
 def check(ff: str, final: Path, draft: dict, shown: list | None = None,
-          intro_offset: float = 0.0) -> tuple[bool, list[str]]:
+          intro_offset: float = 0.0, source: Path | None = None) -> tuple[bool, list[str]]:
     """Run both checks. Returns (ok, [problems]) with timestamps.
 
     Freeze positions are reported in the finished file's clock. `intro_offset`
@@ -158,15 +243,50 @@ def check(ff: str, final: Path, draft: dict, shown: list | None = None,
 
     fz = freezes(ff, final)
     fail_sec = float(config.FREEZE_FAIL_SEC)
-    bad_fz = [f for f in fz if f["dur"] > fail_sec]
+    long_fz = [f for f in fz if f["dur"] > fail_sec]
     near = [f for f in fz if f["dur"] <= fail_sec]
     if near:
         console.print(f"[dim]Motion: {len(near)} frozen stretch(es) under the "
                       f"{fail_sec:.2f}s limit (longest "
                       f"{max(f['dur'] for f in near):.2f}s).[/]")
+
+    # A FROZEN PICTURE IS NOT AUTOMATICALLY A DEFECT. freezedetect cannot tell
+    # a render freeze from a shot the film holds still - a locked-off
+    # establishing shot, a held close-up, a title card, a beat of stillness
+    # before an impact. Flagging those produced findings with nothing to fix.
+    # So each long freeze is checked against the SOURCE over the same span: it
+    # is a defect only where the source MOVED and the render does not.
+    bad_fz, excused, unknown = [], [], []
+    for f in long_fz:
+        src_span = _to_source(f, shown, intro_offset)
+        if source is None or src_span is None:
+            unknown.append(f)
+            bad_fz.append(f)          # cannot excuse what cannot be checked
+            continue
+        moved = source_has_motion(ff, source, *src_span)
+        if moved is False:
+            excused.append((f, src_span))
+        elif moved is None:
+            unknown.append(f)
+            bad_fz.append(f)
+        else:
+            bad_fz.append(f)
+    if excused:
+        console.print(
+            f"[dim]Motion: {len(excused)} frozen stretch(es) excused - the "
+            f"SOURCE is static over the same span, so the film is holding the "
+            f"shot: "
+            + ", ".join(f"{f['start']:.1f}s (src {a:.1f}s)"
+                        for f, (a, _b) in excused[:5]) + "[/]")
+    if unknown:
+        console.print(
+            f"[yellow]Motion: {len(unknown)} frozen stretch(es) could not be "
+            f"traced back to a source span, so they are reported rather than "
+            f"excused - an unknown answer is not an all-clear.[/]")
     if bad_fz:
         problems.append(
-            f"{len(bad_fz)} frozen stretch(es) longer than {fail_sec:.2f}s: "
+            f"{len(bad_fz)} frozen stretch(es) longer than {fail_sec:.2f}s "
+            f"where the SOURCE moves: "
             + ", ".join(f"{f['start']:.2f}-{f['end']:.2f}s ({f['dur']:.2f}s)"
                         for f in bad_fz[:8]))
 

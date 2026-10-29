@@ -81,6 +81,36 @@ When the gates fail, the script bumps the round counter and halts again. Feed
 the findings back **per act**, fix only what the gates named, and resume. The
 script stops the loop at 3 rounds; do not attempt a fourth.
 
+### FILM_SPEAKS
+
+Every film gets **2-3 moments where the narration stops and the film's own
+dialogue plays**. This is the only original dialogue in the finished video -
+everywhere else the film is heard through the no-vocals stem. A recap with zero
+is a failure, and `[FILM-SPEAKS-COUNT]` fails the draft when eligible
+candidates exist.
+
+`run.ps1` generates the candidates itself (`tools/film_speaks_candidates.py`,
+slow - it measures dialogue cleanliness with Demucs per candidate span) and
+halts. Then **one fresh-context subagent**:
+
+1. reads `prompts/film_speaks_select.md`
+2. reads `projects/<p>/film_speaks_candidates.json`, plus `draft.json`,
+   `angle.md`, `beats_proposal.md` and `reveals.json`
+3. writes `projects/<p>/film_speaks_selection.json` - the picks with a
+   criterion and a one-sentence justification each, AND replacement text for
+   the line before (sets it up without paraphrasing it) and the line after
+   (reacts)
+
+Then apply it to `draft.json`. The part that is easy to get wrong: the quote's
+span usually sits INSIDE the host line's window, so the **host window must end
+where the quote begins** (extended backwards toward the previous line if that
+leaves it too short for its narration). Leaving both on the same footage trips
+`[FOOTAGE-REUSE]`.
+
+Do not hand-pick for a specific film and do not skip the stage because a film
+"does not need it". If genuinely nothing qualifies, the candidate file will be
+empty and the gate accepts zero.
+
 ## Rules that are not negotiable
 
 - **Never edit anything under `projects/badgenius2017/` or any other existing
