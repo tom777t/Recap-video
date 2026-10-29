@@ -1447,6 +1447,7 @@ def render(project: str, draft: dict,
                 "impacts are lost along with the dialogue.")
 
     has_film_audio = False
+    _fa_ids: set = set()
     if config.FILM_AUDIO_ENABLE:
         try:
             _pr = subprocess.run(
@@ -1458,6 +1459,21 @@ def render(project: str, draft: dict,
         except Exception as _e:                            # pragma: no cover
             has_film_audio = False
         if has_film_audio:
+            # WHICH LINES. `has_film_audio` is a capability ("the source has a
+            # track"), not a decision - it used to be treated as both, so the
+            # stem played under all 111 lines. Separation artefacts under a
+            # dialogue scene buy nothing: the dialogue is exactly what was
+            # removed, so what is left is smeared room tone under the
+            # narrator. Under a race they sit beneath the engines that are the
+            # point of the shot.
+            from pipeline import stems as _stemsmod
+            _fa_ids = _stemsmod.film_audio_lines(draft)
+            console.print(
+                f"[cyan]Film audio:[/] restricted to "
+                f"{'/'.join(config.FILM_AUDIO_TAGS)} runs of "
+                f"{config.FILM_AUDIO_MIN_RUN}+ lines - "
+                f"{len(_fa_ids)} of {len(draft.get('lines') or [])} line(s). "
+                f"Everywhere else the mix is narration + music only.")
             # Say WHICH audio. This line used to read "source audio mixed
             # under the voice", which was true before stems existed and
             # actively misleading afterwards: a reader checking whether the
@@ -1647,7 +1663,7 @@ def render(project: str, draft: dict,
             sig = _clip_signature(source, start, end, 0.0, idx, crop_top,
                                   0.0, source, censor, censor_region,
                                   exposure=exposure, silence=sil_secs,
-                                  film_audio=has_film_audio,
+                                  film_audio=(has_film_audio and lid in _fa_ids),
                                   film_src=film_stem,
                                   film_speaks=(_fs_secs is not None))
             cached = cache_dir / f"{sig}.mp4"
@@ -1668,7 +1684,9 @@ def render(project: str, draft: dict,
                 clip_len = _build_silence_clip(ff, source, start, end, cout,
                                                sil_secs, idx, crop_top,
                                                censor, censor_region, exposure,
-                                               film_audio=has_film_audio,
+                                               film_audio=(has_film_audio
+                                                           and (lid in _fa_ids
+                                                                or _fs_secs is not None)),
                                                film_speaks=(_fs_secs is not None),
                                                film_src=film_stem, src_wh=src_wh)
                 try:
@@ -1830,7 +1848,7 @@ def render(project: str, draft: dict,
                                start, end, censor_region=censor_region)
         sig = _clip_signature(source, start, end, hold, idx, crop_top,
                               narr_dur, audio_path, censor, censor_region, exposure,
-                              lead_in=lead, film_audio=has_film_audio,
+                              lead_in=lead, film_audio=(has_film_audio and lid in _fa_ids),
                               pre_reveal=_is_pre_reveal, split_segments=_split,
                               film_src=film_stem)
         cached = cache_dir / f"{sig}.mp4"
@@ -1848,7 +1866,7 @@ def render(project: str, draft: dict,
             clip_len = _build_clip(ff, source, start, end, audio_path, narr_dur,
                                    cout, idx, crop_top, hold, censor, censor_region,
                                    exposure, lead_in=lead,
-                                   film_audio=has_film_audio,
+                                   film_audio=(has_film_audio and lid in _fa_ids),
                                    pre_reveal=_is_pre_reveal,
                                    split_segments=_split,
                                    film_src=film_stem, src_wh=src_wh)
@@ -2184,6 +2202,50 @@ def render(project: str, draft: dict,
                       "is invisible in every player until the moment the "
                       "picture stops.[/]")
         sys.exit(1)
+
+    # ---- FILM AUDIO: is the stem where the rule says, and nowhere else? -----
+    # Measured on the finished mix by CORRELATING it against the stem file,
+    # not by reading the filtergraph. Level cannot answer this: on a control
+    # mix, adding the stem at -17 dB moved the RMS by 0.4 dB but moved the
+    # correlation from 0.006 to 0.293.
+    if film_stem is not None and _fa_ids:
+        from pipeline import audio_check as _ac
+        _rows = []
+        _by_id = {ln["id"]: ln for ln in draft["lines"]}
+        for _t in timeline:
+            _lid = _t.get("id")
+            _ln = _by_id.get(_lid)
+            if not _ln or not _ln.get("clip_start"):
+                continue
+            try:
+                _sa = parse_ts(_ln["clip_start"])
+            except Exception:
+                continue
+            if _ln.get("film_speaks_seconds") is not None:
+                continue           # original mix, checked separately
+            _rows.append({"line_id": _lid,
+                          "final_at": float(_t["start"]) + intro_offset,
+                          "source_at": _sa,
+                          "want": _lid in _fa_ids})
+        # sample both groups rather than probing all 111 windows
+        _on = [r for r in _rows if r["want"]][:8]
+        _off = [r for r in _rows if not r["want"]][:8]
+        _fok, _ffind, _fgot = _ac.check_film_audio_placement(
+            final, film_stem, _on + _off)
+        if _fgot:
+            _mon = [r["corr"] for r in _fgot if r["want"]]
+            _mof = [r["corr"] for r in _fgot if not r["want"]]
+            console.print(
+                f"[dim][FILM-AUDIO] stem correlation: action/tense "
+                f"{sum(_mon)/max(1,len(_mon)):.3f} vs elsewhere "
+                f"{sum(_mof)/max(1,len(_mof)):.3f} "
+                f"({len(_mon)} on / {len(_mof)} off window(s))[/]")
+        if not _fok:
+            console.print("[red][FILM-AUDIO][/] the film's track is not "
+                          "placed by the rule:")
+            for _b in _ffind:
+                console.print(f"[red]    {_b}[/]")
+            problems.append("film audio placement: " + "; ".join(_ffind))
 
     # ---- FROZEN / REPEATED FOOTAGE on the finished file ---------------------
     # The build rules cap slow-motion and freezes, but a freeze has sources

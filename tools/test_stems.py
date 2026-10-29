@@ -90,23 +90,39 @@ def test_availability() -> tuple[bool, str]:
 
 def test_needed_spans() -> tuple[bool, str]:
     pad = st.SPAN_PAD_SEC
+    # EVERY window here is action/tense in a run, because separation now
+    # covers only the windows where the film's track is actually heard. This
+    # fixture used to carry no delivery tags at all and asserted that every
+    # bound window gets separated - the old contract, under which the stem
+    # played beneath all 111 lines and its artefacts were a constant bed.
     draft = {"lines": [
         # ordinary bound window
-        {"id": 1, "clip_start": "00:00:10.000", "clip_end": "00:00:14.000"},
+        {"id": 1, "clip_start": "00:00:10.000", "clip_end": "00:00:14.000",
+         "delivery": "action", "narration": "x"},
         # a HOLD whose authored duration runs PAST its declared window.
         # _build_silence_clip ignores `end`, so the real span is start+hold.
         {"id": 2, "clip_start": "00:00:30.000", "clip_end": "00:00:31.000",
-         "narration": "", "narration_silence_seconds": 9.0},
+         "delivery": "action", "narration": "",
+         "narration_silence_seconds": 9.0},
         # inline montage segments
-        {"id": 3, "narration": "x", "montage": [
+        {"id": 3, "narration": "x", "delivery": "tense", "montage": [
             {"clip_start": "00:01:00.000", "clip_end": "00:01:02.000"},
             {"clip_start": "00:01:02.000", "clip_end": "00:01:04.000"}]},
         # intro-owned: no window, must contribute nothing
-        {"id": 4, "narration": "x", "over_montage": True},
+        {"id": 4, "narration": "x", "over_montage": True,
+         "delivery": "action"},
+        # a NORMAL line with a perfectly good window: the film's track does
+        # not play here, so it must not be separated either.
+        {"id": 5, "clip_start": "00:03:00.000", "clip_end": "00:03:40.000",
+         "delivery": "normal", "narration": "x"},
     ]}
     spans = st.needed_spans(draft, src_dur=600.0)
     if not spans:
         return False, "no spans produced"
+    if any(a <= 180.0 <= b for a, b in spans):
+        return False, ("the `normal` line's window at 180-220s was separated; "
+                       "the film's track does not play there, so separating "
+                       "it is 40s of compute for audio nobody hears")
     # the hold must reach 39s (30 + 9), not 31s
     hold = [s for s in spans if s[0] <= 30.0 <= s[1]]
     if not hold or hold[0][1] < 39.0 - 1e-6:

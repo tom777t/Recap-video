@@ -119,18 +119,96 @@ def _source_fingerprint(source: Path) -> dict:
 SPAN_PAD_SEC = 1.0
 
 
+def film_audio_lines(draft: dict) -> set:
+    """Line ids allowed to play the film's own track. The ONE definition.
+
+    The rule: a line gets the no-vocals stem only if its delivery tag is in
+    config.FILM_AUDIO_TAGS and it sits in a RUN of at least
+    config.FILM_AUDIO_MIN_RUN such lines. Everywhere else the film audio is
+    OFF and the mix is narration plus music.
+
+    This replaced a single render-wide boolean. `has_film_audio` was True as
+    soon as the source had an audio stream, so the stem played under all 111
+    lines - and separation artefacts under a dialogue scene buy nothing,
+    because the dialogue is exactly what was removed. What is left there is
+    smeared room tone. Under a race, the same artefacts sit beneath engines
+    that are the point of the shot.
+
+    <film_speaks> units are deliberately NOT included: they use the ORIGINAL
+    mix at full level, not the stem, so they are handled on their own path.
+    """
+    import config
+    tags = set(getattr(config, "FILM_AUDIO_TAGS", ("action", "tense")))
+    min_run = int(getattr(config, "FILM_AUDIO_MIN_RUN", 2))
+    lines = draft.get("lines") or []
+    out: set = set()
+    run: list = []
+
+    def _flush():
+        if len(run) >= min_run:
+            out.update(run)
+        run.clear()
+
+    for ln in lines:
+        if ln.get("film_speaks_seconds") is not None:
+            # not a stem line, and it must not break a run either: the unit
+            # sits inside the sequence it belongs to.
+            continue
+        if str(ln.get("delivery") or "") in tags:
+            run.append(ln.get("id"))
+        else:
+            _flush()
+    _flush()
+    return {i for i in out if i is not None}
+
+
+def film_audio_windows(draft: dict) -> list:
+    """[(a, b, line_id)] source spans where the film's track plays.
+
+    Used by needed_spans (so nothing is separated that will never be heard)
+    and by the post-render check that measures whether the stem really is in
+    the finished mix where it should be, and absent where it should not.
+    """
+    from pipeline import footprint as _fpm
+    from pipeline.draft import parse_ts
+    ids = film_audio_lines(draft)
+    out = []
+    for ln in (draft.get("lines") or []):
+        if ln.get("id") not in ids:
+            continue
+        cs, ce = ln.get("clip_start"), ln.get("clip_end")
+        if not cs or not ce:
+            continue
+        try:
+            a = parse_ts(cs)
+        except Exception:
+            continue
+        fp = _fpm.footprint(ln, 0.0)
+        out.append((a, fp[1] if fp else parse_ts(ce), ln.get("id")))
+    out.sort()
+    return out
+
+
 def needed_spans(draft: dict, pad: float = SPAN_PAD_SEC,
                  src_dur: float = 0.0) -> list[tuple[float, float]]:
     """Merged source spans the render will read film audio from.
 
-    Covers: every bound window; a hold's REAL span (it ignores its declared
-    end and plays clip_len seconds from start); and inline montage segments.
-    Padded, because a separation edge inside a span you can hear is worse than
-    separating a second more than needed.
+    Covers ONLY the windows where the film's track is actually heard - the
+    action/tense runs from film_audio_lines() - plus inline montage segments
+    of those lines. It used to cover every bound window in the draft, which
+    separated ~41 minutes of audio of which most was then mixed under a
+    narrator who was talking over it anyway.
+
+    A hold's REAL span is used (it ignores its declared end and plays clip_len
+    seconds from start). Padded, because a separation edge inside a span you
+    can hear is worse than separating a second more than needed.
     """
     from pipeline.draft import parse_ts
+    _ids = film_audio_lines(draft)
     spans: list[tuple[float, float]] = []
     for ln in (draft.get("lines") or []):
+        if ln.get("id") not in _ids:
+            continue
         cs, ce = ln.get("clip_start"), ln.get("clip_end")
         if cs and ce:
             try:

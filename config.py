@@ -333,6 +333,29 @@ FILM_AUDIO_HOLD_DB = -6.0  # inside a narration_silence hold: let the film carry
 FILM_AUDIO_PRE_REVEAL_DB = -8.0   # raised in the seconds before a <reveal>
 FILM_AUDIO_PRE_REVEAL_SEC = 1.5   # how long before the reveal the raise starts
 
+# WHERE the film's own track is allowed to play at all.
+#
+# It used to be everywhere: `has_film_audio` was ONE boolean for the whole
+# render - if the source had an audio stream, every single clip got the
+# no-vocals stem underneath it. Separation is not transparent, and spread
+# across all 111 lines its artefacts are audible as a constant bed of
+# processed-sounding noise. The engines and impacts are worth that cost; a
+# dialogue scene with the voices stripped out is not - it is a smeared room
+# tone under the narrator for no benefit.
+#
+# So the stem plays only where the film's own sound IS the content: races,
+# fights, chases. That is what the action and tense tags mark.
+FILM_AUDIO_TAGS: tuple = ("action", "tense")
+# ...and only in a RUN of them. An isolated action line inside calm narration
+# is a single cut, not a sequence; switching the film's track on for one clip
+# and off again is more noticeable than leaving it off. On this draft: 48
+# action/tense lines in 18 runs, of which 8 are isolated singles, so a minimum
+# of 2 admits the 10 real sequences and drops the 8 one-offs.
+FILM_AUDIO_MIN_RUN = 2
+# A <film_speaks> unit is NOT subject to either rule. It hands the moment to
+# the film deliberately and uses the ORIGINAL mix (dialogue included), which is
+# the one place un-separated audio is used. See FILM_SPEAKS_DB.
+
 # --------------------------------------------------------------------------- #
 # STEMS: the film's audio WITHOUT its dialogue
 # --------------------------------------------------------------------------- #
