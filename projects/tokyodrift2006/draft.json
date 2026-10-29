@@ -1324,7 +1324,7 @@
     {
       "id": 100,
       "narration": "Instead of giving the edge up, he shoves back, putting the coupe off the shoulder into the brush - and the mountain's only master goes tumbling across the dirt.",
-      "clip_start": "01:33:57.169",
+      "clip_start": "01:33:57.588",
       "clip_end": "01:34:08.332",
       "note": "B101",
       "delivery": "action",
@@ -1338,11 +1338,11 @@
       "id": 101,
       "narration": "",
       "clip_start": "01:33:51.649",
-      "clip_end": "01:33:57.169",
+      "clip_end": "01:33:57.588",
       "note": "B101",
       "delivery": "tense",
       "payload": "rest",
-      "narration_silence_seconds": 6.0,
+      "narration_silence_seconds": 5.939,
       "claim": {
         "type": "reaction",
         "subject": "the crowd"

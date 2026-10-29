@@ -202,7 +202,7 @@ class UsedFootage:
 
     def add(self, a: float, b: float, source: str, blurred: bool,
             line_id=None, out_a: float | None = None,
-            out_b: float | None = None) -> None:
+            out_b: float | None = None, out_abs: bool = False) -> None:
         """Record a source window that reaches the screen.
 
         `out_a`/`out_b` are where it lands on the RENDER's timeline (before the
@@ -222,6 +222,13 @@ class UsedFootage:
         if out_a is not None and out_b is not None:
             try:
                 rec["out_a"], rec["out_b"] = float(out_a), float(out_b)
+                # `out_abs` says these are already FINAL-FILE coordinates.
+                # Story clips are positioned on the pre-intro timeline and need
+                # intro_offset added; the intro block's own segments sit at
+                # 0..intro_offset in the finished file and must not be shifted.
+                # Without the distinction the intro's spans were searched at
+                # negative timestamps and matched nothing.
+                rec["out_abs"] = bool(out_abs)
             except (TypeError, ValueError):
                 pass
         self.items.append(rec)

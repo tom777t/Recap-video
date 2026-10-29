@@ -158,6 +158,30 @@ def _host_of(shots: list, a: float) -> tuple[float, float, str] | None:
 # --------------------------------------------------------------------------- #
 # strategy (a): widen / re-allocate inside the host shot
 # --------------------------------------------------------------------------- #
+def _need_for(line: dict, narr_dur: float) -> float:
+    """Footage a line must be given.
+
+    A narrated line needs required_window(): the render SLOWS it to fit, so the
+    window is the ceiling. A WORDLESS unit (hold / film_speaks) is not slowed
+    at all - _build_silence_clip reads its authored length straight from the
+    source - so it needs that length, or the next line is handed footage this
+    one will play.
+    """
+    from pipeline import footprint as _fp
+    if (line.get("narration_silence_seconds") is not None
+            or line.get("film_speaks_seconds") is not None):
+        # EXACTLY the hold, with no SAFETY_SEC. That margin exists to absorb
+        # TTS measurement jitter - a synthesized line may come back a little
+        # longer than predicted. A hold is an authored constant with no
+        # measurement in it, so adding safety there just widens windows that
+        # are already exactly right: it proposed +0.08s on lines 75 and 110,
+        # whose holds equal their windows to the frame, and on 110 it would
+        # have pushed a film_speaks window 0.08s past the span whose audio
+        # cleanliness was actually measured.
+        return max(MIN_WINDOW_SEC, _fp.clip_length(line, narr_dur))
+    return required_window(narr_dur)
+
+
 def plan_widen(draft: dict, pdir: Path, project: str,
                durs: dict, src_dur: float = 0.0) -> tuple[dict, list]:
     """Re-allocate window boundaries inside each host shot.
@@ -167,6 +191,7 @@ def plan_widen(draft: dict, pdir: Path, project: str,
     cut is crossed and the shot on screen for each line is unchanged.
     """
     from pipeline.draft import parse_ts
+    from pipeline import footprint as _fpm
     from pipeline.render import intro_owned
 
     shots = _load_shots(pdir)
@@ -189,7 +214,9 @@ def plan_widen(draft: dict, pdir: Path, project: str,
             a, b = parse_ts(cs), parse_ts(ce)
         except Exception:
             continue
-        bound.append({"id": ln["id"], "a": a, "b": b, "ln": ln})
+        _fp = _fpm.footprint(ln, durs.get(ln["id"], 0.0))
+        bound.append({"id": ln["id"], "a": a, "b": b, "ln": ln,
+                      "real_b": _fp[1] if _fp else b})
     bound.sort(key=lambda r: r["a"])
 
     # group by host shot
@@ -254,7 +281,12 @@ def plan_widen(draft: dict, pdir: Path, project: str,
         if src_dur:
             limit = min(limit, float(src_dur))
 
-        need = {m["id"]: required_window(durs.get(m["id"], 0.0))
+        # A WORDLESS unit needs its HOLD reserved, not its narration. It has
+        # no narration, so required_window() returns almost nothing and the
+        # layout handed the next line the footage the hold actually plays -
+        # which is exactly how a 6.0s hold in a 5.52s window ran 0.48s into
+        # line 100.
+        need = {m["id"]: _need_for(m["ln"], durs.get(m["id"], 0.0))
                 for m in members}
         available = limit - span_lo
         if available <= 0:
@@ -325,7 +357,7 @@ def plan_widen(draft: dict, pdir: Path, project: str,
     # degrades footage, which is the hardest kind of damage to notice later.
     for lid, (na, nb) in new.items():
         m = next(r for r in bound if r["id"] == lid)
-        req = required_window(durs.get(lid, 0.0))
+        req = _need_for(r["ln"], durs.get(lid, 0.0))
         allowed_floor = max(MIN_WINDOW_SEC, min(m["b"] - m["a"], req)) - 1e-3
         if (nb - na) < allowed_floor:
             raise AssertionError(
@@ -363,6 +395,7 @@ def plan_extend(draft: dict, pdir: Path, project: str, durs: dict,
       * never past the source
     """
     from pipeline.draft import parse_ts
+    from pipeline import footprint as _fpm
     from pipeline.render import intro_owned
 
     lands = _reveal_lands(project)
@@ -379,9 +412,13 @@ def plan_extend(draft: dict, pdir: Path, project: str, durs: dict,
             a, b = parse_ts(cs), parse_ts(ce)
         except Exception:
             continue
-        hold = (ln.get("narration_silence_seconds")
-                or ln.get("film_speaks_seconds"))
-        real_b = max(b, a + float(hold)) if hold else b
+        # The REAL footprint, from the one shared definition. A local
+        # hold-only version lived here and missed that the same mechanism
+        # applies to a narrated line carrying an explicit hold - and
+        # plan_widen had no version at all, which is how lines 100 and 101
+        # ended up on the same 0.48s of footage.
+        _fp = _fpm.footprint(ln, durs.get(ln["id"], 0.0))
+        real_b = _fp[1] if _fp else b
         bound.append({"id": ln["id"], "a": a, "b": b, "real_b": real_b,
                       "ln": ln})
     bound.sort(key=lambda r: r["a"])
@@ -737,12 +774,43 @@ def main() -> int:
 
     # ---- (c) bounded rate bump ------------------------------------------- #
     trim_todo = []
+    hold_todo = []
     for f in still:
         lid = f["line_id"]
         if lid in merge_ids:
             continue          # a merge candidate is not a rate/trim candidate
         ln = by_id[lid]
         shot = f["shot_dur"]
+        if f.get("wordless"):
+            # A HOLD CANNOT BE RATE-BUMPED. There are no words to read faster,
+            # and stamping a rate_bump on a wordless line would mark its
+            # (nonexistent) audio stale and send it to the TTS pass forever.
+            # The only lever a hold has is its own LENGTH, so if widening and
+            # extending could not find it enough footage, shorten the hold to
+            # what it did get. That is the wordless equivalent of a text trim,
+            # and it is the cheapest edit in the film: a silence 0.06s shorter.
+            got = shot
+            if lid in actions and actions[lid].get("new_end") is not None:
+                # these are timestamp STRINGS, not seconds
+                got = parse_ts(str(actions[lid]["new_end"])) \
+                    - parse_ts(str(actions[lid]["new_start"]))
+            new_hold = round(max(0.1, got), 3)
+            key = ("film_speaks_seconds"
+                   if ln.get("film_speaks_seconds") is not None
+                   else "narration_silence_seconds")
+            prev = actions.get(lid, {}).get("strategy")
+            actions.setdefault(lid, {})
+            actions[lid].update({
+                "strategy": (f"{prev}+c-hold" if prev else "c-hold"),
+                "hold_key": key,
+                "hold": new_hold,
+                "note": (f"hold {float(ln.get(key)):.2f}s -> {new_hold:.2f}s "
+                         f"to fit the {got:.2f}s of footage it was given"),
+                "hold_was": float(ln.get(key)),
+            })
+            ln[key] = new_hold
+            hold_todo.append(lid)
+            continue
         # what multiplier would make the audio fit this window?
         from pipeline.schemas import BINDING_SLOWDOWN_MAX
         from pipeline.render import GAP
@@ -859,6 +927,9 @@ def main() -> int:
         if "rate_bump" in act:
             console.print(f"         rate_bump {act['rate_bump']:.3f}  "
                           f"({act.get('note','')})")
+        if "hold" in act and "hold_key" in act:
+            console.print(f"         hold {act['hold_was']:.2f}s -> "
+                          f"{act['hold']:.2f}s  ({act.get('note','')})")
         if act["strategy"].endswith("e-trim"):
             console.print(f"         TEXT TRIM: {act['words_now']} -> "
                           f"<= {act['target_words']} words  "
@@ -869,10 +940,11 @@ def main() -> int:
     n_m = sum(1 for v in actions.values() if "d-merge" in v["strategy"])
     n_b = sum(1 for v in actions.values() if "c-rate" in v["strategy"])
     n_c = sum(1 for v in actions.values() if "e-trim" in v["strategy"])
+    n_h = sum(1 for v in actions.values() if "c-hold" in v["strategy"])
     console.print()
     console.print(f"[bold]Summary:[/] {n_a} widened (same shot), {n_x} extended "
-                  f"(multi-shot), {n_b} rate-bumped, {n_m} to merge, "
-                  f"{n_c} need a text trim")
+                  f"(multi-shot), {n_b} rate-bumped, {n_h} hold(s) shortened, "
+                  f"{n_m} to merge, {n_c} need a text trim")
 
     if not a.apply:
         console.print("\n[yellow]Dry run - nothing written. Re-run with "

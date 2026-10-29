@@ -149,16 +149,76 @@ def reset_footage() -> None:
     _USED_FOOTAGE.clear()
 
 
-def record_footage(a: float, b: float, label: str) -> None:
+def record_footage(a: float, b: float, label: str,
+                   out_a: float | None = None,
+                   out_b: float | None = None) -> None:
+    """Record a source span the intro puts on screen.
+
+    `out_a`/`out_b` are where it lands on the INTRO BLOCK's own timeline. They
+    matter: without them pipeline/motion_check._to_source cannot map a frozen
+    stretch in the finished file back to the footage it came from, so every
+    freeze inside the intro was reported as "could not be traced" and counted
+    against the render. Four of them were, and the trace was the missing half
+    of the finding.
+    """
     try:
-        _USED_FOOTAGE.append((float(a), float(b), str(label)))
+        rec = {"a": float(a), "b": float(b), "label": str(label)}
     except (TypeError, ValueError):
-        pass
+        return
+    if out_a is not None and out_b is not None:
+        try:
+            rec["out_a"], rec["out_b"] = float(out_a), float(out_b)
+        except (TypeError, ValueError):
+            pass
+    _USED_FOOTAGE.append(rec)
 
 
 def used_footage() -> list:
-    """[(a, b, label)] source windows the intro block showed, unblurred."""
-    return list(_USED_FOOTAGE)
+    """Source windows the intro block showed, unblurred.
+
+    Returns dicts shaped like pipeline.censor.UsedFootage items - with out_a /
+    out_b where the builder knew them - so render.py can hand them straight to
+    the censor audit and the freeze check.
+    """
+    out = []
+    for r in _USED_FOOTAGE:
+        if isinstance(r, dict):
+            out.append(dict(r))
+        else:                       # legacy 3-tuple
+            a, b, label = r
+            out.append({"a": a, "b": b, "label": label})
+    return out
+
+
+def extend_limit(project: str, frm: float, src_dur: float = 0.0) -> float:
+    """How far past `frm` the montage may keep reading real footage.
+
+    The montage pads a slot when its chosen moment is shorter than the slot.
+    The main render's answer to "not enough footage" is MORE FOOTAGE, not a
+    cloned frame, so the montage reads on past the moment's end - but only as
+    far as it is allowed to go:
+      * never to or past the first reveal landing (that is the spoiler rule
+        the montage already obeys for its moment choice)
+      * never into footage a flagged shot occupies (the montage applies no
+        censor filter at all)
+      * never into footage the STORY shows (that is repeated footage)
+      * never past the source
+    """
+    import config as _cfg
+    from pipeline import censor as _censor
+    pdir = _cfg.project_dir(project)
+    lim = float(src_dur) if src_dur else float("inf")
+    land = first_reveal_land(project)
+    if land and land > frm:
+        lim = min(lim, land)
+    _min_ov = float(getattr(_cfg, "FOOTAGE_REUSE_MIN_OVERLAP_SEC", 0.4))
+    for f in _censor.flagged_shots(pdir):
+        if f["b"] > frm and f["a"] >= frm:
+            lim = min(lim, f["a"])
+    for (ta, tb) in bound_windows(project):
+        if tb > frm and ta >= frm - _min_ov:
+            lim = min(lim, ta)
+    return lim if lim != float("inf") else frm
 
 
 def first_reveal_land(project: str) -> float:
@@ -420,8 +480,9 @@ def _build_film_intro_segment(project: str, work: Path):
                f"[bed][nar]amix=inputs=2:duration=first:normalize=0,"
                f"alimiter=limit=0.891[a]",
                "-map", "[v]", "-map", "[a]", "-t", f"{fi_dur+0.3:.3f}",
-               "-c:v", "libx264", "-preset", config.VIDEO_PRESET,
-               "-crf", str(config.VIDEO_CRF), "-pix_fmt", "yuv420p",
+               "-c:v", "libx264", "-preset", config.VIDEO_PRESET_INTERMEDIATE,
+               "-crf", str(config.VIDEO_CRF_INTERMEDIATE),
+               "-pix_fmt", config.VIDEO_PIX_FMT,
                "-c:a", "aac", "-b:a", "192k", "-ar", "48000", "-ac", "2",
                str(out)]
     else:
@@ -435,8 +496,9 @@ def _build_film_intro_segment(project: str, work: Path):
                f"[0:v]{vf}[v];"
                f"[1:a]aformat=sample_rates=48000:channel_layouts=stereo[a]",
                "-map", "[v]", "-map", "[a]", "-t", f"{fi_dur+0.3:.3f}",
-               "-c:v", "libx264", "-preset", config.VIDEO_PRESET,
-               "-crf", str(config.VIDEO_CRF), "-pix_fmt", "yuv420p",
+               "-c:v", "libx264", "-preset", config.VIDEO_PRESET_INTERMEDIATE,
+               "-crf", str(config.VIDEO_CRF_INTERMEDIATE),
+               "-pix_fmt", config.VIDEO_PIX_FMT,
                "-c:a", "aac", "-b:a", "192k", "-ar", "48000", "-ac", "2",
                str(out)]
     r = subprocess.run(cmd, capture_output=True, text=True)
@@ -556,8 +618,9 @@ def prepend_to_final(project: str, final: Path) -> float:
         cmd = [ff, "-y", *_ins, "-filter_complex",
                f"{_cat}concat=n={_n}:v=1:a=1[v][a]",
                "-map", "[v]", "-map", "[a]",
-               "-c:v", "libx264", "-preset", config.VIDEO_PRESET,
-               "-crf", str(config.VIDEO_CRF), "-pix_fmt", "yuv420p",
+               "-c:v", "libx264", "-preset", config.VIDEO_PRESET_INTERMEDIATE,
+               "-crf", str(config.VIDEO_CRF_INTERMEDIATE),
+               "-pix_fmt", config.VIDEO_PIX_FMT,
                "-c:a", "aac", "-b:a", "192k", "-ar", "48000", "-ac", "2",
                str(tmp)]
         r = subprocess.run(cmd, capture_output=True, text=True)
@@ -628,15 +691,44 @@ def build_intro(project: str, out_name: str = "intro_preview.mp4",
                   f"{max(b for _, b in moments):.0f}s[/]")
 
     w, h, fps = config.OUTPUT_WIDTH, config.OUTPUT_HEIGHT, config.OUTPUT_FPS
+    _src_dur = 0.0
+    try:
+        import subprocess as _sp
+        _r = _sp.run([config.ffprobe(), "-v", "error", "-show_entries",
+                      "format=duration", "-of", "default=nw=1:nk=1",
+                      str(config.project_dir(project) / "source.mp4")],
+                     capture_output=True, text=True)
+        _src_dur = float((_r.stdout or "0").strip())
+    except Exception:
+        _src_dur = 0.0
+
     inputs, parts, labels = [], [], []
+    _cursor = 0.0           # where this slot lands on the intro's own timeline
+    _slot_durs = []
     for i, (a, b) in enumerate(slots):
         dur = b - a
         ms, me = moments[i % len(moments)]
-        # read a touch more than needed so tpad never has to clone
-        _read = min(me - ms, dur + 0.4)
+        # EXTEND, DO NOT PAD. `_read` used to be min(moment length, slot+0.4),
+        # so a moment SHORTER than its slot left tpad cloning the difference
+        # with no ceiling - four frozen stretches of 0.93-1.83s in the finished
+        # intro, every one of them a still frame. The main render's answer to
+        # "not enough footage" is more footage, so read on past the moment's
+        # end, as far as extend_limit() allows.
+        want = dur + 0.4
+        avail_end = min(max(me, ms + want), extend_limit(project, ms, _src_dur))
+        _read = max(0.1, avail_end - ms)
+        if _read + 1e-6 < dur:
+            # Still short even after extending: SHORTEN THE SLOT rather than
+            # freeze into it. A montage cut that is a tenth of a second quicker
+            # is invisible; a frozen frame is not.
+            dur = _read
+        _slot_durs.append(dur)
         # No censor filter is applied anywhere in this graph - record the exact
-        # window that reaches the screen so the render's audit can check it.
-        record_footage(ms, ms + _read, f"intro montage slot {i+1}")
+        # window that reaches the screen, WITH its position on the intro
+        # timeline, so the render's censor audit and freeze trace can use it.
+        record_footage(ms, ms + _read, f"intro montage slot {i+1}",
+                       out_a=_cursor, out_b=_cursor + dur)
+        _cursor += dur
         inputs += ["-ss", f"{ms:.3f}", "-t", f"{_read:.3f}",
                    "-i", str(config.project_dir(project) / 'source.mp4')]
         z = config.MOTION_ZOOM if config.MOTION_ENABLE else 0.0
@@ -650,9 +742,25 @@ def build_intro(project: str, out_name: str = "intro_preview.mp4",
         parts.append(
             f"[{i}:v]scale={w}:{h}:force_original_aspect_ratio=decrease,"
             f"pad={w}:{h}:(ow-iw)/2:(oh-ih)/2:black,setsar=1,fps={fps}{motion},"
-            f"tpad=stop_mode=clone:stop_duration={dur:.3f},"
+            # CAPPED, like every tpad in render.py. This is a backstop only -
+            # the extension above is what should make it unnecessary - but an
+            # uncapped clone is how a still frame got into the first 50
+            # seconds of the video, so the ceiling is enforced here too.
+            f"tpad=stop_mode=clone:stop_duration="
+            f"{min(dur, float(config.MAX_FREEZE_SEC)):.3f},"
             f"trim=duration={dur:.3f},setpts=PTS-STARTPTS[v{i}]")
         labels.append(f"[v{i}]")
+    # The slots may have been SHORTENED to avoid freezing (see the loop
+    # above), so the video is as long as the slots really are - not as long as
+    # the beat cuts suggested. The audio has to be trimmed to the same number
+    # or the block ends on a hanging music tail.
+    vid_total = sum(_slot_durs) if _slot_durs else total
+    if abs(vid_total - total) > 0.05:
+        console.print(f"[dim]Intro montage: {vid_total:.2f}s of real footage "
+                      f"(beat cuts implied {total:.2f}s) - slots were "
+                      f"shortened rather than padded with a frozen frame.[/]")
+    total = vid_total
+
     nm, nh = len(slots), len(slots) + 1
     inputs += ["-i", str(music), "-i", str(hook_mp3)]
 
@@ -673,8 +781,9 @@ def build_intro(project: str, out_name: str = "intro_preview.mp4",
     out = pdir / out_name
     cmd = [ff, "-y", *inputs, "-filter_complex", graph,
            "-map", "[v]", "-map", "[a]", "-t", f"{total:.3f}",
-           "-c:v", "libx264", "-preset", config.VIDEO_PRESET,
-           "-crf", str(config.VIDEO_CRF), "-pix_fmt", "yuv420p",
+           "-c:v", "libx264", "-preset", config.VIDEO_PRESET_INTERMEDIATE,
+           "-crf", str(config.VIDEO_CRF_INTERMEDIATE),
+           "-pix_fmt", config.VIDEO_PIX_FMT,
            "-c:a", "aac", "-b:a", "192k", str(out)]
     r = subprocess.run(cmd, capture_output=True, text=True)
     if r.returncode != 0:

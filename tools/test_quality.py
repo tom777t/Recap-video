@@ -103,19 +103,28 @@ def test_settings_locked() -> tuple[bool, str]:
 
 
 def test_no_hardcoded_encodes() -> tuple[bool, str]:
-    src = io.open(os.path.join(ROOT, "pipeline", "render.py"),
-                  encoding="utf-8").read()
+    # EVERY module that encodes, not just render.py. Scanning render.py alone
+    # is why intro.py kept a literal "yuv420p" and final-quality CRF/preset on
+    # an INTERMEDIATE for as long as it did: the intro block is concatenated
+    # into the film, so encoding it at the final settings spends the quality
+    # budget twice and the contract test never looked.
     bad = []
-    if '"yuv420p"' in src:
-        bad.append('a literal "yuv420p" (use config.VIDEO_PIX_FMT)')
-    if '"veryfast"' in src:
-        bad.append('a literal "veryfast" (use '
-                   'config.VIDEO_PRESET_INTERMEDIATE)')
-    if re.search(r'"-crf",\s*"\d', src):
-        bad.append("a literal -crf value")
+    for mod in ("render.py", "intro.py"):
+        path = os.path.join(ROOT, "pipeline", mod)
+        if not os.path.exists(path):
+            continue
+        src = io.open(path, encoding="utf-8").read()
+        if '"yuv420p"' in src:
+            bad.append(f'{mod}: a literal "yuv420p" (use '
+                       f'config.VIDEO_PIX_FMT)')
+        if '"veryfast"' in src:
+            bad.append(f'{mod}: a literal "veryfast" (use '
+                       f'config.VIDEO_PRESET_INTERMEDIATE)')
+        if re.search(r'"-crf",\s*"\d', src):
+            bad.append(f"{mod}: a literal -crf value")
     ok = not bad
-    return ok, ("every encode setting comes from config" if ok else
-                "render.py contains " + "; ".join(bad))
+    return ok, ("every encode setting in render.py and intro.py comes from "
+                "config" if ok else "; ".join(bad))
 
 
 def test_scaler_applied() -> tuple[bool, str]:

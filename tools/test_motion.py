@@ -77,21 +77,29 @@ def test_slowdown_capped() -> tuple[bool, str]:
 
 def test_freeze_capped() -> tuple[bool, str]:
     """No tpad may clone for longer than MAX_FREEZE_SEC."""
-    src = io.open(os.path.join(ROOT, "pipeline", "render.py"),
-                  encoding="utf-8").read()
-    # Look at a WINDOW after each occurrence, not to the end of the line: the
-    # cap is often on the following physical line because these are wrapped
-    # f-strings, and a line-bounded regex reported every capped tpad as bare.
-    spots = [m.start() for m in
-             re.finditer(r"tpad=stop_mode=clone:stop_duration=", src)]
-    if not spots:
-        return False, "found no tpad clone filters in render.py at all"
+    # EVERY module that builds a tpad, not just render.py. The four frozen
+    # stretches in the finished Tokyo Drift intro were all built by intro.py,
+    # whose tpad this test never looked at because it only read render.py -
+    # so the cap was enforced in the one file that already had it.
     bad = []
-    for i in spots:
-        window = src[i:i + 160]
-        if "MAX_FREEZE_SEC" not in window and "_freeze_cap" not in window:
-            line_no = src[:i].count("\n") + 1
-            bad.append(f"render.py:{line_no}")
+    spots = []
+    for mod in ("render.py", "intro.py"):
+        src = io.open(os.path.join(ROOT, "pipeline", mod),
+                      encoding="utf-8").read()
+        # Look at a WINDOW after each occurrence, not to the end of the line:
+        # the cap is often on the following physical line because these are
+        # wrapped f-strings, and a line-bounded regex reported every capped
+        # tpad as bare.
+        here = [m.start() for m in
+                re.finditer(r"tpad=stop_mode=clone:stop_duration=", src)]
+        spots += [(mod, i) for i in here]
+        for i in here:
+            window = src[i:i + 160]
+            if "MAX_FREEZE_SEC" not in window and "_freeze_cap" not in window:
+                line_no = src[:i].count("\n") + 1
+                bad.append(f"{mod}:{line_no}")
+    if not spots:
+        return False, "found no tpad clone filters to check at all"
     if bad:
         return False, (f"{len(bad)} tpad(s) clone without the "
                        f"MAX_FREEZE_SEC cap at {bad}")
@@ -424,8 +432,212 @@ def test_multi_shot_before_trim() -> tuple[bool, str]:
                   "trim, and asserts it never overlaps another line")
 
 
+def test_intro_extends_not_pads() -> tuple[bool, str]:
+    """The intro montage reaches for more footage instead of freezing.
+
+    THE DEFECT: four frozen stretches of 0.93-1.83s, all inside the intro
+    block (19.17-20.17, 20.17-22.00, 42.60-43.53, 47.90-48.90s with
+    intro_offset at 53.43s). The slot loop read
+        _read = min(me - ms, dur + 0.4)
+    so when a chosen moment was SHORTER than its beat-cut slot, the shortfall
+    was handed to an uncapped `tpad=stop_mode=clone` - a still frame in the
+    first minute of the video. The main render's answer to "the window is too
+    short" is more footage, and the intro now has to answer the same way.
+    """
+    src = io.open(os.path.join(ROOT, "pipeline", "intro.py"),
+                  encoding="utf-8").read()
+    if "min(me - ms, dur + 0.4)" in src:
+        return False, ("the slot loop still clamps its read to the moment's "
+                       "own end, so a short moment is padded with a frozen "
+                       "frame instead of extended")
+    i = src.find("def build_intro")
+    body = src[i:] if i >= 0 else src
+    for probe, why in (("extend_limit(", "it never asks how far it may read"),
+                       ("_slot_durs", "it cannot shorten a slot that really "
+                                      "has no footage left"),
+                       ("vid_total", "the audio would still be cut to the "
+                                     "beat-cut length, not the real one")):
+        if probe not in body:
+            return False, f"intro montage: {why}"
+    from pipeline import intro as _intro
+    if not hasattr(_intro, "extend_limit"):
+        return False, "intro.extend_limit() does not exist"
+    return True, ("the intro montage extends into adjacent footage, shortens "
+                  "a slot rather than freezing when footage runs out, and "
+                  "trims its audio to the real length")
+
+
+def test_intro_traceable() -> tuple[bool, str]:
+    """A freeze inside the intro can be mapped back to its source footage.
+
+    THE DEFECT: render.py recorded the intro's spans ONLY when some shot was
+    censor-flagged, because the censor audit was the only consumer. With no
+    flagged shots nothing was recorded, so every freeze in the intro block was
+    untraceable - and `motion_check` reports an untraceable freeze rather than
+    excusing it. All four reported freezes were in that blind spot.
+
+    Also checks the coordinate space. The intro sits at 0..intro_offset in the
+    FINISHED file while every story clip is positioned before the offset is
+    added, so a record has to say which space its out_a/out_b are in. Without
+    that the intro's spans were searched at negative timestamps.
+    """
+    rsrc = io.open(os.path.join(ROOT, "pipeline", "render.py"),
+                   encoding="utf-8").read()
+    i = rsrc.find("_intro.used_footage()")
+    if i < 0:
+        return False, "render.py never records the intro's footage"
+    if "if _flagged" in rsrc[max(0, i - 400):i]:
+        return False, ("the intro's footage is still recorded only when a "
+                       "shot is censor-flagged, so with no flags every intro "
+                       "freeze is untraceable")
+    if "out_abs" not in rsrc[i:i + 400]:
+        return False, ("the intro's spans are recorded without out_abs, so "
+                       "they are shifted by intro_offset and match nothing")
+
+    # behaviour, not just shape: a freeze at 20s of the finished file must
+    # resolve to the source span the intro showed there.
+    from pipeline.censor import UsedFootage
+    from pipeline import motion_check as mc
+    uf = UsedFootage()
+    uf.add(1200.0, 1203.0, "intro montage slot 3", blurred=False,
+           out_a=19.0, out_b=22.0, out_abs=True)
+    uf.add(400.0, 410.0, "clip", blurred=False, line_id=7,
+           out_a=0.0, out_b=10.0)
+    got = mc._to_source({"start": 19.17, "end": 20.17, "dur": 1.0}, uf.items, 53.43)
+    if not got:
+        return False, ("a freeze at 19.17-20.17s of the finished file still "
+                       "maps to no source span, so it is reported as "
+                       "untraceable")
+    if not (1199.0 <= float(got[0]) <= 1204.0):
+        return False, (f"the freeze mapped to {got}, not the intro span that "
+                       f"was on screen at 19.17s")
+    # and a story freeze must still have the offset subtracted
+    story = mc._to_source({"start": 55.0, "end": 56.0, "dur": 1.0}, uf.items, 53.43)
+    if not story or not (399.0 <= float(story[0]) <= 411.0):
+        return False, (f"a story freeze mapped to {story}; the intro_offset "
+                       f"is no longer being applied to story clips")
+    return True, ("intro spans are always recorded, carry final-file "
+                  "coordinates, and a freeze in the intro resolves to the "
+                  "footage that was on screen")
+
+
+def test_footprint_is_real_span() -> tuple[bool, str]:
+    """A line's footprint is what the render READS, not what it declares.
+
+    THE DEFECT: lines 100 and 101 shared 0.48s of footage. Their declared
+    windows abut exactly and do not overlap - but 101 is a 6.0s hold in a
+    5.52s window, and `_build_silence_clip` reads its authored length straight
+    from the source with no `-t`, so it really reached 0.48s into line 100.
+
+    The distinction that makes this subtle, and that a first version of the
+    shared helper got wrong in the generous direction: a NARRATED clip that
+    overruns is SLOWED to fit, and `_build_clip` passes `-t shot_dur` exactly
+    when the slowdown engages - so for a narrated line the window IS the
+    ceiling. Only an unslowed read (every wordless unit) can exceed it.
+    """
+    from pipeline import footprint as fp
+    hold = {"id": 1, "clip_start": "00:00:10.000", "clip_end": "00:00:15.520",
+            "narration_silence_seconds": 6.0}
+    got = fp.footprint(hold, 0.0)
+    if not got or abs(got[1] - 16.0) > 0.01:
+        return False, (f"a 6.0s hold in a 5.52s window reports {got}, not a "
+                       f"real end of 16.0s - the overrun is invisible again")
+    narr = {"id": 2, "clip_start": "00:00:10.000", "clip_end": "00:00:13.000",
+            "narration": "a line far too long for three seconds of footage"}
+    got2 = fp.footprint(narr, 9.0)
+    if not got2 or abs(got2[1] - 13.0) > 0.01:
+        return False, (f"a slowed narrated clip reports {got2}; the render "
+                       f"caps its read with -t, so its footprint must stop at "
+                       f"the window or the fitter reserves footage nothing "
+                       f"shows")
+    draft = {"lines": [hold, {"id": 3, "clip_start": "00:00:15.520",
+                              "clip_end": "00:00:26.680",
+                              "narration": "the next line"}]}
+    ov = fp.overlaps(draft, {})
+    if not ov:
+        return False, ("the abutting pair that really overlaps by 0.48s is "
+                       "reported as clean")
+    if abs(ov[0]["overlap"] - 0.48) > 0.02:
+        return False, f"overlap measured as {ov[0]['overlap']:.3f}s, not 0.48s"
+    return True, ("a footprint is [start, start+clip_len) for an unslowed "
+                  "read and the declared window for a slowed one, and the "
+                  "100/101 overlap is detected")
+
+
+def test_hold_capacity_checked() -> tuple[bool, str]:
+    """A hold longer than its window is a capacity overrun.
+
+    `capacity_findings` skipped every wordless unit on the grounds that it
+    "carries no narration". True - but it carries a LENGTH, read at real speed
+    with no slowdown available to absorb it, so the window has to hold it. That
+    exemption is why nothing flagged line 101 before the render.
+
+    Also: the fix must not be a rate bump. A hold has no words to read faster,
+    and stamping a rate_bump on a wordless line would mark its audio stale
+    forever, so the lever is the hold's own length.
+    """
+    from pipeline import preflight as pf
+    draft = {"lines": [{"id": 101, "clip_start": "00:00:10.000",
+                        "clip_end": "00:00:15.520", "tag": "normal",
+                        "narration_silence_seconds": 6.0}]}
+    f = pf.capacity_findings(draft, [])
+    if not f:
+        return False, ("a 6.0s hold in a 5.52s window is reported as fitting; "
+                       "wordless units are exempt from the capacity check "
+                       "again")
+    if not f[0].get("wordless"):
+        return False, "the finding is not marked wordless"
+    if abs(f[0]["over"] - 0.48) > 0.02:
+        return False, f"overrun measured as {f[0]['over']:.3f}s, not 0.48s"
+    if f[0]["capacity"] > f[0]["shot_dur"] + 1e-6:
+        return False, ("the hold's capacity was multiplied by "
+                       "BINDING_SLOWDOWN_MAX; nothing slows a hold, so its "
+                       "capacity is the bare window")
+    src = io.open(os.path.join(ROOT, "tools", "fit_narration.py"),
+                  encoding="utf-8").read()
+    i = src.find("bounded rate bump")
+    if i < 0 or 'f.get("wordless")' not in src[i:i + 1800]:
+        return False, ("the rate-bump stage does not skip wordless units, so "
+                       "a hold can still be handed a meaningless rate_bump")
+    if "c-hold" not in src:
+        return False, ("there is no hold-shortening resolution, so a hold that "
+                       "cannot be given enough footage has no honest fix")
+    return True, ("a hold that exceeds its window is a capacity overrun, its "
+                  "capacity is the bare window, and it is resolved by "
+                  "shortening the hold rather than by a rate bump")
+
+
+def test_footprint_shared() -> tuple[bool, str]:
+    """One definition of the footprint, used by every consumer.
+
+    Five callers each had their own version: plan_widen used declared windows
+    (and moved the boundaries that overlapped), plan_extend handled holds,
+    needed_spans handled holds, available_window handled holds, the censor
+    audit handled holds. The one that got it wrong is the one that decided
+    where windows go.
+    """
+    missing = []
+    for mod, fn in (("tools/fit_narration.py", "plan_widen/plan_extend"),
+                    ("pipeline/preflight.py", "available_window"),
+                    ("pipeline/stems.py", "needed_spans")):
+        src = io.open(os.path.join(ROOT, *mod.split("/")),
+                      encoding="utf-8").read()
+        if "footprint" not in src:
+            missing.append(f"{fn} ({mod})")
+    if missing:
+        return False, ("these still compute the footprint themselves: "
+                       + "; ".join(missing))
+    return True, ("the fitter, the pre-flight and the stems pass all share "
+                  "pipeline/footprint.py")
+
+
 TESTS = {
     "SLOWDOWN-CAPPED":      test_slowdown_capped,
+    "INTRO-EXTENDS-NOT-PADS": test_intro_extends_not_pads,
+    "INTRO-TRACEABLE":      test_intro_traceable,
+    "FOOTPRINT-REAL-SPAN":  test_footprint_is_real_span,
+    "FOOTPRINT-SHARED":     test_footprint_shared,
+    "HOLD-CAPACITY-CHECKED": test_hold_capacity_checked,
     "STATIC-SOURCE-EXCUSED": test_static_source_excused,
     "BUMP-NEVER-COMPOUNDS":  test_bump_never_compounds,
     "MULTI-SHOT-BEFORE-TRIM": test_multi_shot_before_trim,

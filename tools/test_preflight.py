@@ -31,9 +31,11 @@ Cases
                       pre-flight passes a render that then crashes - so this
                       compares them directly instead of trusting the comment
                       that says they match.
-  PREFLIGHT-SCOPE     pool / montage / hold / film_speaks / intro-owned lines
-                      are NOT judged, matching the set render enforces. Judging
-                      more than render enforces would block working renders.
+  PREFLIGHT-SCOPE     pool / montage / intro-owned lines are NOT judged -
+                      they resolve their window elsewhere, and judging more
+                      than render enforces would block working renders. A hold
+                      or film_speaks unit IS judged, on its LENGTH: nothing
+                      slows a hold, so its window must contain it.
   PREFLIGHT-STALE     a line whose audio no longer matches its text is skipped,
                       not judged against the wrong audio.
   TAG-RATE-BUDGET     the capacity budget uses the calibrated PER-TAG rate, so
@@ -227,10 +229,17 @@ def test_preflight_scope() -> tuple[bool, str]:
         {"id": 2, "narration": " ".join(["w"] * 40), "delivery": "normal",
          "montage": [{"clip_start": "00:00:10.0", "clip_end": "00:00:11.0"},
                      {"clip_start": "00:00:12.0", "clip_end": "00:00:13.0"}]},
-        # hold and film_speaks carry no narration
-        _bound(3, 30, 31, words=0, narration="",
+        # hold and film_speaks carry no NARRATION, but they do carry a
+        # LENGTH, and it is judged - see the oversized-hold case below. These
+        # two fit their windows exactly, so they are not findings.
+        # (This fixture used to give a 3.0s hold a 1.0s window and assert that
+        # was fine. It is not fine: _build_silence_clip reads the hold at real
+        # speed with no slowdown, so those 2s played over the next line's
+        # footage. That exemption is what let lines 100 and 101 ship sharing
+        # 0.48s of footage.)
+        _bound(3, 30, 33, words=0, narration="",
                narration_silence_seconds=3.0),
-        _bound(4, 40, 41, words=0, narration="", film_speaks_seconds=3.0),
+        _bound(4, 40, 43, words=0, narration="", film_speaks_seconds=3.0),
         # intro-owned: no clip window at all
         {"id": 5, "narration": " ".join(["w"] * 40), "over_montage": True,
          "delivery": "hook"},
@@ -246,10 +255,23 @@ def test_preflight_scope() -> tuple[bool, str]:
                                                                 narration))
         if ids != [7]:
             return False, (f"expected only line 7 judged, got {ids} - "
-                           f"pool/montage/hold/film_speaks/intro-owned lines "
-                           f"must be out of scope")
-        return True, ("pool, montage, hold, film_speaks and intro-owned lines "
-                      "are out of scope; the bound overrun is caught")
+                           f"pool/montage/intro-owned lines must be out of "
+                           f"scope, and holds that fit are not findings")
+        # ...and a hold that does NOT fit its window is a finding, on its
+        # length rather than on narration it does not have.
+        draft["lines"][2]["narration_silence_seconds"] = 6.0
+        over = [x for x in pf.capacity_findings(draft, narration)
+                if x["line_id"] == 3]
+        if not over:
+            return False, ("a 6.0s hold in a 3.0s window is not reported; a "
+                           "hold's length is a capacity requirement because "
+                           "nothing slows it down")
+        if not over[0].get("wordless") or abs(over[0]["over"] - 3.0) > 0.02:
+            return False, (f"the oversized hold was reported as {over[0]}, "
+                           f"expected a wordless 3.00s overrun")
+        return True, ("pool, montage and intro-owned lines are out of scope; "
+                      "a hold is judged on its length, and both the bound "
+                      "overrun and an oversized hold are caught")
     finally:
         _teardown()
 

@@ -154,12 +154,16 @@ def _to_source(freeze: dict, shown: list | None,
     """
     if not shown:
         return None
-    mid = (float(freeze["start"]) + float(freeze["end"])) / 2.0 \
-        - float(intro_offset or 0.0)
+    mid_final = (float(freeze["start"]) + float(freeze["end"])) / 2.0
+    off = float(intro_offset or 0.0)
     for u in shown:
         oa, ob = u.get("out_a"), u.get("out_b")
         if oa is None or ob is None or ob <= oa:
             continue
+        # A record either carries FINAL-file coordinates already (the intro
+        # block, which sits at 0..intro_offset) or pre-intro ones (every story
+        # clip, which the offset shifts).
+        mid = mid_final if u.get("out_abs") else (mid_final - off)
         if not (oa <= mid < ob):
             continue
         # proportional position inside the clip -> position inside the window

@@ -138,11 +138,12 @@ def needed_spans(draft: dict, pad: float = SPAN_PAD_SEC,
             except Exception:
                 a = b = None
             if a is not None:
-                hold = (ln.get("narration_silence_seconds")
-                        or ln.get("film_speaks_seconds"))
-                if hold:
-                    b = max(b, a + float(hold))
-                spans.append((a, b))
+                # separate the span the render REALLY reads, from the one
+                # shared footprint definition - a stem that stops short of the
+                # footage leaves the original vocals audible at the tail.
+                from pipeline import footprint as _fpm
+                _fp = _fpm.footprint(ln, 0.0)
+                spans.append((a, _fp[1] if _fp else b))
         for seg in (ln.get("montage") or []):
             if isinstance(seg, dict) and seg.get("clip_start"):
                 try:

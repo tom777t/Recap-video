@@ -1892,9 +1892,19 @@ def render(project: str, draft: dict,
             # flagged footage still reached the opening block, final.mp4 is
             # unpublishable and is removed rather than left on disk looking
             # finished.
+            # Record the intro's footage ALWAYS, not only when something is
+            # flagged. The censor audit was the only consumer, so with no
+            # flagged shots the intro's segments were never recorded at all -
+            # and then every freeze inside the intro block was untraceable and
+            # counted against the render. Four were. The spans carry their
+            # position on the intro timeline, so motion_check can map a frozen
+            # stretch in the finished file back to its source span.
+            for _u in _intro.used_footage():
+                used_footage.add(_u["a"], _u["b"], _u.get("label", "intro"),
+                                 blurred=False,
+                                 out_a=_u.get("out_a"), out_b=_u.get("out_b"),
+                                 out_abs=True)
             if _flagged:
-                for _a, _b, _lbl in _intro.used_footage():
-                    used_footage.add(_a, _b, _lbl, blurred=False)
                 _ca2 = _censor.audit(_flagged, used_footage)
                 if not _censor.report(_ca2, used_footage):
                     try:

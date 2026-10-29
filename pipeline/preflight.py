@@ -116,6 +116,7 @@ def available_window(draft: dict, line_id, src_dur: float = 0.0) -> float:
     """
     from pipeline.draft import parse_ts
     from pipeline.render import intro_owned
+    from pipeline import footprint as _fpm
     rows = []
     for ln in draft.get("lines") or []:
         if intro_owned(ln) or ln.get("pool") or ln.get("montage"):
@@ -127,10 +128,13 @@ def available_window(draft: dict, line_id, src_dur: float = 0.0) -> float:
             a, b = parse_ts(cs), parse_ts(ce)
         except Exception:
             continue
-        hold = (ln.get("narration_silence_seconds")
-                or ln.get("film_speaks_seconds"))
+        # ONE definition of "what footage this line really occupies", shared
+        # with the fitter, the stems pass and the post-render check. This was a
+        # hold-only copy, which is right for a wordless unit but blind to a
+        # narrated line carrying an oversized hold.
+        _fp = _fpm.footprint(ln, 0.0)
         rows.append({"id": ln.get("id"), "a": a, "b": b,
-                     "real_b": max(b, a + float(hold)) if hold else b})
+                     "real_b": _fp[1] if _fp else b})
     rows.sort(key=lambda r: r["a"])
     for i, r in enumerate(rows):
         if r["id"] != line_id:
@@ -211,11 +215,34 @@ def capacity_findings(draft: dict, narration: list,
             continue
         if ln.get("pool") or ln.get("montage"):
             continue
-        if (ln.get("narration_silence_seconds") is not None
-                or ln.get("film_speaks_seconds") is not None):
-            continue
         cs, ce = ln.get("clip_start"), ln.get("clip_end")
         if not cs or not ce:
+            continue
+        _hold = ln.get("narration_silence_seconds")
+        if _hold is None:
+            _hold = ln.get("film_speaks_seconds")
+        if _hold is not None:
+            # A WORDLESS unit has a capacity too, and it used to be skipped
+            # here on the grounds that it "carries no narration". It carries no
+            # narration but it does carry a LENGTH: _build_silence_clip reads
+            # the authored hold straight from the source at real speed, with no
+            # `-t` and no slowdown available to absorb an overrun. So a 6.0s
+            # hold in a 5.52s window plays 0.48s of the NEXT line's footage -
+            # which is exactly what lines 101 and 100 did in the finished file.
+            # Capacity is the bare window: BINDING_SLOWDOWN_MAX does not apply,
+            # because nothing slows a hold.
+            try:
+                need = max(0.0, float(_hold))
+                shot_dur = max(0.0, parse_ts(ce) - parse_ts(cs))
+            except (TypeError, ValueError):
+                continue
+            if shot_dur <= 0 or need <= shot_dur + 0.01:
+                continue
+            out.append({"line_id": lid, "words": 0, "tag": ln.get("tag"),
+                        "narr_dur": 0.0, "hold": need, "wordless": True,
+                        "shot_dur": shot_dur, "need": need,
+                        "capacity": shot_dur, "over": need - shot_dur,
+                        "ratio": need / shot_dur})
             continue
         narr_dur = float(dur_by_id.get(lid) or 0.0)
         if narr_dur <= 0:
