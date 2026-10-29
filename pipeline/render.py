@@ -1065,20 +1065,53 @@ def _split_points_impl(window_dur: float, clip_len: float, cuts: list,
     thr = float(getattr(config, "SPLIT_CLIP_SEC", 8.0))
     if clip_len <= thr or window_dur <= 0.5 or not cuts:
         return []
-    want = 3 if clip_len > thr * 2 else 2
     inner = [c for c in cuts if start + 1.2 < c < end - 1.2]
     if not inner:
         return []
-    bounds = [start]
-    for i in range(1, want):
-        ideal = start + window_dur * i / want
-        pick = min(inner, key=lambda c: abs(c - ideal))
-        if pick - bounds[-1] >= 1.2:
-            bounds.append(pick)
-    bounds.append(end)
-    segs = [(bounds[i], bounds[i + 1]) for i in range(len(bounds) - 1)]
-    segs = [(a, b) for a, b in segs if b - a >= 1.2]
-    return segs if len(segs) >= 2 else []
+
+    # EVERY SUB-SHOT MUST BE ABLE TO FILL ITS OWN SHARE OF THE SCREEN TIME.
+    #
+    # THE DEFECT: each sub-shot gets an EQUAL share, clip_len/n, but this
+    # function used to pick the cut NEAREST the ideal boundary without asking
+    # whether the resulting sub-shot had that much footage in it. On line 24 it
+    # chose a cut 2.173s into a 13.583s window, so a 2.173s sub-shot was asked
+    # for 4.363s of screen time. The builder can reach 2.173 + 0.5 read-ahead
+    # + 0.3 of capped clone = 2.973s and `trim` cannot extend, so the clip was
+    # written 1.39s short - and a short clip truncates the whole film in the
+    # xfade chain. Five lines in this draft were affected.
+    #
+    # The guarantee is made against the segment's OWN footage, not against
+    # footage + read-ahead + clone: relying on cloned frames to meet a
+    # duration is how the freeze defects happened in the first place.
+    #
+    # Feasible whenever window_dur >= clip_len, which is exactly when the line
+    # is not being slowed - and a slowed line is never split, because
+    # clip_len > window_dur there leaves no room for n shares.
+    for want in (3, 2) if clip_len > thr * 2 else (2,):
+        share = clip_len / want
+        bounds = [start]
+        ok = True
+        for i in range(1, want):
+            remaining = want - i          # segments still to come after this
+            lo = bounds[-1] + share       # this segment must cover its share
+            hi = end - share * remaining  # ...and leave room for the rest
+            feasible = [c for c in inner if lo - 1e-6 <= c <= hi + 1e-6]
+            if not feasible:
+                ok = False
+                break
+            ideal = start + window_dur * i / want
+            bounds.append(min(feasible, key=lambda c: abs(c - ideal)))
+        if not ok:
+            continue
+        bounds.append(end)
+        segs = [(bounds[i], bounds[i + 1]) for i in range(len(bounds) - 1)]
+        if len(segs) == want and all(b - a >= max(1.2, share) - 1e-6
+                                     for a, b in segs):
+            return segs
+    # No set of real cuts can carry equal shares - so do not split. A single
+    # clip is the old behaviour and is always correct; an under-fed sub-shot is
+    # not.
+    return []
 
 
 def _clip_signature(source: Path, start: float, end: float, hold: float,
@@ -1537,6 +1570,68 @@ def render(project: str, draft: dict,
     if not _pf.report(_pf_find, project):
         sys.exit(1)
 
+    _cutlist: list = []
+    try:
+        from pipeline import cuts as _cutsmod
+        _cutlist = sorted(float(c) for c in (_cutsmod.load_cuts(project) or []))
+    except Exception as _e:
+        _cutlist = []
+    if _cutlist:
+        console.print(f"[cyan]Clip splitting:[/] lines over "
+                      f"{float(getattr(config, 'SPLIT_CLIP_SEC', 8.0)):.0f}s "
+                      f"are cut across 2-3 shots ({len(_cutlist)} cuts available)")
+    else:
+        console.print("[yellow]Clip splitting:[/] no cut list - long lines stay "
+                      "on one shot. Splitting without real cut points would "
+                      "make jump cuts inside a single take.")
+
+    # ---- SHORT-CLIP PRE-FLIGHT: dry-compute every clip, before encoding -----
+    # "Does the narration fit the window" and "can the PICTURE supply the clip"
+    # are different questions, and only the first was being asked. clip_024
+    # claimed 8.726s and its video stream was 7.367s: the builder splits a long
+    # line across cuts and gives each sub-shot an EQUAL share of screen time,
+    # and the splitter had picked a cut 2.173s into the window, so a 2.173s
+    # sub-shot was asked for 4.363s. `trim` cannot extend and the clone is
+    # capped, so the clip came out short - and a short clip truncates the whole
+    # film in the xfade chain.
+    #
+    # The per-clip verification in _verify_clip catches this, but it stops at
+    # the FIRST offender after however many minutes of encoding it took to
+    # reach it. Five lines in this draft were short, which is five sequential
+    # renders to find them one at a time. So compute every clip's real reach
+    # here, from the same shared formula the builder uses, and list all of them
+    # in one pass before a single frame is encoded.
+    from pipeline import footprint as _fpmod
+    _sc_durs = {lid: d for lid, _p, d in narration}
+    # A region-censored clip is never split (the box describes one shot's
+    # framing), so the reach calculation has to know which lines carry one or
+    # it will model a split that will not happen.
+    _sc_regions = {}
+    for _ln in draft["lines"]:
+        _k = (_ln.get("clip_start"), _ln.get("clip_end"))
+        if _k in region_by_clip:
+            _sc_regions[_ln.get("id")] = region_by_clip[_k]
+    _sc_bad = _fpmod.short_clips(draft, _sc_durs, _cutlist,
+                                 regions=_sc_regions)
+    if _sc_bad:
+        console.print(
+            f"[red][SHORT-CLIP][/] {len(_sc_bad)} line(s) would be built with "
+            f"a video stream shorter than the clip asks for:")
+        console.print(f"[red]  {'line':>5} {'needs':>8} {'reach':>8} "
+                      f"{'short':>7}  why[/]")
+        for _b in _sc_bad:
+            console.print(
+                f"[red]  {_b['line_id']:>5} {_b['required']:>8.3f} "
+                f"{_b['reach']:>8.3f} {_b['short_by']:>7.3f}  {_b['why']}[/]")
+        console.print("[red]  A short clip is invisible until the picture "
+                      "stops: the xfade chain lays the next clip past the end "
+                      "of this one and the film loses everything after it. "
+                      "Widen the window, or re-point the line so its cuts can "
+                      "carry equal shares.[/]")
+        sys.exit(1)
+    console.print(f"[dim][SHORT-CLIP] all {len(_sc_durs)} narrated clip(s) "
+                  f"can supply their full length.[/]")
+
     # ---- ONE NARRATOR: measure the real audio before building anything ------
     # Steering is a request to a model, not a knob on a waveform, so the only
     # honest check that the voice is consistent is to measure what came back.
@@ -1579,21 +1674,6 @@ def render(project: str, draft: dict,
     # render as single clips - which is the old behaviour, and is correct: a
     # missing cut list is a reason not to split, not a reason to invent a
     # boundary inside a continuous take.
-    _cutlist: list = []
-    try:
-        from pipeline import cuts as _cutsmod
-        _cutlist = sorted(float(c) for c in (_cutsmod.load_cuts(project) or []))
-    except Exception as _e:
-        _cutlist = []
-    if _cutlist:
-        console.print(f"[cyan]Clip splitting:[/] lines over "
-                      f"{float(getattr(config, 'SPLIT_CLIP_SEC', 8.0)):.0f}s "
-                      f"are cut across 2-3 shots ({len(_cutlist)} cuts available)")
-    else:
-        console.print("[yellow]Clip splitting:[/] no cut list - long lines stay "
-                      "on one shot. Splitting without real cut points would "
-                      "make jump cuts inside a single take.")
-
     # ---- which clip sits immediately BEFORE a <reveal> line? -------------
     # That clip's tail gets the film audio raised, so the reveal lands out of
     # the film's own sound rather than out of nothing.

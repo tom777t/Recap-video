@@ -253,7 +253,17 @@ def capacity_findings(draft: dict, narration: list,
             continue
         if shot_dur <= 0:
             continue
-        need = _lead_for(narr_dur, shot_dur) + narr_dur + GAP
+        # THE SHARED FORMULA. This line used to read
+        #     need = _lead_for(narr_dur, shot_dur) + narr_dur + GAP
+        # which omitted config.PRE_REVEAL_PAUSE - the extra front silence the
+        # RENDER adds on a <reveal> line. On 17 lines of this draft the
+        # pre-flight therefore required 0.6s less picture than the renderer
+        # went on to build, so the two could disagree about whether a line
+        # fits. _fp.lead_and_clip is now the only place this arithmetic lives.
+        from pipeline import footprint as _fp
+        _lead, need = _fp.lead_and_clip(
+            narr_dur, shot_dur,
+            float(ln.get("hold") or 0.0), _fp.reveal_extra(ln))
         cap = shot_dur * BINDING_SLOWDOWN_MAX
         if need <= cap:
             continue
