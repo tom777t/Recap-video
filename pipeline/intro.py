@@ -600,16 +600,37 @@ def prepend_to_final(project: str, final: Path) -> float:
            "-c:v", "copy", "-c:a", "aac", "-b:a", "192k", "-ar", "48000",
            "-ac", "2", str(tmp)]
     r = subprocess.run(cmd, capture_output=True, text=True)
-    if r.returncode != 0 or not tmp.exists():
+
+    # DID THE JOIN ACTUALLY WORK? A non-zero exit is the easy case. The
+    # dangerous case is exit 0 with a broken file: the concat demuxer will
+    # stream-copy video happily and then stop writing packets when the
+    # segments' parameters stop matching, while the re-encoded audio runs to
+    # full length. The result is a file whose container duration looks correct
+    # (it reports the LONGER stream) and whose picture ends early. An earlier
+    # version of this function shipped the mirror-image bug - video 39.63s,
+    # audio 79.35s - and its fix was to re-encode the audio, with no check
+    # that the output was then correct. So: measure both streams and require
+    # them to agree with each other and with the sum of the parts.
+    from pipeline import probe as _probe
+    _want = block_dur + fi_dur + _dur(final)
+    _join_bad = []
+    if r.returncode == 0 and tmp.exists():
+        _join_bad = _probe.verify(tmp, expect_dur=_want)
+        if _join_bad:
+            console.print("[yellow]Intro join:[/] the stream-copy produced a "
+                          "file that does not measure correctly:")
+            for _b in _join_bad:
+                console.print(f"[yellow]    {_b['msg']}[/]")
+    if r.returncode != 0 or not tmp.exists() or _join_bad:
         # The demuxer needs byte-identical stream parameters and the segments
         # do not always have them - the story half goes through the music mix
         # and loudnorm, the intro segments do not. Fall back to the concat
         # FILTER, which re-encodes and therefore always works. The cost is real:
         # it re-encodes the WHOLE film to put the opening on the front, worth it
         # only because the alternative is shipping a film with no opening.
-        console.print("[yellow]Intro join:[/] stream-copy refused (segments "
-                      "differ); re-encoding to concatenate. Slower on a long "
-                      "film.")
+        console.print("[yellow]Intro join:[/] stream-copy refused or "
+                      "mis-measured; re-encoding to concatenate. Slower on a "
+                      "long film.")
         _n = len(_parts)
         _ins = []
         for p in _parts:
@@ -629,6 +650,16 @@ def prepend_to_final(project: str, final: Path) -> float:
                       "the film; leaving final.mp4 without it.[/]")
         console.print((r.stderr or "")[-500:])
         return 0.0
+    # The re-encode path gets measured too. If BOTH joins produce a broken
+    # file, that is a stop - not a thing to paste onto final.mp4 and hope.
+    _bad2 = _probe.verify(tmp, expect_dur=_want)
+    if _bad2:
+        console.print("[red]Intro join:[/] the joined file is still wrong "
+                      "after re-encoding:")
+        for _b in _bad2:
+            console.print(f"[red]    {_b['msg']}[/]")
+        console.print("[red]  Refusing to overwrite final.mp4 with it.[/]")
+        raise RuntimeError("intro join produced a malformed file")
     tmp.replace(final)
     total_intro = block_dur + fi_dur
     _fi_note = (f" + film-intro {fi_dur:.1f}s" if fi_dur else

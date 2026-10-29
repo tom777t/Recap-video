@@ -104,6 +104,55 @@ def _run(cmd: list[str], desc: str):
     return proc
 
 
+def _verify_clip(out: Path, clip_len: float, what: str) -> None:
+    """A built clip must really be as long as it claims, in BOTH streams.
+
+    THE DEFECT THIS CATCHES: nine clips in the Tokyo Drift cache have a video
+    stream shorter than their audio - the worst by 3.0s. `-t clip_len` is on
+    the OUTPUT, so it can only trim; if the video filter chain produces less
+    than clip_len, the clip is simply written short and ffmpeg exits 0. The
+    clip loop then reports `clip_len` to the xfade chain, every xfade offset
+    downstream is computed from a number that is not true, and `xfade` stops
+    advancing the picture - which is how a 17-minute film ended up with 4
+    minutes of video and 17 minutes of audio.
+
+    So every clip is measured the moment it is written. This is the cheapest
+    possible place to catch it: one ffprobe against a file already on disk,
+    and it names the line instead of leaving a silent hole in the film.
+    """
+    from pipeline import probe as _probe
+    if not Path(out).exists():
+        # `_run` exits the process when ffmpeg fails, so in a real render the
+        # file is always here by now. Absence means the caller stubbed the
+        # runner to inspect the filtergraph without encoding - which is how
+        # test_stems checks that the audio chain reads the no-vocals stem.
+        # Nothing to measure, and nothing to complain about.
+        return
+    st = _probe.streams(out)
+    v, a = st.get("video"), st.get("audio")
+    tol = 2.0 / float(config.OUTPUT_FPS or 30)     # two frames
+    if v is None:
+        console.print(f"[red]{what}: the clip has no video stream.[/]")
+        sys.exit(1)
+    if v["duration"] + tol < float(clip_len):
+        console.print(
+            f"[red]{what}: the clip is SHORT. It claims {clip_len:.3f}s but "
+            f"its video stream is {v['duration']:.3f}s "
+            f"({v['duration'] - float(clip_len):+.3f}s).[/]")
+        console.print(
+            "[red]  A short clip silently truncates the whole film: the "
+            "xfade chain lays the next clip at an offset past the end of "
+            "this one, and the picture stops advancing there while the "
+            "soundtrack plays on. Widen the window or shorten the hold.[/]")
+        sys.exit(1)
+    if a is not None and abs(a["duration"] - v["duration"]) > 0.25:
+        console.print(
+            f"[red]{what}: video is {v['duration']:.3f}s but audio is "
+            f"{a['duration']:.3f}s - the streams disagree by "
+            f"{a['duration'] - v['duration']:+.3f}s.[/]")
+        sys.exit(1)
+
+
 def _audio_dur(ff_probe: str, path: Path) -> float:
     out = subprocess.run(
         [ff_probe, "-v", "error", "-show_entries", "format=duration",
@@ -313,7 +362,21 @@ def _build_clip(ff: str, source: Path, start: float, end: float,
 
     src_in = ["-ss", f"{start:.3f}"]
     if setpts_factor > 1.0001 and shot_dur > 0:
-        src_in += ["-t", f"{shot_dur:.3f}"]
+        # READ ENOUGH SOURCE TO FILL clip_len. This used to be `-t shot_dur`,
+        # which reads exactly the window and therefore produces
+        # shot_dur*setpts_factor = narr_need seconds of picture. When clip_len
+        # is LARGER than narr_need (a narrated line that also carries a `hold`)
+        # the picture ran out, and nothing could put it back: `tpad` is capped
+        # at MAX_FREEZE_SEC and `trim` only truncates, it cannot extend. The
+        # clip was written with a video stream shorter than its audio, which
+        # then truncated the whole film in the xfade chain.
+        #
+        # The answer is the same as everywhere else in this renderer: when
+        # there is not enough picture, read MORE PICTURE. Output video length
+        # is input_len * setpts_factor, so clip_len needs clip_len/factor of
+        # source.
+        _need_src = max(float(shot_dur), float(clip_len) / setpts_factor)
+        src_in += ["-t", f"{_need_src:.3f}"]
     src_in += ["-i", str(source)]
 
     # ---- FILM AUDIO under the voice (2026-10-20) -------------------------
@@ -463,6 +526,7 @@ def _build_clip(ff: str, source: Path, start: float, end: float,
         str(out),
     ]
     _run(cmd, f"build clip {out.name}")
+    _verify_clip(out, clip_len, f"clip {out.name}")
     return clip_len
 
 
@@ -602,6 +666,7 @@ def _build_silence_clip(ff: str, source: Path, start: float, end: float,
         str(out),
     ]
     _run(cmd, f"build silence clip {out.name}")
+    _verify_clip(out, clip_len, f"hold clip {out.name}")
     return clip_len
 
 
@@ -718,7 +783,9 @@ def _xfade_chain(ff: str, clips: list[tuple[Path, float]], out: Path):
 
     if len(batch_files) == 1:
         batch_files[0][0].replace(out)
-        return batch_files[0][1]
+        from pipeline import probe as _probe
+        _v = _probe.streams(out).get("video")
+        return float(_v["duration"]) if _v else float(batch_files[0][1])
 
     # Second pass: xfade the batch results together
     total = _xfade_single(ff, batch_files, out)
@@ -729,7 +796,42 @@ def _xfade_single(ff: str, clips: list[tuple[Path, float]], out: Path) -> float:
     """xfade a list of (path,dur) into one file. Returns total duration."""
     if len(clips) == 1:
         clips[0][0].replace(out)
-        return clips[0][1]
+        # measured, not claimed - this path moves a file and used to pass the
+        # plan's number straight through
+        from pipeline import probe as _probe
+        _v = _probe.streams(out).get("video")
+        return float(_v["duration"]) if _v else float(clips[0][1])
+
+    # MEASURE EVERY INPUT. The offsets below are absolute positions on the
+    # output timeline, and `xfade` cannot place a transition past the end of
+    # its left-hand input: when the offset overshoots, the chain STOPS
+    # ADVANCING THE PICTURE and every later clip is dropped, while
+    # `acrossfade` - which takes no offset and chains on whatever the decoder
+    # hands it - keeps the full soundtrack. Reproduced exactly: six 5.0s clips
+    # declared as 6.0s returned 34.600s and wrote a file with 5.03s of video
+    # and 34.600s of audio. That is the Tokyo Drift defect in miniature (255s
+    # of video under 1054s of audio).
+    #
+    # The claimed durations came from the clip loop's cursor arithmetic, so
+    # the one thing the offsets must NOT be computed from is the plan.
+    from pipeline import probe as _probe
+    real: list[float] = []
+    for p, claimed in clips:
+        st = _probe.streams(Path(p))
+        v = st.get("video")
+        rd = float(v["duration"]) if v else 0.0
+        if rd <= 0:
+            console.print(f"[red]xfade: {Path(p).name} has no measurable "
+                          f"video stream.[/]")
+            sys.exit(1)
+        if abs(rd - float(claimed)) > 0.05:
+            console.print(
+                f"[yellow]xfade: {Path(p).name} claims "
+                f"{float(claimed):.3f}s but measures {rd:.3f}s "
+                f"({rd - float(claimed):+.3f}s) - using the MEASURED "
+                f"length.[/]")
+        real.append(rd)
+    clips = [(p, real[i]) for i, (p, _c) in enumerate(clips)]
 
     inputs = []
     for p, _ in clips:
@@ -786,7 +888,36 @@ def _xfade_single(ff: str, clips: list[tuple[Path, float]], out: Path) -> float:
         str(out),
     ]
     _run(cmd, f"xfade chain -> {out.name}")
-    return cumulative
+
+    # RETURN WHAT THE FILE IS, NOT WHAT THE ARITHMETIC SAID. This used to
+    # `return cumulative`, and that single line is why a truncated film could
+    # be reported as 17.6 minutes long: every downstream consumer - the
+    # caption clock, the music track length, the position gate, the final
+    # `-t` - was handed a number computed in this loop rather than measured
+    # off the result. _position_offsets' own docstring records the same lesson
+    # about the check it replaced: "Both sides came from clips[]; neither
+    # looked at the rendered file."
+    st = _probe.streams(out)
+    v, a = st.get("video"), st.get("audio")
+    if v is None:
+        console.print(f"[red]xfade: {out.name} has no video stream.[/]")
+        sys.exit(1)
+    measured = float(v["duration"])
+    if abs(measured - cumulative) > 0.25:
+        console.print(
+            f"[red]xfade: {out.name} should be {cumulative:.3f}s but its "
+            f"video stream is {measured:.3f}s ({measured - cumulative:+.3f}s)."
+            f"[/]")
+        console.print("[red]  The picture was dropped somewhere in the "
+                      "chain. Refusing to build a film on it.[/]")
+        sys.exit(1)
+    if a is not None and abs(a["duration"] - measured) > 0.25:
+        console.print(
+            f"[red]xfade: {out.name} video is {measured:.3f}s but audio is "
+            f"{a['duration']:.3f}s "
+            f"({a['duration'] - measured:+.3f}s).[/]")
+        sys.exit(1)
+    return measured
 
 
 POSITION_TOLERANCE = 0.25   # seconds a line may sit off its timeline slot
@@ -1527,6 +1658,12 @@ def render(project: str, draft: dict,
                 clip_len = float(sil_secs)
                 reused = True
                 n_cached += 1
+                # VERIFY THE CACHE HIT. A cached clip is copied in and its
+                # length is taken from the formula, never from the file - so a
+                # clip built short under older rules is served silently
+                # forever. Nine such clips are in this project's cache, the
+                # worst with 3.0s less video than audio.
+                _verify_clip(cout, clip_len, f"cached hold clip (line {lid})")
             else:
                 clip_len = _build_silence_clip(ff, source, start, end, cout,
                                                sil_secs, idx, crop_top,
@@ -1706,6 +1843,7 @@ def render(project: str, draft: dict,
             clip_len = max(lead + narr_dur + GAP, hold)
             reused = True
             n_cached += 1
+            _verify_clip(cout, clip_len, f"cached clip (line {lid})")
         else:
             clip_len = _build_clip(ff, source, start, end, audio_path, narr_dur,
                                    cout, idx, crop_top, hold, censor, censor_region,
@@ -2023,6 +2161,29 @@ def render(project: str, draft: dict,
     else:
         for _b in _qbad:
             problems.append(f"quality contract: {_b}")
+
+    # ---- THE FILE ITSELF, measured, before any check that reads the plan ----
+    # This runs FIRST and it is FATAL, because every other post-render check
+    # assumes the file is the length it was asked for, and one of them cannot
+    # notice when it is not: freezedetect on a file whose video stream has
+    # ENDED scans only the frames that exist, finds nothing, and reports the
+    # film clean. That is how a final.mp4 with 255.77s of video under 1054.47s
+    # of audio - the picture gone from 4:15.8 to 17:34.5 - passed MOTION-CHECK.
+    #
+    # `probe` is told one number, the duration the render believes it built,
+    # and it checks it rather than trusting it.
+    from pipeline import probe as _probe
+    console.print(f"[dim][FILE-CHECK] {_probe.describe(final)}[/]")
+    _fbad = _probe.verify(final, expect_dur=total_dur + intro_offset)
+    if _fbad:
+        console.print("[red][FILE-CHECK][/] final.mp4 is not the file the "
+                      "render thinks it built:")
+        for _b in _fbad:
+            console.print(f"[red]    {_b['msg']}[/]")
+        console.print("[red]  This is a publish blocker. A short video stream "
+                      "is invisible in every player until the moment the "
+                      "picture stops.[/]")
+        sys.exit(1)
 
     # ---- FROZEN / REPEATED FOOTAGE on the finished file ---------------------
     # The build rules cap slow-motion and freezes, but a freeze has sources
