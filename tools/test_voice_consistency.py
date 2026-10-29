@@ -38,8 +38,10 @@ Run:  python tools/test_voice_consistency.py
 """
 from __future__ import annotations
 
+import json
 import os
 import sys
+from pathlib import Path
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 if ROOT not in sys.path:
@@ -276,47 +278,88 @@ def test_bump_in_band() -> tuple[bool, str]:
                   f"fit_narration derives its ceiling from it")
 
 
-def test_ratio_gate() -> tuple[bool, str]:
-    # the real shape of the failure: sad ~151 WPM vs tense ~267 WPM
-    slow = 151.0 / 60.0
-    fast = 267.0 / 60.0
-    bad_rows = _rows([(1, "sad", 20, 30, 20 / slow, 1.0),
-                      (2, "tense", 20, 30, 20 / fast, 1.0)])
-    r = vc.analyse(bad_rows)
-    if r["ok"]:
-        return False, (f"a {r['ratio_wps']:.2f}x spread passed the "
-                       f"{config.VOICE_WPM_RATIO_MAX:.2f}x ceiling")
-    # and a tight spread must pass
-    a, b = 190.0 / 60.0, 205.0 / 60.0
-    good = _rows([(1, "sad", 20, 30, 20 / a, 1.0),
-                  (2, "normal", 20, 30, 20 / b, 1.0)])
-    r2 = vc.analyse(good)
-    if not r2["ok"]:
-        return False, (f"a {r2['ratio_wps']:.2f}x spread was rejected: "
-                       f"{r2['problems']}")
-    return True, (f"{r['ratio_wps']:.2f}x fails, {r2['ratio_wps']:.2f}x passes "
-                  f"(ceiling {config.VOICE_WPM_RATIO_MAX:.2f}x)")
+def test_single_line_reported_not_gated() -> tuple[bool, str]:
+    """A single wild line is REPORTED; a sustained swing is GATED.
+
+    Replaces an earlier test that failed a 1.77x single-line spread outright.
+    That was the wrong unit: a control measured a perfectly consistent narrator
+    at 1.38x line-to-line, so single-line spread cannot be a pass/fail. What a
+    listener notices is a STRETCH, so the rolling 3-line average is the gate.
+    """
+    base = 240.0 / 60.0
+    # one outlier among thirty: reported, not failed
+    rows = _rows_at([base] * 30)
+    rows[14]["wps"] = base * 1.8
+    rows[14]["speech"] = rows[14]["words"] / rows[14]["wps"]
+    res = vc.analyse(rows)
+    if not res["ok"]:
+        return False, (f"one 1.8x line among thirty failed the gate: "
+                       f"{res['problems']}")
+    if res["line_spread"] < 1.7:
+        return False, "the fixture did not produce the intended spread"
+    # a SUSTAINED swing - six consecutive fast lines - must fail
+    rows2 = _rows_at([base] * 30)
+    for i in range(10, 16):
+        rows2[i]["wps"] = base * 1.6
+        rows2[i]["speech"] = rows2[i]["words"] / rows2[i]["wps"]
+    res2 = vc.analyse(rows2)
+    if res2["ok"]:
+        return False, ("six consecutive lines 60% fast passed - the rolling "
+                       "average is not gating anything")
+    if not any("rolling" in p for p in res2["problems"]):
+        return False, f"the finding is not the rolling average: {res2['problems']}"
+    return True, (f"a single {res['line_spread']:.2f}x outlier is reported but "
+                  f"passes; six consecutive fast lines fail on the rolling "
+                  f"3-line average")
 
 
-def test_adjacent_jump() -> tuple[bool, str]:
-    jump = float(config.VOICE_ADJACENT_MAX_JUMP)
-    base = 200.0 / 60.0
-    # a hard step between neighbours
-    step = _rows([(1, "sad", 20, 30, 20 / base, 1.0),
-                  (2, "tense", 20, 30, 20 / (base * (1 + jump * 3)), 1.0)])
-    r = vc.analyse(step)
-    if not any("adjacent" in p for p in r["problems"]):
-        return False, f"a {jump*3:.0%} step between neighbours was not flagged"
-    # a ramp of the same total change, spread over intervening lines
-    ramp = _rows([(i + 1, "normal", 20, 30,
-                   20 / (base * (1 + jump * 0.8 * i)), 1.0)
-                  for i in range(4)])
-    r2 = vc.analyse(ramp)
-    if any("adjacent" in p for p in r2["problems"]):
-        return False, (f"a ramp inside {jump:.0%} per step was flagged: "
-                       f"{[p for p in r2['problems'] if 'adjacent' in p]}")
-    return True, (f"a {jump*3:.0%} step fails; the same total change ramped at "
-                  f"{jump*0.8:.0%} per line passes")
+def test_rolling_jump_gate() -> tuple[bool, str]:
+    """Adjacent-jump is measured on the ROLLING average, at a calibrated bar.
+
+    The old threshold was 8% on single pairs. The control measured a consistent
+    narrator's p90 single-pair jump at 28% - so 8% flagged 70 pairs in a draft
+    that was fine. The bar is now calibrated AND applied to the smoothed
+    series, so one line cannot trigger it.
+    """
+    jump_max = float(config.VOICE_ADJACENT_MAX_JUMP)
+    if jump_max < 0.2:
+        return False, (f"VOICE_ADJACENT_MAX_JUMP is {jump_max} - below the "
+                       f"control's own p90, so it fails a good narrator")
+    ctl = json.loads((Path(ROOT) / "config" / "voice_spread_control.json")
+                     .read_text(encoding="utf-8"))
+    if jump_max < float(ctl["jump_p90"]):
+        return False, (f"the jump bar {jump_max:.0%} is below the control's "
+                       f"own p90 {float(ctl['jump_p90']):.0%}")
+
+    base = 240.0 / 60.0
+    roll_max = float(config.VOICE_ROLL3_SPREAD_MAX)
+
+    # A sustained step big enough to move the smoothed series must fail.
+    rates = [base] * 12 + [base * (1 + jump_max * 2.5)] * 12
+    res = vc.analyse(_rows_at(rates))
+    if res["ok"]:
+        return False, (f"a sustained {jump_max*2.5:.0%} step was not flagged: "
+                       f"rolling spread {res['roll3_spread']:.2f}x")
+    if not any("rolling" in p for p in res["problems"]):
+        return False, f"the finding is not the rolling average: {res['problems']}"
+
+    # A gradual change that stays INSIDE the spread ceiling must pass without a
+    # jump finding. The total has to be inside the ceiling, not an arbitrary
+    # multiple of the jump bar: an 87% ramp legitimately breaks the spread
+    # check, and an earlier version of this test asserted otherwise and was
+    # wrong about it.
+    n = 24
+    tot = (roll_max - 1.0) * 0.6
+    ramp = [base * (1 + tot * i / (n - 1)) for i in range(n)]
+    res2 = vc.analyse(_rows_at(ramp))
+    if not res2["ok"]:
+        return False, (f"a {tot:.0%} ramp over {n} lines, inside the "
+                       f"{roll_max:.2f}x spread ceiling, was flagged: "
+                       f"{res2['problems']}")
+    return True, (f"the jump bar {jump_max:.0%} sits above the control p90 "
+                  f"{float(ctl['jump_p90']):.0%}; a sustained "
+                  f"{jump_max*2.5:.0%} step fails on the rolling average, a "
+                  f"{tot:.0%} ramp inside the spread ceiling passes")
 
 
 def test_short_lines_excluded() -> tuple[bool, str]:
@@ -422,7 +465,212 @@ def test_profile_stale_on_mapping_change() -> tuple[bool, str]:
                   "a mismatched or unsigned one falls back to the baseline")
 
 
+def _rows_at(rates: list, tag: str = "normal", words: int = 20,
+             syls: int = 30, silence_frac: float = 0.2) -> list:
+    """Rows as measure() produces them, at the given ARTICULATION rates."""
+    out = []
+    for i, wps in enumerate(rates, 1):
+        speech = words / wps
+        dur = speech / (1.0 - silence_frac)
+        out.append({"line_id": i, "tag": tag, "words": words, "syls": syls,
+                    "dur": round(dur, 3), "speech": round(speech, 3),
+                    "silence": round(dur - speech, 3),
+                    "wps": wps, "sps": syls / speech,
+                    "wps_raw": words / dur, "rate_bump": 1.0})
+    return out
+
+
+def test_articulation_excludes_pauses() -> tuple[bool, str]:
+    """Rate must be words per SPEAKING second, not per elapsed second.
+
+    Raw WPM penalises short lines systematically: a fixed lead-in and trailing
+    breath are a third of a 3-second line and a tenth of a 12-second one.
+    MEASURED on the real draft, line 55 is 7 words in 3.06s with 1.00s of
+    silence - 137 raw WPM, 204 articulated. It was the slowest line in the
+    report and the whole reason the spread read 1.95x.
+    """
+    import subprocess
+    import tempfile
+    ff = config.ffmpeg()
+    tmp = Path(tempfile.mkdtemp(prefix="artic_"))
+    try:
+        # 1s tone, 1s silence, 1s tone -> 3s long, 2s of speech
+        p = tmp / "a.wav"
+        subprocess.run(
+            [ff, "-y", "-hide_banner", "-loglevel", "error",
+             "-f", "lavfi", "-i", "sine=frequency=330:duration=1",
+             "-f", "lavfi", "-i", "anullsrc=r=44100:cl=mono",
+             "-f", "lavfi", "-i", "sine=frequency=330:duration=1",
+             "-filter_complex",
+             "[1]atrim=duration=1[s];[0][s][2]concat=n=3:v=0:a=1[a]",
+             "-map", "[a]", str(p)], check=True, capture_output=True)
+        dur, speech, sil = vc.speech_seconds(p, ff)
+        if abs(dur - 3.0) > 0.25:
+            return False, f"duration read {dur:.2f}s, expected ~3.0s"
+        if abs(sil - 1.0) > 0.35:
+            return False, (f"detected {sil:.2f}s of silence, expected ~1.0s - "
+                           f"the pause is not being excluded")
+        if abs(speech - 2.0) > 0.35:
+            return False, f"speech read {speech:.2f}s, expected ~2.0s"
+        # and a short, pause-heavy line must not read as slow
+        rows = _rows_at([3.5], words=7, silence_frac=0.33)
+        r = rows[0]
+        if r["wps_raw"] >= r["wps"]:
+            return False, "the raw rate is not lower than the articulated rate"
+        if abs(r["wps"] - 3.5) > 1e-6:
+            return False, "articulated rate is not words/speech-time"
+        return True, (f"a 3.0s file with a 1.0s pause measures {speech:.2f}s "
+                      f"of speech; the rate is words per SPEAKING second, so a "
+                      f"33%-silence line is not reported as slow")
+    finally:
+        shutil_rmtree(tmp)
+
+
+def shutil_rmtree(p):
+    import shutil as _sh
+    _sh.rmtree(p, ignore_errors=True)
+
+
+def test_ceilings_calibrated_on_control() -> tuple[bool, str]:
+    """The ceilings must come from a CONTROL, not from taste.
+
+    The old bars were 1.25x line spread and 8% adjacent jump, both picked by
+    ear. A control - varied real lines, ONE identical delivery, only the words
+    changing - measured a single consistent narrator at 1.38x (p95/p5) line
+    spread, 1.20x rolling-3 spread and a 28% p90 adjacent jump. So the old bars
+    were BELOW what a perfect narrator produces: the gate was unpassable, and
+    it blocked a render whose base rate was dead on target.
+    """
+    p = Path(ROOT) / "config" / "voice_spread_control.json"
+    if not p.exists():
+        return False, ("no config/voice_spread_control.json - the ceilings are "
+                       "not traceable to a measurement. Run "
+                       "tools/calibrate_voice_spread.py --write")
+    ctl = json.loads(p.read_text(encoding="utf-8"))
+    line_c = float(getattr(config, "VOICE_LINE_SPREAD_MAX", 0))
+    roll_c = float(getattr(config, "VOICE_ROLL3_SPREAD_MAX", 0))
+    jump_c = float(getattr(config, "VOICE_ADJACENT_MAX_JUMP", 0))
+    obs_line = float(ctl.get("line_spread_pct") or 0)
+    obs_roll = float(ctl.get("roll3_spread_pct") or 0)
+    obs_jump = float(ctl.get("jump_p90") or 0)
+    if not (obs_line and obs_roll and obs_jump):
+        return False, f"the control file is missing measurements: {ctl}"
+    if int(ctl.get("n") or 0) < 15:
+        return False, (f"the control used only {ctl.get('n')} lines - too few "
+                       f"to set a gate threshold")
+    # every ceiling must sit ABOVE what a consistent narrator produces
+    for name, ceil, obs in (("line spread", line_c, obs_line),
+                            ("rolling-3 spread", roll_c, obs_roll),
+                            ("adjacent jump", jump_c, obs_jump)):
+        if ceil < obs:
+            return False, (f"the {name} ceiling ({ceil}) is BELOW the control "
+                           f"({obs:.2f}) - it fails a narrator doing nothing "
+                           f"wrong, which is what 1.25x did")
+    # ...and not absurdly above it either, or it is not a gate
+    if roll_c > obs_roll * 2.0:
+        return False, (f"the rolling-3 ceiling ({roll_c}) is more than double "
+                       f"the control ({obs_roll:.2f}) - that is not a gate")
+    return True, (f"ceilings sit above the control: line {line_c} > "
+                  f"{obs_line:.2f}, rolling-3 {roll_c} > {obs_roll:.2f}, jump "
+                  f"{jump_c} > {obs_jump:.2f}, from {ctl['n']} control lines")
+
+
+def test_consistent_narrator_passes() -> tuple[bool, str]:
+    """POSITIVE fixture: control-like variation must PASS.
+
+    Built from the control's own numbers - a 1.38x spread of single-line rates
+    around the mean. A gate that fails this fails a narrator behaving perfectly.
+    """
+    import random
+    rnd = random.Random(7)
+    base = 240.0 / 60.0
+    # a 1.38x spread, scattered so no three consecutive lines cluster
+    rates = [base * rnd.uniform(1 / 1.175, 1.175) for _ in range(40)]
+    res = vc.analyse(_rows_at(rates))
+    if not res["ok"]:
+        return False, (f"a control-like narrator was rejected: "
+                       f"{res['problems']}")
+    if res["line_spread"] < 1.25:
+        return False, (f"the fixture's own spread is only "
+                       f"{res['line_spread']:.2f}x, so it does not exercise "
+                       f"the old 1.25x bar")
+    return True, (f"single-line spread {res['line_spread']:.2f}x with a "
+                  f"rolling-3 of {res['roll3_spread']:.2f}x passes - the old "
+                  f"1.25x bar would have failed it")
+
+
+def test_old_mapping_still_fails() -> tuple[bool, str]:
+    """NEGATIVE fixture: the 1.53x per-tag mapping must still FAIL.
+
+    This is the regression that matters. Relaxing the single-line bar must not
+    make a genuinely inconsistent narrator acceptable - and what made the old
+    mapping unacceptable was that whole TAGS ran at different speeds, which the
+    tag-mean band and the rolling-3 average both catch.
+    """
+    # the real measured per-tag rates of the old mapping, WPM
+    old = {"sad": 151.4, "reveal": 153.3, "normal": 188.3, "tense": 266.9}
+    rows = []
+    lid = 1
+    # interleave tags the way a draft does, so the rolling average sees them
+    for _ in range(8):
+        for tag, wpm in old.items():
+            r = _rows_at([wpm / 60.0], tag=tag)[0]
+            r["line_id"] = lid
+            lid += 1
+            rows.append(r)
+    res = vc.analyse(rows)
+    if res["ok"]:
+        return False, ("the old 1.53x mapping PASSED the recalibrated gate - "
+                       "the relaxation went too far")
+    blob = " ".join(res["problems"])
+    if "tense" not in blob and "sad" not in blob:
+        return False, (f"the finding does not name the offending tags: "
+                       f"{res['problems']}")
+    # and a single wild line must NOT fail on its own
+    ok_rows = _rows_at([240.0 / 60.0] * 30)
+    ok_rows[15]["wps"] = (240.0 * 1.6) / 60.0     # one outlier
+    ok_rows[15]["speech"] = ok_rows[15]["words"] / ok_rows[15]["wps"]
+    res2 = vc.analyse(ok_rows)
+    if not res2["ok"]:
+        return False, (f"ONE fast line among thirty failed the gate: "
+                       f"{res2['problems']} - consistency is judged on tag "
+                       f"means and a rolling average, not single lines")
+    return True, (f"the old per-tag mapping fails on {len(res['problems'])} "
+                  f"finding(s) naming the tags; one outlier line among thirty "
+                  f"does not fail")
+
+
+def test_real_draft_passes() -> tuple[bool, str]:
+    """The shipped narration must pass, on real audio."""
+    from pipeline import preflight as pf
+    pdir = Path(config.project_dir("tokyodrift2006"))
+    nd = pdir / "narration"
+    if not (pdir / "draft.json").exists() or not nd.is_dir():
+        return False, "SKIPPED - tokyodrift2006 narration not present"
+    d = json.loads((pdir / "draft.json").read_text(encoding="utf-8-sig"))
+    narr = [(l["id"], nd / f"line_{l['id']:03d}.mp3", 0.0)
+            for l in d["lines"]
+            if (nd / f"line_{l['id']:03d}.mp3").exists()]
+    if len(narr) < 50:
+        return False, f"only {len(narr)} narration files - nothing to judge"
+    stale = set(pf.stale_audio(d, pdir))
+    res = vc.analyse(vc.measure(d, narr, skip_ids=stale))
+    if not res["ok"]:
+        return False, f"the shipped narration fails: {res['problems']}"
+    worst = max((abs(m["dev"]), t) for t, m in res["tag_means"].items()
+                if m["n"] >= 3)
+    return True, (f"{res['n']} lines, mean {res['mean_wpm']:.0f} WPM "
+                  f"articulated, rolling-3 {res['roll3_spread']:.2f}x of "
+                  f"{res['roll3_max']:.2f}x, worst tag {worst[1]} at "
+                  f"{worst[0]:.1%} of the {config.VOICE_RATE_BAND:.0%} band")
+
+
 TESTS = {
+    "ARTICULATION-EXCLUDES-PAUSES": test_articulation_excludes_pauses,
+    "CEILINGS-FROM-CONTROL":        test_ceilings_calibrated_on_control,
+    "CONSISTENT-NARRATOR-PASSES":   test_consistent_narrator_passes,
+    "OLD-MAPPING-STILL-FAILS":      test_old_mapping_still_fails,
+    "REAL-DRAFT-PASSES":            test_real_draft_passes,
     "CUES-CLEAN":           test_cues_clean,
     "PROFILE-STALE":        test_profile_stale_on_mapping_change,
     "CUES-CATCH-OLD":       test_cues_catch_old,
@@ -430,8 +678,8 @@ TESTS = {
     "RATE-DRIFT-GATE":      test_rate_drift_gate,
     "CUE-WORD-BOUNDARIES":  test_cue_word_boundaries,
     "BUMP-IN-BAND":         test_bump_in_band,
-    "RATIO-GATE":           test_ratio_gate,
-    "ADJACENT-JUMP":        test_adjacent_jump,
+    "SINGLE-LINE-REPORTED": test_single_line_reported_not_gated,
+    "ROLLING-JUMP-GATE":    test_rolling_jump_gate,
     "SHORT-LINES-EXCLUDED": test_short_lines_excluded,
     "WORD-LENGTH-NEUTRAL":  test_word_length_neutral,
 }

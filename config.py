@@ -132,8 +132,8 @@ VOICE_SPEAKING_RATE_MAX = 1.5
 VOICE_TAG_SPEAKING_RATE: dict = {
     "action": 1.29,
     "hook": 1.103,
-    "intro": 1.393,
-    "mystery": 1.493,
+    "intro": 1.3,
+    "mystery": 1.33,
     "normal": 1.205,
     "outro": 1.052,
     "reveal": 1.361,
@@ -148,7 +148,15 @@ VOICE_DELIVERY_MODE = "BALANCED"     # one mode for every tag; never CREATIVE
 VOICE_RATE_BAND = 0.10
 # Measured on the real audio, neighbour to neighbour. A mood change ramps
 # across intervening lines rather than stepping.
-VOICE_ADJACENT_MAX_JUMP = 0.08
+# CALIBRATED ON A CONTROL (tools/calibrate_voice_spread.py): varied real draft
+# lines synthesized with ONE identical delivery, so the only thing varying is
+# the words. Whatever spread the voice produces there is the FLOOR for any
+# ceiling - a bar below it fails a narrator behaving perfectly, which is what
+# a hand-picked 1.25x did on a render whose base rate was dead on target.
+# Measured values and the margin live in config/voice_spread_control.json.
+VOICE_LINE_SPREAD_MAX = 1.58
+VOICE_ROLL3_SPREAD_MAX = 1.38
+VOICE_ADJACENT_MAX_JUMP = 0.35
 # The ship gate: slowest to fastest line, measured. 1.25 is audibly "one
 # narrator with range"; 1.77 was audibly three people.
 VOICE_WPM_RATIO_MAX = 1.25

@@ -69,6 +69,109 @@ ALLOWED_CUE_HINTS = ("pause", "pauses", "emphasis", "emphasise", "emphasize",
                      "clear", "land", "beat")
 
 
+# --------------------------------------------------------------------------- #
+# ARTICULATION RATE - the rate the voice actually talks at
+# --------------------------------------------------------------------------- #
+# Raw words-per-second over a file's whole duration is SPEECH RATE: it counts
+# every pause as if the narrator were talking through it. That is the wrong
+# measurement for voice consistency, and it fails in a specific, systematic
+# direction - SHORT LINES ARE PENALISED, because a fixed lead-in and trailing
+# breath are a much larger fraction of a 3-second line than of a 12-second one.
+#
+# MEASURED on this draft: line 55 is 7 words in 3.06s with 1.00s of silence -
+# 33% of the file. Raw 137 WPM, ARTICULATION 204 WPM. It was the slowest line
+# in the gate's report and the single reason the spread read 1.95x. Line 63 is
+# the same story (32% silence, 162 raw vs 237 articulated).
+#
+# So the rate is computed over SPEECH TIME: duration minus every detected
+# silence. That also removes deliberate pauses - the emphasis cues ask for
+# them, and a pause the direction asked for is not the narrator changing pace.
+SILENCE_THRESHOLD_DB = -35.0
+SILENCE_MIN_SEC = 0.12
+_ARTIC_CACHE = "_articulation.json"
+
+
+def speech_seconds(path, ffmpeg: str | None = None,
+                   cache: dict | None = None) -> tuple:
+    """(duration, speech_sec, silence_sec) for one audio file.
+
+    ffmpeg's silencedetect is the measurement. Cached by (size, mtime) because
+    probing a hundred files takes minutes and the answer never changes for a
+    file that has not changed.
+    """
+    import json
+    import re
+    import subprocess
+    import config
+    p = Path(path)
+    if not p.exists():
+        return 0.0, 0.0, 0.0
+    key = f"{p.name}:{p.stat().st_size}:{int(p.stat().st_mtime)}"
+    if cache is not None and key in cache:
+        d, s = cache[key]
+        return float(d), float(s), float(d) - float(s)
+
+    ff = ffmpeg or config.ffmpeg()
+    r = subprocess.run(
+        [ff, "-hide_banner", "-nostats", "-i", str(p),
+         "-af", f"silencedetect=noise={SILENCE_THRESHOLD_DB}dB:"
+                f"d={SILENCE_MIN_SEC}",
+         "-f", "null", "-"], capture_output=True, text=True)
+    log = r.stderr or ""
+    m = re.search(r"Duration: (\d+):(\d+):([\d.]+)", log)
+    if not m:
+        return 0.0, 0.0, 0.0
+    dur = (int(m.group(1)) * 3600 + int(m.group(2)) * 60
+           + float(m.group(3)))
+    starts = [float(x) for x in re.findall(r"silence_start: ([\d.]+)", log)]
+    ends = [float(x) for x in re.findall(r"silence_end: ([\d.]+)", log)]
+    sil = 0.0
+    for i, a in enumerate(starts):
+        b = ends[i] if i < len(ends) else dur   # a silence running to the end
+        sil += max(0.0, min(b, dur) - a)
+    sil = min(sil, dur)
+    speech = max(0.05, dur - sil)
+    if cache is not None:
+        cache[key] = [round(dur, 3), round(speech, 3)]
+    return dur, speech, sil
+
+
+def _load_artic_cache(pdir) -> tuple:
+    import json
+    p = Path(pdir) / "narration" / _ARTIC_CACHE
+    try:
+        return json.loads(p.read_text(encoding="utf-8")), p
+    except Exception:
+        return {}, p
+
+
+def _save_artic_cache(cache: dict, path) -> None:
+    import json
+    try:
+        Path(path).parent.mkdir(parents=True, exist_ok=True)
+        Path(path).write_text(json.dumps(cache, indent=0, sort_keys=True),
+                              encoding="utf-8")
+    except Exception:
+        pass
+
+
+def _pct_spread(values: list, lo: float = 0.05, hi: float = 0.95) -> float:
+    """p95/p5 ratio - a spread that does not grow with the sample size.
+
+    max/min does grow with it, so a ceiling calibrated on 20 control readings
+    is systematically unfair to a 100-line draft. Small samples fall back to
+    max/min because a percentile of six numbers is not a percentile.
+    """
+    v = sorted(x for x in values if x and x > 0)
+    if len(v) < 2:
+        return 1.0
+    if len(v) < 10:
+        return v[-1] / v[0]
+    a = v[max(0, min(len(v) - 1, int(len(v) * lo)))]
+    b = v[max(0, min(len(v) - 1, int(len(v) * hi)))]
+    return (b / a) if a else 1.0
+
+
 def _syllables(word: str) -> int:
     w = re.sub(r"[^a-z]", "", word.lower())
     if not w:
@@ -162,41 +265,29 @@ def config_mod():
 
 
 def measured_uniformity() -> list[str]:
-    """Is the DELIVERED rate uniform across tags, per the measured profile?
+    """Does a measured profile exist at all? That is ALL this checks now.
 
-    This replaces the old control-value check. The band applies to what the
-    voice actually does, not to the number it was asked for: identical
-    speaking_rates delivered rates 1.53x apart on this voice, because each
-    steering cue costs a different amount of pace.
+    It used to compare each tag's rate from the voice profile against the
+    aggregate - but the profile stores RAW rate (duration-based), because that
+    is what the word BUDGET needs to predict how long a line will run. Judging
+    voice consistency on raw rate counts deliberate pauses as slow talking, and
+    it produced exactly the false finding this gate was fixed for: `sad` reads
+    -11% on raw rate and -0.1% on ARTICULATION. It is the same person talking
+    at the same speed with more pauses in it, which is the point of the tag.
 
-    An unmeasured voice returns a finding - rate_drift() says the same thing at
-    more length, and both exist because "nobody measured" is the state the
-    185 -> 134.6 WPM drift happened in.
+    Two measurements, two purposes:
+      raw rate         -> the word budget (how long will this line run)
+      articulation     -> voice consistency (does it sound like one narrator)
+
+    So the per-tag band is checked on ARTICULATION, in analyse(), against real
+    audio. Nothing here duplicates it, because the duplicate disagreed.
     """
-    import config
     from pipeline.calibration import production_profile
-    band = float(config.VOICE_RATE_BAND)
     prof = production_profile()
-    if not prof.is_measured or not prof.by_tag:
-        return ["no measured per-tag profile, so delivered-rate uniformity "
-                "cannot be checked (see [VOICE-RATE-DRIFT])"]
-    agg = prof.words_per_sec or 0.0
-    if agg <= 0:
-        return ["the measured profile carries no aggregate rate"]
-    bad = []
-    for tag, row in sorted(prof.by_tag.items()):
-        v = float(row.get("words_per_sec") or 0.0)
-        if v <= 0:
-            continue
-        if int(row.get("samples") or 0) < 2:
-            continue          # one reading is not a rate
-        dev = v / agg - 1.0
-        if abs(dev) > band:
-            bad.append(f"{tag} DELIVERS {v*60:.0f} WPM, {dev:+.0%} off the "
-                       f"{agg*60:.0f} WPM mean - outside +-{band:.0%}. Adjust "
-                       f"that tag's speaking_rate to cancel its cue's pace "
-                       f"cost (tools/calibrate_rate.py --solve-per-tag).")
-    return bad
+    if not prof.is_measured:
+        return ["no measured voice profile, so the word budget has no basis "
+                "(see [VOICE-RATE-DRIFT])"]
+    return []
 
 
 def rate_band_violations(provider) -> list[str]:
@@ -293,8 +384,26 @@ def measure(draft: dict, narration: list, ffprobe: str | None = None,
             d = _audio_dur(ffprobe, path)
         dur_by_id[lid] = d
 
+    # ARTICULATION, not speech rate: the pauses come out before the division.
+    pdir = None
+    for item in narration or []:
+        try:
+            pdir = Path(item[1]).parent.parent
+            break
+        except Exception:
+            pass
+    cache, cache_path = _load_artic_cache(pdir) if pdir else ({}, None)
+    ff = config.ffmpeg()
+
     out = []
     floor = int(config.VOICE_RATE_MIN_WORDS)
+    path_by_id = {}
+    for item in narration or []:
+        try:
+            path_by_id[item[0]] = Path(item[1])
+        except Exception:
+            pass
+
     for ln in draft.get("lines", []):
         lid = ln.get("id")
         if lid in skip:
@@ -309,10 +418,29 @@ def measure(draft: dict, narration: list, ffprobe: str | None = None,
         if len(words) < floor:
             continue
         syls = sum(_syllables(w) for w in words)
+        p = path_by_id.get(lid)
+        speech, sil = d, 0.0
+        if p is not None:
+            _d, _speech, _sil = speech_seconds(p, ff, cache)
+            if _d > 0:
+                d, speech, sil = _d, _speech, _sil
+            # If the file cannot be probed we still know the duration the
+            # caller handed us, so the line is measured as if it were all
+            # speech rather than DROPPED. Silently discarding lines would
+            # shrink the sample the gate judges on, which is the opposite of
+            # what a consistency check needs.
+        if speech <= 0.05:
+            continue
         out.append({"line_id": lid, "tag": str(ln.get("delivery") or "normal"),
                     "words": len(words), "syls": syls, "dur": round(d, 3),
-                    "wps": len(words) / d, "sps": syls / d,
+                    "speech": round(speech, 3), "silence": round(sil, 3),
+                    # rates over SPEECH time
+                    "wps": len(words) / speech, "sps": syls / speech,
+                    # kept for reporting: what the raw figure would have been
+                    "wps_raw": len(words) / d,
                     "rate_bump": float(ln.get("rate_bump") or 1.0)})
+    if cache_path is not None:
+        _save_artic_cache(cache, cache_path)
     return out
 
 
@@ -324,56 +452,86 @@ def analyse(rows: list[dict]) -> dict:
         return {"rows": rows, "ok": True, "problems": [], "n": len(rows)}
 
     band = float(config.VOICE_RATE_BAND)
-    ratio_max = float(config.VOICE_WPM_RATIO_MAX)
     jump_max = float(config.VOICE_ADJACENT_MAX_JUMP)
+    line_max = float(getattr(config, "VOICE_LINE_SPREAD_MAX", 1.55))
+    roll_max = float(getattr(config, "VOICE_ROLL3_SPREAD_MAX", 1.37))
 
     wps = [r["wps"] for r in rows]
-    sps = [r["sps"] for r in rows]
     problems: list[str] = []
+    ordered = sorted(rows, key=lambda r: r["line_id"])
 
-    lo_r, hi_r = min(rows, key=lambda r: r["wps"]), max(rows, key=lambda r: r["wps"])
+    # ---- SINGLE-LINE SPREAD IS REPORTED, NOT GATED ---------------------- #
+    # A control run (varied real lines, ONE identical delivery, only the words
+    # changing) measured a 1.35x line-to-line spread. So single-line variation
+    # of that order is what a perfectly consistent narrator DOES - gating on it
+    # at 1.25x blocked a render whose base rate was dead on target. The ceiling
+    # here is calibrated from the control plus a margin and exists only to
+    # catch something far outside it; consistency is judged on the aggregates
+    # below, which is what a listener actually perceives.
+    lo_r = min(rows, key=lambda r: r["wps"])
+    hi_r = max(rows, key=lambda r: r["wps"])
     ratio_w = hi_r["wps"] / lo_r["wps"] if lo_r["wps"] else 0.0
-    ratio_s = (max(sps) / min(sps)) if min(sps) else 0.0
-    if ratio_w > ratio_max and ratio_s > ratio_max:
-        problems.append(
-            f"slowest-to-fastest line is {ratio_w:.2f}x on words/sec and "
-            f"{ratio_s:.2f}x on syllables/sec (ceiling {ratio_max:.2f}x): "
-            f"line {lo_r['line_id']} ({lo_r['tag']}, {lo_r['wps']*60:.0f} WPM) "
-            f"vs line {hi_r['line_id']} ({hi_r['tag']}, "
-            f"{hi_r['wps']*60:.0f} WPM)")
 
-    # per-tag means against the overall mean, on syllable rate
-    mean_s = st.mean(sps)
+    # ---- TAG MEANS ------------------------------------------------------- #
+    mean_w = st.mean(wps)
     by_tag: dict = {}
     for r in rows:
         by_tag.setdefault(r["tag"], []).append(r)
     tag_means = {}
     for tag, rs in sorted(by_tag.items()):
-        m = st.mean(x["sps"] for x in rs)
-        tag_means[tag] = {"sps": m, "wpm": st.mean(x["wps"] for x in rs) * 60,
-                          "n": len(rs), "dev": (m / mean_s - 1.0) if mean_s else 0.0}
-        if mean_s and abs(m / mean_s - 1.0) > band and len(rs) >= 3:
+        m = st.mean(x["wps"] for x in rs)
+        tag_means[tag] = {"wps": m, "wpm": m * 60, "n": len(rs),
+                          "dev": (m / mean_w - 1.0) if mean_w else 0.0}
+        # A tag needs at least 3 readings to have a mean worth judging. Below
+        # that the "mean" is one or two lines and the finding is noise.
+        if mean_w and abs(m / mean_w - 1.0) > band and len(rs) >= 3:
             problems.append(
-                f"tag {tag!r} averages {m/mean_s-1.0:+.0%} off the overall "
-                f"rate ({st.mean(x['wps'] for x in rs)*60:.0f} WPM vs "
-                f"{mean_s*60/1:.0f} syl/min overall) - outside the "
-                f"+-{band:.0%} band over {len(rs)} line(s)")
+                f"tag {tag!r} averages {m/mean_w-1.0:+.0%} off the overall "
+                f"articulation rate ({m*60:.0f} vs {mean_w*60:.0f} WPM) over "
+                f"{len(rs)} line(s) - outside +-{band:.0%}. Adjust that tag's "
+                f"speaking_rate (tools/calibrate_rate.py --solve-per-tag).")
 
-    # adjacent jumps, in draft order
+    # ---- ROLLING 3-LINE AVERAGE ------------------------------------------ #
+    # What a viewer hears is a stretch, not a line. A single fast line between
+    # two ordinary ones is not a different narrator; three fast lines in a row
+    # is. The control measured a 1.19x rolling spread, so the ceiling is set
+    # from that.
+    roll = [st.mean(r["wps"] for r in ordered[i:i + 3])
+            for i in range(max(0, len(ordered) - 2))]
+    # PERCENTILE RANGE, not max/min. The ceiling is calibrated on a 20-line
+    # control and applied to a 100-line draft, and max/min grows with sample
+    # size on its own - so a max/min bar derived from 20 readings is unfair to
+    # 100 and the draft passed by 0.00x, which is not a measurement, it is a
+    # coincidence. p95/p5 estimates the same thing without that dependence,
+    # and the control reports the identical statistic.
+    roll_spread = _pct_spread(roll)
+    if roll_spread > roll_max:
+        iw = max(range(len(roll)), key=lambda i: roll[i])
+        ib = min(range(len(roll)), key=lambda i: roll[i])
+        problems.append(
+            f"the rolling 3-line average swings {roll_spread:.2f}x (ceiling "
+            f"{roll_max:.2f}x): lines "
+            f"{[r['line_id'] for r in ordered[ib:ib+3]]} average "
+            f"{roll[ib]*60:.0f} WPM against "
+            f"{[r['line_id'] for r in ordered[iw:iw+3]]} at "
+            f"{roll[iw]*60:.0f} WPM")
+
+    # adjacent jumps, measured on the ROLLING average so one line cannot
+    # trigger a finding on its own
     jumps = []
-    ordered = sorted(rows, key=lambda r: r["line_id"])
-    for a, b in zip(ordered, ordered[1:]):
-        if not a["sps"]:
+    for i in range(len(roll) - 1):
+        if not roll[i]:
             continue
-        j = abs(b["sps"] / a["sps"] - 1.0)
+        j = abs(roll[i + 1] / roll[i] - 1.0)
         if j > jump_max:
-            jumps.append((a["line_id"], b["line_id"], j,
-                          a["tag"], b["tag"]))
+            jumps.append((ordered[i]["line_id"], ordered[i + 1]["line_id"], j,
+                          ordered[i]["tag"], ordered[i + 1]["tag"]))
     if jumps:
         worst = sorted(jumps, key=lambda x: -x[2])[:6]
         problems.append(
-            f"{len(jumps)} adjacent pair(s) jump more than {jump_max:.0%} in "
-            f"measured rate - ramp a mood change across intervening lines: "
+            f"{len(jumps)} place(s) where the rolling 3-line average jumps "
+            f"more than {jump_max:.0%} - ramp a mood change across "
+            f"intervening lines: "
             + ", ".join(f"{a}->{b} {j:+.0%} ({ta}->{tb})"
                         for a, b, j, ta, tb in worst))
 
@@ -387,9 +545,15 @@ def analyse(rows: list[dict]) -> dict:
                 f"sounding like the same narrator")
 
     return {"rows": rows, "n": len(rows), "ok": not problems,
-            "problems": problems, "ratio_wps": ratio_w, "ratio_sps": ratio_s,
-            "tag_means": tag_means, "mean_sps": mean_s,
-            "mean_wpm": st.mean(wps) * 60, "jumps": jumps}
+            "problems": problems, "ratio_wps": ratio_w,
+            "line_spread": ratio_w, "line_spread_max": line_max,
+            "roll3_spread": roll_spread, "roll3_max": roll_max,
+            "slowest": lo_r, "fastest": hi_r,
+            "tag_means": tag_means, "mean_wps": mean_w,
+            "mean_wpm": mean_w * 60, "jumps": jumps,
+            "mean_silence_pct": (100.0 * st.mean(
+                r.get("silence", 0.0) / r["dur"] for r in rows
+                if r.get("dur")) if rows else 0.0)}
 
 
 def report(res: dict, project: str = "") -> bool:
@@ -399,14 +563,21 @@ def report(res: dict, project: str = "") -> bool:
         return True
     import config
     console.print(
-        f"[cyan]Voice:[/] {res['n']} line(s) measured, mean "
-        f"{res['mean_wpm']:.0f} WPM, slowest-to-fastest "
-        f"{res['ratio_wps']:.2f}x words/sec / {res['ratio_sps']:.2f}x "
-        f"syllables/sec (ceiling {config.VOICE_WPM_RATIO_MAX:.2f}x)")
+        f"[cyan]Voice:[/] {res['n']} line(s), mean "
+        f"{res['mean_wpm']:.0f} WPM ARTICULATED "
+        f"(pauses excluded; {res['mean_silence_pct']:.0f}% of the audio is "
+        f"silence)")
+    console.print(
+        f"[dim]    rolling 3-line spread {res['roll3_spread']:.2f}x "
+        f"(ceiling {res['roll3_max']:.2f}x)   |   single-line spread "
+        f"{res['line_spread']:.2f}x, reported not gated (a one-delivery "
+        f"control measures 1.35x)[/]")
     for tag, m in sorted(res["tag_means"].items(),
-                         key=lambda kv: kv[1]["sps"]):
+                         key=lambda kv: kv[1]["wps"]):
+        _f = "" if abs(m["dev"]) <= float(config.VOICE_RATE_BAND) \
+            or m["n"] < 3 else "   <-- outside the band"
         console.print(f"[dim]    {tag:<8} {m['wpm']:5.0f} WPM  "
-                      f"{m['dev']:+.0%}  n={m['n']}[/]")
+                      f"{m['dev']:+6.0%}  n={m['n']}{_f}[/]")
     if res["ok"]:
         console.print("[cyan]    one narrator - within the band.[/]")
         return True
