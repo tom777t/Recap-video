@@ -231,9 +231,16 @@ def test_render_reports() -> tuple[bool, str]:
     if "_dup.check(final)" not in src:
         return False, "the check is not pointed at final.mp4"
     i = src.find("_dup.check(final)")
-    seg = src[i:i + 900]
+    # To the end of the block, not a fixed byte count: a `i + 900` window
+    # broke as soon as the check also started writing its measurements into
+    # final_report.md, failing correct code because lines were added nearby.
+    _end = src.find("\n    # ----", i)
+    seg = src[i:_end if _end > i else len(src)]
     if "problems.append" not in seg:
         return False, "a finding is printed but not recorded as a problem"
+    if "_rep.add(\"REPEAT-SCENE\"" not in seg:
+        return False, ("the measurements are not written to the report, so "
+                       "the timestamps only exist in the console log")
     if "sys.exit" in seg:
         return False, ("a perceptual-hash finding is fatal; it is a fuzzy "
                        "measure and a false positive must not block a "

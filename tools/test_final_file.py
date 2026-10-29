@@ -254,8 +254,17 @@ def test_render_probes_final() -> tuple[bool, str]:
     j = src.find("_probe.verify(final")
     if j < 0:
         return False, "the render describes final.mp4 but never verifies it"
-    if "sys.exit(1)" not in src[j:j + 900]:
+    # Slice to the END OF THE BLOCK, not a fixed byte count. A `j + 900`
+    # window broke the moment the check also started writing its measurements
+    # into final_report.md - correct code failing because unrelated lines were
+    # added nearby is a test measuring the wrong thing.
+    _end = src.find("\n    # ----", j)
+    block = src[j:_end if _end > j else len(src)]
+    if "sys.exit(1)" not in block:
         return False, "a malformed final.mp4 is reported but not fatal"
+    if "_write_report()" not in block:
+        return False, ("the render exits on a malformed file WITHOUT writing "
+                       "the report - the run that most needs one gets none")
     # it must run BEFORE the motion check, which cannot see an absent stream
     m = src.find("from pipeline import motion_check as _mc")
     if m > 0 and j > m:

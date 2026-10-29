@@ -2184,12 +2184,126 @@ def render(project: str, draft: dict,
     # frame rate, pix_fmt, codec, and a bitrate floor that catches an encode
     # that quietly fell back. See pipeline/quality.py for what actually governs
     # picture quality (the source, and how much slow-motion, before any flag).
+    # ---- the report every final-file check writes into ----------------------
+    # Built here, before the first check, and written in a finally-equivalent
+    # below so it survives a FATAL gate. A report emitted only on the happy
+    # path tells you nothing about the run you actually need to understand.
+    from pipeline import final_report as _fr
+    _rep = _fr.Report(project, final)
+
+    def _write_report():
+        try:
+            _p = _rep.write()
+            console.print(f"\n[bold cyan]Full measurements:[/] {_p}")
+            return _p
+        except Exception as _e:                            # pragma: no cover
+            console.print(f"[yellow]Could not write final_report.md: {_e}[/]")
+            return None
+
     _qok, _qbad = _q.check_output(ffp, final)
     if _qok:
         _q.report(ffp, final)
     else:
         for _b in _qbad:
             problems.append(f"quality contract: {_b}")
+    try:
+        _qp = _q._probe(ffp, final)
+        _qn = {"width": _qp.get("width"), "height": _qp.get("height"),
+               "fps": _qp.get("fps"), "pix_fmt": _qp.get("pix_fmt"),
+               "codec": _qp.get("codec_name") or _qp.get("codec"),
+               "bitrate (kbit/s)": round(
+                   _q.measured_bitrate_kbps(ffp, final), 1)}
+        _qn["contract"] = ", ".join(
+            f"{k}={v}" for k, v in sorted(
+                (config.RENDER_QUALITY_CONTRACT or {}).items()))
+    except Exception:
+        _qn = {}
+    _rep.add("QUALITY-CONTRACT", _qok,
+             ("the finished file matches the format contract"
+              if _qok else "; ".join(_qbad)),
+             numbers=_qn, findings=list(_qbad), fatal=False,
+             why=("resolution, frame rate, pix_fmt, codec and a bitrate floor "
+                  "that catches an encode which quietly fell back"))
+
+    # ---- RUNTIME, measured against the film it recaps -----------------------
+    _src_dur = 0.0
+    try:
+        _src_dur = float(subprocess.run(
+            [ffp, "-v", "error", "-show_entries", "format=duration",
+             "-of", "default=nw=1:nk=1", str(source)],
+            capture_output=True, text=True).stdout.strip())
+    except (ValueError, AttributeError):
+        _src_dur = 0.0
+    _out_dur = float(total_dur) + float(intro_offset)
+    _pct = (100.0 * _out_dur / _src_dur) if _src_dur > 0 else 0.0
+    _lo, _hi = 15.0, 20.0
+    _rt_ok = (_lo <= _pct <= _hi) if _src_dur > 0 else None
+    _rep.add("RUNTIME-BAND", _rt_ok,
+             (f"{_out_dur/60:.1f} min of recap from a {_src_dur/60:.1f} min "
+              f"film = {_pct:.1f}%"
+              + ("" if _rt_ok else f" (soft band {_lo:.0f}-{_hi:.0f}%)")),
+             numbers={"recap duration (s)": round(_out_dur, 2),
+                      "recap duration": hms_s(_out_dur),
+                      "intro block (s)": round(intro_offset, 2),
+                      "story (s)": round(total_dur, 2),
+                      "source film (s)": round(_src_dur, 2),
+                      "percent of film": round(_pct, 2),
+                      "soft band": f"{_lo:.0f}-{_hi:.0f}%"},
+             fatal=False,
+             why=("a soft, PROVISIONAL band from 4 films - a film may "
+                  "honestly want a different length"))
+
+    # ---- VOICE RATE, measured on the audio that was actually used -----------
+    try:
+        _vw = _vd = 0.0
+        _bytag: dict = {}
+        _by_id2 = {ln["id"]: ln for ln in draft["lines"]}
+        for _lid, _p, _d in narration:
+            _ln = _by_id2.get(_lid)
+            if not _ln:
+                continue
+            _txt = str(_ln.get("narration") or "").strip()
+            if not _txt or not _d:
+                continue
+            _w = len(_txt.split())
+            _vw += _w
+            _vd += float(_d)
+            _g = _bytag.setdefault(str(_ln.get("delivery") or "normal"),
+                                   [0, 0.0])
+            _g[0] += _w
+            _g[1] += float(_d)
+        _wpm = (60.0 * _vw / _vd) if _vd > 0 else 0.0
+        _tgt = float(config.TARGET_WPM)
+        _drift = (_wpm - _tgt) / _tgt if _tgt else 0.0
+        _vok = abs(_drift) <= float(config.VOICE_RATE_DRIFT_MAX)
+        _vrows = []
+        for _t, (_w, _dd) in sorted(_bytag.items(),
+                                    key=lambda x: -x[1][1]):
+            _trate = (60.0 * _w / _dd) if _dd > 0 else 0.0
+            _vrows.append({"tag": _t, "words": _w,
+                           "speaking (s)": round(_dd, 1),
+                           "WPM": round(_trate, 1),
+                           "vs aggregate": (f"{(_trate/_wpm - 1):+.1%}"
+                                            if _wpm else "-")})
+        _rates = [r["WPM"] for r in _vrows if r["WPM"] > 0]
+        _rep.add("VOICE-RATE", _vok,
+                 (f"{_wpm:.1f} WPM measured on {len(narration)} line(s) "
+                  f"against a {_tgt:.0f} target ({_drift:+.1%})"),
+                 numbers={"measured WPM": round(_wpm, 1),
+                          "TARGET_WPM": _tgt,
+                          "drift": f"{_drift:+.1%}",
+                          "drift allowed": f"+-{config.VOICE_RATE_DRIFT_MAX:.0%}",
+                          "words": int(_vw),
+                          "speaking seconds": round(_vd, 1),
+                          "narration total": hms_s(_vd),
+                          "tag spread": (f"{max(_rates)/min(_rates):.3f}x"
+                                         if len(_rates) > 1 else "-")},
+                 rows=_vrows, fatal=False,
+                 why=("raw duration-based WPM, which is what the word budget "
+                      "is built on; articulation rate is a separate measure "
+                      "used for voice consistency"))
+    except Exception as _ve:                               # pragma: no cover
+        _rep.add("VOICE-RATE", None, f"could not measure: {_ve}")
 
     # ---- THE FILE ITSELF, measured, before any check that reads the plan ----
     # This runs FIRST and it is FATAL, because every other post-render check
@@ -2204,6 +2318,31 @@ def render(project: str, draft: dict,
     from pipeline import probe as _probe
     console.print(f"[dim][FILE-CHECK] {_probe.describe(final)}[/]")
     _fbad = _probe.verify(final, expect_dur=total_dur + intro_offset)
+    _st = _probe.streams(final)
+    _sv, _sa = _st.get("video"), _st.get("audio")
+    _fnum = {
+        "expected duration (s)": round(total_dur + intro_offset, 3),
+        "video stream (s)": (round(_sv["duration"], 3) if _sv else None),
+        "audio stream (s)": (round(_sa["duration"], 3) if _sa else None),
+        "video - audio (s)": (round(_sv["duration"] - _sa["duration"], 3)
+                              if _sv and _sa else None),
+        "video packets": _probe.packet_count(final, "v"),
+        "fps": (round(_sv["fps"], 3) if _sv else None),
+        "video codec": (_sv["codec"] if _sv else None),
+        "audio codec": (_sa["codec"] if _sa else None),
+        "pts holes": len(_probe.pts_gaps(final, "v")),
+    }
+    _rep.add("FILE-CHECK", not _fbad,
+             (_probe.describe(final) if not _fbad
+              else "; ".join(b["msg"] for b in _fbad)),
+             numbers=_fnum,
+             rows=[{"at": g["at"], "hole (s)": g["gap"]}
+                   for g in _probe.pts_gaps(final, "v")],
+             findings=[{"text": b["msg"]} for b in _fbad],
+             fatal=True,
+             why=("the STREAMS, never the container header - the header "
+                  "reports the longest stream, which is why a file with "
+                  "255.77s of video under 1054.47s of audio looked correct"))
     if _fbad:
         console.print("[red][FILE-CHECK][/] final.mp4 is not the file the "
                       "render thinks it built:")
@@ -2212,6 +2351,8 @@ def render(project: str, draft: dict,
         console.print("[red]  This is a publish blocker. A short video stream "
                       "is invisible in every player until the moment the "
                       "picture stops.[/]")
+        _rep.note("The render STOPPED here, so no check below this point ran.")
+        _write_report()
         sys.exit(1)
 
     # ---- MUSIC + FILM_SPEAKS, measured on the FINISHED MIX -----------------
@@ -2219,6 +2360,17 @@ def render(project: str, draft: dict,
     # have been caught before, because the checks confirmed that a gain was
     # written into a filtergraph and never that the result was audible.
     _mplan = work / "music_plan.json"
+    if not _mplan.exists():
+        # REGISTER THE SKIP. A check that quietly omits itself when it has
+        # nothing to measure leaves a report that looks complete and is not -
+        # the same shape as the freeze check that scanned 255s of a 1054s film
+        # and reported the film clean.
+        _rep.add("MUSIC-CUE", None,
+                 "no prebuilt music track (no music/bed.* + music/cues/*), "
+                 "so there are no cues to measure")
+        _rep.add("FILM-SPEAKS", None,
+                 "no prebuilt music track, so the film-vs-music margin "
+                 "could not be measured")
     if _mplan.exists():
         from pipeline import audio_check as _ac
         try:
@@ -2228,6 +2380,10 @@ def render(project: str, draft: dict,
         # cues: each must rise out of the bed it sits in
         _cues = [{"at": float(c["at"]) + intro_offset, "dur": float(c["dur"]),
                   "mood": c.get("mood")} for c in (_mp.get("cues") or [])]
+        if not _cues:
+            _rep.add("MUSIC-CUE", None,
+                     "no cues were placed in this render, so none could be "
+                     "measured")
         if _cues:
             _cok, _cfind, _crows = _ac.check_cues_audible(final, _cues)
             for _r in _crows:
@@ -2237,6 +2393,43 @@ def render(project: str, draft: dict,
                     f"{_r['bed_db']:+6.1f} dB  lift {_r['lift_db']:+5.1f} dB"
                     + (f"  ({_r['inside_lufs']:.1f} LUFS)"
                        if _r.get("inside_lufs") is not None else "") + "[/]")
+            _rep.add("MUSIC-CUE", _cok,
+                     (f"{len(_crows)} cue(s); lift above the bed "
+                      + ", ".join(f"{r['mood']} {r['lift_db']:+.1f} dB"
+                                   for r in _crows)
+                      if _crows else "no cues placed"),
+                     numbers={"minimum lift required (dB)":
+                              _ac.CUE_LIFT_MIN_DB,
+                              "music normalised to (LUFS)":
+                              (config.MUSIC_NORMALIZE_LUFS
+                               if getattr(config, 'MUSIC_NORMALIZE', True)
+                               else None),
+                              "cue level target (dB)":
+                              config.MUSIC_CUE_DUCK_DB,
+                              "action cue target (dB)":
+                              config.MUSIC_CUE_DUCK_ACTION_DB,
+                              "bed dip under a cue (dB)":
+                              config.MUSIC_CUE_BED_DIP_DB},
+                     rows=[{"mood": r.get("mood"),
+                            "at": hms_s(r["at"]),
+                            "length (s)": round(r["dur"], 1),
+                            "cue (dB)": r["inside_db"],
+                            "bed (dB)": r["bed_db"],
+                            "lift (dB)": r["lift_db"],
+                            "cue (LUFS)": r.get("inside_lufs")}
+                           for r in _crows],
+                     findings=[{"at": r["at"],
+                                "text": (f"{r.get('mood')} cue lifts only "
+                                         f"{r['lift_db']:+.1f} dB above the "
+                                         f"bed (bar "
+                                         f"{_ac.CUE_LIFT_MIN_DB:.0f} dB)")}
+                               for r in _crows
+                               if r["lift_db"] < _ac.CUE_LIFT_MIN_DB],
+                     fatal=False,
+                     why=("every music file is loudness-normalised before any "
+                          "gain, because the cue sources span 9.0 dB of "
+                          "integrated loudness - more than the gain "
+                          "differences the mix is built on"))
             if not _cok:
                 console.print("[red][MUSIC-CUE][/] cue(s) are not audible "
                               "above the bed:")
@@ -2245,6 +2438,9 @@ def render(project: str, draft: dict,
                 problems.append("music cues: " + "; ".join(_cfind))
         # film_speaks: the film must be the loudest thing in its own unit
         _fsw = _mp.get("film_speaks") or []
+        if not _fsw:
+            _rep.add("FILM-SPEAKS", None,
+                     "this draft has no <film_speaks> units")
         if _fsw:
             _fs_by_pos = []
             _fs_lines = [ln["id"] for ln in draft["lines"]
@@ -2262,6 +2458,42 @@ def render(project: str, draft: dict,
                     f"{_r['final_at']:7.1f}s  film {_r['inside_db']:+6.1f} dB "
                     f"vs music {max(_r['before_db'], _r['after_db']):+6.1f} dB"
                     f"  margin {_r['margin_db']:+5.1f} dB[/]")
+            _rep.add("FILM-SPEAKS", _sok,
+                     (f"{len(_srows)} unit(s); margin over the music "
+                      + ", ".join(f"line {r.get('line_id')} "
+                                   f"{r['margin_db']:+.1f} dB"
+                                   for r in _srows)),
+                     numbers={"minimum margin required (dB)":
+                              _ac.FILM_SPEAKS_MARGIN_MIN_DB,
+                              "music ducked by (dB)":
+                              config.FILM_SPEAKS_MUSIC_DB,
+                              "duck fade (s)":
+                              config.FILM_SPEAKS_MUSIC_FADE_SEC,
+                              "film level (dB)": config.FILM_SPEAKS_DB,
+                              "audio used": "ORIGINAL mix (dialogue kept)"},
+                     rows=[{"line": r.get("line_id"),
+                            "at": hms_s(r["final_at"]),
+                            "length (s)": round(r["dur"], 2),
+                            "film (dB)": r["inside_db"],
+                            "music before (dB)": r["before_db"],
+                            "music after (dB)": r["after_db"],
+                            "margin (dB)": r["margin_db"],
+                            "film (LUFS)": r.get("inside_lufs")}
+                           for r in _srows],
+                     findings=[{"at": r["final_at"],
+                                "text": (f"film_speaks line "
+                                         f"{r.get('line_id')} is only "
+                                         f"{r['margin_db']:+.1f} dB over the "
+                                         f"music (bar "
+                                         f"{_ac.FILM_SPEAKS_MARGIN_MIN_DB:.0f}"
+                                         f" dB)")}
+                               for r in _srows
+                               if r["margin_db"]
+                               < _ac.FILM_SPEAKS_MARGIN_MIN_DB],
+                     fatal=False,
+                     why=("the shipped render measured +3.2 and +1.5 dB here "
+                          "and was described as 'only music', so the bar is "
+                          "sited against that, not against a rule of thumb"))
             if not _sok:
                 console.print("[red][FILM-SPEAKS][/] the film is not audible "
                               "in its own unit:")
@@ -2274,6 +2506,12 @@ def render(project: str, draft: dict,
     # not by reading the filtergraph. Level cannot answer this: on a control
     # mix, adding the stem at -17 dB moved the RMS by 0.4 dB but moved the
     # correlation from 0.006 to 0.293.
+    if film_stem is None or not _fa_ids:
+        _rep.add("FILM-AUDIO", None,
+                 ("no no-vocals stem available" if film_stem is None
+                  else (f"no line qualifies for film audio "
+                        f"({'/'.join(config.FILM_AUDIO_TAGS)} runs of "
+                        f"{config.FILM_AUDIO_MIN_RUN}+)")))
     if film_stem is not None and _fa_ids:
         from pipeline import audio_check as _ac
         _rows = []
@@ -2306,6 +2544,34 @@ def render(project: str, draft: dict,
                 f"{sum(_mon)/max(1,len(_mon)):.3f} vs elsewhere "
                 f"{sum(_mof)/max(1,len(_mof)):.3f} "
                 f"({len(_mon)} on / {len(_mof)} off window(s))[/]")
+        _mon2 = [r["corr"] for r in _fgot if r["want"]]
+        _mof2 = [r["corr"] for r in _fgot if not r["want"]]
+        _rep.add("FILM-AUDIO", _fok,
+                 (f"stem correlation {sum(_mon2)/max(1,len(_mon2)):.3f} under "
+                  f"{'/'.join(config.FILM_AUDIO_TAGS)} vs "
+                  f"{sum(_mof2)/max(1,len(_mof2)):.3f} elsewhere"),
+                 numbers={"lines with film audio": len(_fa_ids),
+                          "lines total": len(draft.get("lines") or []),
+                          "tags allowed": ", ".join(config.FILM_AUDIO_TAGS),
+                          "minimum run": config.FILM_AUDIO_MIN_RUN,
+                          "present bar (corr)": _ac.STEM_PRESENT_MIN,
+                          "absent bar (corr)": _ac.STEM_ABSENT_MAX,
+                          "mean corr on": round(
+                              sum(_mon2)/max(1, len(_mon2)), 4),
+                          "mean corr off": round(
+                              sum(_mof2)/max(1, len(_mof2)), 4),
+                          "level under narration (dB)": config.FILM_AUDIO_DB,
+                          "stem": Path(film_stem).name},
+                 rows=[{"line": r["line_id"],
+                        "at": hms_s(r["final_at"]),
+                        "rule": ("film audio ON" if r["want"]
+                                 else "should be OFF"),
+                        "correlation": r["corr"]} for r in _fgot],
+                 findings=[{"text": b} for b in _ffind],
+                 fatal=False,
+                 why=("measured by CORRELATING the mix against the stem file; "
+                      "level cannot answer this - adding a stem at -17 dB "
+                      "moves RMS 0.3 dB and correlation 0.006 -> 0.270"))
         if not _fok:
             console.print("[red][FILM-AUDIO][/] the film's track is not "
                           "placed by the rule:")
@@ -2324,6 +2590,31 @@ def render(project: str, draft: dict,
                             shown=used_footage.items,
                             intro_offset=intro_offset,
                             source=source)
+    try:
+        _frz = _mc.freezes(ff, final)
+    except Exception:
+        _frz = []
+    _rep.add("MOTION-CHECK", _mok,
+             ("no freeze over %.2fs and no repeated source footage"
+              % float(config.FREEZE_FAIL_SEC) if _mok
+              else "; ".join(str(b) for b in _mbad)),
+             numbers={"clone cap (s)": config.MAX_FREEZE_SEC,
+                      "freeze fails over (s)": config.FREEZE_FAIL_SEC,
+                      "freeze noise floor (dB)": config.FREEZE_NOISE_DB,
+                      "slow-motion ceiling": "%.2fx" % float(
+                          __import__("pipeline.schemas", fromlist=["x"])
+                          .BINDING_SLOWDOWN_MAX),
+                      "reuse overlap bar (s)":
+                      config.FOOTAGE_REUSE_MIN_OVERLAP_SEC,
+                      "freezes detected": len(_frz)},
+             rows=[{"at": hms_s(f.get("start")),
+                    "length (s)": round(float(f.get("dur") or 0), 2)}
+                   for f in _frz],
+             findings=[{"text": str(b)} for b in _mbad],
+             fatal=True,
+             why=("freezedetect on the finished file, with every freeze "
+                  "traced back to its source span; an untraceable freeze is "
+                  "reported, never excused"))
     if not _mok:
         console.print("[red][MOTION-CHECK][/] the finished video has frozen or "
                       "repeated footage:")
@@ -2332,6 +2623,9 @@ def render(project: str, draft: dict,
         console.print("[red]  This is a publish blocker. Widen the windows "
                       "that needed a freeze, or re-point the duplicated "
                       "line.[/]")
+        _rep.note("The render STOPPED here; checks below this point did not "
+                  "run.")
+        _write_report()
         sys.exit(1)
 
     # ---- REPEATED SCENES, judged on the PICTURE ----------------------------
@@ -2351,6 +2645,32 @@ def render(project: str, draft: dict,
             f"[dim][REPEAT-SCENE] {_dinfo.get('sampled', 0)} frame(s) sampled, "
             f"{_dinfo.get('skipped_flat', 0)} flat (fades/black) skipped, "
             f"crop {_dinfo.get('crop')}[/]")
+        _dpairs = _dinfo.get("pairs") or []
+        _vdur = (_probe.streams(final).get("video") or {}).get("duration", 0)
+        _rep.add("REPEAT-SCENE", _dok,
+                 (f"{_dinfo.get('sampled', 0)} frame(s) sampled, "
+                  f"{len(_dpairs)} near-identical pair(s)"),
+                 numbers={"frames sampled": _dinfo.get("sampled"),
+                          "flat frames skipped": _dinfo.get("skipped_flat"),
+                          "letterbox crop": _dinfo.get("crop"),
+                          "sample interval (s)": _dup.SAMPLE_INTERVAL_SEC,
+                          "hamming bar (of 64)": _dup.MAX_DISTANCE,
+                          "minimum gap (s)": _dup.MIN_GAP_SEC,
+                          "variance floor": _dup.MIN_VARIANCE,
+                          "video covered (s)": round(float(_vdur or 0), 2)},
+                 rows=[{"first": hms_s(d["a"]), "second": hms_s(d["b"]),
+                        "hamming": d["distance"],
+                        "apart (s)": d["gap"]} for d in _dpairs],
+                 findings=[{"at": d["a"],
+                            "text": (f"near-identical to {hms_s(d['b'])} "
+                                     f"(hamming {d['distance']}/64, "
+                                     f"{d['gap']:.0f}s apart)")}
+                           for d in _dpairs],
+                 fatal=False,
+                 why=("a perceptual hash of frames sampled from the finished "
+                      "file - source-span bookkeeping cannot catch "
+                      "shot/reverse-shot, where two different windows hold "
+                      "nearly the same picture"))
         if not _dok:
             console.print("[yellow][REPEAT-SCENE][/] near-identical picture "
                           "at two different times:")
@@ -2359,6 +2679,30 @@ def render(project: str, draft: dict,
             problems.append("repeated scenes: " + "; ".join(_dfind))
     except Exception as _de:                               # pragma: no cover
         console.print(f"[yellow][REPEAT-SCENE] could not run: {_de}[/]")
+        _rep.add("REPEAT-SCENE", None, f"could not run: {_de}")
+
+    _rep.add("RENDER-CHECK", not problems,
+             (f"{len(clips)} clip(s) out ({len(narration)} narrated + "
+              f"{n_silence} silence), narration lands on its timeline slots"
+              if not problems else "; ".join(problems)),
+             numbers={"clips built": len(clips),
+                      "narrated lines": len(narration),
+                      "silence units": n_silence,
+                      "over-montage lines": n_over_montage,
+                      "timeline entries": len(timeline),
+                      "position tolerance (s)": POSITION_TOLERANCE,
+                      "worst position drift (s)": (
+                          round(max(abs(d) for *_x, d in offsets), 3)
+                          if offsets else None)},
+             rows=[{"line": _i, "expected": hms_s(_w),
+                    "measured": hms_s(_m), "drift (s)": round(_d, 3)}
+                   for _i, _w, _m, _d in (offsets or [])],
+             findings=[{"text": pr} for pr in problems],
+             fatal=False,
+             why=("cross-correlates each sampled line's own TTS audio against "
+                  "the finished mix near the position timeline.json claims "
+                  "for it, so real audio/video drift is measured rather than "
+                  "a total being compared with itself"))
 
     if problems:
         console.print("[red][RENDER-CHECK][/] the render does not match the draft:")
@@ -2371,6 +2715,7 @@ def render(project: str, draft: dict,
                       f"narration lands on its timeline slots.[/]")
 
     console.print(f"\n[bold green]Done![/] Final video: {final}")
+    _write_report()
     return final
 
 
@@ -2494,6 +2839,12 @@ def build_music_bed(ff: str, segments: list, beds: dict, out: Path,
            "-c:a", "pcm_s16le", "-ar", "48000", "-ac", "2", str(out)]
     _run(cmd, f"build mood music bed ({len(segments)} stretches)")
     return out
+
+
+def hms_s(t) -> str:
+    """Seconds as m:ss.cc, for logs and the final report."""
+    from pipeline.final_report import hms
+    return hms(t)
 
 
 def _music_volume_expr(base_vol: float, silence_windows: list,
