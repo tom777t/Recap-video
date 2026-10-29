@@ -77,7 +77,8 @@ DEFAULT_TTS_RATE = "+10%"
 # regression in the voice. The target is a decision about the writing; the
 # VOICE is what gets adjusted to meet it. [VOICE-RATE-DRIFT] now fails if this
 # relationship inverts again.
-TTS_WORDS_PER_MINUTE = 186
+# Tracks TARGET_WPM (210). Re-measured aggregate at the live mapping below.
+TTS_WORDS_PER_MINUTE = 210
 
 # --------------------------------------------------------------------------- #
 # ONE NARRATOR - the voice-consistency contract
@@ -111,7 +112,16 @@ TTS_WORDS_PER_MINUTE = 186
 # Warren fell to 140.6 WPM, and the budget was re-calibrated DOWN to 141 -
 # shrinking every line's word allowance by a third to accommodate a regression.
 # [VOICE-RATE-DRIFT] now fails on exactly that.
-TARGET_WPM = 185.0
+#
+# 210, raised from 185 after watching a finished recap. The 185 was taken from
+# a VIETNAMESE reference channel, and Vietnamese carries more meaning per
+# syllable than English does at the same tempo - so the number was transplanted
+# across a language boundary where it does not hold, and the English result
+# sounds slow. Measured English recap channels run 205-245 WPM. 210 sits at the
+# bottom of that band, which is the right end to pick: it is the smallest
+# change that leaves the reference range, so it does not trade one guess for a
+# larger one.
+TARGET_WPM = 210.0
 # How far the MEASURED base rate may sit from TARGET_WPM before the gate fails.
 VOICE_RATE_DRIFT_MAX = 0.10
 
@@ -129,16 +139,40 @@ VOICE_SPEAKING_RATE_MAX = 1.5
 # so the DELIVERED rate is uniform. That is the inverse of the original defect,
 # where rates differed in order to make tags sound like different speeds.
 # A tag absent here falls back to VOICE_BASE_SPEAKING_RATE.
+# SOLVED BY MEASUREMENT against TARGET_WPM = 210 (tools/calibrate_rate.py
+# --solve-per-tag, 16 real draft lines across 9 tags, 517 words). Delivered:
+#     action 209.7  hook 211.1  intro 211.5  normal 206.5  outro 212.3
+#     sad 206.1  tense 207.5      mystery 195.2 (-7.0%)  reveal 196.7 (-6.3%)
+# Spread 1.088x, every tag inside VOICE_RATE_DRIFT_MAX.
+#
+# mystery and reveal sit ON Inworld's hard 1.5 speakingRate ceiling and are the
+# only two that miss. Two wrong explanations were tested and killed first:
+#
+#  1. "their cue is too expensive, shorten it". Measured the opposite -
+#     shortening reveal to "[strong emphasis]" and mystery to
+#     "[close emphasis]" made them SLOWER (mystery 195.2 -> 178.7, reveal
+#     196.7 -> 193.0). A cue's pace cost is about what it ASKS FOR, not how
+#     long it is: "close"/"strong" emphasis instructs a more deliberate read.
+#  2. "the cue is the cause at all". At a uniform 1.5 with mystery's cue
+#     swapped for normal's own "[even phrasing]", mystery still read 184.3 WPM
+#     where the SAME cue gives normal 219.0. Same cue, same rate, 35 WPM apart
+#     - so the difference is the TEXT of those lines, not the direction.
+#     Confirmed on articulation (silence excluded), which shows the same gap:
+#     mystery 250.7 and reveal 252.3 against normal 284.2 and action 284.0.
+#
+# So the shortfall is a property of how those particular lines read, it is
+# bounded, measured, and inside the band - not something to fix by pushing a
+# rate past an engine limit or by re-cutting the target.
 VOICE_TAG_SPEAKING_RATE: dict = {
-    "action": 1.29,
-    "hook": 1.103,
-    "intro": 1.3,
-    "mystery": 1.33,
-    "normal": 1.205,
-    "outro": 1.052,
-    "reveal": 1.361,
-    "sad": 1.22,
-    "tense": 1.393
+    "action": 1.447,
+    "hook": 1.274,
+    "intro": 1.485,
+    "mystery": 1.5,
+    "normal": 1.46,
+    "outro": 1.238,
+    "reveal": 1.5,
+    "sad": 1.403,
+    "tense": 1.478
 }
 VOICE_DELIVERY_MODE = "BALANCED"     # one mode for every tag; never CREATIVE
 # Tag rate x rate_bump must stay inside +-this fraction of the base rate. A

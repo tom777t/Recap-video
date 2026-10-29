@@ -183,8 +183,14 @@ def test_rate_drift_gate() -> tuple[bool, str]:
     from pipeline import calibration as cal
     target = float(config.TARGET_WPM)
     tol = float(config.VOICE_RATE_DRIFT_MAX)
-    if abs(target - 185.0) > 1e-6:
-        return False, f"TARGET_WPM is {target}, expected 185"
+    # This case owns the GATE's behaviour, not the target's VALUE. It used to
+    # assert `target == 185`, which made a deliberate, measured change of the
+    # target look like a regression in the drift gate. The value is checked by
+    # TARGET-WPM-ENGLISH-BAND, which knows why 185 was wrong (it came from a
+    # Vietnamese channel). Keeping the literal in two places meant moving the
+    # target required editing a test that has nothing to do with it.
+    if target <= 0:
+        return False, f"TARGET_WPM is {target}, which is not a pace"
 
     # the live voice must currently be on target
     ok, msg = vc.rate_drift()
@@ -665,7 +671,97 @@ def test_real_draft_passes() -> tuple[bool, str]:
                   f"{worst[0]:.1%} of the {config.VOICE_RATE_BAND:.0%} band")
 
 
+def test_target_wpm_english_band() -> tuple[bool, str]:
+    """The pace target must sit in the band MEASURED on English recaps.
+
+    THE DEFECT: TARGET_WPM was 185, taken from a VIETNAMESE reference channel
+    and transplanted across a language boundary where it does not hold -
+    Vietnamese carries more meaning per syllable at the same tempo. The
+    finished English recap sounds slow. Measured English recap channels run
+    205-245 WPM.
+
+    This also pins the relationship the whole pipeline depends on: the writer's
+    fallback rate must TRACK the target, because every word budget is built
+    for it. Inverting that is the regression [VOICE-RATE-DRIFT] exists to
+    catch, and it has already happened once (the budget was re-cut to 141 to
+    accommodate a voice that had slowed down).
+    """
+    lo, hi = 205.0, 245.0
+    t = float(config.TARGET_WPM)
+    if not (lo <= t <= hi):
+        return False, (f"TARGET_WPM is {t:.0f}, outside the {lo:.0f}-{hi:.0f} "
+                       f"WPM band measured on English recap channels")
+    w = float(config.TTS_WORDS_PER_MINUTE)
+    if abs(w - t) > 0.05 * t:
+        return False, (f"TTS_WORDS_PER_MINUTE is {w:.0f} but TARGET_WPM is "
+                       f"{t:.0f}; the writer's fallback rate must track the "
+                       f"target or the word budgets are built for a pace the "
+                       f"voice is not asked to deliver")
+    return True, (f"TARGET_WPM {t:.0f} is inside the measured English band "
+                  f"{lo:.0f}-{hi:.0f}, and the writer's rate tracks it")
+
+
+def test_profile_measures_on_target() -> tuple[bool, str]:
+    """The SIGNED profile must measure on TARGET_WPM, not near the old one.
+
+    The profile is the evidence that the voice was actually made to hit the
+    target rather than the target being quietly re-cut to whatever the voice
+    does. A stale profile left over from a 185 calibration would keep every
+    word budget 12% too generous while reporting success.
+    """
+    import json
+    p = Path(ROOT) / "config" / "voice_profiles.json"
+    if not p.exists():
+        return False, "config/voice_profiles.json is missing"
+    prof = json.loads(p.read_text(encoding="utf-8")).get("profiles") or {}
+    live = None
+    for k, v in prof.items():
+        if str(v.get("voice_id")) == "Warren":
+            live = v
+            break
+    if live is None:
+        return False, "no profile for the production voice (Warren)"
+    wps = float(live.get("words_per_sec") or 0.0)
+    if wps <= 0:
+        return False, "the profile records no measured words_per_sec"
+    wpm = wps * 60.0
+    drift = abs(wpm - float(config.TARGET_WPM)) / float(config.TARGET_WPM)
+    if drift > float(config.VOICE_RATE_DRIFT_MAX):
+        return False, (f"the signed profile measures {wpm:.1f} WPM against a "
+                       f"{config.TARGET_WPM:.0f} target ({drift:+.1%}), "
+                       f"outside VOICE_RATE_DRIFT_MAX "
+                       f"({config.VOICE_RATE_DRIFT_MAX:.0%}) - re-run "
+                       f"calibrate_rate.py --solve-per-tag --write-profile")
+    return True, (f"the signed profile measures {wpm:.1f} WPM, "
+                  f"{drift:+.1%} of the {config.TARGET_WPM:.0f} target")
+
+
+def test_engine_cap_respected() -> tuple[bool, str]:
+    """No tag may be configured past the engine's hard speakingRate ceiling.
+
+    Inworld returns HTTP 400 above 1.5. Two tags (mystery, reveal) sit exactly
+    ON that ceiling at the 210 target and still read ~7% slow. That shortfall
+    is measured, bounded and inside the band - and it must not be "fixed" by
+    writing 1.6 into the config, which would fail every request for those
+    tags at render time rather than sounding slightly slower.
+    """
+    cap = float(config.VOICE_SPEAKING_RATE_MAX)
+    bad = {k: v for k, v in config.VOICE_TAG_SPEAKING_RATE.items()
+           if float(v) > cap + 1e-9}
+    if bad:
+        return False, (f"these tags are configured above the {cap} engine "
+                       f"ceiling and would fail at render time: {bad}")
+    at_cap = sorted(k for k, v in config.VOICE_TAG_SPEAKING_RATE.items()
+                    if abs(float(v) - cap) < 1e-9)
+    return True, (f"every tag rate is within the {cap} engine ceiling"
+                  + (f"; at the ceiling: {', '.join(at_cap)}" if at_cap
+                     else ""))
+
+
 TESTS = {
+    "TARGET-WPM-ENGLISH-BAND":      test_target_wpm_english_band,
+    "PROFILE-MEASURES-ON-TARGET":   test_profile_measures_on_target,
+    "ENGINE-CAP-RESPECTED":         test_engine_cap_respected,
     "ARTICULATION-EXCLUDES-PAUSES": test_articulation_excludes_pauses,
     "CEILINGS-FROM-CONTROL":        test_ceilings_calibrated_on_control,
     "CONSISTENT-NARRATOR-PASSES":   test_consistent_narrator_passes,

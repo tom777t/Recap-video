@@ -1,5 +1,5 @@
 TITLE: Teenager Is Shipped to Tokyo to Dodge Jail and Ends Up Owing the Yakuza a Car He Cannot Pay For
-Lines: 111   Words: 3065   Est. narration: 16.5 min @ 186 WPM [config fallback (voice not measured)]   Target: 17 min
+Lines: 111   Words: 3065   Est. narration: 14.6 min @ 210 WPM [config fallback (voice not measured)]   Target: 17 min
 ============================================================
 
 [  1] (? -> ?)  <hook> {loop}
@@ -306,10 +306,10 @@ Lines: 111   Words: 3065   Est. narration: 16.5 min @ 186 WPM [config fallback (
 [ 99] (01:33:41.305 -> 01:33:51.649)  <reveal> {loop}
       And Sean does the one thing DK never saw coming.
 
-[100] (01:33:57.169 -> 01:34:08.332)  <action> {stake}
+[100] (01:33:57.588 -> 01:34:08.332)  <action> {stake}
       Instead of giving the edge up, he shoves back, putting the coupe off the shoulder into the brush - and the mountain's only master goes tumbling across the dirt.
 
-[101] (01:33:51.649 -> 01:33:57.169)  <tense> {rest} [HOLD 6.0s - no narration]
+[101] (01:33:51.649 -> 01:33:57.588)  <tense> {rest} [HOLD 5.9s - no narration]
       
 
 [102] (01:34:08.332 -> 01:34:21.989)  <normal> {rest}

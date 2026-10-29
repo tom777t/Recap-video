@@ -630,7 +630,7 @@ def _inworld() -> InworldProvider:
       "tense":   dict(cue="[emphasis on the action words]",      delivery_mode=_M, speaking_rate=_RT.get("tense", _R)),
       "sad":     dict(cue="[gentle emphasis]",                   delivery_mode=_M, speaking_rate=_RT.get("sad", _R)),
       "reveal":  dict(cue="[emphasis on the final phrase]",      delivery_mode=_M, speaking_rate=_RT.get("reveal", _R)),
-      "mystery": dict(cue="[emphasis on the key words]",      delivery_mode=_M, speaking_rate=_RT.get("mystery", _R)),
+      "mystery": dict(cue="[emphasis on the key words]",         delivery_mode=_M, speaking_rate=_RT.get("mystery", _R)),
       "hook":    dict(cue="[emphasis on the opening phrase]",    delivery_mode=_M, speaking_rate=_RT.get("hook", _R)),
       "intro":   dict(cue="[even phrasing, clear consonants]",   delivery_mode=_M, speaking_rate=_RT.get("intro", _R)),
       "outro":   dict(cue="[emphasis on the closing phrase]",    delivery_mode=_M, speaking_rate=_RT.get("outro", _R)),
