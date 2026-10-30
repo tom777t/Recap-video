@@ -2439,147 +2439,172 @@ def render(project: str, draft: dict,
     # Both of these were reported from watching the render and neither could
     # have been caught before, because the checks confirmed that a gain was
     # written into a filtergraph and never that the result was audible.
-    _mplan = work / "music_plan.json"
-    if not _mplan.exists():
-        # REGISTER THE SKIP. A check that quietly omits itself when it has
-        # nothing to measure leaves a report that looks complete and is not -
-        # the same shape as the freeze check that scanned 255s of a 1054s film
-        # and reported the film clean.
-        _rep.add("MUSIC-CUE", None,
-                 "no prebuilt music track (no music/bed.* + music/cues/*), "
-                 "so there are no cues to measure")
-        _rep.add("FILM-SPEAKS", None,
-                 "no prebuilt music track, so the film-vs-music margin "
-                 "could not be measured")
+    # READ FROM THE PROJECT DIR, NOT _work. This pointed at `work`, which is
+    # rmtree'd ~260 lines above, so BOTH these checks reported SKIPPED on every
+    # render that did not pass --keep-temp. The shipped report said "no
+    # prebuilt music track (no music/bed.* + music/cues/*)" while the same
+    # render's log showed cues being placed from action1.mp3: the message
+    # asserted a cause it had never checked, and sent the reader looking for a
+    # bed file that was there all along. A gate that is green because its input
+    # was deleted is worse than no gate.
+    from pipeline import audio_check as _ac
+    _mplan = pdir / "music_plan.json"
+    _mp = {}
     if _mplan.exists():
-        from pipeline import audio_check as _ac
         try:
             _mp = json.loads(_mplan.read_text(encoding="utf-8"))
         except (OSError, ValueError):
             _mp = {}
-        # cues: each must rise out of the bed it sits in
-        _cues = [{"at": float(c["at"]) + intro_offset, "dur": float(c["dur"]),
-                  "mood": c.get("mood")} for c in (_mp.get("cues") or [])]
-        if not _cues:
+    _cues = [{"at": float(c["at"]) + intro_offset, "dur": float(c["dur"]),
+              "mood": c.get("mood")} for c in (_mp.get("cues") or [])]
+    if not _cues:
+        # FOUR different situations used to collapse into one wrong message.
+        # Only the first two are legitimate skips.
+        if not _bed_used:
             _rep.add("MUSIC-CUE", None,
-                     "no cues were placed in this render, so none could be "
-                     "measured")
-        if _cues:
-            _cok, _cfind, _crows = _ac.check_cues_audible(final, _cues)
-            for _r in _crows:
-                console.print(
-                    f"[dim][MUSIC-CUE] {str(_r.get('mood')):<8} "
-                    f"{_r['at']:7.1f}s  {_r['inside_db']:+6.1f} dB vs bed "
-                    f"{_r['bed_db']:+6.1f} dB  lift {_r['lift_db']:+5.1f} dB"
-                    + (f"  ({_r['inside_lufs']:.1f} LUFS)"
-                       if _r.get("inside_lufs") is not None else "") + "[/]")
-            _rep.add("MUSIC-CUE", _cok,
-                     (f"{len(_crows)} cue(s); lift above the bed "
-                      + ", ".join(f"{r['mood']} {r['lift_db']:+.1f} dB"
-                                   for r in _crows)
-                      if _crows else "no cues placed"),
-                     numbers={"minimum lift required (dB)":
-                              _ac.CUE_LIFT_MIN_DB,
-                              "music normalised to (LUFS)":
-                              (config.MUSIC_NORMALIZE_LUFS
-                               if getattr(config, 'MUSIC_NORMALIZE', True)
-                               else None),
-                              "cue level target (dB)":
-                              config.MUSIC_CUE_DUCK_DB,
-                              "action cue target (dB)":
-                              config.MUSIC_CUE_DUCK_ACTION_DB,
-                              "bed dip under a cue (dB)":
-                              config.MUSIC_CUE_BED_DIP_DB},
-                     rows=[{"mood": r.get("mood"),
-                            "at": hms_s(r["at"]),
-                            "length (s)": round(r["dur"], 1),
-                            "cue (dB)": r["inside_db"],
-                            "bed (dB)": r["bed_db"],
-                            "lift (dB)": r["lift_db"],
-                            "cue (LUFS)": r.get("inside_lufs")}
-                           for r in _crows],
-                     findings=[{"at": r["at"],
-                                "text": (f"{r.get('mood')} cue lifts only "
-                                         f"{r['lift_db']:+.1f} dB above the "
-                                         f"bed (bar "
-                                         f"{_ac.CUE_LIFT_MIN_DB:.0f} dB)")}
-                               for r in _crows
-                               if r["lift_db"] < _ac.CUE_LIFT_MIN_DB],
-                     fatal=False,
-                     why=("every music file is loudness-normalised before any "
-                          "gain, because the cue sources span 9.0 dB of "
-                          "integrated loudness - more than the gain "
-                          "differences the mix is built on"))
-            if not _cok:
-                console.print("[red][MUSIC-CUE][/] cue(s) are not audible "
-                              "above the bed:")
-                for _b in _cfind:
-                    console.print(f"[red]    {_b}[/]")
-                problems.append("music cues: " + "; ".join(_cfind))
-        # film_speaks: the film must be the loudest thing in its own unit
-        _fsw = _mp.get("film_speaks") or []
-        if not _fsw:
-            _rep.add("FILM-SPEAKS", None,
-                     "this draft has no <film_speaks> units")
-        if _fsw:
-            _fs_by_pos = []
-            _fs_lines = [ln["id"] for ln in draft["lines"]
-                         if ln.get("film_speaks_seconds") is not None]
-            for _i, (_a, _b) in enumerate(_fsw):
-                _fs_by_pos.append({
-                    "line_id": (_fs_lines[_i] if _i < len(_fs_lines) else None),
-                    "final_at": float(_a) + intro_offset,
-                    "dur": float(_b) - float(_a)})
-            _sok, _sfind, _srows = _ac.check_film_speaks_audible(
-                final, _fs_by_pos)
-            for _r in _srows:
-                console.print(
-                    f"[dim][FILM-SPEAKS] line {_r.get('line_id')} "
-                    f"{_r['final_at']:7.1f}s  film {_r['inside_db']:+6.1f} dB "
-                    f"vs music {max(_r['before_db'], _r['after_db']):+6.1f} dB"
-                    f"  margin {_r['margin_db']:+5.1f} dB[/]")
-            _rep.add("FILM-SPEAKS", _sok,
-                     (f"{len(_srows)} unit(s); margin over the music "
-                      + ", ".join(f"line {r.get('line_id')} "
-                                   f"{r['margin_db']:+.1f} dB"
-                                   for r in _srows)),
-                     numbers={"minimum margin required (dB)":
-                              _ac.FILM_SPEAKS_MARGIN_MIN_DB,
-                              "music ducked by (dB)":
-                              config.FILM_SPEAKS_MUSIC_DB,
-                              "duck fade (s)":
-                              config.FILM_SPEAKS_MUSIC_FADE_SEC,
-                              "film level (dB)": config.FILM_SPEAKS_DB,
-                              "audio used": "ORIGINAL mix (dialogue kept)"},
-                     rows=[{"line": r.get("line_id"),
-                            "at": hms_s(r["final_at"]),
-                            "length (s)": round(r["dur"], 2),
-                            "film (dB)": r["inside_db"],
-                            "music before (dB)": r["before_db"],
-                            "music after (dB)": r["after_db"],
-                            "margin (dB)": r["margin_db"],
-                            "film (LUFS)": r.get("inside_lufs")}
-                           for r in _srows],
-                     findings=[{"at": r["final_at"],
-                                "text": (f"film_speaks line "
-                                         f"{r.get('line_id')} is only "
-                                         f"{r['margin_db']:+.1f} dB over the "
-                                         f"music (bar "
-                                         f"{_ac.FILM_SPEAKS_MARGIN_MIN_DB:.0f}"
-                                         f" dB)")}
-                               for r in _srows
-                               if r["margin_db"]
-                               < _ac.FILM_SPEAKS_MARGIN_MIN_DB],
-                     fatal=False,
-                     why=("the shipped render measured +3.2 and +1.5 dB here "
-                          "and was described as 'only music', so the bar is "
-                          "sited against that, not against a rule of thumb"))
-            if not _sok:
-                console.print("[red][FILM-SPEAKS][/] the film is not audible "
-                              "in its own unit:")
-                for _b in _sfind:
-                    console.print(f"[red]    {_b}[/]")
-                problems.append("film_speaks: " + "; ".join(_sfind))
+                     "this render used no music at all, so there are no cues "
+                     "to measure")
+        elif not _prebuilt:
+            # Quote resolve_music's OWN note rather than guessing why. A first
+            # version said "no cue files", which was wrong on a project that
+            # HAS cue files but whose planner placed none (density caps, or no
+            # qualifying run) - the same mistake as the message this whole
+            # item is fixing, one layer down.
+            _rep.add("MUSIC-CUE", None,
+                     f"no bed+cues track was built, so there are no cues to "
+                     f"measure - the music design in use is: {_mnote}")
+        elif not _mplan.exists():
+            _m2 = (f"a bed+cues track WAS built from "
+                   f"{Path(_bed_used).name} but {_mplan.name} is missing, so "
+                   f"no cue level could be measured. This is a pipeline bug, "
+                   f"not an absence of music.")
+            _rep.add("MUSIC-CUE", False, _m2, fatal=False,
+                     findings=[{"text": _m2}])
+            problems.append("music measurement: " + _m2)
+        else:
+            _rep.add("MUSIC-CUE", None,
+                     "a bed+cues track was built but the cue planner placed "
+                     "no cues (density caps, or no qualifying run)")
+    if _cues:
+        _cok, _cfind, _crows = _ac.check_cues_audible(final, _cues)
+        for _r in _crows:
+            console.print(
+                f"[dim][MUSIC-CUE] {str(_r.get('mood')):<8} "
+                f"{_r['at']:7.1f}s  {_r['inside_db']:+6.1f} dB vs bed "
+                f"{_r['bed_db']:+6.1f} dB  lift {_r['lift_db']:+5.1f} dB"
+                + (f"  ({_r['inside_lufs']:.1f} LUFS)"
+                   if _r.get("inside_lufs") is not None else "") + "[/]")
+        _rep.add("MUSIC-CUE", _cok,
+                 (f"{len(_crows)} cue(s); lift above the bed "
+                  + ", ".join(f"{r['mood']} {r['lift_db']:+.1f} dB"
+                               for r in _crows)
+                  if _crows else "no cues placed"),
+                 numbers={"minimum lift required (dB)":
+                          _ac.CUE_LIFT_MIN_DB,
+                          "music normalised to (LUFS)":
+                          (config.MUSIC_NORMALIZE_LUFS
+                           if getattr(config, 'MUSIC_NORMALIZE', True)
+                           else None),
+                          "cue level target (dB)":
+                          config.MUSIC_CUE_DUCK_DB,
+                          "action cue target (dB)":
+                          config.MUSIC_CUE_DUCK_ACTION_DB,
+                          "bed dip under a cue (dB)":
+                          config.MUSIC_CUE_BED_DIP_DB},
+                 rows=[{"mood": r.get("mood"),
+                        "at": hms_s(r["at"]),
+                        "length (s)": round(r["dur"], 1),
+                        "cue (dB)": r["inside_db"],
+                        "bed (dB)": r["bed_db"],
+                        "lift (dB)": r["lift_db"],
+                        "cue (LUFS)": r.get("inside_lufs")}
+                       for r in _crows],
+                 findings=[{"at": r["at"],
+                            "text": (f"{r.get('mood')} cue lifts only "
+                                     f"{r['lift_db']:+.1f} dB above the "
+                                     f"bed (bar "
+                                     f"{_ac.CUE_LIFT_MIN_DB:.0f} dB)")}
+                           for r in _crows
+                           if r["lift_db"] < _ac.CUE_LIFT_MIN_DB],
+                 fatal=False,
+                 why=("every music file is loudness-normalised before any "
+                      "gain, because the cue sources span 9.0 dB of "
+                      "integrated loudness - more than the gain "
+                      "differences the mix is built on"))
+        if not _cok:
+            console.print("[red][MUSIC-CUE][/] cue(s) are not audible "
+                          "above the bed:")
+            for _b in _cfind:
+                console.print(f"[red]    {_b}[/]")
+            problems.append("music cues: " + "; ".join(_cfind))
+    # film_speaks: the film must be the loudest thing in its own unit.
+    # Taken from the render's OWN in-memory window list, not read back out of
+    # the music plan file. The plan was only ever a convenient carrier, and
+    # routing this through a file in _work/ meant a measurement that does not
+    # depend on music at all got skipped whenever that file was missing.
+    _fsw = list(film_speaks_windows)
+    if not _fsw:
+        _rep.add("FILM-SPEAKS", None,
+                 "this draft has no <film_speaks> units")
+    if _fsw:
+        _fs_by_pos = []
+        _fs_lines = [ln["id"] for ln in draft["lines"]
+                     if ln.get("film_speaks_seconds") is not None]
+        for _i, (_a, _b) in enumerate(_fsw):
+            _fs_by_pos.append({
+                "line_id": (_fs_lines[_i] if _i < len(_fs_lines) else None),
+                "final_at": float(_a) + intro_offset,
+                "dur": float(_b) - float(_a)})
+        _sok, _sfind, _srows = _ac.check_film_speaks_audible(
+            final, _fs_by_pos)
+        for _r in _srows:
+            console.print(
+                f"[dim][FILM-SPEAKS] line {_r.get('line_id')} "
+                f"{_r['final_at']:7.1f}s  film {_r['inside_db']:+6.1f} dB "
+                f"vs music {max(_r['before_db'], _r['after_db']):+6.1f} dB"
+                f"  margin {_r['margin_db']:+5.1f} dB[/]")
+        _rep.add("FILM-SPEAKS", _sok,
+                 (f"{len(_srows)} unit(s); margin over the music "
+                  + ", ".join(f"line {r.get('line_id')} "
+                               f"{r['margin_db']:+.1f} dB"
+                               for r in _srows)),
+                 numbers={"minimum margin required (dB)":
+                          _ac.FILM_SPEAKS_MARGIN_MIN_DB,
+                          "music ducked by (dB)":
+                          config.FILM_SPEAKS_MUSIC_DB,
+                          "duck fade (s)":
+                          config.FILM_SPEAKS_MUSIC_FADE_SEC,
+                          "film level (dB)": config.FILM_SPEAKS_DB,
+                          "audio used": "ORIGINAL mix (dialogue kept)"},
+                 rows=[{"line": r.get("line_id"),
+                        "at": hms_s(r["final_at"]),
+                        "length (s)": round(r["dur"], 2),
+                        "film (dB)": r["inside_db"],
+                        "music before (dB)": r["before_db"],
+                        "music after (dB)": r["after_db"],
+                        "margin (dB)": r["margin_db"],
+                        "film (LUFS)": r.get("inside_lufs")}
+                       for r in _srows],
+                 findings=[{"at": r["final_at"],
+                            "text": (f"film_speaks line "
+                                     f"{r.get('line_id')} is only "
+                                     f"{r['margin_db']:+.1f} dB over the "
+                                     f"music (bar "
+                                     f"{_ac.FILM_SPEAKS_MARGIN_MIN_DB:.0f}"
+                                     f" dB)")}
+                           for r in _srows
+                           if r["margin_db"]
+                           < _ac.FILM_SPEAKS_MARGIN_MIN_DB],
+                 fatal=False,
+                 why=("the shipped render measured +3.2 and +1.5 dB here "
+                      "and was described as 'only music', so the bar is "
+                      "sited against that, not against a rule of thumb"))
+        if not _sok:
+            console.print("[red][FILM-SPEAKS][/] the film is not audible "
+                          "in its own unit:")
+            for _b in _sfind:
+                console.print(f"[red]    {_b}[/]")
+            problems.append("film_speaks: " + "; ".join(_sfind))
 
     # ---- FILM AUDIO: is the stem where the rule says, and nowhere else? -----
     # Measured on the finished mix by CORRELATING it against the stem file,

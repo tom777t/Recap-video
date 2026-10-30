@@ -414,7 +414,13 @@ def build_music_track(ff: str, pdir: Path, out: Path, total_dur: float,
     # finished mix at those exact timestamps instead of guessing where a cue
     # was meant to be. Written next to the track; harmless to keep.
     try:
-        (out.parent / "music_plan.json").write_text(json.dumps({
+        # WRITTEN TO THE PROJECT DIR, NOT _work. It used to go next to the
+        # track in _work/, which render.py DELETES (rmtree) before the
+        # post-render checks run - so [MUSIC-CUE] and [FILM-SPEAKS] read a
+        # file that had just been removed and reported SKIPPED on every
+        # render that did not pass --keep-temp. A gate that is green because
+        # its input is missing is worse than no gate.
+        (pdir / "music_plan.json").write_text(json.dumps({
             "cues": [{"at": p["start"], "dur": p["end"] - p["start"],
                       "mood": p.get("mood"),
                       "file": Path(p["file"]).name} for p in cue_plan],
