@@ -31,6 +31,7 @@ from pathlib import Path
 from rich.console import Console
 
 import config
+from pipeline import encoder as _encoder
 
 console = Console()
 
@@ -519,10 +520,7 @@ def _build_film_intro_segment(project: str, work: Path,
                f"[bed][nar]amix=inputs=2:duration=first:normalize=0,"
                f"alimiter=limit=0.891[a]",
                "-map", "[v]", "-map", "[a]", "-t", f"{fi_dur+0.3:.3f}",
-               "-c:v", "libx264", "-preset", config.VIDEO_PRESET_INTERMEDIATE,
-               "-crf", str(config.VIDEO_CRF_INTERMEDIATE),
-               "-pix_fmt", config.VIDEO_PIX_FMT,
-               "-c:a", "aac", "-b:a", "192k", "-ar", "48000", "-ac", "2",
+               *_encoder.video_args("final"), *_encoder.audio_args(),
                str(out)]
     else:
         console.print("[yellow]Film-intro:[/] no music bed found "
@@ -535,10 +533,7 @@ def _build_film_intro_segment(project: str, work: Path,
                f"[0:v]{vf}[v];"
                f"[1:a]aformat=sample_rates=48000:channel_layouts=stereo[a]",
                "-map", "[v]", "-map", "[a]", "-t", f"{fi_dur+0.3:.3f}",
-               "-c:v", "libx264", "-preset", config.VIDEO_PRESET_INTERMEDIATE,
-               "-crf", str(config.VIDEO_CRF_INTERMEDIATE),
-               "-pix_fmt", config.VIDEO_PIX_FMT,
-               "-c:a", "aac", "-b:a", "192k", "-ar", "48000", "-ac", "2",
+               *_encoder.video_args("final"), *_encoder.audio_args(),
                str(out)]
     r = subprocess.run(cmd, capture_output=True, text=True)
     if r.returncode != 0 or not out.exists():
@@ -682,10 +677,7 @@ def prepend_to_final(project: str, final: Path) -> float:
         cmd = [ff, "-y", *_ins, "-filter_complex",
                f"{_cat}concat=n={_n}:v=1:a=1[v][a]",
                "-map", "[v]", "-map", "[a]",
-               "-c:v", "libx264", "-preset", config.VIDEO_PRESET_INTERMEDIATE,
-               "-crf", str(config.VIDEO_CRF_INTERMEDIATE),
-               "-pix_fmt", config.VIDEO_PIX_FMT,
-               "-c:a", "aac", "-b:a", "192k", "-ar", "48000", "-ac", "2",
+               *_encoder.video_args("final"), *_encoder.audio_args(),
                str(tmp)]
         r = subprocess.run(cmd, capture_output=True, text=True)
     if r.returncode != 0 or not tmp.exists():
@@ -856,10 +848,7 @@ def build_intro(project: str, out_name: str = "intro_preview.mp4",
     out = pdir / out_name
     cmd = [ff, "-y", *inputs, "-filter_complex", graph,
            "-map", "[v]", "-map", "[a]", "-t", f"{total:.3f}",
-           "-c:v", "libx264", "-preset", config.VIDEO_PRESET_INTERMEDIATE,
-           "-crf", str(config.VIDEO_CRF_INTERMEDIATE),
-           "-pix_fmt", config.VIDEO_PIX_FMT,
-           "-c:a", "aac", "-b:a", "192k", str(out)]
+           *_encoder.video_args("final"), *_encoder.audio_args(), str(out)]
     r = subprocess.run(cmd, capture_output=True, text=True)
     if r.returncode != 0:
         console.print("[red]Intro montage: ffmpeg failed[/]")

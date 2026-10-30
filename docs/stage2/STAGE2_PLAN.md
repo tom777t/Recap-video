@@ -60,7 +60,7 @@ Những lỗi này tìm ra bằng cách đọc code. Cần OpenCode xác nhận 
 |---|---|
 | **Mã hoá mỗi clip một lần ở chất lượng cuối**, chỉ mã hoá riêng đoạn chuyển cảnh 0,28 giây, rồi **ghép bằng copy** (không mã hoá lại). Tiếng trộn riêng một lượt. Intro dùng **chung code** với phần chính. | Render lần đầu: 65–75 phút còn ~10–12 phút. Render lại sau khi sửa vài câu: ~3–5 phút |
 | **Dùng chip Intel Quick Sync để mã hoá** (`h264_qsv`), tự dò xem có không, không có thì quay về libx264. Hiệu chỉnh mức chất lượng bằng đo VMAF so với CRF 20. | Bước mã hoá cuối: ~16 phút còn ~3–5 phút |
-| **Chế độ xem nháp** 540p, mã hoá nhanh, cùng mốc thời gian | Mỗi vòng duyệt ~2–6 phút |
+| ~~**Chế độ xem nháp** 540p, mã hoá nhanh, cùng mốc thời gian~~ — **ĐÃ BỎ** | **Bỏ ngày 31/10/2026.** Người xem chỉ duyệt bản render cuối, không ai xem bản nháp, nên một bản render thứ hai ở chất lượng thấp chỉ thêm chi phí và thêm một đường tính thời gian nữa phải giữ cho khớp với bản chính. Đã xoá hẳn: `DRAFT_WIDTH`/`DRAFT_HEIGHT` trong `config.py`, tier `"draft"` trong `pipeline/encoder.py`, cờ `--draft-mode` trong `tools/bench_render.py`. |
 | **Dựng clip song song** (3–4 luồng), **gọi giọng đọc song song** | Lần đầu nhanh hơn 8–13 phút |
 | **Khoá lưu ổn định:** khoá theo nội dung, không theo số thứ tự câu hay giờ sửa file | Sửa một câu chỉ dựng lại đúng câu đó |
 

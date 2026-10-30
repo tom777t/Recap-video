@@ -280,7 +280,29 @@ SETPIECE_MAXGAP_MULT = 3.0       # x the film's median consecutive-line gap
 # --------------------------------------------------------------------------- #
 # Transitions + audio feel (review-phim style)
 # --------------------------------------------------------------------------- #
-XFADE_DURATION = 0.28      # crossfade/dissolve length between clips (seconds)
+# Crossfade length, expressed in FRAMES and converted, because it has to land
+# on a frame boundary.
+#
+# This was 0.28 seconds. At 30 fps that is 8.4 frames - not a whole number, so
+# every crossfade boundary fell in the middle of a frame. Nothing complained,
+# because the old pipeline re-encoded the entire timeline through an `xfade`
+# filtergraph and the filter simply resampled around it.
+#
+# It matters now. Phase 1 stream-copies each clip body and a stream copy can
+# only cut on a frame, so a boundary at 8.4 frames cannot be hit exactly: the
+# first copy-cut came out 0.080s long, and at 110 junctions that is nearly nine
+# seconds of accumulated drift between picture and sound. Found by the
+# assembler's own duration assertion on the first run, not by reading.
+#
+# 8 frames is the whole number nearest the original 0.28s (0.267s vs the 0.300s
+# of 9 frames).
+#
+# The 30.0 below is OUTPUT_FPS, which is defined further down this file and so
+# cannot be referenced here. Rather than duplicate the number silently - the
+# "one job, two places" failure the Stage 2 plan opens with - there is an
+# assertion next to OUTPUT_FPS that fails loudly if the two ever disagree.
+XFADE_FRAMES = 8
+XFADE_DURATION = XFADE_FRAMES / 30.0   # = 0.26667s at 30 fps
 GAP_BETWEEN_LINES = 0.18   # a real micro-breath between lines (was 0.05; too fast)
 NARRATION_FADE = 0.04      # micro fade in/out on each line to kill pops
 
@@ -778,16 +800,60 @@ DEFAULT_CAPTIONS = False
 OUTPUT_WIDTH = 1920
 OUTPUT_HEIGHT = 1080
 OUTPUT_FPS = 30
+
+# XFADE_DURATION is computed near the top of this file from XFADE_FRAMES and a
+# literal 30.0, because OUTPUT_FPS is not defined yet up there. If the output
+# rate changes, the crossfade stops landing on a frame boundary and the
+# stream-copy assembly silently drifts - so this is an assertion, not a note.
+assert abs(XFADE_DURATION - XFADE_FRAMES / float(OUTPUT_FPS)) < 1e-9, (
+    f"XFADE_DURATION ({XFADE_DURATION}) was computed at 30 fps but OUTPUT_FPS "
+    f"is {OUTPUT_FPS}. The crossfade must be a whole number of frames or "
+    f"pipeline/assemble.py cannot copy-cut exactly. Recompute it as "
+    f"XFADE_FRAMES / OUTPUT_FPS.")
 VIDEO_CRF = 20                  # lower = better quality / bigger file
 VIDEO_PRESET = "medium"         # FINAL encode only
 
-# A frame is encoded THREE times on its way to final.mp4: clip -> xfade concat
-# -> music mix. All three used to run at CRF 20, so the two intermediates threw
-# away detail that the final encode could never recover - generation loss on a
-# source that is already being upscaled 1.5x. Intermediates are now near-
-# transparent and only the LAST encode is sized for delivery.
+# HISTORICAL, and now almost unused. A frame used to be encoded THREE times on
+# its way to final.mp4 (clip -> xfade concat -> music mix) - and in fact FOUR,
+# because _xfade_chain batches at 12 and then joins the batches, which this
+# comment never accounted for. Measured on tokyodrift2006: 115 min for a first
+# render, 56 min to re-render after editing three lines, with every clip
+# already cached.
+#
+# Phase 1 removes those passes. Each clip is now encoded ONCE at delivery
+# quality, only the 0.28s crossfades are encoded separately, and the pieces are
+# joined by stream copy. These two settings therefore no longer describe the
+# main path; they remain for the few places that still build a throwaway
+# intermediate (the intro-join fallback, calibration scratch files).
 VIDEO_CRF_INTERMEDIATE = 16
 VIDEO_PRESET_INTERMEDIATE = "veryfast"
+
+# 540p draft mode was specified for Phase 1 and has been DROPPED. It only paid
+# off if someone reviewed a cheap preview before the real render, and nobody
+# does - the viewer watches the final render and nothing else, so a second
+# render at lower quality is pure added cost and a second timing path to keep
+# in step. See docs/stage2/STAGE2_PLAN.md.
+
+# FALLBACK TO THE OLD RENDER PATH.
+# Phase 1 replaced four full-length re-encodes with a stream-copy assembly.
+# Its correctness is established by frame counts, duration assertions and the
+# ten final-file checks - but NOBODY HAS WATCHED A RENDER FROM IT YET. If the
+# first viewing shows something the numbers could not see (a dissolve that
+# looks wrong, a stutter at a junction), set this to True to get the previous
+# behaviour back in one edit, without reverting a merge.
+#
+# True  = _xfade_chain: re-encode the whole timeline through an xfade
+#         filtergraph, then re-encode again in the music mix. Slow and proven.
+# False = pipeline.assemble: encode each clip once, copy the bodies, encode
+#         only the crossfades. Fast and newer.
+RENDER_LEGACY_XFADE = False
+
+# Parallel clip builds and parallel TTS are the next Phase 1 item and are NOT
+# implemented. CLIP_WORKERS and TTS_WORKERS used to sit here unused, and
+# tools/check_config_usage.py was right to fail on them: a config key that
+# nothing reads is a claim the code does not honour, and the next person
+# cannot tell "tunable" from "dead". They go back in with the code that
+# reads them, not before.
 
 # swscale algorithm. ffmpeg's default is bicubic; on a 1.5x upscale lanczos
 # holds edges visibly better, which is most of what "looks sharper" means here.

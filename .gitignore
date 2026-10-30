@@ -70,3 +70,9 @@ projects/*/music/_norm/
 # Scratch commit-message files
 _c.txt
 _commitmsg.txt
+
+# Phase 1 render-speed benchmark scratch: saved baseline final.mp4 and report,
+# plus the pre-edit draft backup. Large, regenerable, measurement-local.
+projects/*/_bench/
+projects/*/draft_before_3line_edit.json
+projects/*/_work_cal/
