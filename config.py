@@ -951,7 +951,17 @@ PACING_ANCHOR_MAX_COMPRESSION_RATIO = 0.70   # of the draft's own mean
 # "only", "still", "never" and any "you", which appear throughout ordinary
 # descriptive prose. It PASSED a draft the viewer said had no voice, which is
 # the worst kind of gate. Use the label the writer commits to.
+# Measured on the shipped draft: the writer labelled 14 lines judgment, the
+# independent classifier found 44, and the two AGREED on 11 (10.4% of 106).
+# The gate counts the agreement, which is conservative because the two signals
+# fail in opposite directions - the label can be asserted, the classifier
+# over-fires on unquoted reported speech.
 PERSONA_JUDGMENT_SHARE_MIN = 0.22
+# ...and the agreement RATE among labelled lines is what collapses if the
+# label is inflated. Shipped draft: 11/14 = 78.6%, so an honest-but-thin draft
+# fails on the SHARE above and not on this. A writer who tags 40 lines
+# judgment to clear the share would drop this to ~30% and fail here instead.
+PERSONA_JUDGMENT_AGREEMENT_MIN = 0.60
 #
 # A DECISION, NOT A MEASUREMENT - and the references say so. Persona-move rate
 # (direct address, first person, questions to the viewer, stance adverbs)
@@ -963,11 +973,18 @@ PERSONA_JUDGMENT_SHARE_MIN = 0.22
 # preference up as evidence.
 PERSONA_WINDOW_SEC = 120.0            # the persona must be audible every 2 min
 PERSONA_MIN_PER_WINDOW = 1
-# Lines that only report what is already on screen. CALIBRATED: the English
-# references run 7.1%, 7.5%, 8.8%, 11.5%, 13.1% (median 8.8%, max 13.1%). The
-# shipped draft is 14.2% - above every reference. The cap sits just above the
+# Lines that only report what is already on screen. RE-CALIBRATED after the
+# judgment classifier was corrected, because the same correction changes this
+# measure: a line the classifier now recognises as evaluation is no longer
+# frame-only. Measured with the corrected classifier, the English references
+# run 5.9%, 7.0%, 8.4%, 11.5%, 11.5% (median 8.4%, max 11.5%); the shipped
+# draft is 14.2%, still above every reference. The cap sits just above the
 # reference maximum.
-PERSONA_FRAME_ONLY_SHARE_MAX = 0.15
+#
+# The earlier figures (7.1-13.1%, cap 0.15) were taken with the broken
+# classifier and are superseded - a bar calibrated with a faulty instrument is
+# not a calibration.
+PERSONA_FRAME_ONLY_SHARE_MAX = 0.13
 
 
 

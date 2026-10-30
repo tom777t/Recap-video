@@ -36,14 +36,21 @@ runtime does not move.
 
 Format: `- **beats** | kind | why`
 
-- **B13** | emotional peak | The silent sentence. The mother says they are not moving this time and he takes it without a word; the whole "being moved on" pattern is legible here or nowhere.
-- **B17/B18** | thesis setup | "You can't keep running from your trouble." The father's rules, and the exact words the ending pays back.
-- **B30/B37** | hook payoff | The first garage race: he borrows DK's car and destroys it. This is the "before he has learned to turn" promise being cashed — he cannot drift, in public, at length.
-- **B47/B52/B53** | hook payoff | Learning to turn. Han hands him the Evo and he is actually taught; the arc the hook promised, not a "long story short".
-- **B57/B58** | thesis | Han on the footbridge: Tokyo is his Mexico, he lent the car on purpose, he doesn't drift to win. Load-bearing for the outro.
-- **B64/B65/B66** | emotional peak | Neela at the vending machines and her mother's story — the one person who chose Tokyo too, which is what makes "worth losing in front of" true instead of asserted.
-- **B79/B80** | reveal | Han's death and what Sean does next. R2.
-- **B99/B101** | reveal | The mountain. The crown changes hands and the loser is the one who leaves Tokyo. R3 plus the "being moved on" payoff.
+Each entry carries an `evidence:` quote that is a **verbatim** phrase from that
+beat's own `what` text in the beat map. [ANCHOR-EVIDENCE] verifies it as a
+literal substring, so the angle's description of a beat carries no weight —
+only the beat does. The mapping below was **re-derived from the beat map by an
+auditor that never saw the previous version**; the derivation and what it
+overturned are recorded in `docs/stage2/ANGLE_EVIDENCE_AUDIT.md`.
+
+- **B13** | emotional peak, being moved on | The relocation pattern named out loud and settled over his head by an adult; his silence is the dwellable beat. | evidence: "his mother tells him they are not moving this time, and he takes the sentence in silence"
+- **B17** | thesis setup, stop running | The thesis in the father's own mouth, and the exact words the ending pays back. B18 is only house rules and cannot carry the slot. | evidence: "he cannot keep moving away from his own trouble"
+- **B35** | hook payoff, he cannot drift | Failure at the wheel in front of the whole meet, with stakes attached. B53 repeats the incapacity for laughs but costs him nothing. | evidence: "He loses the borrowed car's line mid-drift and grinds it along the concrete"
+- **B60** | hook payoff, he is taught to drift | Sustained coaching, repetition, and a cost he has to fund. This is the only beat in the film where the turning is actually taught. | evidence: "told to drift by feeling, he runs the hairpins again and again with the mentor coaching from the passenger seat"
+- **B58** | thesis | The thesis in Han's own mouth. B59 is only the demonstration that answers it. | evidence: "life is choices you never look back on, and that he doesn't drift to win"
+- **B65** | emotional peak, Neela | Her own reason for being in Tokyo, and the debt that binds her to DK — the mirror of Sean's displacement, which is what makes "worth losing in front of" true rather than asserted. | evidence: "her mother came from Australia to work a hostess bar and died when she was ten, and that DK's grandmother took her in"
+- **B79/B80** | reveal | Han's death and the immediate aftermath; dwell across both halves of the block. R2. | evidence: "lands upside down with the mechanic trapped inside and detonates"
+- **B101** | reveal | The mountain decided, under the terms set at B91 that send the loser out of Tokyo. R3 plus the "being moved on" payoff. | evidence: "shoves the rival wide instead, putting him off the shoulder into the brush"
 
 ## HOOK PROMISES
 
@@ -53,10 +60,10 @@ mapping.
 
 Format: `- "clause" -> beats | note`
 
-- "before he has learned to turn" -> B30/B37, B47/B52/B53 | the drift arc: first the public failure, then the actual teaching
-- "one city, one man, and one girl worth losing in front of" -> B57/B58, B64/B65/B66 | Han and Neela, both given room
-- "stops running" -> B17/B18, B99/B101 | the father's words set it, the mountain pays it
-- "only then does he win" -> B99/B101 | the win is the last thing, and it is a consequence
+- "before he has learned to turn" -> B35, B53, B60 | B35/B53 are the "before", B60 is the turning actually being taught | evidence: "told to drift by feeling, he runs the hairpins again and again with the mentor coaching from the passenger seat"
+- "one city, one man, and one girl worth losing in front of" -> B57, B65, B66 | B57 fuses the city and the man; B65 gives the girl her own claim on it | evidence: "calls Tokyo his Mexico and admits he lent out the car on purpose"
+- "stops running" -> B17, B83, B86 | B17 plants the instruction; B83 is him saying it back in his own words and refusing the exit | evidence: "he caused this and cannot run from it"
+- "only then does he win" -> B91, B101, B102 | the win executed with the drift he was taught, under the stake that sends the loser away | evidence: "shoves the rival wide instead, putting him off the shoulder into the brush"
 
 ## NARRATOR PERSONA
 
@@ -94,7 +101,8 @@ fond of Han; a little afraid of Kamata, correctly.
 
 **Secondary — compress to a line or hold on footage:**
 - B20–B23 (school arrival, uwabaki/slippers, first Twinkie sales pitch) — one bridge line.
-- B25/B50/B60/B63/B106 (meet atmosphere, garage party, montage drift-training, plaza swarm) — footage-only texture; the crowd is one idea, don't re-establish it five times.
+- B25/B50/B63/B106 (meet atmosphere, garage party, plaza swarm) — footage-only texture; the crowd is one idea, don't re-establish it five times.
+  *(B60 was in this list and has been removed: it is the ANCHOR for "he is taught to drift", the only beat in the film where the turning is actually coached. A beat the recap arrives at cannot also be a beat it holds on footage — [ANCHOR-EVIDENCE] now fails that clash.)*
 - B41 (bathhouse collection) — one beat max; it's color on the Han job, not the thread.
 - B55/B56 (school-roof fight) — compress; it rhymes with B01 (he protects the pinned kid, same as Arizona) so one sentence earns its place, no more.
 - B49 (197 km/h police) and B59 (orbit drift demo) — hold on footage under narration; pure spectacle.

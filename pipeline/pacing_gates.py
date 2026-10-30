@@ -32,6 +32,8 @@ from pathlib import Path
 
 import config
 
+ROOT_DOCS = Path(__file__).resolve().parent.parent / "docs" / "stage2"
+
 # ---- persona detection --------------------------------------------------- #
 # A "judgment" line says what something MEANS or how the narrator feels about
 # it. These are deliberately surface patterns: the gate is a floor on voice
@@ -69,9 +71,51 @@ def _narr(ln: dict) -> str:
     return str(ln.get("narration") or "").strip()
 
 
+_QUOTE = re.compile(r'["\u201c][^"\u201d]*["\u201d]')
+# Evaluation that uses no pronoun. The first classifier had none of this and
+# missed real judgment outright - "There's the mistake", "That's the whole of
+# his pride", "the loyalest person in this film" - scoring 3 of the writer's
+# 14 labelled lines. With these it reaches 11 of 14.
+_EVAL = re.compile(
+    r"(?:"
+    r"\b(?:there|that|this|here)(?:'s| is| was)\s+the\b"
+    r"|\bthe (?:whole|only|best|worst|point|problem|mistake|trick|truth|"
+    r"joke|cost|price|difference)\b"
+    r"|\bworth\s+\w+ing\b"
+    r"|\b\w{4,}est\b"
+    r"|\b(?:most|least) \w+\b"
+    r"|\b(?:nobody|no one|everyone|anyone|nothing|everything) \w+"
+    r"|\b(?:ugly|loyal|odd|ridiculous|stupid|clever|brave|cruel|petty|"
+    r"generous|cheap|borrowed|pointless|honest|dishonest|decent)\b"
+    r"|\bwhich is (?:why|how|what|the)\b"
+    r"|\band that(?:'s| is) \w+"
+    r")", re.I)
+
+
+def classify_judgment(text: str) -> tuple:
+    """(is_judgment, why) - the INDEPENDENT classifier.
+
+    Judges the NARRATOR's own words: quoted character speech is stripped
+    first, because "Have you been racing, Sean" is dialogue, not stance. "US"
+    is neutralised because \bus\b matched "US Navy" in the first version.
+
+    This is not ground truth and is not treated as such. It disagrees with the
+    writer's label in both directions - it still flags 41% of lines, mostly
+    UNQUOTED reported speech that no text rule can separate from narration -
+    which is exactly why the gate counts only the lines where the two AGREE.
+    """
+    t = _QUOTE.sub(" ", str(text or ""))
+    t = re.sub(r"\bUS\b", "AMERICAN", t)
+    for name, pat in (("stance", _MOVE), ("eval", _EVAL)):
+        m = pat.search(t)
+        if m:
+            return True, f"{name}:{m.group(0).strip()[:20]}"
+    return False, ""
+
+
 def _is_move(t: str) -> bool:
     """Does this line carry an audible narrator move?"""
-    return bool(_MOVE.search(t))
+    return classify_judgment(t)[0]
 
 
 def _is_judgment(ln: dict) -> bool:
@@ -160,6 +204,96 @@ def pacing_report(draft: dict, pdir: Path) -> dict:
     except angle_spec.AngleSpecError as e:
         return {"errors": [f"[ANGLE-SPEC] {e}"], "warns": [], "notes": [],
                 "stats": {}}
+
+    # ---- ANCHOR-EVIDENCE: check the angle against the BEAT MAP ----------- #
+    # Runs before anything else reads the anchors, because every gate below
+    # takes the anchor list on trust and one entry was wrong: "before he has
+    # learned to turn" mapped to B47/B52/B53, where B47 is Kamata's cut and
+    # B52 is handing over a car, while B60 - the only beat where Sean is
+    # actually taught to drift - was filed as footage-only texture.
+    from pipeline import beats_spec as _bs
+    _beatmap = _bs.load_beats(Path(pdir))
+    if not _beatmap:
+        notes.append("[ANCHOR-EVIDENCE] no beat map found, so the anchor and "
+                     "promise claims could not be checked against the beats.")
+    else:
+        for a in spec["anchors"]:
+            ok, why = _bs.quote_supported(a.get("evidence", ""), a["beats"],
+                                          _beatmap)
+            if not ok:
+                errors.append(
+                    f"[ANCHOR-EVIDENCE] anchor {'/'.join(a['beats'])} "
+                    f"({a['kind']}): {why}")
+                continue
+            ok2, why2 = _bs.delivers(f"{a['kind']} {a['why']}",
+                                     a["evidence"])
+            if not ok2:
+                warns.append(
+                    f"[ANCHOR-EVIDENCE] anchor {'/'.join(a['beats'])}: {why2}")
+        for pr in spec["promises"]:
+            ok, why = _bs.quote_supported(pr.get("evidence", ""),
+                                          pr["beats"], _beatmap)
+            if not ok:
+                errors.append(
+                    f"[ANCHOR-EVIDENCE] the promise \"{pr['clause']}\": {why}")
+                continue
+            # NO lexical delivers() check on a promise clause. A first
+            # version required 34% content-word overlap between the clause and
+            # the evidence and reported 0% for all four promises - "before he
+            # has learned to turn" shares no literal words with "told to drift
+            # by feeling". A poetic four-word clause cannot be matched
+            # lexically against prose, and failing a correct mapping is worse
+            # than not checking it here. The semantic judgement is a required
+            # ARTIFACT instead: see the audit coverage check below.
+
+    # ---- the independent audit must exist and cover every mapping ------- #
+    # This is what makes "an independent check confirms the quote supports the
+    # claim" a requirement rather than an intention. The audit is written by an
+    # auditor given only the beat map, and it must name every promise clause
+    # and every anchor beat - a mapping nobody audited is a mapping on trust,
+    # which is how B47 survived.
+    _audit = Path(ROOT_DOCS) / "ANGLE_EVIDENCE_AUDIT.md"
+    if not _audit.exists():
+        errors.append(
+            f"[ANCHOR-EVIDENCE] no independent audit at "
+            f"docs/stage2/{_audit.name}. Every anchor and promise mapping "
+            f"must be derived from the beat map by an auditor that did not "
+            f"write the angle, and the derivation recorded.")
+    else:
+        _at = _audit.read_text(encoding="utf-8", errors="replace").lower()
+        _unaudited = [p["clause"] for p in spec["promises"]
+                      if p["clause"].lower() not in _at]
+        _ub = sorted({b for a in spec["anchors"] for b in a["beats"]
+                      if b.lower() not in _at})
+        if _unaudited:
+            errors.append(
+                f"[ANCHOR-EVIDENCE] {len(_unaudited)} promise(s) are not in "
+                f"the independent audit: "
+                + "; ".join(f'"{c}"' for c in _unaudited[:4]))
+        if _ub:
+            errors.append(
+                f"[ANCHOR-EVIDENCE] anchor beat(s) {', '.join(_ub[:8])} are "
+                f"not mentioned in the independent audit.")
+
+    # a beat cannot be load-bearing AND demoted to texture
+    _dem = spec.get("demoted") or {}
+    _clash = []
+    for a in spec["anchors"]:
+        for b in a["beats"]:
+            if b in _dem:
+                _clash.append(f"{b} is an anchor ({a['kind']}) and is listed "
+                              f"as secondary/footage-only")
+    for pr in spec["promises"]:
+        for b in pr["beats"]:
+            if b in _dem:
+                _clash.append(f"{b} pays off \"{pr['clause']}\" and is listed "
+                              f"as secondary/footage-only")
+    if _clash:
+        errors.append(
+            f"[ANCHOR-EVIDENCE] {len(_clash)} beat(s) are both load-bearing "
+            f"and demoted to texture: " + "; ".join(_clash[:6])
+            + ". Decide which it is - a beat the recap arrives at cannot also "
+              "be a beat it holds on footage.")
 
     table = beat_table(draft)
     if len(table) < 12:
@@ -290,16 +424,42 @@ def pacing_report(draft: dict, pdir: Path) -> dict:
     # ---- PERSONA --------------------------------------------------------- #
     lines = [ln for ln in (draft.get("lines") or []) if _narr(ln)]
     if lines:
-        jud = [ln for ln in lines if _is_judgment(ln)]
-        share = len(jud) / len(lines)
+        # LABEL AND CLASSIFIER MUST AGREE.
+        #
+        # The share used to read the writer's `payload` label alone, which the
+        # writer can simply assert. The independent classifier is no better on
+        # its own - it over-fires on unquoted reported speech. So the gate
+        # counts the INTERSECTION, which is conservative because the two
+        # signals are wrong in opposite directions, and separately checks the
+        # agreement RATE, which is what collapses if the label is inflated.
+        labelled = [ln for ln in lines if _is_judgment(ln)]
+        agreed = [ln for ln in labelled
+                  if classify_judgment(_narr(ln))[0]]
+        classed = [ln for ln in lines if classify_judgment(_narr(ln))[0]]
+        share = len(agreed) / len(lines)
+        rate = len(agreed) / max(1, len(labelled))
+        stats["judgment_labelled"] = len(labelled)
+        stats["judgment_classified"] = len(classed)
+        stats["judgment_agreed"] = len(agreed)
         stats["judgment_share"] = round(share, 3)
+        stats["judgment_agreement_rate"] = round(rate, 3)
         if share < config.PERSONA_JUDGMENT_SHARE_MIN:
             errors.append(
-                f"[PERSONA] {len(jud)} of {len(lines)} lines "
-                f"({share:.1%}) carry any narrator judgment or stance, under "
-                f"the {config.PERSONA_JUDGMENT_SHARE_MIN:.0%} floor. The "
-                f"shipped draft scored 12.8% and read as a shot list with a "
-                f"voice-over.")
+                f"[PERSONA] only {len(agreed)} of {len(lines)} lines "
+                f"({share:.1%}) are judgment BY BOTH the writer's label and "
+                f"the independent classifier, under the "
+                f"{config.PERSONA_JUDGMENT_SHARE_MIN:.0%} floor. "
+                f"(label {len(labelled)}, classifier {len(classed)}, agreed "
+                f"{len(agreed)}.) The shipped draft agreed on 11 of 106.")
+        if labelled and rate < config.PERSONA_JUDGMENT_AGREEMENT_MIN:
+            errors.append(
+                f"[PERSONA] the writer labelled {len(labelled)} line(s) "
+                f"judgment but the independent classifier confirms only "
+                f"{len(agreed)} ({rate:.0%}, floor "
+                f"{config.PERSONA_JUDGMENT_AGREEMENT_MIN:.0%}). That gap is "
+                f"what label inflation looks like: "
+                + ", ".join(f"line {ln.get('id')}" for ln in labelled
+                            if not classify_judgment(_narr(ln))[0])[:160])
 
         frame = [ln for ln in lines if _is_frame_only(_narr(ln))]
         fshare = len(frame) / len(lines)
