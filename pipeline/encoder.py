@@ -112,8 +112,7 @@ def active() -> dict:
 # Tier -> ffmpeg args
 # --------------------------------------------------------------------------- #
 def output_size(tier: str) -> tuple[int, int]:
-    if tier == "draft":
-        return (int(config.DRAFT_WIDTH), int(config.DRAFT_HEIGHT))
+    """Picture size for a tier. One size now - the 540p draft tier is gone."""
     return (int(config.OUTPUT_WIDTH), int(config.OUTPUT_HEIGHT))
 
 
@@ -144,10 +143,11 @@ def video_args(tier: str, keyframe_frames: list[int] | None = None) -> list[str]
     So when a caller needs forced keyframes, this returns libx264 EVEN IF QSV
     is available and calibrated. That is not a fallback for safety's sake, it
     is the only encoder here that can do the job. QSV is still used wherever
-    no copy-cut depends on the result: the crossfade pieces, a caption burn,
-    and draft mode.
+    no copy-cut depends on the result: the crossfade pieces and a caption burn.
     """
-    if tier not in ("final", "transition", "draft"):
+    # Two tiers. There was a third, "draft", for a 540p preview render; it has
+    # been dropped because nobody reviews a preview.
+    if tier not in ("final", "transition"):
         raise ValueError(f"unknown encode tier {tier!r}")
 
     a = active()
@@ -163,28 +163,19 @@ def video_args(tier: str, keyframe_frames: list[int] | None = None) -> list[str]
         # clip with no keyframe where the assembler needs one - the assembler
         # would then refuse to build, which is at least loud, but it is
         # better to not create the situation.
-        crf = int(config.VIDEO_CRF)
-        preset = config.VIDEO_PRESET
-        if tier == "draft":
-            crf, preset = int(config.VIDEO_CRF) + 6, "veryfast"
-        return args + ["-c:v", "libx264", "-preset", preset, "-crf", str(crf),
+        return args + ["-c:v", "libx264", "-preset", config.VIDEO_PRESET,
+                       "-crf", str(int(config.VIDEO_CRF)),
                        "-pix_fmt", config.VIDEO_PIX_FMT]
 
     if a["codec"] == "h264_qsv":
-        gq = a["global_quality"]
-        if tier == "draft":
-            gq = min(51, gq + 6)   # preview: visibly cheaper, same timing
         args += ["-c:v", "h264_qsv",
-                 "-global_quality", str(gq),
+                 "-global_quality", str(a["global_quality"]),
                  "-look_ahead", "0",
                  "-async_depth", "4",
-                 "-pix_fmt", "nv12" if tier != "draft" else "nv12"]
+                 "-pix_fmt", "nv12"]
     else:
-        crf = int(config.VIDEO_CRF)
-        preset = config.VIDEO_PRESET
-        if tier == "draft":
-            crf, preset = int(config.VIDEO_CRF) + 6, "veryfast"
-        args += ["-c:v", "libx264", "-preset", preset, "-crf", str(crf),
+        args += ["-c:v", "libx264", "-preset", config.VIDEO_PRESET,
+                 "-crf", str(int(config.VIDEO_CRF)),
                  "-pix_fmt", config.VIDEO_PIX_FMT]
     return args
 

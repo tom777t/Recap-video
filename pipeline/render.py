@@ -2099,11 +2099,24 @@ def render(project: str, draft: dict,
     # Was _xfade_chain, which re-encoded the whole timeline twice (batches of
     # 12, then a pass to join the batches) before the music mix re-encoded it
     # a third time. pipeline.assemble stream-copies every clip body and
-    # encodes only the 0.28s dissolves - about 31s of video on this draft
-    # instead of ~16 minutes, three times over.
-    from pipeline import assemble as _asm
-    av = work / "av_assembled.mp4"
-    total_dur = _asm.build(ff, clips, work, av)
+    # encodes only the 0.27s dissolves - 28.3s of video on this draft instead
+    # of ~15 minutes, three times over.
+    #
+    # config.RENDER_LEGACY_XFADE goes back to the old path in one edit. It
+    # exists because the new path's correctness rests on frame counts and
+    # duration assertions, and no human has yet watched a film it produced.
+    # If a viewing turns up something the numbers cannot see, this is the way
+    # back that does not involve reverting a merge mid-project.
+    if getattr(config, "RENDER_LEGACY_XFADE", False):
+        console.print("[yellow]RENDER_LEGACY_XFADE is on:[/] re-encoding the "
+                      "whole timeline through xfade (the pre-Phase-1 path). "
+                      "Slower, and the picture is encoded four times.")
+        av = work / "av_xfade.mp4"
+        total_dur = _xfade_chain(ff, clips, av)
+    else:
+        from pipeline import assemble as _asm
+        av = work / "av_assembled.mp4"
+        total_dur = _asm.build(ff, clips, work, av)
     console.print(f"  timeline length: {total_dur/60:.1f} min")
 
     # ----- captions ----------------------------------------------------------
@@ -2191,15 +2204,18 @@ def render(project: str, draft: dict,
         if af:
             cmd += ["-af", af]
         # Same reasoning as the music path: the picture is already final, so
-        # only loudnorm needs a pass over the audio. Captions are the one
-        # thing that forces a re-encode.
-        cmd += (list(_encoder.video_args("final")) if vf
+        # only loudnorm needs a pass over the audio. Captions force a
+        # re-encode, and so does the legacy assembly, whose output is a
+        # CRF-16 intermediate rather than something fit to ship.
+        _need_encode = bool(vf) or getattr(config, "RENDER_LEGACY_XFADE", False)
+        cmd += (list(_encoder.video_args("final")) if _need_encode
                 else ["-c:v", "copy"])
         cmd += [
             "-c:a", "aac", "-b:a", "192k", "-ar", "48000", "-ac", "2",
             str(final),
         ]
-        _run(cmd, "final mix" + ("" if vf else " (picture stream-copied)"))
+        _run(cmd, "final mix" + ("" if _need_encode
+                                 else " (picture stream-copied)"))
 
     # ----- prepend the beat-cut intro block ---------------------------------
     # final.mp4 = [montage with the over_montage line(s)] + [film intro block,
@@ -3220,12 +3236,22 @@ def _render_with_music(ff: str, av: Path, music: Path, ass_filter: str | None,
     # captions is the one exception, because a filter has to draw on the
     # frames, and it is paid for only when captions are actually on (they are
     # off by default).
+    _legacy = getattr(config, "RENDER_LEGACY_XFADE", False)
     if ass_filter:
         vmap = "[v]"
         graph = f"[0:v]subtitles='{ass_filter}'[v];{mix}"
         vcodec = list(_encoder.video_args("final"))
         console.print("[yellow]  captions are ON, so the picture must be "
                       "re-encoded to burn them.[/]")
+    elif _legacy:
+        # The legacy xfade path hands over a CRF-16/veryfast intermediate, not
+        # a deliverable. Copying that into final.mp4 would ship an
+        # intermediate - so the fallback has to restore the final encode as
+        # well as the old assembly, or it is not actually a fallback.
+        vmap = "0:v"
+        graph = mix
+        vcodec = list(_encoder.video_args("final"))
+        console.print("[yellow]  legacy path: re-encoding for delivery.[/]")
     else:
         vmap = "0:v"
         graph = mix

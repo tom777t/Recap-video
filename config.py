@@ -828,21 +828,32 @@ VIDEO_PRESET = "medium"         # FINAL encode only
 VIDEO_CRF_INTERMEDIATE = 16
 VIDEO_PRESET_INTERMEDIATE = "veryfast"
 
-# 540p draft mode. IDENTICAL TIMING, lower resolution - the point is to review
-# pacing and wording in a few minutes, so every cut, lead-in and crossfade must
-# land at exactly the same timestamp as the final. Only the picture size and
-# the quality target change. Enabled with `--draft-mode`, which sets
-# RECAP_DRAFT_MODE=1; nothing reads it implicitly.
-DRAFT_WIDTH = 960
-DRAFT_HEIGHT = 540
+# 540p draft mode was specified for Phase 1 and has been DROPPED. It only paid
+# off if someone reviewed a cheap preview before the real render, and nobody
+# does - the viewer watches the final render and nothing else, so a second
+# render at lower quality is pure added cost and a second timing path to keep
+# in step. See docs/stage2/STAGE2_PLAN.md.
 
-# How many clips to build at once. The encode is the bottleneck and each clip
-# is an independent ffmpeg process, so this is the one place parallelism is
-# nearly free. Kept at 3 rather than the 12 logical cores because each ffmpeg
-# is already internally threaded and oversubscribing made the machine
-# unresponsive without finishing sooner.
-CLIP_WORKERS = 3
-TTS_WORKERS = 4
+# FALLBACK TO THE OLD RENDER PATH.
+# Phase 1 replaced four full-length re-encodes with a stream-copy assembly.
+# Its correctness is established by frame counts, duration assertions and the
+# ten final-file checks - but NOBODY HAS WATCHED A RENDER FROM IT YET. If the
+# first viewing shows something the numbers could not see (a dissolve that
+# looks wrong, a stutter at a junction), set this to True to get the previous
+# behaviour back in one edit, without reverting a merge.
+#
+# True  = _xfade_chain: re-encode the whole timeline through an xfade
+#         filtergraph, then re-encode again in the music mix. Slow and proven.
+# False = pipeline.assemble: encode each clip once, copy the bodies, encode
+#         only the crossfades. Fast and newer.
+RENDER_LEGACY_XFADE = False
+
+# Parallel clip builds and parallel TTS are the next Phase 1 item and are NOT
+# implemented. CLIP_WORKERS and TTS_WORKERS used to sit here unused, and
+# tools/check_config_usage.py was right to fail on them: a config key that
+# nothing reads is a claim the code does not honour, and the next person
+# cannot tell "tunable" from "dead". They go back in with the code that
+# reads them, not before.
 
 # swscale algorithm. ffmpeg's default is bicubic; on a 1.5x upscale lanczos
 # holds edges visibly better, which is most of what "looks sharper" means here.

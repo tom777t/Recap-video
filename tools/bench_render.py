@@ -73,8 +73,6 @@ def main() -> int:
     ap.add_argument("--force-clips", action="store_true")
     ap.add_argument("--captions", action="store_true")
     ap.add_argument("--keep-temp", action="store_true")
-    ap.add_argument("--draft-mode", action="store_true",
-                    help="540p draft render (Phase 1 addition)")
     ap.add_argument("--note", default="")
     a = ap.parse_args()
 
@@ -96,9 +94,6 @@ def main() -> int:
     cache_before = _dir_stats(pdir / "_clipcache")
     print(f"clip cache before: {cache_before['files']} files "
           f"({cache_before['mb']} MB)")
-
-    if a.draft_mode:
-        os.environ["RECAP_DRAFT_MODE"] = "1"
 
     from pipeline.tts import generate_tts
     t_tts0 = time.perf_counter()
@@ -143,7 +138,6 @@ def main() -> int:
         "final_duration_s": _ffprobe_dur(final),
         "clipcache_before": cache_before,
         "clipcache_after": _dir_stats(pdir / "_clipcache"),
-        "draft_mode": bool(a.draft_mode),
         "force_clips": bool(a.force_clips),
         "encoder": os.environ.get("RECAP_ENCODER_USED", ""),
         "cpu": platform.processor(),
