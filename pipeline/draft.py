@@ -598,7 +598,10 @@ def validate_draft(project: str, *, write_state: bool = False,
         script_lines.append(f"[{ln['id']:>3}] ({src})  {_tag}")
         if ln.get("hook_question"):
             script_lines.append(f"      Q: {ln['hook_question']}")
-        script_lines.append(f"      {ln['narration']}")
+        # .get, not [..]: a film_speaks unit carries no narration, and a
+        # KeyError here killed the whole validate AFTER every gate had
+        # already passed - the draft was fine and the report said nothing.
+        script_lines.append(f"      {ln.get('narration') or ''}")
         script_lines.append("")
 
     (pdir / "script.txt").write_text("\n".join(script_lines), encoding="utf-8")

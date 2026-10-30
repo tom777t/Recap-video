@@ -145,14 +145,19 @@ def fact_conflicts(draft: dict, pdir: Path) -> list:
                     + ", ".join(f"{k.title()} (line(s) "
                                 f"{', '.join(str(i) for i in v)})"
                                 for k, v in sorted(seen.items())))})
-    if blob:
-        for st, ids in seen.items():
-            if st not in blob:
-                out.append({
-                    "kind": "place-vs-facts",
-                    "msg": (f"\"{st.title()}\" (line(s) "
-                            f"{', '.join(str(i) for i in ids)}) does not "
-                            f"appear anywhere in film_facts.json")})
+    # NO place-vs-film_facts CHECK. It was here and it was wrong: it flagged
+    # every in-film location against film_facts.json, which is a PRODUCTION
+    # facts file (director, box office, how the stunts were shot) and contains
+    # no in-film geography by design. The transcript is no better - this
+    # project's transcript mentions Tokyo exactly once - so there is no
+    # document in the project that can verify where a scene is set.
+    #
+    # Checking a claim against a document that cannot contain it produces a
+    # finding on every line, which is noise, and noise reads as zero. What
+    # survives is the check that needs no external source: the draft must not
+    # name two different places for the same thing. That is the defect that
+    # was actually reported (line 5 Arizona against line 58 Alabama), and
+    # it is decidable from the draft alone.
     return out
 
 
@@ -173,8 +178,12 @@ def chekhov(draft: dict) -> list:
     # zero.
     SETUP_NOUNS = (
         "visitor", "stranger", "message", "letter", "envelope", "package",
-        "parcel", "photograph", "photo", "warning", "threat", "secret",
-        "debt", "favour", "favor", "promise", "scar", "tattoo", "key",
+        "parcel", "photograph", "photo", "recording", "witness",
+        # "debt", "favour", "promise", "secret" were here and are ABSTRACT:
+        # "gratitude like that isn't love, it's a debt" is a metaphor, not a
+        # gun on the wall, and flagging it is the same over-reach that once
+        # produced 46 findings. Concrete things and people only.
+        "scar", "tattoo", "key",
         "address", "phone call", "voicemail", "rumour", "rumor", "deadline",
         "ultimatum", "offer", "name on", "list", "file", "recording",
         "witness", "informant", "buyer", "dealer", "lawyer", "cousin",

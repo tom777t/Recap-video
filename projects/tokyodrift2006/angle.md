@@ -13,7 +13,7 @@ A kid who has spent his whole life being shipped somewhere else the moment he lo
 - **Takashi / DK** — wary, never hated. Treated as a man whose pride is the whole of him — the narrator keeps pointing at the pride because the film tells us it's "his kryptonite," and because it's borrowed power: it's the uncle's turf, the uncle's cut, the uncle's mercy.
 - **Neela** — respected, not a prize. The narrator notices the film keeps trying to make her the trophy (named as the stakes in Arizona, claimed in front of the crowd by DK) and keeps gently insisting she's the one person in Tokyo choosing for herself.
 - **Twinkie** — the narrator's favorite to tease and his comic relief, but credited: he's the one who hands Sean the money that keeps him alive. The hustler with the green minivan is the loyalest person in the film.
-- **The father (Major Boswell)** — treated with dry sympathy: a man who set rules he had no standing to enforce, who gets one true line — this is my responsibility, I'm his father — too late to matter.
+- **The father (Boswell; the transcript never states his rank, and film_facts.json says Lieutenant while this document said Major - so the narration gives him no rank at all)** — treated with dry sympathy: a man who set rules he had no standing to enforce, who gets one true line — this is my responsibility, I'm his father — too late to matter.
 - **Kamata** — respected as the only still thing in a film about motion; the man who settles everything without raising his voice. The narrator is a little afraid of him, correctly.
 
 ## RUNNING BITS

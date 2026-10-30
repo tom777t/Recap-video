@@ -9,7 +9,6 @@ and if the finding stops occurring the run reports it **STALE** and asks for
 deletion, so a leftover note cannot cover the next one.
 
 ```reviewed-exceptions
-REVEAL-TIMING | R2 L103 | 2026-09-11 | The matched term is "dies" in the sentence "Then the old man just sits there in silence, and the smile dies." It is about a smile on DK's face during the Kamata meeting at 01:07:09, not about a person. R2 protects Han's death, which lands at 01:15:07, eight minutes later. REVEAL-TIMING is a literal-term scan and says so in its own output; it cannot tell a dying smile from a dying man. Verified by reading every line from 01:05:24 to 01:15:07: nothing in that stretch foreshadows the crash, refers to Han in the past tense, or hints that the chase is his last. Rewording the sentence purely to silence the gate would be editing prose to satisfy a regex.
 ```
 
 ## Why this one is kept
@@ -35,3 +34,14 @@ rather than characters: *Ken, Barbie, Japan, Hulk, Donkey Kong, Corolla,
 Australian, Kabukicho, Ford's*. These are the gate's "verify this is real
 on-screen text" class and they are correct to fire — each one is a claim about
 the world that a reader should be able to check. They are **not** suppressed.
+
+## Deleted
+
+- `REVEAL-TIMING | R2 L103` (added 2026-09-11, deleted 2026-10-30).
+  The run reported it STALE: the "smile dies" sentence is not in the
+  rewritten draft, so the entry covers nothing, and the mechanism's
+  own rule is that a leftover note must not be left to cover a future
+  finding. No replacement entry was added - the five R4 hits in the
+  new draft ("family", "returning") were REWORDED instead, because
+  unlike the dying smile those words were not load-bearing and
+  changing them cost the prose nothing.

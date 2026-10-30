@@ -1,337 +1,346 @@
 TITLE: Teenager Is Shipped to Tokyo to Dodge Jail and Ends Up Owing the Yakuza a Car He Cannot Pay For
-Lines: 111   Words: 3065   Est. narration: 14.6 min @ 210 WPM [config fallback (voice not measured)]   Target: 17 min
+Lines: 114   Words: 4266   Est. narration: 20.3 min @ 210 WPM [config fallback (voice not measured)]   Target: 17 min
 ============================================================
 
 [  1] (? -> ?)  <hook> {loop}
-      Q: Can a boy who only knows how to crash survive in the one place where the whole game is control he does not have?
-      Strike three. One more wrecked car and this kid goes to jail, so they ship him to the one city on earth where the cars drive sideways. In Tokyo he owes a stranger a car before he has learned to turn.
+      Q: Can a kid who only knows how to crash survive the one city where the whole game is a control he hasn't got?
+      Strike three. One more wrecked car and this kid goes to jail, so they ship him to the one city on earth where the cars drive sideways - and he gets there owing a stranger a car before he has learned to turn.
 
 [  2] (? -> ?)  <intro> {rest}
-      This is Serabudabu. Today I am walking you through all of The Fast and the Furious: Tokyo Drift, from 2006 - the third film in the series, and the one that quietly became its soul.
+      This is Serabudabu, and today I'm walking you through The Fast and the Furious: Tokyo Drift, from 2006 - the one everybody wrote off and the series then spent fifteen years quietly building on.
 
-[  3] (? -> ?)  <intro> {rest}
-      Justin Lin drops an American kid - Lucas Black as Sean Boswell - into a world run by Sung Kang as Han and Brian Tee as Takashi, the drift champion the whole mountain answers to.
+[  3] (? -> ?)  <intro> {judgment}
+      Justin Lin drops Lucas Black's Sean Boswell into a city run by Sung Kang's Han and Brian Tee's Takashi. Here's the odd part: almost every slide in it is a real car on a real road, which is why it still holds up. Let me show you where it starts.
 
-[  4] (? -> ?)  <intro> {judgment}
-      Here's the odd part. Almost every stunt was a real car, really sliding, on real roads. That's why it still holds up. Let me take you to where it starts.
+[  4] (00:02:36.739 -> 00:02:48.042)  <action> {judgment}
+      Arizona. Three lads pin a classmate to a roller door and scrawl on him, and the kid watching has already decided how this ends, and it ends badly, and in another time zone.
 
-[  5] (00:02:36.739 -> 00:02:54.561)  <tense> {rest}
-      Arizona, and a boy who cannot sit still. Sean watches three jocks pin a classmate to a roller door, and his jaw sets. He lifts jumper-cable clamps out of a drawer and turns back toward the fight.
+[  5] (00:02:48.042 -> 00:02:55.174)  <normal> {judgment}
+      The boy watching reaches for the jumper cables. Not a plan - a reflex. Sean Boswell's whole method, in one drawer.
 
-[  6] (00:03:13.818 -> 00:03:30.460)  <normal> {stake}
-      Out in the lot he trades barbs with a jock over a Viper, then calls it: race for pink slips. The jock flinches - why risk an eighty-grand car on a wreck? He wants the win without the risk.
+[  6] (00:03:30.460 -> 00:03:45.975)  <normal> {judgment}
+      Clay calls the car a piece of junk and Sean trailer trash, then lists his dad's Viper's horsepower like a man reading out his own CV, and sean's answer is the best line he gets all film: you can read the brochure.
 
-[  7] (00:04:57.755 -> 00:05:09.308)  <reveal> {loop}
-      Then the girl settles it. Winner gets me. She's the trophy, and nobody asked her twice.
+[  7] (00:04:57.755 -> 00:05:09.308)  <normal> {judgment}
+      Then Clay's girlfriend settles the terms by putting herself up as the stake, which says less about her than about a film that keeps thinking a girl is a thing you win. Race is on.
 
-[  8] (00:05:09.308 -> 00:05:24.865)  <action> {rest}
-      They tear through a half-built housing tract, neck and neck between the framed houses. Sean is grinning like this is a gift.
+[  8] (00:07:19.437 -> 00:07:30.907)  <action> {judgment}
+      Losing on tarmac, he quits the road altogether and cuts straight across the raw dirt, and it works, and it's the first time the film tells you what he actually is: someone who refuses the given line.
 
-[  9] (00:07:19.437 -> 00:07:37.003)  <action> {reasoning}
-      On pavement the eighty-grand car simply has more under the hood. So Sean quits the road entirely, cutting hard across the raw dirt lots while the Viper stays politely on the blacktop - trading grip for a shortcut no sane driver would ever take.
+[  9] (00:07:54.931 -> 00:08:06.943)  <action> {loop}
+      He's laughing right up until a parked bulldozer turns up in the windscreen. Floor it now, panic later. The method again.
 
-[ 10] (00:08:17.287 -> 00:08:29.424)  <tense> {judgment}
-      He comes back up on two wheels, smirking across the gap. There's the mistake. The two cars touch at speed.
+[ 10] (00:09:07.045 -> 00:09:16.596)  <action> {stake}
+      Then the maths arrives, and both cars leave the ground and come down end over end in front of every single person he had spent the evening showing off to.
 
-[ 11] (00:09:07.045 -> 00:09:20.318)  <action> {stake}
-      The muscle car launches off the dirt and tumbles end over end. It lands upside down, Sean hanging in his belt, bloody - both cars wrecked in front of a crowd full of cameras.
+[ 11] (00:09:26.981 -> 00:09:43.414)  <normal> {judgment}
+      Sean ends up hanging upside down in his belt with his face full of blood, and a bystander filmed the whole thing out of an SUV window. So that went well.
 
-[ 12] (00:10:23.412 -> 00:10:40.203)  <reveal> {reasoning}
-      At the station the rich kids walk - their parents too connected. I like screw-ups like you, the detective tells Sean, because you're a guaranteed conviction. Same crash, two different countries of consequence.
+[ 12] (00:10:23.412 -> 00:10:35.216)  <normal> {judgment}
+      He asks where his car is. It's been crushed. That's the thing that gets him out of the chair - not the prison, not the record. The car.
 
-[ 13] (00:11:07.581 -> 00:11:23.847)  <reveal> {stake}
-      Two priors, willful destruction of property. This makes it strike three. Prison, unless there's another way.
+[ 13] (00:11:07.581 -> 00:11:23.847)  <tense> {stake}
+      Two priors for reckless driving, so this is strike three, and strike three in Arizona means they try him as an adult. He is not yet eighteen and he is out of chances, and he hears all of it sitting under a whiteboard that says CRASH SITE VEHICLE.
 
-[ 14] (00:11:33.232 -> 00:11:44.930)  <tense> {loop}
-      Out in the corridor Sean asks the only question that matters. Where are we moving this time? We're not moving anywhere, his mother says.
+[ 14] (00:11:23.847 -> 00:11:33.232)  <normal> {loop}
+      Through the office glass he can see Clay and Cindy being looked after. His mother says there has got to be another way. There is. There always is, with Sean.
 
-[ 15] (00:11:44.930 -> 00:11:53.360)  <normal> {stake}
-      He takes it in silence. Every time he loses, an adult relocates him.
+[ 15] (00:11:33.232 -> 00:11:49.790)  <normal> {stake}
+      In the corridor he asks it the way you'd ask about the weather: where are we moving this time. He's done this before. His mother tells him they are not moving anywhere - he is, on his own. And he takes the sentence without a word.
 
-[ 16] (00:12:35.210 -> 00:12:49.057)  <normal> {stake}
-      The other way is an ocean. Sean lands alone in Tokyo - shipped to the far side of the world for refusing to lose one race.
+[ 16] (00:11:49.790 -> 00:12:10.686)  <tense> {judgment}
+      Being moved on is the only discipline these adults have ever managed, and he's been raised to expect it. New state, new school, clean slate, floor it again. This time the clean slate is the other side of the world and he's wedged in economy between strangers, going there alone. You can hear the moment it stops sounding like a rescue.
 
-[ 17] (00:14:23.151 -> 00:14:57.880)  <normal> {stake}
-      The next thing Sean knows he is in Tokyo, in a cramped one-room flat with a father he has barely seen - a US Navy officer posted here, suddenly a near-stranger with custody of him. His mother, an ocean away. The man has clearly been rehearsing this one. Listen.
+[ 17] (00:12:26.493 -> 00:12:35.210)  <normal> {judgment}
+      Notice nobody asks him. Where he goes next has never once been his to decide - only what he wrecks before he gets there. Seventeen, and already an export.
 
-[110] (00:14:57.880 -> 00:15:06.470)  <normal>
+[ 18] (00:13:42.235 -> 00:14:02.380)  <normal> {judgment}
+      The door slides open on his father, who he plainly hasn't seen in years, and who has got the date wrong. Japan is a day ahead, he explains, as though that were the problem here.
+
+[ 19] (00:14:23.151 -> 00:14:44.255)  <normal> {reasoning}
+      Inside, the whole home is one room. This is it, his dad says, scooping up the cat to clear a space, and then starts explaining how he meant to be at the airport. Sean doesn't put his bag down.
+
+[ 20] (00:14:44.255 -> 00:15:03.316)  <normal> {stake}
+      His mum had no other choice, his father tells him. It was this or juvenile hall. So the deal is plain enough: Tokyo isn't a fresh start, it's a sentence with better food.
+
+[ 21] (00:15:03.316 -> 00:15:10.198)  <reveal> {judgment}
+      You can't keep moving away every time you get into trouble. That's the whole film, said out loud, fifteen minutes in.
+
+[ 22] (00:15:10.198 -> 00:15:25.421)  <normal> {loop}
+      There it is. The whole film in one sentence, and of course it arrives from the one man in the room least qualified to say it. Doesn't make it wrong. Keep hold of it - everything Sean does from here is him either running, or eventually not.
+
+[ 23] (00:15:25.421 -> 00:15:37.767)  <normal> {judgment}
+      Then the rules, agreed with a mother on the other side of the planet. School, straight back here, and nowhere near a car. Two of those he can probably manage.
+
+[ 24] (00:18:22.180 -> 00:18:34.693)  <normal> {judgment}
+      Day one he's late, he's in street shoes, and the entire class has to explain uwabaki to him. His solution is to help himself to a pair from the cubbies. Arizona rules, applied internationally.
+
+[ 25] (00:19:23.158 -> 00:19:40.800)  <normal> {judgment}
+      Lunch brings Twinkie, who sells laptops, trainers and phones out of a school bag and will do sixty per cent off for a fellow army brat. Sean tells him he's got no cash and won't be here long enough to remember his name. He's wrong about both, obviously.
+
+[ 26] (00:20:45.281 -> 00:20:54.457)  <normal> {judgment}
+      The one-of-a-kind ride Twinkie has been talking up is a minivan painted like the Incredible Hulk. Laugh now. That van belongs to the loyalest person in this film.
+
+[ 27] (00:21:33.913 -> 00:21:44.173)  <reveal> [HOLD 3.5s - no narration]
       
 
-[ 18] (00:15:10.198 -> 00:15:37.767)  <normal> {stake}
-      Hold onto that line. Then come the three rules - school, straight home, nowhere near a car - from a man with no standing to enforce any of them.
+[ 28] (00:23:56.054 -> 00:24:14.156)  <reveal> {judgment}
+      And here's why. A man in a leather jacket gets up and walks the meet with his crew, collecting cash and phones as he goes, and nobody argues. Think of the bloke who owns the parking garage and takes a cut of everything parked in it. Takashi is that arrangement, standing up.
 
-[ 19] (00:18:57.424 -> 00:19:23.158)  <normal> {rest}
-      The next morning, at a new school, a student in a white headwrap introduces himself as Twinkie and tries to sell him a laptop inside a minute. Sixty percent off, army brats and all.
+[ 29] (00:25:32.651 -> 00:25:38.823)  <normal> {stake}
+      Twinkie says the word Yakuza like it should end the conversation. Sean hears it as an introduction.
 
-[ 20] (00:21:16.187 -> 00:22:11.075)  <reveal> {rest}
-      That night, Twinkie drives him underground into a garage full of hoods-up tuners, nitrous, a DJ - a whole world humming under the city. Here, the mocking stops.
+[ 30] (00:26:36.381 -> 00:27:00.321)  <reveal> {loop}
+      In the lift Twinkie asks if he knows what DK stands for. Donkey Kong, he guesses. Drift King. One of those answers tells you exactly how much of Tokyo he has understood so far, and it isn't the right one.
 
-[ 21] (00:23:14.889 -> 00:23:45.335)  <mystery> {reasoning}
-      He finds the girl from his class. Neela, he gets it right. Then he asks where she's really from - and her eyes drift past his shoulder, and the question trails off into the noise.
+[ 31] (00:27:54.250 -> 00:28:07.471)  <tense> {judgment}
+      Before the start, DK pulls Neela into him in front of the whole garage. That isn't affection, it's paperwork, filed publicly, so everyone knows whose turf she stands on. She's the only person here who never agreed to that.
 
-[ 22] (00:24:27.294 -> 00:24:36.637)  <tense> {stake}
-      A spiky-haired man in leather rises and works the meet, collecting cash and phones. The garage answers to him.
+[ 32] (00:30:10.260 -> 00:30:21.522)  <action> {stake}
+      Rip the e-brake, then power over. He gets the first half right. The back end goes somewhere he never asked it to go, and the Mona Lisa grinds down the concrete throwing sparks.
 
-[ 23] (00:24:36.637 -> 00:24:53.792)  <tense> {stake}
-      He pulls Neela cheek to cheek to needle the newcomer, and calls Sean gaijin. His name is Takashi, and here that's a warning.
+[ 33] (00:30:25.609 -> 00:30:33.575)  <tense> {judgment}
+      Turns out thirty seconds of instruction doesn't make a driver. Every eye in that garage, and the one thing he came here to do, he cannot.
 
-[ 24] (00:25:51.207 -> 00:26:04.790)  <tense> {stake}
-      Twinkie spells it out: that man is Yakuza. Sean takes it as a dare. He calls him out, Takashi crosses nose to nose, and two words close it.
+[ 34] (00:31:10.696 -> 00:31:20.247)  <normal> {judgment}
+      DK leans on his wheel and says something through the window, friendly as anything. Nothing to answer. He was beaten by a man who never stopped smiling, which is the part that stings.
 
-[ 25] (00:26:04.790 -> 00:26:08.520)  <tense> {loop}
-      Let's race.
+[ 35] (00:31:20.247 -> 00:31:27.129)  <normal> {judgment}
+      So. The kid who came to Tokyo to be somebody has just posted his first result: sideways, into a wall, in somebody else's car.
 
-[ 26] (00:26:08.520 -> 00:26:36.381)  <reveal> {reasoning}
-      The crowd asks with what - his skateboard - and a voice says take mine. That's Han, handing a kid he's never met a car he built from the block up, just to see what he's got.
+[ 36] (00:32:24.269 -> 00:32:43.455)  <normal> {judgment}
+      He slides out last with the front end hanging open, and the crowd swarms the car like an exhibit. Here's what he hasn't worked out yet: the wreck isn't the end of it. The man who handed him the keys is already leaning into his window, and that bill does not get paid in cash.
 
-[ 27] (00:26:36.381 -> 00:27:00.321)  <normal> {judgment}
-      In the lift Twinkie asks if Sean even knows what DK stands for. He guesses Donkey Kong. It's Drift King - not a nickname, a job title, and nobody in Tokyo races it for fun.
+[ 37] (00:33:38.635 -> 00:33:58.529)  <tense> {judgment}
+      Home after midnight, and his father has the whole speech ready: live by my rules or get out, because if Tokyo doesn't work there's a cell waiting in Arizona. Fair terms. The trouble is he's saying it to a kid whose whole life has been rules from people who then moved him somewhere else.
 
-[ 28] (00:27:23.636 -> 00:27:54.250)  <tense> {loop}
-      Sean's whole drift education takes thirty seconds. Rip the e-brake, power over, hold it. He's never drifted in his life - and he's about to try it against the best driver in the city.
+[ 38] (00:36:47.573 -> 00:37:00.335)  <action> {judgment}
+      The job is collections, so he's sent into a bathhouse to lean on a man the size of a vending machine, gets thrown into the street, gets up, goes back in, and gets thrown into the street again. Nobody has to teach him stubborn.
 
-[ 29] (00:30:10.260 -> 00:30:31.729)  <action> {reasoning}
-      Soon enough he is racing DK through a multi-storey car park, down the spiral decks and out onto the neon street. Early on Sean gets greedy and lays Han’s borrowed car into a line of sparks, while DK takes the same ramp like it was built for him. That contrast is the whole race.
+[ 39] (00:38:37.098 -> 00:38:48.818)  <normal> {judgment}
+      DK's crew want to know when the next race is. Han's answer is: why not be in it? And there's the small smile of a kid who has already said yes before anyone asked him a question.
 
-[ 30] (00:32:24.269 -> 00:32:43.455)  <tense> {loop}
-      Sean slides out dead last, front end smoking. A long-haired man leans into his window to tell him what he already knows. Barely a week in Tokyo, and he owes a stranger an entire car.
+[ 40] (00:38:48.818 -> 00:39:01.915)  <normal> {judgment}
+      The stake gets set across the table: their Corolla against Han's 72 Skyline. Cars, not money. Which tells you what these men actually keep score with, and that Sean is now driving somebody else's bet.
 
-[ 31] (00:33:21.993 -> 00:33:27.097)  <tense> {rest}
-      He slips home after midnight. Have you been racing, Sean.
+[ 41] (00:39:25.355 -> 00:39:42.830)  <mystery> {loop}
+      Then the kid gets sent outside so the grown-ups can talk. There's a shipment that hasn't arrived, and they want to know when it's coming. Han tells them to sit tight and let him handle it. Then the smile goes. Keep hold of that one.
 
-[ 32] (00:33:27.097 -> 00:33:44.448)  <tense> {stake}
-      There's nowhere else to send you - live by the rules or go to jail. Sean has heard this speech in every town. This is the first one with a cell at the end of it.
+[ 42] (00:40:14.195 -> 00:40:30.544)  <normal> {judgment}
+      Neela turns up and he tells her to stop following him around. She's come to ask for drifting lessons. He tells her she doesn't want any part of this world, that it isn't good enough for her. He's the newest person in Tokyo telling the person who lives here what she wants.
 
-[ 33] (00:37:18.186 -> 00:37:37.958)  <reveal> {reasoning}
-      Next day the long-haired man waits to collect, and asks why Sean talks like he has a choice. On the night drive they strike the deal. Only if you teach me to drift, Sean says. I wasn't negotiating either.
+[ 43] (00:40:46.686 -> 00:40:58.864)  <normal> {judgment}
+      So she reads him back to himself: army brat, moved around constantly, parents never home, angry at everything. Zero for one, cowboy. She had him in about nine seconds, and nobody in Arizona ever managed it.
 
-[ 34] (00:38:37.098 -> 00:38:50.755)  <normal> {reasoning}
-      Sean goes where Han goes now. In a pachinko back room, Morimoto asks when the next race is. Why not be in it, Han says, and the first real smile cracks Sean's flat face.
+[ 44] (00:41:54.587 -> 00:42:20.321)  <normal> {judgment}
+      Then they argue about what a race is even for. Sean's position is simple: you line up, you find out if you're faster, that's it. Han says that only proves you're faster, and a race should be for something that matters. It's the first time anyone has suggested to this kid that winning might not be the point of anything.
 
-[ 35] (00:39:01.915 -> 00:39:14.084)  <tense> {stake}
-      Terms land in nine seconds. Morimoto takes Han's Corolla if Sean loses; Han puts up a Skyline. Nobody asks the kid whether he can drive.
+[ 45] (00:42:20.321 -> 00:42:28.954)  <normal> {reasoning}
+      So why let him race at all? Because DK's pride is his kryptonite. And, Han adds, you still owe me a car.
 
-[ 36] (00:39:25.355 -> 00:39:34.752)  <mystery> {reasoning}
-      Then the table sends Sean out and presses Han about a late shipment. Sit pretty, Han says, and let me handle it.
+[ 46] (00:42:58.901 -> 00:43:12.831)  <normal> {loop}
+      A patrol car tucks in behind them at 197. Han doesn't even sit up: those things top out at 180, so they don't bother trying. Sean decides he's beginning to like this country. Of course he is.
 
-[ 37] (00:39:34.752 -> 00:39:44.622)  <mystery> {judgment}
-      His eyes drop and the smile is gone. Watch who's comfortable in this room, and who's answering questions in it.
+[ 47] (00:44:41.420 -> 00:44:59.146)  <normal> {judgment}
+      Twinkie hauls him off the floor to explain the local economics. Room full of models, worked all day, nobody in town brave enough to talk to them. So who do they end up talking to? The little guy who makes them laugh. He's not wrong, and he's never once doubted it.
 
-[ 38] (00:40:14.195 -> 00:40:30.544)  <normal> {reasoning}
-      Neela tracks him down. Stop following me around, he says. So she reads him back to himself. Army brat, moved around, so he walked around angry - and swapped his own people for a crowd of drift nuts.
+[ 48] (00:47:11.736 -> 00:47:21.329)  <normal> {judgment}
+      Practice at the docks goes about as well as expected. The crowd on the sofas are openly laughing at him. Where did you find this guy. He still cannot drift.
 
-[ 39] (00:41:27.017 -> 00:41:37.845)  <reveal> {reasoning}
-      Driving home, Han explains how Tokyo works. DK's uncle Kamata takes a cut of everyone's action and keeps the police off them.
+[ 49] (00:47:58.074 -> 00:48:09.794)  <normal> {judgment}
+      Meanwhile his father is rebuilding a stripped-out coupe he found wrecked on the base. It's got potential, he says. No prizes for guessing what else in his life he's describing.
 
-[ 40] (00:41:37.845 -> 00:41:55.963)  <normal> {reasoning}
-      Fifty percent of something beats a hundred percent of nothing. It's the uncle's turf, the uncle's cut.
+[ 50] (00:48:18.094 -> 00:48:35.069)  <normal> {judgment}
+      And he gives him the saying: deru kui wa utarero. The nail that sticks out gets hammered. Decent advice for Tokyo. Terrible advice for his son, who has never in his life managed to sit flat for a single afternoon.
 
-[ 41] (00:42:20.321 -> 00:42:31.637)  <normal> {loop}
-      So why let him race DK? It has to be for something that matters, Han says. DK's pride is his kryptonite. Also, Sean still owes him a car.
+[ 51] (00:49:42.344 -> 00:49:52.729)  <tense> {judgment}
+      So of course he ends up on the school roof, stepping between a bully and the kid taking the kicking. No punch thrown this time. In Arizona that same impulse cost him the whole state.
 
-[ 42] (00:44:41.420 -> 00:44:59.146)  <normal> {judgment}
-      By the next party night, Twinkie is explaining the economics of the room. These women know nobody, and every man here is too scared to approach them. So you talk to the little dude who makes you laugh.
+[ 52] (00:51:21.067 -> 00:51:44.591)  <normal> {judgment}
+      Sean asks how he ended up here. Han talks about old westerns, the cowboys running for the border, and says this is his Mexico. Which says plenty: Han isn't in Tokyo because he loves Tokyo. He's in Tokyo because it's the last place that hasn't asked him for anything.
 
-[ 43] (00:46:20.059 -> 00:46:26.415)  <reveal> {reasoning}
-      Sean walks past a red Evo, then walks back. Han hands it over. Not lends. Hands.
+[ 53] (00:51:44.591 -> 00:52:04.277)  <normal> {judgment}
+      Han's answer: he's got money. What he hasn't got is people he can trust, and one car in exchange for knowing what a man's made of is a prize he can live with. He lent it out on purpose. That's not a mentor testing a student - that's a man checking whether anyone left in this city is worth standing near.
 
-[ 44] (00:46:26.415 -> 00:46:35.390)  <normal> {reasoning}
-      Sean represents him now, and Han won't let his name roll around Tokyo in a Hyundai. Generosity and branding in one breath.
+[ 54] (00:52:20.835 -> 00:52:37.643)  <normal> {reasoning}
+      Sean asks what happens if he doesn't choose right. Han doesn't flinch. Life's simple, he says. You make choices and you don't look back. Coming from anyone else that's a fridge magnet. Coming from a man living in his own Mexico, it's a confession dressed as advice.
 
-[ 45] (00:48:18.094 -> 00:48:35.069)  <normal> {judgment}
-      Morning, school blazer. His father works a stripped coupe he found wrecked on the base, and offers a proverb he's clearly been saving. The nail that sticks out gets hammered. Good advice, and useless on this particular kid.
+[ 55] (00:52:37.643 -> 00:52:44.484)  <normal> {judgment}
+      And then the line the whole film hangs off, delivered like it's nothing: he doesn't drift to win.
 
-[ 46] (00:49:15.859 -> 00:49:41.689)  <tense> {reasoning}
-      On the school roof Twinkie is pinned while a blond classmate plays it up, and Sean shoves through the ring with his hand raised to stop it. It is the same thing he did in the very first scene back home - he just cannot stand at the back of a crowd and watch.
+[ 56] (00:52:44.484 -> 00:52:58.122)  <normal> {loop}
+      A drift film, and its best driver tells you winning was never the point. Sean asks what he drifts for instead. Han says, you really wanna know. Of course he wants to know. Nobody has ever offered him a reason before, only a consequence.
 
-[ 47] (00:51:21.067 -> 00:51:44.591)  <normal> {reasoning}
-      Up on a footbridge, Sean asks Han how he ended up over here. You know those old westerns, where the cowboys run for the border? This is my Mexico.
+[ 57] (00:52:58.122 -> 00:53:13.012)  <normal> {judgment}
+      And that's the sentence that saves him, eventually. Every time Sean lost, somebody moved him on. Here's a man telling him the score was never the thing worth keeping. He won't understand that tonight. He understands it the night he's got nothing left to win with.
 
-[ 48] (00:51:44.591 -> 00:51:55.553)  <reveal> {reasoning}
-      Sean asks why Han never let him race his car. One car, Han says, to learn what the kid was made of.
+[ 58] (00:54:14.323 -> 00:54:25.167)  <normal> {judgment}
+      Morning, mountain road. The brief is four words long: out here, feel it. So feel it. That's the entire curriculum, and it's the first useful thing anyone has said to him.
 
-[ 49] (00:51:55.553 -> 00:52:20.835)  <normal> {reasoning}
-      One car, for knowing what a man is made of, is a prize he can live with - and then he nods down at the crowd letting fear lead them, which is the closest this quiet man ever comes to saying a creed out loud.
+[ 59] (00:54:25.167 -> 00:54:38.097)  <normal> {judgment}
+      So he runs the hairpin. Sawing at the wheel, harness tight, dust rolling back over the crew. Then he runs it again. This is the part the hype never mentions, because getting good is mostly boring.
 
-[ 50] (00:52:20.835 -> 00:52:37.643)  <normal> {loop}
-      And when Sean asks what he drifts for, Han does not say winning. No finish line, no money, no crowd - just two cars orbiting in their own smoke. He does not drift to win. Hold that one; it comes back.
+[ 60] (00:54:45.145 -> 00:54:57.324)  <normal> {reasoning}
+      Tyres cost money he hasn't got, so he and Twinkie work the shopping crowds, flogging goods out of a bag. Twinkie reckons he could sell rubbers to a monk. He's not wrong, and that cash is what keeps Sean on the mountain.
 
-[ 51] (00:54:14.323 -> 00:54:27.980)  <normal> {stake}
-      Long story short, Sean trains for weeks on the clifftop hairpin, shredding tyres he can't pay for and hustling goods on the street with Twinkie to fund the rubber. The frightened look is gone.
+[ 61] (00:55:38.073 -> 00:55:46.790)  <normal> {judgment}
+      Han coaches from the passenger seat - mountain bends, an empty dock lot, circles until two workers stop and grin. First time Tokyo has looked at Sean and approved.
 
-[ 52] (00:56:08.103 -> 00:56:26.121)  <normal> {reasoning}
-      Meanwhile his father lets himself in and finds a bed nobody has slept in. His face hardens from searching to certainty. The boy has not been coming home.
+[ 62] (00:56:00.595 -> 00:56:08.103)  <normal> {loop}
+      Nobody ever taught him anything before. They just moved him. This is the only stretch where turning actually gets taught, and Han does it for free.
 
-[ 53] (00:56:42.721 -> 00:56:53.315)  <mystery> {rest}
-      At the garage rail, Reiko tells Han he has a visitor waiting below.
+[ 63] (00:56:08.103 -> 00:56:26.121)  <normal> {judgment}
+      Meanwhile his father lets himself into the dark flat, parts the coats, and finds a bed nobody has slept in. He set house rules he had no standing to enforce, and now he's alone in his own kitchen working out that nobody has been listening.
 
-[ 54] (00:58:29.577 -> 00:58:40.113)  <normal> {rest}
-      A chat window on Neela's laptop: bama boy, how come i never c u drift. That night they eat vending-machine food under an overpass, and the guard drops away.
+[ 64] (00:58:37.168 -> 00:58:45.385)  <normal> {loop}
+      Neela messages him from class: how come I never see you drift. He chews his knuckle over it. That's not a taunt, that's an invitation, and he knows it.
 
-[ 55] (00:59:19.043 -> 00:59:22.460)  <normal> {loop}
-      Then she gives him the whole thing.
+[ 65] (00:59:19.043 -> 00:59:37.395)  <normal> {stake}
+      Vending-machine dinner under an overpass, and she tells him the thing she doesn't tell people. Her mother came out from Australia straight after school and went to work in a hostess bar. She died when Neela was ten. DK's grandmother took her in. That's the whole arithmetic of her life in Tokyo.
 
-[ 56] (00:59:22.460 -> 00:59:39.279)  <sad> {stake}
-      Her mother worked a hostess bar and died when Neela was ten; the grandmother who took her in was DK's. The household that took her in is the one that owns her now.
+[ 66] (00:59:37.395 -> 01:00:00.793)  <normal> {loop}
+      He gives her his own back: parents split when he was three, moved around a lot, mostly because of him - then he corrects himself, all because of him. Outside or inside, he says, doesn't matter; what matters is knowing what you want. Two displaced kids comparing paperwork.
 
-[ 57] (01:00:28.654 -> 01:00:44.587)  <normal> {reasoning}
-      She drives him up the hairpins where she's been sneaking since before she had a licence. It was different back then. Nobody bothered them. For one night she's the one person in Tokyo choosing for herself.
+[ 67] (01:00:00.793 -> 01:00:11.262)  <normal> {judgment}
+      And there's the part the film never says out loud: she owes that household her whole childhood. Gratitude like that isn't love, it's a debt - and you don't get to walk out on a debt.
 
-[ 58] (01:02:31.985 -> 01:02:46.428)  <action> {reasoning}
-      Then Morimoto puts Sean face down with one swing - and Han, and the whole crew, just watch. Sean glares back instead of staying down. Brave. Also the instinct that got him shipped out of Alabama.
+[ 68] (01:00:11.262 -> 01:00:28.654)  <normal> {judgment}
+      And there's the mirror. Sean got moved every time he lost. Neela got left somewhere and had to owe the man who kept her. Same displacement, opposite cage. Which is why, when she takes the wheel and drives him up the mountain, it isn't a favour - it's her showing him the one thing that's hers.
 
-[ 59] (01:02:59.388 -> 01:03:14.855)  <tense> {judgment}
-      Han gives him the only telling-off in this film worth quoting. He didn't just play with fire, he soaked the matches in gasoline. Pushed far past where Han can pull him back.
+[ 69] (01:00:44.587 -> 01:01:02.897)  <normal> {judgment}
+      She used to cut class and sneak up here as a kid to watch the older drifters. He tells her about his first win, how everything else disappears - no past, no future, just a moment. Then the guard drops and they're both just laughing, and that's the closest either of them gets to being off-duty.
 
-[ 60] (01:03:28.708 -> 01:03:44.646)  <tense> {loop}
-      So Neela walks straight into DK’s club still in her school uniform, past every man who is afraid of him, and says three words to his face that nobody else in Tokyo would dare.
+[ 70] (01:02:18.347 -> 01:02:31.985)  <tense> {loop}
+      One of DK's men walks into the dockyard and puts Sean face-down on the concrete in a single swing, and the whole crew stands there watching. Han included. Han watches. Remember that before anyone files him under kindly mentor - he lets it land.
 
-[ 61] (01:03:44.646 -> 01:03:52.992)  <tense> {rest}
-      You've changed, DK.
-
-[ 62] (01:04:22.095 -> 01:04:31.438)  <tense> {stake}
-      He throws her mother's past in Kabukicho at her and backs her against the wall until a tear runs.
-
-[ 63] (01:04:31.438 -> 01:04:36.638)  <normal> {judgment}
-      That's the whole of his pride. Borrowed, and ugly with it.
-
-[ 64] (01:06:39.648 -> 01:06:51.817)  <tense> {rest}
-      Across town, the white suit and panama hat belong to Kamata, the uncle DK answers to. Takashi hands over the week's take and Kamata sits down to the books.
-
-[ 65] (01:06:51.817 -> 01:06:58.845)  <mystery> {reasoning}
-      He admits he doesn't understand half of it - then just keeps reading, silent.
-
-[ 66] (01:07:29.000 -> 01:07:46.100)  <reveal> {stake}
-      In a blue-lit office the accusation lands. Han, the partner Takashi fronts this whole operation with, has been taking money out of the books. Takashi doesn't deny it. He drops his eyes.
-
-[ 67] (01:07:46.100 -> 01:07:50.448)  <reveal> {rest} [HOLD 4.0s - no narration]
+[ 71] (01:03:47.519 -> 01:04:03.743)  <tense> [HOLD 3.5s - no narration]
       
 
-[ 68] (01:07:50.448 -> 01:08:09.961)  <tense> {judgment}
-      Robbed by your own partner, and told so by the uncle who reads your ledgers better than you do. It's a humiliation paid for in public. Kamata lifts a framed picture off the desk and leaves Takashi doubled over it.
+[ 72] (01:04:44.242 -> 01:05:04.345)  <tense> {judgment}
+      DK agrees he's changed, then throws her mother's hostess years in her face and tells her nobody would look twice at her if it weren't for him. He backs her into the wall until she stops answering. His pride is the whole of him, and all of it is borrowed.
 
-[ 69] (01:09:28.942 -> 01:09:42.053)  <tense> {stake}
-      Takashi drives straight to the garage and hauls Han out from under the lift, into the tyre racks. The whole crew watches, Sean included, and nobody moves.
+[ 73] (01:07:29.823 -> 01:07:46.090)  <reveal> {stake}
+      Enter Kamata - DK's uncle, head of the yakuza, and the only motionless thing in a film about motion. He collects the week's take, sits down with the books, and tells DK, flatly, that his own partner has been stealing. No shouting. He doesn't need to shout.
 
-[ 70] (01:09:58.805 -> 01:10:13.801)  <tense> {judgment}
-      The pistol comes up. Takashi would still be shaking down tea houses for chump change if it wasn't for me, Han says. True. Also the worst thing he could have said.
-
-[ 71] (01:10:39.345 -> 01:10:53.008)  <action> {reasoning}
-      Han bolts the bay and the crew pours into the street. Sean goes too, Neela beside him, in the red Evo Han handed over for nothing - which tells you who he's driving for.
-
-[ 72] (01:11:45.912 -> 01:11:57.912)  <action> {loop}
-      Han runs flat out through the tunnels, slicing between cars. He once called Tokyo his Mexico - the place he'd stopped running to. Tonight he's running again.
-
-[ 73] (01:14:50.721 -> 01:15:06.726)  <action> {stake}
-      The road fills with people. They drive into the crossing anyway. Han slings the car broadside, threads head-on past a sedan, and for a second it looks like he gets out of this the way he's got out of everything.
-
-[ 74] (01:15:07.905 -> 01:15:24.696)  <reveal> {stake}
-      Then the car cartwheels down the avenue and lands upside down against a kerb. Han is trapped inside and does not move. Sean sprints for him and is still running when it detonates.
-
-[ 75] (01:15:28.175 -> 01:15:33.175)  <sad> {rest} [HOLD 5.0s - no narration]
+[ 74] (01:09:28.942 -> 01:09:46.209)  <tense> [HOLD 3.5s - no narration]
       
 
-[ 76] (01:15:33.263 -> 01:15:50.263)  <sad> {stake}
-      Takashi drives away and leaves Sean and Neela in the firelight. Sean came here to race for fun, and the bill for all of it just landed on somebody else.
+[ 75] (01:09:58.805 -> 01:10:11.067)  <tense> {judgment}
+      Pistol in Han's face, and Han doesn't flinch. You'd still be shaking down tea houses for chump change if it wasn't for me. Which is true, and is exactly the wrong true thing to say to a proud man holding a gun.
 
-[ 77] (01:16:58.640 -> 01:17:04.215)  <tense> {stake}
-      Dark lane: Takashi waits, pistol at Sean's head. His father draws.
+[ 76] (01:11:03.495 -> 01:11:17.884)  <action> {judgment}
+      Han bolts out of the bay in a shower of sparks and the whole crew pours after him through the underpass, Sean and Neela in the red Evo. Watch who's chasing: not police. His own side. In this city the pack turns on you faster than the law does.
 
-[ 78] (01:17:04.215 -> 01:17:16.855)  <tense> {loop}
-      Neela breaks it - she's the only thing Takashi wants, so she goes with him to get the gun off Sean. Nobody says the terms aloud.
+[ 77] (01:15:07.905 -> 01:15:13.785)  <action> {stake}
+      Then the orange car cartwheels down the avenue, and Sean just stops. You already know what's inside it.
 
-[ 79] (01:17:26.436 -> 01:17:44.220)  <reveal> {reasoning}
-      In the alley his father tries to take the whole thing off his hands - his mess to carry, his boy to get out of Tokyo. Before, an adult always decided. Listen to him now.
+[ 78] (01:15:13.785 -> 01:15:22.920)  <tense> {stake}
+      It settles upside down against the kerb with Han trapped inside, not moving. A loose tyre rolls away. Neela gets out of her car to look.
 
-[111] (01:17:44.220 -> 01:17:50.488)  <normal>
-      
+[ 79] (01:15:22.920 -> 01:15:28.175)  <sad> {stake}
+      Sean sprints for him. He doesn't get there. The car detonates and takes the decision away.
 
-[ 80] (01:19:18.696 -> 01:19:32.279)  <tense> {loop}
-      That is the first time in his life he refuses to be moved on. So he tells Twinkie he is walking into Kamata's house himself. Twinkie calls it suicide.
+[ 80] (01:15:33.263 -> 01:15:39.770)  <tense> {judgment}
+      DK looks at the fire, puts his car in gear and drives off past the crowd. That's the measure of the man.
 
-[ 81] (01:19:32.279 -> 01:19:39.518)  <tense> {stake}
-      That's all I've got.
+[ 81] (01:15:39.770 -> 01:15:50.822)  <sad> {loop}
+      And I'm not filing Han under dead mentor. He was the only person in this film who'd worked out what he wanted and stopped needing to win at it. He doesn't drift to win. He never did.
 
-[ 82] (01:20:10.247 -> 01:20:24.301)  <tense> {stake}
-      So Twinkie pries a hidden stash out of his green minivan and shoves a satchel of banknotes at Sean - enough to buy his way through Kamata's door alive.
+[ 82] (01:15:50.822 -> 01:15:59.373)  <tense> {judgment}
+      Of all of them, he was the only one who'd stopped running. He'd already found his Mexico, and it still didn't save him.
 
-[ 83] (01:20:24.301 -> 01:20:33.301)  <normal> {judgment}
-      The hustler with the ridiculous van is the loyalest person in this film.
+[ 83] (01:15:59.373 -> 01:16:14.513)  <tense> {judgment}
+      Two kids left on a burning street, and the Drift King has somewhere else to be. Here's the part nobody says out loud: Sean set this rolling the day he agreed to drive someone else's bet, and he knows it. This time being moved on wouldn't fix anything.
 
-[ 84] (01:21:11.850 -> 01:21:29.201)  <tense> {stake}
-      Night, dark clothes, a narrow alley packed with men in gang jackets. Sean opens the bag in the doorway. A bald elder looks in, goes still - and that's the whole password. They walk him inside.
+[ 84] (01:17:06.064 -> 01:17:14.280)  <tense> {judgment}
+      Neela argues across the standoff, then goes with DK herself to get the gun off Sean's head. Her choice, her price, and nobody thanks her for it.
 
-[ 85] (01:22:29.845 -> 01:22:49.080)  <tense> {reasoning}
-      Sean doesn't flinch. He came to apologize, he tells Kamata, because he and Takashi have embarrassed themselves in front of him. Takashi throws it back - after everything you've done, you're giving me orders? Kamata just lets him hang himself.
+[ 85] (01:17:40.390 -> 01:17:51.734)  <normal> {judgment}
+      In the alley his father says it: I'm your father, I'm responsible for my mess. Sean answers I did this, I can't run away. That sentence has been coming since Arizona.
 
-[ 86] (01:22:57.507 -> 01:23:09.676)  <tense> {judgment}
-      Then Kamata doesn't say a word. He just stares, and Takashi's defiance folds into a bow. Kamata is the only still thing in a film about motion.
+[ 86] (01:18:17.760 -> 01:18:31.232)  <normal> {loop}
+      His father tells him to get out of Tokyo. Sean walks off down the dark street without answering, which is the first time in his life he's refused to be moved on. Losing finally cost him something he wasn't willing to leave behind.
 
-[ 87] (01:23:09.676 -> 01:23:25.473)  <reveal> {stake}
-      Sean lays out his solution. A race - he and Takashi settle it, and the loser leaves Tokyo for good. Kamata weighs it over the cigar, and says one word. Good.
+[ 87] (01:19:18.696 -> 01:19:36.547)  <tense> {reasoning}
+      Instead he says he should go and talk to Kamata. Twinkie's answer is the sane one - DK answers to Kamata, Han is dead, and nobody just strolls into that place. Sean knows. That's rather the point. He's going because he started this and there's nowhere left to be moved on to.
 
-[ 88] (01:24:06.024 -> 01:24:18.024)  <tense> {stake}
-      The terms cut both ways. Win and Takashi is gone. Lose and Sean leaves the only place he's got left.
+[ 88] (01:19:43.012 -> 01:19:53.939)  <tense> {stake}
+      And then the line that shuts Twinkie up. That's all I got. A kid with no car, no mentor and no plan, betting the only thing he has left: that the scariest man in Tokyo will hear him out.
 
-[ 89] (01:25:00.036 -> 01:25:11.352)  <normal> {judgment}
-      Now the crew builds. They drop a Nissan twin-cam into a Ford's bay - the best idea the film has, and it never says a word about it.
+[ 89] (01:20:10.247 -> 01:20:31.310)  <normal> {judgment}
+      Then Twinkie goes to that ridiculous green van of his, digs behind the speakers, and pulls out a satchel of Han's money. Something Han would have wanted him to have. Sean asks if he needs it. I'll figure it out, he says, which is the most expensive sentence anyone says in this film. The hustler who sells knock-off gear out of a boot is the loyalest person in Tokyo.
 
-[ 90] (01:25:11.352 -> 01:25:45.262)  <normal> {reasoning}
-      The car he races is a borrowed engine in the wreck his father found. He never did any of it alone.
+[ 90] (01:22:29.845 -> 01:22:46.403)  <reveal> {judgment}
+      Inside, he hands the money back. I'm only handing back what belonged to you, sir. Then the apology: your nephew and I have embarrassed ourselves badly. Watch what he does there. He puts himself and the Drift King on the same shelf, and he makes the problem Kamata's own blood, not Kamata's gaijin.
 
-[ 91] (01:26:06.060 -> 01:26:20.114)  <tense> {loop}
-      At the roadside the warning lands. DK picked this road for a reason - it's his mountain, and he's the only one who's ever made it to the bottom.
+[ 91] (01:23:22.981 -> 01:23:35.410)  <reveal> {judgment}
+      Then the terms. One race. The loser leaves Tokyo for good. Consider who is offering that. The kid who's been shipped out of every town he's ever lost in just made leaving the prize for second place. For once it won't be him packing.
 
-[ 92] (01:27:45.993 -> 01:27:57.699)  <normal> {rest}
-      Race night. The crowd lines the ledge above a floodlit dam. Then every head turns at once. Kamata arrives, and the people part to let him take his place.
+[ 92] (01:25:00.036 -> 01:25:16.594)  <normal> {reasoning}
+      So the crew build him a car. The striped Mustang his dad dragged home in pieces goes up on the hoist, sparks everywhere, a turbo motor swinging down into the bay. Every pair of hands in that garage belongs to somebody with no reason left to help him.
 
-[ 93] (01:29:08.700 -> 01:29:21.973)  <action> {rest}
-      Sean sits behind the wheel with his eyes shut, breathing himself calm, Takashi flat-faced beside him. The starter throws both arms up - and drops them. Both cars launch into the downhill dark.
+[ 93] (01:25:24.310 -> 01:25:34.111)  <reveal> {judgment}
+      And consider what is in it. A borrowed Nissan twin-cam, bolted into a Ford his father found. He still hasn't got a car of his own. That isn't the joke anymore - it's the point.
 
-[ 94] (01:30:34.202 -> 01:30:46.694)  <action> {stake}
-      Off the line they grind door to door in a shower of orange sparks. By the next bend DK's flank is torn open and he's fighting the wheel to stay straight.
+[ 94] (01:26:06.060 -> 01:26:23.911)  <tense> {loop}
+      Twinkie brings the good news at the roadside. DK picked this road for a reason. It's his mountain, and he's the only person who's ever made it to the bottom. So that's the race: a borrowed engine, a crash course in drifting, against the man who owns the hill. Lovely odds.
 
-[ 95] (01:31:31.050 -> 01:31:44.713)  <action> {loop}
-      Sean drags up level out of a near-black turn and carves past DK out of a smoke-filled cliff-edge corner. For one corner, the kid who got laughed out of every garage is in front.
+[ 95] (01:27:45.993 -> 01:27:57.087)  <normal> {judgment}
+      Up at the clifftop the crowd parts without anybody asking it to, and in walks the uncle in the hat with his men a step behind. Nobody chants. He has never needed it.
 
-[ 96] (01:32:17.305 -> 01:32:25.521)  <tense> {reasoning}
-      DK won't have it.
+[ 96] (01:28:27.576 -> 01:28:44.009)  <tense> {judgment}
+      Sean sits in the Mustang with his eyes shut, breathing himself down. No swagger, no revving for the crowd. Compare that to the kid in Arizona who settled everything by flooring it and apologising afterwards. He's the only one here with nothing to run to.
 
-[ 97] (01:32:25.521 -> 01:32:35.434)  <action> {stake}
-      He drives into the Mustang's flank mid-drift, scraping them both along the cliff edge until Sean breaks free and carves the next corner alone.
+[ 97] (01:29:00.317 -> 01:29:08.700)  <action> {judgment}
+      Arms up, arms down, and they're gone into the dark. Downhill, two lanes, no barriers. This one is not won on power. It is won on nerve.
 
-[ 98] (01:32:41.704 -> 01:33:02.352)  <tense> {loop}
-      They come down trading paint, neither giving. A guardrail bend comes up fast and DK muscles the Mustang toward the edge. This is the mountain only he has ever reached the bottom of. One of them is about to run out of road.
+[ 98] (01:30:34.202 -> 01:30:46.381)  <action> {reasoning}
+      They come down locked together, doors grinding, throwing a rooster-tail of sparks down the tarmac, and the Mustang opens the coupe's flank like a tin lid. Takashi fights the wheel to stay pointed straight. He's never had to share this road before.
 
-[ 99] (01:33:41.305 -> 01:33:51.649)  <reveal> {loop}
-      And Sean does the one thing DK never saw coming.
+[ 99] (01:32:17.305 -> 01:32:25.521)  <action> {reasoning}
+      So Takashi stops racing and starts shoving - into the Mustang's flank, scraping him along the cliff edge. Losing the mountain is worse to him than going off it.
 
-[100] (01:33:57.588 -> 01:34:08.332)  <action> {stake}
-      Instead of giving the edge up, he shoves back, putting the coupe off the shoulder into the brush - and the mountain's only master goes tumbling across the dirt.
+[100] (01:32:41.704 -> 01:32:55.426)  <action> {judgment}
+      Now they're just two men refusing to lift. Door to door, headlights blazing, each one trying to post the other into the trees, and neither of them gives an inch. Han spent the whole film telling him to stop driving angry. He'll get to that in a minute.
 
-[101] (01:33:51.649 -> 01:33:57.588)  <tense> {rest} [HOLD 5.9s - no narration]
-      
+[101] (01:33:32.171 -> 01:33:41.305)  <tense> {loop}
+      Into the guardrail bend Takashi hangs out the window, then hauls the wheel across to put Sean off the road. Same move he's always used. It has always worked.
 
-[102] (01:34:08.332 -> 01:34:21.989)  <normal> {rest}
-      Sean coasts to a stop and the crowd sprints to swarm his window. Neela reaches him through the noise, and the strained look he's held all the way down finally breaks into a grin.
+[102] (01:33:41.305 -> 01:33:51.649)  <action> {stake}
+      Not tonight. Sean holds the line, leans on him, and shoves him wide instead - off the shoulder, into the brush, the coupe cartwheeling through the dirt. The push he'd been taking all film, handed back once.
 
-[103] (01:34:34.275 -> 01:34:43.575)  <tense> {loop}
-      Then three men in black walk up, one under Kamata's wide-brimmed hat, and the celebration stops dead.
+[103] (01:33:51.649 -> 01:34:01.367)  <action> {rest}
+      The whole roadside goes up at once - screaming, fists in the air, phones forgotten. Sean throws his head back gasping as the marker lights fly over him.
 
-[104] (01:34:43.575 -> 01:34:56.887)  <reveal> {judgment}
-      The old man says his piece straight at Sean. There's no threat left in it - the race was the hearing, and his nephew lost it.
+[104] (01:34:01.367 -> 01:34:08.332)  <reveal> {judgment}
+      And there it is. The kid who couldn't hold a corner just took the mountain off its owner. I never stop enjoying that.
 
-[105] (01:35:19.069 -> 01:35:31.069)  <normal> {rest}
-      Cut to a packed night garage. Money comes out, and Twinkie works the crowd collecting fistfuls of cash as the bets on Sean are settled.
+[105] (01:34:08.332 -> 01:34:17.258)  <reveal> {judgment}
+      The crowd sprints the road to swarm his window while the wreck smokes upside down behind them. New Drift King. And this time the one leaving Tokyo isn't Sean.
 
-[106] (01:35:38.797 -> 01:35:57.575)  <reveal> {loop}
-      Here's what the win actually bought. Sean stands in DK's place now, his crew taking the house cut from the same crowd that once mocked him. The title everybody chanted belongs to the gaijin who couldn't drift.
+[106] (01:34:17.258 -> 01:34:28.060)  <reveal> {judgment}
+      And he didn't win it to be Drift King. He won it to stay. That's the whole trick of this film: the kid only gets to keep something the moment winning stops being the point.
 
-[107] (01:36:19.463 -> 01:36:37.775)  <sad> {reasoning}
-      Twinkie calls across the garage that Han was one of their own, and Sean's smirk fades. Then he takes the driver's seat, watches his mountain through the glass, and lines up for the next race himself.
+[107] (01:34:28.060 -> 01:34:34.275)  <normal> {judgment}
+      Neela gets to him first, and the strain breaks into a grin. She chose this one herself. Nobody raced for her.
 
-[108] (01:36:38.774 -> 01:37:00.037)  <reveal> {loop}
-      And the car that noses up beside him is no tuner coupe - it is hulking American muscle, and the man at the wheel is Dominic Toretto, and he says Han was family to him. Toretto grins. Then the film's last word. This ain't no ten-second race.
+[108] (01:34:43.575 -> 01:34:58.215)  <tense> {loop}
+      Then the men in black walk out of the dark and the party stops breathing. Kamata says his piece straight at him, and Sean takes it with his eyes down - the same way his nephew did. Whatever the terms are, the kid from Arizona is staying.
 
-[109] (01:37:10.430 -> 01:37:50.430)  <outro> {loop}
-      Sean spent his whole life being moved on - new town, new school, new nobody - and he only wins the day he stops running and plants his feet on the one road everyone said he had no business on. Han, who never drifted to win, paid for that, and the film lets him stay. If that landed, tell me what to recap next, and I'll meet you at the start line.
+[109] (01:34:58.215 -> 01:35:07.558)  <sad> {judgment}
+      And then the old man drops his head and walks off alone. He's just lost a nephew to the one thing nobody could take off him. Pride costs him his own blood, every time.
+
+[110] (01:35:19.069 -> 01:35:32.165)  <normal> {judgment}
+      Weeks later, different garage, same noise, and Twinkie is going round the crowd with both fists full of other people's money. He bankrolled a man he was sure would die. He's calling that an investment now, and honestly, he's earned it.
+
+[111] (01:35:49.766 -> 01:36:03.030)  <normal> {loop}
+      Then Twinkie calls Sean out in front of the whole garage and claims he was one of them all along. The smirk goes when the woman in red catches his eye. He's got a crew, a girl, a title, a city. The running stops here.
+
+[112] (01:36:46.656 -> 01:37:10.430)  <reveal> {judgment}
+      And then a challenger rolls up beside him in a great lump of American muscle, and the bald man at the wheel seems to know exactly who Sean is. Then the warning, delivered like a man ordering coffee: you know this ain't no ten-second race. Sean grins back. Of course he does. Last time a stranger pulled up with something to teach him, he took the lesson - and that's the only reason he's standing here.
+
+[113] (01:37:24.402 -> 01:37:33.745)  <reveal> {judgment}
+      Tyres light up, the woman in red throws her arms up, and that's where it ends. Han was right the whole time: he doesn't drift to win.
+
+[114] (01:37:33.745 -> 01:37:47.634)  <outro> {judgment}
+      Sean never did get a car of his own, never did beat anyone alone, and never once won anything by running. He only wins the day he stops. Turns out the kid who kept getting moved on just needed somewhere he refused to leave.

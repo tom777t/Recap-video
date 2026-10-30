@@ -225,11 +225,11 @@ def pacing_report(draft: dict, pdir: Path) -> dict:
                     f"[ANCHOR-EVIDENCE] anchor {'/'.join(a['beats'])} "
                     f"({a['kind']}): {why}")
                 continue
-            ok2, why2 = _bs.delivers(f"{a['kind']} {a['why']}",
-                                     a["evidence"])
-            if not ok2:
-                warns.append(
-                    f"[ANCHOR-EVIDENCE] anchor {'/'.join(a['beats'])}: {why2}")
+            # No lexical delivers() check on anchors either. The claim is a
+            # kind | why sentence and the evidence is the beat's own prose;
+            # overlap ran 0-14% on eight correct anchors, so the warning fired
+            # on all of them and said nothing. Same reason it was dropped for
+            # promises: the semantic judgement is the audit's job.
         for pr in spec["promises"]:
             ok, why = _bs.quote_supported(pr.get("evidence", ""),
                                           pr["beats"], _beatmap)

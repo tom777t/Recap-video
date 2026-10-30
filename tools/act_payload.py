@@ -10,6 +10,19 @@ from __future__ import annotations
 import io, json, os, re, sys
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+# UTF-8 OUT, ALWAYS. This payload is redirected to a file and handed to a
+# writing agent, and on Windows a redirected stdout defaults to cp1252 - so
+# the first Japanese character or curly quote in the transcript raised
+# UnicodeEncodeError and truncated the payload MID-LIST. Act 2 stopped at
+# 00:39:25 of an act running past 01:00:00, and the agent had no way to know
+# the rest existed. Two different crashes in this one tool both failed the
+# same way: a plausible-looking prefix.
+try:
+    sys.stdout.reconfigure(encoding='utf-8', errors='replace')
+except Exception:
+    pass
+
 import config
 from pipeline.preflight import budget_words
 
@@ -146,11 +159,21 @@ def main() -> int:
         # rate entirely. That is a budget that invites the overruns the render
         # then has to reject - the agent was being told it had room it did not
         # have. preflight.budget_words() is the one definition.
-        print(f"  {s['id']} | {s['clip_start']} -> {s['clip_end']} | "
-              f"{s['raw_duration_sec']:.1f}s | "
-              f"{budget_words(float(s['raw_duration_sec']))}w | "
-              f"{','.join(s['chars']) or '-'} | {','.join(s['depicts'])} | "
-              f"{s['censor']} | {s['action']}")
+        # EVERY FIELD VIA .get(). 10 of this project's 531 shots carry no
+        # censor key, and a bare s['censor'] raised KeyError on the first of
+        # them - which truncated the payload MID-LIST. The writer then saw
+        # only the moments before the crash: act 1 stopped at 00:09:16 of an
+        # act running to 00:25:32, so the windows for both of its anchors
+        # were simply absent, and the traceback was appended to the file the
+        # writer was reading. A tool that feeds an agent must not fail
+        # halfway and leave a plausible-looking prefix.
+        print(f"  {s.get('id','?')} | {s.get('clip_start','?')} -> "
+              f"{s.get('clip_end','?')} | "
+              f"{float(s.get('raw_duration_sec') or 0):.1f}s | "
+              f"{budget_words(float(s.get('raw_duration_sec') or 0))}w | "
+              f"{','.join(s.get('chars') or []) or '-'} | "
+              f"{','.join(s.get('depicts') or []) or '-'} | "
+              f"{s.get('censor') or 'none'} | {s.get('action') or '-'}")
         for sp in speech_for(x0, x1):
             print(f"       SPEECH {sp['start']:.1f}-{sp['end']:.1f}: "
                   f"{str(sp.get('text','')).strip()}")
