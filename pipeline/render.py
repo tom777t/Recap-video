@@ -30,12 +30,42 @@ from pathlib import Path
 from rich.console import Console
 
 import config
+from pipeline import encoder as _encoder
 from pipeline import srt as srtmod
 from pipeline.draft import parse_ts
 
 console = Console()
 
 XFADE = config.XFADE_DURATION
+
+
+def _body_keyframes(clip_len: float) -> list[float]:
+    """Force a keyframe where pipeline.assemble will start its copy-cut.
+
+    Only ONE is needed, at frame XFADE_FRAMES. A stream copy has to START on
+    a keyframe; stopping is just "emit N frames and halt", which needs
+    nothing. The first draft of this forced one at the tail as well, on the
+    assumption that both ends of a cut mattered. They do not, and the extra
+    IDR was pure bitrate.
+
+    Returns a FRAME NUMBER, not a timestamp, and that is load-bearing. Two
+    attempts at a timestamp both failed, in opposite directions: rounding
+    8/30 to 0.267 is greater than frame 8's own 0.26667 and moved the
+    keyframe to frame 9; aiming half a frame earlier at 0.250 moved it to
+    frame 7. Worse, even the exact value is seek-dependent, because a clip
+    cut with `-ss` can start at a non-zero PTS - the same threshold produced
+    frame 8 at one seek point and frame 9 at another. A frame number has none
+    of these problems. See encoder.video_args for the measurements.
+
+    The value does not depend on the clip's position in the draft, which
+    keeps a clip's bytes - and therefore its cache key - a function of its
+    own content only.
+    """
+    fps = float(config.OUTPUT_FPS)
+    kf_frame = int(config.XFADE_FRAMES)
+    if clip_len <= 2 * (kf_frame / fps):
+        return []
+    return [kf_frame]
 GAP = config.GAP_BETWEEN_LINES
 # Seconds of picture BEFORE the voice starts, per narrated line. See
 # config.NARRATION_LEAD_IN - it is a genre parameter, not a constant.
@@ -202,7 +232,7 @@ def _build_clip(ff: str, source: Path, start: float, end: float,
     action beats (breach, attack, explosion).
     `crop_top` (0..1) crops that fraction off the TOP first.
 
-    Mức 1 binding constraint: the footage window [start, end] (shot_dur) must be
+    Má»©c 1 binding constraint: the footage window [start, end] (shot_dur) must be
     able to carry the narration. If the narration is LONGER than the window we
     slow the footage down (setpts) up to BINDING_SLOWDOWN_MAX; beyond that we
     RAISE BindingViolation instead of silently cloning the last frame (freeze).
@@ -219,7 +249,7 @@ def _build_clip(ff: str, source: Path, start: float, end: float,
     _SCALER = config.VIDEO_SCALER
     nf = config.NARRATION_FADE
 
-    # ---- Mức 1: fit footage to narration via trim or mild slow-motion -------
+    # ---- Má»©c 1: fit footage to narration via trim or mild slow-motion -------
     # shot_dur = real footage available in [start, end]. clip_len = how long the
     # clip must play (driven by narration + gap, or an intentional `hold`).
     shot_dur = max(0.0, float(end) - float(start))
@@ -247,7 +277,7 @@ def _build_clip(ff: str, source: Path, start: float, end: float,
     if crop_top and 0.0 < crop_top < 0.5:
         crop = f"crop=iw:ih*{1.0-crop_top:.3f}:0:ih*{crop_top:.3f},"
 
-    # Mức 1 mild slow-motion: stretch the footage (setpts) to fill the window
+    # Má»©c 1 mild slow-motion: stretch the footage (setpts) to fill the window
     # BEFORE the fps resample, so motion stays smooth instead of freezing.
     # Applied only when narration overruns the shot window (setpts_factor > 1).
     slowmo = ""
@@ -526,10 +556,8 @@ def _build_clip(ff: str, source: Path, start: float, end: float,
         "-filter_complex", graph,
         "-map", "[v]", "-map", "[a]",
         "-t", f"{clip_len:.3f}",
-        "-c:v", "libx264", "-preset", config.VIDEO_PRESET_INTERMEDIATE,
-        "-crf", str(config.VIDEO_CRF_INTERMEDIATE),
-        "-pix_fmt", config.VIDEO_PIX_FMT,
-        "-c:a", "aac", "-b:a", "192k", "-ar", "48000", "-ac", "2",
+        *_encoder.video_args("final", keyframe_frames=_body_keyframes(clip_len)),
+        *_encoder.audio_args(),
         str(out),
     ]
     _run(cmd, f"build clip {out.name}")
@@ -666,10 +694,8 @@ def _build_silence_clip(ff: str, source: Path, start: float, end: float,
         "-filter_complex", graph,
         "-map", "[v]", "-map", a_map,
         "-t", f"{clip_len:.3f}",
-        "-c:v", "libx264", "-preset", config.VIDEO_PRESET_INTERMEDIATE,
-        "-crf", str(config.VIDEO_CRF_INTERMEDIATE),
-        "-pix_fmt", config.VIDEO_PIX_FMT,
-        "-c:a", "aac", "-b:a", "192k", "-ar", "48000", "-ac", "2",
+        *_encoder.video_args("final", keyframe_frames=_body_keyframes(clip_len)),
+        *_encoder.audio_args(),
         str(out),
     ]
     _run(cmd, f"build silence clip {out.name}")
@@ -683,11 +709,11 @@ def _build_montage_clip(ff: str, source: Path, segments: list[tuple[float, float
     """
     A 'montage hold': cut through several ACTION sub-shots in one line. The
     narration plays at the start; the rest of the clip is silent action under
-    the music. Each sub-shot is filled with MOTION (not a static held frame) —
+    the music. Each sub-shot is filled with MOTION (not a static held frame) â€”
     keeps attention during long silent action beats.
     `segments`: list of (start, end) source windows.
 
-    Mức 2 `play_durs` (optional): a per-segment list of seconds. When given, each
+    Má»©c 2 `play_durs` (optional): a per-segment list of seconds. When given, each
     shot plays for its OWN duration (None entries fall back to an equal share of
     the LEFTOVER time), and the total clip length is
         max(narration + GAP, sum(play_durs), hold).
@@ -700,7 +726,7 @@ def _build_montage_clip(ff: str, source: Path, segments: list[tuple[float, float
     k = max(1, len(segments))
 
     if play_durs is not None:
-        # Mức 2: explicit per-shot durations. Fill in any None with an equal
+        # Má»©c 2: explicit per-shot durations. Fill in any None with an equal
         # share of whatever time the narration needs beyond the declared sum.
         declared = [float(p) if p is not None else None for p in play_durs]
         sum_declared = sum(p for p in declared if p is not None)
@@ -761,10 +787,8 @@ def _build_montage_clip(ff: str, source: Path, segments: list[tuple[float, float
         "-filter_complex", f"{vchain};{af}",
         "-map", "[v]", "-map", "[a]",
         "-t", f"{clip_len:.3f}",
-        "-c:v", "libx264", "-preset", config.VIDEO_PRESET_INTERMEDIATE,
-        "-crf", str(config.VIDEO_CRF_INTERMEDIATE),
-        "-pix_fmt", config.VIDEO_PIX_FMT,
-        "-c:a", "aac", "-b:a", "192k", "-ar", "48000", "-ac", "2",
+        *_encoder.video_args("final", keyframe_frames=_body_keyframes(clip_len)),
+        *_encoder.audio_args(),
         str(out),
     ]
     _run(cmd, f"build montage {out.name}")
@@ -1138,17 +1162,45 @@ def _clip_signature(source: Path, start: float, end: float, hold: float,
     still in it - the fix would appear to do nothing.
     """
     import hashlib
+    # CONTENT-BASED, NO MTIMES.
+    # This used to hash int(source.stat().st_mtime) and
+    # int(audio_path.stat().st_mtime). Both are properties of the filesystem,
+    # not of the content, and both threw away correct cache entries for no
+    # reason: copying the project to another folder, restoring from a backup,
+    # moving to a worktree, or re-running a TTS call that produced byte-
+    # identical audio all changed an mtime and rebuilt clips whose pixels
+    # could not possibly differ. Conversely an mtime can be preserved across
+    # a real content change, so it was not even sound in the other direction.
+    #
+    # Replaced by a hash of the audio's actual BYTES, and for the source - a
+    # 750 MB file that is read-only here - its size plus path. Hashing the
+    # whole film on every clip would cost more than the encode it protects;
+    # size is what actually distinguishes one cut of a film from another, and
+    # a same-size different-content film is not a scenario this pipeline has.
     try:
-        smtime = int(source.stat().st_mtime)
-        amtime = int(audio_path.stat().st_mtime)
         asize = audio_path.stat().st_size
+        ahash = hashlib.sha1(audio_path.read_bytes()).hexdigest()[:16]
     except OSError:
-        smtime = amtime = asize = 0
+        asize, ahash = 0, "noaudio"
+    try:
+        ssize = source.stat().st_size
+    except OSError:
+        ssize = 0
     parts = [
-        str(source), str(smtime),
+        str(source), f"srcsize={ssize}",
         f"{start:.3f}", f"{end:.3f}", f"{hold:.3f}", str(line_id % 2),
         f"{crop_top:.3f}", f"{narr_dur:.3f}",
-        str(audio_path.name), str(amtime), str(asize),
+        str(audio_path.name), f"ahash={ahash}", str(asize),
+        # The encoder is part of the picture, so the ACTUAL ARGUMENT LIST goes
+        # in the key - not a label for it. The first version recorded
+        # active()['codec'], which said "h264_qsv" while the clips were in
+        # fact being encoded with libx264, because a clip needs forced
+        # keyframes and QSV cannot do them. A key that describes something
+        # other than what was run is worse than no key: it would have served
+        # QSV-labelled libx264 clips and vice versa.
+        "enc=" + " ".join(_encoder.video_args(
+            "final", keyframe_frames=_body_keyframes(
+                max(hold, narr_dur + GAP + float(lead_in or 0.0))))),
         # motion/canvas settings that change pixels:
         str(config.MOTION_ENABLE), str(config.MOTION_ZOOM),
         f"{config.OUTPUT_WIDTH}x{config.OUTPUT_HEIGHT}@{config.OUTPUT_FPS}",
@@ -1840,15 +1892,15 @@ def render(project: str, draft: dict,
         # ---- MONTAGE HOLD: cut through several action shots in one line -----
         if ln.get("montage"):
             segs = []
-            play_durs = []          # Mức 2: per-segment play_duration (or None)
+            play_durs = []          # Má»©c 2: per-segment play_duration (or None)
             inline = False
             for lab in ln["montage"]:
-                # Mức 1: a montage entry may be an INLINE timestamp segment
+                # Má»©c 1: a montage entry may be an INLINE timestamp segment
                 # (dict {clip_start, clip_end} or [start, end] list) for projects
                 # with no broll.json (e.g. joker2019 - explicit bindings only).
                 # This cuts a real rapid-cut sequence across its hard cuts instead
                 # of freezing one short shot.
-                # Mức 2: a dict segment may carry an optional `play_duration` so
+                # Má»©c 2: a dict segment may carry an optional `play_duration` so
                 # each shot plays for its OWN length instead of an equal split.
                 if isinstance(lab, dict) and lab.get("clip_start"):
                     segs.append((parse_ts(lab["clip_start"]), parse_ts(lab["clip_end"])))
@@ -1868,7 +1920,7 @@ def render(project: str, draft: dict,
             # inline montage = narration-fit (no forced action hold); label
             # montage keeps the SHOWCASE_HOLD breathing behaviour.
             mh = hold if inline else (hold or config.SHOWCASE_HOLD)
-            # Only pass play_durs if ANY segment declared one (Mức 2); else None
+            # Only pass play_durs if ANY segment declared one (Má»©c 2); else None
             # so _build_montage_clip uses the legacy equal-split (backward compat).
             pd_arg = play_durs if any(p is not None for p in play_durs) else None
             clip_len = _build_montage_clip(ff, source, segs, audio_path,
@@ -1910,7 +1962,7 @@ def render(project: str, draft: dict,
         else:
             start = parse_ts(ln["clip_start"])
             end = parse_ts(ln["clip_end"])
-            # ---- Mức 1 defensive capacity gate (also catches cache hits) -----
+            # ---- Má»©c 1 defensive capacity gate (also catches cache hits) -----
             # _build_clip raises on a cache MISS, but a cached clip would bypass
             # it; enforce the same contract here so an overrun never slips
             # through silently on a re-render.
@@ -2043,10 +2095,15 @@ def render(project: str, draft: dict,
             console.print(f"  [dim]reused {n_cached}/{len(clips)} cached clips "
                           f"(only changed lines were rebuilt)[/]")
 
-    # ----- xfade everything into one continuous stream -----------------------
-    console.print("[cyan]Crossfading clips into one smooth stream...[/]")
-    av = work / "av_xfade.mp4"
-    total_dur = _xfade_chain(ff, clips, av)
+    # ----- assemble: copy the bodies, encode only the crossfades -------------
+    # Was _xfade_chain, which re-encoded the whole timeline twice (batches of
+    # 12, then a pass to join the batches) before the music mix re-encoded it
+    # a third time. pipeline.assemble stream-copies every clip body and
+    # encodes only the 0.28s dissolves - about 31s of video on this draft
+    # instead of ~16 minutes, three times over.
+    from pipeline import assemble as _asm
+    av = work / "av_assembled.mp4"
+    total_dur = _asm.build(ff, clips, work, av)
     console.print(f"  timeline length: {total_dur/60:.1f} min")
 
     # ----- captions ----------------------------------------------------------
@@ -2133,14 +2190,16 @@ def render(project: str, draft: dict,
         af = _loudnorm_filter()
         if af:
             cmd += ["-af", af]
+        # Same reasoning as the music path: the picture is already final, so
+        # only loudnorm needs a pass over the audio. Captions are the one
+        # thing that forces a re-encode.
+        cmd += (list(_encoder.video_args("final")) if vf
+                else ["-c:v", "copy"])
         cmd += [
-            "-c:v", "libx264", "-preset", config.VIDEO_PRESET,
-            "-crf", str(config.VIDEO_CRF),
-        "-pix_fmt", config.VIDEO_PIX_FMT,
-            "-c:a", "aac", "-b:a", "192k",
+            "-c:a", "aac", "-b:a", "192k", "-ar", "48000", "-ac", "2",
             str(final),
         ]
-        _run(cmd, "final encode")
+        _run(cmd, "final mix" + ("" if vf else " (picture stream-copied)"))
 
     # ----- prepend the beat-cut intro block ---------------------------------
     # final.mp4 = [montage with the over_montage line(s)] + [film intro block,
@@ -3155,12 +3214,22 @@ def _render_with_music(ff: str, av: Path, music: Path, ass_filter: str | None,
     else:
         mix += f";[{last}]anull[aout]"
 
+    # THE PICTURE IS ALREADY FINISHED. Every clip was encoded once at delivery
+    # quality and the bodies were stream-copied into `av`, so this pass has no
+    # business touching the video - it is here to mix the sound. Burning
+    # captions is the one exception, because a filter has to draw on the
+    # frames, and it is paid for only when captions are actually on (they are
+    # off by default).
     if ass_filter:
         vmap = "[v]"
         graph = f"[0:v]subtitles='{ass_filter}'[v];{mix}"
+        vcodec = list(_encoder.video_args("final"))
+        console.print("[yellow]  captions are ON, so the picture must be "
+                      "re-encoded to burn them.[/]")
     else:
         vmap = "0:v"
         graph = mix
+        vcodec = ["-c:v", "copy"]
 
     # A prebuilt mood bed is already exactly total_dur long with its moods in
     # order - looping it would restart the first mood over the ending.
@@ -3174,13 +3243,11 @@ def _render_with_music(ff: str, av: Path, music: Path, ass_filter: str | None,
         "-filter_complex", graph,
         "-map", vmap, "-map", "[aout]",
         "-t", f"{total_dur:.3f}",
-        "-c:v", "libx264", "-preset", config.VIDEO_PRESET,
-        "-crf", str(config.VIDEO_CRF),
-        "-pix_fmt", config.VIDEO_PIX_FMT,
-        "-c:a", "aac", "-b:a", "192k",
+        *vcodec,
+        "-c:a", "aac", "-b:a", "192k", "-ar", "48000", "-ac", "2",
         str(final),
     ]
-    _run(cmd, "final encode with music")
+    _run(cmd, "final mix" + ("" if ass_filter else " (picture stream-copied)"))
 
 
 

@@ -50,5 +50,161 @@
     "encoder": "",
     "cpu": "Intel64 Family 6 Model 154 Stepping 4, GenuineIntel",
     "note": "warm clip cache, 3 scattered lines edited"
+  },
+  {
+    "label": "after-first",
+    "when": "2026-10-30T20:02:55+00:00",
+    "project": "tokyodrift2006",
+    "draft_lines": 111,
+    "exit": 99,
+    "tts_seconds": 13.4,
+    "render_seconds": 281.4,
+    "render_minutes": 4.69,
+    "total_minutes": 4.91,
+    "final_mb": 569.6,
+    "final_duration_s": 940.15,
+    "clipcache_before": {
+      "files": 0,
+      "mb": 0.0
+    },
+    "clipcache_after": {
+      "files": 107,
+      "mb": 1790.2
+    },
+    "draft_mode": false,
+    "force_clips": false,
+    "encoder": "",
+    "cpu": "Intel64 Family 6 Model 154 Stepping 4, GenuineIntel",
+    "note": "assembler stream-copy + QSV gq20, sequential clips"
+  },
+  {
+    "label": "after-first",
+    "when": "2026-10-30T20:36:36+00:00",
+    "project": "tokyodrift2006",
+    "draft_lines": 111,
+    "exit": 99,
+    "tts_seconds": 4.1,
+    "render_seconds": 1529.6,
+    "render_minutes": 25.49,
+    "total_minutes": 25.56,
+    "final_mb": 569.6,
+    "final_duration_s": 940.15,
+    "clipcache_before": {
+      "files": 0,
+      "mb": 0.0
+    },
+    "clipcache_after": {
+      "files": 107,
+      "mb": 406.4
+    },
+    "draft_mode": false,
+    "force_clips": false,
+    "encoder": "",
+    "cpu": "Intel64 Family 6 Model 154 Stepping 4, GenuineIntel",
+    "note": "assembler + QSV where safe, libx264 clips, sequential"
+  },
+  {
+    "label": "after-first-warmclips",
+    "when": "2026-10-30T20:43:20+00:00",
+    "project": "tokyodrift2006",
+    "draft_lines": 111,
+    "exit": 99,
+    "tts_seconds": 4.2,
+    "render_seconds": 335.8,
+    "render_minutes": 5.6,
+    "total_minutes": 5.67,
+    "final_mb": 569.6,
+    "final_duration_s": 940.15,
+    "clipcache_before": {
+      "files": 107,
+      "mb": 406.4
+    },
+    "clipcache_after": {
+      "files": 107,
+      "mb": 406.4
+    },
+    "draft_mode": false,
+    "force_clips": false,
+    "encoder": "",
+    "cpu": "Intel64 Family 6 Model 154 Stepping 4, GenuineIntel",
+    "note": "assembly fix; clips already cached from the failed run"
+  },
+  {
+    "label": "after-first",
+    "when": "2026-10-30T20:58:35+00:00",
+    "project": "tokyodrift2006",
+    "draft_lines": 111,
+    "exit": 0,
+    "tts_seconds": 4.7,
+    "render_seconds": 778.0,
+    "render_minutes": 12.97,
+    "total_minutes": 13.04,
+    "final_mb": 455.3,
+    "final_duration_s": 944.09,
+    "clipcache_before": {
+      "files": 107,
+      "mb": 406.4
+    },
+    "clipcache_after": {
+      "files": 107,
+      "mb": 406.4
+    },
+    "draft_mode": false,
+    "force_clips": false,
+    "encoder": "",
+    "cpu": "Intel64 Family 6 Model 154 Stepping 4, GenuineIntel",
+    "note": "assembler complete; clips cached"
+  },
+  {
+    "label": "after-rerender-3lines",
+    "when": "2026-10-30T21:12:41+00:00",
+    "project": "tokyodrift2006",
+    "draft_lines": 111,
+    "exit": 0,
+    "tts_seconds": 13.6,
+    "render_seconds": 795.9,
+    "render_minutes": 13.26,
+    "total_minutes": 13.49,
+    "final_mb": 452.9,
+    "final_duration_s": 940.35,
+    "clipcache_before": {
+      "files": 107,
+      "mb": 406.4
+    },
+    "clipcache_after": {
+      "files": 110,
+      "mb": 422.7
+    },
+    "draft_mode": false,
+    "force_clips": false,
+    "encoder": "",
+    "cpu": "Intel64 Family 6 Model 154 Stepping 4, GenuineIntel",
+    "note": "warm cache, 3 scattered lines edited"
+  },
+  {
+    "label": "after-first-TRUE-COLD",
+    "when": "2026-10-30T21:46:54+00:00",
+    "project": "tokyodrift2006",
+    "draft_lines": 111,
+    "exit": 0,
+    "tts_seconds": 14.3,
+    "render_seconds": 2010.6,
+    "render_minutes": 33.51,
+    "total_minutes": 33.75,
+    "final_mb": 454.2,
+    "final_duration_s": 942.44,
+    "clipcache_before": {
+      "files": 0,
+      "mb": 0.0
+    },
+    "clipcache_after": {
+      "files": 107,
+      "mb": 406.0
+    },
+    "draft_mode": false,
+    "force_clips": false,
+    "encoder": "",
+    "cpu": "Intel64 Family 6 Model 154 Stepping 4, GenuineIntel",
+    "note": "true cold clip cache, unedited draft"
   }
 ]

@@ -280,7 +280,29 @@ SETPIECE_MAXGAP_MULT = 3.0       # x the film's median consecutive-line gap
 # --------------------------------------------------------------------------- #
 # Transitions + audio feel (review-phim style)
 # --------------------------------------------------------------------------- #
-XFADE_DURATION = 0.28      # crossfade/dissolve length between clips (seconds)
+# Crossfade length, expressed in FRAMES and converted, because it has to land
+# on a frame boundary.
+#
+# This was 0.28 seconds. At 30 fps that is 8.4 frames - not a whole number, so
+# every crossfade boundary fell in the middle of a frame. Nothing complained,
+# because the old pipeline re-encoded the entire timeline through an `xfade`
+# filtergraph and the filter simply resampled around it.
+#
+# It matters now. Phase 1 stream-copies each clip body and a stream copy can
+# only cut on a frame, so a boundary at 8.4 frames cannot be hit exactly: the
+# first copy-cut came out 0.080s long, and at 110 junctions that is nearly nine
+# seconds of accumulated drift between picture and sound. Found by the
+# assembler's own duration assertion on the first run, not by reading.
+#
+# 8 frames is the whole number nearest the original 0.28s (0.267s vs the 0.300s
+# of 9 frames).
+#
+# The 30.0 below is OUTPUT_FPS, which is defined further down this file and so
+# cannot be referenced here. Rather than duplicate the number silently - the
+# "one job, two places" failure the Stage 2 plan opens with - there is an
+# assertion next to OUTPUT_FPS that fails loudly if the two ever disagree.
+XFADE_FRAMES = 8
+XFADE_DURATION = XFADE_FRAMES / 30.0   # = 0.26667s at 30 fps
 GAP_BETWEEN_LINES = 0.18   # a real micro-breath between lines (was 0.05; too fast)
 NARRATION_FADE = 0.04      # micro fade in/out on each line to kill pops
 
@@ -778,6 +800,16 @@ DEFAULT_CAPTIONS = False
 OUTPUT_WIDTH = 1920
 OUTPUT_HEIGHT = 1080
 OUTPUT_FPS = 30
+
+# XFADE_DURATION is computed near the top of this file from XFADE_FRAMES and a
+# literal 30.0, because OUTPUT_FPS is not defined yet up there. If the output
+# rate changes, the crossfade stops landing on a frame boundary and the
+# stream-copy assembly silently drifts - so this is an assertion, not a note.
+assert abs(XFADE_DURATION - XFADE_FRAMES / float(OUTPUT_FPS)) < 1e-9, (
+    f"XFADE_DURATION ({XFADE_DURATION}) was computed at 30 fps but OUTPUT_FPS "
+    f"is {OUTPUT_FPS}. The crossfade must be a whole number of frames or "
+    f"pipeline/assemble.py cannot copy-cut exactly. Recompute it as "
+    f"XFADE_FRAMES / OUTPUT_FPS.")
 VIDEO_CRF = 20                  # lower = better quality / bigger file
 VIDEO_PRESET = "medium"         # FINAL encode only
 

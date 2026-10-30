@@ -117,12 +117,35 @@ def output_size(tier: str) -> tuple[int, int]:
     return (int(config.OUTPUT_WIDTH), int(config.OUTPUT_HEIGHT))
 
 
-def video_args(tier: str, keyframes_at: list[float] | None = None) -> list[str]:
+def video_args(tier: str, keyframe_frames: list[int] | None = None) -> list[str]:
     """Encoder arguments for one tier.
 
-    `keyframes_at` forces an IDR frame at those timestamps. That is what makes
-    the stream-copy assembly exact: a cut on a forced keyframe is frame
-    accurate without re-encoding, and a cut anywhere else is not.
+    `keyframe_frames` forces an IDR at those FRAME NUMBERS, which is what
+    makes the stream-copy assembly exact: a copy can only start on a keyframe.
+
+    TWO MEASURED FACTS SHAPE THIS, both found by testing on real film rather
+    than on colour bars:
+
+    1. KEYFRAMES ARE FORCED BY FRAME NUMBER, never by timestamp. A clip
+       written with `-ss <t> -i source` can carry a non-zero start PTS, so a
+       time threshold lands on a different frame depending on where in the
+       film it was cut. `-force_key_frames 0.266667` put the keyframe on
+       frame 8 when seeking to 3127s and on frame 9 when seeking to 0s or
+       600.5s. `expr:eq(n,8)` put it on frame 8 at all three. Measured, three
+       seek points, both forms.
+
+    2. h264_qsv CANNOT FORCE KEYFRAMES AT ALL on this hardware. Every form -
+       a time list, `expr:gte(t,...)`, `expr:eq(n,...)` - produced a single
+       keyframe at frame 0 and nothing else, at all three seek points. A
+       synthetic testsrc2 clip appeared to work, which cost a long detour:
+       testsrc2 changes so violently that the encoder inserts keyframes on
+       its own, and that looked like obedience. It was not.
+
+    So when a caller needs forced keyframes, this returns libx264 EVEN IF QSV
+    is available and calibrated. That is not a fallback for safety's sake, it
+    is the only encoder here that can do the job. QSV is still used wherever
+    no copy-cut depends on the result: the crossfade pieces, a caption burn,
+    and draft mode.
     """
     if tier not in ("final", "transition", "draft"):
         raise ValueError(f"unknown encode tier {tier!r}")
@@ -130,10 +153,22 @@ def video_args(tier: str, keyframes_at: list[float] | None = None) -> list[str]:
     a = active()
     args: list[str] = []
 
-    if keyframes_at:
-        # expr form so ffmpeg places an IDR at each boundary exactly
-        expr = "+".join(f"gte(t,{t:.3f})" for t in keyframes_at)
+    if keyframe_frames:
+        # Plain comma. The backslash escape a filtergraph needs is WRONG here
+        # - `-force_key_frames` is its own expression parser, not a filter
+        # argument, and `eq(n\,8)` fails with "Missing ')' or too many args".
+        expr = "+".join(f"eq(n,{int(k)})" for k in keyframe_frames)
         args += ["-force_key_frames", f"expr:{expr}"]
+        # QSV cannot honour the above. Silently accepting it would produce a
+        # clip with no keyframe where the assembler needs one - the assembler
+        # would then refuse to build, which is at least loud, but it is
+        # better to not create the situation.
+        crf = int(config.VIDEO_CRF)
+        preset = config.VIDEO_PRESET
+        if tier == "draft":
+            crf, preset = int(config.VIDEO_CRF) + 6, "veryfast"
+        return args + ["-c:v", "libx264", "-preset", preset, "-crf", str(crf),
+                       "-pix_fmt", config.VIDEO_PIX_FMT]
 
     if a["codec"] == "h264_qsv":
         gq = a["global_quality"]
