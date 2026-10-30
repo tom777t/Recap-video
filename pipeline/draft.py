@@ -517,6 +517,36 @@ def validate_draft(project: str, *, write_state: bool = False,
             console.print(f"[yellow]{_w}[/]")
         for _nt in _cr["notes"]:
             console.print(f"[dim]{_nt}[/]")
+
+        # ---- PHASE 2 contour / persona / continuity gates ----------------
+        # The craft gates above judge each LINE. These judge the SHAPE of the
+        # whole draft - whether it arrives anywhere, whether the narrator is
+        # audible, whether the facts and the picture hold together. The
+        # shipped Tokyo Drift draft passes every per-line gate and fails
+        # thirteen of these, which is why they exist.
+        from pipeline import pacing_gates as _pace
+        from pipeline import continuity_gates as _cont
+        _pdir = config.project_dir(project)
+        _pr = _pace.pacing_report(draft, _pdir)
+        errors.extend(_pr["errors"])
+        for _w in _pr["warns"]:
+            console.print(f"[yellow]{_w}[/]")
+        for _nt in _pr["notes"]:
+            console.print(f"[dim]{_nt}[/]")
+        if _pr.get("stats"):
+            _s = _pr["stats"]
+            console.print(
+                "[dim]  contour: top20 lines "
+                f"{_s.get('top20_line_share')}  one-line beats "
+                f"{_s.get('one_line_beats')}/{_s.get('beats')}  longest run "
+                f"{_s.get('longest_one_line_run')}  judgment "
+                f"{_s.get('judgment_share')}  frame-only "
+                f"{_s.get('frame_only_share')}  voiced "
+                f"{_s.get('voiced_share')}[/]")
+        _co = _cont.continuity_report(draft, _pdir)
+        errors.extend(_co["errors"])
+        for _w in _co["warns"]:
+            console.print(f"[yellow]{_w}[/]")
     except Exception as _ce:                              # pragma: no cover
         # D-GREEN: mot audit thieu dau vao phai NOI RA, khong duoc im lang xanh.
         console.print(f"[red][CRAFT] gates did not run: {_ce}[/] "

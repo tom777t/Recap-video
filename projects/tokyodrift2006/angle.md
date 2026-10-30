@@ -26,6 +26,58 @@ A kid who has spent his whole life being shipped somewhere else the moment he lo
 
 4. **"He doesn't drift to win."** — Han's thesis, set as a seed and paid back as the eulogy. **Setup: B57/B58** (Tokyo is his Mexico; he lent the car on purpose; he doesn't drift to win) → **Payoff: B79/B101/outro** — Sean wins the one race Han would have told him not to need to win, and the narrator closes on Han's line turned true: Sean stops running, and that is the only race that counted.
 
+## ANCHORS
+
+The 5–8 scenes this recap is built to ARRIVE at. Each gets multi-line dwell —
+character words (a quote or a `film_speaks` unit) plus the action plus a
+narrator reaction — and compression well below the film average. Everything
+else is connective tissue and is compressed harder or dropped to footage so the
+runtime does not move.
+
+Format: `- **beats** | kind | why`
+
+- **B13** | emotional peak | The silent sentence. The mother says they are not moving this time and he takes it without a word; the whole "being moved on" pattern is legible here or nowhere.
+- **B17/B18** | thesis setup | "You can't keep running from your trouble." The father's rules, and the exact words the ending pays back.
+- **B30/B37** | hook payoff | The first garage race: he borrows DK's car and destroys it. This is the "before he has learned to turn" promise being cashed — he cannot drift, in public, at length.
+- **B47/B52/B53** | hook payoff | Learning to turn. Han hands him the Evo and he is actually taught; the arc the hook promised, not a "long story short".
+- **B57/B58** | thesis | Han on the footbridge: Tokyo is his Mexico, he lent the car on purpose, he doesn't drift to win. Load-bearing for the outro.
+- **B64/B65/B66** | emotional peak | Neela at the vending machines and her mother's story — the one person who chose Tokyo too, which is what makes "worth losing in front of" true instead of asserted.
+- **B79/B80** | reveal | Han's death and what Sean does next. R2.
+- **B99/B101** | reveal | The mountain. The crown changes hands and the loser is the one who leaves Tokyo. R3 plus the "being moved on" payoff.
+
+## HOOK PROMISES
+
+Every clause in the hook and intro that promises the viewer something must be
+cashed at an anchor, not in a compressed bridge line. The gate checks the
+mapping.
+
+Format: `- "clause" -> beats | note`
+
+- "before he has learned to turn" -> B30/B37, B47/B52/B53 | the drift arc: first the public failure, then the actual teaching
+- "one city, one man, and one girl worth losing in front of" -> B57/B58, B64/B65/B66 | Han and Neela, both given room
+- "stops running" -> B17/B18, B99/B101 | the father's words set it, the mountain pays it
+- "only then does he win" -> B99/B101 | the win is the last thing, and it is a consequence
+
+## NARRATOR PERSONA
+
+**Stance:** a mate who loves car films, has seen this one many times, and is
+not going to pretend the plot is cleverer than it is — warm about the people,
+dry about the film's own hype. Roots for Sean without flattering him; openly
+fond of Han; a little afraid of Kamata, correctly.
+
+**Signature moves:**
+- Direct address to the viewer, sparing and unforced ("you already know how this ends", "watch what he does with his hands here").
+- Everyday comparisons for car and crime mechanics — a parking-garage analogy rather than a technical one.
+- Deadpan understatement immediately after something big ("so that went well").
+- The running bits as callbacks, in the narrator's own words, never explained: being moved on; he hasn't got a car; Donkey Kong → Drift King; he doesn't drift to win.
+
+**Never:**
+- Editing or camera jargon: no "cut to", "we see", "the camera", "in this shot", "frame".
+- Narrating what is plainly visible with nothing added — if the picture says it, the narrator says what it MEANS or says nothing.
+- Calling Neela a prize, or treating her as the trophy the film keeps implying.
+- Reducing Han to the mentor-who-dies slot.
+- Mocking the film for being a car film. The affection is real.
+
 ## WHAT THE ANGLE SELECTS
 
 **Mandatory regardless (spine + reveals + setups):**

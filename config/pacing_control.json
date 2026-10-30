@@ -1,0 +1,173 @@
+{
+ "files": [
+  {
+   "file": "cutframe_fT_pA_sX3VU.en-orig.vtt",
+   "lang": "en",
+   "runtime_min": 25.45,
+   "sentences": 337,
+   "scenes": 27,
+   "lines_per_scene_mean": 12.48,
+   "lines_per_scene_median": 10,
+   "lines_per_scene_p90": 28,
+   "lines_per_scene_max": 33,
+   "one_line_scene_share": 0.037,
+   "longest_one_line_run": 1,
+   "top20_runtime_share": 0.419,
+   "top20_line_share": 0.43,
+   "long_gap_sec": 0.81
+  },
+  {
+   "file": "mrecaps_HDI-QESF9GY.en-orig.vtt",
+   "lang": "en",
+   "runtime_min": 8.71,
+   "sentences": 130,
+   "scenes": 10,
+   "lines_per_scene_mean": 13,
+   "lines_per_scene_median": 13,
+   "lines_per_scene_p90": 40,
+   "lines_per_scene_max": 40,
+   "one_line_scene_share": 0.0,
+   "longest_one_line_run": 0,
+   "top20_runtime_share": 0.48,
+   "top20_line_share": 0.477,
+   "long_gap_sec": 0.43
+  },
+  {
+   "file": "mrecaps_SnAufo-cIao.en-orig.vtt",
+   "lang": "en",
+   "runtime_min": 15.33,
+   "sentences": 228,
+   "scenes": 27,
+   "lines_per_scene_mean": 8.44,
+   "lines_per_scene_median": 7,
+   "lines_per_scene_p90": 15,
+   "lines_per_scene_max": 40,
+   "one_line_scene_share": 0.111,
+   "longest_one_line_run": 1,
+   "top20_runtime_share": 0.462,
+   "top20_line_share": 0.443,
+   "long_gap_sec": 0.44
+  },
+  {
+   "file": "mrecaps_dXSI1hYlXlk.en-orig.vtt",
+   "lang": "en",
+   "runtime_min": 17.22,
+   "sentences": 251,
+   "scenes": 15,
+   "lines_per_scene_mean": 16.73,
+   "lines_per_scene_median": 13,
+   "lines_per_scene_p90": 50,
+   "lines_per_scene_max": 52,
+   "one_line_scene_share": 0.067,
+   "longest_one_line_run": 1,
+   "top20_runtime_share": 0.502,
+   "top20_line_share": 0.506,
+   "long_gap_sec": 0.44
+  },
+  {
+   "file": "mrecaps_lCD7leAyMYo.en-orig.vtt",
+   "lang": "en",
+   "runtime_min": 12.59,
+   "sentences": 191,
+   "scenes": 42,
+   "lines_per_scene_mean": 4.55,
+   "lines_per_scene_median": 3,
+   "lines_per_scene_p90": 9,
+   "lines_per_scene_max": 18,
+   "one_line_scene_share": 0.214,
+   "longest_one_line_run": 3,
+   "top20_runtime_share": 0.481,
+   "top20_line_share": 0.461,
+   "long_gap_sec": 0.42
+  },
+  {
+   "file": "sakura_6GlyIi83UhA.vi-orig.vtt",
+   "lang": "vi",
+   "error": "too few sentences"
+  },
+  {
+   "file": "sakura_9Mkd0KgoWZU.vi-orig.vtt",
+   "lang": "vi",
+   "runtime_min": 17.99,
+   "sentences": 236,
+   "scenes": 20,
+   "lines_per_scene_mean": 11.8,
+   "lines_per_scene_median": 10,
+   "lines_per_scene_p90": 32,
+   "lines_per_scene_max": 56,
+   "one_line_scene_share": 0.2,
+   "longest_one_line_run": 1,
+   "top20_runtime_share": 0.578,
+   "top20_line_share": 0.542,
+   "long_gap_sec": 0.37
+  },
+  {
+   "file": "sakura_uq0E0qoZnnE.vi-orig.vtt",
+   "lang": "vi",
+   "error": "too few sentences"
+  },
+  {
+   "file": "vuaphim_-aTw-3XAQFc.vi-orig.vtt",
+   "lang": "vi",
+   "error": "too few sentences"
+  }
+ ],
+ "by_lang": {
+  "en": {
+   "n_files": 5,
+   "lines_per_scene_mean": [
+    4.55,
+    12.48,
+    16.73
+   ],
+   "one_line_scene_share": [
+    0.0,
+    0.067,
+    0.214
+   ],
+   "longest_one_line_run": [
+    0,
+    1,
+    3
+   ],
+   "top20_runtime_share": [
+    0.419,
+    0.48,
+    0.502
+   ],
+   "top20_line_share": [
+    0.43,
+    0.461,
+    0.506
+   ]
+  },
+  "vi": {
+   "n_files": 1,
+   "lines_per_scene_mean": [
+    11.8,
+    11.8,
+    11.8
+   ],
+   "one_line_scene_share": [
+    0.2,
+    0.2,
+    0.2
+   ],
+   "longest_one_line_run": [
+    1,
+    1,
+    1
+   ],
+   "top20_runtime_share": [
+    0.578,
+    0.578,
+    0.578
+   ],
+   "top20_line_share": [
+    0.542,
+    0.542,
+    0.542
+   ]
+  }
+ }
+}

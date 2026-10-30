@@ -893,4 +893,81 @@ def ensure_project(name: str) -> Path:
     return d
 
 
+# --------------------------------------------------------------------------- #
+# PACING CONTOUR (dwell). Calibrated on references/voice/*.vtt - the full
+# derivation, including why each bar is this number and which of the measured
+# statistics are NOT usable, is in docs/stage2/PACING_CALIBRATION.md and the
+# raw measurements are in config/pacing_control.json.
+#
+# THE DEFECT: the Tokyo Drift draft gave 56 of ~80 beats exactly one line and
+# spent 1.0-1.6 narration-minutes on every 10 film-minutes throughout - a flat
+# contour. The scenes viewers singled out are exactly the ones that got 3-4
+# lines. The references do not do this: they concentrate 42-50% of their
+# runtime in their top 20% of scenes.
+#
+# BASIS WARNING, because it changes the numbers more than anything else does.
+# Measured on the SAME draft: top-20% runtime share is 0.310 by real beats and
+# 0.412 by the reference's own cue-segmentation. The gate measures BEATS,
+# because that is what the writer controls, and the bars below are converted
+# from the reference basis by the 0.75 factor measured on our own draft. Do not
+# compare a beat-basis number to a reference-basis one.
+# --------------------------------------------------------------------------- #
+PACING_ANCHORS_MIN = 5
+PACING_ANCHORS_MAX = 8
+# An anchor that gets one line is not an anchor. The scenes viewers singled out
+# (Han on the footbridge, the Neela beats) carry 3-4 lines.
+PACING_ANCHOR_MIN_LINES = 3
+# Share of narration lines that must sit in the top 20% of beats. References
+# score 0.430-0.506 on their own basis; x0.75 gives a reference-equivalent
+# floor near 0.36, so 0.40 is slightly stricter than the references and is
+# reachable - the intended shape computes to 0.465. The shipped draft: 0.324.
+PACING_TOP20_LINE_SHARE_MIN = 0.40
+# Longest run of consecutive beats that each get exactly ONE narration line.
+# English references max at 3 on a basis that destroys one-line scenes, so
+# their true figure is higher. The shipped draft runs 9.
+PACING_ONE_LINE_RUN_MAX = 4
+# A beat with no narration (footage or hold) BREAKS a one-line run rather than
+# extending it: a deliberate pause is a change of rhythm, which is the opposite
+# of the monotony being measured.
+#
+# An anchor must also be slower than the film average: compression is
+# film-seconds covered per narration-second, and an anchor should dwell.
+PACING_ANCHOR_MAX_COMPRESSION_RATIO = 0.70   # of the draft's own mean
+
+# --------------------------------------------------------------------------- #
+# NARRATOR PERSONA. angle.md's ATTITUDE section says what the narrator thinks;
+# it never said how the narrator SOUNDS, so the draft came back with 14 of 109
+# lines carrying any judgment at all and no recognisable voice.
+#
+# Reference aside-rates, measured in references/voice/_measured.json: the
+# English channels average 177 "asides" (first/second person, stance adverbs,
+# questions to the viewer) over 25.8 minutes on cutframe - about 7 per minute
+# of narration. We are not chasing that density; we are refusing zero.
+# --------------------------------------------------------------------------- #
+# Share of narrated lines carrying payload == "judgment". Measured on the
+# draft's OWN label, which is where the 14/109 figure in the brief comes from
+# (14 of 106 narrated = 13.2%). A first version of this gate scored judgment
+# with a text detector and reported 42.5% on the same draft - it matched
+# "only", "still", "never" and any "you", which appear throughout ordinary
+# descriptive prose. It PASSED a draft the viewer said had no voice, which is
+# the worst kind of gate. Use the label the writer commits to.
+PERSONA_JUDGMENT_SHARE_MIN = 0.22
+#
+# A DECISION, NOT A MEASUREMENT - and the references say so. Persona-move rate
+# (direct address, first person, questions to the viewer, stance adverbs)
+# measured across the five English reference files: 0.4%, 1.2%, 2.1%, 3.1%,
+# 37.1%. A 90x spread means the genre has no shared persona rate: Movie Recaps
+# is almost impersonal, cutframe is chatty. So this floor is the style asked
+# for in the brief, grounded in angle.md's persona card, and it is NOT claimed
+# to be calibrated. Recorded honestly because the alternative is dressing a
+# preference up as evidence.
+PERSONA_WINDOW_SEC = 120.0            # the persona must be audible every 2 min
+PERSONA_MIN_PER_WINDOW = 1
+# Lines that only report what is already on screen. CALIBRATED: the English
+# references run 7.1%, 7.5%, 8.8%, 11.5%, 13.1% (median 8.8%, max 13.1%). The
+# shipped draft is 14.2% - above every reference. The cap sits just above the
+# reference maximum.
+PERSONA_FRAME_ONLY_SHARE_MAX = 0.15
+
+
 
