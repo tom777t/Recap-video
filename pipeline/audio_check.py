@@ -195,57 +195,112 @@ def cue_vs_bed(final: Path, cues: list, pad: float = 1.0) -> list:
     return out
 
 
-# Correlation thresholds, calibrated on a control mix rather than picked.
-# pink noise as the "stem", a 330 Hz tone as the "music":
-#     stem mixed in at -17 dB -> corr 0.293
-#     stem absent             -> corr 0.006
-# a 49x separation, while the two mixes differ in RMS by only 0.4 dB - which
-# is the whole reason this is measured by correlation and not by level.
-# The bars sit well inside that gap, with room for narration and music in the
-# real mix pushing the "present" figure down.
-STEM_PRESENT_MIN = 0.040
-STEM_ABSENT_MAX = 0.025
+# FILM-AUDIO thresholds. RE-CALIBRATED on real material - the first set came
+# from a synthetic control and could not survive contact with the film.
+#
+# The synthetic control (pink noise as the "stem", a 330 Hz tone as the
+# "music") gave present 0.270 / absent 0.006, a 45x separation, and bars of
+# 0.040 / 0.025. A tone is trivially separable from noise; real film audio sits
+# under real narration and real music, all of it broadband. On the real render
+# those bars produced 0.048 on / 0.029 off - a 1.65x separation with six false
+# findings.
+#
+# Three real defects were behind the compression, all now fixed:
+#
+#  1. ALIGNMENT. The check sampled the finished file at the NARRATION start
+#     but the stem at the CLIP start - an offset of the lead-in (0.5s, or 1.1s
+#     on a reveal) that the +-50ms lag search cannot bridge. Corrected, the
+#     same windows move: line 8 0.033 -> 0.215, line 9 0.043 -> 0.254,
+#     line 11 0.085 -> 0.794. And line 7, reported as a leak at 0.033, falls
+#     to 0.020 - it was never a leak.
+#  2. WINDOW OVERRUN. A fixed 4-6s window runs past a short clip into the next
+#     one, where it is compared against the wrong source span. Line 96's
+#     narration is 1.70s. The window is now bounded to the clip.
+#  3. SILENT STEM. Since separation covers only action/tense runs, the stem
+#     file is SILENT outside them (-75 dB). A window where the stem has no
+#     signal cannot tell "not mixed" from "nothing to mix", so it is not
+#     informative and must be excluded rather than reported.
+#
+# What is left, measured over 100 lines of the real render: the medians
+# separate cleanly but the per-line tails overlap -
+#     informative on : min 0.022  median 0.106
+#     informative off: p90 0.033  max 0.050
+# so a PER-LINE pass/fail bar is not supportable on this measurement and
+# claiming one produced six false findings. The verdict is therefore on the
+# DISTRIBUTIONS, which do separate: 3.2x measured at this floor.
+STEM_INFORMATIVE_DB = -45.0     # below this the stem has nothing to detect
+STEM_MIN_WINDOW_SEC = 2.0       # shorter than this, a clip cannot be judged
+STEM_MAX_WINDOW_SEC = 6.0
+STEM_SEPARATION_MIN = 2.0       # median(on) / p90(off); measured 3.2x
+STEM_MIN_SAMPLES = 6            # per group, or the verdict is a coin toss
 
 
 def check_film_audio_placement(final: Path, stem: Path, rows: list) -> tuple:
     """Is the film's track where the rule says, and nowhere else?
 
-    `rows` as for stem_presence, each with `want` True/False.
+    `rows` = [{line_id, final_at, source_at, window, want}] where `final_at`
+    is the CLIP's start on the finished timeline and `source_at` the same
+    clip's source start - the two must describe the same instant, which is
+    where the first version of this went wrong.
 
-    Returns (ok, findings, measured_rows). Judged comparatively AND absolutely:
-    an ON window must correlate above STEM_PRESENT_MIN, an OFF window must
-    stay below STEM_ABSENT_MAX, and the ON mean must exceed the OFF mean.
-    Comparative alone would pass a render with the stem missing everywhere;
-    absolute alone would be a bar picked by feel.
+    Returns (ok, findings, measured_rows, info). Judged on the DISTRIBUTIONS,
+    not per line: median(informative on) must exceed p90(informative off) by
+    STEM_SEPARATION_MIN. Per-line numbers are reported for diagnosis and
+    deliberately produce no findings of their own - the per-line tails of this
+    measurement overlap, and pretending otherwise produced six false findings
+    on the shipped render.
     """
     if not Path(stem).exists():
-        return True, [], []
-    got = stem_presence(Path(final), Path(stem), rows)
-    on = [r for r in got if r.get("want")]
-    off = [r for r in got if not r.get("want")]
+        return True, [], [], {"skipped": "no stem file"}
+    got = []
+    for r in rows:
+        w = float(r.get("window") or STEM_MAX_WINDOW_SEC)
+        w = min(STEM_MAX_WINDOW_SEC, w)
+        rec = dict(r, window=round(w, 2))
+        if w < STEM_MIN_WINDOW_SEC:
+            rec.update(corr=None, stem_db=None,
+                       informative=False, why="clip too short to correlate")
+            got.append(rec)
+            continue
+        sdb = rms_db(Path(stem), float(r["source_at"]), w)
+        a = _pcm(Path(final), float(r["final_at"]), w)
+        b = _pcm(Path(stem), float(r["source_at"]), w)
+        c = correlation(a, b)
+        inf = sdb >= STEM_INFORMATIVE_DB
+        rec.update(corr=round(c, 4), stem_db=round(sdb, 1), informative=inf,
+                   why=("" if inf else
+                        f"the stem has no signal here ({sdb:.0f} dB), so "
+                        f"nothing could be detected either way"))
+        got.append(rec)
+
+    on = sorted(r["corr"] for r in got if r.get("want") and r["informative"])
+    off = sorted(r["corr"] for r in got
+                 if not r.get("want") and r["informative"])
+    info = {"informative_on": len(on), "informative_off": len(off),
+            "uninformative": sum(1 for r in got if not r["informative"]),
+            "informative_floor_db": STEM_INFORMATIVE_DB}
+    if len(on) < STEM_MIN_SAMPLES or len(off) < STEM_MIN_SAMPLES:
+        info["skipped"] = (
+            f"only {len(on)} informative action/tense window(s) and "
+            f"{len(off)} elsewhere; {STEM_MIN_SAMPLES} of each are needed "
+            f"before the distributions mean anything")
+        return True, [], got, info
+
+    med_on = on[len(on) // 2]
+    p90_off = off[int(len(off) * 0.9)] if len(off) > 1 else off[0]
+    sep = med_on / max(p90_off, 1e-6)
+    info.update(median_on=round(med_on, 4), p90_off=round(p90_off, 4),
+                separation=round(sep, 2),
+                separation_required=STEM_SEPARATION_MIN)
     find = []
-    for r in off:
-        if r["corr"] > STEM_ABSENT_MAX:
-            find.append(
-                f"line {r['line_id']} at {r['final_at']:.1f}s should have NO "
-                f"film audio but correlates {r['corr']:.3f} with the stem "
-                f"(bar {STEM_ABSENT_MAX})")
-    weak = [r for r in on if r["corr"] < STEM_PRESENT_MIN]
-    if on and len(weak) > len(on) // 2:
+    if sep < STEM_SEPARATION_MIN:
         find.append(
-            f"{len(weak)} of {len(on)} action/tense window(s) do NOT carry "
-            f"the film's track: "
-            + ", ".join(f"line {r['line_id']} {r['corr']:.3f}"
-                        for r in weak[:6]))
-    if on and off:
-        mon = sum(r["corr"] for r in on) / len(on)
-        moff = sum(r["corr"] for r in off) / len(off)
-        if mon <= moff:
-            find.append(
-                f"the film's track is not placed by the rule at all: "
-                f"action/tense windows average {mon:.3f} and the rest "
-                f"average {moff:.3f}")
-    return (not find), find, got
+            f"the film's track is not placed by the rule: action/tense "
+            f"windows have a median correlation of {med_on:.3f} against a p90 "
+            f"of {p90_off:.3f} elsewhere - a separation of {sep:.2f}x, under "
+            f"the {STEM_SEPARATION_MIN:.1f}x bar. Either the stem is not "
+            f"reaching the action/tense clips, or it is leaking into the rest.")
+    return (not find), find, got, info
 
 
 # A <film_speaks> unit must measure clearly above the music around it.

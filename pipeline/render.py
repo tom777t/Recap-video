@@ -2619,6 +2619,14 @@ def render(project: str, draft: dict,
                         f"{config.FILM_AUDIO_MIN_RUN}+)")))
     if film_stem is not None and _fa_ids:
         from pipeline import audio_check as _ac
+        # ALIGN THE TWO CLOCKS. `_t["start"]` is where the NARRATION starts,
+        # which is the clip start plus the lead-in; the stem is addressed from
+        # the CLIP start. Comparing one against the other offset them by 0.5s
+        # (1.1s on a reveal), far beyond the +-50ms lag search, and crushed
+        # every correlation: line 11 measured 0.085 misaligned and 0.794
+        # aligned. The window is also bounded to the clip, because a fixed
+        # window runs past a short clip into the next one and is then compared
+        # against the wrong source span.
         _rows = []
         _by_id = {ln["id"]: ln for ln in draft["lines"]}
         for _t in timeline:
@@ -2626,57 +2634,71 @@ def render(project: str, draft: dict,
             _ln = _by_id.get(_lid)
             if not _ln or not _ln.get("clip_start"):
                 continue
-            try:
-                _sa = parse_ts(_ln["clip_start"])
-            except Exception:
-                continue
             if _ln.get("film_speaks_seconds") is not None:
                 continue           # original mix, checked separately
+            try:
+                _sa = parse_ts(_ln["clip_start"])
+                _sb = parse_ts(_ln["clip_end"])
+            except Exception:
+                continue
+            _nd = float(_t.get("end", 0.0)) - float(_t.get("start", 0.0))
+            _lead, _clen = _fpmod.lead_and_clip(
+                _nd, _sb - _sa, float(_ln.get("hold") or 0.0),
+                _fpmod.reveal_extra(_ln))
             _rows.append({"line_id": _lid,
-                          "final_at": float(_t["start"]) + intro_offset,
+                          "final_at": float(_t["start"]) - _lead + intro_offset,
                           "source_at": _sa,
+                          "window": max(0.0, _clen - 0.3),
                           "want": _lid in _fa_ids})
-        # sample both groups rather than probing all 111 windows
-        _on = [r for r in _rows if r["want"]][:8]
-        _off = [r for r in _rows if not r["want"]][:8]
-        _fok, _ffind, _fgot = _ac.check_film_audio_placement(
-            final, film_stem, _on + _off)
-        if _fgot:
-            _mon = [r["corr"] for r in _fgot if r["want"]]
-            _mof = [r["corr"] for r in _fgot if not r["want"]]
-            console.print(
-                f"[dim][FILM-AUDIO] stem correlation: action/tense "
-                f"{sum(_mon)/max(1,len(_mon)):.3f} vs elsewhere "
-                f"{sum(_mof)/max(1,len(_mof)):.3f} "
-                f"({len(_mon)} on / {len(_mof)} off window(s))[/]")
-        _mon2 = [r["corr"] for r in _fgot if r["want"]]
-        _mof2 = [r["corr"] for r in _fgot if not r["want"]]
-        _rep.add("FILM-AUDIO", _fok,
-                 (f"stem correlation {sum(_mon2)/max(1,len(_mon2)):.3f} under "
-                  f"{'/'.join(config.FILM_AUDIO_TAGS)} vs "
-                  f"{sum(_mof2)/max(1,len(_mof2)):.3f} elsewhere"),
+        _fok, _ffind, _fgot, _finfo = _ac.check_film_audio_placement(
+            final, film_stem, _rows)
+        _sep = _finfo.get("separation")
+        console.print(
+            f"[dim][FILM-AUDIO] separation "
+            f"{('%.2fx' % _sep) if _sep else 'n/a'}"
+            f"  median on {_finfo.get('median_on')}  p90 off "
+            f"{_finfo.get('p90_off')}  "
+            f"({_finfo.get('informative_on')} on / "
+            f"{_finfo.get('informative_off')} off informative, "
+            f"{_finfo.get('uninformative')} uninformative)[/]")
+        _rep.add("FILM-AUDIO",
+                 (None if _finfo.get("skipped") else _fok),
+                 (_finfo["skipped"] if _finfo.get("skipped") else
+                  (f"action/tense median {_finfo.get('median_on')} vs p90 "
+                   f"{_finfo.get('p90_off')} elsewhere = "
+                   f"{_sep:.2f}x separation "
+                   f"(bar {_ac.STEM_SEPARATION_MIN:.1f}x)")),
                  numbers={"lines with film audio": len(_fa_ids),
                           "lines total": len(draft.get("lines") or []),
                           "tags allowed": ", ".join(config.FILM_AUDIO_TAGS),
                           "minimum run": config.FILM_AUDIO_MIN_RUN,
-                          "present bar (corr)": _ac.STEM_PRESENT_MIN,
-                          "absent bar (corr)": _ac.STEM_ABSENT_MAX,
-                          "mean corr on": round(
-                              sum(_mon2)/max(1, len(_mon2)), 4),
-                          "mean corr off": round(
-                              sum(_mof2)/max(1, len(_mof2)), 4),
+                          "median corr on": _finfo.get("median_on"),
+                          "p90 corr off": _finfo.get("p90_off"),
+                          "separation": _sep,
+                          "separation required": _ac.STEM_SEPARATION_MIN,
+                          "informative on": _finfo.get("informative_on"),
+                          "informative off": _finfo.get("informative_off"),
+                          "uninformative windows": _finfo.get("uninformative"),
+                          "informative floor (dB)":
+                              _ac.STEM_INFORMATIVE_DB,
                           "level under narration (dB)": config.FILM_AUDIO_DB,
                           "stem": Path(film_stem).name},
                  rows=[{"line": r["line_id"],
                         "at": hms_s(r["final_at"]),
                         "rule": ("film audio ON" if r["want"]
                                  else "should be OFF"),
-                        "correlation": r["corr"]} for r in _fgot],
+                        "window (s)": r.get("window"),
+                        "stem (dB)": r.get("stem_db"),
+                        "correlation": r.get("corr"),
+                        "informative": r.get("informative"),
+                        "note": r.get("why")} for r in _fgot],
                  findings=[{"text": b} for b in _ffind],
                  fatal=False,
-                 why=("measured by CORRELATING the mix against the stem file; "
-                      "level cannot answer this - adding a stem at -17 dB "
-                      "moves RMS 0.3 dB and correlation 0.006 -> 0.270"))
+                 why=("the finished mix is CORRELATED against the stem file, "
+                      "clip-aligned and clip-bounded; judged on the "
+                      "distributions because the per-line tails of this "
+                      "measurement overlap - claiming per-line precision "
+                      "produced six false findings on the shipped render"))
         if not _fok:
             console.print("[red][FILM-AUDIO][/] the film's track is not "
                           "placed by the rule:")

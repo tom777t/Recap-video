@@ -1,0 +1,57 @@
+{
+ "_comment": "Control for [FILM-AUDIO], measured on REAL material from projects/tokyodrift2006 - the shipped final.mp4, its own no_vocals stem, its own narration and bed. The first set of bars came from a synthetic control (pink noise as the stem, a 330 Hz tone as the music) which gave a 45x separation and did not survive contact with the film: on the real render it produced 0.048 on / 0.029 off, a 1.65x separation with six false findings.",
+ "window_sec_max": 6.0,
+ "window_sec_min": 2.0,
+ "film_audio_db": -17.0,
+ "informative_floor_db": -45.0,
+ "separation_required": 2.0,
+
+ "same_span_both_ways": {
+  "_comment": "The decisive control: the SAME source span mixed with and without the stem at -17 dB, under the same narration and the same bed. Only the stem differs. 8s windows.",
+  "rows": [
+   {"line": 5,  "src_at": 156.74, "with_stem": 0.1116, "without_stem": 0.0129, "ratio": 8.6},
+   {"line": 6,  "src_at": 193.82, "with_stem": 0.0211, "without_stem": 0.0212, "ratio": 1.0,
+    "note": "the stem is silent here (-51 dB): nothing to detect either way"},
+   {"line": 7,  "src_at": 297.75, "with_stem": 0.0680, "without_stem": 0.0174, "ratio": 3.9},
+   {"line": 8,  "src_at": 309.31, "with_stem": 0.2573, "without_stem": 0.0192, "ratio": 13.4},
+   {"line": 9,  "src_at": 439.44, "with_stem": 0.2861, "without_stem": 0.0199, "ratio": 14.4},
+   {"line": 10, "src_at": 497.29, "with_stem": 0.1446, "without_stem": 0.0242, "ratio": 6.0},
+   {"line": 11, "src_at": 547.04, "with_stem": 0.3081, "without_stem": 0.0215, "ratio": 14.3},
+   {"line": 12, "src_at": 623.41, "with_stem": 0.0298, "without_stem": 0.0297, "ratio": 1.0,
+    "note": "the stem is silent here (-76 dB)"}
+  ],
+  "without_stem_population": {"min": 0.0129, "median": 0.0212, "max": 0.0297},
+  "with_stem_where_stem_has_signal": {"min": 0.0680, "max": 0.3081}
+ },
+
+ "alignment_defect": {
+  "_comment": "The check sampled the finished file at the NARRATION start but the stem at the CLIP start - an offset of the lead-in (0.5s, 1.1s on a reveal), far beyond the +-50ms lag search. These are the same windows measured both ways on the shipped file.",
+  "rows": [
+   {"line": 8,  "misaligned": 0.0331, "aligned": 0.2146, "lead": 0.50, "rule": "on"},
+   {"line": 9,  "misaligned": 0.0426, "aligned": 0.2542, "lead": 0.50, "rule": "on"},
+   {"line": 11, "misaligned": 0.0854, "aligned": 0.7943, "lead": 0.50, "rule": "on"},
+   {"line": 25, "misaligned": 0.0975, "aligned": 0.2705, "lead": 0.50, "rule": "on"},
+   {"line": 7,  "misaligned": 0.0333, "aligned": 0.0200, "lead": 1.10, "rule": "off",
+    "note": "reported as a leak at 0.033; it was the misalignment, not a leak"},
+   {"line": 5,  "misaligned": 0.0203, "aligned": 0.0180, "lead": 0.50, "rule": "off"}
+  ]
+ },
+
+ "whole_draft_corrected": {
+  "_comment": "All 102 narrated lines of the shipped render, clip-aligned and clip-bounded, at the -45 dB informative floor. The medians separate cleanly; the per-line tails OVERLAP, which is why the verdict is on the distributions and no per-line finding is emitted.",
+  "informative_on": 29,
+  "informative_off": 39,
+  "uninformative": 34,
+  "on": {"min": 0.0220, "median": 0.1056, "max": 0.8864},
+  "off": {"min": 0.0067, "p90": 0.0327, "max": 0.0501},
+  "separation": 3.23,
+  "verdict": "PASS",
+  "findings": 0
+ },
+
+ "rejected_explanations": {
+  "slowed_clips": "atempo on a slowed clip would decorrelate it, but only 1 of 102 lines is slowed - not the cause",
+  "crossfade_bleed": "the off-lines flagged in the shipped report (6, 7, 13, 14, 15) sit around the on-run 8-11, which looked like adjacency bleed; with correct alignment they fall to 0.018-0.026 and no leak remains",
+  "stem_missing_from_action_clips": "the shipped report said 5 of 8 action/tense windows carried no film audio; corrected, the action/tense median is 0.1056 against 0.0327 elsewhere"
+ }
+}

@@ -37,6 +37,7 @@ Run:  python tools/test_film_audio.py
 from __future__ import annotations
 
 import io
+import json
 import os
 import subprocess
 import sys
@@ -155,13 +156,11 @@ def test_correlation_detects() -> tuple[bool, str]:
         s = ac._pcm(d / "stem.wav", 2.0, 4.0)
         cw = ac.correlation(ac._pcm(d / "with.wav", 2.0, 4.0), s)
         cn = ac.correlation(ac._pcm(d / "music.wav", 2.0, 4.0), s)
-        if cw < ac.STEM_PRESENT_MIN:
-            return False, (f"a stem mixed in at -17 dB measured {cw:.4f}, "
-                           f"below the {ac.STEM_PRESENT_MIN} present-bar")
-        if cn > ac.STEM_ABSENT_MAX:
-            return False, (f"music with NO stem measured {cn:.4f}, above the "
-                           f"{ac.STEM_ABSENT_MAX} absent-bar")
-        if cw < cn * 4:
+        # No absolute bars any more: the per-line tails of this measurement
+        # overlap on real material, so the verdict is on the distributions.
+        # What this case still establishes is that adding the stem MOVES the
+        # correlation far more than it moves the level.
+        if cw < cn * ac.STEM_SEPARATION_MIN:
             return False, (f"present {cw:.4f} vs absent {cn:.4f} is not a "
                            f"clear enough separation to judge on")
         rw = ac.rms_db(d / "with.wav", 2.0, 4.0)
@@ -176,40 +175,101 @@ def test_correlation_detects() -> tuple[bool, str]:
 
 
 def test_placement_gate() -> tuple[bool, str]:
+    """The verdict is on the DISTRIBUTIONS, and it catches a real misplacement.
+
+    The shipped render emitted six PER-LINE findings, every one of them an
+    artifact of the alignment defect - line 7 was reported as a leak at 0.033
+    and measures 0.020 once aligned. So per-line findings are gone, and this
+    case checks the three things that remain: a silent stem is not
+    informative, too few informative windows is a SKIP rather than a pass,
+    and a genuinely mixed-up placement FAILS.
+    """
     with tempfile.TemporaryDirectory() as td:
         d = Path(td)
-        _ff("-f", "lavfi", "-i", "anoisesrc=d=6:c=pink:r=8000", "-ac", "1",
+        _ff("-f", "lavfi", "-i", "anoisesrc=d=40:c=pink:r=8000", "-ac", "1",
             str(d / "stem.wav"))
-        rows = [{"line_id": 1, "final_at": 1.0, "source_at": 1.0,
-                 "want": True}]
-        # a stem that leaks where it should NOT be: same file, want=False
-        bad = [{"line_id": 9, "final_at": 1.0, "source_at": 1.0,
-                "want": False}]
-        ok, find, _ = ac.check_film_audio_placement(
-            d / "stem.wav", d / "stem.wav", bad)
-        if ok:
-            return False, ("a window that is fully the stem passed as having "
-                           "no film audio")
-        if "should have NO film audio" not in " ".join(find):
-            return False, f"the leak was reported as something else: {find}"
-        # missing where it SHOULD be: silence as the "final"
-        _ff("-f", "lavfi", "-i", "anullsrc=r=8000:cl=mono", "-t", "6",
+        _ff("-f", "lavfi", "-i", "anullsrc=r=8000:cl=mono", "-t", "40",
             str(d / "silent.wav"))
-        ok2, find2, _ = ac.check_film_audio_placement(
-            d / "silent.wav", d / "stem.wav", rows)
+
+        def rows(n, want, src0=0.0):
+            return [{"line_id": i, "final_at": src0 + i * 3.0,
+                     "source_at": src0 + i * 3.0, "window": 3.0,
+                     "want": want} for i in range(1, n + 1)]
+
+        # 1. a SILENT stem is not informative - and must not read as a pass
+        ok, find, got, info = ac.check_film_audio_placement(
+            d / "stem.wav", d / "silent.wav", rows(8, True) + rows(8, False))
+        if info.get("uninformative", 0) < 16:
+            return False, (f"a silent stem was treated as informative "
+                           f"({info}) - it cannot tell 'not mixed' from "
+                           f"'nothing to mix'")
+        if "skipped" not in info:
+            return False, ("with no informative window the verdict should be "
+                           "SKIPPED, not a pass")
+
+        # 2. a real misplacement: the file IS the stem, but every window is
+        #    labelled 'off' and none 'on' -> too few samples to judge, SKIP;
+        #    with the labels INVERTED on real content it must FAIL.
+        on_rows = [{"line_id": i, "final_at": i * 3.0, "source_at": i * 3.0,
+                    "window": 3.0, "want": False} for i in range(1, 9)]
+        off_rows = [{"line_id": 100 + i, "final_at": i * 3.0,
+                     "source_at": i * 3.0 + 15.0, "window": 3.0,
+                     "want": True} for i in range(1, 9)]
+        ok2, find2, got2, info2 = ac.check_film_audio_placement(
+            d / "stem.wav", d / "stem.wav", on_rows + off_rows)
         if ok2:
-            return False, ("a silent mix passed as carrying the film's track "
-                           "under an action run")
-        if "do NOT carry" not in " ".join(find2):
-            return False, f"the absence was reported as something else: {find2}"
-        # and a correct render passes
-        ok3, find3, _ = ac.check_film_audio_placement(
-            d / "stem.wav", d / "stem.wav", rows)
+            return False, (f"a render where the 'off' windows carry the stem "
+                           f"and the 'on' windows do not was passed: {info2}")
+        if "not placed by the rule" not in " ".join(find2):
+            return False, f"reported as something else: {find2}"
+
+        # 3. correct placement passes
+        good_on = [{"line_id": i, "final_at": i * 3.0, "source_at": i * 3.0,
+                    "window": 3.0, "want": True} for i in range(1, 9)]
+        good_off = [{"line_id": 100 + i, "final_at": i * 3.0,
+                     "source_at": i * 3.0 + 15.0, "window": 3.0,
+                     "want": False} for i in range(1, 9)]
+        ok3, find3, got3, info3 = ac.check_film_audio_placement(
+            d / "stem.wav", d / "stem.wav", good_on + good_off)
         if not ok3:
-            return False, (f"a window that really carries the stem was "
-                           f"reported broken: {find3}")
-        return True, ("a leaking stem, a missing stem and a correct placement "
-                      "are each judged correctly")
+            return False, (f"correct placement was rejected: {find3} {info3}")
+        return True, (f"a silent stem is uninformative and reads SKIPPED, an "
+                      f"inverted placement FAILS ({info2.get('separation')}x), "
+                      f"and a correct one passes "
+                      f"({info3.get('separation')}x)")
+
+
+def test_bars_from_real_control() -> tuple[bool, str]:
+    """The thresholds must be backed by the real-material control on disk."""
+    cp = Path(ROOT) / "config" / "film_audio_control.json"
+    if not cp.exists():
+        return False, ("config/film_audio_control.json is missing - the "
+                       "thresholds have no measured evidence behind them")
+    c = json.loads(cp.read_text(encoding="utf-8"))
+    w = c.get("whole_draft_corrected") or {}
+    if float(c.get("separation_required", 0)) != float(
+            ac.STEM_SEPARATION_MIN):
+        return False, (f"the control records a required separation of "
+                       f"{c.get('separation_required')} but the code uses "
+                       f"{ac.STEM_SEPARATION_MIN}")
+    if float(c.get("informative_floor_db", 0)) != float(
+            ac.STEM_INFORMATIVE_DB):
+        return False, "the informative floor disagrees with the control"
+    meas = float(w.get("separation", 0))
+    if meas <= float(ac.STEM_SEPARATION_MIN):
+        return False, (f"the control measured {meas}x on the real render, "
+                       f"which does not clear the {ac.STEM_SEPARATION_MIN}x "
+                       f"bar it is supposed to justify")
+    # the control must record the overlap that rules out a per-line bar
+    on_min = float((w.get("on") or {}).get("min", 0))
+    off_max = float((w.get("off") or {}).get("max", 0))
+    if on_min >= off_max:
+        return False, ("the control no longer shows the per-line populations "
+                       "overlapping, so the distribution-only verdict would "
+                       "need revisiting")
+    return True, (f"bars backed by the real control: {meas}x measured against "
+                  f"a {ac.STEM_SEPARATION_MIN}x bar, with per-line tails "
+                  f"overlapping ({on_min} on-min vs {off_max} off-max)")
 
 
 def test_signature_per_line() -> tuple[bool, str]:
@@ -241,6 +301,7 @@ TESTS = {
     "SPANS-SHRINK":        test_spans_shrink,
     "CORRELATION-DETECTS": test_correlation_detects,
     "PLACEMENT-GATE":      test_placement_gate,
+    "BARS-FROM-REAL-CONTROL": test_bars_from_real_control,
     "SIGNATURE-PER-LINE":  test_signature_per_line,
 }
 
