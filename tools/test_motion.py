@@ -323,12 +323,12 @@ def test_static_source_excused() -> tuple[bool, str]:
         draft = {"lines": [{"id": 1, "clip_start": "00:00:00.000",
                             "clip_end": "00:00:04.000"}]}
 
-        ok_static, bad_static = mc.check(ff, frozen_final, draft, shown=shown,
+        ok_static, bad_static, _fz_s = mc.check(ff, frozen_final, draft, shown=shown,
                                          source=static)
         if not ok_static:
             return False, (f"the freeze was reported even though its SOURCE "
                            f"span is static: {bad_static}")
-        ok_moving, bad_moving = mc.check(ff, frozen_final, draft, shown=shown,
+        ok_moving, bad_moving, _fz_m = mc.check(ff, frozen_final, draft, shown=shown,
                                         source=moving)
         if ok_moving:
             return False, ("a freeze whose source MOVES was not reported - the "

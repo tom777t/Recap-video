@@ -209,7 +209,9 @@ def test_clip_signature() -> tuple[bool, str]:
         aud.write_bytes(b"y" * 64)
         stem = pdir / "no_vocals.wav"
         stem.write_bytes(b"z" * 64)
-        base = dict(source=src, start=1.0, end=5.0, hold=0.0, idx=0,
+        # `idx` became `line_id`: the zoom phase and the cache key are keyed
+        # on the line's own id now, not its position in the draft.
+        base = dict(source=src, start=1.0, end=5.0, hold=0.0, line_id=0,
                     crop_top=0.0, narr_dur=3.0, audio_path=aud)
         a = _clip_signature(**base, film_audio=True, film_src=None)
         b = _clip_signature(**base, film_audio=True, film_src=stem)

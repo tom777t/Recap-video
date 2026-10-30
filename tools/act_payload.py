@@ -11,6 +11,7 @@ import io, json, os, re, sys
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import config
+from pipeline.preflight import budget_words
 
 
 def pt(ts) -> float:
@@ -136,9 +137,18 @@ def main() -> int:
     print("SPEECH lines under a moment are the transcript for that window.")
     for s in S:
         x0, x1 = pt(s["clip_start"]), pt(s["clip_end"])
+        # THE SAME BUDGET THE RENDER ENFORCES. This read
+        #     raw_duration_sec * 1.4 * 3.5
+        # a hardcoded 1.4x slow-motion ceiling and 3.5 words/sec. The ceiling
+        # has been BINDING_SLOWDOWN_MAX = 1.15 for some time, so every
+        # `maxwords` shown to the writing agent was ~22% too generous, and it
+        # ignored GAP, the fitter's capacity margin and the per-tag measured
+        # rate entirely. That is a budget that invites the overruns the render
+        # then has to reject - the agent was being told it had room it did not
+        # have. preflight.budget_words() is the one definition.
         print(f"  {s['id']} | {s['clip_start']} -> {s['clip_end']} | "
               f"{s['raw_duration_sec']:.1f}s | "
-              f"{int(s['raw_duration_sec'] * 1.4 * 3.5)}w | "
+              f"{budget_words(float(s['raw_duration_sec']))}w | "
               f"{','.join(s['chars']) or '-'} | {','.join(s['depicts'])} | "
               f"{s['censor']} | {s['action']}")
         for sp in speech_for(x0, x1):

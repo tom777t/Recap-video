@@ -233,8 +233,14 @@ def source_has_motion(ff: str, source: Path, a: float, b: float,
 
 
 def check(ff: str, final: Path, draft: dict, shown: list | None = None,
-          intro_offset: float = 0.0, source: Path | None = None) -> tuple[bool, list[str]]:
-    """Run both checks. Returns (ok, [problems]) with timestamps.
+          intro_offset: float = 0.0,
+          source: Path | None = None) -> tuple:
+    """Run both checks. Returns (ok, [problems], [freezes]) with timestamps.
+
+    The freeze list is RETURNED rather than left for the caller to re-measure.
+    render.py needed it for the report and called freezes() a second time, so
+    ffmpeg scanned the whole finished film twice per render - 2-5 minutes of
+    decode for a list this function already had in a local variable.
 
     Freeze positions are reported in the finished file's clock. `intro_offset`
     is accepted so a caller measuring against the pre-intro timeline can be
@@ -306,7 +312,7 @@ def check(ff: str, final: Path, draft: dict, shown: list | None = None,
     if not problems:
         console.print(f"[cyan]Motion:[/] no freeze over {fail_sec:.2f}s, no "
                       f"repeated footage ({len(fz)} short clone(s) seen).")
-    return (not problems), problems
+    return (not problems), problems, fz
 
 
 # --------------------------------------------------------------------------- #

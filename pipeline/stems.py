@@ -449,10 +449,33 @@ def separate(project: str, force: bool = False) -> Path | None:
 
     total = _dur(wav)
     spans = needed_spans(draft, src_dur=total) if draft else []
+    if draft and not spans:
+        # NOTHING NEEDS SEPARATING, so separate nothing.
+        #
+        # This used to fall back to `spans = [(0.0, total)]` and separate the
+        # WHOLE film. That was backwards even before the film-audio rule
+        # landed, and the rule made it actively harmful: needed_spans() now
+        # returns empty whenever no line qualifies for film audio (no
+        # action/tense run of 2+), which is a perfectly ordinary draft. The
+        # fallback then spent ~1.6s per second of audio separating a film
+        # whose stem would never be read - about 2.7 hours on a 104-minute
+        # film, which is the state gonegirl2014 and prisoners2013 are in.
+        #
+        # "I do not know what is needed" and "nothing is needed" are different
+        # answers and only the first justifies doing all of it.
+        console.print(
+            "[cyan]Stems:[/] no line uses the film's own track "
+            f"({'/'.join(getattr(config, 'FILM_AUDIO_TAGS', ('action', 'tense')))} "
+            f"runs of {getattr(config, 'FILM_AUDIO_MIN_RUN', 2)}+), so there "
+            f"is nothing to separate. Skipping - this would otherwise have "
+            f"separated the whole {total/60:.0f} min film for a stem nothing "
+            f"reads.")
+        return None
     if not spans:
         spans = [(0.0, total)]
-        console.print("[yellow]Stems:[/] no draft windows found - separating "
-                      "the WHOLE film, which is several times slower.")
+        console.print("[yellow]Stems:[/] no draft was supplied, so what is "
+                      "needed is UNKNOWN - separating the WHOLE film, which "
+                      "is several times slower.")
 
     span_sec = sum(b - a for a, b in spans)
     jobs = max(1, min(4, (os.cpu_count() or 2) // 3))

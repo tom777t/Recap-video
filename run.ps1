@@ -14,7 +14,7 @@
 .EXAMPLE
     .\run.ps1 -Source "D:\Downloads\phim.mp4" -Project badgenius2017 -Translate
     .\run.ps1 -Project badgenius2017 -From draft
-    .\run.ps1 -Project badgenius2017 -From render
+    .\run.ps1 -Project badgenius2017 -From filmspeaks
 #>
 
 [CmdletBinding()]
@@ -471,7 +471,11 @@ if (Should 'draft') {
         "     trong y het su can than."
         ""
         "Khong can biet sua the nao. Chi tro ra CHO NAO SAI la du."
-    ) ".\run.ps1 -Project $Project -From render"
+    # -From filmspeaks, KHONG phai -From render. Stage filmspeaks nam NGAY SAU
+    # checkpoint nay (muc 8b ben duoi), nen resume bang 'render' se BO QUA no
+    # hoan toan: draft ra khong co unit film_speaks nao, va day dung la cach
+    # mot phim 17 phut da ship voi SO KHONG unit.
+    ) ".\run.ps1 -Project $Project -From filmspeaks"
     exit 0
 }
 

@@ -172,7 +172,7 @@ def _censor_boxblur(censor: str) -> int:
 
 
 def _build_clip(ff: str, source: Path, start: float, end: float,
-                narr_audio: Path, narr_dur: float, out: Path, idx: int = 0,
+                narr_audio: Path, narr_dur: float, out: Path, line_id: int = 0,
                 crop_top: float = 0.0, hold: float = 0.0,
                 censor: str = "none", censor_region=None, exposure: float = 0.0,
                 lead_in: float | None = None,
@@ -238,7 +238,7 @@ def _build_clip(ff: str, source: Path, start: float, end: float,
                 setpts_factor = narr_need / shot_dur
             else:
                 raise BindingViolation(
-                    line_id=idx, narration_dur=narr_need,
+                    line_id=line_id, narration_dur=narr_need,
                     shot_dur=shot_dur, capacity=capacity)
 
     # optional top crop (hide overlaid text); kept as a capability for future
@@ -271,10 +271,17 @@ def _build_clip(ff: str, source: Path, start: float, end: float,
     )
 
     # Ken Burns via zoompan. Alternate zoom-in / zoom-out per clip.
+    # ZOOM PHASE KEYED ON THE LINE ID, NOT ITS POSITION IN THE DRAFT.
+    # This was `idx % 2`, where idx came from enumerate(draft['lines']) -
+    # so inserting or deleting ONE line flipped the zoom direction of
+    # every line after it, and because the phase is part of the clip
+    # cache key, every downstream clip had to be re-encoded. Editing a
+    # line near the front of the draft meant rebuilding the whole film.
+    # A line's own id does not move when its neighbours change.
     if config.MOTION_ENABLE and config.MOTION_ZOOM > 0:
         total_frames = max(1, int(round(clip_len * fps)))
         z = config.MOTION_ZOOM
-        if idx % 2 == 0:
+        if line_id % 2 == 0:
             # zoom in: 1.0 -> 1+z
             zexpr = f"min(zoom+{z/total_frames:.6f},{1.0+z:.4f})"
         else:
@@ -531,7 +538,7 @@ def _build_clip(ff: str, source: Path, start: float, end: float,
 
 
 def _build_silence_clip(ff: str, source: Path, start: float, end: float,
-                        out: Path, silence_dur: float, idx: int = 0,
+                        out: Path, silence_dur: float, line_id: int = 0,
                         crop_top: float = 0.0,
                         censor: str = "none", censor_region=None,
                         exposure: float = 0.0,
@@ -574,7 +581,7 @@ def _build_silence_clip(ff: str, source: Path, start: float, end: float,
     if config.MOTION_ENABLE and config.MOTION_ZOOM > 0:
         total_frames = max(1, int(round(clip_len * fps)))
         z = config.MOTION_ZOOM
-        if idx % 2 == 0:
+        if line_id % 2 == 0:
             zexpr = f"min(zoom+{z/total_frames:.6f},{1.0+z:.4f})"
         else:
             zexpr = f"if(eq(on,0),{1.0+z:.4f},max(zoom-{z/total_frames:.6f},1.0))"
@@ -1115,7 +1122,7 @@ def _split_points_impl(window_dur: float, clip_len: float, cuts: list,
 
 
 def _clip_signature(source: Path, start: float, end: float, hold: float,
-                    idx: int, crop_top: float, narr_dur: float,
+                    line_id: int, crop_top: float, narr_dur: float,
                     audio_path: Path, censor: str = "none",
                     censor_region=None, exposure: float = 0.0, silence=None,
                     lead_in: float = 0.0, film_audio: bool = False,
@@ -1139,7 +1146,7 @@ def _clip_signature(source: Path, start: float, end: float, hold: float,
         smtime = amtime = asize = 0
     parts = [
         str(source), str(smtime),
-        f"{start:.3f}", f"{end:.3f}", f"{hold:.3f}", str(idx % 2),
+        f"{start:.3f}", f"{end:.3f}", f"{hold:.3f}", str(line_id % 2),
         f"{crop_top:.3f}", f"{narr_dur:.3f}",
         str(audio_path.name), str(amtime), str(asize),
         # motion/canvas settings that change pixels:
@@ -1469,7 +1476,17 @@ def render(project: str, draft: dict,
         film_stem, _snote = _stems.resolve(project)
         if film_stem is None:
             _ok, _why = _stems.available()
-            if getattr(config, "FILM_AUDIO_REQUIRE_STEMS", True):
+            # A STOP only if the stem is actually NEEDED. With film audio
+            # restricted to action/tense runs, a draft can legitimately have
+            # no line that reads the stem at all - and refusing to render for
+            # want of a file nothing would open is a gate blocking work it has
+            # no stake in.
+            _needs_stem = bool(_stems.film_audio_lines(draft))
+            if not _needs_stem:
+                console.print(
+                    "[dim]Film audio: no stem, and no line uses the film's "
+                    "own track, so none is needed.[/]")
+            elif getattr(config, "FILM_AUDIO_REQUIRE_STEMS", True):
                 console.print(
                     f"[red]Film audio: no no-vocals stem ({_why}).[/]\n"
                     f"  Without separation the film's DIALOGUE plays under "
@@ -1480,10 +1497,11 @@ def render(project: str, draft: dict,
                     f"render with the film audio MUTED instead (no dialogue, "
                     f"but no engines either).")
                 sys.exit(1)
-            console.print(
-                "[yellow]Film audio: MUTED[/] - no no-vocals stem available "
-                "and FILM_AUDIO_REQUIRE_STEMS is False. The engines and "
-                "impacts are lost along with the dialogue.")
+            else:
+                console.print(
+                    "[yellow]Film audio: MUTED[/] - no no-vocals stem "
+                    "available and FILM_AUDIO_REQUIRE_STEMS is False. The "
+                    "engines and impacts are lost along with the dialogue.")
 
     has_film_audio = False
     _fa_ids: set = set()
@@ -1746,7 +1764,7 @@ def render(project: str, draft: dict,
             censor = censor_by_clip.get(_skey, "none")
             censor_region = region_by_clip.get(_skey)
             exposure = exposure_by_clip.get(_skey, 0.0)
-            sig = _clip_signature(source, start, end, 0.0, idx, crop_top,
+            sig = _clip_signature(source, start, end, 0.0, lid, crop_top,
                                   0.0, source, censor, censor_region,
                                   exposure=exposure, silence=sil_secs,
                                   film_audio=(has_film_audio and lid in _fa_ids),
@@ -1768,7 +1786,7 @@ def render(project: str, draft: dict,
                 _verify_clip(cout, clip_len, f"cached hold clip (line {lid})")
             else:
                 clip_len = _build_silence_clip(ff, source, start, end, cout,
-                                               sil_secs, idx, crop_top,
+                                               sil_secs, lid, crop_top,
                                                censor, censor_region, exposure,
                                                film_audio=(has_film_audio
                                                            and (lid in _fa_ids
@@ -1935,7 +1953,7 @@ def render(project: str, draft: dict,
         # ---- 2f: does this line's picture need splitting? ----------------
         _split = _split_points(end - start, lead + narr_dur + GAP, _cutlist,
                                start, end, censor_region=censor_region)
-        sig = _clip_signature(source, start, end, hold, idx, crop_top,
+        sig = _clip_signature(source, start, end, hold, lid, crop_top,
                               narr_dur, audio_path, censor, censor_region, exposure,
                               lead_in=lead, film_audio=(has_film_audio and lid in _fa_ids),
                               pre_reveal=_is_pre_reveal, split_segments=_split,
@@ -1953,7 +1971,7 @@ def render(project: str, draft: dict,
             _verify_clip(cout, clip_len, f"cached clip (line {lid})")
         else:
             clip_len = _build_clip(ff, source, start, end, audio_path, narr_dur,
-                                   cout, idx, crop_top, hold, censor, censor_region,
+                                   cout, lid, crop_top, hold, censor, censor_region,
                                    exposure, lead_in=lead,
                                    film_audio=(has_film_audio and lid in _fa_ids),
                                    pre_reveal=_is_pre_reveal,
@@ -2713,14 +2731,13 @@ def render(project: str, draft: dict,
     # the result. Unlike the checks above it is FATAL - a frozen picture or the
     # same shot twice is not something to inspect and ship anyway.
     from pipeline import motion_check as _mc
-    _mok, _mbad = _mc.check(ff, final, draft,
-                            shown=used_footage.items,
-                            intro_offset=intro_offset,
-                            source=source)
-    try:
-        _frz = _mc.freezes(ff, final)
-    except Exception:
-        _frz = []
+    # The freeze list comes BACK from check(); this used to call
+    # _mc.freezes(ff, final) again purely to fill the report table, which made
+    # ffmpeg decode the whole finished film a second time every render.
+    _mok, _mbad, _frz = _mc.check(ff, final, draft,
+                                  shown=used_footage.items,
+                                  intro_offset=intro_offset,
+                                  source=source)
     _rep.add("MOTION-CHECK", _mok,
              ("no freeze over %.2fs and no repeated source footage"
               % float(config.FREEZE_FAIL_SEC) if _mok
