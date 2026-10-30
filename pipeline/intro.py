@@ -393,7 +393,8 @@ def film_intro_lines(project: str) -> list[dict]:
             if ln.get("film_intro") and str(ln.get("narration", "")).strip()]
 
 
-def _build_film_intro_segment(project: str, work: Path):
+def _build_film_intro_segment(project: str, work: Path,
+                              out_offset: float = 0.0):
     """Render the film-intro lines as a video segment: the 3 lines spoken one
     after another over the film's own calm opening footage, with the music bed
     under them. Returns the segment Path, or None if there are no film-intro
@@ -431,29 +432,49 @@ def _build_film_intro_segment(project: str, work: Path):
     if fi_dur <= 0:
         return None
 
-    # 2. pick a calm opening window that ends before the first reveal
+    # 2. pick an opening window that is CALM AND ACTUALLY VISIBLE.
+    #
+    # THE DEFECT: `vis_start` was hardcoded to 0.0, and the only thing that
+    # could move it was a flagged shot. So this block played the film's own
+    # distributor logo fades. Measured on the source, the first 32s contains
+    # 4.50s of black (0.00-2.75 and 23.25-24.75), and that is exactly the
+    # 3.00s + 1.50s of black that reached the screen at 16.75s and 40.00s of
+    # the finished film - which MOTION-CHECK then reported as frozen, which it
+    # was: a run of identical black frames is frozen.
+    #
+    # The old docstring said "no frame is described by the narration, so any
+    # calm opening footage is safe". That is the error in one sentence: a logo
+    # fade is calm AND black. The story half never hits this because every
+    # story clip is bound to a tagged shot window; this block chooses its own
+    # footage, so it has to look at it.
     land = first_reveal_land(project)
-    vis_start = 0.0
     vis_len = fi_dur + 0.4
-    if vis_start + vis_len > land - 1.0:
-        vis_len = max(3.0, land - 1.0 - vis_start)
+    _hi = max(1.0, land - 1.0)
+    if vis_len > _hi:
+        vis_len = max(3.0, _hi)
 
-    # This block plays raw source footage under the intro facts with NO censor
-    # filter. If the film opens on flagged footage, slide to the first window
-    # that is clear rather than shipping it - and if there is none, build no
-    # film-intro block at all instead of an unblurred one.
     from pipeline import censor as _censor
+    from pipeline import footage as _footage
     _flagged = _censor.flagged_shots(pdir)
-    if _flagged:
-        _safe = _censor.safe_window(_flagged, vis_len, 0.0, max(1.0, land - 1.0),
-                                    "the film-intro block")
-        if _safe is None:
-            console.print("[yellow]Film-intro:[/] no unflagged opening footage "
-                          "- skipping the intro-facts block rather than "
-                          "rendering flagged footage unblurred.")
-            return None
-        vis_start = _safe[0]
-    record_footage(vis_start, vis_start + vis_len, "film-intro block")
+    _avoid = [(float(f["a"]), float(f["b"])) for f in (_flagged or [])]
+    # Search the film's opening stretch, not the whole film: this block is "the
+    # film's opening" by design. Bounded so the scan stays a few seconds.
+    _search_hi = min(_hi, 600.0)
+    vis_start, _why = _footage.watchable_start(
+        src, vis_len, 0.0, _search_hi, avoid=_avoid)
+    if vis_start is None:
+        console.print(f"[yellow]Film-intro:[/] {_why} - skipping the "
+                      f"intro-facts block rather than opening the film on "
+                      f"black or on flagged footage.")
+        return None
+    console.print(f"[cyan]Film-intro:[/] {_why}")
+    # Assert the choice, rather than trusting the search: this is the one
+    # number that produced the defect.
+    _blk = _footage.has_black(src, vis_start, vis_start + vis_len)
+    if _blk:
+        console.print(f"[yellow]Film-intro:[/] the chosen window still "
+                      f"contains black {_blk} - skipping the block.")
+        return None
 
     w, h, fps = config.OUTPUT_WIDTH, config.OUTPUT_HEIGHT, config.OUTPUT_FPS
     # music bed under the voice, ducked; falls back to no bed if absent
@@ -464,9 +485,27 @@ def _build_film_intro_segment(project: str, work: Path):
             break
     duck = 10.0 ** (float(getattr(config, "MUSIC_DUCK_DB", -22.0)) / 20.0)
 
+    # RECORD IT, with its position on the finished timeline. Without out_a/
+    # out_b this block's footage was untraceable, so a freeze inside it could
+    # only be REPORTED - motion_check could not map it back to the source span
+    # and say whether the film itself was static there. Both reported freezes
+    # were in this block.
+    record_footage(vis_start, vis_start + vis_len, "film-intro block",
+                   out_a=float(out_offset),
+                   out_b=float(out_offset) + vis_len)
+
     out = work / "intro_filmblock.mp4"
-    vf = (f"scale={w}:{h}:force_original_aspect_ratio=increase,"
-          f"crop={w}:{h},setsar=1,fps={fps}")
+    # SAME FRAMING AND SAME SCALER AS THE STORY.
+    # This was orce_original_aspect_ratio=increase + crop, i.e. scale to
+    # FILL and cut the sides off - so the film-intro block had no letterbox
+    # while every other second of the film does, and a 1280x544 source was
+    # blown up past 1080 and cropped. The story's clip builder uses
+    # decrease + pad (letterbox), and pins the scaler to
+    # config.VIDEO_SCALER; intro.py pinned it nowhere, so the whole opening was
+    # resampled with ffmpeg's default bicubic while the story used lanczos.
+    vf = (f"scale={w}:{h}:force_original_aspect_ratio=decrease:"
+          f"flags={config.VIDEO_SCALER},"
+          f"pad={w}:{h}:(ow-iw)/2:(oh-ih)/2:black,setsar=1,fps={fps}")
     if bed is not None:
         cmd = [ff, "-y",
                "-ss", f"{vis_start:.3f}", "-t", f"{fi_dur+0.3:.3f}", "-i", str(src),
@@ -560,14 +599,6 @@ def prepend_to_final(project: str, final: Path) -> float:
         return 0.0
     ff = config.ffmpeg()
 
-    # The film-intro block (channel greeting + title/year/director + leads + a
-    # fact) is a SECOND segment, after the montage+hook, before the story. It
-    # was gated by [FILM-INTRO] but never rendered - build_intro baked only the
-    # hook - so a shipped film opened on the montage and cut straight into the
-    # story with the greeting silently dropped. Synthesize those lines now and
-    # lay them over the film's own calm opening footage.
-    fi_block = _build_film_intro_segment(project, work)
-
     def _dur(p):
         _pr = subprocess.run(
             [config.ffprobe(), "-v", "error", "-show_entries",
@@ -577,6 +608,18 @@ def prepend_to_final(project: str, final: Path) -> float:
             return float((_pr.stdout or "0").strip())
         except ValueError:
             return 0.0
+
+    # The film-intro block (channel greeting + title/year/director + leads + a
+    # fact) is a SECOND segment, after the montage+hook, before the story. It
+    # was gated by [FILM-INTRO] but never rendered - build_intro baked only the
+    # hook - so a shipped film opened on the montage and cut straight into the
+    # story with the greeting silently dropped. Synthesize those lines now and
+    # lay them over the film's own calm opening footage.
+    # The montage is built first, so its measured length is the film-intro
+    # block's offset on the finished timeline.
+    _block_dur_for_offset = _dur(block)
+    fi_block = _build_film_intro_segment(project, work,
+                                         out_offset=_block_dur_for_offset)
 
     block_dur = _dur(block)
     fi_dur = _dur(fi_block) if fi_block else 0.0
@@ -771,7 +814,8 @@ def build_intro(project: str, out_name: str = "intro_preview.mp4",
             motion = (f",zoompan=z='{ze}':d=1:x='iw/2-(iw/zoom/2)':"
                       f"y='ih/2-(ih/zoom/2)':s={w}x{h}:fps={fps}")
         parts.append(
-            f"[{i}:v]scale={w}:{h}:force_original_aspect_ratio=decrease,"
+            f"[{i}:v]scale={w}:{h}:force_original_aspect_ratio=decrease:"
+            f"flags={config.VIDEO_SCALER},"
             f"pad={w}:{h}:(ow-iw)/2:(oh-ih)/2:black,setsar=1,fps={fps}{motion},"
             # CAPPED, like every tpad in render.py. This is a backstop only -
             # the extension above is what should make it unnecessary - but an

@@ -127,6 +127,36 @@ def test_no_hardcoded_encodes() -> tuple[bool, str]:
                 "config" if ok else "; ".join(bad))
 
 
+def test_scaler_pinned_everywhere() -> tuple[bool, str]:
+    """EVERY scale filter in EVERY encoding module pins config.VIDEO_SCALER.
+
+    NO-HARDCODED-ENCODES covers pix_fmt, preset and CRF. It does not cover the
+    scaler, and that gap is how intro.py came to resample the entire opening
+    with ffmpeg's default bicubic while render.py pinned lanczos in all four of
+    its scale filters - a visible difference in sharpness between the first 45
+    seconds and the rest of the film, with nothing to report it.
+    """
+    bad = []
+    total = 0
+    for mod in ("render.py", "intro.py"):
+        path = os.path.join(ROOT, "pipeline", mod)
+        if not os.path.exists(path):
+            continue
+        src = io.open(path, encoding="utf-8").read()
+        for m in re.finditer(r"scale=\{w\}:\{h\}", src):
+            total += 1
+            # the flags may be on the next wrapped f-string line
+            if "flags=" not in src[m.start():m.start() + 220]:
+                bad.append(f"{mod}:{src[:m.start()].count(chr(10)) + 1}")
+    if not total:
+        return False, "found no scale filters to check"
+    if bad:
+        return False, (f"{len(bad)} scale filter(s) use ffmpeg's default "
+                       f"scaler at {bad}")
+    return True, (f"all {total} scale filter(s) in render.py and intro.py pin "
+                  f"config.VIDEO_SCALER ({config.VIDEO_SCALER})")
+
+
 def test_scaler_applied() -> tuple[bool, str]:
     src = io.open(os.path.join(ROOT, "pipeline", "render.py"),
                   encoding="utf-8").read()
@@ -236,6 +266,7 @@ TESTS = {
     "CONTRACT-MATCHES-CONFIG": test_contract_matches_config,
     "SETTINGS-LOCKED":         test_settings_locked,
     "NO-HARDCODED-ENCODES":    test_no_hardcoded_encodes,
+    "SCALER-PINNED-EVERYWHERE": test_scaler_pinned_everywhere,
     "SCALER-APPLIED":          test_scaler_applied,
     "INTERMEDIATES-BETTER":    test_intermediates_better,
     "CONTRACT-CATCHES":        test_contract_catches,
