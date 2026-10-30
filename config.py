@@ -781,13 +781,36 @@ OUTPUT_FPS = 30
 VIDEO_CRF = 20                  # lower = better quality / bigger file
 VIDEO_PRESET = "medium"         # FINAL encode only
 
-# A frame is encoded THREE times on its way to final.mp4: clip -> xfade concat
-# -> music mix. All three used to run at CRF 20, so the two intermediates threw
-# away detail that the final encode could never recover - generation loss on a
-# source that is already being upscaled 1.5x. Intermediates are now near-
-# transparent and only the LAST encode is sized for delivery.
+# HISTORICAL, and now almost unused. A frame used to be encoded THREE times on
+# its way to final.mp4 (clip -> xfade concat -> music mix) - and in fact FOUR,
+# because _xfade_chain batches at 12 and then joins the batches, which this
+# comment never accounted for. Measured on tokyodrift2006: 115 min for a first
+# render, 56 min to re-render after editing three lines, with every clip
+# already cached.
+#
+# Phase 1 removes those passes. Each clip is now encoded ONCE at delivery
+# quality, only the 0.28s crossfades are encoded separately, and the pieces are
+# joined by stream copy. These two settings therefore no longer describe the
+# main path; they remain for the few places that still build a throwaway
+# intermediate (the intro-join fallback, calibration scratch files).
 VIDEO_CRF_INTERMEDIATE = 16
 VIDEO_PRESET_INTERMEDIATE = "veryfast"
+
+# 540p draft mode. IDENTICAL TIMING, lower resolution - the point is to review
+# pacing and wording in a few minutes, so every cut, lead-in and crossfade must
+# land at exactly the same timestamp as the final. Only the picture size and
+# the quality target change. Enabled with `--draft-mode`, which sets
+# RECAP_DRAFT_MODE=1; nothing reads it implicitly.
+DRAFT_WIDTH = 960
+DRAFT_HEIGHT = 540
+
+# How many clips to build at once. The encode is the bottleneck and each clip
+# is an independent ffmpeg process, so this is the one place parallelism is
+# nearly free. Kept at 3 rather than the 12 logical cores because each ffmpeg
+# is already internally threaded and oversubscribing made the machine
+# unresponsive without finishing sooner.
+CLIP_WORKERS = 3
+TTS_WORKERS = 4
 
 # swscale algorithm. ffmpeg's default is bicubic; on a 1.5x upscale lanczos
 # holds edges visibly better, which is most of what "looks sharper" means here.
