@@ -146,10 +146,14 @@ def test_shipped_draft_fails() -> tuple[bool, str]:
         return False, (f"only {n} error(s) on the shipped draft; the brief "
                        f"lists more defects than that")
     s = p["stats"]
-    for k, v, op in (("top20_line_share", 0.40, "<"),
-                     ("judgment_share", 0.22, "<"),
-                     ("frame_only_share", 0.15, ">"),
-                     ("longest_one_line_run", 4, ">")):
+    for k, v, op in (("top20_line_share",
+                      config.PACING_TOP20_LINE_SHARE_MIN, "<"),
+                     ("judgment_share",
+                      config.PERSONA_JUDGMENT_SHARE_MIN, "<"),
+                     ("frame_only_share",
+                      config.PERSONA_FRAME_ONLY_SHARE_MAX, ">"),
+                     ("longest_one_line_run",
+                      config.PACING_ONE_LINE_RUN_MAX, ">")):
         got = s.get(k)
         if got is None:
             return False, f"the report does not measure {k}"
@@ -191,7 +195,8 @@ def test_good_shape_passes() -> tuple[bool, str]:
         b = a["beats"][0]
         add(b, "He says the thing out loud and nobody argues with him.")
         add(b, '"You can\'t keep running," his father tells him.')
-        add(b, "The room goes quiet for a second longer than it needs to.")
+        add(b, "There is the whole problem, stated by the one adult who "
+               "cannot enforce it.", "judgment")
         add(b, "You can see him decide, which is the only decision he makes "
                "all film.", "judgment")
     # connective beats: single lines, with a silent beat every few to break
@@ -207,7 +212,7 @@ def test_good_shape_passes() -> tuple[bool, str]:
                           "clip_end": "00:50:03.000"})
             continue
         pay = "judgment" if i % 3 == 0 else "stake"
-        txt = ("Which is about as well as that was ever going to go."
+        txt = ("Which is why that was never going to hold for long."
                if pay == "judgment" else
                "The crew moves the shipment before anyone notices.")
         add(beat, txt, pay)
@@ -234,12 +239,17 @@ def test_persona_detector_sane() -> tuple[bool, str]:
         return False, "the judgment share no longer reads the draft's own label"
     d = _flat()
     p = pg.pacing_report(d, PROJ)
-    got = p["stats"].get("judgment_share")
-    if got is None or abs(got - 0.132) > 0.01:
-        return False, (f"judgment share measured {got}, not the 0.132 the "
-                       f"draft's own payload labels give (14 of 106)")
-    return True, (f"judgment share {got} comes from the draft's payload label "
-                  f"and matches the brief's 14/109")
+    lab = p["stats"].get("judgment_labelled")
+    agreed = p["stats"].get("judgment_share")
+    if lab != 14:
+        return False, (f"the draft's own label count is {lab}, not the 14 the "
+                       f"brief quotes")
+    if agreed is None or abs(agreed - 0.104) > 0.01:
+        return False, (f"agreed judgment share measured {agreed}, not the "
+                       f"0.104 measured on the shipped draft")
+    return True, (f"the label gives 14 of 106 (13.2%, the brief's figure) and "
+                  f"the agreed share is {agreed} - the gate counts the "
+                  f"intersection, not the claim")
 
 
 def test_named_defects() -> tuple[bool, str]:
@@ -299,6 +309,187 @@ def test_angle_spec_required() -> tuple[bool, str]:
                   f"{len(spec['promises'])} hook promise(s)")
 
 
+
+def test_anchor_evidence_verbatim() -> tuple[bool, str]:
+    """A mapping is checked against the BEAT MAP, not against its own claim.
+
+    The defect: "before he has learned to turn" mapped to B47/B52/B53, where
+    B47 is "DK's uncle takes a cut of everyone's action", B52 is a car
+    handover, and B53 is him still unable to drift - while B60, the only beat
+    where the turning is taught, was filed as footage-only texture.
+    """
+    from pipeline import beats_spec as bs
+    bm = bs.load_beats(PROJ)
+    if len(bm) < 50:
+        return False, f"the beat map parsed only {len(bm)} beats"
+    # the OLD mapping must fail
+    ok, why = bs.quote_supported("told to drift by feeling",
+                                 ["B47", "B52", "B53"], bm)
+    if ok:
+        return False, ("the teaching quote verifies against B47/B52/B53, so "
+                       "the beat map no longer demonstrates the defect")
+    if "closest is" not in why:
+        return False, f"the failure does not diagnose the near miss: {why}"
+    # the NEW mapping must verify
+    ok2, why2 = bs.quote_supported(
+        "told to drift by feeling, he runs the hairpins again and again",
+        ["B35", "B53", "B60"], bm)
+    if not ok2:
+        return False, f"the derived mapping does not verify: {why2}"
+    if why2 != "B60":
+        return False, f"the quote verified against {why2}, expected B60"
+    # a too-short quote is refused rather than trivially matched
+    ok3, _ = bs.quote_supported("drift", ["B60"], bm)
+    if ok3:
+        return False, "a 5-character quote was accepted as evidence"
+    return True, ("the old B47/B52/B53 mapping fails the verbatim check and "
+                  "names the near miss; the derived B60 mapping verifies; a "
+                  "too-short quote is refused")
+
+
+def test_anchor_evidence_required() -> tuple[bool, str]:
+    """No evidence, or a load-bearing beat also filed as texture, fails."""
+    import shutil
+    import tempfile
+    fix = Path(ROOT) / "tools" / "fixtures" / "angle_tokyodrift_unevidenced.md"
+    if not fix.exists():
+        return False, "the unevidenced-angle fixture is missing"
+    with tempfile.TemporaryDirectory() as td:
+        d = Path(td)
+        shutil.copy(fix, d / "angle.md")
+        shutil.copy(PROJ / "beats_proposal.md", d / "beats_proposal.md")
+        try:
+            angle_spec.require(d)
+        except angle_spec.AngleSpecError as e:
+            if "evidence" not in str(e).lower():
+                return False, f"the error does not demand evidence: {e}"
+        else:
+            return False, ("an angle with no evidence quotes was accepted - "
+                           "which is the state that let B47 through")
+
+        # A MINIMAL VALID angle, then one beat made both anchor and texture.
+        # Built from scratch rather than patched into the fixture: patching
+        # left other evidence quotes missing, so ANGLE-SPEC fired first and
+        # the clash was never reached.
+        ev = ("told to drift by feeling, he runs the hairpins again and "
+              "again")
+        ang = (
+            "# x\n\n## ANCHORS\n\n"
+            + "".join(
+                f'- **B60** | kind{i} | why | evidence: "{ev}"\n'
+                for i in range(5))
+            + '\n## HOOK PROMISES\n\n- "a promise" -> B60 | note | '
+              f'evidence: "{ev}"\n'
+              "\n## NARRATOR PERSONA\n\n**Stance:** dry\n\n"
+              "**Signature moves:**\n- direct address\n\n"
+              "**Never:**\n- jargon\n"
+              "\n## WHAT THE ANGLE SELECTS\n\n"
+              "- B60 (training montage) - footage-only texture.\n")
+        (d / "angle.md").write_text(ang, encoding="utf-8")
+        rep = pg.pacing_report({"lines": []}, d)
+        blob = " ".join(rep["errors"])
+        if "both load-bearing" not in blob:
+            return False, ("a beat that is an anchor AND listed as "
+                           f"footage-only was not reported: {blob[:220]}")
+    rep2 = pg.pacing_report(_flat(), PROJ)
+    ae = [e for e in rep2["errors"] if "ANCHOR-EVIDENCE" in e]
+    if ae:
+        return False, f"the corrected angle still fails: {ae[0][:180]}"
+    return True, ("a missing evidence quote and an anchor-and-texture clash "
+                  "both fail; the corrected angle passes")
+
+
+def test_audit_covers_mappings() -> tuple[bool, str]:
+    """The independent audit is a required artifact, not an intention."""
+    audit = Path(ROOT) / "docs" / "stage2" / "ANGLE_EVIDENCE_AUDIT.md"
+    if not audit.exists():
+        return False, "docs/stage2/ANGLE_EVIDENCE_AUDIT.md is missing"
+    t = audit.read_text(encoding="utf-8", errors="replace").lower()
+    spec = angle_spec.require(PROJ)
+    for pr in spec["promises"]:
+        if pr["clause"].lower() not in t:
+            return False, f"the audit does not cover \"{pr['clause']}\""
+    for a in spec["anchors"]:
+        for b in a["beats"]:
+            if b.lower() not in t:
+                return False, f"the audit does not mention anchor beat {b}"
+    for probe in ("b47", "b52", "b60", "car handover"):
+        if probe not in t:
+            return False, (f"the audit does not record {probe!r} - the "
+                           f"overturned mapping has to stay on the record")
+    return True, (f"the audit covers all {len(spec['promises'])} promises and "
+                  f"all anchor beats, and records what it overturned")
+
+
+def test_judgment_agreement() -> tuple[bool, str]:
+    """Count only where the writer's label and the classifier AGREE."""
+    d = _flat()
+    rep = pg.pacing_report(d, PROJ)
+    s = rep["stats"]
+    for k in ("judgment_labelled", "judgment_classified", "judgment_agreed",
+              "judgment_agreement_rate"):
+        if k not in s:
+            return False, f"the report does not expose {k}"
+    if s["judgment_labelled"] != 14:
+        return False, (f"the shipped draft labels {s['judgment_labelled']} "
+                       f"lines judgment, not the 14 this was calibrated on")
+    if s["judgment_agreed"] >= s["judgment_labelled"]:
+        return False, ("label and classifier agree on everything, so the "
+                       "agreement check is not discriminating")
+    if abs(s["judgment_share"] - 0.104) > 0.01:
+        return False, (f"agreed share measured {s['judgment_share']}, not the "
+                       f"0.104 calibrated on the shipped draft")
+    # the shipped draft must fail on the SHARE, not on the RATE: its labels
+    # are honest, there are simply too few of them
+    if s["judgment_agreement_rate"] < config.PERSONA_JUDGMENT_AGREEMENT_MIN:
+        return False, (f"the shipped draft fails the agreement RATE "
+                       f"({s['judgment_agreement_rate']}), but its labels are "
+                       f"honest - it should fail the share instead")
+    # ...and label inflation must fail the rate
+    import copy
+    g = copy.deepcopy(d)
+    for ln in g["lines"]:
+        if str(ln.get("narration") or "").strip():
+            ln["payload"] = "judgment"
+    rep2 = pg.pacing_report(g, PROJ)
+    blob = " ".join(rep2["errors"])
+    if "label inflation" not in blob:
+        return False, ("labelling every line judgment did not trip the "
+                       "agreement rate - the gate is gameable exactly as "
+                       "before")
+    s2 = rep2["stats"]
+    if s2["judgment_share"] < config.PERSONA_JUDGMENT_SHARE_MIN:
+        return False, ("the gamed draft still fails the share, so the rate "
+                       "check was not what caught it")
+    return True, (f"shipped: label {s['judgment_labelled']}, classifier "
+                  f"{s['judgment_classified']}, agreed {s['judgment_agreed']} "
+                  f"({s['judgment_share']:.1%}), rate "
+                  f"{s['judgment_agreement_rate']:.0%} - fails the share, "
+                  f"passes the rate; labelling everything judgment trips the "
+                  f"rate instead")
+
+
+def test_classifier_corrected() -> tuple[bool, str]:
+    """The classifier's two known bugs stay fixed."""
+    # "US Navy" must not read as the pronoun "us"
+    if pg.classify_judgment("a US Navy officer he has barely seen")[0]:
+        return False, ("\"US Navy\" is still classified as narrator stance - "
+                       "\\bus\\b matching a country code")
+    # quoted character speech is not narrator voice
+    if pg.classify_judgment('He asks, "where are we moving to?"')[0]:
+        return False, ("quoted character speech is still read as narrator "
+                       "stance")
+    # evaluation without a pronoun must be caught - the first version missed
+    # all of these and scored 3 of the writer's 14
+    for t in ("There's the mistake.",
+              "The hustler with the ridiculous van is the loyalest person in "
+              "this film.",
+              "That's the whole of his pride. Borrowed, and ugly with it."):
+        if not pg.classify_judgment(t)[0]:
+            return False, f"evaluation without a pronoun is still missed: {t!r}"
+    return True, ("\"US Navy\" and quoted speech are not stance; pronoun-free "
+                  "evaluation is caught")
+
 TESTS = {
     "CONTROL-ON-DISK":          test_control_on_disk,
     "TOP20-IS-THE-ROBUST-ONE":  test_top20_is_the_robust_one,
@@ -308,6 +499,11 @@ TESTS = {
     "PERSONA-DETECTOR-SANE":    test_persona_detector_sane,
     "NAMED-DEFECTS":            test_named_defects,
     "ANGLE-SPEC-REQUIRED":      test_angle_spec_required,
+    "ANCHOR-EVIDENCE-VERBATIM": test_anchor_evidence_verbatim,
+    "ANCHOR-EVIDENCE-REQUIRED": test_anchor_evidence_required,
+    "AUDIT-COVERS-MAPPINGS":    test_audit_covers_mappings,
+    "JUDGMENT-AGREEMENT":       test_judgment_agreement,
+    "CLASSIFIER-CORRECTED":     test_classifier_corrected,
 }
 
 if __name__ == "__main__":

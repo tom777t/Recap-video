@@ -238,7 +238,11 @@ def test_reach_finds_the_five() -> tuple[bool, str]:
         return False, f"could not load the cut list: {e}"
     if not cl:
         return False, "no cut list, so the split path cannot be exercised"
-    draft = json.loads((PROJ / "draft.json").read_text(encoding="utf-8-sig"))
+    # the FIXTURE, not the live draft: the live one is rewritten
+    # between runs and its narration audio belongs to older line ids,
+    # which made this report 11 short clips that do not exist.
+    _fx = Path(ROOT) / "tools" / "fixtures" / "draft_tokyodrift_flat.json"
+    draft = json.loads(_fx.read_text(encoding="utf-8-sig"))
     from pipeline import preflight as pfm
     from pipeline.draft import parse_ts
     ffp = config.ffprobe()

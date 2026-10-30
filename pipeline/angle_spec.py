@@ -67,10 +67,21 @@ def load(pdir: Path) -> dict:
         bs = beat_ids(parts[0])
         if not bs:
             continue
+        # `evidence: "..."` - a VERBATIM quote from the beat map's own `what`
+        # text for one of the named beats. Required because the angle's claim
+        # about a beat used to be the only thing any gate read, and one
+        # mapping pointed at three beats of which two did not deliver it.
+        ev = ""
+        for seg in parts[1:]:
+            m = re.search(r'evidence\s*:\s*["\u201c](?P<q>[^"\u201d]+)',
+                          seg, re.I)
+            if m:
+                ev = m.group("q").strip()
         anchors.append({
             "beats": bs,
             "kind": parts[1].strip("*_ ").lower(),
             "why": (parts[2] if len(parts) > 2 else "").strip(),
+            "evidence": ev,
         })
 
     # ---- PERSONA ------------------------------------------------------- #
@@ -106,13 +117,34 @@ def load(pdir: Path) -> dict:
         if not m:
             continue
         rest = m.group("rest")
+        em = re.search(r'evidence\s*:\s*["\u201c](?P<q>[^"\u201d]+)',
+                       rest, re.I)
         promises.append({"clause": m.group("q").strip(),
-                         "beats": beat_ids(rest),
-                         "note": rest.split("|")[-1].strip()
+                         "beats": beat_ids(rest.split("evidence")[0]),
+                         "evidence": em.group("q").strip() if em else "",
+                         "note": rest.split("|")[1].strip()
                          if "|" in rest else ""})
 
+    # ---- beats the angle itself demotes --------------------------------- #
+    # A beat cannot be an anchor or a promise target AND be listed as
+    # footage-only texture. B60 was both: it is the only beat where Sean is
+    # actually taught to drift, and the angle filed it under "compress to a
+    # line or hold on footage".
+    sel = _section(text, "WHAT THE ANGLE SELECTS")
+    demoted: dict = {}
+    for raw in sel.splitlines():
+        t = raw.strip()
+        low = t.lower()
+        if not t.startswith(("-", "*")):
+            continue
+        if ("footage-only" in low or "compress to a line" in low
+                or "hold on footage" in low or low.endswith("skip.")
+                or "- skip" in low or "— skip" in low):
+            for b in beat_ids(t):
+                demoted[b] = t.lstrip("-* ").strip()
+
     return {"anchors": anchors, "persona": persona, "promises": promises,
-            "raw": text}
+            "demoted": demoted, "raw": text}
 
 
 def require(pdir: Path) -> dict:
@@ -133,6 +165,17 @@ def require(pdir: Path) -> dict:
         missing.append("## NARRATOR PERSONA with `**Signature moves:**`")
     if not spec["promises"]:
         missing.append('## HOOK PROMISES (`- "clause" -> B.. | note`)')
+    no_ev = [("/".join(a["beats"])) for a in spec["anchors"]
+             if not a.get("evidence")]
+    if no_ev:
+        missing.append(
+            "an `evidence: \"...\"` quote on anchor(s) " + ", ".join(no_ev)
+            + " - a verbatim phrase from that beat's own `what` text")
+    no_pev = [p["clause"] for p in spec["promises"] if not p.get("evidence")]
+    if no_pev:
+        missing.append(
+            "an `evidence: \"...\"` quote on promise(s) "
+            + ", ".join(f'"{c}"' for c in no_pev))
     if missing:
         raise AngleSpecError(
             "angle.md is missing section(s) the draft gates depend on:\n  "
