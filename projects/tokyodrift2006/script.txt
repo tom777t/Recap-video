@@ -1,5 +1,5 @@
 TITLE: Teenager Is Shipped to Tokyo to Dodge Jail and Ends Up Owing the Yakuza a Car He Cannot Pay For
-Lines: 108   Words: 3497   Est. narration: 16.7 min @ 210 WPM [config fallback (voice not measured)]   Target: 17 min
+Lines: 108   Words: 3449   Est. narration: 16.4 min @ 210 WPM [config fallback (voice not measured)]   Target: 17 min
 ============================================================
 
 [  1] (? -> ?)  <hook> {loop}
@@ -46,7 +46,7 @@ Lines: 108   Words: 3497   Est. narration: 16.7 min @ 210 WPM [config fallback (
       In the corridor he asks it flat, the way he'd ask about the weather: "Where are we moving this time?" The answer comes back: "We're not moving anywhere." No plural in it. He takes the sentence without a word.
 
 [ 16] (00:11:49.790 -> 00:12:10.686)  <tense> {judgment}
-      Being moved on is the only discipline these adults have ever managed, and he has been raised to expect it the way other kids expect a school run, so the sentence arrives as logistics rather than punishment. Floor it again. New state, new school, clean slate - except this time the clean slate is the other side of the world and nobody is coming with him.
+      Being moved on is the only discipline these adults have ever managed, and he has been raised to expect it the way other kids expect a school run, so the sentence arrives as logistics rather than punishment. Floor it again. New state, new school, clean slate - except this time the clean slate is the other side of the world.
 
 [ 18] (00:13:42.235 -> 00:14:02.380)  <normal> {rest}
       The door slides open on his father, who hasn't seen him in years and has got the date wrong. Japan is a day ahead, he explains.
@@ -58,7 +58,7 @@ Lines: 108   Words: 3497   Est. narration: 16.7 min @ 210 WPM [config fallback (
       His mum had no other choice, his dad says. It was this or juvenile hall. So the deal is plain enough: Tokyo isn't a fresh start, it's a sentence with better food.
 
 [ 21] (00:15:03.316 -> 00:15:10.198)  <reveal> {judgment}
-      You can't keep moving away every time you get into trouble. That's the whole film, said out loud, fifteen minutes in.
+      You can't keep running away every time you get into trouble. That's the whole film, said out loud, fifteen minutes in.
 
 [ 23] (00:15:25.421 -> 00:15:37.767)  <normal> {stake}
       Then the rules, agreed with a mother on the other side of the planet. School, straight back here, and nowhere near a car.
@@ -88,7 +88,7 @@ Lines: 108   Words: 3497   Est. narration: 16.7 min @ 210 WPM [config fallback (
       Before the start, DK pulls Neela into him in front of the whole garage - less affection than paperwork, filed publicly, so every man on that floor knows whose turf she stands on.
 
 [ 32] (00:30:10.260 -> 00:30:21.522)  <action> {stake}
-      Sean hasn't got a car to put up, so Han lends him his own - keys handed to a stranger, no deposit, no questions. Rip the e-brake, then power over. He gets the first half right. The back end keeps going, and Han's Mona Lisa grinds down the concrete throwing sparks.
+      Sean hasn't got a car to put up, so Han lends him his own - keys handed to a stranger, no deposit, no questions. Rip the e-brake, then power over. He gets the first half right. Han's car grinds down the concrete.
 
 [ 33] (00:30:25.609 -> 00:30:33.575)  <tense> {judgment}
       Turns out thirty seconds of instruction doesn't make a driver. Every eye in that garage, and the one thing he came here to do, he cannot.
@@ -166,7 +166,7 @@ Lines: 108   Words: 3497   Est. narration: 16.7 min @ 210 WPM [config fallback (
       Morning, mountain road. The brief is four words long: out here, feel it. That's the entire curriculum, and it's the first useful thing anyone has said to him.
 
 [ 59] (00:54:25.167 -> 00:54:38.097)  <normal> {rest}
-      So he runs the hairpin. Sawing at the wheel, harness tight, dust rolling back over the crew. Then he runs it again, and again, paying for the shredded tyres by hawking Twinkie's stock on the street.
+      So he runs the hairpin. Sawing at the wheel, harness tight, dust rolling back over the crew. Then he runs it again, and again, and the car starts going where he points it.
 
 [ 60] (00:54:45.145 -> 00:54:57.324)  <normal> {reasoning}
       Tyres cost money he hasn't got, so he and Twinkie work the shopping crowds, flogging goods out of a bag. Twinkie reckons he could sell rubbers to a monk. He's not wrong, and that cash is what keeps Sean on the mountain.
@@ -175,7 +175,7 @@ Lines: 108   Words: 3497   Est. narration: 16.7 min @ 210 WPM [config fallback (
       Han coaches from the passenger seat - mountain bends, an empty dock lot, the same hairpin again and again until two dock workers stop and grin.
 
 [ 62] (00:56:00.595 -> 00:56:08.103)  <normal> {judgment}
-      Someone older sitting beside him, teaching him a thing that only comes with repetition. Han does it for free, in his own car, for a boy who owes him a car.
+      Someone older beside him, teaching what only comes with repetition. Han does it for free, in his own car, for a boy who owes him a car.
 
 [ 63] (00:56:08.103 -> 00:56:26.121)  <normal> {judgment}
       Across town his father lets himself into the dark flat, parts the coats, and finds a bed nobody has slept in. He set rules he had no standing to enforce, and he's finding out alone that they were never kept.
@@ -226,7 +226,7 @@ Lines: 108   Words: 3497   Est. narration: 16.7 min @ 210 WPM [config fallback (
       It settles upside down against the kerb with Han trapped inside, not moving. A loose tyre rolls away. Neela gets out to look.
 
 [ 79] (01:15:22.920 -> 01:15:28.175)  <sad> {stake}
-      Sean sprints for him. He doesn't get there. The car detonates with Han still inside it, and Han dies in the fire.
+      Sean sprints for him. He doesn't get there. The car detonates, and Han dies in the fire.
 
 [ 80] (01:15:33.263 -> 01:15:39.770)  <tense> {stake}
       DK looks at the fire, puts his car in gear and drives off past the crowd.
@@ -234,14 +234,14 @@ Lines: 108   Words: 3497   Est. narration: 16.7 min @ 210 WPM [config fallback (
 [ 81] (01:15:39.770 -> 01:15:50.822)  <sad> {rest}
       Sean turns after DK's black coupe, then stops. He and Neela stand beside the fire with the shock draining out of both their faces.
 
-[ 82] (01:15:50.822 -> 01:15:59.373)  <tense> {rest}
-      He walks away from the fire between the taxis. A tiled station floor, a walkway, a platform, a commuter train sliding in behind them.
+[ 82] (01:15:50.822 -> 01:15:59.373)  <tense> {rest} [HOLD 3.5s - no narration]
+      
 
 [ 83] (01:15:59.373 -> 01:16:14.513)  <sad> {judgment}
       Neither of them says a word the whole way home. Han is dead, and of all of them he was the only one who had worked out what he wanted and then stopped needing to beat anybody to it. Winning was never what he turned for.
 
 [ 84] (01:17:06.064 -> 01:17:14.280)  <tense> {judgment}
-      DK is in the dark lane outside the house with a pistol at Sean's head and Sean's father aiming one back at him. Neela argues across that, then leaves with DK herself to get the barrel off Sean. Her choice, and nobody thanks her for it.
+      In the dark lane DK holds a pistol to Sean's head and Sean's father aims one back. Neela leaves with DK herself to get the barrel off Sean. Her choice.
 
 [ 85] (01:17:40.390 -> 01:17:51.734)  <normal> {stake}
       In the alley his father says it: I'm responsible for my mess. Sean answers, I did this, I can't run away - his father's own instruction from the first night, handed back.
@@ -253,7 +253,7 @@ Lines: 108   Words: 3497   Est. narration: 16.7 min @ 210 WPM [config fallback (
       Instead he says he'll go and talk to Kamata. Twinkie's answer is the sane one: nobody just strolls into that place. He is going because it is the only room where this can be ended.
 
 [ 88] (01:19:43.012 -> 01:19:53.939)  <tense> {stake}
-      And then the line that shuts Twinkie up. That's all I got. A kid with no car, no mentor and no plan, betting the only thing he has left on the scariest man in Tokyo hearing him out.
+      And then the line that shuts Twinkie up. That's all I got. A kid with no plan, no backup and nobody left to tell him when he is wrong, betting everything he has on the scariest man in Tokyo hearing him out.
 
 [ 89] (01:20:10.247 -> 01:20:31.310)  <normal> {judgment}
       Then Twinkie digs behind the speakers of that ridiculous green van, pulls out a satchel of Han's money, and hands over the lot to a kid who is walking into a yakuza office to give it all away. "Don't you need it?" "I'll figure it out." Nobody asked him to do any of that.
@@ -313,16 +313,16 @@ Lines: 108   Words: 3497   Est. narration: 16.7 min @ 210 WPM [config fallback (
       Then the old man drops his head and turns away from the crowd. Neela had already told the nephew what he was without his uncle, and every bit of what he had up here was borrowed.
 
 [110] (01:35:19.069 -> 01:35:32.165)  <normal> {judgment}
-      Weeks later, different garage, same noise, and Twinkie is working the crowd with both fists full of other people's money. He called the kid crazy and funded him anyway, and whatever he is taking off this crowd tonight, he has it coming.
+      Weeks later, same noise, another garage, and Twinkie is working the crowd with both fists full of other people's money. He called Sean's walk into Kamata's office suicide, then dug Han's money out of that green van and funded it anyway. Whatever he takes tonight, he earned it.
 
 [111] (01:35:49.766 -> 01:36:03.030)  <normal> {loop}
-      Then Twinkie calls Sean out in front of the garage and tells it like he was in on it from the start. The smirk goes when the woman in red catches his eye. A crew, a girl, a title, a city.
+      Then Twinkie pushes back across the garage with news: somebody has turned up asking for Sean by name, somebody who ran with Han and calls Han family. Sean's smirk falls away, and Neela holds his eye until he takes it in.
 
 [112] (01:36:46.656 -> 01:37:10.430)  <reveal> {stake}
-      A challenger rolls up beside him in a great lump of American muscle, and the man at the wheel is Dominic Toretto, who seems to know exactly who Sean is. The warning comes out like a man ordering coffee: you know this ain't no ten-second race. Sean grins back. The last stranger who pulled alongside this kid with something to teach him cost him a car he could never pay for.
+      A challenger rolls up beside Sean in a great lump of American muscle, and the man at the wheel is Dominic Toretto, who already knows exactly who the kid is. Then the warning, delivered like a man ordering coffee: you know this ain't no ten-second race. Which is one way of saying the mountain was the easy part. Sean grins back.
 
 [113] (01:37:24.402 -> 01:37:33.745)  <reveal> {judgment}
-      Tyres light up, the woman in red throws her arms up, and that's where it ends, on the question Sean asked Han in a garage and never got answered: he doesn't drift to win.
+      Smoke boils off the tyres, Neela throws her arms up, and Sean is in a race nobody is making him run. Han said it about himself, on a Tokyo rooftop: he doesn't drift to win.
 
 [114] (01:37:33.745 -> 01:37:47.634)  <outro> {judgment}
-      Sean never did get a car of his own. Turns out the kid who kept getting moved on just needed somewhere he refused to leave.
+      Sean never did get a car that was only his - every one was lent to him, found for him or built around him by somebody else. Turns out the kid who kept getting moved on just needed somewhere he refused to leave.

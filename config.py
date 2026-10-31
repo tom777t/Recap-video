@@ -1144,7 +1144,38 @@ PERSONA_MIN_PER_WINDOW = 1
 # The earlier figures (7.1-13.1%, cap 0.15) were taken with the broken
 # classifier and are superseded - a bar calibrated with a faulty instrument is
 # not a calibration.
-PERSONA_FRAME_ONLY_SHARE_MAX = 0.13
+#
+# RE-DERIVED 0.13 -> 0.20, for TWO reasons, and the first is a basis error in
+# the paragraph above. Raw measurements: config/frame_only_control.json, tool:
+# tools/calibrate_frame_only.py - which previously did not exist, so those
+# five reference numbers lived only in this comment and could not be re-taken
+# when the instrument changed. They can now.
+#
+#  1. BASIS. The references are measured per SENTENCE, because a VTT has no
+#     lines. Our draft is measured per LINE, and a line is frame-only if ANY
+#     of its sentences is. The comment above compares 5.9-11.5% (reference
+#     sentences) against 14.2% (our lines) and concludes the draft is "above
+#     every reference" - but those are different units. Measured on our own
+#     drafts the line share is 1.656x the sentence share, so the references
+#     in line-basis terms are 9.8, 11.6, 14.5, 19.1, 19.1%. The old rule was
+#     "just above the reference maximum"; applied on ONE basis that gives
+#     0.20, not 0.13.
+#  2. INSTRUMENT. The detector was widened to see a bare noun list, which it
+#     previously could not (see pipeline/shotlist_gates.py). Re-measuring the
+#     references with the narrow detector reproduces 5.9/7.0/8.4/11.5/11.5
+#     exactly, which is what makes the tool trustworthy; the wide detector
+#     moves them to 5.9/7.0/8.8/11.5/11.5 - the shape is rare in the
+#     references and common in our drafts, which is itself the finding.
+#
+# This is a LOOSENING, so it is worth being explicit about what still catches
+# the defect that prompted it: [SHOT-LIST-AFTER-PEAK] fires on a shot-list
+# sentence near a peak regardless of any share, which is the specific thing
+# the viewer objected to. A share cap cannot do that job - the offending line
+# sat inside a draft measuring 0.1048, comfortably under the old 0.13, and so
+# drew no finding at all. A specific detector plus an honestly-calibrated
+# share is the right division of labour; a mis-calibrated share pretending to
+# cover a defect it cannot see is not.
+PERSONA_FRAME_ONLY_SHARE_MAX = 0.20
 
 # --------------------------------------------------------------------------- #
 # MOTIF BUDGET and TIC REPETITION. Calibrated as a DECISION, not a
@@ -1203,3 +1234,151 @@ REVIEW_ANSWER_MIN_WORDS = 8
 # Findings list at most this many line ids before truncating, so one bad pass
 # cannot bury the rest of the report.
 REVIEW_MAX_IDS_IN_MESSAGE = 8
+
+# --------------------------------------------------------------------------- #
+# THE CLOSING WINDOW. Read by pipeline/ending_gates.py; both directions of
+# every bar are tested in tools/test_ending_gates.py.
+#
+# THE DEFECT: the last FOUR narrated lines of the shipped draft (ids 111-114
+# of 105 narrated lines) carried THREE wrong callbacks between them.
+#   * Line 113 introduced a quotation as "the question A asked B in a garage
+#     and never got answered" and then quoted B's STATEMENT, not A's question
+#     - and the scene it calls back to is beat B58, which the beat map places
+#     on a ROOFTOP, not in a garage. One clause, two contradictions of the
+#     draft's own earlier text.
+#   * Line 112 made a character the ATTITUDE TO CHARACTERS section of angle.md
+#     explicitly calls itself "protective" of into the one who "cost him a car
+#     he could never pay for" - and never named him, so the blame could not be
+#     checked against the card at all.
+#   * A third line misread which character spoke in a scene.
+# No counter in this repo could see any of them: all three are correctly
+# distributed and wrong about a RELATION (who said it, where, and how the
+# narrator is supposed to feel about them). They are also the LAST thing the
+# viewer hears, which is why they get their own gates and a required read
+# rather than a share of an existing bar.
+# --------------------------------------------------------------------------- #
+# How many narrated lines from the end count as the closer. 5 is a DECISION,
+# not a measurement: the defect occupied the final four lines (111-114) and the
+# window is one line wider so the line that sets up the outro is read with
+# them. Derivation of the width is not available - there is no reference
+# corpus of closing-line callbacks - so it is stated as a choice.
+ENDING_WINDOW_LINES = 5
+# Content-word overlap, |A and B| / min(|A|,|B|), at which a closing line's
+# callback is taken to be quoting a particular earlier statement. 0.5 is a
+# DECISION, bounded at both ends by what was measured on the live draft: the
+# real callback on line 113 matches its setup line at 1.00 (both signatures
+# reduce to one shared content word), while the next-best unrelated statement
+# in the same draft scores 0.00, so anything in (0, 1] separates them here.
+# 0.5 is the middle of that gap - low enough that a five-word paraphrase of a
+# twenty-word quotation still matches, high enough that one shared word out of
+# three does not. min() rather than union is deliberate and argued in
+# ending_gates.sig_overlap.
+ENDING_CALLBACK_MATCH_MIN = 0.5
+# How far, in words, a character's name may sit from a blame idiom ("cost him",
+# "to blame", "ruined", "let him down") before the two are read as unrelated.
+# 12 is a DECISION: it is roughly one clause of English, and the live defect
+# sits at 16 words - OUTSIDE this window - which is precisely why
+# ENDING-PERSONA does not rest on proximity alone and treats a blame clause
+# that names nobody as an error in its own right. Widening this constant to
+# reach the live case was tried and rejected: at 20+ words any name anywhere
+# in a long closing line pairs with any marker in it, and the gate reported
+# the character the line was defending as the one it blamed.
+ENDING_BLAME_WINDOW_WORDS = 12
+
+# --------------------------------------------------------------------------- #
+# THE SHOT LIST. Read by pipeline/shotlist_gates.py; both directions of every
+# bar are tested in tools/test_shotlist_gates.py.
+#
+# THE DEFECT: the narrated line IMMEDIATELY AFTER a major character's death
+# ends with a sentence that is nothing but four comma-separated visible nouns
+# - a surface, a passage, a vantage point, a vehicle arriving - with no finite
+# verb that makes anything happen, no agent, and no word of the narrator's
+# own. The viewer is already looking at every item in it. Measured on the live
+# draft (105 narrated lines, 262 sentences): 5 sentences on 5 lines are this
+# shape, 1 of them inside the peak window, and the offending sentence's own
+# line sits ON the peak beat the angle declares for the death.
+#
+# WHY A NEW GATE AND NOT A WIDER FRAME-ONLY CAP. The existing detector,
+# pacing_gates._is_frame_only, is a POSITIVE match on a closed list of visual
+# verbs over a WHOLE LINE, and both halves of that let this through: a bare
+# noun list has no finite verb for the detector to match, and the offending
+# sentence shares its line with an ordinary sentence that DOES carry one - so
+# the line scored frame-only for its harmless half, named no sentence, and
+# the per-line share was under its cap regardless. Fixing the sentence and
+# not fixing it scored identically. A one-sentence defect needs a
+# one-sentence instrument.
+#
+# AFTER A PEAK THIS IS BLOCKING, elsewhere it is a warning. The seconds after
+# a death, a reveal or a win are what the whole PACING_* contour above was
+# built to buy; an inventory of the set is the one thing they cannot carry.
+# The remedy is named in the error: make the line a HOLD (clear `narration`,
+# set `narration_silence_seconds`) or give it a point.
+# --------------------------------------------------------------------------- #
+# How many list items make a sentence a LIST rather than a description.
+# A DECISION, sited on the defect, with both neighbours checked on the live
+# draft: the offending sentence carries 4 items, so 3 catches it with one item
+# of margin. At 2 the gate fires on ordinary two-clause English ("a tiled
+# floor, a train arriving") which is a perfectly good descriptive sentence and
+# 37 further sentences in the live draft look like that; at 4 it catches the
+# real defect and nothing else, which is a bar fitted to one example. 3 is the
+# smallest value that is about the SHAPE rather than about this sentence.
+SHOTLIST_MIN_ITEMS = 3
+# How many of those items must be visible things before the sentence counts
+# as an inventory of the set. A DECISION: 1 is not a list of anything, and the
+# point of the rule is that the sentence is pointing at the furniture, which
+# takes at least two pieces of furniture to demonstrate. The live defect
+# measures 4 of 4. Independently of this bar, shotlist_gates requires at least
+# ONE item to be in its visible-scene lexicon rather than merely to pass its
+# general concrete-noun test, which is documented at _item_visibility.
+SHOTLIST_MIN_VISIBLE = 2
+# How many NARRATED lines after a peak stay inside the blocking window.
+# A DECISION, and the derivation is not available: there is no reference
+# corpus of what a recap does in the beats after a death. Sited on the defect
+# instead - it occupied the FIRST line after the death lines, i.e. distance 0,
+# and the window is two lines wider so that the line after that, and the one
+# that sets up the next scene, are read with it. Measured in narrated lines
+# and not in draft lines on purpose: a hold carries no narration and is
+# exactly the remedy this gate prescribes, so counting it against the window
+# would mean applying the remedy moved the next line out of the gate's reach.
+SHOTLIST_PEAK_WINDOW_LINES = 2
+
+# --------------------------------------------------------------------------- #
+# [SAME-POINT]. Calibrated in config/semantic_dup_control.json by
+# tools/calibrate_semantic_dup.py against ONE human-labelled positive and the
+# 103 other adjacent pairs of a draft the viewer approved, which are therefore
+# labelled negatives.
+#
+# THE DEFECT: two adjacent lines made the same point in different words and
+# the lexical check scored them 0.21 against a 0.50 bar - they share exactly
+# one content word.
+#
+# NOT AN EMBEDDING, and the reason is recorded rather than glossed: model
+# downloads here are intercepted (a 349-byte file returns ~46 KB, size varying
+# per request, so every checksum fails) and the whole local corpus is ~487,000
+# words where usable synonymy needs tens of millions. Three cheaper
+# instruments were measured and rejected first - whole-line overlap, clause
+# min-overlap, TF-IDF cosine - with the numbers in the control file.
+#
+# These bars are therefore the settings of a CANDIDATE FILTER, not of a
+# verdict: at the chosen values the detector catches the reported pair with 8
+# false positives in 104 approved pairs. It warns, and the gate separately
+# requires each candidate to be adjudicated in review.md.
+# --------------------------------------------------------------------------- #
+# How specific a shared word must be to count as the same ARGUMENT, in the
+# draft's own IDF. Swept 1.5-3.0: false positives fall 28 -> 8 as it rises and
+# the reported pair is still caught at 3.0, so 3.0 is the precision-optimal
+# setting that keeps recall of the one labelled positive.
+SEMANTIC_DUP_MIN_IDF = 3.0
+# How many shared specific arguments are required. At 2 the false positives
+# fall to 0 but the reported pair is MISSED, so 2 is a bar that measures
+# nothing on the defect it was built for.
+SEMANTIC_DUP_MIN_ARGS = 1
+# Minimum content words a statement signature must have before a SPEAKER
+# contradiction is reported. THE DEFECT it fixes: the closer called back a
+# mentor's one-line thesis while an earlier line carried the protagonist's
+# QUESTION about that thesis; both reduce to a single content word, min()
+# overlap scored them 1.00, and the gate reported a contradiction on a line
+# that was correct. A question about a statement is not the statement. No
+# genuine quotation is identified by one content word, so this costs no
+# recall - the synthetic speaker-mismatch fixtures carry 3-6 content words.
+ENDING_CALLBACK_MIN_CONTENT_WORDS = 2

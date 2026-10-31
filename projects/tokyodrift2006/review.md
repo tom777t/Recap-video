@@ -381,4 +381,12 @@ RESOLVED | unsupported-claim | 3 | the real-car-real-road line is replaced by F2
 RESOLVED | reveal-unnamed | 73,75 | 73 names Han as the partner stealing at the 01:07:29 landing, and 75 restores "without the skimming" with an explicit admission of the theft
 RESOLVED | reveal-early | 91 | "For once it won't be him packing" is gone; 91 now states only the terms and the stake, so R3's outcome waits for 105
 RESOLVED | peak-talked-over | 102,104,105,106,107 | 102 holds the single verdict, then 104 is wreck aftermath, 105 is the R3 title naming, 106 is the crowd, and 107 turns to Neela's choice rather than the win
+ANSWERED | same-point | 15,16 | Line 16 supplies the cause of the silence in 15, relocation being the only discipline these adults manage, then adds the brand-new scale, this clean slate is overseas and unaccompanied
+ANSWERED | same-point | 19,20 | Line 20 reveals the legal ultimatum behind the trip, Tokyo or juvenile hall, converting a cramped one-room establishing shot into a sentence being served
+ANSWERED | same-point | 90,91 | Line 91 moves from the apology tactic to the concrete proposal he brings, one race with exile for the loser, staked on Takashi's own road
+ANSWERED | same-point | 91,92 | Line 92 jumps forward to the Mustang rebuild and names a new fact, every hand helping him now has no remaining obligation to
+ANSWERED | same-point | 93,94 | Line 94 adds Twinkie's warning that Takashi alone has ever reached the bottom of that mountain, grading the venue rather than the borrowed engine
+ANSWERED | same-point | 104,105 | Line 105 changes subject from Takashi climbing out alive to Sean swarmed at his window, and lands the new Drift King reveal
+ANSWERED | same-point | 108,109 | Line 109 is the next moment, Kamata bowing away, and it scores Takashi's loss instead, everything he held up here was his uncle's
+RESOLVED | same-point | 15,16 | dropped "and nobody is coming with him" from 16 because 15 already implies it more sharply, the tightening the reviewer volunteered while answering this pair
 ```

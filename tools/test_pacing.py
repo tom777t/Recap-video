@@ -171,12 +171,25 @@ def test_shipped_draft_fails() -> tuple[bool, str]:
         return False, (f"only {n} error(s) on the shipped draft; the brief "
                        f"lists more defects than that")
     s = p["stats"]
+    # frame_only_share is NOT in this list any more, and the reason is a
+    # measurement rather than a convenience.
+    #
+    # The cap was re-derived from 0.13 to 0.20 because the old number
+    # compared the references' per-SENTENCE share against our per-LINE share
+    # - two different units - and the same rule applied on one basis gives
+    # 0.20 (tools/calibrate_frame_only.py, config/frame_only_control.json).
+    # The shipped fixture measures 0.142, so it now sits INSIDE the corrected
+    # band and no longer demonstrates a frame-only defect.
+    #
+    # The fixture still demonstrates the three below, which is what it is
+    # for. The alternative - putting the cap back to 0.13 so this assertion
+    # keeps passing - would be keeping a bar because a test likes it, and
+    # the specific defect the viewer objected to is now caught directly by
+    # [SHOT-LIST-AFTER-PEAK] regardless of any share.
     for k, v, op in (("top20_line_share",
                       config.PACING_TOP20_LINE_SHARE_MIN, "<"),
                      ("judgment_share",
                       config.PERSONA_JUDGMENT_SHARE_MIN, "<"),
-                     ("frame_only_share",
-                      config.PERSONA_FRAME_ONLY_SHARE_MAX, ">"),
                      ("longest_one_line_run",
                       config.PACING_ONE_LINE_RUN_MAX, ">")):
         got = s.get(k)

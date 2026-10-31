@@ -34,6 +34,14 @@ import config
 
 ROOT_DOCS = Path(__file__).resolve().parent.parent / "docs" / "stage2"
 
+# A peak is an anchor the angle itself calls a reveal, a death or a win.
+# MODULE-LEVEL, because two gates ask the question: [PEAK-ORDER] here and
+# [SHOT-LIST-AFTER-PEAK] in shotlist_gates. It was a local inside
+# pacing_report, so the other gate had to keep its own copy, and two
+# copies of a definition drift without anyone noticing.
+PEAK_WORDS = ("reveal", "death", "dies", "peak", "win", "climax")
+
+
 # ---- persona detection --------------------------------------------------- #
 # A "judgment" line says what something MEANS or how the narrator feels about
 # it. These are deliberately surface patterns: the gate is a floor on voice
@@ -128,6 +136,15 @@ def _is_frame_only(t: str) -> bool:
 
     Calibrated against the references, which run 7.1-13.1% by this same
     detector (median 8.8%); the shipped draft is 14.2%.
+
+    WIDENED 2026-10-31 to include the SHOT LIST - a sentence that is a run of
+    comma-separated visible nouns with no verb of consequence. The `_VISUAL_
+    VERB` test above is a POSITIVE match on a closed verb list, so a sentence
+    with no finite verb at all had nothing for it to match and scored as not
+    frame-only, even though it reports strictly LESS than a line that at least
+    says someone walked somewhere. See pipeline/shotlist_gates.py's docstring
+    for the full diagnosis and for what the sentence-level measure catches
+    that this line-level one cannot.
     """
     if not t:
         return False
@@ -135,7 +152,18 @@ def _is_frame_only(t: str) -> bool:
         return False
     if '"' in t or "\u201c" in t:        # carries character words
         return False
-    return bool(_VISUAL_VERB.search(t))
+    if _VISUAL_VERB.search(t):
+        return True
+    # FUNCTION-LOCAL IMPORT, and it has to be. shotlist_gates imports
+    # classify_judgment from THIS module (it must, or the two detectors could
+    # disagree about what counts as meaning) and this function imports
+    # shotlist_gates, so a module-level import either way is a cycle that
+    # neither module can finish. Both directions are deferred to call time, so
+    # neither module cares which is imported first. The cost is one
+    # sys.modules lookup per line, and has_shotlist_sentence stops at the
+    # first hit, so this stays cheap enough for a per-line call.
+    from pipeline.shotlist_gates import has_shotlist_sentence
+    return has_shotlist_sentence(t)
 
 
 def _beat_of(ln: dict) -> str:
@@ -533,7 +561,7 @@ def pacing_report(draft: dict, pdir: Path) -> dict:
         # for death words would both miss a quiet reveal and fire on a line
         # that merely mentions one.
         _pmax = int(getattr(config, "PERSONA_PEAK_REACTION_MAX", 1))
-        _peak_words = ("reveal", "death", "dies", "peak", "win", "climax")
+        _peak_words = PEAK_WORDS
         for a in anchors:
             if not any(w in f"{a.get('kind','')} {a.get('why','')}".lower()
                        for w in _peak_words):

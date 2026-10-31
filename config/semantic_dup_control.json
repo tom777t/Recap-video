@@ -1,0 +1,534 @@
+{
+ "instrument": "pipeline.semantic_dup.adjacent_duplicates",
+ "not_an_embedding": "no pretrained sentence encoder is obtainable here - model downloads return a ~46 KB page in place of a 349-byte file, size varying per request, so every checksum fails",
+ "rejected_instruments": {
+  "line_content_overlap": "control 0.21 against a 0.50 bar",
+  "clause_min_overlap": "control outside the top twelve; a two-word clause sharing one stem scores 1.00",
+  "tfidf_cosine": "control 0.037 with 33 approved pairs scoring higher"
+ },
+ "labelled_positive": [
+  59,
+  60
+ ],
+ "labelled_negatives": 103,
+ "paraphrase_probes": 5,
+ "sweep": [
+  {
+   "min_idf": 1.5,
+   "min_args": 1,
+   "control_caught": true,
+   "false_positives": 28,
+   "fp_pairs": [
+    [
+     14,
+     15
+    ],
+    [
+     15,
+     16
+    ],
+    [
+     19,
+     20
+    ],
+    [
+     24,
+     25
+    ],
+    [
+     29,
+     30
+    ],
+    [
+     30,
+     31
+    ],
+    [
+     40,
+     41
+    ],
+    [
+     42,
+     43
+    ]
+   ],
+   "paraphrases_caught": 3,
+   "paraphrases_total": 5,
+   "paraphrases_missed": [
+    32,
+    79
+   ]
+  },
+  {
+   "min_idf": 1.5,
+   "min_args": 2,
+   "control_caught": false,
+   "false_positives": 7,
+   "fp_pairs": [
+    [
+     15,
+     16
+    ],
+    [
+     19,
+     20
+    ],
+    [
+     30,
+     31
+    ],
+    [
+     78,
+     79
+    ],
+    [
+     85,
+     86
+    ],
+    [
+     88,
+     89
+    ],
+    [
+     110,
+     111
+    ]
+   ],
+   "paraphrases_caught": 1,
+   "paraphrases_total": 5,
+   "paraphrases_missed": [
+    32,
+    73,
+    79,
+    60
+   ]
+  },
+  {
+   "min_idf": 1.75,
+   "min_args": 1,
+   "control_caught": true,
+   "false_positives": 24,
+   "fp_pairs": [
+    [
+     14,
+     15
+    ],
+    [
+     15,
+     16
+    ],
+    [
+     19,
+     20
+    ],
+    [
+     24,
+     25
+    ],
+    [
+     29,
+     30
+    ],
+    [
+     30,
+     31
+    ],
+    [
+     40,
+     41
+    ],
+    [
+     42,
+     43
+    ]
+   ],
+   "paraphrases_caught": 3,
+   "paraphrases_total": 5,
+   "paraphrases_missed": [
+    32,
+    79
+   ]
+  },
+  {
+   "min_idf": 1.75,
+   "min_args": 2,
+   "control_caught": false,
+   "false_positives": 6,
+   "fp_pairs": [
+    [
+     15,
+     16
+    ],
+    [
+     19,
+     20
+    ],
+    [
+     30,
+     31
+    ],
+    [
+     85,
+     86
+    ],
+    [
+     88,
+     89
+    ],
+    [
+     110,
+     111
+    ]
+   ],
+   "paraphrases_caught": 1,
+   "paraphrases_total": 5,
+   "paraphrases_missed": [
+    32,
+    73,
+    79,
+    60
+   ]
+  },
+  {
+   "min_idf": 2.0,
+   "min_args": 1,
+   "control_caught": true,
+   "false_positives": 24,
+   "fp_pairs": [
+    [
+     14,
+     15
+    ],
+    [
+     15,
+     16
+    ],
+    [
+     19,
+     20
+    ],
+    [
+     24,
+     25
+    ],
+    [
+     29,
+     30
+    ],
+    [
+     30,
+     31
+    ],
+    [
+     40,
+     41
+    ],
+    [
+     42,
+     43
+    ]
+   ],
+   "paraphrases_caught": 3,
+   "paraphrases_total": 5,
+   "paraphrases_missed": [
+    32,
+    79
+   ]
+  },
+  {
+   "min_idf": 2.0,
+   "min_args": 2,
+   "control_caught": false,
+   "false_positives": 5,
+   "fp_pairs": [
+    [
+     15,
+     16
+    ],
+    [
+     19,
+     20
+    ],
+    [
+     85,
+     86
+    ],
+    [
+     88,
+     89
+    ],
+    [
+     110,
+     111
+    ]
+   ],
+   "paraphrases_caught": 1,
+   "paraphrases_total": 5,
+   "paraphrases_missed": [
+    32,
+    73,
+    79,
+    60
+   ]
+  },
+  {
+   "min_idf": 2.25,
+   "min_args": 1,
+   "control_caught": true,
+   "false_positives": 23,
+   "fp_pairs": [
+    [
+     14,
+     15
+    ],
+    [
+     15,
+     16
+    ],
+    [
+     19,
+     20
+    ],
+    [
+     24,
+     25
+    ],
+    [
+     29,
+     30
+    ],
+    [
+     30,
+     31
+    ],
+    [
+     42,
+     43
+    ],
+    [
+     43,
+     44
+    ]
+   ],
+   "paraphrases_caught": 3,
+   "paraphrases_total": 5,
+   "paraphrases_missed": [
+    32,
+    79
+   ]
+  },
+  {
+   "min_idf": 2.25,
+   "min_args": 2,
+   "control_caught": false,
+   "false_positives": 4,
+   "fp_pairs": [
+    [
+     15,
+     16
+    ],
+    [
+     19,
+     20
+    ],
+    [
+     85,
+     86
+    ],
+    [
+     110,
+     111
+    ]
+   ],
+   "paraphrases_caught": 1,
+   "paraphrases_total": 5,
+   "paraphrases_missed": [
+    32,
+    73,
+    79,
+    60
+   ]
+  },
+  {
+   "min_idf": 2.5,
+   "min_args": 1,
+   "control_caught": true,
+   "false_positives": 17,
+   "fp_pairs": [
+    [
+     14,
+     15
+    ],
+    [
+     15,
+     16
+    ],
+    [
+     19,
+     20
+    ],
+    [
+     24,
+     25
+    ],
+    [
+     30,
+     31
+    ],
+    [
+     42,
+     43
+    ],
+    [
+     78,
+     79
+    ],
+    [
+     84,
+     85
+    ]
+   ],
+   "paraphrases_caught": 3,
+   "paraphrases_total": 5,
+   "paraphrases_missed": [
+    32,
+    79
+   ]
+  },
+  {
+   "min_idf": 2.5,
+   "min_args": 2,
+   "control_caught": false,
+   "false_positives": 3,
+   "fp_pairs": [
+    [
+     15,
+     16
+    ],
+    [
+     19,
+     20
+    ],
+    [
+     85,
+     86
+    ]
+   ],
+   "paraphrases_caught": 1,
+   "paraphrases_total": 5,
+   "paraphrases_missed": [
+    32,
+    73,
+    79,
+    60
+   ]
+  },
+  {
+   "min_idf": 3.0,
+   "min_args": 1,
+   "control_caught": true,
+   "false_positives": 8,
+   "fp_pairs": [
+    [
+     15,
+     16
+    ],
+    [
+     19,
+     20
+    ],
+    [
+     42,
+     43
+    ],
+    [
+     90,
+     91
+    ],
+    [
+     91,
+     92
+    ],
+    [
+     93,
+     94
+    ],
+    [
+     104,
+     105
+    ],
+    [
+     108,
+     109
+    ]
+   ],
+   "paraphrases_caught": 3,
+   "paraphrases_total": 5,
+   "paraphrases_missed": [
+    32,
+    79
+   ]
+  },
+  {
+   "min_idf": 3.0,
+   "min_args": 2,
+   "control_caught": false,
+   "false_positives": 0,
+   "fp_pairs": [],
+   "paraphrases_caught": 1,
+   "paraphrases_total": 5,
+   "paraphrases_missed": [
+    32,
+    73,
+    79,
+    60
+   ]
+  }
+ ],
+ "chosen": {
+  "min_idf": 3.0,
+  "min_args": 1,
+  "control_caught": true,
+  "false_positives": 8,
+  "fp_pairs": [
+   [
+    15,
+    16
+   ],
+   [
+    19,
+    20
+   ],
+   [
+    42,
+    43
+   ],
+   [
+    90,
+    91
+   ],
+   [
+    91,
+    92
+   ],
+   [
+    93,
+    94
+   ],
+   [
+    104,
+    105
+   ],
+   [
+    108,
+    109
+   ]
+  ],
+  "paraphrases_caught": 3,
+  "paraphrases_total": 5,
+  "paraphrases_missed": [
+   32,
+   79
+  ]
+ }
+}

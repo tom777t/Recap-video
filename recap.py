@@ -41,7 +41,26 @@ from __future__ import annotations
 import argparse
 import sys
 
-from rich.console import Console
+# UTF-8 ON STDOUT BEFORE ANYTHING PRINTS.
+#
+# This is the FOURTH time this bug class has shipped here: act_payload.py was
+# truncated mid-list twice by a cp1252 UnicodeEncodeError on redirected
+# stdout, and a draft gate was then killed outright by a single "->" arrow in
+# a running bit's name that came from the project's own angle.md. Windows
+# gives a redirected stream the ANSI codepage, so `recap.py draft > log.txt`
+# crashed where the same command without the redirect passed - which means
+# every logged or CI run failed on data that is perfectly legal.
+#
+# Fixed at the entry point rather than per message: no gate should be able to
+# die because a character appeared in a project's own text, and a gate that
+# cannot print its finding has not run.
+for _s in (sys.stdout, sys.stderr):
+    try:
+        _s.reconfigure(encoding="utf-8")
+    except Exception:
+        pass
+
+from rich.console import Console                             # noqa: E402
 
 import config
 
@@ -184,6 +203,10 @@ def cmd_draft(args):
                           f"- a protected term appears before its landing beat")
         if r.get("runtime_over"):
             causes.append(f"[RUNTIME-BAND] {r['runtime_over']}")
+        if r.get("audit_unavailable"):
+            causes.append(f"the Phase 1 audits DID NOT RUN "
+                          f"({r['audit_unavailable']}) - ten gates were "
+                          f"skipped, so the draft is unchecked")
         if not causes:
             causes.append("a hard audit finding that is NOT a binding mismatch "
                           "(binding reported 0) - read the report above for which")

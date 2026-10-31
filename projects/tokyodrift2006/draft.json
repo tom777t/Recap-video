@@ -11,7 +11,12 @@
       "over_montage": true,
       "hook_question": "Can a kid who only knows how to crash survive the one city where the whole game is a control he hasn't got?",
       "narration": "Strike three. One more wrecked car and this kid goes to jail, so they ship him to the one city on earth where the cars drive sideways - and he gets there owing a stranger a car before he has learned to turn.",
-      "id": 1
+      "id": 1,
+      "claim": {
+        "type": "narration",
+        "subject": "the film",
+        "requires_visual": false
+      }
     },
     {
       "note": "INTRO",
@@ -19,7 +24,12 @@
       "payload": "rest",
       "film_intro": true,
       "narration": "This is Serabudabu, and today I'm walking you through The Fast and the Furious: Tokyo Drift, from 2006 - the one everybody wrote off, then spent fifteen years quietly building on.",
-      "id": 2
+      "id": 2,
+      "claim": {
+        "type": "narration",
+        "subject": "the film",
+        "requires_visual": false
+      }
     },
     {
       "note": "INTRO",
@@ -27,7 +37,12 @@
       "payload": "reasoning",
       "film_intro": true,
       "narration": "Justin Lin drops Lucas Black's Sean Boswell into a city run by Sung Kang's Han and Brian Tee's Takashi. Universal's own stunt drivers could not drift, so the production hired working drift racers to do the driving. Let me show you where it starts.",
-      "id": 3
+      "id": 3,
+      "claim": {
+        "type": "narration",
+        "subject": "the film",
+        "requires_visual": false
+      }
     },
     {
       "note": "B01",
@@ -117,7 +132,7 @@
       "payload": "rest",
       "id": 11,
       "claim": {
-        "type": "aftermath",
+        "type": "action",
         "subject": "the scene"
       }
     },
@@ -177,7 +192,7 @@
       "note": "B13",
       "clip_start": "00:11:49.790",
       "clip_end": "00:12:10.686",
-      "narration": "Being moved on is the only discipline these adults have ever managed, and he has been raised to expect it the way other kids expect a school run, so the sentence arrives as logistics rather than punishment. Floor it again. New state, new school, clean slate - except this time the clean slate is the other side of the world and nobody is coming with him.",
+      "narration": "Being moved on is the only discipline these adults have ever managed, and he has been raised to expect it the way other kids expect a school run, so the sentence arrives as logistics rather than punishment. Floor it again. New state, new school, clean slate - except this time the clean slate is the other side of the world.",
       "delivery": "tense",
       "payload": "judgment",
       "id": 16,
@@ -209,14 +224,14 @@
       "payload": "rest",
       "id": 19,
       "claim": {
-        "type": "establishing",
+        "type": "setup",
         "subject": "the scene"
       }
     },
     {
       "note": "B17",
       "clip_start": "00:14:44.255",
-      "clip_end": "00:15:03.316",
+      "clip_end": "00:14:57.880",
       "narration": "His mum had no other choice, his dad says. It was this or juvenile hall. So the deal is plain enough: Tokyo isn't a fresh start, it's a sentence with better food.",
       "delivery": "normal",
       "payload": "stake",
@@ -227,10 +242,24 @@
       }
     },
     {
+      "id": 210,
       "note": "B17",
-      "clip_start": "00:15:03.316",
-      "clip_end": "00:15:10.198",
-      "narration": "You can't keep moving away every time you get into trouble. That's the whole film, said out loud, fifteen minutes in.",
+      "clip_start": "00:14:57.880",
+      "clip_end": "00:15:06.470",
+      "narration": "",
+      "delivery": "reveal",
+      "payload": "stake",
+      "film_speaks_seconds": 8.59,
+      "film_speaks_criterion": "thesis",
+      "film_speaks_reason": "angle.md names B17 as the exact words the thesis pays off, and this span is those words with nothing else inside it: the father names the pattern the whole recap then tests, in his own voice instead of the narrator's paraphrase. Act 1, 8.59s, and the vocals stem measures 20.8 dB over music and effects across the quote's own span.",
+      "film_speaks_quote": "And you know she had no other choice, I mean, it was either this or Juvie Hall. I mean, you just can't keep moving away every time you get into trouble.",
+      "film_speaks_audio_margin_db": 20.8
+    },
+    {
+      "note": "B17",
+      "clip_start": "00:15:06.470",
+      "clip_end": "00:15:25.421",
+      "narration": "You can't keep running away every time you get into trouble. That's the whole film, said out loud, fifteen minutes in.",
       "delivery": "reveal",
       "payload": "judgment",
       "id": 21,
@@ -358,7 +387,7 @@
       "note": "B35",
       "clip_start": "00:30:10.260",
       "clip_end": "00:30:21.522",
-      "narration": "Sean hasn't got a car to put up, so Han lends him his own - keys handed to a stranger, no deposit, no questions. Rip the e-brake, then power over. He gets the first half right. The back end keeps going, and Han's Mona Lisa grinds down the concrete throwing sparks.",
+      "narration": "Sean hasn't got a car to put up, so Han lends him his own - keys handed to a stranger, no deposit, no questions. Rip the e-brake, then power over. He gets the first half right. Han's car grinds down the concrete.",
       "delivery": "action",
       "payload": "stake",
       "id": 32,
@@ -650,7 +679,7 @@
       "payload": "judgment",
       "id": 55,
       "claim": {
-        "type": "establishing",
+        "type": "emotion",
         "subject": "the scene"
       }
     },
@@ -663,7 +692,7 @@
       "payload": "reasoning",
       "id": 56,
       "claim": {
-        "type": "establishing",
+        "type": "transition",
         "subject": "the scene"
       }
     },
@@ -697,7 +726,7 @@
       "note": "B60",
       "clip_start": "00:54:25.167",
       "clip_end": "00:54:38.097",
-      "narration": "So he runs the hairpin. Sawing at the wheel, harness tight, dust rolling back over the crew. Then he runs it again, and again, paying for the shredded tyres by hawking Twinkie's stock on the street.",
+      "narration": "So he runs the hairpin. Sawing at the wheel, harness tight, dust rolling back over the crew. Then he runs it again, and again, and the car starts going where he points it.",
       "delivery": "normal",
       "payload": "rest",
       "id": 59,
@@ -715,7 +744,7 @@
       "payload": "reasoning",
       "id": 60,
       "claim": {
-        "type": "montage",
+        "type": "action",
         "subject": "the American driver"
       }
     },
@@ -728,7 +757,7 @@
       "payload": "rest",
       "id": 61,
       "claim": {
-        "type": "montage",
+        "type": "action",
         "subject": "the American teen driver"
       }
     },
@@ -736,12 +765,12 @@
       "note": "B60",
       "clip_start": "00:56:00.595",
       "clip_end": "00:56:08.103",
-      "narration": "Someone older sitting beside him, teaching him a thing that only comes with repetition. Han does it for free, in his own car, for a boy who owes him a car.",
+      "narration": "Someone older beside him, teaching what only comes with repetition. Han does it for free, in his own car, for a boy who owes him a car.",
       "delivery": "normal",
       "payload": "judgment",
       "id": 62,
       "claim": {
-        "type": "montage",
+        "type": "transition",
         "subject": "the scene"
       }
     },
@@ -758,6 +787,15 @@
         "subject": "the greying naval officer"
       },
       "callback_beat": "B61"
+    },
+    {
+      "id": 200,
+      "note": "B62",
+      "clip_start": "00:56:42.721",
+      "clip_end": "00:56:53.315",
+      "narration": "Word comes up to Han at the garage rail. Somebody is standing down in the bay waiting for him, and from here on the business stops leaving him alone.",
+      "delivery": "mystery",
+      "payload": "loop"
     },
     {
       "note": "B64",
@@ -820,7 +858,7 @@
       "payload": "judgment",
       "id": 68,
       "claim": {
-        "type": "establishing",
+        "type": "action",
         "subject": "the young man with short brown hair"
       },
       "callback_beat": "B13"
@@ -925,6 +963,15 @@
       }
     },
     {
+      "id": 201,
+      "note": "B78",
+      "clip_start": "01:13:51.203",
+      "clip_end": "01:14:02.506",
+      "narration": "Ahead of them the crossing is wall to wall with people, and nobody in this chase lifts. Sean's hands lock on the wheel and the pack shoulders into the crowd.",
+      "delivery": "action",
+      "payload": "stake"
+    },
+    {
       "note": "B79",
       "clip_start": "01:15:07.905",
       "clip_end": "01:15:13.785",
@@ -954,7 +1001,7 @@
       "note": "B79",
       "clip_start": "01:15:22.920",
       "clip_end": "01:15:28.175",
-      "narration": "Sean sprints for him. He doesn't get there. The car detonates with Han still inside it, and Han dies in the fire.",
+      "narration": "Sean sprints for him. He doesn't get there. The car detonates, and Han dies in the fire.",
       "delivery": "sad",
       "payload": "stake",
       "id": 79,
@@ -993,14 +1040,11 @@
       "note": "B79",
       "clip_start": "01:15:50.822",
       "clip_end": "01:15:59.373",
-      "narration": "He walks away from the fire between the taxis. A tiled station floor, a walkway, a platform, a commuter train sliding in behind them.",
+      "narration": "",
       "delivery": "tense",
       "payload": "rest",
       "id": 82,
-      "claim": {
-        "type": "transition",
-        "subject": "the scene"
-      }
+      "narration_silence_seconds": 3.5
     },
     {
       "note": "B80",
@@ -1019,7 +1063,7 @@
       "note": "B82",
       "clip_start": "01:17:06.064",
       "clip_end": "01:17:14.280",
-      "narration": "DK is in the dark lane outside the house with a pistol at Sean's head and Sean's father aiming one back at him. Neela argues across that, then leaves with DK herself to get the barrel off Sean. Her choice, and nobody thanks her for it.",
+      "narration": "In the dark lane DK holds a pistol to Sean's head and Sean's father aims one back. Neela leaves with DK herself to get the barrel off Sean. Her choice.",
       "delivery": "tense",
       "payload": "judgment",
       "id": 84,
@@ -1031,8 +1075,8 @@
     {
       "note": "B83",
       "clip_start": "01:17:40.390",
-      "clip_end": "01:17:51.734",
-      "narration": "In the alley his father says it: I'm responsible for my mess. Sean answers, I did this, I can't run away - his father's own instruction from the first night, handed back.",
+      "clip_end": "01:17:44.220",
+      "narration": "In the alley his father tries to take all of it onto himself, because he is Sean's father and the mess is his to clean up. Then Sean stops him.",
       "delivery": "normal",
       "payload": "stake",
       "id": 85,
@@ -1041,6 +1085,20 @@
         "subject": "the young man in the white shirt"
       },
       "callback_beat": "B17"
+    },
+    {
+      "id": 211,
+      "note": "B83",
+      "clip_start": "01:17:44.220",
+      "clip_end": "01:17:50.488",
+      "narration": "",
+      "delivery": "tense",
+      "payload": "stake",
+      "film_speaks_seconds": 4.77,
+      "film_speaks_criterion": "thesis",
+      "film_speaks_reason": "It is the turn the angle is built on, the first time Sean refuses to be relocated out of his own trouble, and it answers the act-one hand-over almost word for word, so the film states the diagnosis and the cure in its own voice at both ends of the recap. Act 3, 4.77s, measured 27.1 dB, and line 85's window now ends exactly where the quote begins.",
+      "film_speaks_quote": "Don't argue with me. I did this. I can't run away.",
+      "film_speaks_audio_margin_db": 27.1
     },
     {
       "note": "B84",
@@ -1072,7 +1130,7 @@
       "note": "B86",
       "clip_start": "01:19:43.012",
       "clip_end": "01:19:53.939",
-      "narration": "And then the line that shuts Twinkie up. That's all I got. A kid with no car, no mentor and no plan, betting the only thing he has left on the scariest man in Tokyo hearing him out.",
+      "narration": "And then the line that shuts Twinkie up. That's all I got. A kid with no plan, no backup and nobody left to tell him when he is wrong, betting everything he has on the scariest man in Tokyo hearing him out.",
       "delivery": "tense",
       "payload": "stake",
       "id": 88,
@@ -1129,7 +1187,7 @@
       "payload": "reasoning",
       "id": 92,
       "claim": {
-        "type": "montage",
+        "type": "setup",
         "subject": "the young American"
       }
     },
@@ -1197,6 +1255,33 @@
         "type": "action",
         "subject": "the scene"
       }
+    },
+    {
+      "id": 202,
+      "note": "B98",
+      "clip_start": "01:31:14.117",
+      "clip_end": "01:31:20.540",
+      "narration": "He drags level with Takashi through the bends, nearly loses it, then carves ahead through a wall of smoke.",
+      "delivery": "action",
+      "payload": "stake"
+    },
+    {
+      "id": 205,
+      "note": "B98",
+      "clip_start": "01:31:20.540",
+      "clip_end": "01:31:26.546",
+      "narration": "The Mustang leads now, and Takashi spends two bends reading its taillights with nowhere clean to pass.",
+      "delivery": "action",
+      "payload": "stake"
+    },
+    {
+      "id": 203,
+      "note": "B99",
+      "clip_start": "01:32:17.305",
+      "clip_end": "01:32:25.521",
+      "narration": "Takashi rams him mid-drift and pins the Mustang against the drop, until Sean wrenches it loose and takes the next corner alone.",
+      "delivery": "action",
+      "payload": "stake"
     },
     {
       "note": "B100",
@@ -1287,7 +1372,7 @@
       "payload": "rest",
       "id": 106,
       "claim": {
-        "type": "aftermath",
+        "type": "reaction",
         "subject": "the young American driver"
       }
     },
@@ -1303,6 +1388,15 @@
         "type": "reaction",
         "subject": "the young American driver"
       }
+    },
+    {
+      "id": 204,
+      "note": "B104",
+      "clip_start": "01:34:34.275",
+      "clip_end": "01:34:43.575",
+      "narration": "Three figures in black come up the dark road at him, one under a wide-brimmed hat, and Sean's grin goes. He has won nothing yet.",
+      "delivery": "tense",
+      "payload": "stake"
     },
     {
       "note": "B105",
@@ -1334,20 +1428,21 @@
       "note": "B106",
       "clip_start": "01:35:19.069",
       "clip_end": "01:35:32.165",
-      "narration": "Weeks later, different garage, same noise, and Twinkie is working the crowd with both fists full of other people's money. He called the kid crazy and funded him anyway, and whatever he is taking off this crowd tonight, he has it coming.",
+      "narration": "Weeks later, same noise, another garage, and Twinkie is working the crowd with both fists full of other people's money. He called Sean's walk into Kamata's office suicide, then dug Han's money out of that green van and funded it anyway. Whatever he takes tonight, he earned it.",
       "delivery": "normal",
       "payload": "judgment",
       "id": 110,
       "claim": {
-        "type": "montage",
+        "type": "setup",
         "subject": "the young man in the green jacket and white do-rag"
-      }
+      },
+      "callback_beat": "B87"
     },
     {
       "note": "B107",
       "clip_start": "01:35:49.766",
       "clip_end": "01:36:03.030",
-      "narration": "Then Twinkie calls Sean out in front of the garage and tells it like he was in on it from the start. The smirk goes when the woman in red catches his eye. A crew, a girl, a title, a city.",
+      "narration": "Then Twinkie pushes back across the garage with news: somebody has turned up asking for Sean by name, somebody who ran with Han and calls Han family. Sean's smirk falls away, and Neela holds his eye until he takes it in.",
       "delivery": "normal",
       "payload": "loop",
       "id": 111,
@@ -1360,7 +1455,7 @@
       "note": "B108",
       "clip_start": "01:36:46.656",
       "clip_end": "01:37:10.430",
-      "narration": "A challenger rolls up beside him in a great lump of American muscle, and the man at the wheel is Dominic Toretto, who seems to know exactly who Sean is. The warning comes out like a man ordering coffee: you know this ain't no ten-second race. Sean grins back. The last stranger who pulled alongside this kid with something to teach him cost him a car he could never pay for.",
+      "narration": "A challenger rolls up beside Sean in a great lump of American muscle, and the man at the wheel is Dominic Toretto, who already knows exactly who the kid is. Then the warning, delivered like a man ordering coffee: you know this ain't no ten-second race. Which is one way of saying the mountain was the easy part. Sean grins back.",
       "delivery": "reveal",
       "payload": "stake",
       "id": 112,
@@ -1373,20 +1468,21 @@
       "note": "B109",
       "clip_start": "01:37:24.402",
       "clip_end": "01:37:33.745",
-      "narration": "Tyres light up, the woman in red throws her arms up, and that's where it ends, on the question Sean asked Han in a garage and never got answered: he doesn't drift to win.",
+      "narration": "Smoke boils off the tyres, Neela throws her arms up, and Sean is in a race nobody is making him run. Han said it about himself, on a Tokyo rooftop: he doesn't drift to win.",
       "delivery": "reveal",
       "payload": "judgment",
       "id": 113,
       "claim": {
         "type": "action",
         "subject": "the scene"
-      }
+      },
+      "callback_beat": "B58"
     },
     {
       "note": "B109",
       "clip_start": "01:37:33.745",
       "clip_end": "01:37:47.634",
-      "narration": "Sean never did get a car of his own. Turns out the kid who kept getting moved on just needed somewhere he refused to leave.",
+      "narration": "Sean never did get a car that was only his - every one was lent to him, found for him or built around him by somebody else. Turns out the kid who kept getting moved on just needed somewhere he refused to leave.",
       "delivery": "outro",
       "payload": "judgment",
       "id": 114,
