@@ -561,7 +561,12 @@ def validate_draft(project: str, *, write_state: bool = False,
         # evidence audit, for the same reason: an intention is not a check.
         from pipeline import motif_gates as _mot
         from pipeline import review_artifacts as _rev
-        for _mod, _fn in ((_mot, "motif_report"), (_rev, "review_report")):
+        from pipeline import ending_gates as _end
+        from pipeline import shotlist_gates as _shot
+        from pipeline import samepoint_gates as _samep
+        for _mod, _fn in ((_mot, "motif_report"), (_rev, "review_report"),
+                          (_end, "ending_report"), (_shot, "shotlist_report"),
+                          (_samep, "samepoint_report")):
             _rp = getattr(_mod, _fn)(draft, _pdir)
             errors.extend(_rp.get("errors") or [])
             for _w in _rp.get("warns") or []:
@@ -718,7 +723,7 @@ def validate_draft(project: str, *, write_state: bool = False,
             for _k in ("binding_mismatch", "binding_violations", "reveal_hits",
                        "binding_unverified", "binding_checked",
                        "continuity_issues", "beat_coverage", "stage", "style",
-                       "runtime_over"):
+                       "runtime_over", "audit_unavailable"):
                 if _k in audit:
                     draft[_k] = audit[_k]
     return draft
@@ -2321,14 +2326,42 @@ def _run_phase1_audits(project, pdir):
         from pipeline.continuity_check import continuity_check
         from pipeline.tag_audit import tag_audit
         from pipeline.validator_report import format_validator_report
+    # A SKIPPED AUDIT IS NOT A CLEAN AUDIT.
+    #
+    # Both of these used to print one DIM line and `return` None, and the
+    # caller turns None into audit_sev "clean" - so the command printed
+    # "Looks good" and exited 0 with TEN gates never run: the binding audit,
+    # coverage, the tone budget, RUNTIME-BAND, SET-PIECE, BEAT-COVERAGE,
+    # CATALOGUE-DENSITY, BINDING-INTEGRITY, SNAP-GRID and REVEAL-TIMING.
+    #
+    # It happened. Eleven lines carried a `claim.type` taken from the shot
+    # catalogue's vocabulary ('aftermath', 'establishing', 'montage') rather
+    # than the Claim schema's, load_draft raised SchemaError, and the spoiler
+    # protection stopped running on a film whose reveal map is the strictest
+    # thing in it. A hand scan found two held terms appearing before their
+    # landing time while the report said nothing was wrong.
+    #
+    # Now it returns sev="hard" and says what it could not check. This file's
+    # own rule, written a dozen lines from here: an audit missing its input
+    # must SAY SO, never go quietly green.
     except Exception as e:
-        console.print(f"[dim]Phase 1 audits unavailable: {e}[/]")
-        return
+        console.print(
+            f"[red][AUDIT-UNAVAILABLE][/] the Phase 1 audits could not be "
+            f"imported: {e}. Ten gates did NOT run, including REVEAL-TIMING "
+            f"and RUNTIME-BAND. This draft is UNCHECKED, not clean.")
+        return {"sev": "hard",
+                "audit_unavailable": f"import failed: {e}"}
     try:
         d = schemas.load_draft(project)
     except Exception as e:
-        console.print(f"[dim]Phase 1 audits skipped (draft parse): {e}[/]")
-        return
+        console.print(
+            f"[red][AUDIT-UNPARSEABLE][/] draft.json does not satisfy the "
+            f"schema, so the Phase 1 audits did NOT run: {e}. Ten gates were "
+            f"skipped, including REVEAL-TIMING (spoiler timing) and "
+            f"RUNTIME-BAND. Fix the schema error - this draft is UNCHECKED, "
+            f"not clean.")
+        return {"sev": "hard",
+                "audit_unavailable": f"draft parse failed: {e}"}
     skel = None
     try:
         skel = schemas.load_skeleton(project)
@@ -3028,6 +3061,8 @@ def _run_phase1_audits(project, pdir):
         # mismatch - read the report above for which", which is the
         # least useful line the tool can print.
         "runtime_over": _rt_over,
+        # carried so the caller can name it; see AUDIT-UNPARSEABLE above
+        "audit_unavailable": None,
         "set_piece_over": len(sp_cov.get("over", [])) if sp_cov.get("present") else 0,
     }
 

@@ -1,0 +1,84 @@
+{
+ "instrument_narrow": "visual verb, no evaluation (pre-widening)",
+ "instrument_wide": "narrow OR a shot-list sentence (pipeline.shotlist_gates.shotlist_sentences)",
+ "basis_note": "references by SENTENCE; our drafts by LINE and by SENTENCE; the line/sentence conversion is measured on our own drafts, never assumed",
+ "references": [
+  {
+   "file": "cutframe_fT_pA_sX3VU.en-orig.vtt",
+   "sentences": 337,
+   "narrow": 0.0593,
+   "wide": 0.0593
+  },
+  {
+   "file": "mrecaps_HDI-QESF9GY.en-orig.vtt",
+   "sentences": 130,
+   "narrow": 0.1154,
+   "wide": 0.1154
+  },
+  {
+   "file": "mrecaps_SnAufo-cIao.en-orig.vtt",
+   "sentences": 228,
+   "narrow": 0.0702,
+   "wide": 0.0702
+  },
+  {
+   "file": "mrecaps_dXSI1hYlXlk.en-orig.vtt",
+   "sentences": 251,
+   "narrow": 0.0837,
+   "wide": 0.0876
+  },
+  {
+   "file": "mrecaps_lCD7leAyMYo.en-orig.vtt",
+   "sentences": 191,
+   "narrow": 0.1152,
+   "wide": 0.1152
+  }
+ ],
+ "reference_sentence_share": {
+  "narrow": [
+   0.0593,
+   0.0702,
+   0.0837,
+   0.1152,
+   0.1154
+  ],
+  "wide": [
+   0.0593,
+   0.0702,
+   0.0876,
+   0.1152,
+   0.1154
+  ]
+ },
+ "drafts": [
+  {
+   "file": "draft.json",
+   "lines": 105,
+   "sentences": 254,
+   "narrow_line": 0.1048,
+   "narrow_sent": 0.0669,
+   "wide_line": 0.1429,
+   "wide_sent": 0.0866
+  },
+  {
+   "file": "draft_prerewrite.json",
+   "lines": 106,
+   "sentences": 258,
+   "narrow_line": 0.1415,
+   "narrow_sent": 0.0891,
+   "wide_line": 0.1509,
+   "wide_sent": 0.093
+  },
+  {
+   "file": "draft_overcorrected.json",
+   "lines": 111,
+   "sentences": 353,
+   "narrow_line": 0.045,
+   "narrow_sent": 0.034,
+   "wide_line": 0.0721,
+   "wide_sent": 0.0425
+  }
+ ],
+ "line_per_sentence_conversion": 1.656,
+ "recommended_cap_line_basis": 0.2
+}

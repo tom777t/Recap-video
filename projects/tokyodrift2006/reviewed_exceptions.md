@@ -9,6 +9,8 @@ and if the finding stops occurring the run reports it **STALE** and asks for
 deletion, so a leftover note cannot cover the next one.
 
 ```reviewed-exceptions
+REVEAL-TIMING | R4 ? 87260c8b | 2026-10-31 | The matched term is "returning" inside a VERBATIM quotation - "I'm only returning what belonged to you in the first place, sir" - which is about handing back money, at 01:22:29. R4 protects a returning CHARACTER, who lands at 01:36:38, fourteen minutes later. REVEAL-TIMING is a literal-term scan and says so in its own output; it cannot tell returning money from a returning man. Rewording is refused on a different ground from the usual one: the clause is a quotation checked against the transcript, and paraphrasing it to satisfy a regex would make the recap misquote the film.
+REVEAL-TIMING | R4 ? eafdc58b | 2026-10-31 | The matched term is "family" in "somebody who ran with Han, and who told Twinkie that Han was family", at 01:35:49, forty-nine seconds before the reveal lands at 01:36:38. This one is NOT a false positive - it is deliberate foreshadowing, and the viewer asked for it in writing: "Keep 'Han was family' as the emotional bridge into Dom." It names no character, no film and no franchise, so it cannot disclose WHO the challenger is; what it does is make the arrival land instead of appearing from nowhere. Verified that no other held term appears before the landing: no Dominic, Dom, Toretto, Vin Diesel, cameo, familiar face, "he knew Han", "an old friend of Han's", or any reference to earlier films.
 ```
 
 ## Why this one is kept

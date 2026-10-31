@@ -76,7 +76,16 @@ def _review_artifacts(pdir: str, draft: dict) -> None:
             "real draft and must never be copied into one.\n\n"
             "```review-signatures\n" + "\n".join(rows) + "\n```\n\n"
             "```review-findings\n```\n")
-    for name in ('cold_read.md', 'review.md'):
+    # ending_read.md is the THIRD artifact, added with [ENDING-READ], and it
+    # reproduced the same breakage the moment it was wired in: TARGET-LOCK
+    # reported "detected=False" because validate_draft exited on the missing
+    # artifact before the gate under test could report. Same answer as above -
+    # give the scratch project a real artifact, do not relax the gate.
+    #
+    # Its bar is 100% of the CLOSING WINDOW, not a percentage of the draft, so
+    # signing every narrated line (as the body above does) covers it: the
+    # window is a subset of the draft.
+    for name in ('cold_read.md', 'review.md', 'ending_read.md'):
         io.open(os.path.join(pdir, name), 'w', encoding='utf-8').write(body)
 
 
