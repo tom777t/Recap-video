@@ -76,3 +76,8 @@ _commitmsg.txt
 projects/*/_bench/
 projects/*/draft_before_3line_edit.json
 projects/*/_work_cal/
+
+# Phase 4 shot-matching prototype: cached frames, embeddings and blind-test
+# material. Regenerable, large, measurement-local. Downloaded model weights.
+projects/*/_fingerprints/
+models/
