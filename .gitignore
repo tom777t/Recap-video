@@ -84,3 +84,9 @@ models/
 # Reference recap VIDEOS: fetched for cut-rate calibration, hundreds of MB,
 # and not ours to redistribute. The measurements go in config/, not the files.
 references/video/
+# Phase 4 blind-test material: per-line clips and frame strips, regenerable
+# from config/arms_plan.json by tools/build_arms.py + tools/blind_strips.py.
+# The VOTES and KEYS are kept - they are the evidence.
+projects/*/_ab/
+projects/*/_blind_A/
+projects/*/_blind_B/

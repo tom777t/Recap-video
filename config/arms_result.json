@@ -1,0 +1,95 @@
+{
+ "instrument": "5-frame strip per side, stacked, random order, fresh vision judge per arm",
+ "limitation": "the judge sees STRIPS, not video. A strip shows WHICH shots appear and in what order but not the rhythm of the cut, so it may under-represent an edit whose benefit is motion. It is the measurement that was affordable in the budget, not the ideal one.",
+ "arms": {
+  "A": {
+   "n": 14,
+   "new_wins": 7,
+   "current_wins": 7,
+   "ties": 0,
+   "win_rate": 0.5,
+   "new_won_lines": [
+    24,
+    49,
+    86,
+    108,
+    111,
+    201,
+    202
+   ],
+   "current_won_lines": [
+    36,
+    46,
+    47,
+    52,
+    64,
+    110,
+    203
+   ],
+   "lines_split": 16,
+   "subclips": 34,
+   "cuts_added": 18,
+   "cuts_per_min": 23.83,
+   "zero_evidence_placements": 0,
+   "snapped_to_film_cuts": 9
+  },
+  "B": {
+   "n": 30,
+   "new_wins": 15,
+   "current_wins": 14,
+   "ties": 1,
+   "win_rate": 0.517,
+   "new_won_lines": [
+    7,
+    24,
+    40,
+    42,
+    46,
+    49,
+    72,
+    76,
+    84,
+    85,
+    86,
+    108,
+    111,
+    201,
+    202
+   ],
+   "current_won_lines": [
+    6,
+    29,
+    36,
+    41,
+    44,
+    47,
+    52,
+    63,
+    64,
+    92,
+    100,
+    107,
+    110,
+    203
+   ],
+   "lines_split": 43,
+   "subclips": 101,
+   "cuts_added": 58,
+   "cuts_per_min": 26.11,
+   "zero_evidence_placements": 48,
+   "snapped_to_film_cuts": 19
+  }
+ },
+ "references_cuts_per_min": [
+  19.35,
+  31.33,
+  42.95
+ ],
+ "current_cuts_per_min": 22.8,
+ "ceiling_cuts_per_min": 31.33,
+ "verdict": "NEITHER arm beats the current render. Arm A 50% (7/14), Arm B 52% (15/29) - both indistinguishable from chance. No arm is recommended and nothing was merged.",
+ "not_done": [
+  "full render of either arm",
+  "final-file picture check / mismatches by cause (needs a render)"
+ ]
+}

@@ -33,6 +33,8 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, ROOT)
 sys.stdout.reconfigure(encoding="utf-8")
 
+import config  # noqa: E402
+
 OUT = os.path.join(ROOT, "config", "cut_rate_control.json")
 
 
@@ -130,10 +132,24 @@ def main() -> int:
     verdict = {}
     if rate and ours.get("final.mp4", {}).get("cuts_per_min"):
         ourrate = ours["final.mp4"]["cuts_per_min"]
-        ceiling = rate[-1]
+        # HELD, not auto-maxed. The viewer pinned 31.33 after the first two
+        # references; the third (a Vietnamese channel) cuts at 42.95/min with
+        # 87% of its shots under two seconds, which would raise an auto-max
+        # ceiling by a third. Taking that silently would let the edit chase
+        # the fastest channel in the set rather than the band the viewer
+        # chose, so the measured max is REPORTED and the ceiling stays where
+        # it was put.
+        measured_max = rate[-1]
+        ceiling = float(getattr(config, "CLAUSE_CUTS_PER_MIN_MAX",
+                                measured_max))
         verdict = {
             "reference_cuts_per_min": rate,
             "ceiling_cuts_per_min": ceiling,
+            "ceiling_is_held_not_maxed": True,
+            "measured_max_cuts_per_min": measured_max,
+            "ceiling_note": ("held at the viewer's pinned value; the "
+                             "measured max across references is higher and "
+                             "is recorded beside it"),
             "our_cuts_per_min": ourrate,
             "headroom_cuts_per_min": round(ceiling - ourrate, 2),
             "sub_clip_floor_sec": max(p10s) if p10s else None,

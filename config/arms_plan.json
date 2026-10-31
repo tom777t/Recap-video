@@ -1,0 +1,1914 @@
+{
+ "A": {
+  "24": {
+   "segments": [
+    [
+     1094.631,
+     1102.18
+    ],
+    [
+     1102.18,
+     1114.693
+    ]
+   ],
+   "play_durs": [
+    4.88,
+    7.633
+   ],
+   "clauses": [
+    "Next morning he's late, he's in street shoes, and the entire class has to explain uwabaki to him",
+    "His solution is to help himself to a pair from the cubbies."
+   ],
+   "scores": [
+    2.0,
+    2.0
+   ],
+   "edges": [
+    1107.06
+   ],
+   "snapped": 1,
+   "merged": 0,
+   "narr_dur": 7.72
+  },
+  "36": {
+   "segments": [
+    [
+     1944.269,
+     1963.455
+    ],
+    [
+     1963.455,
+     1976.426
+    ]
+   ],
+   "play_durs": [
+    4.54,
+    14.646
+   ],
+   "clauses": [
+    "He slides out last with the front end hanging open, and the crowd swarms the car like an exhibit",
+    "The man who handed him the keys is already leaning into his window"
+   ],
+   "scores": [
+    8.0,
+    2.0
+   ],
+   "edges": [
+    1948.809
+   ],
+   "snapped": 0,
+   "merged": 0,
+   "narr_dur": 9.02
+  },
+  "43": {
+   "segments": [
+    [
+     2466.789,
+     2474.296
+    ],
+    [
+     2474.296,
+     2487.017
+    ]
+   ],
+   "play_durs": [
+    8.24,
+    3.938
+   ],
+   "clauses": [
+    "She answers by reading him back to himself: army brat, moved around a lot, mom and dad never home, pissed off all the time",
+    "About nine seconds, start to finish."
+   ],
+   "scores": [
+    2.0,
+    2.0
+   ],
+   "edges": [
+    2454.926
+   ],
+   "snapped": 0,
+   "merged": 0,
+   "narr_dur": 9.8
+  },
+  "46": {
+   "segments": [
+    [
+     2570.809,
+     2578.901
+    ],
+    [
+     2610.682,
+     2641.713
+    ]
+   ],
+   "play_durs": [
+    3.22,
+    10.71
+   ],
+   "clauses": [
+    "A patrol car tucks in behind them",
+    "get past 180, he says"
+   ],
+   "scores": [
+    2.0,
+    2.0
+   ],
+   "edges": [
+    2582.121
+   ],
+   "snapped": 0,
+   "merged": 0,
+   "narr_dur": 5.86
+  },
+  "47": {
+   "segments": [
+    [
+     2661.066,
+     2670.283
+    ],
+    [
+     2699.146,
+     2715.662
+    ]
+   ],
+   "play_durs": [
+    6.214,
+    11.512
+   ],
+   "clauses": [
+    "Twinkie hauls him off the floor to explain the local economics",
+    "so they talk to the little guy who makes them laugh."
+   ],
+   "scores": [
+    2.0,
+    2.0
+   ],
+   "edges": [
+    2687.634
+   ],
+   "snapped": 1,
+   "merged": 0,
+   "narr_dur": 8.08
+  },
+  "49": {
+   "segments": [
+    [
+     2857.678,
+     2878.074
+    ],
+    [
+     2878.074,
+     2889.794
+    ]
+   ],
+   "play_durs": [
+    5.463,
+    6.257
+   ],
+   "clauses": [
+    "Meanwhile his father is rebuilding a wrecked Mustang he found on the base, stripped back to a shell",
+    "Sean looks it over and says it's got potential."
+   ],
+   "scores": [
+    2.0,
+    2.0
+   ],
+   "edges": [
+    2883.537
+   ],
+   "snapped": 1,
+   "merged": 0,
+   "narr_dur": 7.28
+  },
+  "52": {
+   "segments": [
+    [
+     3070.515,
+     3081.067
+    ],
+    [
+     3081.067,
+     3104.591
+    ]
+   ],
+   "play_durs": [
+    6.882,
+    16.642
+   ],
+   "clauses": [
+    "Han talks about old westerns, the cowboys running for the border, and says this is his Mexico",
+    "A man calls a city his Mexico when he has already decided it is as far as he goes."
+   ],
+   "scores": [
+    2.0,
+    2.0
+   ],
+   "edges": [
+    3087.949
+   ],
+   "snapped": 1,
+   "merged": 0,
+   "narr_dur": 10.48
+  },
+  "64": {
+   "segments": [
+    [
+     3509.577,
+     3517.168
+    ],
+    [
+     3517.168,
+     3525.385
+    ]
+   ],
+   "play_durs": [
+    3.17,
+    5.047
+   ],
+   "clauses": [
+    "Neela texts him from class to ask why she never sees him drift",
+    "He chews his knuckle over it"
+   ],
+   "scores": [
+    4.0,
+    2.0
+   ],
+   "edges": [
+    3520.338
+   ],
+   "snapped": 1,
+   "merged": 0,
+   "narr_dur": 7.04
+  },
+  "201": {
+   "segments": [
+    [
+     4431.203,
+     4442.506
+    ],
+    [
+     4453.309,
+     4460.649
+    ]
+   ],
+   "play_durs": [
+    4.46,
+    6.843
+   ],
+   "clauses": [
+    "Ahead of them the crossing is wall to wall with people",
+    "Sean's hands lock on the wheel and the pack shoulders into the crowd."
+   ],
+   "scores": [
+    4.0,
+    4.0
+   ],
+   "edges": [
+    4435.663
+   ],
+   "snapped": 0,
+   "merged": 0,
+   "narr_dur": 7.18
+  },
+  "86": {
+   "segments": [
+    [
+     4685.415,
+     4697.76
+    ],
+    [
+     4711.232,
+     4717.613
+    ]
+   ],
+   "play_durs": [
+    2.56,
+    10.912
+   ],
+   "clauses": [
+    "His father tells him to get out of Tokyo",
+    "Sean walks off down the dark street without answering"
+   ],
+   "scores": [
+    2.0,
+    4.0
+   ],
+   "edges": [
+    4700.32
+   ],
+   "snapped": 0,
+   "merged": 0,
+   "narr_dur": 7.38
+  },
+  "98": {
+   "segments": [
+    [
+     5434.202,
+     5446.381
+    ],
+    [
+     5459.853,
+     5467.235
+    ]
+   ],
+   "play_durs": [
+    7.38,
+    4.799
+   ],
+   "clauses": [
+    "They come down locked together, doors grinding, throwing sparks down the tarmac, and the Mustang opens the black coupe's flank like a tin lid",
+    "Takashi fights the wheel to stay straight."
+   ],
+   "scores": [
+    8.0,
+    2.0
+   ],
+   "edges": [
+    5441.582
+   ],
+   "snapped": 0,
+   "merged": 0,
+   "narr_dur": 8.9
+  },
+  "202": {
+   "segments": [
+    [
+     5459.853,
+     5467.235
+    ],
+    [
+     5486.546,
+     5491.05
+    ]
+   ],
+   "play_durs": [
+    3.795,
+    2.628
+   ],
+   "clauses": [
+    "He drags level with Takashi through the bends, nearly loses it",
+    "carves ahead through a wall of smoke."
+   ],
+   "scores": [
+    2.0,
+    6.0
+   ],
+   "edges": [
+    5477.912
+   ],
+   "snapped": 1,
+   "merged": 0,
+   "narr_dur": 5.2
+  },
+  "203": {
+   "segments": [
+    [
+     5537.305,
+     5545.521
+    ],
+    [
+     5545.521,
+     5554.363
+    ]
+   ],
+   "play_durs": [
+    3.378,
+    4.838
+   ],
+   "clauses": [
+    "Takashi rams him mid-drift and pins the Mustang against the drop",
+    "Sean wrenches it loose and takes the next corner alone."
+   ],
+   "scores": [
+    4.0,
+    2.0
+   ],
+   "edges": [
+    5540.683
+   ],
+   "snapped": 1,
+   "merged": 0,
+   "narr_dur": 6.36
+  },
+  "108": {
+   "segments": [
+    [
+     5674.275,
+     5683.575
+    ],
+    [
+     5683.575,
+     5698.215
+    ]
+   ],
+   "play_durs": [
+    3.72,
+    10.92
+   ],
+   "clauses": [
+    "Then the men in black walk out of the dark and the party stops breathing",
+    "Kamata says his piece straight at him and Sean takes it with his eyes down"
+   ],
+   "scores": [
+    7.5,
+    6.0
+   ],
+   "edges": [
+    5687.295
+   ],
+   "snapped": 0,
+   "merged": 0,
+   "narr_dur": 10.14
+  },
+  "110": {
+   "segments": [
+    [
+     5732.165,
+     5738.797
+    ],
+    [
+     5738.797,
+     5749.766
+    ],
+    [
+     5749.766,
+     5763.03
+    ]
+   ],
+   "play_durs": [
+    5.82,
+    3.147,
+    4.193
+   ],
+   "clauses": [
+    "Weeks later, same noise, another garage, and Twinkie is working the crowd with both fists full of other people's money",
+    "He called Sean's walk into Kamata's office suicide",
+    "dug Han's money out of that green van and funded it anyway"
+   ],
+   "scores": [
+    6.0,
+    2.0,
+    1.5
+   ],
+   "edges": [
+    5724.889,
+    5728.036
+   ],
+   "snapped": 1,
+   "merged": 0,
+   "narr_dur": 13.16
+  },
+  "111": {
+   "segments": [
+    [
+     5732.165,
+     5738.797
+    ],
+    [
+     5738.797,
+     5749.766
+    ],
+    [
+     5749.766,
+     5763.03
+    ]
+   ],
+   "play_durs": [
+    8.04,
+    1.678,
+    3.546
+   ],
+   "clauses": [
+    "Then Twinkie pushes back across the garage with news: somebody has turned up asking for Sean by name, somebody who ran with Han and calls Han family",
+    "Sean's smirk falls away",
+    "Neela holds his eye until he takes it in."
+   ],
+   "scores": [
+    6.0,
+    2.0,
+    2.0
+   ],
+   "edges": [
+    5757.806,
+    5759.484
+   ],
+   "snapped": 1,
+   "merged": 0,
+   "narr_dur": 11.14
+  }
+ },
+ "B": {
+  "6": {
+   "segments": [
+    [
+     189.355,
+     193.818
+    ],
+    [
+     193.818,
+     204.37
+    ]
+   ],
+   "play_durs": [
+    3.837,
+    11.678
+   ],
+   "clauses": [
+    "Clay calls the car a piece of junk and Sean trailer trash",
+    "lists his dad's Viper's horsepower like a man reading out his own CV"
+   ],
+   "scores": [
+    0.0,
+    0.0
+   ],
+   "edges": [
+    214.297
+   ],
+   "snapped": 1,
+   "merged": 0,
+   "narr_dur": 9.04
+  },
+  "7": {
+   "segments": [
+    [
+     297.755,
+     309.308
+    ],
+    [
+     309.308,
+     324.865
+    ]
+   ],
+   "play_durs": [
+    3.56,
+    7.993
+   ],
+   "clauses": [
+    "Then Clay's girlfriend settles the terms by putting herself up as the stake",
+    "She gets a say in exactly one thing tonight, and she spends it on this"
+   ],
+   "scores": [
+    2.0,
+    0.0
+   ],
+   "edges": [
+    301.315
+   ],
+   "snapped": 0,
+   "merged": 0,
+   "narr_dur": 7.82
+  },
+  "10": {
+   "segments": [
+    [
+     524.814,
+     547.045
+    ],
+    [
+     547.045,
+     556.596
+    ]
+   ],
+   "play_durs": [
+    1.62,
+    7.931
+   ],
+   "clauses": [
+    "Then the maths arrives",
+    "both cars leave the ground and come down end over end in front of every single person he had spent the evening showing off to."
+   ],
+   "scores": [
+    0.0,
+    2.0
+   ],
+   "edges": [
+    548.665
+   ],
+   "snapped": 0,
+   "merged": 0,
+   "narr_dur": 7.74
+  },
+  "13": {
+   "segments": [
+    [
+     641.597,
+     649.48
+    ],
+    [
+     649.48,
+     656.779
+    ],
+    [
+     656.779,
+     667.581
+    ]
+   ],
+   "play_durs": [
+    3.503,
+    3.937,
+    8.826
+   ],
+   "clauses": [
+    "Two priors for reckless driving, so this is strike three",
+    "The detective's idea of reassurance: he'll be lucky if they don't try him as an adult",
+    "He is not yet eighteen and he is out of chances."
+   ],
+   "scores": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "edges": [
+    671.084,
+    675.021
+   ],
+   "snapped": 1,
+   "merged": 0,
+   "narr_dur": 9.62
+  },
+  "18": {
+   "segments": [
+    [
+     822.235,
+     842.38
+    ],
+    [
+     842.38,
+     854.35
+    ]
+   ],
+   "play_durs": [
+    5.297,
+    14.848
+   ],
+   "clauses": [
+    "The door slides open on his father, who hasn't seen him in years and has got the date wrong",
+    "Japan is a day ahead, he explains."
+   ],
+   "scores": [
+    4.0,
+    0.0
+   ],
+   "edges": [
+    827.532
+   ],
+   "snapped": 1,
+   "merged": 0,
+   "narr_dur": 6.46
+  },
+  "24": {
+   "segments": [
+    [
+     1094.631,
+     1102.18
+    ],
+    [
+     1102.18,
+     1114.693
+    ]
+   ],
+   "play_durs": [
+    4.88,
+    7.633
+   ],
+   "clauses": [
+    "Next morning he's late, he's in street shoes, and the entire class has to explain uwabaki to him",
+    "His solution is to help himself to a pair from the cubbies."
+   ],
+   "scores": [
+    2.0,
+    2.0
+   ],
+   "edges": [
+    1107.06
+   ],
+   "snapped": 1,
+   "merged": 0,
+   "narr_dur": 7.72
+  },
+  "25": {
+   "segments": [
+    [
+     1137.424,
+     1152.481
+    ],
+    [
+     1152.481,
+     1163.158
+    ]
+   ],
+   "play_durs": [
+    6.44,
+    11.202
+   ],
+   "clauses": [
+    "Lunch brings Twinkie, who sells laptops, trainers and phones out of a school bag, sixty per cent off for a fellow army brat",
+    "Sean tells him he's got no cash and won't be here long enough to remember his name."
+   ],
+   "scores": [
+    0.0,
+    0.0
+   ],
+   "edges": [
+    1169.598
+   ],
+   "snapped": 0,
+   "merged": 0,
+   "narr_dur": 9.52
+  },
+  "29": {
+   "segments": [
+    [
+     1509.961,
+     1527.229
+    ],
+    [
+     1527.229,
+     1532.651
+    ]
+   ],
+   "play_durs": [
+    4.421,
+    1.751
+   ],
+   "clauses": [
+    "Twinkie says the word Yakuza like it should end the conversation",
+    "Sean hears it as an introduction."
+   ],
+   "scores": [
+    0.0,
+    0.0
+   ],
+   "edges": [
+    1537.072
+   ],
+   "snapped": 1,
+   "merged": 0,
+   "narr_dur": 5.62
+  },
+  "36": {
+   "segments": [
+    [
+     1944.269,
+     1963.455
+    ],
+    [
+     1963.455,
+     1976.426
+    ],
+    [
+     1976.426,
+     1987.645
+    ]
+   ],
+   "play_durs": [
+    4.54,
+    3.02,
+    11.626
+   ],
+   "clauses": [
+    "He slides out last with the front end hanging open, and the crowd swarms the car like an exhibit",
+    "The man who handed him the keys is already leaning into his window",
+    "that bill does not get paid in cash."
+   ],
+   "scores": [
+    8.0,
+    2.0,
+    0.0
+   ],
+   "edges": [
+    1948.809,
+    1951.829
+   ],
+   "snapped": 0,
+   "merged": 0,
+   "narr_dur": 9.02
+  },
+  "38": {
+   "segments": [
+    [
+     2176.667,
+     2199.815
+    ],
+    [
+     2199.815,
+     2207.573
+    ]
+   ],
+   "play_durs": [
+    1.62,
+    11.142
+   ],
+   "clauses": [
+    "The job is collections",
+    "He's sent into a bathhouse to lean on a man the size of a vending machine, gets hurled into the street, goes back in, and gets hurled out again."
+   ],
+   "scores": [
+    0.0,
+    4.0
+   ],
+   "edges": [
+    2209.193
+   ],
+   "snapped": 0,
+   "merged": 0,
+   "narr_dur": 8.0
+  },
+  "40": {
+   "segments": [
+    [
+     2301.958,
+     2310.884
+    ],
+    [
+     2310.884,
+     2317.098
+    ]
+   ],
+   "play_durs": [
+    6.799,
+    6.298
+   ],
+   "clauses": [
+    "The stake gets set across the table: an 86 Corolla against a 72, car for car, no money",
+    "Sean is now driving somebody else's bet."
+   ],
+   "scores": [
+    4.0,
+    0.0
+   ],
+   "edges": [
+    2335.617
+   ],
+   "snapped": 1,
+   "merged": 0,
+   "narr_dur": 8.02
+  },
+  "41": {
+   "segments": [
+    [
+     2341.915,
+     2352.884
+    ],
+    [
+     2352.884,
+     2365.355
+    ],
+    [
+     2365.355,
+     2382.83
+    ],
+    [
+     2382.83,
+     2387.377
+    ]
+   ],
+   "play_durs": [
+    4.18,
+    2.04,
+    2.34,
+    8.915
+   ],
+   "clauses": [
+    "Then the kid gets sent outside so the grown-ups can talk",
+    "they are leaning on Han about when it lands",
+    "Sit pretty and let him handle it, he tells them",
+    "Then the smile goes."
+   ],
+   "scores": [
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "edges": [
+    2369.535,
+    2371.575,
+    2373.915
+   ],
+   "snapped": 0,
+   "merged": 0,
+   "narr_dur": 9.54
+  },
+  "42": {
+   "segments": [
+    [
+     2414.195,
+     2430.544
+    ],
+    [
+     2430.544,
+     2443.015
+    ]
+   ],
+   "play_durs": [
+    2.711,
+    13.638
+   ],
+   "clauses": [
+    "Neela turns up and he tells her to stop following him around",
+    "She's come to ask for drifting lessons"
+   ],
+   "scores": [
+    2.0,
+    0.0
+   ],
+   "edges": [
+    2416.906
+   ],
+   "snapped": 1,
+   "merged": 0,
+   "narr_dur": 10.7
+  },
+  "43": {
+   "segments": [
+    [
+     2466.789,
+     2474.296
+    ],
+    [
+     2474.296,
+     2487.017
+    ]
+   ],
+   "play_durs": [
+    8.24,
+    3.938
+   ],
+   "clauses": [
+    "She answers by reading him back to himself: army brat, moved around a lot, mom and dad never home, pissed off all the time",
+    "About nine seconds, start to finish."
+   ],
+   "scores": [
+    2.0,
+    2.0
+   ],
+   "edges": [
+    2454.926
+   ],
+   "snapped": 0,
+   "merged": 0,
+   "narr_dur": 9.8
+  },
+  "44": {
+   "segments": [
+    [
+     2487.017,
+     2514.587
+    ],
+    [
+     2514.587,
+     2540.321
+    ],
+    [
+     2548.954,
+     2560.048
+    ],
+    [
+     2560.048,
+     2570.809
+    ]
+   ],
+   "play_durs": [
+    2.16,
+    5.38,
+    1.72,
+    16.474
+   ],
+   "clauses": [
+    "Then they argue about what a race is for",
+    "Sean's version: line up, find out who's faster, done",
+    "a race should be for something that matters",
+    "Which has evidently never crossed his mind."
+   ],
+   "scores": [
+    0.0,
+    0.0,
+    2.0,
+    0.0
+   ],
+   "edges": [
+    2516.747,
+    2522.127,
+    2523.847
+   ],
+   "snapped": 0,
+   "merged": 0,
+   "narr_dur": 10.84
+  },
+  "46": {
+   "segments": [
+    [
+     2570.809,
+     2578.901
+    ],
+    [
+     2578.901,
+     2592.831
+    ]
+   ],
+   "play_durs": [
+    2.02,
+    11.91
+   ],
+   "clauses": [
+    "A patrol car tucks in behind them",
+    "Han doesn't sit up"
+   ],
+   "scores": [
+    2.0,
+    0.0
+   ],
+   "edges": [
+    2580.921
+   ],
+   "snapped": 0,
+   "merged": 1,
+   "narr_dur": 5.86
+  },
+  "47": {
+   "segments": [
+    [
+     2661.066,
+     2670.283
+    ],
+    [
+     2699.146,
+     2715.662
+    ]
+   ],
+   "play_durs": [
+    6.214,
+    11.512
+   ],
+   "clauses": [
+    "Twinkie hauls him off the floor to explain the local economics",
+    "so they talk to the little guy who makes them laugh."
+   ],
+   "scores": [
+    2.0,
+    2.0
+   ],
+   "edges": [
+    2687.634
+   ],
+   "snapped": 1,
+   "merged": 0,
+   "narr_dur": 8.08
+  },
+  "49": {
+   "segments": [
+    [
+     2857.678,
+     2878.074
+    ],
+    [
+     2878.074,
+     2889.794
+    ]
+   ],
+   "play_durs": [
+    5.463,
+    6.257
+   ],
+   "clauses": [
+    "Meanwhile his father is rebuilding a wrecked Mustang he found on the base, stripped back to a shell",
+    "Sean looks it over and says it's got potential."
+   ],
+   "scores": [
+    2.0,
+    2.0
+   ],
+   "edges": [
+    2883.537
+   ],
+   "snapped": 1,
+   "merged": 0,
+   "narr_dur": 7.28
+  },
+  "50": {
+   "segments": [
+    [
+     2878.074,
+     2889.794
+    ],
+    [
+     2889.794,
+     2898.094
+    ]
+   ],
+   "play_durs": [
+    3.0,
+    13.975
+   ],
+   "clauses": [
+    "And he gives him the saying: deru kui wa utarero",
+    "The nail that sticks out gets hammered"
+   ],
+   "scores": [
+    0.0,
+    0.0
+   ],
+   "edges": [
+    2901.094
+   ],
+   "snapped": 0,
+   "merged": 0,
+   "narr_dur": 7.7
+  },
+  "52": {
+   "segments": [
+    [
+     3057.752,
+     3070.515
+    ],
+    [
+     3070.515,
+     3081.067
+    ],
+    [
+     3081.067,
+     3104.591
+    ]
+   ],
+   "play_durs": [
+    2.08,
+    4.802,
+    16.642
+   ],
+   "clauses": [
+    "Sean asks how he ended up here",
+    "Han talks about old westerns, the cowboys running for the border, and says this is his Mexico",
+    "A man calls a city his Mexico when he has already decided it is as far as he goes."
+   ],
+   "scores": [
+    0.0,
+    2.0,
+    2.0
+   ],
+   "edges": [
+    3083.147,
+    3087.949
+   ],
+   "snapped": 1,
+   "merged": 0,
+   "narr_dur": 10.48
+  },
+  "53": {
+   "segments": [
+    [
+     3081.067,
+     3104.591
+    ],
+    [
+     3104.591,
+     3124.277
+    ],
+    [
+     3124.277,
+     3140.835
+    ]
+   ],
+   "play_durs": [
+    4.28,
+    3.34,
+    12.066
+   ],
+   "clauses": [
+    "Han's answer: he's got money",
+    "one car in exchange for knowing what a man's made of is a prize he can live with",
+    "He lent it out on purpose."
+   ],
+   "scores": [
+    0.0,
+    2.0,
+    0.0
+   ],
+   "edges": [
+    3108.871,
+    3112.211
+   ],
+   "snapped": 0,
+   "merged": 0,
+   "narr_dur": 8.96
+  },
+  "63": {
+   "segments": [
+    [
+     3346.79,
+     3354.798
+    ],
+    [
+     3402.721,
+     3413.315
+    ]
+   ],
+   "play_durs": [
+    8.1,
+    9.918
+   ],
+   "clauses": [
+    "He set rules he had no standing to enforce",
+    "he's finding out alone that they were never kept."
+   ],
+   "scores": [
+    0.0,
+    2.0
+   ],
+   "edges": [
+    3376.203
+   ],
+   "snapped": 0,
+   "merged": 0,
+   "narr_dur": 9.66
+  },
+  "200": {
+   "segments": [
+    [
+     3402.721,
+     3413.315
+    ],
+    [
+     3413.315,
+     3419.654
+    ],
+    [
+     3419.654,
+     3432.709
+    ]
+   ],
+   "play_durs": [
+    2.24,
+    2.62,
+    5.734
+   ],
+   "clauses": [
+    "Word comes up to Han at the garage rail",
+    "Somebody is standing down in the bay waiting for him",
+    "from here on the business stops leaving him alone."
+   ],
+   "scores": [
+    6.0,
+    0.0,
+    0.0
+   ],
+   "edges": [
+    3404.961,
+    3407.581
+   ],
+   "snapped": 0,
+   "merged": 0,
+   "narr_dur": 7.06
+  },
+  "64": {
+   "segments": [
+    [
+     3509.577,
+     3517.168
+    ],
+    [
+     3517.168,
+     3525.385
+    ]
+   ],
+   "play_durs": [
+    3.17,
+    5.047
+   ],
+   "clauses": [
+    "Neela texts him from class to ask why she never sees him drift",
+    "He chews his knuckle over it"
+   ],
+   "scores": [
+    4.0,
+    2.0
+   ],
+   "edges": [
+    3520.338
+   ],
+   "snapped": 1,
+   "merged": 0,
+   "narr_dur": 7.04
+  },
+  "69": {
+   "segments": [
+    [
+     3611.262,
+     3628.654
+    ],
+    [
+     3628.654,
+     3644.587
+    ]
+   ],
+   "play_durs": [
+    6.4,
+    11.91
+   ],
+   "clauses": [
+    "She used to cut class and sneak up here to watch the older kids drift",
+    "Then the guard drops and they're both laughing."
+   ],
+   "scores": [
+    0.0,
+    2.0
+   ],
+   "edges": [
+    3650.987
+   ],
+   "snapped": 0,
+   "merged": 0,
+   "narr_dur": 8.16
+  },
+  "72": {
+   "segments": [
+    [
+     3862.095,
+     3873.314
+    ],
+    [
+     3873.314,
+     3884.242
+    ]
+   ],
+   "play_durs": [
+    2.86,
+    17.243
+   ],
+   "clauses": [
+    "Neela tells DK he's changed",
+    "throws her mother's hostess past at her"
+   ],
+   "scores": [
+    0.0,
+    0.0
+   ],
+   "edges": [
+    3887.102
+   ],
+   "snapped": 0,
+   "merged": 0,
+   "narr_dur": 10.46
+  },
+  "75": {
+   "segments": [
+    [
+     4198.805,
+     4211.067
+    ],
+    [
+     4211.067,
+     4223.371
+    ],
+    [
+     4223.371,
+     4234.382
+    ]
+   ],
+   "play_durs": [
+    2.02,
+    4.22,
+    6.022
+   ],
+   "clauses": [
+    "DK puts a pistol in Han's face",
+    "Han barely blinks and tells him he'd still be shaking down tea houses without the skimming",
+    "admitting the theft and taking credit for it in the same breath"
+   ],
+   "scores": [
+    4.0,
+    0.0,
+    0.0
+   ],
+   "edges": [
+    4200.825,
+    4205.045
+   ],
+   "snapped": 0,
+   "merged": 0,
+   "narr_dur": 11.68
+  },
+  "76": {
+   "segments": [
+    [
+     4239.345,
+     4247.604
+    ],
+    [
+     4247.604,
+     4255.236
+    ]
+   ],
+   "play_durs": [
+    6.64,
+    7.749
+   ],
+   "clauses": [
+    "Han bolts out of the bay in a shower of sparks and the rest of the crew pours after him through the underpass, Sean and Neela in the red Evo",
+    "Not police chasing him"
+   ],
+   "scores": [
+    4.0,
+    0.0
+   ],
+   "edges": [
+    4270.135
+   ],
+   "snapped": 0,
+   "merged": 0,
+   "narr_dur": 8.5
+  },
+  "201": {
+   "segments": [
+    [
+     4431.203,
+     4442.506
+    ],
+    [
+     4453.309,
+     4460.649
+    ]
+   ],
+   "play_durs": [
+    4.46,
+    6.843
+   ],
+   "clauses": [
+    "Ahead of them the crossing is wall to wall with people",
+    "Sean's hands lock on the wheel and the pack shoulders into the crowd."
+   ],
+   "scores": [
+    4.0,
+    4.0
+   ],
+   "edges": [
+    4435.663
+   ],
+   "snapped": 0,
+   "merged": 0,
+   "narr_dur": 7.18
+  },
+  "84": {
+   "segments": [
+    [
+     4602.916,
+     4611.633
+    ],
+    [
+     4611.633,
+     4618.64
+    ]
+   ],
+   "play_durs": [
+    4.64,
+    3.576
+   ],
+   "clauses": [
+    "In the dark lane DK holds a pistol to Sean's head and Sean's father aims one back",
+    "Neela leaves with DK herself to get the barrel off Sean"
+   ],
+   "scores": [
+    6.0,
+    0.0
+   ],
+   "edges": [
+    4630.704
+   ],
+   "snapped": 0,
+   "merged": 0,
+   "narr_dur": 8.06
+  },
+  "85": {
+   "segments": [
+    [
+     4646.0,
+     4660.39
+    ],
+    [
+     4660.39,
+     4671.734
+    ]
+   ],
+   "play_durs": [
+    6.0,
+    18.22
+   ],
+   "clauses": [
+    "In the alley his father tries to take all of it onto himself, because he is Sean's father and the mess is his to clean up",
+    "Then Sean stops him."
+   ],
+   "scores": [
+    2.0,
+    0.0
+   ],
+   "edges": [
+    4646.0
+   ],
+   "snapped": 1,
+   "merged": 0,
+   "narr_dur": 6.96
+  },
+  "86": {
+   "segments": [
+    [
+     4685.415,
+     4697.76
+    ],
+    [
+     4711.232,
+     4717.613
+    ],
+    [
+     4717.613,
+     4732.753
+    ]
+   ],
+   "play_durs": [
+    2.56,
+    2.56,
+    8.352
+   ],
+   "clauses": [
+    "His father tells him to get out of Tokyo",
+    "Sean walks off down the dark street without answering",
+    "First time in his life he has refused to be moved on."
+   ],
+   "scores": [
+    2.0,
+    4.0,
+    0.0
+   ],
+   "edges": [
+    4700.32,
+    4702.88
+   ],
+   "snapped": 0,
+   "merged": 0,
+   "narr_dur": 7.38
+  },
+  "92": {
+   "segments": [
+    [
+     5100.036,
+     5116.594
+    ],
+    [
+     5116.594,
+     5124.31
+    ]
+   ],
+   "play_durs": [
+    5.84,
+    10.718
+   ],
+   "clauses": [
+    "The striped Mustang his dad dragged home in pieces goes up on the hoist, an engine swinging down into the bay",
+    "Every hand in that garage belongs to somebody with no reason left to help him."
+   ],
+   "scores": [
+    8.0,
+    0.0
+   ],
+   "edges": [
+    5105.876
+   ],
+   "snapped": 0,
+   "merged": 0,
+   "narr_dur": 9.16
+  },
+  "97": {
+   "segments": [
+    [
+     5340.317,
+     5348.7
+    ],
+    [
+     5348.7,
+     5360.629
+    ]
+   ],
+   "play_durs": [
+    2.711,
+    5.672
+   ],
+   "clauses": [
+    "Arms up, arms down, and they're gone into the dark",
+    "Downhill, two lanes, no barriers"
+   ],
+   "scores": [
+    5.5,
+    0.0
+   ],
+   "edges": [
+    5343.028
+   ],
+   "snapped": 1,
+   "merged": 0,
+   "narr_dur": 6.92
+  },
+  "98": {
+   "segments": [
+    [
+     5434.202,
+     5446.381
+    ],
+    [
+     5459.853,
+     5467.235
+    ]
+   ],
+   "play_durs": [
+    7.38,
+    4.799
+   ],
+   "clauses": [
+    "They come down locked together, doors grinding, throwing sparks down the tarmac, and the Mustang opens the black coupe's flank like a tin lid",
+    "Takashi fights the wheel to stay straight."
+   ],
+   "scores": [
+    8.0,
+    2.0
+   ],
+   "edges": [
+    5441.582
+   ],
+   "snapped": 0,
+   "merged": 0,
+   "narr_dur": 8.9
+  },
+  "202": {
+   "segments": [
+    [
+     5459.853,
+     5467.235
+    ],
+    [
+     5486.546,
+     5491.05
+    ]
+   ],
+   "play_durs": [
+    3.795,
+    2.628
+   ],
+   "clauses": [
+    "He drags level with Takashi through the bends, nearly loses it",
+    "carves ahead through a wall of smoke."
+   ],
+   "scores": [
+    2.0,
+    6.0
+   ],
+   "edges": [
+    5477.912
+   ],
+   "snapped": 1,
+   "merged": 0,
+   "narr_dur": 5.2
+  },
+  "203": {
+   "segments": [
+    [
+     5537.305,
+     5545.521
+    ],
+    [
+     5545.521,
+     5554.363
+    ]
+   ],
+   "play_durs": [
+    3.378,
+    4.838
+   ],
+   "clauses": [
+    "Takashi rams him mid-drift and pins the Mustang against the drop",
+    "Sean wrenches it loose and takes the next corner alone."
+   ],
+   "scores": [
+    4.0,
+    2.0
+   ],
+   "edges": [
+    5540.683
+   ],
+   "snapped": 1,
+   "merged": 0,
+   "narr_dur": 6.36
+  },
+  "100": {
+   "segments": [
+    [
+     5537.305,
+     5545.521
+    ],
+    [
+     5561.704,
+     5575.426
+    ]
+   ],
+   "play_durs": [
+    2.48,
+    11.242
+   ],
+   "clauses": [
+    "Now they're just two men refusing to lift",
+    "Door to door, headlights blazing, each one trying to post the other into the trees, and neither of them gives an inch."
+   ],
+   "scores": [
+    0.0,
+    14.0
+   ],
+   "edges": [
+    5564.184
+   ],
+   "snapped": 0,
+   "merged": 0,
+   "narr_dur": 7.76
+  },
+  "101": {
+   "segments": [
+    [
+     5589.565,
+     5593.069
+    ],
+    [
+     5593.069,
+     5603.329
+    ],
+    [
+     5612.171,
+     5621.305
+    ]
+   ],
+   "play_durs": [
+    2.1,
+    2.78,
+    4.254
+   ],
+   "clauses": [
+    "Takashi stops racing and starts shoving",
+    "into Sean's flank, scraping him along the cliff edge",
+    "hauling across the guardrail bend to put him off the road, the way it has always worked up here."
+   ],
+   "scores": [
+    0.0,
+    0.0,
+    6.0
+   ],
+   "edges": [
+    5614.271,
+    5617.051
+   ],
+   "snapped": 1,
+   "merged": 0,
+   "narr_dur": 8.96
+  },
+  "107": {
+   "segments": [
+    [
+     5668.06,
+     5674.275
+    ],
+    [
+     5674.275,
+     5683.575
+    ]
+   ],
+   "play_durs": [
+    3.42,
+    2.795
+   ],
+   "clauses": [
+    "Neela gets to him first, and the strain breaks into a grin",
+    "She chose this one herself."
+   ],
+   "scores": [
+    6.0,
+    0.0
+   ],
+   "edges": [
+    5671.48
+   ],
+   "snapped": 1,
+   "merged": 0,
+   "narr_dur": 4.08
+  },
+  "108": {
+   "segments": [
+    [
+     5674.275,
+     5683.575
+    ],
+    [
+     5683.575,
+     5698.215
+    ],
+    [
+     5698.215,
+     5707.558
+    ]
+   ],
+   "play_durs": [
+    3.72,
+    3.72,
+    7.2
+   ],
+   "clauses": [
+    "Then the men in black walk out of the dark and the party stops breathing",
+    "Kamata says his piece straight at him and Sean takes it with his eyes down",
+    "The kid from Arizona is staying."
+   ],
+   "scores": [
+    7.5,
+    6.0,
+    0.0
+   ],
+   "edges": [
+    5687.295,
+    5691.015
+   ],
+   "snapped": 0,
+   "merged": 0,
+   "narr_dur": 10.14
+  },
+  "110": {
+   "segments": [
+    [
+     5732.165,
+     5738.797
+    ],
+    [
+     5738.797,
+     5749.766
+    ],
+    [
+     5749.766,
+     5763.03
+    ]
+   ],
+   "play_durs": [
+    5.82,
+    3.147,
+    4.193
+   ],
+   "clauses": [
+    "Weeks later, same noise, another garage, and Twinkie is working the crowd with both fists full of other people's money",
+    "He called Sean's walk into Kamata's office suicide",
+    "dug Han's money out of that green van and funded it anyway"
+   ],
+   "scores": [
+    6.0,
+    2.0,
+    1.5
+   ],
+   "edges": [
+    5724.889,
+    5728.036
+   ],
+   "snapped": 1,
+   "merged": 0,
+   "narr_dur": 13.16
+  },
+  "111": {
+   "segments": [
+    [
+     5732.165,
+     5738.797
+    ],
+    [
+     5738.797,
+     5749.766
+    ],
+    [
+     5749.766,
+     5763.03
+    ]
+   ],
+   "play_durs": [
+    8.04,
+    1.678,
+    3.546
+   ],
+   "clauses": [
+    "Then Twinkie pushes back across the garage with news: somebody has turned up asking for Sean by name, somebody who ran with Han and calls Han family",
+    "Sean's smirk falls away",
+    "Neela holds his eye until he takes it in."
+   ],
+   "scores": [
+    6.0,
+    2.0,
+    2.0
+   ],
+   "edges": [
+    5757.806,
+    5759.484
+   ],
+   "snapped": 1,
+   "merged": 0,
+   "narr_dur": 11.14
+  }
+ },
+ "A_rate": 23.83,
+ "B_rate": 26.11
+}
