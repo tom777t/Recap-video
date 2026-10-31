@@ -279,6 +279,45 @@ def test_good_shape_passes() -> tuple[bool, str]:
                   f"{s['judgment_share']}, frame-only {s['frame_only_share']}")
 
 
+
+def test_persona_window_exempts_peaks() -> tuple[bool, str]:
+    """A set piece may be silent; a quiet stretch of ordinary scenes may not.
+
+    [PERSONA] wanted a narrator move every two minutes and [PEAK-ORDER]
+    requires a peak to land on action, a quotation or a hold with at most ONE
+    reaction. The final race could not satisfy both: five of its beats are
+    pure action, and the only way to close the window was commentary inside
+    the climax - the exact thing PEAK-ORDER exists to stop.
+
+    Both directions, because an exemption that swallows every gap is a mute:
+    the approved draft passes, and the pre-rewrite draft's real gap at
+    20-22 min - ordinary scenes, no peak - still fires.
+    """
+    import json as _j
+    out = []
+    for name in ("draft.json", "draft_prerewrite.json"):
+        p2 = PROJ / name
+        if not p2.exists():
+            return False, f"{name} is missing"
+        d = _j.loads(p2.read_text(encoding="utf-8-sig"))
+        gaps = [e for e in pg.pacing_report(d, PROJ)["errors"]
+                if "window(s) of" in e]
+        out.append((name, len(gaps)))
+    cur = dict(out)
+    if cur["draft.json"]:
+        return False, ("the approved draft still reports a persona window "
+                       "gap, so the set-piece exemption is not working")
+    if not cur["draft_prerewrite.json"]:
+        return False, ("the pre-rewrite draft's genuine gap stopped firing - "
+                       "the exemption is a blanket mute, not an exemption")
+    deliv = tuple(getattr(config, "PERSONA_WINDOW_EXEMPT_DELIVERIES", ()))
+    if "action" not in deliv:
+        return False, (f"config.PERSONA_WINDOW_EXEMPT_DELIVERIES is {deliv}; "
+                       f"the exemption must be declared in config")
+    return True, (f"approved draft 0 gap(s); pre-rewrite draft "
+                  f"{cur['draft_prerewrite.json']} gap(s) still reported; "
+                  f"exempt deliveries {deliv} read from config")
+
 def test_persona_detector_sane() -> tuple[bool, str]:
     src = io.open(os.path.join(ROOT, "pipeline", "pacing_gates.py"),
                   encoding="utf-8").read()
@@ -908,6 +947,7 @@ TESTS = {
     "BASIS-IS-DECLARED":        test_basis_is_declared,
     "SHIPPED-DRAFT-FAILS":      test_shipped_draft_fails,
     "GOOD-SHAPE-PASSES":        test_good_shape_passes,
+    "PERSONA-WINDOW-EXEMPT":  test_persona_window_exempts_peaks,
     "PERSONA-DETECTOR-SANE":    test_persona_detector_sane,
     "NAMED-DEFECTS":            test_named_defects,
     "ANGLE-SPEC-REQUIRED":      test_angle_spec_required,

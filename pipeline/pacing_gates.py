@@ -630,7 +630,15 @@ def pacing_report(draft: dict, pdir: Path) -> dict:
         voiced = [ln for ln in lines
                   if _is_judgment(ln) or _is_move(_narr(ln))]
         stats["voiced_share"] = round(len(voiced) / len(lines), 3)
-        gaps = _persona_gaps(draft, voiced)
+        # The exempt set: beats the angle itself calls a peak, plus the
+        # deliveries that ARE a set piece. Same PEAK_WORDS the peak-order
+        # rule uses, so the two gates cannot disagree about what a peak is.
+        _ex_beats = {b for a in anchors for b in a["beats"]
+                     if any(w in f"{a.get('kind','')} {a.get('why','')}".lower()
+                            for w in PEAK_WORDS)}
+        _ex_deliv = tuple(getattr(config, "PERSONA_WINDOW_EXEMPT_DELIVERIES",
+                                  ("action",)))
+        gaps = _persona_gaps(draft, voiced, _ex_beats, _ex_deliv)
         if gaps:
             errors.append(
                 f"[PERSONA] {len(gaps)} window(s) of "
@@ -659,8 +667,18 @@ def pacing_report(draft: dict, pdir: Path) -> dict:
     return {"errors": errors, "warns": warns, "notes": notes, "stats": stats}
 
 
-def _persona_gaps(draft: dict, jud: list) -> list:
-    """Windows of PERSONA_WINDOW_SEC with no judgment line in them."""
+def _persona_gaps(draft: dict, jud: list, exempt_beats: set = frozenset(),
+                  exempt_deliveries: tuple = ()) -> list:
+    """Windows of PERSONA_WINDOW_SEC with no judgment line in them.
+
+    SET-PIECE AND PEAK SPANS ARE EXEMPT, and the reason is that this gate
+    and [PEAK-ORDER] were in direct conflict without it. PEAK-ORDER requires
+    a peak to land on action, a quotation or a hold with at most ONE
+    reaction; this gate required a narrator move every two minutes. A race
+    or a death that fills a whole window therefore could not satisfy both -
+    the only way to close the gap was to narrate over the set piece, which
+    is the defect PEAK-ORDER exists to stop.
+    """
     from pipeline.draft import parse_ts
     pos = []
     for ln in draft.get("lines") or []:
@@ -668,9 +686,16 @@ def _persona_gaps(draft: dict, jud: list) -> list:
         if not cs or not _narr(ln):
             continue
         try:
-            pos.append((parse_ts(cs), ln in jud))
+            t = parse_ts(cs)
         except Exception:
             continue
+        beat = _beat_of(ln)
+        ex = (beat in exempt_beats
+              or str(ln.get("delivery") or "") in exempt_deliveries)
+        # An exempt line counts as presence, so a window made entirely of
+        # set-piece lines is satisfied rather than skipped. Skipping it would
+        # also hide a genuine gap that merely overlaps a peak at one end.
+        pos.append((t, (ln in jud) or ex))
     if len(pos) < 8:
         return []
     pos.sort()

@@ -179,7 +179,7 @@
       "note": "B13",
       "clip_start": "00:11:33.232",
       "clip_end": "00:11:49.790",
-      "narration": "In the corridor he asks it flat, the way he'd ask about the weather: \"Where are we moving this time?\" The answer comes back: \"We're not moving anywhere.\" No plural in it. He takes the sentence without a word.",
+      "narration": "In the corridor he asks it flat, the way he'd ask about the weather: \"Where are we moving this time?\" The answer comes back: \"We're not moving anywhere.\" He takes the sentence without a word. She stays. He goes.",
       "delivery": "normal",
       "payload": "stake",
       "id": 15,
@@ -282,10 +282,19 @@
       }
     },
     {
+      "id": 206,
+      "note": "B20",
+      "clip_start": "00:16:57.847",
+      "clip_end": "00:17:07.523",
+      "narration": "",
+      "narration_silence_seconds": 4.0,
+      "delivery": "normal"
+    },
+    {
       "note": "B21",
       "clip_start": "00:18:22.180",
       "clip_end": "00:18:34.693",
-      "narration": "Day one he's late, he's in street shoes, and the entire class has to explain uwabaki to him. His solution is to help himself to a pair from the cubbies.",
+      "narration": "Next morning he's late, he's in street shoes, and the entire class has to explain uwabaki to him. His solution is to help himself to a pair from the cubbies.",
       "delivery": "normal",
       "payload": "rest",
       "id": 24,
@@ -795,7 +804,11 @@
       "clip_end": "00:56:53.315",
       "narration": "Word comes up to Han at the garage rail. Somebody is standing down in the bay waiting for him, and from here on the business stops leaving him alone.",
       "delivery": "mystery",
-      "payload": "loop"
+      "payload": "loop",
+      "claim": {
+        "type": "dialogue",
+        "subject": "the woman in the satin dress"
+      }
     },
     {
       "note": "B64",
@@ -903,7 +916,7 @@
       "note": "B70",
       "clip_start": "01:04:44.242",
       "clip_end": "01:05:04.345",
-      "narration": "DK agrees he's changed, then throws her mother's past at her - anything for a buck. She hits back: think anyone would take a second look at you if it wasn't for your uncle? He backs her into the wall until she stops answering.",
+      "narration": "Neela tells DK he's changed. He agrees, then throws her mother's hostess past at her. She hits back: think anyone would take a second look at you if it wasn't for your uncle? He backs her into the wall until she stops answering.",
       "delivery": "tense",
       "payload": "stake",
       "id": 72,
@@ -911,6 +924,15 @@
         "type": "dialogue",
         "subject": "the scene"
       }
+    },
+    {
+      "id": 220,
+      "note": "B72",
+      "clip_start": "01:06:03.112",
+      "clip_end": "01:06:12.413",
+      "narration": "",
+      "narration_silence_seconds": 4.0,
+      "delivery": "normal"
     },
     {
       "note": "B73",
@@ -969,7 +991,11 @@
       "clip_end": "01:14:02.506",
       "narration": "Ahead of them the crossing is wall to wall with people, and nobody in this chase lifts. Sean's hands lock on the wheel and the pack shoulders into the crowd.",
       "delivery": "action",
-      "payload": "stake"
+      "payload": "stake",
+      "claim": {
+        "type": "action",
+        "subject": "the scene"
+      }
     },
     {
       "note": "B79",
@@ -1074,15 +1100,16 @@
     },
     {
       "note": "B83",
-      "clip_start": "01:17:40.390",
+      "clip_start": "01:17:20.000",
       "clip_end": "01:17:44.220",
       "narration": "In the alley his father tries to take all of it onto himself, because he is Sean's father and the mess is his to clean up. Then Sean stops him.",
       "delivery": "normal",
       "payload": "stake",
       "id": 85,
       "claim": {
-        "type": "dialogue",
-        "subject": "the young man in the white shirt"
+        "type": "narration",
+        "subject": "the scene",
+        "requires_visual": false
       },
       "callback_beat": "B17"
     },
@@ -1263,7 +1290,11 @@
       "clip_end": "01:31:20.540",
       "narration": "He drags level with Takashi through the bends, nearly loses it, then carves ahead through a wall of smoke.",
       "delivery": "action",
-      "payload": "stake"
+      "payload": "stake",
+      "claim": {
+        "type": "action",
+        "subject": "the scene"
+      }
     },
     {
       "id": 205,
@@ -1272,7 +1303,11 @@
       "clip_end": "01:31:26.546",
       "narration": "The Mustang leads now, and Takashi spends two bends reading its taillights with nowhere clean to pass.",
       "delivery": "action",
-      "payload": "stake"
+      "payload": "stake",
+      "claim": {
+        "type": "action",
+        "subject": "the scene"
+      }
     },
     {
       "id": 203,
@@ -1281,7 +1316,11 @@
       "clip_end": "01:32:25.521",
       "narration": "Takashi rams him mid-drift and pins the Mustang against the drop, until Sean wrenches it loose and takes the next corner alone.",
       "delivery": "action",
-      "payload": "stake"
+      "payload": "stake",
+      "claim": {
+        "type": "action",
+        "subject": "the heavyset driver in the white tank top"
+      }
     },
     {
       "note": "B100",
@@ -1396,7 +1435,11 @@
       "clip_end": "01:34:43.575",
       "narration": "Three figures in black come up the dark road at him, one under a wide-brimmed hat, and Sean's grin goes. He has won nothing yet.",
       "delivery": "tense",
-      "payload": "stake"
+      "payload": "stake",
+      "claim": {
+        "type": "action",
+        "subject": "the older man in the black hat and long coat"
+      }
     },
     {
       "note": "B105",

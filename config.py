@@ -1382,3 +1382,16 @@ SEMANTIC_DUP_MIN_ARGS = 1
 # genuine quotation is identified by one content word, so this costs no
 # recall - the synthetic speaker-mismatch fixtures carry 3-6 content words.
 ENDING_CALLBACK_MIN_CONTENT_WORDS = 2
+# Deliveries that ARE a set piece, exempt from the persona-presence window.
+# THE DEFECT: [PERSONA] demanded a narrator move every two minutes and
+# [PEAK-ORDER] demands a peak land on action, a quotation or a hold with at
+# most ONE reaction. A race or a death that fills a whole window could not
+# satisfy both, and the only way to close the gap was to narrate OVER the set
+# piece - which is the thing PEAK-ORDER exists to stop. The final race
+# tripped it on exactly that: five restored beat lines, all pure action, and
+# the fix would have been commentary inside the climax.
+# A line on a peak beat, or carrying one of these deliveries, now counts as
+# presence rather than silence. Not calibrated and not claimed to be: it is a
+# conflict resolution between two rules, and the rule that yields is the one
+# whose remedy would damage the film.
+PERSONA_WINDOW_EXEMPT_DELIVERIES = ("action",)
