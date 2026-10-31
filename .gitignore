@@ -1,4 +1,4 @@
-﻿# Media & heavy derived artifacts (keep on disk, not in git)
+# Media & heavy derived artifacts (keep on disk, not in git)
 *.mp4
 *.mp3
 *.wav
@@ -81,3 +81,6 @@ projects/*/_work_cal/
 # material. Regenerable, large, measurement-local. Downloaded model weights.
 projects/*/_fingerprints/
 models/
+# Reference recap VIDEOS: fetched for cut-rate calibration, hundreds of MB,
+# and not ours to redistribute. The measurements go in config/, not the files.
+references/video/
