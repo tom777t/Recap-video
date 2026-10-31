@@ -547,6 +547,27 @@ def validate_draft(project: str, *, write_state: bool = False,
         errors.extend(_co["errors"])
         for _w in _co["warns"]:
             console.print(f"[yellow]{_w}[/]")
+
+        # ---- PHASE 3: repetition, and the two review artifacts ----------
+        # The gates above judge the line and the shape. These two judge what
+        # a reader notices and a counter does not: a callback said so often
+        # it stops being a callback, and the things only a fresh pair of
+        # eyes finds - a referent whose beat was cut, a pronoun with two
+        # possible antecedents, a claim about the film that is in no beat.
+        #
+        # The review gates do not do the reviewing. They enforce that it
+        # happened, that it covers the CURRENT text, and that every finding
+        # was resolved or answered - the same mechanism as the angle
+        # evidence audit, for the same reason: an intention is not a check.
+        from pipeline import motif_gates as _mot
+        from pipeline import review_artifacts as _rev
+        for _mod, _fn in ((_mot, "motif_report"), (_rev, "review_report")):
+            _rp = getattr(_mod, _fn)(draft, _pdir)
+            errors.extend(_rp.get("errors") or [])
+            for _w in _rp.get("warns") or []:
+                console.print(f"[yellow]{_w}[/]")
+            for _nt in _rp.get("notes") or []:
+                console.print(f"[dim]{_nt}[/]")
     except Exception as _ce:                              # pragma: no cover
         # D-GREEN: mot audit thieu dau vao phai NOI RA, khong duoc im lang xanh.
         console.print(f"[red][CRAFT] gates did not run: {_ce}[/] "
@@ -679,9 +700,25 @@ def validate_draft(project: str, *, write_state: bool = False,
     if isinstance(draft, dict):
         draft["_audit_severity"] = audit_sev or "clean"
         if isinstance(audit, dict):
+            # BUG, found 2026-10-30 by tools/test_runtime_band.py
+            # RUNTIME-WIRED-END-TO-END, and FIXED here rather than asserted
+            # around. `runtime_over` was produced by _run_phase1_audits (see
+            # its return dict) and READ by recap.py in two places
+            # (cmd_draft's causes list, cmd_render's _fatal list) - but this
+            # whitelist, the only bridge between the two, did not carry it.
+            # Both ends existed and matched; the wire between them was cut,
+            # so `r.get("runtime_over")` was always None. A draft over the
+            # band still exited 1 (sev="hard" travels separately) but
+            # reported the useless fallback cause "a hard audit finding that
+            # is NOT a binding mismatch", and `render` never blocked on it
+            # despite recap.py:252 being written to.
+            #
+            # A source-text test of either END would have passed. That is why
+            # tools/test_runtime_band.py asserts the BRIDGE by name.
             for _k in ("binding_mismatch", "binding_violations", "reveal_hits",
                        "binding_unverified", "binding_checked",
-                       "continuity_issues", "beat_coverage", "stage", "style"):
+                       "continuity_issues", "beat_coverage", "stage", "style",
+                       "runtime_over"):
                 if _k in audit:
                     draft[_k] = audit[_k]
     return draft
@@ -2685,11 +2722,28 @@ def _run_phase1_audits(project, pdir):
     for _prob in bc.get("ts_problems", []):
         console.print(f"[red][BEAT-MAP][/] {_prob}")
 
-    # ---- [RUNTIME-BAND]: soft warn outside ~15-20% of the film's runtime -----
-    # A recap that tells everything is not a recap. The human reference (Bad
-    # Genius) sits near 15% of film runtime. This is a SOFT band: it warns,
-    # never blocks - a film can honestly want more or less, and hard-failing on
-    # runtime is how the pre-craft work drifted into padding to hit a number.
+    # ---- [RUNTIME-BAND]: BLOCKS above the band ------------------------------
+    # Re-calibrated on the nine shipped renders (config/runtime_control.json).
+    # It used to warn in both directions, on a band of 15-20% of film runtime
+    # whose floor was the shipped population's CEILING - no render ever
+    # reached the middle of it. Being a bare console.print with no severity,
+    # it also could not stop anything: a draft 30% over came back from a brief
+    # to CUT words and shipped as a note nobody had to act on.
+    #
+    # Two changes. The bar is ABSOLUTE MINUTES, because across those renders
+    # film length varies 1.67x while the finished recap holds 15.0-18.8 min -
+    # the share is the looser statistic (1.57x against 1.25x) and a share band
+    # wide enough to hold every shipped render rejects nothing. And over the
+    # top blocks, because that is the direction the draft drifts and the
+    # direction the viewer complained about; under is still a warning, since a
+    # film can honestly have less to say.
+    #
+    # BASIS. The draft can only see words/WPM, but the bar describes the
+    # finished video, which also carries holds, the intro, music tails and the
+    # gaps between lines. The estimate is converted by the MEASURED factor
+    # rather than compared raw - otherwise the two stages enforce one number
+    # on two bases, which is the mistake this file keeps making.
+    _rt_over = None
     try:
         import config as _cfg3
         _wpm = float(getattr(_cfg3, "TTS_WORDS_PER_MINUTE", 186) or 186)
@@ -2697,24 +2751,50 @@ def _run_phase1_audits(project, pdir):
         _words = sum(len((getattr(l, "narration", "") or "").split())
                      for l in d.lines)
         if _film_sec and _words:
+            _k = float(getattr(_cfg3, "RECAP_RUNTIME_RENDER_OVER_DRAFT", 1.0))
             _est_min = _words / _wpm
+            _pred = _est_min * _k          # predicted finished runtime
             _film_min = _film_sec / 60.0
-            _pct = 100.0 * _est_min / _film_min
-            _lo, _hi = (float(getattr(_cfg3, "RECAP_RUNTIME_PCT_LO", 15.0)),
-                        float(getattr(_cfg3, "RECAP_RUNTIME_PCT_HI", 20.0)))
-            _band = (f"{_lo:.0f}-{_hi:.0f}% of the {_film_min:.0f}-min film "
-                     f"= {_film_min*_lo/100:.1f}-{_film_min*_hi/100:.1f} min")
-            if _pct < _lo or _pct > _hi:
+            _pct = 100.0 * _pred / _film_min
+            _mx = float(getattr(_cfg3, "RECAP_RUNTIME_MAX_MINUTES", 19.0))
+            _mn = float(getattr(_cfg3, "RECAP_RUNTIME_MIN_MINUTES", 14.0))
+            _plo = float(getattr(_cfg3, "RECAP_RUNTIME_PCT_LO", 9.0))
+            _phi = float(getattr(_cfg3, "RECAP_RUNTIME_PCT_HI", 20.0))
+            _why = []
+            if _pred > _mx:
+                _why.append(f"{_pred:.1f} min over the {_mx:.0f} min ceiling")
+            if _pct > _phi:
+                _why.append(f"{_pct:.0f}% over the {_phi:.0f}% share guard "
+                            f"(the out-of-domain check, for films shorter "
+                            f"than anything calibrated)")
+            if _why:
+                _rt_over = (f"est. {_est_min:.1f} min of narration -> "
+                            f"{_pred:.1f} min finished (x{_k:.3f}, measured): "
+                            + "; ".join(_why))
                 console.print(
-                    f"[yellow][RUNTIME-BAND][/] est. {_est_min:.1f} min "
-                    f"({_pct:.0f}% of runtime) is outside the soft band {_band}. "
-                    f"Warning only - a film may honestly want this length.")
+                    f"[red][RUNTIME-BAND][/] {_rt_over}. Shipped renders run "
+                    f"15.0-18.8 min. Cut connective tissue - bridges, "
+                    f"commentary and restatement - and leave the anchors "
+                    f"their dwell. THIS BLOCKS.")
+                sev = "hard"
+            elif _pred < _mn or _pct < _plo:
+                console.print(
+                    f"[yellow][RUNTIME-BAND][/] est. {_est_min:.1f} min -> "
+                    f"{_pred:.1f} min finished, under the {_mn:.0f} min floor "
+                    f"({_pct:.0f}% of a {_film_min:.0f}-min film). Warning "
+                    f"only - a film can honestly have less to say.")
             else:
                 console.print(
-                    f"[dim][RUNTIME-BAND] est. {_est_min:.1f} min ({_pct:.0f}%) "
-                    f"within the soft band {_band}.[/]")
-    except Exception:
-        pass
+                    f"[dim][RUNTIME-BAND] est. {_est_min:.1f} min -> "
+                    f"{_pred:.1f} min finished ({_pct:.0f}% of "
+                    f"{_film_min:.0f} min), inside {_mn:.0f}-{_mx:.0f} "
+                    f"min.[/]")
+    except Exception as _rte:
+        # NOT `pass`. A runtime check that cannot run has to say so: this
+        # block used to swallow everything, so a gate that silently stopped
+        # measuring was indistinguishable from one that passed.
+        console.print(f"[red][RUNTIME-BAND] did not run: {_rte}[/] "
+                      f"Treat this draft as UNCHECKED for runtime.")
 
     # ---- BINDING-INTEGRITY (stage 1: report only, never blocks) -------------
     pdir = config.project_dir(project)
@@ -2943,6 +3023,11 @@ def _run_phase1_audits(project, pdir):
         "continuity_issues": len(cont),
         "binding_violations": len(violations),
         "reveal_hits": len(reveal_hits),
+        # A hard gate MUST report its own cause here, or recap.py
+        # falls back to "a hard audit finding that is NOT a binding
+        # mismatch - read the report above for which", which is the
+        # least useful line the tool can print.
+        "runtime_over": _rt_over,
         "set_piece_over": len(sp_cov.get("over", [])) if sp_cov.get("present") else 0,
     }
 

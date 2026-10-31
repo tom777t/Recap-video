@@ -439,6 +439,35 @@ if (Should 'draft') {
         if ($LASTEXITCODE -ne 0) { Bad "assemble_draft that bai"; exit 1 }
     }
 
+    # HAI BAN DOC DOC LAP, truoc checkpoint nguoi. [COLD-READ] va [REVIEWER]
+    # chan draft cho den khi co ca hai, nen day khong phai viec lam sau. Agent
+    # viet draft KHONG duoc lam viec nay: mot nguoi doc lai bai minh viet
+    # khong thay gi.
+    if (-not (Test-Path "$Pdir\cold_read.md") -or
+        -not (Test-Path "$Pdir\review.md")) {
+        Halt "REVIEW - hai subagent MOI, chua tung thay draft nay" @(
+            "1. COLD READ (agent chua he thay phim, beats, angle hay payload):"
+            "   python tools\cold_read_payload.py $Project > _coldread.txt"
+            "   No chi doc file do - khong co delivery tag, khong co payload"
+            "   label, khong co hook question. Liet ke:"
+            "     - thu duoc nhac nhu da biet ma script chua gioi thieu"
+            "     - dai tu mo ho (hai nguoi deu co the la 'he')"
+            "     - cho nao doc mot lan khong hieu"
+            "     - claim ve viec nhan vat 'luon' / 'ca phim' lam gi"
+            "   Ghi: $Pdir\cold_read.md"
+            ""
+            "2. REVIEWER (agent moi, checklist co dinh): phat hien cua cold"
+            "   read, motif budget, cau lap, claim khong co cho kiem, dat ten"
+            "   o reveal, va cac dinh diem co bi noi chen len khong."
+            "   Ghi: $Pdir\review.md"
+            ""
+            "Ca hai file: khoi review-signatures (tool in ra san de dan) va"
+            "khoi review-findings 'STATUS | kind | line ids | text'. Moi"
+            "FINDING phai thanh RESOLVED hoac ANSWERED."
+        ) ".\run.ps1 -Project $Project -From draft"
+        exit 0
+    }
+
     $code = Recap @('draft', '--project', $Project) -AllowSoftFail
     if ($code -eq 1) {
         if ($round -ge 3) {

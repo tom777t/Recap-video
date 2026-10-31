@@ -129,10 +129,23 @@ Gates that run here:
 | `[DUPLICATE-ID]` | line ids are unique — **hard failure** |
 | `[CAPACITY-WORDS]` | narration fits the shot it is bound to |
 | `[VISUAL-MEMORY]` | separate lines are not pulling the same-looking footage |
+| `[PERSONA-CEILING]` | judgment share is not **above** 35% — the narrator talking over the film |
+| `[PERSONA-RUN]` | no more than 2 judgment lines back to back; a hold breaks the run |
+| `[PEAK-ORDER]` | a peak's first line is the moment, not the opinion of it, and only one line reacts |
+| `[ANCHOR-CLEAN]` | every anchor keeps at least one line that is purely the moment |
+| `[CLAIM-SUPPORT]` | a claim about repeated or film-long behaviour cites a beat that exists |
+| `[NAME-AT-REVEAL]` | once a reveal lands, the character is named — the spoiler hold applies *before* it |
+| `[RUNTIME-BAND]` | predicted finished runtime inside 14–19 min — **hard failure above it**, blocks the render |
 
 A red gate means the numbers below it cannot be trusted. `[FOOTAGE-DROPPED]`
 specifically means some of the catalogue failed to load and **the audits below
 it are degraded** — a clean report under that line means nothing.
+
+This table's `| Gate | Checks |` format carries no column for *which fixture
+proves the gate fires*, so that evidence lives in
+`docs/WRITING_CRAFT_CRITERION.md` ("Which fixture proves each of the eight
+gates above") and in the per-case docstrings of `tools/test_pacing.py`,
+`tools/test_continuity_new.py` and `tools/test_runtime_band.py`.
 
 ### 8. Render
 

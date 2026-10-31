@@ -79,6 +79,156 @@ ERROR = blocks the draft. WARNING = printed, does not block.
 | `[NARRATOR-VOICE]` | >=1 judgment-or-aside per 30 lines, and >=4 per draft | ERROR |
 | `[LOOP-CADENCE]` | no gap longer than 12 lines without a `loop` payload | ERROR (v2 drafts) |
 | `[SILENCE-UNIT]` | blank narration requires `narration_silence_seconds`; <2s ERROR; >12s WARNING; count outside 3-6 WARNING | mixed |
+| `[PERSONA-CEILING]` | judgment share (writer's label AND classifier agreeing) <= `config.PERSONA_JUDGMENT_SHARE_MAX` = 0.35 | ERROR |
+| `[PERSONA-RUN]` | no more than `config.PERSONA_JUDGMENT_RUN_MAX` = 2 judgment lines back to back; a hold, a film-speaks unit or any non-judgment line breaks the run | ERROR |
+| `[PEAK-ORDER]` | on an anchor the angle names a peak: the first line bound to it is not commentary, and at most `config.PERSONA_PEAK_REACTION_MAX` = 1 of its lines is | ERROR |
+| `[ANCHOR-CLEAN]` | every anchor keeps >= `config.PERSONA_ANCHOR_CLEAN_LINES_MIN` = 1 line the classifier does not call commentary | ERROR |
+| `[CLAIM-SUPPORT]` | a line claiming repeated or film-long behaviour carries `callback_beat` naming a beat that EXISTS in the beat map; no readable map degrades to "unverifiable", never to silence | ERROR |
+| `[NAME-AT-REVEAL]` | for each `reveals.json` entry whose `fact` names a character in `names.json`, >= 1 narrated line bound at or after the reveal's `land` uses that name | ERROR |
+| `[RUNTIME-BAND]` | predicted finished runtime = (words / `TTS_WORDS_PER_MINUTE`) x `RECAP_RUNTIME_RENDER_OVER_DRAFT` (1.046, measured). Over `RECAP_RUNTIME_MAX_MINUTES` (19.0) or over `RECAP_RUNTIME_PCT_HI` (20.0)% of film runtime ERRORs and blocks the render; under `RECAP_RUNTIME_MIN_MINUTES` (14.0) or under `RECAP_RUNTIME_PCT_LO` (9.0)% WARNs | mixed |
+| `[MOTIF-BUDGET]` | each running bit in `angle.md`'s RUNNING BITS touches <= `config.MOTIF_LINES_MAX` (4) narrated lines = 1 setup + `MOTIF_CALLBACKS_MAX` (2) callbacks + 1 payoff; a bit the angle promises and the draft never runs WARNs; an unparseable RUNNING BITS entry ERRORs | mixed |
+| `[MOTIF-THESIS]` | <= `config.MOTIF_THESIS_MAX` (1) explicit "that's the whole film"-shaped statement outside the outro | ERROR |
+| `[MOTIF-ADJACENT]` | content-word overlap between two ADJACENT narrated lines <= `config.MOTIF_ADJACENT_OVERLAP_MAX` (0.50), measured |A n B| / min(|A|,|B|); pairs under 4 content words skipped with a note | ERROR |
+| `[TIC-REPETITION]` | no `config.TIC_NGRAM_N` (3) word n-gram carrying >= `TIC_MIN_CONTENT_WORDS` (2) content words appears more than `TIC_NGRAM_MAX` (1) time, excluding quoted speech and names | ERROR |
+| `[COLD-READ]` | `cold_read.md` exists, carries a `review-signatures` block covering >= `config.REVIEW_SIGNATURE_MIN_COVERAGE` (0.95) of narrated lines, has no line edited since signing that no resolved finding names, and every `FINDING` is `RESOLVED` or `ANSWERED` (an `ANSWERED` needs >= `REVIEW_ANSWER_MIN_WORDS` (8) words) | ERROR |
+| `[REVIEWER]` | the same contract on `review.md` | ERROR |
+
+### Which fixture proves each gate above
+
+The heading used to say "the eight gates above" over a list of seven, and six further gates - the four motif/tic gates and the two review artifacts - were live and wired with no row at all. Counting the gates in a sentence is not a registry.
+
+The table's `| Gate | Rule | Severity |` format carries no fixture column, and
+widening it would rewrite 16 existing rows, so the evidence is recorded here
+instead. A gate nobody has shown to fire is decoration; a gate nobody has
+shown to STAY SILENT is a wall.
+
+| Gate | Fires on | Stays silent on | Test |
+|---|---|---|---|
+| `[PERSONA-CEILING]` | `tools/fixtures/draft_tokyodrift_overcorrected.json` - 58 of 111 lines (52.3%) | `projects/tokyodrift2006/draft_prerewrite.json` (10.4%) | `tools/test_pacing.py` PERSONA-CEILING, PREREWRITE-SEPARATES |
+| `[PERSONA-RUN]` | the same fixture - 8 places over the cap, the longest 5 | the pre-rewrite draft (longest run 0); a hold between two judgment lines | `tools/test_pacing.py` PERSONA-RUN |
+| `[PEAK-ORDER]` | the same fixture - 6 findings (B65 and B79/B80 open on commentary; B13 x3, B65 x4, B79/B80 x5, B101 x3 reactions) | the same lines reordered action-first; a non-peak anchor with the identical shape | `tools/test_pacing.py` PEAK-ORDER |
+| `[ANCHOR-CLEAN]` | the same fixture - B58 and B65, 4 lines each, 0 without commentary | an anchor with one plain line, or one quotation | `tools/test_pacing.py` ANCHOR-CLEAN |
+| `[CLAIM-SUPPORT]` | the same fixture - 12 lines, all "cites no beat"; and "B99" against a 3-beat map | the same lines once they cite a beat that exists; a one-off past-tense sentence | `tools/test_continuity_new.py` CLAIM-CITATION, CLAIM-PHRASES, CLAIM-REAL-DRAFT |
+| `[NAME-AT-REVEAL]` | the same fixture - "Dominic" at 01:36:38, never named after the landing | the same draft with the name added after the landing; a reveal naming nobody in `names.json` | `tools/test_continuity_new.py` NAME-AT-REVEAL-BOTH, NAME-AT-REVEAL-REAL |
+| `[RUNTIME-BAND]` | a draft whose RAW estimate is 18.5 min - UNDER the ceiling - and predicts 19.35; 15.0 min on a 60-min film (share guard) | 17.0 min predicted; 13.0 min predicted (warns, does not block) | `tools/test_runtime_band.py` (all seven cases) |
+
+## Derivation of the new bars: population, statistic rejected, bar used
+
+The seven gates above were added after the PHASE 1 bars; this section records
+where each number came from, in the same form as "Deviations from the report"
+— because the standing complaint about PHASE 1 was that **5 of its 11 bars were
+set where the gold standard failed**, and a new bar with no derivation written
+down is the next instance of that. Raw numbers in `config/runtime_control.json`
+and `config/judgment_control.json`; full record in
+`docs/stage2/REVIEW_CALIBRATION.md`.
+
+| Bar | Measured on | Statistic REJECTED, and why | Bar actually used |
+|---|---|---|---|
+| `[RUNTIME-BAND]` ceiling | 9 shipped renders (`final.mp4` measured, films 101-169 min) | **share of film runtime.** Spread 1.251x against 2.180x for absolute minutes - the share is the LOOSER statistic, and a share band wide enough to hold every shipped render (9.6-15.0%) rejects nothing | **absolute minutes**: >19.0 predicted finished ERRORs. Shipped renders run 15.0-18.8 min |
+| `[RUNTIME-BAND]` share guard | the same 9 | nothing - it is **not** calibrated, and says so | 20.0%, deliberately loose. Out-of-domain guard only: the population is 101-169 min films, and on a 60-min film 19 min is a third of the picture |
+| `[RUNTIME-BAND]` floor | the same 9 | the **old 15.0% floor**, which declared 7 of the 9 shipped renders out of band - it was the population's *ceiling* being used as a floor | 14.0 min / 9.0%, **WARNING only** |
+| draft->render conversion | 8 of the 9 renders (one unpaired) | the raw draft estimate. Comparing `words/WPM` against a bar describing `final.mp4` enforces one number on two bases | **x1.046**, median of 0.964-1.136 measured |
+| `[PERSONA-CEILING]` | 2 of our own drafts, viewer's verdict as the label | **the reference corpus.** 5 files spread 9x by sentence (0.047-0.418) with **nothing between 0.108 and 0.418**: the "upper end" is either 0.108, which both our drafts exceed, or 0.418, which rejects nothing | **0.35**, sited between 0.104 (no complaint) and 0.523 (called overcorrected), nearer the complaint |
+| `[PERSONA-RUN]` | 5 English references, by sentence | nothing - this is the **robust** judgment statistic: longest runs are 1, 1, 2, 2, 8, four of five at or under 2 | **2**. The overcorrected draft runs 14 lines |
+| `PERSONA_JUDGMENT_SHARE_MIN` | 5 English references, converted x2.05 to the line basis | **0.22 itself.** Converted shares are 0.096, 0.098, 0.154, 0.221, 0.857 - three of five cannot satisfy it | **0.15**, just under the quiet-end reference (0.154) |
+| `[PEAK-ORDER]`, `[ANCHOR-CLEAN]` | the overcorrected draft's own defect | no statistic was available to reject - these are **decisions** | 1 reaction line per peak; >=1 clean line per anchor |
+| `[CLAIM-SUPPORT]`, `[NAME-AT-REVEAL]` | shipped defects, n=1 each | a count has no meaning here: the bar is "cite a beat that exists" / "use the name after the landing", not a frequency | ERROR, both |
+| motif + tic bars | the defect, on the overcorrected draft | **the reference corpus, as impossible in principle** - see below | decisions, listed in `config.py` |
+
+### Three things that must not be read as stronger than they are
+
+**1. The runtime bar is on absolute minutes because the share is looser, and
+one render was excluded by rule.** Across the nine renders film length varies
+**1.670x** while the finished recap holds **15.0-18.8 min**: spread **1.251x**
+absolute against **2.180x** for the share. The quantity that moves is measuring
+something other than the constraint, which is the same test that threw out
+`lines_per_scene_mean` in `docs/stage2/PACING_CALIBRATION.md`. Both those
+spreads **exclude one render** - the project `shutterisland2010_linear`, which
+shipped at 9.12 min / 6.9% - and it is excluded by the **1.5xIQR rule**, not by
+preference: Q1 15.355, Q3 17.88, IQR 2.525, lower fence **11.57**, and 9.12
+falls below it. Nothing exceeds the upper fence. Included, the raw spreads read
+2.062x and 2.18x and neither statistic looks usable, which is why the exclusion
+is named rather than quietly applied.
+
+**2. The judgment CEILING is NOT reference-calibrated, and the references are
+the reason.** By sentence they measure 0.047, 0.048, 0.075, 0.108 and 0.418 - a
+**9x** spread with **nothing between 0.108 and 0.418**. A distribution with a
+3.9x hole in the middle of it and n=5 has no upper quantile worth the name, so
+the genre simply does not agree on a judgment density. The ceiling is therefore
+sited the way `config/shipped_render_defects.json` sites the render thresholds:
+on **our own two drafts, with the viewer's verdict as the label** - 0.104 drew
+no complaint about commentary, 0.523 was called overcorrected, and 0.35 sits
+between them nearer the complaint. That is n=2 and a human verdict rather than
+a measurement. It is a defensible siting, **not a calibration**, and the first
+third draft to give it a real distribution should move it.
+
+**3. The judgment FLOOR was lowered because the gold standard failed it, and
+22% had no derivation recorded anywhere.** Converted to the line basis by the
+x2.05 factor measured on our own drafts, the five references sit at 0.096,
+0.098, 0.154, 0.221, 0.857. **Three of five cannot satisfy a 0.22 floor at
+all**; of the two that can, one sits exactly on it and the other is the chatty
+outlier. The argument is airtight even though the gate measures the
+label-and-classifier *agreement* rather than the classifier alone, because the
+agreed set is a strict subset: `agreed <= classifier`, so a reference whose
+classifier share is 0.096 cannot clear 0.22 however its lines were labelled. A
+bar the gold standard fails is a broken bar - the finding this file was written
+to record, now applied to one of its own successors. And **nothing anywhere in
+the repo recorded a derivation for 0.22**: the comment above the constant
+explained the instrument in detail and never said where the number came from.
+It was not a measurement being revised; it was an unsourced number being
+replaced by a measured one.
+
+A fourth point belongs with these, because it is the easiest thing here to
+misread: **judgment does not cure flatness.** The draft viewers called flat
+measured 0.213 by sentence - **above four of the five references**. Flatness was
+a dwell defect and `PACING-CONTOUR` is what fixed it. Raising a judgment floor
+to fix dwell is exactly how 0.104 became 0.523.
+
+### The motif and tic bars are DECISIONS, and cannot be otherwise
+
+`MOTIF_CALLBACKS_MAX`, `MOTIF_LINES_MAX`, `MOTIF_THESIS_MAX`,
+`MOTIF_ADJACENT_OVERLAP_MAX` and the three `TIC_*` constants are **not derived
+from any population, and no population exists to derive them from.** A motif is
+identified from the project's own `angle.md` `## RUNNING BITS` section - it is a
+property of *this* recap's chosen angle, not of the genre - and the reference
+channels do not publish their angle, so there is nothing in `references/` to
+count. What was measured is the **defect**: on the overcorrected draft, one
+running bit's keyword in 12 lines, 4 explicit thesis statements against a
+budget of 1, and 20 three-word phrases used in more than one line; on the draft
+before that rewrite, 6 repeated phrases and no budget breach at all. The second
+figure is the half that matters, because it shows the bars **separate** the two
+drafts rather than failing every draft.
+
+Two instrument limits are recorded rather than hidden. `[MOTIF-ADJACENT]` is
+lexical, and the worst genuinely-repetitive adjacent pair in that draft measures
+**0.222** overlap against a 0.50 cap, because the second line restates the first
+in different words; the cap is not lowered to catch it, since the top eight
+pairs run 0.222, 0.214, 0.200, 0.200, 0.200, 0.188, 0.182, 0.176 and any bar
+that fails the worst fails a tenth of ordinary prose with it. And
+`[TIC-REPETITION]` counts 3-word n-grams with >=2 content words, so the two
+loudest real tics - 2-word stance markers carrying one content word - are
+**outside the instrument by construction**; they are reported in `stats` as
+near-misses rather than blocked, because lowering either constant floods the
+report with structural English.
+
+### A synthetic fixture was changed, and the bars were not
+
+`tools/test_pacing.py::GOOD-SHAPE-PASSES` builds a synthetic draft in the
+intended shape to prove the contour bars are *reachable*. When the ceiling, the
+run cap and the peak-order rule arrived it failed all three: every anchor ended
+on **two consecutive** judgment lines and the fixture measured **41.9%**
+judgment overall. A fixture built under a floor-only gate had encoded the exact
+shape the ceiling exists to stop.
+
+**The fixture was changed; the bars were not**, and the distinction is the whole
+rule this file exists for. A synthetic shape demonstrator is **our own
+assertion** about what good looks like; when it collides with a measured bar it
+is the assertion that is wrong. An externally validated draft - a reference, or
+the human draft - is **evidence**, and had one of those failed, **the bar would
+have been the thing to move.** That is not hypothetical: it is what happened to
+the 0.22 judgment floor above, and to five of the eleven PHASE 1 bars at the top
+of this file. Treating the two kinds of fixture alike in either direction turns
+a gate into a measurement of its own test suite.
 
 ## Schema version, and what is NOT measurable on old drafts
 
@@ -281,3 +431,5 @@ Neither is sufficient alone, which is the argument for running both.
   film (car models, place names, sentence-initial ordinary words). No invented
   character name appears.
 - Nobody has watched a render of this draft. Everything above is text.
+
+> **Exclusion rule, stated once.** Spread by the SAME 1.5xIQR rule on both: absolute minutes 1.251x with one render dropped (9.12 min, below the lower fence 11.57), share 2.180x with NOTHING dropped - 6.9% is not an outlier among shares. An earlier version of this line said 1.573x, which came from removing that render from the share population BY HAND; the rule does not justify it, and the honest comparison is the stronger one.

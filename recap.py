@@ -182,6 +182,8 @@ def cmd_draft(args):
         if r.get("reveal_hits"):
             causes.append(f"{r['reveal_hits']} REVEAL-TIMING hit(s) "
                           f"- a protected term appears before its landing beat")
+        if r.get("runtime_over"):
+            causes.append(f"[RUNTIME-BAND] {r['runtime_over']}")
         if not causes:
             causes.append("a hard audit finding that is NOT a binding mismatch "
                           "(binding reported 0) - read the report above for which")
@@ -247,6 +249,8 @@ def cmd_render(args):
     if _r.get("reveal_hits"):
         _fatal.append(f"{_r['reveal_hits']} REVEAL-TIMING hit(s) - a protected "
                       f"term appears before its landing beat")
+    if _r.get("runtime_over"):
+        _fatal.append(f"[RUNTIME-BAND] {_r['runtime_over']}")
     if _fatal and not args.ignore_audit:
         console.print("[red]Refusing to render: " + "; ".join(_fatal) + ".[/]")
         console.print(f"  See `python recap.py draft --project {args.project}`. "

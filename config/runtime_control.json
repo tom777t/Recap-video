@@ -1,0 +1,198 @@
+{
+ "wpm_basis": 210.0,
+ "basis_note": "render_share = measured final.mp4 / film. draft_share = (words/WPM) / film, which is what the draft gate can see. render_over_draft is the measured factor between them - the draft bar must be the render bar divided by this, never the same number.",
+ "renders": [
+  {
+   "project": "badgenius2017",
+   "film_min": 129.88,
+   "final_min": 16.37,
+   "words": 3464,
+   "draft_est_min": 16.5,
+   "render_share": 0.1261,
+   "draft_share": 0.127,
+   "render_over_draft": 0.993,
+   "paired": true,
+   "why_unpaired": ""
+  },
+  {
+   "project": "badgenius2017_machine",
+   "film_min": 129.88,
+   "final_min": 18.54,
+   "words": 3428,
+   "draft_est_min": 16.32,
+   "render_share": 0.1428,
+   "draft_share": 0.1257,
+   "render_over_draft": 1.136,
+   "paired": true,
+   "why_unpaired": ""
+  },
+  {
+   "project": "howtomakemillions2024",
+   "film_min": 126.79,
+   "final_min": 18.81,
+   "words": 3511,
+   "draft_est_min": 16.72,
+   "render_share": 0.1484,
+   "draft_share": 0.1319,
+   "render_over_draft": 1.125,
+   "paired": true,
+   "why_unpaired": ""
+  },
+  {
+   "project": "interstellar2014_linear",
+   "film_min": 169.07,
+   "final_min": 16.17,
+   "words": 3158,
+   "draft_est_min": 15.04,
+   "render_share": 0.0956,
+   "draft_share": 0.0889,
+   "render_over_draft": 1.075,
+   "paired": true,
+   "why_unpaired": ""
+  },
+  {
+   "project": "johnwick2014_linear",
+   "film_min": 101.22,
+   "final_min": 15.04,
+   "words": 3106,
+   "draft_est_min": 14.79,
+   "render_share": 0.1485,
+   "draft_share": 0.1461,
+   "render_over_draft": 1.017,
+   "paired": true,
+   "why_unpaired": ""
+  },
+  {
+   "project": "shutterisland2010_linear",
+   "film_min": 132.08,
+   "final_min": 9.12,
+   "words": 1882,
+   "draft_est_min": 8.96,
+   "render_share": 0.069,
+   "draft_share": 0.0679,
+   "render_over_draft": 1.018,
+   "paired": true,
+   "why_unpaired": ""
+  },
+  {
+   "project": "spidermannowayhome2021_linear",
+   "film_min": 156.93,
+   "final_min": 17.22,
+   "words": 3457,
+   "draft_est_min": 16.46,
+   "render_share": 0.1097,
+   "draft_share": 0.1049,
+   "render_over_draft": 1.046,
+   "paired": true,
+   "why_unpaired": ""
+  },
+  {
+   "project": "superbad2007",
+   "film_min": 118.67,
+   "final_min": 17.18,
+   "words": 3743,
+   "draft_est_min": 17.82,
+   "render_share": 0.1448,
+   "draft_share": 0.1502,
+   "render_over_draft": 0.964,
+   "paired": true,
+   "why_unpaired": ""
+  },
+  {
+   "project": "tokyodrift2006",
+   "film_min": 104.24,
+   "final_min": 15.67,
+   "words": 4266,
+   "draft_est_min": 20.31,
+   "render_share": 0.1504,
+   "draft_share": null,
+   "render_over_draft": null,
+   "paired": false,
+   "why_unpaired": "103 of 111 lines have audio that does not match their text - draft.json is not the draft this render was made from"
+  }
+ ],
+ "render_share": {
+  "n": 9,
+  "values": [
+   0.069,
+   0.0956,
+   0.1097,
+   0.1261,
+   0.1428,
+   0.1448,
+   0.1484,
+   0.1485,
+   0.1504
+  ],
+  "min": 0.069,
+  "median": 0.1428,
+  "max": 0.1504
+ },
+ "draft_share": {
+  "values": [
+   0.0679,
+   0.0889,
+   0.1049,
+   0.1257,
+   0.127,
+   0.1319,
+   0.1461,
+   0.1502
+  ],
+  "min": 0.0679,
+  "median": 0.127,
+  "max": 0.1502
+ },
+ "render_over_draft": {
+  "values": [
+   0.964,
+   0.993,
+   1.017,
+   1.018,
+   1.046,
+   1.075,
+   1.125,
+   1.136
+  ],
+  "median": 1.046
+ },
+ "absolute_minutes": {
+  "values": [
+   9.12,
+   15.04,
+   15.67,
+   16.17,
+   16.37,
+   17.18,
+   17.22,
+   18.54,
+   18.81
+  ],
+  "min": 9.12,
+  "median": 16.37,
+  "max": 18.81
+ },
+ "which_statistic": {
+  "absolute_minutes_spread": 2.062,
+  "render_share_spread": 2.18,
+  "film_min_spread": 1.67,
+  "iqr_rule": "1.5xIQR",
+  "absolute_minutes_kept": [
+   15.04,
+   15.67,
+   16.17,
+   16.37,
+   17.18,
+   17.22,
+   18.54,
+   18.81
+  ],
+  "absolute_minutes_dropped": [
+   9.12
+  ],
+  "absolute_minutes_spread_filtered": 1.251,
+  "render_share_spread_filtered": 2.18,
+  "render_share_dropped": [],
+  "note": "the band belongs on whichever spread is TIGHTER. If absolute runtime holds still while the share moves, the format's real constraint is the viewer's attention, not the film's length, and a share-based bar wide enough to contain every shipped render rejects nothing."
+ }
+}

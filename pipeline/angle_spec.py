@@ -143,8 +143,61 @@ def load(pdir: Path) -> dict:
             for b in beat_ids(t):
                 demoted[b] = t.lstrip("-* ").strip()
 
+    # ---- RUNNING BITS (motifs) ------------------------------------------ #
+    # The section has existed in angle.md since the angle was written and
+    # NOTHING PARSED IT, so the budget for a callback was whatever the writer
+    # felt like: one bit's phrase reached twelve lines. The format already in
+    # use is kept as-is rather than invented:
+    #
+    #   1. **"being moved on."** - gloss. **Setup: B13** (...) ->
+    #      **Payoff: B91/B101/outro** - payoff gloss.
+    #
+    # `name` is the quoted phrase, which is what the gate counts in the prose.
+    # `outro` and reveal ids (R3) appear alongside beat ids as payoff targets
+    # and are kept as written - a payoff can legitimately land in the outro,
+    # which is not a beat.
+    rbody = _section(text, "RUNNING BITS")
+    motifs = []
+    for raw in re.split(r"(?m)^(?=\s*\d+\.\s)", rbody):
+        t = " ".join(raw.split()).strip()
+        if not t or not re.match(r"^\d+\.", t):
+            continue
+        # Two forms are in use: a quoted catchphrase, and a bare bolded label
+        # for a bit that is a NAME rather than a phrase ("Donkey Kong -> Drift
+        # King"). The first version of this parser required the quotes and
+        # silently dropped the other one - a parser that skips what it cannot
+        # match is how a budget ends up unenforced on the exact bit that broke
+        # it. Unparseable entries are RETURNED as `unparsed` so the gate can
+        # say so out loud.
+        nm = re.search(r'["\u201c](?P<q>[^"\u201d]+)["\u201d]', t)
+        if nm:
+            name = nm.group("q").strip().rstrip(".").strip()
+        else:
+            bm = re.search(r"\*\*(?P<b>[^*]+)\*\*", t)
+            name = (bm.group("b").strip().rstrip(".").strip() if bm else "")
+        if not name:
+            motifs.append({"name": "", "unparsed": t[:160]})
+            continue
+        setup = t.split("Setup", 1)[1] if "Setup" in t else ""
+        payoff = t.split("Payoff", 1)[1] if "Payoff" in t else ""
+        # A name joined by an arrow or slash is two surface forms of one bit
+        # and neither appears in the prose as the whole string, so the gate
+        # counts the PARTS. Each part is kept whole: a bit is recognised by
+        # its wording, and cutting it into single words would match any line
+        # containing "car".
+        parts = [p.strip(" .\u2014-") for p in
+                 re.split(r"->|\u2192|=>|/|\|", name) if p.strip(" .\u2014-")]
+        motifs.append({
+            "name": name,
+            "keywords": parts or [name],
+            "setup_beats": beat_ids(setup.split("Payoff")[0]),
+            "payoff_beats": beat_ids(payoff),
+            "payoff_outro": "outro" in payoff.lower(),
+            "text": t,
+        })
+
     return {"anchors": anchors, "persona": persona, "promises": promises,
-            "demoted": demoted, "raw": text}
+            "demoted": demoted, "motifs": motifs, "raw": text}
 
 
 def require(pdir: Path) -> dict:

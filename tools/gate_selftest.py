@@ -35,6 +35,51 @@ def _run_draft(project: str) -> str:
     return (r.stdout or '') + (r.stderr or '')
 
 
+def _review_artifacts(pdir: str, draft: dict) -> None:
+    """cold_read.md + review.md for a scratch project.
+
+    WHY A FIXTURE AND NOT A GATE CHANGE. [COLD-READ] and [REVIEWER]
+    (pipeline/review_artifacts.py) are ERRORS on every project that lacks the
+    two artifacts, and validate_draft sys.exit(1)s on its first error - which
+    is BEFORE _run_phase1_audits and before most of the per-line gates. From
+    the moment those two gates were wired in, eight tests in this file stopped
+    reaching the gate they test and reported "did NOT fire": FOOTAGE-DROPPED,
+    DUPLICATE-ID, BEAT-MAP, NAME-LEAK, TARGET-LOCK, RATCHET and the three
+    *-REVIEW tests. None of those gates had changed.
+
+    That is the exact hazard pipeline/pacing_gates.py:190-201 documents and
+    names this file for ("a new gate that kills a small fixture stops the OLD
+    gates from ever running"). The answer there was to make the new gate
+    no-op on an immature project. Here the answer is the other one, and the
+    weaker-sounding one is deliberately NOT taken: the review gates are not
+    relaxed. The scratch projects are given real, valid artifacts, exactly as
+    they are already given a `style:` line purely to silence STYLE-DECLARE.
+
+    The artifacts are honest about what they are. They sign every narrated
+    line of a synthetic draft and record no findings, which is true: nobody
+    needs to cold-read "Family line 3."
+    """
+    if ROOT not in sys.path:
+        sys.path.insert(0, ROOT)
+    from pipeline.review_artifacts import line_signature
+    rows = []
+    for ln in (draft.get('lines') or []):
+        if not isinstance(ln, dict):
+            continue
+        t = str(ln.get('narration') or '').strip()
+        if not t:
+            continue
+        rows.append(f"  {ln.get('id')} {line_signature(t)}")
+    body = ("# scratch review artifact - written by tools/gate_selftest.py\n\n"
+            "A synthetic project exists to exercise ONE gate. This file makes\n"
+            "the review gates reachable past; it asserts nothing about any\n"
+            "real draft and must never be copied into one.\n\n"
+            "```review-signatures\n" + "\n".join(rows) + "\n```\n\n"
+            "```review-findings\n```\n")
+    for name in ('cold_read.md', 'review.md'):
+        io.open(os.path.join(pdir, name), 'w', encoding='utf-8').write(body)
+
+
 def _mk(project: str, files: dict) -> str:
     p = os.path.join(ROOT, 'projects', project)
     shutil.rmtree(p, ignore_errors=True)
@@ -42,6 +87,8 @@ def _mk(project: str, files: dict) -> str:
     for name, obj in files.items():
         io.open(os.path.join(p, name), 'w', encoding='utf-8').write(
             json.dumps(obj, ensure_ascii=False, indent=2))
+    if isinstance(files.get('draft.json'), dict):
+        _review_artifacts(p, files['draft.json'])
     return p
 
 
@@ -1330,6 +1377,82 @@ def test_music_precedence() -> tuple[bool, str]:
                 f"caller_legacy={caller_legacy}")
 
 
+# --------------------------------------------------------------------------- #
+# The seven draft-stage gates added 2026-10-30. They are registered here as
+# THIN WRAPPERS over the dedicated suites rather than as scratch projects, and
+# the reason is the one this file exists to police.
+#
+# Every other test here builds a throwaway project and runs the REAL validator
+# over it. Four of these seven cannot be reached that way. pacing_gates runs
+# only when angle_spec.require() parses - which needs a full angle.md with
+# ANCHORS, HOOK PROMISES and NARRATOR PERSONA sections, each anchor carrying a
+# verbatim evidence quote that must verify against a beat map, AND every
+# anchor beat mentioned in docs/stage2/ANGLE_EVIDENCE_AUDIT.md, which is a
+# repo-global artifact a scratch project cannot add itself to. A "throwaway
+# project" that needs all of that is not throwaway, and the one that could be
+# built would be testing the fixture rather than the gate.
+#
+# The dedicated suites run the REAL gate functions against the REAL project,
+# in BOTH directions, with the overcorrected fixture as the positive case. The
+# contract this file enforces - "a gate nobody has proved fires is decoration"
+# - is met by them, so the honest registration is a pointer to them, not a
+# weaker re-implementation here. RUNTIME-BAND is the exception: it drives the
+# real _run_phase1_audits over a real scratch project, exactly like the rest
+# of this file, so that one is a direct pass-through.
+#
+# The fixture that proves each gate is named in the row's comment, because the
+# TESTS dict is a name->callable map and has nowhere else to put it.
+# --------------------------------------------------------------------------- #
+
+def _tools_module(name: str):
+    import importlib.util
+    if ROOT not in sys.path:
+        sys.path.insert(0, ROOT)
+    path = os.path.join(ROOT, 'tools', f'{name}.py')
+    spec = importlib.util.spec_from_file_location(f'_gs_{name}', path)
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    return mod
+
+
+def _delegate(module: str, case: str):
+    """Run one named case from one of the dedicated suites.
+
+    Catches, because this file's runner calls fn() bare: an exception here
+    would take the whole self-test down instead of failing one row.
+    """
+    def run() -> tuple[bool, str]:
+        try:
+            fn = _tools_module(module).TESTS[case]
+        except Exception as e:
+            return False, (f'tools/{module}.py::{case} could not be loaded: '
+                           f'{type(e).__name__}: {e}')
+        try:
+            ok, msg = fn()
+        except Exception as e:
+            return False, f'{case} raised {type(e).__name__}: {e}'
+        return ok, f'{msg}  [tools/{module}.py::{case}]'
+    return run
+
+
+# PERSONA-CEILING  fixture: tools/fixtures/draft_tokyodrift_overcorrected.json
+#                  (52.3% judgment against a 35% ceiling)
+test_persona_ceiling = _delegate('test_pacing', 'PERSONA-CEILING')
+# PERSONA-RUN      fixture: the same, 8 places over the cap of 2, longest 5
+test_persona_run = _delegate('test_pacing', 'PERSONA-RUN')
+# PEAK-ORDER       fixture: the same, 6 findings on B13/B65/B79-B80/B101
+test_peak_order = _delegate('test_pacing', 'PEAK-ORDER')
+# ANCHOR-CLEAN     fixture: the same, B58 and B65 with 0 clean lines of 4
+test_anchor_clean = _delegate('test_pacing', 'ANCHOR-CLEAN')
+# CLAIM-SUPPORT    fixture: the same, 12 uncited habitual claims
+test_claim_support = _delegate('test_continuity_new', 'CLAIM-CITATION')
+# NAME-AT-REVEAL   fixture: the same, "Dominic" at 01:36:38 never named after
+test_name_at_reveal = _delegate('test_continuity_new', 'NAME-AT-REVEAL-REAL')
+# RUNTIME-BAND     fixture: a scratch project whose RAW estimate is 18.5 min -
+#                  under the ceiling - and which predicts 19.35 and must fail
+test_runtime_band = _delegate('test_runtime_band', 'RUNTIME-CONVERSION-APPLIED')
+
+
 TESTS = {
     'VISUAL-REPEAT':   test_visual_repeat,
     'EXCEPTION-KEY':   test_exception_key,
@@ -1364,6 +1487,13 @@ TESTS = {
     'NAME-LEAK':       test_name_leak,
     'MOMENT-SEAM':     test_moment_seam,
     'MOMENT-BAD-SPAN': test_moment_bad_span,
+    'PERSONA-CEILING': test_persona_ceiling,
+    'PERSONA-RUN':     test_persona_run,
+    'PEAK-ORDER':      test_peak_order,
+    'ANCHOR-CLEAN':    test_anchor_clean,
+    'CLAIM-SUPPORT':   test_claim_support,
+    'NAME-AT-REVEAL':  test_name_at_reveal,
+    'RUNTIME-BAND':    test_runtime_band,
 }
 
 # Gates known to be unreachable. Reported as XFAIL, not PASS and not FAIL, so

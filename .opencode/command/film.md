@@ -81,6 +81,36 @@ When the gates fail, the script bumps the round counter and halts again. Feed
 the findings back **per act**, fix only what the gates named, and resume. The
 script stops the loop at 3 rounds; do not attempt a fourth.
 
+### REVIEW (two fresh agents, before the draft checkpoint)
+
+`[COLD-READ]` and `[REVIEWER]` fail the draft until both artifacts exist, so
+this is not optional and not something to do after the checkpoint. **Neither
+agent may be one that wrote any part of the draft** - that is the whole point
+of them, and a writer re-reading its own act finds nothing.
+
+1. **Cold read.** `python tools/cold_read_payload.py <p> > _coldread.txt`,
+   then one subagent that has **not** seen the film, the beats, the angle or
+   the payloads. It reads only that file - narration, no delivery tags, no
+   payload labels, no hook question, because those are the writer's own
+   account of what a line does. It lists: unintroduced referents, ambiguous
+   pronouns, anything confusing on one read, and any claim about what a
+   character repeatedly said or did. It writes `projects/<p>/cold_read.md`.
+2. **Reviewer.** One subagent with the fixed checklist: the cold read's
+   findings, motif budget, repeated phrasing, unsupported claims about the
+   film, naming at a reveal, and whether the peak moments are talked over
+   instead of shown. It writes `projects/<p>/review.md`.
+
+Both artifacts carry a `review-signatures` block (the payload tool prints it
+ready to paste, computed from the same draft the reader read) and a
+`review-findings` block of `STATUS | kind | line ids | text` entries. Every
+`FINDING` must end up `RESOLVED` or `ANSWERED`, and an `ANSWERED` needs a real
+argument, not a dismissal.
+
+Then fix what they found and re-run the draft gates. If a fix edits a line,
+record it as the finding it resolved - a line edited after signing that no
+resolved finding names fails the gate, which is deliberate: otherwise the
+review describes text that is no longer in the draft.
+
 ### FILM_SPEAKS
 
 Every film gets **2-3 moments where the narration stops and the film's own

@@ -200,14 +200,58 @@ VOICE_WPM_RATIO_MAX = 1.25
 VOICE_RATE_MIN_WORDS = 6
 
 # --------------------------------------------------------------------------- #
-# [RUNTIME-BAND] soft band: a recap should run roughly this fraction of the
-# film's own runtime. The human reference (Bad Genius) sits near 15%. This is a
-# SOFT warning band only - outside it prints a note, never blocks. A recap that
-# tells everything is not a recap, but a film can honestly want more or less,
-# and hard-failing on runtime is how a draft drifts into padding to hit a number.
+# [RUNTIME-BAND]. RE-CALIBRATED on the nine shipped renders - raw measurements
+# in config/runtime_control.json, derivation in docs/stage2/REVIEW_CALIBRATION.md.
+#
+# THE DEFECT: the band was 15-20% of film runtime, derived from ONE film ("the
+# human reference sits near 15%") with +-5 points drawn around it by hand, and
+# the gate was a bare console.print with no severity. So 15% was the band's
+# FLOOR while being the shipped population's CEILING - no render ever reached
+# the middle of the band - and a draft 30% over it shipped as a warning nobody
+# had to act on. A brief to pay for dwell by cutting connective tissue came
+# back 1,200 words LONGER with nothing in the way.
+#
+# WHICH STATISTIC. Measured across the nine renders, film length varies 1.67x
+# (101-169 min) while the finished recap stays 15.0-18.8 min. The share is
+# the LOOSER statistic by a wide margin, so the band goes on absolute
+# minutes: this format's real constraint is the viewer's attention, not the
+# film's length. A share-based bar wide enough to hold every shipped render
+# (9.6-15.0%) rejects nothing.
+# ONE RULE ON BOTH, because choosing the exclusion that suits the bar is
+# the failure this calibration exists to avoid. By 1.5xIQR: absolute
+# minutes 1.251x (one render dropped, 9.12 min, below the lower fence
+# 11.57); share 2.180x (nothing dropped - 6.9% is not an outlier among
+# shares). Raw, with nothing dropped, the two read 2.062x and 2.180x. An
+# earlier note here claimed 1.573x for the share by removing that render
+# from the share population by hand, which the rule does not justify.
+#
+# The share bars are KEPT as the out-of-domain guard: the calibration only
+# covers 101-169 min films, and on a 60-minute film 19 minutes would be a
+# third of the picture. Whichever bar is exceeded blocks.
 # --------------------------------------------------------------------------- #
-RECAP_RUNTIME_PCT_LO = 15.0
+# Blocking above, warning below. Shipped renders run 15.0-18.8 min, so the
+# ceiling sits just above the longest one that shipped and the floor just
+# below the shortest. ABOVE the band blocks because that is the direction the
+# draft actually drifts and the direction the viewer complained about; below is
+# a warning because a film can honestly have less to say.
+RECAP_RUNTIME_MAX_MINUTES = 19.0
+RECAP_RUNTIME_MIN_MINUTES = 14.0
+# The out-of-domain share guard. Shipped renders reach 15.0% at most; 20% is
+# deliberately loose because it exists only to catch a film far shorter than
+# anything measured, where the absolute band alone would pass a recap that
+# retells most of the picture.
 RECAP_RUNTIME_PCT_HI = 20.0
+# Warning only. The lowest shipped render that is not the excluded outlier
+# sits at 9.6%, so a floor of 15.0% (the old value) declared seven of the nine
+# shipped renders out of band.
+RECAP_RUNTIME_PCT_LO = 9.0
+# BASIS CONVERSION, measured, not assumed. The draft gate can only see
+# words/WPM; the viewer gets final.mp4, which also carries holds, the intro,
+# music tails and the gaps between lines. Measured final/estimate across the
+# eight renders whose draft still matches their render: 0.964-1.136, median
+# 1.046. The draft gate multiplies its estimate by this before comparing to
+# the bars above, so both stages enforce ONE number on ONE basis.
+RECAP_RUNTIME_RENDER_OVER_DRAFT = 1.046
 
 # --------------------------------------------------------------------------- #
 # Stage 2 depth targets (2026-06-22 depth-target enhancement).
@@ -1022,7 +1066,57 @@ PACING_ANCHOR_MAX_COMPRESSION_RATIO = 0.70   # of the draft's own mean
 # The gate counts the agreement, which is conservative because the two signals
 # fail in opposite directions - the label can be asserted, the classifier
 # over-fires on unquoted reported speech.
-PERSONA_JUDGMENT_SHARE_MIN = 0.22
+#
+# LOWERED 0.22 -> 0.15 after measuring the references with this gate's OWN
+# classifier (config/judgment_control.json). 0.22 had no derivation written
+# anywhere: the comment above explains the instrument in detail and never says
+# where the number came from. It is now measured, and it was too high.
+#
+# The agreed set is a SUBSET of the classifier's set, so agreed_share is
+# always <= classifier_share. Demanding agreed >= 0.22 therefore demands
+# classifier >= 0.22. Measured on the five English references by sentence and
+# converted to our line basis by the factor measured on our own drafts
+# (x2.05): 0.096, 0.098, 0.154, 0.221, 0.857. THREE OF THE FIVE REFERENCES
+# CANNOT SATISFY A 0.22 FLOOR, and of the two that can, one sits exactly on it
+# and the other is the chatty outlier. A bar the gold standard fails is a
+# broken bar.
+#
+# 0.15 keeps the point of the floor - refusing a narrator with no voice - while
+# sitting below the reference that defines the quiet end of the genre. What it
+# does NOT do is cure flatness: the shipped draft measured 0.213 judgment by
+# sentence, ABOVE four of the five references, and the viewer still called it
+# flat. Flatness was a contour defect and PACING-CONTOUR is what fixed it.
+# Raising a judgment floor to fix dwell is how 0.10 became 0.52.
+PERSONA_JUDGMENT_SHARE_MIN = 0.15
+# ...and the ceiling, which the floor never had. THE DEFECT: told only to
+# clear a floor, the rewrite came back at 0.523 - the narrator talks over the
+# film, every beat arrives pre-digested, and the peaks land on commentary
+# instead of on the moment.
+#
+# NOT CALIBRATED FROM THE REFERENCES, and they say why: by sentence they
+# measure 0.047, 0.048, 0.075, 0.108, 0.418 - a 9x spread with nothing between
+# 0.108 and 0.418, so the genre does not agree on a judgment density and the
+# "upper end" is either 0.108 (which both our drafts exceed) or 0.418 (which
+# rejects nothing). Calibrated instead on our own two drafts with the viewer's
+# verdict as the label, the way config/shipped_render_defects.json sites the
+# render thresholds: 0.104 drew no complaint about commentary, 0.523 was
+# called overcorrected. The bar sits between them, nearer the complaint.
+PERSONA_JUDGMENT_SHARE_MAX = 0.35
+# Longest run of consecutive judgment lines. THIS ONE IS reference-calibrated,
+# and it is the robust statistic the share is not: longest consecutive run of
+# judgment SENTENCES across the five English references is 1, 1, 2, 2, 8 -
+# four of five run two or fewer. The overcorrected draft runs 14 lines.
+PERSONA_JUDGMENT_RUN_MAX = 2
+# At a peak - a death, a win, a reveal - the moment lands FIRST on action,
+# quotation or a hold, and then gets at most this many reaction lines. The
+# overcorrected draft gave one death seven lines, four of them commentary, two
+# of which made the same point. A peak narrated before it is shown is a peak
+# the viewer is told about instead of shown.
+PERSONA_PEAK_REACTION_MAX = 1
+# Every anchor must keep at least this many lines with NO commentary in them.
+# Dwell was supposed to buy room for the moment; spending all of it on the
+# narrator's opinion of the moment removes the thing being dwelt on.
+PERSONA_ANCHOR_CLEAN_LINES_MIN = 1
 # ...and the agreement RATE among labelled lines is what collapses if the
 # label is inflated. Shipped draft: 11/14 = 78.6%, so an honest-but-thin draft
 # fails on the SHARE above and not on this. A writer who tags 40 lines
@@ -1052,5 +1146,60 @@ PERSONA_MIN_PER_WINDOW = 1
 # not a calibration.
 PERSONA_FRAME_ONLY_SHARE_MAX = 0.13
 
-
-
+# --------------------------------------------------------------------------- #
+# MOTIF BUDGET and TIC REPETITION. Calibrated as a DECISION, not a
+# measurement, and the reason is recorded: a motif is identified from
+# angle.md's own RUNNING BITS section, so there is nothing in references/ to
+# count - the references do not publish their angle. What IS measured is the
+# defect, in config/judgment_control.json's sibling report and in the fixture.
+#
+# THE DEFECT: the thesis and the running bits were hammered flat. One running
+# bit's keyword appeared in 12 lines, an explicit thesis statement ("that's
+# the whole film") 4 times, another bit's phrase 3 times, and two pairs of
+# ADJACENT lines made the same point twice in a row. A callback works by being
+# rare; said every third minute it stops being a callback and becomes a tic.
+# --------------------------------------------------------------------------- #
+# A running bit gets a setup, at most this many callbacks, and a payoff.
+MOTIF_CALLBACKS_MAX = 2
+# ...so this is the total number of lines any one running bit may touch:
+# 1 setup + MOTIF_CALLBACKS_MAX + 1 payoff.
+MOTIF_LINES_MAX = 4
+# An explicit statement that names the thesis AS the thesis ("that's the whole
+# film", "this is what the film is about") may happen once before the outro.
+# Said twice it is not a thesis, it is a habit.
+MOTIF_THESIS_MAX = 1
+# Two ADJACENT narrated lines may not make the same point. Measured as content
+# -word overlap between neighbouring lines; above this they are the same
+# sentence written twice.
+MOTIF_ADJACENT_OVERLAP_MAX = 0.50
+# --------------------------------------------------------------------------- #
+# A signature phrase or any n-gram this long, outside names and quoted speech,
+# may appear once. The overcorrected draft used "of course" 5 times, "the
+# point" 5 times. A persona move repeated verbatim is not a voice, it is a
+# verbal tic, and the fix is to vary the move rather than to drop it.
+TIC_NGRAM_N = 3
+TIC_NGRAM_MAX = 1
+# Below this many words a repeated n-gram is structural English ("he had to",
+# "one of the") rather than a tic, so only phrases carrying at least this many
+# CONTENT words are counted.
+TIC_MIN_CONTENT_WORDS = 2
+# --------------------------------------------------------------------------- #
+# REVIEW ARTIFACTS. A cold read and an independent review are required
+# artifacts, not intentions - the same mechanism as the angle evidence audit.
+# They must also be CURRENT: an audit of text that has since been rewritten is
+# worse than none, because it reads as a pass. Staleness is decided by the
+# content signature of the reviewed text, the way exception_key already does
+# it, never by mtime.
+# --------------------------------------------------------------------------- #
+REVIEW_REQUIRE_COLD_READ = True
+REVIEW_REQUIRE_REVIEWER = True
+# Share of the draft's narrated lines whose text must be covered by the
+# artifact's recorded signature for the review to count as current.
+REVIEW_SIGNATURE_MIN_COVERAGE = 0.95
+# How many words an ANSWERED finding must carry. "Answered" with no argument
+# is not an answer; the review artifact exists so that a judgement call is on
+# the record with its reasoning, and a three-word dismissal records nothing.
+REVIEW_ANSWER_MIN_WORDS = 8
+# Findings list at most this many line ids before truncating, so one bad pass
+# cannot bury the rest of the report.
+REVIEW_MAX_IDS_IN_MESSAGE = 8

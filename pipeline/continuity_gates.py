@@ -26,7 +26,32 @@ from pathlib import Path
 
 
 def _narr(ln: dict) -> str:
+    if not isinstance(ln, dict):
+        return ""
     return str(ln.get("narration") or "").strip()
+
+
+def _lines(draft: dict) -> list:
+    """The draft's line records, skipping anything that is not one.
+
+    BUG, found 2026-10-30 by tools/test_continuity_new.py GATE-NEVER-RAISES
+    and FIXED here rather than tested around. Every gate in this file except
+    the two newest (habitual_claims, unnamed_reveals, which already guard)
+    iterated `draft["lines"]` and called `.get` on each entry. A single
+    non-dict record - a stray null left by a hand edit, a bare string - raised
+    AttributeError out of continuity_report, which draft.py catches with
+    "[CRAFT] gates did not run ... Treat this draft as UNCHECKED".
+
+    So one malformed line record switched off ALL of the writing-craft gates
+    at once, including the seven new ones, behind a single red line. Skipping
+    the record instead keeps every other line measured, and a line that is not
+    a record carries no narration to judge anyway.
+
+    pipeline/pacing_gates.py has the SAME exposure (beat_table, pacing_report)
+    and is NOT changed here - it is outside this change's scope and is
+    reported rather than quietly patched.
+    """
+    return [ln for ln in (draft.get("lines") or []) if isinstance(ln, dict)]
 
 
 def _ts(v):
@@ -49,7 +74,7 @@ def backward_clips(draft: dict, max_back_sec: float = 0.0) -> list:
     """
     out = []
     prev = None
-    for ln in draft.get("lines") or []:
+    for ln in _lines(draft):
         if ln.get("pool") or ln.get("montage"):
             continue
         a = _ts(ln.get("clip_start"))
@@ -71,7 +96,7 @@ def repeated_events(draft: dict) -> list:
     content signature (a place or an arrival verb plus the same proper noun).
     Lines 16 and 17 both landed Sean in Tokyo.
     """
-    lines = [ln for ln in (draft.get("lines") or []) if _narr(ln)]
+    lines = [ln for ln in _lines(draft) if _narr(ln)]
     # An arrival AT A NAMED PLACE. Requiring the place is what separates
     # "Sean lands alone in Tokyo" from "the car lands upside down against a
     # kerb" - the first version matched the second and reported lines 74/76
@@ -132,7 +157,7 @@ def fact_conflicts(draft: dict, pdir: Path) -> list:
         "tennessee", "texas", "utah", "vermont", "virginia", "washington",
         "wisconsin", "wyoming")
     seen: dict = {}
-    for ln in draft.get("lines") or []:
+    for ln in _lines(draft):
         t = _narr(ln).lower()
         for st in US_STATES:
             if re.search(rf"\b{re.escape(st)}\b", t):
@@ -169,7 +194,7 @@ def chekhov(draft: dict) -> list:
     "some guy", "a package" - and checks whether any later line refers to it
     again.
     """
-    lines = [ln for ln in (draft.get("lines") or []) if _narr(ln)]
+    lines = [ln for ln in _lines(draft) if _narr(ln)]
     # A CURATED list of nouns that genuinely promise something. The first
     # version matched any "a <noun>" with a short stop-list and produced 46
     # findings on one draft - "roller", "drawer", "half-built", "shortcut",
@@ -242,7 +267,7 @@ def visual_claims(draft: dict, pdir: Path) -> list:
         r"umbrella|cigarette|suitcase|briefcase|envelope|phone|camera|"
         r"knife|gun|pistol)\b", re.I)
     out = []
-    for ln in draft.get("lines") or []:
+    for ln in _lines(draft):
         t = _narr(ln)
         if not t:
             continue
@@ -263,9 +288,150 @@ def visual_claims(draft: dict, pdir: Path) -> list:
     return list(best.values())
 
 
+# A claim about what a character did REPEATEDLY, or over the whole film, is a
+# claim about the plot's past that nothing on screen can confirm and that is
+# very easy to invent - a shipped line asserted a character had "spent the
+# whole film telling him" something he never says in any transcript line or
+# any beat. CALLBACK-CITE already demands a citation for a link to one earlier
+# EVENT; a habitual claim is the same risk with a wider surface, because it
+# asserts a pattern rather than an incident.
+_HABITUAL = re.compile(
+    r"\b("
+    r"spent (?:the )?(?:whole|entire|rest of the) (?:film|movie|time|story)\b"
+    r"|(?:kept|keeps) (?:on )?\w+ing\b"
+    r"|(?:had been|has been|'d been) \w+ing\b"
+    r"|(?:always|never|repeatedly|constantly|again and again|over and over)\s+"
+    r"(?:said|says|told|tells|warned|warns|asked|asks|refused|refuses|"
+    r"insisted|insists|wanted|wants|tried|tries)\b"
+    r"|every time (?:he|she|they|it)\b"
+    r"|all film\b|all movie\b|throughout the (?:film|movie)\b"
+    r")", re.IGNORECASE)
+
+
+def habitual_claims(draft: dict, pdir: Path) -> list:
+    """Lines claiming a repeated or film-long behaviour without a citation.
+
+    The citation is `callback_beat`, the same field CALLBACK-CITE uses, and it
+    must name a beat that EXISTS - the earlier version of that gate only
+    checked the field was non-empty, so "B99" on a 90-beat film would have
+    satisfied it. Where the beat map cannot be read the finding degrades to
+    "cited but unverifiable" rather than disappearing.
+    """
+    out: list = []
+    beats: set = set()
+    readable = False
+    try:
+        from pipeline import beats_spec
+        bm = beats_spec.load_beats(Path(pdir))
+        beats = {str(k).upper() for k in (bm or {}).keys()}
+        readable = bool(beats)
+    except Exception:
+        readable = False
+    for ln in draft.get("lines") or []:
+        if not isinstance(ln, dict):
+            continue
+        t = _narr(ln)
+        if not t:
+            continue
+        m = _HABITUAL.search(t)
+        if not m:
+            continue
+        cite = str(ln.get("callback_beat") or "").strip().upper()
+        if not cite:
+            out.append({"line_id": ln.get("id"), "phrase": m.group(0),
+                        "why": "cites no beat"})
+        elif readable and cite not in beats:
+            out.append({"line_id": ln.get("id"), "phrase": m.group(0),
+                        "why": f"cites {cite}, which is not in the beat map"})
+        elif not readable:
+            out.append({"line_id": ln.get("id"), "phrase": m.group(0),
+                        "why": f"cites {cite}, unverifiable - the beat map "
+                               f"could not be read"})
+    return out
+
+
+def unnamed_reveals(draft: dict, pdir: Path) -> list:
+    """Reveals whose subject is never NAMED once the reveal has landed.
+
+    THE DEFECT: a reveal's spoiler hold stopped the narrator naming a
+    character, and the narration then called him by his appearance at the very
+    moment the film introduces him by name. A hold applies BEFORE a reveal's
+    landing time, not AT it - after it lands, withholding the name is no
+    longer protecting anything, it is just vagueness, and the payoff line
+    loses the name that makes it land.
+
+    Film-agnostic: the subject is any character in names.json whose name
+    appears in the reveal's own `fact` text. Lines are located by their clip
+    start, so a line bound to footage at or after the landing time is "after
+    the reveal" regardless of where it sits in the draft.
+    """
+    out: list = []
+    try:
+        rv = json.loads((Path(pdir) / "reveals.json")
+                         .read_text(encoding="utf-8-sig"))
+        nm = json.loads((Path(pdir) / "names.json")
+                         .read_text(encoding="utf-8-sig"))
+    except Exception:
+        return out
+    chars = []
+    for e in (nm.get("names") if isinstance(nm, dict) else nm) or []:
+        c = str((e or {}).get("character") or "").strip() if isinstance(
+            e, dict) else str(e or "").strip()
+        if len(c) >= 3:
+            chars.append(c)
+    for rev in (rv.get("reveals") if isinstance(rv, dict) else rv) or []:
+        if not isinstance(rev, dict):
+            continue
+        fact = str(rev.get("fact") or "")
+        land = _ts(rev.get("land"))
+        if land is None:
+            continue
+        # The subject is the LONGEST matching name, so a two-word name is not
+        # shadowed by a one-word name contained in it.
+        subj = sorted((c for c in chars
+                       if re.search(rf"\b{re.escape(c)}\b", fact)),
+                      key=len, reverse=True)
+        if not subj:
+            continue
+        name = subj[0]
+        after = [ln for ln in draft.get("lines") or []
+                 if isinstance(ln, dict) and _narr(ln)
+                 and (_ts(ln.get("clip_start")) or -1) >= land]
+        if not after:
+            continue
+        if not any(re.search(rf"\b{re.escape(name)}\b", _narr(ln),
+                              re.IGNORECASE) for ln in after):
+            out.append({"land": rev.get("land"), "name": name,
+                        "fact": fact[:70],
+                        "lines": [ln.get("id") for ln in after[:8]]})
+    return out
+
+
 def continuity_report(draft: dict, pdir: Path) -> dict:
     errors: list = []
     warns: list = []
+
+    hc = habitual_claims(draft, pdir)
+    if hc:
+        errors.append(
+            f"[CLAIM-SUPPORT] {len(hc)} line(s) claim a character did or said "
+            f"something repeatedly, or across the whole film, with nothing to "
+            f"check it against: "
+            + "; ".join(f"line {r['line_id']} \"{r['phrase']}\" ({r['why']})"
+                        for r in hc[:6])
+            + ". A pattern is harder to verify than an incident, not easier. "
+              "Add \"callback_beat\" naming a beat that shows the behaviour, "
+              "or write what the character actually said once.")
+
+    ur = unnamed_reveals(draft, pdir)
+    if ur:
+        errors.append(
+            f"[NAME-AT-REVEAL] {len(ur)} reveal(s) land and the character is "
+            f"never named afterwards: "
+            + "; ".join(f"\"{r['name']}\" at {r['land']} ({r['fact']})"
+                        for r in ur[:4])
+            + ". The spoiler hold applies BEFORE the landing time, not at it. "
+              "Name them in or after the reveal - that is the payoff.")
 
     bc = backward_clips(draft)
     if bc:

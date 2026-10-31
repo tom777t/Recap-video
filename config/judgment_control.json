@@ -1,0 +1,86 @@
+{
+ "instrument": "pipeline.pacing_gates.classify_judgment",
+ "basis_note": "references measured by SENTENCE (a VTT has no lines); our draft measured by SENTENCE and by LINE; the line/sentence conversion is measured on our own drafts, never assumed",
+ "references": [
+  {
+   "file": "cutframe_fT_pA_sX3VU.en-orig.vtt",
+   "sentences": 337,
+   "judgment_sentences": 141,
+   "judgment_share_sent": 0.418,
+   "longest_judgment_run_sent": 8
+  },
+  {
+   "file": "mrecaps_HDI-QESF9GY.en-orig.vtt",
+   "sentences": 130,
+   "judgment_sentences": 14,
+   "judgment_share_sent": 0.108,
+   "longest_judgment_run_sent": 2
+  },
+  {
+   "file": "mrecaps_SnAufo-cIao.en-orig.vtt",
+   "sentences": 228,
+   "judgment_sentences": 17,
+   "judgment_share_sent": 0.075,
+   "longest_judgment_run_sent": 2
+  },
+  {
+   "file": "mrecaps_dXSI1hYlXlk.en-orig.vtt",
+   "sentences": 251,
+   "judgment_sentences": 12,
+   "judgment_share_sent": 0.048,
+   "longest_judgment_run_sent": 1
+  },
+  {
+   "file": "mrecaps_lCD7leAyMYo.en-orig.vtt",
+   "sentences": 191,
+   "judgment_sentences": 9,
+   "judgment_share_sent": 0.047,
+   "longest_judgment_run_sent": 1
+  }
+ ],
+ "reference_share_sent": {
+  "n": 5,
+  "values": [
+   0.047,
+   0.048,
+   0.075,
+   0.108,
+   0.418
+  ],
+  "min": 0.047,
+  "median": 0.075,
+  "max": 0.418
+ },
+ "reference_run_sent": {
+  "values": [
+   1,
+   1,
+   2,
+   2,
+   8
+  ],
+  "max": 8,
+  "median": 2
+ },
+ "drafts": [
+  {
+   "file": "draft_overcorrected.json",
+   "lines": 111,
+   "sentences": 353,
+   "judgment_share_sent": 0.354,
+   "judgment_share_line": 0.73,
+   "longest_judgment_run_sent": 5,
+   "longest_judgment_run_line": 14
+  },
+  {
+   "file": "draft_prerewrite.json",
+   "lines": 106,
+   "sentences": 258,
+   "judgment_share_sent": 0.213,
+   "judgment_share_line": 0.434,
+   "longest_judgment_run_sent": 3,
+   "longest_judgment_run_line": 5
+  }
+ ],
+ "line_per_sentence_conversion": 2.05
+}

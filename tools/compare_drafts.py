@@ -62,24 +62,36 @@ def main() -> int:
     ap.add_argument("--project", required=True)
     ap.add_argument("--before", required=True)
     ap.add_argument("--after", required=True)
+    # Optional third column. A two-column table cannot show a measure
+    # that was driven the WRONG way by a fix and then brought back;
+    # the overcorrected draft is evidence, not an embarrassment.
+    ap.add_argument("--middle", default=None,
+                    help="an intermediate draft, shown between "
+                         "before and after")
+    ap.add_argument("--labels", default="before,middle,after",
+                    help="comma-separated column headings")
     a = ap.parse_args()
     pdir = Path(config.project_dir(a.project))
     spec = angle_spec.require(pdir)
 
     b, brep, bcon = summarise(load(a.before), pdir)
     f, frep, fcon = summarise(load(a.after), pdir)
+    m = summarise(load(a.middle), pdir)[0] if a.middle else None
+    _lab = [x.strip() for x in a.labels.split(",")]
+    while len(_lab) < 3:
+        _lab.append("")
+    cols = ([_lab[0], _lab[1], _lab[2]] if m else [_lab[0], _lab[2]])
 
     def row(label, key, fmt="{}", bar=""):
-        bv = b.get(key)
-        fv = f.get(key)
-        bs = fmt.format(bv) if bv is not None else "-"
-        fs = fmt.format(fv) if fv is not None else "-"
-        return f"| {label} | {bs} | {fs} | {bar} |"
+        vals = [b.get(key)] + ([m.get(key)] if m else []) + [f.get(key)]
+        cells = " | ".join(fmt.format(v) if v is not None else "-"
+                           for v in vals)
+        return f"| {label} | {cells} | {bar} |"
 
-    print(f"## {a.project}: before / after")
+    print(f"## {a.project}: {' / '.join(cols)}")
     print()
-    print("| measure | before | after | bar |")
-    print("|---|---|---|---|")
+    print("| measure | " + " | ".join(cols) + " | bar |")
+    print("|---|" + "---|" * (len(cols) + 1))
     print(row("narrated lines", "narrated_lines"))
     print(row("silent units (footage/hold)", "silent_units"))
     print(row("words", "words"))
@@ -101,12 +113,15 @@ def main() -> int:
     print()
     print("### lines per anchor")
     print()
-    print("| anchor | kind | before | after | bar |")
-    print("|---|---|---|---|---|")
+    print("| anchor | kind | " + " | ".join(cols) + " | bar |")
+    print("|---|---|" + "---|" * (len(cols) + 1))
     ab = {k: n for k, _kd, n in anchor_lines(load(a.before), spec)}
     af = {k: n for k, _kd, n in anchor_lines(load(a.after), spec)}
+    am = ({k: n for k, _kd, n in anchor_lines(load(a.middle), spec)}
+          if a.middle else None)
     for k, kd, _n in anchor_lines(load(a.after), spec):
-        print(f"| {k} | {kd} | {ab.get(k, 0)} | {af.get(k, 0)} | "
+        mid = f" {am.get(k, 0)} |" if am is not None else ""
+        print(f"| {k} | {kd} | {ab.get(k, 0)} |{mid} {af.get(k, 0)} | "
               f">= {config.PACING_ANCHOR_MIN_LINES} |")
     print()
     if frep["errors"] or fcon["errors"]:

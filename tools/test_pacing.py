@@ -40,6 +40,31 @@ Cases
   ANGLE-SPEC-REQUIRED    a missing ANCHORS section fails loudly instead of
                          passing vacuously.
 
+The four CEILING gates - the half the floor never had. Each is tested in both
+directions and each names the fixture that proves it:
+
+  PERSONA-CEILING        40% judgment fires, 30% is clean, and moving
+                         config.PERSONA_JUDGMENT_SHARE_MAX moves the verdict
+                         on the same draft.
+  PERSONA-RUN            3 in a row fires, 2 does not, and a hold, a
+                         film-speaks unit or a plain line each break the run.
+                         The hold case FOUND A BUG - see the docstring.
+  PEAK-ORDER             commentary first on a peak fires; the same lines
+                         reordered are clean; 2 reactions fire; a non-peak
+                         anchor with the same shape is ignored.
+  ANCHOR-CLEAN           an all-commentary anchor fires; one plain line, or
+                         one quotation, clears it.
+  OVERCORRECTED-FIXTURE-FAILS
+                         tools/fixtures/draft_tokyodrift_overcorrected.json
+                         against projects/tokyodrift2006 - 9 findings:
+                         52.3% judgment, longest run 5, 6 PEAK-ORDER, 2
+                         anchors with no clean line. This fixture IS the
+                         defect and must stay caught.
+  PREREWRITE-SEPARATES   the same four gates produce 3 findings on
+                         projects/tokyodrift2006/draft_prerewrite.json and
+                         NEITHER overcorrection gate fires on it, so the bars
+                         separate the two drafts instead of being always-on.
+
 Run:  python tools/test_pacing.py
 """
 from __future__ import annotations
@@ -190,15 +215,28 @@ def test_good_shape_passes() -> tuple[bool, str]:
                                               (t + 8) % 60)})
         t += 9.0
 
-    # 8 anchors x 4 lines, each ending on a narrator move
+    # 8 anchors x 4 lines: the moment first, the narrator LAST and ONCE.
+    #
+    # This block used to end on TWO judgment lines, and when the persona
+    # ceiling, the run cap and the peak-order rule arrived it failed all
+    # three - a fixture built to satisfy a floor with no ceiling had encoded
+    # the very shape the ceiling exists to stop (every anchor peaking on two
+    # consecutive pieces of commentary, 41.9% judgment overall).
+    #
+    # The fixture was changed rather than the bars, and the distinction
+    # matters: this is a SYNTHETIC shape demonstrator written to prove the
+    # contour bars are reachable, not an externally validated piece of
+    # writing. Had it been a real reference draft that failed, the bar would
+    # have been the thing to move - that is the standing rule, and it is why
+    # the reference-derived bars elsewhere were lowered to fit the references
+    # rather than the references dismissed.
     for a in anchors:
         b = a["beats"][0]
         add(b, "He says the thing out loud and nobody argues with him.")
         add(b, '"You can\'t keep running," his father tells him.')
-        add(b, "There is the whole problem, stated by the one adult who "
-               "cannot enforce it.", "judgment")
-        add(b, "You can see him decide, which is the only decision he makes "
-               "all film.", "judgment")
+        add(b, "The room goes quiet and he picks his bag back up.")
+        add(b, "You can see him decide, and it is the last time anyone has "
+               "to tell him.", "judgment")
     # connective beats: single lines, with a silent beat every few to break
     # the run, and a judgment line often enough to clear the floor
     for i in range(40):
@@ -490,6 +528,367 @@ def test_classifier_corrected() -> tuple[bool, str]:
     return True, ("\"US Navy\" and quoted speech are not stance; pronoun-free "
                   "evaluation is caught")
 
+# --------------------------------------------------------------------------- #
+# The four DRAFT-STAGE CEILING gates. Every one is tested in BOTH directions,
+# because a gate that only fires, or only stays silent, is not tested at all.
+#
+# The fixture that proves each of them is named in its own docstring and in the
+# three registries' rows where the format allows it (see the note at the foot
+# of docs/WRITING_CRAFT_CRITERION.md).
+# --------------------------------------------------------------------------- #
+
+PRE = PROJ / "draft_prerewrite.json"
+OVER = Path(ROOT) / "tools" / "fixtures" / "draft_tokyodrift_overcorrected.json"
+_CEILING_GATES = ("PERSONA-CEILING", "PERSONA-RUN", "PEAK-ORDER",
+                  "ANCHOR-CLEAN")
+
+# The three sentence shapes the persona gates sort lines into. Each test
+# asserts, before it asserts anything else, that the classifier really does
+# read them that way - a synthetic fixture whose vocabulary has drifted
+# produces a green run that measures nothing.
+_PG_J = "You can see him decide, and that is the whole of his pride."
+_PG_P = "He parks the car outside the garage and waits."
+_PG_Q = '"Pick a car," the older man tells him, and walks off.'
+
+
+def _fixture_vocabulary_problem() -> str:
+    if not pg.classify_judgment(_PG_J)[0]:
+        return f"the judgment sentence is NOT classified as judgment: {_PG_J!r}"
+    if pg.classify_judgment(_PG_P)[0]:
+        return f"the plain sentence IS classified as judgment: {_PG_P!r}"
+    if pg.classify_judgment(_PG_Q)[0]:
+        return f"the quoted line IS classified as judgment: {_PG_Q!r}"
+    return ""
+
+
+def _pg_ts(t: float) -> str:
+    return "%02d:%02d:%06.3f" % (int(t) // 3600, (int(t) % 3600) // 60, t % 60)
+
+
+def _mkdraft(units: list) -> dict:
+    """(kind, beat) pairs -> a draft.
+
+    kind: J a judgment line (labelled AND classified), P a plain line,
+          Q a quotation, H a hold, F a film-speaks unit. H and F carry NO
+          narration, which is the whole point of the PERSONA-RUN case below.
+    """
+    lines = []
+    t = 100.0
+    for i, (kind, beat) in enumerate(units, 1):
+        ln = {"id": i, "note": beat, "delivery": "normal",
+              "clip_start": _pg_ts(t), "clip_end": _pg_ts(t + 8.0)}
+        t += 9.0
+        if kind == "J":
+            ln.update({"narration": _PG_J, "payload": "judgment"})
+        elif kind == "P":
+            ln.update({"narration": _PG_P, "payload": "stake"})
+        elif kind == "Q":
+            ln.update({"narration": _PG_Q, "payload": "stake"})
+        elif kind == "H":
+            ln.update({"narration": "", "narration_silence_seconds": 3.0})
+        elif kind == "F":
+            ln.update({"narration": "", "film_speaks_seconds": 6.0})
+        else:
+            raise ValueError(f"unknown unit kind {kind!r}")
+        lines.append(ln)
+    return {"lines": lines}
+
+
+def _hits(draft: dict, gate: str) -> list:
+    rep = pg.pacing_report(draft, PROJ)
+    return [e for e in rep["errors"] if e.startswith(f"[{gate}]")]
+
+
+def _anchor(peak: bool):
+    """The first anchor the angle declares that is (or is not) a PEAK."""
+    words = ("reveal", "death", "dies", "peak", "win", "climax")
+    for a in angle_spec.require(PROJ)["anchors"]:
+        blob = f"{a.get('kind', '')} {a.get('why', '')}".lower()
+        if any(w in blob for w in words) == peak:
+            return a
+    return None
+
+
+def test_persona_ceiling() -> tuple[bool, str]:
+    """[PERSONA-CEILING] both directions, and the bar is read from config.
+
+    Fixture: synthetic (20 lines, judgment share dialled exactly); the real
+    one is tools/fixtures/draft_tokyodrift_overcorrected.json at 52.3%.
+    """
+    bad = _fixture_vocabulary_problem()
+    if bad:
+        return False, f"the fixture vocabulary is wrong: {bad}"
+    over = _mkdraft([("J" if i < 8 else "P", f"C{i:02d}") for i in range(20)])
+    if not _hits(over, "PERSONA-CEILING"):
+        return False, ("8 judgment lines in 20 (40.0%) did not breach the "
+                       f"{config.PERSONA_JUDGMENT_SHARE_MAX:.0%} ceiling")
+    under = _mkdraft([("J" if i < 6 else "P", f"C{i:02d}") for i in range(20)])
+    quiet = _hits(under, "PERSONA-CEILING")
+    if quiet:
+        return False, (f"6 of 20 (30.0%) is under the ceiling but fired: "
+                       f"{quiet[0][:140]}")
+    # THE BAR IS NOT A LITERAL. Move the constant and the verdict on the SAME
+    # draft must move with it - otherwise the gate carries its own copy of
+    # 0.35 and config is decoration.
+    _old = config.PERSONA_JUDGMENT_SHARE_MAX
+    try:
+        config.PERSONA_JUDGMENT_SHARE_MAX = 0.25
+        moved = _hits(under, "PERSONA-CEILING")
+    finally:
+        config.PERSONA_JUDGMENT_SHARE_MAX = _old
+    if not moved:
+        return False, ("lowering config.PERSONA_JUDGMENT_SHARE_MAX to 0.25 "
+                       "did not fail the 30.0% draft - the bar is not read "
+                       "from config at call time")
+    if "25% ceiling" not in moved[0]:
+        return False, (f"the message still quotes the old ceiling: "
+                       f"{moved[0][:140]}")
+    if _hits(under, "PERSONA-CEILING"):
+        return False, "restoring the constant did not restore the verdict"
+    return True, (f"40.0% fires, 30.0% is clean at the "
+                  f"{_old:.0%} ceiling; moving the constant to 25% fails the "
+                  f"same 30.0% draft and the message quotes the new bar")
+
+
+def test_persona_run() -> tuple[bool, str]:
+    """[PERSONA-RUN] both directions, and a hold really does break a run.
+
+    Fixture: synthetic; the real one is the overcorrected draft (8 places, the
+    longest 5 lines back to back).
+
+    THIS TEST FOUND A BUG. The documented behaviour - "a hold or a film-speaks
+    unit breaks it" - was NOT real: the run loop iterated the NARRATED lines,
+    and a hold and a film-speaks unit both carry empty narration, so both were
+    invisible to it and "judgment, judgment, hold, judgment" reported a run of
+    3. The gate's own error text tells the writer to break a run with a hold,
+    and doing so did not clear the error. Fixed in pacing_gates.py; this case
+    is the regression test.
+    """
+    bad = _fixture_vocabulary_problem()
+    if bad:
+        return False, f"the fixture vocabulary is wrong: {bad}"
+    rmax = config.PERSONA_JUDGMENT_RUN_MAX
+    three = _mkdraft([("J", "C01"), ("J", "C02"), ("J", "C03"), ("P", "C04")])
+    fired = _hits(three, "PERSONA-RUN")
+    if not fired:
+        return False, f"{rmax + 1} consecutive judgment lines did not fire"
+    if f"longest {rmax + 1}" not in fired[0]:
+        return False, f"the finding does not state the run length: {fired[0][:140]}"
+    two = _mkdraft([("J", "C01"), ("J", "C02"), ("P", "C03")])
+    if _hits(two, "PERSONA-RUN"):
+        return False, (f"{rmax} consecutive judgment lines fired, but the "
+                       f"maximum is {rmax}")
+    # the three documented breakers
+    for kind, what in (("H", "a hold"), ("F", "a film-speaks unit"),
+                       ("P", "a plain line")):
+        broken = _mkdraft([("J", "C01"), ("J", "C02"), (kind, "C03"),
+                           ("J", "C04")])
+        got = _hits(broken, "PERSONA-RUN")
+        if got:
+            return False, (f"{what} between judgment lines did NOT break the "
+                           f"run - the gate tells writers to do exactly this: "
+                           f"{got[0][:140]}")
+    _old = config.PERSONA_JUDGMENT_RUN_MAX
+    try:
+        config.PERSONA_JUDGMENT_RUN_MAX = 3
+        relaxed = _hits(three, "PERSONA-RUN")
+    finally:
+        config.PERSONA_JUDGMENT_RUN_MAX = _old
+    if relaxed:
+        return False, ("raising config.PERSONA_JUDGMENT_RUN_MAX to 3 did not "
+                       "clear a run of 3 - the bar is not read from config")
+    return True, (f"{rmax + 1} in a row fires and names the length, {rmax} is "
+                  f"clean, and a hold, a film-speaks unit and a plain line "
+                  f"each break the run (the hold/film-speaks case was BROKEN "
+                  f"until this test; see the docstring)")
+
+
+def test_peak_order() -> tuple[bool, str]:
+    """[PEAK-ORDER] the moment lands before the opinion of it.
+
+    Fixture: synthetic, bound to the first PEAK anchor the real angle.md
+    declares; the real one is the overcorrected draft (6 findings).
+    """
+    bad = _fixture_vocabulary_problem()
+    if bad:
+        return False, f"the fixture vocabulary is wrong: {bad}"
+    a = _anchor(peak=True)
+    if a is None:
+        return False, ("the real angle.md declares no anchor whose kind/why "
+                       "names a peak, so this gate cannot be reached at all")
+    b = a["beats"][0]
+    first_is_cmt = _hits(_mkdraft([("J", b), ("P", b), ("P", b)]), "PEAK-ORDER")
+    if not any("first line on peak" in e for e in first_is_cmt):
+        return False, (f"opening peak {b} on commentary was not reported: "
+                       f"{first_is_cmt}")
+    reordered = _hits(_mkdraft([("P", b), ("J", b), ("P", b)]), "PEAK-ORDER")
+    if reordered:
+        return False, (f"the SAME three lines with the action first still "
+                       f"fail, so the gate is not reading order: "
+                       f"{reordered[0][:160]}")
+    pmax = config.PERSONA_PEAK_REACTION_MAX
+    many = _hits(_mkdraft([("P", b), ("J", b), ("J", b)]), "PEAK-ORDER")
+    if not any("reaction lines" in e for e in many):
+        return False, (f"{pmax + 1} reaction lines on peak {b} (max {pmax}) "
+                       f"were not reported: {many}")
+    if any("first line on peak" in e for e in many):
+        return False, ("the action-first draft was ALSO reported for order - "
+                       "the two halves of the gate are not separable")
+    # a non-peak anchor with the same shape must be ignored: the gate reads
+    # the angle's declaration, not a keyword hunt over the narration.
+    na = _anchor(peak=False)
+    if na is not None:
+        quiet = _hits(_mkdraft([("J", na["beats"][0]), ("J", na["beats"][0]),
+                                ("P", na["beats"][0])]), "PEAK-ORDER")
+        if quiet:
+            return False, (f"the same shape on the NON-peak anchor "
+                           f"{'/'.join(na['beats'])} ({na['kind']}) also "
+                           f"fired: {quiet[0][:140]}")
+    return True, (f"on peak {b} ({a['kind']}): commentary first fires, the "
+                  f"same lines reordered are clean, {pmax + 1} reactions "
+                  f"fires; the non-peak anchor "
+                  f"{'/'.join(na['beats']) if na else '-'} is ignored")
+
+
+def test_anchor_clean() -> tuple[bool, str]:
+    """[ANCHOR-CLEAN] an anchor keeps at least one line that is just the moment.
+
+    Fixture: synthetic, bound to the first NON-peak anchor (so PEAK-ORDER
+    cannot be what is firing); the real one is the overcorrected draft
+    (B58 and B65, 4 lines each, 0 without commentary).
+    """
+    bad = _fixture_vocabulary_problem()
+    if bad:
+        return False, f"the fixture vocabulary is wrong: {bad}"
+    a = _anchor(peak=False)
+    if a is None:
+        return False, "the real angle.md declares no non-peak anchor"
+    b = a["beats"][0]
+    cmin = config.PERSONA_ANCHOR_CLEAN_LINES_MIN
+    dirty = _hits(_mkdraft([("J", b), ("J", b), ("J", b)]), "ANCHOR-CLEAN")
+    if not dirty:
+        return False, (f"an anchor whose every line is commentary did not "
+                       f"fire the {cmin}-clean-line floor")
+    if f"{b} (3 lines, 0 without commentary)" not in dirty[0]:
+        return False, f"the finding does not count the lines: {dirty[0][:160]}"
+    clean = _hits(_mkdraft([("J", b), ("J", b), ("J", b), ("P", b)]),
+                  "ANCHOR-CLEAN")
+    if clean:
+        return False, (f"adding one plain line did not clear it: "
+                       f"{clean[0][:160]}")
+    # a QUOTATION is a clean line too - that is the gate's stated intent
+    quoted = _hits(_mkdraft([("J", b), ("J", b), ("Q", b)]), "ANCHOR-CLEAN")
+    if quoted:
+        return False, (f"a quotation does not count as a line that is purely "
+                       f"the moment: {quoted[0][:160]}")
+    _old = config.PERSONA_ANCHOR_CLEAN_LINES_MIN
+    try:
+        config.PERSONA_ANCHOR_CLEAN_LINES_MIN = 2
+        stricter = _hits(_mkdraft([("J", b), ("J", b), ("J", b), ("P", b)]),
+                         "ANCHOR-CLEAN")
+    finally:
+        config.PERSONA_ANCHOR_CLEAN_LINES_MIN = _old
+    if not stricter:
+        return False, ("raising config.PERSONA_ANCHOR_CLEAN_LINES_MIN to 2 "
+                       "did not fail a draft with one clean line - the bar is "
+                       "not read from config")
+    return True, (f"anchor {b} ({a['kind']}) with 3 commentary lines and 0 "
+                  f"clean fires; one plain line clears it; a quotation counts "
+                  f"as clean; raising the floor to 2 fails it again")
+
+
+def _ceiling_counts(path: Path) -> tuple:
+    d = json.loads(Path(path).read_text(encoding="utf-8-sig"))
+    rep = pg.pacing_report(d, PROJ)
+    per = {g: [e for e in rep["errors"] if e.startswith(f"[{g}]")]
+           for g in _CEILING_GATES}
+    return per, rep["stats"]
+
+
+def test_overcorrected_fixture_fails() -> tuple[bool, str]:
+    """THE DEFECT ITSELF. All four ceiling gates must stay caught on it.
+
+    Measured 2026-10-30 on tools/fixtures/draft_tokyodrift_overcorrected.json
+    against projects/tokyodrift2006 (111 narrated lines of 114):
+
+        PERSONA-CEILING  58 of 111 lines (52.3%) judgment, ceiling 35%
+        PERSONA-RUN      8 places over the run cap of 2, the longest 5
+        PEAK-ORDER       6 findings: B65 and B79/B80 open on commentary;
+                         B13 x3, B65 x4, B79/B80 x5 and B101 x3 reactions
+                         against a cap of 1
+        ANCHOR-CLEAN     2 anchors with no clean line (B58 and B65, 4 lines
+                         each, 0 without commentary)
+    """
+    if not OVER.exists():
+        return False, f"the fixture {OVER.name} is missing"
+    per, s = _ceiling_counts(OVER)
+    silent = [g for g in _CEILING_GATES if not per[g]]
+    if silent:
+        return False, (f"the overcorrected fixture no longer fires: {silent}. "
+                       f"That fixture IS the defect; if it passes, the gates "
+                       f"stopped measuring, not the draft stopped offending.")
+    if s.get("judgment_share", 0) <= config.PERSONA_JUDGMENT_SHARE_MAX:
+        return False, (f"judgment share measured {s.get('judgment_share')}, "
+                       f"not over the {config.PERSONA_JUDGMENT_SHARE_MAX} "
+                       f"ceiling - the fixture no longer demonstrates it")
+    if s.get("longest_judgment_run", 0) <= config.PERSONA_JUDGMENT_RUN_MAX:
+        return False, (f"longest judgment run measured "
+                       f"{s.get('longest_judgment_run')}, inside the cap")
+    order = sum(1 for e in per["PEAK-ORDER"] if "first line on peak" in e)
+    react = sum(1 for e in per["PEAK-ORDER"] if "reaction lines" in e)
+    if not (order and react):
+        return False, (f"PEAK-ORDER fires only one of its two halves "
+                       f"(order={order}, reactions={react})")
+    n = sum(len(v) for v in per.values())
+    return True, (f"{n} finding(s): judgment share {s['judgment_share']:.3f} "
+                  f"(ceiling {config.PERSONA_JUDGMENT_SHARE_MAX}), longest "
+                  f"run {s['longest_judgment_run']} (cap "
+                  f"{config.PERSONA_JUDGMENT_RUN_MAX}), PEAK-ORDER "
+                  f"{len(per['PEAK-ORDER'])} ({order} order + {react} "
+                  f"reaction-count), ANCHOR-CLEAN {len(per['ANCHOR-CLEAN'])}")
+
+
+def test_prerewrite_separates() -> tuple[bool, str]:
+    """The gates must SEPARATE the two drafts, not fire on everything.
+
+    The pre-rewrite draft is the OPPOSITE defect - too flat, not too loud - so
+    the two overcorrection gates (PERSONA-CEILING, PERSONA-RUN) must be silent
+    on it. Measured 2026-10-30: 9 findings on the overcorrected draft against
+    3 on the pre-rewrite one (2 x PEAK-ORDER order, 1 x ANCHOR-CLEAN), and the
+    two ceiling gates fire on the overcorrected draft only.
+    """
+    if not PRE.exists():
+        return False, f"{PRE} is missing"
+    over, _ = _ceiling_counts(OVER)
+    pre, pres = _ceiling_counts(PRE)
+    n_over = sum(len(v) for v in over.values())
+    n_pre = sum(len(v) for v in pre.values())
+    for g in ("PERSONA-CEILING", "PERSONA-RUN"):
+        if pre[g]:
+            return False, (f"{g} fires on the PRE-REWRITE draft "
+                           f"(judgment share {pres.get('judgment_share')}, "
+                           f"longest run {pres.get('longest_judgment_run')}) "
+                           f"- a gate aimed at overcorrection that also fails "
+                           f"the flat draft separates nothing: "
+                           f"{pre[g][0][:140]}")
+    if n_pre != 3:
+        return False, (f"the pre-rewrite draft produces {n_pre} of these "
+                       f"findings, not the 3 measured; recheck which, and "
+                       f"whether the change was intended: "
+                       + "; ".join(f"{g}={len(v)}" for g, v in pre.items()))
+    if n_over <= n_pre:
+        return False, (f"the overcorrected draft produces {n_over} findings "
+                       f"and the pre-rewrite one {n_pre} - the gates do not "
+                       f"separate the two drafts")
+    return True, (f"overcorrected {n_over} finding(s) vs pre-rewrite "
+                  f"{n_pre} ("
+                  + ", ".join(f"{g} {len(over[g])}/{len(pre[g])}"
+                              for g in _CEILING_GATES)
+                  + f"); the two overcorrection gates are silent on the flat "
+                    f"draft (share {pres.get('judgment_share')}, run "
+                    f"{pres.get('longest_judgment_run')})")
+
+
 TESTS = {
     "CONTROL-ON-DISK":          test_control_on_disk,
     "TOP20-IS-THE-ROBUST-ONE":  test_top20_is_the_robust_one,
@@ -504,6 +903,12 @@ TESTS = {
     "AUDIT-COVERS-MAPPINGS":    test_audit_covers_mappings,
     "JUDGMENT-AGREEMENT":       test_judgment_agreement,
     "CLASSIFIER-CORRECTED":     test_classifier_corrected,
+    "PERSONA-CEILING":          test_persona_ceiling,
+    "PERSONA-RUN":              test_persona_run,
+    "PEAK-ORDER":               test_peak_order,
+    "ANCHOR-CLEAN":             test_anchor_clean,
+    "OVERCORRECTED-FIXTURE-FAILS": test_overcorrected_fixture_fails,
+    "PREREWRITE-SEPARATES":     test_prerewrite_separates,
 }
 
 if __name__ == "__main__":

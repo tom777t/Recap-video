@@ -94,17 +94,96 @@ every floor they were given:
 | | human reference | first re-run | allowed band |
 |---|---|---|---|
 | sentences of 30+ words | 4.3% | **18.9%** | 2% - 12% |
-| lines with a judgment/aside | 7.5% | **27.5%** | 3% - 15% |
+| lines with a judgment/aside | 7.5% | **27.5%** | see rule 2 below |
 | lines per beat | 1.93 | **3.24** | up to 2.5 |
+
+The judgment band moved and changed instrument - the live bar is
+**15% - 35%** on the label-and-classifier agreement (`[PERSONA-CEILING]` /
+`PERSONA_JUDGMENT_SHARE_MIN`), not the 3% - 15% figure this table used to
+carry. Do not aim at both; aim at rule 2.
 
 All three are now gated in **both** directions. A long sentence is a device,
 not a default. An opinion on every line is not a point of view, it is a
 running commentary. And three lines on one beat almost always means two of
 them say the same thing.
 
-**Aim for roughly two lines per beat.** There is still no runtime target and
-nothing is compared against a number of minutes - but a beat that takes four
-lines to tell is a beat being re-told.
+**Aim for roughly two lines per beat.** A beat that takes four lines to tell is
+a beat being re-told.
+
+## The seven newest rules, in one place
+
+These are gated at the draft stage and three of them BLOCK. Full versions in
+`prompts/recap_style.md` - read its PILLAR 3 and PILLAR 4 sections, the
+`OTHER RULES` runtime bullet, items 4-5 of `FACTS IN BRIDGE / FOLD /
+COMPRESSED LINES`, and `TWO OTHER AGENTS READ THE DRAFT BEFORE THE CHECKPOINT`.
+Derivation of every number: `docs/stage2/REVIEW_CALIBRATION.md`.
+
+1. **RUNTIME IS CAPPED AND THE CAP BLOCKS.** Shipped recaps run **15.0-18.8
+   finished minutes regardless of film length** (nine renders; film length
+   varies 1.67x, recap runtime only 1.25x, so the *share* of the film is the
+   looser statistic and absolute minutes is the bar). `[RUNTIME-BAND]` fails
+   anything predicting over **19.0** finished minutes, or over **20% of the
+   film's runtime**. Predicted finished = words / WPM **x 1.046**, the measured
+   factor between a draft estimate and the finished video - a draft that looks
+   18.5 minutes long is already over. Your act is one of eight: **pay for dwell
+   by cutting connective tissue - bridges, restatement, commentary - never by
+   adding words.** A brief to cut once came back 1,200 words longer.
+
+2. **JUDGMENT HAS A CEILING: 15%-35% of narrated lines**, label AND an
+   independent classifier agreeing. **At most 2 judgment lines back to back.**
+   At a peak - a death, a win, a reveal - the moment lands **FIRST** on action,
+   a quotation or a hold, then gets **at most one** reaction line. Every anchor
+   keeps at least one line that is purely the moment. Told only to clear the
+   floor, a rewrite came back at **52%** judgment with one run of **14**: the
+   narrator talks over the film and every beat arrives pre-digested. Note also
+   that the five reference recaps run **4.7%-41.8%** judgment by sentence
+   (median **7.5%**), and that more judgment does **not** cure flatness - the
+   draft called flat already measured above four of those five.
+   `[PERSONA-CEILING]`, `[PERSONA-RUN]`, `[PEAK-ORDER]`, `[ANCHOR-CLEAN]`.
+
+3. **MOTIF BUDGET.** Each running bit in the angle gets setup once, **at most
+   2 callbacks**, payoff once - **four lines total**. An explicit thesis
+   statement ("that's the whole film" and its shapes) happens **once**, before
+   the outro. **No two adjacent lines may make the same point.** A callback
+   works by being rare. One bit's keyword once reached **twelve** lines.
+   `[MOTIF-BUDGET]`, `[MOTIF-THESIS]`, `[MOTIF-ADJACENT]`.
+
+4. **TICS.** Any **3+ word phrase** outside names and quoted speech, used more
+   than once, is flagged. A persona signature move must **VARY** - the fix for
+   a repeated move is to **reword** it, not to delete the voice.
+   `[TIC-REPETITION]`. (2-word stance markers with one content word - the "of
+   course" shape - are below the instrument and come back as near-misses, not
+   blocks. They are still tics. Vary them anyway.)
+
+5. **A CLAIM ABOUT REPEATED BEHAVIOUR NEEDS SUPPORT.** "spent the whole film
+   ...ing", "kept ...ing", "always said", "every time he" must carry
+   `"callback_beat": "B07"` naming a beat that **exists**, or be rewritten as
+   what the character actually said **once**. A pattern is harder to verify
+   than an incident, not easier: a shipped line asserted a film-long repetition
+   that appears in no transcript line and no beat. `[CLAIM-SUPPORT]`.
+   **And when a beat's `what` text is ambiguous about WHO speaks a line, check
+   the transcript before attributing it** - a shipped line gave a quotation to
+   the wrong character because the beat text named two people and never said
+   which was talking.
+
+6. **NAME THE CHARACTER AT THE REVEAL.** A spoiler hold applies **before** a
+   reveal's landing time, not **at** it. Once a reveal lands the character gets
+   their name; withholding it afterwards is not protection, it is vagueness,
+   and it costs the payoff line the one word that makes it land. Never describe
+   a character by appearance at the moment the film names them.
+   `[NAME-AT-REVEAL]`.
+
+7. **TWO OTHER AGENTS WILL READ YOUR LINES.** Before the draft-review
+   checkpoint, `cold_read.md` and `review.md` must exist in the project dir,
+   written by agents that did **not** write the draft - a blind narration-only
+   read (`python tools/cold_read_payload.py <project>`) and an independent
+   checklist pass. Every FINDING they raise must be RESOLVED or ANSWERED, and
+   an ANSWERED needs a real argument of **8 words minimum**. What they catch is
+   what no text rule can: a referent whose beat was **cut** during trimming, a
+   pronoun with two possible antecedents, and a claim about a repetition that
+   happens nowhere. Write so a reader who has not seen the film and cannot see
+   your labels still follows every line - **introduce every referent, and
+   prefer a name to a pronoun whenever two people are in play.**
 
 ## Rhythm: vary line length on purpose
 
@@ -276,9 +355,12 @@ out of.
    text is a description of the footage; it is **not** prose to copy.
 6. **Cover the beats.** Each beat in your act should get at least one line
    unless no moment in range can carry it - in which case say so in your reply.
-7. **There is no length target.** Nothing compares your act against a runtime.
-   Cover the beats and carry the payloads; do not pad and do not trim to hit a
-   number.
+7. **Nothing compares your ACT against a runtime - but the assembled draft has
+   a hard ceiling.** See rule 1: `[RUNTIME-BAND]` blocks the whole draft above
+   19.0 predicted finished minutes, and your act is one of eight. Cover the
+   beats and carry the payloads; do not pad, do not trim every line to a
+   uniform size to hit a number, and do not spend an act's worth of words on
+   bridges and restatement that another act will have to pay for.
 
 ## The window-extension rule
 

@@ -1,0 +1,1464 @@
+{
+  "title": "Teenager Is Shipped to Tokyo to Dodge Jail and Ends Up Owing the Yakuza a Car He Cannot Pay For",
+  "target_minutes": 17,
+  "voice": "en-US",
+  "stage_note": "Rewritten act by act from angle.md's ANCHORS / HOOK PROMISES / NARRATOR PERSONA. Anchors carry multi-line dwell ending on a narrator reaction; non-mandatory connective beats are one line or dropped to footage, never leaving two uncovered beats in a row.",
+  "lines": [
+    {
+      "note": "HOOK",
+      "delivery": "hook",
+      "payload": "loop",
+      "over_montage": true,
+      "hook_question": "Can a kid who only knows how to crash survive the one city where the whole game is a control he hasn't got?",
+      "narration": "Strike three. One more wrecked car and this kid goes to jail, so they ship him to the one city on earth where the cars drive sideways - and he gets there owing a stranger a car before he has learned to turn.",
+      "id": 1
+    },
+    {
+      "note": "INTRO",
+      "delivery": "intro",
+      "payload": "rest",
+      "film_intro": true,
+      "narration": "This is Serabudabu, and today I'm walking you through The Fast and the Furious: Tokyo Drift, from 2006 - the one everybody wrote off and the series then spent fifteen years quietly building on.",
+      "id": 2
+    },
+    {
+      "note": "INTRO",
+      "delivery": "intro",
+      "payload": "judgment",
+      "film_intro": true,
+      "narration": "Justin Lin drops Lucas Black's Sean Boswell into a city run by Sung Kang's Han and Brian Tee's Takashi. Here's the odd part: almost every slide in it is a real car on a real road, which is why it still holds up. Let me show you where it starts.",
+      "id": 3
+    },
+    {
+      "note": "B01",
+      "clip_start": "00:02:36.739",
+      "clip_end": "00:02:48.042",
+      "narration": "Arizona. Three lads pin a classmate to a roller door and scrawl on him, and the kid watching has already decided how this ends, and it ends badly, and in another time zone.",
+      "delivery": "action",
+      "payload": "judgment",
+      "id": 4,
+      "claim": {
+        "type": "action",
+        "subject": "the dark-haired teenager"
+      }
+    },
+    {
+      "note": "B01",
+      "clip_start": "00:02:48.042",
+      "clip_end": "00:02:55.174",
+      "narration": "The boy watching reaches for the jumper cables. Not a plan - a reflex. Sean Boswell's whole method, in one drawer.",
+      "delivery": "normal",
+      "payload": "judgment",
+      "id": 5,
+      "claim": {
+        "type": "action",
+        "subject": "the dark-haired teenager"
+      }
+    },
+    {
+      "note": "B02",
+      "clip_start": "00:03:30.460",
+      "clip_end": "00:03:45.975",
+      "narration": "Clay calls the car a piece of junk and Sean trailer trash, then lists his dad's Viper's horsepower like a man reading out his own CV, and sean's answer is the best line he gets all film: you can read the brochure.",
+      "delivery": "normal",
+      "payload": "judgment",
+      "id": 6,
+      "claim": {
+        "type": "dialogue",
+        "subject": "the scene"
+      }
+    },
+    {
+      "note": "B04",
+      "clip_start": "00:04:57.755",
+      "clip_end": "00:05:09.308",
+      "narration": "Then Clay's girlfriend settles the terms by putting herself up as the stake, which says less about her than about a film that keeps thinking a girl is a thing you win. Race is on.",
+      "delivery": "normal",
+      "payload": "judgment",
+      "id": 7,
+      "claim": {
+        "type": "dialogue",
+        "subject": "the scene"
+      }
+    },
+    {
+      "note": "B06",
+      "clip_start": "00:07:19.437",
+      "clip_end": "00:07:30.907",
+      "narration": "Losing on tarmac, he quits the road altogether and cuts straight across the raw dirt, and it works, and it's the first time the film tells you what he actually is: someone who refuses the given line.",
+      "delivery": "action",
+      "payload": "judgment",
+      "id": 8,
+      "claim": {
+        "type": "action",
+        "subject": "the dark-haired teenager in the blue T-shirt"
+      }
+    },
+    {
+      "note": "B06",
+      "clip_start": "00:07:54.931",
+      "clip_end": "00:08:06.943",
+      "narration": "He's laughing right up until a parked bulldozer turns up in the windscreen. Floor it now, panic later. The method again.",
+      "delivery": "action",
+      "payload": "loop",
+      "id": 9,
+      "claim": {
+        "type": "action",
+        "subject": "the dark-haired teenager in the cream muscle car"
+      }
+    },
+    {
+      "note": "B08",
+      "clip_start": "00:09:07.045",
+      "clip_end": "00:09:16.596",
+      "narration": "Then the maths arrives, and both cars leave the ground and come down end over end in front of every single person he had spent the evening showing off to.",
+      "delivery": "action",
+      "payload": "stake",
+      "id": 10,
+      "claim": {
+        "type": "action",
+        "subject": "the scene"
+      }
+    },
+    {
+      "note": "B08",
+      "clip_start": "00:09:26.981",
+      "clip_end": "00:09:43.414",
+      "narration": "Sean ends up hanging upside down in his belt with his face full of blood, and a bystander filmed the whole thing out of an SUV window. So that went well.",
+      "delivery": "normal",
+      "payload": "judgment",
+      "id": 11,
+      "claim": {
+        "type": "aftermath",
+        "subject": "the scene"
+      }
+    },
+    {
+      "note": "B10",
+      "clip_start": "00:10:23.412",
+      "clip_end": "00:10:35.216",
+      "narration": "He asks where his car is. It's been crushed. That's the thing that gets him out of the chair - not the prison, not the record. The car.",
+      "delivery": "normal",
+      "payload": "judgment",
+      "id": 12,
+      "claim": {
+        "type": "dialogue",
+        "subject": "the scene"
+      }
+    },
+    {
+      "note": "B12",
+      "clip_start": "00:11:07.581",
+      "clip_end": "00:11:23.847",
+      "narration": "Two priors for reckless driving, so this is strike three, and strike three in Arizona means they try him as an adult. He is not yet eighteen and he is out of chances, and he hears all of it sitting under a whiteboard that says CRASH SITE VEHICLE.",
+      "delivery": "tense",
+      "payload": "stake",
+      "id": 13,
+      "claim": {
+        "type": "dialogue",
+        "subject": "the scene"
+      }
+    },
+    {
+      "note": "B13",
+      "clip_start": "00:11:23.847",
+      "clip_end": "00:11:33.232",
+      "narration": "Through the office glass he can see Clay and Cindy being looked after. His mother says there has got to be another way. There is. There always is, with Sean.",
+      "delivery": "normal",
+      "payload": "loop",
+      "id": 14,
+      "claim": {
+        "type": "reaction",
+        "subject": "the scene"
+      }
+    },
+    {
+      "note": "B13",
+      "clip_start": "00:11:33.232",
+      "clip_end": "00:11:49.790",
+      "narration": "In the corridor he asks it the way you'd ask about the weather: where are we moving this time. He's done this before. His mother tells him they are not moving anywhere - he is, on his own. And he takes the sentence without a word.",
+      "delivery": "normal",
+      "payload": "stake",
+      "id": 15,
+      "claim": {
+        "type": "dialogue",
+        "subject": "the scene"
+      }
+    },
+    {
+      "note": "B13",
+      "clip_start": "00:11:49.790",
+      "clip_end": "00:12:10.686",
+      "narration": "Being moved on is the only discipline these adults have ever managed, and he's been raised to expect it. New state, new school, clean slate, floor it again. This time the clean slate is the other side of the world and he's wedged in economy between strangers, going there alone. You can hear the moment it stops sounding like a rescue.",
+      "delivery": "tense",
+      "payload": "judgment",
+      "id": 16,
+      "claim": {
+        "type": "reaction",
+        "subject": "the crew-cut American teenager"
+      }
+    },
+    {
+      "note": "B13",
+      "clip_start": "00:12:26.493",
+      "clip_end": "00:12:35.210",
+      "narration": "Notice nobody asks him. Where he goes next has never once been his to decide - only what he wrecks before he gets there. Seventeen, and already an export.",
+      "delivery": "normal",
+      "payload": "judgment",
+      "id": 17,
+      "claim": {
+        "type": "action",
+        "subject": "the crew-cut American teenager"
+      }
+    },
+    {
+      "note": "B15",
+      "clip_start": "00:13:42.235",
+      "clip_end": "00:14:02.380",
+      "narration": "The door slides open on his father, who he plainly hasn't seen in years, and who has got the date wrong. Japan is a day ahead, he explains, as though that were the problem here.",
+      "delivery": "normal",
+      "payload": "judgment",
+      "id": 18,
+      "claim": {
+        "type": "dialogue",
+        "subject": "the scene"
+      }
+    },
+    {
+      "note": "B17",
+      "clip_start": "00:14:23.151",
+      "clip_end": "00:14:44.255",
+      "narration": "Inside, the whole home is one room. This is it, his dad says, scooping up the cat to clear a space, and then starts explaining how he meant to be at the airport. Sean doesn't put his bag down.",
+      "delivery": "normal",
+      "payload": "reasoning",
+      "id": 19,
+      "claim": {
+        "type": "establishing",
+        "subject": "the scene"
+      }
+    },
+    {
+      "note": "B17",
+      "clip_start": "00:14:44.255",
+      "clip_end": "00:15:03.316",
+      "narration": "His mum had no other choice, his father tells him. It was this or juvenile hall. So the deal is plain enough: Tokyo isn't a fresh start, it's a sentence with better food.",
+      "delivery": "normal",
+      "payload": "stake",
+      "id": 20,
+      "claim": {
+        "type": "dialogue",
+        "subject": "the scene"
+      }
+    },
+    {
+      "note": "B17",
+      "clip_start": "00:15:03.316",
+      "clip_end": "00:15:10.198",
+      "narration": "You can't keep moving away every time you get into trouble. That's the whole film, said out loud, fifteen minutes in.",
+      "delivery": "reveal",
+      "payload": "judgment",
+      "id": 21,
+      "claim": {
+        "type": "dialogue",
+        "subject": "the scene"
+      }
+    },
+    {
+      "note": "B17",
+      "clip_start": "00:15:10.198",
+      "clip_end": "00:15:25.421",
+      "narration": "There it is. The whole film in one sentence, and of course it arrives from the one man in the room least qualified to say it. Doesn't make it wrong. Keep hold of it - everything Sean does from here is him either running, or eventually not.",
+      "delivery": "normal",
+      "payload": "loop",
+      "id": 22,
+      "claim": {
+        "type": "dialogue",
+        "subject": "the scene"
+      }
+    },
+    {
+      "note": "B18",
+      "clip_start": "00:15:25.421",
+      "clip_end": "00:15:37.767",
+      "narration": "Then the rules, agreed with a mother on the other side of the planet. School, straight back here, and nowhere near a car. Two of those he can probably manage.",
+      "delivery": "normal",
+      "payload": "judgment",
+      "id": 23,
+      "claim": {
+        "type": "dialogue",
+        "subject": "the scene"
+      }
+    },
+    {
+      "note": "B21",
+      "clip_start": "00:18:22.180",
+      "clip_end": "00:18:34.693",
+      "narration": "Day one he's late, he's in street shoes, and the entire class has to explain uwabaki to him. His solution is to help himself to a pair from the cubbies. Arizona rules, applied internationally.",
+      "delivery": "normal",
+      "payload": "judgment",
+      "id": 24,
+      "claim": {
+        "type": "action",
+        "subject": "the American student"
+      }
+    },
+    {
+      "note": "B22",
+      "clip_start": "00:19:23.158",
+      "clip_end": "00:19:40.800",
+      "narration": "Lunch brings Twinkie, who sells laptops, trainers and phones out of a school bag and will do sixty per cent off for a fellow army brat. Sean tells him he's got no cash and won't be here long enough to remember his name. He's wrong about both, obviously.",
+      "delivery": "normal",
+      "payload": "judgment",
+      "id": 25,
+      "claim": {
+        "type": "dialogue",
+        "subject": "the American student"
+      }
+    },
+    {
+      "note": "B24",
+      "clip_start": "00:20:45.281",
+      "clip_end": "00:20:54.457",
+      "narration": "The one-of-a-kind ride Twinkie has been talking up is a minivan painted like the Incredible Hulk. Laugh now. That van belongs to the loyalest person in this film.",
+      "delivery": "normal",
+      "payload": "judgment",
+      "id": 26,
+      "claim": {
+        "type": "reveal",
+        "subject": "the scene"
+      }
+    },
+    {
+      "note": "B25",
+      "clip_start": "00:21:33.913",
+      "clip_end": "00:21:44.173",
+      "narration": "",
+      "delivery": "reveal",
+      "narration_silence_seconds": 3.5,
+      "id": 27
+    },
+    {
+      "note": "B27",
+      "clip_start": "00:23:56.054",
+      "clip_end": "00:24:14.156",
+      "narration": "And here's why. A man in a leather jacket gets up and walks the meet with his crew, collecting cash and phones as he goes, and nobody argues. Think of the bloke who owns the parking garage and takes a cut of everything parked in it. Takashi is that arrangement, standing up.",
+      "delivery": "reveal",
+      "payload": "judgment",
+      "id": 28,
+      "claim": {
+        "type": "action",
+        "subject": "the man in the black leather jacket"
+      }
+    },
+    {
+      "note": "B29",
+      "clip_start": "00:25:32.651",
+      "clip_end": "00:25:38.823",
+      "narration": "Twinkie says the word Yakuza like it should end the conversation. Sean hears it as an introduction.",
+      "delivery": "normal",
+      "payload": "stake",
+      "id": 29,
+      "claim": {
+        "type": "action",
+        "subject": "the dark-haired woman"
+      }
+    },
+    {
+      "note": "B31",
+      "clip_start": "00:26:36.381",
+      "clip_end": "00:27:00.321",
+      "narration": "In the lift Twinkie asks if he knows what DK stands for. Donkey Kong, he guesses. Drift King. One of those answers tells you exactly how much of Tokyo he has understood so far, and it isn't the right one.",
+      "delivery": "reveal",
+      "payload": "loop",
+      "id": 30,
+      "claim": {
+        "type": "reaction",
+        "subject": "the American in the grey tee"
+      }
+    },
+    {
+      "note": "B33",
+      "clip_start": "00:27:54.250",
+      "clip_end": "00:28:07.471",
+      "narration": "Before the start, DK pulls Neela into him in front of the whole garage. That isn't affection, it's paperwork, filed publicly, so everyone knows whose turf she stands on. She's the only person here who never agreed to that.",
+      "delivery": "tense",
+      "payload": "judgment",
+      "id": 31,
+      "claim": {
+        "type": "action",
+        "subject": "the scene"
+      }
+    },
+    {
+      "note": "B35",
+      "clip_start": "00:30:10.260",
+      "clip_end": "00:30:21.522",
+      "narration": "Rip the e-brake, then power over. He gets the first half right. The back end goes somewhere he never asked it to go, and the Mona Lisa grinds down the concrete throwing sparks.",
+      "delivery": "action",
+      "payload": "stake",
+      "id": 32,
+      "claim": {
+        "type": "action",
+        "subject": "the scene"
+      }
+    },
+    {
+      "note": "B35",
+      "clip_start": "00:30:25.609",
+      "clip_end": "00:30:33.575",
+      "narration": "Turns out thirty seconds of instruction doesn't make a driver. Every eye in that garage, and the one thing he came here to do, he cannot.",
+      "delivery": "tense",
+      "payload": "judgment",
+      "id": 33,
+      "claim": {
+        "type": "action",
+        "subject": "the scene"
+      }
+    },
+    {
+      "note": "B35",
+      "clip_start": "00:31:10.696",
+      "clip_end": "00:31:20.247",
+      "narration": "DK leans on his wheel and says something through the window, friendly as anything. Nothing to answer. He was beaten by a man who never stopped smiling, which is the part that stings.",
+      "delivery": "normal",
+      "payload": "judgment",
+      "id": 34,
+      "claim": {
+        "type": "dialogue",
+        "subject": "the scene"
+      }
+    },
+    {
+      "note": "B35",
+      "clip_start": "00:31:20.247",
+      "clip_end": "00:31:27.129",
+      "narration": "So. The kid who came to Tokyo to be somebody has just posted his first result: sideways, into a wall, in somebody else's car.",
+      "delivery": "normal",
+      "payload": "judgment",
+      "id": 35,
+      "claim": {
+        "type": "action",
+        "subject": "the scene"
+      }
+    },
+    {
+      "note": "B37",
+      "clip_start": "00:32:24.269",
+      "clip_end": "00:32:43.455",
+      "narration": "He slides out last with the front end hanging open, and the crowd swarms the car like an exhibit. Here's what he hasn't worked out yet: the wreck isn't the end of it. The man who handed him the keys is already leaning into his window, and that bill does not get paid in cash.",
+      "delivery": "normal",
+      "payload": "judgment",
+      "id": 36,
+      "claim": {
+        "type": "action",
+        "subject": "the scene"
+      }
+    },
+    {
+      "note": "B39",
+      "clip_start": "00:33:38.635",
+      "clip_end": "00:33:58.529",
+      "narration": "Home after midnight, and his father has the whole speech ready: live by my rules or get out, because if Tokyo doesn't work there's a cell waiting in Arizona. Fair terms. The trouble is he's saying it to a kid whose whole life has been rules from people who then moved him somewhere else.",
+      "delivery": "tense",
+      "payload": "judgment",
+      "id": 37,
+      "claim": {
+        "type": "dialogue",
+        "subject": "the scene"
+      }
+    },
+    {
+      "note": "B41",
+      "clip_start": "00:36:47.573",
+      "clip_end": "00:37:00.335",
+      "narration": "The job is collections, so he's sent into a bathhouse to lean on a man the size of a vending machine, gets thrown into the street, gets up, goes back in, and gets thrown into the street again. Nobody has to teach him stubborn.",
+      "delivery": "action",
+      "payload": "judgment",
+      "id": 38,
+      "claim": {
+        "type": "action",
+        "subject": "the young American"
+      }
+    },
+    {
+      "note": "B43",
+      "clip_start": "00:38:37.098",
+      "clip_end": "00:38:48.818",
+      "narration": "DK's crew want to know when the next race is. Han's answer is: why not be in it? And there's the small smile of a kid who has already said yes before anyone asked him a question.",
+      "delivery": "normal",
+      "payload": "judgment",
+      "id": 39,
+      "claim": {
+        "type": "dialogue",
+        "subject": "the scene"
+      }
+    },
+    {
+      "note": "B43",
+      "clip_start": "00:38:48.818",
+      "clip_end": "00:39:01.915",
+      "narration": "The stake gets set across the table: their Corolla against Han's 72 Skyline. Cars, not money. Which tells you what these men actually keep score with, and that Sean is now driving somebody else's bet.",
+      "delivery": "normal",
+      "payload": "judgment",
+      "id": 40,
+      "claim": {
+        "type": "dialogue",
+        "subject": "the scene"
+      }
+    },
+    {
+      "note": "B44",
+      "clip_start": "00:39:25.355",
+      "clip_end": "00:39:42.830",
+      "narration": "Then the kid gets sent outside so the grown-ups can talk. There's a shipment that hasn't arrived, and they want to know when it's coming. Han tells them to sit tight and let him handle it. Then the smile goes. Keep hold of that one.",
+      "delivery": "mystery",
+      "payload": "loop",
+      "id": 41,
+      "claim": {
+        "type": "dialogue",
+        "subject": "the man in the black T-shirt"
+      }
+    },
+    {
+      "note": "B46",
+      "clip_start": "00:40:14.195",
+      "clip_end": "00:40:30.544",
+      "narration": "Neela turns up and he tells her to stop following him around. She's come to ask for drifting lessons. He tells her she doesn't want any part of this world, that it isn't good enough for her. He's the newest person in Tokyo telling the person who lives here what she wants.",
+      "delivery": "normal",
+      "payload": "judgment",
+      "id": 42,
+      "claim": {
+        "type": "dialogue",
+        "subject": "the American in the white shirt"
+      }
+    },
+    {
+      "note": "B46",
+      "clip_start": "00:40:46.686",
+      "clip_end": "00:40:58.864",
+      "narration": "So she reads him back to himself: army brat, moved around constantly, parents never home, angry at everything. Zero for one, cowboy. She had him in about nine seconds, and nobody in Arizona ever managed it.",
+      "delivery": "normal",
+      "payload": "judgment",
+      "id": 43,
+      "claim": {
+        "type": "dialogue",
+        "subject": "the scene"
+      }
+    },
+    {
+      "note": "B48",
+      "clip_start": "00:41:54.587",
+      "clip_end": "00:42:20.321",
+      "narration": "Then they argue about what a race is even for. Sean's position is simple: you line up, you find out if you're faster, that's it. Han says that only proves you're faster, and a race should be for something that matters. It's the first time anyone has suggested to this kid that winning might not be the point of anything.",
+      "delivery": "normal",
+      "payload": "judgment",
+      "id": 44,
+      "claim": {
+        "type": "dialogue",
+        "subject": "the scene"
+      }
+    },
+    {
+      "note": "B48",
+      "clip_start": "00:42:20.321",
+      "clip_end": "00:42:28.954",
+      "narration": "So why let him race at all? Because DK's pride is his kryptonite. And, Han adds, you still owe me a car.",
+      "delivery": "normal",
+      "payload": "reasoning",
+      "id": 45,
+      "claim": {
+        "type": "dialogue",
+        "subject": "the long-haired man"
+      }
+    },
+    {
+      "note": "B49",
+      "clip_start": "00:42:58.901",
+      "clip_end": "00:43:12.831",
+      "narration": "A patrol car tucks in behind them at 197. Han doesn't even sit up: those things top out at 180, so they don't bother trying. Sean decides he's beginning to like this country. Of course he is.",
+      "delivery": "normal",
+      "payload": "loop",
+      "id": 46,
+      "claim": {
+        "type": "dialogue",
+        "subject": "the long-haired man"
+      }
+    },
+    {
+      "note": "B51",
+      "clip_start": "00:44:41.420",
+      "clip_end": "00:44:59.146",
+      "narration": "Twinkie hauls him off the floor to explain the local economics. Room full of models, worked all day, nobody in town brave enough to talk to them. So who do they end up talking to? The little guy who makes them laugh. He's not wrong, and he's never once doubted it.",
+      "delivery": "normal",
+      "payload": "judgment",
+      "id": 47,
+      "claim": {
+        "type": "dialogue",
+        "subject": "the scene"
+      }
+    },
+    {
+      "note": "B53",
+      "clip_start": "00:47:11.736",
+      "clip_end": "00:47:21.329",
+      "narration": "Practice at the docks goes about as well as expected. The crowd on the sofas are openly laughing at him. Where did you find this guy. He still cannot drift.",
+      "delivery": "normal",
+      "payload": "judgment",
+      "id": 48,
+      "claim": {
+        "type": "dialogue",
+        "subject": "the scene"
+      }
+    },
+    {
+      "note": "B54",
+      "clip_start": "00:47:58.074",
+      "clip_end": "00:48:09.794",
+      "narration": "Meanwhile his father is rebuilding a stripped-out coupe he found wrecked on the base. It's got potential, he says. No prizes for guessing what else in his life he's describing.",
+      "delivery": "normal",
+      "payload": "judgment",
+      "id": 49,
+      "claim": {
+        "type": "dialogue",
+        "subject": "the grey-haired man in the grey henley"
+      }
+    },
+    {
+      "note": "B54",
+      "clip_start": "00:48:18.094",
+      "clip_end": "00:48:35.069",
+      "narration": "And he gives him the saying: deru kui wa utarero. The nail that sticks out gets hammered. Decent advice for Tokyo. Terrible advice for his son, who has never in his life managed to sit flat for a single afternoon.",
+      "delivery": "normal",
+      "payload": "judgment",
+      "id": 50,
+      "claim": {
+        "type": "dialogue",
+        "subject": "the grey-haired man in the grey henley"
+      }
+    },
+    {
+      "note": "B55",
+      "clip_start": "00:49:42.344",
+      "clip_end": "00:49:52.729",
+      "narration": "So of course he ends up on the school roof, stepping between a bully and the kid taking the kicking. No punch thrown this time. In Arizona that same impulse cost him the whole state.",
+      "delivery": "tense",
+      "payload": "judgment",
+      "id": 51,
+      "claim": {
+        "type": "dialogue",
+        "subject": "the scene"
+      }
+    },
+    {
+      "note": "B57",
+      "clip_start": "00:51:21.067",
+      "clip_end": "00:51:44.591",
+      "narration": "Sean asks how he ended up here. Han talks about old westerns, the cowboys running for the border, and says this is his Mexico. Which says plenty: Han isn't in Tokyo because he loves Tokyo. He's in Tokyo because it's the last place that hasn't asked him for anything.",
+      "delivery": "normal",
+      "payload": "judgment",
+      "id": 52,
+      "claim": {
+        "type": "dialogue",
+        "subject": "the scene"
+      }
+    },
+    {
+      "note": "B57",
+      "clip_start": "00:51:44.591",
+      "clip_end": "00:52:04.277",
+      "narration": "Han's answer: he's got money. What he hasn't got is people he can trust, and one car in exchange for knowing what a man's made of is a prize he can live with. He lent it out on purpose. That's not a mentor testing a student - that's a man checking whether anyone left in this city is worth standing near.",
+      "delivery": "normal",
+      "payload": "judgment",
+      "id": 53,
+      "claim": {
+        "type": "dialogue",
+        "subject": "the scene"
+      }
+    },
+    {
+      "note": "B58",
+      "clip_start": "00:52:20.835",
+      "clip_end": "00:52:37.643",
+      "narration": "Sean asks what happens if he doesn't choose right. Han doesn't flinch. Life's simple, he says. You make choices and you don't look back. Coming from anyone else that's a fridge magnet. Coming from a man living in his own Mexico, it's a confession dressed as advice.",
+      "delivery": "normal",
+      "payload": "reasoning",
+      "id": 54,
+      "claim": {
+        "type": "reaction",
+        "subject": "the scene"
+      }
+    },
+    {
+      "note": "B58",
+      "clip_start": "00:52:37.643",
+      "clip_end": "00:52:44.484",
+      "narration": "And then the line the whole film hangs off, delivered like it's nothing: he doesn't drift to win.",
+      "delivery": "normal",
+      "payload": "judgment",
+      "id": 55,
+      "claim": {
+        "type": "establishing",
+        "subject": "the scene"
+      }
+    },
+    {
+      "note": "B58",
+      "clip_start": "00:52:44.484",
+      "clip_end": "00:52:58.122",
+      "narration": "A drift film, and its best driver tells you winning was never the point. Sean asks what he drifts for instead. Han says, you really wanna know. Of course he wants to know. Nobody has ever offered him a reason before, only a consequence.",
+      "delivery": "normal",
+      "payload": "loop",
+      "id": 56,
+      "claim": {
+        "type": "establishing",
+        "subject": "the scene"
+      }
+    },
+    {
+      "note": "B58",
+      "clip_start": "00:52:58.122",
+      "clip_end": "00:53:13.012",
+      "narration": "And that's the sentence that saves him, eventually. Every time Sean lost, somebody moved him on. Here's a man telling him the score was never the thing worth keeping. He won't understand that tonight. He understands it the night he's got nothing left to win with.",
+      "delivery": "normal",
+      "payload": "judgment",
+      "id": 57,
+      "claim": {
+        "type": "action",
+        "subject": "the scene"
+      }
+    },
+    {
+      "note": "B60",
+      "clip_start": "00:54:14.323",
+      "clip_end": "00:54:25.167",
+      "narration": "Morning, mountain road. The brief is four words long: out here, feel it. So feel it. That's the entire curriculum, and it's the first useful thing anyone has said to him.",
+      "delivery": "normal",
+      "payload": "judgment",
+      "id": 58,
+      "claim": {
+        "type": "dialogue",
+        "subject": "the friend in the pink hoodie"
+      }
+    },
+    {
+      "note": "B60",
+      "clip_start": "00:54:25.167",
+      "clip_end": "00:54:38.097",
+      "narration": "So he runs the hairpin. Sawing at the wheel, harness tight, dust rolling back over the crew. Then he runs it again. This is the part the hype never mentions, because getting good is mostly boring.",
+      "delivery": "normal",
+      "payload": "judgment",
+      "id": 59,
+      "claim": {
+        "type": "action",
+        "subject": "the American driver"
+      }
+    },
+    {
+      "note": "B60",
+      "clip_start": "00:54:45.145",
+      "clip_end": "00:54:57.324",
+      "narration": "Tyres cost money he hasn't got, so he and Twinkie work the shopping crowds, flogging goods out of a bag. Twinkie reckons he could sell rubbers to a monk. He's not wrong, and that cash is what keeps Sean on the mountain.",
+      "delivery": "normal",
+      "payload": "reasoning",
+      "id": 60,
+      "claim": {
+        "type": "montage",
+        "subject": "the American driver"
+      }
+    },
+    {
+      "note": "B60",
+      "clip_start": "00:55:38.073",
+      "clip_end": "00:55:46.790",
+      "narration": "Han coaches from the passenger seat - mountain bends, an empty dock lot, circles until two workers stop and grin. First time Tokyo has looked at Sean and approved.",
+      "delivery": "normal",
+      "payload": "judgment",
+      "id": 61,
+      "claim": {
+        "type": "montage",
+        "subject": "the American teen driver"
+      }
+    },
+    {
+      "note": "B60",
+      "clip_start": "00:56:00.595",
+      "clip_end": "00:56:08.103",
+      "narration": "Nobody ever taught him anything before. They just moved him. This is the only stretch where turning actually gets taught, and Han does it for free.",
+      "delivery": "normal",
+      "payload": "loop",
+      "id": 62,
+      "claim": {
+        "type": "montage",
+        "subject": "the scene"
+      }
+    },
+    {
+      "note": "B61",
+      "clip_start": "00:56:08.103",
+      "clip_end": "00:56:26.121",
+      "narration": "Meanwhile his father lets himself into the dark flat, parts the coats, and finds a bed nobody has slept in. He set house rules he had no standing to enforce, and now he's alone in his own kitchen working out that nobody has been listening.",
+      "delivery": "normal",
+      "payload": "judgment",
+      "id": 63,
+      "claim": {
+        "type": "action",
+        "subject": "the greying naval officer"
+      }
+    },
+    {
+      "note": "B64",
+      "clip_start": "00:58:37.168",
+      "clip_end": "00:58:45.385",
+      "narration": "Neela messages him from class: how come I never see you drift. He chews his knuckle over it. That's not a taunt, that's an invitation, and he knows it.",
+      "delivery": "normal",
+      "payload": "loop",
+      "id": 64,
+      "claim": {
+        "type": "dialogue",
+        "subject": "the scene"
+      }
+    },
+    {
+      "note": "B65",
+      "clip_start": "00:59:19.043",
+      "clip_end": "00:59:37.395",
+      "narration": "Vending-machine dinner under an overpass, and she tells him the thing she doesn't tell people. Her mother came out from Australia straight after school and went to work in a hostess bar. She died when Neela was ten. DK's grandmother took her in. That's the whole arithmetic of her life in Tokyo.",
+      "delivery": "normal",
+      "payload": "stake",
+      "id": 65,
+      "claim": {
+        "type": "dialogue",
+        "subject": "the scene"
+      }
+    },
+    {
+      "note": "B65",
+      "clip_start": "00:59:37.395",
+      "clip_end": "01:00:00.793",
+      "narration": "He gives her his own back: parents split when he was three, moved around a lot, mostly because of him - then he corrects himself, all because of him. Outside or inside, he says, doesn't matter; what matters is knowing what you want. Two displaced kids comparing paperwork.",
+      "delivery": "normal",
+      "payload": "loop",
+      "id": 66,
+      "claim": {
+        "type": "dialogue",
+        "subject": "the scene"
+      }
+    },
+    {
+      "note": "B65",
+      "clip_start": "01:00:00.793",
+      "clip_end": "01:00:11.262",
+      "narration": "And there's the part the film never says out loud: she owes that household her whole childhood. Gratitude like that isn't love, it's a debt - and you don't get to walk out on a debt.",
+      "delivery": "normal",
+      "payload": "judgment",
+      "id": 67,
+      "claim": {
+        "type": "dialogue",
+        "subject": "the young man with short brown hair"
+      }
+    },
+    {
+      "note": "B65",
+      "clip_start": "01:00:11.262",
+      "clip_end": "01:00:28.654",
+      "narration": "And there's the mirror. Sean got moved every time he lost. Neela got left somewhere and had to owe the man who kept her. Same displacement, opposite cage. Which is why, when she takes the wheel and drives him up the mountain, it isn't a favour - it's her showing him the one thing that's hers.",
+      "delivery": "normal",
+      "payload": "judgment",
+      "id": 68,
+      "claim": {
+        "type": "establishing",
+        "subject": "the young man with short brown hair"
+      }
+    },
+    {
+      "note": "B66",
+      "clip_start": "01:00:44.587",
+      "clip_end": "01:01:02.897",
+      "narration": "She used to cut class and sneak up here as a kid to watch the older drifters. He tells her about his first win, how everything else disappears - no past, no future, just a moment. Then the guard drops and they're both just laughing, and that's the closest either of them gets to being off-duty.",
+      "delivery": "normal",
+      "payload": "judgment",
+      "id": 69,
+      "claim": {
+        "type": "reaction",
+        "subject": "the young man with short brown hair"
+      }
+    },
+    {
+      "note": "B67",
+      "clip_start": "01:02:18.347",
+      "clip_end": "01:02:31.985",
+      "narration": "One of DK's men walks into the dockyard and puts Sean face-down on the concrete in a single swing, and the whole crew stands there watching. Han included. Han watches. Remember that before anyone files him under kindly mentor - he lets it land.",
+      "delivery": "tense",
+      "payload": "loop",
+      "id": 70,
+      "claim": {
+        "type": "action",
+        "subject": "the scene"
+      }
+    },
+    {
+      "note": "B69",
+      "clip_start": "01:03:47.519",
+      "clip_end": "01:04:03.743",
+      "narration": "",
+      "delivery": "tense",
+      "narration_silence_seconds": 3.5,
+      "id": 71
+    },
+    {
+      "note": "B70",
+      "clip_start": "01:04:44.242",
+      "clip_end": "01:05:04.345",
+      "narration": "DK agrees he's changed, then throws her mother's hostess years in her face and tells her nobody would look twice at her if it weren't for him. He backs her into the wall until she stops answering. His pride is the whole of him, and all of it is borrowed.",
+      "delivery": "tense",
+      "payload": "judgment",
+      "id": 72,
+      "claim": {
+        "type": "dialogue",
+        "subject": "the scene"
+      }
+    },
+    {
+      "note": "B73",
+      "clip_start": "01:07:29.823",
+      "clip_end": "01:07:46.090",
+      "narration": "Enter Kamata - DK's uncle, head of the yakuza, and the only motionless thing in a film about motion. He collects the week's take, sits down with the books, and tells DK, flatly, that his own partner has been stealing. No shouting. He doesn't need to shout.",
+      "delivery": "reveal",
+      "payload": "stake",
+      "id": 73,
+      "claim": {
+        "type": "dialogue",
+        "subject": "the scene"
+      }
+    },
+    {
+      "note": "B75",
+      "clip_start": "01:09:28.942",
+      "clip_end": "01:09:46.209",
+      "narration": "",
+      "delivery": "tense",
+      "narration_silence_seconds": 3.5,
+      "id": 74
+    },
+    {
+      "note": "B76",
+      "clip_start": "01:09:58.805",
+      "clip_end": "01:10:11.067",
+      "narration": "Pistol in Han's face, and Han doesn't flinch. You'd still be shaking down tea houses for chump change if it wasn't for me. Which is true, and is exactly the wrong true thing to say to a proud man holding a gun.",
+      "delivery": "tense",
+      "payload": "judgment",
+      "id": 75,
+      "claim": {
+        "type": "action",
+        "subject": "the long-haired mechanic"
+      }
+    },
+    {
+      "note": "B77",
+      "clip_start": "01:11:03.495",
+      "clip_end": "01:11:17.884",
+      "narration": "Han bolts out of the bay in a shower of sparks and the whole crew pours after him through the underpass, Sean and Neela in the red Evo. Watch who's chasing: not police. His own side. In this city the pack turns on you faster than the law does.",
+      "delivery": "action",
+      "payload": "judgment",
+      "id": 76,
+      "claim": {
+        "type": "action",
+        "subject": "the scene"
+      }
+    },
+    {
+      "note": "B79",
+      "clip_start": "01:15:07.905",
+      "clip_end": "01:15:13.785",
+      "narration": "Then the orange car cartwheels down the avenue, and Sean just stops. You already know what's inside it.",
+      "delivery": "action",
+      "payload": "stake",
+      "id": 77,
+      "claim": {
+        "type": "action",
+        "subject": "the scene"
+      }
+    },
+    {
+      "note": "B79",
+      "clip_start": "01:15:13.785",
+      "clip_end": "01:15:22.920",
+      "narration": "It settles upside down against the kerb with Han trapped inside, not moving. A loose tyre rolls away. Neela gets out of her car to look.",
+      "delivery": "tense",
+      "payload": "stake",
+      "id": 78,
+      "claim": {
+        "type": "action",
+        "subject": "the scene"
+      }
+    },
+    {
+      "note": "B79",
+      "clip_start": "01:15:22.920",
+      "clip_end": "01:15:28.175",
+      "narration": "Sean sprints for him. He doesn't get there. The car detonates and takes the decision away.",
+      "delivery": "sad",
+      "payload": "stake",
+      "id": 79,
+      "claim": {
+        "type": "action",
+        "subject": "the scene"
+      }
+    },
+    {
+      "note": "B80",
+      "clip_start": "01:15:33.263",
+      "clip_end": "01:15:39.770",
+      "narration": "DK looks at the fire, puts his car in gear and drives off past the crowd. That's the measure of the man.",
+      "delivery": "tense",
+      "payload": "judgment",
+      "id": 80,
+      "claim": {
+        "type": "action",
+        "subject": "the scene"
+      }
+    },
+    {
+      "note": "B80",
+      "clip_start": "01:15:39.770",
+      "clip_end": "01:15:50.822",
+      "narration": "And I'm not filing Han under dead mentor. He was the only person in this film who'd worked out what he wanted and stopped needing to win at it. He doesn't drift to win. He never did.",
+      "delivery": "sad",
+      "payload": "loop",
+      "id": 81,
+      "claim": {
+        "type": "reaction",
+        "subject": "the scene"
+      }
+    },
+    {
+      "note": "B79",
+      "clip_start": "01:15:50.822",
+      "clip_end": "01:15:59.373",
+      "narration": "Of all of them, he was the only one who'd stopped running. He'd already found his Mexico, and it still didn't save him.",
+      "delivery": "tense",
+      "payload": "judgment",
+      "id": 82,
+      "claim": {
+        "type": "transition",
+        "subject": "the scene"
+      }
+    },
+    {
+      "note": "B80",
+      "clip_start": "01:15:59.373",
+      "clip_end": "01:16:14.513",
+      "narration": "Two kids left on a burning street, and the Drift King has somewhere else to be. Here's the part nobody says out loud: Sean set this rolling the day he agreed to drive someone else's bet, and he knows it. This time being moved on wouldn't fix anything.",
+      "delivery": "tense",
+      "payload": "judgment",
+      "id": 83,
+      "claim": {
+        "type": "emotion",
+        "subject": "the scene"
+      }
+    },
+    {
+      "note": "B82",
+      "clip_start": "01:17:06.064",
+      "clip_end": "01:17:14.280",
+      "narration": "Neela argues across the standoff, then goes with DK herself to get the gun off Sean's head. Her choice, her price, and nobody thanks her for it.",
+      "delivery": "tense",
+      "payload": "judgment",
+      "id": 84,
+      "claim": {
+        "type": "dialogue",
+        "subject": "the young man in the white shirt"
+      }
+    },
+    {
+      "note": "B83",
+      "clip_start": "01:17:40.390",
+      "clip_end": "01:17:51.734",
+      "narration": "In the alley his father says it: I'm your father, I'm responsible for my mess. Sean answers I did this, I can't run away. That sentence has been coming since Arizona.",
+      "delivery": "normal",
+      "payload": "judgment",
+      "id": 85,
+      "claim": {
+        "type": "dialogue",
+        "subject": "the young man in the white shirt"
+      }
+    },
+    {
+      "note": "B84",
+      "clip_start": "01:18:17.760",
+      "clip_end": "01:18:31.232",
+      "narration": "His father tells him to get out of Tokyo. Sean walks off down the dark street without answering, which is the first time in his life he's refused to be moved on. Losing finally cost him something he wasn't willing to leave behind.",
+      "delivery": "normal",
+      "payload": "loop",
+      "id": 86,
+      "claim": {
+        "type": "dialogue",
+        "subject": "the young man in the white thermal shirt"
+      }
+    },
+    {
+      "note": "B86",
+      "clip_start": "01:19:18.696",
+      "clip_end": "01:19:36.547",
+      "narration": "Instead he says he should go and talk to Kamata. Twinkie's answer is the sane one - DK answers to Kamata, Han is dead, and nobody just strolls into that place. Sean knows. That's rather the point. He's going because he started this and there's nowhere left to be moved on to.",
+      "delivery": "tense",
+      "payload": "reasoning",
+      "id": 87,
+      "claim": {
+        "type": "dialogue",
+        "subject": "the young man in the white thermal shirt"
+      }
+    },
+    {
+      "note": "B86",
+      "clip_start": "01:19:43.012",
+      "clip_end": "01:19:53.939",
+      "narration": "And then the line that shuts Twinkie up. That's all I got. A kid with no car, no mentor and no plan, betting the only thing he has left: that the scariest man in Tokyo will hear him out.",
+      "delivery": "tense",
+      "payload": "stake",
+      "id": 88,
+      "claim": {
+        "type": "dialogue",
+        "subject": "the scene"
+      }
+    },
+    {
+      "note": "B87",
+      "clip_start": "01:20:10.247",
+      "clip_end": "01:20:31.310",
+      "narration": "Then Twinkie goes to that ridiculous green van of his, digs behind the speakers, and pulls out a satchel of Han's money. Something Han would have wanted him to have. Sean asks if he needs it. I'll figure it out, he says, which is the most expensive sentence anyone says in this film. The hustler who sells knock-off gear out of a boot is the loyalest person in Tokyo.",
+      "delivery": "normal",
+      "payload": "judgment",
+      "id": 89,
+      "claim": {
+        "type": "action",
+        "subject": "the scene"
+      }
+    },
+    {
+      "note": "B89",
+      "clip_start": "01:22:29.845",
+      "clip_end": "01:22:46.403",
+      "narration": "Inside, he hands the money back. I'm only handing back what belonged to you, sir. Then the apology: your nephew and I have embarrassed ourselves badly. Watch what he does there. He puts himself and the Drift King on the same shelf, and he makes the problem Kamata's own blood, not Kamata's gaijin.",
+      "delivery": "reveal",
+      "payload": "judgment",
+      "id": 90,
+      "claim": {
+        "type": "dialogue",
+        "subject": "the scene"
+      }
+    },
+    {
+      "note": "B91",
+      "clip_start": "01:23:22.981",
+      "clip_end": "01:23:35.410",
+      "narration": "Then the terms. One race. The loser leaves Tokyo for good. Consider who is offering that. The kid who's been shipped out of every town he's ever lost in just made leaving the prize for second place. For once it won't be him packing.",
+      "delivery": "reveal",
+      "payload": "judgment",
+      "id": 91,
+      "claim": {
+        "type": "dialogue",
+        "subject": "the scene"
+      }
+    },
+    {
+      "note": "B93",
+      "clip_start": "01:25:00.036",
+      "clip_end": "01:25:16.594",
+      "narration": "So the crew build him a car. The striped Mustang his dad dragged home in pieces goes up on the hoist, sparks everywhere, a turbo motor swinging down into the bay. Every pair of hands in that garage belongs to somebody with no reason left to help him.",
+      "delivery": "normal",
+      "payload": "reasoning",
+      "id": 92,
+      "claim": {
+        "type": "montage",
+        "subject": "the young American"
+      }
+    },
+    {
+      "note": "B93",
+      "clip_start": "01:25:24.310",
+      "clip_end": "01:25:34.111",
+      "narration": "And consider what is in it. A borrowed Nissan twin-cam, bolted into a Ford his father found. He still hasn't got a car of his own. That isn't the joke anymore - it's the point.",
+      "delivery": "reveal",
+      "payload": "judgment",
+      "id": 93,
+      "claim": {
+        "type": "action",
+        "subject": "the young American"
+      }
+    },
+    {
+      "note": "B94",
+      "clip_start": "01:26:06.060",
+      "clip_end": "01:26:23.911",
+      "narration": "Twinkie brings the good news at the roadside. DK picked this road for a reason. It's his mountain, and he's the only person who's ever made it to the bottom. So that's the race: a borrowed engine, a crash course in drifting, against the man who owns the hill. Lovely odds.",
+      "delivery": "tense",
+      "payload": "loop",
+      "id": 94,
+      "claim": {
+        "type": "dialogue",
+        "subject": "the young man in the black durag"
+      }
+    },
+    {
+      "note": "B95",
+      "clip_start": "01:27:45.993",
+      "clip_end": "01:27:57.087",
+      "narration": "Up at the clifftop the crowd parts without anybody asking it to, and in walks the uncle in the hat with his men a step behind. Nobody chants. He has never needed it.",
+      "delivery": "normal",
+      "payload": "judgment",
+      "id": 95,
+      "claim": {
+        "type": "reaction",
+        "subject": "the scene"
+      }
+    },
+    {
+      "note": "B95",
+      "clip_start": "01:28:27.576",
+      "clip_end": "01:28:44.009",
+      "narration": "Sean sits in the Mustang with his eyes shut, breathing himself down. No swagger, no revving for the crowd. Compare that to the kid in Arizona who settled everything by flooring it and apologising afterwards. He's the only one here with nothing to run to.",
+      "delivery": "tense",
+      "payload": "judgment",
+      "id": 96,
+      "claim": {
+        "type": "establishing",
+        "subject": "the young American driver"
+      }
+    },
+    {
+      "note": "B96",
+      "clip_start": "01:29:00.317",
+      "clip_end": "01:29:08.700",
+      "narration": "Arms up, arms down, and they're gone into the dark. Downhill, two lanes, no barriers. This one is not won on power. It is won on nerve.",
+      "delivery": "action",
+      "payload": "judgment",
+      "id": 97,
+      "claim": {
+        "type": "action",
+        "subject": "the bald man in the dark suit"
+      }
+    },
+    {
+      "note": "B97",
+      "clip_start": "01:30:34.202",
+      "clip_end": "01:30:46.381",
+      "narration": "They come down locked together, doors grinding, throwing a rooster-tail of sparks down the tarmac, and the Mustang opens the coupe's flank like a tin lid. Takashi fights the wheel to stay pointed straight. He's never had to share this road before.",
+      "delivery": "action",
+      "payload": "reasoning",
+      "id": 98,
+      "claim": {
+        "type": "action",
+        "subject": "the scene"
+      }
+    },
+    {
+      "note": "B99",
+      "clip_start": "01:32:17.305",
+      "clip_end": "01:32:25.521",
+      "narration": "So Takashi stops racing and starts shoving - into the Mustang's flank, scraping him along the cliff edge. Losing the mountain is worse to him than going off it.",
+      "delivery": "action",
+      "payload": "reasoning",
+      "id": 99,
+      "claim": {
+        "type": "action",
+        "subject": "the heavyset driver in the white tank top"
+      }
+    },
+    {
+      "note": "B100",
+      "clip_start": "01:32:41.704",
+      "clip_end": "01:32:55.426",
+      "narration": "Now they're just two men refusing to lift. Door to door, headlights blazing, each one trying to post the other into the trees, and neither of them gives an inch. Han spent the whole film telling him to stop driving angry. He'll get to that in a minute.",
+      "delivery": "action",
+      "payload": "judgment",
+      "id": 100,
+      "claim": {
+        "type": "action",
+        "subject": "the young American driver"
+      }
+    },
+    {
+      "note": "B100",
+      "clip_start": "01:33:32.171",
+      "clip_end": "01:33:41.305",
+      "narration": "Into the guardrail bend Takashi hangs out the window, then hauls the wheel across to put Sean off the road. Same move he's always used. It has always worked.",
+      "delivery": "tense",
+      "payload": "loop",
+      "id": 101,
+      "claim": {
+        "type": "action",
+        "subject": "the young American driver"
+      }
+    },
+    {
+      "note": "B101",
+      "clip_start": "01:33:41.305",
+      "clip_end": "01:33:51.649",
+      "narration": "Not tonight. Sean holds the line, leans on him, and shoves him wide instead - off the shoulder, into the brush, the coupe cartwheeling through the dirt. The push he'd been taking all film, handed back once.",
+      "delivery": "action",
+      "payload": "stake",
+      "id": 102,
+      "claim": {
+        "type": "action",
+        "subject": "the scene"
+      }
+    },
+    {
+      "note": "B101",
+      "clip_start": "01:33:51.649",
+      "clip_end": "01:34:01.367",
+      "narration": "The whole roadside goes up at once - screaming, fists in the air, phones forgotten. Sean throws his head back gasping as the marker lights fly over him.",
+      "delivery": "action",
+      "payload": "rest",
+      "id": 103,
+      "claim": {
+        "type": "action",
+        "subject": "the young American driver"
+      }
+    },
+    {
+      "note": "B101",
+      "clip_start": "01:34:01.367",
+      "clip_end": "01:34:08.332",
+      "narration": "And there it is. The kid who couldn't hold a corner just took the mountain off its owner. I never stop enjoying that.",
+      "delivery": "reveal",
+      "payload": "judgment",
+      "id": 104,
+      "claim": {
+        "type": "action",
+        "subject": "the driver in the white tank top"
+      }
+    },
+    {
+      "note": "B102",
+      "clip_start": "01:34:08.332",
+      "clip_end": "01:34:17.258",
+      "narration": "The crowd sprints the road to swarm his window while the wreck smokes upside down behind them. New Drift King. And this time the one leaving Tokyo isn't Sean.",
+      "delivery": "reveal",
+      "payload": "judgment",
+      "id": 105,
+      "claim": {
+        "type": "reaction",
+        "subject": "the young American driver"
+      }
+    },
+    {
+      "note": "B101",
+      "clip_start": "01:34:17.258",
+      "clip_end": "01:34:28.060",
+      "narration": "And he didn't win it to be Drift King. He won it to stay. That's the whole trick of this film: the kid only gets to keep something the moment winning stops being the point.",
+      "delivery": "reveal",
+      "payload": "judgment",
+      "id": 106,
+      "claim": {
+        "type": "aftermath",
+        "subject": "the young American driver"
+      }
+    },
+    {
+      "note": "B103",
+      "clip_start": "01:34:28.060",
+      "clip_end": "01:34:34.275",
+      "narration": "Neela gets to him first, and the strain breaks into a grin. She chose this one herself. Nobody raced for her.",
+      "delivery": "normal",
+      "payload": "judgment",
+      "id": 107,
+      "claim": {
+        "type": "reaction",
+        "subject": "the young American driver"
+      }
+    },
+    {
+      "note": "B105",
+      "clip_start": "01:34:43.575",
+      "clip_end": "01:34:58.215",
+      "narration": "Then the men in black walk out of the dark and the party stops breathing. Kamata says his piece straight at him, and Sean takes it with his eyes down - the same way his nephew did. Whatever the terms are, the kid from Arizona is staying.",
+      "delivery": "tense",
+      "payload": "loop",
+      "id": 108,
+      "claim": {
+        "type": "dialogue",
+        "subject": "the older man in the black hat and long coat"
+      }
+    },
+    {
+      "note": "B105",
+      "clip_start": "01:34:58.215",
+      "clip_end": "01:35:07.558",
+      "narration": "And then the old man drops his head and walks off alone. He's just lost a nephew to the one thing nobody could take off him. Pride costs him his own blood, every time.",
+      "delivery": "sad",
+      "payload": "judgment",
+      "id": 109,
+      "claim": {
+        "type": "dialogue",
+        "subject": "the older man in the black hat and long coat"
+      }
+    },
+    {
+      "note": "B106",
+      "clip_start": "01:35:19.069",
+      "clip_end": "01:35:32.165",
+      "narration": "Weeks later, different garage, same noise, and Twinkie is going round the crowd with both fists full of other people's money. He bankrolled a man he was sure would die. He's calling that an investment now, and honestly, he's earned it.",
+      "delivery": "normal",
+      "payload": "judgment",
+      "id": 110,
+      "claim": {
+        "type": "montage",
+        "subject": "the young man in the green jacket and white do-rag"
+      }
+    },
+    {
+      "note": "B107",
+      "clip_start": "01:35:49.766",
+      "clip_end": "01:36:03.030",
+      "narration": "Then Twinkie calls Sean out in front of the whole garage and claims he was one of them all along. The smirk goes when the woman in red catches his eye. He's got a crew, a girl, a title, a city. The running stops here.",
+      "delivery": "normal",
+      "payload": "loop",
+      "id": 111,
+      "claim": {
+        "type": "dialogue",
+        "subject": "the young woman in the red top"
+      }
+    },
+    {
+      "note": "B108",
+      "clip_start": "01:36:46.656",
+      "clip_end": "01:37:10.430",
+      "narration": "And then a challenger rolls up beside him in a great lump of American muscle, and the bald man at the wheel seems to know exactly who Sean is. Then the warning, delivered like a man ordering coffee: you know this ain't no ten-second race. Sean grins back. Of course he does. Last time a stranger pulled up with something to teach him, he took the lesson - and that's the only reason he's standing here.",
+      "delivery": "reveal",
+      "payload": "judgment",
+      "id": 112,
+      "claim": {
+        "type": "dialogue",
+        "subject": "the scene"
+      }
+    },
+    {
+      "note": "B109",
+      "clip_start": "01:37:24.402",
+      "clip_end": "01:37:33.745",
+      "narration": "Tyres light up, the woman in red throws her arms up, and that's where it ends. Han was right the whole time: he doesn't drift to win.",
+      "delivery": "reveal",
+      "payload": "judgment",
+      "id": 113,
+      "claim": {
+        "type": "action",
+        "subject": "the scene"
+      }
+    },
+    {
+      "note": "B109",
+      "clip_start": "01:37:33.745",
+      "clip_end": "01:37:47.634",
+      "narration": "Sean never did get a car of his own, never did beat anyone alone, and never once won anything by running. He only wins the day he stops. Turns out the kid who kept getting moved on just needed somewhere he refused to leave.",
+      "delivery": "outro",
+      "payload": "judgment",
+      "id": 114,
+      "claim": {
+        "type": "transition",
+        "subject": "the scene"
+      }
+    }
+  ]
+}

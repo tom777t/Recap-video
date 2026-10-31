@@ -461,6 +461,123 @@ def pacing_report(draft: dict, pdir: Path) -> dict:
                 + ", ".join(f"line {ln.get('id')}" for ln in labelled
                             if not classify_judgment(_narr(ln))[0])[:160])
 
+        # ---- the CEILING the floor never had ----------------------------- #
+        # Told only to clear a floor, the rewrite came back at 52% judgment:
+        # the narrator talks over the film and every beat arrives
+        # pre-digested. A floor with no ceiling is half a bar.
+        _jmax = float(getattr(config, "PERSONA_JUDGMENT_SHARE_MAX", 0.35))
+        if share > _jmax:
+            errors.append(
+                f"[PERSONA-CEILING] {len(agreed)} of {len(lines)} lines "
+                f"({share:.1%}) are judgment, over the {_jmax:.0%} ceiling. "
+                f"The narrator is talking over the film. Cut commentary "
+                f"lines, not the moments: a line that only tells the viewer "
+                f"what to think about a beat they are watching is the first "
+                f"to go.")
+
+        # ---- no long RUN of judgment ------------------------------------- #
+        # The reference-calibrated half of this gate: four of the five
+        # English references never run more than two judgment sentences back
+        # to back. A run is measured over the draft's lines IN ORDER; a hold
+        # or a film-speaks unit breaks it, because a silence or the film's own
+        # voice is exactly the interruption being asked for.
+        #
+        # BUG, found 2026-10-30 by tools/test_pacing.py PERSONA-RUN-HOLD-BREAKS
+        # and FIXED here rather than documented around. This loop iterated
+        # `lines`, which is filtered to NARRATED lines only (see the top of
+        # this block) - and both of the things the comment above promises
+        # would break a run carry EMPTY narration: a hold is
+        # `narration_silence_seconds` with no text, a film-speaks unit is
+        # `film_speaks_seconds` with no text (draft.py:622). Both were
+        # therefore invisible to the run detector, and "judgment, judgment,
+        # hold, judgment" reported a run of 3.
+        #
+        # That made the gate's own instruction unfollowable: the error text
+        # tells the writer to "break them with ... a hold", and doing exactly
+        # that did not clear the error. Iterating the raw line list fixes it;
+        # the change is strictly LOOSENING (a non-narrated line can only end
+        # a run, never start one), so nothing that passed before fails now.
+        _rmax = int(getattr(config, "PERSONA_JUDGMENT_RUN_MAX", 2))
+        _runs: list = []
+        _cur: list = []
+        for ln in (draft.get("lines") or []):
+            if (isinstance(ln, dict) and _narr(ln)
+                    and classify_judgment(_narr(ln))[0] and _is_judgment(ln)):
+                _cur.append(ln.get("id"))
+            else:
+                if len(_cur) > _rmax:
+                    _runs.append(list(_cur))
+                _cur = []
+        if len(_cur) > _rmax:
+            _runs.append(list(_cur))
+        stats["longest_judgment_run"] = max(
+            [len(r) for r in _runs] + [0]) if _runs else 0
+        if _runs:
+            errors.append(
+                f"[PERSONA-RUN] {len(_runs)} place(s) run more than {_rmax} "
+                f"judgment lines back to back (longest "
+                f"{max(len(r) for r in _runs)}). Break them with the thing "
+                f"being judged - an action line, a quotation, or a hold: "
+                + "; ".join("lines " + ",".join(str(i) for i in r)
+                            for r in _runs[:4]))
+
+        # ---- a peak lands FIRST, and is reacted to ONCE ------------------- #
+        # At a death, a win or a reveal the moment has to arrive before the
+        # opinion of it. Measured on the anchors the angle already names as
+        # peaks, in draft order: the first line bound to the peak's beats
+        # must not be commentary, and at most PERSONA_PEAK_REACTION_MAX of
+        # the lines on it may be.
+        #
+        # Why the anchors and not a keyword hunt for "dies"/"wins": the angle
+        # already declares which beats are the peaks, and a text rule looking
+        # for death words would both miss a quiet reveal and fire on a line
+        # that merely mentions one.
+        _pmax = int(getattr(config, "PERSONA_PEAK_REACTION_MAX", 1))
+        _peak_words = ("reveal", "death", "dies", "peak", "win", "climax")
+        for a in anchors:
+            if not any(w in f"{a.get('kind','')} {a.get('why','')}".lower()
+                       for w in _peak_words):
+                continue
+            onb = [ln for ln in lines if _beat_of(ln) in set(a["beats"])]
+            if not onb:
+                continue
+            _is_cmt = [bool(classify_judgment(_narr(l))[0]) for l in onb]
+            if _is_cmt and _is_cmt[0]:
+                errors.append(
+                    f"[PEAK-ORDER] the first line on peak "
+                    f"{'/'.join(a['beats'])} (line {onb[0].get('id')}) is "
+                    f"commentary. The moment has to land before the opinion "
+                    f"of it: open on the action, the quotation or a hold, "
+                    f"then react.")
+            if sum(_is_cmt) > _pmax:
+                errors.append(
+                    f"[PEAK-ORDER] peak {'/'.join(a['beats'])} carries "
+                    f"{sum(_is_cmt)} reaction lines (max {_pmax}): "
+                    + ",".join(str(l.get('id')) for l, c in zip(onb, _is_cmt)
+                               if c)
+                    + ". Keep the sharpest one and give the rest back to the "
+                      "moment.")
+
+        # ---- every anchor keeps a line with NO commentary ----------------- #
+        # Dwell was bought to make room for the moment. Spending all of it on
+        # the narrator's opinion removes the thing being dwelt on.
+        _cmin = int(getattr(config, "PERSONA_ANCHOR_CLEAN_LINES_MIN", 1))
+        _dirty = []
+        for a in anchors:
+            onb = [ln for ln in lines if _beat_of(ln) in set(a["beats"])]
+            if not onb:
+                continue
+            clean = [l for l in onb if not classify_judgment(_narr(l))[0]]
+            if len(clean) < _cmin:
+                _dirty.append(f"{'/'.join(a['beats'])} ({len(onb)} lines, "
+                              f"{len(clean)} without commentary)")
+        if _dirty:
+            errors.append(
+                f"[ANCHOR-CLEAN] {len(_dirty)} anchor(s) have fewer than "
+                f"{_cmin} line(s) that are purely the moment: "
+                + "; ".join(_dirty[:6])
+                + ". Give the beat at least one line that just shows it.")
+
         frame = [ln for ln in lines if _is_frame_only(_narr(ln))]
         fshare = len(frame) / len(lines)
         stats["frame_only_share"] = round(fshare, 3)
