@@ -43,43 +43,60 @@ from rich.console import Console
 console = Console()
 
 
-def _audio_dur(ffprobe: str, p: Path) -> float:
-    import subprocess
-    r = subprocess.run(
-        [ffprobe, "-v", "error", "-show_entries", "format=duration",
-         "-of", "default=noprint_wrappers=1:nokey=1", str(p)],
-        capture_output=True, text=True)
-    try:
-        return float((r.stdout or "0").strip())
-    except ValueError:
-        return 0.0
+def _audio_dur(ffprobe: str, p: Path) -> float | None:
+    """Measured duration of `p`, or None when it could not be measured.
 
-
-def stale_audio(draft: dict, pdir: Path) -> list[int]:
-    """Line ids whose narration/*.mp3 does NOT match the current text.
-
-    Measuring a capacity overrun against audio of a DIFFERENT text is worse
-    than not measuring: after a trim pass the files on disk still hold the old,
-    longer reading, so the pre-flight would report overruns that the next
-    render has already fixed - and would miss ones it has not. The TTS cache
-    manifest already records the signature of exactly what was synthesized, so
-    ask it rather than guessing from timestamps.
-
-    Returns [] when the manifest or the provider cannot be consulted: an
-    unknown answer must not masquerade as "all fresh".
+    None, not 0.0: capacity_findings skips a line whose duration is 0, so a
+    failed ffprobe used to make the line silently unjudged - an overrun on it
+    could never be caught, and nothing said so.
     """
+    import subprocess
+    try:
+        r = subprocess.run(
+            [ffprobe, "-v", "error", "-show_entries", "format=duration",
+             "-of", "default=noprint_wrappers=1:nokey=1", str(p)],
+            capture_output=True, text=True)
+    except OSError:
+        return None
+    try:
+        d = float((r.stdout or "").strip())
+    except ValueError:
+        return None
+    return d if r.returncode == 0 and d > 0 else None
+
+
+def stale_audio_status(draft: dict, pdir: Path) -> tuple[list, str | None]:
+    """(stale line ids, note). `note` is None only when every line with a
+    manifest entry could be checked; otherwise it says what could not be
+    checked and what that means for the pre-flight."""
     import json
+    why = None
+    man = None
+    prov = None
     try:
         from pipeline.tts import DEFAULT_PROVIDER
         from pipeline.tts_providers import all_providers
         prov = all_providers().get(DEFAULT_PROVIDER)
         if prov is None:
-            return []
-        man = json.loads((pdir / "narration" / "_cache.json")
-                         .read_text(encoding="utf-8"))
-    except Exception:
-        return []
-    out = []
+            why = f"no TTS provider {DEFAULT_PROVIDER!r} is registered"
+    except Exception as e:
+        why = f"the TTS provider could not be loaded ({e})"
+    if why is None:
+        mp = pdir / "narration" / "_cache.json"
+        try:
+            man = json.loads(mp.read_text(encoding="utf-8"))
+            if not isinstance(man, dict):
+                raise ValueError("not a JSON object")
+        except FileNotFoundError:
+            why = f"{mp.name} does not exist"
+        except (OSError, ValueError) as e:
+            why = f"{mp.name} could not be read ({e})"
+    if why is not None:
+        return [], (f"narration freshness UNKNOWN: {why}. Every line's audio "
+                    f"is judged as if it matches its current text - an "
+                    f"overrun reported on a re-written line may be measured "
+                    f"on its OLD reading.")
+    out, unchecked = [], []
     for ln in draft.get("lines", []):
         text = str(ln.get("narration") or "").strip()
         if not text:
@@ -92,10 +109,36 @@ def stale_audio(draft: dict, pdir: Path) -> list[int]:
                 text, str(ln.get("delivery") or "normal"),
                 float(ln.get("rate_bump") or 1.0))
         except Exception:
+            unchecked.append(ln["id"])
             continue
         if man[key] != sig:
             out.append(ln["id"])
-    return sorted(out)
+    note = None
+    if unchecked:
+        note = (f"narration freshness UNKNOWN for line(s) {sorted(unchecked)}: "
+                f"their cache signature could not be computed, so they are "
+                f"judged as if their audio matches their text.")
+    return sorted(out), note
+
+
+def stale_audio(draft: dict, pdir: Path) -> list[int]:
+    """Line ids whose narration/*.mp3 does NOT match the current text.
+
+    Measuring a capacity overrun against audio of a DIFFERENT text is worse
+    than not measuring: after a trim pass the files on disk still hold the old,
+    longer reading, so the pre-flight would report overruns that the next
+    render has already fixed - and would miss ones it has not. The TTS cache
+    manifest already records the signature of exactly what was synthesized, so
+    ask it rather than guessing from timestamps.
+
+    Returns [] when the manifest or the provider cannot be consulted - and
+    then SAYS SO: an unknown answer must not masquerade as "all fresh", so the
+    note from stale_audio_status() is printed naming the consequence.
+    """
+    ids, note = stale_audio_status(draft, pdir)
+    if note:
+        console.print(f"[yellow]Pre-flight: {note}[/]")
+    return ids
 
 
 def available_window(draft: dict, line_id, src_dur: float = 0.0) -> float:
@@ -169,7 +212,8 @@ def budget_words(window_sec: float, tag: str | None = None) -> int:
 
 def capacity_findings(draft: dict, narration: list,
                       ffprobe: str | None = None,
-                      skip_ids: set | None = None) -> list[dict]:
+                      skip_ids: set | None = None,
+                      unmeasured: list | None = None) -> list[dict]:
     """Every line whose REAL narration overruns its window capacity.
 
     `narration` is the [(line_id, path, duration)] list the TTS pass returns -
@@ -187,6 +231,10 @@ def capacity_findings(draft: dict, narration: list,
       * hold / film_speaks lines carry no narration
     Mirroring that scope matters: checking more than render enforces would
     block renders that work.
+
+    A line in scope whose narration duration could not be measured is NOT
+    judged - and is reported (printed, and appended to `unmeasured` when the
+    caller passes a list), never silently treated as fitting.
     """
     import config
     from pipeline.draft import parse_ts
@@ -201,9 +249,10 @@ def capacity_findings(draft: dict, narration: list,
             d = float(item[2]) if len(item) > 2 and item[2] else 0.0
         except (TypeError, ValueError, IndexError):
             continue
-        if d <= 0 and path.exists():
-            d = _audio_dur(ffprobe, path)
+        if d <= 0:
+            d = _audio_dur(ffprobe, path) if path.exists() else None
         dur_by_id[lid] = d
+    _unmeasured: list = []
 
     skip_ids = set(skip_ids or ())
     out = []
@@ -244,9 +293,14 @@ def capacity_findings(draft: dict, narration: list,
                         "capacity": shot_dur, "over": need - shot_dur,
                         "ratio": need / shot_dur})
             continue
+        if lid in dur_by_id and not dur_by_id[lid]:
+            # the line HAS narration in this render but its length could not
+            # be measured: an overrun here would go uncaught, so say so
+            _unmeasured.append(lid)
+            continue
         narr_dur = float(dur_by_id.get(lid) or 0.0)
         if narr_dur <= 0:
-            continue                      # no audio measured; nothing to judge
+            continue                      # no narration for this line
         try:
             shot_dur = max(0.0, parse_ts(ce) - parse_ts(cs))
         except Exception:
@@ -281,6 +335,14 @@ def capacity_findings(draft: dict, narration: list,
             "clip_end": ce,
         })
     out.sort(key=lambda r: -r["over"])
+    if _unmeasured:
+        console.print(
+            f"[yellow][CAPACITY-PREFLIGHT] {len(_unmeasured)} line(s) NOT "
+            f"judged - their narration audio could not be measured "
+            f"(missing file or ffprobe failure): {sorted(_unmeasured)}. An "
+            f"overrun on these lines is not caught here.[/]")
+    if unmeasured is not None:
+        unmeasured.extend(sorted(_unmeasured))
     return out
 
 

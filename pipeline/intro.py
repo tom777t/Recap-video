@@ -243,7 +243,14 @@ def bound_windows(project: str) -> list:
     pdir = config.project_dir(project)
     try:
         d = _j.loads((pdir / "draft.json").read_text(encoding="utf-8-sig"))
-    except Exception:
+    except Exception as e:
+        # [] means "the story shows nothing", which frees the montage to cut
+        # in footage the body already plays - say so instead of returning it
+        # as if it were an answer.
+        console.print(f"[yellow]Intro montage: draft.json could not be read "
+                      f"({e}) - the story's windows are UNKNOWN, so the "
+                      f"montage cannot avoid replaying footage the body "
+                      f"shows.[/]")
         return []
     out = []
     for ln in d.get("lines") or []:
@@ -431,6 +438,9 @@ def _build_film_intro_segment(project: str, work: Path,
     _concat_audio(ff, parts, fi_mp3)
     fi_dur = _audio_dur(ff, fi_mp3)
     if fi_dur <= 0:
+        console.print(f"[yellow]Film-intro:[/] {fi_mp3.name} could not be "
+                      f"measured; the intro-facts block (greeting, title, "
+                      f"leads) is SKIPPED and final.mp4 opens without it.")
         return None
 
     # 2. pick an opening window that is CALM AND ACTUALLY VISIBLE.
@@ -566,6 +576,25 @@ def _audio_dur(ff: str, p: Path) -> float:
         return 0.0
 
 
+def _measured_dur(p) -> float:
+    # A failed probe used to read as 0.0s, which shifted the film-intro
+    # offset and the join's expected length by the size of the block and
+    # left the motion check mapping freezes to the wrong source span.
+    # Every file measured here exists and must be measurable.
+    _pr = subprocess.run(
+        [config.ffprobe(), "-v", "error", "-show_entries",
+         "format=duration", "-of", "default=nw=1:nk=1", str(p)],
+        capture_output=True, text=True)
+    try:
+        v = float((_pr.stdout or "").strip())
+    except ValueError:
+        v = 0.0
+    if _pr.returncode != 0 or v <= 0:
+        raise RuntimeError(f"could not measure {Path(p).name} "
+                           f"({(_pr.stderr or '').strip()[-200:]})")
+    return v
+
+
 def _intro_cache_key(project: str) -> str:
     """Content hash of everything the intro block is built from.
 
@@ -667,15 +696,7 @@ def prepend_to_final(project: str, final: Path) -> float:
         return 0.0
     ff = config.ffmpeg()
 
-    def _dur(p):
-        _pr = subprocess.run(
-            [config.ffprobe(), "-v", "error", "-show_entries",
-             "format=duration", "-of", "default=nw=1:nk=1", str(p)],
-            capture_output=True, text=True)
-        try:
-            return float((_pr.stdout or "0").strip())
-        except ValueError:
-            return 0.0
+    _dur = _measured_dur
 
     # The film-intro block (channel greeting + title/year/director + leads + a
     # fact) is a SECOND segment, after the montage+hook, before the story. It

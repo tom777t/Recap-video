@@ -2345,6 +2345,7 @@ def render(project: str, draft: dict,
             console.print(f"[yellow]Could not remove {work.name}/: {e}[/]")
 
     # ----- timeline.json + post-render checks --------------------------------
+    _tl_error = None
     # Written on EVERY render, captions on or off. Until now the only record of
     # where a line lands in the finished video was the .ass file, which stores
     # caption TEXT and no line id - so a QA note could only ever say "something
@@ -2360,22 +2361,45 @@ def render(project: str, draft: dict,
                "out_end": round(t["end"] + intro_offset, 3),
                "clip_start": t.get("clip_start"),
                "clip_end": t.get("clip_end")} for t in timeline]
-        (pdir / "timeline.json").write_text(
+        # Written to a temp file and swapped in, so a failed write can never
+        # leave a half-written timeline.json behind.
+        _tlp = pdir / "timeline.json"
+        _tlt = pdir / "timeline.json.tmp"
+        _tlt.write_text(
             json.dumps({"project": project,
                         "total_duration": round(total_dur + intro_offset, 3),
                         "intro_offset": round(intro_offset, 3),
                         "lines": tl}, ensure_ascii=False, indent=2),
             encoding="utf-8")
+        import os as _os
+        _os.replace(_tlt, _tlp)
         console.print(f"[dim]Wrote timeline.json ({len(tl)} lines) - "
                       f"maps each line id to its position in final.mp4.[/]")
     except Exception as e:
-        console.print(f"[yellow]Could not write timeline.json: {e}[/]")
+        # A failed write used to leave the PREVIOUS render's timeline.json in
+        # place - positions for a different cut, read by captions and every
+        # timing check downstream as if they described this final.mp4. Remove
+        # it, and fail RENDER-CHECK below rather than printing a warning.
+        _tl_error = (f"timeline.json could not be written ({e}); the stale "
+                     f"one from an earlier render was removed so nothing "
+                     f"downstream reads positions for a different cut")
+        for _stale in (pdir / "timeline.json", pdir / "timeline.json.tmp"):
+            try:
+                _stale.unlink()
+            except FileNotFoundError:
+                pass
+            except OSError as _ue:
+                _tl_error += (f"; {_stale.name} could NOT be removed ({_ue}) "
+                              f"and is STALE")
+        console.print(f"[red]{_tl_error}[/]")
 
     # Every gate in this pipeline validates draft.json. None of them look at what
     # the render actually produced. That gap let a duplicate line id put a
     # late-film voiceover over an early scene while every gate stayed green.
     # These three counts are cheap and cover the whole class.
     problems = []
+    if _tl_error:
+        problems.append(_tl_error)
     # A SILENCE line builds a clip but has no TTS audio and no caption window,
     # so it is absent from `narration` and from `timeline` by design. Count it
     # in, or every film using a silence beat reports a false mismatch.

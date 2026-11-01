@@ -101,16 +101,31 @@ def validate_draft(project: str, *, write_state: bool = False,
 
     # load pool meta (if any) so 'pool' lines validate + reuse can be capped
     pool_meta = {}
+    _broll_error = None
     bp = pdir / "broll.json"
     if bp.exists():
         try:
             bd = json.loads(bp.read_text(encoding="utf-8-sig"))
             pool_meta = bd.get("pool", bd)
-        except Exception:
-            pass
+            if not isinstance(pool_meta, dict):
+                raise ValueError("its pool is not a JSON object")
+        except Exception as e:
+            # An unreadable broll.json used to become an EMPTY pool, so every
+            # pool line failed as "unknown label" and reuse caps went unchecked
+            # - a file fault reported as a script fault. Name the real cause.
+            pool_meta = {}
+            _broll_error = (f"broll.json exists but could not be read ({e}): "
+                            f"pool lines cannot be validated and B-roll reuse "
+                            f"is not capped until it is fixed")
     pool_labels = set(pool_meta.keys())
 
     errors: list[str] = []
+    if _broll_error:
+        if any(ln.get("pool") for ln in draft.get("lines", [])):
+            errors.append(_broll_error)
+        else:
+            console.print(f"[yellow]{_broll_error} (no line uses a pool "
+                          f"yet, so nothing is blocked).[/]")
     total_words = 0
     pool_uses: dict = {}              # label -> count
     visual_uses: dict = {}            # explicit 'visual' family -> [line ids]

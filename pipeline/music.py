@@ -31,6 +31,7 @@ already mixes a bed, so the final filter graph stays one expression.
 from __future__ import annotations
 
 import json
+import os
 import random
 import subprocess
 from pathlib import Path
@@ -420,7 +421,8 @@ def build_music_track(ff: str, pdir: Path, out: Path, total_dur: float,
         # file that had just been removed and reported SKIPPED on every
         # render that did not pass --keep-temp. A gate that is green because
         # its input is missing is worse than no gate.
-        (pdir / "music_plan.json").write_text(json.dumps({
+        _plan_tmp = pdir / "music_plan.json.tmp"
+        _plan_tmp.write_text(json.dumps({
             "cues": [{"at": p["start"], "dur": p["end"] - p["start"],
                       "mood": p.get("mood"),
                       "file": Path(p["file"]).name} for p in cue_plan],
@@ -431,8 +433,23 @@ def build_music_track(ff: str, pdir: Path, out: Path, total_dur: float,
                                if getattr(config, "MUSIC_NORMALIZE", True)
                                else None),
         }, indent=1), encoding="utf-8")
-    except OSError:
-        pass
+        os.replace(_plan_tmp, pdir / "music_plan.json")
+    except OSError as e:
+        # Silently passing here left the PREVIOUS render's plan on disk, and
+        # the post-render [MUSIC-CUE] check then measured this mix at another
+        # cut's cue positions. Remove the stale plan so the check reports the
+        # plan as missing (a pipeline fault) instead of measuring wrong spots.
+        msg = (f"Music: could not write music_plan.json ({e}) - the "
+               f"post-render cue check has no cue positions for this mix")
+        for _stale in (pdir / "music_plan.json", pdir / "music_plan.json.tmp"):
+            try:
+                _stale.unlink()
+            except FileNotFoundError:
+                pass
+            except OSError as _ue:
+                msg += (f"; {_stale.name} could NOT be removed ({_ue}) and "
+                        f"describes an EARLIER mix")
+        console.print(f"[red]{msg}[/]")
 
     cmd = [ff, "-y", *inputs, "-filter_complex", graph,
            "-map", "[mixout]", "-t", f"{total_dur:.3f}",
