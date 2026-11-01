@@ -257,3 +257,64 @@ def splittable(line: dict, anchor_beats: set = frozenset(),
     if n < mn:
         return False, f"{n} visible event(s) - fewer than {mn}"
     return True, f"{n} visible events"
+
+
+def _sec(v):
+    try:
+        p = [float(x) for x in str(v).split(":")]
+        return p[0] * 3600 + p[1] * 60 + p[2]
+    except Exception:
+        return None
+
+
+def visual_capacity(draft: dict, pdir,
+                    tolerance: int | None = None) -> list:
+    """[VISUAL-CAPACITY] findings: more events than shots to show them in.
+
+    The writer's rule. A line may narrate as many events as there are
+    distinct shots available for it in film order; commentary is free. When a
+    line exceeds that, no editor can fix it - the picture simply does not
+    exist - so it is the WRITER who must split the line or cut an event.
+
+    Calibrated on this draft: excess events per line run median 1, p75 2,
+    p90 2, max 3 (config/visual_capacity_control.json). A tolerance of 2
+    therefore flags the top of the distribution rather than a tenth of the
+    draft - the lines that are genuinely over-stuffed.
+    """
+    if tolerance is None:
+        tolerance = int(getattr(config, "VISUAL_CAPACITY_TOLERANCE", 2))
+    shots = _load_shots(pdir)
+    out = []
+    for ln in draft.get("lines") or []:
+        text = str(ln.get("narration") or "").strip()
+        if not text:
+            continue
+        a, b = _sec(ln.get("clip_start")), _sec(ln.get("clip_end"))
+        if a is None or b is None:
+            continue
+        ev = visual_events(text)
+        avail = max(1, len([s for s in shots
+                            if s["a"] >= a - 0.05 and s["b"] <= b + 0.05]))
+        if ev - avail > tolerance:
+            out.append({"line_id": ln.get("id"), "events": ev,
+                        "shots": avail, "excess": ev - avail})
+    return out
+
+
+def _load_shots(pdir) -> list:
+    """Catalogued shots as {a, b} seconds. A local reader so the gate does
+    not drag in the clause-cut planner."""
+    import json
+    from pathlib import Path as _P
+    try:
+        raw = json.loads((_P(pdir) / "shots.json")
+                         .read_text(encoding="utf-8-sig"))
+    except Exception:
+        return []
+    out = []
+    for x in raw.get("shots") or []:
+        a, b = _sec(x.get("clip_start")), _sec(x.get("clip_end"))
+        if a is not None and b is not None and b > a:
+            out.append({"a": a, "b": b})
+    out.sort(key=lambda s: s["a"])
+    return out
