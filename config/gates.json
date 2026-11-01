@@ -922,5 +922,13 @@
     ],
     "what": "",
     "severity_source": "inferred"
+  },
+  "WINDOW-SPAN": {
+    "severity": "warn",
+    "modules": [
+      "pipeline/draft.py"
+    ],
+    "what": "lines bound inside single shots (median window below the floor x narration); fix with tools/widen_windows.py",
+    "severity_source": "declared"
   }
 }

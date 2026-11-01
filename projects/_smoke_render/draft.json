@@ -1,0 +1,120 @@
+{
+  "project": "_smoke_render",
+  "title": "Sync Probe (2026)",
+  "target_minutes": 1,
+  "voice": "tts",
+  "lines": [
+    {
+      "id": 1,
+      "clip_start": "00:00:04.0",
+      "clip_end": "00:00:09.0",
+      "delivery": "normal",
+      "note": "B01",
+      "narration": "The coloured frame tells us exactly where in the source we are."
+    },
+    {
+      "id": 2,
+      "clip_start": "00:00:09.5",
+      "clip_end": "00:00:14.5",
+      "delivery": "normal",
+      "note": "B02",
+      "narration": "The coloured frame tells us exactly where in the source we are."
+    },
+    {
+      "id": 3,
+      "clip_start": "00:00:15.0",
+      "clip_end": "00:00:20.0",
+      "delivery": "normal",
+      "note": "B03",
+      "narration": "The coloured frame tells us exactly where in the source we are."
+    },
+    {
+      "id": 4,
+      "clip_start": "00:00:20.5",
+      "clip_end": "00:00:25.5",
+      "delivery": "normal",
+      "note": "B04",
+      "narration": "The coloured frame tells us exactly where in the source we are."
+    },
+    {
+      "id": 5,
+      "clip_start": "00:00:26.0",
+      "clip_end": "00:00:31.0",
+      "delivery": "normal",
+      "note": "B05",
+      "narration": "The coloured frame tells us exactly where in the source we are."
+    },
+    {
+      "id": 6,
+      "clip_start": "00:00:31.5",
+      "clip_end": "00:00:36.5",
+      "delivery": "normal",
+      "note": "B06",
+      "narration": "The coloured frame tells us exactly where in the source we are."
+    },
+    {
+      "id": 7,
+      "clip_start": "00:00:37.0",
+      "clip_end": "00:00:42.0",
+      "delivery": "normal",
+      "note": "B07",
+      "narration": "The coloured frame tells us exactly where in the source we are."
+    },
+    {
+      "id": 8,
+      "clip_start": "00:00:42.5",
+      "clip_end": "00:00:47.5",
+      "delivery": "normal",
+      "note": "B08",
+      "narration": "The coloured frame tells us exactly where in the source we are."
+    },
+    {
+      "id": 9,
+      "clip_start": "00:00:48.0",
+      "clip_end": "00:00:53.0",
+      "delivery": "normal",
+      "note": "B09",
+      "narration": "The coloured frame tells us exactly where in the source we are."
+    },
+    {
+      "id": 10,
+      "clip_start": "00:00:53.5",
+      "clip_end": "00:00:58.5",
+      "delivery": "normal",
+      "note": "B10",
+      "narration": "The coloured frame tells us exactly where in the source we are."
+    },
+    {
+      "id": 11,
+      "clip_start": "00:00:59.0",
+      "clip_end": "00:00:64.0",
+      "delivery": "normal",
+      "note": "B11",
+      "narration": "The coloured frame tells us exactly where in the source we are."
+    },
+    {
+      "id": 12,
+      "clip_start": "00:00:64.5",
+      "clip_end": "00:00:69.5",
+      "delivery": "normal",
+      "note": "B12",
+      "narration": "The coloured frame tells us exactly where in the source we are."
+    },
+    {
+      "id": 13,
+      "clip_start": "00:00:70.0",
+      "clip_end": "00:00:75.0",
+      "delivery": "normal",
+      "note": "B13",
+      "narration": "The coloured frame tells us exactly where in the source we are."
+    },
+    {
+      "id": 14,
+      "clip_start": "00:00:75.5",
+      "clip_end": "00:00:80.5",
+      "delivery": "normal",
+      "note": "B14",
+      "narration": "The coloured frame tells us exactly where in the source we are."
+    }
+  ]
+}

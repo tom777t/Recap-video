@@ -1431,3 +1431,14 @@ CLAUSE_CUTS_PER_MIN_MAX = 31.33
 # of the distribution rather than a tenth of ordinary prose. Commentary is
 # free - it has no picture to find.
 VISUAL_CAPACITY_TOLERANCE = 2
+
+# --- WINDOW-SPAN: how much film a line's picture covers ----------------------
+# Ratio of a line's clip window to its narration. Measured on the two Tokyo
+# Drift drafts the viewer compared: the render judged "no mismatch, engaging"
+# (pre-rewrite draft) ran a median 1.71x with 27% of picture time beyond the
+# line's first catalogued shot; the rewrite ran 1.37x with 2%, and the viewer
+# saw the picture stop following the story. The builder splits a window across
+# its cuts, so a wider window is the picture following the sentence.
+# Used by tools/widen_windows.py (target) and the [WINDOW-SPAN] warning (floor).
+WINDOW_SPAN_RATIO = 1.7
+WINDOW_SPAN_MIN_MEDIAN = 1.5

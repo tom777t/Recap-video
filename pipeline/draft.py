@@ -3097,6 +3097,39 @@ def _run_phase1_audits(project, pdir):
     # Return everything the stage machine needs (sev + honest metrics).
     # bind.verified_mismatch / bind.unverified are the SAME ints the Summary
     # line prints (BindingResult fields), so numbers cannot diverge.
+    # ---- [WINDOW-SPAN]: does the picture cover what the line summarises? ---
+    # Warn when lines are bound tightly inside one shot. Calibrated on the
+    # Tokyo Drift render the viewer judged "no mismatch" (median window 1.71x
+    # its narration) vs the rewrite that felt mismatched (1.37x). The fix is
+    # mechanical: tools/widen_windows.py.
+    try:
+        _ws = []
+        for _l in d.lines:
+            _cs, _ce = getattr(_l, "clip_start", None), getattr(_l, "clip_end", None)
+            _tx = (getattr(_l, "narration", "") or "").strip()
+            if _cs and _ce and _tx:
+                _n = len(_tx.split()) / float(getattr(config, "TARGET_WPM", 210)) * 60
+                if _n > 0:
+                    _ws.append((parse_ts(_ce) - parse_ts(_cs)) / _n)
+        if len(_ws) >= 8:
+            _ws.sort()
+            _med = _ws[len(_ws) // 2]
+            _floor = float(getattr(config, "WINDOW_SPAN_MIN_MEDIAN", 1.5))
+            if _med < _floor:
+                console.print(
+                    f"[yellow][WINDOW-SPAN][/] median window is {_med:.2f}x its "
+                    f"narration (floor {_floor:.2f}x): lines are bound inside "
+                    f"single shots, so the picture shows one camera stretch "
+                    f"while the line summarises more. Run `python "
+                    f"tools/widen_windows.py --project {project} --apply`.")
+                sev = "hard" if sev == "hard" else "soft"
+            else:
+                console.print(f"[dim][WINDOW-SPAN] median window {_med:.2f}x "
+                              f"its narration (floor {_floor:.2f}x).[/]")
+    except Exception as _wse:
+        console.print(f"[red][WINDOW-SPAN] did not run: {_wse}[/]")
+        _unrun.append(f"WINDOW-SPAN ({_wse})")
+
     if _unrun:
         console.print(f"[red][AUDIT-UNAVAILABLE][/] {len(_unrun)} check(s) did "
                       f"NOT run, so this draft is unchecked on them, not clean: "
