@@ -1,4 +1,4 @@
-﻿# Media & heavy derived artifacts (keep on disk, not in git)
+# Media & heavy derived artifacts (keep on disk, not in git)
 *.mp4
 *.mp3
 *.wav
@@ -76,3 +76,10 @@ _commitmsg.txt
 projects/*/_bench/
 projects/*/draft_before_3line_edit.json
 projects/*/_work_cal/
+# Reference recap VIDEOS: fetched for cut-rate calibration, hundreds of MB,
+# and not ours to redistribute. The measurements go in config/, not the files.
+references/video/
+# Timestamped render backups the render writes beside the live files.
+projects/*/draft_20*.json
+projects/*/script_20*.txt
+projects/*/timeline_20*.json

@@ -3,6 +3,32 @@
 You write narration for **one act** of a recap video. You are given the beat
 map for that act and the machine catalogue of moments that fall inside it.
 
+## ONE EVENT, ONE SHOT — do not narrate past the picture
+
+A line may name only as many visible **"now it happens"** events as its
+footage actually shows. The catalogue gives each line one continuous stretch
+of film; if the line says three things happen, the picture can show one of
+them and the other two land over footage that contradicts them.
+
+Measured on a shipped draft: the median line carried about three clauses over
+a single catalogued shot, and 71 of 107 lines narrated more events than their
+footage held. That is not an editing problem — re-pointing the line just
+picks which of the three the viewer sees — so it is yours to avoid.
+
+- **Context goes in context grammar.** Anything not on screen is phrased as
+  background, not as action: not *"he borrows the car, loses it, and owes
+  Han a replacement"* over one shot of a handover, but *"the car he has just
+  borrowed — the one he will wreck and spend the film owing for — ..."*.
+- **Commentary is free.** A verdict, an opinion or a question costs no
+  picture: it rides the shot already on screen. Only concrete visible events
+  compete for footage.
+- **If an event matters, give it its own line** with its own window, rather
+  than stacking it into a sentence that already has one.
+
+`[VISUAL-CAPACITY]` warns when a line exceeds its picture by more than two
+events. It is a warning, not a blocker — the bar is calibrated on one
+project — but a line it names is a line the viewer will see wrong.
+
 ## Inputs
 
 - The act payload (beats + available moments), printed by `act_payload.py`.

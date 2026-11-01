@@ -243,16 +243,28 @@ def test_reach_finds_the_five() -> tuple[bool, str]:
     # which made this report 11 short clips that do not exist.
     _fx = Path(ROOT) / "tools" / "fixtures" / "draft_tokyodrift_flat.json"
     draft = json.loads(_fx.read_text(encoding="utf-8-sig"))
-    from pipeline import preflight as pfm
     from pipeline.draft import parse_ts
-    ffp = config.ffprobe()
+    # DURATIONS FROM THE FIXTURE'S OWN WORDS, not from the project's audio.
+    #
+    # Repointing the DRAFT at the fixture was only half the fix. This case
+    # still measured the fixture's line ids against whatever mp3s happen to
+    # be in projects/<p>/narration, so re-voicing nine lines of the live
+    # draft made it report nine short clips that do not exist - the same
+    # stale-pairing defect as before, arriving through the audio side
+    # instead of the draft side.
+    #
+    # A regression fixture has to be self-contained. The arithmetic under
+    # test is the splitter's share guarantee, which cares about the LENGTH of
+    # the narration and not about its timbre, so words/WPM is the right
+    # input and it cannot drift when the project is re-voiced.
+    _wpm = float(getattr(config, "TTS_WORDS_PER_MINUTE", 210) or 210)
     durs = {}
     for ln in draft["lines"]:
-        p = PROJ / ("narration/line_%03d.mp3" % ln["id"])
-        if p.exists() and str(ln.get("narration") or "").strip():
-            durs[ln["id"]] = pfm._audio_dur(ffp, p)
+        text = str(ln.get("narration") or "").strip()
+        if text:
+            durs[ln["id"]] = len(text.split()) / _wpm * 60.0
     if not durs:
-        return False, "no narration audio to measure against"
+        return False, "the fixture has no narrated lines to measure"
 
     clone = float(config.MAX_FREEZE_SEC)
     old_bad = []

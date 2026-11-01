@@ -231,6 +231,26 @@ ANSWERED | missing-intro | 31 | judged NON-BLOCKING by the independent reviewer 
 ANSWERED | missing-detail | 100 | judged NON-BLOCKING by the independent reviewer and deliberately deferred under a fix-blocking-only instruction, reported to the viewer rather than dropped - B100 has the rival edging back in front, and without it the return to door-to-door after 205's clear lead reads as a jump
 FINDING | missing-bridge | 24 | the draft skips the overnight setup and the lost commute with nothing at the seam saying time passed
 RESOLVED | missing-bridge | 24 | changed "Day one" to "Next morning", so the line signals the overnight setup and the lost commute the draft skips - [BRIDGE] requires the seam to say time passed
+FINDING | visual-capacity | 30 | narrated more visible events than its footage shows
+RESOLVED | visual-capacity | 30 | recast the off-screen tax collection as a relative clause and appositive so only the lift exchange reads as present action
+FINDING | visual-capacity | 32 | narrated more visible events than its footage shows
+ANSWERED | visual-capacity | 32 | Edit was punctuation only, a dash became a colon, so the car loan from four minutes earlier is still narrated in the present tense over crash footage and the defect is unresolved rather than accepted
+FINDING | visual-capacity | 41 | narrated more visible events than its footage shows
+RESOLVED | visual-capacity | 41 | compressed the interrogation to a single reported demand for a date, keeping every clause inside the mahjong den beat
+FINDING | visual-capacity | 44 | narrated more visible events than its footage shows
+RESOLVED | visual-capacity | 44 | folded the second half into reported speech with and that, so Han's thesis is attribution rather than a free-standing on-screen assertion
+FINDING | visual-capacity | 46 | narrated more visible events than its footage shows
+RESOLVED | visual-capacity | 46 | dropped the 197 km/h reading and the escape, leaving one visible event plus one spoken line and handing the spectacle to footage
+FINDING | visual-capacity | 65 | narrated more visible events than its footage shows
+RESOLVED | visual-capacity | 65 | collapsed four event-shaped sentences into one what comes out is summary, marking the mother's whole history as reported speech
+FINDING | visual-capacity | 75 | narrated more visible events than its footage shows
+RESOLVED | visual-capacity | 75 | split the judgment into its own sentence so the two narrator glosses read as commentary and only the pistol and the reply remain as events
+FINDING | visual-capacity | 102 | narrated more visible events than its footage shows
+RESOLVED | visual-capacity | 102 | every clause now maps to the shove and the tumble inside its own nine-second span, with the callback adding no new event
+FINDING | visual-capacity | 110 | narrated more visible events than its footage shows
+ANSWERED | visual-capacity | 110 | Capacity is fixed by past-tensing the Kamata walk, but the revision misattributes Twinkie's green Hulk minivan to Han and leaves that walk without a referent, a regression I am not accepting and which should revert to the baseline wording
+FINDING | visual-capacity | 65,110 | the first revision gave one character another character's van and contradicted a transcript line
+RESOLVED | visual-capacity | 65,110 | applied the review pass's own corrections - the van and the funding credit returned to their right owner, and "took her in" restored from the transcript
 ```
 
 Review line count: 22 findings, 1 blocking.

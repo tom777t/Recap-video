@@ -561,6 +561,25 @@ def validate_draft(project: str, *, write_state: bool = False,
         # evidence audit, for the same reason: an intention is not a check.
         from pipeline import motif_gates as _mot
         from pipeline import review_artifacts as _rev
+        # [VISUAL-CAPACITY]: a line may narrate only as many visible events
+        # as its picture can show. A WARNING, because the bar is calibrated
+        # on one project's distribution and has not been measured on another.
+        try:
+            from pipeline import clause_shots as _vc
+            _vch = _vc.visual_capacity(draft, _pdir)
+            if _vch:
+                console.print(
+                    f"[yellow][VISUAL-CAPACITY][/] {len(_vch)} line(s) "
+                    f"narrate more visible events than their footage shows: "
+                    + "; ".join(
+                        f"line {r['line_id']} ({r['events']} events, "
+                        f"{r['shots']} shot(s))" for r in _vch[:8])
+                    + ". Split the line, cut an event, or phrase the extra "
+                      "as CONTEXT rather than as something happening now - "
+                      "no editor can show an event the footage does not "
+                      "contain.")
+        except Exception as _vce:
+            console.print(f"[red][VISUAL-CAPACITY] did not run: {_vce}[/]")
         from pipeline import ending_gates as _end
         from pipeline import shotlist_gates as _shot
         from pipeline import samepoint_gates as _samep

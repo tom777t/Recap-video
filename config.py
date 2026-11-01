@@ -1395,3 +1395,39 @@ ENDING_CALLBACK_MIN_CONTENT_WORDS = 2
 # conflict resolution between two rules, and the rule that yields is the one
 # whose remedy would damage the film.
 PERSONA_WINDOW_EXEMPT_DELIVERIES = ("action",)
+
+# --------------------------------------------------------------------------- #
+# CLAUSE-LEVEL PICTURE (phase 4). THE DIAGNOSIS, which is the viewer's: the
+# binding problem was never a wrong shot. A line narrates SEVERAL events while
+# its picture is one continuous stretch of film, so the picture cannot carry
+# what is said - which is why re-binding whole LINES failed. Measured on the
+# current draft: median line ~9s carrying ~3 event clauses over 1 catalogued
+# shot. Raw measurements in config/visual_capacity_control.json.
+# --------------------------------------------------------------------------- #
+# Only a line narrating at least this many visible events is cut inside. One
+# event is one shot, which is what the draft already does.
+CLAUSE_MIN_EVENTS_TO_SPLIT = 2
+# Deliveries that keep continuous footage whatever they narrate. Dwell was
+# bought for these scenes by [PACING-CONTOUR]; cutting inside them spends it.
+CLAUSE_PROTECT_DELIVERIES = ("sad", "reveal", "outro", "hook", "intro")
+# Minimum generated sub-clip. MEASURED, and it corrects the expectation in
+# the brief: the two reference recaps run p10 shot lengths of 0.96s and 1.23s,
+# with 38% and 62% of their shots under two seconds, so a 2.0s floor would
+# have been STRICTER than the references it was meant to match. The floor is
+# the higher of the two p10s - a generated sub-clip should not be shorter than
+# the shortest shots the references routinely use.
+CLAUSE_MIN_SUBCLIP_SEC = 1.23
+# A cut is moved onto a real film cut when one is this close, so the edit
+# lands on the film's own rhythm instead of mid-gesture.
+CLAUSE_CUT_SNAP_SEC = 0.5
+# Cut-rate ceiling, from config/cut_rate_control.json: the references run
+# 19.35 and 31.33 cuts/min and ours runs 22.80. The plan may not take us past
+# the slower reference's... no - past the FASTER one, which is the ceiling the
+# instruction set ("must not cut faster than the references").
+CLAUSE_CUTS_PER_MIN_MAX = 31.33
+# [VISUAL-CAPACITY] tolerance: how many more visible events than available
+# shots a line may narrate before the WRITER has to fix it. Calibrated on
+# this draft: excess runs median 1, p75 2, p90 2, max 3, so 2 flags the top
+# of the distribution rather than a tenth of ordinary prose. Commentary is
+# free - it has no picture to find.
+VISUAL_CAPACITY_TOLERANCE = 2

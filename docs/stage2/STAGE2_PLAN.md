@@ -202,3 +202,55 @@ Read docs/STAGE2_PLAN.md. Do PHASE 3. Move span tagging to the Anthropic API: Me
 - Claude Code (headless, hooks, skills, workflows): https://docs.claude.com/en/docs/claude-code/overview
 - Giới hạn gói Max: https://support.claude.com (bài 11014257, 11145838, 15036540)
 - Ghi chú chi tiết của bốn hướng rà soát (đường dẫn file:dòng, nguồn): `pipeline_audit.md`, `speedups.md`, `claude_capabilities.md`, `open_tools.md`
+
+## Clause-level picture: PARKED (2026-10-31)
+
+Branch phase4-shots, commit d2d4f5. Not merged, and the reason is a
+measurement rather than a shortage of time.
+
+The DIAGNOSIS stands and is the viewer's: a line narrates several events
+while its picture is one continuous stretch of film, so the picture cannot
+carry what is said. Measured on the shipped draft - median line ~12s with
+median 3 clauses over 1 catalogued shot, 71 of 107 lines narrating more
+events than their footage shows.
+
+What was built and blind-tested: clause splitting, clause-to-shot assignment
+in film order, forced-alignment word timings, cuts snapped to the film's own
+2088 cuts, a 1.23s sub-clip floor and a 31.33 cuts/min ceiling, both measured
+on reference recaps.
+
+WHY IT IS PARKED. Two arms were judged blind against the current render by a
+fresh vision judge:
+    arm A, only clauses with real shot evidence   50% (7/14)
+    arm B, A plus sequential placement            52% (15/29)
+Neither beats holding continuous footage. Arm A is the result that matters:
+it contains ONLY placements the scorer had evidence for, and it still scores
+chance. So the sequential half was never the problem - the SCORER is. Word
+overlap between a clause and a shot's ction/depicts/chars text does
+not pick a shot that fits better than staying put, and the judges named the
+failure mode: cutting to a daylight garage for a line about a dark flat,
+cutting to an image from minutes later that contradicts the line.
+
+RESUMES WHEN a vision scorer exists - Phase 3's API vision model judging
+candidate FRAMES against the clause text, rather than tag text against clause
+text. The catalogue's tags are too coarse for this job and no amount of
+splitter work fixes that.
+
+FIRST TARGET WHEN IT RESUMES: the narrow subset that won in BOTH arms -
+lines whose narration names a concrete object or an arrival that the current
+shot demonstrably lacks (lines 24, 49, 86, 108, 111, 201, 202 of the shipped
+draft). That subset is where cutting earned its keep; everything else should
+stay continuous until a scorer can tell the difference.
+
+MERGED TO MAIN, because each stands on its own without the edit:
+  - 	ools/calibrate_cuts.py - cut-rate calibration. Ceiling HELD at
+    31.33/min and floor at 1.23s; the third reference (Sakura, 42.95/min)
+    is reported, not taken, so the edit cannot chase the fastest channel.
+  - pipeline/word_times.py - forced alignment of cached narration.
+  - [VISUAL-CAPACITY] in pipeline/clause_shots.py, wired as a WARNING,
+    plus the writer rule in 	ools/draft_prompt.md. The gate is a WRITING
+    rule and survives the edit being parked: a line narrating past its
+    picture is a defect no editor can fix.
+
+NOT built, so not merged: the final-file picture check. Step 6 measured per
+line, not on a rendered file, so there is nothing to merge as a WARN.

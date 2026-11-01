@@ -1,5 +1,5 @@
 TITLE: Teenager Is Shipped to Tokyo to Dodge Jail and Ends Up Owing the Yakuza a Car He Cannot Pay For
-Lines: 118   Words: 3588   Est. narration: 17.1 min @ 210 WPM [config fallback (voice not measured)]   Target: 17 min
+Lines: 118   Words: 3584   Est. narration: 17.1 min @ 210 WPM [config fallback (voice not measured)]   Target: 17 min
 ============================================================
 
 [  1] (? -> ?)  <hook> {loop}
@@ -88,13 +88,13 @@ Lines: 118   Words: 3588   Est. narration: 17.1 min @ 210 WPM [config fallback (
       Twinkie says the word Yakuza like it should end the conversation. Sean hears it as an introduction.
 
 [ 30] (00:26:36.381 -> 00:27:00.321)  <reveal> {loop}
-      In the lift Twinkie asks if he knows what DK stands for. Donkey Kong, he guesses. Drift King - DK being what Tokyo calls Takashi, the man who just taxed the room. One of those answers tells you how much of this city he has understood.
+      In the lift Twinkie asks if he knows what DK stands for. Donkey Kong, he guesses. Drift King, which is what Tokyo calls Takashi, the man who just taxed the room. One of those answers tells you how much of this city he has understood.
 
 [ 31] (00:27:54.250 -> 00:28:07.471)  <tense> {judgment}
       Before the start, DK pulls Neela into him in front of the whole garage - less affection than paperwork, filed publicly, so every man on that floor knows whose turf she stands on.
 
 [ 32] (00:30:10.260 -> 00:30:21.522)  <action> {stake}
-      Sean hasn't got a car to put up, so Han lends him his own - keys handed to a stranger, no deposit, no questions. Rip the e-brake, then power over. He gets the first half right. Han's car grinds down the concrete.
+      Sean hasn't got a car to put up, so Han lends him his own: keys handed to a stranger, no deposit, no questions. Rip the e-brake, then power over. He gets the first half right. Han's car grinds down the concrete.
 
 [ 33] (00:30:25.609 -> 00:30:33.575)  <tense> {judgment}
       Turns out thirty seconds of instruction doesn't make a driver. Every eye in that garage, and the one thing he came here to do, he cannot.
@@ -118,7 +118,7 @@ Lines: 118   Words: 3588   Est. narration: 17.1 min @ 210 WPM [config fallback (
       The stake gets set across the table: an 86 Corolla against a 72, car for car, no money. Sean is now driving somebody else's bet.
 
 [ 41] (00:39:25.355 -> 00:39:42.830)  <mystery> {loop}
-      Then the kid gets sent outside so the grown-ups can talk. A shipment hasn't arrived, and they are leaning on Han about when it lands. Sit pretty and let him handle it, he tells them. Then the smile goes.
+      Then the kid gets sent outside so the grown-ups can talk. A shipment hasn't arrived, and they want a date from Han. Sit pretty and let him handle it, he tells them. Then the smile goes.
 
 [ 42] (00:40:14.195 -> 00:40:30.544)  <normal> {judgment}
       Neela turns up and he tells her to stop following him around. She's come to ask for drifting lessons. He turns her down flat: this world is beneath her, he says, which is the newest person in Tokyo telling a local what she wants.
@@ -127,13 +127,13 @@ Lines: 118   Words: 3588   Est. narration: 17.1 min @ 210 WPM [config fallback (
       She answers by reading him back to himself: army brat, moved around a lot, mom and dad never home, pissed off all the time. Zero for one, cowboy. About nine seconds, start to finish.
 
 [ 44] (00:41:54.587 -> 00:42:20.321)  <normal> {judgment}
-      Then they argue about what a race is for. Sean's version: line up, find out who's faster, done. Han says that only proves you're faster - a race should be for something that matters. Which has evidently never crossed his mind.
+      Then they argue about what a race is for. Sean's version: line up, see who's faster, done. Han says that only proves you're faster and that a race should be for something that matters. Which has evidently never crossed his mind.
 
 [ 45] (00:42:20.321 -> 00:42:28.954)  <normal> {loop}
       So why let him race at all? Because DK's pride is his kryptonite. And, Han adds, you still owe me a car.
 
 [ 46] (00:42:58.901 -> 00:43:12.831)  <normal> {rest}
-      A patrol car tucks in behind them. Han doesn't sit up - get past 180, he says, and they stop trying.
+      A patrol car tucks in behind them. Han doesn't even sit up: get past 180 and they stop trying, he says.
 
 [ 47] (00:44:41.420 -> 00:44:59.146)  <normal> {reasoning}
       Twinkie hauls him off the floor to explain the local economics. Room full of models, nobody in town brave enough to talk to them - so they talk to the little guy who makes them laugh.
@@ -193,7 +193,7 @@ Lines: 118   Words: 3588   Est. narration: 17.1 min @ 210 WPM [config fallback (
       Neela texts him from class to ask why she never sees him drift. He chews his knuckle over it. That text is an invitation and he knows it.
 
 [ 65] (00:59:19.043 -> 00:59:37.395)  <normal> {stake}
-      Vending-machine dinner under an overpass, and she tells him the thing she doesn't tell people. Her mother came out from Australia straight after school and went to work in a hostess bar. She died when Neela was ten. DK's grandmother took her in.
+      Vending-machine dinner under an overpass, and she tells him the thing she tells nobody. What comes out is a mother who came from Australia after school and never went home: a hostess bar, dead when Neela was ten, and DK's grandmother took her in.
 
 [ 66] (00:59:37.395 -> 01:00:00.793)  <normal> {rest}
       He gives her his own back: parents split when he was three, he and his mum moved around a lot, mostly because of him - then he stops and corrects it. "Well, it was all because of me." Made himself an outsider, he says, without even thinking about it.
@@ -226,7 +226,7 @@ Lines: 118   Words: 3588   Est. narration: 17.1 min @ 210 WPM [config fallback (
       
 
 [ 75] (01:09:58.805 -> 01:10:11.067)  <tense> {judgment}
-      DK puts a pistol in Han's face. Han barely blinks and tells him he'd still be shaking down tea houses without the skimming - admitting the theft and taking credit for it in the same breath. Exactly the wrong true thing to say to a proud man holding a gun.
+      DK puts a pistol in Han's face. Han barely blinks and tells him he'd still be shaking down tea houses without the skimming, admitting the theft and taking credit in the same breath. The truth, and exactly the wrong thing to say to a proud man holding a gun.
 
 [ 76] (01:11:03.495 -> 01:11:17.884)  <action> {stake}
       Han bolts out of the bay in a shower of sparks and the rest of the crew pours after him through the underpass, Sean and Neela in the red Evo. Not police chasing him. His own side.
@@ -240,7 +240,7 @@ Lines: 118   Words: 3588   Est. narration: 17.1 min @ 210 WPM [config fallback (
 [ 78] (01:15:13.785 -> 01:15:22.920)  <tense> {stake}
       It settles upside down against the kerb with Han trapped inside, not moving. A loose tyre rolls away. Neela gets out to look.
 
-[ 79] (01:15:22.920 -> 01:15:28.175)  <sad> {stake}
+[ 79] (01:15:22.920 -> 01:15:28.426)  <sad> {stake}
       Sean sprints for him. He doesn't get there. The car detonates, and Han dies in the fire.
 
 [ 80] (01:15:33.263 -> 01:15:39.770)  <tense> {stake}
@@ -316,7 +316,7 @@ Lines: 118   Words: 3588   Est. narration: 17.1 min @ 210 WPM [config fallback (
       Takashi stops racing and starts shoving - into Sean's flank, scraping him along the cliff edge, then hauling across the guardrail bend to put him off the road, the way it has always worked up here.
 
 [102] (01:33:41.305 -> 01:33:51.649)  <action> {stake}
-      Sean holds the line, leans on him, and shoves him wide instead - off the shoulder, into the brush, Takashi's black coupe cartwheeling through the dirt. The same shove, handed back once.
+      Sean holds the line, leans on him, and shoves him wide instead, off the shoulder, into the brush, Takashi's black coupe cartwheeling through the dirt. The same shove, handed back once.
 
 [103] (01:33:51.649 -> 01:34:01.367)  <action> {rest}
       The roadside erupts - screaming, fists in the air, phones forgotten. Sean throws his head back gasping as the marker lights fly over him.
@@ -343,7 +343,7 @@ Lines: 118   Words: 3588   Est. narration: 17.1 min @ 210 WPM [config fallback (
       Then the old man drops his head and turns away from the crowd. Neela had already told the nephew what he was without his uncle, and every bit of what he had up here was borrowed.
 
 [110] (01:35:19.069 -> 01:35:32.165)  <normal> {judgment}
-      Weeks later, same noise, another garage, and Twinkie is working the crowd with both fists full of other people's money. He called Sean's walk into Kamata's office suicide, then dug Han's money out of that green van and funded it anyway. Whatever he takes tonight, he earned it.
+      Weeks later, same noise, another garage, and Twinkie is working the crowd with both fists full of other people's money. He called Sean's walk into Kamata's office suicide and then dug Han's money out of his own green van to fund it anyway. Whatever he takes tonight, he earned it.
 
 [111] (01:35:49.766 -> 01:36:03.030)  <normal> {loop}
       Then Twinkie pushes back across the garage with news: somebody has turned up asking for Sean by name, somebody who ran with Han and calls Han family. Sean's smirk falls away, and Neela holds his eye until he takes it in.
