@@ -357,7 +357,9 @@ def plan_widen(draft: dict, pdir: Path, project: str,
     # degrades footage, which is the hardest kind of damage to notice later.
     for lid, (na, nb) in new.items():
         m = next(r for r in bound if r["id"] == lid)
-        req = _need_for(r["ln"], durs.get(lid, 0.0))
+        # was r["ln"]: `r` leaked from an earlier loop, so the floor was
+        # computed from the WRONG line's requirement
+        req = _need_for(m["ln"], durs.get(lid, 0.0))
         allowed_floor = max(MIN_WINDOW_SEC, min(m["b"] - m["a"], req)) - 1e-3
         if (nb - na) < allowed_floor:
             raise AssertionError(
@@ -741,7 +743,9 @@ def main() -> int:
         ln["clip_start"] = _hms(na)
         ln["clip_end"] = _hms(nb)
 
-    still = pf.capacity_findings(draft, narration)
+    # skip_ids as in the first pass: stale lines carry duration 0.0 here and
+    # would otherwise be judged on their out-of-date files after all
+    still = pf.capacity_findings(draft, narration, skip_ids=stale)
     if a.widen_only and still:
         console.print(
             f"[yellow]--widen-only:[/] {len(still)} line(s) still overrun "

@@ -244,6 +244,99 @@ def cmd_skeleton(args):
                       f"must_cover={len(u.must_cover)}  {u.label}")
 
 
+def cmd_voice(args):
+    """VOICE stage: synthesize, pre-flight on the REAL audio, fit - then stop.
+
+    Before this stage the first place a capacity overrun could be seen was the
+    render: stems, the source probe and the censor policy all ran first, and
+    then CAPACITY-PREFLIGHT stopped the run (Tokyo Drift line 79, 0.2 s over,
+    after the stems step). The narration and the pre-flight need nothing that
+    clip building makes, so they run here, right after draft approval, and
+    the render that follows only assembles.
+
+    Reuses the render's own functions (generate_tts, preflight.stale_audio,
+    capacity_findings, report) and runs tools/fit_narration.py as-is - no
+    formula is copied. Exit 0 = every narrated line fits its window.
+    """
+    import os
+    import subprocess
+    from pipeline.draft import validate_draft
+    from pipeline.tts import generate_tts, VoiceUnavailable
+    from pipeline import preflight as _pf
+
+    draft = validate_draft(args.project)
+    _r = draft if isinstance(draft, dict) else {}
+    # Binding violations here come from WORD-COUNT estimates; the real audio
+    # is exactly what this stage measures and fits, so they do not block it.
+    # Everything that would still be wrong after a perfect fit does.
+    _fatal = []
+    if _r.get("reveal_hits"):
+        _fatal.append(f"{_r['reveal_hits']} REVEAL-TIMING hit(s)")
+    if _r.get("runtime_over"):
+        _fatal.append(f"[RUNTIME-BAND] {_r['runtime_over']}")
+    if _r.get("audit_unavailable"):
+        _fatal.append(f"checks that did NOT run: {_r['audit_unavailable']}")
+    if _fatal and not args.ignore_audit:
+        console.print("[red]Refusing to voice: " + "; ".join(_fatal) + ".[/] "
+                      f"See `python recap.py draft --project {args.project}`.")
+        sys.exit(1)
+
+    pdir = config.project_dir(args.project)
+    ffp = config.ffprobe()
+
+    def _synth():
+        try:
+            return generate_tts(args.project, _reload(),
+                                allow_edge=args.allow_edge)
+        except VoiceUnavailable as e:
+            console.print(f"[red]VOICE: {e}[/]")
+            sys.exit(1)
+
+    def _reload():
+        # fit_narration rewrites draft.json (windows, rate_bump, holds), so
+        # every pass reads the file fresh rather than the dict validated above.
+        import json as _json
+        return _json.loads((pdir / "draft.json").read_text(encoding="utf-8-sig"))
+
+    def _check(narration):
+        d = _reload()
+        stale = _pf.stale_audio(d, pdir)
+        return _pf.capacity_findings(d, narration, ffp, skip_ids=stale)
+
+    narration = _synth()
+    findings = _check(narration)
+    if not findings:
+        console.print(f"[green]VOICE: {len(narration)} line(s) synthesized; "
+                      f"every narrated line fits its window.[/] Next: "
+                      f".\\run.ps1 -Project {args.project} -From render")
+        return
+    if not args.fit:
+        _pf.report(findings, args.project)
+        console.print(f"Re-run with --fit to resolve them in one pass "
+                      f"(tools/fit_narration.py --apply, then re-synthesize "
+                      f"only the bumped lines).")
+        sys.exit(1)
+
+    console.print(f"[cyan]VOICE: {len(findings)} overrun(s) on the real audio "
+                  f"- fitting.[/]")
+    rc = subprocess.run([sys.executable, "tools/fit_narration.py",
+                         "--project", args.project, "--apply"],
+                        cwd=os.path.dirname(os.path.abspath(__file__))).returncode
+    if rc != 0:
+        console.print(f"[red]fit_narration exited {rc}.[/]")
+        sys.exit(1)
+    narration = _synth()                 # only rate-bumped lines re-synthesize
+    findings = _check(narration)
+    if not _pf.report(findings, args.project):
+        console.print(f"[yellow]{len(findings)} line(s) still overrun after the "
+                      f"fit: they need a TEXT trim (see narration_fit_todo.json"
+                      f"). Trim them in draft.json, then run this stage again.[/]")
+        sys.exit(1)
+    console.print(f"[green]VOICE: fitted; every narrated line now fits its "
+                  f"window.[/] Next: .\\run.ps1 -Project {args.project} "
+                  f"-From render")
+
+
 def cmd_render(args):
     from pipeline.draft import validate_draft
     from pipeline.tts import generate_tts, collect_mine
@@ -452,6 +545,18 @@ def main():
                     help="If the outline passes coverage/binding, enter SCRIPT "
                          "stage (enables DRAFT-TARGET). Linear projects; one-way.")
     pd.set_defaults(func=cmd_draft)
+
+    pvo = sub.add_parser("voice", help="synthesize narration + capacity "
+                         "pre-flight (+ --fit) BEFORE render")
+    pvo.add_argument("--project", required=True)
+    pvo.add_argument("--fit", action="store_true",
+                     help="on overruns, run tools/fit_narration.py --apply and "
+                          "re-synthesize the bumped lines, then re-check")
+    pvo.add_argument("--allow-edge", action="store_true",
+                     help="allow the Edge fallback voice (see render)")
+    pvo.add_argument("--ignore-audit", action="store_true",
+                     help="voice even though the draft audit failed hard")
+    pvo.set_defaults(func=cmd_voice)
 
     pr = sub.add_parser("render", help="voiceover + cut + captions -> final.mp4")
     pr.add_argument("--project", required=True)

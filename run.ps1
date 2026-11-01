@@ -22,7 +22,7 @@ param(
     [string]$Source,
     [Parameter(Mandatory = $true)][string]$Project,
     [ValidateSet('ingest', 'frames', 'names', 'spans', 'tags', 'catalogue',
-                 'beats', 'draft', 'filmspeaks', 'render', 'verify')]
+                 'beats', 'draft', 'filmspeaks', 'voice', 'render', 'verify')]
     [string]$From = 'ingest',
     [switch]$Translate,
     [string]$Model = 'medium',
@@ -85,7 +85,7 @@ function Need-File ($path, $hint) {
 # thanh KHONG kiem duoc (SPEAKER_UNNAMED) - chua duoc bang gi ngoai viec tag
 # lai ca phim. Danh sach ten la DAU VAO cua khau tag, khong phai phu luc.
 $order = @('ingest', 'frames', 'names', 'spans', 'tags', 'catalogue', 'beats',
-           'draft', 'filmspeaks', 'render', 'verify')
+           'draft', 'filmspeaks', 'voice', 'render', 'verify')
 $start = [array]::IndexOf($order, $From)
 function Should ($step) { return ([array]::IndexOf($order, $step) -ge $start) }
 
@@ -564,6 +564,23 @@ except Exception:
         Warn "khong co ung vien nao du dieu kien - so khong la hop le cho phim nay"
     }
     else { Ok "film_speaks: du unit" }
+}
+
+# --------------------------------------------------------------------------- #
+# 8c. VOICE - doc giong + kiem do dai TRUOC khi dung clip
+# --------------------------------------------------------------------------- #
+# Truoc day loi "cau doc dai hon hinh" chi lo ra o RENDER, sau khi da tach
+# tieng va probe phim (Tokyo Drift cau 79, lo 0.2s). Doc giong va pre-flight
+# khong can gi tu buoc dung clip, nen chay o day: --fit tu noi cua so / tang
+# toc nhe roi doc lai dung nhung cau do. Render phia sau chi con lap rap.
+if (Should 'voice') {
+    Say "8c. VOICE - doc giong (Inworld) + kiem do dai tren audio THAT"
+    if ((Recap @('voice', '--project', $Project, '--fit')) -ne 0) {
+        Bad "voice that bai"
+        Warn "Neu con cau phai cat chu: sua draft.json theo narration_fit_todo.json,"
+        Warn "roi chay lai:  .\run.ps1 -Project $Project -From voice"
+        exit 1
+    }
 }
 
 # --------------------------------------------------------------------------- #
