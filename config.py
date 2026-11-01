@@ -1461,3 +1461,8 @@ TAG_MODEL = "claude-haiku-5-5"
 # is handed to the subagent fallback. The span schema has no confidence field,
 # so validation failure is the only escalation trigger.
 TAG_ESCALATE_MODEL = "claude-sonnet-5-5"
+
+# --- REVIEW_API_MODEL: the three review readers (tools/review_api.py) --------
+# Cold read, independent review and ending read, each one FRESH request that
+# did not write the draft. Judgment work on a whole draft, so the strong model.
+REVIEW_API_MODEL = "claude-sonnet-5-5"

@@ -542,9 +542,22 @@ if (Should 'draft') {
     # chan draft cho den khi co ca hai, nen day khong phai viec lam sau. Agent
     # viet draft KHONG duoc lam viec nay: mot nguoi doc lai bai minh viet
     # khong thay gi.
-    if (-not (Test-Path "$Pdir\cold_read.md") -or
-        -not (Test-Path "$Pdir\review.md") -or
-        -not (Test-Path "$Pdir\ending_read.md")) {
+    # Co ANTHROPIC_API_KEY: ba ban doc chay qua API (tools\review_api.py, moi
+    # ban doc la mot request MOI, chi thay dung phan cua no) thay vi dung lai.
+    # Khong co key: dung lai nhu cu.
+    $needReview = (-not (Test-Path "$Pdir\cold_read.md") -or
+                   -not (Test-Path "$Pdir\review.md") -or
+                   -not (Test-Path "$Pdir\ending_read.md"))
+    if ($needReview -and $env:ANTHROPIC_API_KEY) {
+        Say "   review qua API (cold read, reviewer, ending read)"
+        & python tools\review_api.py all --project $Project | Out-Host
+        if ($LASTEXITCODE -ne 0) {
+            Bad "review_api exit $LASTEXITCODE - xem o tren; xoa key de quay ve subagent"
+            exit 1
+        }
+        $needReview = $false
+    }
+    if ($needReview) {
         Halt "REVIEW - hai subagent MOI, chua tung thay draft nay" @(
             "1. COLD READ (agent chua he thay phim, beats, angle hay payload):"
             "   python tools\cold_read_payload.py $Project > _coldread.txt"

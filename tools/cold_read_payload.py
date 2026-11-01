@@ -94,7 +94,12 @@ List EVERY instance of these four, one FINDING per issue:
      These are the easiest sentences to invent and the hardest to check, and
      they read as the most authoritative line in the paragraph. Flag every one
      so it can be checked against the transcript.
+"""
 
+# How to WRITE the artifact by hand. The API reader (tools/review_api.py)
+# replies in JSON instead and the tool writes the fences, so it is sent
+# CHECKLIST without this part.
+OUTPUT_FENCES = """\
 Output EXACTLY two fenced blocks and nothing else that matters:
 
   - the ```review-signatures block below, copied VERBATIM. Do not edit it, do
@@ -125,32 +130,16 @@ whole step exists to prevent.
 """
 
 
-def main() -> int:
-    # Before anything is printed. See the module docstring: a payload that
-    # dies mid-list hands the reader a plausible prefix.
-    try:
-        sys.stdout.reconfigure(encoding="utf-8", errors="replace")
-    except Exception:                                   # pragma: no cover
-        pass                                            # pre-3.7 / odd stream
+def narration_payload(draft: dict, ids=None) -> str:
+    """The reader's text: header + narration lines, exactly as printed by
+    this tool. `ids` limits the LINES to those ids (the ending read sees only
+    the closing window); the header counts stay those of the whole draft."""
+    buf: list = []
 
-    if len(sys.argv) < 2:
-        print("usage: python tools/cold_read_payload.py <project>")
-        return 2
-    project = sys.argv[1]
-    pdir = config.project_dir(project)
-    dp = pdir / "draft.json"
-    if not dp.exists():
-        print(f"no draft.json in {pdir}")
-        return 1
-    try:
-        draft = json.load(io.open(dp, encoding="utf-8-sig"))
-    except Exception as e:
-        print(f"draft.json in {pdir} is unreadable: {type(e).__name__}: {e}")
-        return 1
-    if not isinstance(draft, dict) or not isinstance(draft.get("lines"), list):
-        print(f"draft.json in {pdir} has no `lines` list")
-        return 1
+    def out(*a):
+        buf.append(" ".join(str(x) for x in a))
 
+    keep = None if ids is None else {str(i) for i in ids}
     lines = draft.get("lines") or []
     rows = []
     unusable = 0
@@ -180,49 +169,82 @@ def main() -> int:
         holds += hold
         rows.append((ln.get("id"), text, hold))
 
-    print("# COLD READ - narration only")
-    print()
+    out("# COLD READ - narration only")
+    out()
     # The title is the one piece of metadata kept: a reader with no title
     # cannot tell an unintroduced referent from the film's own premise.
-    print(f"Film: {draft.get('title') or '(untitled)'}")
+    out(f"Film: {draft.get('title') or '(untitled)'}")
     _spoken = [t for _, t, _ in rows if t]
-    print(f"Lines of narration: {len(_spoken)}   "
+    out(f"Lines of narration: {len(_spoken)}   "
           f"Words: {sum(len(t.split()) for t in _spoken)}   "
           f"Deliberate pauses: {holds}")
-    print()
-    print("Read this top to bottom, ONCE, in order, as a viewer would hear it.")
-    print("Delivery tags, payload labels, the hook question and the beat notes")
-    print("have been removed: they are the writer's own account of what the")
-    print("line does, and you are here to read what it SAYS.")
-    print("`[pause]` is a deliberate silence the draft carries. Duration is")
-    print("withheld on purpose; the pause itself is not.")
+    out()
+    out("Read this top to bottom, ONCE, in order, as a viewer would hear it.")
+    out("Delivery tags, payload labels, the hook question and the beat notes")
+    out("have been removed: they are the writer's own account of what the")
+    out("line does, and you are here to read what it SAYS.")
+    out("`[pause]` is a deliberate silence the draft carries. Duration is")
+    out("withheld on purpose; the pause itself is not.")
     if silent:
-        print(f"{silent} unit(s) carry neither narration nor a hold (film")
-        print("audio) and are not printed - they have no text to read.")
+        out(f"{silent} unit(s) carry neither narration nor a hold (film")
+        out("audio) and are not printed - they have no text to read.")
     if unusable:
-        print(f"!! {unusable} line record(s) could not be read and are MISSING")
-        print("   from this payload. This payload is INCOMPLETE; say so in")
-        print("   your review rather than signing it as a full read.")
-    print()
-    print("=" * 60)
-    print()
+        out(f"!! {unusable} line record(s) could not be read and are MISSING")
+        out("   from this payload. This payload is INCOMPLETE; say so in")
+        out("   your review rather than signing it as a full read.")
+    out()
+    out("=" * 60)
+    out()
 
     for lid, text, hold in rows:
+        if keep is not None and str(lid) not in keep:
+            continue
         try:
             tag = f"[{int(lid):>3}]"
         except Exception:
             tag = f"[{str(lid)[:3]:>3}]"
         if text:
-            print(f"{tag} {text}")
+            out(f"{tag} {text}")
             if hold:
-                print("      [pause]")
+                out("      [pause]")
         else:
-            print(f"{tag} [pause]")
-        print()
+            out(f"{tag} [pause]")
+        out()
 
-    print("=" * 60)
+    out("=" * 60)
+    return "\n".join(buf) + "\n"
+
+
+def main() -> int:
+    # Before anything is printed. See the module docstring: a payload that
+    # dies mid-list hands the reader a plausible prefix.
+    try:
+        sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+    except Exception:                                   # pragma: no cover
+        pass                                            # pre-3.7 / odd stream
+
+    if len(sys.argv) < 2:
+        print("usage: python tools/cold_read_payload.py <project>")
+        return 2
+    project = sys.argv[1]
+    pdir = config.project_dir(project)
+    dp = pdir / "draft.json"
+    if not dp.exists():
+        print(f"no draft.json in {pdir}")
+        return 1
+    try:
+        draft = json.load(io.open(dp, encoding="utf-8-sig"))
+    except Exception as e:
+        print(f"draft.json in {pdir} is unreadable: {type(e).__name__}: {e}")
+        return 1
+    if not isinstance(draft, dict) or not isinstance(draft.get("lines"), list):
+        print(f"draft.json in {pdir} has no `lines` list")
+        return 1
+
+    sys.stdout.write(narration_payload(draft))
     print()
     print(CHECKLIST)
+    print(OUTPUT_FENCES)
     print()
     print("Copy this block verbatim into your artifact:")
     print()
