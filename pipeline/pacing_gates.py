@@ -706,7 +706,8 @@ def _persona_gaps(draft: dict, jud: list, exempt_beats: set = frozenset(),
     while t < hi:
         b = t + w
         inside = [p for p in pos if t <= p[0] < b]
-        if len(inside) >= 3 and not any(p[1] for p in inside):
+        if (len(inside) >= 3 and sum(1 for p in inside if p[1])
+                < int(config.PERSONA_MIN_PER_WINDOW)):
             out.append((t - lo, b - lo))
         t = b
     return out

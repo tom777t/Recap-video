@@ -683,8 +683,8 @@ MUSIC_CUE_HOLD_DB = -2.0
 # cues closer than the floor.
 MUSIC_CUE_AVG_SPACING_SEC = 90.0
 MUSIC_CUE_MIN_GAP_SEC = 20.0
-# The bed is raised this much inside a narration-silence hold (felt, not loud).
-MUSIC_BED_HOLD_DB = -6.0
+# (The bed's swell inside a narration-silence hold is SILENCE_MUSIC_VOLUME below;
+# a separate MUSIC_BED_HOLD_DB key duplicated it and was read by nothing.)
 
 # --- legacy mood-bed switching (2c) - retained for fallback / older projects -
 MUSIC_MOOD_FOR_TAG = {
