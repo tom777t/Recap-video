@@ -384,6 +384,19 @@ if (Should 'catalogue') {
 if (Should 'beats') {
     Say "7. BEAT MAP + CHOT DU LIEU"
 
+    if (-not (Test-Path "$Pdir\beats_proposal.md") -and $env:ANTHROPIC_API_KEY) {
+        # Co key: 8 chunk (mot batch) + vong reveals qua API thay vi dung lai.
+        Say "   beat map qua API (tools\write_api.py beats)"
+        & python tools\write_api.py beats --project $Project | Out-Host
+        $wc = $LASTEXITCODE
+        if ($wc -eq 3) {
+            Halt "BEAT MAP - batch API chua xong" @(
+                "Batch da gui; chay lai sau vai phut de lay ket qua."
+            ) ".\run.ps1 -Project $Project -From beats"
+            exit 0
+        }
+        if ($wc -ne 0) { Bad "write_api beats exit $wc - xem o tren"; exit 1 }
+    }
     if (-not (Test-Path "$Pdir\beats_proposal.md")) {
         $bt = python tools\check_stage.py $Project beats-todo
         if ($bt -and $bt -ne 'NONE') {
@@ -463,6 +476,18 @@ print(f"  reveal-map: {len(D.parse_reveal_map(proj))} muc")
 # co gi de kiem. Gio la mot stage, va no chan truoc khi viet draft.
 if (Should 'angle') {
     Say "7a. FILM FACTS + ANGLE"
+    if ($env:ANTHROPIC_API_KEY) {
+        # Co key: film facts (Wikipedia, mot revision) va angle qua API.
+        if (-not (Test-Path "$Pdir\film_facts.json")) {
+            & python tools\write_api.py facts --project $Project | Out-Host
+            if ($LASTEXITCODE -ne 0) { Bad "write_api facts exit $LASTEXITCODE - xem o tren (--wiki ""<Ten phim (film)>"")"; exit 1 }
+        }
+        if (-not (Test-Path "$Pdir\angle.md") -or
+            -not (Test-Path "$Pdir\coverage_policy.json")) {
+            & python tools\write_api.py angle --project $Project | Out-Host
+            if ($LASTEXITCODE -ne 0) { Bad "write_api angle exit $LASTEXITCODE - xem o tren"; exit 1 }
+        }
+    }
     if (-not (Test-Path "$Pdir\film_facts.json")) {
         Halt "FILM FACTS - thieu film_facts.json (vong LLM)" @(
             "Mot subagent. Prompt: tools\film_facts_prompt.md"
@@ -517,6 +542,23 @@ if (Should 'draft') {
     # crash khong lam mat so vong va khong khoi dong lai tu 0.
     $round = [int](python tools\check_stage.py $Project draft-round)
     $acts  = python tools\check_stage.py $Project acts-todo
+
+    if ($acts -and $acts -ne 'NONE' -and $env:ANTHROPIC_API_KEY) {
+        # Co key: cac act trong mot batch + toi da 2 vong feedback gate qua
+        # API. exit 2 = con finding (da liet ke) - di tiep, gate ben duoi
+        # va checkpoint nguoi se thay chung.
+        Say "   draft qua API (tools\write_api.py draft)"
+        & python tools\write_api.py draft --project $Project | Out-Host
+        $wc = $LASTEXITCODE
+        if ($wc -eq 3) {
+            Halt "DRAFT - batch API chua xong" @(
+                "Batch da gui; chay lai sau vai phut de lay ket qua."
+            ) ".\run.ps1 -Project $Project -From draft"
+            exit 0
+        }
+        if ($wc -eq 1) { Bad "write_api draft exit 1 - xem o tren"; exit 1 }
+        $acts = python tools\check_stage.py $Project acts-todo
+    }
 
     if ($acts -and $acts -ne 'NONE') {
         Halt "DRAFT - $acts act chua viet (vong LLM, vong $($round+1)/3)" @(
@@ -690,6 +732,29 @@ try:
 except Exception:
     print(0)
 "@
+        $fsDone = $false
+        if ([int]$nCand -gt 0 -and $env:ANTHROPIC_API_KEY) {
+            # Co key: chon qua API roi tools\apply_film_speaks.py, roi kiem gate.
+            & python tools\write_api.py filmspeaks --project $Project | Out-Host
+            if ($LASTEXITCODE -ne 0) {
+                Halt "FILM_SPEAKS - write_api filmspeaks exit $LASTEXITCODE" @(
+                    "Doc cac dong FINDING o tren (selection da ghi:"
+                    "$Pdir\film_speaks_selection.json)."
+                ) ".\run.ps1 -Project $Project -From filmspeaks"
+                exit 0
+            }
+            $code = Recap -CmdArgs @('draft', '--project', $Project) -AllowSoftFail
+            if ($code -eq 1) {
+                Halt "FILM_SPEAKS - draft khong qua gate sau khi ap dung" @(
+                    "Sua cac loi [..] o tren trong $Pdir\draft.json"
+                    "(ban truoc: draft.pre_film_speaks.json)."
+                ) ".\run.ps1 -Project $Project -From filmspeaks"
+                exit 0
+            }
+            Ok "film_speaks: chon + ap dung qua API, draft qua gate"
+            $fsDone = $true
+            $nCand = 0
+        }
         if ([int]$nCand -gt 0) {
             Halt "FILM_SPEAKS - $nCand ung vien, can chon 2-3 (vong LLM)" @(
                 "Mot subagent MOI (fresh context). Prompt:"
@@ -709,7 +774,7 @@ except Exception:
             ) ".\run.ps1 -Project $Project -From filmspeaks"
             exit 0
         }
-        Warn "khong co ung vien nao du dieu kien - so khong la hop le cho phim nay"
+        if (-not $fsDone) { Warn "khong co ung vien nao du dieu kien - so khong la hop le cho phim nay" }
     }
     else { Ok "film_speaks: du unit" }
 }

@@ -27,6 +27,8 @@ format the validators accept" is tested against the validators themselves.
                     reveals; selection written; apply_film_speaks.py runs
   RESUME            a pending batch is collected, not submitted again
   LEDGER            every call above landed in cost_ledger.jsonl
+  RUNPS1-WIRED      run.ps1 runs each stage through write_api behind the key
+                    check; CHOT DU LIEU / DUYET DRAFT / XEM VIDEO still halt
   MISSING-KEY       no ANTHROPIC_API_KEY -> one clear message, exit 1
 
 Run:  python tools/test_write_api.py
@@ -340,6 +342,30 @@ def test_ledger():
     return ok, f"ledger rows: {[(r['stage'], r['usd']) for r in rows]}"
 
 
+def test_runps1_wired():
+    """With the key: each writing stage runs write_api; the human checkpoints
+    stay halts that no key branch can skip."""
+    src = (ROOT / "run.ps1").read_text(encoding="utf-8")
+    need = ["write_api.py beats", "write_api.py facts", "write_api.py angle",
+            "write_api.py draft", "write_api.py filmspeaks"]
+    miss = [n for n in need if n not in src]
+    if miss:
+        return False, f"run.ps1 never runs {miss}"
+    for n in need:
+        i = src.find(n)
+        if "$env:ANTHROPIC_API_KEY" not in src[max(0, i - 900):i]:
+            return False, f"{n} is not behind the ANTHROPIC_API_KEY check"
+    for cp in ('Halt "CHOT DU LIEU', 'Halt "DUYET DRAFT', 'Halt "XEM VIDEO'):
+        i = src.find(cp)
+        if i < 0:
+            return False, f"checkpoint {cp} is gone"
+        line = src.rfind("\n", 0, i)
+        prev = src[src.rfind("\n", 0, line):line]
+        if "ANTHROPIC_API_KEY" in prev:
+            return False, f"checkpoint {cp} is skipped when the key is set"
+    return True, "5 stages behind the key; 3 human checkpoints still halt"
+
+
 def test_missing_key():
     TB.CLIENT_FACTORY = TB.make_client
     old = os.environ.pop(TB.KEY_ENV, None)
@@ -363,6 +389,7 @@ TESTS = {
     "FILMSPEAKS":  test_filmspeaks,
     "RESUME":      test_resume,
     "LEDGER":      test_ledger,
+    "RUNPS1-WIRED": test_runps1_wired,
     "MISSING-KEY": test_missing_key,
 }
 
