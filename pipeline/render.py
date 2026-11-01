@@ -31,6 +31,7 @@ from rich.console import Console
 
 import config
 from pipeline import encoder as _encoder
+from pipeline import probe as _probe_mod
 from pipeline import srt as srtmod
 from pipeline.draft import parse_ts
 
@@ -1853,6 +1854,7 @@ def render(project: str, draft: dict,
                 # clip built short under older rules is served silently
                 # forever. Nine such clips are in this project's cache, the
                 # worst with 3.0s less video than audio.
+                _probe_mod.adopt_cached(cached, cout)
                 _verify_clip(cout, clip_len, f"cached hold clip (line {lid})")
             else:
                 clip_len = _build_silence_clip(ff, source, start, end, cout,
@@ -1866,6 +1868,7 @@ def render(project: str, draft: dict,
                 try:
                     import shutil
                     shutil.copy2(cout, cached)
+                    _probe_mod.remember_cached(cout, cached)
                 except Exception:
                     pass
             clips.append((cout, clip_len))
@@ -2038,6 +2041,9 @@ def render(project: str, draft: dict,
             clip_len = max(lead + narr_dur + GAP, hold)
             reused = True
             n_cached += 1
+            # the cache entry's own measurement, taken when it was built and
+            # bound to its size+mtime, answers the probe; else it is measured
+            _probe_mod.adopt_cached(cached, cout)
             _verify_clip(cout, clip_len, f"cached clip (line {lid})")
         else:
             _bargs = (ff, source, start, end, audio_path, narr_dur,
@@ -2057,6 +2063,7 @@ def render(project: str, draft: dict,
                 try:
                     import shutil
                     shutil.copy2(cout, cached)
+                    _probe_mod.remember_cached(cout, cached)
                 except Exception:
                     pass
         clips.append((cout, clip_len))
@@ -2130,6 +2137,7 @@ def render(project: str, draft: dict,
                         f"timeline was laid out for {_want:.3f}s")
                 try:
                     shutil.copy2(_cout, _cached)
+                    _probe_mod.remember_cached(_cout, _cached)
                 except Exception:
                     pass
 
@@ -2556,6 +2564,7 @@ def render(project: str, draft: dict,
     _fbad = _probe.verify(final, expect_dur=total_dur + intro_offset)
     _st = _probe.streams(final)
     _sv, _sa = _st.get("video"), _st.get("audio")
+    _pgaps = _probe.pts_gaps(final, "v")
     _fnum = {
         "expected duration (s)": round(total_dur + intro_offset, 3),
         "video stream (s)": (round(_sv["duration"], 3) if _sv else None),
@@ -2566,14 +2575,13 @@ def render(project: str, draft: dict,
         "fps": (round(_sv["fps"], 3) if _sv else None),
         "video codec": (_sv["codec"] if _sv else None),
         "audio codec": (_sa["codec"] if _sa else None),
-        "pts holes": len(_probe.pts_gaps(final, "v")),
+        "pts holes": len(_pgaps),
     }
     _rep.add("FILE-CHECK", not _fbad,
              (_probe.describe(final) if not _fbad
               else "; ".join(b["msg"] for b in _fbad)),
              numbers=_fnum,
-             rows=[{"at": g["at"], "hole (s)": g["gap"]}
-                   for g in _probe.pts_gaps(final, "v")],
+             rows=[{"at": g["at"], "hole (s)": g["gap"]} for g in _pgaps],
              findings=[{"text": b["msg"]} for b in _fbad],
              fatal=True,
              why=("the STREAMS, never the container header - the header "
@@ -2878,10 +2886,15 @@ def render(project: str, draft: dict,
     # The freeze list comes BACK from check(); this used to call
     # _mc.freezes(ff, final) again purely to fill the report table, which made
     # ffmpeg decode the whole finished film a second time every render.
+    # ONE decode of the picture feeds both MOTION-CHECK and REPEAT-SCENE below
+    # (pipeline/film_scan.py); each used to decode every frame on its own. A
+    # failed shared decode hands over nothing and each check scans for itself.
+    from pipeline import film_scan as _fscan
+    _scan = _fscan.scan(ff, final)
     _mok, _mbad, _frz = _mc.check(ff, final, draft,
                                   shown=used_footage.items,
                                   intro_offset=intro_offset,
-                                  source=source)
+                                  source=source, scan=_scan)
     _rep.add("MOTION-CHECK", _mok,
              ("no freeze over %.2fs and no repeated source footage"
               % float(config.FREEZE_FAIL_SEC) if _mok
@@ -2928,7 +2941,7 @@ def render(project: str, draft: dict,
     # OUTPUT timestamps, so it can be checked against the finished video.
     try:
         from pipeline import dupe_check as _dup
-        _dok, _dfind, _dinfo = _dup.check(final)
+        _dok, _dfind, _dinfo = _dup.check(final, scan=_scan)
         console.print(
             f"[dim][REPEAT-SCENE] {_dinfo.get('sampled', 0)} frame(s) sampled, "
             f"{_dinfo.get('skipped_flat', 0)} flat (fades/black) skipped, "

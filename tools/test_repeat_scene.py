@@ -228,9 +228,11 @@ def test_render_reports() -> tuple[bool, str]:
                   encoding="utf-8").read()
     if "[REPEAT-SCENE]" not in src:
         return False, "the render never runs the repeated-scene check"
-    if "_dup.check(final)" not in src:
+    # `_dup.check(final, scan=...)`: the shared decode of the same file
+    # (pipeline/film_scan.py) is passed in; it must still be final.mp4.
+    if "_dup.check(final)" not in src and "_dup.check(final, " not in src:
         return False, "the check is not pointed at final.mp4"
-    i = src.find("_dup.check(final)")
+    i = src.find("_dup.check(final")
     # To the end of the block, not a fixed byte count: a `i + 900` window
     # broke as soon as the check also started writing its measurements into
     # final_report.md, failing correct code because lines were added nearby.

@@ -49,7 +49,27 @@ from rich.console import Console
 console = Console()
 
 
+_PROBE_MEMO: dict = {}
+
+
 def _probe(ffprobe: str, path: Path) -> dict:
+    """Format facts of `path`, measured once per FILE VERSION (the key holds
+    size, mtime and inode, so a rewritten file is measured again). The
+    post-render report asked this five times of the same final.mp4."""
+    from pipeline.probe import _file_key
+    fk = _file_key(str(path))
+    key = (ffprobe, fk) if fk else None
+    if key is not None and key in _PROBE_MEMO:
+        return dict(_PROBE_MEMO[key])
+    out = _probe_raw(ffprobe, path)
+    if key is not None and out and _file_key(str(path)) == fk:
+        if len(_PROBE_MEMO) > 1024:
+            _PROBE_MEMO.clear()
+        _PROBE_MEMO[key] = dict(out)
+    return out
+
+
+def _probe_raw(ffprobe: str, path: Path) -> dict:
     out = {}
     r = subprocess.run(
         [ffprobe, "-v", "error", "-select_streams", "v:0", "-show_entries",

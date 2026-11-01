@@ -27,6 +27,7 @@ THREE WAYS A NAIVE VERSION OF THIS LIES, all handled below:
 """
 from __future__ import annotations
 
+import os
 import subprocess
 from pathlib import Path
 
@@ -84,16 +85,27 @@ def content_crop(path: Path, probes: int = 9) -> str | None:
         return None
     rows_lit = np.zeros(h, dtype=bool)
     got = 0
-    for i in range(max(2, probes)):
-        t = dur * (i + 0.5) / max(2, probes)
-        r = subprocess.run(
+    n = max(2, probes)
+
+    def _grab(i):
+        t = dur * (i + 0.5) / n
+        return subprocess.run(
             [config.ffmpeg(), "-v", "error", "-ss", f"{t:.3f}",
              "-i", str(path), "-frames:v", "1", "-vf", "format=gray",
              "-f", "rawvideo", "-pix_fmt", "gray", "-"],
-            capture_output=True)
-        if len(r.stdout or b"") < w * h:
+            capture_output=True).stdout or b""
+
+    # The probes are independent seeks (each decodes from the keyframe before
+    # its timestamp), so they run side by side; the union below does not
+    # depend on their order.
+    from concurrent.futures import ThreadPoolExecutor
+    with ThreadPoolExecutor(max_workers=min(n, max(1, os.cpu_count() or 1)))\
+            as _ex:
+        frames = list(_ex.map(_grab, range(n)))
+    for buf in frames:
+        if len(buf) < w * h:
             continue
-        a = np.frombuffer(r.stdout[:w * h], dtype=np.uint8).reshape(h, w)
+        a = np.frombuffer(buf[:w * h], dtype=np.uint8).reshape(h, w)
         rows_lit |= (a.mean(axis=1) > 8.0)
         got += 1
     if got == 0 or not rows_lit.any():
@@ -132,17 +144,29 @@ def _dimensions(path: Path) -> tuple:
 def frame_hashes(path: Path, interval: float = SAMPLE_INTERVAL_SEC,
                  crop: str | None = None) -> list:
     """[(t_seconds, hash_int, variance)] sampled across the whole file."""
-    import numpy as np
+    cmd = [config.ffmpeg(), "-v", "error", "-i", str(path),
+           "-vf", hash_filter(interval, crop),
+           "-f", "rawvideo", "-pix_fmt", "gray", "-"]
+    r = subprocess.run(cmd, capture_output=True)
+    return hashes_from_raw(r.stdout or b"", interval)
 
+
+def hash_filter(interval: float = SAMPLE_INTERVAL_SEC,
+                crop: str | None = None) -> str:
+    """The sampling chain frame_hashes() decodes through. Shared with the
+    single-decode scan in pipeline.film_scan, so both produce the same bytes."""
     vf = []
     if crop:
         vf.append(crop)
     vf += [f"fps=1/{max(0.05, float(interval)):.4f}",
            f"scale={DCT_SIDE}:{DCT_SIDE}", "format=gray"]
-    cmd = [config.ffmpeg(), "-v", "error", "-i", str(path),
-           "-vf", ",".join(vf), "-f", "rawvideo", "-pix_fmt", "gray", "-"]
-    r = subprocess.run(cmd, capture_output=True)
-    buf = r.stdout or b""
+    return ",".join(vf)
+
+
+def hashes_from_raw(buf: bytes, interval: float = SAMPLE_INTERVAL_SEC) -> list:
+    """[(t, hash, variance)] from raw 32x32 gray frames."""
+    import numpy as np
+
     n = DCT_SIDE * DCT_SIDE
     count = len(buf) // n
     if count == 0:
@@ -205,10 +229,20 @@ def near_duplicates(hashes: list, max_distance: int = MAX_DISTANCE,
     return kept
 
 
-def check(path: Path, interval: float = SAMPLE_INTERVAL_SEC) -> tuple:
-    """(ok, findings, info). Measures final.mp4 and nothing else."""
-    crop = content_crop(Path(path))
-    hs = frame_hashes(Path(path), interval, crop)
+def check(path: Path, interval: float = SAMPLE_INTERVAL_SEC,
+          scan: dict | None = None) -> tuple:
+    """(ok, findings, info). Measures final.mp4 and nothing else.
+
+    `scan` is pipeline.film_scan's single decode of the same file; its crop and
+    hashes are used when it sampled at this interval, otherwise the file is
+    measured here as before.
+    """
+    if (scan is not None and scan.get("hashes") is not None
+            and float(scan.get("interval", -1)) == float(interval)):
+        crop, hs = scan.get("crop"), list(scan["hashes"])
+    else:
+        crop = content_crop(Path(path))
+        hs = frame_hashes(Path(path), interval, crop)
     info = {"crop": crop, "sampled": len(hs),
             "skipped_flat": sum(1 for _t, _h, v in hs if v < MIN_VARIANCE)}
     if not hs:

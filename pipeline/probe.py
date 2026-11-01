@@ -26,6 +26,7 @@ fatal, because it is invisible in every player until the moment it is not.
 from __future__ import annotations
 
 import json
+import os
 import subprocess
 from pathlib import Path
 
@@ -41,10 +42,105 @@ AV_SYNC_MAX_SEC = 0.25
 PTS_GAP_FRAMES = 3.0
 
 
+# ---- one measurement per file version ---------------------------------------
+# The post-render section asked the same questions of final.mp4 several times
+# (pts_gaps three times, packet_count twice - each a scan of every packet in a
+# 17-minute film), and the xfade assembler re-probed every clip _verify_clip
+# had probed seconds earlier. The answer cannot change while the file does
+# not, so it is remembered per FILE VERSION: the key holds the path, size,
+# mtime, inode and device, and any rewrite of the file is a new key and a fresh
+# measurement. Only successful probes of a file that did not change while it
+# was being read are remembered - a failure is always re-asked, never reused.
+_MEMO: dict = {}
+_MEMO_MAX = 8192
+
+
+def _file_key(path: str):
+    try:
+        st = os.stat(path)
+    except OSError:
+        return None
+    return (os.path.abspath(path), st.st_size, st.st_mtime_ns, st.st_ino,
+            st.st_dev)
+
+
+def clear_memo() -> None:
+    _MEMO.clear()
+
+
 def _ffprobe(*args: str) -> str:
+    fk = _file_key(args[-1]) if args else None
+    key = (args[:-1], fk) if fk else None
+    if key is not None and key in _MEMO:
+        return _MEMO[key]
     r = subprocess.run([config.ffprobe(), "-v", "error", *args],
                        capture_output=True, text=True)
-    return r.stdout or ""
+    out = r.stdout or ""
+    if (key is not None and r.returncode == 0
+            and _file_key(args[-1]) == fk):
+        if len(_MEMO) >= _MEMO_MAX:
+            _MEMO.clear()
+        _MEMO[key] = out
+    return out
+
+
+_STREAM_ARGS = ("-show_entries",
+                "stream=index,codec_type,codec_name,duration,nb_frames,"
+                "r_frame_rate,time_base,start_time",
+                "-of", "json")
+
+
+def _sidecar(cache_path: Path) -> Path:
+    return Path(str(cache_path) + ".probe.json")
+
+
+def remember_cached(measured: Path, cache_path: Path) -> None:
+    """Store the stream measurement of a clip next to its cache entry.
+
+    `measured` is the clip that was just verified and `cache_path` the byte
+    copy of it (shutil.copy2, which keeps size and mtime). The sidecar records
+    the cache file's size and mtime, so it only ever describes those bytes.
+    Best effort: a missing sidecar just means the next hit measures again.
+    """
+    try:
+        cst, mst = os.stat(cache_path), os.stat(measured)
+        if (cst.st_size, cst.st_mtime_ns) != (mst.st_size, mst.st_mtime_ns):
+            return
+        raw = _ffprobe(*_STREAM_ARGS, str(measured))
+        if not raw.strip():
+            return
+        _sidecar(cache_path).write_text(json.dumps(
+            {"size": cst.st_size, "mtime_ns": cst.st_mtime_ns,
+             "streams": raw}), encoding="utf-8")
+    except (OSError, ValueError):
+        pass
+
+
+def adopt_cached(cache_path: Path, copy: Path) -> bool:
+    """Reuse a cache entry's stored measurement for its fresh copy.
+
+    True when the sidecar matches the cache file AND the copy (same size and
+    mtime as recorded), in which case streams(copy) is answered from it.
+    Anything else - no sidecar, a stale one, a copy that differs - returns
+    False and the clip is measured as before.
+    """
+    try:
+        rec = json.loads(_sidecar(cache_path).read_text(encoding="utf-8"))
+        want = (int(rec["size"]), int(rec["mtime_ns"]))
+        cst, kst = os.stat(cache_path), os.stat(copy)
+        if (cst.st_size, cst.st_mtime_ns) != want:
+            return False
+        if (kst.st_size, kst.st_mtime_ns) != want:
+            return False
+        raw = str(rec["streams"])
+        json.loads(raw)                       # must be a real probe answer
+    except (OSError, ValueError, KeyError, TypeError):
+        return False
+    fk = _file_key(str(copy))
+    if fk is None:
+        return False
+    _MEMO[(_STREAM_ARGS, fk)] = raw
+    return True
 
 
 def streams(path: Path) -> dict:
@@ -54,10 +150,7 @@ def streams(path: Path) -> dict:
     exactly why the truncated film looked correct: its audio was full length.
     Never judge a file by the container header.
     """
-    out = _ffprobe("-show_entries",
-                   "stream=index,codec_type,codec_name,duration,nb_frames,"
-                   "r_frame_rate,time_base,start_time",
-                   "-of", "json", str(path))
+    out = _ffprobe(*_STREAM_ARGS, str(path))
     try:
         raw = json.loads(out).get("streams") or []
     except (ValueError, AttributeError):

@@ -56,18 +56,30 @@ def freezes(ff: str, final: Path, noise_db: float | None = None,
     freezedetect will report; it is set below the failure threshold so the
     report can show near-misses rather than only outright failures.
     """
-    import config
     if not final.exists():
         return []
+    cmd = [ff, "-hide_banner", "-nostats", "-i", str(final),
+           "-vf", freeze_filter(noise_db, min_sec),
+           "-map", "0:v:0", "-f", "null", "-"]
+    r = subprocess.run(cmd, capture_output=True, text=True)
+    return parse_freezes(r.stderr or "")
+
+
+def freeze_filter(noise_db: float | None = None,
+                  min_sec: float | None = None) -> str:
+    """The freezedetect filter the finished-file check runs. One definition,
+    shared by freezes() and the single-decode scan in pipeline.film_scan, so
+    the two cannot measure with different settings."""
+    import config
     noise = config.FREEZE_NOISE_DB if noise_db is None else noise_db
     # look for anything at or above half the failure threshold
     d = (float(config.FREEZE_FAIL_SEC) / 2.0) if min_sec is None else min_sec
     d = max(0.1, d)
-    cmd = [ff, "-hide_banner", "-nostats", "-i", str(final),
-           "-vf", f"freezedetect=n={noise}dB:d={d:.3f}",
-           "-map", "0:v:0", "-f", "null", "-"]
-    r = subprocess.run(cmd, capture_output=True, text=True)
-    log = (r.stderr or "")
+    return f"freezedetect=n={noise}dB:d={d:.3f}"
+
+
+def parse_freezes(log: str) -> list[dict]:
+    """[{start, end, dur}] from a freezedetect log."""
     out: list[dict] = []
     cur_start = None
     for m in re.finditer(
@@ -234,7 +246,7 @@ def source_has_motion(ff: str, source: Path, a: float, b: float,
 
 def check(ff: str, final: Path, draft: dict, shown: list | None = None,
           intro_offset: float = 0.0,
-          source: Path | None = None) -> tuple:
+          source: Path | None = None, scan: dict | None = None) -> tuple:
     """Run both checks. Returns (ok, [problems], [freezes]) with timestamps.
 
     The freeze list is RETURNED rather than left for the caller to re-measure.
@@ -251,7 +263,13 @@ def check(ff: str, final: Path, draft: dict, shown: list | None = None,
     import config
     problems: list[str] = []
 
-    fz = freezes(ff, final)
+    # `scan` is pipeline.film_scan's single decode of the finished file, which
+    # ran this same freezedetect alongside the frame hashes. Without one (or
+    # when that decode failed) the file is scanned here, as before.
+    if scan is not None and scan.get("freezes") is not None:
+        fz = list(scan["freezes"])
+    else:
+        fz = freezes(ff, final)
     fail_sec = float(config.FREEZE_FAIL_SEC)
     long_fz = [f for f in fz if f["dur"] > fail_sec]
     near = [f for f in fz if f["dur"] <= fail_sec]
