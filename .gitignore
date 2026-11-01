@@ -83,3 +83,4 @@ references/video/
 projects/*/draft_20*.json
 projects/*/script_20*.txt
 projects/*/timeline_20*.json
+projects/*/_cache/

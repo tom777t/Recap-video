@@ -1442,3 +1442,9 @@ VISUAL_CAPACITY_TOLERANCE = 2
 # Used by tools/widen_windows.py (target) and the [WINDOW-SPAN] warning (floor).
 WINDOW_SPAN_RATIO = 1.7
 WINDOW_SPAN_MIN_MEDIAN = 1.5
+
+# --- CLIP_WORKERS: parallel clip encodes in render ---------------------------
+# Ordinary clips are independent encodes; this many run at once. 3 suits a
+# 4-performance-core laptop (each libx264 encode is itself multi-threaded, so
+# more workers mostly add contention and heat). 1 = sequential, as before.
+CLIP_WORKERS = 3

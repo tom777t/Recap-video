@@ -27,7 +27,7 @@ console = Console()
 
 # Files/dirs that are pure throwaway temp.
 TEMP_NAMES = ["audio16k.wav"]
-TEMP_DIRS = ["_work", "_clipcache"]
+TEMP_DIRS = ["_work", "_clipcache", "_cache"]
 TEMP_GLOBS = ["_batch_*.mp4", "av_xfade.mp4", "ingest.log", "ingest.err.log",
               "render.log", "render.err.log"]
 

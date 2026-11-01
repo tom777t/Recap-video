@@ -566,6 +566,55 @@ def _audio_dur(ff: str, p: Path) -> float:
         return 0.0
 
 
+def _intro_cache_key(project: str) -> str:
+    """Content hash of everything the intro block is built from.
+
+    The block (montage + hook + film-intro) was rebuilt from scratch on every
+    render, including re-renders that only changed a few story lines' text -
+    the bulk of a 13-minute re-render once encoding was fixed. It depends on:
+    the intro lines themselves, every line's clip WINDOW (the montage avoids
+    story footage), the reveal/shot/fact/name files, the intro music and bed,
+    the source file, the whole config, and the code that builds it. Story
+    TEXT edits change none of that, so they now reuse the cached block.
+    """
+    import hashlib
+    pdir = config.project_dir(project)
+    h = hashlib.sha256()
+
+    def _feed(label, data):
+        h.update(label.encode("utf-8") + b"\0")
+        h.update(data if isinstance(data, bytes) else
+                 json.dumps(data, sort_keys=True, default=str).encode("utf-8"))
+
+    try:
+        d = json.loads((pdir / "draft.json").read_text(encoding="utf-8-sig"))
+    except (OSError, ValueError):
+        d = {"lines": []}
+    _feed("windows", [(l.get("id"), l.get("clip_start"), l.get("clip_end"),
+                       l.get("montage"))
+                      for l in d.get("lines") or [] if isinstance(l, dict)])
+    _feed("intro_lines", [l for l in d.get("lines") or []
+                          if isinstance(l, dict)
+                          and (l.get("over_montage") or l.get("film_intro"))])
+    _feed("title", [d.get("title"), d.get("project")])
+    for name in ("reveals.json", "shots.json", "film_facts.json", "names.json",
+                 "intro_music.mp3", "music.mp3"):
+        p = pdir / name
+        _feed(name, p.read_bytes() if p.exists() else b"-")
+    for p in sorted((pdir / "music").glob("*.*")) if (pdir / "music").exists() else []:
+        _feed("music/" + p.name, p.read_bytes())
+    src = pdir / "source.mp4"
+    _feed("source", [src.stat().st_size, int(src.stat().st_mtime)]
+          if src.exists() else "-")
+    _feed("config", {k: repr(getattr(config, k)) for k in dir(config)
+                     if k.isupper()})
+    here = Path(__file__).resolve().parent
+    for mod in ("intro.py", "footage.py", "encoder.py", "censor.py", "music.py"):
+        mp = here / mod
+        _feed("code/" + mod, mp.read_bytes() if mp.exists() else b"-")
+    return h.hexdigest()[:20]
+
+
 def prepend_to_final(project: str, final: Path) -> float:
     """Put the intro block in front of the finished film.
 
@@ -588,8 +637,32 @@ def prepend_to_final(project: str, final: Path) -> float:
     pdir = config.project_dir(project)
     work = pdir / "_work"
     work.mkdir(exist_ok=True)
-    block = build_intro(project, out_name="_work/intro_block.mp4",
-                        max_total=40.0)
+    import shutil
+    _key = _intro_cache_key(project)
+    _cdir = pdir / "_cache" / "intro" / _key
+    _meta_p = _cdir / "meta.json"
+    _hit = False
+    if _meta_p.exists():
+        try:
+            _meta = json.loads(_meta_p.read_text(encoding="utf-8"))
+            _hit = (_cdir / "intro_block.mp4").exists() and (
+                not _meta.get("has_fi") or (_cdir / "film_intro.mp4").exists())
+        except (OSError, ValueError):
+            _hit = False
+    if _hit:
+        block = work / "intro_block.mp4"
+        shutil.copy2(_cdir / "intro_block.mp4", block)
+        fi_cached = None
+        if _meta.get("has_fi"):
+            fi_cached = work / "film_intro_cached.mp4"
+            shutil.copy2(_cdir / "film_intro.mp4", fi_cached)
+        # the censor audit and the freeze trace read what the intro showed
+        _USED_FOOTAGE.extend(_meta.get("footage") or [])
+        console.print(f"[dim]Intro block: reused from cache ({_key}) - its "
+                      f"inputs have not changed.[/]")
+    else:
+        block = build_intro(project, out_name="_work/intro_block.mp4",
+                            max_total=40.0)
     if block is None:
         return 0.0
     ff = config.ffmpeg()
@@ -613,8 +686,21 @@ def prepend_to_final(project: str, final: Path) -> float:
     # The montage is built first, so its measured length is the film-intro
     # block's offset on the finished timeline.
     _block_dur_for_offset = _dur(block)
-    fi_block = _build_film_intro_segment(project, work,
-                                         out_offset=_block_dur_for_offset)
+    if _hit:
+        fi_block = fi_cached
+    else:
+        fi_block = _build_film_intro_segment(project, work,
+                                             out_offset=_block_dur_for_offset)
+        try:
+            _cdir.mkdir(parents=True, exist_ok=True)
+            shutil.copy2(block, _cdir / "intro_block.mp4")
+            if fi_block:
+                shutil.copy2(fi_block, _cdir / "film_intro.mp4")
+            _meta_p.write_text(json.dumps(
+                {"key": _key, "has_fi": bool(fi_block),
+                 "footage": list(_USED_FOOTAGE)}, indent=1), encoding="utf-8")
+        except OSError as _ce:
+            console.print(f"[yellow]Intro cache not written: {_ce}[/]")
 
     block_dur = _dur(block)
     fi_dur = _dur(fi_block) if fi_block else 0.0

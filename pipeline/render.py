@@ -1778,6 +1778,14 @@ def render(project: str, draft: dict,
     # every silence beat as a count mismatch (it fired on Superbad's two).
     n_silence = 0
 
+    # Ordinary clips are independent ffmpeg encodes whose length is known
+    # before they are built (the same formula a cache hit uses), so with
+    # CLIP_WORKERS > 1 they are queued here and encoded in parallel after the
+    # loop; the timeline, footage records and log are written in line order
+    # exactly as before. 1 = the old sequential behaviour.
+    _clip_workers = max(1, int(getattr(config, "CLIP_WORKERS", 1)))
+    _clip_jobs: list = []
+
     for idx, ln in enumerate(draft["lines"]):
         lid = ln["id"]
 
@@ -2032,18 +2040,25 @@ def render(project: str, draft: dict,
             n_cached += 1
             _verify_clip(cout, clip_len, f"cached clip (line {lid})")
         else:
-            clip_len = _build_clip(ff, source, start, end, audio_path, narr_dur,
-                                   cout, lid, crop_top, hold, censor, censor_region,
-                                   exposure, lead_in=lead,
-                                   film_audio=(has_film_audio and lid in _fa_ids),
-                                   pre_reveal=_is_pre_reveal,
-                                   split_segments=_split,
-                                   film_src=film_stem, src_wh=src_wh)
-            try:
-                import shutil
-                shutil.copy2(cout, cached)
-            except Exception:
-                pass
+            _bargs = (ff, source, start, end, audio_path, narr_dur,
+                      cout, lid, crop_top, hold, censor, censor_region,
+                      exposure)
+            _bkw = dict(lead_in=lead,
+                        film_audio=(has_film_audio and lid in _fa_ids),
+                        pre_reveal=_is_pre_reveal,
+                        split_segments=_split,
+                        film_src=film_stem, src_wh=src_wh)
+            if _clip_workers > 1:
+                # _build_clip returns exactly this; checked after the build
+                clip_len = max(lead + narr_dur + GAP, hold)
+                _clip_jobs.append((lid, _bargs, _bkw, clip_len, cout, cached))
+            else:
+                clip_len = _build_clip(*_bargs, **_bkw)
+                try:
+                    import shutil
+                    shutil.copy2(cout, cached)
+                except Exception:
+                    pass
         clips.append((cout, clip_len))
         boundaries.append(cursor)  # absolute start time of this clip
         # Record what this clip actually SHOWS. For a split ("2f") clip that is
@@ -2096,6 +2111,27 @@ def render(project: str, draft: dict,
                    % (len(_split),
                       " | ".join(f"{a:.1f}-{b:.1f}" for a, b in _split)))
         console.print(f"  line {lid:>3}: [{src_label:<5}] -> {clip_len:4.1f}s{held}{tag}{_sp}")
+
+    if _clip_jobs:
+        from concurrent.futures import ThreadPoolExecutor
+        import shutil
+        console.print(f"  [cyan]encoding {len(_clip_jobs)} clip(s) on "
+                      f"{_clip_workers} workers[/]")
+        with ThreadPoolExecutor(max_workers=_clip_workers) as _ex:
+            _futs = [(_j, _ex.submit(_build_clip, *_j[1], **_j[2]))
+                     for _j in _clip_jobs]
+            # results in LINE order, so the first failing line is the one
+            # reported - the same line the sequential loop would have stopped on
+            for (_jlid, _a, _k, _want, _cout, _cached), _f in _futs:
+                _got = _f.result()
+                if abs(float(_got) - float(_want)) > 1e-3:
+                    raise RuntimeError(
+                        f"line {_jlid}: clip built at {_got:.3f}s but the "
+                        f"timeline was laid out for {_want:.3f}s")
+                try:
+                    shutil.copy2(_cout, _cached)
+                except Exception:
+                    pass
 
     if clips:
         pct = 100.0 * n_pool / len(clips)
