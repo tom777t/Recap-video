@@ -312,6 +312,7 @@ def run_stage(stage: str, project: str, force: bool = False,
     msg = client.messages.create(**params)
     u = TB.usage_of(msg)
     cost = TB.cost_usd(model, u)
+    TB.ledger_append(pdir, f"review:{stage}", model, u, batch=False)
     print(f"{stage}: tokens in {u['in']} out {u['out']} | cost "
           + (f"${cost:.4f}" if cost is not None else "n/a (no listed price)"))
     if TB._get(msg, "stop_reason") == "max_tokens":

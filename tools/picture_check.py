@@ -144,6 +144,9 @@ def fetch(project: str, tg: dict, client, wait: bool, poll: float) -> tuple:
             continue
         msg = TB._get(res, "message")
         u = TB.usage_of(msg)
+        TB.ledger_append(config.project_dir(project), "picture_check",
+                         st["model"], u, batch=True,
+                         note=f"{tg['final'].name} line {line['id']}")
         tok["in"] += u["in"] + u["cw"] + u["cr"]
         tok["out"] += u["out"]
         c = TB.cost_usd(st["model"], u, batch=True)

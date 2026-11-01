@@ -510,6 +510,30 @@ def cost_usd(model: str, u: dict, batch=False):
     return usd * (BATCH_FACTOR if batch else 1.0)
 
 
+LEDGER_FILE = "cost_ledger.jsonl"
+
+
+def ledger_append(pdir, stage: str, model: str, u: dict, batch: bool = False,
+                  note: str | None = None) -> None:
+    """One row per API call in projects/<p>/cost_ledger.jsonl.
+
+    {at, stage, model, input, output, cache_write, cache_read, batch, usd}.
+    `usd` is computed at PRICES (None for an unlisted model - never invented).
+    Appending never raises: a ledger that cannot be written must not fail
+    the call it records, but it says so on stderr."""
+    row = {"at": _now(), "stage": stage, "model": model,
+           "input": int(u.get("in", 0)), "output": int(u.get("out", 0)),
+           "cache_write": int(u.get("cw", 0)), "cache_read": int(u.get("cr", 0)),
+           "batch": bool(batch), "usd": cost_usd(model, u, batch=batch)}
+    if note:
+        row["note"] = note
+    try:
+        with open(Path(pdir) / LEDGER_FILE, "a", encoding="utf-8") as fh:
+            fh.write(json.dumps(row) + "\n")
+    except OSError as e:
+        print(f"cost ledger NOT written ({e})", file=sys.stderr)
+
+
 def _fmt_cost(c) -> str:
     return "     n/a" if c is None else f"${c:7.4f}"
 
@@ -549,6 +573,7 @@ def tag_sync(client, pdir, sp, cast, model):
     msg = client.messages.create(**build_params(pdir, sp, cast, model))
     u = usage_of(msg)
     c = cost_usd(model, u)
+    ledger_append(pdir, "tags", model, u, batch=False, note=sp.get("id"))
     if _get(msg, "stop_reason") == "max_tokens":
         return None, [f"reply truncated at max_tokens={MAX_TOKENS}"], u, c
     obj = parse_reply(reply_text(msg))
@@ -747,6 +772,7 @@ def cmd_collect(a) -> int:
                 continue
             msg = _get(res, "message")
             u = usage_of(msg)
+            ledger_append(pdir, "tags", b["model"], u, batch=True, note=sid)
             for k in usage_tot:
                 usage_tot[k] += u[k]
             c = cost_usd(b["model"], u, batch=True)
