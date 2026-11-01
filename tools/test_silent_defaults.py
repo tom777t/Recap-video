@@ -157,6 +157,9 @@ def test_timeline_write_fail():
     import test_render_smoke as T
     from pipeline import intro as _intro
     from pipeline.render import render
+    # Its OWN project dir: run_tests runs suites in parallel, and the smoke
+    # and final-report suites use test_render_smoke's default one.
+    proj0, T.PROJ = T.PROJ, "_silent_timeline"
     orig = T._stub_intro_tts()
     restore = T._no_stems()
     real_write = Path.write_text
@@ -190,6 +193,7 @@ def test_timeline_write_fail():
         _intro._tts_line = orig
         restore()
         T._teardown()
+        T.PROJ = proj0
 
 
 def _silent(path: Path, sec: float) -> None:
