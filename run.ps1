@@ -22,7 +22,7 @@ param(
     [string]$Source,
     [Parameter(Mandatory = $true)][string]$Project,
     [ValidateSet('ingest', 'frames', 'names', 'spans', 'tags', 'catalogue',
-                 'beats', 'draft', 'filmspeaks', 'voice', 'render', 'verify')]
+                 'beats', 'angle', 'draft', 'filmspeaks', 'voice', 'render', 'verify')]
     [string]$From = 'ingest',
     [switch]$Translate,
     [string]$Model = 'medium',
@@ -85,7 +85,7 @@ function Need-File ($path, $hint) {
 # thanh KHONG kiem duoc (SPEAKER_UNNAMED) - chua duoc bang gi ngoai viec tag
 # lai ca phim. Danh sach ten la DAU VAO cua khau tag, khong phai phu luc.
 $order = @('ingest', 'frames', 'names', 'spans', 'tags', 'catalogue', 'beats',
-           'draft', 'filmspeaks', 'voice', 'render', 'verify')
+           'angle', 'draft', 'filmspeaks', 'voice', 'render', 'verify')
 $start = [array]::IndexOf($order, $From)
 function Should ($step) { return ([array]::IndexOf($order, $step) -ge $start) }
 
@@ -404,8 +404,61 @@ print(f"  reveal-map: {len(D.parse_reveal_map(proj))} muc")
         "         Thoai -> gate khong kiem duoc, phai mat nguoi doc beat do"
         ""
         "Chot xong thi khoa lai: model viet draft doc duoc, khong sua duoc."
-    ) ".\run.ps1 -Project $Project -From draft"
+    ) ".\run.ps1 -Project $Project -From angle"
     exit 0
+}
+
+# --------------------------------------------------------------------------- #
+# 7a. FILM FACTS + ANGLE  (vong LLM - truoc day lam TAY, nen phim sau bi quen)
+# --------------------------------------------------------------------------- #
+# Tokyo Drift co angle.md, film_facts.json, coverage_policy.json - deu do agent
+# lam tay ngoai quy trinh. Thieu angle.md thi cac gate nhip ke / persona /
+# hook-payoff KHONG CHAY; thieu film_facts.json thi phan gioi thieu phim khong
+# co gi de kiem. Gio la mot stage, va no chan truoc khi viet draft.
+if (Should 'angle') {
+    Say "7a. FILM FACTS + ANGLE"
+    if (-not (Test-Path "$Pdir\film_facts.json")) {
+        Halt "FILM FACTS - thieu film_facts.json (vong LLM)" @(
+            "Mot subagent. Prompt: tools\film_facts_prompt.md"
+            "Nguon DUY NHAT: bai Wikipedia tieng Anh cua phim (ghi oldid)."
+            "Doc reveals.json truoc: dien vien ma su xuat hien la reveal"
+            "(cameo) phai nam trong 'withheld', khong nam trong cast."
+            "Ghi: $Pdir\film_facts.json"
+        ) ".\run.ps1 -Project $Project -From angle"
+        exit 0
+    }
+    if (-not (Test-Path "$Pdir\angle.md") -or
+        -not (Test-Path "$Pdir\coverage_policy.json")) {
+        Halt "ANGLE - thieu angle.md / coverage_policy.json (vong LLM)" @(
+            "Mot subagent MOI. Prompt: tools\angle_prompt.md"
+            "Doc: beats_proposal.md, reveals.json, names.json, film_facts.json,"
+            "     prompts\recap_style.md, docs\NARRATOR_VOICE.md"
+            "Ghi: $Pdir\angle.md  (ANGLE, ATTITUDE, RUNNING BITS, ANCHORS,"
+            "     HOOK PROMISES, NARRATOR PERSONA, WHAT THE ANGLE SELECTS)"
+            "     $Pdir\coverage_policy.json  ({""mandatory"": [""B01"", ...]})"
+            ""
+            "Moi anchor va moi hook promise phai co evidence: ""..."" trich"
+            "NGUYEN VAN tu 'what' cua beat - gate kiem tung cau."
+        ) ".\run.ps1 -Project $Project -From angle"
+        exit 0
+    }
+    $chk = python -c @"
+import sys
+sys.path.insert(0, '.')
+from pathlib import Path
+from pipeline import angle_spec
+try:
+    angle_spec.load(Path(r'$Pdir'))
+    print('OK')
+except Exception as e:
+    print('BAD: ' + str(e).replace(chr(10), ' '))
+"@
+    if ($chk -ne 'OK') {
+        Bad "angle.md khong dung dinh dang: $chk"
+        Warn "Sua theo tools\angle_prompt.md roi chay lai: .\run.ps1 -Project $Project -From angle"
+        exit 1
+    }
+    Ok "film_facts.json + angle.md + coverage_policy.json: du va doc duoc"
 }
 
 # --------------------------------------------------------------------------- #
@@ -444,7 +497,8 @@ if (Should 'draft') {
     # viet draft KHONG duoc lam viec nay: mot nguoi doc lai bai minh viet
     # khong thay gi.
     if (-not (Test-Path "$Pdir\cold_read.md") -or
-        -not (Test-Path "$Pdir\review.md")) {
+        -not (Test-Path "$Pdir\review.md") -or
+        -not (Test-Path "$Pdir\ending_read.md")) {
         Halt "REVIEW - hai subagent MOI, chua tung thay draft nay" @(
             "1. COLD READ (agent chua he thay phim, beats, angle hay payload):"
             "   python tools\cold_read_payload.py $Project > _coldread.txt"
@@ -460,6 +514,11 @@ if (Should 'draft') {
             "   read, motif budget, cau lap, claim khong co cho kiem, dat ten"
             "   o reveal, va cac dinh diem co bi noi chen len khong."
             "   Ghi: $Pdir\review.md"
+            ""
+            "3. ENDING READ (agent moi nua, chua thay phim): CHI doc 5 cau"
+            "   cuoi trong _coldread.txt, mot lan, nhu nguoi xem nghe doan ket."
+            "   Ai noi cau nao, callback tro ve dau, co ket that khong."
+            "   Ghi: $Pdir\ending_read.md  ([ENDING-READ] chan neu thieu)"
             ""
             "Ca hai file: khoi review-signatures (tool in ra san de dan) va"
             "khoi review-findings 'STATUS | kind | line ids | text'. Moi"
@@ -589,8 +648,13 @@ if (Should 'voice') {
 if (Should 'render') {
     Say "9. RENDER"
 
-    if (-not (Test-Path "$Pdir\music.mp3")) {
-        Warn "khong thay music.mp3 - render se khong co nhac nen"
+    $hasBed = (Test-Path "$Pdir\music.mp3") -or
+              ((Get-ChildItem "$Pdir\music" -Filter 'bed.*' -ErrorAction SilentlyContinue) -ne $null)
+    if (-not (Test-Path "$Pdir\intro_music.*")) {
+        Warn "khong thay intro_music.* - doan intro se khong co nhac edit rieng"
+    }
+    if (-not $hasBed) {
+        Warn "khong thay music\bed.* hay music.mp3 - render se khong co nhac nen"
         Warn "Nhac nen phai la INSTRUMENTAL. Nhac co loi hat canh tranh voi"
         Warn "voiceover: hai giong cung luc, nguoi xem met ma khong biet vi sao."
     }

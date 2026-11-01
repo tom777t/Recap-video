@@ -67,6 +67,22 @@ to find where facts are first spoken, and write `projects/<p>/reveals.json`.
 This stage carries the reveal-map, which is what protects the recap from
 spoiling the film — do not let it be rushed.
 
+### FILM FACTS + ANGLE (before any draft line)
+
+Both used to be made by hand outside the pipeline, so the next film would
+have skipped them - and without `angle.md` the pacing, persona and
+hook-payoff gates do not run at all.
+
+1. **Film facts.** One subagent: read `tools/film_facts_prompt.md`, source
+   ONLY the film's English Wikipedia article (record the `oldid`), read
+   `reveals.json` first so a cameo whose appearance is a reveal goes under
+   `withheld`, write `projects/<p>/film_facts.json`.
+2. **Angle.** One fresh subagent: read `tools/angle_prompt.md`, write
+   `projects/<p>/angle.md` and `projects/<p>/coverage_policy.json`. Every
+   anchor and hook promise carries `evidence: "..."` quoted verbatim from the
+   beat's `what`; `run.ps1` refuses to continue until `angle_spec.load`
+   parses the file.
+
 ### DRAFT
 
 One subagent per act: read `tools/draft_prompt.md`, run
@@ -99,6 +115,11 @@ of them, and a writer re-reading its own act finds nothing.
    findings, motif budget, repeated phrasing, unsupported claims about the
    film, naming at a reveal, and whether the peak moments are talked over
    instead of shown. It writes `projects/<p>/review.md`.
+3. **Ending read.** A third fresh agent reads ONLY the last five lines of the
+   same payload, once, as a viewer hears the close: who says what, where each
+   callback points, whether it actually ends. It writes
+   `projects/<p>/ending_read.md` in the same format; `[ENDING-READ]` fails
+   the draft without it.
 
 Both artifacts carry a `review-signatures` block (the payload tool prints it
 ready to paste, computed from the same draft the reader read) and a
