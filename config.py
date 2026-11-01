@@ -1467,6 +1467,25 @@ TAG_ESCALATE_MODEL = "claude-sonnet-5-5"
 # did not write the draft. Judgment work on a whole draft, so the strong model.
 REVIEW_API_MODEL = "claude-sonnet-5-5"
 
+# --- WRITE_MODEL_*: the writing stages through the API (tools/write_api.py) --
+# One key per stage so a cheaper or stronger model can be tried per stage and
+# its cost read back from cost_report.md. Writing defaults to Sonnet 5.5; the
+# draft can be set to "claude-opus-5-5" to A/B quality against cost (no price
+# for it is listed in tag_batch.PRICES yet, so its cost reads "n/a").
+WRITE_MODEL_BEATS = "claude-sonnet-5-5"
+WRITE_MODEL_REVEALS = "claude-sonnet-5-5"
+WRITE_MODEL_FACTS = "claude-sonnet-5-5"
+WRITE_MODEL_ANGLE = "claude-sonnet-5-5"
+WRITE_MODEL_DRAFT = "claude-sonnet-5-5"
+WRITE_MODEL_FILMSPEAKS = "claude-sonnet-5-5"
+# Gate-feedback rounds after the first draft: only each act's own findings go
+# back to that act, and after this many rounds the remaining findings are
+# listed and the tool stops rather than looping.
+WRITE_DRAFT_FEEDBACK_ROUNDS = 2
+# The reveals pass reads the transcript through tools/speech_at.py as a tool;
+# at most this many calls before it must answer.
+WRITE_REVEALS_MAX_TOOL_CALLS = 12
+
 # --- PICTURE_CHECK: is the picture from the right scene, uncontradicted? ----
 # tools/picture_check.py. One batched vision request per narrated line on the
 # FINISHED file: 5 frames (~384 px) from the line's real span + its narration

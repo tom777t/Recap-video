@@ -381,6 +381,47 @@ def _fetch_raw(title: str) -> str:
         raise FetchError(f"could not reach Wikipedia: {e.reason}") from None
 
 
+API = "https://en.wikipedia.org/w/api.php"
+
+
+def fetch_revision(page: str) -> dict:
+    """{title, oldid, wikitext, fetched} for the page's CURRENT revision.
+
+    The same page naming and HTTP handling as fetch_cast (_title_from, UA,
+    FetchError). The revision id is looked up first and the text is then
+    fetched AT that oldid, so the recorded oldid is exactly the text read -
+    film_facts.json must name one revision."""
+    import json as _json
+    from datetime import date
+    title = _title_from(page)
+    q = (f"{API}?action=query&prop=revisions&rvprop=ids&redirects=1"
+         f"&format=json&titles={urllib.parse.quote(title, safe='_()' + chr(39))}")
+    req = urllib.request.Request(q, headers={"User-Agent": UA})
+    try:
+        with urllib.request.urlopen(req, timeout=30) as r:
+            data = _json.loads(r.read().decode("utf-8", errors="replace"))
+    except urllib.error.URLError as e:
+        raise FetchError(f"could not reach Wikipedia: {getattr(e, 'reason', e)}") from None
+    pages = (data.get("query") or {}).get("pages") or {}
+    pg = next(iter(pages.values()), {}) if pages else {}
+    revs = pg.get("revisions") or []
+    if "missing" in pg or not revs:
+        raise FetchError(f"no Wikipedia page titled '{title.replace('_', ' ')}'")
+    oldid = int(revs[0]["revid"])
+    canon = str(pg.get("title") or title.replace("_", " "))
+    url = (RAW.format(title=urllib.parse.quote(canon.replace(" ", "_"),
+                                               safe="_()'"))
+           + f"&oldid={oldid}")
+    req = urllib.request.Request(url, headers={"User-Agent": UA})
+    try:
+        with urllib.request.urlopen(req, timeout=30) as r:
+            text = r.read().decode("utf-8", errors="replace")
+    except urllib.error.URLError as e:
+        raise FetchError(f"could not reach Wikipedia: {getattr(e, 'reason', e)}") from None
+    return {"title": canon, "oldid": oldid, "wikitext": text,
+            "fetched": date.today().isoformat()}
+
+
 def fetch_cast(page: str):
     """[(actor, character)] from the Cast section, in article order."""
     title = _title_from(page)
