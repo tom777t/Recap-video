@@ -81,6 +81,19 @@ Lệnh thứ hai chạy được, và nhanh hơn rõ rệt lệnh thứ ba, là 
 3. **Đưa các bước đang làm tay vào `run.ps1` và `/film`:** góc nhìn (angle), thông tin phim, tách tiếng, các vòng kiểm sự thật, tone, payload, nắn câu, nhạc intro. Hiện chúng chưa có trong quy trình nên phim sau sẽ bị quên.
 4. **Một danh sách gate duy nhất** kèm mức độ (chặn hay cảnh báo), và **một lệnh chạy toàn bộ bài kiểm tra**. Hiện có 81 gate và khoảng 175 bài tự kiểm tra rải rác. Ít nhất 10 bài đang đọc chữ trong code thay vì chạy thử code. Ngoài ra có 62 chỗ "bắt lỗi rồi im lặng" trong phần draft và render, cần rà để không còn gate nào hỏng mà không báo.
 
+**Trạng thái Pha 2 (01/11/2026):**
+
+- Mục 1 **xong**: `recap.py voice --project X --fit`, stage `voice` trong `run.ps1` (giữa `filmspeaks` và `render`).
+- Mục 2 **xong** từ Pha 0.
+- Mục 4 **xong**:
+  - `tools/run_tests.py` (có `--changed`);
+  - `config/gates.json` + `tools/check_gate_registry.py`: 114 gate, 14 gate có mức độ do người khai báo, phần còn lại do máy suy ra và cần người sửa dần;
+  - 20 chỗ "bắt lỗi rồi im lặng" đã đóng, kiểm bằng `tools/test_silent_failures.py`.
+- Còn mở:
+  - **Mục 3:** angle, film facts, các vòng kiểm fact/tone/payload, `ending_read.md`, áp lựa chọn film_speaks vào draft, nhạc intro vẫn chưa có trong `run.ps1`.
+  - Lỗi `preflight._audio_dur` trả 0 khi ffprobe hỏng, nên câu đó bị bỏ qua.
+  - 16 chỗ "dữ liệu mặc định im lặng" (xem ghi chú khảo sát).
+
 ## Pha 3: Dùng các tính năng mới của Claude (1–2 phiên, cần bạn quyết)
 
 **Tín dụng API đi kèm gói Max (đã kiểm trên trang chính thức):** gói Max 5x có **100 USD/tháng**, Max 20x có **200 USD/tháng** tín dụng API. Nhận bằng cách vào claude.ai, **Settings > Billing**, mục **API credits**, rồi liên kết một tổ chức trên Claude Console. Lưu ý:

@@ -41,7 +41,8 @@ TOOLS = os.path.join(ROOT, "tools")
 PIPE = os.path.join(ROOT, "pipeline")
 
 # Suites that are not named test_*.py but are part of the verdict.
-EXTRA_SUITES = ["gate_selftest.py", "check_config_usage.py"]
+EXTRA_SUITES = ["gate_selftest.py", "check_config_usage.py",
+                "check_gate_registry.py"]
 
 # A change to any of these can reach every suite (entry points, shared
 # config, the test harness itself), so --changed widens to the full set.

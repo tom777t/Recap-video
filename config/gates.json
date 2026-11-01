@@ -1,0 +1,926 @@
+{
+  "ACTION-SETUP": {
+    "severity": "warn",
+    "modules": [
+      "pipeline/draft.py"
+    ],
+    "what": "no `depicts` tags on any shot or pool entry ...",
+    "severity_source": "inferred"
+  },
+  "ACTION-STAKE": {
+    "severity": "error",
+    "modules": [
+      "pipeline/craft_gates.py"
+    ],
+    "what": "NOT-MEASURABLE - needs `payload` labels ...",
+    "severity_source": "inferred"
+  },
+  "ANCHOR-CLEAN": {
+    "severity": "error",
+    "modules": [
+      "pipeline/pacing_gates.py"
+    ],
+    "what": "",
+    "severity_source": "inferred"
+  },
+  "ANCHOR-EVIDENCE": {
+    "severity": "error",
+    "modules": [
+      "pipeline/pacing_gates.py"
+    ],
+    "what": "no beat map found, so the anchor and ...",
+    "severity_source": "inferred"
+  },
+  "ANGLE-SPEC": {
+    "severity": "report",
+    "modules": [
+      "pipeline/pacing_gates.py"
+    ],
+    "what": "",
+    "severity_source": "inferred"
+  },
+  "APPEARANCE-ID": {
+    "severity": "warn",
+    "modules": [
+      "pipeline/draft.py"
+    ],
+    "what": "",
+    "severity_source": "inferred"
+  },
+  "AUDIO-CLEAN": {
+    "severity": "error",
+    "modules": [
+      "pipeline/film_speaks.py"
+    ],
+    "what": "",
+    "severity_source": "inferred"
+  },
+  "AUDIT-UNAVAILABLE": {
+    "severity": "error",
+    "modules": [
+      "pipeline/draft.py"
+    ],
+    "what": "one or more checks could not run; the draft is unchecked on them; blocks voice and render",
+    "severity_source": "declared"
+  },
+  "AUDIT-UNPARSEABLE": {
+    "severity": "error",
+    "modules": [
+      "pipeline/draft.py"
+    ],
+    "what": "draft.json fails the schema, so the Phase 1 audits did not run; blocks render",
+    "severity_source": "declared"
+  },
+  "BACKWARD-CLIP": {
+    "severity": "error",
+    "modules": [
+      "pipeline/continuity_gates.py"
+    ],
+    "what": "",
+    "severity_source": "inferred"
+  },
+  "BEAT-BUDGET": {
+    "severity": "report",
+    "modules": [
+      "pipeline/craft_gates.py"
+    ],
+    "what": "",
+    "severity_source": "inferred"
+  },
+  "BEAT-COVERAGE": {
+    "severity": "error",
+    "modules": [
+      "pipeline/draft.py"
+    ],
+    "what": "a mandatory beat has no bound line",
+    "severity_source": "declared"
+  },
+  "BEAT-MAP": {
+    "severity": "error",
+    "modules": [
+      "pipeline/draft.py"
+    ],
+    "what": "",
+    "severity_source": "inferred"
+  },
+  "BINDING-AT-RISK": {
+    "severity": "warn",
+    "modules": [
+      "pipeline/draft.py"
+    ],
+    "what": "",
+    "severity_source": "inferred"
+  },
+  "BINDING-INTEGRITY": {
+    "severity": "error",
+    "modules": [
+      "pipeline/draft.py"
+    ],
+    "what": "",
+    "severity_source": "inferred"
+  },
+  "BINDING-SLOWDOWN": {
+    "severity": "warn",
+    "modules": [
+      "pipeline/draft.py"
+    ],
+    "what": "",
+    "severity_source": "inferred"
+  },
+  "BINDING-VIOLATION": {
+    "severity": "error",
+    "modules": [
+      "pipeline/draft.py"
+    ],
+    "what": "a line needs more than 1.15x its shot capacity and would freeze; blocks render",
+    "severity_source": "declared"
+  },
+  "BRIDGE": {
+    "severity": "error",
+    "modules": [
+      "pipeline/draft.py"
+    ],
+    "what": "a skipped stretch has no bridge line or hold",
+    "severity_source": "declared"
+  },
+  "CALLBACK-ATTRIBUTION": {
+    "severity": "error",
+    "modules": [
+      "pipeline/ending_gates.py"
+    ],
+    "what": "the beat map could not be read ...",
+    "severity_source": "inferred"
+  },
+  "CALLBACK-CITE": {
+    "severity": "warn",
+    "modules": [
+      "pipeline/draft.py"
+    ],
+    "what": "",
+    "severity_source": "inferred"
+  },
+  "CAMERA-LANGUAGE": {
+    "severity": "warn",
+    "modules": [
+      "pipeline/draft.py"
+    ],
+    "what": "",
+    "severity_source": "inferred"
+  },
+  "CAPACITY-BASIS": {
+    "severity": "report",
+    "modules": [
+      "pipeline/catalogue.py"
+    ],
+    "what": "",
+    "severity_source": "inferred"
+  },
+  "CAPACITY-PREFLIGHT": {
+    "severity": "error",
+    "modules": [
+      "pipeline/preflight.py"
+    ],
+    "what": "real narration overruns its window; stops voice/render until fitted",
+    "severity_source": "declared"
+  },
+  "CAPACITY-WORDS": {
+    "severity": "warn",
+    "modules": [
+      "pipeline/draft.py"
+    ],
+    "what": "all lines comfortably within ...",
+    "severity_source": "inferred"
+  },
+  "CATALOGUE-DENSITY": {
+    "severity": "warn",
+    "modules": [
+      "pipeline/draft.py"
+    ],
+    "what": "not measured ...",
+    "severity_source": "inferred"
+  },
+  "CENSOR-POLICY": {
+    "severity": "error",
+    "modules": [
+      "pipeline/render.py"
+    ],
+    "what": "a censor flag breaks the blur policy, or shots.json is unreadable; stops render",
+    "severity_source": "declared"
+  },
+  "CHEKHOV": {
+    "severity": "warn",
+    "modules": [
+      "pipeline/continuity_gates.py"
+    ],
+    "what": "",
+    "severity_source": "inferred"
+  },
+  "CLAIM-SUPPORT": {
+    "severity": "error",
+    "modules": [
+      "pipeline/continuity_gates.py"
+    ],
+    "what": "",
+    "severity_source": "inferred"
+  },
+  "CLARITY": {
+    "severity": "warn",
+    "modules": [
+      "pipeline/draft.py"
+    ],
+    "what": "",
+    "severity_source": "inferred"
+  },
+  "COLD-READ": {
+    "severity": "error",
+    "modules": [
+      "pipeline/review_artifacts.py"
+    ],
+    "what": "the project directory could not be ...",
+    "severity_source": "inferred"
+  },
+  "CRAFT": {
+    "severity": "error",
+    "modules": [
+      "pipeline/continuity_gates.py",
+      "pipeline/craft_gates.py",
+      "pipeline/draft.py"
+    ],
+    "what": "gates did not run ... Treat this draft as UNCHECKED ...",
+    "severity_source": "inferred"
+  },
+  "DELIVERY-UNKNOWN": {
+    "severity": "error",
+    "modules": [
+      "pipeline/craft_gates.py",
+      "pipeline/tts.py"
+    ],
+    "what": "the draft uses delivery tags ...",
+    "severity_source": "inferred"
+  },
+  "DENSITY": {
+    "severity": "report",
+    "modules": [
+      "pipeline/craft_gates.py"
+    ],
+    "what": "",
+    "severity_source": "inferred"
+  },
+  "DRAFT-OVERFILL": {
+    "severity": "warn",
+    "modules": [
+      "pipeline/draft.py"
+    ],
+    "what": "",
+    "severity_source": "inferred"
+  },
+  "DRAFT-TARGET": {
+    "severity": "report",
+    "modules": [
+      "pipeline/draft.py"
+    ],
+    "what": "runtime est ...",
+    "severity_source": "inferred"
+  },
+  "DRAFT-UNDERFILL": {
+    "severity": "warn",
+    "modules": [
+      "pipeline/draft.py"
+    ],
+    "what": "",
+    "severity_source": "inferred"
+  },
+  "DUPLICATE-ID": {
+    "severity": "error",
+    "modules": [
+      "pipeline/draft.py"
+    ],
+    "what": "line ids must be unique ...",
+    "severity_source": "inferred"
+  },
+  "EMPTY-LINE": {
+    "severity": "error",
+    "modules": [
+      "pipeline/draft.py"
+    ],
+    "what": "line(s) with a clip window but no narration ...",
+    "severity_source": "inferred"
+  },
+  "ENDING-PERSONA": {
+    "severity": "error",
+    "modules": [
+      "pipeline/ending_gates.py"
+    ],
+    "what": "no angle.md in ...",
+    "severity_source": "inferred"
+  },
+  "ENDING-READ": {
+    "severity": "error",
+    "modules": [
+      "pipeline/ending_gates.py"
+    ],
+    "what": "the draft has no narrated closing line(s), so ...",
+    "severity_source": "inferred"
+  },
+  "ENDING-WINDOW": {
+    "severity": "error",
+    "modules": [
+      "pipeline/ending_gates.py"
+    ],
+    "what": "the draft has no readable `lines` list, so the ...",
+    "severity_source": "inferred"
+  },
+  "FACT-CONSISTENCY": {
+    "severity": "error",
+    "modules": [
+      "pipeline/continuity_gates.py"
+    ],
+    "what": "",
+    "severity_source": "inferred"
+  },
+  "FILE-CHECK": {
+    "severity": "error",
+    "modules": [
+      "pipeline/render.py"
+    ],
+    "what": "final.mp4 is not the file the ...",
+    "severity_source": "inferred"
+  },
+  "FILM-AUDIO": {
+    "severity": "error",
+    "modules": [
+      "pipeline/render.py"
+    ],
+    "what": "separation ...",
+    "severity_source": "inferred"
+  },
+  "FILM-INTRO": {
+    "severity": "error",
+    "modules": [
+      "pipeline/craft_gates.py"
+    ],
+    "what": "the draft has film_intro lines but no ...",
+    "severity_source": "inferred"
+  },
+  "FILM-SPEAKS": {
+    "severity": "error",
+    "modules": [
+      "pipeline/craft_gates.py",
+      "pipeline/draft.py",
+      "pipeline/render.py"
+    ],
+    "what": "original-dialogue units break the film_speaks rule set",
+    "severity_source": "declared"
+  },
+  "FILM-SPEAKS-COUNT": {
+    "severity": "error",
+    "modules": [
+      "pipeline/film_speaks.py"
+    ],
+    "what": "",
+    "severity_source": "inferred"
+  },
+  "FILM-SPEAKS-JUSTIFIED": {
+    "severity": "error",
+    "modules": [
+      "pipeline/film_speaks.py"
+    ],
+    "what": "",
+    "severity_source": "inferred"
+  },
+  "FILM-SPEAKS-SPACING": {
+    "severity": "error",
+    "modules": [
+      "pipeline/film_speaks.py"
+    ],
+    "what": "",
+    "severity_source": "inferred"
+  },
+  "FILM-SPEAKS-SPOILER": {
+    "severity": "error",
+    "modules": [
+      "pipeline/film_speaks.py"
+    ],
+    "what": "",
+    "severity_source": "inferred"
+  },
+  "FOOTAGE-DROPPED": {
+    "severity": "error",
+    "modules": [
+      "pipeline/draft.py"
+    ],
+    "what": "footage entries failed to load; audits ran on a partial catalogue",
+    "severity_source": "declared"
+  },
+  "FOOTAGE-REUSE": {
+    "severity": "error",
+    "modules": [
+      "pipeline/draft.py",
+      "pipeline/motion_check.py"
+    ],
+    "what": "did not run ...",
+    "severity_source": "inferred"
+  },
+  "HOOK": {
+    "severity": "error",
+    "modules": [
+      "pipeline/craft_gates.py"
+    ],
+    "what": "the hook shares no content word with the title. The ...",
+    "severity_source": "inferred"
+  },
+  "HOOK-PAYOFF": {
+    "severity": "error",
+    "modules": [
+      "pipeline/pacing_gates.py"
+    ],
+    "what": "the promise \\ ...",
+    "severity_source": "inferred"
+  },
+  "INTRO-MONTAGE": {
+    "severity": "report",
+    "modules": [
+      "pipeline/intro.py"
+    ],
+    "what": ": nothing in the montage may touch the first land ...",
+    "severity_source": "inferred"
+  },
+  "INTRO-OUTRO": {
+    "severity": "error",
+    "modules": [
+      "pipeline/craft_gates.py"
+    ],
+    "what": "no <intro> line. The draft starts ...",
+    "severity_source": "inferred"
+  },
+  "LOOP-CADENCE": {
+    "severity": "error",
+    "modules": [
+      "pipeline/craft_gates.py"
+    ],
+    "what": "no line carries `payload: loop`. Nothing in ...",
+    "severity_source": "inferred"
+  },
+  "MOTIF-ADJACENT": {
+    "severity": "error",
+    "modules": [
+      "pipeline/motif_gates.py"
+    ],
+    "what": "",
+    "severity_source": "inferred"
+  },
+  "MOTIF-BUDGET": {
+    "severity": "error",
+    "modules": [
+      "pipeline/motif_gates.py"
+    ],
+    "what": "the motif gates could not run on ...",
+    "severity_source": "inferred"
+  },
+  "MOTIF-THESIS": {
+    "severity": "error",
+    "modules": [
+      "pipeline/motif_gates.py"
+    ],
+    "what": "",
+    "severity_source": "inferred"
+  },
+  "MOTION-CHECK": {
+    "severity": "error",
+    "modules": [
+      "pipeline/render.py"
+    ],
+    "what": "the finished video has frozen or ...",
+    "severity_source": "inferred"
+  },
+  "MUSIC-CUE": {
+    "severity": "error",
+    "modules": [
+      "pipeline/render.py"
+    ],
+    "what": "cue(s) are not audible ...",
+    "severity_source": "inferred"
+  },
+  "NAME": {
+    "severity": "warn",
+    "modules": [
+      "pipeline/draft.py"
+    ],
+    "what": "skipped - names.json is missing or unreadable, ...",
+    "severity_source": "inferred"
+  },
+  "NAME-AT-REVEAL": {
+    "severity": "error",
+    "modules": [
+      "pipeline/continuity_gates.py"
+    ],
+    "what": "cannot verify ...",
+    "severity_source": "inferred"
+  },
+  "NAME-LEAK": {
+    "severity": "warn",
+    "modules": [
+      "pipeline/draft.py"
+    ],
+    "what": "no transcript corpus loaded - the ...",
+    "severity_source": "inferred"
+  },
+  "NARRATOR-VOICE": {
+    "severity": "report",
+    "modules": [
+      "pipeline/craft_gates.py"
+    ],
+    "what": "",
+    "severity_source": "inferred"
+  },
+  "NO-PARAPHRASE": {
+    "severity": "error",
+    "modules": [
+      "pipeline/film_speaks.py"
+    ],
+    "what": "",
+    "severity_source": "inferred"
+  },
+  "PACING-CONTOUR": {
+    "severity": "error",
+    "modules": [
+      "pipeline/pacing_gates.py"
+    ],
+    "what": "no angle.md in ...",
+    "severity_source": "inferred"
+  },
+  "PAYLOAD-MIX": {
+    "severity": "error",
+    "modules": [
+      "pipeline/craft_gates.py"
+    ],
+    "what": "",
+    "severity_source": "inferred"
+  },
+  "PEAK-ORDER": {
+    "severity": "error",
+    "modules": [
+      "pipeline/pacing_gates.py"
+    ],
+    "what": "the first line on peak ...",
+    "severity_source": "inferred"
+  },
+  "PERSONA": {
+    "severity": "error",
+    "modules": [
+      "pipeline/pacing_gates.py"
+    ],
+    "what": "the writer labelled ...",
+    "severity_source": "inferred"
+  },
+  "PERSONA-CEILING": {
+    "severity": "error",
+    "modules": [
+      "pipeline/pacing_gates.py"
+    ],
+    "what": "",
+    "severity_source": "inferred"
+  },
+  "PERSONA-RUN": {
+    "severity": "error",
+    "modules": [
+      "pipeline/pacing_gates.py"
+    ],
+    "what": "",
+    "severity_source": "inferred"
+  },
+  "PROJECT-STATUS": {
+    "severity": "warn",
+    "modules": [
+      "pipeline/draft.py"
+    ],
+    "what": "",
+    "severity_source": "inferred"
+  },
+  "RATCHET": {
+    "severity": "warn",
+    "modules": [
+      "pipeline/draft.py"
+    ],
+    "what": "",
+    "severity_source": "inferred"
+  },
+  "READ-ALOUD": {
+    "severity": "warn",
+    "modules": [
+      "pipeline/draft.py"
+    ],
+    "what": "",
+    "severity_source": "inferred"
+  },
+  "RENDER-CHECK": {
+    "severity": "error",
+    "modules": [
+      "pipeline/render.py"
+    ],
+    "what": "position check did NOT run ...",
+    "severity_source": "inferred"
+  },
+  "RENDER-VERIFY": {
+    "severity": "report",
+    "modules": [
+      "pipeline/verify.py"
+    ],
+    "what": "",
+    "severity_source": "inferred"
+  },
+  "REPEAT-SCENE": {
+    "severity": "error",
+    "modules": [
+      "pipeline/render.py"
+    ],
+    "what": "near-identical picture ...",
+    "severity_source": "inferred"
+  },
+  "REPEATED-EVENT": {
+    "severity": "error",
+    "modules": [
+      "pipeline/continuity_gates.py"
+    ],
+    "what": "",
+    "severity_source": "inferred"
+  },
+  "REVEAL-TIMING": {
+    "severity": "error",
+    "modules": [
+      "pipeline/draft.py"
+    ],
+    "what": "a protected reveal term appears before its landing time; blocks render",
+    "severity_source": "declared"
+  },
+  "REVIEWED-EXCEPTION": {
+    "severity": "error",
+    "modules": [
+      "pipeline/draft.py"
+    ],
+    "what": "malformed entry  ...",
+    "severity_source": "inferred"
+  },
+  "RHYTHM": {
+    "severity": "warn",
+    "modules": [
+      "pipeline/craft_gates.py",
+      "pipeline/draft.py"
+    ],
+    "what": "words-per-line SD is ...",
+    "severity_source": "inferred"
+  },
+  "RUNTIME-BAND": {
+    "severity": "error",
+    "modules": [
+      "pipeline/draft.py",
+      "recap.py"
+    ],
+    "what": "predicted finished runtime above the calibrated band; blocks render",
+    "severity_source": "declared"
+  },
+  "SAME-POINT": {
+    "severity": "error",
+    "modules": [
+      "pipeline/samepoint_gates.py"
+    ],
+    "what": "fewer than three narrated lines, so adjacency ...",
+    "severity_source": "inferred"
+  },
+  "SET-PIECE": {
+    "severity": "error",
+    "modules": [
+      "pipeline/draft.py"
+    ],
+    "what": "max-gap threshold [bold] ...",
+    "severity_source": "inferred"
+  },
+  "SET-PIECE-DECLARE": {
+    "severity": "warn",
+    "modules": [
+      "pipeline/draft.py"
+    ],
+    "what": "",
+    "severity_source": "inferred"
+  },
+  "SET-PIECE-UNDER": {
+    "severity": "warn",
+    "modules": [
+      "pipeline/draft.py"
+    ],
+    "what": "",
+    "severity_source": "inferred"
+  },
+  "SET-PIECE-UNVERIFIED": {
+    "severity": "warn",
+    "modules": [
+      "pipeline/draft.py"
+    ],
+    "what": "",
+    "severity_source": "inferred"
+  },
+  "SHORT-CLIP": {
+    "severity": "error",
+    "modules": [
+      "pipeline/render.py"
+    ],
+    "what": "",
+    "severity_source": "inferred"
+  },
+  "SHOT-LIST": {
+    "severity": "error",
+    "modules": [
+      "pipeline/shotlist_gates.py"
+    ],
+    "what": "the shot-list gates could not run on ...",
+    "severity_source": "inferred"
+  },
+  "SHOT-LIST-AFTER-PEAK": {
+    "severity": "error",
+    "modules": [
+      "pipeline/shotlist_gates.py"
+    ],
+    "what": "could not run ...",
+    "severity_source": "inferred"
+  },
+  "SILENCE-UNIT": {
+    "severity": "error",
+    "modules": [
+      "pipeline/craft_gates.py"
+    ],
+    "what": "",
+    "severity_source": "inferred"
+  },
+  "SNAP-GRID": {
+    "severity": "warn",
+    "modules": [
+      "pipeline/draft.py",
+      "recap.py"
+    ],
+    "what": "not measured ...",
+    "severity_source": "inferred"
+  },
+  "SPEECH-BLIND": {
+    "severity": "error",
+    "modules": [
+      "pipeline/craft_gates.py"
+    ],
+    "what": "",
+    "severity_source": "inferred"
+  },
+  "SPINE": {
+    "severity": "warn",
+    "modules": [
+      "pipeline/craft_gates.py"
+    ],
+    "what": "",
+    "severity_source": "inferred"
+  },
+  "STAGE": {
+    "severity": "error",
+    "modules": [
+      "pipeline/draft.py"
+    ],
+    "what": "already in SCRIPT stage.[/] ...",
+    "severity_source": "inferred"
+  },
+  "STYLE-DECLARE": {
+    "severity": "warn",
+    "modules": [
+      "pipeline/draft.py"
+    ],
+    "what": "no `style:` line - defaulting to ...",
+    "severity_source": "inferred"
+  },
+  "TAG-QUALITY": {
+    "severity": "note",
+    "modules": [
+      "pipeline/validator_report.py"
+    ],
+    "what": "catalogue clips with over-broad depicts tags",
+    "severity_source": "declared"
+  },
+  "TARGET-LOCK": {
+    "severity": "warn",
+    "modules": [
+      "pipeline/draft.py"
+    ],
+    "what": "target_minutes ...",
+    "severity_source": "inferred"
+  },
+  "TIC-REPETITION": {
+    "severity": "error",
+    "modules": [
+      "pipeline/motif_gates.py"
+    ],
+    "what": "",
+    "severity_source": "inferred"
+  },
+  "TITLE-MATCH": {
+    "severity": "error",
+    "modules": [
+      "pipeline/draft.py"
+    ],
+    "what": "draft.json has no ...",
+    "severity_source": "inferred"
+  },
+  "TONE-BUDGET": {
+    "severity": "error",
+    "modules": [
+      "pipeline/draft.py"
+    ],
+    "what": "did not run ...",
+    "severity_source": "inferred"
+  },
+  "TONE-FLAT": {
+    "severity": "warn",
+    "modules": [
+      "pipeline/draft.py"
+    ],
+    "what": "",
+    "severity_source": "inferred"
+  },
+  "TRANSITION": {
+    "severity": "report",
+    "modules": [
+      "pipeline/craft_gates.py"
+    ],
+    "what": "",
+    "severity_source": "inferred"
+  },
+  "VISUAL-CAPACITY": {
+    "severity": "warn",
+    "modules": [
+      "pipeline/clause_shots.py",
+      "pipeline/draft.py"
+    ],
+    "what": "a line narrates more visible events than its picture has shots",
+    "severity_source": "declared"
+  },
+  "VISUAL-CLAIM": {
+    "severity": "warn",
+    "modules": [
+      "pipeline/continuity_gates.py"
+    ],
+    "what": "cannot verify ...",
+    "severity_source": "inferred"
+  },
+  "VISUAL-MEMORY": {
+    "severity": "warn",
+    "modules": [
+      "pipeline/draft.py"
+    ],
+    "what": "",
+    "severity_source": "inferred"
+  },
+  "VISUAL-REPEAT": {
+    "severity": "warn",
+    "modules": [
+      "pipeline/draft.py"
+    ],
+    "what": "visual family ...",
+    "severity_source": "inferred"
+  },
+  "VOICE-CUES": {
+    "severity": "error",
+    "modules": [
+      "pipeline/render.py"
+    ],
+    "what": "the delivery mapping breaks the ...",
+    "severity_source": "inferred"
+  },
+  "VOICE-PRESENCE": {
+    "severity": "warn",
+    "modules": [
+      "pipeline/craft_gates.py"
+    ],
+    "what": "",
+    "severity_source": "inferred"
+  },
+  "VOICE-RATE-DRIFT": {
+    "severity": "error",
+    "modules": [
+      "pipeline/render.py",
+      "pipeline/voice_check.py"
+    ],
+    "what": "- has the voice ...",
+    "severity_source": "inferred"
+  },
+  "VOICE-VISUAL": {
+    "severity": "warn",
+    "modules": [
+      "pipeline/validator_report.py",
+      "recap.py"
+    ],
+    "what": "a line's visual claim is not supported by its bound shot",
+    "severity_source": "declared"
+  },
+  "WINDOW-OVERLAP": {
+    "severity": "error",
+    "modules": [
+      "pipeline/draft.py"
+    ],
+    "what": "",
+    "severity_source": "inferred"
+  }
+}

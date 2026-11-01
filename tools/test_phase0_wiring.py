@@ -56,7 +56,7 @@ MC = io.open(os.path.join(ROOT, "pipeline", "motion_check.py"),
 
 def test_resume_runs_filmspeaks() -> tuple[bool, str]:
     # the stage order the script itself declares
-    m = re.search(r"'draft',\s*'filmspeaks',\s*'render'", RUNPS1)
+    m = re.search(r"'draft',\s*'filmspeaks',\s*(?:'voice',\s*)?'render'", RUNPS1)
     if not m:
         return False, ("run.ps1 no longer declares filmspeaks between draft "
                        "and render; re-check this case")
