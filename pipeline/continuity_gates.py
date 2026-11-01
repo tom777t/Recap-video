@@ -245,8 +245,8 @@ def visual_claims(draft: dict, pdir: Path) -> list:
         return []
     try:
         shots = json.loads(sp.read_text(encoding="utf-8-sig")).get("shots", [])
-    except Exception:
-        return []
+    except Exception as e:
+        return [{"unverifiable": f"shots.json present but unreadable: {e}"}]
     idx = []
     for s in shots:
         a, b = _ts(s.get("clip_start")), _ts(s.get("clip_end"))
@@ -366,13 +366,18 @@ def unnamed_reveals(draft: dict, pdir: Path) -> list:
     the reveal" regardless of where it sits in the draft.
     """
     out: list = []
+    _rvp, _nmp = Path(pdir) / "reveals.json", Path(pdir) / "names.json"
+    if not (_rvp.exists() and _nmp.exists()):
+        return out            # no reveal map / no cast list: nothing to protect
     try:
-        rv = json.loads((Path(pdir) / "reveals.json")
-                         .read_text(encoding="utf-8-sig"))
-        nm = json.loads((Path(pdir) / "names.json")
-                         .read_text(encoding="utf-8-sig"))
-    except Exception:
-        return out
+        rv = json.loads(_rvp.read_text(encoding="utf-8-sig"))
+        nm = json.loads(_nmp.read_text(encoding="utf-8-sig"))
+    except Exception as e:
+        # Present but unreadable used to return [] = "every reveal is named",
+        # an error-level gate reporting clean on input it never read. The gate
+        # must not raise (GATE-NEVER-RAISES), so it reports "cannot verify".
+        return [{"unverifiable": f"reveals.json/names.json present but "
+                                 f"unreadable: {e}"}]
     chars = []
     for e in (nm.get("names") if isinstance(nm, dict) else nm) or []:
         c = str((e or {}).get("character") or "").strip() if isinstance(
@@ -424,6 +429,10 @@ def continuity_report(draft: dict, pdir: Path) -> dict:
               "or write what the character actually said once.")
 
     ur = unnamed_reveals(draft, pdir)
+    for r in [r for r in ur if "unverifiable" in r]:
+        errors.append(f"[NAME-AT-REVEAL] cannot verify: {r['unverifiable']}. "
+                      f"An unread reveal map is not a clean one.")
+    ur = [r for r in ur if "unverifiable" not in r]
     if ur:
         errors.append(
             f"[NAME-AT-REVEAL] {len(ur)} reveal(s) land and the character is "
@@ -464,6 +473,9 @@ def continuity_report(draft: dict, pdir: Path) -> dict:
             + ". Either explain it or cut the mention.")
 
     vc = visual_claims(draft, pdir)
+    for r in [r for r in vc if "unverifiable" in r]:
+        warns.append(f"[VISUAL-CLAIM] cannot verify: {r['unverifiable']}.")
+    vc = [r for r in vc if "unverifiable" not in r]
     if vc:
         warns.append(
             f"[VISUAL-CLAIM] {len(vc)} concrete visual claim(s) are not in the "

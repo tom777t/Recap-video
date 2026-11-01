@@ -72,8 +72,10 @@ def flagged_shots(pdir: Path) -> list[dict]:
     try:
         sd = json.loads(sp.read_text(encoding="utf-8-sig"))
     except Exception as e:
-        console.print(f"[yellow]Censor: could not read shots.json ({e}).[/]")
-        return []
+        # Returning [] here meant "nothing is flagged", so the censor audit
+        # was skipped and the render went out uncensored. Present-but-
+        # unreadable is not the same as absent: raise.
+        raise ValueError(f"Censor: shots.json exists but could not be read ({e})")
     out = []
     for s in sd.get("shots", []):
         cs, ce = s.get("clip_start"), s.get("clip_end")

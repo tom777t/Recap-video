@@ -596,6 +596,9 @@ def validate_draft(project: str, *, write_state: bool = False,
         # D-GREEN: mot audit thieu dau vao phai NOI RA, khong duoc im lang xanh.
         console.print(f"[red][CRAFT] gates did not run: {_ce}[/] "
                       f"Treat this draft as UNCHECKED for writing craft.")
+        # A red line alone left `errors` empty, so the draft still validated.
+        errors.append(f"[CRAFT] gates did not run: {_ce} - the writing-craft "
+                      f"checks after the failing one were never applied")
 
     if errors:
         console.print("[red]draft.json has problems:[/]")
@@ -699,7 +702,9 @@ def validate_draft(project: str, *, write_state: bool = False,
 
     # Phase 1 audits -> returns a metrics dict (or None on swallowed setup failure)
     audit = _run_phase1_audits(project, pdir)
-    audit_sev = (audit or {}).get("sev", "clean") if isinstance(audit, dict) else "clean"
+    # Not a dict = the audits did not report = UNCHECKED, never "clean". The
+    # old fallback to "clean" is exactly how ten gates once went quiet.
+    audit_sev = audit.get("sev", "hard") if isinstance(audit, dict) else "hard"
 
     console.print(
         f"[green]draft.json valid.[/]  {len(draft['lines'])} lines, "
@@ -1323,7 +1328,7 @@ def _lint_script(pdir, draft, src_dur, pool_meta=None, explicit_times=None):
     # "Bar"/"Bad" bi goi la bien the cua "Bank". Mot except qua rong bien mot
     # loi lap trinh thanh mot ket qua sai IM LANG. Bat dung loai I/O thoi.
     _loaded = 0
-    for _p in _glob.glob(_root + r"\*\transcript.json"):
+    for _p in _glob.glob(str(Path(_root) / "*" / "transcript.json")):
         try:
             _corpus += [str(s.get("text", "")) for s in
                         _json.loads(Path(_p).read_text(encoding="utf-8-sig"))
@@ -1331,7 +1336,7 @@ def _lint_script(pdir, draft, src_dur, pool_meta=None, explicit_times=None):
             _loaded += 1
         except (OSError, ValueError):
             pass
-    for _p in _glob.glob(_root + r"\*\beats_proposal.md"):
+    for _p in _glob.glob(str(Path(_root) / "*" / "beats_proposal.md")):
         try:
             _corpus.append(Path(_p).read_text(encoding="utf-8-sig"))
         except OSError:
@@ -1930,11 +1935,15 @@ def _coverage_policy(project) -> set:
     p = config.project_dir(project) / "coverage_policy.json"
     if not p.exists():
         return set()
+    # Absent = no policy (the old behaviour, legitimate). PRESENT but
+    # unreadable is not the same thing: returning set() here switched off the
+    # MANDATORY-beat check and [BRIDGE] while looking exactly like a project
+    # without a policy. Raise, and let the audit report it as unrun.
     try:
         data = _json.loads(p.read_text(encoding="utf-8-sig"))
-        return {str(b).upper() for b in data.get("mandatory", [])}
-    except Exception:
-        return set()
+    except Exception as e:
+        raise ValueError(f"coverage_policy.json is present but unreadable: {e}")
+    return {str(b).upper() for b in data.get("mandatory", [])}
 
 
 def bridge_audit(project, d, bc) -> dict:
@@ -2381,14 +2390,21 @@ def _run_phase1_audits(project, pdir):
             f"not clean.")
         return {"sev": "hard",
                 "audit_unavailable": f"draft parse failed: {e}"}
+    # Every check below that CANNOT run records itself here. At the end a
+    # non-empty ledger makes the audit hard and names what was skipped
+    # (audit_unavailable), which `recap.py render` refuses on. Before this,
+    # nine handlers in this function printed one dim line and left `sev`
+    # untouched, so an unrun gate read exactly like a passing one.
+    _unrun: list = []
     skel = None
     try:
         skel = schemas.load_skeleton(project)
     except FileNotFoundError:
         skel = None
     except Exception as e:
-        console.print(f"[yellow]skeleton.json present but invalid: {e}[/]")
+        console.print(f"[red]skeleton.json present but invalid: {e}[/]")
         skel = None
+        _unrun.append(f"COVERAGE (skeleton.json invalid: {e})")
     try:
         shots_by_id, pool_families, shot_problems = schemas.load_shots(project)
     except Exception as e:
@@ -2403,6 +2419,9 @@ def _run_phase1_audits(project, pdir):
     if shot_problems:
         console.print(f"[red]  {len(shot_problems)} footage entr(ies) were skipped - "
                       f"the audits below are DEGRADED and cannot certify clean.[/]")
+        _unrun.append(f"FOOTAGE-DROPPED ({len(shot_problems)} footage "
+                      f"entr(ies) not loaded; binding/continuity ran on a "
+                      f"partial catalogue)")
     names = schemas.load_names(project)
     cov = coverage_audit(d, skel) if skel is not None else []
     bind = binding_audit(d, shots_by_id, pool_families, names)
@@ -2504,8 +2523,10 @@ def _run_phase1_audits(project, pdir):
                           f"judged on their REAL audio, the rest estimated "
                           f"from word count.[/]")
     except Exception as e:
-        console.print(f"[dim]binding-capacity check unavailable: {e}[/]")
+        console.print(f"[red][BINDING-VIOLATION] capacity check did not run: "
+                      f"{e}[/]")
         cap = []
+        _unrun.append(f"BINDING-VIOLATION capacity ({e})")
     # ---- [TONE-BUDGET]: `sad` is for grief, and nothing else ---------------
     # A tag is heard twice - in the read and in the music cue - so a wrong one
     # costs double. `sad` on a car crash gives a mournful delivery AND sad
@@ -2550,7 +2571,8 @@ def _run_phase1_audits(project, pdir):
                             for _t in sorted(_tags, key=lambda x: -_tags[x]))
                 + f" - sad {_sad_frac:.1%} of {_nl} (budget {_sad_cap:.0%})")
     except Exception as _e:
-        console.print(f"[dim]tone-budget check unavailable: {_e}[/]")
+        console.print(f"[red][TONE-BUDGET] did not run: {_e}[/]")
+        _unrun.append(f"TONE-BUDGET ({_e})")
 
     # ---- [FILM-SPEAKS]: the only place the film's own dialogue is heard -----
     # Since the film audio under narration and in holds comes from the
@@ -2583,7 +2605,8 @@ def _run_phase1_audits(project, pdir):
                 f"{int(getattr(config, 'FILM_SPEAKS_MAX_PER_FILM', 3))} "
                 f"unit(s), each justified, spaced and measurably clean.")
     except Exception as _e:
-        console.print(f"[dim]film-speaks rule set unavailable: {_e}[/]")
+        console.print(f"[red][FILM-SPEAKS] rule set did not run: {_e}[/]")
+        _unrun.append(f"FILM-SPEAKS ({_e})")
 
     # ---- FOOTAGE REUSE: the same shot must not appear twice ----------------
     # Cheap, and catching it here costs nothing compared with finding it in a
@@ -2601,8 +2624,9 @@ def _run_phase1_audits(project, pdir):
                                              "montage": getattr(_l, "montage", None)}
                                             for _l in d.lines]})
     except Exception as _e:
-        console.print(f"[dim]footage-reuse check unavailable: {_e}[/]")
+        console.print(f"[red][FOOTAGE-REUSE] did not run: {_e}[/]")
         _reuse_hits = []
+        _unrun.append(f"FOOTAGE-REUSE ({_e})")
 
     violations = [c for c in cap if c["severity"] == "violation"]
     slowdowns = [c for c in cap if c["severity"] == "slowdown"]
@@ -2733,7 +2757,13 @@ def _run_phase1_audits(project, pdir):
         # reveal + its setup); everything else may be skipped, as long as the
         # skip is bridged or held (the [BRIDGE] gate below). With no policy file
         # this is silent and the old behaviour stands.
-        _mand = _coverage_policy(project)
+        try:
+            _mand = _coverage_policy(project)
+        except ValueError as _cpe:
+            console.print(f"[red][BEAT-COVERAGE][/] {_cpe}. The MANDATORY-beat "
+                          f"check and [BRIDGE] did NOT run.")
+            _unrun.append(f"BEAT-COVERAGE/BRIDGE ({_cpe})")
+            _mand = set()
         if _mand:
             _missing = sorted(
                 (b for b in _mand if bc.get("counts", {}).get(b, 0) == 0),
@@ -2802,6 +2832,13 @@ def _run_phase1_audits(project, pdir):
         _film_sec = _film_duration(project)
         _words = sum(len((getattr(l, "narration", "") or "").split())
                      for l in d.lines)
+        if _words and not _film_sec:
+            # Used to fall through with no output at all: a missing or corrupt
+            # transcript.json made the runtime gate vanish without a word.
+            console.print("[red][RUNTIME-BAND] not measured: the film's length "
+                          "is unknown (transcript.json missing, unreadable or "
+                          "without 'duration').[/]")
+            _unrun.append("RUNTIME-BAND (film length unknown: transcript.json)")
         if _film_sec and _words:
             _k = float(getattr(_cfg3, "RECAP_RUNTIME_RENDER_OVER_DRAFT", 1.0))
             _est_min = _words / _wpm
@@ -2847,6 +2884,7 @@ def _run_phase1_audits(project, pdir):
         # measuring was indistinguishable from one that passed.
         console.print(f"[red][RUNTIME-BAND] did not run: {_rte}[/] "
                       f"Treat this draft as UNCHECKED for runtime.")
+        _unrun.append(f"RUNTIME-BAND ({_rte})")
 
     # ---- BINDING-INTEGRITY (stage 1: report only, never blocks) -------------
     pdir = config.project_dir(project)
@@ -3059,6 +3097,11 @@ def _run_phase1_audits(project, pdir):
     # Return everything the stage machine needs (sev + honest metrics).
     # bind.verified_mismatch / bind.unverified are the SAME ints the Summary
     # line prints (BindingResult fields), so numbers cannot diverge.
+    if _unrun:
+        console.print(f"[red][AUDIT-UNAVAILABLE][/] {len(_unrun)} check(s) did "
+                      f"NOT run, so this draft is unchecked on them, not clean: "
+                      + "; ".join(_unrun))
+        sev = "hard"
     return {
         "sev": sev,
         "style": style,
@@ -3080,8 +3123,9 @@ def _run_phase1_audits(project, pdir):
         # mismatch - read the report above for which", which is the
         # least useful line the tool can print.
         "runtime_over": _rt_over,
-        # carried so the caller can name it; see AUDIT-UNPARSEABLE above
-        "audit_unavailable": None,
+        # carried so the caller can name it; see AUDIT-UNPARSEABLE above and
+        # the _unrun ledger (a gate that could not run is not a passing gate)
+        "audit_unavailable": "; ".join(_unrun) or None,
         "set_piece_over": len(sp_cov.get("over", [])) if sp_cov.get("present") else 0,
     }
 

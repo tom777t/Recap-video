@@ -212,7 +212,10 @@ def check(path: Path, interval: float = SAMPLE_INTERVAL_SEC) -> tuple:
     info = {"crop": crop, "sampled": len(hs),
             "skipped_flat": sum(1 for _t, _h, v in hs if v < MIN_VARIANCE)}
     if not hs:
-        return True, [], info
+        # No frames decoded is "could not look", not "no repeats": True here
+        # put REPEAT-SCENE on PASS for a file nobody had examined. None makes
+        # the caller report it as not run.
+        return None, [], info
     dupes = near_duplicates(hs)
     info["pairs"] = dupes
     find = []

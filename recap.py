@@ -274,6 +274,11 @@ def cmd_render(args):
                       f"term appears before its landing beat")
     if _r.get("runtime_over"):
         _fatal.append(f"[RUNTIME-BAND] {_r['runtime_over']}")
+    # A check that could not run is not a pass. Without this, an unparseable
+    # draft or a crashed gate reached the encoder with only the yellow
+    # "Draft audit is HARD but nothing in it stops a render" line below.
+    if _r.get("audit_unavailable"):
+        _fatal.append(f"checks that did NOT run: {_r['audit_unavailable']}")
     if _fatal and not args.ignore_audit:
         console.print("[red]Refusing to render: " + "; ".join(_fatal) + ".[/]")
         console.print(f"  See `python recap.py draft --project {args.project}`. "

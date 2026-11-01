@@ -1386,6 +1386,15 @@ def render(project: str, draft: dict,
                 if ev and s.get("clip_start") and s.get("clip_end"):
                     exposure_by_clip[key] = float(ev)
     except Exception as e:
+        # This used to be one yellow line, after which censor_by_clip stayed
+        # empty, the censor audit was skipped (`if _flagged:`) and the film
+        # rendered UNCENSORED. A present-but-unreadable shots.json is a stop.
+        if (pdir / "shots.json").exists():
+            console.print(f"[red][CENSOR-POLICY] shots.json exists but could not "
+                          f"be read for censor/silence flags: {e}. Refusing to "
+                          f"render: the censor decisions would be silently "
+                          f"ignored.[/]")
+            sys.exit(1)
         console.print(f"[yellow]Could not read shots.json censor/silence flags: {e}[/]")
 
     # ---- resolve a line to the catalogued shot its footage came from ---------
@@ -1715,8 +1724,9 @@ def render(project: str, draft: dict,
         _prov = all_providers().get(DEFAULT_PROVIDER)
         if _prov is not None:
             _vc_cue_bad = _vc.audit_cues(_prov) + _vc.rate_band_violations(_prov)
-    except Exception:
-        _vc_cue_bad = []
+    except Exception as _vce:
+        # An empty list is the PASS value, so swallowing here passed the gate.
+        _vc_cue_bad = [f"VOICE-CUES could not run: {_vce}"]
     if _vc_cue_bad:
         console.print("[red][VOICE-CUES][/] the delivery mapping breaks the "
                       "one-narrator contract:")
@@ -2264,6 +2274,14 @@ def render(project: str, draft: dict,
             if isinstance(_e, _Spoil):
                 console.print(f"[red]{_e}[/]")
                 raise
+            if intro_offset > 0:
+                # The intro IS already in final.mp4, so the failure came after
+                # prepending - e.g. in the intro censor audit. "Not prepended"
+                # would be false, and the intro would ship unaudited.
+                console.print(f"[red]Intro block was prepended but a later step "
+                              f"failed: {_e}. Stopping - the intro is in "
+                              f"final.mp4 without its checks.[/]")
+                raise
             console.print(f"[yellow]Intro block not prepended: {_e}[/]")
     else:
         console.print("[dim]No over_montage line in the draft - final.mp4 "
@@ -2336,8 +2354,17 @@ def render(project: str, draft: dict,
     offsets = _position_offsets(ff, final, timeline, narration,
                                 intro_offset=intro_offset)
     if not offsets:
-        console.print("[dim][RENDER-CHECK] position check skipped "
-                      "(numpy missing, or no narration to sample).[/]")
+        # RENDER-CHECK below is PASS when `problems` is empty, and its summary
+        # claims "narration lands on its timeline slots". Without this the
+        # claim stood on a check that never ran.
+        _pos_why = ("numpy missing, final.mp4 could not be decoded, or no "
+                    "narration to sample")
+        console.print(f"[red][RENDER-CHECK] position check did NOT run "
+                      f"({_pos_why}).[/]")
+        _ids = {lid for lid, _p, _d in (narration or [])}
+        if sum(1 for t in (timeline or []) if t.get("id") in _ids) >= 2:
+            # there WAS narration to sample, so an empty result is a failure
+            problems.append(f"narration position check did not run ({_pos_why})")
     else:
         worst = max(abs(d) for _i, _w, _m, d in offsets)
         detail = ", ".join(f"line {i} {d:+.2f}s" for i, _w, _m, d in offsets)
@@ -2546,7 +2573,13 @@ def render(project: str, draft: dict,
     if _mplan.exists():
         try:
             _mp = json.loads(_mplan.read_text(encoding="utf-8"))
-        except (OSError, ValueError):
+        except (OSError, ValueError) as _mpe:
+            # Unreadable used to fall into "the planner placed no cues", a
+            # legitimate-sounding SKIPPED for what is a pipeline fault.
+            _m3 = f"{_mplan.name} exists but could not be read ({_mpe})"
+            _rep.add("MUSIC-CUE", False, _m3, fatal=False,
+                     findings=[{"text": _m3}])
+            problems.append("music measurement: " + _m3)
             _mp = {}
     _cues = [{"at": float(c["at"]) + intro_offset, "dur": float(c["dur"]),
               "mood": c.get("mood")} for c in (_mp.get("cues") or [])]

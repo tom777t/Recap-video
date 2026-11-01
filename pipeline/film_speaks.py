@@ -100,10 +100,15 @@ def overlap(a: str, b: str) -> float:
 # Inputs
 # --------------------------------------------------------------------------- #
 def _transcript(pdir: Path) -> tuple[list, str]:
-    try:
-        t = json.loads((pdir / "transcript.json").read_text(encoding="utf-8-sig"))
-    except Exception:
+    tp = pdir / "transcript.json"
+    if not tp.exists():
         return [], ""
+    try:
+        t = json.loads(tp.read_text(encoding="utf-8-sig"))
+    except Exception as e:
+        # [] here made candidates() report "no candidate qualified - a
+        # legitimate zero" for a transcript that was never read.
+        raise ValueError(f"transcript.json present but unreadable: {e}")
     segs = t.get("segments") if isinstance(t, dict) else t
     lang = str((t.get("language") if isinstance(t, dict) else "") or "")
     out = []
@@ -223,11 +228,14 @@ def reveal_rows(project: str) -> list[dict]:
     import config
     from pipeline.draft import parse_ts
     pdir = Path(config.project_dir(project))
-    try:
-        doc = json.loads((pdir / "reveals.json").read_text(
-            encoding="utf-8-sig"))
-    except Exception:
+    rp = pdir / "reveals.json"
+    if not rp.exists():
         return []
+    try:
+        doc = json.loads(rp.read_text(encoding="utf-8-sig"))
+    except Exception as e:
+        # [] silenced FILM-SPEAKS-SPOILER on a film that HAS a reveal map.
+        raise ValueError(f"reveals.json present but unreadable: {e}")
     out = []
     for i, row in enumerate(doc.get("reveals") or [], start=1):
         land = row.get("land") or row.get("land_ref")
@@ -236,7 +244,10 @@ def reveal_rows(project: str) -> list[dict]:
             try:
                 sec = parse_ts(str(land))
             except Exception:
-                sec = 0.0
+                # An unparseable landing ("mid-credits", a beat id) must
+                # PROTECT, as parse_reveal_map does: 0.0 meant "already
+                # landed" and switched the spoiler check off for it.
+                sec = float("inf")
         out.append({"id": row.get("id") or f"R{i}", "land": sec,
                     "land_ref": str(land or ""),
                     "fact": str(row.get("fact") or ""),
