@@ -317,6 +317,52 @@ def parse_reply(text: str):
     return None
 
 
+def derive_clips(obj, sp: dict) -> list:
+    """Set every moment's clip_start/clip_end FROM ITS SHOT IDS. Returns notes.
+
+    A moment is a run of shots, so its clip window is the first shot's start
+    to the last shot's end - a fact the shot list already holds, not a
+    judgement. The model was asked to copy it and sometimes did not: 3 of 20
+    pilot spans were escalated to the expensive model only because a
+    clip_start was not its first shot's start. So the value is derived here,
+    and a difference is LOGGED (it is a sign of how carefully the reply was
+    made) rather than failed. Moments whose shot ids are unusable are left
+    alone for validate() to reject - those are real failures.
+    """
+    notes: list = []
+    if not isinstance(obj, dict) or not isinstance(obj.get("moments"), list):
+        return notes
+    shots = sp["shots"]
+    for k, m in enumerate(obj["moments"]):
+        if not isinstance(m, dict):
+            continue
+        idx = m.get("shots")
+        if (not isinstance(idx, list) or not idx
+                or not all(isinstance(i, int) and not isinstance(i, bool)
+                           for i in idx)
+                or idx[0] < 0 or idx[-1] >= len(shots) or idx[-1] < idx[0]):
+            continue
+        want = (hms(shots[idx[0]]["start"]), hms(shots[idx[-1]]["end"]))
+        got = (m.get("clip_start"), m.get("clip_end"))
+        if got != want:
+            notes.append(f"#{k} shots {idx[0]}..{idx[-1]}: model wrote "
+                         f"{got[0]}..{got[1]}, derived {want[0]}..{want[1]}")
+        m["clip_start"], m["clip_end"] = want
+    return notes
+
+
+def accept(obj, sp: dict, log=print) -> list:
+    """derive_clips + validate: the problems that make a reply unusable."""
+    if obj is None:
+        return ["reply is not JSON"]
+    notes = derive_clips(obj, sp)
+    if notes:
+        log(f"  {sp['id']}: clip times derived from shot ids for "
+            f"{len(notes)} moment(s): " + "; ".join(notes[:3])
+            + (f" (+{len(notes) - 3} more)" if len(notes) > 3 else ""))
+    return validate(obj, sp)
+
+
 def validate(obj, sp: dict) -> list:
     """Problems that make a reply unusable. Empty list = accept.
 
@@ -508,7 +554,7 @@ def tag_sync(client, pdir, sp, cast, model):
     obj = parse_reply(reply_text(msg))
     if obj is None:
         return None, ["reply is not JSON"], u, c
-    return obj, validate(obj, sp), u, c
+    return obj, accept(obj, sp), u, c
 
 
 # --------------------------------------------------------------------------- #
@@ -710,7 +756,7 @@ def cmd_collect(a) -> int:
                 fails[sid] = f"reply truncated at max_tokens={MAX_TOKENS}"
                 continue
             obj = parse_reply(reply_text(msg))
-            probs = ["reply is not JSON"] if obj is None else validate(obj, spans[sid])
+            probs = accept(obj, spans[sid])
             if probs:
                 fails[sid] = "; ".join(probs[:3])
                 continue

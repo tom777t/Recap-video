@@ -23,6 +23,9 @@
                     tag_pilot/, spans.json.d is untouched, the key never
                     appears in the output
   MISSING-KEY       no ANTHROPIC_API_KEY -> one clear message, exit 1
+  DERIVE-CLIPS      a moment's clip_start/clip_end come from its shot ids;
+                    a difference is logged, not failed, and not escalated;
+                    a real schema failure still is
 
 Run:  python tools/test_tag_batch.py      (exit 0 = all pass)
 """
@@ -508,6 +511,70 @@ def t_missing_key(spans):
     return probs
 
 
+def t_derive_clips(spans):
+    """A moment's clip window comes from its shot ids, not from the model.
+
+    3 of 20 pilot spans went to the expensive model only because a moment's
+    clip_start was not its first shot's start. The batch path must ACCEPT
+    such a reply with the times derived (and say so), and must still
+    escalate a real schema failure."""
+    probs = []
+    sp1, sp2 = spans["sp01"], spans["sp02"]
+    # unit: wrong times are replaced, the difference is reported
+    r = good_reply(sp1)
+    r["moments"][0]["clip_start"] = "00:00:00.700"        # not shot 0's start
+    r["moments"][1]["clip_end"] = "99:00:00.000"
+    want = T.hms(sp1["shots"][r["moments"][0]["shots"][0]]["start"])
+    notes = T.derive_clips(r, sp1)
+    if len(notes) != 2 or "model wrote 00:00:00.700" not in notes[0]:
+        probs.append(f"difference not logged: {notes}")
+    if r["moments"][0]["clip_start"] != want or T.validate(r, sp1):
+        probs.append(f"derived reply not valid: {T.validate(r, sp1)[:2]}")
+    # unusable shot ids are left alone and still rejected
+    bad_ids = good_reply(sp1)
+    bad_ids["moments"][0]["shots"] = [99]
+    T.derive_clips(bad_ids, sp1)
+    if not any("out of range" in x for x in T.validate(bad_ids, sp1)):
+        probs.append("out-of-range shot ids were not rejected")
+
+    # through collect: timestamp-only reply written WITHOUT escalation;
+    # a reply with a real schema failure (no VISIBLE label) IS escalated
+    shutil.rmtree(PDIR / "spans.json.d", ignore_errors=True)
+    if (PDIR / T.STATE_FILE).exists():
+        (PDIR / T.STATE_FILE).unlink()
+    fake = FakeClient(lambda params: message(
+        good_reply(_span_from_params(params, spans))))
+    T.CLIENT_FACTORY = lambda: fake
+    _run(["submit", "--project", PROJ, "--retry-failed"])
+    ts_only = good_reply(sp1)
+    for m in ts_only["moments"]:
+        m["clip_start"] = "00:00:00.001"
+    schema_bad = good_reply(sp2)
+    schema_bad["moments"][0]["depicts"] = ["setup"]          # no VISIBLE
+    fb = fake.messages.batches
+    fb.items = [NS(custom_id="sp01", result=NS(type="succeeded",
+                                               message=message(ts_only))),
+                NS(custom_id="sp02", result=NS(type="succeeded",
+                                               message=message(schema_bad)))]
+    fb.status = "ended"
+    _code, txt = _run(["collect", "--project", PROJ])
+    esc = [_span_from_params(c, spans)["id"] for c in fake.messages.calls]
+    if "sp01" in esc:
+        probs.append("a timestamp-only difference was escalated")
+    if "sp02" not in esc:
+        probs.append("a real schema failure was NOT escalated")
+    f1 = PDIR / "spans.json.d" / "sp01.json"
+    if not f1.exists():
+        probs.append("timestamp-only reply was not written")
+    else:
+        got = json.loads(f1.read_text(encoding="utf-8"))
+        if got["moments"][0]["clip_start"] != T.hms(sp1["shots"][0]["start"]):
+            probs.append("written clip_start is not the derived one")
+    if "clip times derived from shot ids" not in txt:
+        probs.append("the derivation was not logged")
+    return probs
+
+
 TESTS = {
     "REQUEST-BUILD": t_request_build,
     "IMAGE-DOWNSCALE": t_image_downscale,
@@ -518,6 +585,7 @@ TESTS = {
     "DOWNSTREAM": t_downstream,
     "PILOT": t_pilot,
     "MISSING-KEY": t_missing_key,
+    "DERIVE-CLIPS": t_derive_clips,
 }
 
 
