@@ -171,7 +171,37 @@ class Report:
             a("")
 
         path.write_text("\n".join(L) + "\n", encoding="utf-8")
+        # The checks as data, next to the markdown, so a check that runs
+        # AFTER the render (tools/picture_check.py) can add its row and
+        # re-write the same report instead of patching markdown by hand.
+        try:
+            path.with_suffix(".json").write_text(json.dumps({
+                "project": self.project, "final": str(self.final),
+                "started": self.started.isoformat(), "checks": self.checks,
+                "notes": self.notes}, ensure_ascii=False, indent=1,
+                default=str), encoding="utf-8")
+        except (OSError, TypeError, ValueError):
+            pass
         return path
+
+    @classmethod
+    def load(cls, json_path: Path) -> "Report":
+        """The report a render wrote, from its final_report.json. Raises on
+        an unreadable file - a caller must not mistake it for an empty one."""
+        d = json.loads(Path(json_path).read_text(encoding="utf-8"))
+        r = cls(d["project"], Path(d["final"]))
+        try:
+            r.started = datetime.fromisoformat(d["started"])
+        except (KeyError, ValueError):
+            pass
+        r.checks = list(d.get("checks") or [])
+        r.notes = list(d.get("notes") or [])
+        return r
+
+    def replace(self, name: str, **kw) -> None:
+        """add(), dropping any earlier result of the same check."""
+        self.checks = [c for c in self.checks if c.get("name") != name]
+        self.add(name, **kw)
 
 
 def _fmt(v) -> str:

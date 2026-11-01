@@ -3041,7 +3041,39 @@ def render(project: str, draft: dict,
 
     console.print(f"\n[bold green]Done![/] Final video: {final}")
     _write_report()
+    _submit_picture_check(project)
     return final
+
+
+def _submit_picture_check(project: str) -> None:
+    """Submit [PICTURE-CHECK] (tools/picture_check.py) when the key is set.
+
+    SUBMIT ONLY and NEVER BLOCKING: a Message Batch takes minutes to hours,
+    and a vision judgment is a WARN, so nothing here may stop or fail a
+    render. Any error is printed and the render returns normally.
+    """
+    import os
+    if not getattr(config, "PICTURE_CHECK_AT_RENDER", False):
+        return
+    if not os.environ.get("ANTHROPIC_API_KEY", "").strip():
+        console.print("[dim][PICTURE-CHECK] not submitted: ANTHROPIC_API_KEY "
+                      "is not set (run tools/picture_check.py later).[/]")
+        return
+    try:
+        _tools = str(Path(__file__).resolve().parent.parent / "tools")
+        if _tools not in sys.path:
+            sys.path.insert(0, _tools)
+        import picture_check as _pc
+        _pc.submit(project)
+        console.print(f"[dim][PICTURE-CHECK] submitted; collect with: python "
+                      f"tools/picture_check.py --project {project} "
+                      f"--collect[/]")
+    except BaseException as e:                 # never let it stop a render
+        if isinstance(e, KeyboardInterrupt):
+            raise
+        console.print(f"[yellow][PICTURE-CHECK] could not be submitted "
+                      f"({type(e).__name__}: {str(e)[:160]}); the render is "
+                      f"unaffected - run tools/picture_check.py later.[/]")
 
 
 def _loudnorm_filter() -> str:

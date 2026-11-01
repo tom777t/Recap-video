@@ -589,6 +589,15 @@
     "what": "",
     "severity_source": "inferred"
   },
+  "PICTURE-CHECK": {
+    "severity": "warn",
+    "modules": [
+      "pipeline/picture_check.py",
+      "pipeline/render.py"
+    ],
+    "what": "vision check on final.mp4: does each narrated line's picture match its narration (match/partial/mismatch, cause from the clip plan); WARN, never blocking",
+    "severity_source": "declared"
+  },
   "PROJECT-STATUS": {
     "severity": "warn",
     "modules": [

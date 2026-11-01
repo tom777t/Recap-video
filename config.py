@@ -1466,3 +1466,18 @@ TAG_ESCALATE_MODEL = "claude-sonnet-5-5"
 # Cold read, independent review and ending read, each one FRESH request that
 # did not write the draft. Judgment work on a whole draft, so the strong model.
 REVIEW_API_MODEL = "claude-sonnet-5-5"
+
+# --- PICTURE_CHECK: does the picture show what the narration says? -----------
+# tools/picture_check.py. One batched vision request per narrated line on the
+# FINISHED file: 3 frames from the line's real span + its narration text only.
+# Look-and-label work, so the small model. Reported (WARN), never blocking.
+PICTURE_CHECK_MODEL = "claude-haiku-5-5"
+PICTURE_CHECK_FRAMES = 3
+PICTURE_CHECK_FRAME_SIDE = 512
+PICTURE_CHECK_WORST_N = 15
+# Opt-in: submit the picture check at the end of every render when this is
+# True AND ANTHROPIC_API_KEY is set. Submit only - the render never waits for
+# or fails on it; collect with `python tools/picture_check.py --project P
+# --collect`. Off by default because every render would then spend API
+# credits - including the test suites' fixture renders on a box with the key.
+PICTURE_CHECK_AT_RENDER = False
