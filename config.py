@@ -1484,3 +1484,10 @@ PICTURE_CHECK_WORST_N = 15
 # --collect`. Off by default because every render would then spend API
 # credits - including the test suites' fixture renders on a box with the key.
 PICTURE_CHECK_AT_RENDER = False
+
+# --- UNWATCHABLE_MIN_SEC: [UNWATCHABLE-FOOTAGE] (pipeline/footage.py) --------
+# A bound clip window fails the draft when it holds this many contiguous
+# seconds of black or of a still text card (logo, credit caption, end
+# disclaimer), measured on the source. A cut between two shots dips to black
+# for a few frames; a second of it is no longer a cut.
+UNWATCHABLE_MIN_SEC = 1.0

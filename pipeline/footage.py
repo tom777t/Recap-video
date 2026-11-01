@@ -167,3 +167,213 @@ def has_black(src: Path, a: float, b: float,
               min_sec: float = 0.25) -> list:
     """Black spans inside one specific window - for verifying a choice."""
     return black_spans(Path(src), a, b, min_sec)
+
+
+# --------------------------------------------------------------------------- #
+# [UNWATCHABLE-FOOTAGE] - a BOUND clip window must not land on black or a card
+# --------------------------------------------------------------------------- #
+# The story half "never hits this because every story clip is bound to a
+# tagged shot window" - that was true until a line was bound to the shot the
+# catalogue had tagged as the end-of-film stunt disclaimer: black, then a white
+# text card, under 14s of narration. Tagged shots include the film's
+# non-film: distributor logos, opening credit captions, end disclaimers. So a
+# bound window is measured too, on the source, with the definitions above:
+#
+#   black      mean <= BLACK_LUMA or std <= FLAT_STD (the same frames the
+#              intro rejects)
+#   text card  a STILL frame that is almost all dark with a little bright:
+#              >= CARD_DARK_SHARE of pixels <= CARD_DARK_LUMA, between
+#              CARD_BRIGHT_MIN and CARD_BRIGHT_MAX of pixels >= CARD_BRIGHT_LUMA,
+#              almost no midtones (<= CARD_MID_MAX), and no motion since the
+#              previous sample. Midtones and motion are what keep a dark
+#              night scene with a few lights out of it: lights glow into the
+#              midtones and move, a card does neither.
+#
+# NOT covered, said out loud: rolling credits over moving graphics (they move)
+# and a title burned in over real picture (it is not mostly dark). The vision
+# check's `unwatchable` answer covers both on the finished file.
+CARD_SIDE = (160, 90)
+CARD_DARK_LUMA = 24
+CARD_DARK_SHARE = 0.88
+CARD_BRIGHT_LUMA = 128
+CARD_BRIGHT_MIN = 0.002
+CARD_BRIGHT_MAX = 0.12
+CARD_STILL_DIFF = 1.5            # mean |frame - previous| in luma levels
+# ...and nothing in between. Text on a card is near-black or near-white; a
+# night scene that is just as dark has gradients, glows and skin in the
+# midtones. Measured on the synthetic fixtures (tools/test_unwatchable.py).
+CARD_MID_MAX = 0.03
+CACHE_VERSION = 1
+
+
+def frame_stats(src: Path, lo: float, hi: float,
+                fps: float = PROFILE_FPS) -> list:
+    """[{t, mean, std, dark, bright, diff}] across [lo, hi], ONE decode pass,
+    the same sampling luma_profile uses at a size where text survives."""
+    import numpy as np
+    lo = max(0.0, float(lo))
+    span = max(0.0, float(hi) - lo)
+    if span <= 0:
+        return []
+    w, h = CARD_SIDE
+    r = subprocess.run(
+        [config.ffmpeg(), "-v", "error", "-ss", f"{lo:.3f}", "-t",
+         f"{span:.3f}", "-i", str(src),
+         "-vf", f"fps={fps:.4f},scale={w}:{h},format=gray",
+         "-f", "rawvideo", "-pix_fmt", "gray", "-"], capture_output=True)
+    n = w * h
+    buf = r.stdout or b""
+    cnt = len(buf) // n
+    if cnt == 0:
+        return []
+    arr = np.frombuffer(buf[:cnt * n], dtype=np.uint8).reshape(cnt, n)
+    f = arr.astype("float32")
+    out = []
+    for i in range(cnt):
+        d = (float(np.abs(f[i] - f[i - 1]).mean()) if i else None)
+        out.append({"t": lo + i / fps, "mean": float(f[i].mean()),
+                    "std": float(f[i].std()),
+                    "dark": float((arr[i] <= CARD_DARK_LUMA).mean()),
+                    "bright": float((arr[i] >= CARD_BRIGHT_LUMA).mean()),
+                    "mid": float(((arr[i] > CARD_DARK_LUMA)
+                                  & (arr[i] < CARD_BRIGHT_LUMA)).mean()),
+                    "diff": d})
+    return out
+
+
+def frame_kind(s: dict, prev: dict | None = None) -> str | None:
+    """'black', 'text card' or None (watchable) for one sample."""
+    if s["mean"] <= BLACK_LUMA or s["std"] <= FLAT_STD:
+        return "black"
+    if (s["dark"] >= CARD_DARK_SHARE
+            and CARD_BRIGHT_MIN <= s["bright"] <= CARD_BRIGHT_MAX
+            and s.get("mid", 1.0) <= CARD_MID_MAX
+            and s["diff"] is not None and s["diff"] <= CARD_STILL_DIFF):
+        return "text card"
+    return None
+
+
+def unwatchable_spans(stats: list, min_sec: float,
+                      fps: float = PROFILE_FPS) -> list:
+    """[(a, b, kinds)] contiguous unwatchable runs of at least `min_sec`."""
+    step = 1.0 / fps
+    kinds = [frame_kind(s) for s in stats]
+    # a card's first sample has no predecessor to prove stillness; a card
+    # run is judged from its second sample, so carry the kind back one step
+    for i in range(len(kinds) - 1):
+        if kinds[i] is None and kinds[i + 1] == "text card" \
+                and stats[i]["dark"] >= CARD_DARK_SHARE \
+                and stats[i].get("mid", 1.0) <= CARD_MID_MAX:
+            kinds[i] = "text card"
+    out, i = [], 0
+    while i < len(kinds):
+        if kinds[i] is None:
+            i += 1
+            continue
+        j = i
+        while j < len(kinds) and kinds[j] is not None:
+            j += 1
+        a, b = stats[i]["t"], stats[j - 1]["t"] + step
+        if b - a >= min_sec - 1e-6:
+            out.append((round(a, 2), round(b, 2),
+                        sorted(set(k for k in kinds[i:j] if k))))
+        i = j
+    return out
+
+
+def _bound_windows(draft: dict) -> list:
+    """[(line_id, a, b)] for every bound clip window and montage segment."""
+    from pipeline.draft import parse_ts
+    out = []
+    for ln in (draft or {}).get("lines") or []:
+        if not isinstance(ln, dict) or ln.get("pool"):
+            continue
+        segs = [(ln.get("clip_start"), ln.get("clip_end"))]
+        segs += [(s.get("clip_start"), s.get("clip_end"))
+                 for s in (ln.get("montage") or []) if isinstance(s, dict)]
+        for cs, ce in segs:
+            if not cs or not ce:
+                continue
+            try:
+                a, b = parse_ts(cs), parse_ts(ce)
+            except Exception:
+                continue
+            if b > a:
+                out.append((ln.get("id"), a, b))
+    return out
+
+
+def unwatchable_report(draft: dict, pdir: Path,
+                       source: Path | None = None) -> dict:
+    """[UNWATCHABLE-FOOTAGE] on every bound window, measured on the source.
+
+    {"errors", "warns", "notes", "stats"}. Measurements are cached per source
+    file version and window in _cache/unwatchable_footage.json (draft
+    validation runs often; the source does not change). No source = the check
+    did NOT run, said as a warning - never a silent pass.
+    """
+    import json
+    pdir = Path(pdir)
+    src = Path(source or (pdir / "source.mp4"))
+    min_sec = float(getattr(config, "UNWATCHABLE_MIN_SEC", 1.0))
+    E, W, N = [], [], []
+    wins = _bound_windows(draft)
+    S = {"windows": len(wins), "measured": 0, "cached": 0, "bad": []}
+    if not wins:
+        return {"errors": E, "warns": W, "notes": N, "stats": S}
+    if not src.exists():
+        W.append(f"[UNWATCHABLE-FOOTAGE] did NOT run: {src.name} is not in "
+                 f"{pdir.name}, so {len(wins)} bound window(s) were not "
+                 f"checked for black or text-card footage. This is not a "
+                 f"pass.")
+        return {"errors": E, "warns": W, "notes": N, "stats": S}
+    st = src.stat()
+    sig = f"{st.st_size}:{st.st_mtime_ns}:v{CACHE_VERSION}:{min_sec}"
+    cp = pdir / "_cache" / "unwatchable_footage.json"
+    try:
+        cache = json.loads(cp.read_text(encoding="utf-8"))
+        if cache.get("sig") != sig:
+            cache = {"sig": sig, "windows": {}}
+    except (OSError, ValueError):
+        cache = {"sig": sig, "windows": {}}
+    bad = []
+    failed = []
+    for lid, a, b in wins:
+        key = f"{a:.3f}-{b:.3f}"
+        if key in cache["windows"]:
+            spans = cache["windows"][key]
+            S["cached"] += 1
+        else:
+            stats = frame_stats(src, a, b)
+            if not stats:
+                failed.append(lid)
+                continue
+            spans = [list(x) for x in unwatchable_spans(stats, min_sec)]
+            cache["windows"][key] = spans
+            S["measured"] += 1
+        for sa, sb, kinds in spans:
+            bad.append((lid, a, b, sa, sb, kinds))
+    try:
+        cp.parent.mkdir(parents=True, exist_ok=True)
+        cp.write_text(json.dumps(cache), encoding="utf-8")
+    except OSError:
+        pass
+    S["bad"] = [x[0] for x in bad]
+    if failed:
+        W.append(f"[UNWATCHABLE-FOOTAGE] {len(failed)} window(s) could not be "
+                 f"decoded from {src.name} and were NOT checked: lines "
+                 f"{sorted(set(map(str, failed)))[:8]}.")
+    if bad:
+        def _t(x):
+            return f"{int(x // 60)}:{x % 60:05.2f}"
+        E.append(
+            f"[UNWATCHABLE-FOOTAGE] {len(bad)} bound window(s) land on footage "
+            f"no viewer can watch (>= {min_sec:.1f}s of black or a still text "
+            f"card - a logo, a credit caption, a disclaimer): "
+            + "; ".join(f"line {lid} {_t(a)}-{_t(b)} has {'/'.join(k)} at "
+                        f"{_t(sa)}-{_t(sb)}" for lid, a, b, sa, sb, k in bad[:8])
+            + ". Re-bind the line to story footage.")
+    else:
+        N.append(f"[UNWATCHABLE-FOOTAGE] {len(wins)} bound window(s) checked "
+                 f"on {src.name}: none on black or a text card.")
+    return {"errors": E, "warns": W, "notes": N, "stats": S}

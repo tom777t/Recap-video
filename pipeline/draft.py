@@ -598,9 +598,11 @@ def validate_draft(project: str, *, write_state: bool = False,
         from pipeline import ending_gates as _end
         from pipeline import shotlist_gates as _shot
         from pipeline import samepoint_gates as _samep
+        from pipeline import footage as _footmod
         for _mod, _fn in ((_mot, "motif_report"), (_rev, "review_report"),
                           (_end, "ending_report"), (_shot, "shotlist_report"),
-                          (_samep, "samepoint_report")):
+                          (_samep, "samepoint_report"),
+                          (_footmod, "unwatchable_report")):
             _rp = getattr(_mod, _fn)(draft, _pdir)
             errors.extend(_rp.get("errors") or [])
             for _w in _rp.get("warns") or []:

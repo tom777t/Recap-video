@@ -857,6 +857,14 @@
     "what": "",
     "severity_source": "inferred"
   },
+  "UNWATCHABLE-FOOTAGE": {
+    "severity": "error",
+    "modules": [
+      "pipeline/footage.py"
+    ],
+    "what": "a bound clip window holds >= UNWATCHABLE_MIN_SEC of black or a still text card (logo, credit caption, end disclaimer), measured on source.mp4; did-not-run is a warning",
+    "severity_source": "declared"
+  },
   "VISUAL-CAPACITY": {
     "severity": "warn",
     "modules": [
