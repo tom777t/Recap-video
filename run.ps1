@@ -634,6 +634,36 @@ n = len([l for l in d.get('lines') or []
          if l.get('film_speaks_seconds') is not None])
 print('OK' if n >= 2 else f'NEED:{n}')
 "@
+    # Selection da co (vong LLM da chay): AP DUNG vao draft.json roi kiem lai
+    # bang chinh gate cua draft. tools\apply_film_speaks.py cat cua so line chu
+    # cho KET THUC o cho quote bat dau (neu khong se trip [FOOTAGE-REUSE]) va
+    # thay cau truoc/sau. exit 1 = co finding can nguoi xem (vd line id trong
+    # selection khong con la hang xom cua unit) - DUNG, khong doan.
+    if ($fsNeed -like 'NEED:*' -and (Test-Path "$Pdir\film_speaks_selection.json")) {
+        Say "   ap dung film_speaks_selection.json vao draft.json"
+        & python tools\apply_film_speaks.py --project $Project | Out-Host
+        $fsApply = $LASTEXITCODE
+        if ($fsApply -ne 0) {
+            Halt "FILM_SPEAKS - ap dung selection co finding (exit $fsApply)" @(
+                "Doc cac dong FINDING o tren."
+                "Line id trong selection khong khop draft hien tai: chay lai"
+                "vong chon (prompts\film_speaks_select.md), hoac neu cau thay"
+                "van dung cho hang xom hien tai:"
+                "  python tools\apply_film_speaks.py --project $Project --by-position"
+            ) ".\run.ps1 -Project $Project -From filmspeaks"
+            exit 0
+        }
+        $code = Recap -CmdArgs @('draft', '--project', $Project) -AllowSoftFail
+        if ($code -eq 1) {
+            Halt "FILM_SPEAKS - draft khong qua gate sau khi ap dung" @(
+                "Sua cac loi [..] o tren trong $Pdir\draft.json"
+                "(ban truoc: draft.pre_film_speaks.json)."
+            ) ".\run.ps1 -Project $Project -From filmspeaks"
+            exit 0
+        }
+        $fsNeed = 'OK'
+        Ok "film_speaks: selection da ap dung, draft qua gate"
+    }
     if ($fsNeed -like 'NEED:*') {
         if (-not (Test-Path "$Pdir\film_speaks_candidates.json")) {
             Say "   sinh ung vien (co do sach thoai bang Demucs - cham)"
