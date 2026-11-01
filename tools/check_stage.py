@@ -33,6 +33,19 @@ def jload(p, default=None):
         return default
 
 
+def tags_todo(pdir) -> list:
+    """Span ids in spans.json order that have no spans.json.d/<id>.json yet.
+
+    A function so tools/tag_batch.py asks the SAME question: if the API path
+    had its own idea of "still to tag" it could resubmit spans a subagent
+    already wrote, or skip ones run.ps1 still waits on."""
+    m = jload(Path(pdir) / "spans.json", {}) or {}
+    ids = [s["id"] for s in m.get("spans", [])]
+    d = Path(pdir) / "spans.json.d"
+    have = {f.stem for f in d.glob("*.json")} if d.exists() else set()
+    return [i for i in ids if i not in have]
+
+
 def main() -> int:
     proj, q = sys.argv[1], sys.argv[2]
     pdir = config.project_dir(proj)
@@ -63,11 +76,7 @@ def main() -> int:
         return 0
 
     if q == "tags-todo":
-        m = jload(pdir / "spans.json", {})
-        ids = [s["id"] for s in m.get("spans", [])]
-        d = pdir / "spans.json.d"
-        have = {f.stem for f in d.glob("*.json")} if d.exists() else set()
-        todo = [i for i in ids if i not in have]
+        todo = tags_todo(pdir)
         print(" ".join(todo) if todo else "NONE")
         return 0
 

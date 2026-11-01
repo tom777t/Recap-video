@@ -42,6 +42,18 @@ Whisper. Report what it said and let the user answer — that one is theirs.
 
 ### TAG SPANS
 
+**API path first (when `ANTHROPIC_API_KEY` is set).** `run.ps1` then tags
+through the Anthropic API instead (`tools/tag_batch.py`, Message Batches,
+`config.TAG_MODEL`, paid from API credits, not the subscription limit). It
+submits one batch and halts with `DUNG: TAG SPANS - da gui batch API` or
+`- batch API chua xong`. That halt is **not** subagent work: run
+`python tools/tag_batch.py collect --project <p> --wait` (it polls until the
+batch ends - minutes to hours), then the resume command. Spans the API still
+gets wrong after one retry on `config.TAG_ESCALATE_MODEL` are recorded in
+`projects/<p>/tag_batch.json`, and the next `run.ps1` halt lists exactly those
+for subagents below. Never set or print the key yourself.
+
+**Subagent path (no key, or the spans the API failed).**
 `check_stage.py <p> tags-todo` lists the spans with no tag yet. **One subagent
 per span**, run in parallel batches of 8-13.
 

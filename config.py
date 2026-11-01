@@ -1448,3 +1448,16 @@ WINDOW_SPAN_MIN_MEDIAN = 1.5
 # 4-performance-core laptop (each libx264 encode is itself multi-threaded, so
 # more workers mostly add contention and heat). 1 = sequential, as before.
 CLIP_WORKERS = 3
+
+# --- TAG_MODEL: span tagging through the Anthropic API (tools/tag_batch.py) ---
+# Phase 3 of docs/stage2/STAGE2_PLAN.md: tagging is look-and-label work on ~70
+# spans a film, and doing it with OpenCode subagents took hours and ate the
+# subscription's weekly limit that the WRITING stages need. A small model in
+# a Message Batch does the same unit (one span: span_prompt.md + payload +
+# frames) from API credits. Ids checked against the installed anthropic SDK's
+# model list (types/model.py); re-check if the SDK is upgraded.
+TAG_MODEL = "claude-haiku-5-5"
+# A span whose reply fails validation is retried ONCE on this model before it
+# is handed to the subagent fallback. The span schema has no confidence field,
+# so validation failure is the only escalation trigger.
+TAG_ESCALATE_MODEL = "claude-sonnet-5-5"

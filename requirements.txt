@@ -6,3 +6,5 @@ rich>=13.0.0
 numpy>=1.24            # RENDER-CHECK position gate (arrives with faster-whisper,
                        # declared here because render.py now depends on it directly)
 truststore>=0.9.0   # use the OS certificate store (managed/proxied networks)
+anthropic>=2.3.0    # tools/tag_batch.py: span tagging via Message Batches (optional -
+                    # only needed when ANTHROPIC_API_KEY is set; written against 2.3.0)

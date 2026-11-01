@@ -253,6 +253,8 @@ if (Should 'names') {
 # Ba buoc tiep theo (spans / tags / beats) la vong LLM. Chung KHONG tu chay
 # duoc tu PowerShell: khong co API key nao dung duoc (Gemini chan ca hai tang,
 # ANTHROPIC_API_KEY chua dat), nen tagger la subagent do mot agent dieu phoi.
+# (Pha 3: neu ANTHROPIC_API_KEY DA dat, buoc tags gui Message Batch thay vi
+# subagent - xem khau 5. Beats van la subagent.)
 # Nen moi buoc lam het phan CO HOC roi DUNG lai voi danh sach viec chinh xac.
 # Noi thang: "mot lenh, phim vao, video ra" chua dat duoc o day, va cho ket
 # la ba diem nay - khong phai mot chi tiet con thieu.
@@ -280,12 +282,56 @@ if (Should 'spans') {
 }
 
 # --------------------------------------------------------------------------- #
-# 4. TAGS  (vong LLM: mot subagent moi span)
+# 4. TAGS  (vong LLM: API theo lo neu co key, khong thi mot subagent moi span)
 # --------------------------------------------------------------------------- #
 if (Should 'tags') {
     Say "5. TAG SPANS (vong LLM)"
 
     $todo = python tools\check_stage.py $Project tags-todo
+    # Pha 3: co ANTHROPIC_API_KEY thi tag bang Message Batches (tools\tag_batch.py),
+    # tra bang tin dung API, khong tieu vao gioi han tuan cua goi ma cac buoc
+    # VIET can. Batch chay bat dong bo (vai phut toi vai gio), nen o day chi
+    # GUI roi DUNG; lan chay sau thu ve. Span nao API van hong sau mot lan thu
+    # lai bang model lon hon thi roi xuong duong subagent ben duoi - y nguyen.
+    if ($todo -and $todo -ne 'NONE' -and -not $Force -and $env:ANTHROPIC_API_KEY) {
+        $st = python tools\tag_batch.py status --project $Project
+        if ($st -eq 'PENDING') {
+            Write-Host "  > python tools\tag_batch.py collect --project $Project" -ForegroundColor DarkGray
+            & python tools\tag_batch.py collect --project $Project | Out-Host
+            $code = $LASTEXITCODE
+            if ($code -eq 3) {
+                Halt "TAG SPANS - batch API chua xong" @(
+                    "Batch da gui, dang chay phia Anthropic (vai phut toi vai gio)."
+                    "Thu ve bang tay, doi toi khi xong:"
+                    "  python tools\tag_batch.py collect --project $Project --wait"
+                    "roi chay lai lenh duoi. Hoac chay lai thang lenh duoi luc nao cung duoc."
+                ) ".\run.ps1 -Project $Project -From tags"
+                exit 0
+            }
+            if ($code -eq 1) {
+                Bad "tag_batch collect that bai - doc loi o tren"
+                exit 1
+            }
+            $st = python tools\tag_batch.py status --project $Project
+        }
+        if ($st -eq 'NEW') {
+            Write-Host "  > python tools\tag_batch.py submit --project $Project" -ForegroundColor DarkGray
+            & python tools\tag_batch.py submit --project $Project | Out-Host
+            if ($LASTEXITCODE -eq 0) {
+                Halt "TAG SPANS - da gui batch API" @(
+                    "Model: config.TAG_MODEL. Id batch ghi trong $Pdir\tag_batch.json."
+                    "Batch chay bat dong bo. Thu ve (doi toi khi xong):"
+                    "  python tools\tag_batch.py collect --project $Project --wait"
+                    ""
+                    "Span nao van hong sau khi thu ve se duoc liet ke va chuyen"
+                    "sang duong subagent o lan chay tiep theo."
+                ) ".\run.ps1 -Project $Project -From tags"
+                exit 0
+            }
+            Warn "tag_batch submit that bai - dung duong subagent"
+        }
+        $todo = python tools\check_stage.py $Project tags-todo
+    }
     if ($todo -and $todo -ne 'NONE' -and -not $Force) {
         $n = ($todo -split ' ').Count
         Halt "TAG SPANS - $n span chua duoc tag" @(
