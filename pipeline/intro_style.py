@@ -20,16 +20,21 @@ and eight presets ship below. `energetic` is today's montage, byte for byte:
 it takes the legacy code path for cuts AND footage (see the note at
 PROFILES['energetic'] for the one switch, config.INTRO_ENERGETIC_PROFILE).
 
-CHOOSING (choose()): an explicit `intro_style` in draft.json wins. Otherwise
-the intro music's measured features give AROUSAL (onset density, tempo,
-loudness) and VALENCE (major/minor); the tone words of angle.md pick the
-genre among the presets that fit that arousal. Every decision is returned as
-a list of reasons and printed.
+CHOOSING (choose()) - the owner's decision, 2026-11-02: the style is a
+CREATIVE choice made by a person, not inferred (the music classifier read a
+ballad, "See You Again", as energetic). Precedence:
 
-THRESHOLDS (calibrated - tools/test_intro_style.py; HIGH_* / LOW_* below):
+    draft.json "intro_style"  >  projects/<p>/intro_style.txt  >  legacy
+
+The angle stage writes intro_style.txt with a SUGGESTED preset and a reason
+when the file does not exist, and never overwrites it. An invalid name
+raises IntroStyleError listing the 8 presets. The music measurements below
+are kept only as a logged HINT.
+
+HINT THRESHOLDS (logged only; HIGH_* / LOW_* below):
   high arousal  onset density >= 1.3 /s AND brightness >= 1500 Hz
   low arousal   onset density < 1.0 /s OR brightness < 1000 Hz
-  else          mid (mode decides: major -> energetic, minor -> suspense)
+  else          mid
   Measured on the synthetic fixtures (tools/intro_music_fixtures.py):
     140-BPM drums  1.55 /s, 2533 Hz -> high -> energetic
     110-BPM drums  1.38 /s, 2532 Hz -> high
@@ -39,8 +44,6 @@ THRESHOLDS (calibrated - tools/test_intro_style.py; HIGH_* / LOW_* below):
   tops out near 1.8 /s - a bar near that is unreachable. TEMPO is measured
   and logged but NOT used: on sustained, non-percussive music the
   autocorrelation reads harmonics (the ballads measured 143-184 BPM).
-  tokyodrift2006/intro_music.mp3 must classify high -> energetic; that case
-  runs where the file exists (the owner's laptop) and prints NOT RUN here.
 
 NOTHING FILM-SPECIFIC LIVES HERE: the lexicons are general English.
 """
@@ -194,68 +197,94 @@ def angle_tone(pdir: Path) -> tuple:
     return (g if counts[g] >= 2 else None), counts
 
 
-# which presets each arousal level allows, and the default for each mode
-FITS = {
-    "high": {"default": "energetic",
-             "genres": ("epic", "comedy", "horror", "suspense")},
-    "mid":  {"default": {"major": "energetic", "minor": "suspense",
-                         "unknown": "energetic"},
-             "genres": ("comedy", "epic", "romance", "mystery", "suspense",
-                        "horror")},
-    # a slow, soft track is emotional unless the angle names a darker genre;
-    # mode is NOT used here: the measured major/minor reading is not reliable
-    # enough on sustained chords (C-Am-F-G read as A minor)
-    "low":  {"default": {"major": "emotional", "minor": "emotional",
-                         "unknown": "emotional"},
-             "genres": ("romance", "mystery", "horror", "suspense")},
-}
+STYLE_FILE = "intro_style.txt"
 
 
-def choose(project: str, music: Path | None) -> tuple:
-    """(preset name, [reasons]). Never raises: an unreadable input becomes
-    a stated reason and the legacy energetic montage."""
+class IntroStyleError(ValueError):
+    """An intro_style that names no preset. Raised, never defaulted: the
+    owner asked for a style and silently getting another is the defect."""
+
+
+def _valid(name: str, where: str) -> str:
+    n = str(name).strip().lower()
+    if n not in PRESETS:
+        raise IntroStyleError(
+            f"{where} names intro style {name!r}, which is not a preset. "
+            f"Valid: {', '.join(PRESETS)}.")
+    return n
+
+
+def read_style_file(pdir: Path):
+    """The preset named on the first non-comment line of intro_style.txt,
+    or None when the file does not exist. Raises IntroStyleError on a name
+    that is not a preset or a file with no name in it."""
+    p = Path(pdir) / STYLE_FILE
+    if not p.exists():
+        return None
+    for ln in p.read_text(encoding="utf-8-sig").splitlines():
+        t = ln.strip()
+        if t and not t.startswith("#"):
+            return _valid(t.split()[0], f"{p.name}")
+    raise IntroStyleError(f"{p.name} exists but names no preset. Write one "
+                          f"of: {', '.join(PRESETS)}.")
+
+
+def write_suggestion(pdir: Path, preset: str, reason: str) -> bool:
+    """Write intro_style.txt with a SUGGESTED preset - unless it exists.
+    The file is the owner's choice once it is there; it is never
+    overwritten. Returns True if written."""
+    p = Path(pdir) / STYLE_FILE
+    if p.exists():
+        return False
+    preset = _valid(preset, "the suggested intro style")
+    p.write_text(f"{preset}\n# suggested by the angle stage: "
+                 f"{' '.join(str(reason).split())}\n# edit the first line to "
+                 f"change it - one of: {', '.join(PRESETS)}\n",
+                 encoding="utf-8")
+    return True
+
+
+def music_hint(music: Path | None) -> str | None:
+    """What the music measures as - LOGGED ONLY, never decides. It misread
+    a ballad as energetic, so the style is a person's choice."""
+    if music is None:
+        return None
+    try:
+        f = music_features(music)
+        ar, why = arousal(f)
+        return f"music hint (not used to decide): {ar} arousal - {why}"
+    except Exception as e:
+        return f"music hint unavailable ({type(e).__name__})"
+
+
+def choose(project: str, music: Path | None = None) -> tuple:
+    """(preset name, [reasons]). The edit style is a CREATIVE choice:
+
+        draft.json "intro_style"  >  projects/<p>/intro_style.txt  >
+        the legacy default (today's energetic montage)
+
+    An invalid name raises IntroStyleError listing the valid presets."""
     pdir = config.project_dir(project)
     why = []
     try:
         d = json.loads((pdir / "draft.json").read_text(encoding="utf-8-sig"))
-        ov = d.get("intro_style")
+        ov = d.get("intro_style") if isinstance(d, dict) else None
     except (OSError, ValueError):
         ov = None
+    hint = music_hint(music)
     if ov:
-        if ov in PRESETS:
-            return ov, [f"draft.json sets intro_style = {ov!r} (explicit "
-                        f"override wins)"]
-        why.append(f"draft.json intro_style {ov!r} is not a preset "
-                   f"({', '.join(PRESETS)}) - ignored")
-    if music is None:
-        return "energetic", why + ["no intro music to measure - legacy style"]
-    try:
-        f = music_features(music)
-    except Exception as e:
-        return "energetic", why + [f"music features could not be measured "
-                                   f"({type(e).__name__}: {e}) - legacy style"]
-    if f["onsets"] == 0 or f["loudness_db"] < -50.0:
-        # Nothing to measure is not "a calm track": a silent or featureless
-        # file says nothing about the music's character, so the legacy
-        # montage is kept and the reason said.
-        return "energetic", why + [
-            f"intro music has no measurable character ({f['onsets']} onsets, "
-            f"{f['loudness_db']} dBFS) - legacy style, not a classification"]
-    ar, awhy = arousal(f)
-    why.append(f"music: {awhy}; mode {f['mode']} "
-               f"(r={f['mode_strength']}), brightness {f['brightness_hz']} Hz")
-    tone, counts = angle_tone(pdir)
-    fit = FITS[ar]
-    if tone and tone in fit["genres"]:
-        why.append(f"angle.md tone: {tone} ({counts[tone]} tone word(s)) "
-                   f"fits {ar} arousal")
-        return tone, why
-    if tone:
-        why.append(f"angle.md tone {tone} does not fit {ar} arousal - "
-                   f"music decides")
-    dflt = fit["default"]
-    pick = dflt if isinstance(dflt, str) else dflt.get(f["mode"], "energetic")
-    why.append(f"{ar} arousal, {f['mode']} -> {pick}")
+        pick = _valid(ov, "draft.json")
+        why.append(f"draft.json sets intro_style = {pick!r}")
+    else:
+        pick = read_style_file(pdir)
+        if pick:
+            why.append(f"{STYLE_FILE} chooses {pick!r}")
+        else:
+            pick = "energetic"
+            why.append(f"no intro_style in draft.json and no {STYLE_FILE} - "
+                       f"the legacy default")
+    if hint:
+        why.append(hint)
     return pick, why
 
 

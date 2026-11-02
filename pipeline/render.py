@@ -2315,7 +2315,10 @@ def render(project: str, draft: dict,
             # [INTRO-MONTAGE] exists to stop the twist appearing in the first
             # ten seconds, and swallowing it here would undo that gate.
             from pipeline.intro import IntroSpoiler as _Spoil
-            if isinstance(_e, _Spoil):
+            from pipeline.intro_style import IntroStyleError as _StyleErr
+            # ...and neither may an intro style that names no preset: the
+            # owner asked for a style, and a montage in another one is wrong.
+            if isinstance(_e, (_Spoil, _StyleErr)):
                 console.print(f"[red]{_e}[/]")
                 raise
             if intro_offset > 0:

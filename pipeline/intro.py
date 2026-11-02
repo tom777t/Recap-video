@@ -782,13 +782,14 @@ def _intro_cache_key(project: str) -> str:
     # the EDIT STYLE: the explicit override, and the preset chosen from the
     # music and angle.md (both inputs are fed below as well)
     _feed("intro_style_override", d.get("intro_style"))
+    _sf = pdir / "intro_style.txt"
+    _feed("intro_style.txt", _sf.read_bytes() if _sf.exists() else b"-")
     try:
         from pipeline import intro_style as _st
-        _m = next((pdir / f"intro_music{e}" for e in (".mp3", ".m4a", ".wav",
-                   ".ogg") if (pdir / f"intro_music{e}").exists()), None)
-        _feed("intro_style", _st.choose(project, _m)[0])
-    except Exception as _e:                              # pragma: no cover
-        _feed("intro_style", f"error {type(_e).__name__}")
+        _feed("intro_style", _st.choose(project, None)[0])
+    except Exception as _e:
+        # an invalid name: build_intro raises it; the key must still differ
+        _feed("intro_style", f"error {type(_e).__name__}: {_e}")
     _feed("angle.md", (pdir / "angle.md").read_bytes()
           if (pdir / "angle.md").exists() else b"-")
     for name in ("reveals.json", "shots.json", "film_facts.json", "names.json",

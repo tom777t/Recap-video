@@ -70,6 +70,19 @@ A promise may not land in a compressed or footage-only beat ([HOOK-PAYOFF]).
 reveal's landing and setup beats. Nothing else. [BEAT-COVERAGE] fails the draft
 if a mandatory beat has no line, so do not pad it.
 
+## intro_style.txt - a SUGGESTION, the owner decides
+
+If `projects/<p>/intro_style.txt` does NOT exist, write it with the intro
+montage edit style you suggest for this film and why, in this shape:
+
+    emotional
+    # suggested by the angle stage: <one line - why this film's opening wants it>
+
+The first line is exactly one of: energetic, emotional, suspense, mystery,
+horror, comedy, epic, romance. Choose from the ANGLE and the ATTITUDE, not
+from the music. **If the file already exists, do not touch it** - it is the
+owner's choice once it is there.
+
 ## Before you finish
 
 - Every B-number you cite exists in `beats_proposal.md`.

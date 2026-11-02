@@ -16,7 +16,8 @@ format the validators accept" is tested against the validators themselves.
                     records the oldid; film_facts.json written
   ANGLE             style guide + voice doc in the cached system prefix; a
                     reply angle_spec.load rejects is retried ONCE with the
-                    parser's error; the good one passes angle_spec.load
+                    parser's error; the good one passes angle_spec.load;
+                    intro_style.txt gets the suggestion only when absent
   DRAFT-LOOP        acts in one batch; each act gets back ONLY its own
                     findings (review-gate findings never), for at most 2
                     rounds, then it stops and lists what is left (exit 2)
@@ -205,7 +206,10 @@ def test_angle():
     (PDIR / "angle.md").unlink()
     (PDIR / "coverage_policy.json").unlink()
     good = {"angle_md": (SRC / "angle.md").read_text(encoding="utf-8"),
-            "coverage_policy": _j(SRC / "coverage_policy.json")}
+            "coverage_policy": _j(SRC / "coverage_policy.json"),
+            "intro_style": {"preset": "emotional",
+                            "reason": "a story about being moved on"}}
+    (PDIR / "intro_style.txt").unlink(missing_ok=True)
     bad = {"angle_md": "## NOTHING\nno sections", "coverage_policy": {}}
     c = Client(lambda p, n: msg(bad if n == 1 else good))
     rc, out = _run(c, "angle", "--project", PROJ)
@@ -219,7 +223,21 @@ def test_angle():
         return False, "retry did not carry the parser's error"
     from pipeline import angle_spec
     angle_spec.load(PDIR)
-    return True, "bad reply retried once with the parser error; good one loads"
+    sf = PDIR / "intro_style.txt"
+    if not sf.exists() or not sf.read_text().startswith("emotional\n") \
+            or "being moved on" not in sf.read_text():
+        return False, "intro_style.txt suggestion not written with its reason"
+    if "intro_style" not in s:
+        return False, "the angle request does not ask for an intro_style"
+    # never overwrite: the owner's file survives a re-run of the angle stage
+    (PDIR / "angle.md").unlink()
+    sf.write_text("horror\n# owner\n")
+    c2 = Client(lambda p, n: msg(good))
+    _run(c2, "angle", "--project", PROJ)
+    if sf.read_text() != "horror\n# owner\n":
+        return False, "the angle stage overwrote the owner's intro_style.txt"
+    return True, ("bad reply retried once with the parser error; good one "
+                  "loads; intro_style.txt suggested once, never overwritten")
 
 
 def test_draft_loop():

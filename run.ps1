@@ -451,6 +451,7 @@ print(f"  reveal-map: {len(D.parse_reveal_map(proj))} muc")
     $py | Out-File -FilePath "$env:TEMP\_beats.py" -Encoding utf8
     python "$env:TEMP\_beats.py" $Project
 
+    $istyle = python -c "import sys; sys.path.insert(0, '.'); from pipeline import intro_style as S`ntry:`n    p, w = S.choose(sys.argv[1]); print(p + ' - ' + w[0])`nexcept Exception as e:`n    print('LOI: ' + str(e))" $Project
     Halt "CHOT DU LIEU - viec cua BAN, truoc khi sinh draft" @(
         "Doc ba thu tren va xac nhan:"
         ""
@@ -461,6 +462,11 @@ print(f"  reveal-map: {len(D.parse_reveal_map(proj))} muc")
         "         Co -> KHONG bao ve, ghi vao DELIBERATELY NOT PROTECTED (rule H1)"
         "       - moi reveal: HINH mang hay THOAI mang?"
         "         Thoai -> gate khong kiem duoc, phai mat nguoi doc beat do"
+        ""
+        "  4. intro montage style hien tai: $istyle"
+        "       Doi: sua dong dau cua $Pdir\intro_style.txt (mot trong:"
+        "       energetic emotional suspense mystery horror comedy epic romance)."
+        "       Stage angle chi GOI Y khi file chua co; khong bao gio ghi de."
         ""
         "Chot xong thi khoa lai: model viet draft doc duoc, khong sua duoc."
     ) ".\run.ps1 -Project $Project -From angle"

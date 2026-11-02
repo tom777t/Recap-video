@@ -480,7 +480,9 @@ def cmd_facts(a, client) -> int:
 def angle_request(pdir: Path) -> dict:
     sysb = system_blocks(
         "angle", 'the JSON object {"angle_md": "<the whole angle.md>", '
-        '"coverage_policy": {"_note": "...", "mandatory": [...]}}',
+        '"coverage_policy": {"_note": "...", "mandatory": [...]}, '
+        '"intro_style": {"preset": "<one preset name>", "reason": "<one '
+        'line>"}} - intro_style is what intro_style.txt would hold',
         extra=["# prompts/recap_style.md\n\n" + _read(STYLE),
                "# docs/NARRATOR_VOICE.md\n\n" + _read(VOICE),
                "# One shipped example - FORMAT, not content: "
@@ -517,6 +519,26 @@ def angle_problems(spec: dict, obj: dict) -> str | None:
     return "; ".join(bits) or None
 
 
+def suggest_intro_style(pdir: Path, sug) -> None:
+    """intro_style.txt with the angle writer's SUGGESTION - never over an
+    existing file (the owner's choice). A bad suggestion is reported, not
+    written, and does not fail the angle."""
+    from pipeline import intro_style as _st
+    if (pdir / _st.STYLE_FILE).exists():
+        print(f"angle: {_st.STYLE_FILE} exists - kept (the owner's choice)")
+        return
+    if not isinstance(sug, dict) or not sug.get("preset"):
+        print(f"angle: no intro_style suggested - {_st.STYLE_FILE} not "
+              f"written; the intro keeps the legacy style until one is set")
+        return
+    try:
+        _st.write_suggestion(pdir, sug["preset"], sug.get("reason") or "")
+        print(f"angle: wrote {_st.STYLE_FILE} = {sug['preset']} (a suggestion "
+              f"- edit the file to change it)")
+    except _st.IntroStyleError as e:
+        print(f"angle: suggested intro style NOT written - {e}")
+
+
 def cmd_angle(a, client) -> int:
     from pipeline import angle_spec
     pdir = config.project_dir(a.project)
@@ -543,6 +565,7 @@ def cmd_angle(a, client) -> int:
             if not why:
                 print(f"angle: wrote angle.md + coverage_policy.json "
                       f"(attempt {attempt}); angle_spec.load OK")
+                suggest_intro_style(pdir, obj.get("intro_style"))
                 return 0
         print(f"angle: attempt {attempt}: {why}")
         # one retry with the parser's own words - cheap, and the parser is

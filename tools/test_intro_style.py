@@ -1,17 +1,16 @@
 # -*- coding: utf-8 -*-
 """test_intro_style.py - the intro montage's edit style and shot selection.
 
-  CALIBRATE            synthetic drums -> energetic, synthetic slow ballad
-                       -> emotional (tools/intro_music_fixtures.py), from
-                       the measured music features alone; a SILENT track is
-                       not classified (legacy style) - nothing to measure is
-                       not a calm track
-  TOKYODRIFT-MUSIC     tokyodrift2006/intro_music.mp3 -> energetic (runs where
-                       the file exists; prints NOT RUN otherwise)
-  OVERRIDE-AND-TONE    draft.json intro_style wins; an angle.md comedy tone
-                       picks comedy on a high-arousal track; a tone that does
-                       not fit the arousal is ignored; tokyodrift2006's real
-                       angle.md carries no genre tone (its music decides)
+  HINT-ONLY            the music is measured (drums high, ballad low) but
+                       never decides: a ballad with nothing set gets the
+                       legacy default
+  PRECEDENCE           draft.json intro_style > intro_style.txt > legacy
+  INVALID-NAME         a name that is not a preset - in draft.json or the
+                       file, or an empty file - raises, listing all 8; the
+                       render re-raises it instead of downgrading to a notice
+  NEVER-OVERWRITE      write_suggestion writes once with its reason, never
+                       over an existing file (the owner's choice wins), and
+                       refuses an invalid suggestion
   EACH-PRESET-RENDERS  every preset builds the intro on the smoke fixture; the
                        emotional one has fewer cuts and longer average shots
                        than energetic (dissolve / dip presets render
@@ -70,61 +69,89 @@ def _proj(name: str, draft: dict | None = None, angle: str | None = None):
     return pdir
 
 
-def test_calibrate():
+def test_hint_only():
+    """The music is MEASURED (hint) but never decides: a ballad with no
+    intro_style set gets the legacy default, not 'emotional' - the classifier
+    read a real ballad as energetic, so the choice is a person's."""
     _music()
     _proj("_istyle_cal")
     try:
-        a, wa = S.choose("_istyle_cal", DRUMS)
-        b, wb = S.choose("_istyle_cal", BALLAD)
+        fd, fb = S.music_features(DRUMS), S.music_features(BALLAD)
+        hd, hb = S.arousal(fd)[0], S.arousal(fb)[0]
+        pick, why = S.choose("_istyle_cal", BALLAD)
     finally:
         shutil.rmtree(config.project_dir("_istyle_cal"), ignore_errors=True)
-    import subprocess
-    silent = TMP / "silent.mp3"
-    subprocess.run([config.ffmpeg(), "-y", "-v", "error", "-f", "lavfi", "-i",
-                    "anullsrc=r=48000:cl=mono", "-t", "20", str(silent)],
-                   check=True)
-    _proj("_istyle_cal")
+    ok = (hd == "high" and hb == "low" and pick == "energetic"
+          and any("not used to decide" in w for w in why))
+    return ok, (f"hint: drums {hd}, ballad {hb}; ballad with nothing set -> "
+                f"{pick} (legacy default)")
+
+
+def test_precedence():
     try:
-        c, wc = S.choose("_istyle_cal", silent)
+        pdir = _proj("_istyle_prec", {"lines": [], "intro_style": "horror"})
+        (pdir / S.STYLE_FILE).write_text("romance\n# owner\n")
+        both, _ = S.choose("_istyle_prec")
+        (pdir / "draft.json").write_text(json.dumps({"lines": []}))
+        filed, w = S.choose("_istyle_prec")
+        (pdir / S.STYLE_FILE).unlink()
+        none, wn = S.choose("_istyle_prec")
     finally:
-        shutil.rmtree(config.project_dir("_istyle_cal"), ignore_errors=True)
-    ok = (a == "energetic" and b == "emotional" and c == "energetic"
-          and "not a classification" in wc[-1])
-    return ok, (f"drums -> {a}; ballad -> {b} ({wb[-1]}); silent track -> "
-                f"{c} (legacy, not classified)")
+        shutil.rmtree(config.project_dir("_istyle_prec"), ignore_errors=True)
+    ok = both == "horror" and filed == "romance" and none == "energetic"
+    return ok, (f"draft+file -> {both}; file only -> {filed}; neither -> "
+                f"{none} ({wn[0]})")
 
 
-def test_tokyodrift_music():
-    m = config.project_dir("tokyodrift2006") / "intro_music.mp3"
-    if not m.exists():
-        print("NOT RUN  TOKYODRIFT-MUSIC     tokyodrift2006/intro_music.mp3 is "
-              "not on this box; on the owner's laptop it must choose energetic")
-        return None, ""
-    p, why = S.choose("tokyodrift2006", m)
-    return p == "energetic", f"tokyodrift2006 -> {p}: {'; '.join(why)}"
-
-
-COMEDY_ANGLE = ("## ANGLE\nA comedy: the funny side of a disaster, every joke "
-                "landing on the hero; slapstick and absurd.\n")
-
-
-def test_override_and_tone():
-    _music()
+def test_invalid_name():
+    errs = []
     try:
-        _proj("_istyle_ov", {"lines": [], "intro_style": "horror"})
-        ov, _w = S.choose("_istyle_ov", DRUMS)
-        _proj("_istyle_ov", angle=COMEDY_ANGLE)
-        tone, _w = S.choose("_istyle_ov", DRUMS)
-        romance = "## ANGLE\nA love story; the lovers and their romance.\n"
-        _proj("_istyle_ov", angle=romance)
-        misfit, wm = S.choose("_istyle_ov", DRUMS)     # romance not in high
+        for setup in ("draft", "file", "empty-file"):
+            pdir = _proj("_istyle_bad", {"lines": [], "intro_style": "jazzy"}
+                         if setup == "draft" else {"lines": []})
+            if setup == "file":
+                (pdir / S.STYLE_FILE).write_text("Jazzy\n")
+            if setup == "empty-file":
+                (pdir / S.STYLE_FILE).write_text("# nothing here\n")
+            try:
+                S.choose("_istyle_bad")
+                errs.append(f"{setup}: no error")
+            except S.IntroStyleError as e:
+                if not all(p in str(e) for p in S.PRESETS):
+                    errs.append(f"{setup}: message does not list all 8: {e}")
     finally:
-        shutil.rmtree(config.project_dir("_istyle_ov"), ignore_errors=True)
-    td, _c = S.angle_tone(config.project_dir("tokyodrift2006"))
-    ok = (ov == "horror" and tone == "comedy" and misfit == "energetic"
-          and td is None)
-    return ok, (f"override -> {ov}; comedy angle -> {tone}; romance angle on "
-                f"drums -> {misfit}; tokyodrift2006 angle tone {td}")
+        shutil.rmtree(config.project_dir("_istyle_bad"), ignore_errors=True)
+    src = (ROOT / "pipeline" / "render.py").read_text(encoding="utf-8")
+    if "_StyleErr" not in src or "(_Spoil, _StyleErr)" not in src:
+        errs.append("render.py swallows IntroStyleError as a notice")
+    return (not errs), ("invalid name in draft / file / empty file raises, "
+                        "listing all 8; the render re-raises it"
+                        if not errs else "; ".join(errs))
+
+
+def test_never_overwrite():
+    try:
+        pdir = _proj("_istyle_ow")
+        w1 = S.write_suggestion(pdir, "suspense", "a slow-burn thriller")
+        first = (pdir / S.STYLE_FILE).read_text()
+        (pdir / S.STYLE_FILE).write_text("comedy\n# the owner changed it\n")
+        w2 = S.write_suggestion(pdir, "epic", "should not land")
+        after = (pdir / S.STYLE_FILE).read_text()
+        pick, _w = S.choose("_istyle_ow")
+        try:
+            S.write_suggestion(_proj("_istyle_ow2"), "jazzy", "x")
+            bad = "an invalid suggestion was written"
+        except S.IntroStyleError:
+            bad = ""
+    finally:
+        shutil.rmtree(config.project_dir("_istyle_ow"), ignore_errors=True)
+        shutil.rmtree(config.project_dir("_istyle_ow2"), ignore_errors=True)
+    ok = (w1 and first.startswith("suspense\n") and "slow-burn" in first
+          and not w2 and after.startswith("comedy") and pick == "comedy"
+          and not bad)
+    return ok, ("suggestion written once with its reason; the owner's edit "
+                "is never overwritten and wins; invalid suggestion refused"
+                if ok else f"{w1} {w2} {after!r} {pick} {bad}")
 
 
 def _render(preset: str):
@@ -318,9 +345,10 @@ def test_in_cache_key():
 
 
 TESTS = {
-    "CALIBRATE":           test_calibrate,
-    "TOKYODRIFT-MUSIC":    test_tokyodrift_music,
-    "OVERRIDE-AND-TONE":   test_override_and_tone,
+    "HINT-ONLY":           test_hint_only,
+    "PRECEDENCE":          test_precedence,
+    "INVALID-NAME":        test_invalid_name,
+    "NEVER-OVERWRITE":     test_never_overwrite,
     "EACH-PRESET-RENDERS": test_each_preset_renders,
     "EPIC-BUILDS":         test_epic_builds,
     "ENERGETIC-LEGACY":    test_energetic_legacy,
