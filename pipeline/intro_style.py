@@ -234,6 +234,13 @@ def choose(project: str, music: Path | None) -> tuple:
     except Exception as e:
         return "energetic", why + [f"music features could not be measured "
                                    f"({type(e).__name__}: {e}) - legacy style"]
+    if f["onsets"] == 0 or f["loudness_db"] < -50.0:
+        # Nothing to measure is not "a calm track": a silent or featureless
+        # file says nothing about the music's character, so the legacy
+        # montage is kept and the reason said.
+        return "energetic", why + [
+            f"intro music has no measurable character ({f['onsets']} onsets, "
+            f"{f['loudness_db']} dBFS) - legacy style, not a classification"]
     ar, awhy = arousal(f)
     why.append(f"music: {awhy}; mode {f['mode']} "
                f"(r={f['mode_strength']}), brightness {f['brightness_hz']} Hz")

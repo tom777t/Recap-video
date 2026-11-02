@@ -3,7 +3,9 @@
 
   CALIBRATE            synthetic drums -> energetic, synthetic slow ballad
                        -> emotional (tools/intro_music_fixtures.py), from
-                       the measured music features alone
+                       the measured music features alone; a SILENT track is
+                       not classified (legacy style) - nothing to measure is
+                       not a calm track
   TOKYODRIFT-MUSIC     tokyodrift2006/intro_music.mp3 -> energetic (runs where
                        the file exists; prints NOT RUN otherwise)
   OVERRIDE-AND-TONE    draft.json intro_style wins; an angle.md comedy tone
@@ -76,8 +78,20 @@ def test_calibrate():
         b, wb = S.choose("_istyle_cal", BALLAD)
     finally:
         shutil.rmtree(config.project_dir("_istyle_cal"), ignore_errors=True)
-    ok = a == "energetic" and b == "emotional"
-    return ok, f"drums -> {a}; ballad -> {b} ({wb[-1]})"
+    import subprocess
+    silent = TMP / "silent.mp3"
+    subprocess.run([config.ffmpeg(), "-y", "-v", "error", "-f", "lavfi", "-i",
+                    "anullsrc=r=48000:cl=mono", "-t", "20", str(silent)],
+                   check=True)
+    _proj("_istyle_cal")
+    try:
+        c, wc = S.choose("_istyle_cal", silent)
+    finally:
+        shutil.rmtree(config.project_dir("_istyle_cal"), ignore_errors=True)
+    ok = (a == "energetic" and b == "emotional" and c == "energetic"
+          and "not a classification" in wc[-1])
+    return ok, (f"drums -> {a}; ballad -> {b} ({wb[-1]}); silent track -> "
+                f"{c} (legacy, not classified)")
 
 
 def test_tokyodrift_music():
