@@ -23,6 +23,7 @@ Missing `intro_music.mp3` is not an error. It prints a notice and skips.
 from __future__ import annotations
 
 import json
+import re
 import math
 import subprocess
 import sys
@@ -73,7 +74,8 @@ def _flux(x) -> "object":
     return env
 
 
-def detect_beats(path: Path, max_sec: float = 60.0) -> list:
+def detect_beats(path: Path, max_sec: float = 60.0,
+                 _with_strength: list | None = None) -> list:
     """Onset times in seconds, at least MIN_CUT_SEC apart.
 
     Peak-picked against a LOCAL median rather than a global threshold: music
@@ -99,7 +101,17 @@ def detect_beats(path: Path, max_sec: float = 60.0) -> list:
         if t - last >= MIN_CUT_SEC:
             times.append(round(t, 3))
             last = t
+            if _with_strength is not None:
+                _with_strength.append((round(t, 3), float(env[i] - base[i])))
     return times
+
+
+def detect_onsets(path: Path, max_sec: float = 60.0) -> list:
+    """[(t, strength)] for exactly the onsets detect_beats returns; strength
+    is the flux peak above its local median (pipeline/intro_style 'strong')."""
+    out: list = []
+    detect_beats(path, max_sec, _with_strength=out)
+    return out
 
 
 def detect_drop(path: Path, max_sec: float = 60.0) -> float:
@@ -275,12 +287,11 @@ def bound_windows(project: str) -> list:
     return sorted(out)
 
 
-def pick_moments(project: str, limit_sec: float, n: int) -> list:
-    """`n` catalogued moments spread across [0, limit_sec), none touching it.
-
-    Spread rather than "best", because there is no measure of best here and
-    picking by eye is what puts the twist in the montage.
-    """
+def usable_moments(project: str, limit_sec: float) -> list:
+    """[{a, b, shot}] catalogued moments the montage MAY use: long enough,
+    strictly before `limit_sec` (the first reveal's landing), never flagged
+    for censoring, never footage a story line is bound to. Every montage
+    style picks from this list and only this list."""
     pdir = config.project_dir(project)
     src = None
     for cand in ("shots.json", "shots_machine.json"):
@@ -290,7 +301,7 @@ def pick_moments(project: str, limit_sec: float, n: int) -> list:
     if src is None:
         return []
     shots = json.loads(src.read_text(encoding="utf-8-sig"))["shots"]
-    usable = []
+    usable, by_win = [], {}
     for s in shots:
         try:
             a, b = _pt(s["clip_start"]), _pt(s["clip_end"])
@@ -301,6 +312,7 @@ def pick_moments(project: str, limit_sec: float, n: int) -> list:
         if b > limit_sec:            # strictly before the land, end included
             continue
         usable.append((a, b))
+        by_win.setdefault((a, b), s)
     if not usable:
         return []
 
@@ -333,7 +345,20 @@ def pick_moments(project: str, limit_sec: float, n: int) -> list:
             "from them would repeat footage. Catalogue more early shots, or "
             "accept no montage.")
         return []
-    usable = _free
+    return [{"a": a, "b": b, "shot": by_win.get((a, b), {})} for a, b in _free]
+
+
+def pick_moments(project: str, limit_sec: float, n: int) -> list:
+    """`n` catalogued moments spread across [0, limit_sec), none touching it.
+
+    Spread rather than "best", because there is no measure of best here and
+    picking by eye is what puts the twist in the montage. This is the legacy
+    (energetic) selection; the other styles score the same candidates
+    (select_moments)."""
+    _u = usable_moments(project, limit_sec)
+    if not _u:
+        return []
+    usable = [(c["a"], c["b"]) for c in _u]
     usable.sort()
     out, used = [], set()
     for i in range(n):
@@ -346,6 +371,134 @@ def pick_moments(project: str, limit_sec: float, n: int) -> list:
         out.append(best)
     out.sort()
     return out
+
+
+def _shot_measures(project: str, cands: list) -> dict:
+    """{(a, b): (motion, luma)} measured on the source, cached per source
+    file version in _cache/shot_motion.json. Motion = mean luma difference
+    between samples 0.5s apart (footage.frame_stats), the cheapest signal
+    that separates a chase from a conversation. Missing source -> {}."""
+    from pipeline import footage as _ft
+    pdir = config.project_dir(project)
+    src = pdir / "source.mp4"
+    if not src.exists():
+        return {}
+    st = src.stat()
+    sig = f"{st.st_size}:{st.st_mtime_ns}"
+    cp = pdir / "_cache" / "shot_motion.json"
+    try:
+        cache = json.loads(cp.read_text(encoding="utf-8"))
+        if cache.get("sig") != sig:
+            cache = {"sig": sig, "m": {}}
+    except (OSError, ValueError):
+        cache = {"sig": sig, "m": {}}
+    out = {}
+    for c in cands:
+        k = f"{c['a']:.3f}-{c['b']:.3f}"
+        if k not in cache["m"]:
+            stats = _ft.frame_stats(src, c["a"], min(c["b"], c["a"] + 6.0),
+                                    fps=2.0)
+            diffs = [x["diff"] for x in stats if x["diff"] is not None]
+            cache["m"][k] = ([sum(diffs) / len(diffs) if diffs else 0.0,
+                              sum(x["mean"] for x in stats) / len(stats)]
+                             if stats else None)
+        if cache["m"][k]:
+            out[(c["a"], c["b"])] = tuple(cache["m"][k])
+    try:
+        cp.parent.mkdir(parents=True, exist_ok=True)
+        cp.write_text(json.dumps(cache), encoding="utf-8")
+    except OSError:
+        pass
+    return out
+
+
+def reveal_exclusions(project: str) -> set:
+    """Lowercased phrases naming what a reveal hides: every reveal's `hold`
+    phrases and film_facts.json's `withheld` items. The mystery profile
+    never shows a shot that mentions one."""
+    pdir = config.project_dir(project)
+    out = set()
+    try:
+        # the reveal map the land comes from (beats_proposal.md) ...
+        from pipeline.draft import parse_reveal_map
+        for r in parse_reveal_map(project):
+            out |= {str(h).lower().strip() for h in r.get("holds") or []
+                    if len(str(h).strip()) >= 3}
+    except Exception:
+        pass
+    try:
+        # ... and the machine reveals.json, if present
+        for r in json.loads((pdir / "reveals.json").read_text(
+                encoding="utf-8-sig")).get("reveals") or []:
+            out |= {str(h).lower().strip()
+                    for h in (r.get("hold") or []) + (r.get("holds") or [])
+                    if len(str(h).strip()) >= 3}
+    except (OSError, ValueError):
+        pass
+    try:
+        for w in json.loads((pdir / "film_facts.json").read_text(
+                encoding="utf-8-sig")).get("withheld") or []:
+            for tok in re.findall(r"[A-Z][a-z]{2,}", str(w.get("what") or "")):
+                out.add(tok.lower())
+    except (OSError, ValueError):
+        pass
+    return out
+
+
+def select_moments(project: str, limit_sec: float, n: int, preset: str) -> list:
+    """`n` moments for a style's shot-selection PROFILE, from exactly the same
+    candidates the legacy selection uses (usable_moments), each picked shot
+    logged with the reason it scored."""
+    from pipeline import intro_style as _st
+    pdir = config.project_dir(project)
+    cands = usable_moments(project, limit_sec)
+    if not cands:
+        return []
+    main = set()
+    try:
+        for c in json.loads((pdir / "film_facts.json").read_text(
+                encoding="utf-8-sig")).get("cast") or []:
+            if c.get("lead"):
+                main.add(str(c.get("role") or "").strip())
+                main.add(str(c.get("role") or "").split()[0] if c.get("role")
+                         else "")
+    except (OSError, ValueError):
+        pass
+    main.discard("")
+    beats, anchors = [], {}
+    try:
+        from pipeline import catalogue as _cat
+        for bt in _cat.parse_beats(project).get("beats") or []:
+            kind = str(bt.get("text") or "").rsplit("|", 1)[-1].strip()
+            beats.append((_pt(bt["ts"]), bt.get("id"), kind))
+        beats.sort()
+    except Exception:
+        beats = []
+    try:
+        from pipeline import angle_spec as _as
+        for an in _as.load(pdir).get("anchors") or []:
+            for b in an.get("beats") or []:
+                anchors[b] = str(an.get("kind") or "").lower()
+    except Exception:
+        pass
+    meas = _shot_measures(project, cands)
+    for c in cands:
+        bk, bid = "", None
+        for t, i, k in beats:
+            if t <= c["a"] + 0.5:
+                bk, bid = k, i
+            else:
+                break
+        m = meas.get((c["a"], c["b"]))
+        c["f"] = _st.shot_features(c["shot"], main, bk, anchors.get(bid, ""),
+                                   motion=m[0] if m else None,
+                                   luma=m[1] if m else None)
+    console.print(f"[dim]Intro montage: {preset} shot profile over "
+                  f"{len(cands)} usable moment(s)"
+                  + ("" if meas else " (no source.mp4: motion/darkness not "
+                     "measured, catalogue text only)") + ":[/]")
+    return _st.select(cands, n, preset, exclude=reveal_exclusions(project),
+                      log=lambda m: console.print(f"[dim]{m}[/]"))
 
 
 # ----------------------------------------------------------------- gate ----
@@ -626,6 +779,18 @@ def _intro_cache_key(project: str) -> str:
                           if isinstance(l, dict)
                           and (l.get("over_montage") or l.get("film_intro"))])
     _feed("title", [d.get("title"), d.get("project")])
+    # the EDIT STYLE: the explicit override, and the preset chosen from the
+    # music and angle.md (both inputs are fed below as well)
+    _feed("intro_style_override", d.get("intro_style"))
+    try:
+        from pipeline import intro_style as _st
+        _m = next((pdir / f"intro_music{e}" for e in (".mp3", ".m4a", ".wav",
+                   ".ogg") if (pdir / f"intro_music{e}").exists()), None)
+        _feed("intro_style", _st.choose(project, _m)[0])
+    except Exception as _e:                              # pragma: no cover
+        _feed("intro_style", f"error {type(_e).__name__}")
+    _feed("angle.md", (pdir / "angle.md").read_bytes()
+          if (pdir / "angle.md").exists() else b"-")
     for name in ("reveals.json", "shots.json", "film_facts.json", "names.json",
                  "intro_music.mp3", "music.mp3"):
         p = pdir / name
@@ -638,7 +803,8 @@ def _intro_cache_key(project: str) -> str:
     _feed("config", {k: repr(getattr(config, k)) for k in dir(config)
                      if k.isupper()})
     here = Path(__file__).resolve().parent
-    for mod in ("intro.py", "footage.py", "encoder.py", "censor.py", "music.py"):
+    for mod in ("intro.py", "intro_style.py", "footage.py", "encoder.py",
+                "censor.py", "music.py"):
         mp = here / mod
         _feed("code/" + mod, mp.read_bytes() if mp.exists() else b"-")
     return h.hexdigest()[:20]
@@ -829,8 +995,13 @@ def build_intro(project: str, out_name: str = "intro_preview.mp4",
         return None
 
     ff = config.ffmpeg()
+    from pipeline import intro_style as _st
+    preset, _why = _st.choose(project, music)
+    style = _st.PRESETS[preset]
+    console.print(f"[cyan]Intro style:[/] {preset} - " + "; ".join(_why))
     land = first_reveal_land(project)
-    beats = detect_beats(music, max_total + 5)
+    onsets = detect_onsets(music, max_total + 5)
+    beats = [t for t, _s in onsets]
     drop = detect_drop(music, max_total + 5)
     hook = hook_line(project)
     if hook is None:
@@ -844,11 +1015,18 @@ def build_intro(project: str, out_name: str = "intro_preview.mp4",
     hook_dur = _tts_line(project, hook, hook_mp3)
     total = min(max_total, drop + hook_dur + 0.8)
 
-    # cut points: the music's own beats, bounded to `total`
-    cuts = [0.0] + [b for b in beats if 0.2 < b < total - 0.3] + [total]
-    slots = [(cuts[i], cuts[i + 1]) for i in range(len(cuts) - 1)
-             if cuts[i + 1] - cuts[i] >= 0.25]
-    moments = pick_moments(project, land, len(slots))
+    # cut points: the music's own beats, bounded to `total`. The legacy
+    # (energetic) plan is a cut on every onset; the other styles plan by
+    # their shot range, alignment and pacing (pipeline/intro_style.py).
+    legacy = bool(style.get("legacy"))
+    if legacy:
+        slots = _st.legacy_slots(beats, total)
+    else:
+        slots = _st.plan_slots(onsets, total, drop, style)
+    _profile = (not legacy) or bool(getattr(config, "INTRO_ENERGETIC_PROFILE",
+                                            False))
+    moments = (select_moments(project, land, len(slots), preset) if _profile
+               else pick_moments(project, land, len(slots)))
     if not moments:
         console.print("[red]Intro montage:[/] no catalogued moment ends before "
                       f"the first reveal lands ({land:.0f}s).")
@@ -859,6 +1037,12 @@ def build_intro(project: str, out_name: str = "intro_preview.mp4",
         f"[cyan]Intro montage:[/] {music.name}, drop at {drop:.2f}s, "
         f"{len(slots)} beat cuts over {total:.1f}s, hook enters on the drop "
         f"({hook_dur:.1f}s of narration)")
+    if not legacy:
+        console.print(f"[dim]  {preset}: shots {style['shots'][0]}-"
+                      f"{style['shots'][1]}s, {style['transition']}"
+                      f"{' %.2fs' % style['trans_sec'] if style['trans_sec'] else ''}"
+                      f", cuts on {style['align']}, pacing {style['pacing']}[/]")
+    _T = float(style.get("trans_sec") or 0.0) if style["transition"] in _st.XFADE else 0.0
     console.print(f"[dim]  every clip ends before the first reveal at "
                   f"{land:.0f}s - latest used is "
                   f"{max(b for _, b in moments):.0f}s[/]")
@@ -887,14 +1071,16 @@ def build_intro(project: str, out_name: str = "intro_preview.mp4",
         # intro, every one of them a still frame. The main render's answer to
         # "not enough footage" is more footage, so read on past the moment's
         # end, as far as extend_limit() allows.
-        want = dur + 0.4
+        # a transition overlaps the next slot by _T, so that much more is read
+        _tail = _T if (_T and i < len(slots) - 1) else 0.0
+        want = dur + 0.4 if not _tail else dur + max(0.4, _tail + 0.1)
         avail_end = min(max(me, ms + want), extend_limit(project, ms, _src_dur))
         _read = max(0.1, avail_end - ms)
-        if _read + 1e-6 < dur:
+        if _read + 1e-6 < dur + _tail:
             # Still short even after extending: SHORTEN THE SLOT rather than
             # freeze into it. A montage cut that is a tenth of a second quicker
             # is invisible; a frozen frame is not.
-            dur = _read
+            dur = max(0.1, _read - _tail)
         _slot_durs.append(dur)
         # No censor filter is applied anywhere in this graph - record the exact
         # window that reaches the screen, WITH its position on the intro
@@ -922,7 +1108,7 @@ def build_intro(project: str, out_name: str = "intro_preview.mp4",
             # seconds of the video, so the ceiling is enforced here too.
             f"tpad=stop_mode=clone:stop_duration="
             f"{min(dur, float(config.MAX_FREEZE_SEC)):.3f},"
-            f"trim=duration={dur:.3f},setpts=PTS-STARTPTS[v{i}]")
+            f"trim=duration={dur + _tail:.3f},setpts=PTS-STARTPTS[v{i}]")
         labels.append(f"[v{i}]")
     # The slots may have been SHORTENED to avoid freezing (see the loop
     # above), so the video is as long as the slots really are - not as long as
@@ -941,9 +1127,23 @@ def build_intro(project: str, out_name: str = "intro_preview.mp4",
     duck = 10.0 ** (float(getattr(config, "MUSIC_DUCK_DB", -22.0)) / 20.0)
     # full level until the drop, ducked under the hook from the drop on
     vexpr = (f"volume='if(lt(t,{drop:.3f}),1,{duck:.4f})':eval=frame")
+    if _T and len(labels) > 1:
+        # each clip but the last carries _T extra, and every xfade overlaps
+        # by _T, so the picture is exactly sum(slot durations) long and every
+        # cut still lands where the plan put it (the drop stays on the drop)
+        _chain, _prev, _off = [], labels[0], 0.0
+        for j in range(1, len(labels)):
+            _off += _slot_durs[j - 1]
+            _o = f"[x{j}]" if j < len(labels) - 1 else "[v]"
+            _chain.append(f"{_prev}{labels[j]}xfade=transition="
+                          f"{_st.XFADE[style['transition']]}:duration={_T:.3f}:"
+                          f"offset={max(0.0, _off - _T):.3f}{_o}")
+            _prev = _o
+        _vjoin = ";".join(_chain) + ";"
+    else:
+        _vjoin = "".join(labels) + f"concat=n={len(slots)}:v=1:a=0[v];"
     graph = (
-        ";".join(parts) + ";" + "".join(labels) +
-        f"concat=n={len(slots)}:v=1:a=0[v];"
+        ";".join(parts) + ";" + _vjoin +
         f"[{nm}:a]aformat=sample_rates=48000:channel_layouts=stereo,"
         f"atrim=duration={total:.3f},{vexpr},"
         f"afade=t=out:st={max(0.0, total-0.6):.3f}:d=0.6[mus];"

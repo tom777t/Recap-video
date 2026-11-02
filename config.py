@@ -1510,3 +1510,11 @@ PICTURE_CHECK_AT_RENDER = False
 # disclaimer), measured on the source. A cut between two shots dips to black
 # for a few frames; a second of it is no longer a cut.
 UNWATCHABLE_MIN_SEC = 1.0
+
+# --- INTRO_ENERGETIC_PROFILE: intro montage footage for the energetic style -
+# The energetic edit style is today's montage, byte for byte - including its
+# footage choice (spread chronologically before the first reveal). True makes
+# energetic use its shot-selection PROFILE instead (high motion, vehicles,
+# fights, explosions, rising intensity - pipeline/intro_style.py), which
+# changes which shots it cuts. The other seven presets always use theirs.
+INTRO_ENERGETIC_PROFILE = False
