@@ -243,13 +243,43 @@ def chunks_todo(pdir: Path) -> list:
     return [k for k in range(1, N_BEAT_CHUNKS + 1) if f"chunk{k}" not in have]
 
 
+# Structured output: the API itself refuses a reply outside this shape. The
+# first real film (furious72015) lost 3 of 8 chunks to beats whose `kind` was
+# "decision", "reversal" or "reaction" - words the prompt never offered and
+# check_chunk rightly rejects. A schema enum makes that reply impossible
+# instead of a re-run that may or may not pass.
+CHUNK_SCHEMA = {
+    "type": "object",
+    "properties": {
+        "chunk": {"type": "integer"},
+        "beats": {"type": "array", "items": {
+            "type": "object",
+            "properties": {
+                "ts": {"type": "string"},
+                "what": {"type": "string"},
+                "chars": {"type": "array", "items": {"type": "string"}},
+                "kind": {"type": "string", "enum": sorted(KINDS)},
+            },
+            "required": ["ts", "what", "chars", "kind"],
+            "additionalProperties": False}},
+        "reveals": {"type": "string"},
+        "set_pieces": {"type": "string"},
+    },
+    "required": ["chunk", "beats", "reveals", "set_pieces"],
+    "additionalProperties": False,
+}
+
+
 def chunk_request(project: str, k: int, n: int) -> dict:
     sysb = system_blocks(
         "beats", 'the JSON object {"chunk": K, "beats": [...], "reveals": '
         '"<your REVEALS report>", "set_pieces": "<your SET-PIECES report>"} '
         "- the file's content plus the two reports the instructions ask for "
         "in your reply", ttl="1h")
-    return params("beats", sysb, _tool("beat_payload.py", project, k, n))
+    p = params("beats", sysb, _tool("beat_payload.py", project, k, n))
+    p["output_config"] = {"format": {"type": "json_schema",
+                                     "schema": CHUNK_SCHEMA}}
+    return p
 
 
 def check_chunk(obj: dict, k: int) -> list:

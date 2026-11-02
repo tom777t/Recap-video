@@ -397,8 +397,24 @@ def test_missing_key():
     return (rc == 1 and TB.KEY_ENV in buf.getvalue()), f"exit {rc}, names the key"
 
 
+def test_beat_kind_schema():
+    """The chunk request carries a JSON schema whose `kind` enum is exactly
+    the kinds check_chunk accepts, so an off-list kind cannot come back."""
+    import write_api as wa
+    sch = wa.CHUNK_SCHEMA
+    enum = sch["properties"]["beats"]["items"]["properties"]["kind"]["enum"]
+    if set(enum) != wa.KINDS:
+        return False, f"schema kinds {sorted(enum)} != KINDS {sorted(wa.KINDS)}"
+    src = open(wa.__file__, encoding="utf-8").read()
+    i = src.index("def chunk_request")
+    if '"output_config"' not in src[i:i + 1200]:
+        return False, "chunk_request does not attach the schema"
+    return True, f"chunk requests constrain kind to {len(enum)} values"
+
+
 TESTS = {
     "BEATS":       test_beats,
+    "BEAT-KIND-SCHEMA": test_beat_kind_schema,
     "FACTS":       test_facts,
     "ANGLE":       test_angle,
     "DRAFT-LOOP":  test_draft_loop,
