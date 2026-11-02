@@ -412,9 +412,26 @@ def test_beat_kind_schema():
     return True, f"chunk requests constrain kind to {len(enum)} values"
 
 
+def test_tool_loop_no_empty_blocks():
+    """The reveals tool loop never sends an empty text block back: empty
+    assistant text is dropped, thinking keeps its signature, and an empty
+    tool result is replaced by a sentence (furious72015 died on a 400)."""
+    import write_api as wa
+    if wa._block({"type": "text", "text": "  "}) is not None:
+        return False, "an empty text block is echoed back"
+    th = wa._block({"type": "thinking", "thinking": "t", "signature": "sig"})
+    if not th or th.get("signature") != "sig":
+        return False, "thinking block not passed back with its signature"
+    src = open(wa.__file__, encoding="utf-8").read()
+    if "nothing in that range" not in src:
+        return False, "an empty speech_at result is not replaced"
+    return True, "empty text dropped, thinking kept, empty tool result filled"
+
+
 TESTS = {
     "BEATS":       test_beats,
     "BEAT-KIND-SCHEMA": test_beat_kind_schema,
+    "NO-EMPTY-BLOCKS": test_tool_loop_no_empty_blocks,
     "FACTS":       test_facts,
     "ANGLE":       test_angle,
     "DRAFT-LOOP":  test_draft_loop,

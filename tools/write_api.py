@@ -356,6 +356,13 @@ def reveals_pass(client, project: str, pdir: Path, notes: str) -> dict:
                                 inp.get("end"))[:20000]
                 except WriteError as e:
                     txt = f"error: {e}"
+            # An empty tool_result becomes an empty text block, which the
+            # API rejects ("text content blocks must be non-empty") - the
+            # furious72015 reveals pass died on exactly that when speech_at
+            # had nothing in the asked range.
+            if not str(txt or "").strip():
+                txt = ("(nothing in that range: no transcript lines and no "
+                       "moment descriptions between those timestamps)")
             results.append({"type": "tool_result",
                             "tool_use_id": TB._get(u, "id"), "content": txt})
         # the conversation so far is a stable prefix: cache it
@@ -364,20 +371,33 @@ def reveals_pass(client, project: str, pdir: Path, notes: str) -> dict:
                 if isinstance(blk, dict):
                     blk.pop("cache_control", None)
         results[-1]["cache_control"] = {"type": "ephemeral"}
-        p["messages"] += [{"role": "assistant",
-                           "content": [_block(b) for b in TB._get(msg, "content")]},
+        _echo = [x for x in (_block(b) for b in TB._get(msg, "content"))
+                 if x is not None]
+        p["messages"] += [{"role": "assistant", "content": _echo},
                           {"role": "user", "content": results}]
         if used > limit + 2:
             raise WriteError("reveals: the model kept calling the tool past "
                              "its budget")
 
 
-def _block(b) -> dict:
+def _block(b):
+    """An assistant block as it must be sent back in the tool loop, or None.
+
+    Empty text blocks are dropped (the API rejects them), and thinking blocks
+    are passed back unchanged with their signature, as tool use requires,
+    instead of being flattened into empty text.
+    """
     t = TB._get(b, "type")
     if t == "tool_use":
         return {"type": "tool_use", "id": TB._get(b, "id"),
                 "name": TB._get(b, "name"), "input": TB._get(b, "input")}
-    return {"type": "text", "text": TB._get(b, "text") or ""}
+    if t == "thinking":
+        return {"type": "thinking", "thinking": TB._get(b, "thinking") or "",
+                "signature": TB._get(b, "signature") or ""}
+    if t == "redacted_thinking":
+        return {"type": "redacted_thinking", "data": TB._get(b, "data") or ""}
+    txt = TB._get(b, "text") or ""
+    return {"type": "text", "text": txt} if txt.strip() else None
 
 
 def check_reveals(obj: dict) -> list:
