@@ -227,9 +227,13 @@ def build_request(stage: str, pdir: Path, draft: dict, model: str) -> dict:
     params = {"model": model, "max_tokens": MAX_TOKENS,
               "system": [{"type": "text", "text": system}],
               "messages": [{"role": "user", "content": user}]}
+    # Effort set explicitly, as in write_api: 5.5 models default to adaptive
+    # thinking at "high", which shares max_tokens with the reply.
+    _eff = dict(getattr(config, "WRITE_EFFORT", {})).get("review", "medium")
+    params["output_config"] = {"effort": _eff}
     if TB.USE_STRUCTURED_OUTPUT:
-        params["output_config"] = {"format": {"type": "json_schema",
-                                              "schema": SCHEMA}}
+        params["output_config"]["format"] = {"type": "json_schema",
+                                             "schema": SCHEMA}
     return params
 
 

@@ -141,9 +141,18 @@ def system_blocks(stage: str, what: str, extra: list | None = None,
 
 
 def params(stage: str, system: list, user, model: str | None = None) -> dict:
-    return {"model": model or _model(stage), "max_tokens": MAX_TOKENS[stage],
-            "system": system,
-            "messages": [{"role": "user", "content": user}]}
+    # EFFORT IS SET, NEVER LEFT TO THE DEFAULT. Claude 5.5 models think
+    # adaptively by default at effort "high", and thinking shares max_tokens
+    # with the reply. On furious72015 all four draft acts spent the whole
+    # 32,000-token budget thinking and returned zero text - twice, because a
+    # re-run changes nothing. config.WRITE_EFFORT sets it per stage.
+    eff = dict(getattr(config, "WRITE_EFFORT", {})).get(stage)
+    p = {"model": model or _model(stage), "max_tokens": MAX_TOKENS[stage],
+         "system": system,
+         "messages": [{"role": "user", "content": user}]}
+    if eff:
+        p["output_config"] = {"effort": eff}
+    return p
 
 
 # --------------------------------------------------------------------------- #
@@ -221,6 +230,12 @@ def _json_reply(msg, stage: str):
     if msg is None:
         return None, "the request failed in the batch"
     if TB._get(msg, "stop_reason") == "max_tokens":
+        if not str(TB.reply_text(msg) or "").strip():
+            return None, (f"all {MAX_TOKENS[stage]} output tokens went to "
+                          f"THINKING and no reply was written - lower "
+                          f"config.WRITE_EFFORT['{stage}'] or raise "
+                          f"MAX_TOKENS; re-running unchanged fails the same "
+                          f"way and is billed again")
         return None, f"reply truncated at max_tokens={MAX_TOKENS[stage]}"
     obj = TB.parse_reply(TB.reply_text(msg))
     if not isinstance(obj, dict):
@@ -277,8 +292,8 @@ def chunk_request(project: str, k: int, n: int) -> dict:
         "- the file's content plus the two reports the instructions ask for "
         "in your reply", ttl="1h")
     p = params("beats", sysb, _tool("beat_payload.py", project, k, n))
-    p["output_config"] = {"format": {"type": "json_schema",
-                                     "schema": CHUNK_SCHEMA}}
+    p.setdefault("output_config", {})["format"] = {"type": "json_schema",
+                                                   "schema": CHUNK_SCHEMA}
     return p
 
 

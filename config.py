@@ -1518,3 +1518,16 @@ UNWATCHABLE_MIN_SEC = 1.0
 # fights, explosions, rising intensity - pipeline/intro_style.py), which
 # changes which shots it cuts. The other seven presets always use theirs.
 INTRO_ENERGETIC_PROFILE = False
+
+# --- WRITE_EFFORT: thinking effort per API writing stage ---------------------
+# Claude 5.5 models think adaptively by default at effort "high", and thinking
+# shares max_tokens with the reply (thinking is billed as output). Left at the
+# default, furious72015's draft acts spent all 32,000 tokens thinking and wrote
+# nothing. Effort is the only control on 5.5 (budget_tokens returns a 400).
+# Mechanical stages run low; the creative ones medium. Raise one only with a
+# before/after comparison of the output it buys.
+WRITE_EFFORT = {
+    "beats": "low", "reveals": "medium", "facts": "low",
+    "angle": "medium", "draft": "medium", "filmspeaks": "low",
+    "review": "medium",
+}

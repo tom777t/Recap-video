@@ -428,10 +428,30 @@ def test_tool_loop_no_empty_blocks():
     return True, "empty text dropped, thinking kept, empty tool result filled"
 
 
+def test_effort_set():
+    """Every writing request carries an explicit effort, so a 5.5 model's
+    default adaptive thinking at "high" cannot eat the whole max_tokens
+    (furious72015: 4 acts x 32,000 tokens of thinking, zero text)."""
+    import config as _c
+    import write_api as wa
+    p = wa.params("draft", [{"type": "text", "text": "x"}], "y")
+    eff = (p.get("output_config") or {}).get("effort")
+    if eff != _c.WRITE_EFFORT["draft"]:
+        return False, f"draft request effort is {eff!r}"
+    msg = {"stop_reason": "max_tokens", "content": [{"type": "thinking",
+                                                     "thinking": "...",
+                                                     "signature": "s"}]}
+    obj, why = wa._json_reply(msg, "draft")
+    if obj is not None or "THINKING" not in (why or ""):
+        return False, f"an all-thinking truncation is not named: {why!r}"
+    return True, f"draft effort {eff}; all-thinking truncation named"
+
+
 TESTS = {
     "BEATS":       test_beats,
     "BEAT-KIND-SCHEMA": test_beat_kind_schema,
     "NO-EMPTY-BLOCKS": test_tool_loop_no_empty_blocks,
+    "EFFORT-SET":  test_effort_set,
     "FACTS":       test_facts,
     "ANGLE":       test_angle,
     "DRAFT-LOOP":  test_draft_loop,
