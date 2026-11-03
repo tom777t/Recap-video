@@ -571,6 +571,14 @@ def build(project: str, page: str, write: bool = True):
     entries.extend(kept)
 
     if write:
+        # Record WHERE the cast came from. tools/write_api.py facts reads
+        # this URL to fetch the same article; without it the facts stage
+        # stopped asking for --wiki on furious72015 although the names stage
+        # had just been run against "Furious 7".
+        _t = _title_from(page)
+        _src = "https://en.wikipedia.org/wiki/" + urllib.parse.quote(
+            _t.replace(" ", "_"), safe="_()'")
         io.open(p, "w", encoding="utf-8").write(
-            json.dumps({"names": entries}, ensure_ascii=False, indent=2))
+            json.dumps({"_source": _src, "names": entries},
+                       ensure_ascii=False, indent=2))
     return entries, "", rejected, mode
