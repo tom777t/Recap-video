@@ -172,7 +172,10 @@ def make_client():
         raise TagBatchError("the `anthropic` package is not installed: "
                             "pip install -r requirements.txt")
     # Passed explicitly so no other credential in the environment is used.
-    return anthropic.Anthropic(api_key=key)
+    # A brief network drop while polling a long batch killed a furious72015
+    # run ("APIConnectionError"); the SDK retries transient errors with
+    # backoff, so give it more room than its default of 2.
+    return anthropic.Anthropic(api_key=key, max_retries=6)
 
 
 # Tests replace this; nothing else should.
