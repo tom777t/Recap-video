@@ -252,6 +252,25 @@ def test_draft_loop():
             if f.exists():
                 lines += _j(f)["lines"]
         acts[k] = lines
+    # a plan.json that matches these acts exactly, so this test isolates the
+    # gate-feedback loop (plan adherence is tested in test_write_plan.py)
+    import write_plan as WP
+    from pipeline.pacing_gates import _beat_of
+    ab = WP.act_beats(PROJ, W._tool)
+    cnt = {}
+    for k, ls in acts.items():
+        for ln in ls:
+            if str(ln.get("narration") or "").strip() and not (
+                    ln.get("over_montage") or ln.get("delivery") == "hook"):
+                cnt[_beat_of(ln)] = cnt.get(_beat_of(ln), 0) + 1
+    (PDIR / "plan.json").write_text(json.dumps({
+        "title": "A Kid Learns to Drift", "hook": {
+            "narration": "He cannot drive sideways.",
+            "hook_question": "Will he learn before it costs him?"},
+        "acts": [{"act": k, "word_budget": 800} for k in ab],
+        "beats": [{"beat": b, "lines": cnt.get(b, 0), "footage": False,
+                   "hold_after": False, "film_speaks": False, "why": "x"}
+                  for k in sorted(ab) for b in ab[k]]}))
     c = Client(None, lambda cid, p: msg({"act": int(cid[3:]),
                                          "lines": acts[int(cid[3:])]}))
     # gates mocked: a finding on the act-2 line, one review finding, one

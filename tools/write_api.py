@@ -4,7 +4,9 @@
     python tools/write_api.py beats      --project P   # chunks (batch) + reveals
     python tools/write_api.py facts      --project P [--wiki "Title (film)"]
     python tools/write_api.py angle      --project P
-    python tools/write_api.py draft      --project P   # acts (batch) + <=2 rounds
+    python tools/write_api.py plan       --project P   # plan.json, gate-checked
+    python tools/write_api.py draft      --project P   # plan + acts (batch) + <=2 rounds
+    python tools/write_api.py resolve    --project P   # close review findings, <=2 rounds
     python tools/write_api.py filmspeaks --project P   # selection + apply
     python tools/write_api.py estimate   --project P   # tokens/USD, no API call
 
@@ -23,6 +25,13 @@ prefix (the prompt, the style guide, the beat map an act writer shares with
 the other acts) carries cache_control so it is paid once per batch window.
 Payloads are the existing compact tools. Models come from config.WRITE_MODEL_*.
 Every call is appended to cost_ledger.jsonl (tag_batch.ledger_append).
+
+PLAN + RESOLVE (tools/write_plan.py): the draft is planned before it is
+written (plan.json - lines per beat, holds, film_speaks spots, a word budget
+per act, the title and the hook - validated with the gates' own code, one
+revision on failure) and each act follows its slice; after the review stage
+`resolve` closes the readers' findings in their artifacts. A bound window on
+black or a text card is moved mechanically before any writer is asked.
 
 THE DRAFT LOOP. Acts are written in one batch, assembled, and the draft gates
 run (recap.py draft). Each act then gets back ONLY the findings that name its
@@ -69,13 +78,16 @@ PROMPTS = {
     "angle": TOOLS / "angle_prompt.md",
     "draft": TOOLS / "draft_prompt.md",
     "filmspeaks": ROOT / "prompts" / "film_speaks_select.md",
+    "plan": TOOLS / "plan_prompt.md",
+    "resolve": TOOLS / "resolve_prompt.md",
 }
 STYLE = ROOT / "prompts" / "recap_style.md"
 VOICE = ROOT / "docs" / "NARRATOR_VOICE.md"
 ANGLE_EXAMPLE = ROOT / "projects" / "tokyodrift2006" / "angle.md"
 STATE_FILE = "write_api.json"
 MAX_TOKENS = {"beats": 8192, "reveals": 8192, "facts": 8192, "angle": 12000,
-              "draft": 32000, "filmspeaks": 8192}
+              "draft": 32000, "filmspeaks": 8192, "plan": 16000,
+              "resolve": 16000}
 REVIEW_GATES = ("COLD-READ", "REVIEWER", "ENDING-READ")
 
 NOTE = ("## Delivery in this session\n\n"
@@ -101,7 +113,9 @@ def _model(stage: str) -> str:
             "facts": config.WRITE_MODEL_FACTS,
             "angle": config.WRITE_MODEL_ANGLE,
             "draft": config.WRITE_MODEL_DRAFT,
-            "filmspeaks": config.WRITE_MODEL_FILMSPEAKS}[stage]
+            "filmspeaks": config.WRITE_MODEL_FILMSPEAKS,
+            "plan": config.WRITE_MODEL_PLAN,
+            "resolve": config.WRITE_MODEL_RESOLVE}[stage]
 
 
 def _read(p: Path, missing_ok: bool = False) -> str:
@@ -677,8 +691,11 @@ def draft_system(pdir: Path) -> list:
 
 
 def act_request(project: str, pdir: Path, k: int, sysb: list,
-                feedback: str | None = None, previous: dict | None = None) -> dict:
+                feedback: str | None = None, previous: dict | None = None,
+                plan_text: str | None = None) -> dict:
     user = _tool("act_payload.py", project, k)
+    if plan_text:
+        user += "\n\n" + plan_text
     if feedback:
         user += ("\n\n# YOUR PREVIOUS act" + str(k) + ".json\n\n"
                  + json.dumps(previous, ensure_ascii=False)
@@ -783,21 +800,88 @@ def feedback_by_act(findings: list, owner: dict, acts: list) -> dict:
 
 
 def _assemble(project: str) -> None:
-    _tool("assemble_draft.py", project)
+    """assemble_draft.py, with the PLAN's title when there is a plan - the
+    title used to default to the project id."""
+    pdir = config.project_dir(project)
+    title = None
+    try:
+        title = json.loads(_read(pdir / "plan.json")).get("title")
+    except (WriteError, ValueError):
+        title = None
+    _tool("assemble_draft.py", project, *(["--title", title] if title else []))
+
+
+# --------------------------------------------------------------------------- #
+# plan: one request before any act, validated with the gates' own code
+# --------------------------------------------------------------------------- #
+def cmd_plan(a, client) -> int:
+    import write_plan as WP
+    pdir = config.project_dir(a.project)
+    out = pdir / "plan.json"
+    if out.exists() and not a.force:
+        print("plan: plan.json exists - kept (--force to re-plan)")
+        return 0
+    ab = WP.act_beats(a.project, _tool)
+    sysb = system_blocks("plan", "the plan JSON object")
+    p = params("plan", sysb, WP.plan_user(a.project, pdir, _tool, _read))
+    p.setdefault("output_config", {})["format"] = {
+        "type": "json_schema", "schema": WP.PLAN_SCHEMA}
+    for attempt in (1, 2):
+        msg = call(client, pdir, "plan", p, note=f"attempt {attempt}")
+        obj, why = _json_reply(msg, "plan")
+        viol = [why] if obj is None else WP.validate_plan(obj, a.project,
+                                                          pdir, ab)
+        if not viol:
+            out.write_text(json.dumps(obj, ensure_ascii=False, indent=1),
+                           encoding="utf-8")
+            n = sum(int(b.get("lines") or 0) for b in obj["beats"])
+            print(f"plan: wrote plan.json (attempt {attempt}) - {n} lines over "
+                  f"{len(obj['beats'])} beats, "
+                  f"{sum(x['word_budget'] for x in obj['acts'])} words, "
+                  f"title {obj['title']!r}")
+            return 0
+        print(f"plan: attempt {attempt} fails {len(viol)} check(s):")
+        for v in viol:
+            print(f"  - {v}")
+        if attempt == 1:
+            # ONE revision, with the violations in the gates' own words
+            p["messages"] = p["messages"][:1] + [
+                {"role": "assistant",
+                 "content": TB.reply_text(msg) or "(empty reply)"},
+                {"role": "user", "content": "That plan fails these checks:\n"
+                 + "\n".join(f"- {v}" for v in viol)
+                 + "\nReply with the whole corrected plan JSON only."}]
+    if obj is not None:
+        (pdir / "plan_rejected.json").write_text(
+            json.dumps(obj, ensure_ascii=False, indent=1), encoding="utf-8")
+    print("plan: STOPPING - no act is written to a plan that misses the gates "
+          "(the last attempt is in plan_rejected.json)")
+    return 2
 
 
 def cmd_draft(a, client) -> int:
     pdir = config.project_dir(a.project)
     d = pdir / "draft.json.d"
     d.mkdir(exist_ok=True)
+    import write_plan as WP
     sysb = draft_system(pdir)
     todo = acts_todo(pdir)
+    plan, ab = None, {}
+    if todo or a.feedback_only:
+        if not (pdir / "plan.json").exists():
+            rc = cmd_plan(a, client)
+            if rc:
+                return rc
+        plan = json.loads(_read(pdir / "plan.json"))
+        ab = WP.act_beats(a.project, _tool)
     if not todo and not a.feedback_only:
         print("draft: every act is written - nothing to do "
               "(--feedback-only to run the gate-feedback rounds)")
         return 0
     if todo:
-        reqs = {f"act{k}": act_request(a.project, pdir, k, sysb) for k in todo}
+        reqs = {f"act{k}": act_request(
+            a.project, pdir, k, sysb,
+            plan_text=WP.plan_for_act(plan, ab.get(k, []), k)) for k in todo}
         got = batch(client, pdir, "draft", reqs, wait=not a.no_wait,
                     poll=a.poll)
         bad = {}
@@ -807,20 +891,37 @@ def cmd_draft(a, client) -> int:
             if probs:
                 bad[k] = probs
                 continue
+            lines = [l for l in obj["lines"]
+                     if not (l.get("delivery") == "hook" or l.get("over_montage"))]
+            if k == 1:
+                # the plan's hook, over the montage, no clip window
+                lines = [WP.hook_line(plan)] + lines
             (d / f"act{k}.json").write_text(json.dumps(
-                {"act": k, "lines": obj["lines"]}, ensure_ascii=False,
+                {"act": k, "lines": lines}, ensure_ascii=False,
                 indent=2), encoding="utf-8")
         print(f"draft: wrote {len(todo) - len(bad)}/{len(todo)} act(s)")
         if bad:
             for k, pr in bad.items():
                 print(f"  act{k}: {'; '.join(pr[:3])}")
             return 2
+    _fix_windows(a.project)
     _assemble(a.project)
     rounds = int(config.WRITE_DRAFT_FEEDBACK_ROUNDS)
     acts = list(range(1, n_acts(pdir) + 1))
     for rnd in range(1, rounds + 2):
         rc, finds = run_gates(a.project)
         fb = feedback_by_act(finds, act_of_lines(pdir), acts)
+        if plan:
+            # did each act follow the plan? (check_act's plan half)
+            for k in acts:
+                f = d / f"act{k}.json"
+                if not f.exists():
+                    continue
+                mm = WP.check_plan_counts(json.loads(_read(f))["lines"], plan,
+                                          ab.get(k, []))
+                if mm:
+                    fb[k] = (fb.get(k, "") + ("\n" if fb.get(k) else "")
+                             + "\n".join(f"- (plan) {m}" for m in mm))
         if not fb:
             left = [f for f in finds
                     if not any(f.startswith(f"[{g}]") for g in REVIEW_GATES)]
@@ -840,7 +941,9 @@ def cmd_draft(a, client) -> int:
             return 2
         reqs = {f"act{k}": act_request(
             a.project, pdir, k, sysb, feedback=v,
-            previous=json.loads(_read(d / f"act{k}.json")))
+            previous=json.loads(_read(d / f"act{k}.json")),
+            plan_text=(WP.plan_for_act(plan, ab.get(k, []), k) if plan
+                       else None))
             for k, v in fb.items()}
         print(f"draft: feedback round {rnd}/{rounds} - "
               f"{len(reqs)} act(s) with findings")
@@ -853,10 +956,117 @@ def cmd_draft(a, client) -> int:
                 print(f"  act{k}: round {rnd} reply unusable "
                       f"({why or check_act(obj, k)[:2]}) - kept the previous")
                 continue
+            prev = json.loads(_read(d / f"act{k}.json"))["lines"]
+            keep = [l for l in prev if l.get("over_montage")
+                    or l.get("delivery") == "hook"]
+            new = [l for l in obj["lines"] if not (l.get("over_montage")
+                                                   or l.get("delivery") == "hook")]
             (d / f"act{k}.json").write_text(json.dumps(
-                {"act": k, "lines": obj["lines"]}, ensure_ascii=False,
+                {"act": k, "lines": keep + new}, ensure_ascii=False,
                 indent=2), encoding="utf-8")
+        _fix_windows(a.project)
         _assemble(a.project)
+    return 2
+
+
+def _fix_windows(project: str) -> None:
+    """UNWATCHABLE-FOOTAGE, mechanically, on the act files before the gates
+    (write_plan.fix_unwatchable)."""
+    import write_plan as WP
+    d = config.project_dir(project) / "draft.json.d"
+    files = sorted(d.glob("act*.json"))
+    acts = [(f, json.loads(_read(f))) for f in files]
+    lines = [l for _f, o in acts for l in o.get("lines") or []]
+    done = WP.fix_unwatchable(project, lines)
+    for m in done:
+        print(f"draft: UNWATCHABLE-FOOTAGE {m}")
+    if any("moved to" in m for m in done):
+        for f, o in acts:
+            f.write_text(json.dumps(o, ensure_ascii=False, indent=2),
+                         encoding="utf-8")
+
+
+# --------------------------------------------------------------------------- #
+# resolve: act on the review findings, close them in the artifacts
+# --------------------------------------------------------------------------- #
+def cmd_resolve(a, client) -> int:
+    import write_plan as WP
+    from pipeline import review_artifacts as RA
+    pdir = config.project_dir(a.project)
+    d = pdir / "draft.json.d"
+    rounds = int(config.WRITE_RESOLVE_ROUNDS)
+    for rnd in range(1, rounds + 2):
+        draft = json.loads(_read(pdir / "draft.json"))
+        finds = WP.open_findings(pdir, draft)
+        if not finds:
+            print("resolve: no open review finding")
+            return 0
+        if rnd > rounds:
+            print(f"resolve: {rounds} round(s) done; STOPPING with "
+                  f"{len(finds)} finding(s) still open:")
+            for f in finds:
+                print(f"  {f['artifact']}: {f['kind']} @ "
+                      f"{','.join(f['ids']) or '-'} - {f['text'][:120]}")
+            return 2
+        owner = act_of_lines(pdir)
+        by_id = {str(l["id"]): l for l in draft["lines"]}
+        groups: dict = {}
+        for f in finds:
+            acts_ = {owner[int(i)][0] for i in f["ids"]
+                     if i.isdigit() and int(i) in owner}
+            groups.setdefault(min(acts_) if acts_ else 1, []).append(f)
+        reqs = {}
+        sysb = system_blocks("resolve", "the JSON object {lines, responses}",
+                             ttl="1h")
+        for k, fs in groups.items():
+            mine = [l for l in draft["lines"]
+                    if owner.get(l["id"], (None,))[0] == k
+                    or str(l["id"]) in {i for f in fs for i in f["ids"]}]
+            pr = params("resolve", sysb, WP.resolve_user(mine, fs))
+            pr.setdefault("output_config", {})["format"] = {
+                "type": "json_schema", "schema": WP.RESOLVE_SCHEMA}
+            reqs[f"act{k}"] = pr
+        print(f"resolve: round {rnd}/{rounds} - {len(finds)} open finding(s) "
+              f"over {len(reqs)} act(s)")
+        got = batch(client, pdir, f"resolve-round{rnd}", reqs,
+                    wait=not a.no_wait, poll=a.poll)
+        changes, entries, rejects = {}, {}, []
+        for cid, msg in got.items():
+            k = int(cid[3:])
+            obj, why = _json_reply(msg, "resolve")
+            if obj is None:
+                rejects.append(f"act{k}: {why}")
+                continue
+            ch, en, rj = WP.apply_resolution(groups[k], obj, by_id)
+            changes.update(ch)
+            for art, e in en.items():
+                entries.setdefault(art, []).extend(e)
+            rejects += [f"act{k}: {x}" for x in rj]
+        # the lines: draft.json AND the act files (assembly reads those)
+        acts_ = {f: json.loads(_read(f)) for f in sorted(d.glob("act*.json"))}
+        for lid, new in changes.items():
+            by_id[lid]["narration"] = new
+            k, own = owner.get(int(lid), (None, None))
+            for f, o in acts_.items():
+                if k is not None and re.match(rf"act{k}\b|act{k}[a-z]", f.stem):
+                    for ln in o.get("lines") or []:
+                        if ln.get("id") == own:
+                            ln["narration"] = new
+        (pdir / "draft.json").write_text(json.dumps(draft, ensure_ascii=False,
+                                                    indent=2), encoding="utf-8")
+        for f, o in acts_.items():
+            f.write_text(json.dumps(o, ensure_ascii=False, indent=2),
+                         encoding="utf-8")
+        resign = {RA._norm_id(i): RA.line_signature(t) for i, t in changes.items()}
+        for art in WP.ARTIFACTS:
+            p = pdir / art
+            if p.exists() and (entries.get(art) or resign):
+                WP.write_artifact(p, entries.get(art, []), resign)
+        print(f"resolve: {len(changes)} line(s) changed, "
+              f"{sum(len(v) for v in entries.values())} entr(ies) written")
+        for r in rejects[:20]:
+            print(f"  - {r}")
+        run_gates(a.project)
     return 2
 
 
@@ -955,6 +1165,24 @@ def cmd_estimate(a, client=None) -> int:
     add("draft feedback", _model("draft"), fbk,
         fbk * (sum(acts) // na + out_act + 800), fbk * out_act,
         cr=fbk * ds, batch_=True)
+    # plan: angle + coverage + beat map + reveals + thresholds in; one plan
+    # out (~45 tokens a beat); assume one revision
+    pl_in = _tok(_read(PROMPTS["plan"])) + sum(
+        _tok(_read(pdir / n, True)) for n in
+        ("angle.md", "coverage_policy.json", "beats_proposal.md",
+         "reveals.json")) + 600
+    nb = len(re.findall(r"^\s*\|?\s*B\d{2,3}\b", _read(pdir / "beats_proposal.md",
+                                                        True), re.M)) or 100
+    add("plan (+1 revision)", _model("plan"), 2, 2 * pl_in + 45 * nb,
+        2 * 45 * nb)
+    # resolve: per act, its lines + its findings in, revised lines + one
+    # response a finding out; 2 rounds, about half the acts in round 2
+    act_lines = int(_tok(_read(pdir / "draft.json", True)) / max(1, na)) or 4000
+    rs = _tok(_read(PROMPTS["resolve"]))
+    calls = na + max(1, na // 2)
+    add("resolve (2 rounds)", _model("resolve"), calls,
+        calls * (act_lines // 2 + 2500), calls * 3000, cw=rs,
+        cr=rs * (calls - 1), batch_=True)
     fs = sum(_tok(_read(pdir / n, True)) for n in
              ("film_speaks_candidates.json", "draft.json", "angle.md",
               "beats_proposal.md", "reveals.json"))
@@ -978,7 +1206,8 @@ def cmd_estimate(a, client=None) -> int:
 
 
 # --------------------------------------------------------------------------- #
-CMDS = {"beats": cmd_beats, "facts": cmd_facts, "angle": cmd_angle,
+CMDS = {"plan": cmd_plan, "resolve": cmd_resolve,
+        "beats": cmd_beats, "facts": cmd_facts, "angle": cmd_angle,
         "draft": cmd_draft, "filmspeaks": cmd_filmspeaks,
         "estimate": cmd_estimate}
 

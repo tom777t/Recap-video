@@ -635,6 +635,19 @@ if (Should 'draft') {
     }
 
     $code = Recap @('draft', '--project', $Project) -AllowSoftFail
+    if ($code -eq 1 -and $env:ANTHROPIC_API_KEY) {
+        # Co key: vong RESOLVE qua API (toi da 2 vong) thay cho vong subagent.
+        & python tools\write_api.py resolve --project $Project | Out-Host
+        $code = Recap @('draft', '--project', $Project) -AllowSoftFail
+        if ($code -eq 1) {
+            Halt "DRAFT - gate con loi sau vong API" @(
+                "Cac loi con lai in o tren (write_api resolve + recap.py draft)."
+                "Sua tay trong $Pdir\draft.json, hoac chay lai vong API:"
+                "  python tools\write_api.py resolve --project $Project"
+            ) ".\run.ps1 -Project $Project -From draft"
+            exit 0
+        }
+    }
     if ($code -eq 1) {
         if ($round -ge 3) {
             Bad "draft van bi CHAN CUNG sau 3 vong - DUNG, can nguoi vao"

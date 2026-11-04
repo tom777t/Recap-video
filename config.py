@@ -1478,6 +1478,13 @@ WRITE_MODEL_FACTS = "claude-sonnet-5-5"
 WRITE_MODEL_ANGLE = "claude-sonnet-5-5"
 WRITE_MODEL_DRAFT = "claude-sonnet-5-5"
 WRITE_MODEL_FILMSPEAKS = "claude-sonnet-5-5"
+# The plan before the acts (tools/write_plan.py) and the resolve loop that
+# acts on the review findings.
+WRITE_MODEL_PLAN = "claude-sonnet-5-5"
+WRITE_MODEL_RESOLVE = "claude-sonnet-5-5"
+# Rounds of the resolve loop (write_api resolve) before it stops and lists
+# what is still open.
+WRITE_RESOLVE_ROUNDS = 2
 # Gate-feedback rounds after the first draft: only each act's own findings go
 # back to that act, and after this many rounds the remaining findings are
 # listed and the tool stops rather than looping.
@@ -1529,5 +1536,5 @@ INTRO_ENERGETIC_PROFILE = False
 WRITE_EFFORT = {
     "beats": "low", "reveals": "medium", "facts": "low",
     "angle": "medium", "draft": "medium", "filmspeaks": "low",
-    "review": "medium",
+    "review": "medium", "plan": "medium", "resolve": "medium",
 }
