@@ -86,8 +86,8 @@ VOICE = ROOT / "docs" / "NARRATOR_VOICE.md"
 ANGLE_EXAMPLE = ROOT / "projects" / "tokyodrift2006" / "angle.md"
 STATE_FILE = "write_api.json"
 MAX_TOKENS = {"beats": 8192, "reveals": 8192, "facts": 8192, "angle": 12000,
-              "draft": 32000, "filmspeaks": 8192, "plan": 16000,
-              "resolve": 16000}
+              "draft": 32000, "filmspeaks": 8192, "plan": 32000,
+              "resolve": 32000}
 REVIEW_GATES = ("COLD-READ", "REVIEWER", "ENDING-READ")
 
 NOTE = ("## Delivery in this session\n\n"
