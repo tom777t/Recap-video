@@ -189,7 +189,7 @@ def params(stage: str, system: list, user, model: str | None = None) -> dict:
 # calls: synchronous and batched, every one into the ledger
 # --------------------------------------------------------------------------- #
 def call(client, pdir: Path, stage: str, p: dict, note: str | None = None):
-    msg = client.messages.create(**p)
+    msg = TB.create_message(client, **p)
     TB.ledger_append(pdir, stage, p["model"], TB.usage_of(msg), batch=False,
                      note=note)
     return msg

@@ -182,6 +182,21 @@ def make_client():
 CLIENT_FACTORY = make_client
 
 
+def create_message(client, **params):
+    """One synchronous Messages call, ALWAYS streamed.
+
+    The SDK refuses a non-streamed request whose max_tokens could take over
+    ten minutes ("Streaming is required..."), and a long non-streamed call
+    can also be cut by an idle proxy. Streaming has neither limit and returns
+    the same final message, so every synchronous call in the pipeline goes
+    through here. Clients without .stream (the test fakes) use .create."""
+    msgs = client.messages
+    if hasattr(msgs, "stream"):
+        with msgs.stream(**params) as st:
+            return st.get_final_message()
+    return msgs.create(**params)
+
+
 def _get(o, name, default=None):
     if o is None:
         return default
@@ -573,7 +588,7 @@ def _now() -> str:
 # --------------------------------------------------------------------------- #
 def tag_sync(client, pdir, sp, cast, model):
     """(obj or None, problems, usage, cost)."""
-    msg = client.messages.create(**build_params(pdir, sp, cast, model))
+    msg = create_message(client, **build_params(pdir, sp, cast, model))
     u = usage_of(msg)
     c = cost_usd(model, u)
     ledger_append(pdir, "tags", model, u, batch=False, note=sp.get("id"))

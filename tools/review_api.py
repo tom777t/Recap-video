@@ -313,7 +313,7 @@ def run_stage(stage: str, project: str, force: bool = False,
         raise ReviewApiError(f"{stage}: the draft has no narrated lines to read")
     params = build_request(stage, pdir, draft, model)
     client = client or _client()
-    msg = client.messages.create(**params)
+    msg = TB.create_message(client, **params)
     u = TB.usage_of(msg)
     cost = TB.cost_usd(model, u)
     TB.ledger_append(pdir, f"review:{stage}", model, u, batch=False)
