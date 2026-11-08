@@ -1489,6 +1489,15 @@ WRITE_RESOLVE_ROUNDS = 2
 # back to that act, and after this many rounds the remaining findings are
 # listed and the tool stops rather than looping.
 WRITE_DRAFT_FEEDBACK_ROUNDS = 2
+# The act / resolve requests carry a JSON schema derived from the draft line
+# schema (pipeline/schemas.py: enums + LINE_BOUNDS). True sends the numeric
+# bounds as JSON-schema keywords (exclusiveMinimum / maximum). The API's
+# structured outputs do not enforce numeric constraints, and Anthropic's own
+# SDK helper (transform_schema) moves them into the field description instead;
+# set False to do the same if the API ever answers a request with "property
+# ... is not supported". Either way every reply is re-checked with
+# schemas.line_problems before it is saved - that check is the authority.
+WRITE_SCHEMA_NUMERIC_BOUNDS = True
 # The reveals pass reads the transcript through tools/speech_at.py as a tool;
 # at most this many calls before it must answer.
 WRITE_REVEALS_MAX_TOOL_CALLS = 12

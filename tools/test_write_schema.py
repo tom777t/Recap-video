@@ -166,9 +166,202 @@ def test_line_problems():
     return ok, f"{len(got)} offender(s) named: {got}"
 
 # --------------------------------------------------------------------------- #
+# the writers
+# --------------------------------------------------------------------------- #
+def _acts_fixture():
+    """Fixture acts from the shipped project + a plan.json matching them, so
+    the plan-count feedback stays quiet and only the schema is under test."""
+    _setup()
+    shutil.rmtree(PDIR / "draft.json.d")
+    (PDIR / "draft.json").unlink()
+    acts = {}
+    for k in range(1, 5):
+        lines = []
+        for part in ("a", "b"):
+            f = SRC / "draft.json.d" / f"act{k}{part}.json"
+            if f.exists():
+                lines += _j(f)["lines"]
+        acts[k] = _schema_clean(lines)
+    import write_plan as WP
+    from pipeline.pacing_gates import _beat_of
+    ab = WP.act_beats(PROJ, W._tool)
+    cnt = {}
+    for ls in acts.values():
+        for ln in ls:
+            if str(ln.get("narration") or "").strip() and not (
+                    ln.get("over_montage") or ln.get("delivery") == "hook"):
+                cnt[_beat_of(ln)] = cnt.get(_beat_of(ln), 0) + 1
+    (PDIR / "plan.json").write_text(json.dumps({
+        "title": "A Kid Learns to Drift", "hook": {
+            "narration": "He cannot drive sideways.",
+            "hook_question": "Will he learn before it costs him?"},
+        "acts": [{"act": k, "word_budget": 800} for k in ab],
+        "beats": [{"beat": b, "lines": cnt.get(b, 0), "footage": False,
+                   "hold_after": False, "film_speaks": False, "why": "x"}
+                  for k in sorted(ab) for b in ab[k]]}))
+    return acts
+
+
+def _poison(lines):
+    out = json.loads(json.dumps(lines))
+    out[3]["narration_silence_seconds"] = 0
+    return out
+
+
+_SAW = {}
+
+
+def test_act_rejected():
+    acts = _acts_fixture()
+    seen = {"retry_saw_file": None}
+
+    def bat(cid, p):
+        k = int(cid[3:])
+        if k == 2 and len(p["messages"]) == 1:
+            return msg({"act": 2, "lines": _poison(acts[2])})
+        if k == 2:
+            seen["retry_saw_file"] = (PDIR / "draft.json.d/act2.json").exists()
+            seen["feedback"] = p["messages"][-1]["content"]
+            seen["assistant"] = p["messages"][1]["content"]
+        return msg({"act": k, "lines": acts[k]})
+    c = Client(None, bat)
+    real = W.run_gates
+    W.run_gates = lambda project: (0, [])
+    try:
+        rc, out = _run(c, "draft", "--project", PROJ)
+    finally:
+        W.run_gates = real
+    _SAW["act_params"] = c.batches[0][0]["params"]
+    if len(c.batches) < 2 or [r["custom_id"] for r in c.batches[1]] != ["act2"]:
+        return False, (f"no in-stage retry for act2 only: "
+                       f"{[[r['custom_id'] for r in b] for b in c.batches]}")
+    if seen["retry_saw_file"]:
+        return False, "the schema-invalid act was saved before the retry"
+    fb = seen.get("feedback") or ""
+    if "narration_silence_seconds must be > 0" not in fb or \
+            '"narration_silence_seconds": 0' not in seen.get("assistant", ""):
+        return False, f"the exact schema error / rejected reply not fed back: {fb[:200]}"
+    a2 = _j(PDIR / "draft.json.d/act2.json")["lines"]
+    if any(l.get("narration_silence_seconds") == 0 for l in a2):
+        return False, "a 0-second hold reached act2.json"
+    if rc != 0:
+        return False, f"exit {rc}: {out[-300:]}"
+    return True, ("act2 with narration_silence_seconds 0 not written; error "
+                  "fed back in a schema round; the corrected act written")
+
+
+def test_round_rejected():
+    acts = _acts_fixture()
+    rounds = []
+
+    def bat(cid, p):
+        k = int(cid[3:])
+        u = p["messages"][0]["content"]
+        if "GATE FINDINGS ON YOUR LINES" in u:
+            rounds.append(u)
+            return msg({"act": k, "lines": _poison(acts[k])})
+        return msg({"act": k, "lines": acts[k]})
+    c = Client(None, bat)
+    real = W.run_gates
+
+    def fake(project):
+        owner = W.act_of_lines(PDIR)
+        a2 = next(i for i, (k, _o) in owner.items() if k == 2)
+        return 1, [f"[BINDING-VIOLATION] line {a2} narr too long"]
+    W.run_gates = fake
+    try:
+        rc, out = _run(c, "draft", "--project", PROJ)
+    finally:
+        W.run_gates = real
+    a2 = _j(PDIR / "draft.json.d/act2.json")["lines"]
+    if any(l.get("narration_silence_seconds") == 0 for l in a2):
+        return False, "a schema-invalid round reply was saved"
+    if len(rounds) != 2 or "(schema - your last reply was NOT saved)" \
+            not in rounds[1] or "must be > 0" not in rounds[1]:
+        return False, f"round 2 does not carry the schema error ({len(rounds)} rounds)"
+    if "NOT saved" not in out:
+        return False, "the rejection was not reported"
+    return True, ("round-1 reply with a 0 hold kept out; round 2 got the "
+                  "schema error as feedback; previous act kept on disk")
+
+
+def test_resolve_rejected():
+    import test_write_plan as TWP
+    TWP._resolve_fixture()
+    calls = []
+
+    def reply(cid, p):
+        calls.append(p)
+        fs = {ln.split(" | ")[0]: ln for ln in
+              p["messages"][0]["content"].split("# OPEN FINDINGS")[1]
+              .split("\n\n# ")[0].strip().splitlines()}
+        key = {v.split(" | ")[2]: k for k, v in fs.items()}
+        return msg({"lines": [{"id": 2, "narration": "A rewrite with a bad "
+                               "hold.", "narration_silence_seconds": 0}],
+                    "responses": [{"key": key["dangling-ref"],
+                                   "status": "RESOLVED", "text": "fixed"}]})
+    c = Client(None, reply)
+    rc, out = _run(c, "resolve", "--project", TWP.PROJ)
+    dr = _j(TWP.PDIR / "draft.json")
+    l2 = next(l for l in dr["lines"] if str(l["id"]) == "2")
+    from pipeline import review_artifacts as RA
+    cr = RA.parse_artifact(TWP.PDIR / "cold_read.md")
+    _SAW["resolve_params"] = calls[0] if calls else None
+    shutil.rmtree(TWP.PDIR, ignore_errors=True)
+    if "bad hold" in l2["narration"] or "narration_silence_seconds" in l2:
+        return False, f"the invalid edit was applied: {l2}"
+    if any("RESOLVED | dangling-ref" in f["raw"] for f in cr["findings"]):
+        return False, "a RESOLVED rode on the rejected edit"
+    if len(calls) < 2 or "NOT SAVED" not in calls[-1]["messages"][0]["content"]:
+        return False, "the schema error did not go back in round 2"
+    return True, ("resolve edit with a 0 hold not applied, no RESOLVED "
+                  "written, the error fed back next round")
+
+
+def test_request_schema():
+    from pipeline import craft_gates as CG
+    from pipeline import schemas as S
+    p = _SAW.get("act_params")
+    r = _SAW.get("resolve_params")
+    if not p or not r:
+        return False, "ACT-REJECTED / RESOLVE-REJECTED did not run first"
+    bad = []
+    for name, q, path in (("act", p, ("lines",)), ("resolve", r, ("lines",))):
+        oc = q.get("output_config") or {}
+        if oc.get("effort") != config.WRITE_EFFORT[name if name == "resolve"
+                                                   else "draft"]:
+            bad.append(f"{name}: effort lost ({oc.get('effort')!r})")
+        f = oc.get("format") or {}
+        if f.get("type") != "json_schema":
+            bad.append(f"{name}: no json_schema format")
+            continue
+        it = f["schema"]["properties"]["lines"]["items"]["properties"]
+        if it.get("delivery", {}).get("enum") != sorted(config.TTS_DELIVERY):
+            bad.append(f"{name}: delivery enum")
+        if it.get("payload", {}).get("enum") != list(CG.PAYLOAD_KINDS):
+            bad.append(f"{name}: payload enum")
+        ns = it.get("narration_silence_seconds") or {}
+        if ns.get("exclusiveMinimum") != 0 or ns.get("maximum") != 30:
+            bad.append(f"{name}: narration_silence_seconds bounds {ns}")
+    it = p["output_config"]["format"]["schema"]["properties"]["lines"]["items"]
+    ct = it["properties"]["claim"]["properties"]["type"]["enum"]
+    if ct != sorted(S._CLAIM_TYPES):
+        bad.append("act: claim.type enum")
+    if it.get("additionalProperties") is not False:
+        bad.append("act: line items accept unknown fields")
+    return (not bad), ("act + resolve requests: json_schema with delivery / "
+                       "payload / claim.type enums and > 0 bounds, effort kept"
+                       if not bad else "; ".join(bad))
+
+
+# --------------------------------------------------------------------------- #
 TESTS = {
     "UNPARSEABLE-NOT-MASKED": test_unparseable_not_masked,
     "LINE-PROBLEMS":          test_line_problems,
+    "ACT-REJECTED":           test_act_rejected,
+    "ROUND-REJECTED":         test_round_rejected,
+    "RESOLVE-REJECTED":       test_resolve_rejected,
+    "REQUEST-SCHEMA":         test_request_schema,
 }
 
 if __name__ == "__main__":

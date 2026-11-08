@@ -66,6 +66,21 @@ def _setup():
         "narration", "frames", "*.mp4", "*.wav", "_*"))
 
 
+def _schema_clean(lines):
+    """The shipped act files carry four claim.type values the schema rejects
+    ('aftermath', 'establishing' - shot vocabulary); draft.json was fixed by
+    hand. A writer's reply is now checked with the schema before it is
+    saved, so the mocked replies must be schema-valid: those claims are
+    dropped here."""
+    from pipeline import schemas as S
+    out = json.loads(json.dumps(lines))
+    for ln in out:
+        c = ln.get("claim")
+        if isinstance(c, dict) and c.get("type") not in S._CLAIM_TYPES:
+            ln.pop("claim")
+    return out
+
+
 def _j(p):
     return json.loads(Path(p).read_text(encoding="utf-8-sig"))
 
@@ -251,7 +266,7 @@ def test_draft_loop():
             f = SRC / "draft.json.d" / f"act{k}{part}.json"
             if f.exists():
                 lines += _j(f)["lines"]
-        acts[k] = lines
+        acts[k] = _schema_clean(lines)
     # a plan.json that matches these acts exactly, so this test isolates the
     # gate-feedback loop (plan adherence is tested in test_write_plan.py)
     import write_plan as WP

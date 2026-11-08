@@ -41,6 +41,14 @@ left - it does not loop. The review gates (COLD-READ / REVIEWER /
 ENDING-READ) are not fed back here: their artifacts are written after this
 by tools/review_api.py, and closing them needs RESOLVED/ANSWERED entries.
 
+SCHEMA FIRST. Every act reply (first write and feedback rounds) and every
+resolve edit is checked with schemas.line_problems - the same Line validator
+schemas.load_draft runs - BEFORE it is saved. A reply that fails is not
+written; its exact errors go back to the model inside the stage (counted
+against the round limit). The requests also carry a json_schema output
+format derived from the same schema (enums for delivery / payload /
+claim.type, LINE_BOUNDS for the numbers), merged next to the effort.
+
 Reuses tools/tag_batch.py's client (ANTHROPIC_API_KEY from the environment
 only), reply parsing, usage, PRICES and ledger. Pending batches are recorded
 in projects/<p>/write_api.json so an interrupted run collects them instead
@@ -225,6 +233,10 @@ def batch(client, pdir: Path, stage: str, reqs: dict, wait: bool = True,
         res = TB._get(item, "result")
         if TB._get(res, "type") != "succeeded":
             out[cid] = None
+            # name the API's reason (e.g. a schema keyword it refuses) -
+            # "the request failed" alone cannot be acted on
+            print(f"{stage}: {cid} {TB._get(res, 'type')}: "
+                  f"{str(TB._get(res, 'error') or '')[:300]}")
             continue
         msg = TB._get(res, "message")
         TB.ledger_append(pdir, stage, pend["models"].get(cid, "?"),
@@ -702,7 +714,7 @@ def act_request(project: str, pdir: Path, k: int, sysb: list,
                  + "\n\n# GATE FINDINGS ON YOUR LINES - fix exactly these, "
                    "change nothing else, reply with the whole corrected act\n\n"
                  + feedback)
-    return params("draft", sysb, user)
+    return with_format(params("draft", sysb, user), act_schema())
 
 
 def check_act(obj: dict, k: int) -> list:
@@ -710,8 +722,105 @@ def check_act(obj: dict, k: int) -> list:
         return ["no lines"]
     if obj.get("act") not in (k, str(k)):
         return [f"act is {obj.get('act')!r}, expected {k}"]
-    return [f"line {i} is not an object" for i, l in enumerate(obj["lines"])
-            if not isinstance(l, dict)]
+    shape = [f"line {i} is not an object" for i, l in enumerate(obj["lines"])
+             if not isinstance(l, dict)]
+    # CORRECT BY CONSTRUCTION: the reply is checked with the SAME Line
+    # validator schemas.load_draft uses, before anything is saved. A line
+    # with "narration_silence_seconds": 0 used to be written, assembled, and
+    # only surface as AUDIT-UNPARSEABLE - with ten audits silently skipped.
+    return shape or schema_problems(obj["lines"])
+
+
+# --------------------------------------------------------------------------- #
+# the draft line schema: for the request (structured output) and the reply
+# --------------------------------------------------------------------------- #
+def schema_problems(lines: list) -> list:
+    """schemas.line_problems: what load_draft would reject, every offender."""
+    from pipeline import schemas as S
+    return S.line_problems(lines)
+
+
+def _bounded(field: str) -> dict:
+    """A number property with the bounds of schemas.LINE_BOUNDS."""
+    from pipeline import schemas as S
+    lo, hi, _why = S.LINE_BOUNDS[field]
+    d: dict = {"type": "number"}
+    rule = f"must be > {lo:g}" + (f" and <= {hi:g}" if hi is not None else "")
+    if getattr(config, "WRITE_SCHEMA_NUMERIC_BOUNDS", True):
+        d["exclusiveMinimum"] = lo
+        if hi is not None:
+            d["maximum"] = hi
+    d["description"] = f"{field} {rule}; omit the field otherwise"
+    return d
+
+
+def line_properties() -> dict:
+    """Every line property a writer may emit, typed from the draft schema:
+    claim.type from schemas.ClaimType, delivery from config.TTS_DELIVERY
+    (what [DELIVERY-UNKNOWN] and the TTS read), payload from
+    craft_gates.PAYLOAD_KINDS (what [PAYLOAD-MIX] reads), numeric bounds
+    from schemas.LINE_BOUNDS. Nothing here is a hand copy of a rule."""
+    from pipeline import craft_gates as CG
+    from pipeline import schemas as S
+    s, b, i = {"type": "string"}, {"type": "boolean"}, {"type": "integer"}
+    return {
+        "id": i, "slot": s, "narration": s, "note": s,
+        "clip_start": s, "clip_end": s,
+        "delivery": {"type": "string", "enum": sorted(config.TTS_DELIVERY)},
+        "payload": {"type": "string", "enum": list(CG.PAYLOAD_KINDS)},
+        "narrative_jump": b, "bridge": b, "film_intro": b,
+        "window_adjusted": b, "callback_beat": s, "hook_question": s,
+        "claim": {"type": "object", "properties": {
+            "type": {"type": "string", "enum": sorted(S._CLAIM_TYPES)},
+            "subject": s, "requires_visual": b},
+            "required": ["type"], "additionalProperties": False},
+        **{f: _bounded(f) for f in S.LINE_BOUNDS},
+    }
+
+
+ACT_LINE_FIELDS = ("id", "narration", "note", "clip_start", "clip_end",
+                   "delivery", "payload", "narrative_jump", "bridge",
+                   "film_intro", "window_adjusted", "callback_beat",
+                   "hook_question", "claim", "narration_silence_seconds")
+ACT_LINE_REQUIRED = ("id", "narration", "note", "delivery", "payload")
+
+
+def act_schema(fields=ACT_LINE_FIELDS, required=ACT_LINE_REQUIRED) -> dict:
+    props = line_properties()
+    return {"type": "object", "properties": {
+        "act": {"type": "integer"},
+        "lines": {"type": "array", "items": {
+            "type": "object",
+            "properties": {f: props[f] for f in fields},
+            "required": list(required), "additionalProperties": False}}},
+        "required": ["act", "lines"], "additionalProperties": False}
+
+
+def with_format(p: dict, schema: dict) -> dict:
+    """Attach a json_schema output format, MERGED into output_config so the
+    effort params() set is kept."""
+    p.setdefault("output_config", {})["format"] = {"type": "json_schema",
+                                                   "schema": schema}
+    return p
+
+
+def schema_feedback(errs: list) -> str:
+    return ("That reply was NOT saved: these lines break the draft schema "
+            "(pipeline/schemas.py, the same check recap.py draft runs):\n"
+            + "\n".join(f"- {e}" for e in errs)
+            + "\nFix exactly these fields (omit an optional number rather "
+              "than writing 0) and reply with the whole corrected JSON "
+              "object only.")
+
+
+def retry_params(p: dict, msg, errs: list) -> dict:
+    """The same request with the rejected reply and its exact errors."""
+    q = json.loads(json.dumps(p))
+    q["messages"] = q["messages"][:1] + [
+        {"role": "assistant",
+         "content": str(TB.reply_text(msg) or "") or "(empty reply)"},
+        {"role": "user", "content": schema_feedback(errs)}]
+    return q
 
 
 def run_gates(project: str) -> tuple:
@@ -878,27 +987,46 @@ def cmd_draft(a, client) -> int:
         print("draft: every act is written - nothing to do "
               "(--feedback-only to run the gate-feedback rounds)")
         return 0
+    rounds = int(config.WRITE_DRAFT_FEEDBACK_ROUNDS)
+    used = 0
     if todo:
-        reqs = {f"act{k}": act_request(
+        pending = {f"act{k}": act_request(
             a.project, pdir, k, sysb,
             plan_text=WP.plan_for_act(plan, ab.get(k, []), k)) for k in todo}
-        got = batch(client, pdir, "draft", reqs, wait=not a.no_wait,
-                    poll=a.poll)
-        bad = {}
-        for k in todo:
-            obj, why = _json_reply(got.get(f"act{k}"), "draft")
-            probs = [why] if obj is None else check_act(obj, k)
-            if probs:
-                bad[k] = probs
-                continue
-            lines = [l for l in obj["lines"]
-                     if not (l.get("delivery") == "hook" or l.get("over_montage"))]
-            if k == 1:
-                # the plan's hook, over the montage, no clip window
-                lines = [WP.hook_line(plan)] + lines
-            (d / f"act{k}.json").write_text(json.dumps(
-                {"act": k, "lines": lines}, ensure_ascii=False,
-                indent=2), encoding="utf-8")
+        bad, tag = {}, "draft"
+        while pending:
+            got = batch(client, pdir, tag, pending, wait=not a.no_wait,
+                        poll=a.poll)
+            retry = {}
+            for cid, p in pending.items():
+                k = int(cid[3:])
+                obj, why = _json_reply(got.get(cid), "draft")
+                probs = [why] if obj is None else check_act(obj, k)
+                if probs:
+                    bad[k] = probs
+                    # a reply that parsed but breaks the schema goes back
+                    # with its exact errors, inside this stage; it is never
+                    # written. Each such round counts toward the limit.
+                    if obj is not None and used < rounds:
+                        retry[cid] = retry_params(p, got.get(cid), probs)
+                    continue
+                bad.pop(k, None)
+                lines = [l for l in obj["lines"]
+                         if not (l.get("delivery") == "hook"
+                                 or l.get("over_montage"))]
+                if k == 1:
+                    # the plan's hook, over the montage, no clip window
+                    lines = [WP.hook_line(plan)] + lines
+                (d / f"act{k}.json").write_text(json.dumps(
+                    {"act": k, "lines": lines}, ensure_ascii=False,
+                    indent=2), encoding="utf-8")
+            if not retry:
+                break
+            used += 1
+            tag = f"draft-schema{used}"
+            print(f"draft: {len(retry)} act(s) NOT saved (schema) - sent "
+                  f"back with the errors, round {used}/{rounds}")
+            pending = retry
         print(f"draft: wrote {len(todo) - len(bad)}/{len(todo)} act(s)")
         if bad:
             for k, pr in bad.items():
@@ -906,11 +1034,17 @@ def cmd_draft(a, client) -> int:
             return 2
     _fix_windows(a.project)
     _assemble(a.project)
-    rounds = int(config.WRITE_DRAFT_FEEDBACK_ROUNDS)
+    rounds -= used
     acts = list(range(1, n_acts(pdir) + 1))
+    carry: dict = {}           # {act: schema errors of a rejected reply}
     for rnd in range(1, rounds + 2):
         rc, finds = run_gates(a.project)
         fb = feedback_by_act(finds, act_of_lines(pdir), acts)
+        for k, errs in carry.items():
+            fb[k] = ("\n".join(f"- (schema - your last reply was NOT saved) "
+                                f"{e}" for e in errs)
+                     + ("\n" + fb[k] if fb.get(k) else ""))
+        carry = {}
         if plan:
             # did each act follow the plan? (check_act's plan half)
             for k in acts:
@@ -952,9 +1086,12 @@ def cmd_draft(a, client) -> int:
         for cid, msg in got.items():
             k = int(cid[3:])
             obj, why = _json_reply(msg, "draft")
-            if obj is None or check_act(obj, k):
-                print(f"  act{k}: round {rnd} reply unusable "
-                      f"({why or check_act(obj, k)[:2]}) - kept the previous")
+            probs = [why] if obj is None else check_act(obj, k)
+            if probs:
+                print(f"  act{k}: round {rnd} reply NOT saved "
+                      f"({'; '.join(probs[:2])}) - kept the previous")
+                if obj is not None:
+                    carry[k] = probs
                 continue
             prev = json.loads(_read(d / f"act{k}.json"))["lines"]
             keep = [l for l in prev if l.get("over_montage")
@@ -995,6 +1132,7 @@ def cmd_resolve(a, client) -> int:
     pdir = config.project_dir(a.project)
     d = pdir / "draft.json.d"
     rounds = int(config.WRITE_RESOLVE_ROUNDS)
+    carry: dict = {}
     for rnd in range(1, rounds + 2):
         draft = json.loads(_read(pdir / "draft.json"))
         finds = WP.open_findings(pdir, draft)
@@ -1022,36 +1160,69 @@ def cmd_resolve(a, client) -> int:
             mine = [l for l in draft["lines"]
                     if owner.get(l["id"], (None,))[0] == k
                     or str(l["id"]) in {i for f in fs for i in f["ids"]}]
-            pr = params("resolve", sysb, WP.resolve_user(mine, fs))
-            pr.setdefault("output_config", {})["format"] = {
-                "type": "json_schema", "schema": WP.RESOLVE_SCHEMA}
-            reqs[f"act{k}"] = pr
+            user = WP.resolve_user(mine, fs)
+            if carry.get(k):
+                user += ("\n\n# YOUR LAST EDITS THAT WERE NOT SAVED (they "
+                         "break the draft schema)\n\n"
+                         + "\n".join(f"- {e}" for e in carry[k]))
+            reqs[f"act{k}"] = with_format(params("resolve", sysb, user),
+                                          resolve_schema())
         print(f"resolve: round {rnd}/{rounds} - {len(finds)} open finding(s) "
               f"over {len(reqs)} act(s)")
         got = batch(client, pdir, f"resolve-round{rnd}", reqs,
                     wait=not a.no_wait, poll=a.poll)
-        changes, entries, rejects = {}, {}, []
+        changes, entries, rejects, edits = {}, {}, [], {}
+        carry = {}
         for cid, msg in got.items():
             k = int(cid[3:])
             obj, why = _json_reply(msg, "resolve")
             if obj is None:
                 rejects.append(f"act{k}: {why}")
                 continue
+            # every edit is checked against the draft schema BEFORE anything
+            # is applied or closed: a bad line is dropped from the reply (so
+            # a RESOLVED cannot ride on it) and goes back next round
+            named = {i for f in groups[k] for i in f["ids"]}
+            keep, fedits = [], {}
+            for ln in obj.get("lines") or []:
+                lid = str(ln.get("id"))
+                if lid not in by_id or lid not in named:
+                    keep.append(ln)             # apply_resolution rejects it
+                    continue
+                fe = {f: ln[f] for f in EDIT_FIELDS
+                      if f in ln and ln[f] != by_id[lid].get(f)}
+                new = dict(by_id[lid], **fe)
+                if "narration" in ln:
+                    new["narration"] = " ".join(str(ln["narration"]).split())
+                errs = schema_problems([new])
+                if errs:
+                    carry.setdefault(k, []).extend(errs)
+                    rejects.append(f"act{k}: line {lid} NOT saved - "
+                                   f"{'; '.join(errs)}")
+                    continue
+                keep.append(ln)
+                if fe:
+                    fedits[lid] = fe
+            obj = dict(obj, lines=keep)
             ch, en, rj = WP.apply_resolution(groups[k], obj, by_id)
             changes.update(ch)
+            for lid, fe in fedits.items():
+                edits.setdefault(lid, {}).update(fe)
             for art, e in en.items():
                 entries.setdefault(art, []).extend(e)
             rejects += [f"act{k}: {x}" for x in rj]
+        for lid, new in changes.items():
+            edits.setdefault(lid, {})["narration"] = new
         # the lines: draft.json AND the act files (assembly reads those)
         acts_ = {f: json.loads(_read(f)) for f in sorted(d.glob("act*.json"))}
-        for lid, new in changes.items():
-            by_id[lid]["narration"] = new
+        for lid, fe in edits.items():
+            by_id[lid].update(fe)
             k, own = owner.get(int(lid), (None, None))
             for f, o in acts_.items():
                 if k is not None and re.match(rf"act{k}\b|act{k}[a-z]", f.stem):
                     for ln in o.get("lines") or []:
                         if ln.get("id") == own:
-                            ln["narration"] = new
+                            ln.update(fe)
         (pdir / "draft.json").write_text(json.dumps(draft, ensure_ascii=False,
                                                     indent=2), encoding="utf-8")
         for f, o in acts_.items():
@@ -1062,12 +1233,28 @@ def cmd_resolve(a, client) -> int:
             p = pdir / art
             if p.exists() and (entries.get(art) or resign):
                 WP.write_artifact(p, entries.get(art, []), resign)
-        print(f"resolve: {len(changes)} line(s) changed, "
+        print(f"resolve: {len(edits)} line(s) changed, "
               f"{sum(len(v) for v in entries.values())} entr(ies) written")
         for r in rejects[:20]:
             print(f"  - {r}")
         run_gates(a.project)
     return 2
+
+
+# fields a resolve reply may change besides the narration (a gate finding
+# may need a payload, a delivery or a hold length fixed, not only words)
+EDIT_FIELDS = ("delivery", "payload", "narration_silence_seconds")
+
+
+def resolve_schema() -> dict:
+    """write_plan.RESOLVE_SCHEMA with its line items typed from the draft
+    line schema (line_properties) rather than by hand."""
+    import write_plan as WP
+    sch = json.loads(json.dumps(WP.RESOLVE_SCHEMA))
+    props = line_properties()
+    items = sch["properties"]["lines"]["items"]
+    items["properties"] = {f: props[f] for f in items["properties"]}
+    return sch
 
 
 # --------------------------------------------------------------------------- #

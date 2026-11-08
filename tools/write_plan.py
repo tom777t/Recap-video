@@ -361,8 +361,11 @@ def open_findings(pdir: Path, draft: dict) -> list:
 RESOLVE_SCHEMA = {
     "type": "object",
     "properties": {
+        # typed from the draft line schema by write_api.resolve_schema()
         "lines": {"type": "array", "items": {"type": "object", "properties": {
-            "id": {"type": "integer"}, "narration": {"type": "string"}},
+            "id": {"type": "integer"}, "narration": {"type": "string"},
+            "delivery": {"type": "string"}, "payload": {"type": "string"},
+            "narration_silence_seconds": {"type": "number"}},
             "required": ["id", "narration"], "additionalProperties": False}},
         "responses": {"type": "array", "items": {"type": "object",
                                                   "properties": {
