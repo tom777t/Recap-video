@@ -6,9 +6,16 @@ mechanical UNWATCHABLE-FOOTAGE fix. Offline, mocked client.
                        with the contour gate's own messages, a thin anchor,
                        a '<film> (<year>)' title and a long hook opener; a
                        planned contour passes
+  CONTOUR-REPAIR       code makes a plan's line counts pass [PACING-CONTOUR]:
+                       a one-line-per-beat plan comes out with no contour
+                       violation, mandatory beats keep a line, anchors keep
+                       their dwell, nothing over LINES_MAX; a planned contour
+                       is not touched
   PLAN-REVISION        a failing plan gets ONE revision request carrying the
-                       violations; the fixed plan is written; two failures
-                       stop with plan_rejected.json and no plan.json
+                       violations code could NOT fix (title, hook) and none it
+                       did (contour); the fixed plan is written; two failures
+                       stop with exit PLAN_STOPPED, plan_rejected.json and no
+                       plan.json
   ACT-FOLLOWS-PLAN     each act request carries its slice of the plan; the
                        plan's hook is act 1's first line (over_montage, no
                        window); the plan's title is the draft's title; an act
@@ -166,6 +173,37 @@ def test_plan_validates():
                   f"planned contour: 0")
 
 
+def test_contour_repair():
+    import copy
+    from pipeline import angle_spec
+    _setup()
+    ab = _ab()
+    contour = ("anchor(s) are below", "contour is FLAT", "beats in a row")
+    flat = _plan("flat")
+    ch = WP.repair_contour(flat, PDIR)
+    left = [v for v in WP.validate_plan(flat, PROJ, PDIR, ab)
+            if any(c in v for c in contour)]
+    if left:
+        return False, f"contour still fails after repair: {left}"
+    mand = set(_j(PDIR / "coverage_policy.json").get("mandatory") or [])
+    by = {b["beat"]: b for b in flat["beats"]}
+    lost = [m for m in mand if m in by and by[m]["lines"] < 1]
+    if lost:
+        return False, f"mandatory beat(s) lost their line: {lost[:6]}"
+    for a in angle_spec.load(PDIR)["anchors"]:
+        if sum(by[b]["lines"] for b in a["beats"] if b in by) < \
+                config.PACING_ANCHOR_MIN_LINES:
+            return False, f"anchor {a['beats']} under the minimum"
+    if any(b["lines"] > WP.LINES_MAX for b in flat["beats"]):
+        return False, "a beat over LINES_MAX"
+    good = _plan("good")
+    g0 = copy.deepcopy(good)
+    if WP.repair_contour(good, PDIR) or good != g0:
+        return False, "a plan that already passes was changed"
+    return True, (f"flat plan: {len(ch)} count change(s), contour passes, "
+                  f"mandatory and anchors intact; planned contour untouched")
+
+
 def test_plan_revision():
     _setup()
     flat, good = _plan("flat"), _plan("good")
@@ -176,18 +214,35 @@ def test_plan_revision():
     rev = c.calls[1]["messages"][-1]["content"]
     written = {k: v for k, v in _j(PDIR / "plan.json").items()
                if k not in ("slots", "slot_problems")}
-    if "beats in a row" not in rev or written != good:
-        return False, "revision did not carry the violations or plan not written"
+    if "(<year>)" not in rev or "beats in a row" in rev or written != good:
+        return False, ("revision did not carry the unfixable violations, "
+                       "carried a contour one code should have fixed, or the "
+                       "plan was not written")
     if "anchor" not in c.calls[0]["messages"][0]["content"].lower() \
             or "WORD BAND" not in c.calls[0]["messages"][0]["content"]:
         return False, "plan request lacks angle / band"
     (PDIR / "plan.json").unlink()
     c2 = Client(lambda p, n: msg(flat))
     rc2, _o = _run(c2, "plan", "--project", PROJ)
-    ok = rc2 == 2 and not (PDIR / "plan.json").exists() and \
+    ok = rc2 == W.PLAN_STOPPED and not (PDIR / "plan.json").exists() and \
         (PDIR / "plan_rejected.json").exists() and len(c2.calls) == 2
-    return ok, ("bad plan -> one revision with the violations -> written; "
-                "two bad -> stop, plan_rejected.json")
+    if not ok:
+        return False, f"two bad plans: rc {rc2}, {len(c2.calls)} call(s)"
+    # the rejected plan, re-run: counts repaired by code, NO API call, when
+    # the only problems were counts
+    rj = _j(PDIR / "plan_rejected.json")
+    good_t = _plan("good")
+    rj["title"], rj["hook"] = good_t["title"], good_t["hook"]
+    (PDIR / "plan_rejected.json").write_text(json.dumps(rj), encoding="utf-8")
+    c3 = Client(lambda p, n: msg(flat))
+    rc3, out3 = _run(c3, "plan", "--project", PROJ)
+    ok = (rc3 == 0 and not c3.calls and (PDIR / "plan.json").exists()
+          and "no new API call" in out3)
+    if not ok:
+        return False, f"rejected plan not reused: rc {rc3}, {len(c3.calls)} call(s)"
+    return ok, ("bad plan -> contour fixed by code, one revision with the "
+                "rest -> written; two bad -> stop (exit 4), plan_rejected.json; "
+                "rerun repairs that file with no API call")
 
 
 def test_act_follows_plan():
@@ -412,6 +467,7 @@ def test_runps1_halt():
 
 TESTS = {
     "PLAN-VALIDATES":    test_plan_validates,
+    "CONTOUR-REPAIR":    test_contour_repair,
     "PLAN-REVISION":     test_plan_revision,
     "ACT-FOLLOWS-PLAN":  test_act_follows_plan,
     "RESOLVE-CLOSES":    test_resolve_closes,

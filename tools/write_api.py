@@ -982,6 +982,11 @@ def _assemble(project: str) -> None:
 # --------------------------------------------------------------------------- #
 # plan: one request before any act, validated with the gates' own code
 # --------------------------------------------------------------------------- #
+# exit code when the plan is rejected twice: run.ps1 halts on it with the
+# plan's own message instead of falling through to the subagent loop
+PLAN_STOPPED = 4
+
+
 def cmd_plan(a, client) -> int:
     import write_plan as WP
     pdir = config.project_dir(a.project)
@@ -990,6 +995,26 @@ def cmd_plan(a, client) -> int:
         print("plan: plan.json exists - kept (--force to re-plan)")
         return 0
     ab = WP.act_beats(a.project, _tool)
+    # A plan already paid for and rejected only on counts is repaired, not
+    # re-bought: if code alone makes it pass, it is the plan.
+    rej = pdir / "plan_rejected.json"
+    if rej.exists() and not a.force:
+        try:
+            old = json.loads(_read(rej))
+        except ValueError:
+            old = None
+        if isinstance(old, dict):
+            fixed = WP.repair_contour(old, pdir)
+            if not WP.validate_plan(old, a.project, pdir, ab):
+                out.write_text(json.dumps(old, ensure_ascii=False, indent=1),
+                               encoding="utf-8")
+                rej.replace(pdir / "plan_rejected.repaired.json")
+                save_slots(a.project, pdir, old, ab)
+                print(f"plan: repaired the rejected plan by code "
+                      f"({len(fixed)} count change(s)) - no new API call")
+                for c in fixed[:12]:
+                    print(f"  - {c}")
+                return 0
     sysb = system_blocks("plan", "the plan JSON object")
     p = params("plan", sysb, WP.plan_user(a.project, pdir, _tool, _read))
     p.setdefault("output_config", {})["format"] = {
@@ -997,6 +1022,17 @@ def cmd_plan(a, client) -> int:
     for attempt in (1, 2):
         msg = call(client, pdir, "plan", p, note=f"attempt {attempt}")
         obj, why = _json_reply(msg, "plan")
+        if obj is not None:
+            # counts are arithmetic: code makes them pass the contour gate
+            fixed = WP.repair_contour(obj, pdir)
+            if fixed:
+                print(f"plan: code adjusted {len(fixed)} beat count(s) to fit "
+                      f"[PACING-CONTOUR]:")
+                for c in fixed[:12]:
+                    print(f"  - {c}")
+                if len(fixed) > 12:
+                    print(f"  ... and {len(fixed) - 12} more (marked [code: ...] "
+                          f"in plan.json)")
         viol = [why] if obj is None else WP.validate_plan(obj, a.project,
                                                           pdir, ab)
         if not viol:
@@ -1025,7 +1061,7 @@ def cmd_plan(a, client) -> int:
             json.dumps(obj, ensure_ascii=False, indent=1), encoding="utf-8")
     print("plan: STOPPING - no act is written to a plan that misses the gates "
           "(the last attempt is in plan_rejected.json)")
-    return 2
+    return PLAN_STOPPED
 
 
 def save_slots(project: str, pdir: Path, plan: dict, ab: dict) -> None:

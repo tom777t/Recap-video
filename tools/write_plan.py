@@ -165,6 +165,168 @@ def placeholder_draft(plan: dict) -> dict:
     return {"title": plan.get("title"), "lines": lines}
 
 
+# --------------------------------------------------------------------------- #
+# CONTOUR REPAIR - the plan's line COUNTS are arithmetic, so code makes them
+# satisfy [PACING-CONTOUR]; the model only decides what matters (which beats
+# are anchors, which are bridges). Two plan attempts on Furious 7 each missed
+# one number (top-20% share 38.3% < 40%; a run of 5 one-line beats) and the
+# stage stopped - a counting job the gate itself can do exactly.
+#
+# Moves, in order, each re-measured with the gate's own definitions:
+#   1. every anchor gets PACING_ANCHOR_MIN_LINES (lines added to its biggest beat)
+#   2. a run of one-line beats over the maximum is broken by holding one beat
+#      that is NOT mandatory / anchor / promise on footage (a silent beat
+#      breaks a run - config); if every beat in the run is mandatory, the
+#      middle one gets a second line
+#   3. while the top 20% share is under the floor (+ a small margin): one line
+#      moves from the weakest non-top beat (a 2+ beat loses one; else a
+#      non-mandatory 1-line beat goes to footage) to the strongest beat with
+#      room, anchors first
+# Mandatory beats never drop below 1 line, anchors never below the minimum,
+# no beat goes above LINES_MAX. Every change is listed and printed.
+# --------------------------------------------------------------------------- #
+CONTOUR_SHARE_MARGIN = 0.02
+
+
+def _contour_facts(pdir: Path) -> tuple:
+    """(anchor groups [[beats]], protected beat set) from angle + coverage."""
+    groups, protect = [], set()
+    try:
+        from pipeline import angle_spec
+        spec = angle_spec.load(pdir)
+        groups = [list(a["beats"]) for a in spec.get("anchors") or []]
+        for pr in spec.get("promises") or []:
+            protect.update(pr.get("beats") or [])
+    except Exception:
+        pass
+    try:
+        protect.update(json.loads((pdir / "coverage_policy.json").read_text(
+            encoding="utf-8-sig")).get("mandatory") or [])
+    except (OSError, ValueError):
+        pass
+    for g in groups:
+        protect.update(g)
+    return groups, protect
+
+
+def _present(beats: list) -> list:
+    """The beats the contour gate sees, in order (a dropped beat is absent)."""
+    return [b for b in beats if int(b.get("lines") or 0) > 0 or b.get("footage")]
+
+
+def _share_and_top(beats: list) -> tuple:
+    t = _present(beats)
+    if not t:
+        return 1.0, set()
+    k = max(1, round(len(t) * 0.20))
+    top = sorted(t, key=lambda b: -int(b.get("lines") or 0))[:k]
+    tot = sum(int(b.get("lines") or 0) for b in t) or 1
+    return (sum(int(b.get("lines") or 0) for b in top) / tot,
+            {id(b) for b in top})
+
+
+def _worst_run(beats: list) -> list:
+    best, run = [], []
+    for b in _present(beats):
+        if int(b.get("lines") or 0) == 1:
+            run.append(b)
+            if len(run) > len(best):
+                best = list(run)
+        else:
+            run = []
+    return best
+
+
+def _mark(b: dict, what: str) -> None:
+    b["why"] = (str(b.get("why") or "").rstrip() + f" [code: {what}]").strip()
+
+
+def repair_contour(plan: dict, pdir: Path) -> list:
+    """Make the plan's counts pass [PACING-CONTOUR] in place; return the
+    changes as readable strings ([] = nothing needed)."""
+    beats = plan.get("beats") or []
+    if not beats:
+        return []
+    groups, protect = _contour_facts(pdir)
+    by = {b.get("beat"): b for b in beats}
+    anchor_beats = {x for g in groups for x in g}
+    changes: list = []
+    lmax = LINES_MAX
+
+    def n(b):
+        return int(b.get("lines") or 0)
+
+    def setn(b, v, why):
+        old = n(b)
+        b["lines"] = v
+        if v > 0:
+            b["footage"] = False
+        changes.append(f"{b['beat']}: {old} -> {v} line(s) ({why})")
+        _mark(b, why)
+
+    # 1. anchors dwell
+    need = int(config.PACING_ANCHOR_MIN_LINES)
+    for g in groups:
+        bs = [by[x] for x in g if x in by]
+        if not bs:
+            continue
+        while sum(n(b) for b in bs) < need:
+            room = [b for b in bs if n(b) < lmax]
+            if not room:
+                break
+            b = max(room, key=n)
+            setn(b, n(b) + 1, "anchor dwell")
+
+    run_max = int(config.PACING_ONE_LINE_RUN_MAX)
+    floor = float(config.PACING_TOP20_LINE_SHARE_MIN) + CONTOUR_SHARE_MARGIN
+    for _ in range(400):
+        run = _worst_run(beats)
+        if len(run) > run_max:
+            mid = len(run) // 2
+            order = sorted(range(len(run)), key=lambda i: abs(i - mid))
+            free = [run[i] for i in order if run[i].get("beat") not in protect]
+            if free:
+                b = free[0]
+                old = n(b)
+                b["lines"], b["footage"] = 0, True
+                changes.append(f"{b['beat']}: {old} -> 0, held on footage "
+                               f"(breaks a run of {len(run)} one-line beats)")
+                _mark(b, "footage, breaks a one-line run")
+            else:
+                setn(run[order[0]], 2, f"breaks a run of {len(run)} one-line "
+                                       f"beats that are all mandatory")
+            continue
+        share, top = _share_and_top(beats)
+        if share >= floor:
+            break
+        pres = _present(beats)
+        rec = sorted([b for b in pres if id(b) in top and n(b) < lmax],
+                     key=lambda b: (b.get("beat") not in anchor_beats, -n(b)))
+        if not rec:
+            rec = sorted([b for b in pres if n(b) < lmax and n(b) > 0],
+                         key=lambda b: (b.get("beat") not in anchor_beats, -n(b)))
+        if not rec:
+            break
+        donors2 = sorted([b for b in pres if id(b) not in top and n(b) >= 2
+                          and b.get("beat") not in anchor_beats],
+                         key=lambda b: n(b))
+        donors1 = [b for b in pres if id(b) not in top and n(b) == 1
+                   and b.get("beat") not in protect]
+        r = rec[0]
+        if donors2:
+            d = donors2[0]
+            setn(d, n(d) - 1, "line moved to an anchor")
+        elif donors1:
+            d = donors1[len(donors1) // 2]
+            old = n(d)
+            d["lines"], d["footage"] = 0, True
+            changes.append(f"{d['beat']}: {old} -> 0, held on footage "
+                           f"(its line moved to {r['beat']})")
+            _mark(d, "footage, line moved to an anchor")
+        setn(r, n(r) + 1, "top-20% share")
+    return changes
+
+
 _PLAN_GATE = ("anchor(s) are below", "anchor(s) are not in the draft",
               "contour is FLAT", "beats in a row get exactly one line")
 

@@ -563,6 +563,16 @@ if (Should 'draft') {
             exit 0
         }
         if ($wc -eq 1) { Bad "write_api draft exit 1 - xem o tren"; exit 1 }
+        if ($wc -eq 4) {
+            # dan y (plan.json) bi tu choi 2 lan - CHUA co act nao duoc viet,
+            # nen KHONG phai vong subagent; loi cu the in ngay o tren
+            Halt "DRAFT - dan y (plan) chua qua gate, chua viet act nao" @(
+                "Ly do: xem cac dong 'plan: attempt ...' o tren."
+                "Ban bi tu choi cuoi: $Pdir\plan_rejected.json"
+                "Gui man hinh nay cho nguoi bao tri pipeline - dung tu sua tay."
+            ) ".\run.ps1 -Project $Project -From draft"
+            exit 0
+        }
         $acts = python tools\check_stage.py $Project acts-todo
     }
 
