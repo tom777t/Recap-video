@@ -213,7 +213,7 @@ def test_plan_revision():
         return False, f"rc {rc}, {len(c.calls)} call(s)"
     rev = c.calls[1]["messages"][-1]["content"]
     written = {k: v for k, v in _j(PDIR / "plan.json").items()
-               if k not in ("slots", "slot_problems")}
+               if k not in ("slots", "slot_problems", "slots_version")}
     if "(<year>)" not in rev or "beats in a row" in rev or written != good:
         return False, ("revision did not carry the unfixable violations, "
                        "carried a contour one code should have fixed, or the "

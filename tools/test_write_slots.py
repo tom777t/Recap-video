@@ -13,7 +13,9 @@
                      each band, payloads per role) is silent on the gates the
                      layout is meant to satisfy: [WINDOW-OVERLAP] (checked
                      here), [PACING-CONTOUR], [LOOP-CADENCE], [RHYTHM] SD /
-                     punch, [PERSONA] windows, [PEAK-ORDER]
+                     punch, [PERSONA] windows and share, [PEAK-ORDER],
+                     [INTRO-OUTRO], [FILM-INTRO], [TRANSITION],
+                     [VOICE-PRESENCE], no hold after the outro
   BRIEF-FROM-CONSTANTS
                      the writer brief changes when a gate constant changes -
                      it is generated from them, never a copy
@@ -114,8 +116,8 @@ def test_windows_by_code():
     rng = WS._beat_ranges(PROJ, [])
     lands = [r["land_sec"] for r in parse_reveal_map(PROJ)
              if r.get("land_sec") not in (None, float("inf"))]
-    w = sorted((parse_ts(s["clip_start"]), parse_ts(s["clip_end"]), s)
-               for s in slots)
+    w = sorted(((parse_ts(s["clip_start"]), parse_ts(s["clip_end"]), s)
+                for s in slots if s["role"] != "intro"), key=lambda x: x[:2])
     bad = []
     for (a1, b1, s1), (a2, _b2, s2) in zip(w, w[1:]):
         if a2 < b1 - 1e-6:
@@ -142,11 +144,30 @@ _TEXT = {
 
 def _fill(s, i):
     """Placeholder narration that fills a slot the way the brief asks."""
+    if s["role"] == "intro":
+        f = WS._facts(PDIR)
+        cast = [c for c in f.get("cast") or [] if c.get("lead")][:2]
+        t = (f"This is {config.CHANNEL_NAME}, and today I am walking you "
+             f"through {f.get('title')} from {f.get('year')}."
+             if s.get("intro_part") == "greeting" else
+             f"{f.get('director')} directs it, with "
+             + " and ".join(f"{c['actor']} as {c['role']}" for c in cast)
+             + ", and the whole thing was shot on real streets at night.")
+        return {"slot": s["slot"], "narration": t, "payload": "rest",
+                "delivery": "intro"}
+    if s["role"] == "outro":
+        t = ("In the end the only car that was ever really his is the one he "
+             "gave back. Subscribe and tell me what to recap next.")
+        return {"slot": s["slot"], "narration": t, "payload": "judgment",
+                "delivery": "outro"}
     if s["role"] == "quote":
         t = f"\"{s['quote']}\" is what he tells him."
+    elif s["role"] == "reaction" and s.get("voice") == "eval":
+        t = ("That's the whole price of the night, paid in one go."
+             if s["max_words"] >= 11 else "That's the price.")
     elif s["role"] == "reaction":
-        t = (_TEXT["reaction"] if s["max_words"] >= 11
-             else "Honestly, that went well.")
+        t = (_TEXT["reaction"].replace("Honestly, you", "You")
+             if s["max_words"] >= 11 else "Well, you saw that coming.")
     elif s.get("shape") == "punch" and s["max_words"] >= 28:
         t = ("He takes the second car down the ramp at a speed that costs "
              "him the front bumper and the paint along one whole side. It "
@@ -160,6 +181,8 @@ def _fill(s, i):
         t = " ".join((["The", "deal", "costs", "him", "his", "only", "car",
                        "and", "the", "money", "he", "owes", "the", "uncle",
                        "is", "now", "due", "tonight"] * 3)[:n]) + "."
+    if s.get("transition"):
+        t = "Arizona, " + t[0].lower() + t[1:]
     pl = ("loop" if s.get("opens_loop") else "judgment"
           if s["role"] == "reaction" else ("stake", "reasoning")[i % 2])
     return {"slot": s["slot"], "narration": t, "payload": pl,
@@ -168,7 +191,8 @@ def _fill(s, i):
 
 def _filled_draft():
     plan, ab, slots = _layout()
-    lines = []
+    import write_plan as WP
+    lines = [WP.hook_line(plan)]
     for k in sorted(ab):
         mine = WS.slots_for_act(slots, k)
         rep = [_fill(s, i) for i, s in enumerate(mine)
@@ -185,17 +209,27 @@ def test_gates_by_construction():
     msgs = []
     for rep in (CG.craft_report(d), PG.pacing_report(d, PDIR)):
         msgs += rep["errors"] + rep["warns"]
-    want_silent = ("[PACING-CONTOUR]", "[LOOP-CADENCE]", "[PEAK-ORDER]")
+    # + the gates the first real film (Furious 7) still failed after the
+    # slots: no <intro>, judgment share under the floor, two reactions on a
+    # peak, a hold after the outro, the story opener, the marker ceiling
+    want_silent = ("[PACING-CONTOUR]", "[LOOP-CADENCE]", "[PEAK-ORDER]",
+                   "[INTRO-OUTRO]", "[FILM-INTRO]", "[TRANSITION]",
+                   "[VOICE-PRESENCE]", "[PERSONA-RUN]")
+    loud_ = [m for m in msgs if m.startswith("[PERSONA]") and "judgment BY"
+             in m]
+    loud_ += [m for m in msgs if m.startswith("[SILENCE-UNIT]")
+              and "follows a <outro>" in m]
     loud = [m for m in msgs if m.startswith(want_silent)]
     loud += [m for m in msgs if m.startswith("[RHYTHM]") and (
         "SD is" in m or "punch sentence" in m)]
     loud += [m for m in msgs if m.startswith("[PERSONA]") and "window(s) of"
-             in m]
+             in m] + loud_
     errs = W.schema_problems(d["lines"])
     sd = next((m for m in msgs if "SD is" in m), None)
     return (not loud and not errs), (
         f"filled slots: {len(d['lines'])} lines, contour / loop / peak / "
-        f"rhythm-SD+punch / persona-window silent, schema clean"
+        f"rhythm-SD+punch / persona window+share / intro-outro / film-intro / "
+        f"transition / voice-presence silent, schema clean"
         if not loud and not errs else f"{(loud + errs)[:3]} {sd or ''}")
 
 

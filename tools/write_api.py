@@ -755,12 +755,13 @@ def act_lines(obj: dict, k: int, slots: list | None, plan: dict | None,
     return lines
 
 
-def slot_deviations(obj: dict, k: int, slots: list | None) -> list:
+def slot_deviations(obj: dict, k: int, slots: list | None,
+                    pdir: Path | None = None) -> list:
     import write_slots as WS
     lines = [l for l in obj.get("lines") or [] if isinstance(l, dict)]
     if not slots or not any(l.get("slot") for l in lines):
         return []
-    return WS.check_slots(lines, WS.slots_for_act(slots, k))
+    return WS.check_slots(lines, WS.slots_for_act(slots, k), pdir)
 
 
 def check_act(obj: dict, k: int, slots: list | None = None,
@@ -1077,6 +1078,7 @@ def save_slots(project: str, pdir: Path, plan: dict, ab: dict) -> None:
         return
     plan["slots"] = r["slots"]
     plan["slot_problems"] = r["problems"]
+    plan["slots_version"] = r.get("version", 1)
     (pdir / "plan.json").write_text(json.dumps(plan, ensure_ascii=False,
                                                indent=1), encoding="utf-8")
     nar = sum(1 for x in r["slots"] if x["role"] not in ("hold",
@@ -1102,7 +1104,14 @@ def cmd_draft(a, client) -> int:
                 return rc
         plan = json.loads(_read(pdir / "plan.json"))
         ab = WP.act_beats(a.project, _tool)
-        if not plan.get("slots"):
+        import write_slots as WS
+        if not plan.get("slots") or plan.get("slots_version") != WS.SLOTS_VERSION:
+            # no slots yet, or slots an older derive_slots built: re-derive
+            # from the SAME plan (no API call) so a fix reaches this project
+            if plan.get("slots"):
+                print(f"plan: slots are version {plan.get('slots_version', 1)}, "
+                      f"code is {WS.SLOTS_VERSION} - re-deriving them from "
+                      f"plan.json")
             save_slots(a.project, pdir, plan, ab)
     slots = (plan or {}).get("slots") or None
     if not todo and not a.feedback_only:
@@ -1146,7 +1155,7 @@ def cmd_draft(a, client) -> int:
                     ensure_ascii=False, indent=2), encoding="utf-8")
                 # checked against its slots AT ONCE; the deviations go back
                 # ONCE inside the stage (the gates stay the final check)
-                devs = slot_deviations(obj, k, slots)
+                devs = slot_deviations(obj, k, slots, pdir)
                 if devs and k not in slot_fb and used < rounds:
                     slot_fb.add(k)
                     retry[cid] = retry_params(p, got.get(cid), devs,

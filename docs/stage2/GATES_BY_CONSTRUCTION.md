@@ -36,6 +36,13 @@ A gate here can still fire, but only if a writer ignores its slot, and
 | `[REVEAL-TIMING]` (window part) | no window straddles a reveal's landing |
 | `[UNWATCHABLE-FOOTAGE]` | `write_plan.fix_unwatchable` moves the window in code (needs `source.mp4`) |
 | `[TITLE-MATCH]`, `[HOOK]` | the title and the hook come from the validated plan (existing) |
+| `[PACING-CONTOUR]` on the plan itself | `write_plan.repair_contour` fixes the counts in code before the plan is validated (Furious 7: two plans each missed one number) |
+| `[INTRO-OUTRO]`, `[FILM-INTRO]` | act 1 has two INTRO slots (greeting, facts) with `film_facts.json` in the brief and its required elements / bans checked by `check_slots`; the last narrated slot is the OUTRO (thesis then CTA, checked); code sets `delivery` |
+| `[SILENCE-UNIT]` hold after the outro | nothing is held after the OUTRO slot (the film ends on credits) |
+| `[PERSONA]` judgment share | reaction slots planned at `PERSONA_JUDGMENT_SHARE_MIN + REACTION_SHARE_MARGIN`; a reaction must pass `classify_judgment` (checked) and code sets its `payload` |
+| `[PEAK-ORDER]` / `[ANCHOR-CLEAN]` (wording) | `check_slots` runs `classify_judgment` on every non-reaction anchor slot |
+| `[VOICE-PRESENCE]` floor and ceiling | reactions are split VOICE (one marker) / EVAL (none) by `_voice_budget` to land mid-band; action / bridge slots may carry no marker (checked) |
+| `[TRANSITION]` | the first story slot opens on a time or place (checked), never a reaction |
 | plan follow-through (beat line counts) | one line per slot; `check_plan_counts` still runs after the acts and feeds a mismatch back |
 
 ## 2. Still checks (the words decide)
@@ -54,7 +61,7 @@ writer, so the gates stay as they are:
   the REVEAL-TIMING spoiler terms, `[CALLBACK-CITE]`.
 - `RUNTIME-BAND` / `[DENSITY]`: the act's word budget and the bands are given,
   but the total is what the writer actually writes.
-- `[FILM-INTRO]`, `[INTRO-OUTRO]`, `[FILM-SPEAKS]` (film_speaks slots are only
+- `[FILM-SPEAKS]` (film_speaks slots are only
   reserved; the selection stage still fills them), motif gates, SAME-POINT,
   and the review artifacts (COLD-READ / REVIEWER / ENDING-READ).
 
