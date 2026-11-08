@@ -238,6 +238,17 @@ class BindSpec:
             self.play_duration = v
 
 
+# Numeric line fields with bounds: {field: (exclusive_min, max or None, why)}.
+# ONE table, read by Line.__post_init__ below AND by the writers' JSON schema
+# (tools/write_api.py), so the request and the validator cannot drift.
+# film_speaks_seconds joined 2026-11-08: a 0-second film_speaks unit is
+# still "a unit" to film_speaks.py (`is not None`) and plays nothing.
+LINE_BOUNDS = {
+    "narration_silence_seconds": (0.0, 30.0, "S9 long-silence limit"),
+    "film_speaks_seconds": (0.0, None, ""),
+}
+
+
 @dataclass
 class Line:
     # --- existing fields (unchanged) ---
@@ -332,26 +343,29 @@ class Line:
                 raise SchemaError(
                     f"line {self.id}: total_visual_duration must be a number")
         # Same rules as Shot.narration_silence_seconds: optional, positive,
-        # <= 30s (S9's hard cap). Coerce int/str coming out of JSON.
-        if self.narration_silence_seconds is not None:
-            v = self.narration_silence_seconds
+        # <= 30s (S9's hard cap). Coerce int/str coming out of JSON. The
+        # bounds live in LINE_BOUNDS so the writers' JSON schema
+        # (tools/write_api.py) is derived from the same numbers.
+        for _f, (_lo, _hi, _why) in LINE_BOUNDS.items():
+            v = getattr(self, _f)
+            if v is None:
+                continue
             if isinstance(v, bool):
-                raise SchemaError(
-                    f"line {self.id}: narration_silence_seconds must be a number")
+                raise SchemaError(f"line {self.id}: {_f} must be a number")
             try:
                 v = float(v)
             except (TypeError, ValueError):
                 raise SchemaError(
-                    f"line {self.id}: narration_silence_seconds must be a number, "
-                    f"got {self.narration_silence_seconds!r}")
-            if v <= 0:
+                    f"line {self.id}: {_f} must be a number, "
+                    f"got {getattr(self, _f)!r}")
+            if v <= _lo:
                 raise SchemaError(
-                    f"line {self.id}: narration_silence_seconds must be > 0 (got {v})")
-            if v > 30:
+                    f"line {self.id}: {_f} must be > {_lo:g} (got {v})")
+            if _hi is not None and v > _hi:
                 raise SchemaError(
-                    f"line {self.id}: narration_silence_seconds must be <= 30 "
-                    f"(S9 long-silence limit; got {v})")
-            self.narration_silence_seconds = v
+                    f"line {self.id}: {_f} must be <= {_hi:g} "
+                    f"({_why}; got {v})")
+            setattr(self, _f, v)
 
     def word_count(self) -> int:
         return len(self.narration.split())
@@ -580,6 +594,34 @@ def load_draft(project: str) -> Draft:
     data = _read_json(p)
     data.setdefault("project", project)
     return Draft(**_drop_unknown(Draft, data))
+
+
+def line_problems(lines) -> list:
+    """Every line that load_draft would reject, one message each, naming the
+    line and the field. Uses the Line dataclass itself (its __post_init__ is
+    the rule), so this can never disagree with load_draft - it only differs
+    in reporting ALL offenders instead of raising on the first.
+
+    Callers: validate_draft (reported before any other gate, so a schema
+    error can never be masked) and tools/write_api.py (a writer's reply is
+    checked before it is saved)."""
+    if not isinstance(lines, list) or not lines:
+        return ["draft.lines must be a non-empty list"]
+    out = []
+    for i, ln in enumerate(lines, 1):
+        if not isinstance(ln, dict):
+            out.append(f"line #{i}: is not a JSON object")
+            continue
+        lid = ln.get("id", f"#{i}")
+        try:
+            Line(**_drop_unknown(Line, ln))
+        except TypeError as e:
+            # a missing required field (id) surfaces as a TypeError
+            out.append(f"line {lid}: {e}")
+        except Exception as e:
+            m = str(e)
+            out.append(m if m.startswith(f"line {lid}:") else f"line {lid}: {m}")
+    return out
 
 
 def load_names(project: str) -> set:

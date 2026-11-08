@@ -120,6 +120,27 @@ def validate_draft(project: str, *, write_state: bool = False,
     pool_labels = set(pool_meta.keys())
 
     errors: list[str] = []
+    # ---- [AUDIT-UNPARSEABLE], FIRST and independently ------------------
+    # The Phase 1 audits (REVEAL-TIMING, RUNTIME-BAND, binding, ...) need
+    # schemas.load_draft to succeed. That parse used to happen only at the
+    # very end, AFTER the `if errors:` abort below - so a draft with any
+    # writing-gate error never said that ten audits had not run at all (e.g.
+    # a line with "narration_silence_seconds": 0). It is checked here, with
+    # the schema's own Line validator, and is ALWAYS reported and ALWAYS hard.
+    try:
+        from pipeline import schemas as _schemas
+        _sp = _schemas.line_problems(draft["lines"])
+    except Exception as _se:                              # pragma: no cover
+        _sp = [f"the schema check itself failed: {_se}"]
+    if _sp:
+        _msg = (f"[AUDIT-UNPARSEABLE] draft.json does not satisfy the schema "
+                f"({'; '.join(_sp[:8])}"
+                f"{f'; +{len(_sp) - 8} more' if len(_sp) > 8 else ''}), so "
+                f"the ten Phase 1 audits (incl. REVEAL-TIMING and "
+                f"RUNTIME-BAND) will NOT run. This draft is UNCHECKED, not "
+                f"clean - fix the field(s) named.")
+        console.print(f"[red]{_msg}[/]")
+        errors.append(_msg)
     if _broll_error:
         if any(ln.get("pool") for ln in draft.get("lines", [])):
             errors.append(_broll_error)
