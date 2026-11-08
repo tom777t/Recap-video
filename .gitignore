@@ -84,3 +84,10 @@ projects/*/draft_20*.json
 projects/*/script_20*.txt
 projects/*/timeline_20*.json
 projects/*/_cache/
+
+# New film projects stay LOCAL. This repo is public, and a project folder
+# holds the film's full transcript, script and beat map (the film's dialogue).
+# Already-tracked projects (the test fixtures) are unaffected; to add a file
+# from a new project deliberately as a fixture, use `git add -f`.
+projects/*
+!projects/tokyodrift2006/
