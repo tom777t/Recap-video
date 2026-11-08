@@ -1494,10 +1494,11 @@ WRITE_DRAFT_FEEDBACK_ROUNDS = 2
 # bounds as JSON-schema keywords (exclusiveMinimum / maximum). The API's
 # structured outputs do not enforce numeric constraints, and Anthropic's own
 # SDK helper (transform_schema) moves them into the field description instead;
-# set False to do the same if the API ever answers a request with "property
-# ... is not supported". Either way every reply is re-checked with
+# False (default) does the same: Anthropic's structured-outputs docs list
+# minimum/maximum as unsupported constraints, and a rejected schema would cost
+# a whole draft batch. Either way every reply is re-checked with
 # schemas.line_problems before it is saved - that check is the authority.
-WRITE_SCHEMA_NUMERIC_BOUNDS = True
+WRITE_SCHEMA_NUMERIC_BOUNDS = False
 # The reveals pass reads the transcript through tools/speech_at.py as a tool;
 # at most this many calls before it must answer.
 WRITE_REVEALS_MAX_TOOL_CALLS = 12

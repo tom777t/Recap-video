@@ -348,8 +348,17 @@ def test_request_schema():
                 bad.append("act: slot request does not require `slot`")
             it = W.act_schema()["properties"]["lines"]["items"]["properties"]
         ns = it.get("narration_silence_seconds") or {}
-        if ns.get("exclusiveMinimum") != 0 or ns.get("maximum") != 30:
-            bad.append(f"{name}: narration_silence_seconds bounds {ns}")
+        # The API's structured outputs do not support numeric constraint
+        # keywords; with WRITE_SCHEMA_NUMERIC_BOUNDS off (the default) the
+        # bounds travel in the description, as Anthropic's transform_schema
+        # does, and schemas.line_problems enforces them on every reply.
+        import config as _cfg
+        if getattr(_cfg, "WRITE_SCHEMA_NUMERIC_BOUNDS", False):
+            if ns.get("exclusiveMinimum") != 0 or ns.get("maximum") != 30:
+                bad.append(f"{name}: narration_silence_seconds bounds {ns}")
+        elif ("> 0" not in str(ns.get("description", ""))
+              or "exclusiveMinimum" in ns or "maximum" in ns):
+            bad.append(f"{name}: bounds not moved to the description: {ns}")
     it = p["output_config"]["format"]["schema"]["properties"]["lines"]["items"]
     ct = it["properties"]["claim"]["properties"]["type"]["enum"]
     if ct != sorted(S._CLAIM_TYPES):
