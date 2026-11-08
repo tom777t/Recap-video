@@ -340,6 +340,13 @@ def test_request_schema():
             bad.append(f"{name}: delivery enum")
         if it.get("payload", {}).get("enum") != list(CG.PAYLOAD_KINDS):
             bad.append(f"{name}: payload enum")
+        if name == "act":
+            # a slot-based act reply carries no hold (code writes them); the
+            # bounds are checked on the line schema the legacy path sends
+            if "slot" not in f["schema"]["properties"]["lines"]["items"][
+                    "required"]:
+                bad.append("act: slot request does not require `slot`")
+            it = W.act_schema()["properties"]["lines"]["items"]["properties"]
         ns = it.get("narration_silence_seconds") or {}
         if ns.get("exclusiveMinimum") != 0 or ns.get("maximum") != 30:
             bad.append(f"{name}: narration_silence_seconds bounds {ns}")

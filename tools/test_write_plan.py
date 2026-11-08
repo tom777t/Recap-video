@@ -174,7 +174,9 @@ def test_plan_revision():
     if rc != 0 or len(c.calls) != 2:
         return False, f"rc {rc}, {len(c.calls)} call(s)"
     rev = c.calls[1]["messages"][-1]["content"]
-    if "beats in a row" not in rev or _j(PDIR / "plan.json") != good:
+    written = {k: v for k, v in _j(PDIR / "plan.json").items()
+               if k not in ("slots", "slot_problems")}
+    if "beats in a row" not in rev or written != good:
         return False, "revision did not carry the violations or plan not written"
     if "anchor" not in c.calls[0]["messages"][0]["content"].lower() \
             or "WORD BAND" not in c.calls[0]["messages"][0]["content"]:

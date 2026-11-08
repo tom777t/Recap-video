@@ -41,6 +41,14 @@ left - it does not loop. The review gates (COLD-READ / REVIEWER /
 ENDING-READ) are not fed back here: their artifacts are written after this
 by tools/review_api.py, and closing them needs RESOLVED/ANSWERED entries.
 
+SLOTS (tools/write_slots.py). After the plan validates, code turns it into
+one SLOT per line in plan.json - beat, role, length band, loop, quote, and a
+clip window code assigns. Each act request carries its slots and a WRITER
+BRIEF generated from the gates' constants; the reply is one line per slot
+(no ids, beats or timestamps) and is merged onto the slots. Deviations from
+the slots go back ONCE inside the stage. See docs/stage2/
+GATES_BY_CONSTRUCTION.md for what that settles and what stays a check.
+
 SCHEMA FIRST. Every act reply (first write and feedback rounds) and every
 resolve edit is checked with schemas.line_problems - the same Line validator
 schemas.load_draft runs - BEFORE it is saved. A reply that fails is not
@@ -704,20 +712,59 @@ def draft_system(pdir: Path) -> list:
 
 def act_request(project: str, pdir: Path, k: int, sysb: list,
                 feedback: str | None = None, previous: dict | None = None,
-                plan_text: str | None = None) -> dict:
+                plan_text: str | None = None,
+                slots: list | None = None, plan: dict | None = None) -> dict:
+    """One act's request. With `slots` (write_slots.derive_slots) the writer
+    gets its slots and the WRITER BRIEF, and the reply schema asks for one
+    line per slot - no id, beat or timestamps, which code owns."""
+    import write_slots as WS
     user = _tool("act_payload.py", project, k)
     if plan_text:
         user += "\n\n" + plan_text
+    mine = WS.slots_for_act(slots or [], k)
+    if mine:
+        user += ("\n\n" + WS.writer_brief(pdir, plan or {}, k)
+                 + "\n\n# YOUR SLOTS - one reply line per slot (the windows "
+                   "are assigned; write to their footage)\n\n"
+                 + WS.slots_text(mine))
     if feedback:
         user += ("\n\n# YOUR PREVIOUS act" + str(k) + ".json\n\n"
                  + json.dumps(previous, ensure_ascii=False)
                  + "\n\n# GATE FINDINGS ON YOUR LINES - fix exactly these, "
                    "change nothing else, reply with the whole corrected act\n\n"
                  + feedback)
-    return with_format(params("draft", sysb, user), act_schema())
+    sch = act_schema(SLOT_LINE_FIELDS, SLOT_LINE_REQUIRED) if mine \
+        else act_schema()
+    return with_format(params("draft", sysb, user), sch)
 
 
-def check_act(obj: dict, k: int) -> list:
+def act_lines(obj: dict, k: int, slots: list | None, plan: dict | None,
+              hook: bool = True) -> list:
+    """The lines an act file gets for a reply: the writer's hook dropped
+    (the plan's is used), a slot-based reply merged onto its slots' beats,
+    windows and holds (write_slots.merge)."""
+    import write_plan as WP
+    import write_slots as WS
+    lines = [l for l in obj.get("lines") or [] if isinstance(l, dict)
+             and not (l.get("delivery") == "hook" or l.get("over_montage"))]
+    if slots and any(l.get("slot") for l in lines):
+        lines = WS.merge(lines, slots, k)
+    if hook and k == 1 and plan:
+        # the plan's hook, over the montage, no clip window
+        lines = [WP.hook_line(plan)] + lines
+    return lines
+
+
+def slot_deviations(obj: dict, k: int, slots: list | None) -> list:
+    import write_slots as WS
+    lines = [l for l in obj.get("lines") or [] if isinstance(l, dict)]
+    if not slots or not any(l.get("slot") for l in lines):
+        return []
+    return WS.check_slots(lines, WS.slots_for_act(slots, k))
+
+
+def check_act(obj: dict, k: int, slots: list | None = None,
+              plan: dict | None = None) -> list:
     if not isinstance(obj.get("lines"), list) or not obj["lines"]:
         return ["no lines"]
     if obj.get("act") not in (k, str(k)):
@@ -728,7 +775,7 @@ def check_act(obj: dict, k: int) -> list:
     # validator schemas.load_draft uses, before anything is saved. A line
     # with "narration_silence_seconds": 0 used to be written, assembled, and
     # only surface as AUDIT-UNPARSEABLE - with ten audits silently skipped.
-    return shape or schema_problems(obj["lines"])
+    return shape or schema_problems(act_lines(obj, k, slots, plan))
 
 
 # --------------------------------------------------------------------------- #
@@ -783,6 +830,11 @@ ACT_LINE_FIELDS = ("id", "narration", "note", "clip_start", "clip_end",
                    "film_intro", "window_adjusted", "callback_beat",
                    "hook_question", "claim", "narration_silence_seconds")
 ACT_LINE_REQUIRED = ("id", "narration", "note", "delivery", "payload")
+# a slot-based act: code owns id, note (the beat), the window and the holds
+SLOT_LINE_FIELDS = ("slot", "narration", "delivery", "payload",
+                    "narrative_jump", "bridge", "film_intro", "callback_beat",
+                    "claim")
+SLOT_LINE_REQUIRED = ("slot", "narration", "delivery", "payload")
 
 
 def act_schema(fields=ACT_LINE_FIELDS, required=ACT_LINE_REQUIRED) -> dict:
@@ -813,13 +865,20 @@ def schema_feedback(errs: list) -> str:
               "object only.")
 
 
-def retry_params(p: dict, msg, errs: list) -> dict:
+def slot_feedback(devs: list) -> str:
+    return ("That reply was saved, but it does not follow its slots:\n"
+            + "\n".join(f"- {e}" for e in devs)
+            + "\nFix exactly these and reply with the whole act again, one "
+              "line per slot.")
+
+
+def retry_params(p: dict, msg, errs: list, text: str | None = None) -> dict:
     """The same request with the rejected reply and its exact errors."""
     q = json.loads(json.dumps(p))
     q["messages"] = q["messages"][:1] + [
         {"role": "assistant",
          "content": str(TB.reply_text(msg) or "") or "(empty reply)"},
-        {"role": "user", "content": schema_feedback(errs)}]
+        {"role": "user", "content": text or schema_feedback(errs)}]
     return q
 
 
@@ -943,6 +1002,7 @@ def cmd_plan(a, client) -> int:
         if not viol:
             out.write_text(json.dumps(obj, ensure_ascii=False, indent=1),
                            encoding="utf-8")
+            save_slots(a.project, pdir, obj, ab)
             n = sum(int(b.get("lines") or 0) for b in obj["beats"])
             print(f"plan: wrote plan.json (attempt {attempt}) - {n} lines over "
                   f"{len(obj['beats'])} beats, "
@@ -968,6 +1028,29 @@ def cmd_plan(a, client) -> int:
     return 2
 
 
+def save_slots(project: str, pdir: Path, plan: dict, ab: dict) -> None:
+    """plan.json grows one SLOT per line, derived by code from the plan's
+    per-beat counts and the gate rules (tools/write_slots.py)."""
+    import write_slots as WS
+    try:
+        r = WS.derive_slots(plan, project, pdir, ab)
+    except Exception as e:
+        # no slots = the act writers get the plan slice as before; say so
+        print(f"plan: slots NOT derived ({type(e).__name__}: {e}) - the acts "
+              f"are written from the per-beat plan alone")
+        return
+    plan["slots"] = r["slots"]
+    plan["slot_problems"] = r["problems"]
+    (pdir / "plan.json").write_text(json.dumps(plan, ensure_ascii=False,
+                                               indent=1), encoding="utf-8")
+    nar = sum(1 for x in r["slots"] if x["role"] not in ("hold",
+                                                          "film_speaks"))
+    print(f"plan: {len(r['slots'])} slot(s) ({nar} narrated) with code-"
+          f"assigned windows" + (f"; {len(r['problems'])} problem(s): "
+                                 + "; ".join(r["problems"][:3])
+                                 if r["problems"] else ""))
+
+
 def cmd_draft(a, client) -> int:
     pdir = config.project_dir(a.project)
     d = pdir / "draft.json.d"
@@ -983,6 +1066,9 @@ def cmd_draft(a, client) -> int:
                 return rc
         plan = json.loads(_read(pdir / "plan.json"))
         ab = WP.act_beats(a.project, _tool)
+        if not plan.get("slots"):
+            save_slots(a.project, pdir, plan, ab)
+    slots = (plan or {}).get("slots") or None
     if not todo and not a.feedback_only:
         print("draft: every act is written - nothing to do "
               "(--feedback-only to run the gate-feedback rounds)")
@@ -992,8 +1078,9 @@ def cmd_draft(a, client) -> int:
     if todo:
         pending = {f"act{k}": act_request(
             a.project, pdir, k, sysb,
-            plan_text=WP.plan_for_act(plan, ab.get(k, []), k)) for k in todo}
-        bad, tag = {}, "draft"
+            plan_text=WP.plan_for_act(plan, ab.get(k, []), k),
+            slots=slots, plan=plan) for k in todo}
+        bad, tag, slot_fb = {}, "draft", set()
         while pending:
             got = batch(client, pdir, tag, pending, wait=not a.no_wait,
                         poll=a.poll)
@@ -1001,8 +1088,15 @@ def cmd_draft(a, client) -> int:
             for cid, p in pending.items():
                 k = int(cid[3:])
                 obj, why = _json_reply(got.get(cid), "draft")
-                probs = [why] if obj is None else check_act(obj, k)
+                probs = [why] if obj is None else check_act(obj, k, slots,
+                                                            plan)
                 if probs:
+                    if (d / f"act{k}.json").exists() and k in slot_fb:
+                        # the slot round's reply broke the schema: the
+                        # schema-valid first reply stays
+                        print(f"  act{k}: slot-round reply NOT saved "
+                              f"({'; '.join(probs[:2])}) - kept the first")
+                        continue
                     bad[k] = probs
                     # a reply that parsed but breaks the schema goes back
                     # with its exact errors, inside this stage; it is never
@@ -1011,21 +1105,26 @@ def cmd_draft(a, client) -> int:
                         retry[cid] = retry_params(p, got.get(cid), probs)
                     continue
                 bad.pop(k, None)
-                lines = [l for l in obj["lines"]
-                         if not (l.get("delivery") == "hook"
-                                 or l.get("over_montage"))]
-                if k == 1:
-                    # the plan's hook, over the montage, no clip window
-                    lines = [WP.hook_line(plan)] + lines
                 (d / f"act{k}.json").write_text(json.dumps(
-                    {"act": k, "lines": lines}, ensure_ascii=False,
-                    indent=2), encoding="utf-8")
+                    {"act": k, "lines": act_lines(obj, k, slots, plan)},
+                    ensure_ascii=False, indent=2), encoding="utf-8")
+                # checked against its slots AT ONCE; the deviations go back
+                # ONCE inside the stage (the gates stay the final check)
+                devs = slot_deviations(obj, k, slots)
+                if devs and k not in slot_fb and used < rounds:
+                    slot_fb.add(k)
+                    retry[cid] = retry_params(p, got.get(cid), devs,
+                                              slot_feedback(devs))
+                elif devs:
+                    print(f"  act{k}: {len(devs)} slot deviation(s) left for "
+                          f"the gates: {'; '.join(devs[:3])}")
             if not retry:
                 break
             used += 1
             tag = f"draft-schema{used}"
-            print(f"draft: {len(retry)} act(s) NOT saved (schema) - sent "
-                  f"back with the errors, round {used}/{rounds}")
+            print(f"draft: {len(retry)} act(s) sent back (schema errors: not "
+                  f"saved; slot deviations: saved, one fix) - round "
+                  f"{used}/{rounds}")
             pending = retry
         print(f"draft: wrote {len(todo) - len(bad)}/{len(todo)} act(s)")
         if bad:
@@ -1077,7 +1176,7 @@ def cmd_draft(a, client) -> int:
             a.project, pdir, k, sysb, feedback=v,
             previous=json.loads(_read(d / f"act{k}.json")),
             plan_text=(WP.plan_for_act(plan, ab.get(k, []), k) if plan
-                       else None))
+                       else None), slots=slots, plan=plan)
             for k, v in fb.items()}
         print(f"draft: feedback round {rnd}/{rounds} - "
               f"{len(reqs)} act(s) with findings")
@@ -1086,7 +1185,7 @@ def cmd_draft(a, client) -> int:
         for cid, msg in got.items():
             k = int(cid[3:])
             obj, why = _json_reply(msg, "draft")
-            probs = [why] if obj is None else check_act(obj, k)
+            probs = [why] if obj is None else check_act(obj, k, slots, plan)
             if probs:
                 print(f"  act{k}: round {rnd} reply NOT saved "
                       f"({'; '.join(probs[:2])}) - kept the previous")
@@ -1096,8 +1195,7 @@ def cmd_draft(a, client) -> int:
             prev = json.loads(_read(d / f"act{k}.json"))["lines"]
             keep = [l for l in prev if l.get("over_montage")
                     or l.get("delivery") == "hook"]
-            new = [l for l in obj["lines"] if not (l.get("over_montage")
-                                                   or l.get("delivery") == "hook")]
+            new = act_lines(obj, k, slots, plan, hook=False)
             (d / f"act{k}.json").write_text(json.dumps(
                 {"act": k, "lines": keep + new}, ensure_ascii=False,
                 indent=2), encoding="utf-8")
