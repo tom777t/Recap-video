@@ -384,6 +384,41 @@ def test_revision_keeps_slots():
                      else "FAILED: " + "; ".join(bad))
 
 
+def test_draft_conservation():
+    """[DRAFT-CONSERVATION]: a complete slot draft is conserved; dropping an
+    act's worth of lines, saying a slot twice, or an unreadable plan is a
+    hard problem, never a pass ([DUPLICATE-ID] owns repeated line ids)."""
+    from pipeline import draft as D
+    plan, _ab, slots = _layout()
+    (PDIR / "plan.json").write_text(json.dumps(dict(plan, slots=slots)),
+                                    encoding="utf-8")
+    d = _filled_draft()
+    for i, ln in enumerate(d["lines"], 1):
+        ln["id"] = i
+    ok_full = D.conservation_problems(PROJ, d) == []
+    k2 = sorted({s["act"] for s in slots})[1]
+    lost = {s["slot"] for s in slots if s["act"] == k2}
+    cut = dict(d, lines=[l for l in d["lines"] if l.get("slot") not in lost])
+    p_cut = D.conservation_problems(PROJ, cut)
+    dup = dict(d, lines=d["lines"] + [dict(d["lines"][5], id=9999)])
+    p_dup = D.conservation_problems(PROJ, dup)
+    (PDIR / "plan.json").write_text("{not json", encoding="utf-8")
+    p_bad = D.conservation_problems(PROJ, d)
+    (PDIR / "plan.json").unlink()
+    checks = [
+        (ok_full, "a complete draft is conserved"),
+        (any("missing from the draft" in m for m in p_cut),
+         f"act {k2} dropped -> {p_cut[:1]}"),
+        (any("said more than once" in m for m in p_dup),
+         "a slot said twice is caught"),
+        (any("cannot be read" in m for m in p_bad),
+         "an unreadable plan is a problem, not a pass"),
+    ]
+    bad = [w for ok, w in checks if not ok]
+    return not bad, ("; ".join(str(w) for _, w in checks) if not bad
+                     else "FAILED: " + "; ".join(str(w) for w in bad))
+
+
 TESTS = {
     "SLOT-LAYOUT":           test_slot_layout,
     "WINDOWS-BY-CODE":       test_windows_by_code,
@@ -392,6 +427,7 @@ TESTS = {
     "DRAFT-SLOTS":           test_draft_slots,
     "COUNTS-FOLLOWED":       test_counts_followed,
     "REVISION-KEEPS-SLOTS":  test_revision_keeps_slots,
+    "DRAFT-CONSERVATION":    test_draft_conservation,
 }
 
 if __name__ == "__main__":

@@ -11,6 +11,25 @@ work end to end, commit it, then harden (edge cases, messages, refactors) in
 separate commits. Never weaken a gate to make a test pass; a check that cannot
 run reports "not run", never "pass".
 
+**Conserve at every stage boundary.** A stage that hands N items on must
+show N came out (plan slots -> draft lines -> audio files -> clips ->
+timeline); a drop or a duplicate is a hard error, never a warning. The bug
+that recurred ~20 times was one shape: part of the input lost, the stage
+still "clean" (an empty list "all verified", duplicate ids playing minute
+124's line at 0:36, act 2's 60 beats dropped). `[DRAFT-CONSERVATION]` and
+render's count checks are the pattern.
+
+**Calibrate an instrument before trusting it.** A new checker runs first on a
+known-good and a known-bad example; if it cannot tell them apart it is not a
+gate (the vision scorer penalised "Teddy = Laeddis", the picture check could
+not separate good renders from bad). State both control results in the
+commit that adds it.
+
+**Build it right rather than grade it after.** If a rule is arithmetic
+(counts, lengths, windows, labels, order), the code that BUILDS the output
+satisfies it (`tools/write_slots.py`); a gate after writing is only the
+final check. A model is asked only for what code cannot decide.
+
 **Timebox.** Give each task a budget up front. When it runs out, stop, commit
 what is green, and write down what is left instead of drifting.
 

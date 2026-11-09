@@ -91,6 +91,19 @@ function Should ($step) { return ([array]::IndexOf($order, $step) -ge $start) }
 
 Write-Host "`nRECAP PIPELINE  -  project: $Project  -  bat dau tu: $From" -ForegroundColor White
 
+# Code chua day len GitHub: canh bao moi lan chay. Da tung mat ~1 thang code
+# vi khong ai nhac. Chi xet CODE (projects/ la du lieu phim, o lai may).
+if (Get-Command git -ErrorAction SilentlyContinue) {
+    $dirty = @(git status --porcelain -- pipeline tools config prompts docs recap.py run.ps1 2>$null)
+    $ahead = 0
+    $up = git rev-parse --abbrev-ref --symbolic-full-name '@{u}' 2>$null
+    if ($LASTEXITCODE -eq 0 -and $up) { $ahead = [int](git rev-list --count "$up..HEAD" 2>$null) }
+    if ($dirty.Count -gt 0 -or $ahead -gt 0) {
+        Warn "CANH BAO: code chua len GitHub - $($dirty.Count) file code dang sua chua commit, $ahead commit chua push."
+        Warn "  (git status de xem; KHONG push du lieu phim trong projects\ - .gitignore da chan san)"
+    }
+}
+
 # --------------------------------------------------------------------------- #
 # 1. INGEST
 # --------------------------------------------------------------------------- #

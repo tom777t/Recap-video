@@ -70,6 +70,47 @@ def parse_ts(ts: str) -> float:
     return h * 3600 + m * 60 + s
 
 
+def conservation_problems(project: str, draft: dict) -> list:
+    """When the draft was written to plan.json's slots, every narrated slot has exactly one line and no line names a slot the
+    plan does not have. [] = conserved. A plan that cannot be read is a
+    problem, not a pass (the silent-failure rule)."""
+    out = []          # duplicate line ids: [DUPLICATE-ID] owns that check
+    if not any(ln.get("slot") for ln in draft.get("lines") or []):
+        return out                       # not a slot-written draft
+    f = config.project_dir(project) / "plan.json"
+    try:
+        plan = json.loads(f.read_text(encoding="utf-8-sig"))
+    except (OSError, ValueError) as e:
+        return out + [f"the draft is slot-written but plan.json cannot be "
+                      f"read ({e}) - nothing checks that every planned line "
+                      f"is here"]
+    want = {x["slot"]: x for x in plan.get("slots") or []
+            if x.get("role") not in ("hold", "film_speaks")}
+    have: dict = {}
+    for ln in draft.get("lines") or []:
+        if ln.get("slot"):
+            have.setdefault(str(ln["slot"]), []).append(ln.get("id"))
+    miss = [k for k in want if k not in have]
+    if miss:
+        beats = sorted({want[k].get("beat") for k in miss},
+                       key=lambda b: int(str(b)[1:]) if str(b)[1:].isdigit()
+                       else 0)
+        out.append(f"{len(miss)} of {len(want)} planned narrated line(s) are "
+                   f"missing from the draft (beats {', '.join(beats[:12])}"
+                   f"{' ...' if len(beats) > 12 else ''}) - a stage dropped "
+                   f"them. Rewrite the act(s) that own them; do not render.")
+    twice = {k: v for k, v in have.items() if len(v) > 1}
+    if twice:
+        out.append(f"slot(s) said more than once: "
+                   f"{dict(list(twice.items())[:6])}")
+    stray = [k for k in have if k not in want and not any(
+        x.get("slot") == k for x in plan.get("slots") or [])]
+    if stray:
+        out.append(f"line(s) name slots plan.json does not have: {stray[:6]} "
+                   f"- the draft and the plan are out of step")
+    return out
+
+
 def validate_draft(project: str, *, write_state: bool = False,
                    promote: bool = False) -> dict:
     """Validate draft.json and (re)write script.txt. Exit non-zero on problems."""
@@ -141,6 +182,16 @@ def validate_draft(project: str, *, write_state: bool = False,
                 f"clean - fix the field(s) named.")
         console.print(f"[red]{_msg}[/]")
         errors.append(_msg)
+    # ---- [DRAFT-CONSERVATION]: what the plan sent in, the draft brings out --
+    # The class of bug that recurred ~20 times: a stage loses part of its
+    # input and still reports clean (Furious 7: a whole-act rewrite dropped
+    # B64-B127 - about 60 beats - and every gate downstream passed, because
+    # none of those beats was mandatory). Render already conserves lines ->
+    # audio -> clips -> timeline; this is the same check one stage earlier.
+    # ALWAYS hard, ALWAYS before any other gate.
+    for _m in conservation_problems(project, draft):
+        console.print(f"[red][DRAFT-CONSERVATION][/] {_m}")
+        errors.append(f"[DRAFT-CONSERVATION] {_m}")
     if _broll_error:
         if any(ln.get("pool") for ln in draft.get("lines", [])):
             errors.append(_broll_error)

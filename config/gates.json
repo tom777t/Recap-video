@@ -266,6 +266,14 @@
     "what": "",
     "severity_source": "inferred"
   },
+  "DRAFT-CONSERVATION": {
+    "severity": "error",
+    "modules": [
+      "pipeline/draft.py"
+    ],
+    "what": "a planned slot has no line, a slot is said twice, or a line names no planned slot",
+    "severity_source": "declared"
+  },
   "DRAFT-OVERFILL": {
     "severity": "warn",
     "modules": [
