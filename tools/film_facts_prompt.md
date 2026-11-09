@@ -17,7 +17,7 @@ the transcript, the catalogue and your memory are not sources.
     writer, composer, studio,
     cast: [{actor, role, lead: bool, note}],
     facts: [{id: "F1", text, source: "Wikipedia, <Section> > <Subsection>"}],
-    withheld: [{what, reveal: "R..", why}]
+    withheld: [{what, reveal: "R..", why, ban: ["exact phrase", ...]}]
 
 - `facts`: 3-6 production facts a viewer would enjoy (how a stunt was done, a
   casting story, a box-office turn). Each one sentence, each with its section.
@@ -32,3 +32,8 @@ under `withheld` with the reveal they would give away:
 2. any franchise or production fact that implies a character's fate.
 
 The omission must be visible in the file, not silent.
+
+Every `withheld` entry carries `ban`: the exact phrases that would give it
+away if the intro said them (the actor's name, the character's name, a
+nickname - 1-6 short phrases). [FILM-INTRO] can only enforce what `ban`
+lists; an entry without one protects nothing.

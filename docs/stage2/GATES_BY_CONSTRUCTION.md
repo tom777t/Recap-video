@@ -74,12 +74,29 @@ writer, so the gates stay as they are:
   broader pattern, and rewording satisfies it. A slot-based writer never
   chooses openers for a reason this gate can see.
 
+## Resolve keeps the construction
+
+The first real resolve pass (Furious 7) closed all 122 review findings and
+broke the layout doing it: it echoed `payload` back on 68 rewrites (rest
+share 25% -> 39%, judgment 15.6% -> 9.8%), set three lines to `<outro>`, and
+turned an anchor's action line into commentary. Now:
+
+- every rewrite of a slot-written line goes through `write_slots.code_labels`
+  (labels are code's) and `write_slots.new_deviations` (a rewrite that adds a
+  deviation from its slot is NOT saved and goes back next round);
+- `payload` / `delivery` edits are ignored unless a finding about labels
+  names the line;
+- the reviser sees each line's slot (`[REACTION EVAL]`, `[ACTION on an
+  ANCHOR]`, ...);
+- once the readers' findings are closed, the draft gates' own hard errors
+  that name lines come back as the next resolve round (`gate_findings`).
+- `film_facts.json` withheld entries must carry `ban`, or the facts reply is
+  sent back once.
+
 ## Not done in this pass
 
-- `write_api resolve` still gathers only review findings and SAME-POINT pairs.
-  The draft-gate findings (PACING-CONTOUR, PERSONA, RHYTHM, LOOP-CADENCE...)
-  are not routed to resolve yet, and resolve does not yet re-run the gates
-  with a word-budget guard (item 3 of the brief).
+- A draft-wide gate error that names no line (a share across the whole
+  draft) is not routed to resolve - it is the layout's to prevent.
 - Slot bands are calibrated by arithmetic (`GATES-BY-CONSTRUCTION` fills the
-  slots and the gates stay silent). They have not been measured on a real
-  API-written film yet.
+  slots and the gates stay silent). Measured on one real film (Furious 7):
+  the first write left only the review stage open.

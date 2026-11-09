@@ -306,6 +306,10 @@ def _resolve_fixture():
              for i in range(1, 9)]
     (d / "act1.json").write_text(json.dumps({"act": 1, "lines": lines}))
     W._assemble(PROJ)
+    return _resolve_fixture_artifacts()
+
+
+def _resolve_fixture_artifacts():
     dr = _j(PDIR / "draft.json")
     sigs = RA.draft_signatures(dr)
     block = "\n".join(f"  {k} {v}" for k, v in sigs.items())
@@ -319,6 +323,69 @@ def _resolve_fixture():
             "```review-findings\n" + "\n".join(fs) + "\n```\n",
             encoding="utf-8")
     return dr
+
+
+def test_resolve_slot_bound():
+    """A rewrite keeps its slot: a REACTION reworded into plain description
+    is not saved (and goes back), an echoed payload on a line nobody asked to
+    relabel is ignored, a code-owned label is restored."""
+    dr = _resolve_fixture()
+    d = PDIR / "draft.json.d"
+    act = _j(d / "act1.json")
+    roles = {2: ("reaction", "eval"), 3: ("action", None), 4: ("bridge", None)}
+    slots = []
+    for i, ln in enumerate(act["lines"], 1):
+        role, voice = roles.get(i, ("bridge", None))
+        ln["slot"] = f"S{i:03d}"
+        ln["payload"] = {"reaction": "judgment"}.get(role, "stake")
+        if role == "reaction":
+            ln["narration"] = "That's the whole price of the race, paid up front."
+        slots.append({"slot": ln["slot"], "act": 1, "beat": ln["note"],
+                      "role": role, "voice": voice, "anchor": i == 3,
+                      "peak": False, "band": "medium", "min_words": 1,
+                      "max_words": 30, "target": 8, "opens_loop": False,
+                      "clip_start": ln["clip_start"], "clip_end": ln["clip_end"]})
+    (d / "act1.json").write_text(json.dumps(act))
+    W._assemble(PROJ)
+    _resolve_fixture_artifacts()
+    (PDIR / "plan.json").write_text(json.dumps({"slots": slots}))
+
+    def reply(cid, p):
+        body = p["messages"][0]["content"]
+        keys = [x.split(" | ")[0] for x in
+                body.split("# OPEN FINDINGS")[1].strip().splitlines()
+                if x.startswith("F")]
+        return msg({"lines": [
+            {"id": 2, "narration": "He drives to the garage and parks."},
+            {"id": 4, "narration": "The race is set for midnight now.",
+             "payload": "rest"}],
+            "responses": [{"key": k, "status": "ANSWERED",
+                           "text": "the line already names who and where, "
+                                   "so the reading does not hold"}
+                          for k in keys]})
+    c = Client(None, reply)
+    rc, out = _run(c, "resolve", "--project", PROJ)
+    t = {str(l["id"]): l for l in _j(PDIR / "draft.json")["lines"]}
+    first = (c.batches[0][0]["params"]["messages"][0]["content"]
+             if c.batches else "")
+    checks = [
+        (t["2"]["narration"].startswith("That's the whole price"),
+         "the reaction reworded as description was NOT saved"),
+        ("breaks its slot" in out, "the rejection says why"),
+        (t["4"]["narration"].startswith("The race is set"),
+         "a rewrite that fits its slot IS saved"),
+        (t["4"].get("payload") == "stake",
+         "an echoed payload nobody asked about is ignored"),
+        ("[REACTION EVAL]" in first and "[ACTION on an ANCHOR]" in first,
+         "the reviser sees each line's slot"),
+        (len(c.batches) > 1 and "| gate |" in
+         c.batches[1][0]["params"]["messages"][0]["content"],
+         "once the readers are answered, the draft gates' own findings "
+         "come back as the next round"),
+    ]
+    bad = [w for ok, w in checks if not ok]
+    return not bad, ("; ".join(w for _, w in checks) if not bad
+                     else "FAILED: " + "; ".join(bad))
 
 
 def test_resolve_closes():
@@ -472,6 +539,7 @@ TESTS = {
     "ACT-FOLLOWS-PLAN":  test_act_follows_plan,
     "RESOLVE-CLOSES":    test_resolve_closes,
     "RESOLVE-SAMEPOINT": test_resolve_samepoint,
+    "RESOLVE-SLOT-BOUND": test_resolve_slot_bound,
     "RESOLVE-STOPS":     test_resolve_stops,
     "UNWATCHABLE-FIX":   test_unwatchable_fix,
     "RUNPS1-HALT":       test_runps1_halt,

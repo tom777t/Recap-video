@@ -643,6 +643,103 @@ def _intro_brief(pdir: Path, plan: dict, k: int) -> str:
 # --------------------------------------------------------------------------- #
 # the reply, against its slots
 # --------------------------------------------------------------------------- #
+def line_deviations(ln: dict, s: dict) -> list:
+    """How ONE line misses its slot; [] = it fits. The same rules hold when
+    the line is first written (check_slots) and whenever it is later
+    rewritten (write_api resolve) - a fix may not undo the construction."""
+    from pipeline import craft_gates as CG
+    from pipeline import pacing_gates as PG
+    out = []
+    n = _wc(ln.get("narration"))
+    if not s["min_words"] - TOL <= n <= s["max_words"] + (
+            TOL if s["max_words"] == _band_top(s) else 0):
+        out.append(f"{s['slot']} ({s['beat']} {s['role']}): {n} words, "
+                   f"the slot is {s['min_words']}-{s['max_words']}"
+                   + (" (its footage holds no more)"
+                      if s["max_words"] < _band_top(s) else ""))
+    # payload labels for loop / reaction / action are set by CODE in
+    # merge(); what code cannot set is whether the WORDS are heard as
+    # the narrator - the same classifier [PERSONA] and [PEAK-ORDER] use
+    text = str(ln.get("narration") or "")
+    heard, why = PG.classify_judgment(text)
+    mk = markers(text)
+    if s["role"] == "reaction" and not heard:
+        out.append(f"{s['slot']} ({s['beat']} REACTION): not heard as the "
+                   f"narrator - use one of the moves the brief lists for "
+                   f"a {str(s.get('voice') or 'voice').upper()} reaction")
+    if s["role"] == "reaction" and s.get("voice") == "voice" and mk > 2:
+        out.append(f"{s['slot']} (VOICE): {mk} narrator markers - one")
+    if s["role"] == "reaction" and s.get("voice") == "eval" and mk:
+        out.append(f"{s['slot']} (EVAL): uses I / you / a question / a "
+                   f"stance adverb ({mk}) - a verdict without them")
+    if s["role"] in ("action", "bridge") and mk:
+        out.append(f"{s['slot']} ({s['role'].upper()}): uses I / you / a "
+                   f"question / a stance adverb - those are budgeted to "
+                   f"the VOICE slots")
+    if s["anchor"] and s["role"] in ("action", "quote", "bridge") and heard:
+        out.append(f"{s['slot']} ({s['beat']} {s['role'].upper()} on an "
+                   f"anchor): reads as commentary ({why}) - the moment "
+                   f"lands first and the beat's one REACTION slot reacts; "
+                   f"drop that word here")
+    if s.get("transition") and not CG._ANCHOR.match(text.strip()):
+        out.append(f"{s['slot']} opens the story: begin with a time or a "
+                   f"place - got {text.strip()[:40]!r}")
+    if s["role"] == "outro":
+        sents = CG._sentences(text)
+        cta = [i for i, x in enumerate(sents) if CG._CTA.search(x)]
+        if len(sents) < 2 or not cta or cta[0] == 0:
+            out.append(f"{s['slot']} OUTRO: a thesis sentence first, then "
+                       f"a call to action (subscribe / tell me what to "
+                       f"recap next) - got {len(sents)} sentence(s), CTA "
+                       f"{'first' if cta and cta[0] == 0 else 'present' if cta else 'missing'}")
+    if s["role"] == "quote" and _norm(s.get("quote")) not in _norm(
+            ln.get("narration")):
+        out.append(f"{s['slot']}: the quote \"{s.get('quote')}\" is not "
+                   f"in the line verbatim")
+    return out
+
+
+def slot_tag(s: dict) -> str:
+    """The slot as a reviser needs to see it beside the line."""
+    r = s["role"].upper()
+    if s.get("voice"):
+        r += f" {s['voice'].upper()}"
+    return r + (" on an ANCHOR" if s.get("anchor") else "")
+
+
+def _kind(msg: str) -> str:
+    return re.sub(r"\d+", "#", re.sub(r"'.*?'|\".*?\"", "", msg))
+
+
+def new_deviations(old: dict, new: dict, s: dict) -> list:
+    """Deviations the rewrite has that the line before it did not (a line
+    that already missed its band is not blocked for still missing it)."""
+    had = {_kind(m) for m in line_deviations(old, s)}
+    return [m for m in line_deviations(new, s) if _kind(m) not in had]
+
+
+def code_labels(new: dict, s: dict) -> dict:
+    """The labels a slot decides are CODE's, not the writer's (nor a
+    reviser's): delivery for intro / outro, payload for reaction / loop /
+    outro, and no commentary label on an action or a quote."""
+    new = dict(new)
+    if s["role"] == "intro":
+        new["delivery"], new["film_intro"] = "intro", True
+        new["payload"] = new.get("payload") or "rest"
+        return new
+    if s["role"] == "outro":
+        new["delivery"] = "outro"
+    elif new.get("delivery") in ("intro", "outro", "hook"):
+        new["delivery"] = "normal"
+    if s["role"] in ("reaction", "outro"):
+        new["payload"] = "judgment"
+    elif s.get("opens_loop"):
+        new["payload"] = "loop"
+    elif s["role"] in ("action", "quote") and new.get("payload") == "judgment":
+        new["payload"] = "stake"
+    return new
+
+
 def check_slots(lines: list, slots: list, pdir: Path | None = None) -> list:
     """Deviations of a reply from its slots; [] = it followed them."""
     from pipeline import craft_gates as CG
@@ -667,52 +764,7 @@ def check_slots(lines: list, slots: list, pdir: Path | None = None) -> list:
         if ln is None:
             out.append(f"{s['slot']} ({s['beat']} {s['role']}): no line")
             continue
-        n = _wc(ln.get("narration"))
-        if not s["min_words"] - TOL <= n <= s["max_words"] + (
-                TOL if s["max_words"] == _band_top(s) else 0):
-            out.append(f"{s['slot']} ({s['beat']} {s['role']}): {n} words, "
-                       f"the slot is {s['min_words']}-{s['max_words']}"
-                       + (" (its footage holds no more)"
-                          if s["max_words"] < _band_top(s) else ""))
-        # payload labels for loop / reaction / action are set by CODE in
-        # merge(); what code cannot set is whether the WORDS are heard as
-        # the narrator - the same classifier [PERSONA] and [PEAK-ORDER] use
-        text = str(ln.get("narration") or "")
-        heard, why = PG.classify_judgment(text)
-        mk = markers(text)
-        if s["role"] == "reaction" and not heard:
-            out.append(f"{s['slot']} ({s['beat']} REACTION): not heard as the "
-                       f"narrator - use one of the moves the brief lists for "
-                       f"a {str(s.get('voice') or 'voice').upper()} reaction")
-        if s["role"] == "reaction" and s.get("voice") == "voice" and mk > 2:
-            out.append(f"{s['slot']} (VOICE): {mk} narrator markers - one")
-        if s["role"] == "reaction" and s.get("voice") == "eval" and mk:
-            out.append(f"{s['slot']} (EVAL): uses I / you / a question / a "
-                       f"stance adverb ({mk}) - a verdict without them")
-        if s["role"] in ("action", "bridge") and mk:
-            out.append(f"{s['slot']} ({s['role'].upper()}): uses I / you / a "
-                       f"question / a stance adverb - those are budgeted to "
-                       f"the VOICE slots")
-        if s["anchor"] and s["role"] in ("action", "quote", "bridge") and heard:
-            out.append(f"{s['slot']} ({s['beat']} {s['role'].upper()} on an "
-                       f"anchor): reads as commentary ({why}) - the moment "
-                       f"lands first and the beat's one REACTION slot reacts; "
-                       f"drop that word here")
-        if s.get("transition") and not CG._ANCHOR.match(text.strip()):
-            out.append(f"{s['slot']} opens the story: begin with a time or a "
-                       f"place - got {text.strip()[:40]!r}")
-        if s["role"] == "outro":
-            sents = CG._sentences(text)
-            cta = [i for i, x in enumerate(sents) if CG._CTA.search(x)]
-            if len(sents) < 2 or not cta or cta[0] == 0:
-                out.append(f"{s['slot']} OUTRO: a thesis sentence first, then "
-                           f"a call to action (subscribe / tell me what to "
-                           f"recap next) - got {len(sents)} sentence(s), CTA "
-                           f"{'first' if cta and cta[0] == 0 else 'present' if cta else 'missing'}")
-        if s["role"] == "quote" and _norm(s.get("quote")) not in _norm(
-                ln.get("narration")):
-            out.append(f"{s['slot']}: the quote \"{s.get('quote')}\" is not "
-                       f"in the line verbatim")
+        out += line_deviations(ln, s)
     intro = [by.get(s["slot"]) for s in want if s["role"] == "intro"]
     if intro and pdir is not None:
         out += _intro_problems(" ".join(str((x or {}).get("narration") or "")
@@ -770,10 +822,8 @@ def merge(lines: list, slots: list, k: int) -> list:
             new = {f: v for f, v in ln.items()
                    if f not in ("id", "note", "clip_start", "clip_end", "slot",
                                 "over_montage")}
-            out.append(dict(new, id=k * 1000 + i, note="INTRO",
-                            slot=s["slot"], film_intro=True,
-                            delivery="intro",
-                            payload=new.get("payload") or "rest"))
+            out.append(dict(code_labels(new, s), id=k * 1000 + i,
+                            note="INTRO", slot=s["slot"]))
             continue
         base = {"id": k * 1000 + i, "note": s["beat"], "slot": s["slot"],
                 "clip_start": s["clip_start"], "clip_end": s["clip_end"]}
@@ -788,18 +838,7 @@ def merge(lines: list, slots: list, k: int) -> list:
         new = {f: v for f, v in ln.items()
                if f not in ("id", "note", "clip_start", "clip_end", "slot",
                             "film_intro", "over_montage")}
-        # the labels the slot decides are CODE's, not the writer's
-        if s["role"] == "outro":
-            new["delivery"] = "outro"
-        elif new.get("delivery") in ("intro", "outro", "hook"):
-            new["delivery"] = "normal"
-        if s["role"] == "reaction":
-            new["payload"] = "judgment"
-        elif s.get("opens_loop"):
-            new["payload"] = "loop"
-        elif s["role"] in ("action", "quote") and new.get("payload") == "judgment":
-            new["payload"] = "stake"
-        out.append(dict(base, **new))
+        out.append(dict(base, **code_labels(new, s)))
     for j, ln in enumerate(out):
         if ln.get("film_intro"):
             ln["id"] = k * 1000 + 900 + j

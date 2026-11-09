@@ -556,12 +556,26 @@ def cmd_facts(a, client) -> int:
             f"{rev['fetched']})\n\n{compact_wikitext(rev['wikitext'])}\n\n"
             f"# projects/{a.project}/reveals.json\n\n"
             + _read(pdir / "reveals.json", True))
-    msg = call(client, pdir, "facts", params("facts", sysb, user))
-    obj, why = _json_reply(msg, "facts")
-    miss = [] if obj is None else [f for f in FACT_FIELDS if f not in obj]
-    if obj is None or miss:
-        print(f"facts: {why or 'missing fields ' + str(miss)} - nothing written")
-        return 2
+    for attempt in (1, 2):
+        msg = call(client, pdir, "facts", params("facts", sysb, user))
+        obj, why = _json_reply(msg, "facts")
+        miss = [] if obj is None else [f for f in FACT_FIELDS if f not in obj]
+        if obj is not None and not miss:
+            # [FILM-INTRO] enforces a withheld entry only through its `ban`
+            nob = [str(w.get("what", "?"))[:60] for w in obj.get("withheld") or []
+                   if not [b for b in w.get("ban") or [] if str(b).strip()]]
+            if not nob:
+                break
+            why = (f"{len(nob)} withheld entr(ies) with no `ban` list: "
+                   + "; ".join(nob))
+            miss = ["ban"]
+        print(f"facts: attempt {attempt}: {why or 'missing fields ' + str(miss)}")
+        if attempt == 2:
+            print("facts: nothing written")
+            return 2
+        user += (f"\n\n# YOUR LAST REPLY WAS NOT SAVED\n\n- {why or miss}\n"
+                 f"Every withheld entry needs `ban`: the exact phrases that "
+                 f"would give it away.")
     # the source line is the tool's to write: it fetched the revision
     obj["_source"] = (f"English Wikipedia, '{rev['title']}', revision "
                       f"oldid={rev['oldid']}, fetched {rev['fetched']}.")
@@ -1269,8 +1283,47 @@ def _fix_windows(project: str) -> None:
 # --------------------------------------------------------------------------- #
 # resolve: act on the review findings, close them in the artifacts
 # --------------------------------------------------------------------------- #
+def gate_findings(project: str) -> list:
+    """The draft gates' hard errors that name lines, as resolve findings.
+    The review-artifact gates are not here - open_findings has those."""
+    _rc, errs = run_gates(project)
+    out = []
+    for e in errs:
+        if any(e.startswith(f"[{g}]") for g in REVIEW_GATES + ("SAME-POINT",)):
+            continue
+        ids = sorted(finding_ids(e))
+        if ids:
+            out.append({"artifact": None, "kind": "gate", "gate": True,
+                        "ids": [str(i) for i in ids], "text": e})
+    return out
+
+
+def slots_of_lines(pdir: Path, owner: dict) -> dict:
+    """{draft line id (str): its slot} for a slot-written draft, else {}."""
+    f = pdir / "plan.json"
+    if not f.exists():
+        return {}                       # not a slot-written draft
+    try:
+        plan = json.loads(f.read_text(encoding="utf-8-sig"))
+    except ValueError:
+        return {}
+    by_slot = {s["slot"]: s for s in plan.get("slots") or []}
+    if not by_slot:
+        return {}
+    own = {}
+    for f in sorted((pdir / "draft.json.d").glob("act*.json")):
+        m = re.match(r"act(\d+)$", f.stem)
+        if not m:
+            continue
+        for ln in json.loads(_read(f)).get("lines") or []:
+            if ln.get("slot") in by_slot:
+                own[(int(m.group(1)), ln.get("id"))] = by_slot[ln["slot"]]
+    return {str(lid): own[ko] for lid, ko in owner.items() if ko in own}
+
+
 def cmd_resolve(a, client) -> int:
     import write_plan as WP
+    import write_slots as WS
     from pipeline import review_artifacts as RA
     pdir = config.project_dir(a.project)
     d = pdir / "draft.json.d"
@@ -1279,8 +1332,15 @@ def cmd_resolve(a, client) -> int:
     for rnd in range(1, rounds + 2):
         draft = json.loads(_read(pdir / "draft.json"))
         finds = WP.open_findings(pdir, draft)
+        # the draft's own gates are findings too: a fix that clears the
+        # readers but breaks a gate is not a fix (each gate finding names
+        # its lines; a draft-wide one with no line is the layout's job)
         if not finds:
-            print("resolve: no open review finding")
+            finds = gate_findings(a.project)
+            for i, f in enumerate(finds, 1):
+                f["key"] = f"G{i}"
+        if not finds:
+            print("resolve: no open review finding, draft gates clean")
             return 0
         if rnd > rounds:
             print(f"resolve: {rounds} round(s) done; STOPPING with "
@@ -1291,6 +1351,8 @@ def cmd_resolve(a, client) -> int:
             return 2
         owner = act_of_lines(pdir)
         by_id = {str(l["id"]): l for l in draft["lines"]}
+        slot_of = slots_of_lines(pdir, owner)
+        tags = {lid: WS.slot_tag(sl) for lid, sl in slot_of.items()}
         groups: dict = {}
         for f in finds:
             acts_ = {owner[int(i)][0] for i in f["ids"]
@@ -1303,10 +1365,10 @@ def cmd_resolve(a, client) -> int:
             mine = [l for l in draft["lines"]
                     if owner.get(l["id"], (None,))[0] == k
                     or str(l["id"]) in {i for f in fs for i in f["ids"]}]
-            user = WP.resolve_user(mine, fs)
+            user = WP.resolve_user(mine, fs, tags)
             if carry.get(k):
                 user += ("\n\n# YOUR LAST EDITS THAT WERE NOT SAVED (they "
-                         "break the draft schema)\n\n"
+                         "break the draft schema or their slot)\n\n"
                          + "\n".join(f"- {e}" for e in carry[k]))
             reqs[f"act{k}"] = with_format(params("resolve", sysb, user),
                                           resolve_schema())
@@ -1332,11 +1394,34 @@ def cmd_resolve(a, client) -> int:
                 if lid not in by_id or lid not in named:
                     keep.append(ln)             # apply_resolution rejects it
                     continue
-                fe = {f: ln[f] for f in EDIT_FIELDS
+                sl = slot_of.get(lid)
+                fields = EDIT_FIELDS
+                if sl is not None and not any(
+                        "PAYLOAD" in f["text"] or "DELIVERY" in f["text"]
+                        for f in groups[k] if lid in f["ids"]):
+                    # a reviser that echoes every field back (Furious 7: 68
+                    # rewrites, rest share 25% -> 39%) relabels lines it was
+                    # only asked to reword; labels change only for a finding
+                    # ABOUT labels
+                    fields = ("narration_silence_seconds",)
+                fe = {f: ln[f] for f in fields
                       if f in ln and ln[f] != by_id[lid].get(f)}
                 new = dict(by_id[lid], **fe)
                 if "narration" in ln:
                     new["narration"] = " ".join(str(ln["narration"]).split())
+                if sl is not None:
+                    # the slot binds a rewrite exactly as it bound the first
+                    # write: code's labels, and no NEW deviation from it
+                    new = WS.code_labels(new, sl)
+                    fe = {f: new[f] for f in EDIT_FIELDS
+                          if f in new and new[f] != by_id[lid].get(f)}
+                    broke = WS.new_deviations(by_id[lid], new, sl)
+                    if broke:
+                        carry.setdefault(k, []).extend(
+                            f"line {lid}: {b}" for b in broke)
+                        rejects.append(f"act{k}: line {lid} NOT saved - it "
+                                       f"breaks its slot: {'; '.join(broke)}")
+                        continue
                 errs = schema_problems([new])
                 if errs:
                     carry.setdefault(k, []).extend(errs)

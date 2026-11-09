@@ -544,9 +544,11 @@ RESOLVE_SCHEMA = {
 # The resolve request's system prompt is tools/resolve_prompt.md.
 
 
-def resolve_user(lines: list, findings: list) -> str:
-    rows = "\n".join(f"[{l['id']}] ({l.get('note') or ''}) "
-                     f"{str(l.get('narration') or '').strip()}"
+def resolve_user(lines: list, findings: list, tags: dict | None = None) -> str:
+    tags = tags or {}
+    rows = "\n".join(f"[{l['id']}] ({l.get('note') or ''})"
+                     + (f" [{tags[str(l['id'])]}]" if str(l["id"]) in tags else "")
+                     + f" {str(l.get('narration') or '').strip()}"
                      for l in lines if str(l.get("narration") or "").strip())
     fs = "\n".join(f"{f['key']} | {f['artifact']} | {f['kind']} | lines "
                    f"{','.join(f['ids']) or '-'} | {f['text']}"
@@ -579,8 +581,8 @@ def apply_resolution(findings: list, reply: dict, draft_lines: dict) -> tuple:
     entries: dict = {}
     for r in reply.get("responses") or []:
         f = by_key.get(r.get("key"))
-        if not f:
-            continue
+        if not f or f.get("gate"):
+            continue            # a gate finding closes by its re-run, not here
         st = r.get("status")
         txt = " ".join(str(r.get("text") or "").split()).replace("|", "/")
         if st == "ANSWERED" and len(txt.split()) < minw:
@@ -599,6 +601,8 @@ def apply_resolution(findings: list, reply: dict, draft_lines: dict) -> tuple:
         entries.setdefault(f["artifact"], []).extend(ent)
         f["closed"] = True
     for f in findings:
+        if f.get("gate"):
+            continue
         if not f.get("closed") and not any(f["key"] in x for x in rejects):
             rejects.append(f"{f['key']}: no response - stays open")
     return changes, entries, rejects
