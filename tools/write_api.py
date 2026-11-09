@@ -967,7 +967,7 @@ def feedback_by_act(findings: list, owner: dict, acts: list) -> dict:
     that names no line is draft-wide and goes to every act, marked."""
     fb = {k: [] for k in acts}
     for f in findings:
-        if any(f.startswith(f"[{g}]") for g in REVIEW_GATES):
+        if any(f.startswith(f"[{g}]") for g in REVIEW_GATES + ("SAME-POINT",)):
             continue                      # next stage's artifacts, not fixable here
         ids = finding_ids(f)
         mine = {owner[i][0] for i in ids if i in owner}
@@ -1252,6 +1252,20 @@ def cmd_draft(a, client) -> int:
                     carry[k] = probs
                 continue
             prev = json.loads(_read(d / f"act{k}.json"))["lines"]
+            if slots and any(l.get("slot") for l in prev):
+                # slot-written act: the revision is applied slot by slot -
+                # it can improve a line, never drop one or break its slot
+                import write_slots as WS
+                lines, notes = WS.merge_revision(
+                    prev, [l for l in obj.get("lines") or []
+                           if isinstance(l, dict)],
+                    WS.slots_for_act(slots, k), k)
+                for n_ in notes[:6]:
+                    print(f"  act{k}: {n_}")
+                (d / f"act{k}.json").write_text(json.dumps(
+                    {"act": k, "lines": lines}, ensure_ascii=False,
+                    indent=2), encoding="utf-8")
+                continue
             keep = [l for l in prev if l.get("over_montage")
                     or l.get("delivery") == "hook"]
             new = act_lines(obj, k, slots, plan, hook=False)

@@ -342,6 +342,48 @@ def test_counts_followed():
                 f"{short[:1]}" if ok else f"{bad[:3]} / {short[:1]}")
 
 
+def test_revision_keeps_slots():
+    """A revision reply that leaves slots out cannot drop their lines (the
+    Furious 7 act 2 lost ~60 beats that way); a rewrite that breaks its slot
+    is not taken; a good one is. Quotes are whole sentences only."""
+    _plan, _ab, slots = _layout()
+    k = sorted({s["act"] for s in slots})[1]
+    mine = WS.slots_for_act(slots, k)
+    prev = WS.merge([_fill(s, i) for i, s in enumerate(mine)
+                     if s["role"] not in ("hold", "film_speaks")], slots, k)
+    said = [l for l in prev if str(l.get("narration") or "").strip()]
+    react = next(l for l in said if next(
+        s for s in mine if s["slot"] == l["slot"])["role"] == "reaction")
+    other = next(l for l in said if l is not react and next(
+        s for s in mine if s["slot"] == l["slot"])["role"] == "bridge")
+    reply = [{"slot": react["slot"], "narration": "He drives home."},
+             {"slot": other["slot"], "narration":
+              other["narration"].rstrip(".") + " again."}]
+    out, notes = WS.merge_revision(prev, reply, mine, k)
+    by = {l.get("slot"): l for l in out}
+    checks = [
+        (len(out) == len(prev), f"all {len(prev)} lines kept (got {len(out)})"),
+        (by[react["slot"]]["narration"] == react["narration"],
+         "a reaction rewritten as plain description is not taken"),
+        (by[other["slot"]]["narration"].endswith("again."),
+         "a rewrite that fits its slot is taken"),
+        (any("not taken" in n for n in notes), "the refusal is reported"),
+        (WS.whole_sentences("I'm also the last man on Earth whose computer")
+         == [] and WS.whole_sentences("Fine. You know he's out there, right?")
+         == ["Fine.", "You know he's out there, right?"],
+         "a cut-off transcript segment yields no quote"),
+        (all(s.get("quote") in " ".join(WS.whole_sentences(s["quote"]))
+             for s in slots if s.get("quote")),
+         "every planned quote is a whole sentence"),
+        ("words" in WS.slot_tag(react_slot := next(
+            s for s in mine if s["slot"] == react["slot"])),
+         "the reviser sees the word band: " + WS.slot_tag(react_slot)),
+    ]
+    bad = [w for ok, w in checks if not ok]
+    return not bad, ("; ".join(w for _, w in checks) if not bad
+                     else "FAILED: " + "; ".join(bad))
+
+
 TESTS = {
     "SLOT-LAYOUT":           test_slot_layout,
     "WINDOWS-BY-CODE":       test_windows_by_code,
@@ -349,6 +391,7 @@ TESTS = {
     "BRIEF-FROM-CONSTANTS":  test_brief_from_constants,
     "DRAFT-SLOTS":           test_draft_slots,
     "COUNTS-FOLLOWED":       test_counts_followed,
+    "REVISION-KEEPS-SLOTS":  test_revision_keeps_slots,
 }
 
 if __name__ == "__main__":

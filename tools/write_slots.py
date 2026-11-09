@@ -42,7 +42,7 @@ ROLES = ("intro", "action", "quote", "reaction", "bridge", "outro", "hold",
 # Bumped whenever derive_slots changes what it builds: a plan.json whose slots
 # carry an older version is re-derived (write_api.cmd_draft), so a fix here
 # reaches a project that already has a plan without re-buying the plan.
-SLOTS_VERSION = 2
+SLOTS_VERSION = 3
 # [INTRO-OUTRO] / [FILM-INTRO]: the draft opens with the channel greeting and
 # the film's facts, and closes on a thesis then a call to action. These are
 # slots too - the first real film came back with no <intro> line at all.
@@ -51,7 +51,7 @@ OUTRO_WORDS = (20, 45)
 # [PERSONA] counts lines where the writer's label AND the classifier agree on
 # judgment, over ALL lines; the slots plan this much above the floor, because
 # a reaction the classifier does not hear is not counted.
-REACTION_SHARE_MARGIN = 0.05
+REACTION_SHARE_MARGIN = 0.08
 # words per line for each band. The bars they serve (craft_gates):
 #   SD of words-per-line >= BAR_SD (9): short ~5, medium ~14, long ~28 in
 #   the 30/45/25 mix below give an SD of ~9.5 before any within-band spread.
@@ -290,10 +290,14 @@ def derive_slots(plan: dict, project: str, pdir: Path, ab: dict) -> dict:
         if s["role"] != "quote":
             continue
         lo, hi = rng[s["beat"]]
-        c = [x for x in segs if s["a"] <= x[0] < s["z"]
-             and QUOTE_WORDS[0] <= _wc(x[2]) <= QUOTE_WORDS[1]] or \
-            [x for x in segs if lo <= x[0] < hi
-             and QUOTE_WORDS[0] <= _wc(x[2]) <= QUOTE_WORDS[1]]
+        # a transcript segment is cut where the speaker paused, not where the
+        # sentence ends ("I'm also the last man on Earth whose computer");
+        # a quote is a WHOLE sentence inside the segment, or no quote
+        def _whole(lo_, hi_):
+            return [(x[0], x[1], q) for x in segs if lo_ <= x[0] < hi_
+                    for q in whole_sentences(x[2])
+                    if QUOTE_WORDS[0] <= _wc(q) <= QUOTE_WORDS[1]]
+        c = _whole(s["a"], s["z"]) or _whole(lo, hi)
         c = [x for x in c if x[2] not in used_q]
         if c:
             q = max(c, key=lambda x: (_wc(x[2]) <= 10, _wc(x[2])))
@@ -434,6 +438,15 @@ def derive_slots(plan: dict, project: str, pdir: Path, ab: dict) -> dict:
         s["clip_end"] = _ts(z_) if z_ is not None else None
     return {"slots": slots, "problems": problems,
             "version": SLOTS_VERSION}
+
+
+_SENT = re.compile(r"[A-Z\"'][^.?!]*[.?!]")
+
+
+def whole_sentences(text: str) -> list:
+    """The complete sentences in a transcript segment: a capital (or an
+    opening quote) to a full stop, question or exclamation mark."""
+    return [m.group(0).strip() for m in _SENT.finditer(str(text or ""))]
 
 
 def markers(text: str) -> int:
@@ -591,10 +604,16 @@ def writer_brief(pdir: Path, plan: dict, k: int) -> str:
         "I / me / my, you / your, a question to the viewer, or honestly / "
         "frankly / of course / apparently / somehow / obviously / clearly / "
         "naturally / turns out.",
-        "- REACTION (EVAL) slots: a verdict with NONE of those words - "
-        "\"that's the ...\", \"the whole / only / real problem / mistake / "
-        "price ...\", \"nobody ...\", \"which is why ...\", \"so much for "
-        "...\", a plain judgement word (petty, loyal, ridiculous, generous).",
+        "- REACTION (EVAL) slots: a verdict with NONE of those words, built "
+        "on one of THESE exact forms (the checker hears only these): "
+        "\"That's the ...\" / \"Here's the ...\"; \"the whole / the only / "
+        "the point / the problem / the mistake / the trick / the truth / the "
+        "joke / the cost / the price / the difference ...\" (with THE); "
+        "\"Nobody / No one / Everyone / Nothing / Everything + verb\"; "
+        "\"... which is why / how / what ...\"; \"... and that's ...\"; "
+        "\"the most / the least + word\"; a superlative (-est); or one of: "
+        "loyal, petty, cruel, ridiculous, generous, brave, clever, decent, "
+        "pointless, cheap, odd, stupid, honest.",
         "- Every OTHER slot (action, quote framing, bridge) uses none of the "
         "VOICE words and no question mark - the narrator's presence is "
         "budgeted to the VOICE slots so it lands, not chatters. On an ANCHOR "
@@ -676,7 +695,8 @@ def line_deviations(ln: dict, s: dict) -> list:
         out.append(f"{s['slot']} ({s['role'].upper()}): uses I / you / a "
                    f"question / a stance adverb - those are budgeted to "
                    f"the VOICE slots")
-    if s["anchor"] and s["role"] in ("action", "quote", "bridge") and heard:
+    if (s["anchor"] or s["peak"]) and s["role"] in ("action", "quote",
+                                                     "bridge") and heard:
         out.append(f"{s['slot']} ({s['beat']} {s['role'].upper()} on an "
                    f"anchor): reads as commentary ({why}) - the moment "
                    f"lands first and the beat's one REACTION slot reacts; "
@@ -700,11 +720,18 @@ def line_deviations(ln: dict, s: dict) -> list:
 
 
 def slot_tag(s: dict) -> str:
-    """The slot as a reviser needs to see it beside the line."""
+    """The slot as a reviser needs to see it beside the line: role, the
+    word band its footage holds, and the quote it must keep."""
     r = s["role"].upper()
     if s.get("voice"):
         r += f" {s['voice'].upper()}"
-    return r + (" on an ANCHOR" if s.get("anchor") else "")
+    if s.get("anchor") or s.get("peak"):
+        r += " on an ANCHOR"
+    if s.get("min_words") is not None and s["role"] != "hold":
+        r += f", {s['min_words']}-{s['max_words']} words"
+    if s.get("quote"):
+        r += f", keep verbatim: \"{s['quote']}\""
+    return r
 
 
 def _kind(msg: str) -> str:
@@ -716,6 +743,38 @@ def new_deviations(old: dict, new: dict, s: dict) -> list:
     that already missed its band is not blocked for still missing it)."""
     had = {_kind(m) for m in line_deviations(old, s)}
     return [m for m in line_deviations(new, s) if _kind(m) not in had]
+
+
+def merge_revision(prev: list, reply: list, slots: list, k: int) -> tuple:
+    """A revision of an act, applied SLOT BY SLOT onto the act it revises.
+    A slot the reply leaves out keeps its line; a rewrite that adds a
+    deviation from its slot is not taken. Returns (lines, notes). The first
+    real film lost ~60 beats of act 2 when a whole-act rewrite, sent back
+    for two draft-wide findings, replaced the act wholesale."""
+    by_prev = {str(l.get("slot") or ""): l for l in prev}
+    by_new = {str(l.get("slot") or ""): l for l in reply if l.get("slot")}
+    sl = {x["slot"]: x for x in slots}
+    out, notes = [], []
+    for l in prev:
+        sid = str(l.get("slot") or "")
+        s = sl.get(sid)
+        if not sid or s is None or sid not in by_new or s["role"] == "hold":
+            out.append(l)
+            continue
+        cand = {f: v for f, v in by_new[sid].items()
+                if f in ("narration", "payload", "delivery", "claim",
+                         "narration_silence_seconds")}
+        cand = code_labels(dict(l, **cand), s)
+        broke = new_deviations(l, cand, s)
+        if broke:
+            notes.append(f"{sid}: rewrite not taken - {'; '.join(broke)}")
+            out.append(l)
+        else:
+            out.append(cand)
+    missing = [x for x in by_new if x not in by_prev]
+    if missing:
+        notes.append(f"line(s) for no slot of this act ignored: {missing[:6]}")
+    return out, notes
 
 
 def code_labels(new: dict, s: dict) -> dict:

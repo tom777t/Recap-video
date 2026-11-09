@@ -92,6 +92,14 @@ turned an anchor's action line into commentary. Now:
   that name lines come back as the next resolve round (`gate_findings`).
 - `film_facts.json` withheld entries must carry `ban`, or the facts reply is
   sent back once.
+- the draft stage's gate-feedback round is applied SLOT BY SLOT
+  (`write_slots.merge_revision`): a slot the reply leaves out keeps its line.
+  Furious 7 lost ~60 beats of act 2 when a whole-act rewrite, sent back for
+  two draft-wide findings, replaced the act. SAME-POINT is a reviewer's call
+  and is no longer sent to the writer.
+- quotes are whole sentences (`whole_sentences`) - a Whisper segment cut
+  mid-sentence is never a quote slot.
+- the reviser's slot tag carries the word band and the verbatim quote.
 
 ## Not done in this pass
 

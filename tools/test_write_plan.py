@@ -376,7 +376,8 @@ def test_resolve_slot_bound():
          "a rewrite that fits its slot IS saved"),
         (t["4"].get("payload") == "stake",
          "an echoed payload nobody asked about is ignored"),
-        ("[REACTION EVAL]" in first and "[ACTION on an ANCHOR]" in first,
+        ("[REACTION EVAL, 1-30 words]" in first
+         and "[ACTION on an ANCHOR, 1-30 words]" in first,
          "the reviser sees each line's slot"),
         (len(c.batches) > 1 and "| gate |" in
          c.batches[1][0]["params"]["messages"][0]["content"],
