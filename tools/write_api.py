@@ -1346,13 +1346,15 @@ def cmd_resolve(a, client) -> int:
     for rnd in range(1, rounds + 2):
         draft = json.loads(_read(pdir / "draft.json"))
         finds = WP.open_findings(pdir, draft)
-        # the draft's own gates are findings too: a fix that clears the
-        # readers but breaks a gate is not a fix (each gate finding names
-        # its lines; a draft-wide one with no line is the layout's job)
-        if not finds:
-            finds = gate_findings(a.project)
-            for i, f in enumerate(finds, 1):
-                f["key"] = f"G{i}"
+        # the draft's own gates are findings too, IN THE SAME ROUND: a fix
+        # that clears the readers but breaks a gate is not a fix, and waiting
+        # for the readers to be closed first meant (Furious 7 run 6) that two
+        # unclosable reader findings kept three gate errors from ever being
+        # sent. Each gate finding names its lines; a draft-wide one with no
+        # line is the layout's job.
+        for i, f in enumerate(gate_findings(a.project), 1):
+            f["key"] = f"G{i}"
+            finds.append(f)
         if not finds:
             print("resolve: no open review finding, draft gates clean")
             return 0

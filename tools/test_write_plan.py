@@ -414,10 +414,16 @@ def test_resolve_closes():
                 {"key": key["ending"], "status": "RESOLVED",
                  "text": "rewrote the ending"}]})
     c = Client(None, reply)
+    # this test is about the READERS' findings; the fixture's own gate
+    # findings (which now ride in the same round) would legitimately name
+    # line 6, so they are held out here - RESOLVE-SLOT-BOUND covers them
+    real_gf = W.gate_findings
+    W.gate_findings = lambda project: []
     try:
         rc, out = _run(c, "resolve", "--project", PROJ)
     finally:
         WP.open_findings = real_sp
+        W.gate_findings = real_gf
     dr2 = _j(PDIR / "draft.json")
     t = {str(l["id"]): l["narration"] for l in dr2["lines"]}
     cr = RA.parse_artifact(PDIR / "cold_read.md")

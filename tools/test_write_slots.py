@@ -142,6 +142,24 @@ _TEXT = {
 }
 
 
+def _tag(s):
+    """Letters unique to the slot, so placeholder lines never repeat a
+    3-word phrase ([TIC-REPETITION] reads the words)."""
+    n = int(s["slot"][1:])
+    return chr(97 + n % 26) + chr(97 + n // 26 % 26)
+
+
+def _u(words, s):
+    tg = _tag(s)
+
+    def one(w):
+        core = w.rstrip(".,!?")
+        if core.islower() and core.isalpha() and len(core) > 3:
+            return core + tg + w[len(core):]
+        return w
+    return " ".join(one(w) for w in words)
+
+
 def _fill(s, i):
     """Placeholder narration that fills a slot the way the brief asks."""
     if s["role"] == "intro":
@@ -161,26 +179,30 @@ def _fill(s, i):
         return {"slot": s["slot"], "narration": t, "payload": "judgment",
                 "delivery": "outro"}
     if s["role"] == "quote":
-        t = f"\"{s['quote']}\" is what he tells him."
+        t = f"\"{s['quote']}\" " + _u("he warns quietly.".split(), s)
     elif s["role"] == "reaction" and s.get("voice") == "eval":
-        t = ("That's the whole price of the night, paid in one go."
-             if s["max_words"] >= 11 else "That's the price.")
+        t = ("That's the " + _u("whole price paid tonight, settled once "
+                                "and for good.".split(), s)
+             if s["max_words"] >= 11 else "That's the " + _u(["price"], s) + ".")
     elif s["role"] == "reaction":
-        t = (_TEXT["reaction"].replace("Honestly, you", "You")
-             if s["max_words"] >= 11 else "Well, you saw that coming.")
+        t = ("You " + _u("could spot that coming from across the "
+                         "parking lot.".split(), s)
+             if s["max_words"] >= 11 else "You " + _u("knew that already."
+                                                      .split(), s))
     elif s.get("shape") == "punch" and s["max_words"] >= 28:
-        t = ("He takes the second car down the ramp at a speed that costs "
-             "him the front bumper and the paint along one whole side. It "
-             "goes badly.")
+        t = _u(("He takes the second car down the ramp at a speed that costs "
+                "him the front bumper and the paint along one whole side. It "
+                "goes badly.").split(), s)
     elif s.get("shape") == "sweep" and s["max_words"] >= 35:
-        t = ("He takes the second car down the ramp at a speed that costs "
-             "him the front bumper and the paint along one whole side on the "
-             "first night he has ever been in that garage at all.")
+        t = _u(("He takes the second car down the ramp at a speed that costs "
+                "him the front bumper and the paint along one whole side on "
+                "the first night he has ever been in that garage at all.")
+               .split(), s)
     else:
         n = s["target"]
-        t = " ".join((["The", "deal", "costs", "him", "his", "only", "car",
-                       "and", "the", "money", "he", "owes", "the", "uncle",
-                       "is", "now", "due", "tonight"] * 3)[:n]) + "."
+        t = _u((["The", "deal", "costs", "him", "his", "only", "car",
+                 "and", "the", "money", "he", "owes", "the", "uncle",
+                 "is", "now", "due", "tonight"] * 3)[:n], s) + "."
     if s.get("transition"):
         t = "Arizona, " + t[0].lower() + t[1:]
     pl = ("loop" if s.get("opens_loop") else "judgment"
@@ -419,6 +441,41 @@ def test_draft_conservation():
                      else "FAILED: " + "; ".join(str(w) for w in bad))
 
 
+def test_sequence_rules():
+    """From Furious 7 run 6: 'that's the price' x3 across parallel acts,
+    the outro plus a reaction on the last anchor ([PEAK-ORDER] 2 reactions),
+    4 action lines with no stake. The layout prevents the first two; the
+    act check catches the rest before the gates do."""
+    _plan, _ab, slots = _layout()
+    ev = [s for s in slots if s.get("form")]
+    forms_vary = all(a["form"] != b["form"] for a, b in zip(ev, ev[1:]))
+    out = next(s for s in slots if s["role"] == "outro")
+    same_beat_react = [s["slot"] for s in slots if s["beat"] == out["beat"]
+                       and s["role"] == "reaction"]
+    mine = [s for s in slots if s["role"] in ("bridge", "action")][:6]
+    tic = [{"slot": s["slot"], "narration": f"That's the price of {w} again.",
+            "delivery": "normal", "payload": "rest"}
+           for s, w in zip(mine[:3], ("loyalty", "speed", "trust"))]
+    run = [{"slot": s["slot"], "narration": f"He swerves past truck {w}.",
+            "delivery": "action", "payload": "rest"}
+           for s, w in zip(mine[:4], ("one", "two", "three", "four"))]
+    p_tic = WS._act_problems(tic, mine[:3], PDIR)
+    p_run = WS._act_problems(run, mine[:4], PDIR)
+    checks = [
+        (forms_vary and len(ev) > 3,
+         f"{len(ev)} EVAL reactions, no two neighbours share a form"),
+        (not same_beat_react,
+         f"the outro's beat {out['beat']} has no other reaction slot"),
+        (any("that's the price" in m for m in p_tic),
+         "a phrase repeated in an act is sent back as a tic"),
+        (any("no stake" in m for m in p_run),
+         "4 action lines with no stake are sent back"),
+    ]
+    bad = [w for ok, w in checks if not ok]
+    return not bad, ("; ".join(w for _, w in checks) if not bad
+                     else "FAILED: " + "; ".join(bad))
+
+
 TESTS = {
     "SLOT-LAYOUT":           test_slot_layout,
     "WINDOWS-BY-CODE":       test_windows_by_code,
@@ -428,6 +485,7 @@ TESTS = {
     "COUNTS-FOLLOWED":       test_counts_followed,
     "REVISION-KEEPS-SLOTS":  test_revision_keeps_slots,
     "DRAFT-CONSERVATION":    test_draft_conservation,
+    "SEQUENCE-RULES":        test_sequence_rules,
 }
 
 if __name__ == "__main__":

@@ -100,6 +100,16 @@ turned an anchor's action line into commentary. Now:
 - quotes are whole sentences (`whole_sentences`) - a Whisper segment cut
   mid-sentence is never a quote slot.
 - the reviser's slot tag carries the word band and the verbatim quote.
+- gate findings ride in EVERY resolve round, beside the readers' (run 6:
+  two reader findings that could not close kept three gate errors from
+  ever being sent).
+- `[TIC-REPETITION]`: each EVAL reaction is handed its own form in rotation
+  (`EVAL_FORMS`) - four parallel acts all reached for "that's the price";
+  `check_slots` runs the gate's own n-gram count inside each act.
+- `[PEAK-ORDER]` on the last anchor: the outro is that beat's reaction, so
+  no other reaction slot sits on the outro's beat.
+- `[ACTION-STAKE]`: `check_slots` sends back 4 action/tense lines with no
+  stake.
 
 ## Not done in this pass
 

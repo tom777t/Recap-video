@@ -42,7 +42,7 @@ ROLES = ("intro", "action", "quote", "reaction", "bridge", "outro", "hold",
 # Bumped whenever derive_slots changes what it builds: a plan.json whose slots
 # carry an older version is re-derived (write_api.cmd_draft), so a fix here
 # reaches a project that already has a plan without re-buying the plan.
-SLOTS_VERSION = 3
+SLOTS_VERSION = 4
 # [INTRO-OUTRO] / [FILM-INTRO]: the draft opens with the channel greeting and
 # the film's facts, and closes on a thesis then a call to action. These are
 # slots too - the first real film came back with no <intro> line at all.
@@ -276,6 +276,12 @@ def derive_slots(plan: dict, project: str, pdir: Path, ab: dict) -> dict:
         last = nar_i[-1]
         slots[last]["role"] = "outro"
         slots = slots[:last + 1]
+        # the outro is a judgment line: on its own beat it IS the reaction
+        # ([PEAK-ORDER] allows one; Furious 7's last anchor carried two)
+        ob = slots[last]["beat"]
+        for x in slots[:last]:
+            if x["beat"] == ob and x["role"] == "reaction":
+                x["role"] = "bridge"
     # the INTRO block: the channel greeting, then the film's facts - act 1,
     # straight after the hook, no clip window (over the credits)
     if order:
@@ -449,6 +455,24 @@ def whole_sentences(text: str) -> list:
     return [m.group(0).strip() for m in _SENT.finditer(str(text or ""))]
 
 
+# One per EVAL reaction, in rotation - each is a pattern the judgment
+# classifier hears (pipeline/pacing_gates._EVAL); the noun is the writer's.
+EVAL_FORMS = (
+    "\"That's the <noun> ...\"",
+    "\"Nobody / No one + verb ...\"",
+    "\"The whole <noun> ...\"",
+    "\"..., which is why / how ...\"",
+    "one judgement word: loyal / petty / cruel / generous / decent / brave / "
+    "clever / pointless / cheap / odd",
+    "\"Here's the <noun> ...\"",
+    "\"Everyone / Everything + verb ...\"",
+    "\"The only <noun> ...\"",
+    "a superlative (-est) or \"the most / the least + word\"",
+    "\"The problem / mistake / trick / truth / joke / cost / difference ...\"",
+    "\"..., and that's <word>\"",
+)
+
+
 def markers(text: str) -> int:
     """[VOICE-PRESENCE]'s own count: I / you / stance adverbs / questions."""
     from pipeline import craft_gates as CG
@@ -483,6 +507,12 @@ def _voice_budget(slots: list) -> None:
         step = len(reac) / n_voice
         for i in range(n_voice):
             reac[int(i * step)]["voice"] = "voice"
+    # [TIC-REPETITION]: four acts written in parallel each reached for the
+    # first form in the list ("that's the price" x3). Each EVAL reaction is
+    # handed its own form, in rotation, so the draft varies by construction.
+    ev = [x for x in reac if x["voice"] == "eval"]
+    for i, x in enumerate(ev):
+        x["form"] = EVAL_FORMS[i % len(EVAL_FORMS)]
 
 
 def _first_of_beat(narr: list, i: int):
@@ -549,6 +579,7 @@ def slots_text(slots: list) -> str:
         rows.append(
             f"- {s['slot']} {s['beat']} {s['role'].upper()}"
             + (f" ({s['voice'].upper()})" if s.get("voice") else "")
+            + (f" FORM {s['form']}" if s.get("form") else "")
             + f" {s['clip_start']}-{s['clip_end']} | {band}"
             + (" | OPENS THE STORY: begin with a time or a place (\"Los "
                "Angeles.\", \"Three years earlier, ...\")"
@@ -824,10 +855,56 @@ def check_slots(lines: list, slots: list, pdir: Path | None = None) -> list:
             out.append(f"{s['slot']} ({s['beat']} {s['role']}): no line")
             continue
         out += line_deviations(ln, s)
+    out += _act_problems([by[s["slot"]] for s in want if s["slot"] in by],
+                         [s for s in want if s["slot"] in by], pdir)
     intro = [by.get(s["slot"]) for s in want if s["role"] == "intro"]
     if intro and pdir is not None:
         out += _intro_problems(" ".join(str((x or {}).get("narration") or "")
                                         for x in intro), pdir)
+    return out
+
+
+def _act_problems(lines: list, slots: list, pdir=None) -> list:
+    """Sequence rules no single slot can see: [ACTION-STAKE] (4 action /
+    tense lines in a row need one that restates the stake) and
+    [TIC-REPETITION] (a 3-word phrase twice in the act, outside quotes)."""
+    from pipeline import craft_gates as CG
+    out, run, gap = [], [], 0
+    every = int(CG.BAR_ACTION_STAKE_EVERY)
+    for ln, s in zip(lines, slots):
+        if ln.get("delivery") in CG._ACTION_DELIVERY:
+            gap = 0 if str(ln.get("payload")) in ("stake", "reasoning") \
+                else gap + 1
+            run.append(s["slot"])
+            if gap >= every:
+                out.append(f"{', '.join(run[-every:])}: {every} action/tense "
+                           f"lines with no stake - make one of them say what "
+                           f"is at stake (payload stake)")
+                gap = 0
+        else:
+            run, gap = [], 0
+    # the gate's OWN counting (motif_gates): n-grams with enough content
+    # words, names excluded, once per line
+    from pipeline import motif_gates as MG
+    n_ = int(getattr(config, "TIC_NGRAM_N", 3))
+    floor = int(getattr(config, "TIC_MIN_CONTENT_WORDS", 2))
+    names = MG._load_names(Path(pdir))[0] if pdir is not None else set()
+    seen: dict = {}
+    for ln, s in zip(lines, slots):
+        here = set()
+        for toks in MG._phrase_chunks(str(ln.get("narration") or "")):
+            for i in range(max(0, len(toks) - n_ + 1)):
+                g = toks[i:i + n_]
+                if any(w in names for w in g) or MG._n_content(g) < floor:
+                    continue
+                ph = " ".join(g)
+                if ph not in here:
+                    here.add(ph)
+                    seen.setdefault(ph, []).append(s["slot"])
+    for g, where in seen.items():
+        if len(where) > int(getattr(config, "TIC_NGRAM_MAX", 1)):
+            out.append(f"{', '.join(where)}: \"{g}\" in {len(where)} lines - "
+                       f"vary it (a repeated phrase is a tic)")
     return out
 
 
