@@ -213,7 +213,8 @@ def test_plan_revision():
         return False, f"rc {rc}, {len(c.calls)} call(s)"
     rev = c.calls[1]["messages"][-1]["content"]
     written = {k: v for k, v in _j(PDIR / "plan.json").items()
-               if k not in ("slots", "slot_problems", "slots_version")}
+               if k not in ("slots", "slot_problems", "slots_version",
+                            "open_mode", "lever", "opener")}
     if "(<year>)" not in rev or "beats in a row" in rev or written != good:
         return False, ("revision did not carry the unfixable violations, "
                        "carried a contour one code should have fixed, or the "
@@ -278,19 +279,21 @@ def test_act_follows_plan():
                for r in first):
         return False, "an act request does not carry its plan slice"
     d = _j(PDIR / "draft.json")
-    h = d["lines"][0]
-    if not (h.get("over_montage") and h.get("delivery") == "hook"
-            and not h.get("clip_start")
-            and h["narration"] == plan["hook"]["narration"]):
-        return False, f"hook line wrong: {h}"
+    # R0: the montage hook line is GONE - the cold open is OPEN slots now,
+    # and this unslotted fixture carries none; what must never come back
+    # is a delivery "hook" line over a montage at 0:00
+    if any(ln.get("over_montage") or ln.get("delivery") == "hook"
+           for ln in d["lines"]):
+        return False, "a montage hook line survived at the front"
     if d["title"] != plan["title"]:
         return False, f"title {d['title']!r}"
     r1 = {r["custom_id"]: r["params"]["messages"][0]["content"]
           for r in c.batches[1]} if len(c.batches) > 1 else {}
     if "act2" not in r1 or "(plan)" not in r1["act2"] or "act1" in r1:
         return False, f"plan mismatch not fed back to act 2 only: {sorted(r1)}"
-    return True, ("plan slices in every act request; hook + title from the "
-                  "plan; act 2's ignored plan fed back as round-1 findings")
+    return True, ("plan slices in every act request; no montage hook line; "
+                  "title from the plan; act 2's ignored plan fed back as "
+                  "round-1 findings")
 
 
 # ---- resolve ----------------------------------------------------------- #

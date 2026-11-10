@@ -567,6 +567,14 @@
     "what": "a quoted span is a song / not dialogue (a music mark in the transcript, or not_dialogue.json) - no character says it",
     "severity_source": "declared"
   },
+  "OPEN": {
+    "severity": "error",
+    "modules": [
+      "pipeline/craft_gates.py"
+    ],
+    "what": "the cold open contract (R0-R4): OPEN lines exist, no greeting/meta/credits in them, at most one proper name, the last line ends on the hook question and carries hook_question",
+    "severity_source": "declared"
+  },
   "PACING-CONTOUR": {
     "severity": "error",
     "modules": [

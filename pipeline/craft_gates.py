@@ -203,6 +203,41 @@ _ANCHOR = re.compile(
 
 _TITLE_YEAR = re.compile(r"\(\s*(19|20)\d{2}\s*\)\s*$")
 
+# [OPEN]'s ban list (R0): everything the study watched the losing template
+# do at 0:00. Word-boundary matched on the joined cold open. Shared with
+# tools/write_slots.py, which checks it at write time - one list, both
+# places.
+_OPEN_BANNED = (
+    "welcome back", "welcome to", "today we", "this is", "my name is",
+    "thanks for", "thank you for", "let's watch", "let me walk",
+    "walking you through", "recap", "recaps", "recapped", "movie recap",
+    "film recap", "spoiler", "spoilers", "directed by", "starring",
+)
+
+
+def _open_named(text: str) -> set:
+    """Capitalised tokens that are NOT sentence starters: a cold open
+    that keeps saying "The" and "His" has no names; "Dom" and "Han" in
+    one open are two names and fail [OPEN]'s one-name rule."""
+    _SENT_START = {
+        "the", "a", "an", "he", "she", "they", "it", "his", "her", "their",
+        "its", "but", "and", "now", "when", "what", "who", "why", "how",
+        "will", "in", "on", "at", "this", "that", "one", "two", "three",
+        "every", "each", "all", "no", "nobody", "nothing", "everyone",
+        "there", "then", "so", "or", "if", "because", "until", "after",
+        "before", "inside", "outside", "somewhere", "years",
+    }
+    out: set = set()
+    starter = True
+    for _m in re.finditer(r"[^\s]+", text):
+        w = _m.group(0)
+        core = w.strip("\"'()[] :,;-")
+        if core and core[0].isupper() and not starter \
+                and core.lower() not in _SENT_START:
+            out.add(core)
+        starter = w.rstrip().endswith((".", "!", "?"))
+    return out
+
 # Mot tieu de tien de la MOT MENH DE ("Students Don't Realise Their Teacher Is
 # A Kungfu Legend"), con mot tieu de ten phim la mot CUM DANH TU ("Tokyo
 # Drift", "Bad Genius (2017)"). Thu phan biet duoc hai thu do bang may la: co
@@ -554,6 +589,15 @@ def craft_report(draft: dict) -> dict:
             f"analysis; whether the premise is actually withheld and actually "
             f"extraordinary is checked by the payload auditor, not here.")
     hooks = [ln for ln in lines if ln.get("delivery") == "hook"]
+    # R0: the montage hook is gone; the open's LAST line carries the
+    # hook_question instead. [HOOK]'s "a hook must exist" bar is met by
+    # either shape - what it protects is that the video NAMES the
+    # question it exists to answer.
+    _open_q = [ln for ln in lines
+               if str(ln.get("note") or "").upper() == "OPEN"
+               and ln.get("hook_question")]
+    if not hooks and _open_q:
+        hooks = [_open_q[-1]]
     m["hook_lines"] = len(hooks)
 
     # ---- the hook plays OVER THE MONTAGE, so it cannot describe a frame ----
@@ -766,19 +810,43 @@ def craft_report(draft: dict) -> dict:
                             f"wrong.")
 
     # ---- [TRANSITION]: where the story actually starts -------------------
-    # Everything before this point is spoken over a montage or over the
-    # film-intro block. The first SHOT-BOUND line is where narration starts
-    # pointing at the picture again, and it has to tell the viewer they have
-    # arrived somewhere: a time or a place. Without it the recap cuts from a
-    # trailer voice straight into the middle of a scene.
-    if _fi or any(l.get("over_montage") for l in lines):
+    # After R0 the draft opens on the film's own scene (OPEN lines, note
+    # OPEN). OPEN-A is the story's own first beat told in place, so ITS
+    # first line carries the time-or-place anchor. OPEN-B is a flash-
+    # forward: the fragment opens mid-scene on purpose and the anchor
+    # belongs to the first SHOT-BOUND line after the intro block - the
+    # story proper, which the viewer has to be told the where-and-when
+    # of. Old drafts (over_montage hook) keep the old behaviour.
+    _open = [ln for ln in lines if str(ln.get("note") or "").upper() == "OPEN"
+             and _narr(ln)]
+    _mode = str(draft.get("open_mode") or "").upper() or None
+    if _open and _mode != "B":
+        _t = _narr(_open[0]).strip()
+        m["transition_line"] = _open[0].get("id")
+        if not _ANCHOR.match(_t):
+            hard(f"[TRANSITION] line {_open[0].get('id')} is the cold open's "
+                 f"first line (OPEN-A) and it opens without a time or place "
+                 f"anchor: {_t[:70]!r}. The open IS the story's start here - "
+                 f"\"In 1381 in England, ...\", \"Arizona, and a boy who "
+                 f"cannot stop racing.\"")
+    elif _open and _mode == "B":
+        _t = _narr(_open[0]).strip()
+        if _ANCHOR.match(_t):
+            warns.append(
+                f"[TRANSITION] line {_open[0].get('id')} is the OPEN-B "
+                f"fragment's first line and it opens on a time-or-place "
+                f"anchor: {_t[:70]!r}. The fragment opens mid-scene; the "
+                f"anchor belongs to the story's own first line.")
+    if (not _open and (_fi or any(l.get("over_montage") for l in lines))) \
+            or (_open and _mode == "B"):
         _last_unbound = -1
         for i, ln in enumerate(lines):
             if ln.get("film_intro") or ln.get("over_montage"):
                 _last_unbound = i
         _first_bound = None
         for ln in lines[_last_unbound + 1:]:
-            if ln.get("clip_start") and _narr(ln):
+            if ln.get("clip_start") and _narr(ln) \
+                    and str(ln.get("note") or "").upper() != "OPEN":
                 _first_bound = ln
                 break
         if _first_bound is not None:
@@ -788,10 +856,71 @@ def craft_report(draft: dict) -> dict:
                 hard(f"[TRANSITION] line {_first_bound.get('id')} is the first "
                      f"shot-bound line after the opening, and it opens without "
                      f"a time or place anchor: {_t[:70]!r}. This is where the "
-                     f"story starts and the viewer has just come off a montage "
-                     f"and a block of credits - they need telling where they "
-                     f"are. \"It starts in Arizona.\", \"Arizona, and a boy who "
-                     f"cannot stop racing.\", \"Three years before Tokyo, ...\"")
+                     f"story starts and the viewer has just come off the cold "
+                     f"open and a block of credits - they need telling where "
+                     f"they are. \"It starts in Arizona.\", \"Arizona, and a "
+                     f"boy who cannot stop racing.\", \"Three years before "
+                     f"Tokyo, ...\"")
+
+    # ---- [OPEN]: the cold open contract (R0-R4 of the opening study) -----
+    # The study's measured winners: the film's own picture at 0:00, voice
+    # on it, no greeting, no credits, at most one proper name, and the
+    # last open line IS the question the video answers. The greeting and
+    # the facts follow as the film-intro block - they are [FILM-INTRO]'s.
+    if _mode or _open:
+        m["open_lines"] = len(_open)
+        if not _open:
+            errors.append(
+                "[OPEN] the draft records an opening mode but has no OPEN "
+                "lines - the cold open was lost between the plan and the "
+                "draft. A draft that opens on the brand block is the "
+                "template the study measured losing.")
+        else:
+            _oblob = " ".join(_narr(l) for l in _open)
+            _low = _oblob.lower()
+            for _banned in _OPEN_BANNED:
+                if re.search(r"(?<![a-z])" + re.escape(_banned)
+                             + r"(?![a-z])", _low):
+                    errors.append(
+                        f"[OPEN] the cold open says {_banned!r} - no "
+                        f"greeting, no meta framing, no credits at 0:00; "
+                        f"the open is the film's own moment")
+                    break
+            if not str(_open[-1].get("hook_question") or "").strip():
+                errors.append(
+                    f"[OPEN] line {_open[-1].get('id')} (the open's last "
+                    f"line) carries no hook_question - the plan's question "
+                    f"is what the whole video answers; losing it loses the "
+                    f"loop the open promises.")
+            if not _narr(_open[-1]).strip().endswith("?"):
+                errors.append(
+                    f"[OPEN] line {_open[-1].get('id')} does not END on a "
+                    f"question - the open's last sentence is the viewer's "
+                    f"own question, unanswered until the end "
+                    f"({_narr(_open[-1])[-60:]!r})")
+            # proper names: mid-sentence capitalised tokens (the write-time
+            # check in write_slots._open_problems does the exact version
+            # against names.json; this is the draft-side shape check)
+            _n_named = len(_open_named(_oblob))
+            m["open_names"] = _n_named
+            if _n_named > 1:
+                errors.append(
+                    f"[OPEN] the cold open names {_n_named} characters - at "
+                    f"most ONE proper name survives a cold open; more is a "
+                    f"listings entry")
+            # the lever must be VISIBLE in the open's first two lines
+            # (R4): the picker chose it, the writer must spend it
+            _lever = str(draft.get("lever") or "").upper()
+            from pipeline import opening as _OP
+            if _lever in _OP.LEVERS:
+                _head = " ".join(_narr(l) for l in _open[:2]).lower()
+                _marks = _OP._CANON.get(_lever, ())
+                if not any(w in _head for w in _marks) and not any(
+                        w in _head for w in _OP._CHARGE):
+                    warns.append(
+                        f"[OPEN] the {_lever} lever is not visible in the "
+                        f"open's first two lines - the picker chose it, the "
+                        f"writer must spend it")
 
     # ---- item 5: [INTRO-OUTRO] -------------------------------------------
     tags = [ln.get("delivery") for ln in lines]

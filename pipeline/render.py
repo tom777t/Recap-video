@@ -1773,6 +1773,19 @@ def render(project: str, draft: dict,
     n_pool = 0
     n_cached = 0
     n_over_montage = 0
+    # R0: film_intro lines are one MID-TIMELINE segment between the OPEN
+    # clips and the story (they used to be counted with over_montage and
+    # prepended). One segment per contiguous group; RENDER-CHECK balances
+    # narration lines against clips with these.
+    n_fi_lines = 0
+    n_fi_segs = 0
+    _in_fi_group = False
+    _text_by_id = {l.get("id"): str(l.get("narration") or "")
+                   for l in draft["lines"]}
+    # LEGACY drafts carry an over_montage hook; their film-intro lines are
+    # prepended with the montage (intro.prepend_to_final). R0 drafts have
+    # no over_montage line and render the facts block mid-timeline.
+    _has_over_montage = any(l.get("over_montage") for l in draft["lines"])
     # Gap 3 SILENCE lines build a clip but carry no narration audio and no
     # caption window, so they are deliberately absent from BOTH `narration` and
     # `timeline`. RENDER-CHECK has to know how many there were, or it reports
@@ -1792,20 +1805,64 @@ def render(project: str, draft: dict,
 
         # A line spoken OVER THE MONTAGE has no clip window and is not a clip
         # here - it is baked into the intro block, which gets prepended to the
-        # finished film below. Rendering it in this loop would need a shot to
-        # bind to, which is exactly what the no-frame-description rule forbids
-        # it from having.
-        #
-        # film_intro lines are the SAME CASE and were missing from this test:
-        # they are spoken over the prepended intro block, carry no clip window
-        # by schema rule (draft.py rejects a film_intro line WITH one), and are
-        # baked by intro._build_film_intro_segment. Falling through here reached
-        # `parse_ts(ln["clip_start"])` below and crashed the first full render
-        # with KeyError 'clip_start'. Any line type that is rendered by the
-        # intro builder must be skipped here - see INTRO_OWNED.
-        if any(ln.get(k) for k in INTRO_OWNED):
+        # finished film below (LEGACY drafts only: R0 drafts open on OPEN
+        # clips and have no over_montage line at all).
+        if ln.get("over_montage"):
             n_over_montage += 1
             continue
+
+        if ln.get("film_intro") and _has_over_montage:
+            # legacy shape: the prepend owns these lines
+            n_over_montage += 1
+            continue
+
+        # R0: the greeting/facts group renders as ONE mid-timeline segment
+        # right where it sits in the draft - after the cold open, before
+        # the story. The segment builds its own voice track (cached TTS per
+        # line, see pipeline/intro.build_mid_segment); the story bed is
+        # mixed over the whole chain afterwards, so the segment carries no
+        # bed of its own.
+        # LEGACY drafts (an over_montage hook still at the front) keep the
+        # old shape: the facts block is prepended with the montage by
+        # intro.prepend_to_final, and RENDER-CHECK balances it as
+        # over-montage lines. Building BOTH would say the greeting twice.
+        if ln.get("film_intro") and not _has_over_montage:
+            n_fi_lines += 1
+            if _in_fi_group:
+                continue
+            _in_fi_group = True
+            from pipeline import intro as _intro_mid
+            try:
+                _intro_mid.reset_footage()
+                _mid = _intro_mid.build_mid_segment(project, work,
+                                                    cursor=cursor)
+            except Exception as _e:
+                console.print(f"[red]Film-intro segment failed: {_e}[/]")
+                raise
+            if _mid is None:
+                console.print("[red]the draft's film-intro lines could not "
+                              "be rendered mid-timeline - stopping rather "
+                              "than dropping the greeting[/]")
+                sys.exit(1)
+            seg, spans, total = _mid
+            clips.append((seg, total))
+            boundaries.append(cursor)
+            for _fid, _off, _d in spans:
+                timeline.append({"start": cursor + _off,
+                                 "end": cursor + _off + _d,
+                                 "text": _text_by_id.get(_fid, ""),
+                                 "id": _fid,
+                                 "clip_start": None, "clip_end": None})
+            for _u in _intro_mid.used_footage():
+                used_footage.add(_u["a"], _u["b"],
+                                 _u.get("label", "film-intro"),
+                                 blurred=False,
+                                 out_a=_u.get("out_a"),
+                                 out_b=_u.get("out_b"), out_abs=True)
+            n_fi_segs += 1
+            cursor += total - XFADE
+            continue
+        _in_fi_group = False
 
         # ---- Gap 3 SILENCE line: the LINE itself carries the silence ---------
         # A silence line has narration_silence_seconds (set on the draft line,
@@ -2332,7 +2389,8 @@ def render(project: str, draft: dict,
             console.print(f"[yellow]Intro block not prepended: {_e}[/]")
     else:
         console.print("[dim]No over_montage line in the draft - final.mp4 "
-                      "opens straight on the story.[/]")
+                      "opens on the cold open, the film-intro segment sits "
+                      "mid-timeline where the draft puts it.[/]")
 
     # Clean up intermediate render artifacts in _work/ (clip_*.mp4, _batch_*.mp4,
     # av_xfade.mp4). These are throwaway and can total hundreds of MB. We never
@@ -2406,16 +2464,22 @@ def render(project: str, draft: dict,
     # A SILENCE line builds a clip but has no TTS audio and no caption window,
     # so it is absent from `narration` and from `timeline` by design. Count it
     # in, or every film using a silence beat reports a false mismatch.
-    # An over_montage line HAS narration audio but builds no clip here - it is
-    # baked into the prepended intro block. Counting it as expecting a clip
-    # makes every draft with a montage report a false mismatch.
-    if len(clips) != len(narration) + n_silence - n_over_montage:
-        problems.append(f"{len(narration)} narration line(s) + {n_silence} silence "
-                        f"- {n_over_montage} over-montage but {len(clips)} clip(s) built")
-    if len(timeline) != len(clips) - n_silence:
-        problems.append(f"{len(clips)} clip(s) - {n_silence} silence = "
-                        f"{len(clips)-n_silence} expected, but {len(timeline)} "
-                        f"timeline entr(ies)")
+    # An over_montage line (LEGACY drafts only) HAS narration audio but builds
+    # no clip here - it is baked into the prepended intro block. And a
+    # film-intro GROUP is n_fi_lines narration lines carried by n_fi_segs
+    # mid-timeline segment(s) (R0): the group's lines are one clip.
+    if len(clips) != (len(narration) + n_silence - n_over_montage
+                      - n_fi_lines + n_fi_segs):
+        problems.append(f"{len(narration)} narration line(s) + {n_silence} "
+                        f"silence - {n_over_montage} over-montage - "
+                        f"{n_fi_lines} film-intro line(s) on {n_fi_segs} "
+                        f"segment(s) but {len(clips)} clip(s) built")
+    if len(timeline) != len(clips) - n_silence - n_fi_segs + n_fi_lines:
+        problems.append(f"{len(clips)} clip(s) - {n_silence} silence - "
+                        f"{n_fi_segs} film-intro segment(s) + {n_fi_lines} "
+                        f"film-intro line(s) = "
+                        f"{len(clips)-n_silence-n_fi_segs+n_fi_lines} "
+                        f"expected, but {len(timeline)} timeline entr(ies)")
 
     # ---- positional gate ----------------------------------------------------
     # The real question is not "is the runtime about right" but "does line N's
@@ -3017,6 +3081,8 @@ def render(project: str, draft: dict,
                       "narrated lines": len(narration),
                       "silence units": n_silence,
                       "over-montage lines": n_over_montage,
+                      "film-intro lines": n_fi_lines,
+                      "film-intro segments": n_fi_segs,
                       "timeline entries": len(timeline),
                       "position tolerance (s)": POSITION_TOLERANCE,
                       "worst position drift (s)": (
