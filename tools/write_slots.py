@@ -887,7 +887,20 @@ def new_deviations(old: dict, new: dict, s: dict) -> list:
     """Deviations the rewrite has that the line before it did not (a line
     that already missed its band is not blocked for still missing it)."""
     had = {_kind(m) for m in line_deviations(old, s)}
-    return [m for m in line_deviations(new, s) if _kind(m) not in had]
+    out = [m for m in line_deviations(new, s) if _kind(m) not in had]
+    # a line already over its band may stay over - but may not GROW: the
+    # footage set that band (Furious 7: a bridge opener took line 5 from
+    # 13 to 15 words in a 3.7 s window and froze the picture)
+    if s.get("max_words") is not None and s.get("role") not in (
+            "hold", "film_speaks"):
+        n_old, n_new = _wc(old.get("narration")), _wc(new.get("narration"))
+        if n_new > s["max_words"] and n_new > n_old and not any(
+                _length_only(m) for m in out):
+            out.append(f"{s['slot']} ({s['beat']} {s['role']}): {n_new} "
+                       f"words, the slot is {s['min_words']}-{s['max_words']}"
+                       f" and the line had {n_old} - a fix may not make it "
+                       f"longer than its footage")
+    return out
 
 
 def merge_revision(prev: list, reply: list, slots: list, k: int,

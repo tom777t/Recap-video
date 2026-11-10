@@ -568,7 +568,17 @@ def test_review_defects():
     ok11 = not any("budgeted to the VOICE" in m for m in WS.line_deviations(
         {"narration": 'Dom turns to him: "Where are you going this time?"'},
         act_s))
-    checks = [(ok9, f"a restored intro line gets its own id {ids1[:4]}"),
+    # a line already over its band may not GROW (Furious 7: an opener took
+    # line 5 from 13 to 15 words in a 3.7 s window - the picture froze)
+    sg = {"slot": "S9", "beat": "B9", "role": "bridge", "anchor": False,
+          "peak": False, "min_words": 3, "max_words": 11, "band": "medium"}
+    over = {"narration": " ".join(["word"] * 13)}
+    grew = {"narration": "Later, " + " ".join(["word"] * 14)}
+    same = {"narration": "Later, " + " ".join(["word"] * 12)}
+    ok12 = bool(WS.new_deviations(over, grew, sg)) and \
+        not WS.new_deviations(over, same, sg)
+    checks = [(ok12, "an over-long line may stay, not grow"),
+              (ok9, f"a restored intro line gets its own id {ids1[:4]}"),
               (ok10, "a payload fix is taken only when the finding is about "
                      "labels"),
               (ok11, "words inside a quotation are not narrator markers"),

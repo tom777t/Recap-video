@@ -911,6 +911,20 @@ def run_gates(project: str) -> tuple:
     # each unbridged gap, so resolve can be pointed at it
     finds += [ln.strip() for ln in out.splitlines()
               if ln.startswith("[BRIDGE] beats") and "the line after it" in ln]
+    # BINDING-VIOLATION (narration longer than its footage - the picture
+    # freezes) lists its lines under the header, one per row: one finding
+    # per line, so resolve shortens exactly those
+    rows = out.splitlines()
+    for i, ln in enumerate(rows):
+        if ln.startswith("[BINDING-VIOLATION]"):
+            for r_ in rows[i + 1:]:
+                m_ = re.match(r"\s+line (\d+): (.*)", r_)
+                if not m_:
+                    break
+                finds.append(f"[BINDING-VIOLATION] line {m_.group(1)}: "
+                             f"{m_.group(2).strip()} - the narration is "
+                             f"longer than its footage and the picture would "
+                             f"freeze: say it in fewer words")
     for ln in out.splitlines():
         if ln.startswith("draft.json has problems:"):
             on = True
