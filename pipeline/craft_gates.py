@@ -589,6 +589,15 @@ def craft_report(draft: dict) -> dict:
             f"analysis; whether the premise is actually withheld and actually "
             f"extraordinary is checked by the payload auditor, not here.")
     hooks = [ln for ln in lines if ln.get("delivery") == "hook"]
+    # R0: the montage hook is gone; the open's LAST line carries the
+    # hook_question instead. [HOOK]'s "a hook must exist" bar is met by
+    # either shape - what it protects is that the video NAMES the
+    # question it exists to answer.
+    _open_q = [ln for ln in lines
+               if str(ln.get("note") or "").upper() == "OPEN"
+               and ln.get("hook_question")]
+    if not hooks and _open_q:
+        hooks = [_open_q[-1]]
     m["hook_lines"] = len(hooks)
 
     # ---- the hook plays OVER THE MONTAGE, so it cannot describe a frame ----

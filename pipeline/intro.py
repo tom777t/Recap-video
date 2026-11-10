@@ -36,6 +36,11 @@ from pipeline import encoder as _encoder
 
 console = Console()
 
+# R0: silence ahead of the mid-timeline facts block's voice, so the
+# xfade chain's acrossfade (config.XFADE_DURATION ~0.27s) dissolves
+# silence instead of the first word of the greeting.
+LEAD_SILENCE = 0.45
+
 SR = 22050            # mono rate for onset analysis
 HOP = 512             # ~23ms frames
 MIN_CUT_SEC = 0.55    # no shot shorter than this, however dense the beats
@@ -717,6 +722,113 @@ def _concat_audio(ff: str, parts: list, out: Path) -> None:
     subprocess.run([ff, "-y", "-f", "concat", "-safe", "0", "-i", str(lst),
                     "-c:a", "libmp3lame", "-b:a", "192k", str(out)],
                    capture_output=True, text=True)
+
+
+def build_mid_segment(project: str, work: Path, cursor: float = 0.0):
+    """R0: the greeting/facts block as a MID-TIMELINE segment.
+
+    Under the cold open the film-intro lines sit BETWEEN the OPEN clips
+    and the story, so this is one more clip in the render's xfade chain,
+    not a prepend. Differences from _build_film_intro_segment (which the
+    legacy over_montage prepend still uses):
+
+      - NO music bed of its own: the chain is mixed with the story bed
+        AFTER it is glued, and a second bed here would double the music;
+      - LEAD_SILENCE of silence is padded in front of the voice, so the
+        chain's acrossfade dissolves silence instead of eating the first
+        word of the greeting;
+      - returns per-line durations, so the render can give each line its
+        own caption window inside the segment.
+
+    `cursor` is the segment's absolute start on the finished timeline
+    (for the footage record; motion_check maps freezes back through it).
+    Returns (path, [(line_id, start_offset, dur), ...], total_dur) or
+    None.
+    """
+    lines = film_intro_lines(project)
+    if not lines:
+        return None
+    pdir = config.project_dir(project)
+    ff = config.ffmpeg()
+    src = pdir / "source.mp4"
+    if not src.exists():
+        console.print("[yellow]Film-intro:[/] no source.mp4 - the facts "
+                      "block cannot be built mid-timeline.")
+        return None
+    parts, spans = [], []
+    off = LEAD_SILENCE
+    for ln in lines:
+        p = work / f"intro_fi_{ln['id']}.mp3"
+        try:
+            _tts_line(project, ln, p)
+        except Exception as e:
+            console.print(f"[yellow]Film-intro:[/] line {ln['id']} TTS "
+                          f"failed ({e}); facts block skipped.")
+            return None
+        d = _audio_dur(ff, p)
+        spans.append((ln["id"], off, d))
+        off += d
+        parts.append(p)
+    fi_mp3 = work / "intro_fi.mp3"
+    _concat_audio(ff, parts, fi_mp3)
+    fi_dur = _audio_dur(ff, fi_mp3)
+    total = LEAD_SILENCE + fi_dur + 0.3
+    if fi_dur <= 0:
+        console.print("[yellow]Film-intro:[/] could not measure the "
+                      "facts audio; block skipped.")
+        return None
+
+    from pipeline import censor as _censor
+    from pipeline import footage as _footage
+    land = first_reveal_land(project)
+    vis_len = total
+    _hi = max(1.0, land - 1.0)
+    if vis_len > _hi:
+        vis_len = max(3.0, _hi)
+    _flagged = _censor.flagged_shots(pdir)
+    _avoid = [(float(f["a"]), float(f["b"])) for f in (_flagged or [])]
+    vis_start, _why = _footage.watchable_start(
+        src, vis_len, 0.0, min(_hi, 600.0), avoid=_avoid)
+    if vis_start is None:
+        console.print(f"[yellow]Film-intro:[/] {_why} - facts block "
+                      f"skipped rather than showing black or flagged "
+                      f"footage.")
+        return None
+    _blk = _footage.has_black(src, vis_start, vis_start + vis_len)
+    if _blk:
+        console.print(f"[yellow]Film-intro:[/] chosen window contains "
+                      f"black {_blk} - facts block skipped.")
+        return None
+
+    record_footage(vis_start, vis_start + vis_len, "film-intro block",
+                   out_a=float(cursor), out_b=float(cursor) + vis_len)
+
+    w, h, fps = config.OUTPUT_WIDTH, config.OUTPUT_HEIGHT, config.OUTPUT_FPS
+    vf = (f"scale={w}:{h}:force_original_aspect_ratio=decrease:"
+          f"flags={config.VIDEO_SCALER},"
+          f"pad={w}:{h}:(ow-iw)/2:(oh-ih)/2:black,setsar=1,fps={fps}")
+    from pipeline.render import _body_keyframes
+    out = work / "intro_mid.mp4"
+    cmd = [ff, "-y",
+           "-ss", f"{vis_start:.3f}", "-t", f"{total:.3f}", "-i", str(src),
+           "-i", str(fi_mp3),
+           "-filter_complex",
+           f"[0:v]{vf}[v];"
+           f"[1:a]aformat=sample_rates=48000:channel_layouts=stereo,"
+           f"adelay={int(LEAD_SILENCE * 1000)}|"
+           f"{int(LEAD_SILENCE * 1000)}[a]",
+           "-map", "[v]", "-map", "[a]", "-t", f"{total:.3f}",
+           *_encoder.video_args("final", keyframe_frames=_body_keyframes(total)),
+           *_encoder.audio_args(),
+           str(out)]
+    r = subprocess.run(cmd, capture_output=True, text=True)
+    if r.returncode != 0 or not out.exists():
+        console.print("[yellow]Film-intro:[/] mid segment build failed.")
+        console.print((r.stderr or "")[-400:])
+        return None
+    console.print(f"[green]Film-intro block:[/] {len(lines)} line(s), "
+                  f"{total:.1f}s, mid-timeline")
+    return out, spans, total
 
 
 def _audio_dur(ff: str, p: Path) -> float:
