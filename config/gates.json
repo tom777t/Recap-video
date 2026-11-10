@@ -249,6 +249,14 @@
     "what": "gates did not run ... Treat this draft as UNCHECKED ...",
     "severity_source": "inferred"
   },
+  "CROSSPOST-IDENTICAL": {
+    "severity": "report",
+    "modules": [
+      "pipeline/variation.py"
+    ],
+    "what": "NOT RUN - no final.mp4 to hash ...",
+    "severity_source": "declared"
+  },
   "DELIVERY-UNKNOWN": {
     "severity": "error",
     "modules": [
@@ -446,6 +454,14 @@
     "what": "the promise \\ ...",
     "severity_source": "inferred"
   },
+  "HUMAN-VAR": {
+    "severity": "report",
+    "modules": [
+      "pipeline/variation.py"
+    ],
+    "what": "NOT RUN - channel/history.json is empty; ...",
+    "severity_source": "declared"
+  },
   "INTRO-MONTAGE": {
     "severity": "report",
     "modules": [
@@ -538,6 +554,7 @@
   "NAME-SPELLING": {
     "severity": "error",
     "modules": [
+      "pipeline/line_rules.py",
       "pipeline/name_spelling.py"
     ],
     "what": "hard: a listed name with other accents, or a 1-2 letter variant the transcript has and the listed spelling never; otherwise a warning",
@@ -562,7 +579,8 @@
   "NOT-DIALOGUE": {
     "severity": "error",
     "modules": [
-      "pipeline/draft.py"
+      "pipeline/draft.py",
+      "pipeline/line_rules.py"
     ],
     "what": "a quoted span is a song / not dialogue (a music mark in the transcript, or not_dialogue.json) - no character says it",
     "severity_source": "declared"
@@ -827,6 +845,14 @@
     "what": "already in SCRIPT stage.[/] ...",
     "severity_source": "inferred"
   },
+  "STRUCTURE-ECHO": {
+    "severity": "report",
+    "modules": [
+      "pipeline/variation.py"
+    ],
+    "what": "role-share cosine vs ...",
+    "severity_source": "declared"
+  },
   "STYLE-DECLARE": {
     "severity": "warn",
     "modules": [
@@ -854,10 +880,19 @@
   "TIC-REPETITION": {
     "severity": "error",
     "modules": [
+      "pipeline/line_rules.py",
       "pipeline/motif_gates.py"
     ],
     "what": "",
     "severity_source": "inferred"
+  },
+  "TITLE-FORMULA": {
+    "severity": "report",
+    "modules": [
+      "pipeline/variation.py"
+    ],
+    "what": "titles.txt is byte-identical to ...",
+    "severity_source": "declared"
   },
   "TITLE-MATCH": {
     "severity": "error",
