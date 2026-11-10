@@ -3,6 +3,7 @@
 
     python tools/fix_line.py --project P --line 40 --text "New line." [--note "..."]
     python tools/fix_line.py --project P --line 40 --show
+    python tools/fix_line.py --project P --line 109 --claim narration
 
 When resolve stops with a finding it could not close, the fix is often one
 line. Editing draft.json by hand leaves the review artifacts' signatures
@@ -17,6 +18,12 @@ through the same write-back as resolve (write_api.write_back):
   * every open reader finding naming the line is closed RESOLVED with
     --note (default: "rewritten by hand: <old> -> <new>")
   * the draft gates run once at the end (same as `recap.py draft`)
+
+--claim narration: the line REPORTS what someone said without showing
+them (a minor character not in names.json, or a voice over the listener's
+face). Its claim becomes a narration claim with no picture requirement, so
+[VOICE-VISUAL] no longer asks for the speaker on screen; the text is kept.
+Use it only when that is true of the line - you confirm it at the watch.
 
 --show prints the line, its slot, what is wrong with it now, its
 neighbours and the open findings naming it - read that first.
@@ -44,6 +51,9 @@ def main(argv=None) -> int:
     ap.add_argument("--text")
     ap.add_argument("--note", default="")
     ap.add_argument("--show", action="store_true")
+    ap.add_argument("--claim", choices=("narration",),
+                    help="make the line a narration claim (no speaker on "
+                         "screen required); text unchanged unless --text")
     a = ap.parse_args(argv)
 
     import write_api as W
@@ -60,6 +70,25 @@ def main(argv=None) -> int:
     sl = W.slots_of_lines(pdir, owner).get(lid)
     finds = [f for f in WP.open_findings(pdir, draft) if lid in f["ids"]]
     old = by_id[lid]
+
+    if a.claim and not a.text:
+        claim = dict(old.get("claim") or {}, type="narration",
+                     requires_visual=False)
+        claim.pop("subject", None)
+        W.write_back(pdir, draft, by_id, owner, {lid: {"claim": claim}},
+                     {}, {})
+        print(f"fix_line: line {lid} is now a narration claim (was "
+              f"{(old.get('claim') or {}).get('type')} / "
+              f"{(old.get('claim') or {}).get('subject')}). Running the draft "
+              f"gates ...")
+        rc, errs = W.run_gates(a.project)
+        if not errs:
+            print("fix_line: draft gates clean")
+        else:
+            print(f"fix_line: {len(errs)} hard error(s) left:")
+            for e in errs[:8]:
+                print(f"  - {e[:220]}")
+        return 0 if not errs else 2
 
     if a.show or not a.text:
         ids = [str(l["id"]) for l in draft["lines"]]

@@ -429,7 +429,16 @@ def test_fix_line():
     after = _j(PDIR / "draft.json")
     act = _j(PDIR / "draft.json.d" / "act1.json")
     cr = RA.parse_artifact(PDIR / "cold_read.md")
+    with redirect_stdout(io.StringIO()):
+        FL.main(["--project", PROJ, "--line", "4", "--claim", "narration"])
+    c4 = next(l for l in _j(PDIR / "draft.json")["lines"] if l["id"] == 4)
+    a4 = [l for l in _j(PDIR / "draft.json.d" / "act1.json")["lines"]
+          if l.get("narration") == c4.get("narration")]
+    claimed = ((c4.get("claim") or {}).get("type") == "narration"
+               and (c4.get("claim") or {}).get("requires_visual") is False
+               and a4 and (a4[0].get("claim") or {}).get("type") == "narration")
     checks = [
+        (claimed, "--claim narration lands in draft.json and the act file"),
         (refused, "a text that breaks the slot is refused, nothing written"),
         (after["lines"][1]["narration"] == good, "draft.json updated"),
         (any(l.get("narration") == good for l in act["lines"]),
