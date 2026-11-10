@@ -1164,8 +1164,23 @@ def cmd_draft(a, client) -> int:
                         retry[cid] = retry_params(p, got.get(cid), probs)
                     continue
                 bad.pop(k, None)
-                (d / f"act{k}.json").write_text(json.dumps(
-                    {"act": k, "lines": act_lines(obj, k, slots, plan)},
+                af = d / f"act{k}.json"
+                if slots and k in slot_fb and af.exists():
+                    # the slot-fix reply REVISES the saved act slot by slot:
+                    # a slot it leaves out keeps its line (a fix reply that
+                    # omitted S049 used to delete it for good)
+                    import write_slots as WS
+                    lines_, notes_ = WS.merge_revision(
+                        json.loads(_read(af))["lines"],
+                        [l for l in obj.get("lines") or []
+                         if isinstance(l, dict)],
+                        WS.slots_for_act(slots, k), k)
+                    for n_ in notes_[:4]:
+                        print(f"  act{k}: {n_}")
+                else:
+                    lines_ = act_lines(obj, k, slots, plan)
+                af.write_text(json.dumps(
+                    {"act": k, "lines": lines_},
                     ensure_ascii=False, indent=2), encoding="utf-8")
                 # checked against its slots AT ONCE; the deviations go back
                 # ONCE inside the stage (the gates stay the final check)
@@ -1259,7 +1274,9 @@ def cmd_draft(a, client) -> int:
                 lines, notes = WS.merge_revision(
                     prev, [l for l in obj.get("lines") or []
                            if isinstance(l, dict)],
-                    WS.slots_for_act(slots, k), k)
+                    WS.slots_for_act(slots, k), k,
+                    allow_labels=any(g in str(fb.get(k) or "")
+                                     for g in LABEL_FINDINGS))
                 for n_ in notes[:6]:
                     print(f"  act{k}: {n_}")
                 (d / f"act{k}.json").write_text(json.dumps(
@@ -1303,9 +1320,11 @@ def _fix_windows(project: str) -> None:
 LABEL_FINDINGS = ("PAYLOAD", "DELIVERY", "[ACTION-STAKE]", "[LOOP-CADENCE]")
 
 
-def gate_findings(project: str) -> list:
+def gate_findings(project: str, wide: list | None = None) -> list:
     """The draft gates' hard errors that name lines, as resolve findings.
-    The review-artifact gates are not here - open_findings has those."""
+    The review-artifact gates are not here - open_findings has those. Hard
+    errors that name NO line go into `wide` (if given): resolve cannot route
+    them, and must not call the draft clean while they stand."""
     _rc, errs = run_gates(project)
     out = []
     for e in errs:
@@ -1315,7 +1334,24 @@ def gate_findings(project: str) -> list:
         if ids:
             out.append({"artifact": None, "kind": "gate", "gate": True,
                         "ids": [str(i) for i in ids], "text": e})
+        elif wide is not None:
+            wide.append(e)
     return out
+
+
+def resolve_tags(slot_of: dict, by_id: dict) -> dict:
+    """{line id: its slot AND what is wrong with the line right now}, so a
+    fix is aimed (Furious 7: line 188 read as commentary because of "the
+    whole"; the reviser saw only "ACTION on an ANCHOR"). Every line of a real
+    draft passes through here - holds included."""
+    import write_slots as WS
+    tags = {}
+    for lid, sl in slot_of.items():
+        now = [m.split(": ", 1)[-1] for m in
+               WS.line_deviations(by_id[lid], sl)] if lid in by_id else []
+        tags[lid] = WS.slot_tag(sl) + (f"; NOW WRONG: {'; '.join(now)}"
+                                       if now else "")
+    return tags
 
 
 def slots_of_lines(pdir: Path, owner: dict) -> dict:
@@ -1358,10 +1394,19 @@ def cmd_resolve(a, client) -> int:
         # unclosable reader findings kept three gate errors from ever being
         # sent. Each gate finding names its lines; a draft-wide one with no
         # line is the layout's job.
-        for i, f in enumerate(gate_findings(a.project), 1):
+        wide: list = []
+        for i, f in enumerate(gate_findings(a.project, wide), 1):
             f["key"] = f"G{i}"
             finds.append(f)
         if not finds:
+            if wide:
+                # not clean: draft-wide errors name no line, so no reviser
+                # can be pointed at them - say so instead of "clean"
+                print(f"resolve: no line-level finding left, but "
+                      f"{len(wide)} draft-wide gate error(s) name no line:")
+                for w in wide[:6]:
+                    print(f"  - {w[:200]}")
+                return 2
             print("resolve: no open review finding, draft gates clean")
             return 0
         if rnd > rounds:
@@ -1374,15 +1419,7 @@ def cmd_resolve(a, client) -> int:
         owner = act_of_lines(pdir)
         by_id = {str(l["id"]): l for l in draft["lines"]}
         slot_of = slots_of_lines(pdir, owner)
-        tags = {}
-        for lid, sl in slot_of.items():
-            # the slot AND what is wrong with the line right now, so a fix is
-            # aimed (Furious 7: line 188 read as commentary because of "the
-            # whole"; the reviser saw only "ACTION on an ANCHOR")
-            now = [m.split(": ", 1)[-1] for m in
-                   WS.line_deviations(by_id[lid], sl)] if lid in by_id else []
-            tags[lid] = WS.slot_tag(sl) + (f"; NOW WRONG: {'; '.join(now)}"
-                                           if now else "")
+        tags = resolve_tags(slot_of, by_id)
         groups: dict = {}
         for f in finds:
             acts_ = {owner[int(i)][0] for i in f["ids"]

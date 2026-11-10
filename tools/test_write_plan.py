@@ -425,7 +425,7 @@ def test_resolve_closes():
     # findings (which now ride in the same round) would legitimately name
     # line 6, so they are held out here - RESOLVE-SLOT-BOUND covers them
     real_gf = W.gate_findings
-    W.gate_findings = lambda project: []
+    W.gate_findings = lambda project, wide=None: []
     try:
         rc, out = _run(c, "resolve", "--project", PROJ)
     finally:

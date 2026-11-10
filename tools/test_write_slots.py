@@ -476,6 +476,78 @@ def test_sequence_rules():
                      else "FAILED: " + "; ".join(bad))
 
 
+def test_review_defects():
+    """The independent review's defects (2026-11-10), each reproduced:
+    1 resolve's tags crashed on any hold line; 2 a slot lost by the fix
+    reply could never come back; 3 the brief named narrator words the
+    classifier does not hear; 4 sequence checks read the writer's labels,
+    not the saved ones; 6 a quote longer than its footage; 7 a sweep shape
+    on a slot under 30 words; 8 curly apostrophes failed the quote check."""
+    import write_api as W
+    from pipeline import pacing_gates as PG
+    plan, _ab, slots = _layout()
+    k = sorted({s["act"] for s in slots})[1]
+    mine = WS.slots_for_act(slots, k)
+    prev = WS.merge([_fill(s, i) for i, s in enumerate(mine)
+                     if s["role"] not in ("hold", "film_speaks")], slots, k)
+    # 1: every line of a real act through resolve's tag builder, holds too
+    by_id = {str(l["id"]): l for l in prev}
+    slot_of = {str(l["id"]): next(s for s in mine if s["slot"] == l["slot"])
+               for l in prev if l.get("slot")}
+    try:
+        tags = W.resolve_tags(slot_of, by_id)
+        ok1 = len(tags) == len(slot_of) and any(
+            s["role"] == "hold" for s in slot_of.values())
+    except Exception as e:                       # noqa: BLE001
+        ok1, tags = False, {"err": repr(e)}
+    # 2: a line the act lost comes back from the next reply
+    said = [l for l in prev if str(l.get("narration") or "").strip()
+            and l.get("slot")]
+    lost = said[3]
+    cut = [l for l in prev if l is not lost]
+    back, notes = WS.merge_revision(cut, [dict(lost)], mine, k)
+    ok2 = (any(l.get("slot") == lost["slot"] for l in back)
+           and [l.get("slot") for l in back] == [l.get("slot") for l in prev])
+    # 3: every narrator word the brief offers is heard and counted
+    brief = WS.writer_brief(PDIR, dict(plan, slots=slots), k)
+    voice = brief.split("REACTION (VOICE) slots")[1].split("\n")[0]
+    offered = ["I", "you", "honestly", "frankly", "of course", "apparently",
+               "somehow", "obviously", "naturally", "turns out"]
+    deaf = [w for w in offered if w.lower() in voice.lower()
+            and not PG.classify_judgment(f"Well, {w} saw it coming.")[0]]
+    ok3 = not deaf and "NOT me / my / clearly" in voice
+    # 4: the saved labels decide the sequence check
+    act_like = [s for s in mine if s["role"] in ("action", "bridge")][:3]
+    loop_s = dict(act_like[0], opens_loop=True, role="action")
+    seq = [loop_s] + act_like[:3]
+    lines4 = [{"slot": x["slot"], "narration": "He swerves past one truck.",
+               "delivery": "action", "payload": "stake" if i == 0 else "rest"}
+              for i, x in enumerate(seq)]
+    ok4 = any("no stake" in m for m in WS._act_problems(
+        [WS.code_labels(l, x) for l, x in zip(lines4, seq)], seq, PDIR))
+    # 6 / 7: the layout never asks for the impossible
+    ok6 = all(WS._wc(s["quote"]) + 2 <= s["max_words"]
+              for s in slots if s.get("quote"))
+    ok7 = all(s["max_words"] >= 30 for s in slots if s.get("shape") == "sweep")
+    # 8: curly apostrophes
+    q = {"slot": "S1", "beat": "B1", "role": "quote", "anchor": False,
+         "peak": False, "min_words": 1, "max_words": 30, "band": "long",
+         "quote": "Don't you dare."}
+    ok8 = not any("verbatim" in m for m in WS.line_deviations(
+        {"narration": "He says, \u201cDon\u2019t you dare.\u201d"}, q))
+    checks = [(ok1, f"resolve tags built for every line incl. holds "
+                    f"({len(tags)})"),
+              (ok2, f"a lost line restored in place ({notes[:1]})"),
+              (ok3, f"brief's narrator words all heard (deaf: {deaf})"),
+              (ok4, "a stake on a loop slot does not satisfy ACTION-STAKE"),
+              (ok6, "no quote longer than its footage"),
+              (ok7, "sweep only where 30 words fit"),
+              (ok8, "curly apostrophes match the quote")]
+    bad = [w for ok, w in checks if not ok]
+    return not bad, ("; ".join(w for _, w in checks) if not bad
+                     else "FAILED: " + "; ".join(bad))
+
+
 TESTS = {
     "SLOT-LAYOUT":           test_slot_layout,
     "WINDOWS-BY-CODE":       test_windows_by_code,
@@ -486,6 +558,7 @@ TESTS = {
     "REVISION-KEEPS-SLOTS":  test_revision_keeps_slots,
     "DRAFT-CONSERVATION":    test_draft_conservation,
     "SEQUENCE-RULES":        test_sequence_rules,
+    "REVIEW-DEFECTS":        test_review_defects,
 }
 
 if __name__ == "__main__":

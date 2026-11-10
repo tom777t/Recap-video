@@ -42,7 +42,7 @@ ROLES = ("intro", "action", "quote", "reaction", "bridge", "outro", "hold",
 # Bumped whenever derive_slots changes what it builds: a plan.json whose slots
 # carry an older version is re-derived (write_api.cmd_draft), so a fix here
 # reaches a project that already has a plan without re-buying the plan.
-SLOTS_VERSION = 4
+SLOTS_VERSION = 5
 # [INTRO-OUTRO] / [FILM-INTRO]: the draft opens with the channel greeting and
 # the film's facts, and closes on a thesis then a call to action. These are
 # slots too - the first real film came back with no <intro> line at all.
@@ -83,7 +83,8 @@ def _wc(s: str) -> int:
 
 
 def _norm(s: str) -> str:
-    return " ".join(re.sub(r"[^\w' ]+", " ", str(s or "").lower()).split())
+    s = str(s or "").replace("\u2019", "'").replace("\u2018", "'")
+    return " ".join(re.sub(r"[^\w' ]+", " ", s.lower()).split())
 
 
 # --------------------------------------------------------------------------- #
@@ -399,13 +400,20 @@ def derive_slots(plan: dict, project: str, pdir: Path, ab: dict) -> dict:
         s["band"] = band
         s["max_words"] = int(min(BANDS[band][1], cap))
         s["min_words"] = int(min(BANDS[band][0], s["max_words"]))
+        if s["role"] == "quote" and _wc(s.get("quote")) + 2 > s["max_words"]:
+            # the footage cannot hold the quote and its attribution: a slot
+            # that cannot be filled is not a slot (it was S083, 3-4 words
+            # for a 13-word quote)
+            s["role"] = "action"
+            s.pop("quote", None)
         # an aim inside the band, alternating low / high, so the act's
         # words-per-line SD lands over [RHYTHM]'s bar by construction
         lo_, hi_ = s["min_words"], s["max_words"]
         s["target"] = int(round(lo_ + (hi_ - lo_) * (0.2 if i % 2 else 0.85)))
         if band == "long":
             long_n += 1
-            s["shape"] = "sweep" if long_n % 3 == 0 else "punch"
+            s["shape"] = ("sweep" if long_n % 3 == 0 and s["max_words"] >= 30
+                          else "punch")
         want = s["a"] + ratio * _secs(s["max_words"])
         if want < s["z"] - 0.05:
             s["z"] = round(max(want, s["a"] + MIN_WINDOW), 3)
@@ -467,7 +475,7 @@ EVAL_FORMS = (
     "\"Here's the <noun> ...\"",
     "\"Everyone / Everything + verb ...\"",
     "\"The only <noun> ...\"",
-    "a superlative (-est) or \"the most / the least + word\"",
+    "\"the best / the worst <noun> ...\" or \"the most / the least + word\"",
     "\"The problem / mistake / trick / truth / joke / cost / difference ...\"",
     "\"..., and that's <word>\"",
 )
@@ -529,7 +537,7 @@ ROLE_TEXT = {
     "action": "the moment itself - what happens and what it costs; not "
               "commentary (payload stake / reasoning / rest, never judgment)",
     "quote": "quote the transcript line VERBATIM inside the narration, "
-             "attributed to its speaker",
+             "INSIDE DOUBLE QUOTATION MARKS, attributed to its speaker",
     "reaction": "the narrator's reaction to what just happened - an opinion, "
                 "an aside, a deadpan remark (payload judgment)",
     "bridge": "one line that carries the story across this beat (the "
@@ -632,9 +640,10 @@ def writer_brief(pdir: Path, plan: dict, k: int) -> str:
         "is never a shot tag such as aftermath / establishing / montage.",
         _intro_brief(pdir, plan, k),
         "- REACTION (VOICE) slots: the narrator speaks - exactly ONE of: "
-        "I / me / my, you / your, a question to the viewer, or honestly / "
-        "frankly / of course / apparently / somehow / obviously / clearly / "
-        "naturally / turns out.",
+        "I / I'm, you / your, a question to the viewer, or honestly / "
+        "frankly / of course / apparently / somehow / obviously / "
+        "naturally / turns out (NOT me / my / clearly - the checker does not "
+        "hear those).",
         "- REACTION (EVAL) slots: a verdict with NONE of those words, built "
         "on one of THESE exact forms (the checker hears only these): "
         "\"That's the ...\" / \"Here's the ...\"; \"the whole / the only / "
@@ -642,7 +651,7 @@ def writer_brief(pdir: Path, plan: dict, k: int) -> str:
         "joke / the cost / the price / the difference ...\" (with THE); "
         "\"Nobody / No one / Everyone / Nothing / Everything + verb\"; "
         "\"... which is why / how / what ...\"; \"... and that's ...\"; "
-        "\"the most / the least + word\"; a superlative (-est); or one of: "
+        "\"the most / the least + word\"; \"the best / the worst ...\"; or one of: "
         "loyal, petty, cruel, ridiculous, generous, brave, clever, decent, "
         "pointless, cheap, odd, stupid, honest.",
         "- Every OTHER slot (action, quote framing, bridge) uses none of the "
@@ -700,6 +709,8 @@ def line_deviations(ln: dict, s: dict) -> list:
     from pipeline import craft_gates as CG
     from pipeline import pacing_gates as PG
     out = []
+    if s.get("role") in ("hold", "film_speaks") or s.get("min_words") is None:
+        return out                 # code writes these; nothing to deviate from
     n = _wc(ln.get("narration"))
     if not s["min_words"] - TOL <= n <= s["max_words"] + (
             TOL if s["max_words"] == _band_top(s) else 0):
@@ -731,7 +742,10 @@ def line_deviations(ln: dict, s: dict) -> list:
         out.append(f"{s['slot']} ({s['beat']} {s['role'].upper()} on an "
                    f"anchor): reads as commentary ({why}) - the moment "
                    f"lands first and the beat's one REACTION slot reacts; "
-                   f"drop that word here")
+                   f"drop that word here"
+                   + (" (a quote goes inside double quotation marks - the "
+                      "checker does not read words inside them)"
+                      if s["role"] == "quote" else ""))
     if s.get("transition") and not CG._ANCHOR.match(text.strip()):
         out.append(f"{s['slot']} opens the story: begin with a time or a "
                    f"place - got {text.strip()[:40]!r}")
@@ -776,35 +790,52 @@ def new_deviations(old: dict, new: dict, s: dict) -> list:
     return [m for m in line_deviations(new, s) if _kind(m) not in had]
 
 
-def merge_revision(prev: list, reply: list, slots: list, k: int) -> tuple:
+def merge_revision(prev: list, reply: list, slots: list, k: int,
+                   allow_labels: bool = False) -> tuple:
     """A revision of an act, applied SLOT BY SLOT onto the act it revises.
     A slot the reply leaves out keeps its line; a rewrite that adds a
-    deviation from its slot is not taken. Returns (lines, notes). The first
-    real film lost ~60 beats of act 2 when a whole-act rewrite, sent back
-    for two draft-wide findings, replaced the act wholesale."""
-    by_prev = {str(l.get("slot") or ""): l for l in prev}
+    deviation from its slot (or keeps the line's own role fault) is not
+    taken; a slot the act LOST is restored from the reply. Labels change
+    only when allow_labels (a finding about labels). Returns (lines, notes).
+    The first real film lost ~60 beats of act 2 when a whole-act rewrite,
+    sent back for two draft-wide findings, replaced the act wholesale."""
+    mine = [x for x in slots if x["act"] == k and x["role"] != "film_speaks"]
+    by_prev = {str(l.get("slot") or ""): l for l in prev if l.get("slot")}
     by_new = {str(l.get("slot") or ""): l for l in reply if l.get("slot")}
-    sl = {x["slot"]: x for x in slots}
-    out, notes = [], []
-    for l in prev:
-        sid = str(l.get("slot") or "")
-        s = sl.get(sid)
-        if not sid or s is None or sid not in by_new or s["role"] == "hold":
+    fresh = {str(l.get("slot")): l for l in merge(reply, slots, k)
+             if l.get("slot")}
+    fields = ("narration", "claim", "narration_silence_seconds") + (
+        ("payload", "delivery") if allow_labels else ())
+    out = [l for l in prev if not l.get("slot")]       # hook, unslotted intro
+    notes, restored = [], []
+    for s in mine:
+        sid = s["slot"]
+        l = by_prev.get(sid)
+        if l is None:
+            if sid in fresh:
+                out.append(fresh[sid])
+                restored.append(sid)
+            elif s["role"] not in ("hold",):
+                notes.append(f"{sid}: still missing (the reply did not "
+                             f"write it either)")
+            continue
+        if sid not in by_new or s["role"] == "hold":
             out.append(l)
             continue
-        cand = {f: v for f, v in by_new[sid].items()
-                if f in ("narration", "payload", "delivery", "claim",
-                         "narration_silence_seconds")}
+        cand = {f: v for f, v in by_new[sid].items() if f in fields}
         cand = code_labels(dict(l, **cand), s)
-        broke = new_deviations(l, cand, s)
+        broke = new_deviations(l, cand, s) + unfixed_deviations(l, cand, s)
         if broke:
             notes.append(f"{sid}: rewrite not taken - {'; '.join(broke)}")
             out.append(l)
         else:
             out.append(cand)
-    missing = [x for x in by_new if x not in by_prev]
-    if missing:
-        notes.append(f"line(s) for no slot of this act ignored: {missing[:6]}")
+    if restored:
+        notes.append(f"restored {len(restored)} line(s) the act had lost: "
+                     f"{restored[:8]}")
+    stray = [x for x in by_new if x not in {m["slot"] for m in mine}]
+    if stray:
+        notes.append(f"line(s) for no slot of this act ignored: {stray[:6]}")
     return out, notes
 
 
@@ -869,7 +900,10 @@ def check_slots(lines: list, slots: list, pdir: Path | None = None) -> list:
             out.append(f"{s['slot']} ({s['beat']} {s['role']}): no line")
             continue
         out += line_deviations(ln, s)
-    out += _act_problems([by[s["slot"]] for s in want if s["slot"] in by],
+    # sequence rules read the labels as they will be SAVED (code_labels),
+    # not as the writer sent them
+    out += _act_problems([code_labels(by[s["slot"]], s) for s in want
+                          if s["slot"] in by],
                          [s for s in want if s["slot"] in by], pdir)
     intro = [by.get(s["slot"]) for s in want if s["role"] == "intro"]
     if intro and pdir is not None:
@@ -889,11 +923,13 @@ def _act_problems(lines: list, slots: list, pdir=None) -> list:
         if ln.get("delivery") in CG._ACTION_DELIVERY:
             gap = 0 if str(ln.get("payload")) in ("stake", "reasoning") \
                 else gap + 1
-            run.append(s["slot"])
+            if s["role"] not in ("reaction", "outro", "intro") \
+                    and not s.get("opens_loop"):
+                run.append(s["slot"])        # slots whose payload is free
             if gap >= every:
-                out.append(f"{', '.join(run[-every:])}: {every} action/tense "
-                           f"lines with no stake - make one of them say what "
-                           f"is at stake (payload stake)")
+                out.append(f"{', '.join(run[-every:]) or 'these lines'}: "
+                           f"{every} action/tense lines with no stake - make "
+                           f"one of them say what is at stake (payload stake)")
                 gap = 0
         else:
             run, gap = [], 0
