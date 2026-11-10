@@ -368,6 +368,48 @@ def test_filmspeaks():
     return ok, f"inputs present, selection written, apply ran (rc {rc})"
 
 
+def test_filmspeaks_resign():
+    """The neighbours the selection rewrites are saved to the act files and
+    re-signed in the review artifacts (Furious 7: line 180 rewritten, signed
+    nowhere, voice stopped on [COLD-READ] / [REVIEWER] "edited after")."""
+    import test_write_plan as TWP
+    from pipeline import review_artifacts as RA
+    import write_plan as WP
+    TWP._setup()
+    TWP._resolve_fixture()
+    pdir = TWP.PDIR
+    d = _j(pdir / "draft.json")
+    (pdir / "draft.pre_film_speaks.json").write_text(json.dumps(d),
+                                                     encoding="utf-8")
+    ln = next(l for l in d["lines"] if l["id"] == 3)
+    new = "The crew goes quiet as the engine idles in the dark lot."
+    ln["narration"] = new           # what apply_film_speaks leaves behind:
+    ln["clip_end"] = "00:00:31.000"  # new text, a moved window, draft only
+    (pdir / "draft.json").write_text(json.dumps(d), encoding="utf-8")
+    sig = RA.line_signature(new)
+    arts = [pdir / a for a in WP.ARTIFACTS if (pdir / a).exists()]
+    before = [sig in a.read_text(encoding="utf-8") for a in arts]
+    sel = {"selected": [{"start": 1, "end": 2, "after": {
+        "line_id": 3, "new_narration": new}}]}
+    with redirect_stdout(io.StringIO()):
+        ids = W.resign_film_speaks_neighbours(pdir, sel)
+        again = W.resign_film_speaks_neighbours(pdir, sel)
+    after = [sig in a.read_text(encoding="utf-8") for a in arts]
+    act = [l for f in (pdir / "draft.json.d").glob("act*.json")
+           for l in _j(f).get("lines") or [] if l.get("narration") == new]
+    act_txt = [l.get("narration") for l in act]
+    ok = (ids == ["3"] and again == ids and arts and not any(before)
+          and all(after) and new in act_txt
+          and act[0].get("clip_end") == "00:00:31.000"
+          and W.act_of_lines(pdir).get(3) is not None)
+    shutil.rmtree(pdir, ignore_errors=True)
+    return ok, (f"line 3: re-signed in {len(arts)} artifact(s), act file "
+                f"takes its text and window (still maps), re-running "
+                f"changes nothing" if ok else
+                f"ids {ids}, arts {len(arts)}, signed before {before} after "
+                f"{after}, in act file {new in act_txt}")
+
+
 def test_by_hand():
     """--by-hand: no API call; the request the API would get is written out
     word for word, the agent's reply is read back and applied by the same
@@ -533,6 +575,7 @@ TESTS = {
     "FINDING-IDS": test_finding_ids,
     "FILMSPEAKS":  test_filmspeaks,
     "BY-HAND":     test_by_hand,
+    "FS-RESIGN":   test_filmspeaks_resign,
     "RESUME":      test_resume,
     "LEDGER":      test_ledger,
     "RUNPS1-WIRED": test_runps1_wired,

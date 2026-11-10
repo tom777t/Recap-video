@@ -1011,8 +1011,10 @@ def finding_ids(text: str) -> set:
     return ids
 
 
-def act_of_lines(pdir: Path) -> dict:
-    """{draft line id: (act number, the act file's own id)}."""
+def act_of_lines(pdir: Path, draft_file: str = "draft.json") -> dict:
+    """{draft line id: (act number, the act file's own id)} - matched on
+    (clip_start, narration), so it is read from a draft whose lines still
+    match the act files (`draft_file`)."""
     d = pdir / "draft.json.d"
     key = {}
     for f in sorted(d.glob("act*.json")):
@@ -1024,7 +1026,7 @@ def act_of_lines(pdir: Path) -> dict:
         for ln in o.get("lines") or []:
             key[(ln.get("clip_start"), str(ln.get("narration") or "").strip())] = \
                 (int(m.group(1)), ln.get("id"))
-    dr = json.loads(_read(pdir / "draft.json"))
+    dr = json.loads(_read(pdir / draft_file))
     out = {}
     for ln in dr.get("lines") or []:
         k = (ln.get("clip_start"), str(ln.get("narration") or "").strip())
@@ -1717,7 +1719,51 @@ def cmd_filmspeaks(a, client) -> int:
         print(f"filmspeaks: wrote {sel.name} ({len(obj['selected'])} pick(s))")
     r = subprocess.run([sys.executable, str(TOOLS / "apply_film_speaks.py"),
                         "--project", a.project], cwd=str(ROOT))
+    if r.returncode == 0:
+        resign_film_speaks_neighbours(pdir, json.loads(sel.read_text(
+            encoding="utf-8-sig")))
     return 0 if r.returncode == 0 else 2
+
+
+def resign_film_speaks_neighbours(pdir: Path, selection: dict) -> list:
+    """The lines BEFORE and AFTER each film-speaks unit are rewritten by the
+    selection (apply_film_speaks). Saved through write_back like every
+    post-review edit: the act files take the text, and the review artifacts
+    re-sign it. Furious 7: line 180 was rewritten, signed nowhere, and the
+    voice stage stopped on [COLD-READ] / [REVIEWER] "edited after the review
+    and named in no resolved finding". Idempotent: re-signing an unchanged
+    line changes nothing."""
+    draft = json.loads((pdir / "draft.json").read_text(encoding="utf-8-sig"))
+    by_id = {str(l["id"]): l for l in draft["lines"]}
+    ids = []
+    for pk in selection.get("selected") or []:
+        for side in ("before", "after"):
+            spec = pk.get(side) if isinstance(pk, dict) else None
+            lid = str((spec or {}).get("line_id"))
+            if spec and spec.get("new_narration") and lid in by_id and \
+                    str(by_id[lid].get("narration") or "").strip():
+                ids.append(lid)
+    if ids:
+        changes = {lid: " ".join(str(by_id[lid]["narration"]).split())
+                   for lid in ids}
+        # apply_film_speaks changed these lines' text AND windows in
+        # draft.json only, so they no longer match their act-file lines;
+        # the draft it kept from before (ids unchanged) still does
+        owner = act_of_lines(pdir)
+        if (pdir / "draft.pre_film_speaks.json").exists():
+            for i, v in act_of_lines(pdir, "draft.pre_film_speaks.json").items():
+                owner.setdefault(i, v)
+        edits = {lid: {f: by_id[lid][f] for f in ("clip_start", "clip_end")
+                       if by_id[lid].get(f)} for lid in ids}
+        lost = [lid for lid in ids if int(lid) not in owner]
+        if lost:
+            print(f"filmspeaks: WARNING - line(s) {', '.join(lost)} match no "
+                  f"act-file line; draft.json and the review artifacts are "
+                  f"updated, the act files are not")
+        write_back(pdir, draft, by_id, owner, edits, changes, {})
+        print(f"filmspeaks: neighbour line(s) {', '.join(ids)} saved to the "
+              f"act files and re-signed in the review artifacts")
+    return ids
 
 
 # --------------------------------------------------------------------------- #
