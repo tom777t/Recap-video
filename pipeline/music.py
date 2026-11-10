@@ -18,6 +18,13 @@ Replaces the per-unit mood-bed switching (2c). The design, in one place:
          a reveal line, one short sting lands on the reveal, then the bed
          returns.
   DENSITY about 1 cue / 90s on average at most, and >=20s between cues.
+  ENDING music/ending.mp3 - ONE track for the close (the film's farewell
+         song, a closing theme). It starts on a chosen line - music/ending.json
+         {"from_line": N}, else the line right after the LAST <film_speaks>
+         unit - and plays to the end: the bed fades out under it, no cue
+         starts after it, it ducks under narration like a cue (a little
+         louder: MUSIC_ENDING_DB) and swells in holds. Furious 7: "It's never
+         goodbye." hands straight to the song, as in the film.
 
 FALLBACKS, each printed:
   no cues          -> bed only
@@ -76,6 +83,51 @@ def legacy_music(pdir: Path) -> Path | None:
         if p.exists():
             return p
     return None
+
+
+def ending_file(pdir: Path) -> Path | None:
+    for ext in _AUDIO_EXTS:
+        p = pdir / "music" / f"ending{ext}"
+        if p.exists():
+            return p
+    return None
+
+
+def ending_start(pdir: Path, draft: dict, timeline: list):
+    """(start seconds on the video timeline, line id, why) for the ending
+    track, or None (said why). The line is music/ending.json's from_line,
+    else the line after the last <film_speaks> unit in draft order."""
+    lines = [l for l in draft.get("lines") or [] if isinstance(l, dict)]
+    lid, why = None, ""
+    cfg = pdir / "music" / "ending.json"
+    if cfg.exists():
+        try:
+            lid = json.loads(cfg.read_text(encoding="utf-8-sig")).get(
+                "from_line")
+            why = "music/ending.json from_line"
+        except (OSError, ValueError, AttributeError) as e:
+            console.print(f"[red]Music: music/ending.json unreadable ({e}) - "
+                          f"the ending track is NOT placed[/]")
+            return None
+    else:
+        units = [i for i, l in enumerate(lines)
+                 if l.get("film_speaks_seconds") is not None]
+        if units and units[-1] + 1 < len(lines):
+            lid = lines[units[-1] + 1].get("id")
+            why = f"the line after the last film-speaks unit " \
+                  f"(L{lines[units[-1]].get('id')})"
+    if lid is None:
+        console.print("[yellow]Music: music/ending.* is present but there is "
+                      "no film-speaks unit to start after and no "
+                      "music/ending.json {\"from_line\": N} - the ending track "
+                      "is NOT placed[/]")
+        return None
+    slot = next((t for t in timeline if str(t.get("id")) == str(lid)), None)
+    if slot is None or slot.get("start") is None:
+        console.print(f"[red]Music: ending from line {lid} - that line is not "
+                      f"on the timeline; the ending track is NOT placed[/]")
+        return None
+    return float(slot["start"]), lid, why
 
 
 def cue_files(pdir: Path) -> dict[str, list[Path]]:
@@ -269,10 +321,11 @@ def normalized(ff: str, pdir: Path, src: Path,
 
 
 def build_music_track(ff: str, pdir: Path, out: Path, total_dur: float,
-                      bed: Path, cue_plan: list[dict],
+                      bed: Path | None, cue_plan: list[dict],
                       reveal_positions: list | None = None,
                       hold_windows: list | None = None,
-                      film_speaks_windows: list | None = None) -> bool:
+                      film_speaks_windows: list | None = None,
+                      ending: dict | None = None) -> bool:
     """Render the bed (looped, crossfaded at the loop point) with the cues
     layered on top and the reveal dips, to one wav of length total_dur.
 
@@ -292,9 +345,13 @@ def build_music_track(ff: str, pdir: Path, out: Path, total_dur: float,
     bed_dip = _db(config.MUSIC_CUE_BED_DIP_DB)
 
     # EVERY source normalised to one loudness before any gain is applied.
-    bed = normalized(ff, pdir, Path(bed))
-
-    inputs = ["-stream_loop", "-1", "-t", f"{total_dur:.3f}", "-i", str(bed)]
+    if bed is not None:
+        bed = normalized(ff, pdir, Path(bed))
+        inputs = ["-stream_loop", "-1", "-t", f"{total_dur:.3f}",
+                  "-i", str(bed)]
+    else:                       # an ending track with no bed: silence under it
+        inputs = ["-f", "lavfi", "-t", f"{total_dur:.3f}",
+                  "-i", "anullsrc=r=48000:cl=stereo"]
 
     # bed volume expression: 1.0 normally, dip to bed_dip while a cue plays,
     # dip to `near` for `dip` seconds before each reveal.
@@ -331,6 +388,12 @@ def build_music_track(ff: str, pdir: Path, out: Path, total_dur: float,
                 f"clip(({rb:.3f}-t)/{_fs_fade:.3f},0,1))")
         bed_vol = (f"if(between(t,{ra:.3f},{rb:.3f}),"
                    f"({bed_vol})*(1-(1-{_fs_lvl:.5f})*{ramp}),{bed_vol})")
+
+    # the ENDING takes over: the bed fades out across the seconds before it
+    if ending:
+        _es = float(ending["start"])
+        _ef = max(0.1, float(getattr(config, "MUSIC_ENDING_BED_FADE_SEC", 2.0)))
+        bed_vol = f"({bed_vol})*clip(({_es:.3f}-t)/{_ef:.3f},0,1)"
 
     parts = [f"[0:a]aformat=sample_rates=48000:channel_layouts=stereo,"
              f"volume='{bed_vol}':eval=frame[bed]"]
@@ -402,6 +465,27 @@ def build_music_track(ff: str, pdir: Path, out: Path, total_dur: float,
         labels.append(f"[{lbl}]")
         idx += 1
 
+    if ending:
+        _es = float(ending["start"])
+        _elen = max(0.0, total_dur - _es)
+        if _elen >= 1.0:
+            inputs += ["-i", str(normalized(ff, pdir, Path(ending["file"])))]
+            _rel = float(getattr(config, "MUSIC_ENDING_DB", -10.0)) - _bed_duck
+            _fin = min(float(getattr(config, "MUSIC_ENDING_FADE_IN_SEC", 1.0)),
+                       _elen / 2)
+            _fout = min(float(getattr(config, "MUSIC_ENDING_FADE_OUT_SEC",
+                                      3.0)), _elen / 2)
+            _dms = int(_es * 1000)
+            parts.append(
+                f"[{idx}:a]aformat=sample_rates=48000:channel_layouts=stereo,"
+                f"atrim=duration={_elen:.3f},"
+                f"afade=t=in:st=0:d={_fin:.2f},"
+                f"afade=t=out:st={max(0.0, _elen - _fout):.2f}:d={_fout:.2f},"
+                f"volume={_rel:+.2f}dB,"
+                f"adelay={_dms}|{_dms},apad=whole_dur={total_dur:.3f}[ending]")
+            labels.append("[ending]")
+            idx += 1
+
     if len(labels) == 1:
         # bed only (no cues placed) - still render the bed track so the caller
         # has a single file with the reveal dips baked in.
@@ -428,6 +512,9 @@ def build_music_track(ff: str, pdir: Path, out: Path, total_dur: float,
                       "file": Path(p["file"]).name} for p in cue_plan],
             "film_speaks": [[float(a), float(b)]
                             for a, b in film_speaks_windows],
+            "ending": ({"at": float(ending["start"]),
+                        "file": Path(ending["file"]).name,
+                        "line": ending.get("line")} if ending else None),
             "holds": [[float(a), float(b)] for a, b in hold_windows],
             "normalize_lufs": (float(config.MUSIC_NORMALIZE_LUFS)
                                if getattr(config, "MUSIC_NORMALIZE", True)
@@ -503,7 +590,30 @@ def resolve_music(ff: str, pdir: Path, work: Path, draft: dict, timeline: list,
     _found.append(f"legacy {legacy.name}" if legacy else "no legacy music.*")
     console.print(f"[dim]Music files: {' | '.join(_found)}[/]")
 
+    # ---- the ENDING track (music/ending.*) -------------------------------
+    ending = None
+    _ef = ending_file(pdir)
+    if _ef is not None:
+        _st = ending_start(pdir, draft, timeline)
+        if _st is not None:
+            ending = {"file": _ef, "start": _st[0], "line": _st[1]}
+            console.print(f"[cyan]Music: ENDING[/] {_ef.name} from line "
+                          f"{_st[1]} ({_st[2]}) at {_st[0]:.1f}s to the end; "
+                          f"the bed fades out under it, no cue after it")
+
     bed_is_legacy = False
+    if bed is None and legacy is not None and ending is not None:
+        bed, bed_is_legacy = legacy, True
+    if bed is None and ending is not None:
+        out = work / "music_track.wav"
+        if build_music_track(ff, pdir, out, total_dur, None, [],
+                             reveal_positions, hold_windows,
+                             film_speaks_windows=film_speaks_windows,
+                             ending=ending):
+            console.print("[cyan]Music design: ENDING ONLY[/] - no bed, no "
+                          "cues; silence until the ending track")
+            return out, True, "ending only"
+        return None, False, "no music (ending build failed)"
     if bed is None:
         if legacy is not None and mood_cues:
             # promote the legacy track to bed so the cues are not thrown away
@@ -523,15 +633,21 @@ def resolve_music(ff: str, pdir: Path, work: Path, draft: dict, timeline: list,
                           "music/cues/* and no music.* - rendering with NO music.")
             return None, False, "no music"
 
-    if not mood_cues:
+    if not mood_cues and ending is None:
         console.print(
             "[cyan]Music design: BED ONLY[/] (no music/cues/<mood>*.* found). "
             "The bed runs under the whole recap, ducked under the voice and "
             "raised in holds. Add cue files for layered mood.")
         return bed, False, "bed only"
 
-    plan = plan_cues(draft, timeline, cues, reveal_positions, hold_windows)
-    if not plan:
+    plan = plan_cues(draft, timeline, cues, reveal_positions,
+                     hold_windows) if mood_cues else []
+    if ending is not None:
+        # no cue starts after the ending; one running into it stops there
+        _es = float(ending["start"])
+        plan = [dict(p, end=min(p["end"], _es)) for p in plan
+                if p["start"] < _es - 1.0]
+    if not plan and ending is None:
         console.print(
             "[cyan]Music:[/] bed only - cues are present but nothing earned one "
             "(need a run of >= "
@@ -542,15 +658,19 @@ def resolve_music(ff: str, pdir: Path, work: Path, draft: dict, timeline: list,
     out = work / "music_track.wav"
     ok = build_music_track(ff, pdir, out, total_dur, bed, plan,
                            reveal_positions, hold_windows,
-                           film_speaks_windows=film_speaks_windows)
+                           film_speaks_windows=film_speaks_windows,
+                           ending=ending)
     if not ok:
         return bed, False, "bed only (cue build failed)"
 
     _by_mood: dict[str, int] = {}
+    if ending is not None:
+        _by_mood["ending"] = 1
     for p in plan:
         _by_mood[p["mood"]] = _by_mood.get(p["mood"], 0) + 1
     console.print(
-        f"[cyan]Music design: BED + CUES[/] - bed {bed.name}"
+        f"[cyan]Music design: BED{' + CUES' if plan else ''}"
+        f"{' + ENDING' if ending else ''}[/] - bed {bed.name}"
         + (" (legacy track promoted)" if bed_is_legacy else "") + " + "
         + ", ".join(f"{v} {k} cue(s)" for k, v in sorted(_by_mood.items()))
         + f" over {total_dur/60:.1f} min "
@@ -559,4 +679,5 @@ def resolve_music(ff: str, pdir: Path, work: Path, draft: dict, timeline: list,
     for p in plan:
         console.print(f"[dim]    cue {p['start']:.0f}-{p['end']:.0f}s "
                       f"{p['mood']} ({p['file'].name}) - {p['why']}[/]")
-    return out, True, "bed + cues"
+    return out, True, ("bed" + (" + cues" if plan else "")
+                       + (" + ending" if ending else ""))

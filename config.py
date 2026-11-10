@@ -682,6 +682,13 @@ MUSIC_CUE_HOLD_DB = -2.0
 # Cue density caps: at most ~1 per this many seconds on average, and never two
 # cues closer than the floor.
 MUSIC_CUE_AVG_SPACING_SEC = 90.0
+# ENDING (music/ending.*, pipeline/music.py): one closing track from a chosen
+# line to the end. A little above a cue under narration (-12) - it is the
+# close - and, like everything, swelled in holds.
+MUSIC_ENDING_DB = -10.0
+MUSIC_ENDING_BED_FADE_SEC = 2.0   # the bed fades out over this, before it
+MUSIC_ENDING_FADE_IN_SEC = 1.0
+MUSIC_ENDING_FADE_OUT_SEC = 3.0
 MUSIC_CUE_MIN_GAP_SEC = 20.0
 # (The bed's swell inside a narration-silence hold is SILENCE_MUSIC_VOLUME below;
 # a separate MUSIC_BED_HOLD_DB key duplicated it and was read by nothing.)
