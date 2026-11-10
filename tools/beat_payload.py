@@ -103,7 +103,7 @@ def _sung_label(pdir, sp) -> str:
     writer's skip notes."""
     from pipeline import sung
     w = sung.reason(pdir, sp.get("start", 0), str(sp.get("text") or ""))
-    return ("[REPEATS LIKE A CHORUS - may be a song] " if w == "CHORUS" else
+    return ("[REPEATS LIKE A CHORUS - may be a song] " if w in ("CHORUS", "IN-SONG") else
             "[NOT DIALOGUE (a song)] " if w else "")
 
 

@@ -5,7 +5,8 @@ chorus quoted as Dom's line, and "Mosé Jaconde" for Mose Jakande.
 
   SUNG-RULES          flagged: a music mark (also "[upbeat music]"), a chorus
                       that comes back (even with a word dropped, as Whisper
-                      did), a hand-listed text - also as ONE sentence of a
+                      did), the verse between two passes of it (not a line
+                      between a repeat under 30 s), a hand-listed text - also as ONE sentence of a
                       longer segment. Kept: repeated short dialogue, two long
                       lines that share words but do not read the same, a
                       phrase that only starts like a listed one ("see you
@@ -77,8 +78,25 @@ def test_sung_rules():
         (360.0, 362.0, "It's been a long day."),
     ]
     w = sung.sung_flags(segs)
-    want = ["", "", "", "", "CHORUS", "", "CHORUS", "MARKED", "", "", "",
-            "", "MARKED", "", "", ""]
+    want = ["", "", "", "", "CHORUS", "IN-SONG", "CHORUS", "MARKED", "", "",
+            "", "", "MARKED", "", "", ""]
+    # IN-SONG (Furious 7 line 184: the verse between two passes of the
+    # chorus, 55 s apart, was picked as Dom's line). Invented words here.
+    ch = "We ride on through the city lights tonight, my brother"
+    song = [(100.0, 104.0, ch), (110.0, 113.0, "Built it on our own when the "
+             "road was long"), (120.0, 123.0, "And the road is where we "
+             "belong"), (155.0, 159.0, ch + "."),
+            (165.0, 168.0, "You thought you could leave without a word?"),
+            (300.0, 304.0, "Put your keys on the table and step back now."),
+            (310.0, 312.0, "Do it now."),
+            (318.0, 322.0, "Put your keys on the table and step back now!")]
+    ws = sung.sung_flags(song)
+    want_s = ["CHORUS", "IN-SONG", "IN-SONG", "CHORUS", "", "CHORUS", "",
+              "CHORUS"]
+    if ws != want_s:
+        return False, (f"IN-SONG: {ws} (want the verse between choruses "
+                       f"55 s apart, not the line after, not a line between "
+                       f"a repeat 18 s apart)")
     ok1 = w == want
     import tempfile
     with tempfile.TemporaryDirectory() as td:
@@ -93,7 +111,7 @@ def test_sung_rules():
            and w2[14] == "" and w2[15] == "" and again is False)
     ok = ok1 and ok2
     return ok, (f"flags {w}" if not ok1 else
-                "chorus (word dropped) + music marks + by hand (also one "
+                "chorus (word dropped) + the verse between two choruses + music marks + by hand (also one "
                 "sentence of a segment) flagged; short repeats, look-alike "
                 "long lines, 'see you against', a short line inside a lyric "
                 "kept; a text recorded once" if ok2 else f"by hand: {w2}")

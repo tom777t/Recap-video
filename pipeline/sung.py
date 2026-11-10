@@ -20,6 +20,8 @@ A segment is taken as not dialogue when any of these hold:
   CHORUS    it comes back: another segment within CHORUS_WINDOW seconds
             reads the same (character-sequence ratio >= CHORUS_SIMILAR, both
             >= CHORUS_MIN_WORDS words).
+  IN-SONG   it lies between two passes of one chorus, SONG_GAP_MIN to
+            SONG_SPAN seconds apart: the verse.
 
 CHORUS is NOT precise, and is used knowing that. Measured on 17 local
 transcripts (review of 677fc38): 0-29 segments a film, most of them repeated
@@ -50,6 +52,15 @@ from pathlib import Path
 CHORUS_WINDOW = 480.0      # seconds: a song's chorus comes back within this
 CHORUS_MIN_WORDS = 7       # at 5 words and a word-set overlap, "What are you
 CHORUS_SIMILAR = 0.85      # doing here?" x2 made 25+ false choruses a film
+# IN-SONG: the verse between two passes of one chorus is the song too.
+# Furious 7: the chorus came back 55 s later, and the picker took the rap
+# verse in between as Dom's line. A pair closer than SONG_GAP_MIN is a line
+# said twice, not a chorus; a song's chorus returns within SONG_SPAN.
+# Measured on 17 local transcripts at 30-90 s: 85 segments in 5 films are
+# swept in, all of them dialogue between a repeated line (Interstellar's "I
+# repeat, do not open the hatch") - lost quote CANDIDATES, never a block.
+SONG_GAP_MIN = 30.0
+SONG_SPAN = 90.0
 
 _MUSIC = r"(?:music|singing|sings|sung|song|lyrics|vocali[sz]ing|humming)"
 _MARK = re.compile(r"[♪♫♬♭♮♯]|"
@@ -138,6 +149,7 @@ def sung_flags(segs: list, pdir=None) -> list:
             why[i] = "BY HAND"
     # CHORUS: compare each segment only with those inside the window
     j0 = 0
+    pairs = []
     for x, i in enumerate(order):
         if len(nn[i].split()) < CHORUS_MIN_WORDS:
             continue
@@ -154,6 +166,13 @@ def sung_flags(segs: list, pdir=None) -> list:
                     >= CHORUS_SIMILAR:
                 why[i] = why[i] or "CHORUS"
                 why[k] = why[k] or "CHORUS"
+                lo_, hi_ = sorted((float(segs[k][0]), ti))
+                if SONG_GAP_MIN <= hi_ - lo_ <= SONG_SPAN:
+                    pairs.append((lo_, hi_))
+    for lo_, hi_ in pairs:
+        for j in range(n):
+            if not why[j] and lo_ < float(segs[j][0]) < hi_:
+                why[j] = "IN-SONG"
     return why
 
 

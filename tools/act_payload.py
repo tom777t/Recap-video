@@ -184,7 +184,7 @@ def main() -> int:
         for sp in speech_for(x0, x1):
             print(f"       SPEECH {sp['start']:.1f}-{sp['end']:.1f}: "
                   + ("[REPEATS LIKE A CHORUS - may be a song: do not "
-                     "quote it] " if sp.get("_sung") == "CHORUS" else
+                     "quote it] " if sp.get("_sung") in ("CHORUS", "IN-SONG") else
                      "[NOT DIALOGUE (a song) - never quote it or give it "
                      "to a character] " if sp.get("_sung") else "")
                   + f"{str(sp.get('text','')).strip()}")
