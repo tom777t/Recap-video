@@ -1384,6 +1384,39 @@ def slots_of_lines(pdir: Path, owner: dict) -> dict:
     return {str(lid): own[ko] for lid, ko in owner.items() if ko in own}
 
 
+def write_back(pdir: Path, draft: dict, by_id: dict, owner: dict,
+               edits: dict, changes: dict, entries: dict) -> None:
+    """The ONE way a line change is saved after the review stage: draft.json
+    AND the act files (assembly reads those), the changed lines re-signed in
+    every review artifact, and the RESOLVED / ANSWERED entries appended.
+    resolve and tools/fix_line.py both go through here - a hand edit to
+    draft.json alone leaves the artifacts' signatures stale."""
+    from pipeline import review_artifacts as RA
+    import write_plan as WP
+    d = pdir / "draft.json.d"
+    for lid, new in changes.items():
+        edits.setdefault(lid, {})["narration"] = new
+    acts_ = {f: json.loads(_read(f)) for f in sorted(d.glob("act*.json"))}
+    for lid, fe in edits.items():
+        by_id[lid].update(fe)
+        k, own = owner.get(int(lid), (None, None))
+        for f, o in acts_.items():
+            if k is not None and re.match(rf"act{k}\b|act{k}[a-z]", f.stem):
+                for ln in o.get("lines") or []:
+                    if ln.get("id") == own:
+                        ln.update(fe)
+    (pdir / "draft.json").write_text(json.dumps(draft, ensure_ascii=False,
+                                                indent=2), encoding="utf-8")
+    for f, o in acts_.items():
+        f.write_text(json.dumps(o, ensure_ascii=False, indent=2),
+                     encoding="utf-8")
+    resign = {RA._norm_id(i): RA.line_signature(t) for i, t in changes.items()}
+    for art in WP.ARTIFACTS:
+        p = pdir / art
+        if p.exists() and (entries.get(art) or resign):
+            WP.write_artifact(p, entries.get(art, []), resign)
+
+
 def cmd_resolve(a, client) -> int:
     import write_plan as WP
     import write_slots as WS
@@ -1517,28 +1550,7 @@ def cmd_resolve(a, client) -> int:
             for art, e in en.items():
                 entries.setdefault(art, []).extend(e)
             rejects += [f"act{k}: {x}" for x in rj]
-        for lid, new in changes.items():
-            edits.setdefault(lid, {})["narration"] = new
-        # the lines: draft.json AND the act files (assembly reads those)
-        acts_ = {f: json.loads(_read(f)) for f in sorted(d.glob("act*.json"))}
-        for lid, fe in edits.items():
-            by_id[lid].update(fe)
-            k, own = owner.get(int(lid), (None, None))
-            for f, o in acts_.items():
-                if k is not None and re.match(rf"act{k}\b|act{k}[a-z]", f.stem):
-                    for ln in o.get("lines") or []:
-                        if ln.get("id") == own:
-                            ln.update(fe)
-        (pdir / "draft.json").write_text(json.dumps(draft, ensure_ascii=False,
-                                                    indent=2), encoding="utf-8")
-        for f, o in acts_.items():
-            f.write_text(json.dumps(o, ensure_ascii=False, indent=2),
-                         encoding="utf-8")
-        resign = {RA._norm_id(i): RA.line_signature(t) for i, t in changes.items()}
-        for art in WP.ARTIFACTS:
-            p = pdir / art
-            if p.exists() and (entries.get(art) or resign):
-                WP.write_artifact(p, entries.get(art, []), resign)
+        write_back(pdir, draft, by_id, owner, edits, changes, entries)
         print(f"resolve: {len(edits)} line(s) changed, "
               f"{sum(len(v) for v in entries.values())} entr(ies) written")
         for r in rejects[:20]:

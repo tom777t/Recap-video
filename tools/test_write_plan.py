@@ -407,6 +407,41 @@ def test_resolve_slot_bound():
                      else "FAILED: " + "; ".join(bad))
 
 
+def test_fix_line():
+    """tools/fix_line.py: a hand fix goes through resolve's write-back - the
+    slot still binds it, the finding closes RESOLVED, the line is re-signed
+    in the artifact, the act file follows."""
+    import fix_line as FL
+    test_resolve_slot_bound()          # leaves a slot-written fixture
+    dr = _j(PDIR / "draft.json")
+    import io
+    from contextlib import redirect_stdout
+    buf = io.StringIO()
+    with redirect_stdout(buf):
+        rc_bad = FL.main(["--project", PROJ, "--line", "2",
+                          "--text", "He drives home to the garage."])
+    before = _j(PDIR / "draft.json")
+    refused = rc_bad == 2 and "NOT saved" in buf.getvalue() and \
+        before["lines"][1]["narration"] == dr["lines"][1]["narration"]
+    good = "Nobody gets to race for free tonight."
+    with redirect_stdout(io.StringIO()):
+        FL.main(["--project", PROJ, "--line", "2", "--text", good])
+    after = _j(PDIR / "draft.json")
+    act = _j(PDIR / "draft.json.d" / "act1.json")
+    cr = RA.parse_artifact(PDIR / "cold_read.md")
+    checks = [
+        (refused, "a text that breaks the slot is refused, nothing written"),
+        (after["lines"][1]["narration"] == good, "draft.json updated"),
+        (any(l.get("narration") == good for l in act["lines"]),
+         "the act file follows"),
+        (cr["signatures"].get("2") == RA.line_signature(good),
+         "the line is re-signed in cold_read.md"),
+    ]
+    bad = [w for ok, w in checks if not ok]
+    return not bad, ("; ".join(w for _, w in checks) if not bad
+                     else "FAILED: " + "; ".join(bad))
+
+
 def test_resolve_closes():
     dr = _resolve_fixture()
     before = RA.parse_artifact(PDIR / "cold_read.md")["signatures"]
@@ -565,6 +600,7 @@ TESTS = {
     "RESOLVE-CLOSES":    test_resolve_closes,
     "RESOLVE-SAMEPOINT": test_resolve_samepoint,
     "RESOLVE-SLOT-BOUND": test_resolve_slot_bound,
+    "FIX-LINE":          test_fix_line,
     "RESOLVE-STOPS":     test_resolve_stops,
     "UNWATCHABLE-FIX":   test_unwatchable_fix,
     "RUNPS1-HALT":       test_runps1_halt,
