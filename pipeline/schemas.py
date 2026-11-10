@@ -656,6 +656,74 @@ def load_names(project: str) -> set:
         return set()
 
 
+def _canon_character(c: str) -> str:
+    """A character name as names.json SHOULD have stored it. A Wikipedia line
+    "[[Ludacris]] (credited as Chris "Ludacris" Bridges) as Tej Parker" split
+    on its first " as " and stored the character as 'Chris "Ludacris"
+    Bridges) as Tej Parker' (Furious 7) - the part after the last " as " is
+    the character."""
+    c = str(c or "").strip()
+    if re.search(r"\)\s+as\s+", c) or (c.count(")") > c.count("(")
+                                          and " as " in c):
+        c = c.rsplit(" as ", 1)[-1]
+    return re.sub(r"\s+", " ", c.strip(" )(\"")).strip()
+
+
+def load_name_resolver(project: str) -> dict:
+    """{lowercased variant: lowercased character} - every way a tag or a
+    claim may refer to a character: the character name, the actor, the
+    actor's nickname, the actor with the nickname inline ("chris ludacris
+    bridges"), and a first name when it is unique in the cast. The tagger
+    cannot always tell who a face is; when it can, it sometimes writes the
+    ACTOR ("paul walker", "tyrese") - which is still that character."""
+    p = config.project_dir(project) / "names.json"
+    if not p.exists():
+        return {}
+    try:
+        nd = _read_json(p)
+    except Exception:
+        return {}
+    raw = nd.get("names", nd) if isinstance(nd, dict) else nd
+    rows = []
+    for n in raw or []:
+        if isinstance(n, dict):
+            ch = n.get("character") or n.get("name")
+            if not ch:
+                continue
+            al = n.get("alias") or n.get("nickname") or ""
+            als = (n.get("aliases") or [])
+            rows.append((str(ch), str(n.get("actor") or ""),
+                         [x for x in ([al] if al else []) + list(als) if x]))
+        elif n:
+            rows.append((str(n), "", []))
+    out: dict = {}
+    first: dict = {}
+
+    def add(k, v):
+        k = re.sub(r"\s+", " ", re.sub(r"[\"\u201c\u201d]", "", str(k))).strip().lower()
+        if k and k not in out:
+            out[k] = v
+    for ch, actor, aliases in rows:
+        canon = _canon_character(ch).lower()
+        add(ch, canon)
+        add(canon, canon)
+        for a in [x.strip() for x in actor.split(" / ") if x.strip()]:
+            add(a, canon)
+            for al in aliases:
+                add(al, canon)
+                parts = a.split()
+                if len(parts) >= 2:
+                    add(f"{parts[0]} {al} {' '.join(parts[1:])}", canon)
+            first.setdefault(a.split()[0].lower(), set()).add(canon)
+        for al in aliases:
+            add(al, canon)
+        first.setdefault(canon.split()[0], set()).add(canon) if canon else None
+    for f, cs in first.items():
+        if len(cs) == 1 and len(f) > 3:
+            add(f, next(iter(cs)))
+    return out
+
+
 def load_name_tokens(project: str) -> set:
     """Every legal name TOKEN: characters, actors, and actor nicknames.
 

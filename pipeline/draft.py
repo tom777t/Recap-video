@@ -2513,7 +2513,8 @@ def _run_phase1_audits(project, pdir):
                       f"partial catalogue)")
     names = schemas.load_names(project)
     cov = coverage_audit(d, skel) if skel is not None else []
-    bind = binding_audit(d, shots_by_id, pool_families, names)
+    bind = binding_audit(d, shots_by_id, pool_families, names,
+                         schemas.load_name_resolver(project))
     cont = continuity_check(d, shots_by_id)
     tag_issues = tag_audit(shots_by_id)
 

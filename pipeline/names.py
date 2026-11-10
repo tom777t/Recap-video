@@ -205,6 +205,10 @@ def _looks_like_a_character(name: str) -> bool:
     """Reject a description. "the one who escaped Shutter Island" is not a name."""
     if not name or len(name) > 60:
         return False
+    # a fragment of a split line, not a name ('Chris "Ludacris" Bridges) as
+    # Tej Parker' - Furious 7, from a "(credited as ...)" before the role)
+    if "(" in name or ")" in name or re.search(r"\sas\s", name):
+        return False
     first = name.split()[0].lower()
     return first not in {"the", "a", "an", "his", "her", "their", "who", "one"}
 
@@ -461,6 +465,11 @@ def fetch_cast(page: str):
     nxt = re.search(r"^={2,%d}[^=]" % depth, rest, re.MULTILINE)
     section = rest[:nxt.start()] if nxt else rest
 
+    # "[[Ludacris]] (credited as Chris "Ludacris" Bridges) as Tej Parker":
+    # a parenthetical on the ACTOR side holding its own " as " made LINE
+    # split at the wrong " as ". Drop such parentheticals before parsing.
+    section = re.sub(r"\s*\([^()\n]*\bas\b[^()\n]*\)(?=\s+as\s)", "",
+                     section)
     out, seen, rejected = [], set(), []
     for hit in LINE.finditer(section):
         raw_actors = hit.group("actors")

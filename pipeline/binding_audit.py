@@ -74,7 +74,19 @@ def _norm(s: str) -> str:
     return str(s).strip().lower()
 
 
-def binding_audit(draft: Draft, shots: dict, pool_families: dict, names: set) -> "BindingResult":
+def binding_audit(draft: Draft, shots: dict, pool_families: dict, names: set,
+                  resolver: Optional[dict] = None) -> "BindingResult":
+    """resolver: {variant: character} (schemas.load_name_resolver) - so a
+    tag that names the ACTOR or a nickname counts as that character."""
+    resolver = resolver or {}
+
+    def _who(x) -> str:
+        n = _norm(x)
+        k = " ".join(n.replace('"', "").replace("\u201c", "")
+                     .replace("\u201d", "").split())
+        return resolver.get(n, resolver.get(k, n))
+
+    names = {_who(n) for n in names} | set(resolver.values())
     issues: list[BindingIssue] = []
     verified_match = 0
     verified_mismatch = 0
@@ -109,7 +121,7 @@ def binding_audit(draft: Draft, shots: dict, pool_families: dict, names: set) ->
 
         checked += 1
         ctype = claim.type
-        subj = claim.subject
+        subj = _who(claim.subject) if claim.subject else claim.subject
         subj_is_char = bool(subj) and _norm(subj) in names
 
         # ---- resolve footage: SPECIFIC pool entry, or explicit single shot --
@@ -149,8 +161,24 @@ def binding_audit(draft: Draft, shots: dict, pool_families: dict, names: set) ->
                         sh = cand
                         break
             if sh is not None:
-                agg_chars = {_norm(c) for c in sh.chars}
+                agg_chars = {_who(c) for c in sh.chars}
                 agg_depicts = set(sh.depicts)
+                # The render plays the line's WHOLE window, which since
+                # WINDOW_SPAN_RATIO spans several shots; judging only the shot
+                # at clip_start called Dom "absent" from a line whose second
+                # shot is Dom. Every catalogued shot the window overlaps is on
+                # screen while the line plays.
+                try:
+                    t_end = parse_ts(ln.clip_end) if ln.clip_end else None
+                except Exception:
+                    t_end = None
+                if t is not None and t_end is not None and t_end > t:
+                    for cand in shots.values():
+                        a, b = cand.time_start, cand.time_end
+                        if (a is not None and b is not None and a < t_end - 0.3
+                                and b > t + 0.3):
+                            agg_chars |= {_who(c) for c in cand.chars}
+                            agg_depicts |= set(cand.depicts)
             else:
                 # synthesized shot from a raw timestamp has NO tags -> we cannot
                 # confirm depiction. Recorded below as UNVERIFIED (never silently pass).
@@ -197,6 +225,17 @@ def binding_audit(draft: Draft, shots: dict, pool_families: dict, names: set) ->
                     footage_depicts=sorted(agg_depicts)))
                 verified_mismatch += 1
                 continue
+            if _norm(subj) not in agg_chars and any(
+                    c not in names for c in agg_chars):
+                # someone on screen is a description the tagger could not
+                # name ("the bald man in the black tank top" - who IS Dom):
+                # absence is not shown, only not confirmed
+                issues.append(BindingIssue(
+                    ln.id, "UNVERIFIED", ln.narration, ctype, subj, footage,
+                    footage_chars=sorted(agg_chars),
+                    footage_depicts=sorted(agg_depicts)))
+                unverified += 1
+                continue
             if _norm(subj) not in agg_chars:
                 issues.append(BindingIssue(
                     ln.id, "SPEAKER_ABSENT", ln.narration, ctype, subj, footage,
@@ -219,6 +258,14 @@ def binding_audit(draft: Draft, shots: dict, pool_families: dict, names: set) ->
             continue
 
         # ---- check subject (only if it's a known character) -----------------
+        if subj_is_char and agg_chars and _norm(subj) not in agg_chars and \
+                any(c not in names for c in agg_chars):
+            issues.append(BindingIssue(
+                ln.id, "UNVERIFIED", ln.narration, ctype, subj, footage,
+                footage_chars=sorted(agg_chars),
+                footage_depicts=sorted(agg_depicts)))
+            unverified += 1
+            continue
         if subj_is_char and agg_chars and _norm(subj) not in agg_chars:
             issues.append(BindingIssue(
                 ln.id, "SUBJECT_MISMATCH", ln.narration, ctype, subj, footage,
