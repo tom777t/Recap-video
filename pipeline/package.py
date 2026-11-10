@@ -11,6 +11,8 @@ No extra Python deps - all done with ffmpeg.
 """
 from __future__ import annotations
 
+import json
+import re
 import subprocess
 import sys
 from pathlib import Path
@@ -102,21 +104,71 @@ def make_thumbnail(project: str, at: str, headline: str,
     return out
 
 
-# A small bank of title templates. {t} = topic/title of the recap.
-TITLE_TEMPLATES = [
-    "They Put a BOMB in the Lake to Kill the Sharks",
-    "This Town's Insane Plan to Stop the Sharks Could Kill Everyone",
-    "He Dove Into Shark-Infested Water to Plant a Bomb by Hand",
-    "5 People Were Eaten - So They Rigged the Whole Lake to Explode",
-    "The Sharks Came Back... and This Time the Lake Fights Back",
-]
+# Titles are written PER FILM from the draft's own premise (R0/the
+# variation design): the draft's `title` is the premise the plan already
+# wrote, and `hook_question` (the open's last line, the question the
+# video answers) is reshaped into a second option. There is NO bank: a
+# shared bank is exactly the "template content with minimal variation"
+# the 2026 inauthentic-content policy names, and TITLE-FORMULA gates
+# titles.txt against ever being byte-identical between two videos.
+def _title_options(draft: dict) -> list:
+    import json
+    title = str(draft.get("title") or "").strip()
+    if not title:
+        return []
+    out = [title]
+    q = ""
+    for ln in draft.get("lines") or []:
+        hq = str(ln.get("hook_question") or "").strip()
+        if hq:
+            q = hq
+    if q:
+        # "Will X?" -> the question AS a title, then its subject as a
+        # consequence title. Both stay honest: the video answers exactly
+        # this.
+        q0 = q.rstrip("?").strip()
+        out.append(q0 if q0.endswith(("...", "!", ".")) else q0 + "?")
+        m = re.search(r"^(?:Will|Can|Does|Is|Are|Do|Did)\s+(.+)$", q0,
+                      re.I)
+        if m:
+            out.append("What Happens When " + m.group(1))
+    # one stakes restatement from the hook line's own words
+    for ln in draft.get("lines") or []:
+        if ln.get("delivery") == "hook" or str(
+                ln.get("note") or "").upper() == "OPEN":
+            n = str(ln.get("narration") or "").strip().rstrip(".")
+            if len(n.split()) >= 6:
+                out.append(n)
+            break
+    seen, uniq = set(), []
+    for t in out:
+        k = t.lower()
+        if k not in seen:
+            seen.add(k)
+            uniq.append(t)
+    return uniq
 
 
 def write_titles(project: str, channel: str = config.CHANNEL_NAME) -> Path:
     pdir = config.project_dir(project)
     out = pdir / "titles.txt"
+    dp = pdir / "draft.json"
+    draft = {}
+    if dp.exists():
+        try:
+            draft = json.loads(dp.read_text(encoding="utf-8-sig"))
+        except (OSError, ValueError):
+            draft = {}
+    opts = _title_options(draft)
+    if not opts:
+        console.print("[yellow]Titles:[/] no draft title found - pass "
+                      "--title or write draft.json first; no bank to "
+                      "fall back on (a shared bank is the formula the "
+                      "policy names).")
+        return out
     lines = [f"# Title options for {channel}", ""]
-    lines += [f"{i+1}. {t}" for i, t in enumerate(TITLE_TEMPLATES)]
+    lines += [f"{i+1}. {t}" for i, t in enumerate(opts)]
     out.write_text("\n".join(lines), encoding="utf-8-sig")
-    console.print(f"[green]Titles:[/] {out}")
+    console.print(f"[green]Titles:[/] {out} ({len(opts)} option(s), "
+                  f"written from this film's premise)")
     return out
