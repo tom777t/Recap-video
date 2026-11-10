@@ -83,7 +83,7 @@ def test_sung_rules():
     # IN-SONG (Furious 7 line 184: the verse between two passes of the
     # chorus, 55 s apart, was picked as Dom's line). Invented words here.
     ch = "We ride on through the city lights tonight, my brother"
-    song = [(100.0, 104.0, ch), (110.0, 113.0, "Built it on our own when the "
+    song = [(98.0, 99.5, "It's never goodbye."), (100.0, 104.0, ch), (110.0, 113.0, "Built it on our own when the "
              "road was long"), (120.0, 123.0, "And the road is where we "
              "belong"), (155.0, 159.0, ch + "."),
             (159.1, 160.5, "And I'll ride."),
@@ -92,11 +92,12 @@ def test_sung_rules():
             (310.0, 312.0, "Do it now."),
             (318.0, 322.0, "Put your keys on the table and step back now!")]
     ws = sung.sung_flags(song)
-    want_s = ["CHORUS", "IN-SONG", "IN-SONG", "CHORUS", "IN-SONG", "",
+    want_s = ["", "CHORUS", "IN-SONG", "IN-SONG", "CHORUS", "IN-SONG", "",
               "CHORUS", "", "CHORUS"]
     if ws != want_s:
         return False, (f"IN-SONG: {ws} (want the verse between choruses "
-                       f"55 s apart, not the line after, not a line between "
+                       f"55 s apart and its split tail, not the line said just before "
+                       f"it, not the line after, not a line between "
                        f"a repeat 18 s apart)")
     ok1 = w == want
     import tempfile

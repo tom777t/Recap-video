@@ -42,7 +42,7 @@ ROLES = ("intro", "action", "quote", "reaction", "bridge", "outro", "hold",
 # Bumped whenever derive_slots changes what it builds: a plan.json whose slots
 # carry an older version is re-derived (write_api.cmd_draft), so a fix here
 # reaches a project that already has a plan without re-buying the plan.
-SLOTS_VERSION = 11
+SLOTS_VERSION = 12
 # [INTRO-OUTRO] / [FILM-INTRO]: the draft opens with the channel greeting and
 # the film's facts, and closes on a thesis then a call to action. These are
 # slots too - the first real film came back with no <intro> line at all.

@@ -22,7 +22,7 @@ A segment is taken as not dialogue when any of these hold:
             >= CHORUS_MIN_WORDS words).
   IN-SONG   it lies between two passes of one chorus, SONG_GAP_MIN to
             SONG_SPAN seconds apart (the verse), or runs straight on (within
-            SONG_JOIN s) from the closing pass / into the opening one.
+            SONG_JOIN s) from the closing pass.
 
 CHORUS is NOT precise, and is used knowing that. Measured on 17 local
 transcripts (review of 677fc38): 0-29 segments a film, most of them repeated
@@ -181,9 +181,11 @@ def sung_flags(segs: list, pdir=None) -> list:
                 why[j] = "IN-SONG"
         # the chorus line Whisper split in two: the segment running straight
         # on from the closing pass (Furious 7: "And I'll tell you." 0.1 s
-        # after it was picked next), or straight into the opening one
-        a_i, z_i = by_start.get(round(lo_, 3)), by_start.get(round(hi_, 3))
-        for c, step in ((z_i, 1), (a_i, -1)):
+        # after it was picked next). Only AFTER: the line just before the
+        # opening pass is the scene the song comes in over (Furious 7: Dom's
+        # "It's never goodbye." was swept in when both sides were joined)
+        z_i = by_start.get(round(hi_, 3))
+        for c, step in ((z_i, 1),):
             if c is None:
                 continue
             y = pos[c] + step
