@@ -882,6 +882,15 @@ if (Should 'verify') {
 
     $null = Recap @('verify', '--project', $Project) -AllowSoftFail
 
+    # variation report (warn-only): cross-video findings for the WATCH
+    # VIDEO stop - title formula / crosspost / structure cosine against
+    # channel/history.json. Empty history prints NOT RUN. Recorded by
+    # tools/ship.py at upload time.
+    if (Test-Path 'tools\check_variation.py') {
+        Write-Host "  > python tools\check_variation.py $Project" -ForegroundColor DarkGray
+        python tools\check_variation.py $Project 2>&1 | Select-Object -Last 8
+    }
+
     if (Test-Path 'tools\diag_offset.py') {
         Write-Host "  > python tools\diag_offset.py $Project" -ForegroundColor DarkGray
         python tools\diag_offset.py $Project 2>&1 | Select-Object -Last 6
