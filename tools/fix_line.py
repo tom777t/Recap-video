@@ -165,10 +165,19 @@ def _relabel(project: str, pdir: Path, draft: dict, by_id: dict) -> int:
     import write_slots as WS
     plan = json.loads((pdir / "plan.json").read_text(encoding="utf-8-sig"))
     if plan.get("slots_version") != WS.SLOTS_VERSION:
+        was = plan.get("slots_version", 1)
         ab = WP.act_beats(project, W._tool)
         W.save_slots(project, pdir, plan, ab)
-        print(f"fix_line: slots re-derived (version "
-              f"{plan.get('slots_version', 1)} -> {WS.SLOTS_VERSION})")
+        plan = json.loads((pdir / "plan.json").read_text(encoding="utf-8-sig"))
+        if plan.get("slots_version") != WS.SLOTS_VERSION:
+            # relabelling against the OLD slots would turn every `sad` into
+            # normal (no SAD-OK marks there) and say nothing
+            print(f"fix_line: slots could NOT be re-derived (plan.json still "
+                  f"version {plan.get('slots_version', 1)}) - see the error "
+                  f"above; nothing relabelled")
+            return 1
+        print(f"fix_line: slots re-derived (version {was} -> "
+              f"{WS.SLOTS_VERSION})")
     owner = W.act_of_lines(pdir)
     slot_of = W.slots_of_lines(pdir, owner)
     edits, moved = {}, {}

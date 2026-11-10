@@ -592,7 +592,8 @@ def test_sad_budget_and_relabel():
     from contextlib import redirect_stdout
     import fix_line as FL
     plan, ab, slots = _layout()
-    cap = int(float(config.TONE_SAD_MAX_FRACTION) * (len(slots) + 1))
+    cap = int(float(config.TONE_SAD_MAX_FRACTION) * (sum(
+        1 for s in slots if s["role"] != "film_speaks") + 1))
     ok_slots = [s for s in slots if s.get("sad_ok")]
     lines = []
     for k in sorted(ab):

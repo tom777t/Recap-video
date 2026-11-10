@@ -165,8 +165,10 @@ def _grief_beats(pdir: Path) -> list:
 
 def _sad_budget(slots: list, pdir: Path) -> None:
     """Mark sad_ok on narrated slots of grief anchors, up to the budget."""
-    cap = int(float(getattr(config, "TONE_SAD_MAX_FRACTION", 0.05))
-              * (len(slots) + 1))
+    # the gate divides by the draft's LINES: every slot but film_speaks
+    # (added later, and only ever enlarging the denominator) plus the hook
+    n_lines = sum(1 for x in slots if x["role"] != "film_speaks") + 1
+    cap = int(float(getattr(config, "TONE_SAD_MAX_FRACTION", 0.05)) * n_lines)
     for b in _grief_beats(pdir):
         for x in slots:
             if cap <= 0:
