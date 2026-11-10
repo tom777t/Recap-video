@@ -481,11 +481,16 @@ EVAL_FORMS = (
 )
 
 
-def markers(text: str) -> int:
-    """[VOICE-PRESENCE]'s own count: I / you / stance adverbs / questions."""
+def markers(text: str, skip_quotes: bool = False) -> int:
+    """[VOICE-PRESENCE]'s own count: I / you / stance adverbs / questions.
+    skip_quotes: leave out words inside double quotation marks - a quoted
+    character saying "you" or asking a question is not the narrator, and
+    the per-slot rules must not make a verbatim quote unfixable."""
     from pipeline import craft_gates as CG
-    return sum(len(rx.findall(str(text or "")))
-               for rx in CG._VOICE_SHARED.values())
+    t = str(text or "")
+    if skip_quotes:
+        t = re.sub(r"[\"\u201c][^\"\u201d]*[\"\u201d]", " ", t)
+    return sum(len(rx.findall(t)) for rx in CG._VOICE_SHARED.values())
 
 
 def _voice_budget(slots: list) -> None:
@@ -723,7 +728,7 @@ def line_deviations(ln: dict, s: dict) -> list:
     # the narrator - the same classifier [PERSONA] and [PEAK-ORDER] use
     text = str(ln.get("narration") or "")
     heard, why = PG.classify_judgment(text)
-    mk = markers(text)
+    mk = markers(text, skip_quotes=True)
     if s["role"] == "reaction" and not heard:
         out.append(f"{s['slot']} ({s['beat']} REACTION): not heard as the "
                    f"narrator - use one of the moves the brief lists for "
@@ -813,7 +818,15 @@ def merge_revision(prev: list, reply: list, slots: list, k: int,
         l = by_prev.get(sid)
         if l is None:
             if sid in fresh:
-                out.append(fresh[sid])
+                # merge() numbers by position in the reply, so a restored
+                # line can collide with a kept one (S001 restored as 1900
+                # beside S002's 1900: resolve then edited both) - fresh id
+                used = {x.get("id") for x in prev} | {x.get("id") for x in out}
+                ln = dict(fresh[sid])
+                if ln.get("id") in used:
+                    ln["id"] = max([i for i in used if isinstance(i, int)]
+                                   or [k * 1000]) + 1
+                out.append(ln)
                 restored.append(sid)
             elif s["role"] not in ("hold",):
                 notes.append(f"{sid}: still missing (the reply did not "
@@ -884,13 +897,15 @@ def check_slots(lines: list, slots: list, pdir: Path | None = None) -> list:
     out = []
     for ln in lines:
         sid = str(ln.get("slot") or "")
-        if not sid and ln.get("film_intro"):
-            continue
+        if not sid and (ln.get("film_intro") or ln.get("over_montage")
+                        or ln.get("delivery") == "hook"):
+            continue          # the hook (code's, from the plan) / old intro
         if sid in by:
             out.append(f"slot {sid} answered twice")
         by[sid] = ln
     ids = {s["slot"] for s in want}
-    extra = [x for x in by if x not in ids]
+    codes = {s["slot"] for s in slots if s["role"] in ("hold", "film_speaks")}
+    extra = [x for x in by if x not in ids and x not in codes]  # holds: code's
     if extra:
         out.append(f"line(s) for no slot of yours: {extra[:8]} - one line per "
                    f"slot, `slot` set to its id")

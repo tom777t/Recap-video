@@ -535,7 +535,39 @@ def test_review_defects():
          "quote": "Don't you dare."}
     ok8 = not any("verbatim" in m for m in WS.line_deviations(
         {"narration": "He says, \u201cDon\u2019t you dare.\u201d"}, q))
-    checks = [(ok1, f"resolve tags built for every line incl. holds "
+    # second review (b33d830): a restored intro line got a duplicate id
+    k1 = sorted({s["act"] for s in slots})[0]
+    m1 = WS.slots_for_act(slots, k1)
+    reply1 = [_fill(s, i) for i, s in enumerate(m1)
+              if s["role"] not in ("hold", "film_speaks")]
+    greet = next(r for r in reply1 if next(
+        s for s in m1 if s["slot"] == r["slot"])["role"] == "intro")
+    saved1 = WS.merge([r for r in reply1 if r is not greet], slots, k1)
+    back1, _n = WS.merge_revision(saved1, [greet], m1, k1)
+    ids1 = [l.get("id") for l in back1]
+    ok9 = len(ids1) == len(set(ids1)) and any(
+        l.get("slot") == greet["slot"] for l in back1)
+    # ... a payload fix is taken when the deviation sent back was about it
+    one = next(l for l in prev if l.get("slot") and next(
+        s for s in mine if s["slot"] == l["slot"])["role"] == "action")
+    relab = [dict(one, payload="stake")]
+    no_lab, _n = WS.merge_revision(prev, relab, mine, k)
+    lab, _n = WS.merge_revision(prev, relab, mine, k, allow_labels=True)
+    pick = lambda ls: next(l for l in ls if l.get("slot") == one["slot"])
+    ok10 = pick(lab)["payload"] == "stake" and \
+        pick(no_lab)["payload"] == one.get("payload")
+    # ... a quoted "you" / "?" is the character, not the narrator
+    act_s = dict(next(s for s in mine if s["role"] == "action"),
+                 min_words=1, max_words=40, band="long", anchor=False,
+                 peak=False)
+    ok11 = not any("budgeted to the VOICE" in m for m in WS.line_deviations(
+        {"narration": 'Dom turns to him: "Where are you going this time?"'},
+        act_s))
+    checks = [(ok9, f"a restored intro line gets its own id {ids1[:4]}"),
+              (ok10, "a payload fix is taken only when the finding is about "
+                     "labels"),
+              (ok11, "words inside a quotation are not narrator markers"),
+              (ok1, f"resolve tags built for every line incl. holds "
                     f"({len(tags)})"),
               (ok2, f"a lost line restored in place ({notes[:1]})"),
               (ok3, f"brief's narrator words all heard (deaf: {deaf})"),

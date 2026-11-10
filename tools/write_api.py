@@ -1140,6 +1140,7 @@ def cmd_draft(a, client) -> int:
             plan_text=WP.plan_for_act(plan, ab.get(k, []), k),
             slots=slots, plan=plan) for k in todo}
         bad, tag, slot_fb = {}, "draft", set()
+        sent_devs: dict = {}
         while pending:
             got = batch(client, pdir, tag, pending, wait=not a.no_wait,
                         poll=a.poll)
@@ -1174,7 +1175,11 @@ def cmd_draft(a, client) -> int:
                         json.loads(_read(af))["lines"],
                         [l for l in obj.get("lines") or []
                          if isinstance(l, dict)],
-                        WS.slots_for_act(slots, k), k)
+                        WS.slots_for_act(slots, k), k,
+                        # the deviations sent back may be about labels
+                        # (ACTION-STAKE's "payload stake"): let the fix in
+                        allow_labels=any("payload" in x for x in
+                                         sent_devs.get(k, [])))
                     for n_ in notes_[:4]:
                         print(f"  act{k}: {n_}")
                 else:
@@ -1182,10 +1187,12 @@ def cmd_draft(a, client) -> int:
                 af.write_text(json.dumps(
                     {"act": k, "lines": lines_},
                     ensure_ascii=False, indent=2), encoding="utf-8")
-                # checked against its slots AT ONCE; the deviations go back
-                # ONCE inside the stage (the gates stay the final check)
-                devs = slot_deviations(obj, k, slots, pdir)
+                # checked against its slots AT ONCE - on what was SAVED, not
+                # on the reply (a refused rewrite leaves the old fault); the
+                # deviations go back ONCE inside the stage
+                devs = slot_deviations({"lines": lines_}, k, slots, pdir)
                 if devs and k not in slot_fb and used < rounds:
+                    sent_devs[k] = devs
                     slot_fb.add(k)
                     retry[cid] = retry_params(p, got.get(cid), devs,
                                               slot_feedback(devs))
