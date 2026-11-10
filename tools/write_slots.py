@@ -42,7 +42,7 @@ ROLES = ("intro", "action", "quote", "reaction", "bridge", "outro", "hold",
 # Bumped whenever derive_slots changes what it builds: a plan.json whose slots
 # carry an older version is re-derived (write_api.cmd_draft), so a fix here
 # reaches a project that already has a plan without re-buying the plan.
-SLOTS_VERSION = 8
+SLOTS_VERSION = 9
 # [INTRO-OUTRO] / [FILM-INTRO]: the draft opens with the channel greeting and
 # the film's facts, and closes on a thesis then a call to action. These are
 # slots too - the first real film came back with no <intro> line at all.
@@ -109,7 +109,8 @@ def moments(pdir: Path) -> list:
 
 
 def speech(pdir: Path) -> list:
-    """[(start, end, text)] - transcript segments act_payload.py trusts."""
+    """[(start, end, text)] - transcript segments act_payload.py trusts,
+    without the sung ones."""
     p = pdir / "transcript.json"
     if not p.exists():
         return []
@@ -117,10 +118,14 @@ def speech(pdir: Path) -> list:
         segs = json.loads(p.read_text(encoding="utf-8-sig")).get("segments") or []
     except ValueError:
         return []
-    return [(float(s["start"]), float(s["end"]), str(s.get("text") or "").strip())
-            for s in segs if isinstance(s.get("start"), (int, float))
-            and float(s["end"]) - float(s["start"]) <= 30.0
-            and str(s.get("text") or "").strip()]
+    out = [(float(s["start"]), float(s["end"]), str(s.get("text") or "").strip())
+           for s in segs if isinstance(s.get("start"), (int, float))
+           and float(s["end"]) - float(s["start"]) <= 30.0
+           and str(s.get("text") or "").strip()]
+    # a sung line is not a line anyone says - never a quote (pipeline/sung.py;
+    # Furious 7 quoted the ending song's chorus as Dom's words)
+    from pipeline import sung
+    return sung.dialogue_only(out, pdir)
 
 
 def _anchors(pdir: Path) -> tuple:
@@ -164,37 +169,93 @@ def _grief_beats(pdir: Path) -> list:
 
 
 # [BRIDGE]: a run of >= 2 beats the plan gives no line and no hold is a
-# skip; the first line after it must tell the viewer story time passed.
-# One phrase per such slot, in rotation, so 20-odd bridges do not all say
-# "Later" ([TIC-REPETITION]). Each matches pipeline.draft.BRIDGE_JUMP.
-# Openers with AT MOST ONE content word: a 3-word phrase needs two to count
-# as a tic, so these can recur across 27 bridges without tripping
-# [TIC-REPETITION] ("The next morning" x3 did - review of f8901fe).
-JUMP_FORMS = ("Later, ...", "Meanwhile, ...", "That night, ...",
-              "By then, ...", "Before long, ...", "Eventually, ...",
-              "The next day, ...", "By morning, ...", "That evening, ...",
-              "By now, ...", "That week, ...", "In the end, ...")
+# skip; the first line after it must carry the viewer across it. HOW is the
+# writer's call, made from WHAT was skipped - code hands the slot the
+# skipped beats' own descriptions and the film time they span. Until
+# SLOTS_VERSION 9 code handed out a clock phrase in rotation ("By morning",
+# "That night", "In the end", ...) by COUNT, and seven of Furious 7's 27
+# seams said something false ("By morning" on a chase the same day, "In the
+# end" mid-heist). A phrase chosen without the facts is a guess.
+SKIP_SHOWN = 4          # skipped beats described per seam (the rest counted)
+SKIP_TEXT = 110         # characters of each skipped beat's description
 
 
-def _mark_after_skip(slots: list, order: list, by: dict) -> None:
+def _beat_texts(project: str) -> dict:
+    try:
+        from pipeline import catalogue
+        return {str(b.get("id")): str(b.get("text") or "")
+                for b in catalogue.parse_beats(project).get("beats") or []}
+    except Exception:
+        return {}
+
+
+def _short(t: str, n: int = SKIP_TEXT) -> str:
+    t = " ".join(str(t).split())
+    return t if len(t) <= n else t[:n].rsplit(" ", 1)[0] + " ..."
+
+
+def _mark_after_skip(slots: list, order: list, by: dict, project: str = "",
+                     rng: dict | None = None) -> None:
+    rng = rng or {}
     has = {}
     for x in slots:
         if x["role"] != "film_speaks":   # not in the draft until its stage
             has.setdefault(x["beat"], []).append(x)
-    run, n = 0, 0
+    texts = _beat_texts(project) if project else {}
+    run = []
     for _k, bid in order:
         b = by.get(bid) or {}
         if not has.get(bid) and not b.get("footage"):
-            run += 1
+            run.append(bid)
             continue
-        if run >= 2:
+        if len(run) >= 2:
             nar = [x for x in has.get(bid, []) if x["role"] not in (
                 "hold", "film_speaks", "intro", "outro")]
             if nar:
-                nar[0]["after_skip"] = True
-                nar[0]["jump"] = JUMP_FORMS[n % len(JUMP_FORMS)]
-                n += 1
-        run = 0
+                s = nar[0]
+                s["after_skip"] = True
+                s["skipped"] = list(run)
+                t0, t1 = rng.get(run[0], (None,))[0], rng.get(bid, (None,))[0]
+                if t0 is not None and t1 is not None:
+                    s["skip_secs"] = int(round(t1 - t0))
+                s["skip_what"] = [f"{x}: {_short(texts[x])}" for x in
+                                  run[:SKIP_SHOWN] if texts.get(x)]
+                if len(run) > SKIP_SHOWN:
+                    s["skip_what"].append(f"... and {len(run) - SKIP_SHOWN} "
+                                          f"more beat(s)")
+        run = []
+
+
+def _mmss(sec) -> str:
+    try:
+        sec = int(sec)
+    except (TypeError, ValueError):
+        return "?"
+    return f"{sec // 60}m{sec % 60:02d}s"
+
+
+def skip_note(s: dict) -> str:
+    """What the writer (and a reviser) sees about the skip before a slot."""
+    if not s.get("after_skip"):
+        return ""
+    sk = s.get("skipped") or []
+    span = f"{sk[0]}-{sk[-1]}" if sk else "?"
+    return (f"AFTER A SKIP of {len(sk)} beat(s) ({span}, "
+            f"{_mmss(s.get('skip_secs'))} of film the viewer does not see: "
+            + ("; ".join(s.get("skip_what") or []) or "no description")
+            + ")")
+
+
+BRIDGE_RULE = (
+    "- AFTER A SKIP: the viewer must not feel the film teleport. Open the "
+    "line on what CHANGED across the skipped beats listed with the slot - "
+    "a place (\"Back at the hangar,\", \"In Abu Dhabi,\"), the skipped "
+    "event in a clause (\"After a chase through the city, ...\"), a "
+    "parallel thread (\"Meanwhile,\"), or a time phrase ONLY when the "
+    "skipped beats show that time passed (\"The next morning,\" needs a "
+    "night in between; \"In the end\" is for endings). A few minutes of "
+    "continuous action is \"Moments later,\" / \"Before long,\", never "
+    "a new day. Do not repeat the same opener across seams.")
 
 
 def _sad_budget(slots: list, pdir: Path) -> None:
@@ -519,7 +580,7 @@ def derive_slots(plan: dict, project: str, pdir: Path, ab: dict) -> dict:
                                 f"outro needs - it will run over its window")
     _voice_budget(slots)
     _sad_budget(slots, pdir)
-    _mark_after_skip(slots, order, by)
+    _mark_after_skip(slots, order, by, project, rng)
     for s in slots:
         if s["role"] == "hold":
             s["hold"] = round(max(HOLD_SEC[0], min(HOLD_SEC[1],
@@ -677,9 +738,7 @@ def slots_text(slots: list) -> str:
             + (f" FORM {s['form']}" if s.get("form") else "")
             + (" SAD-OK" if s.get("sad_ok") else "")
             + f" {s['clip_start']}-{s['clip_end']} | {band}"
-            + (f" | AFTER A SKIP: begin with a time jump - \"{s['jump']}\" "
-               f"or another one not used elsewhere (story time passed)"
-               if s.get("after_skip") else "")
+            + (f" | {skip_note(s)}" if s.get("after_skip") else "")
             + (" | OPENS THE STORY: begin with a time or a place (\"Los "
                "Angeles.\", \"Three years earlier, ...\")"
                if s.get("transition") else "")
@@ -730,6 +789,7 @@ def writer_brief(pdir: Path, plan: dict, k: int) -> str:
         '"claim": {"type": "speech", "subject": "<the speaker>"}; claim.type '
         "is never a shot tag such as aftermath / establishing / montage.",
         _intro_brief(pdir, plan, k),
+        BRIDGE_RULE,
         "- delivery `sad` only on slots marked SAD-OK (real loss or grief); "
         "everywhere else it becomes normal - a tense scene is `tense`, a "
         "setback is not sad.",
@@ -841,11 +901,12 @@ def line_deviations(ln: dict, s: dict) -> list:
                       "checker does not read words inside them)"
                       if s["role"] == "quote" else ""))
     if s.get("after_skip"):
-        from pipeline.draft import BRIDGE_JUMP
-        if not BRIDGE_JUMP.search(text):
-            out.append(f"{s['slot']} comes AFTER A SKIP: tell the viewer time "
-                       f"passed - begin with a time jump such as "
-                       f"\"{s.get('jump', 'Later, ...')}\" (vary it)")
+        from pipeline.draft import crosses_skip
+        if not crosses_skip(text):
+            out.append(f"{s['slot']} comes {skip_note(s)} - open on what "
+                       f"changed: a place, the skipped event in a clause, "
+                       f"\"Meanwhile,\", or a time phrase the skipped beats "
+                       f"support")
     if s.get("transition") and not CG._ANCHOR.match(text.strip()):
         out.append(f"{s['slot']} opens the story: begin with a time or a "
                    f"place - got {text.strip()[:40]!r}")
@@ -876,6 +937,8 @@ def slot_tag(s: dict) -> str:
         r += f", {s['min_words']}-{s['max_words']} words"
     if s.get("quote"):
         r += f", keep verbatim: \"{s['quote']}\""
+    if s.get("after_skip"):
+        r += f"; {skip_note(s)}"
     return r
 
 

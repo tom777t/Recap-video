@@ -121,7 +121,11 @@ def _transcript(pdir: Path) -> tuple[list, str]:
         if txt and b > a:
             out.append({"a": a, "b": b, "text": txt})
     out.sort(key=lambda s: s["a"])
-    return out, lang
+    # a song over a scene is not the film SPEAKING - and a lyric left in the
+    # recap is a lyric reproduced (pipeline/sung.py)
+    from pipeline import sung
+    why = sung.sung_flags([(s["a"], s["b"], s["text"]) for s in out], pdir)
+    return [s for s, w in zip(out, why) if not w], lang
 
 
 def _angle_terms(pdir: Path) -> set:

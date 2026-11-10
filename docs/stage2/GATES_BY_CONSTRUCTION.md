@@ -43,7 +43,14 @@ A gate here can still fire, but only if a writer ignores its slot, and
 | `[PEAK-ORDER]` / `[ANCHOR-CLEAN]` (wording) | `check_slots` runs `classify_judgment` on every non-reaction anchor slot |
 | `[VOICE-PRESENCE]` floor and ceiling | reactions are split VOICE (one marker) / EVAL (none) by `_voice_budget` to land mid-band; action / bridge slots may carry no marker (checked) |
 | `[TRANSITION]` | the first story slot opens on a time or place (checked), never a reaction |
+| `[BRIDGE]` | the slot after a skipped run is marked AFTER A SKIP and carries the skipped beats' own descriptions and the film time they span (`skip_note`, also in the reviser's `slot_tag`); the writer opens on what changed - a place, the skipped event in a clause, "Meanwhile", or a time phrase the beats support - and `crosses_skip` (the gate's own test) checks it. Until SLOTS_VERSION 9 code handed out a clock phrase by count; 7 of Furious 7's 27 were false |
+| quotes are dialogue | the quote picker, the film-speaks candidates and the act payload read the transcript through `pipeline/sung.py`: a music mark, a chorus that comes back, or a text in `not_dialogue.json` (`fix_line --not-dialogue`) is never a quote (Furious 7 quoted the ending song as Dom) |
 | plan follow-through (beat line counts) | one line per slot; `check_plan_counts` still runs after the acts and feeds a mismatch back |
+
+`[NAME-SPELLING]` (hard, `pipeline/name_spelling.py`) is the one new
+check-after: a capitalised word an accent or one/two letters away from a
+names.json / film_facts.json name ("Mosé Jaconde" for Mose Jakande). It is
+by line, so resolve rewrites it. On every draft in projects/ it is silent.
 
 ## 2. Still checks (the words decide)
 

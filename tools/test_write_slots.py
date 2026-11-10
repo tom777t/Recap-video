@@ -206,8 +206,11 @@ def _fill(s, i):
     if s.get("transition"):
         t = "Arizona, " + t[0].lower() + t[1:]
     elif s.get("after_skip"):
-        t = s["jump"].split(",")[0] + ", " + t[0].lower() + t[1:]
-    # (the opener is a suggestion; the fixture follows it)
+        # a writer crossing the skip by place, by the skipped event, or by
+        # a parallel thread - all three must bridge (not only a clock word)
+        op = ("Back at the garage", "After the race in the parking lot",
+              "Meanwhile")[i % 3]
+        t = op + ", " + t[0].lower() + t[1:]
     pl = ("loop" if s.get("opens_loop") else "judgment"
           if s["role"] == "reaction" else ("stake", "reasoning")[i % 2])
     return {"slot": s["slot"], "narration": t, "payload": pl,
@@ -706,16 +709,33 @@ def test_bridge_by_construction():
             l["narration"] = l["narration"].split(", ", 1)[-1]
     bad = audit(bad_lines)
     named = all(g.get("line_after") is not None for g in bad["unbridged"])
+    from pipeline import catalogue
+    btext = {b["id"]: b["text"] for b in catalogue.parse_beats(PROJ)["beats"]}
+    want_run = {m["slot"]: r for m in marked for r in runs
+                if m.get("skipped") == list(r)}
+    rows = WS.slots_text(marked)
+    opens = [l["narration"].split(",")[0] for l in lines
+             if l.get("slot") in {m["slot"] for m in marked}]
     checks = [
         (len(runs) == 2 and len(marked) >= 2,
-         f"{len(runs)} skipped run(s) -> {len(marked)} AFTER-A-SKIP slot(s), "
-         f"jumps {[s['jump'] for s in marked]}"),
-        (len({s['jump'] for s in marked}) == len(marked),
-         "each bridge gets its own phrase"),
-        (all(__import__("pipeline.motif_gates", fromlist=["x"])._n_content(
-            j.split(",")[0].lower().split()) <= 1 for j in WS.JUMP_FORMS),
-         "every opener has <= 1 content word (no [TIC-REPETITION] when "
-         "openers recur over 27 skips)"),
+         f"{len(runs)} skipped run(s) -> {len(marked)} AFTER-A-SKIP slot(s)"),
+        (len(want_run) == len(marked) and all(
+            isinstance(m.get("skip_secs"), int) and m["skip_secs"] > 0
+            for m in marked),
+         "each seam carries the beats it skips and their film time"),
+        (all(btext[r[0]][:40] in rows for r in runs) and
+         all(f"AFTER A SKIP of {len(r)} beat(s)" in rows for r in runs),
+         "the writer's slot rows show what was skipped (the beat map's own "
+         "words)"),
+        (not any("jump" in m for m in marked) and "By morning" not in rows,
+         "no clock phrase handed out by count"),
+        ("AFTER A SKIP" in WS.slot_tag(marked[0]) and btext[runs[0][0]][:30]
+         in WS.slot_tag(marked[0]),
+         "a reviser sees the skip too (slot_tag)"),
+        (all(WS.line_deviations(l, s_) == [] or not any(
+            "AFTER A SKIP" in d for d in WS.line_deviations(l, s_))
+            for l in lines for s_ in marked if l.get("slot") == s_["slot"]),
+         f"place / event / parallel openers fit the slot ({opens})"),
         (not any(g["beats"][-1] == p2["beats"][-1]["beat"]
                  for g in tail["unbridged"]),
          "a run reaching the end of the beat map (credits) is not a skip"),

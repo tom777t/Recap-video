@@ -192,6 +192,13 @@ def validate_draft(project: str, *, write_state: bool = False,
     for _m in conservation_problems(project, draft):
         console.print(f"[red][DRAFT-CONSERVATION][/] {_m}")
         errors.append(f"[DRAFT-CONSERVATION] {_m}")
+    # ---- [NAME-SPELLING]: a listed name, spelled the transcript's way ------
+    # Furious 7: "Mosé Jaconde" for Mose Jakande passed as a yellow lint
+    # warning. A misspelling of a LISTED name is never right - hard, by line,
+    # so resolve rewrites it (pipeline/name_spelling.py).
+    from pipeline import name_spelling as _ns
+    for _m in _ns.report(config.project_dir(project), draft.get("lines") or []):
+        errors.append(_m)
     if _broll_error:
         if any(ln.get("pool") for ln in draft.get("lines", [])):
             errors.append(_broll_error)
@@ -2044,6 +2051,35 @@ BRIDGE_JUMP = re.compile(
     r"and a lot of|fast forward|skip ahead|that (night|evening|week))\b",
     re.IGNORECASE)
 
+# A skip can also be crossed by PLACE ("Back at the hangar,", "In Abu
+# Dhabi,") or by naming the skipped EVENT in a clause ("After a chase
+# through the city, ..."). Furious 7: with only clock phrases accepted, code
+# handed "By morning," / "That night," / "In the end," to 27 seams in
+# rotation and seven of them were false (a chase the same day, "In the
+# end" mid-heist). Anchored at the line's START - a place mid-sentence
+# does not carry the viewer across a seam.
+_CAP = r"(?-i:[A-Z])[\w'\u2019.-]*"
+BRIDGE_OPEN = re.compile(
+    r"^\s*[\"\u201c]?(?:"
+    r"(?i:back\s+(?:at|in|on|to|inside|home|with)\b)"
+    r"|(?i:elsewhere\b|across\s+town\b|afterwards?\b|by\s+the\s+time\b|"
+    r"(?:hours|minutes|moments|seconds)\s+later\b)"
+    r"|(?i:after\s+(?:the|a|an|that|this|his|her|their|its|all|some|two|"
+    r"three|several|weeks|days|months|hours|he|she|they|we|it|" + _CAP + r")\b[^,.;!?]{0,80},)"
+    r"|(?i:(?:over\s+|out\s+|down\s+|up\s+|far\s+)?(?:in|at|on|inside|"
+    r"outside|to)\s+)(?:the\s+)?" + _CAP + r"(?:\s+" + _CAP + r")*\s*,"
+    r"|(?i:(?:at|inside|outside)\s+the\s+[a-z][\w'\u2019-]*"
+    r"(?:\s+[a-z][\w'\u2019-]*){0,3}\s*,)"
+    r")")
+
+
+def crosses_skip(text: str) -> bool:
+    """[BRIDGE]'s test of one line: does it tell the viewer what changed
+    across a skip - a time jump anywhere, or a place / the skipped event
+    as its opener."""
+    t = str(text or "")
+    return bool(BRIDGE_JUMP.search(t) or BRIDGE_OPEN.match(t))
+
 
 def bridge_audit(project, d, bc) -> dict:
     """[BRIDGE]: no SKIPPED stretch may leave an unexplained jump in the story.
@@ -2074,7 +2110,6 @@ def bridge_audit(project, d, bc) -> dict:
     ts_by_id = {bid: t for bid, t in bounds}
 
     # line positions (clip_start seconds) + which carry a bridge / hold
-    _JUMP = BRIDGE_JUMP
     bridges = []    # (sec, is_hold)
     first_after = []                       # (sec, id) of every bound line
     for ln in d.lines:
@@ -2087,7 +2122,7 @@ def bridge_audit(project, d, bc) -> dict:
                 sec = None
         hold = bool(getattr(ln, "narration_silence_seconds", None))
         narr = getattr(ln, "narration", "") or ""
-        is_bridge = bool(getattr(ln, "bridge", False)) or bool(_JUMP.search(narr))
+        is_bridge = bool(getattr(ln, "bridge", False)) or crosses_skip(narr)
         if sec is not None and (is_bridge or hold):
             bridges.append((sec, hold, getattr(ln, "id", None)))
         if sec is not None and narr.strip():

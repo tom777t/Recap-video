@@ -1098,7 +1098,7 @@ def cmd_plan(a, client) -> int:
     return PLAN_STOPPED
 
 
-def save_slots(project: str, pdir: Path, plan: dict, ab: dict) -> None:
+def save_slots(project: str, pdir: Path, plan: dict, ab: dict) -> bool:
     """plan.json grows one SLOT per line, derived by code from the plan's
     per-beat counts and the gate rules (tools/write_slots.py)."""
     import write_slots as WS
@@ -1108,7 +1108,7 @@ def save_slots(project: str, pdir: Path, plan: dict, ab: dict) -> None:
         # no slots = the act writers get the plan slice as before; say so
         print(f"plan: slots NOT derived ({type(e).__name__}: {e}) - the acts "
               f"are written from the per-beat plan alone")
-        return
+        return False
     plan["slots"] = r["slots"]
     plan["slot_problems"] = r["problems"]
     plan["slots_version"] = r.get("version", 1)
@@ -1120,6 +1120,7 @@ def save_slots(project: str, pdir: Path, plan: dict, ab: dict) -> None:
           f"assigned windows" + (f"; {len(r['problems'])} problem(s): "
                                  + "; ".join(r["problems"][:3])
                                  if r["problems"] else ""))
+    return True
 
 
 def cmd_draft(a, client) -> int:

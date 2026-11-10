@@ -383,6 +383,7 @@
   "FILM-SPEAKS-COUNT": {
     "severity": "error",
     "modules": [
+      "pipeline/draft.py",
       "pipeline/film_speaks.py"
     ],
     "what": "",
@@ -532,6 +533,14 @@
     ],
     "what": "no transcript corpus loaded - the ...",
     "severity_source": "inferred"
+  },
+  "NAME-SPELLING": {
+    "severity": "error",
+    "modules": [
+      "pipeline/name_spelling.py"
+    ],
+    "what": "a capitalised word one or two letters (or only accents) away from a names.json / film_facts.json name - the listed name misspelled",
+    "severity_source": "declared"
   },
   "NARRATOR-VOICE": {
     "severity": "report",

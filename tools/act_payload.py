@@ -141,6 +141,15 @@ def main() -> int:
     _long = [s for s in segs if float(s["end"]) - float(s["start"]) > MAX_SEG]
     segs = [s for s in segs if float(s["end"]) - float(s["start"]) <= MAX_SEG]
 
+    # a song over the scene is written down by Whisper as if someone said
+    # it; the writer is told, so a lyric never becomes a character's line
+    # (pipeline/sung.py - the same rule the quote picker uses)
+    from pipeline import sung as _sung
+    _why = _sung.sung_flags([(float(s["start"]), float(s["end"]),
+                              str(s.get("text") or "")) for s in segs], pdir)
+    for s, w in zip(segs, _why):
+        s["_sung"] = w
+
     def speech_for(x0, x1):
         return [s for s in segs if s["end"] > x0 and s["start"] < x1]
 
@@ -176,7 +185,11 @@ def main() -> int:
               f"{s.get('censor') or 'none'} | {s.get('action') or '-'}")
         for sp in speech_for(x0, x1):
             print(f"       SPEECH {sp['start']:.1f}-{sp['end']:.1f}: "
-                  f"{str(sp.get('text','')).strip()}")
+                  + ("[REPEATS LIKE A CHORUS - may be a song: do not "
+                     "quote it] " if sp.get("_sung") == "CHORUS" else
+                     "[NOT DIALOGUE (a song) - never quote it or give it "
+                     "to a character] " if sp.get("_sung") else "")
+                  + f"{str(sp.get('text','')).strip()}")
 
     if CTX:
         print(f"\nCONTEXT ONLY - {len(CTX)} neighbouring moment(s). "

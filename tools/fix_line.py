@@ -32,6 +32,13 @@ intro/outro and the `sad` budget, payload for reactions/loops) to every
 line of an already-written draft. Text is not touched, so nothing needs
 re-reviewing.
 
+--not-dialogue: the line's QUOTE is not something a character says (a
+song over the scene, a PA, a TV - Whisper writes them all down as speech).
+The quote is recorded in not_dialogue.json (pipeline/sung.py), the slots are
+re-derived so that beat's quote slot takes another real line or becomes an
+action slot, and the line's NEW slot is printed. The text is not changed -
+write the new line with --text next (it is checked against the new slot).
+
 --show prints the line, its slot, what is wrong with it now, its
 neighbours and the open findings naming it - read that first.
 """
@@ -59,6 +66,9 @@ def main(argv=None) -> int:
     ap.add_argument("--text")
     ap.add_argument("--note", default="")
     ap.add_argument("--show", action="store_true")
+    ap.add_argument("--not-dialogue", action="store_true",
+                    help="the line's quote is a song / PA / TV, not a "
+                         "character: never quote it; re-derive the slots")
     ap.add_argument("--claim", choices=("narration",),
                     help="make the line a narration claim (no speaker on "
                          "screen required); text unchanged unless --text")
@@ -82,6 +92,31 @@ def main(argv=None) -> int:
     sl = W.slots_of_lines(pdir, owner).get(lid)
     finds = [f for f in WP.open_findings(pdir, draft) if lid in f["ids"]]
     old = by_id[lid]
+
+    if a.not_dialogue:
+        if sl is None or not sl.get("quote"):
+            print(f"fix_line: line {lid}'s slot carries no quote - nothing "
+                  f"to mark (see --show)")
+            return 1
+        from pipeline import sung
+        added = sung.add_by_hand(pdir, sl["quote"], a.note.strip() or
+                                 f"line {lid}: not dialogue (marked by hand)")
+        print(f"fix_line: \"{sl['quote']}\" "
+              + ("recorded" if added else "was already recorded")
+              + " in not_dialogue.json - it is never quoted again")
+        if _rederive(a.project, pdir, force=True):
+            return 1
+        sl2 = W.slots_of_lines(pdir, owner).get(lid)
+        if sl2 is None:
+            print(f"fix_line: line {lid} has no slot after re-deriving")
+            return 1
+        now = WS.line_deviations(old, sl2)
+        print(f"line {lid} now: {WS.slot_tag(sl2)}")
+        print("wrong now: " + ("; ".join(now) if now else "nothing"))
+        print(f"next: python tools/fix_line.py --project {a.project} "
+              f"--line {lid} --text \"...\"  (a line for that slot, without "
+              f"the old quote)")
+        return 0
 
     if a.claim and not a.text:
         was = dict(old.get("claim") or {})
@@ -159,25 +194,45 @@ def main(argv=None) -> int:
     return 0 if not errs else 2
 
 
-def _relabel(project: str, pdir: Path, draft: dict, by_id: dict) -> int:
+def _rederive(project: str, pdir: Path, force: bool = False) -> int:
+    """Re-derive plan.json's slots when the code's layout moved on (or when
+    forced: an input of the layout changed, e.g. not_dialogue.json). 0 = ok;
+    1 = they could not be re-derived (said why)."""
     import write_api as W
     import write_plan as WP
     import write_slots as WS
     plan = json.loads((pdir / "plan.json").read_text(encoding="utf-8-sig"))
-    if plan.get("slots_version") != WS.SLOTS_VERSION:
-        was = plan.get("slots_version", 1)
-        ab = WP.act_beats(project, W._tool)
-        W.save_slots(project, pdir, plan, ab)
-        plan = json.loads((pdir / "plan.json").read_text(encoding="utf-8-sig"))
-        if plan.get("slots_version") != WS.SLOTS_VERSION:
-            # relabelling against the OLD slots would turn every `sad` into
-            # normal (no SAD-OK marks there) and say nothing
-            print(f"fix_line: slots could NOT be re-derived (plan.json still "
-                  f"version {plan.get('slots_version', 1)}) - see the error "
-                  f"above; nothing relabelled")
-            return 1
-        print(f"fix_line: slots re-derived (version {was} -> "
-              f"{WS.SLOTS_VERSION})")
+    if not force and plan.get("slots_version") == WS.SLOTS_VERSION:
+        return 0
+    was = plan.get("slots_version", 1)
+    before = [(x.get("slot"), x.get("beat")) for x in plan.get("slots") or []]
+    ab = WP.act_beats(project, W._tool)
+    ok = W.save_slots(project, pdir, plan, ab)
+    plan = json.loads((pdir / "plan.json").read_text(encoding="utf-8-sig"))
+    if not ok or plan.get("slots_version") != WS.SLOTS_VERSION:
+        # relabelling against the OLD slots would turn every `sad` into
+        # normal (no SAD-OK marks there) and say nothing
+        print(f"fix_line: slots could NOT be re-derived (plan.json still "
+              f"version {plan.get('slots_version', 1)}) - see the error "
+              f"above; nothing changed")
+        return 1
+    after = [(x.get("slot"), x.get("beat")) for x in plan.get("slots") or []]
+    if before and after != before:
+        # the lines are bound to slots by id: a layout that moved them would
+        # pair every later line with another beat's slot
+        print(f"fix_line: WARNING - the re-derived slots no longer line up "
+              f"with the old ones ({len(before)} -> {len(after)}); check "
+              f"--show before fixing lines")
+    print(f"fix_line: slots re-derived (version {was} -> "
+          f"{WS.SLOTS_VERSION})")
+    return 0
+
+
+def _relabel(project: str, pdir: Path, draft: dict, by_id: dict) -> int:
+    import write_api as W
+    import write_slots as WS
+    if _rederive(project, pdir):
+        return 1
     owner = W.act_of_lines(pdir)
     slot_of = W.slots_of_lines(pdir, owner)
     edits, moved = {}, {}
