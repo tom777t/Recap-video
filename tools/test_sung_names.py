@@ -173,7 +173,15 @@ def test_fix_line_not_dialogue():
                slot_of[k].get("beat")) !=
               ((after.get(k) or {}).get("role"), (after.get(k) or {}).get(
                   "quote"), (after.get(k) or {}).get("beat"))]
-    ok1 = (rc == 0 and q in nd["texts"] and sl2 is not None
+    shown = io.StringIO()
+    with redirect_stdout(shown):
+        FL.main(["--project", TWS.PROJ, "--line", lid, "--show"])
+    # --show lists the transcript around the line, the marked quote flagged
+    around = [r for r in shown.getvalue().split("speech around the line")[-1]
+              .splitlines() if sung._norm(q) in sung._norm(r)]
+    ok1 = ("speech around the line" in shown.getvalue() and around
+           and all("[BY HAND]" in r for r in around)) and \
+        (rc == 0 and q in nd["texts"] and sl2 is not None
            and sl2.get("quote") != q and _line_text(pdir, lid) == text0
            and "still quotes it" in buf.getvalue() and not others)
     # a --text that still quotes it is refused; a fitting one is taken

@@ -161,6 +161,7 @@ def main(argv=None) -> int:
             print(f"\nslot: {WS.slot_tag(sl)}")
             now = WS.line_deviations(old, sl)
             print("wrong now: " + ("; ".join(now) if now else "nothing"))
+        _speech_around(pdir, old)
         print(f"\nopen findings naming line {lid}: {len(finds)}")
         for f in finds:
             print(f"  - {f['artifact']}: {f['kind']} @ {','.join(f['ids'])} - "
@@ -211,6 +212,37 @@ def main(argv=None) -> int:
         for e in errs[:8]:
             print(f"  - {e[:220]}")
     return 0 if not errs else 2
+
+
+SPEECH_AROUND = 90.0        # seconds either side of the line's window
+
+
+def _speech_around(pdir: Path, ln: dict) -> None:
+    """The transcript around the line, with what pipeline/sung.py says of
+    each segment - so a reader can see a song the rules did not catch (and
+    mark it with --not-dialogue)."""
+    import write_slots as WS
+    from pipeline import sung
+    try:
+        a, z = WS._pt(ln.get("clip_start")), WS._pt(ln.get("clip_end"))
+    except Exception:
+        return
+    try:
+        segs = json.loads((pdir / "transcript.json").read_text(
+            encoding="utf-8-sig")).get("segments") or []
+    except (OSError, ValueError):
+        return
+    near = [x for x in segs if isinstance(x.get("start"), (int, float))
+            and a - SPEECH_AROUND <= float(x["start"]) <= z + SPEECH_AROUND]
+    print(f"\nspeech around the line ({a - SPEECH_AROUND:.0f}-"
+          f"{z + SPEECH_AROUND:.0f}s; >> = inside its window; "
+          f"[...] = not dialogue):")
+    for x in near[:40]:
+        t0 = float(x["start"])
+        why = sung.reason(pdir, t0, str(x.get("text") or ""))
+        print(f"  {'>>' if a <= t0 < z else '  '} {t0:7.1f}s "
+              + (f"[{why}] " if why else "")
+              + str(x.get("text") or "").strip()[:100])
 
 
 def _rederive(project: str, pdir: Path, force: bool = False,
