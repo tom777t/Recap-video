@@ -207,6 +207,7 @@ def _fill(s, i):
         t = "Arizona, " + t[0].lower() + t[1:]
     elif s.get("after_skip"):
         t = s["jump"].split(",")[0] + ", " + t[0].lower() + t[1:]
+    # (the opener is a suggestion; the fixture follows it)
     pl = ("loop" if s.get("opens_loop") else "judgment"
           if s["role"] == "reaction" else ("stake", "reasoning")[i % 2])
     return {"slot": s["slot"], "narration": t, "payload": pl,
@@ -697,11 +698,13 @@ def test_bridge_by_construction():
          f"jumps {[s['jump'] for s in marked]}"),
         (len({s['jump'] for s in marked}) == len(marked),
          "each bridge gets its own phrase"),
+        (all(__import__("pipeline.motif_gates", fromlist=["x"])._n_content(
+            j.split(",")[0].lower().split()) <= 1 for j in WS.JUMP_FORMS),
+         "every opener has <= 1 content word (no [TIC-REPETITION] when "
+         "openers recur over 27 skips)"),
         (not good["unbridged"], f"filled draft: {len(good['gaps'])} gap(s), "
                                 f"{len(good['unbridged'])} unbridged"),
-        # (a planned hold inside a seam bridges a gap on its own, so the
-        # known-bad may leave fewer than every gap open - at least one must)
-        (len(bad["unbridged"]) >= 1 and named,
+        (len(bad["unbridged"]) == len(runs) and named,
          f"without the jumps: {len(bad['unbridged'])} unbridged, each naming "
          f"the line after it"),
     ]

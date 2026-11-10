@@ -167,16 +167,20 @@ def _grief_beats(pdir: Path) -> list:
 # skip; the first line after it must tell the viewer story time passed.
 # One phrase per such slot, in rotation, so 20-odd bridges do not all say
 # "Later" ([TIC-REPETITION]). Each matches pipeline.draft.BRIDGE_JUMP.
+# Openers with AT MOST ONE content word: a 3-word phrase needs two to count
+# as a tic, so these can recur across 27 bridges without tripping
+# [TIC-REPETITION] ("The next morning" x3 did - review of f8901fe).
 JUMP_FORMS = ("Later, ...", "Meanwhile, ...", "That night, ...",
-              "By then, ...", "Before long, ...", "The next morning, ...",
-              "Days later, ...", "Soon enough, ...", "Eventually, ...",
-              "That week, ...")
+              "By then, ...", "Before long, ...", "Eventually, ...",
+              "The next day, ...", "By morning, ...", "That evening, ...",
+              "By now, ...", "That week, ...", "In the end, ...")
 
 
 def _mark_after_skip(slots: list, order: list, by: dict) -> None:
     has = {}
     for x in slots:
-        has.setdefault(x["beat"], []).append(x)
+        if x["role"] != "film_speaks":   # not in the draft until its stage
+            has.setdefault(x["beat"], []).append(x)
     run, n = 0, 0
     for _k, bid in order:
         b = by.get(bid) or {}
@@ -673,8 +677,9 @@ def slots_text(slots: list) -> str:
             + (f" FORM {s['form']}" if s.get("form") else "")
             + (" SAD-OK" if s.get("sad_ok") else "")
             + f" {s['clip_start']}-{s['clip_end']} | {band}"
-            + (f" | AFTER A SKIP: begin with \"{s['jump']}\" (story time "
-               f"passed)" if s.get("after_skip") else "")
+            + (f" | AFTER A SKIP: begin with a time jump - \"{s['jump']}\" "
+               f"or another one not used elsewhere (story time passed)"
+               if s.get("after_skip") else "")
             + (" | OPENS THE STORY: begin with a time or a place (\"Los "
                "Angeles.\", \"Three years earlier, ...\")"
                if s.get("transition") else "")
@@ -839,7 +844,8 @@ def line_deviations(ln: dict, s: dict) -> list:
         from pipeline.draft import BRIDGE_JUMP
         if not BRIDGE_JUMP.search(text):
             out.append(f"{s['slot']} comes AFTER A SKIP: tell the viewer time "
-                       f"passed - begin with \"{s.get('jump', 'Later, ...')}\"")
+                       f"passed - begin with a time jump such as "
+                       f"\"{s.get('jump', 'Later, ...')}\" (vary it)")
     if s.get("transition") and not CG._ANCHOR.match(text.strip()):
         out.append(f"{s['slot']} opens the story: begin with a time or a "
                    f"place - got {text.strip()[:40]!r}")

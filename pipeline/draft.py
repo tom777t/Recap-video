@@ -2091,7 +2091,7 @@ def bridge_audit(project, d, bc) -> dict:
         if sec is not None and (is_bridge or hold):
             bridges.append((sec, hold, getattr(ln, "id", None)))
         if sec is not None and narr.strip():
-            first_after.append((sec, getattr(ln, "id", None)))
+            first_after.append((sec, getattr(ln, "id", None), is_bridge))
 
     # every run of >=2 consecutive uncovered beats
     gaps = []
@@ -2128,8 +2128,16 @@ def bridge_audit(project, d, bc) -> dict:
         nxt2 = last_i + 2
         seam_hi = (ts_by_id[ordered[nxt2]] if nxt2 < len(ordered)
                    else g_end + 1e9) if last_i + 1 < len(ordered) else g_end
-        covering = [b for b in bridges if seam_lo <= b[0] <= seam_hi]
-        after = sorted(x for x in first_after if x[0] >= g_end - 1.0)
+        after = sorted((x for x in first_after if x[0] >= g_end - 1.0),
+                       key=lambda x: x[0])
+        # What bridges a gap, and only that: a HOLD inside the gap or at its
+        # seam, or the FIRST narrated line after it carrying the time jump
+        # (anywhere in the first covered beat). A hold or a "later" further
+        # into that beat - after five lines of an anchor - is not the viewer
+        # being told time passed at the jump (review of f8901fe).
+        covering = [b for b in bridges if b[1] and seam_lo <= b[0] <= g_end + 1.0]
+        if after and after[0][2] and after[0][0] <= seam_hi:
+            covering.append((after[0][0], False, after[0][1]))
         entry = {"beats": g, "start_sec": round(g_start, 1),
                  "end_sec": round(g_end, 1),
                  "mandatory_in_gap": has_mand,
