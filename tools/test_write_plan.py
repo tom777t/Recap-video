@@ -332,21 +332,30 @@ def test_resolve_slot_bound():
     dr = _resolve_fixture()
     d = PDIR / "draft.json.d"
     act = _j(d / "act1.json")
-    roles = {2: ("reaction", "eval"), 3: ("action", None), 4: ("bridge", None)}
+    roles = {2: ("reaction", "eval"), 3: ("action", None), 4: ("bridge", None),
+             6: ("hold", None)}       # every real draft has holds (it crashed)
     slots = []
     for i, ln in enumerate(act["lines"], 1):
         role, voice = roles.get(i, ("bridge", None))
         ln["slot"] = f"S{i:03d}"
         ln["payload"] = {"reaction": "judgment"}.get(role, "stake")
+        if role == "hold":
+            ln["narration"], ln["narration_silence_seconds"] = "", 3.0
+            ln["payload"] = "rest"
         if role == "reaction":
             ln["narration"] = "That's the whole price of the race, paid up front."
         if i == 3:      # an anchor ACTION that already reads as commentary
             ln["narration"] = "That's the whole race, and he floors it."
-        slots.append({"slot": ln["slot"], "act": 1, "beat": ln["note"],
-                      "role": role, "voice": voice, "anchor": i == 3,
-                      "peak": False, "band": "medium", "min_words": 1,
-                      "max_words": 30, "target": 8, "opens_loop": False,
-                      "clip_start": ln["clip_start"], "clip_end": ln["clip_end"]})
+        sl_ = {"slot": ln["slot"], "act": 1, "beat": ln["note"],
+               "role": role, "voice": voice, "anchor": i == 3,
+               "peak": False, "band": "medium", "min_words": 1,
+               "max_words": 30, "target": 8, "opens_loop": False,
+               "clip_start": ln["clip_start"], "clip_end": ln["clip_end"]}
+        if role == "hold":          # as derive_slots builds a hold: no band
+            sl_ = {k_: v for k_, v in sl_.items()
+                   if k_ not in ("band", "min_words", "max_words", "target")}
+            sl_["hold"] = 3.0
+        slots.append(sl_)
     (d / "act1.json").write_text(json.dumps(act))
     W._assemble(PROJ)
     _resolve_fixture_artifacts()
@@ -391,6 +400,8 @@ def test_resolve_slot_bound():
          "once the readers are answered, the draft gates' own findings "
          "come back as the next round"),
     ]
+    checks.append((rc != 1 and "API error" not in out,
+                   f"resolve runs to the end on a draft with a hold (rc {rc})"))
     bad = [w for ok, w in checks if not ok]
     return not bad, ("; ".join(w for _, w in checks) if not bad
                      else "FAILED: " + "; ".join(bad))
