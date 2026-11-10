@@ -368,6 +368,46 @@ def test_filmspeaks():
     return ok, f"inputs present, selection written, apply ran (rc {rc})"
 
 
+def test_by_hand():
+    """--by-hand: no API call; the request the API would get is written out
+    word for word, the agent's reply is read back and applied by the same
+    code; a stage that sends batches refuses the flag."""
+    sel = _j(SRC / "film_speaks_selection.json")
+    (PDIR / "film_speaks_selection.json").unlink(missing_ok=True)
+    shutil.rmtree(PDIR / "by_hand", ignore_errors=True)
+
+    def boom():
+        raise AssertionError("the API client was created")
+    TB.CLIENT_FACTORY = boom
+    buf = io.StringIO()
+    with redirect_stdout(buf):
+        rc1 = W.main(["filmspeaks", "--project", PROJ, "--by-hand"])
+    req = PDIR / "by_hand" / "filmspeaks.request.md"
+    want = W.filmspeaks_request(PDIR)
+    body = req.read_text(encoding="utf-8") if req.exists() else ""
+    same = (W._text_of(want["system"]) in body
+            and W._text_of(want["messages"][0]["content"]) in body)
+    nosel = not (PDIR / "film_speaks_selection.json").exists()
+    (PDIR / "by_hand" / "filmspeaks.reply.json").write_text(
+        "```json\n" + json.dumps(sel) + "\n```", encoding="utf-8")
+    buf2 = io.StringIO()
+    with redirect_stdout(buf2):
+        rc2 = W.main(["filmspeaks", "--project", PROJ, "--by-hand"])
+    applied = _j(PDIR / "film_speaks_selection.json") == sel \
+        if (PDIR / "film_speaks_selection.json").exists() else False
+    with redirect_stdout(io.StringIO()):
+        rc3 = W.main(["draft", "--project", PROJ, "--by-hand"])
+    W.BY_HAND = False
+    shutil.rmtree(PDIR / "by_hand", ignore_errors=True)
+    ok = (rc1 == 3 and same and nosel and rc2 in (0, 2) and applied
+          and rc3 == 1)
+    return ok, ("request written word for word, no client, exit 3; the "
+                "reply read back and applied; 'draft' refuses the flag"
+                if ok else f"rc {rc1}/{rc2}/{rc3} same {same} nosel {nosel} "
+                           f"applied {applied}: {buf.getvalue()[-200:]} "
+                           f"{buf2.getvalue()[-200:]}")
+
+
 def test_resume():
     _setup()
     shutil.rmtree(PDIR / "beats.json.d")
@@ -492,6 +532,7 @@ TESTS = {
     "GATE-PARSE":  test_gate_parse,
     "FINDING-IDS": test_finding_ids,
     "FILMSPEAKS":  test_filmspeaks,
+    "BY-HAND":     test_by_hand,
     "RESUME":      test_resume,
     "LEDGER":      test_ledger,
     "RUNPS1-WIRED": test_runps1_wired,

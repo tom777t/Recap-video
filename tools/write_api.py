@@ -188,7 +188,59 @@ def params(stage: str, system: list, user, model: str | None = None) -> dict:
 # --------------------------------------------------------------------------- #
 # calls: synchronous and batched, every one into the ledger
 # --------------------------------------------------------------------------- #
+BY_HAND = False      # --by-hand: no API; an agent answers the same request
+BY_HAND_OK = {"filmspeaks", "facts"}     # one request, one reply
+
+
+class ByHandWaiting(WriteError):
+    """--by-hand: the request is written out; the reply is not there yet."""
+
+
+def _text_of(content) -> str:
+    if isinstance(content, str):
+        return content
+    return "\n\n".join(str(b.get("text") or "") for b in content or []
+                       if isinstance(b, dict))
+
+
+def by_hand(pdir: Path, stage: str, p: dict):
+    """The request, word for word, as a file an agent reads; its reply, a
+    file this reads back as if the API had returned it. For when the API is
+    not available (no credit) - the agent does what the model would, and
+    nothing else: the same prompt, the same inputs, the same JSON out, and
+    the same code applies it."""
+    d = pdir / "by_hand"
+    d.mkdir(exist_ok=True)
+    req, rep = d / f"{stage}.request.md", d / f"{stage}.reply.json"
+    if rep.exists():
+        text = rep.read_text(encoding="utf-8-sig")
+        print(f"{stage}: --by-hand - using the reply in {rep}")
+        return {"content": [{"type": "text", "text": text}],
+                "stop_reason": "end_turn", "usage": {}}
+    req.write_text(
+        f"# {stage} - the request the API would get, word for word\n\n"
+        f"You are answering in place of the model (`{p.get('model')}`). Do "
+        f"exactly what the SYSTEM part says with the USER part's inputs, and "
+        f"nothing else: do not read or edit any other file, do not run code "
+        f"or git. Your whole answer is the JSON object asked for - write it, "
+        f"and only it, to:\n\n    {rep}\n\n"
+        f"---------------------------------------------------------------\n"
+        f"# SYSTEM\n\n{_text_of(p.get('system'))}\n\n"
+        f"---------------------------------------------------------------\n"
+        f"# USER\n\n"
+        + "\n\n".join(_text_of(m.get("content"))
+                       for m in p.get("messages") or [])
+        + "\n", encoding="utf-8")
+    raise ByHandWaiting(
+        f"--by-hand: the request is in {req}\n"
+        f"  1. give that file to the agent (e.g. OpenCode): it answers in "
+        f"place of the API and writes ONLY {rep}\n"
+        f"  2. run the same command again - it reads the reply and goes on")
+
+
 def call(client, pdir: Path, stage: str, p: dict, note: str | None = None):
+    if BY_HAND:
+        return by_hand(pdir, stage, p)
     msg = TB.create_message(client, **p)
     TB.ledger_append(pdir, stage, p["model"], TB.usage_of(msg), batch=False,
                      note=note)
@@ -1781,12 +1833,28 @@ def main(argv=None) -> int:
     ap.add_argument("--no-wait", action="store_true",
                     help="submit / check a batch and return (exit 3 if running)")
     ap.add_argument("--poll", type=float, default=30.0)
+    ap.add_argument("--by-hand", action="store_true",
+                    help="no API: write the request for an agent to answer "
+                         "(by_hand/<stage>.request.md) and read its reply "
+                         "(by_hand/<stage>.reply.json). filmspeaks / facts "
+                         "only (one request, one reply)")
     a = ap.parse_args(argv)
+    global BY_HAND
+    BY_HAND = bool(a.by_hand)
+    if BY_HAND and a.cmd not in BY_HAND_OK:
+        print(f"write_api {a.cmd}: --by-hand works for "
+              f"{', '.join(sorted(BY_HAND_OK))} only (this stage sends "
+              f"batches / several calls)")
+        return 1
     try:
-        client = None if a.cmd == "estimate" else TB.CLIENT_FACTORY()
+        client = None if a.cmd == "estimate" or BY_HAND \
+            else TB.CLIENT_FACTORY()
         return CMDS[a.cmd](a, client)
     except BatchRunning as e:
         print(f"{e} - run the same command again later")
+        return 3
+    except ByHandWaiting as e:
+        print(str(e))
         return 3
     except TB.TagBatchError as e:
         print(str(e))
