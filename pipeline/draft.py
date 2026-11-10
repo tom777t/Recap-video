@@ -2684,7 +2684,20 @@ def _run_phase1_audits(project, pdir):
         _fs_bad = _fsmod.audit(project, _raw)
         _fs_n = len([ln for ln in _raw.get("lines") or []
                      if ln.get("film_speaks_seconds") is not None])
-        if _fs_bad:
+        # Zero units BEFORE the filmspeaks stage has run is not a defect of
+        # the draft: that stage runs after the DUYET DRAFT checkpoint and
+        # writes film_speaks_selection.json. Hard here made the draft stage
+        # unpassable for every new film (Furious 7 was the first). Once the
+        # selection exists, zero is hard again - the 17-minute film that
+        # shipped with no units is still caught (run.ps1 8b re-runs this).
+        _pre_stage = (_fs_n == 0 and not (config.project_dir(project)
+                      / "film_speaks_selection.json").exists())
+        if _fs_bad and _pre_stage and all(
+                b.startswith("[FILM-SPEAKS-COUNT]") for b in _fs_bad):
+            console.print("[yellow][FILM-SPEAKS][/] 0 units yet - the "
+                          "filmspeaks stage (after DUYET DRAFT) selects 2-3; "
+                          "it blocks there if none are chosen.")
+        elif _fs_bad:
             console.print(f"[red][FILM-SPEAKS][/] {len(_fs_bad)} problem(s):")
             for _b in _fs_bad:
                 console.print(f"    {_b}")

@@ -583,6 +583,61 @@ def test_review_defects():
                      else "FAILED: " + "; ".join(bad))
 
 
+def test_sad_budget_and_relabel():
+    """[TONE-BUDGET] by construction (Furious 7 came back 32.8% `sad`):
+    a writer that marks every line sad gets sad only on SAD-OK slots, within
+    the budget; and fix_line --relabel brings an already-written draft back
+    under it without touching a word."""
+    import io
+    from contextlib import redirect_stdout
+    import fix_line as FL
+    plan, ab, slots = _layout()
+    cap = int(float(config.TONE_SAD_MAX_FRACTION) * (len(slots) + 1))
+    ok_slots = [s for s in slots if s.get("sad_ok")]
+    lines = []
+    for k in sorted(ab):
+        mine = WS.slots_for_act(slots, k)
+        rep = [dict(_fill(s, i), delivery="sad") for i, s in enumerate(mine)
+               if s["role"] not in ("hold", "film_speaks")]
+        lines += WS.merge(rep, slots, k)
+    sad = sum(1 for l in lines if l.get("delivery") == "sad")
+    ok1 = len(ok_slots) <= cap and sad <= cap
+    # relabel an already-written draft
+    test_draft_slots()
+    dj = PDIR / "draft.json"
+    if not dj.exists():
+        return False, "DRAFT-SLOTS left no draft.json to relabel"
+    d = json.loads(dj.read_text(encoding="utf-8"))
+    words = [l.get("narration") for l in d["lines"]]
+    for l in d["lines"]:
+        if l.get("narration") and l.get("slot"):     # the hook is code's
+            l["delivery"] = "sad"
+    dj.write_text(json.dumps(d), encoding="utf-8")
+    for f in (PDIR / "draft.json.d").glob("act*.json"):
+        o = json.loads(f.read_text(encoding="utf-8"))
+        for l in o["lines"]:
+            if l.get("narration") and l.get("slot"):
+                l["delivery"] = "sad"
+        f.write_text(json.dumps(o), encoding="utf-8")
+    p = json.loads((PDIR / "plan.json").read_text(encoding="utf-8"))
+    p["slots_version"] = 1
+    (PDIR / "plan.json").write_text(json.dumps(p), encoding="utf-8")
+    buf = io.StringIO()
+    with redirect_stdout(buf):
+        FL.main(["--project", PROJ, "--relabel"])
+    d2 = json.loads(dj.read_text(encoding="utf-8"))
+    sad2 = sum(1 for l in d2["lines"] if l.get("delivery") == "sad")
+    ok2 = (sad2 <= cap and [l.get("narration") for l in d2["lines"]] == words
+           and "re-derived" in buf.getvalue())
+    checks = [(ok1, f"all-sad writer -> {sad} sad line(s), cap {cap}, "
+                    f"{len(ok_slots)} SAD-OK slot(s)"),
+              (ok2, f"--relabel: {sad2} sad after (cap {cap}), text "
+                    f"unchanged, slots re-derived")]
+    bad = [w for ok, w in checks if not ok]
+    return not bad, ("; ".join(w for _, w in checks) if not bad
+                     else "FAILED: " + "; ".join(bad))
+
+
 TESTS = {
     "SLOT-LAYOUT":           test_slot_layout,
     "WINDOWS-BY-CODE":       test_windows_by_code,
@@ -594,6 +649,7 @@ TESTS = {
     "DRAFT-CONSERVATION":    test_draft_conservation,
     "SEQUENCE-RULES":        test_sequence_rules,
     "REVIEW-DEFECTS":        test_review_defects,
+    "SAD-BUDGET-RELABEL":    test_sad_budget_and_relabel,
 }
 
 if __name__ == "__main__":

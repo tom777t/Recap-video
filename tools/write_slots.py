@@ -42,7 +42,7 @@ ROLES = ("intro", "action", "quote", "reaction", "bridge", "outro", "hold",
 # Bumped whenever derive_slots changes what it builds: a plan.json whose slots
 # carry an older version is re-derived (write_api.cmd_draft), so a fix here
 # reaches a project that already has a plan without re-buying the plan.
-SLOTS_VERSION = 6
+SLOTS_VERSION = 7
 # [INTRO-OUTRO] / [FILM-INTRO]: the draft opens with the channel greeting and
 # the film's facts, and closes on a thesis then a call to action. These are
 # slots too - the first real film came back with no <intro> line at all.
@@ -137,6 +137,44 @@ def _anchors(pdir: Path) -> tuple:
              if any(w in f"{a.get('kind', '')} {a.get('why', '')}".lower()
                     for w in PEAK_WORDS)}
     return beats, peaks
+
+
+# [TONE-BUDGET]: `sad` is for real loss or grief, at most
+# TONE_SAD_MAX_FRACTION of the lines. Which anchors are grief is in the
+# angle's own words; the writer picks `sad` freely and Furious 7 came back
+# 32.8% sad. Code decides where it may go.
+GRIEF_WORDS = ("death", "dies", "die ", "dead", "funeral", "grief", "griev",
+               "mourn", "loss", "farewell", "goodbye", "burial", "killed",
+               "bereave", "tribute")
+
+
+def _grief_beats(pdir: Path) -> list:
+    """Anchor beats whose kind or why names a loss, in the angle's order."""
+    from pipeline import angle_spec
+    try:
+        an = angle_spec.load(pdir).get("anchors") or []
+    except Exception:
+        an = []
+    out = []
+    for a in an:
+        txt = f"{a.get('kind', '')} {a.get('why', '')} ".lower()
+        if any(w in txt for w in GRIEF_WORDS):
+            out += [b for b in a.get("beats") or [] if b not in out]
+    return out
+
+
+def _sad_budget(slots: list, pdir: Path) -> None:
+    """Mark sad_ok on narrated slots of grief anchors, up to the budget."""
+    cap = int(float(getattr(config, "TONE_SAD_MAX_FRACTION", 0.05))
+              * (len(slots) + 1))
+    for b in _grief_beats(pdir):
+        for x in slots:
+            if cap <= 0:
+                return
+            if x["beat"] == b and x["role"] not in ("hold", "film_speaks",
+                                                    "intro"):
+                x["sad_ok"] = True
+                cap -= 1
 
 
 def _anchor_inner_beats(pdir: Path) -> set:
@@ -444,6 +482,7 @@ def derive_slots(plan: dict, project: str, pdir: Path, ab: dict) -> dict:
                                 f"{cap} words, under the {OUTRO_WORDS[0]} an "
                                 f"outro needs - it will run over its window")
     _voice_budget(slots)
+    _sad_budget(slots, pdir)
     for s in slots:
         if s["role"] == "hold":
             s["hold"] = round(max(HOLD_SEC[0], min(HOLD_SEC[1],
@@ -599,6 +638,7 @@ def slots_text(slots: list) -> str:
             f"- {s['slot']} {s['beat']} {s['role'].upper()}"
             + (f" ({s['voice'].upper()})" if s.get("voice") else "")
             + (f" FORM {s['form']}" if s.get("form") else "")
+            + (" SAD-OK" if s.get("sad_ok") else "")
             + f" {s['clip_start']}-{s['clip_end']} | {band}"
             + (" | OPENS THE STORY: begin with a time or a place (\"Los "
                "Angeles.\", \"Three years earlier, ...\")"
@@ -650,6 +690,9 @@ def writer_brief(pdir: Path, plan: dict, k: int) -> str:
         '"claim": {"type": "speech", "subject": "<the speaker>"}; claim.type '
         "is never a shot tag such as aftermath / establishing / montage.",
         _intro_brief(pdir, plan, k),
+        "- delivery `sad` only on slots marked SAD-OK (real loss or grief); "
+        "everywhere else it becomes normal - a tense scene is `tense`, a "
+        "setback is not sad.",
         "- REACTION (VOICE) slots: the narrator speaks - exactly ONE of: "
         "I / I'm, you / your, a question to the viewer, or honestly / "
         "frankly / of course / apparently / somehow / obviously / "
@@ -885,6 +928,8 @@ def code_labels(new: dict, s: dict) -> dict:
         new["delivery"] = "outro"
     elif new.get("delivery") in ("intro", "outro", "hook"):
         new["delivery"] = "normal"
+    elif new.get("delivery") == "sad" and not s.get("sad_ok"):
+        new["delivery"] = "normal"      # sad is budgeted to grief anchors
     if s["role"] in ("reaction", "outro"):
         new["payload"] = "judgment"
     elif s.get("opens_loop"):
