@@ -906,6 +906,11 @@ def run_gates(project: str) -> tuple:
                        env=env)
     out = r.stdout + r.stderr
     finds, on = [], False
+    # the Phase-1 audit prints some hard findings only to the console and
+    # then exits with "Audit failed hard"; [BRIDGE] names the line after
+    # each unbridged gap, so resolve can be pointed at it
+    finds += [ln.strip() for ln in out.splitlines()
+              if ln.startswith("[BRIDGE] beats") and "the line after it" in ln]
     for ln in out.splitlines():
         if ln.startswith("draft.json has problems:"):
             on = True

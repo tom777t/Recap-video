@@ -205,6 +205,8 @@ def _fill(s, i):
                  "is", "now", "due", "tonight"] * 3)[:n], s) + "."
     if s.get("transition"):
         t = "Arizona, " + t[0].lower() + t[1:]
+    elif s.get("after_skip"):
+        t = s["jump"].split(",")[0] + ", " + t[0].lower() + t[1:]
     pl = ("loop" if s.get("opens_loop") else "judgment"
           if s["role"] == "reaction" else ("stake", "reasoning")[i % 2])
     return {"slot": s["slot"], "narration": t, "payload": pl,
@@ -639,6 +641,75 @@ def test_sad_budget_and_relabel():
                      else "FAILED: " + "; ".join(bad))
 
 
+def test_bridge_by_construction():
+    """[BRIDGE] (Furious 7: 27 skipped stretches, none recognised): with two
+    runs of beats the plan skips, the slot after each opens with its own time
+    jump, and bridge_audit on the filled draft finds every gap bridged. The
+    same draft without the jumps is caught (known-bad), and each finding
+    names the line after the gap so resolve can be pointed at it."""
+    import copy
+    import write_api as W
+    import write_plan as WP
+    from pipeline import draft as D, schemas
+    plan, ab, _sl = _layout()
+    p2 = copy.deepcopy(plan)
+    mand = set(json.loads((PDIR / "coverage_policy.json").read_text(
+        encoding="utf-8-sig")).get("mandatory") or [])
+    beats = [b for b in p2["beats"]]
+    runs, i = [], 1
+    while i + 2 < len(beats) and len(runs) < 2:
+        a, b, c = beats[i], beats[i + 1], beats[i + 2]
+        if not ({a["beat"], b["beat"]} & mand) and c.get("lines"):
+            a["lines"] = b["lines"] = 0
+            a["footage"] = b["footage"] = False
+            runs.append((a["beat"], b["beat"]))
+            i += 6
+        else:
+            i += 1
+    slots = WS.derive_slots(p2, PROJ, PDIR, ab)["slots"]
+    marked = [s for s in slots if s.get("after_skip")]
+    lines = [WP.hook_line(p2)]
+    for k in sorted(ab):
+        mine = WS.slots_for_act(slots, k)
+        lines += WS.merge([_fill(s, i) for i, s in enumerate(mine)
+                           if s["role"] not in ("hold", "film_speaks")],
+                          slots, k)
+    for n, ln in enumerate(lines, 1):
+        ln["id"] = n
+
+    def audit(ls):
+        d = schemas.Draft(project=PROJ, lines=[schemas.Line(
+            id=l["id"], narration=l.get("narration") or "",
+            clip_start=l.get("clip_start"), clip_end=l.get("clip_end"),
+            narration_silence_seconds=l.get("narration_silence_seconds"))
+            for l in ls if l.get("clip_start") or l.get("narration")])
+        return D.bridge_audit(PROJ, d, D.beat_coverage(PROJ, d))
+    good = audit(lines)
+    bad_lines = copy.deepcopy(lines)
+    for l in bad_lines:
+        if l.get("slot") in {s["slot"] for s in marked}:
+            l["narration"] = l["narration"].split(", ", 1)[-1]
+    bad = audit(bad_lines)
+    named = all(g.get("line_after") is not None for g in bad["unbridged"])
+    checks = [
+        (len(runs) == 2 and len(marked) >= 2,
+         f"{len(runs)} skipped run(s) -> {len(marked)} AFTER-A-SKIP slot(s), "
+         f"jumps {[s['jump'] for s in marked]}"),
+        (len({s['jump'] for s in marked}) == len(marked),
+         "each bridge gets its own phrase"),
+        (not good["unbridged"], f"filled draft: {len(good['gaps'])} gap(s), "
+                                f"{len(good['unbridged'])} unbridged"),
+        # (a planned hold inside a seam bridges a gap on its own, so the
+        # known-bad may leave fewer than every gap open - at least one must)
+        (len(bad["unbridged"]) >= 1 and named,
+         f"without the jumps: {len(bad['unbridged'])} unbridged, each naming "
+         f"the line after it"),
+    ]
+    bad_ = [w for ok, w in checks if not ok]
+    return not bad_, ("; ".join(w for _, w in checks) if not bad_
+                      else "FAILED: " + "; ".join(bad_))
+
+
 TESTS = {
     "SLOT-LAYOUT":           test_slot_layout,
     "WINDOWS-BY-CODE":       test_windows_by_code,
@@ -651,6 +722,7 @@ TESTS = {
     "SEQUENCE-RULES":        test_sequence_rules,
     "REVIEW-DEFECTS":        test_review_defects,
     "SAD-BUDGET-RELABEL":    test_sad_budget_and_relabel,
+    "BRIDGE-BY-CONSTRUCTION": test_bridge_by_construction,
 }
 
 if __name__ == "__main__":

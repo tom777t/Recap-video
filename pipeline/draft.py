@@ -2035,6 +2035,16 @@ def _coverage_policy(project) -> set:
     return {str(b).upper() for b in data.get("mandatory", [])}
 
 
+# The phrases that tell a viewer story time passed - [BRIDGE]'s own test,
+# and what tools/write_slots.py asks the slot after a skip to open with.
+BRIDGE_JUMP = re.compile(
+    r"\b(later|next (morning|day|night|week)|the next|days? later|"
+    r"weeks? later|months? later|long story short|by (morning|now|then)|"
+    r"soon(er)? enough|before long|in the end|eventually|meanwhile|"
+    r"and a lot of|fast forward|skip ahead|that (night|evening|week))\b",
+    re.IGNORECASE)
+
+
 def bridge_audit(project, d, bc) -> dict:
     """[BRIDGE]: no SKIPPED stretch may leave an unexplained jump in the story.
 
@@ -2064,13 +2074,9 @@ def bridge_audit(project, d, bc) -> dict:
     ts_by_id = {bid: t for bid, t in bounds}
 
     # line positions (clip_start seconds) + which carry a bridge / hold
-    _JUMP = _re.compile(
-        r"\b(later|next (morning|day|night|week)|the next|days? later|"
-        r"weeks? later|months? later|long story short|by (morning|now|then)|"
-        r"soon(er)? enough|before long|in the end|eventually|meanwhile|"
-        r"and a lot of|fast forward|skip ahead|that (night|evening|week))\b",
-        _re.IGNORECASE)
+    _JUMP = BRIDGE_JUMP
     bridges = []    # (sec, is_hold)
+    first_after = []                       # (sec, id) of every bound line
     for ln in d.lines:
         cs = getattr(ln, "clip_start", None)
         sec = None
@@ -2084,6 +2090,8 @@ def bridge_audit(project, d, bc) -> dict:
         is_bridge = bool(getattr(ln, "bridge", False)) or bool(_JUMP.search(narr))
         if sec is not None and (is_bridge or hold):
             bridges.append((sec, hold, getattr(ln, "id", None)))
+        if sec is not None and narr.strip():
+            first_after.append((sec, getattr(ln, "id", None)))
 
     # every run of >=2 consecutive uncovered beats
     gaps = []
@@ -2110,14 +2118,23 @@ def bridge_audit(project, d, bc) -> dict:
         # a bridge/hold counts if it sits inside the gap OR within one beat of
         # either seam (a "two weeks later" line lands on the first beat AFTER
         # the gap; a hold sits inside it).
-        pad = 0.0
+        # The seam runs to the END of the first covered beat after the gap:
+        # "a bridge line lands on the first beat AFTER the gap" (the docstring
+        # and the brief both say so), but the check used to stop 1 s past
+        # that beat's START - a bridge line bound a few seconds into the beat
+        # (every slot-written line is) never counted. First real skipping
+        # draft: Furious 7, 27 gaps, none recognised.
         seam_lo = g_start - 1.0
-        seam_hi = g_end + 1.0
+        nxt2 = last_i + 2
+        seam_hi = (ts_by_id[ordered[nxt2]] if nxt2 < len(ordered)
+                   else g_end + 1e9) if last_i + 1 < len(ordered) else g_end
         covering = [b for b in bridges if seam_lo <= b[0] <= seam_hi]
+        after = sorted(x for x in first_after if x[0] >= g_end - 1.0)
         entry = {"beats": g, "start_sec": round(g_start, 1),
                  "end_sec": round(g_end, 1),
                  "mandatory_in_gap": has_mand,
-                 "bridged_by": [b[2] for b in covering]}
+                 "bridged_by": [b[2] for b in covering],
+                 "line_after": after[0][1] if after else None}
         out_gaps.append(entry)
         # A gap with a mandatory beat is a BEAT-COVERAGE failure, not a bridge
         # failure - don't double-report it here.
@@ -2893,7 +2910,10 @@ def _run_phase1_audits(project, pdir):
                         f"[red][BRIDGE][/] beats {g['beats'][0]}-"
                         f"{g['beats'][-1]} ({g['start_sec']:.0f}-"
                         f"{g['end_sec']:.0f}s) are skipped with no bridge line "
-                        f"and no hold at the seam. A skipped stretch must not "
+                        f"and no hold at the seam"
+                        + (f" (the line after it: line {g['line_after']})"
+                           if g.get("line_after") is not None else "")
+                        + ". A skipped stretch must not "
                         f"teleport the story: add one voiced bridge ('Two weeks "
                         f"and a lot of crashed cars later, ...') landing just "
                         f"after it, or a narration_silence_seconds hold inside.")
