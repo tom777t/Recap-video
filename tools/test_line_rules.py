@@ -11,12 +11,20 @@ more round for the user, as with every misspelt name and lyric before it.
                       reports, on every real draft in projects/
   LINE-RULES          a phrase shared with another line, a misspelt listed
                       name and a quoted song are each named; quoted words
-                      and names are not counted; a clean line has none
+                      and names are not counted; a clean line has none; a
+                      repeat the line already had is not refused again
   FIX-LINE-REFUSES    fix_line: a tic text is refused before writing; a text
                       that breaks a gate the per-line rules do not cover is
                       written, found by the gates, and UNDONE byte for byte
   RESOLVE-REFUSES     resolve: a rewrite that repeats another line's phrase
-                      is not saved, and goes back to the reviser with why
+                      is not saved, and goes back to the reviser with why;
+                      a rewrite taking a phrase another rewrite of the same
+                      round gives up is saved, whatever the order
+  GUARD-BY-LINE       fix_line's after-save check is per gate and per line:
+                      closing this line's finding inside an aggregate
+                      message is not "new"; a gate newly naming this line is,
+                      even if another line had it; a fitting fix on a draft
+                      with other open findings is SAVED
 
 Run:  python tools/test_line_rules.py      (exit 0 = all pass)
 """
@@ -65,8 +73,24 @@ def test_tic_same_as_gate():
         if mine != rep.get("repeated_ngrams"):
             bad.append(f"{d.name}: helper {mine}, gate "
                        f"{rep.get('repeated_ngrams')}")
+        # and line by line: for each phrase the gate names, line_rules
+        # (given every other line) names the same lines
+        by_id = {str(x.get("id")): x for x in lines}
+        for ph, _k, ids in rep.get("top_repeated") or []:
+            for lid in ids[:3]:
+                ln = by_id.get(str(lid))
+                if ln is None:
+                    continue
+                probe = [dict(x, narration="") if x is ln else x
+                         for x in lines]
+                got = LR.problems(d, probe, lid, ln["narration"])
+                if not any(f'"{ph}"' in g for g in got):
+                    bad.append(f"{d.name} line {lid}: gate names \"{ph}\", "
+                               f"line_rules does not ({got[:2]})")
     return (not bad and n > 0), (f"{n} real drafts: the helper counts the "
-                                 f"gate's repeated phrases exactly" if not bad
+                                 f"gate's repeated phrases exactly, and "
+                                 f"line_rules names them on the gate's "
+                                 f"lines" if not bad
                                  else "; ".join(bad[:4]))
 
 
@@ -94,6 +118,13 @@ def test_line_rules():
     nmok = LR.problems(pdir, lines, 2, f"{wrong} waits at the track.")
     clean = LR.problems(pdir, lines, 2, "A new car waits at the track.")
     self_ = LR.problems(pdir, lines, 1, lines[0]["narration"])
+    # a line that ALREADY shares a phrase keeps it in a rewrite: not new
+    lines3 = lines + [{"id": 3, "narration": "Then the garage door slams "
+                                            "and nobody moves at all."}]
+    keeps = LR.problems(pdir, lines3, 3, "Again the garage door slams; "
+                                          "nobody moves.")
+    adds = LR.problems(pdir, lines3, 3, "The garage door slams behind the "
+                                         "crew once more.")
     checks = [
         (any("[TIC-REPETITION]" in x and "line(s) 1" in x for x in tic),
          f"shared phrase named ({tic[:1]})"),
@@ -101,6 +132,9 @@ def test_line_rules():
         (any("[NAME-SPELLING]" in x for x in nmok), f"'{wrong}' named"),
         (not clean and not self_, "a clean line, and a line against its own "
                                   "old text, pass"),
+        (not keeps and any("[TIC-REPETITION]" in x for x in adds),
+         f"an old repeat kept is not refused, a new one is ({keeps}, "
+         f"{adds[:1]})"),
     ]
     bad = [w for ok, w in checks if not ok]
     return not bad, ("; ".join(w for _, w in checks) if not bad
@@ -168,39 +202,122 @@ def test_fix_line_refuses():
                 f"guard rc {rc2} same {same2}: {buf2.getvalue()[-400:]}")
 
 
-def test_resolve_refuses():
-    TWP = _fixture()
+def _resolve_with(TWP, W, rewrites: list):
+    """The resolve fixture with line 3 holding "garage door slams"; the
+    reviser answers every finding and sends `rewrites`."""
     TWP._resolve_fixture()
-    import write_api as W
+    act = TWP.PDIR / "draft.json.d" / "act1.json"
+    o = json.loads(act.read_text(encoding="utf-8"))
+    o["lines"][2]["narration"] = "The garage door slams shut at dawn."
+    act.write_text(json.dumps(o), encoding="utf-8")
+    W._assemble(TWP.PROJ)
+    TWP._resolve_fixture_artifacts()
 
     def reply(cid, p):
         body = p["messages"][0]["content"]
         keys = [x.split(" | ")[0] for x in
                 body.split("# OPEN FINDINGS")[1].strip().splitlines()
                 if x.startswith(("F", "G"))]
-        return TWP.msg({"lines": [
-            {"id": 4, "narration": "Original sentence number nine, told "
-                                     "once more about the cars."}],
-            "responses": [{"key": k, "status": "ANSWERED",
-                           "text": "kept as written for this test"}
-                          for k in keys]})
+        return TWP.msg({"lines": rewrites, "responses": [
+            {"key": k, "status": "ANSWERED", "text": "kept for this test"}
+            for k in keys]})
     c = TWP.Client(None, reply)
     real_gf = W.gate_findings
     W.gate_findings = lambda project, wide=None: []
     try:
-        rc, out = TWP._run(c, "resolve", "--project", TWP.PROJ)
+        _rc, out = TWP._run(c, "resolve", "--project", TWP.PROJ)
     finally:
         W.gate_findings = real_gf
     t = {l["id"]: l["narration"] for l in TWP._j(
         TWP.PDIR / "draft.json")["lines"]}
     again = (c.batches[1][0]["params"]["messages"][0]["content"]
              if len(c.batches) > 1 else "")
-    ok = (t[4].startswith("Original sentence number 4")
-          and "NOT saved" in out and "[TIC-REPETITION]" in out
-          and "[TIC-REPETITION]" in again)
+    return t, out, again
+
+
+def test_resolve_refuses():
+    TWP = _fixture()
+    import write_api as W
+    take = {"id": 4, "narration": "Again the garage door slams on them."}
+    give = {"id": 3, "narration": "A quiet dawn settles over the city."}
+    t, out, again = _resolve_with(TWP, W, [take])
+    ok1 = (t[4].startswith("Original sentence number 4")
+           and "NOT saved" in out and "[TIC-REPETITION]" in out
+           and "[TIC-REPETITION]" in again)
+    # order: line 4 takes the phrase line 3 gives up IN THE SAME ROUND,
+    # line 4 listed first - both saved
+    t2, out2, _a = _resolve_with(TWP, W, [take, give])
+    ok2 = (t2[4] == take["narration"] and t2[3] == give["narration"]
+           and "line 4 NOT saved" not in out2)      # in the FIRST round
+    ok = ok1 and ok2
     return ok, ("a rewrite repeating another line's phrase is not saved and "
-                "goes back with why" if ok else
-                f"line 4 now {t[4]!r}; out {out[-400:]}")
+                "goes back with why; one taking a phrase another rewrite "
+                "gives up is saved, listed first" if ok else
+                f"alone: line 4 {t[4]!r}; with line 3: {t2.get(4)!r} / "
+                f"{t2.get(3)!r}; {out[-250:]} || {out2[-250:]}")
+
+
+def test_guard_by_line():
+    import fix_line as FL
+    agg_b = "[COLD-READ] 2 of 40 finding(s) UNRESOLVED: clarity@38, clarity@91"
+    agg_a = "[COLD-READ] 1 of 40 finding(s) UNRESOLVED: clarity@91"
+    sp_b = "[SAME-POINT] 2 of 9 candidate pair(s): 42+43; 56+57"
+    tic_b = '[TIC-REPETITION] 1 phrase(s): "a b c" x2 (lines 61, 47)'
+    tic_a = '[TIC-REPETITION] 1 phrase(s): "d e f" x2 (lines 61, 14)'
+    cases = [
+        (FL._new_errors([agg_b, sp_b], [agg_a, sp_b.replace("2 of", "1 of")],
+                        "38") == [], "closing this line's finding inside an "
+                                     "aggregate is not a new error"),
+        (FL._new_errors(["[X] line 12 carries narration"],
+                        ["[X] line 12 carries narration",
+                         "[X] line 40 carries narration"], "40") ==
+         ["[X] line 40 carries narration"],
+         "a gate newly naming THIS line is new, though another line had it"),
+        (FL._new_errors([tic_b], [tic_a], "61") == [],
+         "a gate that already named the line is not new"),
+        (FL._new_errors([], ["Audit failed hard: 1 BINDING-VIOLATION(s)"],
+                        "5") == [], "an error naming no line is not judged"),
+    ]
+    bad = [w for ok, w in cases if not ok]
+    if bad:
+        return False, "FAILED: " + "; ".join(bad)
+    # end to end: a fitting fix is SAVED on a draft whose gates already
+    # report other findings (aggregate messages that shrink with it)
+    TWS = _slot_draft()
+    import write_api as W
+    pdir = TWS.PDIR
+    owner = W.act_of_lines(pdir)
+    slot_of = W.slots_of_lines(pdir, owner)
+    d = json.loads((pdir / "draft.json").read_text(encoding="utf-8"))
+    tgt = next(l for l in d["lines"] if str(l["id"]) in slot_of
+               and slot_of[str(l["id"])]["role"] == "action"
+               and not any(slot_of[str(l["id"])].get(k) for k in (
+                   "transition", "anchor", "peak", "after_skip",
+                   "opens_loop")))
+    w = tgt["narration"].split()
+    w[2] = "quietly"
+    text = " ".join(w)
+    lid = str(tgt["id"])
+    seq = iter([(1, [f"[COLD-READ] 2 of 40 UNRESOLVED: clarity@{lid}, "
+                     f"clarity@3", "[SAME-POINT] 1 of 9 pair(s): 5+6"]),
+                (1, ["[COLD-READ] 1 of 40 UNRESOLVED: clarity@3",
+                     "[SAME-POINT] 1 of 9 pair(s): 5+6"])])
+    real = W.run_gates
+    W.run_gates = lambda project: next(seq)
+    buf = io.StringIO()
+    try:
+        with redirect_stdout(buf):
+            rc = FL.main(["--project", TWS.PROJ, "--line", lid, "--text",
+                          text])
+    finally:
+        W.run_gates = real
+    now = next(l["narration"] for l in json.loads(
+        (pdir / "draft.json").read_text(encoding="utf-8"))["lines"]
+        if str(l["id"]) == lid)
+    ok = now == text and "saved" in buf.getvalue()
+    return ok, ("per gate and per line, not by message text; a fix is kept "
+                "on a draft that already has other findings" if ok else
+                f"rc {rc}: {buf.getvalue()[-400:]}")
 
 
 TESTS = {
@@ -208,6 +325,7 @@ TESTS = {
     "LINE-RULES": test_line_rules,
     "FIX-LINE-REFUSES": test_fix_line_refuses,
     "RESOLVE-REFUSES": test_resolve_refuses,
+    "GUARD-BY-LINE": test_guard_by_line,
 }
 
 if __name__ == "__main__":

@@ -189,7 +189,7 @@ def main(argv=None) -> int:
             print(f"  - {b}")
         return 2
     print("fix_line: checking the draft gates before saving ...")
-    _rc0, before = W.run_gates(a.project)
+    rc0, before = W.run_gates(a.project)
     snap = _snapshot(pdir)
     note = a.note.strip() or (f"rewritten by hand: "
                               f"'{old.get('narration')}' -> '{text}'")
@@ -206,9 +206,16 @@ def main(argv=None) -> int:
         print("fix_line: " + "; ".join(rejects))
     edits = {lid: {f: new[f] for f in ("payload", "delivery")
                    if new.get(f) != old.get(f)}} if sl is not None else {}
-    W.write_back(pdir, draft, by_id, owner, edits, changes, entries)
-    rc, errs = W.run_gates(a.project)
+    try:
+        W.write_back(pdir, draft, by_id, owner, edits, changes, entries)
+        rc, errs = W.run_gates(a.project)
+    except BaseException:
+        _restore(snap)                  # never half-saved
+        raise
     broke = _new_errors(before, errs, lid)
+    if rc not in (0, rc0) and not errs and not broke:
+        broke = [f"the draft gates exited {rc} (before: {rc0}) and reported "
+                 f"nothing readable - not saved on an unknown result"]
     if broke:
         # every gate, not only the per-line ones: the change is undone,
         # byte for byte, and nothing is left half-saved
@@ -231,10 +238,12 @@ def main(argv=None) -> int:
 
 
 def _snapshot(pdir: Path) -> dict:
-    """The bytes of every file write_api.write_back may change."""
+    """The bytes of every file write_api.write_back may change, and the
+    readable script the gate run rewrites."""
     import write_plan as WP
-    files = [pdir / "draft.json"] + sorted((pdir / "draft.json.d").glob(
-        "act*.json")) + [pdir / a for a in WP.ARTIFACTS]
+    files = [pdir / "draft.json", pdir / "script.txt"] + sorted(
+        (pdir / "draft.json.d").glob("act*.json")) + \
+        [pdir / a for a in WP.ARTIFACTS]
     return {f: (f.read_bytes() if f.exists() else None) for f in files}
 
 
@@ -246,24 +255,29 @@ def _restore(snap: dict) -> None:
             f.write_bytes(b)
 
 
-def _err_key(e: str) -> str:
+def _tag(e: str) -> str:
     import re
-    return re.sub(r"\d+(?:\.\d+)?", "#", e)
+    m = re.match(r"\s*\[([A-Z][A-Z0-9-]+)\]", e)
+    return m.group(1) if m else ""
 
 
 def _new_errors(before: list, after: list, lid: str) -> list:
-    """Hard errors the change brought: not there before (numbers aside), and
-    naming this line - or naming no line at all (a draft-wide one)."""
+    """Hard errors the change brought ON THIS LINE: a gate that now names
+    the line and did not name it before.
+
+    Per gate and per line, never by message text: the gates write one
+    message for many items ("UNRESOLVED: clarity@38, clarity@91",
+    "42+43; 56+57", every repeated phrase in one [TIC-REPETITION]), so its
+    text changes whenever ANY item does - and closing this line's finding
+    read as a new error (review of 341ffca). Errors naming no line are not
+    judged here (the run before and after may not even reach the same
+    stages: draft.py stops before its audits while validation fails)."""
     import write_api as W
-    had = {_err_key(e) for e in before}
-    out = []
-    for e in after:
-        if _err_key(e) in had:
-            continue
-        ids = {str(i) for i in W.finding_ids(e)}
-        if not ids or str(lid) in ids:
-            out.append(e)
-    return out
+    had = {_tag(e) for e in before
+           if str(lid) in {str(i) for i in W.finding_ids(e)}}
+    return [e for e in after
+            if str(lid) in {str(i) for i in W.finding_ids(e)}
+            and _tag(e) not in had]
 
 
 SPEECH_AROUND = 90.0        # seconds either side of the line's window

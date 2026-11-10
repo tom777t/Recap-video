@@ -26,23 +26,30 @@ from pathlib import Path
 
 
 def problems(pdir, lines: list, lid, text: str) -> list:
-    """Why `text`, as line `lid` of `lines` (the draft's line dicts, the
-    other lines as they will stand), would fail a draft gate. [] = none."""
+    """Why `text`, as line `lid` of `lines` (the draft's line dicts: the
+    other lines as they will stand, line `lid` as it stands NOW), would
+    fail a draft gate in a way it does not already. [] = none."""
     from pipeline import motif_gates as MG
     from pipeline import name_spelling as NS
     from pipeline import sung
     import config
     pdir = Path(pdir)
     out = []
+    others = [ln for ln in lines if str(ln.get("id")) != str(lid)]
+    was = next((str(ln.get("narration") or "") for ln in lines
+                if str(ln.get("id")) == str(lid)), "")
+    # the gate's fallback names (no names.json) from the draft as it WILL
+    # stand - not from this line's old text
     names = MG.tic_names(pdir, [str(x.get("narration") or "")
-                                for x in lines] + [text])
-    mine = MG.tic_phrases(text, names)
+                                for x in others] + [text])
+    # only a phrase the line did NOT already carry: a rewrite that keeps an
+    # old repetition adds nothing, and refusing it would block every other
+    # fix to that line (review of 341ffca: badgenius2017 line 61)
+    mine = MG.tic_phrases(text, names) - MG.tic_phrases(was, names)
     if mine:
         cap = int(getattr(config, "TIC_NGRAM_MAX", 1))
         where: dict = {}
-        for ln in lines:
-            if str(ln.get("id")) == str(lid):
-                continue
+        for ln in others:
             for ph in MG.tic_phrases(ln.get("narration") or "", names) & mine:
                 where.setdefault(ph, []).append(ln.get("id"))
         for ph, ids in sorted(where.items()):

@@ -1511,8 +1511,14 @@ def cmd_resolve(a, client) -> int:
                     wait=not a.no_wait, poll=a.poll)
         changes, entries, rejects, edits = {}, {}, [], {}
         carry = {}
-        pending: dict = {}
         from pipeline import line_rules as LR
+        proposed: dict = {}
+        for cid_, msg_ in got.items():
+            o_, _w = _json_reply(msg_, "resolve")
+            for ln_ in (o_ or {}).get("lines") or []:
+                t_ = " ".join(str(ln_.get("narration") or "").split())
+                if t_ and str(ln_.get("id")) in by_id:
+                    proposed[str(ln_.get("id"))] = t_
         for cid, msg in got.items():
             k = int(cid[3:])
             obj, why = _json_reply(msg, "resolve")
@@ -1569,8 +1575,14 @@ def cmd_resolve(a, client) -> int:
                     # the draft gates that judge one line, asked BEFORE it
                     # is saved, against the draft as it will stand (other
                     # rewrites of this round included) - pipeline/line_rules
-                    view = [dict(x, narration=pending.get(str(x["id"]),
-                                                          x.get("narration")))
+                    # the other lines as this round proposes them (every
+                    # act's reply, read up front): the order of rewrites
+                    # does not decide what is a repeat. A proposal refused
+                    # later can leave a repeat - the next round's gate
+                    # findings carry it back.
+                    view = [dict(x, narration=proposed.get(str(x["id"]),
+                                                           x.get("narration")))
+                            if str(x["id"]) != lid else x
                             for x in draft["lines"]]
                     lr = LR.problems(pdir, view, lid, new["narration"])
                     if lr:
@@ -1579,7 +1591,6 @@ def cmd_resolve(a, client) -> int:
                         rejects.append(f"act{k}: line {lid} NOT saved - "
                                        f"{'; '.join(lr)}")
                         continue
-                    pending[lid] = new["narration"]
                 keep.append(ln)
                 if fe:
                     fedits[lid] = fe

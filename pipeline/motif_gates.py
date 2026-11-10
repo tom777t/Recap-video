@@ -250,8 +250,9 @@ def tic_phrases(text: str, names: set) -> set:
     """The phrases [TIC-REPETITION] counts in ONE line: n-grams of
     TIC_NGRAM_N words with >= TIC_MIN_CONTENT_WORDS content words, no name
     token, quotes removed. Once per line. The write-time checks
-    (tools/write_slots.py, pipeline/line_rules.py) call THIS, so they cannot
-    count differently from the gate."""
+    (tools/write_slots.py, pipeline/line_rules.py) call THIS, so a phrase is
+    the same thing to them and to the gate (which lines they compare, and
+    the name fallback, are theirs to match)."""
     n_ = int(getattr(config, "TIC_NGRAM_N", 3))
     floor = int(getattr(config, "TIC_MIN_CONTENT_WORDS", 2))
     out = set()
