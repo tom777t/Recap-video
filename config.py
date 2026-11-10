@@ -1484,7 +1484,7 @@ WRITE_MODEL_PLAN = "claude-sonnet-5-5"
 WRITE_MODEL_RESOLVE = "claude-sonnet-5-5"
 # Rounds of the resolve loop (write_api resolve) before it stops and lists
 # what is still open.
-WRITE_RESOLVE_ROUNDS = 2
+WRITE_RESOLVE_ROUNDS = 3
 # Gate-feedback rounds after the first draft: only each act's own findings go
 # back to that act, and after this many rounds the remaining findings are
 # listed and the tool stops rather than looping.

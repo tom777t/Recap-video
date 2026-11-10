@@ -1297,6 +1297,12 @@ def _fix_windows(project: str) -> None:
 # --------------------------------------------------------------------------- #
 # resolve: act on the review findings, close them in the artifacts
 # --------------------------------------------------------------------------- #
+# Gate findings that are ABOUT labels: a line they name may change its
+# payload / delivery (other rewrites keep the labels they had - a reviser
+# that echoes fields back relabelled 68 lines on Furious 7).
+LABEL_FINDINGS = ("PAYLOAD", "DELIVERY", "[ACTION-STAKE]", "[LOOP-CADENCE]")
+
+
 def gate_findings(project: str) -> list:
     """The draft gates' hard errors that name lines, as resolve findings.
     The review-artifact gates are not here - open_findings has those."""
@@ -1368,7 +1374,15 @@ def cmd_resolve(a, client) -> int:
         owner = act_of_lines(pdir)
         by_id = {str(l["id"]): l for l in draft["lines"]}
         slot_of = slots_of_lines(pdir, owner)
-        tags = {lid: WS.slot_tag(sl) for lid, sl in slot_of.items()}
+        tags = {}
+        for lid, sl in slot_of.items():
+            # the slot AND what is wrong with the line right now, so a fix is
+            # aimed (Furious 7: line 188 read as commentary because of "the
+            # whole"; the reviser saw only "ACTION on an ANCHOR")
+            now = [m.split(": ", 1)[-1] for m in
+                   WS.line_deviations(by_id[lid], sl)] if lid in by_id else []
+            tags[lid] = WS.slot_tag(sl) + (f"; NOW WRONG: {'; '.join(now)}"
+                                           if now else "")
         groups: dict = {}
         for f in finds:
             acts_ = {owner[int(i)][0] for i in f["ids"]
@@ -1384,7 +1398,10 @@ def cmd_resolve(a, client) -> int:
             user = WP.resolve_user(mine, fs, tags)
             if carry.get(k):
                 user += ("\n\n# YOUR LAST EDITS THAT WERE NOT SAVED (they "
-                         "break the draft schema or their slot)\n\n"
+                         "break the draft schema or their slot). If a slot "
+                         "cannot hold the fix - its footage holds too few "
+                         "words - answer the finding ANSWERED and say so "
+                         "instead of rewriting again.\n\n"
                          + "\n".join(f"- {e}" for e in carry[k]))
             reqs[f"act{k}"] = with_format(params("resolve", sysb, user),
                                           resolve_schema())
@@ -1413,7 +1430,7 @@ def cmd_resolve(a, client) -> int:
                 sl = slot_of.get(lid)
                 fields = EDIT_FIELDS
                 if sl is not None and not any(
-                        "PAYLOAD" in f["text"] or "DELIVERY" in f["text"]
+                        any(g in f["text"] for g in LABEL_FINDINGS)
                         for f in groups[k] if lid in f["ids"]):
                     # a reviser that echoes every field back (Furious 7: 68
                     # rewrites, rest share 25% -> 39%) relabels lines it was
@@ -1431,7 +1448,8 @@ def cmd_resolve(a, client) -> int:
                     new = WS.code_labels(new, sl)
                     fe = {f: new[f] for f in EDIT_FIELDS
                           if f in new and new[f] != by_id[lid].get(f)}
-                    broke = WS.new_deviations(by_id[lid], new, sl)
+                    broke = (WS.new_deviations(by_id[lid], new, sl)
+                             + WS.unfixed_deviations(by_id[lid], new, sl))
                     if broke:
                         carry.setdefault(k, []).extend(
                             f"line {lid}: {b}" for b in broke)

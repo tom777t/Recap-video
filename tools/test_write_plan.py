@@ -340,6 +340,8 @@ def test_resolve_slot_bound():
         ln["payload"] = {"reaction": "judgment"}.get(role, "stake")
         if role == "reaction":
             ln["narration"] = "That's the whole price of the race, paid up front."
+        if i == 3:      # an anchor ACTION that already reads as commentary
+            ln["narration"] = "That's the whole race, and he floors it."
         slots.append({"slot": ln["slot"], "act": 1, "beat": ln["note"],
                       "role": role, "voice": voice, "anchor": i == 3,
                       "peak": False, "band": "medium", "min_words": 1,
@@ -357,6 +359,7 @@ def test_resolve_slot_bound():
                 if x.startswith("F")]
         return msg({"lines": [
             {"id": 2, "narration": "He drives to the garage and parks."},
+            {"id": 3, "narration": "That's the whole night, and he floors it."},
             {"id": 4, "narration": "The race is set for midnight now.",
              "payload": "rest"}],
             "responses": [{"key": k, "status": "ANSWERED",
@@ -376,8 +379,12 @@ def test_resolve_slot_bound():
          "a rewrite that fits its slot IS saved"),
         (t["4"].get("payload") == "stake",
          "an echoed payload nobody asked about is ignored"),
+        (t["3"]["narration"].startswith("That's the whole race"),
+         "a 'fix' that keeps the line's fault (still commentary) is not taken"),
+        ("NOW WRONG: reads as commentary" in first,
+         "the reviser sees what is wrong with the line now"),
         ("[REACTION EVAL, 1-30 words]" in first
-         and "[ACTION on an ANCHOR, 1-30 words]" in first,
+         and "[ACTION on an ANCHOR, 1-30 words" in first,
          "the reviser sees each line's slot"),
         (len(c.batches) > 1 and "| gate |" in
          c.batches[1][0]["params"]["messages"][0]["content"],
@@ -483,7 +490,7 @@ def test_resolve_stops():
     _resolve_fixture()
     c = Client(None, lambda cid, p: msg({"lines": [], "responses": []}))
     rc, out = _run(c, "resolve", "--project", PROJ)
-    ok = rc == 2 and len(c.batches) == 2 and "STOPPING" in out \
+    ok = rc == 2 and len(c.batches) == int(config.WRITE_RESOLVE_ROUNDS) and "STOPPING" in out \
         and "dangling-ref" in out
     return ok, f"rc {rc}, {len(c.batches)} round(s), remaining findings listed"
 

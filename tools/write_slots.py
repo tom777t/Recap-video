@@ -808,6 +808,20 @@ def merge_revision(prev: list, reply: list, slots: list, k: int) -> tuple:
     return out, notes
 
 
+def _length_only(m: str) -> bool:
+    return "words, the slot is" in m
+
+
+def unfixed_deviations(old: dict, new: dict, s: dict) -> list:
+    """A rewrite of a line that had a role deviation (not heard, reads as
+    commentary, a marker it may not carry, a missing quote) must clear it:
+    a 'fix' that keeps the fault is not a fix. Length deviations may stay -
+    the footage, not the writer, set that band."""
+    had = {_kind(m) for m in line_deviations(old, s) if not _length_only(m)}
+    return [m for m in line_deviations(new, s)
+            if not _length_only(m) and _kind(m) in had]
+
+
 def code_labels(new: dict, s: dict) -> dict:
     """The labels a slot decides are CODE's, not the writer's (nor a
     reviser's): delivery for intro / outro, payload for reaction / loop /
