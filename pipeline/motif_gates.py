@@ -246,6 +246,31 @@ def _phrase_chunks(text: str) -> list:
 
 
 # ---- proper names --------------------------------------------------------- #
+def tic_phrases(text: str, names: set) -> set:
+    """The phrases [TIC-REPETITION] counts in ONE line: n-grams of
+    TIC_NGRAM_N words with >= TIC_MIN_CONTENT_WORDS content words, no name
+    token, quotes removed. Once per line. The write-time checks
+    (tools/write_slots.py, pipeline/line_rules.py) call THIS, so they cannot
+    count differently from the gate."""
+    n_ = int(getattr(config, "TIC_NGRAM_N", 3))
+    floor = int(getattr(config, "TIC_MIN_CONTENT_WORDS", 2))
+    out = set()
+    for toks in _phrase_chunks(str(text or "")):
+        for i in range(max(0, len(toks) - n_ + 1)):
+            g = toks[i:i + n_]
+            if any(w in names for w in g) or _n_content(g) < floor:
+                continue
+            out.add(" ".join(g))
+    return out
+
+
+def tic_names(pdir: Path, texts) -> set:
+    """The name tokens [TIC-REPETITION] leaves out: names.json, or - with no
+    roster - the draft's own mid-sentence capitals (the gate's fallback)."""
+    names = _load_names(pdir)[0]
+    return names if names else _midsentence_caps(texts)
+
+
 def _load_names(pdir: Path) -> tuple:
     """(set of casefolded name tokens, how they were obtained).
 

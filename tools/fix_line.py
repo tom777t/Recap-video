@@ -169,12 +169,6 @@ def main(argv=None) -> int:
         return 0
 
     text = " ".join(a.text.split())
-    from pipeline import sung
-    bad_q = sung.quoted_not_dialogue(pdir, text)
-    if bad_q:
-        print(f"fix_line: NOT saved - the text quotes a song / not dialogue: "
-              f"{bad_q[0][:60]!r} (pipeline/sung.py)")
-        return 2
     new = dict(old, narration=text)
     if sl is not None:
         new = WS.code_labels(new, sl)
@@ -186,6 +180,17 @@ def main(argv=None) -> int:
                 print(f"  - {b}")
             print(f"slot: {WS.slot_tag(sl)}")
             return 2
+    # the draft gates that judge one line, BEFORE anything is written
+    from pipeline import line_rules as LR
+    lr = LR.problems(pdir, draft["lines"], lid, text)
+    if lr:
+        print("fix_line: NOT saved - the text would fail a draft gate:")
+        for b in lr:
+            print(f"  - {b}")
+        return 2
+    print("fix_line: checking the draft gates before saving ...")
+    _rc0, before = W.run_gates(a.project)
+    snap = _snapshot(pdir)
     note = a.note.strip() or (f"rewritten by hand: "
                               f"'{old.get('narration')}' -> '{text}'")
     for i, f in enumerate(finds, 1):
@@ -202,9 +207,20 @@ def main(argv=None) -> int:
     edits = {lid: {f: new[f] for f in ("payload", "delivery")
                    if new.get(f) != old.get(f)}} if sl is not None else {}
     W.write_back(pdir, draft, by_id, owner, edits, changes, entries)
-    print(f"fix_line: line {lid} saved; {len(finds)} finding(s) closed "
-          f"RESOLVED. Running the draft gates ...")
     rc, errs = W.run_gates(a.project)
+    broke = _new_errors(before, errs, lid)
+    if broke:
+        # every gate, not only the per-line ones: the change is undone,
+        # byte for byte, and nothing is left half-saved
+        _restore(snap)
+        print(f"fix_line: NOT saved - with this text the draft gates find "
+              f"{len(broke)} new error(s):")
+        for e in broke[:6]:
+            print(f"  - {e[:220]}")
+        print("line, act file and review artifacts are as they were")
+        return 2
+    print(f"fix_line: line {lid} saved; {len(finds)} finding(s) closed "
+          f"RESOLVED.")
     if not errs:
         print("fix_line: draft gates clean")
     else:
@@ -212,6 +228,42 @@ def main(argv=None) -> int:
         for e in errs[:8]:
             print(f"  - {e[:220]}")
     return 0 if not errs else 2
+
+
+def _snapshot(pdir: Path) -> dict:
+    """The bytes of every file write_api.write_back may change."""
+    import write_plan as WP
+    files = [pdir / "draft.json"] + sorted((pdir / "draft.json.d").glob(
+        "act*.json")) + [pdir / a for a in WP.ARTIFACTS]
+    return {f: (f.read_bytes() if f.exists() else None) for f in files}
+
+
+def _restore(snap: dict) -> None:
+    for f, b in snap.items():
+        if b is None:
+            f.unlink(missing_ok=True)
+        else:
+            f.write_bytes(b)
+
+
+def _err_key(e: str) -> str:
+    import re
+    return re.sub(r"\d+(?:\.\d+)?", "#", e)
+
+
+def _new_errors(before: list, after: list, lid: str) -> list:
+    """Hard errors the change brought: not there before (numbers aside), and
+    naming this line - or naming no line at all (a draft-wide one)."""
+    import write_api as W
+    had = {_err_key(e) for e in before}
+    out = []
+    for e in after:
+        if _err_key(e) in had:
+            continue
+        ids = {str(i) for i in W.finding_ids(e)}
+        if not ids or str(lid) in ids:
+            out.append(e)
+    return out
 
 
 SPEECH_AROUND = 90.0        # seconds either side of the line's window

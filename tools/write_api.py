@@ -1497,7 +1497,8 @@ def cmd_resolve(a, client) -> int:
             user = WP.resolve_user(mine, fs, tags)
             if carry.get(k):
                 user += ("\n\n# YOUR LAST EDITS THAT WERE NOT SAVED (they "
-                         "break the draft schema or their slot). If a slot "
+                         "break the draft schema, their slot, or a draft "
+                         "gate that judges one line). If a slot "
                          "cannot hold the fix - its footage holds too few "
                          "words - answer the finding ANSWERED and say so "
                          "instead of rewriting again.\n\n"
@@ -1510,6 +1511,8 @@ def cmd_resolve(a, client) -> int:
                     wait=not a.no_wait, poll=a.poll)
         changes, entries, rejects, edits = {}, {}, [], {}
         carry = {}
+        pending: dict = {}
+        from pipeline import line_rules as LR
         for cid, msg in got.items():
             k = int(cid[3:])
             obj, why = _json_reply(msg, "resolve")
@@ -1561,6 +1564,22 @@ def cmd_resolve(a, client) -> int:
                     rejects.append(f"act{k}: line {lid} NOT saved - "
                                    f"{'; '.join(errs)}")
                     continue
+                if "narration" in ln and new.get("narration") != \
+                        by_id[lid].get("narration"):
+                    # the draft gates that judge one line, asked BEFORE it
+                    # is saved, against the draft as it will stand (other
+                    # rewrites of this round included) - pipeline/line_rules
+                    view = [dict(x, narration=pending.get(str(x["id"]),
+                                                          x.get("narration")))
+                            for x in draft["lines"]]
+                    lr = LR.problems(pdir, view, lid, new["narration"])
+                    if lr:
+                        carry.setdefault(k, []).extend(
+                            f"line {lid}: {b}" for b in lr)
+                        rejects.append(f"act{k}: line {lid} NOT saved - "
+                                       f"{'; '.join(lr)}")
+                        continue
+                    pending[lid] = new["narration"]
                 keep.append(ln)
                 if fe:
                     fedits[lid] = fe

@@ -1160,21 +1160,13 @@ def _act_problems(lines: list, slots: list, pdir=None) -> list:
     # the gate's OWN counting (motif_gates): n-grams with enough content
     # words, names excluded, once per line
     from pipeline import motif_gates as MG
-    n_ = int(getattr(config, "TIC_NGRAM_N", 3))
-    floor = int(getattr(config, "TIC_MIN_CONTENT_WORDS", 2))
-    names = MG._load_names(Path(pdir))[0] if pdir is not None else set()
+    names = MG.tic_names(Path(pdir), [str(x.get("narration") or "")
+                                      for x in lines]) \
+        if pdir is not None else set()
     seen: dict = {}
     for ln, s in zip(lines, slots):
-        here = set()
-        for toks in MG._phrase_chunks(str(ln.get("narration") or "")):
-            for i in range(max(0, len(toks) - n_ + 1)):
-                g = toks[i:i + n_]
-                if any(w in names for w in g) or MG._n_content(g) < floor:
-                    continue
-                ph = " ".join(g)
-                if ph not in here:
-                    here.add(ph)
-                    seen.setdefault(ph, []).append(s["slot"])
+        for ph in sorted(MG.tic_phrases(ln.get("narration") or "", names)):
+            seen.setdefault(ph, []).append(s["slot"])
     for g, where in seen.items():
         if len(where) > int(getattr(config, "TIC_NGRAM_MAX", 1)):
             out.append(f"{', '.join(where)}: \"{g}\" in {len(where)} lines - "
