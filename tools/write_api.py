@@ -1098,12 +1098,14 @@ def cmd_plan(a, client) -> int:
     return PLAN_STOPPED
 
 
-def save_slots(project: str, pdir: Path, plan: dict, ab: dict) -> bool:
+def save_slots(project: str, pdir: Path, plan: dict, ab: dict,
+               r: dict | None = None) -> bool:
     """plan.json grows one SLOT per line, derived by code from the plan's
-    per-beat counts and the gate rules (tools/write_slots.py)."""
+    per-beat counts and the gate rules (tools/write_slots.py). `r` = an
+    already-derived result (fix_line compares before it saves)."""
     import write_slots as WS
     try:
-        r = WS.derive_slots(plan, project, pdir, ab)
+        r = r if r is not None else WS.derive_slots(plan, project, pdir, ab)
     except Exception as e:
         # no slots = the act writers get the plan slice as before; say so
         print(f"plan: slots NOT derived ({type(e).__name__}: {e}) - the acts "

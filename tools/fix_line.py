@@ -99,18 +99,31 @@ def main(argv=None) -> int:
                   f"to mark (see --show)")
             return 1
         from pipeline import sung
-        added = sung.add_by_hand(pdir, sl["quote"], a.note.strip() or
+        q = sl["quote"]
+        nd = pdir / "not_dialogue.json"
+        was = nd.read_bytes() if nd.exists() else None
+        added = sung.add_by_hand(pdir, q, a.note.strip() or
                                  f"line {lid}: not dialogue (marked by hand)")
-        print(f"fix_line: \"{sl['quote']}\" "
+        rc = _rederive(a.project, pdir, force=True, owner=owner)
+        sl2 = W.slots_of_lines(pdir, owner).get(lid) if not rc else None
+        if rc or sl2 is None or sung._norm(sl2.get("quote") or "") == \
+                sung._norm(q):
+            # nothing half-done: the record goes back as it was
+            if was is None:
+                nd.unlink(missing_ok=True)
+            else:
+                nd.write_bytes(was)
+            sung._CACHE.clear()
+            if not rc:
+                print(f"fix_line: NOT done - after re-deriving, line {lid}'s "
+                      f"slot still quotes \"{q}\" (the record did not take)")
+            return 1
+        print(f"fix_line: \"{q}\" "
               + ("recorded" if added else "was already recorded")
               + " in not_dialogue.json - it is never quoted again")
-        if _rederive(a.project, pdir, force=True):
-            return 1
-        sl2 = W.slots_of_lines(pdir, owner).get(lid)
-        if sl2 is None:
-            print(f"fix_line: line {lid} has no slot after re-deriving")
-            return 1
         now = WS.line_deviations(old, sl2)
+        if sung.quoted_not_dialogue(pdir, old.get("narration") or ""):
+            now.append("the line still quotes it - rewrite it with --text")
         print(f"line {lid} now: {WS.slot_tag(sl2)}")
         print("wrong now: " + ("; ".join(now) if now else "nothing"))
         print(f"next: python tools/fix_line.py --project {a.project} "
@@ -155,6 +168,12 @@ def main(argv=None) -> int:
         return 0
 
     text = " ".join(a.text.split())
+    from pipeline import sung
+    bad_q = sung.quoted_not_dialogue(pdir, text)
+    if bad_q:
+        print(f"fix_line: NOT saved - the text quotes a song / not dialogue: "
+              f"{bad_q[0][:60]!r} (pipeline/sung.py)")
+        return 2
     new = dict(old, narration=text)
     if sl is not None:
         new = WS.code_labels(new, sl)
@@ -194,10 +213,17 @@ def main(argv=None) -> int:
     return 0 if not errs else 2
 
 
-def _rederive(project: str, pdir: Path, force: bool = False) -> int:
+def _rederive(project: str, pdir: Path, force: bool = False,
+              owner: dict | None = None) -> int:
     """Re-derive plan.json's slots when the code's layout moved on (or when
     forced: an input of the layout changed, e.g. not_dialogue.json). 0 = ok;
-    1 = they could not be re-derived (said why)."""
+    1 = not done (said why; plan.json untouched).
+
+    Conserving: the lines of a written draft are bound to slots by id, so a
+    re-derive that would move any slot to another beat, or add / drop one,
+    is REFUSED - not warned about (AGENTS.md: a drop or a move at a stage
+    boundary is a hard error). A slot whose role or quote changed is listed
+    with the line that owns it."""
     import write_api as W
     import write_plan as WP
     import write_slots as WS
@@ -205,26 +231,37 @@ def _rederive(project: str, pdir: Path, force: bool = False) -> int:
     if not force and plan.get("slots_version") == WS.SLOTS_VERSION:
         return 0
     was = plan.get("slots_version", 1)
-    before = [(x.get("slot"), x.get("beat")) for x in plan.get("slots") or []]
-    ab = WP.act_beats(project, W._tool)
-    ok = W.save_slots(project, pdir, plan, ab)
-    plan = json.loads((pdir / "plan.json").read_text(encoding="utf-8-sig"))
-    if not ok or plan.get("slots_version") != WS.SLOTS_VERSION:
-        # relabelling against the OLD slots would turn every `sad` into
-        # normal (no SAD-OK marks there) and say nothing
-        print(f"fix_line: slots could NOT be re-derived (plan.json still "
-              f"version {plan.get('slots_version', 1)}) - see the error "
-              f"above; nothing changed")
+    old = {x.get("slot"): x for x in plan.get("slots") or []}
+    try:
+        ab = WP.act_beats(project, W._tool)
+        r = WS.derive_slots(plan, project, pdir, ab)
+    except Exception as e:
+        print(f"fix_line: slots could NOT be re-derived ({type(e).__name__}: "
+              f"{e}); nothing changed")
         return 1
-    after = [(x.get("slot"), x.get("beat")) for x in plan.get("slots") or []]
-    if before and after != before:
-        # the lines are bound to slots by id: a layout that moved them would
-        # pair every later line with another beat's slot
-        print(f"fix_line: WARNING - the re-derived slots no longer line up "
-              f"with the old ones ({len(before)} -> {len(after)}); check "
-              f"--show before fixing lines")
+    new = {x.get("slot"): x for x in r["slots"]}
+    moved = [k for k in set(old) | set(new)
+             if (old.get(k) or {}).get("beat") != (new.get(k) or {}).get("beat")]
+    if old and moved:
+        print(f"fix_line: NOT re-derived - {len(moved)} slot(s) would move, "
+              f"appear or vanish ({sorted(moved, key=str)[:8]}); the written "
+              f"lines are bound to the old ones. plan.json is unchanged.")
+        return 1
+    owner = owner if owner is not None else W.act_of_lines(pdir)
+    line_of = {}
+    for lid, sl in W.slots_of_lines(pdir, owner).items():
+        line_of[sl.get("slot")] = lid
+    changed = [k for k in new if k in old and (
+        old[k].get("role"), old[k].get("quote")) != (
+        new[k].get("role"), new[k].get("quote"))]
+    W.save_slots(project, pdir, plan, ab, r)
     print(f"fix_line: slots re-derived (version {was} -> "
           f"{WS.SLOTS_VERSION})")
+    for k in changed:
+        print(f"  - line {line_of.get(k, '?')} ({k}): "
+              f"{old[k].get('role')} -> {new[k].get('role')}"
+              + (f", quote now \"{new[k].get('quote')}\""
+                 if new[k].get("quote") != old[k].get("quote") else ""))
     return 0
 
 

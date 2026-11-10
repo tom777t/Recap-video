@@ -91,8 +91,20 @@ def main() -> int:
               f"{','.join(s['depicts'])} | {s['action']}")
         for sp in segs:
             if sp["end"] > x0 and sp["start"] < x1:
-                print(f"    SPEECH: {str(sp.get('text','')).strip()}")
+                print(f"    SPEECH: "
+                      + _sung_label(pdir, sp)
+                      + f"{str(sp.get('text','')).strip()}")
     return 0
+
+
+def _sung_label(pdir, sp) -> str:
+    """The same not-dialogue label the act payload prints (pipeline/sung.py):
+    a lyric must not become a beat description, which later feeds the
+    writer's skip notes."""
+    from pipeline import sung
+    w = sung.reason(pdir, sp.get("start", 0), str(sp.get("text") or ""))
+    return ("[REPEATS LIKE A CHORUS - may be a song] " if w == "CHORUS" else
+            "[NOT DIALOGUE (a song)] " if w else "")
 
 
 if __name__ == "__main__":

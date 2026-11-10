@@ -194,9 +194,25 @@ def _short(t: str, n: int = SKIP_TEXT) -> str:
     return t if len(t) <= n else t[:n].rsplit(" ", 1)[0] + " ..."
 
 
+# A day-scale phrase says a night passed; it may open a seam only when the
+# beat map's own words for the skipped beats (or the scene it lands on) show
+# a change of time. Furious 7: "By morning," on a chase the same day.
+DAY_PHRASE = re.compile(
+    r"(?i)\b(?:(?:the\s+)?next\s+(?:morning|day|night|evening|week)|"
+    r"the\s+following\s+(?:morning|day|night|week)|by\s+(?:morning|dawn|"
+    r"nightfall)|that\s+(?:night|evening|week)|overnight|"
+    r"(?:days?|weeks?|months?|years?)\s+later)\b")
+END_PHRASE = re.compile(r"(?i)\bin\s+the\s+end\b")
+TIME_WORDS = re.compile(
+    r"(?i)\b(?:night|nights|morning|dawn|dusk|evening|sunrise|sunset|"
+    r"overnight|next\s+day|days?\s+later|weeks?|months?|years?|later|"
+    r"tomorrow|daylight|dark)\b")
+
+
 def _mark_after_skip(slots: list, order: list, by: dict, project: str = "",
                      rng: dict | None = None) -> None:
     rng = rng or {}
+    last_act = max((k for k, _b in order), default=None)
     has = {}
     for x in slots:
         if x["role"] != "film_speaks":   # not in the draft until its stage
@@ -220,6 +236,11 @@ def _mark_after_skip(slots: list, order: list, by: dict, project: str = "",
                     s["skip_secs"] = int(round(t1 - t0))
                 s["skip_what"] = [f"{x}: {_short(texts[x])}" for x in
                                   run[:SKIP_SHOWN] if texts.get(x)]
+                # what code can decide, code decides: may this seam say a
+                # night passed / the story ended? (the beat map's own words)
+                said = " ".join(texts.get(x, "") for x in run + [bid])
+                s["skip_time_ok"] = bool(TIME_WORDS.search(said))
+                s["skip_end_ok"] = s.get("act") == last_act
                 if len(run) > SKIP_SHOWN:
                     s["skip_what"].append(f"... and {len(run) - SKIP_SHOWN} "
                                           f"more beat(s)")
@@ -243,7 +264,10 @@ def skip_note(s: dict) -> str:
     return (f"AFTER A SKIP of {len(sk)} beat(s) ({span}, "
             f"{_mmss(s.get('skip_secs'))} of film the viewer does not see: "
             + ("; ".join(s.get("skip_what") or []) or "no description")
-            + ")")
+            + ")"
+            + ("" if s.get("skip_time_ok", True) else
+               " - the beat map shows NO change of time here: no "
+               "\"next morning\" / \"that night\" / \"days later\""))
 
 
 BRIDGE_RULE = (
@@ -900,6 +924,18 @@ def line_deviations(ln: dict, s: dict) -> list:
                    + (" (a quote goes inside double quotation marks - the "
                       "checker does not read words inside them)"
                       if s["role"] == "quote" else ""))
+    if s.get("after_skip") and DAY_PHRASE.search(text) and \
+            not s.get("skip_time_ok", True):
+        out.append(f"{s['slot']} comes after a skip where the beat map shows "
+                   f"no change of time - "
+                   f"\"{DAY_PHRASE.search(text).group(0)}\" says a night or "
+                   f"days passed; open on the place, the skipped event, or "
+                   f"\"Later,\" / \"Meanwhile,\"")
+    if s.get("after_skip") and END_PHRASE.search(text) and \
+            not s.get("skip_end_ok", True):
+        out.append(f"{s['slot']}: \"{END_PHRASE.search(text).group(0)}\" "
+                   f"opens a seam in the middle of the story - it is for the "
+                   f"ending")
     if s.get("after_skip"):
         from pipeline.draft import crosses_skip
         if not crosses_skip(text):

@@ -194,11 +194,30 @@ def validate_draft(project: str, *, write_state: bool = False,
         errors.append(f"[DRAFT-CONSERVATION] {_m}")
     # ---- [NAME-SPELLING]: a listed name, spelled the transcript's way ------
     # Furious 7: "Mosé Jaconde" for Mose Jakande passed as a yellow lint
-    # warning. A misspelling of a LISTED name is never right - hard, by line,
-    # so resolve rewrites it (pipeline/name_spelling.py).
+    # warning. Hard (by line, so resolve rewrites it) where the evidence says
+    # misspelling: only the accents differ, or the transcript has the variant
+    # and never the listed spelling. Otherwise a warning
+    # (pipeline/name_spelling.py).
     from pipeline import name_spelling as _ns
-    for _m in _ns.report(config.project_dir(project), draft.get("lines") or []):
-        errors.append(_m)
+    _nsr = _ns.report(config.project_dir(project), draft.get("lines") or [])
+    errors.extend(_nsr["errors"])
+    for _w in _nsr["warns"]:
+        console.print(f"[yellow]{_w}[/]")
+    for _nt in _nsr["notes"]:
+        console.print(f"[dim]{_nt}[/]")
+    # ---- [NOT-DIALOGUE]: a song (or a hand-listed line) quoted as speech --
+    # Furious 7 quoted the ending song's chorus as Dom's line. The quote
+    # picker no longer offers such lines (pipeline/sung.py); this catches a
+    # line already written with one. MARKED and BY HAND only - CHORUS is too
+    # loose to block a written line.
+    from pipeline import sung as _sung
+    for _ln in draft.get("lines") or []:
+        for _q in _sung.quoted_not_dialogue(config.project_dir(project),
+                                            _ln.get("narration") or ""):
+            errors.append(
+                f"[NOT-DIALOGUE] line {_ln.get('id')}: quotes \"{_q[:60]}\" "
+                f"- a song / not dialogue (a music mark, or not_dialogue."
+                f"json): no character says it. Rewrite the line without it.")
     if _broll_error:
         if any(ln.get("pool") for ln in draft.get("lines", [])):
             errors.append(_broll_error)
@@ -2042,8 +2061,8 @@ def _coverage_policy(project) -> set:
     return {str(b).upper() for b in data.get("mandatory", [])}
 
 
-# The phrases that tell a viewer story time passed - [BRIDGE]'s own test,
-# and what tools/write_slots.py asks the slot after a skip to open with.
+# The phrases that tell a viewer story time passed - half of [BRIDGE]'s own
+# test (crosses_skip, below, is the whole of it).
 BRIDGE_JUMP = re.compile(
     r"\b(later|next (morning|day|night|week)|the next|days? later|"
     r"weeks? later|months? later|long story short|by (morning|now|then)|"
@@ -2058,19 +2077,51 @@ BRIDGE_JUMP = re.compile(
 # rotation and seven of them were false (a chase the same day, "In the
 # end" mid-heist). Anchored at the line's START - a place mid-sentence
 # does not carry the viewer across a seam.
-_CAP = r"(?-i:[A-Z])[\w'\u2019.-]*"
-BRIDGE_OPEN = re.compile(
-    r"^\s*[\"\u201c]?(?:"
-    r"(?i:back\s+(?:at|in|on|to|inside|home|with)\b)"
-    r"|(?i:elsewhere\b|across\s+town\b|afterwards?\b|by\s+the\s+time\b|"
-    r"(?:hours|minutes|moments|seconds)\s+later\b)"
-    r"|(?i:after\s+(?:the|a|an|that|this|his|her|their|its|all|some|two|"
-    r"three|several|weeks|days|months|hours|he|she|they|we|it|" + _CAP + r")\b[^,.;!?]{0,80},)"
-    r"|(?i:(?:over\s+|out\s+|down\s+|up\s+|far\s+)?(?:in|at|on|inside|"
-    r"outside|to)\s+)(?:the\s+)?" + _CAP + r"(?:\s+" + _CAP + r")*\s*,"
-    r"|(?i:(?:at|inside|outside)\s+the\s+[a-z][\w'\u2019-]*"
-    r"(?:\s+[a-z][\w'\u2019-]*){0,3}\s*,)"
-    r")")
+_W = r"[\w'’-]+"
+_OPEN_FIXED = re.compile(
+    r"(?i)^(?:back\s+(?:at|in|on|to|inside|home|with)\b|elsewhere\b|"
+    r"across\s+town\b|afterwards?\b|by\s+the\s+time\b|"
+    r"(?:hours|minutes|moments|seconds)\s+later\b)")
+# "After the funeral," / "After a chase through the city," / "After Han's
+# funeral," / "After he leaves the bar," - the skipped EVENT as a clause.
+# Not "After all," (a filler) and not "After a beat," (one word after a/an).
+_OPEN_AFTER = re.compile(
+    r"(?i)^after\s+(?:(?:the|that|this|his|her|their|its|some|two|three|"
+    r"several|weeks|days|months|hours|he|she|they|we|it)\b[^,.;!?]{0,80}|"
+    r"(?:a|an)\s+" + _W + r"\s+[^,.;!?]{1,80}|"
+    r"(?-i:[A-Z])" + _W + r"[^,.;!?]{0,80}),")
+_PREP = (r"(?i:(?:back\s+|over\s+|out\s+|down\s+|up\s+|far\s+|deep\s+)?"
+         r"(?:in|at|on|inside|outside|into|across))\s+")
+# "In Abu Dhabi," / "At Dom's house," / "In the hospital," / "Up in the
+# mountains," - a place, then a comma
+_OPEN_PLACE_CAP = re.compile(
+    r"^" + _PREP + r"(?:the\s+)?((?-i:[A-Z])" + _W +
+    r"(?:\s+(?-i:[A-Z])" + _W + r")*)(?:\s+" + _W + r"){0,2}\s*,")
+_OPEN_PLACE_LOW = re.compile(
+    r"^" + _PREP + r"(?i:the|a|an)\s+((?-i:[a-z])" + _W +
+    r"(?:\s+" + _W + r"){0,3})\s*,")
+# phrases with a place preposition that are NOT a place (review of 677fc38:
+# "At the same time," "At the last second," "In English," passed)
+_NOT_PLACE = re.compile(
+    r"(?i)^(?:end|meantime|process|other\s+hand|moment|same\s+time|"
+    r"last\s+(?:second|minute|moment)|first\s+place|end\s+of|fact|truth|"
+    r"short|general|return|turn|particular|contrast|addition|theory|way|"
+    r"middle\s+of\s+(?:it|all)|chaos|confusion|meantime|aftermath|hope|"
+    r"silence|beginning|spite|case|order|time|end)\b")
+_LANG = {"English", "French", "Spanish", "German", "Japanese", "Chinese",
+         "Russian", "Italian", "Korean", "Arabic", "Portuguese", "Thai"}
+
+
+def bridge_opener(text: str) -> bool:
+    """Does the line OPEN on a place or on the skipped event?"""
+    t = re.sub(r"^\s*[\"“]?", "", str(text or ""))
+    if _OPEN_FIXED.match(t) or _OPEN_AFTER.match(t):
+        return not re.match(r"(?i)^after\s+all\b", t)
+    m = _OPEN_PLACE_CAP.match(t)
+    if m:
+        return m.group(1).split()[0] not in _LANG
+    m = _OPEN_PLACE_LOW.match(t)
+    return bool(m) and not _NOT_PLACE.match(m.group(1))
 
 
 def crosses_skip(text: str) -> bool:
@@ -2078,7 +2129,7 @@ def crosses_skip(text: str) -> bool:
     across a skip - a time jump anywhere, or a place / the skipped event
     as its opener."""
     t = str(text or "")
-    return bool(BRIDGE_JUMP.search(t) or BRIDGE_OPEN.match(t))
+    return bool(BRIDGE_JUMP.search(t) or bridge_opener(t))
 
 
 def bridge_audit(project, d, bc) -> dict:
@@ -2088,10 +2139,11 @@ def bridge_audit(project, d, bc) -> dict:
     is allowed - but a viewer must never feel the film teleport. Every run of
     >=2 consecutive uncovered NON-MANDATORY beats has to be accounted for by
     one of two things, placed at the seam:
-      - a BRIDGE line: a narrated line (flag `bridge: true`, or a line whose
-        narration carries an explicit time-jump phrase) that lands just after
-        the gap and tells the viewer time passed - "Two weeks and a lot of
-        crashed cars later, ...".
+      - a BRIDGE line: a narrated line (flag `bridge: true`, or a line that
+        `crosses_skip`: a time-jump phrase, or a place / the skipped event as
+        its opener) that lands just after the gap and tells the viewer what
+        changed - "Back at the hangar, ...", "After a chase through the
+        city, ...".
       - a HOLD: a `narration_silence_seconds` line sitting in the gap, letting
         footage + music carry it.
 
@@ -2963,9 +3015,13 @@ def _run_phase1_audits(project, pdir):
                         + (f" (the line after it: line {g['line_after']})"
                            if g.get("line_after") is not None else "")
                         + ". A skipped stretch must not "
-                        f"teleport the story: add one voiced bridge ('Two weeks "
-                        f"and a lot of crashed cars later, ...') landing just "
-                        f"after it, or a narration_silence_seconds hold inside.")
+                        f"teleport the story: open the line after it on what "
+                        f"CHANGED across the skipped beats - a place ('Back "
+                        f"at the hangar, ...'), the skipped event in a clause "
+                        f"('After a chase through the city, ...'), "
+                        f"'Meanwhile, ...', or a time phrase only if the "
+                        f"skipped beats show time passed - or put a "
+                        f"narration_silence_seconds hold inside.")
                 sev = "hard"   # block render until resolved
             elif _ba["gaps"]:
                 _nb = sum(1 for g in _ba["gaps"] if not g["mandatory_in_gap"])

@@ -145,10 +145,8 @@ def main() -> int:
     # it; the writer is told, so a lyric never becomes a character's line
     # (pipeline/sung.py - the same rule the quote picker uses)
     from pipeline import sung as _sung
-    _why = _sung.sung_flags([(float(s["start"]), float(s["end"]),
-                              str(s.get("text") or "")) for s in segs], pdir)
-    for s, w in zip(segs, _why):
-        s["_sung"] = w
+    for s in segs:
+        s["_sung"] = _sung.reason(pdir, s["start"], str(s.get("text") or ""))
 
     def speech_for(x0, x1):
         return [s for s in segs if s["end"] > x0 and s["start"] < x1]

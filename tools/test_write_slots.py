@@ -655,6 +655,22 @@ def test_sad_budget_and_relabel():
                      else "FAILED: " + "; ".join(bad))
 
 
+OPEN_GOOD = ["Back at the hangar, Tej works.", "In Abu Dhabi, the party.",
+             "After a chase through the city, Dom drives in.",
+             "After Han's funeral, Dom waits.", "At the garage, Brian waits.",
+             "Hours later, he wakes.", "Meanwhile, Shaw.",
+             "After he leaves the bar, he cries.", "Inside the plant, smoke.",
+             "In the hospital, Hobbs.", "On the roof, Shaw.",
+             "Up in the mountains, the convoy.", "At Dom's house, Mia.",
+             "\u201cBack in LA, the team."]
+OPEN_BAD = ["In the chaos, he runs.", "Dom, furious, drives.",
+            "He goes back in the car.", "A wrench in his hand, he waits.",
+            "After all, he is family.", "After a beat, he answers.",
+            "To Dom, family is all.", "In English, he says it.",
+            "At the same time, Shaw.", "At the last second, he jumps.",
+            "At the moment, nothing."]
+
+
 def test_bridge_by_construction():
     """[BRIDGE] (Furious 7: 27 skipped stretches, none recognised): with two
     runs of beats the plan skips, the slot after each opens with its own time
@@ -711,6 +727,38 @@ def test_bridge_by_construction():
     named = all(g.get("line_after") is not None for g in bad["unbridged"])
     from pipeline import catalogue
     btext = {b["id"]: b["text"] for b in catalogue.parse_beats(PROJ)["beats"]}
+    # a night may pass at a seam only where the beat map shows time passing;
+    # "In the end" only in the last act (Furious 7: "By morning" on a chase
+    # the same day, "In the end" mid-heist)
+    import copy as _cp
+    m0 = _cp.deepcopy(marked[0])
+    m0.update(skip_time_ok=False, skip_end_ok=False)
+    m1 = dict(m0, skip_time_ok=True, skip_end_ok=True)
+    body = "the crew rolls the cars out of the garage before the race."
+    probe = {"By morning, ": "no change of time", "That night, ": "no change "
+             "of time", "In the end, ": "for the ending", "Later, ": None,
+             "Back at the garage, ": None}
+    clock_bad = []
+    for op, want in probe.items():
+        ln = {"narration": op + body}
+        d0 = " ".join(WS.line_deviations(ln, m0))
+        d1 = " ".join(WS.line_deviations(ln, m1))
+        if (want is None and ("no change of time" in d0 or "ending" in d0)) \
+                or (want is not None and want not in d0) \
+                or "no change of time" in d1 or "for the ending" in d1:
+            clock_bad.append(op.strip())
+    flags = {m["slot"]: (m.get("skip_time_ok"), m.get("skip_end_ok"))
+             for m in marked}
+    clock_ok = not clock_bad and all(
+        isinstance(a, bool) and isinstance(b, bool) for a, b in flags.values())
+    clock_msg = (f"day-scale / ending phrases refused where the beat map shows "
+                 f"no time passing (seam flags {list(flags.values())}), "
+                 f"allowed where it does; place / 'Later' always"
+                 if clock_ok else f"clock check wrong for {clock_bad}, "
+                                  f"flags {flags}")
+    if "NO change of time" not in WS.skip_note(m0) or \
+            "NO change of time" in WS.skip_note(m1):
+        clock_ok, clock_msg = False, "the writer is not told no time passed"
     want_run = {m["slot"]: r for m in marked for r in runs
                 if m.get("skipped") == list(r)}
     rows = WS.slots_text(marked)
@@ -736,6 +784,13 @@ def test_bridge_by_construction():
             "AFTER A SKIP" in d for d in WS.line_deviations(l, s_))
             for l in lines for s_ in marked if l.get("slot") == s_["slot"]),
          f"place / event / parallel openers fit the slot ({opens})"),
+        (not [t for t in OPEN_GOOD if not D.crosses_skip(t)]
+         and not [t for t in OPEN_BAD if D.crosses_skip(t)],
+         f"{len(OPEN_GOOD)} place / event / time openers cross a skip, "
+         f"{len(OPEN_BAD)} look-alikes do not ("
+         f"{[t for t in OPEN_GOOD if not D.crosses_skip(t)][:2]}"
+         f"{[t for t in OPEN_BAD if D.crosses_skip(t)][:2]})"),
+        (clock_ok, clock_msg),
         (not any(g["beats"][-1] == p2["beats"][-1]["beat"]
                  for g in tail["unbridged"]),
          "a run reaching the end of the beat map (credits) is not a skip"),

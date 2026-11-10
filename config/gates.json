@@ -529,7 +529,8 @@
   "NAME-LEAK": {
     "severity": "warn",
     "modules": [
-      "pipeline/draft.py"
+      "pipeline/draft.py",
+      "pipeline/name_spelling.py"
     ],
     "what": "no transcript corpus loaded - the ...",
     "severity_source": "inferred"
@@ -539,7 +540,7 @@
     "modules": [
       "pipeline/name_spelling.py"
     ],
-    "what": "a capitalised word one or two letters (or only accents) away from a names.json / film_facts.json name - the listed name misspelled",
+    "what": "hard: a listed name with other accents, or a 1-2 letter variant the transcript has and the listed spelling never; otherwise a warning",
     "severity_source": "declared"
   },
   "NARRATOR-VOICE": {
@@ -557,6 +558,14 @@
     ],
     "what": "",
     "severity_source": "inferred"
+  },
+  "NOT-DIALOGUE": {
+    "severity": "error",
+    "modules": [
+      "pipeline/draft.py"
+    ],
+    "what": "a quoted span is a song / not dialogue (a music mark in the transcript, or not_dialogue.json) - no character says it",
+    "severity_source": "declared"
   },
   "PACING-CONTOUR": {
     "severity": "error",

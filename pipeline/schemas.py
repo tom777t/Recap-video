@@ -287,8 +287,9 @@ class Line:
     over_montage: bool = False
     film_intro: bool = False
     # --- angle-era compression: a BRIDGE line explicitly spans a skipped
-    # stretch of film ("Two weeks and a lot of crashed cars later, ..."). The
-    # [BRIDGE] gate accepts a flagged bridge OR a time-jump phrase as proof that
+    # stretch of film ("Back at the hangar, ...", "Two weeks later, ..."). The
+    # [BRIDGE] gate accepts a flagged bridge OR a line that crosses_skip (a
+    # time jump, or a place / the skipped event as its opener) as proof that
     # a skip was declared rather than a teleport.
     bridge: bool = False
     # --- [CALLBACK-CITE] (permanence rule 3): a line asserting a link to an

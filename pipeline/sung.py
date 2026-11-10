@@ -7,29 +7,38 @@ is the chorus of the song over the ending (and Whisper even dropped "day").
 A lyric used as a quote is wrong twice: it puts words in a character's mouth,
 and it reproduces a song's lyrics in the recap.
 
-A segment is taken as sung when any of these hold - all cheap, all general:
+A segment is taken as not dialogue when any of these hold:
 
-  MARKED    Whisper / a subtitle wrote a music mark: a note sign, or
-            "[music]" / "(singing)" / "[song]" ...
+  MARKED    Whisper / a subtitle wrote a music mark: a note sign, or a
+            bracket naming music ("[music]", "(singing)", "[upbeat music]",
+            "[man singing]") ...
+  BY HAND   one of its sentences is, or contains, a text listed in
+            projects/<p>/not_dialogue.json - written by
+            `tools/fix_line.py --not-dialogue` when a reader finds one the
+            other rules missed. Matched sentence by sentence and on word
+            boundaries ("see you again" does not take "see you against").
   CHORUS    it comes back: another segment within CHORUS_WINDOW seconds
-            reads the same (sequence ratio >= CHORUS_SIMILAR, both >= 7
-            words).
-            Choruses repeat; a character almost never says the same
-            seven-plus-word sentence twice in eight minutes - and when one
-            does, losing it as a quote costs one candidate, while keeping a
-            lyric costs a false line in the recap.
-  BY HAND   its text is listed in projects/<p>/not_dialogue.json
-            ({"texts": ["It's been a long without you, my friend"]}) -
-            written by `tools/fix_line.py --not-dialogue` when a reader
-            finds one the rules above missed.
+            reads the same (character-sequence ratio >= CHORUS_SIMILAR, both
+            >= CHORUS_MIN_WORDS words).
+
+CHORUS is NOT precise, and is used knowing that. Measured on 17 local
+transcripts (review of 677fc38): 0-29 segments a film, most of them repeated
+dialogue ("I repeat, do not open the hatch") or Whisper writing one line
+twice; a few real songs. Requiring 3+ repeats did not separate them (the
+repeats are just as often dialogue). What it costs: those lines are not
+offered as QUOTE / FILM-SPEAKS candidates and the payloads mark them "may be
+a song" - a lost candidate. What missing a lyric costs: a false line in the
+recap and a reproduced lyric. So it stays, as a candidate filter only; the
+[NOT-DIALOGUE] gate on the draft uses MARKED and BY HAND alone.
 
 (A beat-level rule - "the beat's description says a song plays" - was tried
 and dropped: beats span minutes of dialogue, and "Da-song" is a name.
 Parasite lost 227 lines of dialogue to it.)
 
-The quote picker (tools/write_slots.py), the film-speaks candidates
-(pipeline/film_speaks.py) and the act payload (tools/act_payload.py) all go
-through `sung_flags`, so one rule decides it everywhere.
+ONE computation per transcript (`transcript_flags`), over every segment of
+transcript.json, so the quote picker (tools/write_slots.py), the film-speaks
+candidates (pipeline/film_speaks.py) and the payloads (tools/act_payload.py,
+tools/beat_payload.py) cannot disagree about a line.
 """
 from __future__ import annotations
 
@@ -39,18 +48,15 @@ import re
 from pathlib import Path
 
 CHORUS_WINDOW = 480.0      # seconds: a song's chorus comes back within this
-CHORUS_MIN_WORDS = 7       # measured on 17 local transcripts: at 5 words
-CHORUS_SIMILAR = 0.85      # and a word-SET overlap, "What are you doing
-                           # here?" x2 made 25+ false choruses per film; at 7
-                           # words and this character-sequence ratio, ~6 per
-                           # film, among them real songs ("And on his farm he
-                           # had a chicken", "You don't have to walk in the
-                           # sun" x3)
+CHORUS_MIN_WORDS = 7       # at 5 words and a word-set overlap, "What are you
+CHORUS_SIMILAR = 0.85      # doing here?" x2 made 25+ false choruses a film
 
+_MUSIC = r"(?:music|singing|sings|sung|song|lyrics|vocali[sz]ing|humming)"
 _MARK = re.compile(r"[♪♫♬♭♮♯]|"
-                   r"[\[(]\s*(?:music|singing|sings|song|lyrics|"
-                   r"music playing|vocalizing)\b[^\])]*[\])]", re.I)
-
+                   r"[\[(][^\])]{0,40}\b" + _MUSIC + r"\b[^\])]{0,40}[\])]",
+                   re.I)
+_SENT = re.compile(r"(?<=[.!?…])\s+")
+_CACHE: dict = {}
 
 
 def _norm(t: str) -> str:
@@ -74,6 +80,28 @@ def by_hand(pdir) -> list:
     return [n for n in (_norm(x) for x in d.get("texts") or []) if n]
 
 
+def hand_listed(text: str, hand: list) -> bool:
+    """True if any sentence of `text` is a listed text, or holds one / is
+    held by one (when it is most of it) on word boundaries. The quote picker stores ONE sentence of
+    a segment, so a short sentence inside a long segment must still match
+    ("I love you." in "Oh, baby. I love you.")."""
+    if not hand:
+        return False
+    sents = [_norm(x) for x in _SENT.split(str(text))] + [_norm(text)]
+    for s in sents:
+        if not s:
+            continue
+        ps = f" {s} "
+        for h in hand:
+            ph = f" {h} "
+            # a sentence inside a listed text counts only when it is most of
+            # it ("It's been a long day." is a line of its own elsewhere)
+            if s == h or (len(h) >= 12 and ph in ps) or \
+                    (len(s) >= max(12, 0.6 * len(h)) and ps in ph):
+                return True
+    return False
+
+
 def add_by_hand(pdir, text: str, why: str = "") -> bool:
     """Record one text as not dialogue; False if it was already there."""
     p = Path(pdir) / "not_dialogue.json"
@@ -90,6 +118,7 @@ def add_by_hand(pdir, text: str, why: str = "") -> bool:
     if why:
         d.setdefault("why", {})[text] = why
     p.write_text(json.dumps(d, ensure_ascii=False, indent=1), encoding="utf-8")
+    _CACHE.clear()
     return True
 
 
@@ -102,12 +131,10 @@ def sung_flags(segs: list, pdir=None) -> list:
     nn = [_norm(s[2]) for s in segs]
     order = sorted(range(n), key=lambda i: float(segs[i][0]))
     for i in range(n):
-        _a, _b, t = segs[i]
-        nt = _norm(t)
+        t = segs[i][2]
         if _MARK.search(str(t)):
             why[i] = "MARKED"
-        elif hand and any(h == nt or (len(h) >= 12 and h in nt)
-                          or (len(nt) >= 12 and nt in h) for h in hand):
+        elif hand_listed(t, hand):
             why[i] = "BY HAND"
     # CHORUS: compare each segment only with those inside the window
     j0 = 0
@@ -130,7 +157,59 @@ def sung_flags(segs: list, pdir=None) -> list:
     return why
 
 
-def dialogue_only(segs: list, pdir=None) -> list:
-    """segs without the sung ones."""
+def _key(start, text) -> tuple:
+    return (round(float(start), 2), _norm(text))
+
+
+def transcript_flags(pdir) -> dict:
+    """{(start, normalised text): reason} for every flagged segment of the
+    project's transcript.json - THE answer every caller looks up."""
+    pdir = Path(pdir)
+    tp, hp = pdir / "transcript.json", pdir / "not_dialogue.json"
+    stamp = tuple(p.stat().st_mtime_ns if p.exists() else 0 for p in (tp, hp))
+    hit = _CACHE.get(str(pdir))
+    if hit and hit[0] == stamp:
+        return hit[1]
+    segs = []
+    try:
+        raw = json.loads(tp.read_text(encoding="utf-8-sig"))
+        for s in (raw.get("segments") if isinstance(raw, dict) else raw) or []:
+            try:
+                segs.append((float(s["start"]), float(s["end"]),
+                             str(s.get("text") or "").strip()))
+            except (KeyError, TypeError, ValueError):
+                continue
+    except (OSError, ValueError):
+        segs = []
     w = sung_flags(segs, pdir)
-    return [s for s, r in zip(segs, w) if not r]
+    out = {_key(s[0], s[2]): r for s, r in zip(segs, w) if r}
+    _CACHE[str(pdir)] = (stamp, out)
+    return out
+
+
+def reason(pdir, start, text) -> str:
+    """Why this transcript segment is not dialogue ("" = it is)."""
+    return transcript_flags(pdir).get(_key(start, text), "")
+
+
+def dialogue_only(segs: list, pdir) -> list:
+    """segs (start, end, text) without the flagged ones."""
+    f = transcript_flags(pdir)
+    return [s for s in segs if _key(s[0], s[2]) not in f]
+
+
+def quoted_not_dialogue(pdir, narration: str) -> list:
+    """The quoted spans of a narration line that are a MARKED or BY HAND
+    text (CHORUS is too loose to block a written line)."""
+    hand = by_hand(pdir)
+    marked = [t for (_s, t), r in transcript_flags(pdir).items()
+              if r == "MARKED"]
+    out = []
+    for q in re.findall(r"[\"“]([^\"”]+)[\"”]", str(narration)):
+        nq = _norm(q)
+        if len(nq) < 6:
+            continue
+        if hand_listed(q, hand) or any(
+                f" {nq} " in f" {m} " for m in marked):
+            out.append(q.strip())
+    return out

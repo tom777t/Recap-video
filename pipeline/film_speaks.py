@@ -122,10 +122,13 @@ def _transcript(pdir: Path) -> tuple[list, str]:
             out.append({"a": a, "b": b, "text": txt})
     out.sort(key=lambda s: s["a"])
     # a song over a scene is not the film SPEAKING - and a lyric left in the
-    # recap is a lyric reproduced (pipeline/sung.py)
+    # recap is a lyric reproduced (pipeline/sung.py). The segment is KEPT,
+    # marked: dropping it let a run join the dialogue either side of the
+    # hole, and that run's audio would play the song its text left out
     from pipeline import sung
-    why = sung.sung_flags([(s["a"], s["b"], s["text"]) for s in out], pdir)
-    return [s for s, w in zip(out, why) if not w], lang
+    for s in out:
+        s["sung"] = sung.reason(pdir, s["a"], s["text"])
+    return out, lang
 
 
 def _angle_terms(pdir: Path) -> set:
@@ -373,6 +376,39 @@ def _rank(crits: list, ev: dict) -> float:
     return round(score, 3)
 
 
+def _runs(segs: list, lo: float, hi: float) -> list:
+    """Every contiguous run of segments lasting [lo, hi] seconds that holds
+    no sung / not-dialogue segment (pipeline/sung.py) - a run may not join
+    the dialogue either side of a song."""
+    quotes = []
+    seen = set()
+    for i in range(len(segs)):
+        if segs[i].get("sung"):
+            continue                 # never a quote, never inside one
+        a = segs[i]["a"]
+        text = segs[i]["text"]
+        j = i
+        while j < len(segs):
+            if j > i:
+                gap = segs[j]["a"] - segs[j - 1]["b"]
+                if gap > MERGE_GAP_SEC or segs[j].get("sung"):
+                    break
+                text = (text + " " + segs[j]["text"]).strip()
+            b = segs[j]["b"]
+            if b - a > hi:
+                break
+            if b - a >= lo:
+                key = (round(a, 2), round(b, 2))
+                if key not in seen:
+                    seen.add(key)
+                    quotes.append({"a": a, "b": b, "text": text})
+            j += 1
+            if j - i > 8:        # a quote is an exchange, not a scene
+                break
+
+    return quotes
+
+
 def candidates(project: str, measure_audio: bool = True,
                limit: int = 0) -> list[dict]:
     """Eligible film_speaks candidates with every measurable fact attached.
@@ -406,29 +442,7 @@ def candidates(project: str, measure_audio: bool = True,
     #    candidate count from 3 to 1. Generation should be generous and let
     #    selection narrow; overlapping candidates are a feature, because the
     #    right quote boundary is a judgement the subagent makes.
-    quotes = []
-    seen = set()
-    for i in range(len(segs)):
-        a = segs[i]["a"]
-        text = segs[i]["text"]
-        j = i
-        while j < len(segs):
-            if j > i:
-                gap = segs[j]["a"] - segs[j - 1]["b"]
-                if gap > MERGE_GAP_SEC:
-                    break
-                text = (text + " " + segs[j]["text"]).strip()
-            b = segs[j]["b"]
-            if b - a > hi:
-                break
-            if b - a >= lo:
-                key = (round(a, 2), round(b, 2))
-                if key not in seen:
-                    seen.add(key)
-                    quotes.append({"a": a, "b": b, "text": text})
-            j += 1
-            if j - i > 8:        # a quote is an exchange, not a scene
-                break
+    quotes = _runs(segs, lo, hi)
 
     rv = reveal_rows(project)
 
