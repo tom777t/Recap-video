@@ -21,7 +21,8 @@ A segment is taken as not dialogue when any of these hold:
             reads the same (character-sequence ratio >= CHORUS_SIMILAR, both
             >= CHORUS_MIN_WORDS words).
   IN-SONG   it lies between two passes of one chorus, SONG_GAP_MIN to
-            SONG_SPAN seconds apart: the verse.
+            SONG_SPAN seconds apart (the verse), or runs straight on (within
+            SONG_JOIN s) from the closing pass / into the opening one.
 
 CHORUS is NOT precise, and is used knowing that. Measured on 17 local
 transcripts (review of 677fc38): 0-29 segments a film, most of them repeated
@@ -61,6 +62,7 @@ CHORUS_SIMILAR = 0.85      # doing here?" x2 made 25+ false choruses a film
 # repeat, do not open the hatch") - lost quote CANDIDATES, never a block.
 SONG_GAP_MIN = 30.0
 SONG_SPAN = 90.0
+SONG_JOIN = 1.0            # s: a segment this close runs on from the chorus
 
 _MUSIC = r"(?:music|singing|sings|sung|song|lyrics|vocali[sz]ing|humming)"
 _MARK = re.compile(r"[♪♫♬♭♮♯]|"
@@ -169,10 +171,28 @@ def sung_flags(segs: list, pdir=None) -> list:
                 lo_, hi_ = sorted((float(segs[k][0]), ti))
                 if SONG_GAP_MIN <= hi_ - lo_ <= SONG_SPAN:
                     pairs.append((lo_, hi_))
+    pos = {i: x for x, i in enumerate(order)}
+    by_start = {}
+    for i in range(n):
+        by_start.setdefault(round(float(segs[i][0]), 3), i)
     for lo_, hi_ in pairs:
         for j in range(n):
             if not why[j] and lo_ < float(segs[j][0]) < hi_:
                 why[j] = "IN-SONG"
+        # the chorus line Whisper split in two: the segment running straight
+        # on from the closing pass (Furious 7: "And I'll tell you." 0.1 s
+        # after it was picked next), or straight into the opening one
+        a_i, z_i = by_start.get(round(lo_, 3)), by_start.get(round(hi_, 3))
+        for c, step in ((z_i, 1), (a_i, -1)):
+            if c is None:
+                continue
+            y = pos[c] + step
+            if 0 <= y < n:
+                j = order[y]
+                gap = (float(segs[j][0]) - float(segs[c][1]) if step > 0
+                       else float(segs[c][0]) - float(segs[j][1]))
+                if not why[j] and gap <= SONG_JOIN:
+                    why[j] = "IN-SONG"
     return why
 
 
