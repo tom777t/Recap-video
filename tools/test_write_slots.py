@@ -529,6 +529,8 @@ def test_review_defects():
     ok6 = all(WS._wc(s["quote"]) + 2 <= s["max_words"]
               for s in slots if s.get("quote"))
     ok7 = all(s["max_words"] >= 30 for s in slots if s.get("shape") == "sweep")
+    ok7 = ok7 and all(s["max_words"] >= WS.REACTION_MIN_WORDS
+                      for s in slots if s["role"] == "reaction")
     # 8: curly apostrophes
     q = {"slot": "S1", "beat": "B1", "role": "quote", "anchor": False,
          "peak": False, "min_words": 1, "max_words": 30, "band": "long",
@@ -573,7 +575,8 @@ def test_review_defects():
               (ok3, f"brief's narrator words all heard (deaf: {deaf})"),
               (ok4, "a stake on a loop slot does not satisfy ACTION-STAKE"),
               (ok6, "no quote longer than its footage"),
-              (ok7, "sweep only where 30 words fit"),
+              (ok7, "sweep only where 30 words fit; no reaction slot under "
+                    f"{WS.REACTION_MIN_WORDS} words"),
               (ok8, "curly apostrophes match the quote")]
     bad = [w for ok, w in checks if not ok]
     return not bad, ("; ".join(w for _, w in checks) if not bad

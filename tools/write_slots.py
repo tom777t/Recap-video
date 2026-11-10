@@ -42,7 +42,7 @@ ROLES = ("intro", "action", "quote", "reaction", "bridge", "outro", "hold",
 # Bumped whenever derive_slots changes what it builds: a plan.json whose slots
 # carry an older version is re-derived (write_api.cmd_draft), so a fix here
 # reaches a project that already has a plan without re-buying the plan.
-SLOTS_VERSION = 5
+SLOTS_VERSION = 6
 # [INTRO-OUTRO] / [FILM-INTRO]: the draft opens with the channel greeting and
 # the film's facts, and closes on a thesis then a call to action. These are
 # slots too - the first real film came back with no <intro> line at all.
@@ -64,6 +64,7 @@ BAND_CYCLE = ("medium", "short", "long", "medium", "short", "medium",
 QUOTE_WORDS = (3, 16)            # a transcript line short enough to quote
 HOLD_SEC = (2.5, 5.0)            # a planned hold (>= craft_gates.BAR_SILENCE_MIN)
 TOL = 2                          # words either side of a band before it is a deviation
+REACTION_MIN_WORDS = 9           # a reaction slot whose footage holds fewer is a bridge
 MIN_WINDOW = 1.5                 # seconds; a narrower slot window is not bindable
 
 
@@ -393,13 +394,18 @@ def derive_slots(plan: dict, project: str, pdir: Path, ab: dict) -> dict:
                 "quote", "reaction") and cap >= BANDS["long"][0]:
             debt -= 1
             band = "long"
-        if s["role"] == "quote" and band == "short":
+        if s["role"] in ("quote", "reaction") and band == "short":
             band = "medium"
         while band != "short" and cap < BANDS[band][0]:
             band = {"long": "medium", "medium": "short"}[band]
         s["band"] = band
         s["max_words"] = int(min(BANDS[band][1], cap))
         s["min_words"] = int(min(BANDS[band][0], s["max_words"]))
+        if s["role"] == "reaction" and s["max_words"] < REACTION_MIN_WORDS:
+            # a reaction must be heard as the narrator AND be clear; in 3-7
+            # words it is rarely both (Furious 7 line 40: three resolve
+            # rounds could not fit one). The beat's moment carries it.
+            s["role"] = "bridge"
         if s["role"] == "quote" and _wc(s.get("quote")) + 2 > s["max_words"]:
             # the footage cannot hold the quote and its attribution: a slot
             # that cannot be filled is not a slot (it was S083, 3-4 words
