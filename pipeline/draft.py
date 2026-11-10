@@ -2111,6 +2111,12 @@ def bridge_audit(project, d, bc) -> dict:
     unbridged = []
     for g in gaps:
         has_mand = [b for b in g if b in mandatory] if mandatory else []
+        # A skipped run that reaches the END of the beat map (the credits
+        # after the outro) teleports the story nowhere - there is no scene
+        # after it to jump to, and no line to bridge it with (Furious 7:
+        # B242-B243, reported as 7884-1000007884s).
+        if ordered.index(g[-1]) + 1 >= len(ordered) and not has_mand:
+            continue
         g_start = ts_by_id[g[0]]
         # the gap extends to the start of the first covered beat after it
         last_i = ordered.index(g[-1])

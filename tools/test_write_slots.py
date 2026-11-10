@@ -686,6 +686,10 @@ def test_bridge_by_construction():
             for l in ls if l.get("clip_start") or l.get("narration")])
         return D.bridge_audit(PROJ, d, D.beat_coverage(PROJ, d))
     good = audit(lines)
+    # the credits after the last line are not a skip
+    tail = audit([l for l in lines
+                  if not (l.get("note") or "").startswith(tuple(
+                      b["beat"] for b in p2["beats"][-3:]))])
     bad_lines = copy.deepcopy(lines)
     for l in bad_lines:
         if l.get("slot") in {s["slot"] for s in marked}:
@@ -702,6 +706,9 @@ def test_bridge_by_construction():
             j.split(",")[0].lower().split()) <= 1 for j in WS.JUMP_FORMS),
          "every opener has <= 1 content word (no [TIC-REPETITION] when "
          "openers recur over 27 skips)"),
+        (not any(g["beats"][-1] == p2["beats"][-1]["beat"]
+                 for g in tail["unbridged"]),
+         "a run reaching the end of the beat map (credits) is not a skip"),
         (not good["unbridged"], f"filled draft: {len(good['gaps'])} gap(s), "
                                 f"{len(good['unbridged'])} unbridged"),
         (len(bad["unbridged"]) == len(runs) and named,
