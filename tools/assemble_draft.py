@@ -47,18 +47,23 @@ def main() -> int:
         return 1
 
     # Sort into playback order by clip_start - but NOT every line HAS one.
-    # Intro-owned lines (over_montage hook, film_intro) carry no clip window by
-    # schema rule and play in the prepended block, so they sort to the FRONT in
-    # authored order. Pool/montage lines have no single timestamp either; they
-    # keep their authored position by inheriting the last timed line's stamp, so
-    # a b-roll line stays next to the beat it was written against.
-    # Subscripting l["clip_start"] here raised KeyError the same way the render
-    # clip loop did - see pipeline/render.py INTRO_OWNED.
+    # The cold open (note OPEN) plays at 0:00 even when its window is a
+    # late flash-forward (OPEN-B), so it sorts to the very front. Intro-
+    # owned lines (film_intro) carry no clip window by schema rule and
+    # play in the brand block right AFTER the cold open, in authored
+    # order. Pool/montage lines have no single timestamp either; they
+    # keep their authored position by inheriting the last timed line's
+    # stamp, so a b-roll line stays next to the beat it was written
+    # against. Subscripting l["clip_start"] here raised KeyError the same
+    # way the render clip loop did - see pipeline/render.py INTRO_OWNED.
     _INTRO_OWNED = ("over_montage", "film_intro")
     keys, last = {}, 0.0
     for i, l in enumerate(lines):
+        if str(l.get("note") or "").upper() == "OPEN":
+            keys[id(l)] = (0, -2.0, i)          # the cold open: 0:00
+            continue
         if any(l.get(k) for k in _INTRO_OWNED):
-            keys[id(l)] = (0, -1.0, i)          # front, authored order
+            keys[id(l)] = (0, -1.0, i)          # brand block, after the open
             continue
         cs = l.get("clip_start")
         if cs:
@@ -91,6 +96,16 @@ def main() -> int:
                           "beats_proposal.md bang vong draft act-by-act. "
                           f"{len(adj)} dong co window_adjusted."),
            "lines": lines}
+    # the opening's own record, straight off the plan: [OPEN], [TRANSITION]
+    # and the human-variation gates read these, never the slots
+    try:
+        pl = json.loads(io.open(pdir / "plan.json", encoding="utf-8-sig")
+                        .read())
+        for f in ("open_mode", "lever", "opener"):
+            if pl.get(f):
+                out[f] = pl[f]
+    except (OSError, ValueError):
+        pass
     io.open(pdir / "draft.json", "w", encoding="utf-8").write(
         json.dumps(out, ensure_ascii=False, indent=2))
     print(f"{len(acts)} act | {len(lines)} dong | {words} tu "

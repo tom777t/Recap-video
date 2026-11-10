@@ -11,22 +11,29 @@ they follow from the plan's per-beat counts and the gates' own rules. So:
 
   1. The MODEL chooses only the per-beat line counts (plan.json `beats`).
   2. CODE derives one SLOT per line (derive_slots): its beat, its role
-     (action | quote | reaction | bridge | hold | film_speaks), a length band
-     (short / medium / long, drawn so [RHYTHM]'s SD, long-sentence and punch
-     bars land in band), whether it opens a loop ([LOOP-CADENCE]), and for a
-     quote slot the transcript line to quote verbatim. Anchors run action ->
-     quote -> ... -> one reaction ([PEAK-ORDER], [PERSONA] anchor ending);
-     a reaction slot lands at least every PERSONA_WINDOW_SEC of film
-     ([PERSONA] window); a loop opens at least every BAR_LOOP_GAP lines.
-  3. CODE assigns every clip window: inside the slot's beat, from the
+     (open | action | quote | reaction | bridge | hold | film_speaks),
+     a length band (short / medium / long, drawn so [RHYTHM]'s SD, long-
+     sentence and punch bars land in band), whether it opens a loop
+     ([LOOP-CADENCE]), and for a quote slot the transcript line to quote
+     verbatim. Anchors run action -> quote -> ... -> one reaction
+     ([PEAK-ORDER], [PERSONA] anchor ending); a reaction slot lands at
+     least every PERSONA_WINDOW_SEC of film ([PERSONA] window); a loop
+     opens at least every BAR_LOOP_GAP lines.
+  3. The draft OPENS on the film's own picture (R0-R4 of the opening
+     study): pipeline/opening.py picks the cold-open scene, and the
+     first slots are OPEN slots bound to it, told in-media-res. The
+     channel greeting and the film facts follow them (INTRO slots),
+     never at 0:00 - the biggest recap channels deleted the greeting
+     from frame one and the study measured it.
+  4. CODE assigns every clip window: inside the slot's beat, from the
      catalogue's moments, never overlapping ([WINDOW-OVERLAP]), never across
      a reveal's landing ([REVEAL-TIMING]), sized to config.WINDOW_SPAN_RATIO
      of the band's narration, and capped so the band fits the render's
      capacity (preflight.budget_words). Holds are code's too. Black / text
      cards are moved afterwards by write_plan.fix_unwatchable.
-  4. The act request carries the slots and a WRITER BRIEF generated from the
-     same constants the gates read (writer_brief), so they cannot drift.
-  5. check_slots() compares a reply to its slots at once; the deviations go
+  5. The act request carries the slots and a WRITER BRIEF generated from
+     the same constants the gates read (writer_brief), so they cannot drift.
+  6. check_slots() compares a reply to its slots at once; the deviations go
      back ONCE inside the stage. The gates stay the final check.
 """
 from __future__ import annotations
@@ -37,17 +44,19 @@ from pathlib import Path
 
 import config
 
-ROLES = ("intro", "action", "quote", "reaction", "bridge", "outro", "hold",
-         "film_speaks")
+ROLES = ("open", "intro", "action", "quote", "reaction", "bridge", "outro",
+         "hold", "film_speaks")
 # Bumped whenever derive_slots changes what it builds: a plan.json whose slots
 # carry an older version is re-derived (write_api.cmd_draft), so a fix here
 # reaches a project that already has a plan without re-buying the plan.
-SLOTS_VERSION = 12
-# [INTRO-OUTRO] / [FILM-INTRO]: the draft opens with the channel greeting and
-# the film's facts, and closes on a thesis then a call to action. These are
-# slots too - the first real film came back with no <intro> line at all.
+SLOTS_VERSION = 13
+# [INTRO-OUTRO] / [FILM-INTRO]: the greeting and the film's facts still
+# exist as slots - but AFTER the cold open (R0), never at 0:00.
 INTRO_WORDS = (12, 40)
 OUTRO_WORDS = (20, 45)
+# The cold open itself (R3): three slots, ~25-45 words, the last one the
+# unanswered question the video exists to answer.
+OPEN_BANDS = ("medium", "short", "medium")
 # [PERSONA] counts lines where the writer's label AND the classifier agree on
 # judgment, over ALL lines; the slots plan this much above the floor, because
 # a reaction the classifier does not hear is not counted.
@@ -316,6 +325,34 @@ def _landings(project: str) -> list:
         return []
 
 
+def _plan_opening(project: str, pdir: Path) -> dict | None:
+    """R1/R2: the picker's cold open for this project, or None when the
+    catalogue is not there yet. The opener's window is snapped to the
+    catalogue moments inside the picker's shot so the OPEN slots bind to
+    real footage."""
+    from pipeline import opening as OP
+    try:
+        data = OP.read(project)
+    except (OSError, ValueError):
+        return None
+    if not data["candidates"]:
+        return None
+    pick = OP.choose(data["candidates"], lever=OP.lever_for(data["facts"]),
+                     lands=data["lands"], runtime_sec=data["runtime_sec"])
+    if not pick.get("opener") or pick["opener"].get("score", 0) <= 0:
+        return None
+    op = pick["opener"]
+    by = {c["id"]: c for c in data["candidates"]}
+    c = by.get(op["id"]) or {}
+    a, z = float(c.get("start") or 0.0), float(c.get("end") or 0.0)
+    moms = [m for m in moments(Path(pdir)) if a <= m[0] < z]
+    if moms:
+        a = moms[0][0]
+        z = max(z for _x, z in moms if a <= _x < z)
+    return {"opener": dict(op, window=(a, z)), "open_mode": pick["open_mode"],
+            "lever": pick["lever"]}
+
+
 def _beat_ranges(project: str, beats: list) -> dict:
     from pipeline.draft import beat_times
     try:
@@ -443,14 +480,64 @@ def derive_slots(plan: dict, project: str, pdir: Path, ab: dict) -> dict:
         for x in slots[:last]:
             if x["beat"] == ob and x["role"] == "reaction":
                 x["role"] = "bridge"
+    # the cold open (R0-R2): OPEN slots on the picker's scene come FIRST;
+    # the greeting and the facts follow them, never at 0:00. When the
+    # picker cannot run (no catalogue yet) the problems say so and the
+    # draft keeps the old greeting-first shape - [OPEN] then reports
+    # not-constructed rather than passing silently.
+    opening = _plan_opening(project, pdir)
+    open_slots: list = []
+    if opening and opening.get("opener"):
+        op = opening["opener"]
+        c0, c1 = op["window"]
+        # the story slot whose window contains the opener's would overlap
+        # it ([WINDOW-OVERLAP]): give the opener the front of it and move
+        # the story slot's start to where the cold open ends - the body
+        # continues the moment instead of repeating it. A story slot too
+        # short to survive that is dropped; its beat keeps the rest.
+        for s in slots:
+            if s["role"] in ("hold", "film_speaks") or s["a"] is None:
+                continue
+            if s["a"] <= c0 and c1 <= s["z"]:
+                if s["z"] - c1 >= MIN_WINDOW:
+                    s["a"] = c1
+                elif s["a"] < c0:
+                    s["a"] = c0
+                else:
+                    slots.remove(s)
+                break
+        k1 = order[0][0] if order else 1
+        # three lines over ONE scene: contiguous sub-windows of the
+        # opener, so [WINDOW-OVERLAP] sees the same shape as anywhere
+        # else - the scene plays unbroken under three narrated lines
+        sub = _split(c0, c1, len(OPEN_BANDS),
+                     [(m[0], m[1]) for m in moments(Path(pdir))
+                      if c0 <= m[0] < c1])
+        open_slots = [{"slot": "", "act": k1, "beat": "OPEN", "role": "open",
+                       "anchor": False, "peak": False, "a": sub[i][0],
+                       "z": sub[i][1],
+                       "open_mode": opening["open_mode"],
+                       "lever": opening["lever"]}
+                      for i, _band in enumerate(OPEN_BANDS)]
+        open_slots[-1]["open_hook"] = True
+        open_slots[-1]["hook_question"] = str(
+            (plan.get("hook") or {}).get("hook_question") or "").strip()
+        if opening["open_mode"] == "B":
+            # the fragment pivots back: the story's own start needs the
+            # anchor ([TRANSITION]), the fragment itself does not
+            open_slots[0]["pivot"] = True
+    else:
+        problems.append("opening: no cold open - the opener picker found "
+                        "nothing (shots.json missing or empty)")
     # the INTRO block: the channel greeting, then the film's facts - act 1,
-    # straight after the hook, no clip window (over the credits)
+    # straight after the cold open, no clip window (over the brand block)
     if order:
         k1 = order[0][0]
-        slots = [{"slot": "", "act": k1, "beat": "INTRO", "role": "intro",
-                  "intro_part": part, "anchor": False, "peak": False,
-                  "a": None, "z": None} for part in ("greeting", "facts")] \
-            + slots
+        intro_slots = [{"slot": "", "act": k1, "beat": "INTRO",
+                        "role": "intro", "intro_part": part, "anchor": False,
+                        "peak": False, "a": None, "z": None}
+                       for part in ("greeting", "facts")]
+        slots = open_slots + intro_slots + slots
     # quotes: the transcript line inside the slot's own window (or its beat)
     used_q = set()
     for s in slots:
@@ -474,12 +561,19 @@ def derive_slots(plan: dict, project: str, pdir: Path, ab: dict) -> dict:
             s["role"] = "action"
     narrated = [s for s in slots
                 if s["role"] not in ("hold", "film_speaks", "intro", "outro")]
-    # [TRANSITION]: the first story line comes straight off the montage and
-    # the credits - it opens on a time or a place, and is never a reaction
-    if narrated:
-        narrated[0]["transition"] = True
-        if narrated[0]["role"] == "reaction":
-            narrated[0]["role"] = "bridge"
+    # [TRANSITION] after the opening study: OPEN-A is the story's own start,
+    # so ITS first line carries the time-or-place anchor; OPEN-B is a
+    # flash-forward, so the anchor belongs to the first STORY line after
+    # the intro block instead - the fragment opens mid-scene by design.
+    story = [s for s in narrated if s.get("beat") != "OPEN"]
+    if open_slots and open_slots[0].get("open_mode") == "A":
+        open_slots[0]["transition"] = True
+        if open_slots[0]["role"] == "reaction":
+            open_slots[0]["role"] = "bridge"
+    elif story:
+        story[0]["transition"] = True
+        if story[0]["role"] == "reaction":
+            story[0]["role"] = "bridge"
     # [PERSONA] window: the gate walks PERSONA_WINDOW_SEC windows from the
     # first line and flags one holding >= 3 lines with no narrator presence
     # (peak beats exempt). The same walk here turns the window's last bridge
@@ -542,8 +636,14 @@ def derive_slots(plan: dict, project: str, pdir: Path, ab: dict) -> dict:
     # next slot with the footage for it. Then the window is trimmed to the
     # band (WINDOW_SPAN_RATIO), never widened.
     long_n, debt = 0, 0
+    j = 0          # the cycle counts STORY lines; the open slots carry theirs
     for i, s in enumerate(narrated):
-        band = BAND_CYCLE[i % len(BAND_CYCLE)]
+        if s["role"] == "open":
+            n_open = sum(1 for x in narrated[:i] if x["role"] == "open")
+            band = OPEN_BANDS[min(n_open, len(OPEN_BANDS) - 1)]
+        else:
+            band = BAND_CYCLE[j % len(BAND_CYCLE)]
+            j += 1
         cap = budget_words(s["z"] - s["a"])
         if band == "long" and (s["role"] in ("quote", "reaction")
                                or cap < BANDS["long"][0]):
@@ -618,7 +718,10 @@ def derive_slots(plan: dict, project: str, pdir: Path, ab: dict) -> dict:
         s["clip_start"] = _ts(a_) if a_ is not None else None
         s["clip_end"] = _ts(z_) if z_ is not None else None
     return {"slots": slots, "problems": problems,
-            "version": SLOTS_VERSION}
+            "version": SLOTS_VERSION,
+            "open_mode": (opening or {}).get("open_mode"),
+            "lever": (opening or {}).get("lever"),
+            "opener": (opening or {}).get("opener")}
 
 
 _SENT = re.compile(r"[A-Z\"'][^.?!]*[.?!]")
@@ -706,6 +809,12 @@ def _first_of_beat(narr: list, i: int):
 # what the writer is told
 # --------------------------------------------------------------------------- #
 ROLE_TEXT = {
+    "open": "the cold open - the film's own charged scene told in-media-res; "
+            "sentence 1 a concrete situation or image (NO greeting, NO meta "
+            "word like recap/film, NO title, year or director, at most ONE "
+            "proper name across the whole open); the LAST open slot ENDS on "
+            "the unanswered question the video exists to answer (payload "
+            "loop)",
     "action": "the moment itself - what happens and what it costs; not "
               "commentary (payload stake / reasoning / rest, never judgment)",
     "quote": "quote the transcript line VERBATIM inside the narration, "
@@ -714,11 +823,12 @@ ROLE_TEXT = {
                 "an aside, a deadpan remark (payload judgment)",
     "bridge": "one line that carries the story across this beat (the "
               "compressed beats are where the dwelt-on ones get their room)",
-    "intro": "the film-intro block, spoken over the opening credits (no "
-             "footage): the GREETING slot says who you are and names the "
-             "film and its year; the FACTS slot gives the director, 2-4 leads "
-             "WITH their roles, and one production fact - only what "
-             "film_facts.json states, nothing it withholds (delivery intro)",
+    "intro": "the film-intro block, AFTER the cold open, spoken over the "
+             "brand block (no footage): the GREETING slot says who you are "
+             "and names the film and its year; the FACTS slot gives the "
+             "director, 2-4 leads WITH their roles, and one production fact "
+             "- only what film_facts.json states, nothing it withholds "
+             "(delivery intro)",
     "outro": "the last line: first what the ending MEANS (a thesis, its own "
              "sentence), then a call to action (subscribe / tell me what to "
              "recap next) - at least two sentences, the CTA never first "
@@ -743,6 +853,16 @@ def slots_text(slots: list) -> str:
             rows.append(f"- {s['slot']} {s['beat']} {s['role'].upper()} "
                         f"{s['clip_start']}-{s['clip_end']} (written by code "
                         f"- do not reply for it)")
+            continue
+        if s["role"] == "open":
+            rows.append(
+                f"- {s['slot']} OPEN ({s.get('lever')} / OPEN-"
+                f"{s.get('open_mode')}) {s['clip_start']}-{s['clip_end']} | "
+                f"{s['min_words']}-{s['max_words']} words, aim {s['target']}"
+                + (" | THE QUESTION: end on the hook question, unanswered"
+                   if s.get("open_hook") else "")
+                + (" | mid-scene: open ON the action, no time or place "
+                   "anchor" if s.get("pivot") else ""))
             continue
         if s["role"] == "intro":
             rows.append(f"- {s['slot']} INTRO ({s.get('intro_part')}) no "
@@ -812,6 +932,7 @@ def writer_brief(pdir: Path, plan: dict, k: int) -> str:
         "- A line whose evidence is speech carries "
         '"claim": {"type": "speech", "subject": "<the speaker>"}; claim.type '
         "is never a shot tag such as aftermath / establishing / montage.",
+        _open_brief(plan, k),
         _intro_brief(pdir, plan, k),
         BRIDGE_RULE,
         "- delivery `sad` only on slots marked SAD-OK (real loss or grief); "
@@ -850,6 +971,42 @@ def _facts(pdir: Path) -> dict:
             encoding="utf-8-sig"))
     except (OSError, ValueError):
         return {}
+
+
+def _open_brief(plan: dict, k: int) -> str:
+    """R3/R4 for the act that carries the OPEN slots: the cold open's
+    sentence contract and the film's genre lever, generated from the
+    picker's own choice so the brief and the gates cannot disagree."""
+    opens = [s for s in plan.get("slots") or []
+             if s.get("role") == "open" and s.get("act") == k]
+    if not opens:
+        return "- No OPEN slots in this act."
+    lever, mode = opens[0].get("lever") or "THRILL", opens[0].get(
+        "open_mode") or "A"
+    lever_text = {
+        "FEAR": "an ORDINARY detail done wrong (the clocks were striking "
+                "thirteen); never name the monster in the open; death only "
+                "as something happening, never itemised",
+        "DESIRE": "a re-loaded proximity or a charged habit (after six "
+                  "years, she saw him again), one concrete body-adjacent "
+                  "image; desire spoken must be paid for visually in the "
+                  "next line",
+        "THRILL": "a NUMBER inside the first two sentences (a countdown, a "
+                  "streak, a threshold); consequence first, cause withheld",
+        "AWE": "scale through one impossible concrete image or reveal-verb; "
+               "motion enters mid-fall or mid-chase",
+    }.get(lever, "")
+    return "\n".join([
+        f"- COLD OPEN (OPEN-{mode}, lever {lever}): present tense, third "
+        f"person, on the film's own scene. Sentence 1: a concrete situation "
+        f"or image - never backstory, never why. {lever_text}",
+        "- Escalate in one straight line across the open; at most ONE "
+        "proper name in the whole open; the LAST open slot ENDS on the "
+        "unanswered question (it reads as the viewer's own question).",
+    ] + (["- OPEN-B fragment: open mid-scene, no time-or-place anchor; the "
+          "pivot line (\"But to understand how we got here...\") is the "
+          "story's, not the open's."] if mode == "B" else []),
+    )
 
 
 def _intro_brief(pdir: Path, plan: dict, k: int) -> str:
@@ -911,10 +1068,23 @@ def line_deviations(ln: dict, s: dict) -> list:
     if s["role"] == "reaction" and s.get("voice") == "eval" and mk:
         out.append(f"{s['slot']} (EVAL): uses I / you / a question / a "
                    f"stance adverb ({mk}) - a verdict without them")
-    if s["role"] in ("action", "bridge") and mk:
+    if s["role"] in ("open", "action", "bridge") and mk \
+            and not (s["role"] == "open" and s.get("open_hook")):
+        # the open_hook slot's trailing question is the HOOK itself, not
+        # a narrator marker - R3 requires it, the marker budget cannot
+        # forbid it
         out.append(f"{s['slot']} ({s['role'].upper()}): uses I / you / a "
                    f"question / a stance adverb - those are budgeted to "
                    f"the VOICE slots")
+    if s["role"] == "open" and s.get("open_hook") \
+            and not text.strip().endswith("?"):
+        out.append(f"{s['slot']} (OPEN): the cold open's last line must END "
+                   f"on the unanswered question - got {text.strip()[-45:]!r}")
+    if s["role"] == "open" and s.get("pivot") \
+            and CG._ANCHOR.match(text.strip()):
+        out.append(f"{s['slot']} (OPEN-B): opens on a time or place anchor - "
+                   f"the fragment opens mid-scene; save the anchor for the "
+                   f"story's own first line")
     if (s["anchor"] or s["peak"]) and s["role"] in ("action", "quote",
                                                      "bridge") and heard:
         out.append(f"{s['slot']} ({s['beat']} {s['role'].upper()} on an "
@@ -1082,6 +1252,19 @@ def code_labels(new: dict, s: dict) -> dict:
         new["delivery"], new["film_intro"] = "intro", True
         new["payload"] = new.get("payload") or "rest"
         return new
+    if s["role"] == "open":
+        if new.get("delivery") in ("intro", "outro", "hook"):
+            new["delivery"] = "normal"
+        elif new.get("delivery") == "sad" and not s.get("sad_ok"):
+            new["delivery"] = "normal"   # sad is budgeted to grief anchors
+        # the question slot is the loop the video answers; the rest of the
+        # open is the moment, never commentary
+        new["payload"] = "loop" if s.get("open_hook") else (
+            "stake" if new.get("payload") == "judgment"
+            else new.get("payload") or "stake")
+        if s.get("open_hook") and s.get("hook_question"):
+            new["hook_question"] = s["hook_question"]
+        return new
     if s["role"] == "outro":
         new["delivery"] = "outro"
     elif new.get("delivery") in ("intro", "outro", "hook"):
@@ -1133,6 +1316,54 @@ def check_slots(lines: list, slots: list, pdir: Path | None = None) -> list:
     if intro and pdir is not None:
         out += _intro_problems(" ".join(str((x or {}).get("narration") or "")
                                         for x in intro), pdir)
+    open_lines = [by.get(s["slot"]) for s in want if s["role"] == "open"]
+    if open_lines:
+        out += _open_problems([x for x in open_lines if x], pdir)
+    return out
+
+
+# R0's ban list lives in craft_gates ([OPEN] reads it too) - one list,
+# both places, so the write-time check and the final gate cannot drift.
+from pipeline.craft_gates import _OPEN_BANNED  # noqa: E402
+
+
+def _open_problems(lines: list, pdir: Path | None) -> list:
+    """R0 on the cold open: no greeting, no meta framing, no title / year /
+    director, and at most ONE proper name across the whole open - a cold
+    open full of names is a listings entry, not a hook."""
+    from pipeline import craft_gates as CG
+    out = []
+    blob = " ".join(str(ln.get("narration") or "") for ln in lines)
+    low = blob.lower()
+    for t in _OPEN_BANNED:
+        if re.search(r"(?<![a-z])" + re.escape(t) + r"(?![a-z])", low):
+            out.append(f"OPEN: says {t!r} - the cold open has no greeting, "
+                       f"no meta framing, no credits; it is the film's own "
+                       f"moment")
+    year = ""
+    f = _facts(pdir) if pdir is not None else {}
+    if f:
+        year = str(f.get("year") or "")
+        title = str(f.get("title") or "").split(":")[-1].strip().lower()
+        for w in [w for w in re.findall(r"[a-z']+", title) if len(w) > 3]:
+            if w in low and w not in ("the", "and"):
+                out.append(f"OPEN: says the title word {w!r} - the title "
+                           f"lives in the video title, not the voice")
+                break
+    if year and re.search(r"(?<!\d)" + re.escape(year) + r"(?!\d)", low):
+        out.append(f"OPEN: says the year {year} - a time anchor may be the "
+                   f"film's OWN time (\"In 2035\"), not its release year")
+    # proper names: the film's KNOWN names (names.json, via motif_gates)
+    # - more than one lead named is a listings entry, not a hook
+    if pdir is not None:
+        from pipeline import motif_gates as MG
+        known, _extra = MG._load_names(Path(pdir))
+        used = sorted({n for n in known if re.search(
+            r"(?<![a-zA-Z])" + re.escape(str(n)) + r"(?![a-zA-Z])", blob)})
+        if len(used) > 1:
+            out.append(f"OPEN: names {len(used)} characters "
+                       f"({', '.join(used[:4])}) - at most ONE proper name "
+                       f"survives a cold open")
     return out
 
 

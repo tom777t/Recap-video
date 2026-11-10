@@ -805,19 +805,15 @@ def act_request(project: str, pdir: Path, k: int, sysb: list,
 
 
 def act_lines(obj: dict, k: int, slots: list | None, plan: dict | None,
-              hook: bool = True) -> list:
+              hook: bool = False) -> list:
     """The lines an act file gets for a reply: the writer's hook dropped
-    (the plan's is used), a slot-based reply merged onto its slots' beats,
-    windows and holds (write_slots.merge)."""
-    import write_plan as WP
+    (the cold open is OPEN slots now, R0), a slot-based reply merged onto
+    its slots' beats, windows and holds (write_slots.merge)."""
     import write_slots as WS
     lines = [l for l in obj.get("lines") or [] if isinstance(l, dict)
              and not (l.get("delivery") == "hook" or l.get("over_montage"))]
     if slots and any(l.get("slot") for l in lines):
         lines = WS.merge(lines, slots, k)
-    if hook and k == 1 and plan:
-        # the plan's hook, over the montage, no clip window
-        lines = [WP.hook_line(plan)] + lines
     return lines
 
 
@@ -1166,6 +1162,10 @@ def save_slots(project: str, pdir: Path, plan: dict, ab: dict,
     plan["slots"] = r["slots"]
     plan["slot_problems"] = r["problems"]
     plan["slots_version"] = r.get("version", 1)
+    # the opening's own record: [OPEN] and the variation gates read these
+    plan["open_mode"] = r.get("open_mode")
+    plan["lever"] = r.get("lever")
+    plan["opener"] = r.get("opener")
     (pdir / "plan.json").write_text(json.dumps(plan, ensure_ascii=False,
                                                indent=1), encoding="utf-8")
     nar = sum(1 for x in r["slots"] if x["role"] not in ("hold",

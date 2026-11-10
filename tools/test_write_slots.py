@@ -123,9 +123,10 @@ def test_windows_by_code():
         if a2 < b1 - 1e-6:
             bad.append(f"{s1['slot']}/{s2['slot']} overlap")
     for a, b, s in w:
-        lo, hi = rng[s["beat"]]
-        if a < lo - 1e-6 or a >= hi:
-            bad.append(f"{s['slot']} starts outside {s['beat']}")
+        if s["beat"] not in ("OPEN", "INTRO"):
+            lo, hi = rng[s["beat"]]
+            if a < lo - 1e-6 or a >= hi:
+                bad.append(f"{s['slot']} starts outside {s['beat']}")
         if any(a < t < b - 1e-6 for t in lands):
             bad.append(f"{s['slot']} straddles a reveal landing")
         if b - a < WS.MIN_WINDOW - 1e-6:
@@ -211,6 +212,9 @@ def _fill(s, i):
         op = ("Back at the garage", "After the race in the parking lot",
               "Meanwhile")[i % 3]
         t = op + ", " + t[0].lower() + t[1:]
+    if s["role"] == "open" and s.get("open_hook"):
+        # R3: the open's last line IS the viewer's question
+        t = "Will " + t[0].lower() + t[1:].rstrip(".") + "?"
     pl = ("loop" if s.get("opens_loop") else "judgment"
           if s["role"] == "reaction" else ("stake", "reasoning")[i % 2])
     return {"slot": s["slot"], "narration": t, "payload": pl,
@@ -219,14 +223,14 @@ def _fill(s, i):
 
 def _filled_draft():
     plan, ab, slots = _layout()
-    import write_plan as WP
-    lines = [WP.hook_line(plan)]
+    lines = []
     for k in sorted(ab):
         mine = WS.slots_for_act(slots, k)
         rep = [_fill(s, i) for i, s in enumerate(mine)
                if s["role"] not in ("hold", "film_speaks")]
         lines += WS.merge(rep, slots, k)
     return {"title": plan["title"], "lines": lines,
+            "open_mode": plan.get("open_mode"), "lever": plan.get("lever"),
             "_dir": str(PDIR)}
 
 
@@ -242,7 +246,7 @@ def test_gates_by_construction():
     # peak, a hold after the outro, the story opener, the marker ceiling
     want_silent = ("[PACING-CONTOUR]", "[LOOP-CADENCE]", "[PEAK-ORDER]",
                    "[INTRO-OUTRO]", "[FILM-INTRO]", "[TRANSITION]",
-                   "[VOICE-PRESENCE]", "[PERSONA-RUN]")
+                   "[VOICE-PRESENCE]", "[PERSONA-RUN]", "[OPEN]")
     loud_ = [m for m in msgs if m.startswith("[PERSONA]") and "judgment BY"
              in m]
     loud_ += [m for m in msgs if m.startswith("[SILENCE-UNIT]")
@@ -257,7 +261,7 @@ def test_gates_by_construction():
     return (not loud and not errs), (
         f"filled slots: {len(d['lines'])} lines, contour / loop / peak / "
         f"rhythm-SD+punch / persona window+share / intro-outro / film-intro / "
-        f"transition / voice-presence silent, schema clean"
+        f"transition / open contract / voice-presence silent, schema clean"
         if not loud and not errs else f"{(loud + errs)[:3]} {sd or ''}")
 
 
