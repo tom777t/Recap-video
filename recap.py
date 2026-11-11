@@ -414,8 +414,19 @@ def cmd_render(args):
                               f"(pass --music to override, or delete it to render voice-only).[/]")
                 break
         if music is None:
-            console.print("[yellow]No --music and no music.* in the project dir - "
-                          "rendering VOICE-ONLY (no background music).[/]")
+            # music/bed.*, music/cues/*, music/ending.* are read by the render
+            # itself (pipeline/music.resolve_music) - only say "voice only"
+            # when none of them is there either (Furious 7: this line said
+            # VOICE-ONLY over a full music/ folder)
+            from pipeline import music as _m
+            if (_m.bed_file(pdir) or _m.cue_files(pdir)
+                    or _m.ending_file(pdir)):
+                console.print("[dim]Music: music/ folder found (bed / cues / "
+                              "ending) - the render mixes it.[/]")
+            else:
+                console.print("[yellow]No --music, no music.* and no music/ "
+                              "folder in the project dir - rendering "
+                              "VOICE-ONLY (no background music).[/]")
 
     # captions: default from config (OFF), opt in with --captions, off with
     # --no-captions (explicit override wins).
