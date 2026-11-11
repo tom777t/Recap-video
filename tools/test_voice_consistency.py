@@ -419,8 +419,27 @@ def test_word_length_neutral() -> tuple[bool, str]:
         return False, (f"identical speaking rate ({sps} syl/s) was flagged "
                        f"because words/sec differed {ratio_w:.2f}x: "
                        f"{r['problems']}")
+    # the same, per TAG (Furious 7: `action` lines - "convoy", "armored",
+    # "helicopter" - read -13% in WPM at normal's cue and rate): a tag of
+    # long-word lines at the same syllable rate is NOT flagged; a tag that
+    # really is 20% slower in syllables still is
+    base = [(i, "normal", 20, 30, 30 / sps, 1.0) for i in range(1, 13)]
+    longw = [(20 + i, "action", 15, 30, 30 / sps, 1.0) for i in range(6)]
+    slow = [(40 + i, "action", 15, 30, 30 / (sps * 0.8), 1.0)
+            for i in range(6)]
+    t_ok = vc.analyse(_rows(base + longw))
+    t_bad = vc.analyse(_rows(base + slow))
+    tag_ok = t_ok["tag_means"]["action"]
+    if not t_ok["ok"] or abs(tag_ok["dev_wpm"]) < 0.15:
+        return False, (f"a long-word tag at the same syllable rate: WPM "
+                       f"{tag_ok['dev_wpm']:+.0%}, flagged {t_ok['problems']}")
+    if not any("'action'" in x for x in t_bad["problems"]):
+        return False, (f"a tag 20% slower in syllables was not flagged: "
+                       f"{t_bad['problems']}")
     return True, (f"a {ratio_w:.2f}x words/sec difference at an identical "
-                  f"{sps:.1f} syl/s speaking rate is not flagged")
+                  f"{sps:.1f} syl/s speaking rate is not flagged; per tag, a "
+                  f"long-word tag ({tag_ok['dev_wpm']:+.0%} WPM, same "
+                  f"syllables) passes and a 20%-slower one fails")
 
 
 def test_profile_stale_on_mapping_change() -> tuple[bool, str]:
