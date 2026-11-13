@@ -59,17 +59,23 @@ B_CAP = 0.75
 
 # The words of an OUTCOME. R1's NON-RESOLUTION has two layers: a beat
 # sitting on a reveal LANDING (the map says so), and a beat that IS the
-# payoff even when no map marks it - the body, the funeral, the unmasking
-# aftermath. Past MIDPOINT these are anti-picks: the picker's #1 on Gone
-# Girl was "Amy sits up drenched in blood ... beside the body" at 0.868.
+# payoff even when no map marks it. A spoiler is not only a death: the
+# review's table plus the owner's list - the body, the arrest, the
+# confession, the unmasking, "the truth", "was really". Past MIDPOINT
+# these are anti-picks; before it the same words are legitimate setup
+# (a film may open on its funeral, or a cop flashing a badge).
 # Danger words (gun drawn, chase, countdown, blood in a fight) stay
-# positive everywhere - before the midpoint an outcome is legitimate
-# setup ("opens on a funeral").
+# positive everywhere.
 _OUTCOME = (
     "dead", "died", "dies", "death", "deaths", "corpse", "funeral",
     "grave", "coffin", "buried", "killed", "murdered", "murder",
     "aftermath", "slain", "beheaded", "mortally", "lifeless",
     "the body", "body bag", "wounded",
+    # outcomes that are not deaths
+    "arrested", "arrests", "caught", "confesses", "confessed",
+    "confession", "unmasked", "unmasks", "exposed", "convicted",
+    "the truth", "was really", "turns out to be", "reveals himself",
+    "reveals herself",
 )
 
 # ---- R1 CHARGE: extremity of the moment -------------------------------

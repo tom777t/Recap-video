@@ -261,9 +261,24 @@ def test_spoiler_outcome():
                        "nobody names the dead", depicts=("montage",))
     r2 = OP.score(before_mid, lever="THRILL", lands=[3000.0],
                   runtime_sec=6000.0)
+    # a spoiler is not only a death (the owner's list): the identity
+    # reveal, the arrest, the confession - Prisoners' knot is WHO, not
+    # a body
+    id_reveal = _cand("pr", 4200.0, "The quiet aunt confesses she was "
+                      "really the one who took them", chars=["holt"])
+    r3 = OP.score(id_reveal, lever="THRILL", lands=[100.0],
+                  runtime_sec=6000.0)
+    arrested = _cand("ar", 4300.0, "The suspect is caught and arrested "
+                     "in the parking lot")
+    r4 = OP.score(arrested, lever="THRILL", lands=[100.0],
+                  runtime_sec=6000.0)
     return (r["score"] == -100.0 and "outcome" in r["why"][0]
-            and r2["score"] != -100.0), \
-        f"late: {r['score']} ({r['why'][0][:60]}) / early setup allowed: {r2['score']}"
+            and r2["score"] != -100.0
+            and r3["score"] == -100.0 and "outcome" in r3["why"][0]
+            and r4["score"] == -100.0), \
+        (f"late body: {r['score']} / early setup: {r2['score']} / "
+         f"identity: {r3['score']} ({r3['why'][0][:40]}) / "
+         f"arrest: {r4['score']}")
 
 
 def test_spoiler_cap_and_reveals():
@@ -297,22 +312,27 @@ def test_spoiler_cap_and_reveals():
 
 
 _KNOWN_BAD = ("gonegirl2014", "parasite2019", "prisoners2013")
+_FIXTURE = Path(ROOT) / "tools" / "fixtures" / "opening_known_bad.json"
 
 
 def test_known_bad_real_films():
     # §0's table: these three had the ending as the #1 opener. After the
-    # fix none of them may open on an outcome or past the cap. Needs the
-    # film data on disk (shots.json at minimum) - without it this is a
-    # FAILURE, not a skip: the guard it tests ships cold.
+    # fix none of them may open on an outcome or past the cap. The three
+    # films' candidate lists live in the repo as a small fixture
+    # (tools/fixtures/opening_known_bad.json) - projects/ is gitignored,
+    # so reading the films from disk would fail on every clean clone and
+    # in CI, and a test that cannot run is not a guard. Film-specific
+    # data belongs in fixtures, never in pipeline code.
     import json
+    if not _FIXTURE.exists():
+        return False, "fixture missing - regenerate with OP.read on the " \
+                      "three films (see the commit that added it)"
+    data = json.loads(_FIXTURE.read_text(encoding="utf-8"))
     rows, bad = [], []
     for name in _KNOWN_BAD:
-        try:
-            d = OP.read(name)
-        except Exception as e:
-            return False, f"{name}: cannot read ({type(e).__name__}: {e})"
-        if not d["candidates"]:
-            return False, f"{name}: no shots.json"
+        d = data.get(name)
+        if not d:
+            return False, f"{name}: not in the fixture"
         r = OP.choose(d["candidates"], lever=OP.lever_for(d["facts"]),
                       lands=d["lands"], runtime_sec=d["runtime_sec"])
         o = r["opener"] or {}

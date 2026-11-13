@@ -1,0 +1,3281 @@
+{
+ "gonegirl2014": {
+  "candidates": [
+   {
+    "id": "clip:00:00:24.0",
+    "start": 24.0,
+    "end": 30.0,
+    "depicts": [
+     "emotion"
+    ],
+    "action": "opening - Amy rests her head against Nick as he muses in voiceover about his wife",
+    "chars": [
+     "Nick",
+     "Amy"
+    ],
+    "censor": null
+   },
+   {
+    "id": "clip:00:02:27.0",
+    "start": 147.0,
+    "end": 153.0,
+    "depicts": [
+     "dialogue"
+    ],
+    "action": "Nick visits The Bar and talks with his twin sister Margo on the morning of his anniversary",
+    "chars": [
+     "Nick",
+     "Margo"
+    ],
+    "censor": null
+   },
+   {
+    "id": "clip:00:03:40.0",
+    "start": 220.0,
+    "end": 225.0,
+    "depicts": [
+     "setup"
+    ],
+    "action": "flashback - Nick first meets Amy at a crowded New York party, instant chemistry",
+    "chars": [
+     "Nick",
+     "Amy"
+    ],
+    "censor": null
+   },
+   {
+    "id": "clip:00:06:03.0",
+    "start": 363.0,
+    "end": 369.0,
+    "depicts": [
+     "emotion"
+    ],
+    "action": "flashback - Nick and Amy kiss on the street in the sugar-storm, early romance",
+    "chars": [
+     "Nick",
+     "Amy"
+    ],
+    "censor": null
+   },
+   {
+    "id": "clip:00:08:35.0",
+    "start": 515.0,
+    "end": 521.0,
+    "depicts": [
+     "discovery"
+    ],
+    "action": "Nick comes home to find the front door open and the living room overturned - signs of a struggle",
+    "chars": [
+     "Nick"
+    ],
+    "censor": null
+   },
+   {
+    "id": "clip:00:09:32.0",
+    "start": 572.0,
+    "end": 577.0,
+    "depicts": [
+     "dialogue"
+    ],
+    "action": "Detective Boney and Officer Gilpin arrive and Nick reports his wife missing",
+    "chars": [
+     "Nick",
+     "Boney",
+     "Gilpin"
+    ],
+    "censor": null
+   },
+   {
+    "id": "clip:00:11:06.0",
+    "start": 666.0,
+    "end": 671.0,
+    "depicts": [
+     "discovery"
+    ],
+    "action": "police walk the disordered house, photographing the staged-looking crime scene",
+    "chars": [
+     "Boney",
+     "Gilpin"
+    ],
+    "censor": null
+   },
+   {
+    "id": "clip:00:12:00.0",
+    "start": 720.0,
+    "end": 725.0,
+    "depicts": [
+     "setup"
+    ],
+    "action": "flashback - the Amazing Amy book-launch party celebrating Amy's parents' children's series",
+    "chars": [
+     "Nick",
+     "Amy"
+    ],
+    "censor": null
+   },
+   {
+    "id": "clip:00:13:46.0",
+    "start": 826.0,
+    "end": 831.0,
+    "depicts": [
+     "dialogue"
+    ],
+    "action": "at the party Amy's parents discuss how their Amazing Amy books mirror and outdo their real daughter",
+    "chars": [
+     "Amy",
+     "Rand",
+     "Marybeth"
+    ],
+    "censor": null
+   },
+   {
+    "id": "clip:00:15:18.0",
+    "start": 918.0,
+    "end": 923.0,
+    "depicts": [
+     "dialogue"
+    ],
+    "action": "first formal police interview - Boney probes how little Nick knows about his wife's daily life",
+    "chars": [
+     "Nick",
+     "Boney",
+     "Gilpin"
+    ],
+    "censor": null
+   },
+   {
+    "id": "clip:00:27:08.0",
+    "start": 1628.0,
+    "end": 1633.0,
+    "depicts": [
+     "dialogue"
+    ],
+    "action": "police raise Amy's obsessive ex Desi Collings and a past restraining order as a lead",
+    "chars": [
+     "Boney",
+     "Gilpin",
+     "Nick"
+    ],
+    "censor": null
+   },
+   {
+    "id": "clip:00:28:06.0",
+    "start": 1686.0,
+    "end": 1691.0,
+    "depicts": [
+     "discovery"
+    ],
+    "action": "Boney shows Nick the first clue from Amy's anniversary treasure hunt found in her study",
+    "chars": [
+     "Nick",
+     "Boney"
+    ],
+    "censor": null
+   },
+   {
+    "id": "clip:00:31:34.0",
+    "start": 1894.0,
+    "end": 1900.0,
+    "depicts": [
+     "emotion"
+    ],
+    "action": "flashback - newlywed Nick and Amy in bed promising never to become a bitter married couple",
+    "chars": [
+     "Nick",
+     "Amy"
+    ],
+    "censor": null
+   },
+   {
+    "id": "clip:00:33:38.0",
+    "start": 2018.0,
+    "end": 2023.0,
+    "depicts": [
+     "dialogue"
+    ],
+    "action": "flashback - the marriage sours over money as Amy confronts Nick about the drained trust fund",
+    "chars": [
+     "Nick",
+     "Amy"
+    ],
+    "censor": null
+   },
+   {
+    "id": "clip:00:35:09.0",
+    "start": 2109.0,
+    "end": 2114.0,
+    "depicts": [
+     "transition"
+    ],
+    "action": "Nick works the volunteer search headquarters, shaking hands with the mayor amid the Find Amy effort",
+    "chars": [
+     "Nick"
+    ],
+    "censor": null
+   },
+   {
+    "id": "clip:00:54:00.0",
+    "start": 3240.0,
+    "end": 3245.0,
+    "depicts": [
+     "setup"
+    ],
+    "action": "a candlelight vigil and press conference for the missing Amy, the town rallying behind the search",
+    "chars": [
+     "Nick"
+    ],
+    "censor": null
+   },
+   {
+    "id": "clip:00:56:40.0",
+    "start": 3400.0,
+    "end": 3405.0,
+    "depicts": [
+     "reveal"
+    ],
+    "action": "at the vigil Amy's friend Noelle publicly reveals that Amy was six weeks pregnant",
+    "chars": [
+     "Nick",
+     "Noelle"
+    ],
+    "censor": null
+   },
+   {
+    "id": "clip:00:57:34.0",
+    "start": 3454.0,
+    "end": 3459.0,
+    "depicts": [
+     "reaction"
+    ],
+    "action": "Boney confronts Nick with the pregnancy news, his stunned denial deepening suspicion",
+    "chars": [
+     "Nick",
+     "Boney"
+    ],
+    "censor": null
+   },
+   {
+    "id": "clip:00:58:45.0",
+    "start": 3525.0,
+    "end": 3530.0,
+    "depicts": [
+     "dialogue"
+    ],
+    "action": "interrogation - police lay out the staged scene, mopped-up blood, debt and inflated life insurance",
+    "chars": [
+     "Nick",
+     "Boney",
+     "Gilpin"
+    ],
+    "censor": null
+   },
+   {
+    "id": "clip:01:00:46.0",
+    "start": 3646.0,
+    "end": 3651.0,
+    "depicts": [
+     "reveal"
+    ],
+    "action": "the detectives reveal Nick's secret affair with a young woman, establishing his motive",
+    "chars": [
+     "Nick",
+     "Gilpin"
+    ],
+    "censor": null
+   },
+   {
+    "id": "clip:01:06:32.0",
+    "start": 3992.0,
+    "end": 3995.5,
+    "depicts": [
+     "reveal"
+    ],
+    "action": "TWIST - Amy is alive, calmly driving in sunglasses in bright daylight (profile), revealing she faked her death (brighter, face-clear; rebound from dark 01:06:00 per QA)",
+    "chars": [
+     "Amy"
+    ],
+    "censor": null
+   },
+   {
+    "id": "clip:01:06:37.0",
+    "start": 3997.0,
+    "end": 4001.5,
+    "depicts": [
+     "reveal"
+    ],
+    "action": "TWIST - Amy alive, driving in bright daylight into a near-frontal close-up, composed and unbothered - the grieving wife was a performance",
+    "chars": [
+     "Amy"
+    ],
+    "censor": null
+   },
+   {
+    "id": "clip:01:07:02.0",
+    "start": 4022.0,
+    "end": 4027.0,
+    "depicts": [
+     "action"
+    ],
+    "action": "planning flashback - Amy secretly steals the pregnant neighbor's urine to fake a pregnancy record",
+    "chars": [
+     "Amy"
+    ],
+    "censor": null
+   },
+   {
+    "id": "clip:01:08:14.0",
+    "start": 4094.0,
+    "end": 4099.0,
+    "depicts": [
+     "action"
+    ],
+    "action": "planning flashback - Amy meticulously stages the home crime scene the morning of the anniversary",
+    "chars": [
+     "Amy"
+    ],
+    "censor": null
+   },
+   {
+    "id": "clip:01:08:37.0",
+    "start": 4117.0,
+    "end": 4122.0,
+    "depicts": [
+     "action"
+    ],
+    "action": "planning flashback - Amy cuts herself to bleed across the kitchen, then poorly mops it up to mislead police",
+    "chars": [
+     "Amy"
+    ],
+    "censor": null
+   },
+   {
+    "id": "clip:01:09:11.0",
+    "start": 4151.0,
+    "end": 4156.0,
+    "depicts": [
+     "action"
+    ],
+    "action": "planning flashback - Amy writes a false diary of abuse and burns it just enough for the police to find",
+    "chars": [
+     "Amy"
+    ],
+    "censor": null
+   },
+   {
+    "id": "clip:01:10:26.0",
+    "start": 4226.0,
+    "end": 4232.0,
+    "depicts": [
+     "reveal"
+    ],
+    "action": "Amy's Cool Girl monologue begins - she explains the effortless persona she performed to win Nick",
+    "chars": [
+     "Amy"
+    ],
+    "censor": null
+   },
+   {
+    "id": "clip:01:12:01.0",
+    "start": 4321.0,
+    "end": 4326.0,
+    "depicts": [
+     "reveal"
+    ],
+    "action": "Amy lays out how Nick's laziness and affair drove her to frame him so he would pay for it",
+    "chars": [
+     "Amy"
+    ],
+    "censor": null
+   },
+   {
+    "id": "clip:01:13:35.0",
+    "start": 4415.0,
+    "end": 4420.0,
+    "depicts": [
+     "discovery"
+    ],
+    "action": "Nick and Margo decode the treasure-hunt clues and realize Amy is framing him for her murder",
+    "chars": [
+     "Nick",
+     "Margo"
+    ],
+    "censor": null
+   },
+   {
+    "id": "clip:01:15:40.0",
+    "start": 4540.0,
+    "end": 4545.0,
+    "depicts": [
+     "setup"
+    ],
+    "action": "Amy, disguised in dyed hair and glasses, settles into a backwoods motel and meets neighbor Greta",
+    "chars": [
+     "Amy",
+     "Greta"
+    ],
+    "censor": null
+   },
+   {
+    "id": "clip:01:21:01.0",
+    "start": 4861.0,
+    "end": 4866.0,
+    "depicts": [
+     "dialogue"
+    ],
+    "action": "Nick hires high-profile defense attorney Tanner Bolt to fight the tightening case against him",
+    "chars": [
+     "Nick",
+     "Tanner"
+    ],
+    "censor": null
+   },
+   {
+    "id": "clip:01:24:27.0",
+    "start": 5067.0,
+    "end": 5072.0,
+    "depicts": [
+     "reaction"
+    ],
+    "action": "cable-news shows brand Nick a wife-killer after the pregnancy leaks, turning public opinion against him",
+    "chars": [
+     "Nick"
+    ],
+    "censor": null
+   },
+   {
+    "id": "clip:01:34:27.0",
+    "start": 5667.0,
+    "end": 5672.0,
+    "depicts": [
+     "discovery"
+    ],
+    "action": "Greta spots Amy's hidden cash wad - 'Miss Moneybags' - at the motel pool, exposing her",
+    "chars": [
+     "Amy",
+     "Greta",
+     "Jeff"
+    ],
+    "censor": null
+   },
+   {
+    "id": "clip:01:38:07.0",
+    "start": 5887.0,
+    "end": 5892.0,
+    "depicts": [
+     "action"
+    ],
+    "action": "Jeff demands the money while Amy stalls, the robbery turning threatening in her motel room",
+    "chars": [
+     "Amy",
+     "Jeff"
+    ],
+    "censor": null
+   },
+   {
+    "id": "clip:01:38:32.0",
+    "start": 5912.0,
+    "end": 5917.0,
+    "depicts": [
+     "action"
+    ],
+    "action": "Greta and Jeff strike Amy and ransack her room, taking nearly all of her escape money",
+    "chars": [
+     "Amy",
+     "Greta",
+     "Jeff"
+    ],
+    "censor": null
+   },
+   {
+    "id": "clip:01:38:42.0",
+    "start": 5922.0,
+    "end": 5927.0,
+    "depicts": [
+     "aftermath"
+    ],
+    "action": "robbed and broke, Amy is left alone, her self-funded plan suddenly collapsing",
+    "chars": [
+     "Amy"
+    ],
+    "censor": null
+   },
+   {
+    "id": "clip:01:41:59.0",
+    "start": 6119.0,
+    "end": 6124.0,
+    "depicts": [
+     "dialogue"
+    ],
+    "action": "out of options, Amy contacts her wealthy ex Desi and tearfully asks him to take her in",
+    "chars": [
+     "Amy",
+     "Desi"
+    ],
+    "censor": null
+   },
+   {
+    "id": "clip:01:46:41.0",
+    "start": 6401.0,
+    "end": 6406.0,
+    "depicts": [
+     "setup"
+    ],
+    "action": "Desi installs Amy in his secluded, camera-rigged lake house, a gilded cage of comfort",
+    "chars": [
+     "Amy",
+     "Desi"
+    ],
+    "censor": null
+   },
+   {
+    "id": "clip:01:49:26.0",
+    "start": 6566.0,
+    "end": 6571.0,
+    "depicts": [
+     "dialogue"
+    ],
+    "action": "Desi presses Amy to look like herself again, his control over her quietly growing",
+    "chars": [
+     "Amy",
+     "Desi"
+    ],
+    "censor": null
+   },
+   {
+    "id": "clip:01:50:47.0",
+    "start": 6647.0,
+    "end": 6653.0,
+    "depicts": [
+     "setup"
+    ],
+    "action": "Nick sits across from Sharon Schieber on her TV special set as the exclusive interview begins",
+    "chars": [
+     "Nick",
+     "Sharon"
+    ],
+    "censor": null
+   },
+   {
+    "id": "clip:01:51:07.0",
+    "start": 6667.0,
+    "end": 6673.0,
+    "depicts": [
+     "dialogue"
+    ],
+    "action": "Nick performs calculated remorse on camera, confessing his affair and shame to win back public sympathy",
+    "chars": [
+     "Nick"
+    ],
+    "censor": null
+   },
+   {
+    "id": "clip:01:51:10.0",
+    "start": 6670.0,
+    "end": 6676.0,
+    "depicts": [
+     "reaction"
+    ],
+    "action": "Amy and Desi watch the broadcast at the lake house, Amy studying Nick's performance",
+    "chars": [
+     "Amy",
+     "Desi"
+    ],
+    "censor": null
+   },
+   {
+    "id": "clip:01:57:00.0",
+    "start": 7020.0,
+    "end": 7026.0,
+    "depicts": [
+     "discovery"
+    ],
+    "action": "Boney lays out evidence and a map folder at the police station, the procedural case tightening",
+    "chars": [
+     "Boney"
+    ],
+    "censor": null
+   },
+   {
+    "id": "clip:01:57:30.0",
+    "start": 7050.0,
+    "end": 7056.0,
+    "depicts": [
+     "dialogue"
+    ],
+    "action": "Nick sits under pressure beside Tanner as the detectives press him across the interview table",
+    "chars": [
+     "Nick",
+     "Tanner"
+    ],
+    "censor": null
+   },
+   {
+    "id": "clip:01:59:19.0",
+    "start": 7159.0,
+    "end": 7164.0,
+    "depicts": [
+     "setup"
+    ],
+    "action": "moved by Nick's TV plea, Amy resolves to return home and begins planning to remove Desi",
+    "chars": [
+     "Amy",
+     "Desi"
+    ],
+    "censor": null
+   },
+   {
+    "id": "clip:02:03:57.0",
+    "start": 7437.0,
+    "end": 7443.0,
+    "depicts": [
+     "action"
+    ],
+    "action": "Amy seduces Desi in the lake-house bedroom as the final step of her plan",
+    "chars": [
+     "Amy",
+     "Desi"
+    ],
+    "censor": "blur"
+   },
+   {
+    "id": "clip:02:04:42.0",
+    "start": 7482.0,
+    "end": 7487.0,
+    "depicts": [
+     "action"
+    ],
+    "action": "Desi over Amy on the bed moments before the attack",
+    "chars": [
+     "Amy",
+     "Desi"
+    ],
+    "censor": "blur"
+   },
+   {
+    "id": "clip:02:04:47.0",
+    "start": 7487.0,
+    "end": 7495.0,
+    "depicts": [
+     "action"
+    ],
+    "action": "Amy slits Desi's throat with a box cutter mid-act, blood spraying across the bed",
+    "chars": [
+     "Amy",
+     "Desi"
+    ],
+    "censor": "blur_heavy"
+   },
+   {
+    "id": "clip:02:04:55.0",
+    "start": 7495.0,
+    "end": 7505.0,
+    "depicts": [
+     "action"
+    ],
+    "action": "blood pours over the bed as Desi convulses and Amy holds him down",
+    "chars": [
+     "Amy",
+     "Desi"
+    ],
+    "censor": "blur_heavy"
+   },
+   {
+    "id": "clip:02:05:05.0",
+    "start": 7505.0,
+    "end": 7520.0,
+    "depicts": [
+     "aftermath"
+    ],
+    "action": "Desi lies dead and bloodied on the soaked bed",
+    "chars": [
+     "Desi"
+    ],
+    "censor": "blur_heavy"
+   },
+   {
+    "id": "clip:02:05:27.0",
+    "start": 7527.0,
+    "end": 7533.0,
+    "depicts": [
+     "aftermath"
+    ],
+    "action": "Amy sits up drenched in blood in her red slip beside the body, then rises to leave",
+    "chars": [
+     "Amy"
+    ],
+    "censor": "blur_light"
+   },
+   {
+    "id": "clip:02:06:15.0",
+    "start": 7575.0,
+    "end": 7580.0,
+    "depicts": [
+     "reveal"
+    ],
+    "action": "bloodied and dazed, Amy returns home in a media frenzy and collapses into Nick's arms",
+    "chars": [
+     "Amy",
+     "Nick"
+    ],
+    "censor": null
+   },
+   {
+    "id": "clip:02:07:03.0",
+    "start": 7623.0,
+    "end": 7628.0,
+    "depicts": [
+     "dialogue"
+    ],
+    "action": "at the hospital Amy gives police a fabricated account of being kidnapped and assaulted by Desi",
+    "chars": [
+     "Amy",
+     "Boney",
+     "Gilpin"
+    ],
+    "censor": null
+   },
+   {
+    "id": "clip:02:09:29.0",
+    "start": 7769.0,
+    "end": 7774.0,
+    "depicts": [
+     "dialogue"
+    ],
+    "action": "Boney voices doubt - how did a bound captive get a box cutter - but Amy's airtight story holds",
+    "chars": [
+     "Boney",
+     "Amy",
+     "Nick"
+    ],
+    "censor": null
+   },
+   {
+    "id": "clip:02:12:21.0",
+    "start": 7941.0,
+    "end": 7946.0,
+    "depicts": [
+     "dialogue"
+    ],
+    "action": "alone at home Amy makes Nick strip to prove no wire, then admits she murdered Desi",
+    "chars": [
+     "Nick",
+     "Amy"
+    ],
+    "censor": "blur_light"
+   },
+   {
+    "id": "clip:02:13:38.0",
+    "start": 8018.0,
+    "end": 8023.0,
+    "depicts": [
+     "reaction"
+    ],
+    "action": "Nick realizes he is trapped with Amy, who controls the narrative and his fate",
+    "chars": [
+     "Nick"
+    ],
+    "censor": null
+   },
+   {
+    "id": "clip:02:16:16.0",
+    "start": 8176.0,
+    "end": 8181.0,
+    "depicts": [
+     "dialogue"
+    ],
+    "action": "Nick tells Margo that Amy confessed the murder, and that Amy is now pregnant - he cannot leave",
+    "chars": [
+     "Nick",
+     "Margo"
+    ],
+    "censor": null
+   },
+   {
+    "id": "clip:02:23:34.0",
+    "start": 8614.0,
+    "end": 8619.0,
+    "depicts": [
+     "emotion"
+    ],
+    "action": "Nick and Amy sit together announcing the coming baby, the perfect public couple",
+    "chars": [
+     "Nick",
+     "Amy"
+    ],
+    "censor": null
+   },
+   {
+    "id": "clip:02:24:18.0",
+    "start": 8658.0,
+    "end": 8668.0,
+    "depicts": [
+     "emotion"
+    ],
+    "action": "Amy stares into the camera as Nick's opening lines return - what have we done to each other",
+    "chars": [
+     "Nick",
+     "Amy"
+    ],
+    "censor": null
+   }
+  ],
+  "lands": [],
+  "facts": {},
+  "runtime_sec": 8668.0
+ },
+ "parasite2019": {
+  "candidates": [
+   {
+    "id": "clip:00:00:50.0",
+    "start": 50.0,
+    "end": 62.0,
+    "depicts": [
+     "setup"
+    ],
+    "action": "the film opens on socks drying at a half-buried window, the street outside at eye level - the Kims live with the gutter (FRAME-VERIFIED 00:00:50 - opening title shot)",
+    "chars": [
+     "Ki-woo"
+    ],
+    "censor": "none"
+   },
+   {
+    "id": "clip:00:01:50.0",
+    "start": 110.0,
+    "end": 120.0,
+    "depicts": [
+     "setup"
+    ],
+    "action": "Ki-woo holds his phone up hunting for free wifi while the family sits in the cramped semi-basement - the Kims' poverty established (FRAME-VERIFIED 00:01:50; nudged later to avoid opening-credit text overlay)",
+    "chars": [
+     "Ki-woo",
+     "Chung-sook"
+    ],
+    "censor": "none"
+   },
+   {
+    "id": "clip:00:03:55.0",
+    "start": 235.0,
+    "end": 242.0,
+    "depicts": [
+     "setup"
+    ],
+    "action": "the whole Kim family folds pizza boxes for piece-work money in the cramped semi-basement (FRAME-VERIFIED 00:03:55)",
+    "chars": [
+     "Ki-taek",
+     "Ki-woo",
+     "Ki-jung",
+     "Chung-sook"
+    ],
+    "censor": "none"
+   },
+   {
+    "id": "clip:00:05:00.0",
+    "start": 300.0,
+    "end": 312.0,
+    "depicts": [
+     "setup"
+    ],
+    "action": "a drunk relieves himself against their window; the family can only watch, powerless even in their own home (FRAME-VERIFIED 00:05:00)",
+    "chars": [
+     "Ki-taek",
+     "Chung-sook"
+    ],
+    "censor": "none"
+   },
+   {
+    "id": "clip:00:06:00.0",
+    "start": 360.0,
+    "end": 371.0,
+    "depicts": [
+     "setup"
+    ],
+    "action": "street fumigation gas drifts into the open basement window; the family lets it in to kill the bugs - the gutter-level life (FRAME-VERIFIED 00:06:00)",
+    "chars": [
+     "Ki-taek",
+     "Ki-woo"
+    ],
+    "censor": "none"
+   },
+   {
+    "id": "clip:00:07:18.0",
+    "start": 438.0,
+    "end": 450.0,
+    "depicts": [
+     "reveal"
+    ],
+    "action": "Ki-woo's friend Min gives the family a 'scholar's rock' (viewing stone) said to bring wealth - opening the wooden box (FRAME-VERIFIED 00:07:18)",
+    "chars": [
+     "Min",
+     "Ki-woo",
+     "Ki-taek"
+    ],
+    "censor": "none"
+   },
+   {
+    "id": "clip:00:08:10.0",
+    "start": 490.0,
+    "end": 502.0,
+    "depicts": [
+     "setup"
+    ],
+    "action": "the scholar's rock, Min says, will cling to the family and bring them wealth - Ki-woo cannot stop holding it (FRAME-VERIFIED 00:08:10)",
+    "chars": [
+     "Ki-woo",
+     "Min"
+    ],
+    "censor": "none"
+   },
+   {
+    "id": "clip:00:08:50.0",
+    "start": 530.0,
+    "end": 540.0,
+    "depicts": [
+     "dialogue"
+    ],
+    "action": "Min offers Ki-woo his tutoring job - teaching the rich Park family's daughter English while he studies abroad (FRAME-VERIFIED 00:08:50)",
+    "chars": [
+     "Min",
+     "Ki-woo"
+    ],
+    "censor": "none"
+   },
+   {
+    "id": "clip:00:09:45.0",
+    "start": 585.0,
+    "end": 596.0,
+    "depicts": [
+     "dialogue"
+    ],
+    "action": "over street-stall soju, Min admits he is half in love with the girl Ki-woo will tutor, and trusts only Ki-woo not to pursue her (FRAME-VERIFIED 00:09:45)",
+    "chars": [
+     "Ki-woo",
+     "Min"
+    ],
+    "censor": "none"
+   },
+   {
+    "id": "clip:00:11:25.0",
+    "start": 685.0,
+    "end": 695.0,
+    "depicts": [
+     "action"
+    ],
+    "action": "Ki-jung forges a university enrolment document for Ki-woo on the laptop - the family's real talent is performance and deception (FRAME-VERIFIED 00:11:25)",
+    "chars": [
+     "Ki-jung",
+     "Ki-woo"
+    ],
+    "censor": "none"
+   },
+   {
+    "id": "clip:00:12:00.0",
+    "start": 720.0,
+    "end": 722.5,
+    "depicts": [
+     "action"
+    ],
+    "action": "Ki-jung's forgery is flawless - she jokes that she did not fake the document, she simply printed it (FRAME-VERIFIED 00:12:00)",
+    "chars": [
+     "Ki-jung",
+     "Ki-woo"
+    ],
+    "censor": "none"
+   },
+   {
+    "id": "clip:00:13:00.0",
+    "start": 780.0,
+    "end": 792.0,
+    "depicts": [
+     "transition"
+    ],
+    "action": "Ki-woo climbs the concrete steps through the bamboo to the Parks' modernist house - the ascent into the other world (FRAME-VERIFIED 00:13:00)",
+    "chars": [
+     "Ki-woo"
+    ],
+    "censor": "none"
+   },
+   {
+    "id": "clip:00:13:40.0",
+    "start": 820.0,
+    "end": 832.0,
+    "depicts": [
+     "transition"
+    ],
+    "action": "inside, a clean bright staircase climbs upward - in the rich house the stairs always go up, toward more light (FRAME-VERIFIED 00:13:40 - vertical motif)",
+    "chars": [
+     "Ki-woo"
+    ],
+    "censor": "none"
+   },
+   {
+    "id": "clip:00:14:30.0",
+    "start": 870.0,
+    "end": 874.0,
+    "depicts": [
+     "dialogue"
+    ],
+    "action": "Ki-woo ('Kevin') interviews with Yeon-kyo, Mrs Park, in the bright glass-walled house overlooking the garden (FRAME-VERIFIED 00:14:30)",
+    "chars": [
+     "Ki-woo",
+     "Yeon-kyo"
+    ],
+    "censor": "none"
+   },
+   {
+    "id": "clip:00:15:20.0",
+    "start": 920.0,
+    "end": 932.0,
+    "depicts": [
+     "dialogue"
+    ],
+    "action": "Mrs Park watches the lesson from the doorway, anxious and easily impressed, exactly the audience Ki-woo needs (FRAME-VERIFIED 00:15:20)",
+    "chars": [
+     "Ki-woo",
+     "Yeon-kyo"
+    ],
+    "censor": "none"
+   },
+   {
+    "id": "clip:00:16:10.0",
+    "start": 970.0,
+    "end": 980.0,
+    "depicts": [
+     "dialogue"
+    ],
+    "action": "Ki-woo gives Da-hye her first English lesson, performing confidence as the qualified tutor (FRAME-VERIFIED 00:16:10)",
+    "chars": [
+     "Ki-woo",
+     "Da-hye"
+    ],
+    "censor": "none"
+   },
+   {
+    "id": "clip:00:16:40.0",
+    "start": 1000.0,
+    "end": 1006.0,
+    "depicts": [
+     "dialogue"
+    ],
+    "action": "Ki-woo's lesson with Da-hye is really a performance of swagger; the teenage girl is visibly charmed by her new tutor (FRAME-VERIFIED 00:16:40)",
+    "chars": [
+     "Ki-woo",
+     "Da-hye"
+    ],
+    "censor": "none"
+   },
+   {
+    "id": "clip:00:17:00.0",
+    "start": 1020.0,
+    "end": 1024.7,
+    "depicts": [
+     "dialogue"
+    ],
+    "action": "he teaches Da-hye to attack each test like a bulldozer, all swagger and certainty (FRAME-VERIFIED 00:17:00)",
+    "chars": [
+     "Ki-woo",
+     "Da-hye"
+    ],
+    "censor": "none"
+   },
+   {
+    "id": "clip:00:17:55.0",
+    "start": 1075.0,
+    "end": 1085.0,
+    "depicts": [
+     "setup"
+    ],
+    "action": "Ki-woo meets the Parks' hyperactive young son Da-song; Yeon-kyo frets over finding him an art teacher (FRAME-VERIFIED 00:17:55)",
+    "chars": [
+     "Yeon-kyo",
+     "Da-song",
+     "Ki-woo"
+    ],
+    "censor": "none"
+   },
+   {
+    "id": "clip:00:18:10.0",
+    "start": 1090.0,
+    "end": 1099.5,
+    "depicts": [
+     "setup"
+    ],
+    "action": "the boy Da-song tears around the house in a toy headdress, a wild little prince his mother cannot control (FRAME-VERIFIED 00:18:10)",
+    "chars": [
+     "Ki-woo",
+     "Yeon-kyo",
+     "Da-song"
+    ],
+    "censor": "none"
+   },
+   {
+    "id": "clip:00:18:30.0",
+    "start": 1110.0,
+    "end": 1122.0,
+    "depicts": [
+     "dialogue"
+    ],
+    "action": "Mrs Park confides her worry that no art teacher can handle her wild, troubled son - and Ki-woo spots his next opening (FRAME-VERIFIED 00:18:30)",
+    "chars": [
+     "Ki-woo",
+     "Yeon-kyo"
+    ],
+    "censor": "none"
+   },
+   {
+    "id": "clip:00:19:20.0",
+    "start": 1160.0,
+    "end": 1168.0,
+    "depicts": [
+     "reveal"
+    ],
+    "action": "Mrs Park frets over the boy's strange, frantic drawings, certain they hide some deep wound (FRAME-VERIFIED 00:19:20)",
+    "chars": [
+     "Da-song",
+     "Yeon-kyo"
+    ],
+    "censor": "none"
+   },
+   {
+    "id": "clip:00:19:55.0",
+    "start": 1195.0,
+    "end": 1207.0,
+    "depicts": [
+     "action"
+    ],
+    "action": "Ki-woo recommends an 'elite art therapist, Jessica' - secretly his sister Ki-jung - planting the second con (FRAME-VERIFIED 00:19:55)",
+    "chars": [
+     "Ki-woo",
+     "Yeon-kyo"
+    ],
+    "censor": "none"
+   },
+   {
+    "id": "clip:00:22:30.0",
+    "start": 1350.0,
+    "end": 1362.0,
+    "depicts": [
+     "dialogue"
+    ],
+    "action": "Jessica diagnoses the boy's drawings as a cry for help, inventing a whole psychology on the spot (FRAME-VERIFIED 00:22:30)",
+    "chars": [
+     "Ki-jung",
+     "Yeon-kyo"
+    ],
+    "censor": "none"
+   },
+   {
+    "id": "clip:00:26:20.0",
+    "start": 1580.0,
+    "end": 1589.0,
+    "depicts": [
+     "dialogue"
+    ],
+    "action": "she names her exorbitant fee, and the desperate mother agrees gratefully (FRAME-VERIFIED 00:26:20)",
+    "chars": [
+     "Ki-jung",
+     "Yeon-kyo"
+    ],
+    "censor": "none"
+   },
+   {
+    "id": "clip:00:26:40.0",
+    "start": 1600.0,
+    "end": 1612.0,
+    "depicts": [
+     "dialogue"
+    ],
+    "action": "Ki-jung ('Jessica') dazzles Yeon-kyo with invented art-therapy jargon about Da-song's drawings, landing the job (FRAME-VERIFIED 00:26:40)",
+    "chars": [
+     "Ki-jung",
+     "Yeon-kyo"
+    ],
+    "censor": "none"
+   },
+   {
+    "id": "clip:00:29:00.0",
+    "start": 1740.0,
+    "end": 1743.0,
+    "depicts": [
+     "setup"
+    ],
+    "action": "Mr Park personally drives Ki-jung home, polite and oblivious, as she sets her trap (FRAME-VERIFIED 00:29:00)",
+    "chars": [
+     "Ki-jung",
+     "Dong-ik"
+    ],
+    "censor": "none"
+   },
+   {
+    "id": "clip:00:29:30.0",
+    "start": 1770.0,
+    "end": 1782.0,
+    "depicts": [
+     "setup"
+    ],
+    "action": "Mr Park (Dong-ik) has his driver take Ki-jung home; she plants her underwear under the car seat (FRAME-VERIFIED 00:29:30)",
+    "chars": [
+     "Ki-jung",
+     "Dong-ik"
+    ],
+    "censor": "none"
+   },
+   {
+    "id": "clip:00:30:00.0",
+    "start": 1800.0,
+    "end": 1812.0,
+    "depicts": [
+     "setup"
+    ],
+    "action": "alone in the back of the chauffeured car at night, Ki-jung calmly sets her trap (FRAME-VERIFIED 00:30:00 - DARK)",
+    "chars": [
+     "Ki-jung"
+    ],
+    "censor": "none"
+   },
+   {
+    "id": "clip:00:32:35.0",
+    "start": 1955.0,
+    "end": 1967.0,
+    "depicts": [
+     "reveal"
+    ],
+    "action": "the Parks find the planted underwear and assume their young driver is having sex in the car - he is fired (FRAME-VERIFIED 00:32:35)",
+    "chars": [
+     "Dong-ik",
+     "Yeon-kyo"
+    ],
+    "censor": "none"
+   },
+   {
+    "id": "clip:00:33:40.0",
+    "start": 2020.0,
+    "end": 2032.0,
+    "depicts": [
+     "reveal"
+    ],
+    "action": "the loyal young driver is dismissed without a hearing - in this world the poor are endlessly replaceable (FRAME-VERIFIED 00:33:40)",
+    "chars": [
+     "Dong-ik"
+    ],
+    "censor": "none"
+   },
+   {
+    "id": "clip:00:37:00.0",
+    "start": 2220.0,
+    "end": 2232.0,
+    "depicts": [
+     "dialogue"
+    ],
+    "action": "Ki-taek wins the job by performing the perfect calm, devoted servant Mr Park wants to see (FRAME-VERIFIED 00:37:00)",
+    "chars": [
+     "Ki-taek",
+     "Dong-ik"
+    ],
+    "censor": "none"
+   },
+   {
+    "id": "clip:00:37:50.0",
+    "start": 2270.0,
+    "end": 2275.0,
+    "depicts": [
+     "dialogue"
+    ],
+    "action": "con #3 lands: Ki-taek is hired as the Parks' new chauffeur, recommended as a trustworthy older 'gentleman' (FRAME-VERIFIED 00:37:50)",
+    "chars": [
+     "Ki-taek",
+     "Dong-ik"
+    ],
+    "censor": "none"
+   },
+   {
+    "id": "clip:00:39:55.0",
+    "start": 2395.0,
+    "end": 2405.0,
+    "depicts": [
+     "setup"
+    ],
+    "action": "the Kims learn the loyal housekeeper Moon-gwang has a hidden peach allergy and plot to exploit it (FRAME-VERIFIED 00:39:55)",
+    "chars": [
+     "Ki-taek",
+     "Dong-ik"
+    ],
+    "censor": "none"
+   },
+   {
+    "id": "clip:00:40:30.0",
+    "start": 2430.0,
+    "end": 2437.0,
+    "depicts": [
+     "setup"
+    ],
+    "action": "the family plots the housekeeper's downfall like a heist, mapping out her one fatal weakness (FRAME-VERIFIED 00:40:30)",
+    "chars": [
+     "Ki-taek",
+     "Chung-sook"
+    ],
+    "censor": "none"
+   },
+   {
+    "id": "clip:00:42:30.0",
+    "start": 2550.0,
+    "end": 2560.0,
+    "depicts": [
+     "action"
+    ],
+    "action": "the Kims dust peach fuzz on Moon-gwang to trigger her allergy, then frame the reaction as tuberculosis (FRAME-VERIFIED 00:42:30)",
+    "chars": [
+     "Ki-jung",
+     "Moon-gwang"
+    ],
+    "censor": "none"
+   },
+   {
+    "id": "clip:00:44:40.0",
+    "start": 2680.0,
+    "end": 2692.0,
+    "depicts": [
+     "dialogue"
+    ],
+    "action": "Ki-taek convinces a frightened Yeon-kyo that Moon-gwang has TB; the last servant is ousted - all four Kims now embedded (FRAME-VERIFIED 00:44:40)",
+    "chars": [
+     "Yeon-kyo",
+     "Ki-taek"
+    ],
+    "censor": "none"
+   },
+   {
+    "id": "clip:00:45:00.0",
+    "start": 2700.0,
+    "end": 2712.0,
+    "depicts": [
+     "reveal"
+    ],
+    "action": "the housekeeper is cast out coughing and pleading - the last loyal servant of the house, gone (FRAME-VERIFIED 00:45:00)",
+    "chars": [
+     "Moon-gwang",
+     "Yeon-kyo"
+    ],
+    "censor": "none"
+   },
+   {
+    "id": "clip:00:51:30.0",
+    "start": 3090.0,
+    "end": 3102.0,
+    "depicts": [
+     "reveal"
+    ],
+    "action": "all four Kims are now secretly employed by the Parks under false identities, pretending to be strangers - the con complete (FRAME-VERIFIED 00:51:30)",
+    "chars": [
+     "Ki-taek",
+     "Chung-sook",
+     "Ki-woo",
+     "Ki-jung"
+    ],
+    "censor": "none"
+   },
+   {
+    "id": "clip:00:53:35.0",
+    "start": 3215.0,
+    "end": 3227.0,
+    "depicts": [
+     "transition"
+    ],
+    "action": "the Park family leaves for Da-song's birthday camping trip, emptying the house (FRAME-VERIFIED 00:53:35)",
+    "chars": [
+     "Da-song",
+     "Dong-ik",
+     "Yeon-kyo"
+    ],
+    "censor": "none"
+   },
+   {
+    "id": "clip:00:54:00.0",
+    "start": 3240.0,
+    "end": 3252.0,
+    "depicts": [
+     "emotion"
+    ],
+    "action": "the Kims test the great empty rooms, hardly believing such space belongs to anyone (FRAME-VERIFIED 00:54:00)",
+    "chars": [
+     "Ki-jung"
+    ],
+    "censor": "none"
+   },
+   {
+    "id": "clip:00:55:00.0",
+    "start": 3300.0,
+    "end": 3302.5,
+    "depicts": [
+     "transition"
+    ],
+    "action": "the Parks' car pulls away for the camping trip, the boy's toy bow in hand (FRAME-VERIFIED 00:55:00)",
+    "chars": [
+     "Yeon-kyo",
+     "Da-song"
+    ],
+    "censor": "none"
+   },
+   {
+    "id": "clip:00:56:40.0",
+    "start": 3400.0,
+    "end": 3412.0,
+    "depicts": [
+     "emotion"
+    ],
+    "action": "alone in the mansion, the Kims sprawl in the garden and living room, drinking the Parks' whiskey (FRAME-VERIFIED 00:56:40)",
+    "chars": [
+     "Ki-taek",
+     "Chung-sook",
+     "Ki-woo",
+     "Ki-jung"
+    ],
+    "censor": "none"
+   },
+   {
+    "id": "clip:00:57:30.0",
+    "start": 3450.0,
+    "end": 3462.0,
+    "depicts": [
+     "emotion"
+    ],
+    "action": "the Kims lounge in the garden in the rain, and for a moment the line between servant and master seems to dissolve (FRAME-VERIFIED 00:57:30)",
+    "chars": [
+     "Ki-taek",
+     "Chung-sook",
+     "Ki-woo",
+     "Ki-jung"
+    ],
+    "censor": "none"
+   },
+   {
+    "id": "clip:00:58:30.0",
+    "start": 3510.0,
+    "end": 3522.0,
+    "depicts": [
+     "emotion"
+    ],
+    "action": "they soak in the rich family's bath, slipping for an evening into a life that is not theirs (FRAME-VERIFIED 00:58:30)",
+    "chars": [
+     "Ki-taek",
+     "Chung-sook"
+    ],
+    "censor": "none"
+   },
+   {
+    "id": "clip:01:00:50.0",
+    "start": 3650.0,
+    "end": 3662.0,
+    "depicts": [
+     "dialogue"
+    ],
+    "action": "the Kims muse about the rich Parks and pretend the house is theirs - the class-fantasy beat (FRAME-VERIFIED 01:00:50)",
+    "chars": [
+     "Ki-taek",
+     "Ki-woo",
+     "Ki-jung"
+    ],
+    "censor": "none"
+   },
+   {
+    "id": "clip:01:02:00.0",
+    "start": 3720.0,
+    "end": 3732.0,
+    "depicts": [
+     "dialogue"
+    ],
+    "action": "Chung-sook teases that if the Parks came home now, Ki-taek would scuttle off like a cockroach - a joke that stings (FRAME-VERIFIED 01:02:00)",
+    "chars": [
+     "Ki-taek",
+     "Chung-sook"
+    ],
+    "censor": "none"
+   },
+   {
+    "id": "clip:01:03:00.0",
+    "start": 3780.0,
+    "end": 3792.0,
+    "depicts": [
+     "reveal"
+    ],
+    "action": "late at night the doorbell rings: the former housekeeper Moon-gwang returns, begging to fetch something from the basement (FRAME-VERIFIED 01:03:00)",
+    "chars": [
+     "Chung-sook",
+     "Moon-gwang",
+     "Ki-taek",
+     "Ki-woo"
+    ],
+    "censor": "none"
+   },
+   {
+    "id": "clip:01:05:00.0",
+    "start": 3900.0,
+    "end": 3912.0,
+    "depicts": [
+     "discovery"
+    ],
+    "action": "Moon-gwang opens a hidden door behind the basement shelving, revealing a stairwell descending underground (FRAME-VERIFIED 01:05:00 - TWIST-HOLD: do not pre-leak in hook)",
+    "chars": [
+     "Moon-gwang",
+     "Chung-sook"
+    ],
+    "censor": "none"
+   },
+   {
+    "id": "clip:01:06:25.0",
+    "start": 3985.0,
+    "end": 3997.0,
+    "depicts": [
+     "transition"
+    ],
+    "action": "Moon-gwang descends the hidden stair into the dark, Chung-sook following warily behind (FRAME-VERIFIED 01:06:25 - DARK; TWIST-HOLD lead-in)",
+    "chars": [
+     "Moon-gwang",
+     "Chung-sook"
+    ],
+    "censor": "none"
+   },
+   {
+    "id": "clip:01:07:00.0",
+    "start": 4020.0,
+    "end": 4032.0,
+    "depicts": [
+     "reveal"
+    ],
+    "action": "in a secret bunker beneath the house, Moon-gwang's husband Geun-sae has been hiding for years, living off the Parks unseen (FRAME-VERIFIED 01:07:00 - TWIST-HOLD: the film's central secret, hook must not spoil)",
+    "chars": [
+     "Moon-gwang",
+     "Geun-sae",
+     "Chung-sook"
+    ],
+    "censor": "none"
+   },
+   {
+    "id": "clip:01:07:30.0",
+    "start": 4050.0,
+    "end": 4062.0,
+    "depicts": [
+     "reveal"
+    ],
+    "action": "the bunker is a whole hidden world of shelves and wires and salvaged junk - a life lived entirely in the dark (FRAME-VERIFIED 01:07:30 - DARK; TWIST-HOLD)",
+    "chars": [
+     "Geun-sae",
+     "Moon-gwang"
+    ],
+    "censor": "none"
+   },
+   {
+    "id": "clip:01:08:30.0",
+    "start": 4110.0,
+    "end": 4122.0,
+    "depicts": [
+     "emotion"
+    ],
+    "action": "Geun-sae, gaunt and grateful, explains he hid here to escape loan sharks - a second parasite family already inside the house (FRAME-VERIFIED 01:08:30 - TWIST-HOLD)",
+    "chars": [
+     "Geun-sae",
+     "Moon-gwang"
+    ],
+    "censor": "none"
+   },
+   {
+    "id": "clip:01:08:50.0",
+    "start": 4130.0,
+    "end": 4142.0,
+    "depicts": [
+     "emotion"
+    ],
+    "action": "Moon-gwang moves through the underground room she has secretly kept her husband alive in for years (FRAME-VERIFIED 01:08:50 - DARK; TWIST-HOLD)",
+    "chars": [
+     "Moon-gwang"
+    ],
+    "censor": "none"
+   },
+   {
+    "id": "clip:01:09:50.0",
+    "start": 4190.0,
+    "end": 4202.0,
+    "depicts": [
+     "reveal"
+    ],
+    "action": "Down in the concrete bunker Geun-sae eats in the gloom beside a panel of blinking lights - a man who has made a home out of a tomb (FRAME-VERIFIED 01:09:50 - DARK; TWIST-HOLD)",
+    "chars": [
+     "Geun-sae"
+    ],
+    "censor": "none"
+   },
+   {
+    "id": "clip:01:11:00.0",
+    "start": 4260.0,
+    "end": 4272.0,
+    "depicts": [
+     "action"
+    ],
+    "action": "the two poor families discover each other; Moon-gwang films the Kims and threatens to send the proof to Mrs Park - mutual blackmail (FRAME-VERIFIED 01:11:00)",
+    "chars": [
+     "Moon-gwang",
+     "Ki-taek",
+     "Chung-sook"
+    ],
+    "censor": "none"
+   },
+   {
+    "id": "clip:01:12:30.0",
+    "start": 4350.0,
+    "end": 4362.0,
+    "depicts": [
+     "action"
+    ],
+    "action": "The standoff turns into a scramble for the incriminating phone, the two poor families clawing at each other on the cellar floor (FRAME-VERIFIED 01:12:30)",
+    "chars": [
+     "Geun-sae",
+     "Moon-gwang",
+     "Ki-taek"
+    ],
+    "censor": "none"
+   },
+   {
+    "id": "clip:01:13:30.0",
+    "start": 4410.0,
+    "end": 4422.0,
+    "depicts": [
+     "action"
+    ],
+    "action": "the two families tumble down the bunker stairs locked together, all dignity gone (FRAME-VERIFIED 01:13:30)",
+    "chars": [
+     "Geun-sae",
+     "Moon-gwang",
+     "Ki-taek"
+    ],
+    "censor": "none"
+   },
+   {
+    "id": "clip:01:15:30.0",
+    "start": 4530.0,
+    "end": 4542.0,
+    "depicts": [
+     "reaction"
+    ],
+    "action": "the Kims freeze at the phone - the rich family's whim has just become their emergency (FRAME-VERIFIED 01:15:30)",
+    "chars": [
+     "Chung-sook"
+    ],
+    "censor": "none"
+   },
+   {
+    "id": "clip:01:15:50.0",
+    "start": 4550.0,
+    "end": 4562.0,
+    "depicts": [
+     "dialogue"
+    ],
+    "action": "the Parks phone: the rain has ended the camping trip and they are heading home in eight minutes - panic (FRAME-VERIFIED 01:15:50)",
+    "chars": [
+     "Chung-sook",
+     "Yeon-kyo"
+    ],
+    "censor": "none"
+   },
+   {
+    "id": "clip:01:16:10.0",
+    "start": 4570.0,
+    "end": 4582.0,
+    "depicts": [
+     "reaction"
+    ],
+    "action": "Mrs Park casually adds an order for the boy's favourite noodles, oblivious to the chaos she is driving home into (FRAME-VERIFIED 01:16:10)",
+    "chars": [
+     "Chung-sook",
+     "Yeon-kyo"
+    ],
+    "censor": "none"
+   },
+   {
+    "id": "clip:01:17:15.0",
+    "start": 4635.0,
+    "end": 4645.0,
+    "depicts": [
+     "action"
+    ],
+    "action": "the Kims overpower Moon-gwang and Geun-sae, forcing them back down into the bunker, and scramble to erase every trace (FRAME-VERIFIED 01:17:15)",
+    "chars": [
+     "Ki-taek",
+     "Chung-sook",
+     "Moon-gwang",
+     "Geun-sae"
+    ],
+    "censor": "none"
+   },
+   {
+    "id": "clip:01:17:45.0",
+    "start": 4665.0,
+    "end": 4677.0,
+    "depicts": [
+     "action"
+    ],
+    "action": "the Kims sprint through the house hiding bottles, plumping cushions, scrubbing away the evidence of their stolen evening (FRAME-VERIFIED 01:17:45)",
+    "chars": [
+     "Ki-taek",
+     "Ki-woo",
+     "Ki-jung"
+    ],
+    "censor": "none"
+   },
+   {
+    "id": "clip:01:18:30.0",
+    "start": 4710.0,
+    "end": 4718.5,
+    "depicts": [
+     "dialogue"
+    ],
+    "action": "Chung-sook, the new housekeeper, cooks the boy's luxury noodles on demand while her family lies hidden under the table (FRAME-VERIFIED 01:18:30)",
+    "chars": [
+     "Chung-sook",
+     "Yeon-kyo"
+    ],
+    "censor": "none"
+   },
+   {
+    "id": "clip:01:20:00.0",
+    "start": 4800.0,
+    "end": 4809.0,
+    "depicts": [
+     "action"
+    ],
+    "action": "the Parks arrive home early; Ki-taek, Ki-woo and Ki-jung hide under the low living-room table as the family settles on the couch (FRAME-VERIFIED 01:20:00)",
+    "chars": [
+     "Ki-taek",
+     "Ki-woo",
+     "Ki-jung",
+     "Dong-ik",
+     "Yeon-kyo"
+    ],
+    "censor": "none"
+   },
+   {
+    "id": "clip:01:21:30.0",
+    "start": 4890.0,
+    "end": 4898.0,
+    "depicts": [
+     "emotion"
+    ],
+    "action": "Trapped under the table, the Kims must lie utterly still, listening to the family's pillow talk inches above them (FRAME-VERIFIED 01:21:30)",
+    "chars": [
+     "Ki-taek",
+     "Ki-woo",
+     "Ki-jung",
+     "Dong-ik",
+     "Yeon-kyo"
+    ],
+    "censor": "none"
+   },
+   {
+    "id": "clip:01:27:30.0",
+    "start": 5250.0,
+    "end": 5262.0,
+    "depicts": [
+     "dialogue",
+     "reaction"
+    ],
+    "action": "on the couch above the hidden Kims, Mr Park complains that Ki-taek's smell 'crosses the line' - the class insult that will detonate later (FRAME-VERIFIED 01:27:30; Ki-taek hidden under table)",
+    "chars": [
+     "Dong-ik",
+     "Yeon-kyo",
+     "Ki-taek"
+    ],
+    "censor": "none"
+   },
+   {
+    "id": "clip:01:28:20.0",
+    "start": 5300.0,
+    "end": 5312.0,
+    "depicts": [
+     "reaction"
+    ],
+    "action": "under the table Ki-taek hears himself reduced to a smell, and something behind his eyes goes very still (FRAME-VERIFIED 01:28:20)",
+    "chars": [
+     "Ki-taek"
+    ],
+    "censor": "none"
+   },
+   {
+    "id": "clip:01:31:30.0",
+    "start": 5490.0,
+    "end": 5503.0,
+    "depicts": [
+     "transition"
+    ],
+    "action": "the three Kims flee the Parks' house through the storm, descending the city's stairways back down toward their flooded poor district (FRAME-VERIFIED 01:31:30 - DARK; SILENCE candidate - Bong's wordless vertical descent)",
+    "chars": [
+     "Ki-taek",
+     "Ki-woo",
+     "Ki-jung"
+    ],
+    "censor": "none"
+   },
+   {
+    "id": "clip:01:32:10.0",
+    "start": 5530.0,
+    "end": 5542.0,
+    "depicts": [
+     "transition"
+    ],
+    "action": "the descent never seems to end - down stairs, down ramps, down into the drowning low city (FRAME-VERIFIED 01:32:10 - DARK; vertical motif)",
+    "chars": [
+     "Ki-taek",
+     "Ki-woo",
+     "Ki-jung"
+    ],
+    "censor": "none"
+   },
+   {
+    "id": "clip:01:33:18.0",
+    "start": 5598.0,
+    "end": 5616.0,
+    "depicts": [
+     "transition"
+    ],
+    "action": "the family descends the rain-soaked city stairways in the night flood - Bong's wordless vertical sequence (FRAME-VERIFIED 01:33:18 - SILENCE shot, atmospheric breathing room; DARK)",
+    "chars": [
+     "Ki-taek",
+     "Ki-woo",
+     "Ki-jung"
+    ],
+    "censor": "none"
+   },
+   {
+    "id": "clip:01:34:00.0",
+    "start": 5640.0,
+    "end": 5652.0,
+    "depicts": [
+     "transition"
+    ],
+    "action": "down and down they go through the drowning streets, the rain that delighted the rich now swallowing the poor (FRAME-VERIFIED 01:34:00 - DARK)",
+    "chars": [
+     "Ki-taek",
+     "Ki-woo",
+     "Ki-jung"
+    ],
+    "censor": "none"
+   },
+   {
+    "id": "clip:01:35:00.0",
+    "start": 5700.0,
+    "end": 5713.0,
+    "depicts": [
+     "setup"
+    ],
+    "action": "their semi-basement neighbourhood is drowning in the night flood; the family wades down the submerged alley (FRAME-VERIFIED 01:35:00 - DARK; SILENCE candidate)",
+    "chars": [
+     "Ki-taek",
+     "Ki-woo",
+     "Ki-jung"
+    ],
+    "censor": "none"
+   },
+   {
+    "id": "clip:01:36:30.0",
+    "start": 5790.0,
+    "end": 5803.0,
+    "depicts": [
+     "reveal"
+    ],
+    "action": "inside, sewage erupts from the toilet; their home and belongings are destroyed by the flood (FRAME-VERIFIED 01:36:30 - DARK)",
+    "chars": [
+     "Ki-jung",
+     "Ki-woo"
+    ],
+    "censor": "none"
+   },
+   {
+    "id": "clip:01:37:00.0",
+    "start": 5820.0,
+    "end": 5832.0,
+    "depicts": [
+     "reveal"
+    ],
+    "action": "they wade through their ruined home salvaging what little the filthy water has not taken (FRAME-VERIFIED 01:37:00 - DARK)",
+    "chars": [
+     "Ki-jung",
+     "Ki-woo"
+    ],
+    "censor": "none"
+   },
+   {
+    "id": "clip:01:39:30.0",
+    "start": 5970.0,
+    "end": 5983.0,
+    "depicts": [
+     "emotion"
+    ],
+    "action": "the displaced family sleeps on the floor of a crowded gymnasium shelter among other flood refugees (FRAME-VERIFIED 01:39:30)",
+    "chars": [
+     "Ki-taek",
+     "Ki-woo",
+     "Chung-sook"
+    ],
+    "censor": "none"
+   },
+   {
+    "id": "clip:01:40:00.0",
+    "start": 6000.0,
+    "end": 6012.0,
+    "depicts": [
+     "emotion"
+    ],
+    "action": "in the shelter Ki-taek tells his son the only foolproof plan is to have no plan at all, so nothing can go wrong (FRAME-VERIFIED 01:40:00)",
+    "chars": [
+     "Ki-taek",
+     "Ki-woo"
+    ],
+    "censor": "none"
+   },
+   {
+    "id": "clip:01:40:30.0",
+    "start": 6030.0,
+    "end": 6042.0,
+    "depicts": [
+     "emotion"
+    ],
+    "action": "in the shelter Ki-taek lies awake, a man who has run out of plans and out of hope (FRAME-VERIFIED 01:40:30)",
+    "chars": [
+     "Ki-taek"
+    ],
+    "censor": "none"
+   },
+   {
+    "id": "clip:01:43:00.0",
+    "start": 6180.0,
+    "end": 6190.0,
+    "depicts": [
+     "setup"
+    ],
+    "action": "the next day Yeon-kyo throws an impromptu garden party for Da-song; the exhausted Kims are summoned to serve (FRAME-VERIFIED 01:43:00)",
+    "chars": [
+     "Yeon-kyo",
+     "Ki-taek"
+    ],
+    "censor": "none"
+   },
+   {
+    "id": "clip:01:44:00.0",
+    "start": 6240.0,
+    "end": 6248.0,
+    "depicts": [
+     "setup"
+    ],
+    "action": "Mrs Park excitedly phones round her wealthy friends to assemble the impromptu garden party (FRAME-VERIFIED 01:44:00)",
+    "chars": [
+     "Yeon-kyo"
+    ],
+    "censor": "none"
+   },
+   {
+    "id": "clip:01:45:30.0",
+    "start": 6330.0,
+    "end": 6342.0,
+    "depicts": [
+     "setup"
+    ],
+    "action": "summoned straight from the shelter, the Kims serve a garden full of the cheerful rich (FRAME-VERIFIED 01:45:30)",
+    "chars": [
+     "Ki-taek",
+     "Ki-woo",
+     "Yeon-kyo"
+    ],
+    "censor": "none"
+   },
+   {
+    "id": "clip:01:46:00.0",
+    "start": 6360.0,
+    "end": 6372.0,
+    "depicts": [
+     "setup"
+    ],
+    "action": "guests gather in the sunlit garden; Mr Park enlists Ki-taek in a costumed surprise for his son (FRAME-VERIFIED 01:46:00)",
+    "chars": [
+     "Yeon-kyo",
+     "Dong-ik",
+     "Ki-taek",
+     "Ki-jung"
+    ],
+    "censor": "none"
+   },
+   {
+    "id": "clip:01:47:00.0",
+    "start": 6420.0,
+    "end": 6432.0,
+    "depicts": [
+     "dialogue"
+    ],
+    "action": "Mr Park dresses Ki-taek up in a feathered headdress for a children's game, the absurd costume one more small humiliation (FRAME-VERIFIED 01:47:00)",
+    "chars": [
+     "Ki-taek",
+     "Dong-ik"
+    ],
+    "censor": "none"
+   },
+   {
+    "id": "clip:01:48:15.0",
+    "start": 6495.0,
+    "end": 6503.0,
+    "depicts": [
+     "dialogue"
+    ],
+    "action": "is this part of my job, Ki-taek asks quietly - and is told to think of it as extra pay (FRAME-VERIFIED 01:48:15)",
+    "chars": [
+     "Ki-taek",
+     "Dong-ik"
+    ],
+    "censor": "none"
+   },
+   {
+    "id": "clip:01:51:00.0",
+    "start": 6660.0,
+    "end": 6666.0,
+    "depicts": [
+     "action"
+    ],
+    "action": "Below the party, Geun-sae - starved and unhinged after his wife's death - crawls up the bunker stairs toward the light (FRAME-VERIFIED 01:51:00 - DARK)",
+    "chars": [
+     "Geun-sae"
+    ],
+    "censor": "none"
+   },
+   {
+    "id": "clip:01:51:30.0",
+    "start": 6690.0,
+    "end": 6702.0,
+    "depicts": [
+     "action"
+    ],
+    "action": "Ki-jung carries the lit birthday cake out across the bright lawn toward the waiting guests (FRAME-VERIFIED 01:51:30)",
+    "chars": [
+     "Ki-jung",
+     "Yeon-kyo"
+    ],
+    "censor": "none"
+   },
+   {
+    "id": "clip:01:52:05.0",
+    "start": 6725.0,
+    "end": 6731.0,
+    "depicts": [
+     "action"
+    ],
+    "action": "Ki-jung carries out the birthday cake to the gathered guests - the calm an instant before the violence (FRAME-VERIFIED 01:52:05)",
+    "chars": [
+     "Ki-jung",
+     "Yeon-kyo",
+     "Dong-ik"
+    ],
+    "censor": "none"
+   },
+   {
+    "id": "clip:01:53:18.0",
+    "start": 6798.0,
+    "end": 6803.0,
+    "depicts": [
+     "action"
+    ],
+    "action": "Geun-sae erupts from the bunker into the party and stabs Ki-jung; chaos breaks out among the guests (FRAME-VERIFIED 01:53:18 - CENSOR region blur [output-canvas coords] on the stabbing; fast-cut chaos)",
+    "chars": [
+     "Geun-sae",
+     "Ki-jung"
+    ],
+    "censor": "blur"
+   },
+   {
+    "id": "clip:01:53:40.0",
+    "start": 6820.0,
+    "end": 6822.0,
+    "depicts": [
+     "reaction"
+    ],
+    "action": "Ki-taek freezes in his ridiculous costume, his daughter's blood on his hand (FRAME-VERIFIED 01:53:40 - CENSOR region on the bloody hand)",
+    "chars": [
+     "Ki-taek"
+    ],
+    "censor": "blur"
+   },
+   {
+    "id": "clip:01:53:55.0",
+    "start": 6835.0,
+    "end": 6837.0,
+    "depicts": [
+     "reveal"
+    ],
+    "action": "Ki-jung lies bleeding on the grass as the party scatters in terror (FRAME-VERIFIED 01:53:55 - CENSOR region blur on the wound; output-canvas coords)",
+    "chars": [
+     "Ki-jung",
+     "Geun-sae"
+    ],
+    "censor": "blur"
+   },
+   {
+    "id": "clip:01:54:10.0",
+    "start": 6850.0,
+    "end": 6859.0,
+    "depicts": [
+     "reveal"
+    ],
+    "action": "blood-spattered panic in the garden as Geun-sae rampages and Chung-sook fights back (FRAME-VERIFIED 01:54:10 - CENSOR region blur [output-canvas coords] on the blood/gore; tight-but-central region)",
+    "chars": [
+     "Yeon-kyo",
+     "Geun-sae"
+    ],
+    "censor": "blur"
+   },
+   {
+    "id": "clip:01:54:25.0",
+    "start": 6865.0,
+    "end": 6868.7,
+    "depicts": [
+     "reaction"
+    ],
+    "action": "and Mr Park, reaching for his car keys, pinches his nose shut against the dying man's smell (FRAME-VERIFIED 01:54:25)",
+    "chars": [
+     "Dong-ik",
+     "Geun-sae"
+    ],
+    "censor": "none"
+   },
+   {
+    "id": "clip:01:54:40.0",
+    "start": 6880.0,
+    "end": 6888.0,
+    "depicts": [
+     "action"
+    ],
+    "action": "Mr Park recoils from Geun-sae's smell; the class insult detonates and Ki-taek stabs Dong-ik dead (FRAME-VERIFIED 01:54:40 - CENSOR region blur [output-canvas coords] on the stabbing)",
+    "chars": [
+     "Ki-taek",
+     "Dong-ik"
+    ],
+    "censor": "blur"
+   },
+   {
+    "id": "clip:01:55:00.0",
+    "start": 6900.0,
+    "end": 6906.0,
+    "depicts": [
+     "action"
+    ],
+    "action": "that one flinch is the line, crossed for the last time, and Ki-taek drives the knife home (FRAME-VERIFIED 01:55:00 - CENSOR region)",
+    "chars": [
+     "Ki-taek",
+     "Dong-ik"
+    ],
+    "censor": "blur"
+   },
+   {
+    "id": "clip:01:55:30.0",
+    "start": 6930.0,
+    "end": 6942.0,
+    "depicts": [
+     "reveal"
+    ],
+    "action": "When the screaming stops, the garden is a scene of carnage - and Ki-taek is simply gone, swallowed by the crowd (FRAME-VERIFIED 01:55:30 - DARK)",
+    "chars": [
+     "Ki-woo",
+     "Chung-sook"
+    ],
+    "censor": "none"
+   },
+   {
+    "id": "clip:01:55:50.0",
+    "start": 6950.0,
+    "end": 6962.0,
+    "depicts": [
+     "reveal"
+    ],
+    "action": "Ki-woo lies bleeding in the grass as the screaming party scatters around him (FRAME-VERIFIED 01:55:50 - DARK)",
+    "chars": [
+     "Ki-woo"
+    ],
+    "censor": "none"
+   },
+   {
+    "id": "clip:01:56:15.0",
+    "start": 6975.0,
+    "end": 6983.0,
+    "depicts": [
+     "reveal"
+    ],
+    "action": "in the bloodied, emptying garden the survivors are left among the wreckage of two families (FRAME-VERIFIED 01:56:15 - DARK)",
+    "chars": [
+     "Ki-woo",
+     "Chung-sook"
+    ],
+    "censor": "none"
+   },
+   {
+    "id": "clip:01:56:30.0",
+    "start": 6990.0,
+    "end": 6995.0,
+    "depicts": [
+     "reveal"
+    ],
+    "action": "in the bloody aftermath Ki-taek has vanished; Ki-jung is dead and Ki-woo gravely wounded - the family destroyed (FRAME-VERIFIED 01:56:30 - DARK)",
+    "chars": [
+     "Ki-woo",
+     "Chung-sook"
+    ],
+    "censor": "none"
+   },
+   {
+    "id": "clip:01:57:00.0",
+    "start": 7020.0,
+    "end": 7026.0,
+    "depicts": [
+     "transition"
+    ],
+    "action": "Ki-woo survives, but the head wound leaves him laughing helplessly; he and his mother are led away under guard (FRAME-VERIFIED 01:57:00)",
+    "chars": [
+     "Ki-woo",
+     "Chung-sook"
+    ],
+    "censor": "none"
+   },
+   {
+    "id": "clip:01:57:10.0",
+    "start": 7030.0,
+    "end": 7039.0,
+    "depicts": [
+     "transition"
+    ],
+    "action": "he wakes in a hospital bed with a wound that has left him laughing, helpless, at nothing at all (FRAME-VERIFIED 01:57:10)",
+    "chars": [
+     "Ki-woo",
+     "Chung-sook"
+    ],
+    "censor": "none"
+   },
+   {
+    "id": "clip:01:58:50.0",
+    "start": 7130.0,
+    "end": 7136.0,
+    "depicts": [
+     "transition"
+    ],
+    "action": "Ki-woo climbs the slum stairways back up toward the house, drawn to it again and again (FRAME-VERIFIED 01:58:50)",
+    "chars": [
+     "Ki-woo"
+    ],
+    "censor": "none"
+   },
+   {
+    "id": "clip:01:59:05.0",
+    "start": 7145.0,
+    "end": 7155.0,
+    "depicts": [
+     "discovery"
+    ],
+    "action": "on a snowy hillside Ki-woo watches the Park house; its lights blink in Morse code and he realises his father has taken Geun-sae's place, hiding in the bunker (FRAME-VERIFIED 01:59:05 - TWIST-HOLD: ending realisation)",
+    "chars": [
+     "Ki-taek",
+     "Ki-woo"
+    ],
+    "censor": "none"
+   },
+   {
+    "id": "clip:01:59:20.0",
+    "start": 7160.0,
+    "end": 7173.0,
+    "depicts": [
+     "transition"
+    ],
+    "action": "weeks later: Ki-woo, recovered from a head injury, and Chung-sook are convicted of fraud; Ki-taek is still missing (FRAME-VERIFIED 01:59:20)",
+    "chars": [
+     "Ki-woo",
+     "Chung-sook"
+    ],
+    "censor": "none"
+   },
+   {
+    "id": "clip:02:00:00.0",
+    "start": 7200.0,
+    "end": 7213.0,
+    "depicts": [
+     "emotion"
+    ],
+    "action": "a quieter, scarred Ki-woo rides the subway, haunted by what happened and by his missing father (FRAME-VERIFIED 02:00:00)",
+    "chars": [
+     "Ki-woo"
+    ],
+    "censor": "none"
+   },
+   {
+    "id": "clip:02:00:30.0",
+    "start": 7230.0,
+    "end": 7233.0,
+    "depicts": [
+     "emotion"
+    ],
+    "action": "He drifts through the cold city, a quieter and emptier young man than the schemer we first met (FRAME-VERIFIED 02:00:30)",
+    "chars": [
+     "Ki-woo"
+    ],
+    "censor": "none"
+   },
+   {
+    "id": "clip:02:01:30.0",
+    "start": 7290.0,
+    "end": 7302.0,
+    "depicts": [
+     "reveal"
+    ],
+    "action": "He pours everything into a letter to his father - the only way left to reach a man hiding beneath a stranger's house (FRAME-VERIFIED 02:01:30 - TWIST-HOLD: ending)",
+    "chars": [
+     "Ki-woo"
+    ],
+    "censor": "none"
+   },
+   {
+    "id": "clip:02:02:00.0",
+    "start": 7320.0,
+    "end": 7332.0,
+    "depicts": [
+     "reveal"
+    ],
+    "action": "every night he writes another letter into the dark, telling his father about the plan to come (FRAME-VERIFIED 02:02:00)",
+    "chars": [
+     "Ki-woo"
+    ],
+    "censor": "none"
+   },
+   {
+    "id": "clip:02:05:00.0",
+    "start": 7500.0,
+    "end": 7504.5,
+    "depicts": [
+     "reveal"
+    ],
+    "action": "in the daydream he buys the house outright, and a real-estate agent simply hands him the keys (FRAME-VERIFIED 02:05:00)",
+    "chars": [
+     "Yeon-kyo",
+     "Ki-woo"
+    ],
+    "censor": "none"
+   },
+   {
+    "id": "clip:02:05:40.0",
+    "start": 7540.0,
+    "end": 7553.0,
+    "depicts": [
+     "reveal"
+    ],
+    "action": "Ki-woo writes a letter vowing to earn enough to buy the house so his father can simply walk up the stairs; we see the dreamed reunion (FRAME-VERIFIED 02:05:40 - TWIST-HOLD: leave as maybe-dream, do not state as achievable)",
+    "chars": [
+     "Ki-woo",
+     "Ki-taek"
+    ],
+    "censor": "none"
+   },
+   {
+    "id": "clip:02:06:25.0",
+    "start": 7585.0,
+    "end": 7603.0,
+    "depicts": [
+     "aftermath"
+    ],
+    "action": "the film cuts back to the same semi-basement window and the snowy alley - Ki-woo is still here; the plan that will never fail because there is no plan (FRAME-VERIFIED 02:06:25 - SILENCE shot for the ambiguous ending; mirrors the opening)",
+    "chars": [
+     "Ki-woo"
+    ],
+    "censor": "none"
+   }
+  ],
+  "lands": [],
+  "facts": {},
+  "runtime_sec": 7603.0
+ },
+ "prisoners2013": {
+  "candidates": [
+   {
+    "id": "clip:00:01:27.0",
+    "start": 87.0,
+    "end": 93.0,
+    "depicts": [
+     "action"
+    ],
+    "action": "Keller and Ralph in orange hunting gear aim a rifle at a deer in the snowy winter forest",
+    "chars": [
+     "Keller",
+     "Ralph"
+    ],
+    "censor": null
+   },
+   {
+    "id": "clip:00:04:12.0",
+    "start": 252.0,
+    "end": 258.0,
+    "depicts": [
+     "setup"
+    ],
+    "action": "the Dover family walks up the street to the Birch home for Thanksgiving, Anna on Keller's shoulders, Grace carrying a dish",
+    "chars": [
+     "Keller",
+     "Grace",
+     "Anna",
+     "Ralph"
+    ],
+    "censor": null
+   },
+   {
+    "id": "clip:00:05:42.0",
+    "start": 342.0,
+    "end": 348.0,
+    "depicts": [
+     "setup"
+    ],
+    "action": "the adults prepare the Thanksgiving meal in the Birch kitchen, cutting venison",
+    "chars": [
+     "Keller",
+     "Grace",
+     "Franklin"
+    ],
+    "censor": null
+   },
+   {
+    "id": "clip:00:07:09.0",
+    "start": 429.0,
+    "end": 435.0,
+    "depicts": [
+     "emotion"
+    ],
+    "action": "the two families relax together in the Birch living room, Franklin playing his trumpet",
+    "chars": [
+     "Franklin",
+     "Nancy",
+     "Keller",
+     "Grace"
+    ],
+    "censor": null
+   },
+   {
+    "id": "clip:00:07:43.0",
+    "start": 463.0,
+    "end": 469.0,
+    "depicts": [
+     "setup"
+    ],
+    "action": "Anna and Joy stand before the adults asking permission to walk to the Dover house; last time the girls are seen together (Ralph not visible in this shot)",
+    "chars": [
+     "Anna",
+     "Joy"
+    ],
+    "censor": null
+   },
+   {
+    "id": "clip:00:10:12.0",
+    "start": 612.0,
+    "end": 618.0,
+    "depicts": [
+     "action"
+    ],
+    "action": "Keller searches the basement workshop looking for the missing girls",
+    "chars": [
+     "Keller"
+    ],
+    "censor": null
+   },
+   {
+    "id": "clip:00:10:57.0",
+    "start": 657.0,
+    "end": 663.0,
+    "depicts": [
+     "reaction"
+    ],
+    "action": "the four parents in the Birch living room realize the girls are gone, panic setting in",
+    "chars": [
+     "Keller",
+     "Grace",
+     "Franklin",
+     "Nancy"
+    ],
+    "censor": null
+   },
+   {
+    "id": "clip:00:12:27.0",
+    "start": 747.0,
+    "end": 753.0,
+    "depicts": [
+     "setup"
+    ],
+    "action": "Detective Loki eats alone at the diner, introducing the character",
+    "chars": [
+     "Loki"
+    ],
+    "censor": null
+   },
+   {
+    "id": "clip:00:16:27.0",
+    "start": 987.0,
+    "end": 993.0,
+    "depicts": [
+     "action"
+    ],
+    "action": "night raid in the rain - police converge on the RV (faces not identifiable in the dark/rain; Loki and Alex not facially verifiable in this shot)",
+    "chars": [],
+    "censor": null
+   },
+   {
+    "id": "clip:00:19:57.0",
+    "start": 1197.0,
+    "end": 1203.0,
+    "depicts": [
+     "action"
+    ],
+    "action": "forensics personnel process the impounded RV under bright garage lights (wide shot, individual faces not identifiable; Loki present in scene but not facially verifiable here)",
+    "chars": [],
+    "censor": null
+   },
+   {
+    "id": "clip:00:21:27.0",
+    "start": 1287.0,
+    "end": 1293.0,
+    "depicts": [
+     "emotion"
+    ],
+    "action": "Nancy sits numb and grieving at the table, Franklin in the background of the Birch home",
+    "chars": [
+     "Nancy"
+    ],
+    "censor": null
+   },
+   {
+    "id": "clip:00:22:57.0",
+    "start": 1377.0,
+    "end": 1383.0,
+    "depicts": [
+     "emotion"
+    ],
+    "action": "Grace lies in bed, drugged and grieving over the missing girls",
+    "chars": [
+     "Grace"
+    ],
+    "censor": null
+   },
+   {
+    "id": "clip:00:24:27.0",
+    "start": 1467.0,
+    "end": 1473.0,
+    "depicts": [
+     "dialogue"
+    ],
+    "action": "Loki explains to Keller there is no evidence and Alex has the mind of a child, so he must be released",
+    "chars": [
+     "Loki"
+    ],
+    "censor": null
+   },
+   {
+    "id": "clip:00:25:42.0",
+    "start": 1542.0,
+    "end": 1548.0,
+    "depicts": [
+     "reaction"
+    ],
+    "action": "Keller, anguished, reacts to Loki telling him there is no proof to hold the suspect",
+    "chars": [
+     "Keller"
+    ],
+    "censor": null
+   },
+   {
+    "id": "clip:00:27:07.0",
+    "start": 1627.0,
+    "end": 1632.0,
+    "depicts": [
+     "dialogue"
+    ],
+    "action": "Captain Richards at his desk presses Loki over the release decision while Loki stands across from him",
+    "chars": [
+     "Richards",
+     "Loki"
+    ],
+    "censor": null
+   },
+   {
+    "id": "clip:00:27:12.0",
+    "start": 1632.0,
+    "end": 1637.0,
+    "depicts": [
+     "dialogue"
+    ],
+    "action": "Loki stands his ground defending the decision to release the suspect, then turns to leave the captain's office",
+    "chars": [
+     "Loki"
+    ],
+    "censor": null
+   },
+   {
+    "id": "clip:00:35:45.0",
+    "start": 2145.0,
+    "end": 2150.0,
+    "depicts": [
+     "dialogue"
+    ],
+    "action": "at the station Loki, arms crossed, tells Keller they have no evidence to hold Alex and warns him to go home (Keller's back to camera in foreground)",
+    "chars": [
+     "Loki"
+    ],
+    "censor": null
+   },
+   {
+    "id": "clip:00:36:07.0",
+    "start": 2167.0,
+    "end": 2172.0,
+    "depicts": [
+     "reaction"
+    ],
+    "action": "close on an agitated Keller insisting Alex confessed ('are you sure that's what he said'), realizing the police will not act on his accusation",
+    "chars": [
+     "Keller"
+    ],
+    "censor": null
+   },
+   {
+    "id": "clip:00:37:17.0",
+    "start": 2237.0,
+    "end": 2243.0,
+    "depicts": [
+     "setup"
+    ],
+    "action": "Bob Taylor, a strange young man with glasses and curly hair, sits on the couch being questioned; his behavior is off (introduction of Bob)",
+    "chars": [
+     "Bob"
+    ],
+    "censor": null
+   },
+   {
+    "id": "clip:00:37:21.0",
+    "start": 2241.0,
+    "end": 2247.0,
+    "depicts": [
+     "dialogue"
+    ],
+    "action": "Loki questions Bob Taylor during a door-to-door interview",
+    "chars": [
+     "Loki"
+    ],
+    "censor": null
+   },
+   {
+    "id": "clip:00:41:57.0",
+    "start": 2517.0,
+    "end": 2523.0,
+    "depicts": [
+     "setup"
+    ],
+    "action": "Keller waits in his truck at night watching the lit cabin, before abducting Alex (real abduction scene; the beat's listed 28:30-32:30 range is actually the unrelated priest/corpse investigation)",
+    "chars": [
+     "Keller"
+    ],
+    "censor": null
+   },
+   {
+    "id": "clip:00:43:12.0",
+    "start": 2592.0,
+    "end": 2598.0,
+    "depicts": [
+     "action"
+    ],
+    "action": "a hooded figure is led away in the dark during the abduction (silhouette; Keller/Alex not facially verifiable in this shot)",
+    "chars": [],
+    "censor": null
+   },
+   {
+    "id": "clip:00:49:27.0",
+    "start": 2967.0,
+    "end": 2973.0,
+    "depicts": [
+     "dialogue"
+    ],
+    "action": "Holly Jones, Alex's aunt, sits calmly in her armchair answering Loki's questions; no red flags raised",
+    "chars": [
+     "Holly"
+    ],
+    "censor": null
+   },
+   {
+    "id": "clip:00:51:27.0",
+    "start": 3087.0,
+    "end": 3093.0,
+    "depicts": [
+     "action"
+    ],
+    "action": "Keller beats a bound, bloodied Alex on the bathroom floor of the abandoned apartment",
+    "chars": [
+     "Keller",
+     "Alex"
+    ],
+    "censor": null
+   },
+   {
+    "id": "clip:00:51:48.0",
+    "start": 3108.0,
+    "end": 3114.0,
+    "depicts": [
+     "action"
+    ],
+    "action": "closer angle in the tiled bathroom: Keller grips and strikes the bloodied Alex, whose battered face is visible",
+    "chars": [
+     "Keller",
+     "Alex"
+    ],
+    "censor": null
+   },
+   {
+    "id": "clip:00:52:27.0",
+    "start": 3147.0,
+    "end": 3153.0,
+    "depicts": [
+     "reaction"
+    ],
+    "action": "Franklin stands conflicted and shaken over the hunched, bloodied Alex in the bathroom",
+    "chars": [
+     "Franklin",
+     "Alex"
+    ],
+    "censor": null
+   },
+   {
+    "id": "clip:00:52:48.0",
+    "start": 3168.0,
+    "end": 3174.0,
+    "depicts": [
+     "emotion"
+    ],
+    "action": "close on Keller shouting, anguished and unravelling, as he interrogates the prisoner during the beating",
+    "chars": [
+     "Keller"
+    ],
+    "censor": null
+   },
+   {
+    "id": "clip:00:53:12.0",
+    "start": 3192.0,
+    "end": 3198.0,
+    "depicts": [
+     "action"
+    ],
+    "action": "Keller forces the bloodied Alex against the sink as the torture intensifies, Franklin present in the bathroom",
+    "chars": [
+     "Keller",
+     "Alex",
+     "Franklin"
+    ],
+    "censor": null
+   },
+   {
+    "id": "clip:00:54:57.0",
+    "start": 3297.0,
+    "end": 3303.0,
+    "depicts": [
+     "emotion"
+    ],
+    "action": "Nancy at the vigil at night, holding a candle, grieving among the crowd",
+    "chars": [
+     "Nancy"
+    ],
+    "censor": null
+   },
+   {
+    "id": "clip:00:55:28.0",
+    "start": 3328.0,
+    "end": 3334.0,
+    "depicts": [
+     "emotion"
+    ],
+    "action": "dedicated close-up of Nancy and Grace grieving together among the candles at the night vigil",
+    "chars": [
+     "Nancy",
+     "Grace"
+    ],
+    "censor": null
+   },
+   {
+    "id": "clip:00:56:27.0",
+    "start": 3387.0,
+    "end": 3393.0,
+    "depicts": [
+     "establishing"
+    ],
+    "action": "rows of candles and a teddy bear at the night candlelight vigil for the missing girls (wide community shot, no single character in focus)",
+    "chars": [],
+    "censor": null
+   },
+   {
+    "id": "clip:00:56:28.0",
+    "start": 3388.0,
+    "end": 3394.0,
+    "depicts": [
+     "reaction"
+    ],
+    "action": "Loki moves through the vigil crowd scanning faces, watching for a suspect",
+    "chars": [
+     "Loki"
+    ],
+    "censor": null
+   },
+   {
+    "id": "clip:00:58:58.0",
+    "start": 3538.0,
+    "end": 3544.0,
+    "depicts": [
+     "action"
+    ],
+    "action": "a hooded figure flees over a fence into the dark woods as Loki gives chase (figure not facially identifiable)",
+    "chars": [],
+    "censor": null
+   },
+   {
+    "id": "clip:00:59:13.0",
+    "start": 3553.0,
+    "end": 3559.0,
+    "depicts": [
+     "action"
+    ],
+    "action": "a hooded figure runs through the dark woods, silhouetted against the distant vigil lights (face not identifiable)",
+    "chars": [],
+    "censor": null
+   },
+   {
+    "id": "clip:01:03:57.0",
+    "start": 3837.0,
+    "end": 3843.0,
+    "depicts": [
+     "reaction"
+    ],
+    "action": "Franklin and Nancy at home, shaken and conflicted over their part in holding and hurting Alex",
+    "chars": [
+     "Franklin",
+     "Nancy"
+    ],
+    "censor": null
+   },
+   {
+    "id": "clip:01:08:57.0",
+    "start": 4137.0,
+    "end": 4143.0,
+    "depicts": [
+     "action"
+    ],
+    "action": "Keller returns to the locked torture box in the abandoned building to continue interrogating Alex, a photo of the missing girls on the wall",
+    "chars": [
+     "Keller"
+    ],
+    "censor": null
+   },
+   {
+    "id": "clip:01:15:27.0",
+    "start": 4527.0,
+    "end": 4533.0,
+    "depicts": [
+     "dialogue"
+    ],
+    "action": "Grace approaches and confronts a distraught Keller in the hallway, sensing something is wrong; the family is unraveling",
+    "chars": [
+     "Keller",
+     "Grace"
+    ],
+    "censor": null
+   },
+   {
+    "id": "clip:01:25:46.0",
+    "start": 5146.0,
+    "end": 5152.0,
+    "depicts": [
+     "setup"
+    ],
+    "action": "Keller, hooded, stands outside Bob Taylor's place in a desolate lot before breaking in",
+    "chars": [
+     "Keller"
+    ],
+    "censor": null
+   },
+   {
+    "id": "clip:01:28:57.0",
+    "start": 5337.0,
+    "end": 5343.0,
+    "depicts": [
+     "discovery"
+    ],
+    "action": "Keller searches inside Bob Taylor's place and finds the disturbing evidence (boxes of children's clothes and maze drawings)",
+    "chars": [
+     "Keller"
+    ],
+    "censor": null
+   },
+   {
+    "id": "clip:01:32:57.0",
+    "start": 5577.0,
+    "end": 5583.0,
+    "depicts": [
+     "dialogue"
+    ],
+    "action": "Loki confronts a nervous, smiling Bob Taylor at his door before taking him in",
+    "chars": [
+     "Bob",
+     "Loki"
+    ],
+    "censor": null
+   },
+   {
+    "id": "clip:01:39:31.0",
+    "start": 5971.0,
+    "end": 5977.0,
+    "depicts": [
+     "dialogue"
+    ],
+    "action": "Loki slides a photo of the bloodstained clothes across the table to show Keller the blood evidence from Bob",
+    "chars": [
+     "Loki",
+     "Keller"
+    ],
+    "censor": null
+   },
+   {
+    "id": "clip:01:40:27.0",
+    "start": 6027.0,
+    "end": 6033.0,
+    "depicts": [
+     "reaction"
+    ],
+    "action": "Keller, eyes closed and anguished, reacts to the blood evidence Loki has shown him",
+    "chars": [
+     "Keller"
+    ],
+    "censor": null
+   },
+   {
+    "id": "clip:01:43:17.0",
+    "start": 6197.0,
+    "end": 6203.0,
+    "depicts": [
+     "action"
+    ],
+    "action": "Bob Taylor hunches in the interrogation room obsessively drawing mazes, watched through the one-way glass",
+    "chars": [
+     "Bob"
+    ],
+    "censor": null
+   },
+   {
+    "id": "clip:01:45:13.0",
+    "start": 6313.0,
+    "end": 6319.0,
+    "depicts": [
+     "action"
+    ],
+    "action": "Bob breaks free and grabs a gun in the interrogation room as Loki and officers struggle to stop him",
+    "chars": [
+     "Bob",
+     "Loki"
+    ],
+    "censor": null
+   },
+   {
+    "id": "clip:01:45:16.0",
+    "start": 6316.0,
+    "end": 6322.0,
+    "depicts": [
+     "action"
+    ],
+    "action": "Bob backed against the interrogation-room wall, the gun in his hand, as Loki and an officer try to bring him down",
+    "chars": [
+     "Bob",
+     "Loki"
+    ],
+    "censor": null
+   },
+   {
+    "id": "clip:01:45:22.0",
+    "start": 6322.0,
+    "end": 6328.0,
+    "depicts": [
+     "action"
+    ],
+    "action": "Bob raises the gun under his own chin as the officers shout for him to stop",
+    "chars": [
+     "Bob"
+    ],
+    "censor": null
+   },
+   {
+    "id": "clip:01:45:29.0",
+    "start": 6329.0,
+    "end": 6335.0,
+    "depicts": [
+     "reaction"
+    ],
+    "action": "Bob slumps bloodied on the floor after shooting himself, Loki standing over him",
+    "chars": [
+     "Bob",
+     "Loki"
+    ],
+    "censor": null
+   },
+   {
+    "id": "clip:01:54:01.0",
+    "start": 6841.0,
+    "end": 6847.0,
+    "depicts": [
+     "discovery"
+    ],
+    "action": "daytime dig at Bob Taylor's property: forensics in white suits excavate while detectives watch; the lab reveals the clothes had tags on, the blood was pig's blood and the kids' bodies are mannequins, meaning Bob was a copycat and the girls are still missing (wide shot, faces not facially verifiable)",
+    "chars": [],
+    "censor": null
+   },
+   {
+    "id": "clip:01:57:46.0",
+    "start": 7066.0,
+    "end": 7072.0,
+    "depicts": [
+     "reaction"
+    ],
+    "action": "Grace, on the phone in the bedroom, gets the call that one of the girls has been found alive ('Yeah, this is she... Wait, is she?')",
+    "chars": [
+     "Grace"
+    ],
+    "censor": null
+   },
+   {
+    "id": "clip:01:59:11.0",
+    "start": 7151.0,
+    "end": 7157.0,
+    "depicts": [
+     "emotion"
+    ],
+    "action": "Nancy and Grace lean over the recovered Joy in her hospital bed, desperate for her to respond and tell them about Anna",
+    "chars": [
+     "Nancy",
+     "Grace"
+    ],
+    "censor": null
+   },
+   {
+    "id": "clip:02:02:56.0",
+    "start": 7376.0,
+    "end": 7382.0,
+    "depicts": [
+     "dialogue"
+    ],
+    "action": "Keller returns to Holly's house, claiming he wants to fix her door as penance; Holly, behind the storm-door glass, invites him in (the trap)",
+    "chars": [
+     "Keller",
+     "Holly"
+    ],
+    "censor": null
+   },
+   {
+    "id": "clip:02:03:18.0",
+    "start": 7398.0,
+    "end": 7404.0,
+    "depicts": [
+     "dialogue"
+    ],
+    "action": "Holly in her kitchen seen past Keller, making tea and talking, the tension building before anything is revealed",
+    "chars": [
+     "Holly"
+    ],
+    "censor": null
+   },
+   {
+    "id": "clip:02:04:08.0",
+    "start": 7448.0,
+    "end": 7454.0,
+    "depicts": [
+     "reveal"
+    ],
+    "action": "Holly raises a revolver and points it at Keller across the kitchen, turning the scene (Keller's back in foreground)",
+    "chars": [
+     "Holly"
+    ],
+    "censor": null
+   },
+   {
+    "id": "clip:02:04:42.0",
+    "start": 7482.0,
+    "end": 7488.0,
+    "depicts": [
+     "reveal"
+    ],
+    "action": "Holly draws a revolver on Keller in her kitchen, revealing she is the kidnapper; she and her late husband abducted the children as their 'war with God'",
+    "chars": [
+     "Holly"
+    ],
+    "censor": null
+   },
+   {
+    "id": "clip:02:05:08.0",
+    "start": 7508.0,
+    "end": 7514.0,
+    "depicts": [
+     "reaction"
+    ],
+    "action": "close on Keller at gunpoint in the kitchen, forced to comply and drink the drugged tea, his helplessness setting in",
+    "chars": [
+     "Keller"
+    ],
+    "censor": null
+   },
+   {
+    "id": "clip:02:09:34.0",
+    "start": 7774.0,
+    "end": 7780.0,
+    "depicts": [
+     "dialogue"
+    ],
+    "action": "Holly, gun trained on Keller by the car, calmly confesses they took Alex first and that she kept the girls; tells Keller his daughters are 'under there'",
+    "chars": [
+     "Holly"
+    ],
+    "censor": null
+   },
+   {
+    "id": "clip:02:10:11.0",
+    "start": 7811.0,
+    "end": 7817.0,
+    "depicts": [
+     "action"
+    ],
+    "action": "at gunpoint Holly forces a bound Keller down into the hidden pit in her yard at night (very dark; both faces dimly visible)",
+    "chars": [
+     "Holly",
+     "Keller"
+    ],
+    "censor": null
+   },
+   {
+    "id": "clip:02:12:15.0",
+    "start": 7935.0,
+    "end": 7941.0,
+    "depicts": [
+     "dialogue"
+    ],
+    "action": "in a hospital corridor Loki is told to go notify Holly Jones, the lead that sends him to her house",
+    "chars": [
+     "Loki"
+    ],
+    "censor": null
+   },
+   {
+    "id": "clip:02:15:05.0",
+    "start": 8105.0,
+    "end": 8111.0,
+    "depicts": [
+     "setup"
+    ],
+    "action": "Loki arrives at the green front door of Holly's house, numbered 1634, and steps inside",
+    "chars": [
+     "Loki"
+    ],
+    "censor": null
+   },
+   {
+    "id": "clip:02:16:54.0",
+    "start": 8214.0,
+    "end": 8220.0,
+    "depicts": [
+     "action"
+    ],
+    "action": "Loki bursts into Holly's house, gun drawn, shouting for her to show her hands moments before the shootout in which he kills Holly and saves Anna",
+    "chars": [
+     "Loki"
+    ],
+    "censor": null
+   },
+   {
+    "id": "clip:02:16:57.0",
+    "start": 8217.0,
+    "end": 8223.0,
+    "depicts": [
+     "action"
+    ],
+    "action": "Loki, gun drawn and aimed, shouts for Holly to show her hands inside her house",
+    "chars": [
+     "Loki"
+    ],
+    "censor": null
+   },
+   {
+    "id": "clip:02:17:04.0",
+    "start": 8224.0,
+    "end": 8230.0,
+    "depicts": [
+     "action"
+    ],
+    "action": "a dark, low-angle struggle on the kitchen floor during the shooting (faces not identifiable in the dark)",
+    "chars": [],
+    "censor": null
+   },
+   {
+    "id": "clip:02:17:12.0",
+    "start": 8232.0,
+    "end": 8238.0,
+    "depicts": [
+     "action"
+    ],
+    "action": "Holly raises a gun toward Loki in the dim hallway",
+    "chars": [
+     "Holly"
+    ],
+    "censor": null
+   },
+   {
+    "id": "clip:02:17:18.0",
+    "start": 8238.0,
+    "end": 8244.0,
+    "depicts": [
+     "reaction"
+    ],
+    "action": "Loki, shot in the struggle, doubles over and staggers, wounded",
+    "chars": [
+     "Loki"
+    ],
+    "censor": null
+   },
+   {
+    "id": "clip:02:17:58.0",
+    "start": 8278.0,
+    "end": 8284.0,
+    "depicts": [
+     "action"
+    ],
+    "action": "a car races down a dark, wet country road at night as Loki rushes the rescued Anna to the hospital (no faces visible)",
+    "chars": [],
+    "censor": null
+   },
+   {
+    "id": "clip:02:20:54.0",
+    "start": 8454.0,
+    "end": 8460.0,
+    "depicts": [
+     "reaction"
+    ],
+    "action": "hospital corridor aftermath: a recovering Anna in a wheelchair tended by Grace, with Nancy and Joy nearby, the families reunited",
+    "chars": [
+     "Anna",
+     "Grace"
+    ],
+    "censor": null
+   },
+   {
+    "id": "clip:02:24:08.0",
+    "start": 8648.0,
+    "end": 8654.0,
+    "depicts": [
+     "transition"
+    ],
+    "action": "night excavation of Holly's property after the case; a lone figure lingers at the dig site (silhouette), the moment before the faint whistle from Keller's hidden pit closes the film (faces not verifiable)",
+    "chars": [],
+    "censor": null
+   }
+  ],
+  "lands": [],
+  "facts": {},
+  "runtime_sec": 8654.0
+ }
+}
