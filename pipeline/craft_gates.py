@@ -892,12 +892,33 @@ def craft_report(draft: dict) -> dict:
                     f"line) carries no hook_question - the plan's question "
                     f"is what the whole video answers; losing it loses the "
                     f"loop the open promises.")
-            if not _narr(_open[-1]).strip().endswith("?"):
+            # the loop must be OPENED, and the close must match the
+            # rotating shape: a question this video, a stated stake the
+            # next - whichever the draft records
+            _closing = str(draft.get("closing_shape") or "question")
+            _last = _narr(_open[-1]).strip()
+            if str(_open[-1].get("payload") or "") != "loop":
+                errors.append(
+                    f"[OPEN] line {_open[-1].get('id')} (the open's last "
+                    f"line) does not carry payload `loop` - the close "
+                    f"opens the loop the video exists to answer, whatever "
+                    f"shape its words take")
+            if _closing == "stake":
+                if _last.endswith("?"):
+                    errors.append(
+                        f"[OPEN] line {_open[-1].get('id')} ends on a "
+                        f"question but this video's close is a STATED "
+                        f"STAKE - one plain sentence, the cost named, the "
+                        f"outcome withheld")
+                m["open_closing"] = "stake"
+            elif not _last.endswith("?"):
                 errors.append(
                     f"[OPEN] line {_open[-1].get('id')} does not END on a "
-                    f"question - the open's last sentence is the viewer's "
+                    f"question and the draft's closing_shape is "
+                    f"'question' - the open's last sentence is the viewer's "
                     f"own question, unanswered until the end "
-                    f"({_narr(_open[-1])[-60:]!r})")
+                    f"({_last[-60:]!r})")
+                m["open_closing"] = "question"
             # proper names: mid-sentence capitalised tokens (the write-time
             # check in write_slots._open_problems does the exact version
             # against names.json; this is the draft-side shape check)
@@ -914,9 +935,9 @@ def craft_report(draft: dict) -> dict:
             from pipeline import opening as _OP
             if _lever in _OP.LEVERS:
                 _head = " ".join(_narr(l) for l in _open[:2]).lower()
-                _marks = _OP._CANON.get(_lever, ())
-                if not any(w in _head for w in _marks) and not any(
-                        w in _head for w in _OP._CHARGE):
+                _hw = set(_OP._words(_head))
+                if not _OP._present(_OP._CANON.get(_lever, ()), _hw, _head) \
+                        and not _OP._present(sorted(_OP._CHARGE), _hw, _head):
                     warns.append(
                         f"[OPEN] the {_lever} lever is not visible in the "
                         f"open's first two lines - the picker chose it, the "

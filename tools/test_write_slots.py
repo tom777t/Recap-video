@@ -65,7 +65,12 @@ def _layout():
             b["hold_after"] = b["beat"] in an
         _C["plan"], _C["ab"] = plan, TWP._ab()
         _C["anchors"] = an
+        # pin the rotation input: the shape must not depend on whatever
+        # happens to be in the channel history on this machine
+        _C["_shapes"] = WS._prev_open_shapes
+        WS._prev_open_shapes = lambda: []
         _C["r"] = WS.derive_slots(plan, PROJ, PDIR, _C["ab"])
+        WS._prev_open_shapes = _C["_shapes"]
     return _C["plan"], _C["ab"], _C["r"]["slots"]
 
 
@@ -213,8 +218,12 @@ def _fill(s, i):
               "Meanwhile")[i % 3]
         t = op + ", " + t[0].lower() + t[1:]
     if s["role"] == "open" and s.get("open_hook"):
-        # R3: the open's last line IS the viewer's question
-        t = "Will " + t[0].lower() + t[1:].rstrip(".") + "?"
+        if s.get("closing") == "stake":
+            # the rotating stake close: one plain sentence, no question
+            t = "One more wreck takes the last thing his father gave him."
+        else:
+            # R3: the open's last line IS the viewer's question
+            t = "Will " + t[0].lower() + t[1:].rstrip(".") + "?"
     pl = ("loop" if s.get("opens_loop") else "judgment"
           if s["role"] == "reaction" else ("stake", "reasoning")[i % 2])
     return {"slot": s["slot"], "narration": t, "payload": pl,
@@ -807,6 +816,49 @@ def test_bridge_by_construction():
     bad_ = [w for ok, w in checks if not ok]
     return not bad_, ("; ".join(w for _, w in checks) if not bad_
                       else "FAILED: " + "; ".join(bad_))
+
+
+def test_open_shape_rotation():
+    """§2: a fixed three-line question open is the robotic tell. The
+    shape rotates against the channel history: after a 3-line question
+    open the next derive is a DIFFERENT length closing on a stake, the
+    slots carry the closing, and the write-time rules enforce it both
+    ways."""
+    plan, ab, _sl = _layout()
+    real = WS._prev_open_shapes
+    try:
+        WS._prev_open_shapes = lambda: [{"open_len": 3,
+                                         "closing": "question"}]
+        r = WS.derive_slots(plan, PROJ, PDIR, ab)
+    finally:
+        WS._prev_open_shapes = real
+    opens = [s for s in r["slots"] if s["role"] == "open"]
+    if not opens:
+        return False, "no OPEN slots derived"
+    bad = []
+    if len(opens) == 3:
+        bad.append("length repeated the previous video's 3")
+    if opens[-1].get("closing") != "stake":
+        bad.append(f"closing={opens[-1].get('closing')}, want stake")
+    if r.get("closing_shape") != "stake" or r.get("open_len") != len(opens):
+        bad.append(f"plan record {r.get('open_len')}/"
+                   f"{r.get('closing_shape')}")
+    # the filled stake close passes check_slots; a question does not
+    rep = [_fill(s, i) for i, s in enumerate(opens)]
+    probs = [p for p in WS.check_slots(rep, opens, PDIR)
+             if "stake close" in p or "question close" in p]
+    as_q = list(rep)
+    as_q[-1] = dict(as_q[-1], narration=as_q[-1]["narration"].rstrip(".")
+                    + "?")
+    qprobs = [p for p in WS.check_slots(as_q, opens, PDIR)
+              if "stake close" in p]
+    if probs:
+        bad.append(f"stake text refused: {probs[:1]}")
+    if not qprobs:
+        bad.append("a question mark accepted on a stake close")
+    return not bad, (f"{len(opens)} line(s), closes "
+                     f"{opens[-1].get('closing')}" if not bad
+                     else "; ".join(bad))
 
 
 TESTS = {

@@ -127,13 +127,14 @@ def test_picker_anti():
     return r["score"] == -100.0, f"score {r['score']}: {r['why'][0]}"
 
 
-def _draft(mode, lines, lever=None):
+def _draft(mode, lines, lever=None, closing=None):
     return {"title": "t", "lines": lines, "open_mode": mode,
-            **({"lever": lever} if lever else {})}
+            **({"lever": lever} if lever else {}),
+            **({"closing_shape": closing} if closing else {})}
 
 
-def _open_line(narr, hook=None, cid=1):
-    ln = {"id": cid, "note": "OPEN", "narration": narr, "payload": "stake",
+def _open_line(narr, hook=None, cid=1, payload="stake"):
+    ln = {"id": cid, "note": "OPEN", "narration": narr, "payload": payload,
           "delivery": "normal", "clip_start": "00:02:19.472",
           "clip_end": "00:02:36.739"}
     if hook is not None:
@@ -147,8 +148,9 @@ GOOD_OPEN = [
     _open_line("The wreck costs him the car, the race and the last deal "
                "his father will ever cut for him."),
     _open_line("Will one more crash in the one city that runs on sideways "
-               "cars put him away for good?", hook="Will one more crash "
-               "put him away for good?"),
+               "cars put him away for good?",
+               hook="Will one more crash put him away for good?",
+               payload="loop"),
 ]
 # the same contract, OPEN-B shaped: mid-scene first line, no anchor - the
 # anchor belongs to the story's own first line once the pivot lands
@@ -159,7 +161,16 @@ GOOD_OPEN_B = [
                "father will ever cut for him."),
     _open_line("Will the one city that runs on sideways cars put him away "
                "for good?", hook="Will one more crash put him away for "
-               "good?"),
+               "good?", payload="loop"),
+]
+# the rotating stake close: same loop, no question mark
+GOOD_OPEN_STAKE = [
+    GOOD_OPEN[0],
+    GOOD_OPEN[1],
+    _open_line("One more crash in the city that runs on sideways cars "
+               "takes the last thing his father ever gave him.",
+               hook="Will one more crash put him away for good?",
+               payload="loop"),
 ]
 _STORY = {"id": 10, "note": "B01", "narration": "Three lads pin a "
           "classmate to a roller door.", "payload": "stake",
@@ -180,7 +191,10 @@ def _msgs(d):
 
 def test_open_good():
     bad = _msgs(_draft("A", GOOD_OPEN + [_STORY]))
-    return bad == [], f"{bad[:2]}"
+    stake = _msgs(_draft("A", GOOD_OPEN_STAKE + [_STORY],
+                         closing="stake"))
+    return bad == [] and stake == [], f"question: {bad[:2]} / " \
+                                      f"stake: {stake[:2]}"
 
 
 def test_open_greeting():
@@ -206,17 +220,33 @@ def test_open_names():
 
 
 def test_open_question():
+    # the closing shape rotates: a question close demands the question
+    # mark; a stake close FORBIDS it (a stated stake that ends on "?" is
+    # just a question with extra steps). Both directions, both shapes.
     noq = GOOD_OPEN[:]
     noq[2] = _open_line("One more crash in the one city that runs on "
                         "sideways cars will put him away for good.",
-                        hook="Will one more crash put him away?", cid=3)
-    a = _msgs(_draft("A", noq + [_STORY]))
+                        hook="Will one more crash put him away?", cid=3,
+                        payload="loop")
+    a = _msgs(_draft("A", noq + [_STORY], closing="question"))
+    wrongq = _msgs(_draft("A", GOOD_OPEN + [_STORY], closing="stake"))
     nohq = GOOD_OPEN[:]
-    nohq[2] = _open_line(nohq[2]["narration"], hook=None, cid=3)
+    nohq[2] = _open_line(nohq[2]["narration"], hook=None, cid=3,
+                         payload="loop")
     b = _msgs(_draft("A", nohq + [_STORY]))
+    noloop = GOOD_OPEN[:]
+    noloop[2] = _open_line(noloop[2]["narration"],
+                           hook="Will one more crash put him away?",
+                           cid=3, payload="stake")
+    c = _msgs(_draft("A", noloop + [_STORY]))
     return (any("not END on a question" in m for m in a)
-            and any("no hook_question" in m for m in b)), \
-        f"question: {a[:1]} / hook: {b[:1]}"
+            and any("STATED STAKE" in m for m in wrongq)
+            and any("no hook_question" in m for m in b)
+            and any("payload `loop`" in m for m in c)), \
+        f"q-missing: {[x for x in a if 'OPEN' in x][:1]} / " \
+        f"stake-got-q: {[x for x in wrongq if 'OPEN' in x][:1]} / " \
+        f"hook: {[x for x in b if 'OPEN' in x][:1]} / " \
+        f"loop: {[x for x in c if 'OPEN' in x][:1]}"
 
 
 def test_open_anchor_a():
@@ -380,6 +410,42 @@ def test_old_catalogue_untrusted():
         f"(want 0); windowed -> {len(OP._shot_cands(new))}"
 
 
+def test_lever_boundary():
+    # word-boundary or every film is THRILL: "car" sat inside "career"
+    # and outvoted a stated romance, and no repo facts file carried a
+    # genre at all. A comedy must not open like a countdown thriller.
+    # No signal at all -> the THRILL default stands (the recap median).
+    superbad = OP.lever_for({"genre": "Coming-of-age comedy",
+                             "title": "Superbad"})
+    gonegirl = OP.lever_for({"genre": "Mystery thriller",
+                             "title": "Gone Girl"})
+    career_romance = OP.lever_for({"genre": "Romance",
+                                   "title": "A Career Carved "
+                                            "From Chaos"})
+    horror = OP.lever_for({"genre": "Supernatural horror"})
+    return (superbad == "PLAY" and gonegirl == "THRILL"
+            and career_romance == "DESIRE" and horror == "FEAR"), \
+        f"superbad={superbad} gonegirl={gonegirl} " \
+        f"career-romance={career_romance} horror={horror}"
+
+
+def test_shape_rotation():
+    empty = OP.choose_open_shape([])
+    after_q3 = OP.choose_open_shape([{"open_len": 3,
+                                      "closing": "question"}])
+    after_s2 = OP.choose_open_shape([{"open_len": 2,
+                                       "closing": "stake"}])
+    ok = (empty["n_lines"] == 3 and empty["closing"] == "question"
+          and after_q3["closing"] == "stake"
+          and after_q3["n_lines"] != 3
+          and len(after_q3["bands"]) == after_q3["n_lines"]
+          and after_s2["closing"] == "question"
+          and after_s2["n_lines"] in (3, 4))
+    return ok, (f"empty=({empty['n_lines']},{empty['closing']}) "
+                f"after q/3=({after_q3['n_lines']},{after_q3['closing']}) "
+                f"after s/2=({after_s2['n_lines']},{after_s2['closing']})")
+
+
 TESTS = {
     "PICKER-CONTROLS": test_picker_controls,
     "PICKER-MODE-B": test_picker_mode_b,
@@ -389,6 +455,8 @@ TESTS = {
     "SPOILER-CAP-AND-REVEALS": test_spoiler_cap_and_reveals,
     "CENSOR-NOT-OPENER": test_censor_not_opener,
     "OLD-CATALOGUE-UNTRUSTED": test_old_catalogue_untrusted,
+    "LEVER-BOUNDARY": test_lever_boundary,
+    "SHAPE-ROTATION": test_shape_rotation,
     "KNOWN-BAD-REAL": test_known_bad_real_films,
     "OPEN-GOOD": test_open_good,
     "OPEN-GREETING": test_open_greeting,

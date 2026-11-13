@@ -101,7 +101,8 @@ def main() -> int:
     try:
         pl = json.loads(io.open(pdir / "plan.json", encoding="utf-8-sig")
                         .read())
-        for f in ("open_mode", "lever", "opener"):
+        for f in ("open_mode", "lever", "opener", "open_len",
+                  "closing_shape"):
             if pl.get(f):
                 out[f] = pl[f]
     except (OSError, ValueError):

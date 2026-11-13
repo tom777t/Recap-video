@@ -593,7 +593,8 @@ def compact_wikitext(t: str) -> str:
     return re.sub(r"\n{3,}", "\n\n", t)
 
 
-FACT_FIELDS = ("title", "year", "director", "cast", "facts", "withheld")
+FACT_FIELDS = ("title", "year", "genre", "director", "cast", "facts",
+               "withheld")
 
 
 def cmd_facts(a, client) -> int:
@@ -1166,6 +1167,8 @@ def save_slots(project: str, pdir: Path, plan: dict, ab: dict,
     plan["open_mode"] = r.get("open_mode")
     plan["lever"] = r.get("lever")
     plan["opener"] = r.get("opener")
+    plan["open_len"] = r.get("open_len")
+    plan["closing_shape"] = r.get("closing_shape")
     (pdir / "plan.json").write_text(json.dumps(plan, ensure_ascii=False,
                                                indent=1), encoding="utf-8")
     nar = sum(1 for x in r["slots"] if x["role"] not in ("hold",

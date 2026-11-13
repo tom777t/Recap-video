@@ -36,8 +36,13 @@ from pathlib import Path
 
 import config
 
-HISTORY = Path(config.ROOT) / "channel" / "history.json"
-CLAIMS = Path(config.ROOT) / "channel" / "claims.jsonl"
+# §8 of the review: the repo is PUBLIC. claims.jsonl carries claimants
+# and claim outcomes - business metadata, not public information - so
+# the channel store lives OUTSIDE the repo (sibling of the repo root),
+# never inside it. Losing git versioning is the accepted cost; back it
+# up by copying.
+HISTORY = Path(config.ROOT).parent / "channel" / "history.json"
+CLAIMS = Path(config.ROOT).parent / "channel" / "claims.jsonl"
 
 _STOP = {"the", "a", "an", "and", "or", "to", "of", "in", "on", "for",
          "he", "she", "they", "it", "his", "her", "their", "its", "is",
@@ -50,7 +55,7 @@ _WORD = re.compile(r"[a-z']+")
 # the opening-craft levers (pipeline.opening.LEVERS) - recorded so the
 # anti-sameness check can see when five videos in a row opened the same
 # way. Kept as a copy so this module stays import-light.
-LEVERS = ("FEAR", "DESIRE", "THRILL", "AWE")
+LEVERS = ("FEAR", "DESIRE", "THRILL", "AWE", "PLAY")
 
 
 def _content_words(text: str, n: int) -> list:
@@ -146,6 +151,8 @@ def snapshot(project: str) -> dict:
         "final_thesis": _content_words(thesis, 12),
         "open_mode": draft.get("open_mode"),
         "lever": draft.get("lever"),
+        "open_len": len(opens) if opens else draft.get("open_len"),
+        "closing_shape": draft.get("closing_shape"),
         "titles_txt_md5": _md5(titles_txt),
         "final_hash": ({"md5": _md5(final),
                         "bytes": (final.stat().st_size

@@ -91,3 +91,5 @@ projects/*/_cache/
 # from a new project deliberately as a fixture, use `git add -f`.
 projects/*
 !projects/tokyodrift2006/
+
+channel/

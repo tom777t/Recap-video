@@ -40,7 +40,7 @@ from pathlib import Path
 
 import config
 
-LEVERS = ("FEAR", "DESIRE", "THRILL", "AWE")
+LEVERS = ("FEAR", "DESIRE", "THRILL", "AWE", "PLAY")
 
 # OPEN-A accepts a candidate this deep into the film's opening zone
 # (a fraction of runtime; Tokyo Drift's bully scene sits at ~3%).
@@ -122,18 +122,26 @@ _CANON = {
     "AWE": ("kingdom", "empire", "army", "mountain", "sky", "sea",
             "dragon", "sword", "immortal", "god", "temple", "palace",
             "realm", "ancient", "legion", "horizon", "storm", "giant"),
+    "PLAY": ("joke", "jokes", "prank", "pranks", "party", "dares",
+             "awkward", "ridiculous", "absurd", "embarrasses", "gags",
+             "stunt", "outlandish", "immature"),
 }
 # Genre keywords in film_facts / the film's own metadata pick the lever.
+# Every lever needs at least one clear genre word - a four-lever world
+# sent every comedy to THRILL, and a comedy cold-open written as a
+# countdown is a genre error before it is a sameness one.
 _GENRE = {
-    "FEAR": ("horror", "supernatural", "ghost", "haunt", "slasher",
+    "FEAR": ("horror", "supernatural", "ghost", "haunted", "slasher",
              "monster", "creepy", "dread"),
     "DESIRE": ("romance", "romantic", "erotic", "love", "melodrama",
                "dating", "passion"),
     "THRILL": ("thriller", "action", "crime", "heist", "racing", "car",
-               "chase", "spy", "war", "martial", "revenge"),
+               "chase", "spy", "war", "martial", "revenge", "mystery"),
     "AWE": ("fantasy", "xianxia", "wuxia", "epic", "adventure", "myth",
-            "cultivation", "sword", "sorcery", "sci-fi", "science fiction",
-            "space"),
+            "cultivation", "sword", "sorcery", "sci-fi",
+            "science fiction", "space"),
+    "PLAY": ("comedy", "comedic", "satire", "parody", "slapstick",
+             "sitcom", "farce", "spoof"),
 }
 # HOOK-IMAGE: concrete objects an Epstein-style one-line hook can be
 # built around ("There's a bomb on a crowded city bus...").
@@ -177,14 +185,20 @@ def _land_sec(land) -> float:
 # R4 - the lever
 # --------------------------------------------------------------------------
 
-def lever_for(facts: dict) -> str:
-    """Pick the genre lever from film_facts metadata. Ties break toward
-    THRILL (the recap median; FEAR/DESIRE/AWE need clearer signals)."""
-    blob = " ".join(str(facts.get(k, "")) for k in
-                    ("genre", "keywords", "title", "plot", "tagline")).lower()
+def lever_for(facts: dict, fallback: str = "") -> str:
+    """Pick the genre lever from film_facts metadata, word-boundary
+    matched - substring counting read "car" inside "career" and every
+    film in the repo came back THRILL, comedy included. `fallback` is
+    extra text the caller trusts (angle.md's genre line) when the facts
+    carry none of the keys. Ties break toward THRILL (the recap median;
+    FEAR/DESIRE/AWE need clearer signals)."""
+    blob = " ".join(str(facts.get(k, "") or "") for k in
+                    ("genre", "keywords", "plot", "tagline", "title"))
+    blob = (blob + " " + str(fallback or "")).lower()
+    words = set(_words(blob))
     best, hits = "THRILL", 0
     for lever, keys in _GENRE.items():
-        n = sum(blob.count(k) for k in keys)
+        n = len(_present(keys, words, blob))
         if n > hits:
             best, hits = lever, n
     return best
@@ -365,6 +379,40 @@ def choose(candidates: list, *, lever: str, lands: list,
 
     return {"opener": opener, "open_mode": mode, "lever": lever,
             "ranked": ranked[:10], "notes": notes}
+
+
+# --------------------------------------------------------------------------
+# R2/R4 - the open's SHAPE: never the same twice in a row
+# --------------------------------------------------------------------------
+# A fixed shape (three lines, ending on a question) is the robotic tell
+# even when every individual line is good - a returning viewer learns it
+# in two videos. The shape therefore rotates against the channel's own
+# history: 2-4 lines, closing on a question OR on a stated stake.
+_SHAPE_BANDS = {2: ("medium", "medium"),
+                3: ("medium", "short", "medium"),
+                4: ("medium", "short", "medium", "medium")}
+_CLOSINGS = ("question", "stake")
+
+
+def choose_open_shape(prev: list) -> dict:
+    """prev = the shipped videos' shapes, newest last, each
+    {"open_len": int, "closing": str} (or missing keys). Returns
+    {"n_lines", "bands", "closing"}. An empty history gets the study's
+    default (three lines, a question); after that the closing alternates
+    and the length never repeats the previous video's."""
+    last = prev[-1] if prev else {}
+    closing = "question"
+    if last.get("closing") in _CLOSINGS:
+        closing = "stake" if last["closing"] == "question" else "question"
+    n = 3
+    want_avoid = last.get("open_len")
+    if want_avoid in _SHAPE_BANDS:
+        # prefer the neighbours, then whatever is left - never the same
+        # count two videos running
+        order = sorted(_SHAPE_BANDS,
+                       key=lambda k: (abs(k - want_avoid) != 1, k == want_avoid))
+        n = order[0]
+    return {"n_lines": n, "bands": _SHAPE_BANDS[n], "closing": closing}
 
 
 # --------------------------------------------------------------------------

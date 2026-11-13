@@ -54,9 +54,33 @@ SLOTS_VERSION = 13
 # exist as slots - but AFTER the cold open (R0), never at 0:00.
 INTRO_WORDS = (12, 40)
 OUTRO_WORDS = (20, 45)
-# The cold open itself (R3): three slots, ~25-45 words, the last one the
-# unanswered question the video exists to answer.
-OPEN_BANDS = ("medium", "short", "medium")
+# The cold open itself (R3): 2-4 slots, ~25-54 words, the last one the
+# unanswered loop the video exists to answer - question OR stated stake,
+# rotated by pipeline.opening.choose_open_shape.
+
+
+def _r(n: int) -> range:
+    return range(n)
+
+
+def _prev_open_shapes() -> list:
+    """The shipped videos' open shapes, newest last, from the channel
+    history - the rotation input. A test overrides this function rather
+    than the disk."""
+    try:
+        from pipeline import variation as V
+        hist = V.load_history() or {}
+    except Exception:
+        return []
+    out = []
+    for snap in sorted(hist.values(),
+                       key=lambda s: str(s.get("shipped_at") or "")):
+        if snap.get("closing_shape") or snap.get("open_len"):
+            out.append({"open_len": snap.get("open_len"),
+                        "closing": snap.get("closing_shape")})
+    return out
+
+
 # [PERSONA] counts lines where the writer's label AND the classifier agree on
 # judgment, over ALL lines; the slots plan this much above the floor, because
 # a reaction the classifier does not hear is not counted.
@@ -337,7 +361,16 @@ def _plan_opening(project: str, pdir: Path) -> dict | None:
         return None
     if not data["candidates"]:
         return None
-    pick = OP.choose(data["candidates"], lever=OP.lever_for(data["facts"]),
+    # old projects' film_facts carry no `genre` (the facts stage only
+    # started writing it); the intro style preset names a genre well
+    # enough to keep comedies off THRILL (horror/romance/epic are the
+    # unambiguous three)
+    fallback = ""
+    sp = Path(pdir) / "intro_style.txt"
+    if sp.exists():
+        fallback = sp.read_text(encoding="utf-8-sig").strip()
+    pick = OP.choose(data["candidates"],
+                     lever=OP.lever_for(data["facts"], fallback=fallback),
                      lands=data["lands"], runtime_sec=data["runtime_sec"])
     if not pick.get("opener") or pick["opener"].get("score", 0) <= 0:
         return None
@@ -507,10 +540,16 @@ def derive_slots(plan: dict, project: str, pdir: Path, ab: dict) -> dict:
                     slots.remove(s)
                 break
         k1 = order[0][0] if order else 1
-        # three lines over ONE scene: contiguous sub-windows of the
+        # the open's SHAPE rotates against the channel's own history
+        # (2-4 lines, closing on a question or a stated stake): a fixed
+        # three-line question shape is the robotic tell even when every
+        # line in it is good
+        from pipeline import opening as OP
+        shape = OP.choose_open_shape(_prev_open_shapes())
+        # the lines run over ONE scene: contiguous sub-windows of the
         # opener, so [WINDOW-OVERLAP] sees the same shape as anywhere
-        # else - the scene plays unbroken under three narrated lines
-        sub = _split(c0, c1, len(OPEN_BANDS),
+        # else - the scene plays unbroken under the open's lines
+        sub = _split(c0, c1, shape["n_lines"],
                      [(m[0], m[1]) for m in moments(Path(pdir))
                       if c0 <= m[0] < c1])
         open_slots = [{"slot": "", "act": k1, "beat": "OPEN", "role": "open",
@@ -518,14 +557,16 @@ def derive_slots(plan: dict, project: str, pdir: Path, ab: dict) -> dict:
                        "z": sub[i][1],
                        "open_mode": opening["open_mode"],
                        "lever": opening["lever"]}
-                      for i, _band in enumerate(OPEN_BANDS)]
+                      for i in _r(shape["n_lines"])]
         open_slots[-1]["open_hook"] = True
+        open_slots[-1]["closing"] = shape["closing"]
         open_slots[-1]["hook_question"] = str(
             (plan.get("hook") or {}).get("hook_question") or "").strip()
         if opening["open_mode"] == "B":
             # the fragment pivots back: the story's own start needs the
             # anchor ([TRANSITION]), the fragment itself does not
             open_slots[0]["pivot"] = True
+        opening["shape"] = shape
     else:
         problems.append("opening: no cold open - the opener picker found "
                         "nothing (shots.json missing or empty)")
@@ -637,10 +678,12 @@ def derive_slots(plan: dict, project: str, pdir: Path, ab: dict) -> dict:
     # band (WINDOW_SPAN_RATIO), never widened.
     long_n, debt = 0, 0
     j = 0          # the cycle counts STORY lines; the open slots carry theirs
+    _open_bands = (((opening or {}).get("shape") or {}).get("bands")
+                   or ("medium", "short", "medium"))
     for i, s in enumerate(narrated):
         if s["role"] == "open":
             n_open = sum(1 for x in narrated[:i] if x["role"] == "open")
-            band = OPEN_BANDS[min(n_open, len(OPEN_BANDS) - 1)]
+            band = _open_bands[min(n_open, len(_open_bands) - 1)]
         else:
             band = BAND_CYCLE[j % len(BAND_CYCLE)]
             j += 1
@@ -723,7 +766,10 @@ def derive_slots(plan: dict, project: str, pdir: Path, ab: dict) -> dict:
             "version": SLOTS_VERSION,
             "open_mode": (opening or {}).get("open_mode"),
             "lever": (opening or {}).get("lever"),
-            "opener": (opening or {}).get("opener")}
+            "opener": (opening or {}).get("opener"),
+            "open_len": ((opening or {}).get("shape") or {}).get("n_lines"),
+            "closing_shape": ((opening or {}).get("shape") or
+                              {}).get("closing")}
 
 
 _SENT = re.compile(r"[A-Z\"'][^.?!]*[.?!]")
@@ -861,7 +907,11 @@ def slots_text(slots: list) -> str:
                 f"- {s['slot']} OPEN ({s.get('lever')} / OPEN-"
                 f"{s.get('open_mode')}) {s['clip_start']}-{s['clip_end']} | "
                 f"{s['min_words']}-{s['max_words']} words, aim {s['target']}"
-                + (" | THE QUESTION: end on the hook question, unanswered"
+                + ((" | CLOSE ON THE "
+                    + ("QUESTION: end on the hook question, unanswered"
+                       if s.get("closing") != "stake" else
+                       "STAKE: state the cost, withhold the outcome, no "
+                       "question mark"))
                    if s.get("open_hook") else "")
                 + (" | mid-scene: open ON the action, no time or place "
                    "anchor" if s.get("pivot") else ""))
@@ -978,13 +1028,16 @@ def _facts(pdir: Path) -> dict:
 def _open_brief(plan: dict, k: int) -> str:
     """R3/R4 for the act that carries the OPEN slots: the cold open's
     sentence contract and the film's genre lever, generated from the
-    picker's own choice so the brief and the gates cannot disagree."""
+    picker's own choice so the brief and the gates cannot disagree. The
+    closing SHAPE comes from the rotation - a question this video, a
+    stated stake the next - never the same twice running."""
     opens = [s for s in plan.get("slots") or []
              if s.get("role") == "open" and s.get("act") == k]
     if not opens:
         return "- No OPEN slots in this act."
     lever, mode = opens[0].get("lever") or "THRILL", opens[0].get(
         "open_mode") or "A"
+    closing = opens[-1].get("closing") or "question"
     lever_text = {
         "FEAR": "an ORDINARY detail done wrong (the clocks were striking "
                 "thirteen); never name the monster in the open; death only "
@@ -993,18 +1046,29 @@ def _open_brief(plan: dict, k: int) -> str:
                   "years, she saw him again), one concrete body-adjacent "
                   "image; desire spoken must be paid for visually in the "
                   "next line",
-        "THRILL": "a NUMBER inside the first two sentences (a countdown, a "
-                  "streak, a threshold); consequence first, cause withheld",
+        "THRILL": "ONE of: a number that matters (a countdown, a streak, a "
+                  "threshold), a debt coming due, a clock already running "
+                  "- consequence first, cause withheld",
         "AWE": "scale through one impossible concrete image or reveal-verb; "
                "motion enters mid-fall or mid-chase",
+        "PLAY": "a dare, a party or an embarrassment already in motion; "
+                "the joke sets up, the stakes land dry - never explain "
+                "the funny",
     }.get(lever, "")
+    closing_text = {
+        "question": "the LAST open slot ENDS on the unanswered question "
+                    "(it reads as the viewer's own question)",
+        "stake": "the LAST open slot STATES the stake and stops - one "
+                 "plain declarative sentence, the cost named, the outcome "
+                 "withheld, NO question mark anywhere in the open",
+    }[closing]
     return "\n".join([
-        f"- COLD OPEN (OPEN-{mode}, lever {lever}): present tense, third "
-        f"person, on the film's own scene. Sentence 1: a concrete situation "
-        f"or image - never backstory, never why. {lever_text}",
+        f"- COLD OPEN (OPEN-{mode}, lever {lever}, {len(opens)} line(s), "
+        f"closes on a {closing}): present tense, third person, on the "
+        f"film's own scene. Sentence 1: a concrete situation or image - "
+        f"never backstory, never why. {lever_text}",
         "- Escalate in one straight line across the open; at most ONE "
-        "proper name in the whole open; the LAST open slot ENDS on the "
-        "unanswered question (it reads as the viewer's own question).",
+        "proper name in the whole open; " + closing_text + ".",
     ] + (["- OPEN-B fragment: open mid-scene, no time-or-place anchor; the "
           "pivot line (\"But to understand how we got here...\") is the "
           "story's, not the open's."] if mode == "B" else []),
@@ -1078,10 +1142,19 @@ def line_deviations(ln: dict, s: dict) -> list:
         out.append(f"{s['slot']} ({s['role'].upper()}): uses I / you / a "
                    f"question / a stance adverb - those are budgeted to "
                    f"the VOICE slots")
-    if s["role"] == "open" and s.get("open_hook") \
-            and not text.strip().endswith("?"):
-        out.append(f"{s['slot']} (OPEN): the cold open's last line must END "
-                   f"on the unanswered question - got {text.strip()[-45:]!r}")
+    if s["role"] == "open" and s.get("open_hook"):
+        # the closing shape ROTATES (a question this video, a stated
+        # stake the next) - whichever this slot carries, the words must
+        # match it, or the rotation is decorative
+        if s.get("closing") == "stake" and text.strip().endswith("?"):
+            out.append(f"{s['slot']} (OPEN, stake close): ends on a "
+                       f"question mark - this video's close STATES the "
+                       f"stake (one plain sentence, outcome withheld)")
+        elif s.get("closing") != "stake" \
+                and not text.strip().endswith("?"):
+            out.append(f"{s['slot']} (OPEN, question close): must END on "
+                       f"the unanswered question - got "
+                       f"{text.strip()[-45:]!r}")
     if s["role"] == "open" and s.get("pivot") \
             and CG._ANCHOR.match(text.strip()):
         out.append(f"{s['slot']} (OPEN-B): opens on a time or place anchor - "
