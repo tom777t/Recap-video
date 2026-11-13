@@ -51,6 +51,26 @@ MIDPOINT = 0.50
 # overlapping a landing answers a question the film spends Acts 2-3
 # asking, and the opener must not spoil it (NON-RESOLUTION).
 REVEAL_GUARD_SEC = 45.0
+# An OPEN-B fragment past this fraction of runtime is the ENDING, not a
+# hook. The review's table: Gone Girl 0.868, Parasite 0.901, Prisoners
+# 0.949 all "opened" on the climax. A flash-forward may show danger
+# BEFORE its outcome; the last quarter of a film is mostly outcomes.
+B_CAP = 0.75
+
+# The words of an OUTCOME. R1's NON-RESOLUTION has two layers: a beat
+# sitting on a reveal LANDING (the map says so), and a beat that IS the
+# payoff even when no map marks it - the body, the funeral, the unmasking
+# aftermath. Past MIDPOINT these are anti-picks: the picker's #1 on Gone
+# Girl was "Amy sits up drenched in blood ... beside the body" at 0.868.
+# Danger words (gun drawn, chase, countdown, blood in a fight) stay
+# positive everywhere - before the midpoint an outcome is legitimate
+# setup ("opens on a funeral").
+_OUTCOME = (
+    "dead", "died", "dies", "death", "deaths", "corpse", "funeral",
+    "grave", "coffin", "buried", "killed", "murdered", "murder",
+    "aftermath", "slain", "beheaded", "mortally", "lifeless",
+    "the body", "body bag", "wounded",
+)
 
 # ---- R1 CHARGE: extremity of the moment -------------------------------
 # Word-boundary matched (substring matching scored "race" inside
@@ -199,6 +219,21 @@ def score(cand: dict, *, lever: str, lands: list,
         return {"id": cand.get("id"), "score": -100.0,
                 "why": ["anti-pick: credits / logo / pure establishing"]}
 
+    c0, c1 = _ts(cand.get("start")), _ts(cand.get("end"))
+    pos = c0 / runtime_sec if runtime_sec else 0.0
+
+    # ANTI, second layer: an OUTCOME past the midpoint is the ending
+    # playing at 0:00 (NON-RESOLUTION). Before it, the same words are
+    # legitimate setup - a film may open on its funeral.
+    if pos >= MIDPOINT:
+        outcome = _present(_OUTCOME, set(_words(prose)), prose) \
+            + [t for t in sorted(tags) if t == "aftermath"]
+        if outcome:
+            return {"id": cand.get("id"), "score": -100.0,
+                    "why": [f"anti-pick: an outcome at pos {pos:.2f} "
+                            f"({', '.join(outcome[:4])}) - a flash-forward "
+                            f"shows the danger, never the body"]}
+
     # CHARGE - distinct markers, weight by extremity.
     words = set(_words(prose))
     hits = _present(sorted(_CHARGE), words, prose) \
@@ -209,7 +244,6 @@ def score(cand: dict, *, lever: str, lands: list,
 
     # NON-RESOLUTION - overlapping a reveal landing is disqualifying,
     # not a dock: the opener spoils nothing.
-    c0, c1 = _ts(cand.get("start")), _ts(cand.get("end"))
     near = [l for l in lands if c0 - REVEAL_GUARD_SEC < l < c1 + REVEAL_GUARD_SEC]
     if near:
         return {"id": cand.get("id"), "score": -100.0,
@@ -241,7 +275,6 @@ def score(cand: dict, *, lever: str, lands: list,
     # chronological body returns to naturally; a late beat forces the
     # OPEN-B fragment. Mid-band beats earn nothing here - opening on the
     # middle of a film is neither.
-    pos = c0 / runtime_sec if runtime_sec else 0.0
     if pos <= OPEN_ZONE:
         loop_pts, shape = 4, "zone-A"
     elif pos >= MIDPOINT:
@@ -263,14 +296,18 @@ def score(cand: dict, *, lever: str, lands: list,
 
 def choose(candidates: list, *, lever: str, lands: list,
            runtime_sec: float) -> dict:
-    """Candidates -> {"opener", "open_mode", "lever", "ranked": [...]}.
+    """Candidates -> {"opener", "open_mode", "lever", "ranked", "notes"}.
 
     OPEN-A: the best candidate inside the opening zone (the film's own
     first scene, told chronologically - even a calm one; R2's
     disruption is narrated, not chosen). OPEN-B: only when the best
     candidate overall lies beyond the midpoint, as a loop-back fragment
-    the body must earn its way back to.
+    the body must earn its way back to - AND the spoiler guard can run:
+    no reveal map means no loop-back at all (the outcome layer alone
+    cannot know what the film treats as its payoff), and no fragment
+    past B_CAP or past the LAST landing (that is the ending).
     """
+    notes: list = []
     ranked = sorted((score(c, lever=lever, lands=lands,
                            runtime_sec=runtime_sec)
                      for c in candidates),
@@ -279,7 +316,29 @@ def choose(candidates: list, *, lever: str, lands: list,
             if r["score"] > 0 and 0.0 <= (r.get("pos") or 1.0) <= OPEN_ZONE]
     best = ranked[0] if ranked else None
 
-    if best and best["score"] > 0 and (best.get("pos") or 0.0) >= MIDPOINT:
+    b_ok = best and best["score"] > 0 \
+        and (best.get("pos") or 0.0) >= MIDPOINT
+    if b_ok and not lands:
+        # not run is never a pass: say WHY there is no OPEN-B
+        notes.append("OPEN-B not run: no reveal map - the spoiler guard "
+                     "has nothing to land on; opening chronologically "
+                     "(OPEN-A) instead")
+        b_ok = False
+    if b_ok:
+        cap = B_CAP
+        if lands:
+            # the fragment must also sit before the LAST reveal landing
+            # - after it is the ending's own territory
+            cap = min(cap, max(lands) / runtime_sec if runtime_sec
+                      else cap)
+        if (best.get("pos") or 0.0) > cap:
+            notes.append(f"OPEN-B refused: best candidate at pos "
+                         f"{best.get('pos'):.2f} is past the spoiler cap "
+                         f"{cap:.2f} - the ending is not a hook; "
+                         f"opening chronologically (OPEN-A) instead")
+            b_ok = False
+
+    if b_ok:
         opener, mode = best, "B"
     elif zone:
         opener, mode = zone[0], "A"
@@ -291,7 +350,7 @@ def choose(candidates: list, *, lever: str, lands: list,
         opener, mode = None, "A"
 
     return {"opener": opener, "open_mode": mode, "lever": lever,
-            "ranked": ranked[:10]}
+            "ranked": ranked[:10], "notes": notes}
 
 
 # --------------------------------------------------------------------------

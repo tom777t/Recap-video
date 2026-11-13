@@ -350,7 +350,7 @@ def _plan_opening(project: str, pdir: Path) -> dict | None:
         a = moms[0][0]
         z = max(z for _x, z in moms if a <= _x < z)
     return {"opener": dict(op, window=(a, z)), "open_mode": pick["open_mode"],
-            "lever": pick["lever"]}
+            "lever": pick["lever"], "notes": pick.get("notes") or []}
 
 
 def _beat_ranges(project: str, beats: list) -> dict:
@@ -717,7 +717,9 @@ def derive_slots(plan: dict, project: str, pdir: Path, ab: dict) -> dict:
         a_, z_ = s.pop("a"), s.pop("z")
         s["clip_start"] = _ts(a_) if a_ is not None else None
         s["clip_end"] = _ts(z_) if z_ is not None else None
-    return {"slots": slots, "problems": problems,
+    return {"slots": slots, "problems": problems
+            + [f"opening: {n}" for n in (opening or {}).get("notes")
+               or []],
             "version": SLOTS_VERSION,
             "open_mode": (opening or {}).get("open_mode"),
             "lever": (opening or {}).get("lever"),

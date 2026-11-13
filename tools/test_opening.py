@@ -90,16 +90,20 @@ def _start(d, cid):
 
 
 def test_picker_mode_b():
-    # one late charged candidate in an otherwise empty catalogue
+    # one late charged DANGER candidate inside the spoiler cap, with a
+    # reveal map: mode B. (0.9 with no map is refused - that is
+    # SPOILER-CAP-AND-REVEALS' job now.)
     cands = [
-        {"id": "late", "start": 5400.0, "end": 5440.0, "depicts": ["action"],
-         "action": "The house explodes and the wreck burns with him inside",
+        {"id": "late", "start": 3900.0, "end": 3940.0,
+         "depicts": ["action"],
+         "action": "The house explodes and the wreck burns behind him "
+                   "as he drives",
          "chars": ["the driver"], "censor": "none"},
         {"id": "early", "start": 30.0, "end": 60.0, "depicts": ["setup"],
          "action": "A man drives to work and parks", "chars": [],
          "censor": "none"},
     ]
-    pick = OP.choose(cands, lever="THRILL", lands=[],
+    pick = OP.choose(cands, lever="THRILL", lands=[5700.0],
                      runtime_sec=6000.0)
     return (pick["open_mode"] == "B" and pick["opener"]["id"] == "late"), \
         f"mode {pick['open_mode']}, opener {pick['opener']['id']}"
@@ -242,11 +246,93 @@ def test_open_anchor_b():
         f"good: {b[:1]} / frag-anchored: {warned[:1]} / flat-story: {flat[:1]}"
 
 
+def _cand(cid, start, prose, depicts=("action",), chars=None):
+    return {"id": cid, "start": start, "end": start + 30.0,
+            "depicts": list(depicts), "action": prose,
+            "chars": chars or [], "censor": "none"}
+
+
+def test_spoiler_outcome():
+    # the review's #1 pick on Gone Girl: the ending as the opener
+    c = _cand("gg", 5200.0, "Amy sits up drenched in blood in her red "
+               "slip beside the body", chars=["amy"])
+    r = OP.score(c, lever="THRILL", lands=[100.0], runtime_sec=6000.0)
+    before_mid = _cand("gg2", 120.0, "The funeral opens the film and "
+                       "nobody names the dead", depicts=("montage",))
+    r2 = OP.score(before_mid, lever="THRILL", lands=[3000.0],
+                  runtime_sec=6000.0)
+    return (r["score"] == -100.0 and "outcome" in r["why"][0]
+            and r2["score"] != -100.0), \
+        f"late: {r['score']} ({r['why'][0][:60]}) / early setup allowed: {r2['score']}"
+
+
+def test_spoiler_cap_and_reveals():
+    # a charged DANGER beat at 0.90 with a reveal map: refused, OPEN-A
+    late = [_cand("early", 60.0, "A boy builds a race car in his garage",
+                  depicts=("setup",)),
+            _cand("late", 5400.0, "She draws her gun and gives chase "
+                  "through the kitchens", chars=["she"])]
+    cap = OP.choose(late, lever="THRILL", lands=[3000.0],
+                    runtime_sec=6000.0)
+    # the same shape inside the cap: OPEN-B, no note
+    mid = [_cand("early", 60.0, "A boy builds a race car in his garage",
+                 depicts=("setup",)),
+           dict(_cand("mid", 3900.0, "She draws her gun and gives chase "
+                      "through the kitchens", chars=["she"]),
+                start=3900.0, end=3930.0)]
+    ok_mid = OP.choose(mid, lever="THRILL", lands=[5700.0],
+                       runtime_sec=6000.0)
+    # no reveal map at all: never OPEN-B, and the refusal is SAID
+    norv = OP.choose(late, lever="THRILL", lands=[],
+                     runtime_sec=6000.0)
+    return (cap["open_mode"] == "A"
+            and any("spoiler cap" in n for n in cap["notes"])
+            and ok_mid["open_mode"] == "B"
+            and not ok_mid["notes"]
+            and norv["open_mode"] == "A"
+            and any("no reveal map" in n for n in norv["notes"])), \
+        (f"cap: {cap['open_mode']} {cap['notes'][:1]} / "
+         f"mid: {ok_mid['open_mode']} / "
+         f"no-reveals: {norv['open_mode']} {norv['notes'][:1]}")
+
+
+_KNOWN_BAD = ("gonegirl2014", "parasite2019", "prisoners2013")
+
+
+def test_known_bad_real_films():
+    # §0's table: these three had the ending as the #1 opener. After the
+    # fix none of them may open on an outcome or past the cap. Needs the
+    # film data on disk (shots.json at minimum) - without it this is a
+    # FAILURE, not a skip: the guard it tests ships cold.
+    import json
+    rows, bad = [], []
+    for name in _KNOWN_BAD:
+        try:
+            d = OP.read(name)
+        except Exception as e:
+            return False, f"{name}: cannot read ({type(e).__name__}: {e})"
+        if not d["candidates"]:
+            return False, f"{name}: no shots.json"
+        r = OP.choose(d["candidates"], lever=OP.lever_for(d["facts"]),
+                      lands=d["lands"], runtime_sec=d["runtime_sec"])
+        o = r["opener"] or {}
+        pos = o.get("pos")
+        outcome = any("outcome" in w for w in o.get("why", []))
+        rows.append(f"{name}={r['open_mode']}@{pos}")
+        if r["open_mode"] == "B" and (
+                outcome or (pos or 0.0) > OP.B_CAP):
+            bad.append(name)
+    return not bad, " ".join(rows) + (f" | REFUSED: {bad}" if bad else "")
+
+
 TESTS = {
     "PICKER-CONTROLS": test_picker_controls,
     "PICKER-MODE-B": test_picker_mode_b,
     "PICKER-NON-RESOLUTION": test_picker_non_resolution,
     "PICKER-ANTI": test_picker_anti,
+    "SPOILER-OUTCOME": test_spoiler_outcome,
+    "SPOILER-CAP-AND-REVEALS": test_spoiler_cap_and_reveals,
+    "KNOWN-BAD-REAL": test_known_bad_real_films,
     "OPEN-GOOD": test_open_good,
     "OPEN-GREETING": test_open_greeting,
     "OPEN-NAMES": test_open_names,
