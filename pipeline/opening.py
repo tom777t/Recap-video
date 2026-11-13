@@ -220,7 +220,15 @@ def score(cand: dict, *, lever: str, lands: list,
     tags = {str(t).lower() for t in (cand.get("depicts") or [])}
     why: list = []
 
-    # ANTI first: credits / logos / pure establishing are not openers.
+    # ANTI first: credits / logos / pure establishing are not openers;
+    # neither is anything the censor flagged - the cold open runs at
+    # 0:00 with no blur built for it, so a flagged shot there is not a
+    # styling choice to grade, it is a video that cannot ship.
+    if str(cand.get("censor") or "none").lower() not in ("none", ""):
+        return {"id": cand.get("id"), "score": -100.0,
+                "why": [f"anti-pick: censor-flagged "
+                        f"({cand.get('censor')}) - the cold open has no "
+                        f"blur pass"]}
     if any(a in prose for a in _ANTI) or tags == {"establishing"}:
         return {"id": cand.get("id"), "score": -100.0,
                 "why": ["anti-pick: credits / logo / pure establishing"]}
@@ -364,14 +372,22 @@ def choose(candidates: list, *, lever: str, lands: list,
 # --------------------------------------------------------------------------
 
 def _shot_cands(shots: list) -> list:
+    """Catalogue entries -> picker candidates. Only windowed catalogues
+    are trusted: an old-format entry with `time_start` and no
+    clip_start/clip_end would parse to 0.0/0.0, putting EVERY scene at
+    pos 0.000 with runtime 0 (it2017's Bowers scene "opened" the film
+    that way - it plays ~40 minutes in). No windows, no picker: the
+    caller says "not run" instead of guessing times."""
     from pipeline.draft import parse_ts
     out = []
     for s in shots:
         if not s.get("action"):
             continue
+        if not s.get("clip_start") or not s.get("clip_end"):
+            continue
         out.append({"id": s.get("id"),
-                    "start": parse_ts(s.get("clip_start", "0:0:0")),
-                    "end": parse_ts(s.get("clip_end", "0:0:0")),
+                    "start": parse_ts(s["clip_start"]),
+                    "end": parse_ts(s["clip_end"]),
                     "depicts": s.get("depicts") or [],
                     "action": s.get("action"),
                     "chars": s.get("chars") or [],

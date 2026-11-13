@@ -246,10 +246,11 @@ def test_open_anchor_b():
         f"good: {b[:1]} / frag-anchored: {warned[:1]} / flat-story: {flat[:1]}"
 
 
-def _cand(cid, start, prose, depicts=("action",), chars=None):
+def _cand(cid, start, prose, depicts=("action",), chars=None,
+          censor="none"):
     return {"id": cid, "start": start, "end": start + 30.0,
             "depicts": list(depicts), "action": prose,
-            "chars": chars or [], "censor": "none"}
+            "chars": chars or [], "censor": censor}
 
 
 def test_spoiler_outcome():
@@ -345,6 +346,40 @@ def test_known_bad_real_films():
     return not bad, " ".join(rows) + (f" | REFUSED: {bad}" if bad else "")
 
 
+def test_censor_not_opener():
+    # a flagged shot is never an opener candidate: the cold open has no
+    # blur pass, so a gore/sex flag at 0:00 is an unshippable video
+    hot = _cand("hot", 100.0, "The knife opens his cheek and the blood "
+                "runs into the drain", censor="blur")
+    r = OP.score(hot, lever="THRILL", lands=[], runtime_sec=6000.0)
+    clean = _cand("clean", 100.0, "The knife glints and he backs into "
+                  "the drain")
+    r2 = OP.score(clean, lever="THRILL", lands=[], runtime_sec=6000.0)
+    return (r["score"] == -100.0 and "censor-flagged" in r["why"][0]
+            and r2["score"] > 0), \
+        f"flagged: {r['score']} ({r['why'][0][:40]}) / clean: {r2['score']}"
+
+
+def test_old_catalogue_untrusted():
+    # it2017's catalogue is old-format: time_start, no clip windows.
+    # Every such shot parsed to 0.0/0.0 and the Bowers scene (~40 min
+    # in) "opened" the film at pos 0.000. No windows -> no candidates:
+    # not run, never a guess.
+    old = [{"id": "a", "time_start": "00:01:38.0", "action": "Georgie "
+            "asks Bill for the paper boat", "depicts": ["setup"]},
+           {"id": "b", "time_start": "00:40:00.0", "action": "Bowers "
+            "carves Ben's stomach with a knife", "depicts": ["action"]}]
+    new = [{"id": "a", "clip_start": "00:01:38.0",
+            "clip_end": "00:01:52.0", "action": "Georgie asks Bill for "
+            "the paper boat", "depicts": ["setup"], "chars": [],
+            "censor": "none"}]
+    return (OP._shot_cands(old) == [] and
+            len(OP._shot_cands(new)) == 1 and
+            OP._shot_cands(new)[0]["start"] == 98.0), \
+        f"old-format -> {len(OP._shot_cands(old))} candidate(s) " \
+        f"(want 0); windowed -> {len(OP._shot_cands(new))}"
+
+
 TESTS = {
     "PICKER-CONTROLS": test_picker_controls,
     "PICKER-MODE-B": test_picker_mode_b,
@@ -352,6 +387,8 @@ TESTS = {
     "PICKER-ANTI": test_picker_anti,
     "SPOILER-OUTCOME": test_spoiler_outcome,
     "SPOILER-CAP-AND-REVEALS": test_spoiler_cap_and_reveals,
+    "CENSOR-NOT-OPENER": test_censor_not_opener,
+    "OLD-CATALOGUE-UNTRUSTED": test_old_catalogue_untrusted,
     "KNOWN-BAD-REAL": test_known_bad_real_films,
     "OPEN-GOOD": test_open_good,
     "OPEN-GREETING": test_open_greeting,
