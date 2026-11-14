@@ -74,6 +74,25 @@ MARGIN_MIN_SEC = float(getattr(config, "CAPACITY_MARGIN_MIN_SEC", 0.25))
 MARGIN_FRACTION = float(getattr(config, "CAPACITY_MARGIN_FRACTION", 0.03))
 
 
+def line_bump_cap(tag: str, band_cap: float) -> float:
+    """The rate_bump a line of this tag may take: the voice band, but never
+    past what the production engine can deliver for that tag.
+
+    Without the second limit fit_narration planned 1.10x on `normal` lines
+    already at speakingRate 1.46, which Inworld refuses above 1.5 - the
+    render stopped mid-synthesis with an HTTP 400 (doublelife2023). A tag
+    with no headroom (mystery, at 1.5) gets 1.0: widen or trim only."""
+    try:
+        from pipeline.tts import DEFAULT_PROVIDER
+        from pipeline.tts_providers import all_providers
+        prov = all_providers().get(DEFAULT_PROVIDER)
+        head = prov.max_speed_mult(tag or "normal") if prov else 99.0
+    except Exception:
+        head = 99.0
+    # 1% under the ceiling: the bump is applied with a 1% margin on top
+    return round(max(1.0, min(float(band_cap), head / 1.01)), 4)
+
+
 def _hms(t: float) -> str:
     t = max(0.0, float(t))
     h = int(t // 3600)
@@ -833,15 +852,18 @@ def main() -> int:
         else:
             need_mult = f["narr_dur"] / allowed_narr
         cur = float(ln.get("rate_bump") or 1.0)
-        if need_mult <= a.max_bump + 1e-9:
+        # the engine's own ceiling for this tag, not just the voice band
+        cap_line = line_bump_cap(str(ln.get("delivery") or "normal"),
+                                 a.max_bump)
+        if need_mult <= cap_line + 1e-9 and cap_line > 1.0:
             mult = round(max(need_mult, 1.0) * 1.01, 4)   # 1% margin
-            mult = min(mult, a.max_bump)
+            mult = min(mult, cap_line)
             prev = actions.get(lid, {}).get("strategy")
             actions[lid] = {
                 "strategy": (f"{prev}+c-rate" if prev else "c-rate"),
                 "rate_bump": mult,
                 "note": (f"needs {need_mult:.3f}x, applying {mult:.3f}x "
-                         f"(cap {a.max_bump:.2f}x)"),
+                         f"(cap {cap_line:.2f}x)"),
                 **({k: v for k, v in actions.get(lid, {}).items()
                     if k in ("from", "to", "new_start", "new_end")}),
             }
@@ -860,12 +882,15 @@ def main() -> int:
             # unbumped duration asked line 64 to drop 3 words when 1 would do,
             # and every word dropped is payload at risk.
             # Absolute, not compounded - see the note above.
-            ln["rate_bump"] = a.max_bump
+            if cap_line > 1.0:
+                ln["rate_bump"] = cap_line
+            else:
+                ln.pop("rate_bump", None)
             # A rate bump does not shorten audio in exact proportion - pauses
             # and breaths do not scale with speaking rate - so assume only 90%
             # of it lands. Under-trimming here just means the pre-flight asks
             # again; over-trimming throws away words for nothing.
-            effective = 1.0 + (a.max_bump - 1.0) * 0.90
+            effective = 1.0 + (cap_line - 1.0) * 0.90
             bumped = f["narr_dur"] / effective
             budget = allowed_narr
             words_now = f["words"]
@@ -875,14 +900,17 @@ def main() -> int:
             actions[lid] = {
                 "strategy": (f"{prev}+c-rate+e-trim" if prev
                              else "b-rate+e-trim"),
-                "rate_bump": ln["rate_bump"],
-                "note": (f"needs {need_mult:.3f}x rate; the {a.max_bump:.2f}x "
+                "rate_bump": ln.get("rate_bump", 1.0),
+                "note": (f"needs {need_mult:.3f}x rate; the {cap_line:.2f}x "
                          f"cap leaves {need_mult/effective:.3f}x for the text"),
                 "target_words": target_words,
                 "words_now": words_now,
                 **({k: v for k, v in actions.get(lid, {}).items()
                     if k in ("from", "to", "new_start", "new_end")}),
             }
+            if not ln.get("rate_bump"):
+                # no headroom on this tag: the trim carries it all
+                actions[lid].pop("rate_bump", None)
             trim_todo.append({
                 "line_id": lid,
                 "delivery": ln.get("delivery"),
@@ -892,7 +920,7 @@ def main() -> int:
                 "window_sec": round(shot, 2),
                 "audio_sec_now": f["narr_dur"],
                 "audio_sec_budget": round(budget, 2),
-                "rate_bump_applied": ln["rate_bump"],
+                "rate_bump_applied": ln.get("rate_bump", 1.0),
                 "words_now": words_now,
                 "target_words": target_words,
                 "narration": ln.get("narration"),

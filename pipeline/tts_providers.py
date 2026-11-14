@@ -153,7 +153,12 @@ class Provider:
     # into gabbling. Keys are whatever a provider happens to call its rate.
     _SPEED_KEYS = {
         # key              (min,  max)
-        "speaking_rate":   (0.60, 1.60),   # Inworld
+        # Inworld rejects speakingRate above 1.5 with an HTTP 400 (measured;
+        # config.VOICE_SPEAKING_RATE_MAX). This was 1.60, so a rate_bump on a
+        # tag already near the ceiling (normal 1.46 x 1.10 = 1.61) was passed
+        # through and the API refused it MID-RENDER (doublelife2023 line 45).
+        "speaking_rate":   (0.60, float(getattr(config,
+                                         "VOICE_SPEAKING_RATE_MAX", 1.5))),
         "speed":           (0.70, 1.20),   # ElevenLabs (API hard limit)
     }
 
@@ -182,6 +187,22 @@ class Provider:
         if abs(m - 1.0) > 1e-9:
             c = self._scale_speed(c, m)
         return c
+
+    def max_speed_mult(self, tag: str) -> float:
+        """The largest per-line rate multiplier this tag can still take
+        before the ENGINE's own ceiling clamps it.
+
+        tools/fit_narration.py must not plan a rate_bump the engine cannot
+        deliver: a clamped bump changes the cache key but not the audio, so
+        the line bounces off the pre-flight again, and an unclamped one is an
+        HTTP 400 mid-render. `mystery` sits at Inworld's 1.5 ceiling already,
+        so its headroom is 1.0 - it can only be trimmed, never bumped.
+        Providers with no capped rate control return a large number."""
+        c = self.controls_for(tag)
+        for key, (_lo, hi) in self._SPEED_KEYS.items():
+            if key in c and float(c[key]) > 0:
+                return max(1.0, hi / float(c[key]))
+        return 99.0
 
     def _scale_speed(self, c: dict, m: float) -> dict:
         """Apply a rate multiplier to whichever control this provider uses.
@@ -529,6 +550,15 @@ class InworldProvider(Provider):
         if not k:
             raise ProviderUnavailable(f"{self.env_var} not set")
         c = self.controls_for(tag, speed_mult)
+        _cap = float(getattr(config, "VOICE_SPEAKING_RATE_MAX", 1.5))
+        if float(c["speaking_rate"]) > _cap + 1e-9:
+            # Refuse BEFORE the call: an HTTP 400 after N lines is a stop in
+            # the middle of a paid render. A mapping above the ceiling is a
+            # config defect, and naming the tag is the useful part.
+            raise SynthesisFailed(
+                f"tag '{tag}' resolves to speakingRate "
+                f"{c['speaking_rate']}, above Inworld's {_cap} ceiling - fix "
+                f"config.VOICE_TAG_SPEAKING_RATE or the line's rate_bump")
         cue = c.get("cue") or ""
         body = {
             "text": (cue + " " + text).strip() if cue else text,
