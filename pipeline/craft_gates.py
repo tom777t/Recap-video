@@ -28,6 +28,9 @@ from __future__ import annotations
 import json
 import re
 import statistics as _st
+from pathlib import Path
+
+import config
 
 # --- nguong, chot tai docs/WRITING_CRAFT_CRITERION.md ----------------------
 PAYLOAD_KINDS = ("stake", "reasoning", "judgment", "loop", "rest")
@@ -205,20 +208,37 @@ _TITLE_YEAR = re.compile(r"\(\s*(19|20)\d{2}\s*\)\s*$")
 
 # [OPEN]'s ban list (R0): everything the study watched the losing template
 # do at 0:00. Word-boundary matched on the joined cold open. Shared with
-# tools/write_slots.py, which checks it at write time - one list, both
-# places.
+# # tools/write_slots.py, which checks it at write time - one list, both
+# places. "this is" is NOT here: it is ordinary narration ("this is the
+# last time...") - the greeting form is "this is <channel>", caught by
+# _open_banned_hits() with the channel's own name.
 _OPEN_BANNED = (
-    "welcome back", "welcome to", "today we", "this is", "my name is",
+    "welcome back", "welcome to", "today we", "my name is",
     "thanks for", "thank you for", "let's watch", "let me walk",
     "walking you through", "recap", "recaps", "recapped", "movie recap",
     "film recap", "spoiler", "spoilers", "directed by", "starring",
 )
 
 
+def _open_banned_hits(text: str) -> list:
+    """The banned greeting/meta phrases present in a cold open, plus the
+    channel's own greeting form ("this is serabudabu..."). One function,
+    both the write-time check and the final gate."""
+    low = str(text or "").lower()
+    hits = [t for t in _OPEN_BANNED
+            if re.search(r"(?<![a-z])" + re.escape(t) + r"(?![a-z])", low)]
+    cn = str(getattr(config, "CHANNEL_NAME", "") or "").strip().lower()
+    if cn and re.search(r"(?<![a-z])this is\s+" + re.escape(cn)
+                        + r"(?![a-z])", low):
+        hits.append(f"this is {cn}")
+    return hits
+
+
 def _open_named(text: str) -> set:
     """Capitalised tokens that are NOT sentence starters: a cold open
     that keeps saying "The" and "His" has no names; "Dom" and "Han" in
-    one open are two names and fail [OPEN]'s one-name rule."""
+    one open are two names and fail [OPEN]'s one-name rule. SHAPE-BASED
+    only - see _open_proper_names for the exact check."""
     _SENT_START = {
         "the", "a", "an", "he", "she", "they", "it", "his", "her", "their",
         "its", "but", "and", "now", "when", "what", "who", "why", "how",
@@ -237,6 +257,24 @@ def _open_named(text: str) -> set:
             out.add(core)
         starter = w.rstrip().endswith((".", "!", "?"))
     return out
+
+
+def _open_proper_names(text: str, pdir) -> tuple:
+    """(names_used, exact). With a project dir this is the SAME exact
+    check the write-time stage runs (names.json via motif_gates) - a
+    place like "Los Angeles" or a program like "God's Eye" is not a
+    character, and the gate must not hard-fail a line the write stage
+    passed. Without a dir (small fixtures) it falls back to the shape
+    heuristic and the caller downgrades to a warning: an exact error on
+    a guess is the resolve loop the owner already paid for."""
+    if pdir:
+        from pipeline import motif_gates as _MG
+        known, _extra = _MG._load_names(Path(pdir))
+        blob = str(text or "")
+        used = sorted({str(n) for n in known if re.search(
+            r"(?<![a-zA-Z])" + re.escape(str(n)) + r"(?![a-zA-Z])", blob)})
+        return used, True
+    return sorted(_open_named(text or "")), False
 
 # Mot tieu de tien de la MOT MENH DE ("Students Don't Realise Their Teacher Is
 # A Kungfu Legend"), con mot tieu de ten phim la mot CUM DANH TU ("Tokyo
@@ -877,15 +915,12 @@ def craft_report(draft: dict) -> dict:
                 "template the study measured losing.")
         else:
             _oblob = " ".join(_narr(l) for l in _open)
-            _low = _oblob.lower()
-            for _banned in _OPEN_BANNED:
-                if re.search(r"(?<![a-z])" + re.escape(_banned)
-                             + r"(?![a-z])", _low):
-                    errors.append(
-                        f"[OPEN] the cold open says {_banned!r} - no "
-                        f"greeting, no meta framing, no credits at 0:00; "
-                        f"the open is the film's own moment")
-                    break
+            _bhits = _open_banned_hits(_oblob)
+            if _bhits:
+                errors.append(
+                    f"[OPEN] the cold open says {_bhits[0]!r} - no "
+                    f"greeting, no meta framing, no credits at 0:00; "
+                    f"the open is the film's own moment")
             if not str(_open[-1].get("hook_question") or "").strip():
                 errors.append(
                     f"[OPEN] line {_open[-1].get('id')} (the open's last "
@@ -919,16 +954,25 @@ def craft_report(draft: dict) -> dict:
                     f"own question, unanswered until the end "
                     f"({_last[-60:]!r})")
                 m["open_closing"] = "question"
-            # proper names: mid-sentence capitalised tokens (the write-time
-            # check in write_slots._open_problems does the exact version
-            # against names.json; this is the draft-side shape check)
-            _n_named = len(_open_named(_oblob))
-            m["open_names"] = _n_named
-            if _n_named > 1:
-                errors.append(
-                    f"[OPEN] the cold open names {_n_named} characters - at "
-                    f"most ONE proper name survives a cold open; more is a "
-                    f"listings entry")
+            # proper names: the SAME exact names.json check the write
+            # stage runs (_open_proper_names, one function both places).
+            # Without a project dir the shape heuristic answers and the
+            # verdict drops to a warning - a hard error on a guess is
+            # the resolve loop the owner already paid for.
+            _pdir = draft.get("_dir")
+            _named, _exact = _open_proper_names(_oblob, _pdir)
+            m["open_names"] = len(_named)
+            m["open_names_exact"] = _exact
+            if len(_named) > 1:
+                msg = (f"[OPEN] the cold open names {len(_named)} "
+                       f"characters ({', '.join(_named[:4])}) - at most "
+                       f"ONE proper name survives a cold open; more is "
+                       f"a listings entry")
+                if _exact:
+                    errors.append(msg)
+                else:
+                    warns.append(msg + " (shape heuristic - no project "
+                                       "dir for the exact names check)")
             # the lever must be VISIBLE in the open's first two lines
             # (R4): the picker chose it, the writer must spend it
             _lever = str(draft.get("lever") or "").upper()

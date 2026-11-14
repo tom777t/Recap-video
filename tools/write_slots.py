@@ -1423,24 +1423,23 @@ def check_slots(lines: list, slots: list, pdir: Path | None = None) -> list:
     return out
 
 
-# R0's ban list lives in craft_gates ([OPEN] reads it too) - one list,
-# both places, so the write-time check and the final gate cannot drift.
-from pipeline.craft_gates import _OPEN_BANNED  # noqa: E402
+# R0's open rules live in craft_gates ([OPEN] reads them too) - one
+# source, both places, so the write-time check and the final gate
+# cannot drift.
+from pipeline.craft_gates import _open_banned_hits, _open_proper_names  # noqa: E402
 
 
 def _open_problems(lines: list, pdir: Path | None) -> list:
     """R0 on the cold open: no greeting, no meta framing, no title / year /
     director, and at most ONE proper name across the whole open - a cold
     open full of names is a listings entry, not a hook."""
-    from pipeline import craft_gates as CG
     out = []
     blob = " ".join(str(ln.get("narration") or "") for ln in lines)
     low = blob.lower()
-    for t in _OPEN_BANNED:
-        if re.search(r"(?<![a-z])" + re.escape(t) + r"(?![a-z])", low):
-            out.append(f"OPEN: says {t!r} - the cold open has no greeting, "
-                       f"no meta framing, no credits; it is the film's own "
-                       f"moment")
+    for t in _open_banned_hits(blob):
+        out.append(f"OPEN: says {t!r} - the cold open has no greeting, "
+                   f"no meta framing, no credits; it is the film's own "
+                   f"moment")
     year = ""
     f = _facts(pdir) if pdir is not None else {}
     if f:
@@ -1454,13 +1453,10 @@ def _open_problems(lines: list, pdir: Path | None) -> list:
     if year and re.search(r"(?<!\d)" + re.escape(year) + r"(?!\d)", low):
         out.append(f"OPEN: says the year {year} - a time anchor may be the "
                    f"film's OWN time (\"In 2035\"), not its release year")
-    # proper names: the film's KNOWN names (names.json, via motif_gates)
-    # - more than one lead named is a listings entry, not a hook
+    # proper names: the film's KNOWN names - the SAME exact check the
+    # final gate runs (_open_proper_names, one function both places)
     if pdir is not None:
-        from pipeline import motif_gates as MG
-        known, _extra = MG._load_names(Path(pdir))
-        used = sorted({n for n in known if re.search(
-            r"(?<![a-zA-Z])" + re.escape(str(n)) + r"(?![a-zA-Z])", blob)})
+        used, _exact = _open_proper_names(blob, Path(pdir))
         if len(used) > 1:
             out.append(f"OPEN: names {len(used)} characters "
                        f"({', '.join(used[:4])}) - at most ONE proper name "

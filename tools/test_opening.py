@@ -36,6 +36,7 @@ Run:  python tools/test_opening.py
 """
 from __future__ import annotations
 
+import json
 import os
 import sys
 from pathlib import Path
@@ -127,10 +128,10 @@ def test_picker_anti():
     return r["score"] == -100.0, f"score {r['score']}: {r['why'][0]}"
 
 
-def _draft(mode, lines, lever=None, closing=None):
+def _draft(mode, lines, lever=None, closing=None, **extra):
     return {"title": "t", "lines": lines, "open_mode": mode,
             **({"lever": lever} if lever else {}),
-            **({"closing_shape": closing} if closing else {})}
+            **({"closing_shape": closing} if closing else {}), **extra}
 
 
 def _open_line(narr, hook=None, cid=1, payload="stake"):
@@ -492,6 +493,67 @@ def test_levers_real_films():
         + " ".join(rows[:6]) + " ..."
 
 
+def test_open_calibration():
+    """§5's calibration: hand-written correct openers MUST pass (the
+    shape check was hard-failing 'Los Angeles' and 'Mr. Nobody' as
+    character names - the exact names.json check is the same function
+    both places now), and the losing templates MUST fail. Ten good,
+    five bad."""
+    import tempfile
+    good = [
+        "In Los Angeles, a getaway driver takes one last job before "
+        "going straight. Will the city let him quit?",
+        "Tokyo, and the pink slip he just signed costs more than the "
+        "car. What happens when the Drift King calls it in?",
+        "This is the last time Mia lets her brother pick the safehouse.",
+        "Warsaw, and God's Eye has finally found them. One run buys "
+        "the crew's freedom - or buries it.",
+        "A funeral nobody cried at, and a widow counting bullets.",
+        "Mumbai, one payphone, and a ransom that doubles every hour. "
+        "Who is really on the other end?",
+        "Seoul, and the tutor has memorised every answer except the one "
+        "that matters. Can she keep the lie alive?",
+        "The diner at 3am, a burned spy, and the one photograph she "
+        "should never have developed.",
+        "Abu Dhabi, and the car they need is on the 80th floor. Why is "
+        "a bulletproof room easier to enter than leave?",
+        "Mr. Nobody offers Dom his freedom for one favour. Will the "
+        "favour cost him his family?",
+    ]
+    bad = [
+        "Welcome back to the channel - today we recap the film.",
+        "This is Serabudabu, and today I'm walking you through it.",
+        "Hi everyone, spoilers ahead - watch out and take care.",
+        "Directed by Justin Lin and starring Lucas Black, this 2006 "
+        "action film opens in Arizona.",
+        "Let me walk you through what happens in the movie.",
+    ]
+    import config as _cfg
+    with tempfile.TemporaryDirectory() as td:
+        # exact names: one project's names.json - places and programs
+        # are not characters
+        Path(td, "names.json").write_text(json.dumps(
+            {"names": ["Dom", "Han", "Mia", "Justin Lin"]}),
+            encoding="utf-8")
+        good_lines = []
+        for i, g in enumerate(good):
+            # each hand-written opener sits in the open's BODY (where
+            # [OPEN] reads bans and names); a clean question close
+            # follows, so only the opener under test can fire
+            good_lines.append(_open_line(g, cid=i + 1))
+        good_lines.append(_open_line(
+            "Will the last job let anyone go straight?", cid=99,
+            payload="loop", hook="Will he go straight?"))
+        msgs_g = _msgs(_draft("A", good_lines, **{"_dir": td}))
+        bad_msgs = [_msgs(_draft("A", [_open_line(b), good_lines[-1]]
+                                 + good_lines[1:2],
+                                 **{"_dir": td})) for b in bad]
+    return (not msgs_g
+            and all(any("[OPEN]" in m for m in bm) for bm in bad_msgs)), \
+        f"10 hand-written good: {msgs_g[:1]} | templates firing: " \
+        f"{sum(1 for bm in bad_msgs if bm)}/5"
+
+
 TESTS = {
     "PICKER-CONTROLS": test_picker_controls,
     "PICKER-MODE-B": test_picker_mode_b,
@@ -511,6 +573,7 @@ TESTS = {
     "OPEN-QUESTION": test_open_question,
     "OPEN-ANCHOR-A": test_open_anchor_a,
     "OPEN-ANCHOR-B": test_open_anchor_b,
+    "OPEN-CALIBRATION": test_open_calibration,
 }
 
 
