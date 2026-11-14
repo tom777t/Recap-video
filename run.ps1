@@ -882,13 +882,25 @@ if (Should 'verify') {
 
     $null = Recap @('verify', '--project', $Project) -AllowSoftFail
 
-    # variation report (warn-only): cross-video findings for the WATCH
-    # VIDEO stop - title formula / crosspost / structure cosine against
-    # channel/history.json. Empty history prints NOT RUN. Recorded by
-    # tools/ship.py at upload time.
+    # variation report: cross-video findings for the WATCH VIDEO stop.
+    # Exit 3 = an [OPEN-ECHO] [STOP] - the opening repeats the previous
+    # video in a way the viewer sees; HALT and ask, warn-only otherwise.
+    # Empty history prints NOT RUN. Recorded by tools/ship.py at upload.
     if (Test-Path 'tools\check_variation.py') {
         Write-Host "  > python tools\check_variation.py $Project" -ForegroundColor DarkGray
-        python tools\check_variation.py $Project 2>&1 | Select-Object -Last 8
+        python tools\check_variation.py $Project 2>&1 | Select-Object -Last 10
+        if ($LASTEXITCODE -eq 3) {
+            Halt "HUMAN-VARIATION - opening giong video truoc, tra loi truoc khi tiep tuc" @(
+                "check_variation bao [OPEN-ECHO] [STOP]: phan mo cua video nay"
+                "giong video vua ship theo cach nguoi xem thay duoc."
+                ""
+                "  1. Doc lai phan mo - echo co dung la cham truoc khong?"
+                "  2. Neu co y dinh: chay tiep (se lai hoi video sau)."
+                "  3. Neu khong: sua OPEN slots / lever / closing roi re-derive."
+                ""
+                "Ghi chep lai ly do vao review.md nhu reviewed exception."
+            ) "(da tra loi)"
+        }
     }
 
     if (Test-Path 'tools\diag_offset.py') {

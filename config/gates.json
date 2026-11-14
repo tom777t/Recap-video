@@ -593,6 +593,22 @@
     "what": "the cold open contract (R0-R4): OPEN lines exist, no greeting/meta/credits in them, at most one proper name, the last line ends on the hook question and carries hook_question",
     "severity_source": "declared"
   },
+  "OPEN-ECHO": {
+    "severity": "error",
+    "modules": [
+      "pipeline/variation.py"
+    ],
+    "what": "the cold open repeats the previous shipped video - words Jaccard >= 0.5 or the whole shape (lever/mode/length/closing) - STOP class: run.ps1 halts at WATCH VIDEO until answered",
+    "severity_source": "declared"
+  },
+  "OUTRO-ECHO": {
+    "severity": "warn",
+    "modules": [
+      "pipeline/variation.py"
+    ],
+    "what": "the closing thesis echoes 2 of the last 3 videos",
+    "severity_source": "declared"
+  },
   "PACING-CONTOUR": {
     "severity": "error",
     "modules": [
@@ -845,6 +861,14 @@
     "what": "already in SCRIPT stage.[/] ...",
     "severity_source": "inferred"
   },
+  "STOP": {
+    "severity": "report",
+    "modules": [
+      "pipeline/variation.py"
+    ],
+    "what": "the cold open shares ...",
+    "severity_source": "inferred"
+  },
   "STRUCTURE-ECHO": {
     "severity": "report",
     "modules": [
@@ -860,6 +884,14 @@
     ],
     "what": "no `style:` line - defaulting to ...",
     "severity_source": "inferred"
+  },
+  "STYLE-REPEAT": {
+    "severity": "warn",
+    "modules": [
+      "pipeline/variation.py"
+    ],
+    "what": "one intro_style three videos running - brand may repeat, a run is a fingerprint",
+    "severity_source": "declared"
   },
   "TAG-QUALITY": {
     "severity": "note",

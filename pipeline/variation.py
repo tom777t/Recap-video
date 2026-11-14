@@ -139,6 +139,18 @@ def snapshot(project: str) -> dict:
     titles_txt = pdir / "titles.txt"
     final = pdir / "final.mp4"
 
+    # STRUCTURE-ECHO's number: the slots' role shares (plan.json), not
+    # anything the viewer sees - printed as a cosine for the template-
+    # variation ticket, never gated
+    role_share = None
+    plan = _read(pdir, "plan.json") or {}
+    roles = [str(s.get("role")) for s in plan.get("slots") or []]
+    if roles:
+        role_share = {}
+        for r in roles:
+            role_share[r] = round(role_share.get(r, 0.0)
+                                  + 1.0 / len(roles), 4)
+
     return {
         "project": project,
         "title": title,
@@ -153,6 +165,7 @@ def snapshot(project: str) -> dict:
         "lever": draft.get("lever"),
         "open_len": len(opens) if opens else draft.get("open_len"),
         "closing_shape": draft.get("closing_shape"),
+        "role_share": role_share,
         "titles_txt_md5": _md5(titles_txt),
         "final_hash": ({"md5": _md5(final),
                         "bytes": (final.stat().st_size
@@ -193,6 +206,45 @@ def compare(history: dict | None, current: dict) -> list:
         return out
 
     last = prev[-1]
+
+    # ---- OPEN-ECHO (STOP): what the viewer sees at 0:00 -------------------
+    co = current.get("cold_open") or []
+    if co and last.get("cold_open"):
+        j = _jaccard(co, last["cold_open"])
+        if j >= 0.5:
+            out.append(f"[OPEN-ECHO] [STOP] the cold open shares {j:.0%} "
+                       f"of its content words with {last['project']}'s "
+                       f"open - two videos in a row that open alike. "
+                       f"Answer for this one: is the echo deliberate?")
+    shape_keys = ("lever", "open_mode", "open_len", "closing_shape")
+    if all(current.get(k) is not None and current.get(k) == last.get(k)
+           for k in shape_keys):
+        out.append(f"[OPEN-ECHO] [STOP] the whole opening shape repeats "
+                   f"{last['project']}: lever {current.get('lever')}, "
+                   f"OPEN-{current.get('open_mode')}, "
+                   f"{current.get('open_len')} line(s), closing on a "
+                   f"{current.get('closing_shape')} - same mechanics as "
+                   f"last time. The rotation chose this; answer for it.")
+
+    # ---- OUTRO-ECHO (warn): the closing thesis ----------------------------
+    ft = current.get("final_thesis") or []
+    if ft:
+        alike = [p["project"] for p in prev[-3:]
+                 if p.get("final_thesis")
+                 and _jaccard(ft, p["final_thesis"]) >= 0.4]
+        if len(alike) >= 2:
+            out.append(f"[OUTRO-ECHO] the closing thesis echoes "
+                       f"{len(alike)} of the last 3 videos "
+                       f"({', '.join(alike[:2])}) - the closer is the "
+                       f"author's own line; make it this film's.")
+
+    # ---- STYLE-REPEAT (note): brand is allowed to repeat, runs are not ---
+    styles = [current.get("intro_style")] + \
+        [p.get("intro_style") for p in reversed(prev)]
+    if styles[0] and all(s == styles[0] for s in styles[:3] if s):
+        out.append(f"[STYLE-REPEAT] intro_style '{styles[0]}' three "
+                   f"videos running - brand may repeat, a run of one "
+                   f"style is a montage fingerprint; vary the next.")
 
     # ---- TITLE-FORMULA (warn): the layer AFTER package.py was fixed ----
     same_titles_txt = [p["project"] for p in prev

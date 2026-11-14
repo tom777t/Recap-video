@@ -222,8 +222,125 @@ def test_ship_record():
         V.HISTORY, V.CLAIMS = hist_path, claims_path
 
 
+def test_open_echo_stop():
+    """§3's calibration: two REAL different videos must pass (the owner
+    approved both drafts); a deliberately cloned open must STOP. The
+    clone is the known-bad; tokyodrift vs furious (the repo's own
+    drafts, via fixtures below) are the known-good."""
+    _proj(P, _draft("A Teenager Bets His Life on One Downhill Race",
+                    _OPEN_A, _OUTRO))
+    cur = V.snapshot(P)
+    # known-bad: the same open words under the next video's name
+    clone = dict(cur, project="clone", shipped_at="2026-11-20")
+    fires = [f for f in V.compare({"prev": clone}, cur)
+             if "[OPEN-ECHO]" in f]
+    # known-good: a different film's open (furious-style stakes)
+    _proj(P, _draft("A Street Racer Owes a Crime Family One Last Run",
+                    ["Warsaw, and the last crew he trusted is gone.",
+                     "The debt costs him the family he hid them from.",
+                     "Will one more run buy his crew out or bury them?"],
+                    _OUTRO))
+    other = V.snapshot(P)
+    quiet = [f for f in V.compare({"clone": clone}, other)
+             if "[OPEN-ECHO]" in f]
+    # the whole-SHAPE repeat also stops, even with different words
+    shaped = dict(other, lever="THRILL", open_mode="A", open_len=3,
+                  closing_shape="question", project="d",
+                  shipped_at="2026-11-21")
+    shape_fire = [f for f in V.compare({"prev": dict(shaped)}, shaped)
+                  if "[OPEN-ECHO]" in f and "shape repeats" in f]
+    # and only counts when the shape is actually KNOWN on both sides
+    blank = dict(other, project="e", shipped_at="2026-11-22")
+    blank_fire = [f for f in V.compare({"prev": dict(blank)}, blank)
+                  if "shape repeats" in f]
+    return (any("[STOP]" in f for f in fires) and not quiet
+            and any("[STOP]" in f for f in shape_fire)
+            and not blank_fire), \
+        f"clone fires={bool(fires)} real-differs quiet={not quiet} " \
+        f"shape-repeat fires={bool(shape_fire)} " \
+        f"blank-shape quiet={not blank_fire}"
+
+
+def test_echo_tiers():
+    _proj(P, _draft("A Teenager Bets His Life on One Downhill Race",
+                    _OPEN_A, _OUTRO))
+    cur = V.snapshot(P)
+    # OUTRO-ECHO: the thesis agrees with 2 of the last 3
+    h = {n: dict(cur, project=n, shipped_at=f"2026-11-0{i}")
+         for i, n in enumerate(("a", "b", "c"), 1)}
+    fires = [f for f in V.compare(h, cur) if "[OUTRO-ECHO]" in f]
+    # STYLE-REPEAT: three in a row of one intro style
+    cur2 = dict(cur, intro_style="emotional", cold_open=[],
+                final_thesis=[])
+    h2 = {n: dict(cur2, project=n, shipped_at=f"2026-11-0{i}",
+                  cold_open=[], final_thesis=[])
+          for i, n in enumerate(("a", "b"), 1)}
+    style = [f for f in V.compare(h2, dict(cur2, project="d"))
+             if "[STYLE-REPEAT]" in f]
+    # ROLE-SHARE: plan.json roles -> the cosine number prints
+    _proj(P, _draft("A Teenager Bets His Life on One Downhill Race",
+                    _OPEN_A, _OUTRO))
+    d = Path(config.project_dir(P))
+    (d / "plan.json").write_text(json.dumps(
+        {"slots": [{"role": r} for r in
+                   ("open", "open", "intro", "action", "action",
+                    "reaction", "bridge", "outro")]}), encoding="utf-8")
+    snap = V.snapshot(P)
+    h3 = {"prev": dict(snap, project="prev",
+                       shipped_at="2026-11-01")}
+    num = [f for f in V.compare(h3, snap) if "[STRUCTURE-ECHO]" in f]
+    return (bool(fires) and bool(style) and bool(num)
+            and "cosine" in num[0]), \
+        f"outro={bool(fires)} style={bool(style)} cosine={num[:1]}"
+
+
+def test_stop_exit_code():
+    """check_variation exits 3 on an [OPEN-ECHO] [STOP] - run.ps1 halts
+    on exactly that code."""
+    import io
+    from contextlib import redirect_stdout
+    import check_variation as CV
+    _proj(P, _draft("A Teenager Bets His Life on One Downhill Race",
+                    _OPEN_A, _OUTRO))
+    cur = V.snapshot(P)
+    real_hist = V.HISTORY
+    tmp = Path(config.project_dir(P)).parent / "_var_test_hist"
+    tmp.mkdir(parents=True, exist_ok=True)
+    V.HISTORY = tmp / "history.json"
+    try:
+        V.HISTORY.write_text(json.dumps(
+            {"prev": dict(cur, project="prev",
+                          shipped_at="2026-11-01")}), encoding="utf-8")
+        argv = sys.argv
+        sys.argv = ["check_variation.py", P]
+        buf = io.StringIO()
+        with redirect_stdout(buf):
+            rc = CV.main()
+        sys.argv = argv
+        quiet_rc = V.compare  # noqa: F841 - clarity only
+        # a DIFFERENT open exits 0
+        _proj(P, _draft("A Kitchen Spy Owes Her Mentor One Last Dinner",
+                        ["Tokyo, and a kitchen knife decides two futures.",
+                         "The menu costs her the mentor she loved.",
+                         "Will the spy survive her graduation dinner?"],
+                        _OUTRO))
+        sys.argv = ["check_variation.py", P]
+        buf2 = io.StringIO()
+        with redirect_stdout(buf2):
+            rc2 = CV.main()
+        sys.argv = argv
+        return (rc == 3 and "[STOP]" in buf.getvalue()
+                and rc2 == 0), f"clone rc={rc}, different rc={rc2}"
+    finally:
+        V.HISTORY = real_hist
+        shutil.rmtree(tmp, ignore_errors=True)
+
+
 TESTS = {
     "EMPTY-HISTORY": test_empty_history,
+    "OPEN-ECHO-STOP": test_open_echo_stop,
+    "ECHO-TIERS": test_echo_tiers,
+    "STOP-EXIT-CODE": test_stop_exit_code,
     "TITLE-MD5": test_title_md5,
     "TITLE-STREAK": test_title_streak,
     "CROSSPOST": test_crosspost,
