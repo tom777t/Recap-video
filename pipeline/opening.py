@@ -40,7 +40,7 @@ from pathlib import Path
 
 import config
 
-LEVERS = ("FEAR", "DESIRE", "THRILL", "AWE", "PLAY")
+LEVERS = ("FEAR", "DESIRE", "THRILL", "AWE", "PLAY", "DRAMA")
 
 # OPEN-A accepts a candidate this deep into the film's opening zone
 # (a fraction of runtime; Tokyo Drift's bully scene sits at ~3%).
@@ -125,6 +125,10 @@ _CANON = {
     "PLAY": ("joke", "jokes", "prank", "pranks", "party", "dares",
              "awkward", "ridiculous", "absurd", "embarrasses", "gags",
              "stunt", "outlandish", "immature"),
+    "DRAMA": ("mother", "father", "son", "daughter", "family",
+              "estranged", "returns home", "hospital", "illness",
+              "secret", "silence", "letter", "wedding", "burden",
+              "forgiveness", "sacrifice"),
 }
 # Genre keywords in film_facts / the film's own metadata pick the lever.
 # Every lever needs at least one clear genre word - a four-lever world
@@ -143,7 +147,15 @@ _GENRE = {
             "science fiction", "space"),
     "PLAY": ("comedy", "comedic", "satire", "parody", "slapstick",
              "sitcom", "farce", "spoof"),
+    # a drama is not a thriller: mapped ON PURPOSE (the follow-up list)
+    "DRAMA": ("drama", "melodrama", "biographical", "biopic",
+              "coming-of-age", "period drama"),
 }
+# Tie-break priority, most specific first. THRILL is last because it is
+# the recap median and grabs everything ("heist thriller" must beat
+# nothing, "coming-of-age teen comedy" must not fall to DRAMA's
+# "coming-of-age"). This order IS the documented tie-break.
+_LEVER_PRIORITY = ("FEAR", "DESIRE", "PLAY", "AWE", "DRAMA", "THRILL")
 # HOOK-IMAGE: concrete objects an Epstein-style one-line hook can be
 # built around ("There's a bomb on a crowded city bus...").
 _OBJECTS = ("bomb", "bus", "car", "truck", "train", "plane", "house",
@@ -187,36 +199,51 @@ def _land_sec(land) -> float:
 # --------------------------------------------------------------------------
 
 def lever_for(facts: dict, fallback: str = "") -> tuple:
-    """(lever, source) from film_facts metadata, word-boundary matched -
-    substring counting read "car" inside "career" and every film in the
-    repo came back THRILL, comedy included. `fallback` is extra text the
-    caller trusts (the intro_style preset) when the facts carry no genre.
+    """(lever, source) - and the genre DECIDES.
 
-    source is one of:
-      "genre"       the facts' own genre words matched
-      "intro-style" only the fallback matched (old projects)
-      "default"     nothing matched - the plan records "THRILL (default,
-                    no genre)" and the operator may type a genre into
-                    film_facts.json and re-derive
-    Ties break toward THRILL (the recap median)."""
-    blob = " ".join(str(facts.get(k, "") or "") for k in
-                    ("genre", "keywords", "plot", "tagline", "title"))
-    words = set(_words(blob.lower()))
-    best, hits, best_src = "THRILL", 0, "default"
-    for lever, keys in _GENRE.items():
-        n = len(_present(keys, words, blob.lower()))
-        if n > hits:
-            best, hits, best_src = lever, n, "genre"
-    if hits == 0 and str(fallback or "").strip():
-        fb = str(fallback).lower()
-        fbw = set(_words(fb))
-        counts = {lever: len(_present(keys, fbw, fb))
-                  for lever, keys in _GENRE.items()}
+    Word-boundary matched throughout (substring counting once read
+    "car" inside "career" and every film came back THRILL).
+
+    Precedence, documented and tested:
+      1. `genre` (the lead sentence's own words) - if it names levers,
+         those decide; plot/tagline/title are NOT consulted ({"genre":
+         "comedy"} plus a heist plot is a COMEDY, not a thriller).
+      2. plot / tagline / title - only when genre names no lever.
+      3. `fallback` (the intro_style preset) - only when 1 and 2 are
+         silent (old projects).
+      4. "default" - nothing spoke; the plan records "THRILL (default,
+         no genre)" and the operator may type a genre into
+         film_facts.json and re-derive.
+
+    Ties inside a tier break by _LEVER_PRIORITY (most specific first;
+    THRILL last - it is the median and grabs everything)."""
+    def _hits(lever, text):
+        t = str(text or "").lower()
+        return len(_present(_GENRE[lever], set(_words(t)), t))
+
+    genre = str(facts.get("genre") or "")
+    rest = " ".join(str(facts.get(k, "") or "") for k in
+                    ("plot", "tagline", "title"))
+    for text, src in ((genre, "genre"), (rest, "genre")):
+        if not text.strip():
+            continue
+        counts = {lv: _hits(lv, text) for lv in _LEVER_PRIORITY}
         counts = {k: v for k, v in counts.items() if v}
         if counts:
-            best = max(counts, key=lambda k: counts[k])
-            best_src = "intro-style"
-    return best, best_src
+            best = min(_LEVER_PRIORITY,
+                       key=lambda lv: (-counts.get(lv, 0),
+                                       _LEVER_PRIORITY.index(lv)))
+            return best, src
+    if str(fallback or "").strip():
+        fb = str(fallback).lower()
+        counts = {lv: _hits(lv, fb) for lv in _LEVER_PRIORITY}
+        counts = {k: v for k, v in counts.items() if v}
+        if counts:
+            return min(_LEVER_PRIORITY,
+                       key=lambda lv: (-counts.get(lv, 0),
+                                       _LEVER_PRIORITY.index(lv))), \
+                "intro-style"
+    return "THRILL", "default"
 
 
 # --------------------------------------------------------------------------

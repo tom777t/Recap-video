@@ -39,10 +39,15 @@ import config
 # §8 of the review: the repo is PUBLIC. claims.jsonl carries claimants
 # and claim outcomes - business metadata, not public information - so
 # the channel store lives OUTSIDE the repo (sibling of the repo root),
-# never inside it. Losing git versioning is the accepted cost; back it
-# up by copying.
-HISTORY = Path(config.ROOT).parent / "channel" / "history.json"
-CLAIMS = Path(config.ROOT).parent / "channel" / "claims.jsonl"
+# never inside it. One fixed path shared by every worktree; override
+# with the CHANNEL_DIR environment variable (a box with several clones
+# can point them all at one store). Losing git versioning is the
+# accepted cost; back it up by copying.
+import os as _os
+_CHANNEL_DIR = _os.environ.get("CHANNEL_DIR") or str(
+    Path(config.ROOT).parent / "channel")
+HISTORY = Path(_CHANNEL_DIR) / "history.json"
+CLAIMS = Path(_CHANNEL_DIR) / "claims.jsonl"
 
 _STOP = {"the", "a", "an", "and", "or", "to", "of", "in", "on", "for",
          "he", "she", "they", "it", "his", "her", "their", "its", "is",
@@ -55,7 +60,12 @@ _WORD = re.compile(r"[a-z']+")
 # the opening-craft levers (pipeline.opening.LEVERS) - recorded so the
 # anti-sameness check can see when five videos in a row opened the same
 # way. Kept as a copy so this module stays import-light.
-LEVERS = ("FEAR", "DESIRE", "THRILL", "AWE", "PLAY")
+LEVERS = ("FEAR", "DESIRE", "THRILL", "AWE", "PLAY", "DRAMA")
+
+#: where the store lives right now (printed in the plan so the path is
+#: never a mystery); CHANNEL_DIR overrides it per box.
+def store_dir() -> str:
+    return str(HISTORY.parent)
 
 
 def _content_words(text: str, n: int) -> list:

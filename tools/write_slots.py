@@ -1077,6 +1077,9 @@ def _open_brief(plan: dict, k: int) -> str:
         "PLAY": "a dare, a party or an embarrassment already in motion; "
                 "the joke sets up, the stakes land dry - never explain "
                 "the funny",
+        "DRAMA": "the cost is personal and uncounted - a face, a "
+                 "silence, a decision half-made; the stakes are "
+                 "relational (who forgives, who stays), never a number",
     }.get(lever, "")
     closing_text = {
         "question": "the LAST open slot ENDS on the unanswered question "

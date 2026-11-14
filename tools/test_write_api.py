@@ -204,16 +204,30 @@ def test_facts():
     c = Client(lambda p, n: msg(real))
     try:
         rc, out = _run(c, "facts", "--project", PROJ, "--wiki", "Some Film")
+        u = c.calls[0]["messages"][0]["content"]
+        got = _j(PDIR / "film_facts.json")
+        # the no-genre path: an empty genre SAVES (the operator types
+        # one later; lever_for then reports 'default, no genre') - it
+        # must not be a missing-field retry
+        (PDIR / "film_facts.json").unlink()
+        nog = dict(real, genre="")
+        c2 = Client(lambda p, n: msg(nog))
+        rc2, _o = _run(c2, "facts", "--project", PROJ, "--wiki",
+                       "Some Film")
+        got2 = _j(PDIR / "film_facts.json")
     finally:
         N.fetch_revision = orig
-    u = c.calls[0]["messages"][0]["content"]
-    got = _j(PDIR / "film_facts.json")
     ok = (rc == 0 and "cite web" not in u and "oldid=4242" in u
           and '"reveals"' in u and "oldid=4242" in got["_source"]
           and got["cast"] == real["cast"]
           and c.calls[0]["system"][0]["text"] ==
           (ROOT / "tools/film_facts_prompt.md").read_text(encoding="utf-8"))
-    return ok, f"rc {rc}; refs stripped, reveals included, _source: {got.get('_source')}"
+    empty_ok = (rc2 == 0 and got2.get("genre") == ""
+                and len(c2.calls) == 1)
+    return ok and empty_ok, (
+        f"rc {rc}; refs stripped, reveals included, _source: "
+        f"{got.get('_source')}; empty genre saved first try: "
+        f"{empty_ok}")
 
 
 def test_angle():

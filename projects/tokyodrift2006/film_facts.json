@@ -182,5 +182,6 @@
       ]
     }
   ],
-  "_ban_note": "Each `withheld` entry carries an explicit `ban` list of the exact phrases that would give it away. The gate uses THAT, never terms inferred from the prose. The first version inferred proper nouns from the description and so banned 'Han Lue' - a lead who must be named - because he is the subject of a withheld FACT, and banned 'Fast', which is in the title. What is withheld is the claim, not the name."
+  "_ban_note": "Each `withheld` entry carries an explicit `ban` list of the exact phrases that would give it away. The gate uses THAT, never terms inferred from the prose. The first version inferred proper nouns from the description and so banned 'Han Lue' - a lead who must be named - because he is the subject of a withheld FACT, and banned 'Fast', which is in the title. What is withheld is the claim, not the name.",
+  "genre": "action"
 }

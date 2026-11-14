@@ -414,8 +414,9 @@ def test_lever_boundary():
     # word-boundary or every film is THRILL: "car" sat inside "career"
     # and outvoted a stated romance, and no repo facts file carried a
     # genre at all. A comedy must not open like a countdown thriller.
-    # No signal at all -> the THRILL default stands (the recap median)
-    # and the SOURCE says so.
+    # The genre DECIDES: plot/title are not consulted when a genre
+    # names a lever. Ties break by the documented priority (most
+    # specific first, THRILL last). Drama is mapped on purpose.
     superbad, s1 = OP.lever_for({"genre": "Coming-of-age teen comedy",
                                  "title": "Superbad"})
     gonegirl, s2 = OP.lever_for({"genre": "Psychological thriller",
@@ -425,15 +426,29 @@ def test_lever_boundary():
                                                  "From Chaos"})
     horror, s4 = OP.lever_for({"genre": "Supernatural horror"})
     nothing, s5 = OP.lever_for({})
-    preset, s6 = OP.lever_for({}, fallback="horror")
+    empty, s6 = OP.lever_for({"genre": ""})
+    preset, s7 = OP.lever_for({}, fallback="horror")
+    comedy_heist, s8 = OP.lever_for({"genre": "comedy",
+                                     "plot": "a crew plans a heist "
+                                             "and the detective races "
+                                             "them"})
+    drama, s9 = OP.lever_for({"genre": "drama"})
+    doublelife, _s10 = OP.lever_for(
+        {"genre": "romantic drama",
+         "plot": "a double life and a marriage kept alive by letters"})
     return (superbad == "PLAY" and gonegirl == "THRILL"
             and career_romance == "DESIRE" and horror == "FEAR"
-            and nothing == "THRILL" and s5 == "default"
-            and preset == "FEAR" and s6 == "intro-style"
+            and nothing == "THRILL" and s5 == s6 == "default"
+            and empty == "THRILL"
+            and preset == "FEAR" and s7 == "intro-style"
+            and comedy_heist == "PLAY" and s8 == "genre"
+            and drama == "DRAMA" and doublelife == "DESIRE"
             and s1 == s2 == s4 == "genre"), \
-        f"superbad={superbad}/{s1} gonegirl={gonegirl}/{s2} " \
-        f"career-romance={career_romance} horror={horror}/{s4} " \
-        f"none={nothing}/{s5} preset={preset}/{s6}"
+        f"superbad={superbad} gonegirl={gonegirl} " \
+        f"career-romance={career_romance} horror={horror} " \
+        f"none={nothing}/{s5} empty={empty}/{s6} preset={preset}/{s7} " \
+        f"comedy-beats-heist={comedy_heist}/{s8} drama={drama} " \
+        f"romantic-drama={doublelife}"
 
 
 def test_shape_rotation():

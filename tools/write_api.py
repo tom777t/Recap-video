@@ -1173,11 +1173,22 @@ def save_slots(project: str, pdir: Path, plan: dict, ab: dict,
     (pdir / "plan.json").write_text(json.dumps(plan, ensure_ascii=False,
                                                indent=1), encoding="utf-8")
     nar = sum(1 for x in r["slots"] if x["role"] not in ("hold",
-                                                          "film_speaks"))
+                                                           "film_speaks"))
     print(f"plan: {len(r['slots'])} slot(s) ({nar} narrated) with code-"
           f"assigned windows" + (f"; {len(r['problems'])} problem(s): "
                                  + "; ".join(r["problems"][:3])
                                  if r["problems"] else ""))
+    # the store's path is printed where the plan is read, so it is never
+    # a mystery which history the rotation and the gates consulted
+    try:
+        from pipeline import variation as V
+        opening = f"{r.get('open_mode') or '-'}/{r.get('lever') or '-'}" \
+                  f"{' (default, no genre)' if r.get('lever_source') == 'default' else ''}"
+        print(f"plan: opening {opening}, {r.get('open_len') or '-'} line(s) "
+              f"closing on a {r.get('closing_shape') or '-'}; channel "
+              f"history: {V.store_dir()}")
+    except Exception:
+        pass
     return True
 
 

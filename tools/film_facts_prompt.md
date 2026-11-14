@@ -20,11 +20,12 @@ the transcript, the catalogue and your memory are not sources.
     withheld: [{what, reveal: "R..", why, ban: ["exact phrase", ...]}]
 
 - `genre`: the film's genres from the article's LEAD SENTENCE - the infobox
-  has no genre field. "Superbad is a 2007 American coming-of-age teen
+  has no genre field. "Superbad is a 2017 American coming-of-age teen
   comedy film" -> "coming-of-age teen comedy". Keep Wikipedia's own words
-  and order, comma-separated. The opening-craft lever is chosen from these
-  words - no genre, no lever, and the default is wrong for comedies and
-  romances.
+  and order, comma-separated. If the lead sentence names NO genre, write
+  `"genre": ""` and never invent one - an empty genre is reported as
+  "default, operator types it" and the operator fills it in; a wrong
+  genre silently mis-aims the whole opening.
 - `facts`: 3-6 production facts a viewer would enjoy (how a stunt was done, a
   casting story, a box-office turn). Each one sentence, each with its section.
 - `cast`: leads first; `note` is Wikipedia's own one-line description.
