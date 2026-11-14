@@ -1166,6 +1166,7 @@ def save_slots(project: str, pdir: Path, plan: dict, ab: dict,
     # the opening's own record: [OPEN] and the variation gates read these
     plan["open_mode"] = r.get("open_mode")
     plan["lever"] = r.get("lever")
+    plan["lever_source"] = r.get("lever_source")
     plan["opener"] = r.get("opener")
     plan["open_len"] = r.get("open_len")
     plan["closing_shape"] = r.get("closing_shape")

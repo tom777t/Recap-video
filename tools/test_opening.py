@@ -1,4 +1,4 @@
-"""The cold open - picker and [OPEN] gate, both directions.
+﻿"""The cold open - picker and [OPEN] gate, both directions.
 
 THE INSTRUMENT, and its controls
 --------------------------------
@@ -56,7 +56,7 @@ def _tokyo():
 
 def test_picker_controls():
     d = _tokyo()
-    pick = OP.choose(d["candidates"], lever=OP.lever_for(d["facts"]),
+    pick = OP.choose(d["candidates"], lever=OP.lever_for(d["facts"])[0],
                      lands=d["lands"], runtime_sec=d["runtime_sec"])
 
     def _in_zone(cid):
@@ -70,7 +70,7 @@ def test_picker_controls():
     logo = min((OP.score(c, lever="THRILL", lands=d["lands"],
                          runtime_sec=d["runtime_sec"])["score"]
                 for c in d["candidates"] if c["start"] < 60.0), default=0)
-    allc = [OP.score(c, lever=OP.lever_for(d["facts"]), lands=d["lands"],
+    allc = [OP.score(c, lever=OP.lever_for(d["facts"])[0], lands=d["lands"],
                      runtime_sec=d["runtime_sec"])["score"]
             for c in d["candidates"]]
     lowq = sorted(s for s in allc if s >= 0)[:max(1, sum(
@@ -364,7 +364,7 @@ def test_known_bad_real_films():
         d = data.get(name)
         if not d:
             return False, f"{name}: not in the fixture"
-        r = OP.choose(d["candidates"], lever=OP.lever_for(d["facts"]),
+        r = OP.choose(d["candidates"], lever=OP.lever_for(d["facts"])[0],
                       lands=d["lands"], runtime_sec=d["runtime_sec"])
         o = r["opener"] or {}
         pos = o.get("pos")
@@ -414,19 +414,26 @@ def test_lever_boundary():
     # word-boundary or every film is THRILL: "car" sat inside "career"
     # and outvoted a stated romance, and no repo facts file carried a
     # genre at all. A comedy must not open like a countdown thriller.
-    # No signal at all -> the THRILL default stands (the recap median).
-    superbad = OP.lever_for({"genre": "Coming-of-age comedy",
-                             "title": "Superbad"})
-    gonegirl = OP.lever_for({"genre": "Mystery thriller",
-                             "title": "Gone Girl"})
-    career_romance = OP.lever_for({"genre": "Romance",
-                                   "title": "A Career Carved "
-                                            "From Chaos"})
-    horror = OP.lever_for({"genre": "Supernatural horror"})
+    # No signal at all -> the THRILL default stands (the recap median)
+    # and the SOURCE says so.
+    superbad, s1 = OP.lever_for({"genre": "Coming-of-age teen comedy",
+                                 "title": "Superbad"})
+    gonegirl, s2 = OP.lever_for({"genre": "Psychological thriller",
+                                 "title": "Gone Girl"})
+    career_romance, _s3 = OP.lever_for({"genre": "Romance",
+                                        "title": "A Career Carved "
+                                                 "From Chaos"})
+    horror, s4 = OP.lever_for({"genre": "Supernatural horror"})
+    nothing, s5 = OP.lever_for({})
+    preset, s6 = OP.lever_for({}, fallback="horror")
     return (superbad == "PLAY" and gonegirl == "THRILL"
-            and career_romance == "DESIRE" and horror == "FEAR"), \
-        f"superbad={superbad} gonegirl={gonegirl} " \
-        f"career-romance={career_romance} horror={horror}"
+            and career_romance == "DESIRE" and horror == "FEAR"
+            and nothing == "THRILL" and s5 == "default"
+            and preset == "FEAR" and s6 == "intro-style"
+            and s1 == s2 == s4 == "genre"), \
+        f"superbad={superbad}/{s1} gonegirl={gonegirl}/{s2} " \
+        f"career-romance={career_romance} horror={horror}/{s4} " \
+        f"none={nothing}/{s5} preset={preset}/{s6}"
 
 
 def test_shape_rotation():
@@ -446,6 +453,30 @@ def test_shape_rotation():
                 f"after s/2=({after_s2['n_lines']},{after_s2['closing']})")
 
 
+_LEAD_GENRES = Path(ROOT) / "tools" / "fixtures" / "opening_lead_genres.json"
+
+
+def test_levers_real_films():
+    # the follow-up acceptance: run the lever over the 15 projects'
+    # Wikipedia LEAD-SENTENCE genres (the infobox has no genre field)
+    # and the table must NOT come out all THRILL. The fixture holds the
+    # lead genres; film-specific data lives in fixtures, never in
+    # pipeline code.
+    import json
+    if not _LEAD_GENRES.exists():
+        return False, "fixture opening_lead_genres.json missing"
+    genres = json.loads(_LEAD_GENRES.read_text(encoding="utf-8"))
+    rows, levers = [], set()
+    for name, genre in sorted(genres.items()):
+        lever, src = OP.lever_for({"genre": genre})
+        levers.add(lever)
+        rows.append(f"{name}={lever}/{src}")
+    return (len(levers) > 1 and "PLAY" in levers and "FEAR" in levers
+            and "AWE" in levers), \
+        f"{len(genres)} films, levers {sorted(levers)}: " \
+        + " ".join(rows[:6]) + " ..."
+
+
 TESTS = {
     "PICKER-CONTROLS": test_picker_controls,
     "PICKER-MODE-B": test_picker_mode_b,
@@ -456,6 +487,7 @@ TESTS = {
     "CENSOR-NOT-OPENER": test_censor_not_opener,
     "OLD-CATALOGUE-UNTRUSTED": test_old_catalogue_untrusted,
     "LEVER-BOUNDARY": test_lever_boundary,
+    "LEVERS-REAL-FILMS": test_levers_real_films,
     "SHAPE-ROTATION": test_shape_rotation,
     "KNOWN-BAD-REAL": test_known_bad_real_films,
     "OPEN-GOOD": test_open_good,

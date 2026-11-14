@@ -136,7 +136,8 @@ _GENRE = {
     "DESIRE": ("romance", "romantic", "erotic", "love", "melodrama",
                "dating", "passion"),
     "THRILL": ("thriller", "action", "crime", "heist", "racing", "car",
-               "chase", "spy", "war", "martial", "revenge", "mystery"),
+               "chase", "spy", "war", "martial", "revenge", "mystery",
+               "superhero"),
     "AWE": ("fantasy", "xianxia", "wuxia", "epic", "adventure", "myth",
             "cultivation", "sword", "sorcery", "sci-fi",
             "science fiction", "space"),
@@ -185,23 +186,37 @@ def _land_sec(land) -> float:
 # R4 - the lever
 # --------------------------------------------------------------------------
 
-def lever_for(facts: dict, fallback: str = "") -> str:
-    """Pick the genre lever from film_facts metadata, word-boundary
-    matched - substring counting read "car" inside "career" and every
-    film in the repo came back THRILL, comedy included. `fallback` is
-    extra text the caller trusts (angle.md's genre line) when the facts
-    carry none of the keys. Ties break toward THRILL (the recap median;
-    FEAR/DESIRE/AWE need clearer signals)."""
+def lever_for(facts: dict, fallback: str = "") -> tuple:
+    """(lever, source) from film_facts metadata, word-boundary matched -
+    substring counting read "car" inside "career" and every film in the
+    repo came back THRILL, comedy included. `fallback` is extra text the
+    caller trusts (the intro_style preset) when the facts carry no genre.
+
+    source is one of:
+      "genre"       the facts' own genre words matched
+      "intro-style" only the fallback matched (old projects)
+      "default"     nothing matched - the plan records "THRILL (default,
+                    no genre)" and the operator may type a genre into
+                    film_facts.json and re-derive
+    Ties break toward THRILL (the recap median)."""
     blob = " ".join(str(facts.get(k, "") or "") for k in
                     ("genre", "keywords", "plot", "tagline", "title"))
-    blob = (blob + " " + str(fallback or "")).lower()
-    words = set(_words(blob))
-    best, hits = "THRILL", 0
+    words = set(_words(blob.lower()))
+    best, hits, best_src = "THRILL", 0, "default"
     for lever, keys in _GENRE.items():
-        n = len(_present(keys, words, blob))
+        n = len(_present(keys, words, blob.lower()))
         if n > hits:
-            best, hits = lever, n
-    return best
+            best, hits, best_src = lever, n, "genre"
+    if hits == 0 and str(fallback or "").strip():
+        fb = str(fallback).lower()
+        fbw = set(_words(fb))
+        counts = {lever: len(_present(keys, fbw, fb))
+                  for lever, keys in _GENRE.items()}
+        counts = {k: v for k, v in counts.items() if v}
+        if counts:
+            best = max(counts, key=lambda k: counts[k])
+            best_src = "intro-style"
+    return best, best_src
 
 
 # --------------------------------------------------------------------------

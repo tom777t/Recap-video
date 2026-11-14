@@ -174,14 +174,22 @@ def _ordered(history: dict) -> list:
     return [v for _k, v in sorted(history.items(), key=key)]
 
 
-def compare(history: dict, current: dict) -> list:
+def compare(history: dict | None, current: dict) -> list:
     """[HUMAN-VAR-*] findings for one candidate video against the shipped
-    history. History empty -> every cross-video check says NOT RUN."""
+    history. None = the store file is missing (reported as such); empty
+    = genuinely video 1 (nothing to compare, never a pass)."""
     out: list = []
+    if history is None:
+        out.append("[HUMAN-VAR] NOT RUN - the channel history store is "
+                   "MISSING from its fixed path outside the repo "
+                   f"({HISTORY}). Restore it before shipping; a missing "
+                   "store is not video 1.")
+        return out
     prev = _ordered(history)
     if not prev:
-        out.append("[HUMAN-VAR] NOT RUN - channel/history.json is empty; "
-                   "nothing to compare against. This is not a pass.")
+        out.append("[HUMAN-VAR] NOT RUN - channel history exists and is "
+                   "empty; this is the first video, nothing to compare. "
+                   "This is not a pass.")
         return out
 
     last = prev[-1]
@@ -241,9 +249,14 @@ def compare(history: dict, current: dict) -> list:
 # the store
 # --------------------------------------------------------------------------
 
-def load_history() -> dict:
+def load_history() -> dict | None:
+    """The shipped snapshots. None = the file does not exist at the
+    fixed path OUTSIDE the repo (shared by every worktree): that is a
+    REPORTED condition - "the store is missing", never a silent
+    video-1. {} = the file exists and holds nothing yet (genuinely the
+    first video)."""
     if not HISTORY.exists():
-        return {}
+        return None
     try:
         return json.loads(HISTORY.read_text(encoding="utf-8"))
     except (OSError, ValueError):
@@ -266,6 +279,10 @@ def record(project: str, lane: str | None = None, claim_status: str | None = Non
     if lane:
         snap["lane"] = lane
     hist = load_history()
+    if hist is None:
+        # shipping IS the act that creates the store - not run becomes
+        # run here, once, deliberately
+        hist = {}
     hist[project] = snap
     HISTORY.parent.mkdir(parents=True, exist_ok=True)
     HISTORY.write_text(json.dumps(hist, indent=2, ensure_ascii=False) + "\n",

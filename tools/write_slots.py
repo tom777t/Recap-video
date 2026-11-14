@@ -66,12 +66,17 @@ def _r(n: int) -> range:
 def _prev_open_shapes() -> list:
     """The shipped videos' open shapes, newest last, from the channel
     history - the rotation input. A test overrides this function rather
-    than the disk."""
+    than the disk. A MISSING store is reported through the notes (the
+    rotation cannot run, and 'no history' must not silently impersonate
+    video 1); an EMPTY one genuinely is video 1."""
     try:
         from pipeline import variation as V
-        hist = V.load_history() or {}
+        hist = V.load_history()
     except Exception:
         return []
+    if hist is None:
+        # say it once, where the operator reads the plan problems
+        return [{"missing_store": str(V.HISTORY)}]
     out = []
     for snap in sorted(hist.values(),
                        key=lambda s: str(s.get("shipped_at") or "")):
@@ -369,8 +374,8 @@ def _plan_opening(project: str, pdir: Path) -> dict | None:
     sp = Path(pdir) / "intro_style.txt"
     if sp.exists():
         fallback = sp.read_text(encoding="utf-8-sig").strip()
-    pick = OP.choose(data["candidates"],
-                     lever=OP.lever_for(data["facts"], fallback=fallback),
+    lever, lever_source = OP.lever_for(data["facts"], fallback=fallback)
+    pick = OP.choose(data["candidates"], lever=lever,
                      lands=data["lands"], runtime_sec=data["runtime_sec"])
     if not pick.get("opener") or pick["opener"].get("score", 0) <= 0:
         return None
@@ -383,7 +388,8 @@ def _plan_opening(project: str, pdir: Path) -> dict | None:
         a = moms[0][0]
         z = max(z for _x, z in moms if a <= _x < z)
     return {"opener": dict(op, window=(a, z)), "open_mode": pick["open_mode"],
-            "lever": pick["lever"], "notes": pick.get("notes") or []}
+            "lever": lever, "lever_source": lever_source,
+            "notes": pick.get("notes") or []}
 
 
 def _beat_ranges(project: str, beats: list) -> dict:
@@ -545,7 +551,17 @@ def derive_slots(plan: dict, project: str, pdir: Path, ab: dict) -> dict:
         # three-line question shape is the robotic tell even when every
         # line in it is good
         from pipeline import opening as OP
-        shape = OP.choose_open_shape(_prev_open_shapes())
+        _shapes = _prev_open_shapes()
+        if any(s.get("missing_store") for s in _shapes):
+            problems.append(
+                "opening: shape rotation NOT RUN - the channel history "
+                "store is missing at " + str(
+                    _shapes[-1]["missing_store"])
+                + ". Every worktree shares that one fixed path; put the "
+                  "store back (or ship the first video with "
+                  "tools/ship.py) - a missing store is not video 1.")
+        shape = OP.choose_open_shape(
+            [s for s in _shapes if not s.get("missing_store")])
         # the lines run over ONE scene: contiguous sub-windows of the
         # opener, so [WINDOW-OVERLAP] sees the same shape as anywhere
         # else - the scene plays unbroken under the open's lines
@@ -762,10 +778,17 @@ def derive_slots(plan: dict, project: str, pdir: Path, ab: dict) -> dict:
         s["clip_end"] = _ts(z_) if z_ is not None else None
     return {"slots": slots, "problems": problems
             + [f"opening: {n}" for n in (opening or {}).get("notes")
-               or []],
+               or []]
+            + ([f"opening: lever THRILL (default, no genre) - no genre "
+                f"in film_facts.json and no intro_style preset spoke; "
+                f"type the film's lead-sentence genre into "
+                f"film_facts.json `genre` and re-derive to change it"]
+               if (opening or {}).get("lever_source") == "default"
+               else []),
             "version": SLOTS_VERSION,
             "open_mode": (opening or {}).get("open_mode"),
             "lever": (opening or {}).get("lever"),
+            "lever_source": (opening or {}).get("lever_source"),
             "opener": (opening or {}).get("opener"),
             "open_len": ((opening or {}).get("shape") or {}).get("n_lines"),
             "closing_shape": ((opening or {}).get("shape") or

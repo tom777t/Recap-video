@@ -19,10 +19,12 @@ the transcript, the catalogue and your memory are not sources.
     facts: [{id: "F1", text, source: "Wikipedia, <Section> > <Subsection>"}],
     withheld: [{what, reveal: "R..", why, ban: ["exact phrase", ...]}]
 
-- `genre`: Wikipedia's infobox genre list verbatim, comma-separated
-  ("Thriller", "Coming-of-age comedy"). The opening-craft lever is chosen
-  from these words - no genre, no lever, and the default is wrong for
-  comedies and romances.
+- `genre`: the film's genres from the article's LEAD SENTENCE - the infobox
+  has no genre field. "Superbad is a 2007 American coming-of-age teen
+  comedy film" -> "coming-of-age teen comedy". Keep Wikipedia's own words
+  and order, comma-separated. The opening-craft lever is chosen from these
+  words - no genre, no lever, and the default is wrong for comedies and
+  romances.
 - `facts`: 3-6 production facts a viewer would enjoy (how a stunt was done, a
   casting story, a box-office turn). Each one sentence, each with its section.
 - `cast`: leads first; `note` is Wikipedia's own one-line description.

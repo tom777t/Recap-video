@@ -89,8 +89,10 @@ def test_empty_history():
     _proj(P, _draft("A Teenager Bets His Life on One Downhill Race",
                     _OPEN_A, _OUTRO))
     f = V.compare({}, V.snapshot(P))
-    ok = len(f) == 1 and "NOT RUN" in f[0]
-    return ok, f[0]
+    missing = V.compare(None, V.snapshot(P))
+    ok = (len(f) == 1 and "first video" in f[0]
+          and len(missing) == 1 and "MISSING" in missing[0])
+    return ok, f"{f[0]} | {missing[0][:60]}"
 
 
 def test_title_md5():

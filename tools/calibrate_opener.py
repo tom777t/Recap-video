@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+﻿# -*- coding: utf-8 -*-
 """calibrate_opener.py - prove the picker can tell good from bad.
 
     python tools/calibrate_opener.py <project> [--good-start S] [--good-end S]
@@ -48,7 +48,7 @@ def main() -> int:
         print("CALIBRATE-OPENER: no candidates - cannot calibrate")
         return 1
 
-    lever = opening.lever_for(data["facts"])
+    lever = opening.lever_for(data["facts"])[0]
     pick = opening.choose(data["candidates"], lever=lever,
                           lands=data["lands"], runtime_sec=data["runtime_sec"])
     ranked = pick["ranked"]
