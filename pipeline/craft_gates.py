@@ -46,6 +46,17 @@ BAR_SILENCE_WARN = 12.0      # item 11  (HUMAN co mot don 20.0s)
 BAR_SILENCE_COUNT = (3, 6)   # item 11
 BAR_ACTION_STAKE_EVERY = 4   # item 7
 
+def _floors() -> bool:
+    """config.STYLE_QUOTA_FLOORS: the minimum-proportion style bars (SD,
+    long-sentence share, punch share, judgment count, loop cadence). Off by
+    owner decision - see config.py. Ceilings are not affected."""
+    try:
+        import config as _cfg
+        return bool(getattr(_cfg, "STYLE_QUOTA_FLOORS", False))
+    except Exception:
+        return False
+
+
 # --- TRAN (ceilings), them 2026-10-20 -------------------------------------
 # Lan chay lai dau tien dat MOI nguong tren va cho ra mot ban 58 phut. Ly do
 # khong phai target do dai bi bo - ma la MOI nguong o tren deu la SAN khong co
@@ -380,7 +391,7 @@ def craft_report(draft: dict) -> dict:
         sd = _st.pstdev(wl) if len(wl) > 1 else 0.0
         m["sd_words_per_line"] = round(sd, 2)
         m["mean_words_per_line"] = round(_st.mean(wl), 2)
-        if sd < BAR_SD:
+        if _floors() and sd < BAR_SD:
             hard(f"[RHYTHM] words-per-line SD is {sd:.1f}, below the bar of "
                  f"{BAR_SD:.0f}. (human reference 13.7, the rejected machine "
                  f"draft 3.9). Every line the same length reads as a metronome "
@@ -394,7 +405,7 @@ def craft_report(draft: dict) -> dict:
         if ns:
             long_share = sum(1 for x in seq if x >= 30) / ns
             m["long_sentence_share"] = round(long_share, 4)
-            if long_share < BAR_LONG_SHARE:
+            if _floors() and long_share < BAR_LONG_SHARE:
                 hard(f"[RHYTHM] {long_share*100:.1f}% of sentences are >=30 "
                      f"words, below the bar of {BAR_LONG_SHARE*100:.0f}% "
                      f"(human reference 4.3%). With no long sentence there is "
@@ -410,7 +421,7 @@ def craft_report(draft: dict) -> dict:
             punch_share = punch / ns
             m["punch_share"] = round(punch_share, 4)
             m["punch_count"] = punch
-            if punch_share < BAR_PUNCH_SHARE:
+            if _floors() and punch_share < BAR_PUNCH_SHARE:
                 hard(f"[RHYTHM] {punch} punch sentence(s) "
                      f"({punch_share*100:.1f}%) - a <=5-word sentence straight "
                      f"after a >=20-word one. Bar is "
@@ -872,7 +883,7 @@ def craft_report(draft: dict) -> dict:
     if n:
         need = max(BAR_JUDGE_MIN, n / BAR_JUDGE_EVERY)
         m["judgment_needed"] = round(need, 1)
-        if len(judged) < need:
+        if _floors() and len(judged) < need:
             hard(f"[NARRATOR-VOICE] {len(judged)} judgment/aside line(s); this "
                  f"draft needs {need:.0f} (>=1 per {BAR_JUDGE_EVERY} lines, "
                  f"minimum {BAR_JUDGE_MIN}). The human reference has 6 in 147. "
@@ -979,7 +990,9 @@ def craft_report(draft: dict) -> dict:
             if p - prev > BAR_LOOP_GAP:
                 bad_gaps.append((prev + 1, p))
             prev = p
-        if not pos:
+        if not _floors():
+            pass    # loop cadence is a floor (config.STYLE_QUOTA_FLOORS)
+        elif not pos:
             hard(
                 f"[LOOP-CADENCE] no line carries `payload: loop`. Nothing in "
                 f"this draft promises the viewer a reason to stay.")

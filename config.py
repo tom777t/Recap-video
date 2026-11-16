@@ -1101,6 +1101,20 @@ PACING_ANCHOR_MAX_COMPRESSION_RATIO = 0.70   # of the draft's own mean
 # sentence, ABOVE four of the five references, and the viewer still called it
 # flat. Flatness was a contour defect and PACING-CONTOUR is what fixed it.
 # Raising a judgment floor to fix dwell is how 0.10 became 0.52.
+# STYLE QUOTA FLOORS - OFF by owner decision, 2026-11-16.
+# The floors below (and in pipeline/craft_gates.py) made the writer HIT
+# proportions measured on one human script: >=15% judgment lines, a narrator
+# aside every 2 minutes, an open loop at least every 12 lines, >=3% "punch"
+# sentences, a words-per-line SD of 9+, >=2% sentences of 30+ words, and every
+# anchor ending on a reaction. A draft written to clear them sounds like it -
+# 29 cliffhanger lines, 40 aphorisms ("the ledger turns out to have a heart"),
+# an "I cheered." added only to pass [RHYTHM]. The owner compared a Vietnamese
+# human recap of Furious 7 that clears almost none of them and is both clearer
+# and more gripping. CEILINGS stay (too many asides, too many long sentences,
+# too many lines per beat), and so does every correctness gate. True brings
+# the floors back exactly as they were.
+STYLE_QUOTA_FLOORS = False
+
 PERSONA_JUDGMENT_SHARE_MIN = 0.15
 # ...and the ceiling, which the floor never had. THE DEFECT: told only to
 # clear a floor, the rewrite came back at 0.523 - the narrator talks over the
