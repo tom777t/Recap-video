@@ -310,6 +310,12 @@ the text. **More than 3 wrong labels fails the round.**
 
 ## OTHER RULES
 
+- **PROFANITY (channel rule, decided by the owner 2026-11-13):** the narrator
+  never VOICES strong profanity (fuck and harder). Mild profanity inside a
+  quoted character line may stay (bitch, shit, goddamn). If a strong word is
+  load-bearing, the film says it itself - make the beat a `film_speaks` unit
+  and let the original audio carry it; do not soften the quote into a paraphrase
+  and keep it in the narrator's mouth at the same time.
 - **Trim filler, KEEP connective tissue.** Cut side gags, repeated radio chatter,
   and beats that reveal nothing new — but NEVER cut the setup, reaction, or
   consequence that explains why the next scene happens. A beat that improves
