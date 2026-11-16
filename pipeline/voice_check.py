@@ -473,22 +473,36 @@ def analyse(rows: list[dict]) -> dict:
     ratio_w = hi_r["wps"] / lo_r["wps"] if lo_r["wps"] else 0.0
 
     # ---- TAG MEANS ------------------------------------------------------- #
+    # Judged in SYLLABLES per articulated second, not words. Words per minute
+    # mixes the voice's pace with the WRITING: a tag whose lines use longer
+    # words reads fewer words a minute at the same pace. Furious 7: `action`
+    # read -13% in WPM against the mean, and still -13% after it was given
+    # normal's cue at normal's rate - same voice settings, same result, so
+    # the gap was the words ("convoy", "armored", "helicopter"), not the
+    # narrator. WPM is still printed beside it.
     mean_w = st.mean(wps)
+    sps = [r.get("sps") or 0.0 for r in rows]
+    mean_s = st.mean(sps) if any(sps) else 0.0
     by_tag: dict = {}
     for r in rows:
         by_tag.setdefault(r["tag"], []).append(r)
     tag_means = {}
     for tag, rs in sorted(by_tag.items()):
         m = st.mean(x["wps"] for x in rs)
+        ms = st.mean((x.get("sps") or 0.0) for x in rs)
+        dev_s = (ms / mean_s - 1.0) if mean_s else \
+            ((m / mean_w - 1.0) if mean_w else 0.0)
         tag_means[tag] = {"wps": m, "wpm": m * 60, "n": len(rs),
-                          "dev": (m / mean_w - 1.0) if mean_w else 0.0}
+                          "sps": ms, "dev": dev_s,
+                          "dev_wpm": (m / mean_w - 1.0) if mean_w else 0.0}
         # A tag needs at least 3 readings to have a mean worth judging. Below
         # that the "mean" is one or two lines and the finding is noise.
-        if mean_w and abs(m / mean_w - 1.0) > band and len(rs) >= 3:
+        if abs(dev_s) > band and len(rs) >= 3:
             problems.append(
-                f"tag {tag!r} averages {m/mean_w-1.0:+.0%} off the overall "
-                f"articulation rate ({m*60:.0f} vs {mean_w*60:.0f} WPM) over "
-                f"{len(rs)} line(s) - outside +-{band:.0%}. Adjust that tag's "
+                f"tag {tag!r} averages {dev_s:+.0%} off the overall "
+                f"articulation rate in SYLLABLES ({ms:.2f} vs {mean_s:.2f} "
+                f"syl/s; {m*60:.0f} vs {mean_w*60:.0f} WPM) over {len(rs)} "
+                f"line(s) - outside +-{band:.0%}. Adjust that tag's "
                 f"speaking_rate (tools/calibrate_rate.py --solve-per-tag).")
 
     # ---- ROLLING 3-LINE AVERAGE ------------------------------------------ #
@@ -572,12 +586,16 @@ def report(res: dict, project: str = "") -> bool:
         f"(ceiling {res['roll3_max']:.2f}x)   |   single-line spread "
         f"{res['line_spread']:.2f}x, reported not gated (a one-delivery "
         f"control measures 1.35x)[/]")
+    console.print("[dim]    per tag: WPM (vs mean), then syllables/s and its "
+                  "deviation - the band is judged on syllables[/]")
     for tag, m in sorted(res["tag_means"].items(),
                          key=lambda kv: kv[1]["wps"]):
         _f = "" if abs(m["dev"]) <= float(config.VOICE_RATE_BAND) \
             or m["n"] < 3 else "   <-- outside the band"
-        console.print(f"[dim]    {tag:<8} {m['wpm']:5.0f} WPM  "
-                      f"{m['dev']:+6.0%}  n={m['n']}{_f}[/]")
+        console.print(f"[dim]    {tag:<8} {m['wpm']:5.0f} WPM "
+                      f"({m.get('dev_wpm', m['dev']):+4.0%})  "
+                      f"{m.get('sps', 0):4.2f} syl/s {m['dev']:+6.0%}  "
+                      f"n={m['n']}{_f}[/]")
     if res["ok"]:
         console.print("[cyan]    one narrator - within the band.[/]")
         return True

@@ -13,6 +13,9 @@ network and no API key are needed.
   UNRUN-REFUSES         a check that did not run refuses before any TTS
   ESTIMATE-NOT-BLOCKING a word-count BINDING-VIOLATION does not stop the stage
                         (the real audio is what it measures)
+  VOICE-ALL-AT-ONCE     cue, rate-drift and consistency problems are ALL listed
+                        by this stage and stop it, even when every line fits -
+                        they used to surface one per render (doublelife2023)
 
 Run:  python tools/test_voice_stage.py      (exit 0 = all pass)
 """
@@ -78,6 +81,34 @@ def _stub(seconds):
     return fake
 
 
+import pipeline.voice_check as VC  # noqa: E402
+_VC_REAL = {k: getattr(VC, k) for k in ("audit_cues", "rate_band_violations",
+                                         "rate_drift", "measure", "analyse",
+                                         "report")}
+
+
+def _voice(ok=True):
+    """The ONE-NARRATOR checks, stubbed: the capacity tests drive fake
+    durations with no mp3 behind them, which no voice check can measure."""
+    for k, v in _VC_REAL.items():
+        setattr(VC, k, v)
+    if ok:
+        VC.audit_cues = lambda p: []
+        VC.rate_band_violations = lambda p: []
+        VC.rate_drift = lambda: (True, "stub")
+        VC.measure = lambda *a, **k: []
+        VC.analyse = lambda rows: {}
+        VC.report = lambda res, project="": True
+    else:
+        VC.audit_cues = lambda p: ["cue STUB-CUE asks for tempo"]
+        VC.rate_band_violations = lambda p: []
+        VC.rate_drift = lambda: (False, "profile STUB-STALE")
+        VC.measure = lambda *a, **k: []
+        VC.analyse = lambda rows: {}
+        VC.report = lambda res, project="": (print("STUB-CONSISTENCY failed"),
+                                             False)[1]
+
+
 def _drive(**kw) -> tuple[int, str, list]:
     args = argparse.Namespace(project=SCRATCH, fit=False, allow_edge=False,
                               ignore_audit=False, **kw)
@@ -93,6 +124,7 @@ def _drive(**kw) -> tuple[int, str, list]:
 
 def test_fits_exits_clean():
     _scratch()
+    _voice(ok=True)
     tts.generate_tts = _stub(0.4)
     code, out, calls = _drive()
     if code != 0 or "every narrated line fits" not in out:
@@ -102,6 +134,7 @@ def test_fits_exits_clean():
 
 def test_overrun_stops():
     _scratch()
+    _voice(ok=True)
     tts.generate_tts = _stub(90.0)
     code, out, _ = _drive()
     if code != 1 or "CAPACITY" not in out.upper():
@@ -111,6 +144,7 @@ def test_overrun_stops():
 
 def test_unrun_refuses():
     _scratch(corrupt_policy=True)
+    _voice(ok=True)
     tts.generate_tts = _stub(0.4)
     code, out, calls = _drive()
     if code != 1 or "Refusing to voice" not in out or calls:
@@ -120,6 +154,7 @@ def test_unrun_refuses():
 
 def test_estimate_not_blocking():
     _scratch()
+    _voice(ok=True)
     tts.generate_tts = _stub(0.4)
     code, out, calls = _drive()
     est = "BINDING-VIOLATION" in out
@@ -130,11 +165,27 @@ def test_estimate_not_blocking():
                   + "did not stop the stage")
 
 
+def test_voice_all_at_once():
+    _scratch()
+    _voice(ok=False)
+    tts.generate_tts = _stub(0.4)          # every line FITS its window
+    try:
+        code, out, calls = _drive()
+    finally:
+        _voice(ok=True)
+    want = ("STUB-CUE", "STUB-STALE", "STUB-CONSISTENCY")
+    miss = [w for w in want if w not in out]
+    if code != 1 or miss or "every narrated line fits" in out:
+        return False, f"exit {code}, missing {miss}; tail: {out[-400:]}"
+    return True, "3 voice problems listed together, stage stops before render"
+
+
 TESTS = {
     "FITS-EXITS-CLEAN":      test_fits_exits_clean,
     "OVERRUN-STOPS":         test_overrun_stops,
     "UNRUN-REFUSES":         test_unrun_refuses,
     "ESTIMATE-NOT-BLOCKING": test_estimate_not_blocking,
+    "VOICE-ALL-AT-ONCE":     test_voice_all_at_once,
 }
 
 if __name__ == "__main__":

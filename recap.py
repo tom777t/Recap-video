@@ -303,9 +303,50 @@ def cmd_voice(args):
         stale = _pf.stale_audio(d, pdir)
         return _pf.capacity_findings(d, narration, ffp, skip_ids=stale)
 
+    def _voice_ok(narration) -> bool:
+        """The render's three ONE-NARRATOR checks, run HERE and ALL of them.
+
+        They used to run only inside the render, after stems and the source
+        probe, and each stopped the run on its own - doublelife2023 met
+        VOICE CONSISTENCY, then a stale profile, then VOICE-CUES, one render
+        at a time. The audio exists now, so every voice problem is reported
+        together at this stage and the render only assembles."""
+        from pipeline import voice_check as _vc
+        problems = []
+        try:
+            from pipeline.tts import DEFAULT_PROVIDER
+            from pipeline.tts_providers import all_providers
+            _prov = all_providers().get(DEFAULT_PROVIDER)
+            if _prov is not None:
+                problems += [f"[VOICE-CUES] {b}" for b in
+                             _vc.audit_cues(_prov)
+                             + _vc.rate_band_violations(_prov)]
+        except Exception as e:      # an empty list is the PASS value
+            problems.append(f"[VOICE-CUES] could not run: {e}")
+        _ok, _msg = _vc.rate_drift()
+        if not _ok:
+            problems.append(f"[VOICE-RATE-DRIFT] {_msg}")
+        d = _reload()
+        stale = _pf.stale_audio(d, pdir)
+        consistent = _vc.report(_vc.analyse(_vc.measure(d, narration, ffp,
+                                                        skip_ids=stale)),
+                                args.project)
+        for b in problems:
+            console.print(f"[red]{b}[/]")
+        if not consistent:
+            problems.append("VOICE CONSISTENCY (above)")
+        if problems:
+            console.print(f"[red]VOICE: {len(problems)} voice problem(s) - "
+                          f"all listed above. Fix them before the render; "
+                          f"the render runs the same checks.[/]")
+        return not problems
+
     narration = _synth()
+    voice_ok = _voice_ok(narration)
     findings = _check(narration)
     if not findings:
+        if not voice_ok:
+            sys.exit(1)
         console.print(f"[green]VOICE: {len(narration)} line(s) synthesized; "
                       f"every narrated line fits its window.[/] Next: "
                       f".\\run.ps1 -Project {args.project} -From render")
@@ -331,6 +372,8 @@ def cmd_voice(args):
         console.print(f"[yellow]{len(findings)} line(s) still overrun after the "
                       f"fit: they need a TEXT trim (see narration_fit_todo.json"
                       f"). Trim them in draft.json, then run this stage again.[/]")
+        sys.exit(1)
+    if not voice_ok:
         sys.exit(1)
     console.print(f"[green]VOICE: fitted; every narrated line now fits its "
                   f"window.[/] Next: .\\run.ps1 -Project {args.project} "
@@ -414,8 +457,19 @@ def cmd_render(args):
                               f"(pass --music to override, or delete it to render voice-only).[/]")
                 break
         if music is None:
-            console.print("[yellow]No --music and no music.* in the project dir - "
-                          "rendering VOICE-ONLY (no background music).[/]")
+            # music/bed.*, music/cues/*, music/ending.* are read by the render
+            # itself (pipeline/music.resolve_music) - only say "voice only"
+            # when none of them is there either (Furious 7: this line said
+            # VOICE-ONLY over a full music/ folder)
+            from pipeline import music as _m
+            if (_m.bed_file(pdir) or _m.cue_files(pdir)
+                    or _m.ending_file(pdir)):
+                console.print("[dim]Music: music/ folder found (bed / cues / "
+                              "ending) - the render mixes it.[/]")
+            else:
+                console.print("[yellow]No --music, no music.* and no music/ "
+                              "folder in the project dir - rendering "
+                              "VOICE-ONLY (no background music).[/]")
 
     # captions: default from config (OFF), opt in with --captions, off with
     # --no-captions (explicit override wins).

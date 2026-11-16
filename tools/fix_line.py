@@ -39,6 +39,12 @@ re-derived so that beat's quote slot takes another real line or becomes an
 action slot, and the line's NEW slot is printed. The text is not changed -
 write the new line with --text next (it is checked against the new slot).
 
+--hold SECONDS: a HOLD line (no narration) plays its picture for SECONDS
+from its clip_start, with the music swelled under it - to let an ending
+breathe. Refused if the window would reach another line's footage (it says
+how much fits) or pass 30 s; saved like --text (act file, gates, undone if a
+gate newly names the line).
+
 --show prints the line, its slot, what is wrong with it now, its
 neighbours and the open findings naming it - read that first.
 """
@@ -66,6 +72,11 @@ def main(argv=None) -> int:
     ap.add_argument("--text")
     ap.add_argument("--note", default="")
     ap.add_argument("--show", action="store_true")
+    ap.add_argument("--hold", type=float, metavar="SECONDS",
+                    help="a HOLD line (no narration): play its picture for "
+                         "this long - the window grows or shrinks from its "
+                         "start; refused if it would run into another "
+                         "line's footage")
     ap.add_argument("--not-dialogue", action="store_true",
                     help="the line's quote is a song / PA / TV, not a "
                          "character: never quote it; re-derive the slots")
@@ -92,6 +103,9 @@ def main(argv=None) -> int:
     sl = W.slots_of_lines(pdir, owner).get(lid)
     finds = [f for f in WP.open_findings(pdir, draft) if lid in f["ids"]]
     old = by_id[lid]
+
+    if a.hold is not None:
+        return _set_hold(a, pdir, draft, by_id, owner, lid, old)
 
     if a.not_dialogue:
         if sl is None or not sl.get("quote"):
@@ -188,9 +202,6 @@ def main(argv=None) -> int:
         for b in lr:
             print(f"  - {b}")
         return 2
-    print("fix_line: checking the draft gates before saving ...")
-    rc0, before = W.run_gates(a.project)
-    snap = _snapshot(pdir)
     note = a.note.strip() or (f"rewritten by hand: "
                               f"'{old.get('narration')}' -> '{text}'")
     for i, f in enumerate(finds, 1):
@@ -199,6 +210,9 @@ def main(argv=None) -> int:
              "responses": [{"key": f["key"], "status": "RESOLVED",
                             "text": note} for f in finds
                            if not f.get("gate")]}
+    print("fix_line: checking the draft gates before saving ...")
+    rc0, before = W.run_gates(a.project)
+    snap = _snapshot(pdir)
     changes, entries, rejects = WP.apply_resolution(finds or [
         {"key": "H0", "ids": [lid], "kind": "hand", "artifact": None,
          "gate": True, "text": ""}], reply, by_id)
@@ -206,9 +220,69 @@ def main(argv=None) -> int:
         print("fix_line: " + "; ".join(rejects))
     edits = {lid: {f: new[f] for f in ("payload", "delivery")
                    if new.get(f) != old.get(f)}} if sl is not None else {}
+    return _guarded_save(a.project, pdir, draft, by_id, owner, lid, edits,
+                         changes, entries, before, rc0, snap,
+                         f"{len(finds)} finding(s) closed RESOLVED.")
+
+
+HOLD_MAX = 30.0          # schemas: the long-silence limit
+
+
+def _set_hold(a, pdir: Path, draft: dict, by_id: dict, owner: dict,
+              lid: str, old: dict) -> int:
+    """--hold: set a hold line's length. The picture plays from the hold's
+    clip_start for SECONDS (the music swells under it); the window must not
+    reach into any other line's footage."""
+    import write_api as W
+    import write_slots as WS
+    if str(old.get("narration") or "").strip() or \
+            old.get("film_speaks_seconds") is not None:
+        print(f"fix_line: line {lid} is not a hold (it has narration or is a "
+              f"film-speaks unit) - nothing changed")
+        return 1
+    secs = float(a.hold)
+    if not 0.5 <= secs <= HOLD_MAX:
+        print(f"fix_line: a hold is 0.5-{HOLD_MAX:.0f} s - nothing changed")
+        return 1
+    a0 = WS._pt(old["clip_start"])
+    b0 = a0 + secs
+    clash = []
+    for ln in draft["lines"]:
+        if str(ln["id"]) == lid or not ln.get("clip_start") or \
+                not ln.get("clip_end"):
+            continue
+        x, y = WS._pt(ln["clip_start"]), WS._pt(ln["clip_end"])
+        if x < b0 - 1e-3 and y > a0 + 1e-3:
+            clash.append(f"line {ln['id']} ({ln['clip_start']}-"
+                         f"{ln['clip_end']})")
+    if clash:
+        room = min((WS._pt(ln["clip_start"]) for ln in draft["lines"]
+                    if ln.get("clip_start") and str(ln["id"]) != lid
+                    and WS._pt(ln["clip_start"]) > a0 + 1e-3),
+                   default=a0 + HOLD_MAX) - a0
+        print(f"fix_line: NOT saved - {secs:.1f} s from {old['clip_start']} "
+              f"runs into {', '.join(clash[:3])}; at most "
+              f"{min(room, HOLD_MAX):.1f} s fit here")
+        return 2
+    end = WS._ts(b0)
+    print(f"fix_line: hold line {lid}: {old.get('narration_silence_seconds')}"
+          f" s -> {secs:.1f} s ({old['clip_start']}-{end}). Checking the "
+          f"draft gates ...")
+    rc0, before = W.run_gates(a.project)
+    snap = _snapshot(pdir)
+    edits = {lid: {"narration_silence_seconds": secs, "clip_end": end}}
+    return _guarded_save(a.project, pdir, draft, by_id, owner, lid, edits,
+                         {}, {}, before, rc0, snap, f"held {secs:.1f} s.")
+
+
+def _guarded_save(project, pdir, draft, by_id, owner, lid, edits, changes,
+                  entries, before, rc0, snap, said: str) -> int:
+    """write_back, then the FULL gates; any new error naming this line (or
+    an unreadable gate run) undoes the change byte for byte."""
+    import write_api as W
     try:
         W.write_back(pdir, draft, by_id, owner, edits, changes, entries)
-        rc, errs = W.run_gates(a.project)
+        rc, errs = W.run_gates(project)
     except BaseException:
         _restore(snap)                  # never half-saved
         raise
@@ -220,14 +294,13 @@ def main(argv=None) -> int:
         # every gate, not only the per-line ones: the change is undone,
         # byte for byte, and nothing is left half-saved
         _restore(snap)
-        print(f"fix_line: NOT saved - with this text the draft gates find "
+        print(f"fix_line: NOT saved - with this change the draft gates find "
               f"{len(broke)} new error(s):")
         for e in broke[:6]:
             print(f"  - {e[:220]}")
         print("line, act file and review artifacts are as they were")
         return 2
-    print(f"fix_line: line {lid} saved; {len(finds)} finding(s) closed "
-          f"RESOLVED.")
+    print(f"fix_line: line {lid} saved; {said}")
     if not errs:
         print("fix_line: draft gates clean")
     else:
