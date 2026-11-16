@@ -1800,6 +1800,23 @@ def render(project: str, draft: dict,
     _clip_workers = max(1, int(getattr(config, "CLIP_WORKERS", 1)))
     _clip_jobs: list = []
 
+    # ---- dialogue anchors (pipeline/anchor.py) -------------------------
+    # The shown part of a window starts at clip_start unless the transcript
+    # says WHEN the quoted / paraphrased moment happens; then it is moved,
+    # inside the window, so that moment is on screen while it is narrated.
+    from pipeline import anchor as _anc
+    _anc_on = bool(getattr(config, "ANCHOR_TO_DIALOGUE", True))
+    _anc_segs = _anc.load_segments(pdir) if _anc_on else []
+    _anc_next_cs: dict = {}
+    _nxt = None
+    for _l in reversed(draft["lines"]):
+        _anc_next_cs[_l["id"]] = _nxt
+        if _l.get("clip_start") and not _l.get("pool") and not intro_owned(_l):
+            _nxt = parse_ts(_l["clip_start"])
+    _anc_prev_end = None
+    _anc_moved: list = []      # (lid, kind, from, to)
+    _anc_off: list = []        # (lid, kind, anchor, cs, ce) - not reachable
+
     for idx, ln in enumerate(draft["lines"]):
         lid = ln["id"]
 
@@ -2051,6 +2068,27 @@ def render(project: str, draft: dict,
                 raise BindingViolation(
                     line_id=lid, narration_dur=_narr_need,
                     shot_dur=_shot_dur, capacity=_shot_dur * BINDING_SLOWDOWN_MAX)
+            # ---- dialogue anchor: show the moment while it is narrated ----
+            if _anc_segs:
+                _a = _anc.find_anchor(ln.get("narration", ""), _anc_segs,
+                                      start, end)
+                if _a is not None:
+                    _want_lead = LEAD_IN + (float(getattr(
+                        config, "PRE_REVEAL_PAUSE", 0.0))
+                        if ln.get("delivery") == "reveal" else 0.0)
+                    _need_a = max(_want_lead + narr_dur + GAP, hold)
+                    if _anc.visible(start, _need_a, _a[0]):
+                        pass        # already on screen: leave it alone
+                    else:
+                        _ns = _anc.place(start, end, _a[0], _need_a,
+                                         _want_lead, narr_dur,
+                                         lo=_anc_prev_end,
+                                         hi=_anc_next_cs.get(lid))
+                        if _ns is not None and _ns > start + 0.25:
+                            _anc_moved.append((lid, _a[1], start, _ns))
+                            start = _ns
+                        elif _ns is None:
+                            _anc_off.append((lid, _a[1], _a[0], start, end))
 
         # censor level for this clip (from shots.json; default "none"). Pool/
         # montage clips are not censored here (no shots.json mapping for them).
@@ -2156,7 +2194,10 @@ def render(project: str, draft: dict,
                          "end": cursor + lead + narr_dur,
                          "text": ln["narration"], "id": lid,
                          "clip_start": ln.get("clip_start"),
-                         "clip_end": ln.get("clip_end")})
+                         "clip_end": ln.get("clip_end"),
+                         "shown_start": round(float(start), 3)})
+        if not ln.get("pool"):
+            _anc_prev_end = float(start) + float(clip_len)
         # Where the reveal's VOICE starts on the finished timeline - the music
         # drop is measured backwards from here, not from the cut.
         if ln.get("delivery") == "reveal":
@@ -2411,6 +2452,29 @@ def render(project: str, draft: dict,
     # where a line lands in the finished video was the .ass file, which stores
     # caption TEXT and no line id - so a QA note could only ever say "something
     # is off around minute 7" instead of "line 36 drifts".
+    # ---- dialogue-anchor report ------------------------------------------
+    if _anc_on:
+        if not _anc_segs:
+            console.print("[yellow][ANCHOR] no transcript.json - dialogue "
+                          "anchoring NOT RUN; every line shows its window "
+                          "from clip_start.[/]")
+        else:
+            console.print(f"[ANCHOR] {len(_anc_moved)} line(s) moved inside "
+                          f"their window so the quoted/paraphrased moment is "
+                          f"on screen while it is narrated.")
+            for _lid, _k, _f, _t in _anc_moved[:12]:
+                console.print(f"    line {_lid:>3} ({_k}): shown from "
+                              f"{_t - _f:+.1f}s into its window")
+            if _anc_off:
+                console.print(f"[yellow][ANCHOR] {len(_anc_off)} line(s) "
+                              f"narrate a moment their window cannot show - "
+                              f"the words and the picture disagree. Rebind "
+                              f"each one at the write stage:[/]")
+                for _lid, _k, _at, _cs, _ce in _anc_off:
+                    _rel = ("before" if _at < _cs else "after")
+                    console.print(f"    line {_lid:>3} ({_k}): moment at "
+                                  f"{_at:.1f}s is {_rel} its window "
+                                  f"{_cs:.1f}-{_ce:.1f}s")
     try:
         # Every position below is SHIFTED BY THE INTRO. The timeline was built
         # against a film with nothing on the front; prepending the montage
@@ -2421,7 +2485,10 @@ def render(project: str, draft: dict,
                "out_start": round(t["start"] + intro_offset, 3),
                "out_end": round(t["end"] + intro_offset, 3),
                "clip_start": t.get("clip_start"),
-               "clip_end": t.get("clip_end")} for t in timeline]
+               "clip_end": t.get("clip_end"),
+               **({"shown_start": t["shown_start"]}
+                  if t.get("shown_start") is not None else {})}
+              for t in timeline]
         # Written to a temp file and swapped in, so a failed write can never
         # leave a half-written timeline.json behind.
         _tlp = pdir / "timeline.json"

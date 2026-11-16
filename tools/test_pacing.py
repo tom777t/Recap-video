@@ -295,14 +295,22 @@ def test_persona_window_exempts_peaks() -> tuple[bool, str]:
     """
     import json as _j
     out = []
-    for name in ("draft.json", "draft_prerewrite.json"):
-        p2 = PROJ / name
-        if not p2.exists():
-            return False, f"{name} is missing"
-        d = _j.loads(p2.read_text(encoding="utf-8-sig"))
-        gaps = [e for e in pg.pacing_report(d, PROJ)["errors"]
-                if "window(s) of" in e]
-        out.append((name, len(gaps)))
+    # The persona window is a style FLOOR, off by default since 2026-11-16
+    # (config.STYLE_QUOTA_FLOORS). This test checks the instrument itself,
+    # so it switches the floor on for its own run.
+    _prev = getattr(config, "STYLE_QUOTA_FLOORS", False)
+    config.STYLE_QUOTA_FLOORS = True
+    try:
+        for name in ("draft.json", "draft_prerewrite.json"):
+            p2 = PROJ / name
+            if not p2.exists():
+                return False, f"{name} is missing"
+            d = _j.loads(p2.read_text(encoding="utf-8-sig"))
+            gaps = [e for e in pg.pacing_report(d, PROJ)["errors"]
+                    if "window(s) of" in e]
+            out.append((name, len(gaps)))
+    finally:
+        config.STYLE_QUOTA_FLOORS = _prev
     cur = dict(out)
     if cur["draft.json"]:
         return False, ("the approved draft still reports a persona window "
@@ -317,6 +325,48 @@ def test_persona_window_exempts_peaks() -> tuple[bool, str]:
     return True, (f"approved draft 0 gap(s); pre-rewrite draft "
                   f"{cur['draft_prerewrite.json']} gap(s) still reported; "
                   f"exempt deliveries {deliv} read from config")
+
+def test_style_floors_off() -> tuple[bool, str]:
+    """Owner decision 2026-11-16: no MINIMUM of asides, loops or punch
+    sentences. A plain, story-only draft must not be blocked for lacking
+    them - and a draft that is ALL asides must still hit the ceiling."""
+    from pipeline import craft_gates as cg
+    plain = {"lines": [
+        {"id": i, "narration": f"Dom drives to the factory number {i} because "
+                               f"Shaw is hiding there with the crew.",
+         "payload": "reasoning", "delivery": "normal",
+         "clip_start": f"00:{i:02d}:00.000", "clip_end": f"00:{i:02d}:08.000"}
+        for i in range(1, 41)]}
+    floor_tags = ("below the bar", "punch sentence", "[NARRATOR-VOICE]",
+                  "[LOOP-CADENCE] no line", "with no open loop",
+                  "under the 15% floor", "carry no narrator presence",
+                  "end on description")
+    def _all(d):
+        r1 = cg.craft_report(d) if hasattr(cg, "craft_report") else {}
+        r2 = pg.pacing_report(d, PROJ)
+        msgs = []
+        for r in (r1, r2):
+            for k in ("errors", "hard", "warns"):
+                v = r.get(k) if isinstance(r, dict) else None
+                if isinstance(v, list):
+                    msgs += [str(x) for x in v]
+        return msgs
+    _prev = getattr(config, "STYLE_QUOTA_FLOORS", False)
+    try:
+        config.STYLE_QUOTA_FLOORS = False
+        off = [m for m in _all(plain) if any(t in m for t in floor_tags)]
+        config.STYLE_QUOTA_FLOORS = True
+        on = [m for m in _all(plain) if any(t in m for t in floor_tags)]
+    finally:
+        config.STYLE_QUOTA_FLOORS = _prev
+    if off:
+        return False, f"floors OFF but still firing: {off[:2]}"
+    if not on:
+        return False, ("floors ON fire nothing on a draft with no asides and "
+                       "no loops - the switch is not wired to the gates")
+    return True, (f"floors off: 0 floor findings; switched on: {len(on)} "
+                  f"(the instrument still works)")
+
 
 def test_persona_detector_sane() -> tuple[bool, str]:
     src = io.open(os.path.join(ROOT, "pipeline", "pacing_gates.py"),
@@ -948,6 +998,7 @@ TESTS = {
     "SHIPPED-DRAFT-FAILS":      test_shipped_draft_fails,
     "GOOD-SHAPE-PASSES":        test_good_shape_passes,
     "PERSONA-WINDOW-EXEMPT":  test_persona_window_exempts_peaks,
+    "STYLE-FLOORS-OFF":       test_style_floors_off,
     "PERSONA-DETECTOR-SANE":    test_persona_detector_sane,
     "NAMED-DEFECTS":            test_named_defects,
     "ANGLE-SPEC-REQUIRED":      test_angle_spec_required,

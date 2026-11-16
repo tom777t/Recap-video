@@ -471,7 +471,8 @@ def pacing_report(draft: dict, pdir: Path) -> dict:
         stats["judgment_agreed"] = len(agreed)
         stats["judgment_share"] = round(share, 3)
         stats["judgment_agreement_rate"] = round(rate, 3)
-        if share < config.PERSONA_JUDGMENT_SHARE_MIN:
+        if (getattr(config, "STYLE_QUOTA_FLOORS", False)
+                and share < config.PERSONA_JUDGMENT_SHARE_MIN):
             errors.append(
                 f"[PERSONA] only {len(agreed)} of {len(lines)} lines "
                 f"({share:.1%}) are judgment BY BOTH the writer's label and "
@@ -638,7 +639,8 @@ def pacing_report(draft: dict, pdir: Path) -> dict:
                             for w in PEAK_WORDS)}
         _ex_deliv = tuple(getattr(config, "PERSONA_WINDOW_EXEMPT_DELIVERIES",
                                   ("action",)))
-        gaps = _persona_gaps(draft, voiced, _ex_beats, _ex_deliv)
+        gaps = (_persona_gaps(draft, voiced, _ex_beats, _ex_deliv)
+                if getattr(config, "STYLE_QUOTA_FLOORS", False) else [])
         if gaps:
             errors.append(
                 f"[PERSONA] {len(gaps)} window(s) of "
@@ -657,7 +659,7 @@ def pacing_report(draft: dict, pdir: Path) -> dict:
             continue
         if not (_is_judgment(grp[-1]) or _is_move(_narr(grp[-1]))):
             bad_end.append(f"{'/'.join(a['beats'])} (line {grp[-1].get('id')})")
-    if bad_end:
+    if bad_end and getattr(config, "STYLE_QUOTA_FLOORS", False):
         errors.append(
             f"[PERSONA] {len(bad_end)} anchor(s) end on description rather "
             f"than on a narrator reaction: " + ", ".join(bad_end[:6])

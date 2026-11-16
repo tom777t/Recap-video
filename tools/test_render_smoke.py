@@ -477,12 +477,49 @@ def test_censor_bound() -> tuple[bool, str]:
         _teardown()
 
 
+def test_anchor_render() -> tuple[bool, str]:
+    """A line that paraphrases dialogue spoken LATE in its window is shown
+    from that moment, through the real render (pipeline/anchor.py)."""
+    from pipeline.render import render
+    from pipeline import intro as _intro
+    orig = _stub_intro_tts()
+    _restore_stems = _no_stems()
+    try:
+        pdir, draft = _setup()
+        # line 3's window is 10-18s; its words are spoken on screen at 15.0s
+        io.open(pdir / "transcript.json", "w", encoding="utf-8").write(
+            json.dumps({"segments": [
+                {"start": 15.0, "end": 16.5,
+                 "text": "Look, the pattern drifts left again."}]}))
+        narration = _narration_for(pdir, draft["lines"])
+        render(PROJ, draft, narration, music=None, captions=False,
+               keep_temp=False, force_clips=True)
+        t = json.loads((pdir / "timeline.json").read_text(encoding="utf-8"))
+        l3 = next((x for x in t["lines"] if x.get("id") == 3), {})
+        l4 = next((x for x in t["lines"] if x.get("id") == 4), {})
+        ss = l3.get("shown_start")
+        if ss is None:
+            return False, "timeline.json has no shown_start for line 3"
+        if not (12.0 <= float(ss) <= 15.0):
+            return False, (f"line 3 shown from {ss}s - the moment at 15.0s is "
+                           f"not on screen while it is narrated")
+        if float(l4.get("shown_start", 20.0)) != 20.0:
+            return False, f"line 4 (no dialogue) moved to {l4.get('shown_start')}"
+        return True, (f"line 3 shown from {float(ss):.1f}s (was 10.0s), "
+                      f"line 4 untouched at 20.0s")
+    finally:
+        _intro._tts_line = orig
+        _restore_stems()
+        _teardown()
+
+
 TESTS = {
     "SMOKE":          test_smoke,
     "INTRO-OWNED":    test_intro_owned,
     "CENSOR-MONTAGE": test_censor_montage,
     "CENSOR-UNUSED":  test_censor_unused,
     "CENSOR-BOUND":   test_censor_bound,
+    "ANCHOR-RENDER":  test_anchor_render,
 }
 
 if __name__ == "__main__":
