@@ -343,6 +343,31 @@ def cmd_voice(args):
 
     narration = _synth()
     voice_ok = _voice_ok(narration)
+    # Words vs picture: lines that quote/paraphrase dialogue whose moment the
+    # window cannot show. The render moves what it can inside the window
+    # (pipeline/anchor.py); these need the window itself rebound.
+    try:
+        sys.path.insert(0, str(Path(__file__).parent / "tools"))
+        import anchor_report as _ar
+        _r = _ar.analyse(pdir)
+        _off = [x for x in _r["rows"] if x["state"] == "OFF"]
+        _mv = sum(1 for x in _r["rows"] if x["state"] == "MOVED")
+        if _r["segments"]:
+            console.print(f"[ANCHOR] {len(_r['rows'])} line(s) narrate a "
+                          f"quoted/paraphrased moment: {_mv} will be shown by "
+                          f"moving inside the window, {len(_off)} cannot.")
+            for x in _off:
+                console.print(f"[yellow]    line {x['id']:>3}: \"{x['said']}\" "
+                              f"is {x['at']:+.1f}s into a {x['window']:.1f}s "
+                              f"window - the picture will not show it.[/]")
+            if _off:
+                console.print(f"[yellow]    Rebind them: python tools/"
+                              f"anchor_report.py --project {args.project} "
+                              f"--apply (then re-run this stage); what it "
+                              f"cannot rebind needs the line moved at the "
+                              f"write stage.[/]")
+    except Exception as e:
+        console.print(f"[yellow][ANCHOR] check could not run: {e}[/]")
     findings = _check(narration)
     if not findings:
         if not voice_ok:

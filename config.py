@@ -368,6 +368,13 @@ NARRATION_FADE = 0.04      # micro fade in/out on each line to kill pops
 # 0.5s. It also raises the footage each line must carry, which tightens the
 # binding contract (a line that only just fitted may now need mild slow-motion).
 NARRATION_LEAD_IN = 0.5
+# Show the moment a line narrates WHILE it is narrated (pipeline/anchor.py).
+# When a line quotes or paraphrases dialogue, the transcript says when that
+# dialogue is spoken, and the render starts the shown part of the window
+# there instead of at clip_start. Measured before: 12/18 quote lines on
+# doublelife2023 and 8/16 on furious72015 showed footage without the quoted
+# moment. False = the old behaviour (always from clip_start).
+ANCHOR_TO_DIALOGUE = True
 
 # Motion energy (Ken Burns) - subtle constant zoom/pan so nothing sits still.
 MOTION_ENABLE = True
