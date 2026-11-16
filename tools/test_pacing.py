@@ -340,7 +340,7 @@ def test_style_floors_off() -> tuple[bool, str]:
     floor_tags = ("below the bar", "punch sentence", "[NARRATOR-VOICE]",
                   "[LOOP-CADENCE] no line", "with no open loop",
                   "under the 15% floor", "carry no narrator presence",
-                  "end on description")
+                  "end on description", "below the floor of")
     def _all(d):
         r1 = cg.craft_report(d) if hasattr(cg, "craft_report") else {}
         r2 = pg.pacing_report(d, PROJ)

@@ -45,6 +45,10 @@ if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 
 import config  # noqa: E402
+# This suite tests the LEGACY construction (style quota floors ON: length
+# band cycle, planned loop / reaction slots, reaction forms). Story mode -
+# the default since 2026-11-16 - is tested in tools/test_story_mode.py.
+config.STYLE_QUOTA_FLOORS = True
 import tag_batch as TB  # noqa: E402
 import write_api as W  # noqa: E402
 import write_slots as WS  # noqa: E402

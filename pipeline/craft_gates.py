@@ -1103,7 +1103,7 @@ def craft_report(draft: dict) -> dict:
         m["voice_markers"] = _mk
         m["voice_per_min"] = round(_pm, 2)
         m["narration_min"] = round(_mins, 1)
-        if _pm < BAR_VOICE_PER_MIN_MIN:
+        if _floors() and _pm < BAR_VOICE_PER_MIN_MIN:
             hard(f"[VOICE-PRESENCE] {_tot} narrator markers over "
                  f"{_mins:.1f} min = {_pm:.2f}/min, below the floor of "
                  f"{BAR_VOICE_PER_MIN_MIN}. Measured: SAKURA REVIEW (the voice "

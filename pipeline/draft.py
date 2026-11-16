@@ -2112,9 +2112,26 @@ _LANG = {"English", "French", "Spanish", "German", "Japanese", "Chinese",
          "Russian", "Italian", "Korean", "Arabic", "Portuguese", "Thai"}
 
 
+# A skip can also be crossed by its CAUSE: "So the crew heads home to Los
+# Angeles.", "To find Shaw, Dom ...", "Because the tower is gone, ...",
+# "With God's Eye gone, ...". The owner's human reference links scenes this
+# way (51 cause words in 14 minutes against our 15), and accepting only
+# clock and place phrases is what produced 27 "Later / Meanwhile / By now"
+# openers in Furious 7. Anchored at the line's start, like the others.
+_OPEN_CAUSE = re.compile(
+    r"(?i)^(?:so\s+(?!far\b|much\b|many\b|that\b)\w+|to\s+(?:find|get|stop|"
+    r"save|catch|reach|keep|protect|win|beat|track|escape|pay|prove)\b|"
+    r"because\b|that'?s\s+why\b|which\s+is\s+why\b|now\s+that\b|"
+    r"with\s+[^,]{2,40}\s+(?:gone|dead|lost|stolen|destroyed|down|safe|"
+    r"back),)")
+
+
 def bridge_opener(text: str) -> bool:
-    """Does the line OPEN on a place or on the skipped event?"""
+    """Does the line OPEN on a place, on the skipped event, or on the cause
+    that carries the story across the skip?"""
     t = re.sub(r"^\s*[\"“]?", "", str(text or ""))
+    if _OPEN_CAUSE.match(t):
+        return True
     if _OPEN_FIXED.match(t) or _OPEN_AFTER.match(t):
         return not re.match(r"(?i)^after\s+all\b", t)
     m = _OPEN_PLACE_CAP.match(t)

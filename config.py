@@ -1104,7 +1104,8 @@ PACING_ANCHOR_MAX_COMPRESSION_RATIO = 0.70   # of the draft's own mean
 # STYLE QUOTA FLOORS - OFF by owner decision, 2026-11-16.
 # The floors below (and in pipeline/craft_gates.py) made the writer HIT
 # proportions measured on one human script: >=15% judgment lines, a narrator
-# aside every 2 minutes, an open loop at least every 12 lines, >=3% "punch"
+# aside every 2 minutes, >=1.2 narrator markers per minute, an open loop at
+# least every 12 lines, >=3% "punch"
 # sentences, a words-per-line SD of 9+, >=2% sentences of 30+ words, and every
 # anchor ending on a reaction. A draft written to clear them sounds like it -
 # 29 cliffhanger lines, 40 aphorisms ("the ledger turns out to have a heart"),

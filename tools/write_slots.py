@@ -49,7 +49,19 @@ ROLES = ("open", "intro", "action", "quote", "reaction", "bridge", "outro",
 # Bumped whenever derive_slots changes what it builds: a plan.json whose slots
 # carry an older version is re-derived (write_api.cmd_draft), so a fix here
 # reaches a project that already has a plan without re-buying the plan.
-SLOTS_VERSION = 13
+SLOTS_VERSION = 14
+
+
+def story_mode() -> bool:
+    """STORY MODE (default since 2026-11-16, owner decision): the plan no
+    longer builds lines to hit style proportions. With
+    config.STYLE_QUOTA_FLOORS False there is no length-band cycle, no
+    punch / sweep shapes, no planned loop or reaction slots, and no brief
+    that teaches reaction FORMS ("That's the ...", "Nobody + verb" - the
+    aphorisms the owner could not follow). A slot carries its footage's
+    word CAPACITY, and the writer tells the story in it. True restores
+    the old construction exactly."""
+    return not bool(getattr(config, "STYLE_QUOTA_FLOORS", False))
 # [INTRO-OUTRO] / [FILM-INTRO]: the greeting and the film's facts still
 # exist as slots - but AFTER the cold open (R0), never at 0:00.
 INTRO_WORDS = (12, 40)
@@ -96,7 +108,8 @@ REACTION_SHARE_MARGIN = 0.08
 #   A `long` slot alternates two shapes: PUNCH (a >= 20-word sentence, then
 #   one of <= 5 words - BAR_PUNCH_SHARE) and SWEEP (one sentence of >= 30
 #   words - BAR_LONG_SHARE, kept far under BAR_LONG_SHARE_MAX).
-BANDS = {"short": (3, 7), "medium": (11, 18), "long": (24, 38)}
+BANDS = {"short": (3, 7), "medium": (11, 18), "long": (24, 38),
+         "free": (3, 40)}     # story mode: capacity only, the writer picks
 BAND_CYCLE = ("medium", "short", "long", "medium", "short", "medium",
               "long", "medium", "short", "long", "medium", "medium")
 QUOTE_WORDS = (3, 16)            # a transcript line short enough to quote
@@ -311,6 +324,9 @@ def skip_note(s: dict) -> str:
 BRIDGE_RULE = (
     "- AFTER A SKIP: the viewer must not feel the film teleport. Open the "
     "line on what CHANGED across the skipped beats listed with the slot - "
+    "the CAUSE that carries the story on (\"So the crew heads home to Los "
+    "Angeles.\", \"To find Shaw, Dom ...\", \"Because the tower is gone, "
+    "...\"), "
     "a place (\"Back at the hangar,\", \"In Abu Dhabi,\"), the skipped "
     "event in a clause (\"After a chase through the city, ...\"), a "
     "parallel thread (\"Meanwhile,\"), or a time phrase ONLY when the "
@@ -422,6 +438,13 @@ def _roles(n: int, has_quote: bool) -> list:
         return []
     if n == 1:
         return ["bridge"]
+    if story_mode():
+        # no reaction is PLANNED: the writer may react anywhere it helps,
+        # and the gates' ceilings stop too much of it
+        if n == 2:
+            return ["action", "action"]
+        return ["action", "quote" if has_quote else "action"] + \
+            ["action"] * (n - 2)
     if n == 2:
         return ["action", "reaction"]
     mid = ["quote" if has_quote else "action"] + ["action"] * (n - 3)
@@ -638,7 +661,7 @@ def derive_slots(plan: dict, project: str, pdir: Path, ab: dict) -> dict:
     w = float(config.PERSONA_WINDOW_SEC)
     # the walk sees the outro too (the gate does), but never converts it
     walk = narrated + [x for x in slots if x["role"] == "outro"]
-    if narrated:
+    if narrated and not story_mode():
         t0 = _pt(narrated[0]["clip_start"]) if "clip_start" in narrated[0] \
             else narrated[0]["a"]
         t = t0
@@ -660,7 +683,7 @@ def derive_slots(plan: dict, project: str, pdir: Path, ab: dict) -> dict:
     want = int(-(-len(slots) * (float(config.PERSONA_JUDGMENT_SHARE_MIN)
                                 + REACTION_SHARE_MARGIN) // 1))
     have = sum(1 for x in narrated if x["role"] == "reaction")
-    if have < want:
+    if have < want and not story_mode():
         idx = [i for i, x in enumerate(narrated) if x["role"] == "bridge"
                and not x["anchor"] and not x["peak"]
                and not x.get("transition")]
@@ -683,6 +706,8 @@ def derive_slots(plan: dict, project: str, pdir: Path, ab: dict) -> dict:
         since += 1
         s["opens_loop"] = False
         nxt_new = i + 1 >= len(narrated) or narrated[i + 1]["beat"] != s["beat"]
+        if story_mode():
+            continue          # no loop is planned; the writer may open one
         if since >= gap or (since >= gap - 3 and nxt_new
                             and s["role"] in ("bridge", "action")):
             if s["role"] != "reaction" and not s["peak"]:
@@ -700,6 +725,25 @@ def derive_slots(plan: dict, project: str, pdir: Path, ab: dict) -> dict:
         if s["role"] == "open":
             n_open = sum(1 for x in narrated[:i] if x["role"] == "open")
             band = _open_bands[min(n_open, len(_open_bands) - 1)]
+        elif story_mode():
+            # capacity only: as many words as the footage holds, as few as
+            # the story needs. No cycle, no debt, no punch / sweep shape.
+            cap = budget_words(s["z"] - s["a"])
+            s["band"] = "free"
+            s["max_words"] = int(max(1, min(BANDS["free"][1], cap)))
+            s["min_words"] = int(min(BANDS["free"][0], s["max_words"]))
+            s["target"] = None
+            if s["role"] == "quote" and _wc(s.get("quote")) + 2 > \
+                    s["max_words"]:
+                s["role"] = "action"
+                s.pop("quote", None)
+            want = s["a"] + ratio * _secs(s["max_words"])
+            if want < s["z"] - 0.05:
+                s["z"] = round(max(want, s["a"] + MIN_WINDOW), 3)
+            if s["z"] - s["a"] < MIN_WINDOW:
+                problems.append(f"{s['beat']}: a {s['role']} slot has only "
+                                f"{s['z'] - s['a']:.1f}s of footage")
+            continue
         else:
             band = BAND_CYCLE[j % len(BAND_CYCLE)]
             j += 1
@@ -879,6 +923,18 @@ def _first_of_beat(narr: list, i: int):
 # --------------------------------------------------------------------------- #
 # what the writer is told
 # --------------------------------------------------------------------------- #
+ROLE_TEXT_STORY = {
+    "action": "tell what happens here - who does what, and why or with what "
+              "result; a short reaction of your own may follow when it "
+              "helps",
+    "quote": "the transcript line is the payoff: quote it VERBATIM inside "
+             "DOUBLE QUOTATION MARKS, attributed to its speaker",
+    "bridge": "carry the story across this beat in one plain line: what "
+              "changed, and why",
+    "outro": "the closing thought on the whole story, then the call to "
+             "action",
+}
+
 ROLE_TEXT = {
     "open": "the cold open - the film's own charged scene told in-media-res; "
             "sentence 1 a concrete situation or image (NO greeting, NO meta "
@@ -945,8 +1001,10 @@ def slots_text(slots: list) -> str:
                         f"{s['min_words']}-{s['max_words']} words, aim "
                         f"{s['target']}")
             continue
-        band = (f"{s['band']} {s['min_words']}-{s['max_words']} words, aim "
-                f"{s['target']}"
+        band = ((f"up to {s['max_words']} words (what the footage holds)"
+                 if s.get("band") == "free" else
+                 f"{s['band']} {s['min_words']}-{s['max_words']} words, aim "
+                 f"{s['target']}")
                 + (" (one sentence of 20+ words, then one of <= 5)"
                    if s.get("shape") == "punch" else
                    " (one sentence of 30+ words)" if s.get("shape") == "sweep"
@@ -966,9 +1024,94 @@ def slots_text(slots: list) -> str:
     return "\n".join(rows)
 
 
+STORY_RULES = """\
+# HOW TO TELL IT (story mode - the owner's rules, from a human recap that
+# viewers follow on ONE hearing)
+1. Every line says WHO does WHAT, and WHY or WITH WHAT RESULT - for someone
+   who has never seen the film. Name the person; use "he" / "she" only when
+   nobody else in the scene could be meant.
+2. Connect events by cause: "so", "because", "but", "to (do X)", "it turns
+   out". Do not string scenes together with "Later", "Meanwhile", "By now".
+3. When something important CHANGES HANDS - an object, an alliance, a
+   secret, who is winning - say it in one plain sentence ("Jakande's men
+   take the laptop with God's Eye on it.").
+4. Tell the WHOLE story: every event the plot needs, in order. In an action
+   scene, say what CHANGES the story (who is hurt, who holds what, who
+   escapes); pure spectacle can play without words.
+5. Paraphrase dialogue. Quote only a line that is itself the payoff.
+6. A reaction of your own is welcome WHEN it helps - the kind of thing a
+   friend watching with you would say: concrete, often funny, understood on
+   one hearing ("That is not how casts work. But it is how Hobbs works.").
+   No more than about one line in five. NO aphorisms or riddles: nothing
+   the listener has to decode ("the ledger turns out to have a heart",
+   "That's the real heist"). No "That's the ..." / "Here's the ..." lines.
+7. Write names that cannot be heard as ordinary words in full ("Mr.
+   Nobody", never a bare "Nobody").
+
+BAD -> GOOD (from our own past drafts):
+- "Mr. Nobody, who took a bullet meant for all of them, still holds the
+  leash on God's Eye."  (wrong, and a riddle)
+  -> "In the chaos, Jakande's men take the laptop with God's Eye on it."
+- "By then, Hobbs walks in."  (the climax happened off the page)
+  -> "Dom drives his Charger up the crumbling garage, launches it at the
+  helicopter, and throws a bag of grenades inside in mid-air."
+- "The cost of the film, said by the one who forgot, is what stings."
+  -> "For two movies she couldn't remember marrying him. The memory comes
+  back at the exact moment she's about to lose him."
+"""
+
+
+def _story_brief(pdir: Path, plan: dict, k: int) -> str:
+    """The writer brief in story mode: the mechanics the code needs (one
+    line per slot, labels, claims) plus STORY_RULES. Nothing here asks for
+    a proportion of asides, loops or sentence shapes."""
+    from pipeline import angle_spec
+    from pipeline import craft_gates as CG
+    from pipeline import pacing_gates as PG
+    try:
+        per = angle_spec.load(Path(pdir)).get("persona") or {}
+    except Exception:
+        per = {}
+    budget = next((a.get("word_budget") for a in plan.get("acts") or []
+                   if str(a.get("act")) == str(k)), None)
+    jargon = PG._JARGON.pattern.replace("\\b", "").replace("(?:", "(")
+    never = "\n".join(f"  - {m}" for m in (per.get("never") or [])[:6])
+    return "\n".join([
+        "# WRITER BRIEF",
+        f"- Word budget for this act: about {budget} words. Each slot says "
+        f"how many words its footage holds; use fewer when the story needs "
+        f"fewer.",
+        "- ONE reply line per slot, in slot order, with `slot` set to its "
+        "id. Do not add, drop, merge or reorder slots. You write the words, "
+        "`delivery`, `payload` and an optional `claim`; code sets the id, "
+        "the beat (`note`), the clip window and the holds.",
+        "- Roles: " + "; ".join(f"{r.upper()} = {t}" for r, t in
+                                ROLE_TEXT_STORY.items()),
+        f"- `payload` is one of {', '.join(CG.PAYLOAD_KINDS)} - label each "
+        f"line honestly: `judgment` for your own reaction, `loop` for a "
+        f"promise of what comes next, otherwise stake / reasoning / rest.",
+        f"- Never editing/camera jargon ({jargon}).",
+        f"- `delivery` is one of {', '.join(sorted(config.TTS_DELIVERY))}; "
+        f"no `hook` - the hook and the title are already written "
+        f"(title: {plan.get('title')!r}).",
+        "- A line whose evidence is speech carries "
+        '"claim": {"type": "speech", "subject": "<the speaker>"}.',
+        _open_brief(plan, k),
+        _intro_brief(pdir, plan, k),
+        BRIDGE_RULE,
+        "- delivery `sad` only on slots marked SAD-OK (real loss or grief).",
+        STORY_RULES,
+        "- NARRATOR (angle.md):" + (f" {per.get('stance')}" if
+                                     per.get("stance") else " plain, warm"),
+        "- The narrator never:", never or "  - (none listed)",
+    ])
+
+
 def writer_brief(pdir: Path, plan: dict, k: int) -> str:
     """The rules a writer must meet, generated from the constants the gates
     read - so the brief and the gates cannot say different things."""
+    if story_mode():
+        return _story_brief(pdir, plan, k)
     from pipeline import angle_spec
     from pipeline import craft_gates as CG
     from pipeline import pacing_gates as PG
@@ -1151,7 +1294,9 @@ def line_deviations(ln: dict, s: dict) -> list:
     text = str(ln.get("narration") or "")
     heard, why = PG.classify_judgment(text)
     mk = markers(text, skip_quotes=True)
-    if s["role"] == "reaction" and not heard:
+    if story_mode():
+        heard = False      # no planned reaction; the ceilings cap asides
+    if s["role"] == "reaction" and not heard and not story_mode():
         out.append(f"{s['slot']} ({s['beat']} REACTION): not heard as the "
                    f"narrator - use one of the moves the brief lists for "
                    f"a {str(s.get('voice') or 'voice').upper()} reaction")
@@ -1161,6 +1306,7 @@ def line_deviations(ln: dict, s: dict) -> list:
         out.append(f"{s['slot']} (EVAL): uses I / you / a question / a "
                    f"stance adverb ({mk}) - a verdict without them")
     if s["role"] in ("open", "action", "bridge") and mk \
+            and not (story_mode() and s["role"] != "open") \
             and not (s["role"] == "open" and s.get("open_hook")):
         # the open_hook slot's trailing question is the HOOK itself, not
         # a narrator marker - R3 requires it, the marker budget cannot
@@ -1376,7 +1522,8 @@ def code_labels(new: dict, s: dict) -> dict:
         new["payload"] = "judgment"
     elif s.get("opens_loop"):
         new["payload"] = "loop"
-    elif s["role"] in ("action", "quote") and new.get("payload") == "judgment":
+    elif s["role"] in ("action", "quote") and new.get("payload") == "judgment" \
+            and not story_mode():
         new["payload"] = "stake"
     return new
 
