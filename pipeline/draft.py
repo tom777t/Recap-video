@@ -90,6 +90,11 @@ def conservation_problems(project: str, draft: dict) -> list:
     for ln in draft.get("lines") or []:
         if ln.get("slot"):
             have.setdefault(str(ln["slot"]), []).append(ln.get("id"))
+        # a JOINED line (write_slots.apply_join) carries the slots after its
+        # own: they are said, inside it - conserved, not lost
+        for p in (ln.get("parts") or [])[1:]:
+            if isinstance(p, dict) and p.get("slot"):
+                have.setdefault(str(p["slot"]), []).append(ln.get("id"))
     miss = [k for k in want if k not in have]
     if miss:
         beats = sorted({want[k].get("beat") for k in miss},

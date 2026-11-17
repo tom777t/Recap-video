@@ -925,6 +925,10 @@ def line_properties() -> dict:
         "payload": {"type": "string", "enum": list(CG.PAYLOAD_KINDS)},
         "narrative_jump": b, "bridge": b, "film_intro": b,
         "window_adjusted": b, "callback_beat": s, "hook_question": s,
+        # joined slots (write_slots.apply_join): this line runs across
+        # these 2-3 adjacent slots, a '|' in the narration where each next
+        # slot's footage begins
+        "join": {"type": "array", "items": s},
         "claim": {"type": "object", "properties": {
             "type": {"type": "string", "enum": sorted(S._CLAIM_TYPES)},
             "subject": s, "requires_visual": b},
@@ -941,7 +945,7 @@ ACT_LINE_REQUIRED = ("id", "narration", "note", "delivery", "payload")
 # a slot-based act: code owns id, note (the beat), the window and the holds
 SLOT_LINE_FIELDS = ("slot", "narration", "delivery", "payload",
                     "narrative_jump", "bridge", "film_intro", "callback_beat",
-                    "claim")
+                    "claim", "join")
 SLOT_LINE_REQUIRED = ("slot", "narration", "delivery", "payload")
 
 

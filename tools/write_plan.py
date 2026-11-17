@@ -588,6 +588,12 @@ def check_plan_counts(lines: list, plan: dict, beats: list) -> list:
     got: dict = {}
     for ln in lines:
         if isinstance(ln, dict) and str(ln.get("narration") or "").strip():
+            ps = ln.get("parts") or []
+            if len(ps) > 1:
+                # a joined line is one planned line per slot it runs over
+                for p_ in ps:
+                    got[p_.get("beat")] = got.get(p_.get("beat"), 0) + 1
+                continue
             got[_beat_of(ln)] = got.get(_beat_of(ln), 0) + 1
     by = {b["beat"]: int(b.get("lines") or 0) for b in plan.get("beats") or []}
     out = []

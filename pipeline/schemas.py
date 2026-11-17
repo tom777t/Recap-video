@@ -331,8 +331,22 @@ class Line:
     # is not a reason; using someone's original audio is a copyright exposure
     # and the device stops working if it is everywhere.
     film_speaks_reason: Optional[str] = None
+    # --- JOINED SLOTS (tools/write_slots.apply_join, owner 17 Nov): one
+    # sentence across 2-3 adjacent slots. `join` = their slot ids; `parts` =
+    # one entry per piece {slot, beat, clip_start, clip_end, text, min_words,
+    # max_words[, quote, must_keys, must_say]}. The voice stage times each
+    # piece in the audio and the render switches the picture there. Typed
+    # here so a gate reading Line objects sees it (the film_speaks lesson).
+    join: Optional[list] = None
+    parts: Optional[list] = None
 
     def __post_init__(self):
+        if self.parts is not None and (
+                not isinstance(self.parts, list) or len(self.parts) < 2
+                or not all(isinstance(p, dict) and p.get("clip_start")
+                           and p.get("clip_end") for p in self.parts)):
+            raise SchemaError(f"line {self.id}: parts must be a list of 2+ "
+                              f"pieces, each with clip_start and clip_end")
         if isinstance(self.claim, dict):
             self.claim = Claim(**_drop_unknown(Claim, self.claim))
         if self.covers and not isinstance(self.covers, list):

@@ -49,7 +49,7 @@ ROLES = ("open", "intro", "action", "quote", "reaction", "bridge", "outro",
 # Bumped whenever derive_slots changes what it builds: a plan.json whose slots
 # carry an older version is re-derived (write_api.cmd_draft), so a fix here
 # reaches a project that already has a plan without re-buying the plan.
-SLOTS_VERSION = 15
+SLOTS_VERSION = 16
 
 
 def story_mode() -> bool:
@@ -1091,6 +1091,14 @@ STORY_RULES = """\
    instead of a separate comment; at a reveal, put the surprise last.
    These are tools, not a template - three lines opening the same way
    sound like a machine.
+13. One sentence may run across 2-3 slots IN A ROW when they tell one
+   chain of actions. Reply with ONE line: "slot" = the first slot, "join" =
+   the 2-3 slot ids in order, and a '|' in the narration where each next
+   slot's footage begins ("So they turn her into the ball in a game of
+   keep-away, | passing her from car to car while Dom goes after Shaw.").
+   Each piece stays within its own slot's words and tells what that
+   slot's footage shows. Never join across a HOLD, a skip, the open, the
+   intro or the outro.
 
 BAD -> GOOD (from our own past drafts):
 - "Mr. Nobody, who took a bullet meant for all of them, still holds the
@@ -1326,7 +1334,22 @@ def line_deviations(ln: dict, s: dict) -> list:
     if s.get("role") in ("hold", "film_speaks") or s.get("min_words") is None:
         return out                 # code writes these; nothing to deviate from
     n = _wc(ln.get("narration"))
-    if not s["min_words"] - TOL <= n <= s["max_words"] + (
+    parts = ln.get("parts") if len(ln.get("parts") or []) > 1 else None
+    if parts:
+        if parts_intact(ln):
+            for p_ in parts:
+                pn, mx = _wc(p_.get("text")), int(p_.get("max_words") or 0)
+                if mx and pn > mx + TOL:
+                    out.append(f"{p_['slot']} ({p_['beat']} joined): {pn} "
+                               f"words, the slot is {p_.get('min_words')}-"
+                               f"{mx} (its footage holds no more)")
+        else:
+            cap = sum(int(p_.get("max_words") or 0) for p_ in parts)
+            if cap and n > cap + TOL:
+                out.append(f"{s['slot']} ({s['beat']} joined over "
+                           f"{len(parts)} slots): {n} words, the slots hold "
+                           f"{cap}")
+    elif not s["min_words"] - TOL <= n <= s["max_words"] + (
             TOL if s["max_words"] == _band_top(s) else 0):
         out.append(f"{s['slot']} ({s['beat']} {s['role']}): {n} words, "
                    f"the slot is {s['min_words']}-{s['max_words']}"
@@ -1422,7 +1445,12 @@ def line_deviations(ln: dict, s: dict) -> list:
     # a story point must be HEARD as that event: the line names at least
     # one of its people (or the object) - "the enemy of my enemy" with no
     # name is not "Shaw teams up with Jakande"
-    for keys in s.get("must_keys") or []:
+    for p_ in (parts or [])[1:]:
+        if p_.get("quote") and _norm(p_["quote"]) not in _norm(text):
+            out.append(f"{p_['slot']}: the quote \"{p_['quote']}\" is not "
+                       f"in the line verbatim")
+    for keys in list(s.get("must_keys") or []) + [
+            k_ for p_ in (parts or [])[1:] for k_ in p_.get("must_keys") or []]:
         low = text.lower()
         if not any(re.search(r"\b" + re.escape(k_.lower()) + r"\b", low)
                    for k_ in keys):
@@ -1486,6 +1514,8 @@ def merge_revision(prev: list, reply: list, slots: list, k: int,
     The first real film lost ~60 beats of act 2 when a whole-act rewrite,
     sent back for two draft-wide findings, replaced the act wholesale."""
     mine = [x for x in slots if x["act"] == k and x["role"] != "film_speaks"]
+    carried = joined_slots(prev)
+    act_all = [x for x in slots if x["act"] == k]
     by_prev = {str(l.get("slot") or ""): l for l in prev if l.get("slot")}
     by_new = {str(l.get("slot") or ""): l for l in reply if l.get("slot")}
     fresh = {str(l.get("slot")): l for l in merge(reply, slots, k)
@@ -1496,6 +1526,8 @@ def merge_revision(prev: list, reply: list, slots: list, k: int,
     notes, restored = [], []
     for s in mine:
         sid = s["slot"]
+        if sid in carried:
+            continue                 # the joined line before it carries it
         l = by_prev.get(sid)
         if l is None:
             if sid in fresh:
@@ -1516,7 +1548,26 @@ def merge_revision(prev: list, reply: list, slots: list, k: int,
         if sid not in by_new or s["role"] == "hold":
             out.append(l)
             continue
-        cand = {f: v for f, v in by_new[sid].items() if f in fields}
+        rep = by_new[sid]
+        if l.get("parts") or rep.get("join"):
+            # v1: a revision keeps the join structure as it is - same
+            # slots, a '|' per piece. Changing it would move lines between
+            # slots, which a slot-by-slot merge cannot conserve.
+            want_j = [p_["slot"] for p_ in l.get("parts") or []]
+            got_j = [str(x) for x in rep.get("join") or []]
+            if want_j != got_j:
+                notes.append(f"{sid}: rewrite not taken - it would change "
+                             f"the join ({want_j or 'none'} -> "
+                             f"{got_j or 'none'})")
+                out.append(l)
+                continue
+            rep2, jp = apply_join(rep, act_all)
+            if jp:
+                notes.append(f"{sid}: rewrite not taken - {jp[0]}")
+                out.append(l)
+                continue
+            rep = rep2
+        cand = {f: v for f, v in rep.items() if f in fields + ("parts",)}
         cand = code_labels(dict(l, **cand), s)
         broke = new_deviations(l, cand, s) + unfixed_deviations(l, cand, s)
         if broke:
@@ -1592,6 +1643,16 @@ def check_slots(lines: list, slots: list, pdir: Path | None = None) -> list:
     want = [s for s in slots if s["role"] not in ("hold", "film_speaks")]
     by = {}
     out = []
+    joined = []
+    for ln in lines:
+        if isinstance(ln, dict) and ln.get("join"):
+            ln2, jp = apply_join(ln, slots)
+            out += jp
+            joined.append(ln2)
+        else:
+            joined.append(ln)
+    lines = joined
+    consumed = joined_slots(lines)
     for ln in lines:
         sid = str(ln.get("slot") or "")
         if not sid and (ln.get("film_intro") or ln.get("over_montage")
@@ -1606,7 +1667,13 @@ def check_slots(lines: list, slots: list, pdir: Path | None = None) -> list:
     if extra:
         out.append(f"line(s) for no slot of yours: {extra[:8]} - one line per "
                    f"slot, `slot` set to its id")
+    twice = [x for x in consumed if x in by]
+    if twice:
+        out.append(f"slot(s) {sorted(twice)[:6]} said twice: inside a joined "
+                   f"line and on their own")
     for s in want:
+        if s["slot"] in consumed:
+            continue                 # carried by the joined line before it
         ln = by.get(s["slot"])
         if ln is None:
             out.append(f"{s['slot']} ({s['beat']} {s['role']}): no line")
@@ -1615,8 +1682,9 @@ def check_slots(lines: list, slots: list, pdir: Path | None = None) -> list:
     # sequence rules read the labels as they will be SAVED (code_labels),
     # not as the writer sent them
     out += _act_problems([code_labels(by[s["slot"]], s) for s in want
-                          if s["slot"] in by],
-                         [s for s in want if s["slot"] in by], pdir)
+                          if s["slot"] in by and s["slot"] not in consumed],
+                         [s for s in want if s["slot"] in by
+                          and s["slot"] not in consumed], pdir)
     intro = [by.get(s["slot"]) for s in want if s["role"] == "intro"]
     if intro and pdir is not None:
         out += _intro_problems(" ".join(str((x or {}).get("narration") or "")
@@ -1734,10 +1802,104 @@ def _intro_problems(blob: str, pdir: Path) -> list:
     return out
 
 
+# --------------------------------------------------------------------------- #
+# JOINED SLOTS (owner, 17 Nov): one sentence may run across 2-3 adjacent
+# slots - "So they turn Ramsey into the ball in a game of keep-away, |
+# passing her from car to car ..." - with a '|' where each next slot's
+# footage begins. The saved line keeps `parts` (each piece, its slot, window
+# and caps), so every later check reads the caps per piece, and the voice
+# stage and render can switch the picture when the voice reaches each piece.
+# --------------------------------------------------------------------------- #
+JOIN_MAX = 3
+JOIN_GAP = 0.6           # seconds: joined footage must be continuous
+NO_JOIN = ("hold", "film_speaks", "open", "intro", "outro")
+
+
+def apply_join(ln: dict, act_slots: list) -> tuple:
+    """(line, problems). A reply line with `join` becomes ONE line over its
+    slots: narration without the '|', the window of all of them, `parts`.
+    A join that is not allowed comes back as a plain line on its own slot
+    (the '|' removed) with the reason - one fix round, like any deviation."""
+    j = ln.get("join")
+    if not j:
+        return ln, []
+    sid = str(ln.get("slot") or "")
+    narr = str(ln.get("narration") or "")
+    chunks = [c.strip() for c in narr.split("|")]
+    jl = [str(x) for x in j] if isinstance(j, list) else []
+
+    def bad(why):
+        clean = {f: v for f, v in ln.items() if f not in ("join", "parts")}
+        clean["narration"] = " ".join(c for c in chunks if c)
+        return clean, [f"{sid}: join {jl} not allowed - {why}"]
+    order = [x for x in act_slots]
+    idx = {x["slot"]: i for i, x in enumerate(order)}
+    if not 2 <= len(jl) <= JOIN_MAX or len(set(jl)) != len(jl):
+        return bad(f"join 2-{JOIN_MAX} different slots")
+    if jl[0] != sid:
+        return bad("the join starts at the line's own slot")
+    if any(x not in idx for x in jl):
+        return bad("a slot that is not in this act")
+    ii = [idx[x] for x in jl]
+    if ii != list(range(ii[0], ii[0] + len(jl))):
+        return bad("the slots are not next to each other (a hold or another "
+                   "slot sits between them)")
+    ss = [order[i] for i in ii]
+    if any(x["role"] in NO_JOIN for x in ss):
+        return bad("open, intro, outro, hold and film-speaks slots are "
+                   "never joined")
+    if any(x.get("after_skip") or x.get("transition") for x in ss[1:]):
+        return bad(f"{next(x['slot'] for x in ss[1:] if x.get('after_skip') or x.get('transition'))} "
+                   f"starts after a skip - the story jumps there, so it "
+                   f"keeps its own line")
+    for a_, b_ in zip(ss, ss[1:]):
+        if abs(_pt(b_["clip_start"]) - _pt(a_["clip_end"])) > JOIN_GAP:
+            return bad(f"{a_['slot']} and {b_['slot']} are not continuous "
+                       f"footage")
+    if len(chunks) != len(jl) or not all(chunks):
+        return bad(f"put exactly {len(jl) - 1} '|' in the narration, where "
+                   f"each next slot's footage begins")
+    parts = []
+    for x, c in zip(ss, chunks):
+        p_ = {"slot": x["slot"], "beat": x["beat"],
+              "clip_start": x["clip_start"], "clip_end": x["clip_end"],
+              "text": c, "min_words": x.get("min_words"),
+              "max_words": x.get("max_words")}
+        if x.get("quote"):
+            p_["quote"] = x["quote"]
+        if x.get("must_keys"):
+            p_["must_keys"], p_["must_say"] = x["must_keys"], x.get("must_say")
+        parts.append(p_)
+    out = {f: v for f, v in ln.items() if f != "join"}
+    out.update(narration=" ".join(chunks), parts=parts,
+               clip_start=ss[0]["clip_start"], clip_end=ss[-1]["clip_end"])
+    return out, []
+
+
+def joined_slots(lines: list) -> set:
+    """The slots a joined line carries beyond its own (they have no line of
+    their own, and that is conserved, not lost)."""
+    return {str(p.get("slot")) for ln in lines if isinstance(ln, dict)
+            for p in (ln.get("parts") or [])[1:] if p.get("slot")}
+
+
+def parts_intact(ln: dict) -> bool:
+    """True while the narration is still exactly its pieces (a later rewrite
+    without '|' leaves the parts stale: the render then splits evenly)."""
+    ps = ln.get("parts") or []
+    return len(ps) > 1 and _norm(" ".join(str(p.get("text") or "")
+                                          for p in ps)) == _norm(
+        ln.get("narration"))
+
+
 def merge(lines: list, slots: list, k: int) -> list:
     """The act file's lines: each reply line on its slot's beat and window,
     the holds written by code. Film-intro lines (no slot) keep their place
     at the front."""
+    act = [x for x in slots if x["act"] == k]
+    lines = [apply_join(ln, act)[0] if isinstance(ln, dict) else ln
+             for ln in lines]
+    consumed = joined_slots(lines)
     by = {str(ln.get("slot") or ""): ln for ln in lines}
     has_intro = any(s["role"] == "intro" and s["act"] == k for s in slots)
     # a writer's own unslotted intro lines are dropped when the act has
@@ -1766,12 +1928,17 @@ def merge(lines: list, slots: list, k: int) -> list:
                             payload="rest",
                             narration_silence_seconds=s["hold"]))
             continue
+        if s["slot"] in consumed:
+            continue               # said inside the joined line before it
         ln = by.get(s["slot"])
         if ln is None:
             continue
         new = {f: v for f, v in ln.items()
                if f not in ("id", "note", "clip_start", "clip_end", "slot",
                             "film_intro", "over_montage")}
+        if ln.get("parts"):
+            base = dict(base, clip_start=ln["clip_start"],
+                        clip_end=ln["clip_end"])
         out.append(dict(base, **code_labels(new, s)))
     for j, ln in enumerate(out):
         if ln.get("film_intro"):
