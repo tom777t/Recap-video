@@ -191,10 +191,47 @@ def create_message(client, **params):
     the same final message, so every synchronous call in the pipeline goes
     through here. Clients without .stream (the test fakes) use .create."""
     msgs = client.messages
-    if hasattr(msgs, "stream"):
-        with msgs.stream(**params) as st:
-            return st.get_final_message()
-    return msgs.create(**params)
+    if not hasattr(msgs, "stream"):
+        return msgs.create(**params)
+    # A stream cut MID-REPLY ("peer closed connection without sending complete
+    # message body", furious72015 plan, 17 Nov) is not covered by the SDK's
+    # max_retries, which only retries a request that failed to start. It is
+    # a network drop, not a fault in the request, so the call is made again
+    # - at most STREAM_RETRIES more times, with a pause. Anything else
+    # (a 4xx, a refused request) is raised at once.
+    for attempt in range(STREAM_RETRIES + 1):
+        try:
+            with msgs.stream(**params) as st:
+                return st.get_final_message()
+        except Exception as e:
+            if attempt >= STREAM_RETRIES or not is_dropped_stream(e):
+                raise
+            wait = 5 * (attempt + 1)
+            print(f"  the connection dropped mid-reply ({type(e).__name__}); "
+                  f"retrying in {wait}s ({attempt + 1}/{STREAM_RETRIES})",
+                  file=sys.stderr)
+            time.sleep(wait)
+
+
+STREAM_RETRIES = 2
+_DROPPED = ("RemoteProtocolError", "ReadError", "ReadTimeout",
+            "APIConnectionError", "APITimeoutError", "RemoteDisconnected",
+            "ConnectionResetError", "ConnectionAbortedError",
+            "IncompleteRead", "ChunkedEncodingError")
+
+
+def is_dropped_stream(e: BaseException) -> bool:
+    """True for a network drop (anywhere in the exception chain), never for
+    an HTTP status error."""
+    seen = 0
+    while e is not None and seen < 8:
+        if type(e).__name__ in _DROPPED:
+            return True
+        if getattr(e, "status_code", None):
+            return False
+        e = e.__cause__ or e.__context__
+        seen += 1
+    return False
 
 
 def _get(o, name, default=None):

@@ -9,6 +9,11 @@
                      moved into the trial folder, not left behind
   COST-RECORDED      cost.json sums exactly the ledger rows the trial added,
                      per stage
+  CRASH-KEEPS-ANGLE  the connection drops in the plan stage (17 Nov): the
+                     angle already paid for is in the trial folder, the
+                     project is restored, and the message names --resume
+  RESUME-REUSES      --resume with that folder makes NO angle call; the plan
+                     and the acts are written
 
 Run:  python tools/test_trial_act.py      (exit 0 = all pass)
 """
@@ -123,9 +128,103 @@ def t_cost_recorded():
                 f"{sorted(st)}" if ok else f"{cs}; {r['out'][-200:]}")
 
 
+def _staged(drop_in_plan: bool, resume=None, calls=None):
+    """trial_act with the angle / plan stages replaced: the angle writes a
+    marked angle.md and one ledger row; the plan raises a dropped-connection
+    error, or writes the good plan."""
+    import tag_batch as TB
+    import write_api as W
+    plan = TWP._plan("good")
+    plan.pop("slots", None)
+    calls = calls if calls is not None else []
+
+    def fake_angle(ns, client):
+        calls.append("angle")
+        (PDIR / "angle.md").write_text(
+            (PDIR / "angle.md").read_text(encoding="utf-8")
+            + "\n<!-- NEW ANGLE -->\n", encoding="utf-8")
+        TB.ledger_append(PDIR, "angle", "claude-sonnet-5-5",
+                         {"in": 22000, "out": 4400, "cw": 0, "cr": 0,
+                          "cw1h": 0}, batch=False)
+        return 0
+
+    class RemoteProtocolError(Exception):
+        pass
+
+    def fake_plan(ns, client):
+        calls.append("plan")
+        if drop_in_plan:
+            raise RemoteProtocolError("peer closed connection without "
+                                      "sending complete message body")
+        (PDIR / "plan.json").write_text(json.dumps(plan, indent=1),
+                                        encoding="utf-8")
+        return 0
+
+    k = 2
+
+    def reply(cid, params):
+        cur = json.loads((PDIR / "plan.json").read_text(encoding="utf-8"))
+        mine = WS.slots_for_act(cur["slots"], k)
+        return TWA.msg({"act": k, "lines": [
+            TSM._fill(x, i) for i, x in enumerate(mine)
+            if x["role"] not in ("hold", "film_speaks")]})
+    sa, sp = W.cmd_angle, W.cmd_plan
+    W.cmd_angle, W.cmd_plan = fake_angle, fake_plan
+    buf = io.StringIO()
+    try:
+        argv = ["--project", PROJ, "--act", str(k), "--poll", "0"]
+        if resume:
+            argv += ["--resume", str(resume)]
+        with contextlib.redirect_stdout(buf):
+            rc = T.main(argv, client=TWA.Client(batch=reply))
+    finally:
+        W.cmd_angle, W.cmd_plan = sa, sp
+    return rc, buf.getvalue(), calls
+
+
+def t_crash_keeps_angle():
+    _go()
+    snap = {n: (PDIR / n).read_bytes() for n in ("plan.json", "angle.md")}
+    rc, out, _c = _staged(drop_in_plan=True)
+    td = sorted((PDIR / "trial").glob("act2-*"), key=lambda p: p.stat().st_mtime)[-1]
+    _R["crash_dir"] = td
+    bad = []
+    if rc == 0:
+        bad.append("rc 0 on a crash")
+    if "<!-- NEW ANGLE -->" not in (td / "angle.md").read_text(encoding="utf-8") \
+            if (td / "angle.md").exists() else True:
+        bad.append("the paid-for angle is not in the trial folder")
+    if any((PDIR / n).read_bytes() != b for n, b in snap.items()):
+        bad.append("the project was not restored")
+    if "--resume" not in out:
+        bad.append("the message does not say how to continue")
+    cs = json.loads((td / "cost.json").read_text(encoding="utf-8"))
+    if "angle" not in cs["by_stage"]:
+        bad.append("the angle's cost is not in cost.json")
+    return not bad, ("dropped in plan: angle kept, project restored, "
+                     "'--resume' named, angle cost recorded" if not bad
+                     else "; ".join(bad))
+
+
+def t_resume_reuses():
+    if "crash_dir" not in _R:
+        t_crash_keeps_angle()
+    calls: list = []
+    rc, out, calls = _staged(drop_in_plan=False, resume=_R["crash_dir"],
+                             calls=calls)
+    td = sorted((PDIR / "trial").glob("act2-*"), key=lambda p: p.stat().st_mtime)[-1]
+    ok = (rc == 0 and calls == ["plan"] and (td / "act2.json").exists()
+          and "<!-- NEW ANGLE -->" in (td / "angle.md").read_text(
+              encoding="utf-8") and "reusing" in out)
+    return ok, ("--resume: no angle call, plan + act written on the kept "
+                "angle" if ok else f"rc {rc}, calls {calls}: {out[-300:]}")
+
+
 TESTS = [("WRITES-THE-ACT", t_writes_the_act),
          ("PROJECT-RESTORED", t_project_restored),
-         ("COST-RECORDED", t_cost_recorded)]
+         ("COST-RECORDED", t_cost_recorded),
+         ("CRASH-KEEPS-ANGLE", t_crash_keeps_angle),
+         ("RESUME-REUSES", t_resume_reuses)]
 
 if __name__ == "__main__":
     fails = 0

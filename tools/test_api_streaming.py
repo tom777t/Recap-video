@@ -7,6 +7,10 @@
   HELPER-STREAMS      tag_batch.create_message with the same params returns
                       the final message (text, stop_reason, usage) through a
                       stream, offline (mock HTTP transport, no key, no network)
+  DROP-RETRIED        a stream cut MID-REPLY ("peer closed connection without
+                      sending complete message body" - furious72015 plan,
+                      17 Nov) is made again and returns the full reply; a
+                      400 is raised at once, never retried
   NO-DIRECT-CREATE    no pipeline/tools module calls client.messages.create(...)
                       directly any more; batches are unaffected
 
@@ -83,6 +87,59 @@ def test_helper():
     return ok, f"streamed reply '{m.content[0].text}', stop {m.stop_reason}, usage {u}"
 
 
+def test_drop_retried():
+    import anthropic
+    import tag_batch as TB
+    httpx = _httpx()
+    body = _sse()
+    n = {"req": 0}
+
+    class Cut(httpx.SyncByteStream):
+        def __iter__(self):
+            yield body[: len(body) // 3]
+            raise httpx.RemoteProtocolError(
+                "peer closed connection without sending complete message "
+                "body (incomplete chunked read)")
+
+    def handler(req):
+        n["req"] += 1
+        if n["req"] == 1:
+            return httpx.Response(200, headers={
+                "content-type": "text/event-stream"}, stream=Cut())
+        return httpx.Response(200, headers={
+            "content-type": "text/event-stream"}, content=body)
+    c = anthropic.Anthropic(api_key="test", max_retries=0,
+                            http_client=httpx.Client(
+                                transport=httpx.MockTransport(handler)))
+    sleep, TB.time.sleep = TB.time.sleep, (lambda s: None)
+    try:
+        m = TB.create_message(c, **PARAMS)
+        first = n["req"]
+        n["req"] = 0
+        bad = anthropic.Anthropic(api_key="test", max_retries=0,
+                                  http_client=httpx.Client(
+                                      transport=httpx.MockTransport(
+                                          lambda r: (n.__setitem__(
+                                              "req", n["req"] + 1),
+                                              httpx.Response(400, json={
+                                                  "type": "error", "error": {
+                                                      "type": "invalid_request_error",
+                                                      "message": "bad"}}))[1])))
+        raised = False
+        try:
+            TB.create_message(bad, **PARAMS)
+        except anthropic.BadRequestError:
+            raised = True
+    finally:
+        TB.time.sleep = sleep
+    ok = (m.content[0].text == '{"ok": 1}' and first == 2 and raised
+          and n["req"] == 1)
+    return ok, (f"cut mid-reply -> retried, full reply after {first} "
+                f"request(s); a 400 raised after {n['req']} request"
+                if ok else f"text {m.content[0].text!r}, first {first}, "
+                f"400 raised {raised} after {n['req']}")
+
+
 def test_no_direct():
     bad = []
     for f in list((ROOT / "tools").glob("*.py")) + list((ROOT / "pipeline").glob("*.py")) \
@@ -98,6 +155,7 @@ def test_no_direct():
 
 
 TESTS = {"NON-STREAM-REFUSED": test_refused, "HELPER-STREAMS": test_helper,
+         "DROP-RETRIED": test_drop_retried,
          "NO-DIRECT-CREATE": test_no_direct}
 
 if __name__ == "__main__":

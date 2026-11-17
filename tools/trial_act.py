@@ -12,6 +12,14 @@ too: more money, and a damaged draft.
     python tools/trial_act.py --project furious72015 --act 3 --keep-plan
         (--keep-plan: reuse the project's angle.md and plan.json; only the
          act is written)
+    python tools/trial_act.py --project furious72015 --act 3 4 \
+        --resume projects/furious72015/trial/act34-20261117-120501
+        (--resume: an earlier trial stopped part-way; its angle - and its
+         plan, if it got that far - are reused, not paid for again)
+
+Each stage's output is copied into the trial folder THE MOMENT it is
+written, so a crash later (a dropped connection, 17 Nov) never loses what
+was already paid for.
 
 What it does, with the SAME code the pipeline runs:
   1. backs up angle.md, coverage_policy.json, plan.json (+ plan_rejected*),
@@ -124,6 +132,7 @@ def main(argv=None, client=None) -> int:
     ap.add_argument("--project", required=True)
     ap.add_argument("--act", type=int, nargs="+", required=True)
     ap.add_argument("--keep-plan", action="store_true")
+    ap.add_argument("--resume", help="an earlier trial folder to continue")
     ap.add_argument("--poll", type=float, default=20.0)
     a = ap.parse_args(argv)
 
@@ -138,6 +147,10 @@ def main(argv=None, client=None) -> int:
     stamp = datetime.now().strftime("%Y%m%d-%H%M%S")
     acts = list(dict.fromkeys(a.act))
     tdir = pdir / "trial" / f"act{''.join(map(str, acts))}-{stamp}"
+    n_ = 2
+    while tdir.exists():          # two trials in the same second
+        tdir = tdir.with_name(f"act{''.join(map(str, acts))}-{stamp}-{n_}")
+        n_ += 1
     bdir = tdir / "backup"
     bdir.mkdir(parents=True)
     existed = {n for n in BACKUP if (pdir / n).exists()}
@@ -150,13 +163,36 @@ def main(argv=None, client=None) -> int:
                          no_wait=False, poll=a.poll, wiki=None, by_hand=False)
     rc = 0
     t0 = time.time()
+    def keep(*names):
+        for n in names:
+            if (pdir / n).exists():
+                shutil.copy2(pdir / n, tdir / n)
+
+    res_dir = Path(a.resume) if a.resume else None
+    if res_dir is not None and not res_dir.is_absolute():
+        res_dir = Path(ROOT) / res_dir
+    if res_dir is not None and not (res_dir / "angle.md").exists():
+        print(f"trial_act: --resume {res_dir} has no angle.md - nothing to "
+              f"reuse")
+        return 1
     try:
-        if not a.keep_plan:
+        if res_dir is not None:
+            for n in ("angle.md", "coverage_policy.json", "plan.json"):
+                if (res_dir / n).exists():
+                    shutil.copy2(res_dir / n, pdir / n)
+                    shutil.copy2(res_dir / n, tdir / n)
+            print(f"trial_act: reusing {res_dir.name}'s angle"
+                  + (" and plan" if (res_dir / "plan.json").exists() else ""))
+        if not a.keep_plan and res_dir is None:
             rc = W.cmd_angle(ns, client)
+            keep("angle.md", "coverage_policy.json")
             if rc:
                 print("trial_act: angle failed - stopping")
                 return rc
+        if not a.keep_plan and not (res_dir is not None
+                                    and (res_dir / "plan.json").exists()):
             rc = W.cmd_plan(ns, client)
+            keep("plan.json", "plan_rejected.json")
             if rc:
                 print("trial_act: plan failed - stopping")
                 return rc
@@ -233,6 +269,11 @@ def main(argv=None, client=None) -> int:
         for n in ("angle.md", "coverage_policy.json", "plan.json"):
             if (pdir / n).exists():
                 shutil.copy2(pdir / n, tdir / n)
+    except Exception as e:
+        print(f"trial_act: STOPPED ({type(e).__name__}: {str(e)[:160]}). "
+              f"What was already written is kept in {tdir} - continue with "
+              f"--resume {tdir.relative_to(Path(ROOT)) if str(tdir).startswith(ROOT) else tdir}")
+        rc = 1
     finally:
         # restore: the project is left exactly as it was
         for n in BACKUP:
