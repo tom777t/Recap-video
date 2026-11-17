@@ -10,11 +10,17 @@ You are given one chunk of the film as:
   what is on screen in that window;
 - **SPEECH** — the transcript lines spoken inside each moment.
 
-## Reference scale
+## How many beats
 
-A ~2-hour film gets roughly **70-90 beats**. For a chunk that is 1/N of the
-film, propose about `80/N` beats. Err slightly high rather than low — a missing
-beat is a hole in the recap, an extra beat is a line someone can cut.
+There is no target number. The film decides it: **one beat for every time
+something changes** - who knows what, who wants what, who holds what, who is
+winning, who is alive. A chunk full of schemes and conversations may have 30
+beats. A chunk that is one long fight may have 3.
+
+(Owner, 17 Nov 2026. The old reference of "70-90 beats per film, 80/N per
+chunk, err high" made 243 beats for Furious 7. Fights were cut into slices
+like "armed men trade fire through the warehouse", and every slice later
+needed a line or a hold.)
 
 ## What makes a beat
 
@@ -23,6 +29,10 @@ Include:
 - a plan being formed or a mechanism being shown
 - a reversal, a discovery, a consequence landing
 - an arrival that changes what is possible
+
+A long fight, chase or montage is **one beat for its outcome**, plus one beat
+for each change inside it (someone is shot, the money is taken, the car
+goes off the roof). Never a beat for "they keep fighting".
 
 Do **not** make a beat out of:
 - pure establishing (a building, a street) with nothing happening in it

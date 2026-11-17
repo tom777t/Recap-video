@@ -48,6 +48,10 @@ plan stops building lines to hit style proportions:
                         above a chopped one on every number, and the draft
                         gates print [FLOW] without adding an error or a
                         finding (no quota, no rewrite)
+  BEATS-NO-QUOTA        the beats prompt sets no number of beats (the old
+                        "70-90 per film, 80/N per chunk, err high" made 243
+                        for Furious 7): one beat per change, a long fight is
+                        one beat for its outcome plus one per change in it
   LEGACY-RESTORES       STYLE_QUOTA_FLOORS True brings the old construction
                         back (planned reactions and loops)
 
@@ -434,6 +438,21 @@ def t_flow_report_only():
                      if not bad else "; ".join(bad))
 
 
+def t_beats_no_quota():
+    import re as _re
+    import write_api as W
+    t = W._read(W.PROMPTS["beats"])
+    bad = []
+    if _re.search(r"propose about|roughly \*\*\d|Err slightly high", t):
+        bad.append("a beat-count target is still taught")
+    for m in ("There is no target number", "one beat for every time",
+              "one beat for its outcome", "they keep fighting"):
+        if m not in t:
+            bad.append(f"missing {m!r}")
+    return not bad, ("no beat-count target; one beat per change, a fight is "
+                     "one beat for its outcome" if not bad else "; ".join(bad))
+
+
 def t_legacy_restores():
     _p, _ab, slots = _layout(floors=True)
     st = [s for s in slots if s["role"] not in ("hold", "film_speaks",
@@ -456,6 +475,7 @@ TESTS = [("NO-PLANNED-REACTIONS", t_no_planned_reactions),
          ("ANGLE-NO-REFRAIN", t_angle_no_refrain),
          ("WORD-FLOW-TAUGHT", t_word_flow_taught),
          ("FLOW-REPORT-ONLY", t_flow_report_only),
+         ("BEATS-NO-QUOTA", t_beats_no_quota),
          ("LEGACY-RESTORES", t_legacy_restores)]
 
 if __name__ == "__main__":
