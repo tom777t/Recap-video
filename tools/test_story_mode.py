@@ -11,8 +11,10 @@ plan stops building lines to hit style proportions:
   CAPACITY-ONLY         a slot carries only what its footage holds (band
                         "free", max = capacity), no aimed length
   BRIEF-TELLS-STORY     the brief carries the story rules and the bad->good
-                        pairs, and NONE of the old reaction forms ("That's
-                        the ...", "Nobody + verb") or judgment quotas
+                        pairs, the readers' checklist as rules to write by
+                        (referents, pronouns, habit claims), and NONE of the
+                        old reaction forms ("That's the ...", "Nobody +
+                        verb") or judgment quotas
   ASIDE-ALLOWED         a friend-style reaction on an ACTION slot is not a
                         deviation, and the writer's own `judgment` label
                         stands; over-capacity and a missing quote still are
@@ -105,7 +107,9 @@ def t_brief():
     plan, _ab, _slots = _layout()
     b = WS.writer_brief(PDIR, plan, 2)
     must = ("WHO does WHAT", "CHANGES HANDS", "friend watching with you",
-            "Jakande's men take the laptop", "NO aphorisms")
+            "Jakande's men take the laptop", "NO aphorisms",
+            "an EARLIER line of yours introduced it", "two possible owners",
+            "habit or repetition")
     never = ("REACTION (EVAL)", "\"That's the ...\" / \"Here's the ...\";",
              "Judgment lines:", "OPENS A LOOP", "Nobody / No one / Everyone")
     miss = [m for m in must if m not in b]

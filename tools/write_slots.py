@@ -1048,6 +1048,17 @@ STORY_RULES = """\
 7. Write names that cannot be heard as ordinary words in full ("Mr.
    Nobody", never a bare "Nobody").
 
+# WHAT THE READERS CHECK AFTER YOU - avoid it while writing (the cold read
+# and the reviewer flag exactly these; every finding costs a fix round)
+8. Never refer to something as already known ("the deal", "that promise",
+   "his partner") unless an EARLIER line of yours introduced it.
+9. No pronoun with two possible owners: if two people were just named,
+   name the one you mean. Same for outcomes - say plainly whether someone
+   died, won, lost, gave or took.
+10. No claim about habit or repetition ("always", "keeps", "never once",
+   "the whole film") unless the transcript shows it more than once.
+11. Do not reuse the same phrase or the same opener in nearby lines.
+
 BAD -> GOOD (from our own past drafts):
 - "Mr. Nobody, who took a bullet meant for all of them, still holds the
   leash on God's Eye."  (wrong, and a riddle)
