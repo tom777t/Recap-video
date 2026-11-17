@@ -8,7 +8,7 @@ finding. Deleting one act and re-running it would mix a new act with old
 ones written to a different plan, and the rounds would rewrite the old acts
 too: more money, and a damaged draft.
 
-    python tools/trial_act.py --project furious72015 --act 3
+    python tools/trial_act.py --project furious72015 --act 3 4
     python tools/trial_act.py --project furious72015 --act 3 --keep-plan
         (--keep-plan: reuse the project's angle.md and plan.json; only the
          act is written)
@@ -17,9 +17,9 @@ What it does, with the SAME code the pipeline runs:
   1. backs up angle.md, coverage_policy.json, plan.json (+ plan_rejected*),
      intro_style.txt into projects/<p>/trial/<time>/backup/
   2. angle (--force) and plan (--force): write_api.cmd_angle / cmd_plan
-  3. the act: draft_system + act_request, one batch (half price, as in the
-     pipeline), the same schema check and the same ONE fix round for schema
-     errors or slot deviations that the draft stage allows
+  3. the act(s): draft_system + act_request, ONE batch for all of them (half
+     price, as in the pipeline), the same schema check and the same ONE fix
+     round for schema errors or slot deviations that the draft stage allows
   4. saves to projects/<p>/trial/<time>/: angle.md, coverage_policy.json,
      plan.json, act<N>.json, act<N>_script.md (readable: time, line, a star
      on the narrator's own reactions) and cost.json
@@ -122,7 +122,7 @@ def script_md(lines: list, k: int, title: str) -> str:
 def main(argv=None, client=None) -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--project", required=True)
-    ap.add_argument("--act", type=int, required=True)
+    ap.add_argument("--act", type=int, nargs="+", required=True)
     ap.add_argument("--keep-plan", action="store_true")
     ap.add_argument("--poll", type=float, default=20.0)
     a = ap.parse_args(argv)
@@ -136,7 +136,8 @@ def main(argv=None, client=None) -> int:
         print(f"trial_act: {pdir} has no beats_proposal.md")
         return 1
     stamp = datetime.now().strftime("%Y%m%d-%H%M%S")
-    tdir = pdir / "trial" / f"act{a.act}-{stamp}"
+    acts = list(dict.fromkeys(a.act))
+    tdir = pdir / "trial" / f"act{''.join(map(str, acts))}-{stamp}"
     bdir = tdir / "backup"
     bdir.mkdir(parents=True)
     existed = {n for n in BACKUP if (pdir / n).exists()}
@@ -165,58 +166,70 @@ def main(argv=None, client=None) -> int:
             W.save_slots(a.project, pdir, plan, ab)
             plan = json.loads(W._read(pdir / "plan.json"))
         slots = plan.get("slots") or None
-        k = a.act
         sysb = W.draft_system(pdir)
-        req = W.act_request(a.project, pdir, k, sysb,
-                            plan_text=WP.plan_for_act(plan, ab.get(k, []), k),
-                            slots=slots, plan=plan)
-        tag = f"trial-act{k}"
-        got = W.batch(client, pdir, tag, {f"act{k}": req}, wait=True,
-                      poll=a.poll)
-        msg = got.get(f"act{k}")
-        obj, why = W._json_reply(msg, "draft")
-        probs = [why] if obj is None else W.check_act(obj, k, slots, plan)
-        lines = [] if probs else W.act_lines(obj, k, slots, plan)
-        devs = [] if probs else W.slot_deviations({"lines": lines}, k,
-                                                  slots, pdir)
-        fixed = ""
-        if (probs and obj is not None) or devs:
-            # the draft stage's own single fix round
-            fb = None if probs else W.slot_feedback(devs)
-            r2 = W.retry_params(req, msg, probs or devs, fb)
-            got2 = W.batch(client, pdir, f"{tag}-fix", {f"act{k}": r2},
-                           wait=True, poll=a.poll)
-            obj2, why2 = W._json_reply(got2.get(f"act{k}"), "draft")
-            p2 = [why2] if obj2 is None else W.check_act(obj2, k, slots, plan)
-            if not p2:
-                if devs and lines:
+        reqs = {f"act{k}": W.act_request(
+            a.project, pdir, k, sysb,
+            plan_text=WP.plan_for_act(plan, ab.get(k, []), k),
+            slots=slots, plan=plan) for k in acts}
+        tag = "trial-act" + "".join(map(str, acts))
+        got = W.batch(client, pdir, tag, reqs, wait=True, poll=a.poll)
+        res, fixes = {}, {}
+        for k in acts:
+            msg = got.get(f"act{k}")
+            obj, why = W._json_reply(msg, "draft")
+            probs = [why] if obj is None else W.check_act(obj, k, slots, plan)
+            lines = [] if probs else W.act_lines(obj, k, slots, plan)
+            devs = [] if probs else W.slot_deviations({"lines": lines}, k,
+                                                      slots, pdir)
+            res[k] = {"lines": lines, "probs": probs, "devs": devs, "fix": ""}
+            if (probs and obj is not None) or devs:
+                # the draft stage's own single fix round
+                fb = None if probs else W.slot_feedback(devs)
+                fixes[f"act{k}"] = W.retry_params(reqs[f"act{k}"], msg,
+                                                  probs or devs, fb)
+        if fixes:
+            got2 = W.batch(client, pdir, f"{tag}-fix", fixes, wait=True,
+                           poll=a.poll)
+            for cid in fixes:
+                k = int(cid[3:])
+                r = res[k]
+                obj2, why2 = W._json_reply(got2.get(cid), "draft")
+                p2 = [why2] if obj2 is None else W.check_act(obj2, k, slots,
+                                                             plan)
+                if p2:
+                    r["fix"] = f"fix round reply rejected: {'; '.join(p2[:2])}"
+                    continue
+                if r["devs"] and r["lines"]:
                     import write_slots as WS
-                    lines, _n = WS.merge_revision(
-                        lines, [l for l in obj2.get("lines") or []
-                                if isinstance(l, dict)],
+                    r["lines"], _n = WS.merge_revision(
+                        r["lines"], [l for l in obj2.get("lines") or []
+                                     if isinstance(l, dict)],
                         WS.slots_for_act(slots, k), k)
                 else:
-                    lines = W.act_lines(obj2, k, slots, plan)
-                devs = W.slot_deviations({"lines": lines}, k, slots, pdir)
-                probs = []
-                fixed = "one fix round used"
-            else:
-                fixed = f"fix round reply rejected: {'; '.join(p2[:2])}"
-        if probs:
-            print(f"trial_act: act {k} reply not usable: {'; '.join(probs[:3])}")
-            rc = 2
-        else:
+                    r["lines"] = W.act_lines(obj2, k, slots, plan)
+                r["devs"] = W.slot_deviations({"lines": r["lines"]}, k,
+                                              slots, pdir)
+                r["probs"], r["fix"] = [], "one fix round used"
+        md = []
+        for k in acts:
+            r = res[k]
+            if r["probs"]:
+                print(f"trial_act: act {k} reply not usable: "
+                      f"{'; '.join(r['probs'][:3])}")
+                rc = 2
+                continue
             (tdir / f"act{k}.json").write_text(json.dumps(
-                {"act": k, "lines": lines}, ensure_ascii=False, indent=2),
-                encoding="utf-8")
-            (tdir / f"act{k}_script.md").write_text(
-                script_md(lines, k, plan.get("title") or a.project),
-                encoding="utf-8")
-            print(f"trial_act: act {k}: {len(lines)} line(s) -> "
-                  f"{tdir / f'act{k}_script.md'}"
-                  + (f" ({fixed})" if fixed else "")
-                  + (f"; {len(devs)} slot deviation(s) left: "
-                     + "; ".join(devs[:3]) if devs else ""))
+                {"act": k, "lines": r["lines"]}, ensure_ascii=False,
+                indent=2), encoding="utf-8")
+            md.append(script_md(r["lines"], k, plan.get("title") or a.project))
+            print(f"trial_act: act {k}: {len(r['lines'])} line(s)"
+                  + (f" ({r['fix']})" if r["fix"] else "")
+                  + (f"; {len(r['devs'])} slot deviation(s) left: "
+                     + "; ".join(r["devs"][:3]) if r["devs"] else ""))
+        if md:
+            out = tdir / ("script_act" + "".join(map(str, acts)) + ".md")
+            out.write_text("\n\n".join(md), encoding="utf-8")
+            print(f"trial_act: readable script -> {out}")
         for n in ("angle.md", "coverage_policy.json", "plan.json"):
             if (pdir / n).exists():
                 shutil.copy2(pdir / n, tdir / n)

@@ -84,11 +84,11 @@ def t_writes_the_act():
         bad.append("the story guide is not in the act's system prompt")
     if "YOUR SLOTS" not in r["seen"].get("user", ""):
         bad.append("the act was not given its slots")
-    for n in (f"act{k}.json", f"act{k}_script.md"):
+    for n in (f"act{k}.json", f"script_act{k}.md"):
         if not (td / n).exists():
             bad.append(f"{n} missing")
-    md = (td / f"act{k}_script.md").read_text(encoding="utf-8") \
-        if (td / f"act{k}_script.md").exists() else ""
+    md = (td / f"script_act{k}.md").read_text(encoding="utf-8") \
+        if (td / f"script_act{k}.md").exists() else ""
     if "narrated lines" not in md or "[" not in md:
         bad.append("the script has no timed lines")
     return not bad, (f"act {k} written via {r['batches']} batch(es), "
