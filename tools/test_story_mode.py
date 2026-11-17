@@ -40,8 +40,8 @@ plan stops building lines to hit style proportions:
                         signature moves is complete; the old RUNNING BITS
                         heading still parses
   WORD-FLOW-TAUGHT      the guide teaches how it sounds (fold the last event
-                        in, goal then obstacle, feeling inside the line, known
-                        first / new last) with examples from NO real film the
+                        in, goal then obstacle, feeling inside the line, the
+                        surprise last at a reveal; tools, not a template) with examples from NO real film the
                         pipeline is tested on; the brief no longer forbids
                         "Meanwhile" and points at the guide
   FLOW-REPORT-ONLY      flow_stats scores a folded, goal-and-obstacle passage
@@ -389,7 +389,7 @@ def t_word_flow_taught():
     bad = []
     for m in ("Fold what just happened", "Goal, then obstacle",
               "only to", "Put feeling inside the narration",
-              "Known first, new last"):
+              "the surprise goes last", "tools, not a template"):
         if m not in sec:
             bad.append(f"guide misses {m!r}")
     for film_name in ("Dom", "Ramsey", "Jakande", "Mr. Nobody", "Hobbs",

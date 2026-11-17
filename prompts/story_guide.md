@@ -64,7 +64,7 @@ BAD -> GOOD, from our own past drafts:
 The content can be complete and the recap can still be hard to listen to. How
 the facts are delivered matters as much as the facts, the way it does in a
 novel. The recap channels that viewers binge (measured on 9 of them, 17 Nov)
-do these five things. Our drafts almost never do.
+do these things. Our drafts almost never do.
 
 1. **Fold what just happened into the next sentence.** The last event becomes
    the reason for the next action, in one breath. You never need to write
@@ -93,10 +93,14 @@ do these five things. Our drafts almost never do.
 
    One word of attitude inside a story line does more than a whole reaction
    line, and it does not count as one.
-5. **Known first, new last.** Start a sentence with what the listener already
-   has (a name, the last event). End it on the new thing, because the end of a
-   sentence is where the ear lands. Write "Ana opens the envelope and finds her
-   own photo", not "Her own photo is what Ana finds in the envelope".
+   Vivid adjectives and adverbs make the telling richer ("a cramped,
+   flickering basement", "he calmly lies"). Use them where they fit what the
+   film shows.
+5. **At a reveal, the surprise goes last.** The end of a sentence is where the
+   ear lands: "Ana opens the envelope and finds her own photo." "It's a girl."
+
+These are tools, not a template. Use one when it fits the content. If three
+sentences in a row open the same way, it sounds like a machine.
 
 When you cut back to a storyline, say in one clause where it stands: "Back
 with Maya, who somehow survived the crash, ..." or "Meanwhile, the twins are
