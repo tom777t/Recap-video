@@ -43,10 +43,11 @@ cannot be followed has failed. One that is plain and clear has not.
   aphorism. If a line needs a second hearing, it is wrong.
 - **What happens, not how it was filmed.** No camera or editing words (camera,
   cut, shot, frame, close-up, on-screen). The viewer is already watching.
-- **One line = one thing on screen.** A line names only as many visible events
-  as its footage shows. Background goes in background grammar: "the car he has
-  just borrowed, the one he will wreck", not "he borrows it, wrecks it and owes
-  for it".
+- **Words follow the footage.** A line can chain two or three actions when its
+  footage shows each of them, and it usually spans several shots. It never
+  names an event that happens off its footage. Put background in background
+  grammar: "the car he has just borrowed, the one he will wreck", not "he
+  borrows it, wrecks it and owes for it".
 
 BAD -> GOOD, from our own past drafts:
 - "Mr. Nobody, who took a bullet meant for all of them, still holds the leash
@@ -58,7 +59,60 @@ BAD -> GOOD, from our own past drafts:
   -> "Dom drives his Charger up the crumbling garage, launches it at the
   helicopter, and throws a bag of grenades inside in mid-air."
 
-## 3. Between scenes
+## 3. Word flow: how it sounds
+
+The content can be complete and the recap can still be hard to listen to. How
+the facts are delivered matters as much as the facts, the way it does in a
+novel. The recap channels that viewers binge (measured on 9 of them, 17 Nov)
+do these five things. Our drafts almost never do.
+
+1. **Fold what just happened into the next sentence.** The last event becomes
+   the reason for the next action, in one breath. You never need to write
+   "because".
+   - "Hearing the guards coming, she pulls the boy behind a crate."
+   - "Seeing the money gone, Leo calls the one man he swore he'd never call."
+   - "Now that the police have his name, he has one night to leave the city."
+   - "Determined to prove she's innocent, Ana breaks into her own office."
+2. **Goal, then obstacle.** Give an action its purpose ("to find", "to warn",
+   "to get the money back"). Then show what blocks it with "but" or "only to".
+   This is what makes a listener lean in.
+   - "He races to the station to stop her, only to watch the train pull out."
+   - "She needs the code to open the vault, but the only man who knows it is
+     dead."
+3. **One sentence can carry a chain.** Actions that belong together go in one
+   sentence: "They run for the exit and almost make it out, only to find the
+   door chained shut." A string of two-word facts ("He runs. The door is
+   locked.") sounds like a list. Keep short sentences for real hits: a death,
+   a reveal, a punchline. Let the content decide the length.
+4. **Put feeling inside the narration.** Show how people act and what they
+   realise, in the same sentence that tells the story. This is not a separate
+   comment.
+   - Manner: "she begs", "he calmly reloads", "they desperately dig".
+   - Inner state: "he realises", "she decides", "he is terrified that".
+   - The narrator's tilt: "luckily", "unfortunately", "to make matters worse".
+
+   One word of attitude inside a story line does more than a whole reaction
+   line, and it does not count as one.
+5. **Known first, new last.** Start a sentence with what the listener already
+   has (a name, the last event). End it on the new thing, because the end of a
+   sentence is where the ear lands. Write "Ana opens the envelope and finds her
+   own photo", not "Her own photo is what Ana finds in the envelope".
+
+When you cut back to a storyline, say in one clause where it stands: "Back
+with Maya, who somehow survived the crash, ..." or "Meanwhile, the twins are
+still hiding in the attic." "Then" and "meanwhile" are fine as links. They are not
+enough on their own when something important happened in between: say what
+it was.
+
+BAD -> GOOD:
+- "The truck hits them. The car flips. Maya crawls out." ->
+  "The truck slams into them and flips the car, but Maya somehow crawls out
+  alive."
+- "Afterwards, Leo watches the warehouse burn." (a three-minute shootout
+  skipped) -> "By the time the shooting stops, his partner is bleeding and
+  the buyers are gone with the money."
+
+## 4. Between scenes
 
 - When you skip ahead, the next line carries the reason: "So the crew goes home
   to Los Angeles, to fight on streets they know." "To find Shaw, Dom calls Mr.
@@ -68,7 +122,7 @@ BAD -> GOOD, from our own past drafts:
 - Never refer to something as already known ("the deal", "that promise", "his
   partner") unless an earlier line introduced it.
 
-## 4. Dialogue
+## 5. Dialogue
 
 - **Say what was said.** Paraphrase it: "Mr. Nobody wants to wait for dawn. Dom
   says no: they go now." Never "they argue" or "he explains" when you know the
@@ -83,7 +137,7 @@ BAD -> GOOD, from our own past drafts:
   without narration, framed so the listener knows who is speaking and why it
   matters.
 
-## 5. Action
+## 6. Action
 
 - How much to narrate depends on the scene. Some fights need four lines;
   some need one.
@@ -93,7 +147,7 @@ BAD -> GOOD, from our own past drafts:
 - Spectacle with no change in it (a stunt, a chase that ends where it began)
   can play on picture and music.
 
-## 6. Your reactions
+## 7. Your reactions
 
 - A reaction is what a friend watching with you would say: a joke, surprise, or
   being moved. It is concrete and understood on one hearing. "That is not how
@@ -107,7 +161,7 @@ BAD -> GOOD, from our own past drafts:
 - At a big moment (a death, a win, a reveal), the moment comes first, in plain
   words or with the film's own line. Then at most one reaction.
 
-## 7. Emotional moments: depth
+## 8. Emotional moments: depth
 
 Depth means saying **what this moment means to the character**, using facts
 from the film: what they have lost, how long they have waited, what it cost
@@ -124,7 +178,7 @@ then the moment, then, at most, the line that says what it means. Do not
 explain the feeling ("it is heartbreaking"). State the facts that make it
 heartbreaking.
 
-## 8. Opening, intro, ending
+## 9. Opening, intro, ending
 
 - **Opening:** start on the film's own question, the situation that makes
   someone want to know what happens. The question must be specific to this
@@ -136,7 +190,7 @@ heartbreaking.
 - **Ending:** say what the ending means in one or two plain lines, then the
   sign-off. Do not just report the last event.
 
-## 9. Facts (each rule exists because a mistake shipped)
+## 10. Facts (each rule exists because a mistake shipped)
 
 - **Do not invent.** Every event is in the beat map or the transcript.
 - **Places and times come from the beats you are covering, not from memory.**
@@ -152,7 +206,7 @@ heartbreaking.
 - **Spell names** exactly as `names.json` does. Never hide an identity behind
   a description ("the greying man") once a name or a role is known.
 
-## 10. Length and footage
+## 11. Length and footage
 
 - Each line's footage decides its maximum length. The slots say "up to N words".
   Use fewer when the story needs fewer. Never pad to fill a slot.

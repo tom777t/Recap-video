@@ -124,6 +124,8 @@ def script_md(lines: list, k: int, title: str) -> str:
             f"({(j / n * 100 if n else 0):.0f}%), "
             f"{sum(len(str(l.get('narration') or '').split()) for l in lines)}"
             f" words."]
+    from pipeline import flow_stats as FS
+    out.append(FS.flow_line(FS.flow_stats(lines)))
     return "\n".join(out) + "\n"
 
 
@@ -258,6 +260,8 @@ def main(argv=None, client=None) -> int:
                 {"act": k, "lines": r["lines"]}, ensure_ascii=False,
                 indent=2), encoding="utf-8")
             md.append(script_md(r["lines"], k, plan.get("title") or a.project))
+            from pipeline import flow_stats as FS
+            print(f"  act {k} " + FS.flow_line(FS.flow_stats(r["lines"])))
             print(f"trial_act: act {k}: {len(r['lines'])} line(s)"
                   + (f" ({r['fix']})" if r["fix"] else "")
                   + (f"; {len(r['devs'])} slot deviation(s) left: "

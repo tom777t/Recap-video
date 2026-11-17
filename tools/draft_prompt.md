@@ -64,7 +64,7 @@ Without slots, a line also carries `id`, `note` (its beat id), `clip_start`,
   moment's characters. If they are not, bind the line elsewhere or drop the
   claim.
 - `callback_beat`: a line that refers back to an earlier event, or claims a
-  habit, names the beat that shows it (story guide section 9).
+  habit, names the beat that shows it (story guide, the Facts section).
 
 ## Hook, intro, outro
 

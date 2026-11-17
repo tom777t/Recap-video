@@ -693,6 +693,15 @@ def validate_draft(project: str, *, write_state: bool = False,
                       "contain.")
         except Exception as _vce:
             console.print(f"[red][VISUAL-CAPACITY] did not run: {_vce}[/]")
+        # [FLOW]: how the script SOUNDS next to a binge-watched channel
+        # (pipeline/flow_stats.py). Report only - never a gate, never a
+        # rewrite: a quota on these would rebuild the machine-made style.
+        try:
+            from pipeline import flow_stats as _flow
+            console.print(_flow.flow_line(
+                _flow.flow_stats(draft.get("lines") or [])), markup=False)
+        except Exception as _fle:
+            console.print(f"[FLOW] did not run: {_fle}", markup=False)
         from pipeline import ending_gates as _end
         from pipeline import shotlist_gates as _shot
         from pipeline import samepoint_gates as _samep

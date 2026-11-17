@@ -39,6 +39,15 @@ plan stops building lines to hit style proportions:
   ANGLE-NO-REFRAIN      an angle with SETUPS AND PAYOFFS "None." and no
                         signature moves is complete; the old RUNNING BITS
                         heading still parses
+  WORD-FLOW-TAUGHT      the guide teaches how it sounds (fold the last event
+                        in, goal then obstacle, feeling inside the line, known
+                        first / new last) with examples from NO real film the
+                        pipeline is tested on; the brief no longer forbids
+                        "Meanwhile" and points at the guide
+  FLOW-REPORT-ONLY      flow_stats scores a folded, goal-and-obstacle passage
+                        above a chopped one on every number, and the draft
+                        gates print [FLOW] without adding an error or a
+                        finding (no quota, no rewrite)
   LEGACY-RESTORES       STYLE_QUOTA_FLOORS True brings the old construction
                         back (planned reactions and loops)
 
@@ -372,6 +381,59 @@ def t_angle_no_refrain():
                      else "; ".join(bad))
 
 
+def t_word_flow_taught():
+    import re as _re
+    import write_api as W
+    g = W._read(W.GUIDE)
+    sec = g[g.index("## 3. Word flow"):g.index("## 4. ")]
+    bad = []
+    for m in ("Fold what just happened", "Goal, then obstacle",
+              "only to", "Put feeling inside the narration",
+              "Known first, new last"):
+        if m not in sec:
+            bad.append(f"guide misses {m!r}")
+    for film_name in ("Dom", "Ramsey", "Jakande", "Mr. Nobody", "Hobbs",
+                      "Shaw", "Natalie", "Sebastian", "Sean"):
+        if _re.search(rf"\b{_re.escape(film_name)}\b", sec):
+            bad.append(f"word-flow example uses {film_name!r} (leaks into a "
+                       f"test film)")
+    plan, _ab, _sl = _layout()
+    b = WS.writer_brief(PDIR, plan, 2)
+    if 'Do not string scenes together with "Later", "Meanwhile"' in b:
+        bad.append("the brief still forbids Meanwhile")
+    if "Fold the last event into the next sentence" not in b:
+        bad.append("the brief does not point at word flow")
+    return not bad, ("word flow taught in the guide and the brief, examples "
+                     "from no test film" if not bad else "; ".join(bad))
+
+
+def t_flow_report_only():
+    from pipeline import flow_stats as FS
+    good = [{"narration": "Hearing the guards coming, Maya pulls the boy "
+             "behind a crate to hide him, but the dog finds them anyway. "
+             "Desperate to buy time, she begs the guard to let the boy go, "
+             "only to realise he is her brother."}]
+    chop = [{"narration": "Maya hears the guards. She pulls the boy behind a "
+             "crate. The dog finds them. She talks to the guard. He is her "
+             "brother."}]
+    g, c = FS.flow_stats(good), FS.flow_stats(chop)
+    bad = [k for k in ("words_per_sentence", "folded_share", "but_per_k",
+                       "purpose_per_k", "feeling_per_k") if not g[k] > c[k]]
+    src = open(os.path.join(ROOT, "pipeline", "draft.py"),
+               encoding="utf-8").read()
+    i = src.index("# [FLOW]")
+    block = src[i:i + 700]
+    if "errors" in block or "append" in block:
+        bad.append("the [FLOW] block in draft.py touches the error list")
+    line = FS.flow_line(c)
+    if not line.startswith("[FLOW] (report only"):
+        bad.append("flow_line does not say it is report-only")
+    return not bad, (f"folded passage beats chopped on all 5 numbers "
+                     f"(folded {g['folded_share']:.0%} vs "
+                     f"{c['folded_share']:.0%}); printed, never an error"
+                     if not bad else "; ".join(bad))
+
+
 def t_legacy_restores():
     _p, _ab, slots = _layout(floors=True)
     st = [s for s in slots if s["role"] not in ("hold", "film_speaks",
@@ -392,6 +454,8 @@ TESTS = [("NO-PLANNED-REACTIONS", t_no_planned_reactions),
          ("REACTION-CEILING", t_reaction_ceiling),
          ("PROMPTS-TELL-STORY", t_prompts_tell_story),
          ("ANGLE-NO-REFRAIN", t_angle_no_refrain),
+         ("WORD-FLOW-TAUGHT", t_word_flow_taught),
+         ("FLOW-REPORT-ONLY", t_flow_report_only),
          ("LEGACY-RESTORES", t_legacy_restores)]
 
 if __name__ == "__main__":

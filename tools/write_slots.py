@@ -1030,8 +1030,9 @@ STORY_RULES = """\
 1. Every line says WHO does WHAT, and WHY or WITH WHAT RESULT - for someone
    who has never seen the film. Name the person; use "he" / "she" only when
    nobody else in the scene could be meant.
-2. Connect events by cause: "so", "because", "but", "to (do X)", "it turns
-   out". Do not string scenes together with "Later", "Meanwhile", "By now".
+2. Connect events by cause: "so", "because", "but", "to (do X)", "only
+   to", "it turns out". "Then" and "Meanwhile" are fine links, but they are
+   never ENOUGH across something important you skipped: say what happened.
 3. When something important CHANGES HANDS - an object, an alliance, a
    secret, who is winning - say it in one plain sentence ("Jakande's men
    take the laptop with God's Eye on it.").
@@ -1058,6 +1059,15 @@ STORY_RULES = """\
 10. No claim about habit or repetition ("always", "keeps", "never once",
    "the whole film") unless the transcript shows it more than once.
 11. Do not reuse the same phrase or the same opener in nearby lines.
+
+# HOW IT SOUNDS (story guide section 3 - the delivery matters as much as
+# the facts)
+12. Fold the last event into the next sentence ("Hearing the guards
+   coming, she ..."; "Now that the police have his name, he ..."); give an
+   action its goal and its obstacle ("to stop her, only to watch the train
+   pull out"); let one sentence carry actions that belong together; put the
+   feeling inside the story line ("she begs", "he realises", "luckily")
+   instead of a separate comment; end the sentence on the new thing.
 
 BAD -> GOOD (from our own past drafts):
 - "Mr. Nobody, who took a bullet meant for all of them, still holds the
