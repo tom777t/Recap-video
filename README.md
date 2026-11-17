@@ -100,7 +100,7 @@ that Pre-catalogue already read:
 ### 7. Script — the checkpoint that cannot be automated
 
 The narration is written by a human or an LLM into `draft.json`, following
-`prompts/style_linear_vn.md` (linear style) or `prompts/recap_style.md`.
+`prompts/style_linear_vn.md` (linear style) or `prompts/story_guide.md` (the old `recap_style.md` is in `docs/archive/`).
 **`docs/RULES.md` overrides both** where they conflict.
 
 Then validate — and validate again after every edit:

@@ -45,7 +45,7 @@ DEFAULT_TTS_VOICE = "en-US-AndrewMultilingualNeural"  # natural male US voice
 #         sampled is FASTER than our original 198. SAKURA REVIEW, the voice
 #         model, runs 257-264 Vietnamese syllables/min, which is roughly
 #         175-200 English WPM at 1.3-1.5 syllables per word.
-#         See docs/NARRATOR_VOICE.md.
+#         See docs/archive/NARRATOR_VOICE.md.
 #
 # The target is 185 WPM MEASURED ON REAL DRAFT TEXT, and that qualifier is the
 # whole lesson. A continuous passage reads faster than a draft: a draft is full
@@ -1134,6 +1134,13 @@ PERSONA_JUDGMENT_SHARE_MIN = 0.15
 # render thresholds: 0.104 drew no complaint about commentary, 0.523 was
 # called overcorrected. The bar sits between them, nearer the complaint.
 PERSONA_JUDGMENT_SHARE_MAX = 0.35
+# Story mode (STYLE_QUOTA_FLOORS False): the narrator's own reactions are
+# at most about one line in five - the owner's rule, from the hand-written
+# act 3 of Furious 7 (7 of 52 lines, 13%). No minimum.
+STORY_JUDGMENT_SHARE_MAX = 0.20
+# ...and the HARD bar, above which the draft goes back: between the two it
+# is a warning. A rewrite round costs money; 21% vs 20% is not worth one.
+STORY_JUDGMENT_SHARE_HARD = 0.25
 # Longest run of consecutive judgment lines. THIS ONE IS reference-calibrated,
 # and it is the robust statistic the share is not: longest consecutive run of
 # judgment SENTENCES across the five English references is 1, 1, 2, 2, 8 -

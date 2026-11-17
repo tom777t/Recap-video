@@ -9,8 +9,8 @@ draft line is written. The draft writers read your file; the gates parse it.
 - `projects/<p>/beats_proposal.md` (beat ids B01... with timestamps and what happens)
 - `projects/<p>/reveals.json` (what the film hides, and when it lands)
 - `projects/<p>/names.json`, `projects/<p>/film_facts.json`
-- `prompts/recap_style.md`, `docs/NARRATOR_VOICE.md`
-- one shipped example: `projects/tokyodrift2006/angle.md` (format, not content)
+- `prompts/story_guide.md`: how this channel tells a film. Your angle serves
+  a recap that someone who never saw the film can follow on ONE hearing.
 
 Do not watch or summarise the film beat by beat. Your job is to CHOOSE.
 
@@ -18,17 +18,29 @@ Do not watch or summarise the film beat by beat. Your job is to CHOOSE.
 
 ### `## ANGLE`
 One sentence: the human thread this recap follows from the first minute to the
-last. A recap does not tell everything; it tells everything that serves this.
-Then 2-4 sentences on the spine the film actually plays, citing beat ids.
+last, in plain words (no metaphor the listener would have to decode). Then 2-4
+sentences on the spine the film actually plays, as a chain of causes, citing
+beat ids. Then **three questions** a listener must be able to answer at the
+end ("Why are Shaw and Jakande on the same side?"), as a list.
 
 ### `## ATTITUDE TO CHARACTERS`
 One bullet per main character: how the narrator FEELS about them (fond, wary,
-teasing, afraid of, protective of) and the one thing it refuses to reduce them
-to. This is where the personal tone comes from.
+teasing, afraid of, protective of), and the one thing it refuses to reduce
+them to. This is where real reactions come from: knowing when to be glad,
+annoyed or moved.
 
-### `## RUNNING BITS`
-2-4 numbered motifs: name, `**Setup: B..**` -> `**Payoff: B..**`, one line on why.
-Budget: each bit = setup once + at most 2 callbacks + payoff once.
+### `## SETUPS AND PAYOFFS`
+Details **that are in the film** and come back later: a clue, an object, a
+line of dialogue planted early and paid off. Examples: a slip of the tongue
+("Boss") that gives away a secret identity, or a decoy CEO set up in gossip
+and exposed by a news headline. 0-4 numbered entries:
+
+    1. **"Boss"** - Daniel's slip. **Setup: B07** (the prison walk) -> **Payoff: B52** (Cassie overhears it)
+
+Never a phrase or metaphor the NARRATOR invents and repeats ("the ledger",
+"the exchange rate"). Listeners hear a refrain like that as a riddle. If the
+film has no such detail, write `None.` under the heading.
+Budget: each entry = setup once + at most 2 callbacks + payoff once.
 
 ### `## ANCHORS`
 The scenes the recap is built to ARRIVE at - hook payoff, thesis, reveals,
@@ -51,13 +63,13 @@ Every clause the hook/intro will promise, mapped to the anchor that cashes it:
 A promise may not land in a compressed or footage-only beat ([HOOK-PAYOFF]).
 
 ### `## NARRATOR PERSONA`
-- `**Stance:**` one sentence - who is telling this (e.g. a mate who loves car
-  films and will not pretend the plot is cleverer than it is).
-- `**Signature moves:**` 2-3 bullets (direct address used sparingly, everyday
-  comparisons, deadpan understatement after big moments, running bits as
-  callbacks in the narrator's own words).
-- `**Never:**` bullets - camera/editing jargon, narrating what is plainly
-  visible with nothing added, any reduction the attitudes above forbid.
+- `**Stance:**` one sentence: who is telling this, as a person (e.g. a friend
+  who loves car films and will not pretend the plot is cleverer than it is).
+- `**Never:**` 0-3 bullets, only for this film's own traps (e.g. "never treat
+  his wealth as the romance"). The general rules are in the story guide.
+
+No "signature moves". Stock moves repeated across a video are what made our
+old scripts sound machine-made.
 
 ### `## WHAT THE ANGLE SELECTS`
 - **Mandatory regardless** (spine + every reveal + every reveal's setup), as beat ranges.

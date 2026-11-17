@@ -156,7 +156,12 @@ def load(pdir: Path) -> dict:
     # `outro` and reveal ids (R3) appear alongside beat ids as payoff targets
     # and are kept as written - a payoff can legitimately land in the outro,
     # which is not a beat.
-    rbody = _section(text, "RUNNING BITS")
+    # Story mode (17 Nov) renamed the section SETUPS AND PAYOFFS and limits
+    # it to details that are IN the film (a clue, an object, a line), never
+    # a narrator-invented refrain. Same format, so the same parser and the
+    # same budget; older angle.md files keep the old heading.
+    rbody = (_section(text, "SETUPS AND PAYOFFS")
+             or _section(text, "RUNNING BITS"))
     motifs = []
     for raw in re.split(r"(?m)^(?=\s*\d+\.\s)", rbody):
         t = " ".join(raw.split()).strip()
@@ -214,7 +219,11 @@ def require(pdir: Path) -> dict:
         missing.append("## ANCHORS (one line per anchor: `- **B..** | kind | why`)")
     if not spec["persona"].get("stance"):
         missing.append("## NARRATOR PERSONA with a `**Stance:**` line")
-    if not spec["persona"].get("moves"):
+    # signature moves are a legacy requirement: stock moves repeated across
+    # a video are what made the old scripts sound machine-made (owner, 17 Nov)
+    import config as _cfg
+    if getattr(_cfg, "STYLE_QUOTA_FLOORS", False) and \
+            not spec["persona"].get("moves"):
         missing.append("## NARRATOR PERSONA with `**Signature moves:**`")
     if not spec["promises"]:
         missing.append('## HOOK PROMISES (`- "clause" -> B.. | note`)')

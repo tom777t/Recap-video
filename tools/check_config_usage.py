@@ -33,7 +33,7 @@ CONFIG = os.path.join(ROOT, "config.py")
 # Keys that genuinely nothing reads, each with the reason it stays.
 ALLOWED = {
     "CHANNEL_NAME": "read by a human writing the intro line, and named in "
-                    "prompts/recap_style.md rather than in code",
+                    "the intro brief rather than read as a constant",
 }
 
 # CODE ONLY. Documentation and JSON are deliberately excluded: the question is

@@ -1000,12 +1000,26 @@ def test_prerewrite_separates() -> tuple[bool, str]:
                     f"{pres.get('longest_judgment_run')})")
 
 
+def _legacy(fn):
+    """Run a test of the LEGACY calibration (35% judgment ceiling, the
+    intended contour shape) with config.STYLE_QUOTA_FLOORS on. Story mode's
+    20% ceiling is tested in tools/test_story_mode.py::REACTION-CEILING."""
+    def run():
+        prev = getattr(config, "STYLE_QUOTA_FLOORS", False)
+        config.STYLE_QUOTA_FLOORS = True
+        try:
+            return fn()
+        finally:
+            config.STYLE_QUOTA_FLOORS = prev
+    return run
+
+
 TESTS = {
     "CONTROL-ON-DISK":          test_control_on_disk,
     "TOP20-IS-THE-ROBUST-ONE":  test_top20_is_the_robust_one,
     "BASIS-IS-DECLARED":        test_basis_is_declared,
     "SHIPPED-DRAFT-FAILS":      test_shipped_draft_fails,
-    "GOOD-SHAPE-PASSES":        test_good_shape_passes,
+    "GOOD-SHAPE-PASSES":        _legacy(test_good_shape_passes),
     "PERSONA-WINDOW-EXEMPT":  test_persona_window_exempts_peaks,
     "STYLE-FLOORS-OFF":       test_style_floors_off,
     "PERSONA-DETECTOR-SANE":    test_persona_detector_sane,
@@ -1016,7 +1030,7 @@ TESTS = {
     "AUDIT-COVERS-MAPPINGS":    test_audit_covers_mappings,
     "JUDGMENT-AGREEMENT":       test_judgment_agreement,
     "CLASSIFIER-CORRECTED":     test_classifier_corrected,
-    "PERSONA-CEILING":          test_persona_ceiling,
+    "PERSONA-CEILING":          _legacy(test_persona_ceiling),
     "PERSONA-RUN":              test_persona_run,
     "PEAK-ORDER":               test_peak_order,
     "ANCHOR-CLEAN":             test_anchor_clean,

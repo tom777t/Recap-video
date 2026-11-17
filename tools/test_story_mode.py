@@ -28,6 +28,17 @@ plan stops building lines to hit style proportions:
                         are still reported and a short anchor is a WARNING;
                         repair_contour moves no line; the planner is told to
                         count lines from what happens, not from a share
+  REACTION-CEILING      story mode: reactions up to 20% are clean, up to 25%
+                        a warning, above that the draft goes back; legacy
+                        keeps 35%
+  PROMPTS-TELL-STORY    every prompt the angle and draft stages send carries
+                        the story guide and none of the old teaching (a loop
+                        every 12 lines, opinion quotas, signature moves,
+                        varied lengths, running bits); the old guides are not
+                        read by any stage
+  ANGLE-NO-REFRAIN      an angle with SETUPS AND PAYOFFS "None." and no
+                        signature moves is complete; the old RUNNING BITS
+                        heading still parses
   LEGACY-RESTORES       STYLE_QUOTA_FLOORS True brings the old construction
                         back (planned reactions and loops)
 
@@ -270,6 +281,97 @@ def t_contour_not_a_quota():
                      f"fails it" if not bad else "; ".join(bad))
 
 
+def t_reaction_ceiling():
+    import test_pacing as TP
+    from pipeline import pacing_gates as PG
+    d = {k: TP._mkdraft([("J" if i < k else "P", f"C{i:02d}")
+                         for i in range(20)]) for k in (4, 5, 6)}
+
+    def find(dd):
+        r = PG.pacing_report(dd, TP.PROJ)
+        return ([e for e in r["errors"] if e.startswith("[PERSONA-CEILING]")],
+                [w for w in r["warns"] if w.startswith("[PERSONA-CEILING]")],
+                r["stats"].get("judgment_share"))
+    e4, w4, s4 = find(d[4])
+    e5, w5, s5 = find(d[5])
+    e6, w6, s6 = find(d[6])
+    story = (not e4 and not w4 and not e5 and w5 and e6)
+    prev = config.STYLE_QUOTA_FLOORS
+    config.STYLE_QUOTA_FLOORS = True
+    try:
+        legacy = not find(d[6])[0]
+    finally:
+        config.STYLE_QUOTA_FLOORS = prev
+    ok = bool(story) and legacy
+    return ok, (f"story: {s4:.0%} clean, {s5:.0%} a warning, {s6:.0%} goes "
+                f"back; legacy lets {s6:.0%} through" if ok else
+                f"{s4}/{s5}/{s6}: errors {bool(e4)},{bool(e5)},{bool(e6)} "
+                f"warns {bool(w4)},{bool(w5)}; legacy {legacy}")
+
+
+def t_prompts_tell_story():
+    import write_api as W
+    from pathlib import Path as _P
+    bad = []
+    old = ("A `loop` at least every 12 lines", "A `judgment` at least every",
+           "You are now **required** to have a point of view",
+           "rejects anything below 9.0", "Signature moves:**` 2-3",
+           "Dangle an OPEN LOOP", "2-4 numbered motifs")
+    texts = {"draft_prompt": W._read(W.PROMPTS["draft"]),
+             "angle_prompt": W._read(W.PROMPTS["angle"]),
+             "story_guide": W._read(W.GUIDE)}
+    for n, t in texts.items():
+        bad += [f"{n}: {o!r}" for o in old if o in t]
+    # the blocks each stage really sends
+    ang = W.angle_request(PDIR)["system"]
+    dr = W.draft_system(PDIR)
+    for n, blocks in (("angle", ang), ("draft", dr)):
+        joined = "\n".join(b["text"] for b in blocks)
+        if "# Story guide: how this channel tells a film" not in joined:
+            bad.append(f"{n} stage does not send the story guide")
+        if "PILLAR ZERO" in joined or "The single decisive finding" in joined:
+            bad.append(f"{n} stage still sends an old guide")
+    src = (_P(W.__file__)).read_text(encoding="utf-8")
+    if "recap_style.md\")" in src or "NARRATOR_VOICE.md\")" in src:
+        bad.append("write_api still opens an old guide")
+    words = len(texts["story_guide"].split())
+    ok = not bad and words < 2500
+    return ok, (f"angle + draft send the {words}-word story guide; no old "
+                f"teaching in any stage prompt" if ok else "; ".join(bad[:4]))
+
+
+def t_angle_no_refrain():
+    import tempfile
+    from pathlib import Path as _P
+    from pipeline import angle_spec
+    import write_api as W
+    src = (PDIR / "angle.md").read_text(encoding="utf-8")
+    import re as _re
+    new = _re.sub(r"(?ms)^## RUNNING BITS\s*$.*?(?=^## )",
+                  "## SETUPS AND PAYOFFS\n\nNone.\n\n", src)
+    new = _re.sub(r"(?ms)^\*\*Signature moves:\*\*.*?(?=^\*\*Never|^## )",
+                  "", new)
+    d = _P(tempfile.mkdtemp())
+    (d / "angle.md").write_text(new, encoding="utf-8")
+    bad = []
+    try:
+        spec = angle_spec.require(d)
+        if spec["motifs"]:
+            bad.append("'None.' parsed as a setup")
+    except Exception as e:
+        bad.append(f"require() rejects it: {e}")
+    prob = W.angle_problems(angle_spec.load(d), {
+        "angle_md": new, "coverage_policy": {"mandatory": ["B01"]}})
+    if prob:
+        bad.append(f"angle_problems: {prob}")
+    old_spec = angle_spec.load(PDIR)
+    if not old_spec["motifs"]:
+        bad.append("the old RUNNING BITS heading no longer parses")
+    return not bad, ("SETUPS AND PAYOFFS 'None.' + no signature moves is a "
+                     "complete angle; the old heading still parses" if not bad
+                     else "; ".join(bad))
+
+
 def t_legacy_restores():
     _p, _ab, slots = _layout(floors=True)
     st = [s for s in slots if s["role"] not in ("hold", "film_speaks",
@@ -287,6 +389,9 @@ TESTS = [("NO-PLANNED-REACTIONS", t_no_planned_reactions),
          ("CAUSE-BRIDGES", t_cause_bridges),
          ("GATES-PASS-STORY", t_gates_pass),
          ("CONTOUR-NOT-A-QUOTA", t_contour_not_a_quota),
+         ("REACTION-CEILING", t_reaction_ceiling),
+         ("PROMPTS-TELL-STORY", t_prompts_tell_story),
+         ("ANGLE-NO-REFRAIN", t_angle_no_refrain),
          ("LEGACY-RESTORES", t_legacy_restores)]
 
 if __name__ == "__main__":

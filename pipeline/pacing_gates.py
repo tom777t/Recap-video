@@ -503,7 +503,22 @@ def pacing_report(draft: dict, pdir: Path) -> dict:
         # Told only to clear a floor, the rewrite came back at 52% judgment:
         # the narrator talks over the film and every beat arrives
         # pre-digested. A floor with no ceiling is half a bar.
-        _jmax = float(getattr(config, "PERSONA_JUDGMENT_SHARE_MAX", 0.35))
+        # story mode: about one line in five (owner, 16-17 Nov); the legacy
+        # 35% was set against a 15% FLOOR that story mode no longer has.
+        # The writer is told 20%; the hard bar sits at 25% so a draft at 21%
+        # (the viewer-approved Tokyo Drift draft measures 21.8%) is flagged,
+        # not sent back for a paid rewrite round.
+        _story = not getattr(config, "STYLE_QUOTA_FLOORS", False)
+        _jmax = float(getattr(config, "STORY_JUDGMENT_SHARE_HARD", 0.25)
+                      if _story else
+                      getattr(config, "PERSONA_JUDGMENT_SHARE_MAX", 0.35))
+        _jwarn = float(getattr(config, "STORY_JUDGMENT_SHARE_MAX", 0.20))
+        if _story and _jwarn < share <= _jmax:
+            warns.append(
+                f"[PERSONA-CEILING] {len(agreed)} of {len(lines)} lines "
+                f"({share:.1%}) are judgment, over the {_jwarn:.0%} the "
+                f"writer is told (hard bar {_jmax:.0%}). Look for a reaction "
+                f"that only tells the viewer what to think.")
         if share > _jmax:
             errors.append(
                 f"[PERSONA-CEILING] {len(agreed)} of {len(lines)} lines "

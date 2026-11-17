@@ -99,7 +99,7 @@ BAR_WORDS_PER_BEAT_MAX = 60.0  # du 1.32x so voi 45.6 | ban 58 phut 105.7 truot
 # ca hai ngon ngu dien dat duoc - tu chi nguoi ke, noi voi nguoi xem, the hien
 # thai do, cau hoi. Tieu tu cuoi cau tieng Viet bi LOAI khoi thanh do (tieng
 # Anh khong co o tuong duong) va duoc bao cao rieng nhu mot thiet bi phai adapt.
-# Do duoc (docs/NARRATOR_VOICE.md):
+# Do duoc (docs/archive/NARRATOR_VOICE.md):
 #   SAKURA 3 video       1.82 - 2.35/min, trung binh 2.05
 #   SAKURA 1/3 cuoi      3.15 - 3.74/min  <- hinh dang TANG DAN phai duoc phep
 #   Vua Phim             1.41/min
@@ -650,7 +650,7 @@ def craft_report(draft: dict) -> dict:
     m["hook_lines"] = len(hooks)
 
     # ---- the hook plays OVER THE MONTAGE, so it cannot describe a frame ----
-    # See docs/NARRATOR_VOICE.md "Hooks". On tokyodrift2006 the montage is 20
+    # See docs/archive/NARRATOR_VOICE.md "Hooks". On tokyodrift2006 the montage is 20
     # cuts in 13.7s: a line describing one shot is describing something that
     # is on screen for 0.65s, if at all. These rules apply to EVERY line
     # spoken over the montage, not only the one tagged `hook`.

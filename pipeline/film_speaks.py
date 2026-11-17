@@ -414,7 +414,7 @@ def candidates(project: str, measure_audio: bool = True,
     """Eligible film_speaks candidates with every measurable fact attached.
 
     Eligibility (at least one must hold, per the rules in
-    prompts/recap_style.md):
+    docs/archive/recap_style.md):
       reveal_own_words - the quote sits AT OR AFTER a reveal's landing and uses
                          one of that reveal's own held terms, i.e. the
                          character says the thing the recap has been holding

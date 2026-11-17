@@ -245,9 +245,11 @@ def test_angle():
     if rc != 0 or len(c.calls) != 2:
         return False, f"rc {rc}, {len(c.calls)} call(s): {out[-300:]}"
     s = _sys_text(c.calls[0])
-    if "prompts/recap_style.md" not in s or "NARRATOR_VOICE" not in s \
+    if "prompts/story_guide.md" not in s or "WHO does" in s \
+            or "Dangle an OPEN LOOP" in s or "Signature moves:**` 2-3" in s \
             or "cache_control" not in c.calls[0]["system"][-1]:
-        return False, "style/voice not in the cached system prefix"
+        return False, ("the story guide (and not the old style guide) is "
+                       "not in the cached system prefix")
     if "missing section(s)" not in c.calls[1]["messages"][-1]["content"]:
         return False, "retry did not carry the parser's error"
     from pipeline import angle_spec

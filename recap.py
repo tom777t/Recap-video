@@ -11,7 +11,7 @@ Workflow (the review checkpoint between 'ingest' and 'render' is REQUIRED):
 
   2. >>> CHECKPOINT <<<
         Hand transcript_for_script.txt to OpenCode and have it write the recap
-        narration into  projects/NAME/draft.json  (format in prompts/recap_style.md).
+        narration into  projects/NAME/draft.json  (how to tell it: prompts/story_guide.md).
         Then:  python recap.py draft --project NAME    (validates + writes script.txt)
         Edit draft.json / script.txt as you like, re-run draft to re-check.
 
@@ -82,7 +82,7 @@ def cmd_ingest(args):
     console.print(f"  1. Open: {script_in}")
     console.print(f"  2. Ask OpenCode to write the recap script into:")
     console.print(f"       {config.project_dir(args.project) / 'draft.json'}")
-    console.print(f"     (style + JSON format: prompts/recap_style.md)")
+    console.print(f"     (how to tell it: prompts/story_guide.md; line format: tools/draft_prompt.md)")
     console.print(f"  3. Run: python recap.py draft --project {args.project}")
 
 

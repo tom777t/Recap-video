@@ -2,7 +2,7 @@
 
 This is the INPUT to the selection stage. It does not choose anything: it finds
 every line in the transcript that is eligible under the rules in
-prompts/recap_style.md, measures what can be measured, and writes the list for
+docs/archive/recap_style.md, measures what can be measured, and writes the list for
 a fresh-context subagent to score and select from
 (prompts/film_speaks_select.md).
 

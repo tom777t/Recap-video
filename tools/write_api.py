@@ -97,9 +97,12 @@ PROMPTS = {
     "plan": TOOLS / "plan_prompt.md",
     "resolve": TOOLS / "resolve_prompt.md",
 }
-STYLE = ROOT / "prompts" / "recap_style.md"
-VOICE = ROOT / "docs" / "NARRATOR_VOICE.md"
-ANGLE_EXAMPLE = ROOT / "projects" / "tokyodrift2006" / "angle.md"
+# The story guide replaces recap_style.md + NARRATOR_VOICE.md (now in
+# docs/archive/, owner 17 Nov): ~1,300 lines of quotas, measurements and
+# stock moves became one short guide on telling the story. It goes to the
+# angle AND the draft stage; the old shipped angle example went with it,
+# because its RUNNING BITS and signature moves taught the old format.
+GUIDE = ROOT / "prompts" / "story_guide.md"
 STATE_FILE = "write_api.json"
 MAX_TOKENS = {"beats": 8192, "reveals": 8192, "facts": 8192, "angle": 12000,
               "draft": 32000, "filmspeaks": 8192, "plan": 32000,
@@ -649,18 +652,14 @@ def angle_request(pdir: Path) -> dict:
         '"coverage_policy": {"_note": "...", "mandatory": [...]}, '
         '"intro_style": {"preset": "<one preset name>", "reason": "<one '
         'line>"}} - intro_style is what intro_style.txt would hold',
-        extra=["# prompts/recap_style.md\n\n" + _read(STYLE),
-               "# docs/NARRATOR_VOICE.md\n\n" + _read(VOICE),
-               "# One shipped example - FORMAT, not content: "
-               "projects/tokyodrift2006/angle.md\n\n"
-               + _read(ANGLE_EXAMPLE, True)])
+        extra=["# prompts/story_guide.md\n\n" + _read(GUIDE)])
     user = "\n\n".join(f"# {n}\n\n{_read(pdir / n, n != 'beats_proposal.md')}"
                        for n in ("beats_proposal.md", "reveals.json",
                                  "names.json", "film_facts.json"))
     return params("angle", sysb, user)
 
 
-ANGLE_HEADINGS = ("ANGLE", "ATTITUDE TO CHARACTERS", "RUNNING BITS",
+ANGLE_HEADINGS = ("ANGLE", "ATTITUDE TO CHARACTERS", "SETUPS AND PAYOFFS",
                   "ANCHORS", "HOOK PROMISES", "NARRATOR PERSONA",
                   "WHAT THE ANGLE SELECTS")
 
@@ -670,13 +669,18 @@ def angle_problems(spec: dict, obj: dict) -> str | None:
     format. load() is lenient - it returns empty sections rather than
     failing - so an empty parse is reported here instead of written."""
     md = str(obj.get("angle_md") or "")
+    # the old heading of the setups section still parses (angle_spec)
+    alias = {"SETUPS AND PAYOFFS": ("SETUPS AND PAYOFFS", "RUNNING BITS")}
     miss = [h for h in ANGLE_HEADINGS
-            if not re.search(rf"^##\s+{re.escape(h)}\s*$", md, re.M)]
+            if not any(re.search(rf"^##\s+{re.escape(x)}\s*$", md, re.M)
+                       for x in alias.get(h, (h,)))]
     bits = []
     if miss:
         bits.append(f"missing section(s) {miss}")
+    # SETUPS AND PAYOFFS may honestly be empty ("None.") - a film with no
+    # planted detail must not be pushed into inventing a refrain
     for key, what in (("anchors", "ANCHORS"), ("promises", "HOOK PROMISES"),
-                      ("motifs", "RUNNING BITS"), ("persona", "NARRATOR PERSONA")):
+                      ("persona", "NARRATOR PERSONA")):
         if not spec.get(key):
             bits.append(f"angle_spec.load parsed no {what} entries")
     mand = (obj.get("coverage_policy") or {}).get("mandatory")
@@ -768,7 +772,9 @@ def draft_system(pdir: Path) -> list:
     cuts = _read(pdir / "_cuts.json", True)
     return system_blocks(
         "draft", 'the JSON object act<N>.json holds: {"act": N, "lines": [...]}',
-        extra=["# projects/<p>/beats_proposal.md (header and house rules "
+        extra=["# prompts/story_guide.md (HOW to tell it - read before the "
+               "slots)\n\n" + _read(GUIDE),
+               "# projects/<p>/beats_proposal.md (header and house rules "
                "apply to every act)\n\n" + _read(pdir / "beats_proposal.md")
                + "\n\n# projects/<p>/names.json\n\n"
                + _read(pdir / "names.json", True)
@@ -1819,13 +1825,13 @@ def cmd_estimate(a, client=None) -> int:
         cw=rv + bm + 6 * 3000, cr=6 * (rv + bm) + 15 * 3000)
     add("facts", _model("facts"), 1, 22000, 2500)
     ang_fixed = sum(_tok(_read(p, True)) for p in
-                    (PROMPTS["angle"], STYLE, VOICE, ANGLE_EXAMPLE))
+                    (PROMPTS["angle"], GUIDE))
     ang_var = sum(_tok(_read(pdir / n, True)) for n in
                   ("beats_proposal.md", "reveals.json", "names.json",
                    "film_facts.json"))
     add("angle", _model("angle"), 1, ang_var, 4000, cw=ang_fixed)
     na = n_acts(pdir)
-    ds = _tok(_read(PROMPTS["draft"])) + bm + _tok(_read(pdir / "names.json", True))
+    ds = _tok(_read(PROMPTS["draft"])) + _tok(_read(GUIDE)) + bm + _tok(_read(pdir / "names.json", True))
     acts = [_tok(_tool("act_payload.py", a.project, k)) for k in range(1, na + 1)]
     out_act = int(_tok(_read(pdir / "draft.json", True)) / max(1, na)) or 5000
     add("draft", _model("draft"), na, sum(acts), out_act * na,

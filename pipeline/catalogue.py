@@ -269,7 +269,7 @@ def parse_beats(project: str) -> dict:
     # --- header fields ----------------------------------------------------- #
     # style: which narration style guide this project follows. "linear" ->
     # prompts/style_linear_vn.md (chronological walk-through); anything else or
-    # absent -> "review" (prompts/recap_style.md), so existing projects are
+    # absent -> "review" (docs/archive/recap_style.md), so existing projects are
     # unchanged. Only the SCRIPT STRUCTURE differs; the engine is shared.
     ms = _re.search(r"^\s*style\s*:\s*([a-z_]+)", text, _re.IGNORECASE | _re.MULTILINE)
     if ms:

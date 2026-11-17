@@ -3517,7 +3517,7 @@ def _draft_target_report(project, d, cmap):
     except Exception:
         tier = None
         style = "review"
-    _guide = "prompts/style_linear_vn.md" if style == "linear" else "prompts/recap_style.md"
+    _guide = "prompts/style_linear_vn.md" if style == "linear" else "prompts/story_guide.md"
     console.print(f"    [dim]narration style: [bold]{style}[/] ({_guide})[/]")
     # TIER IS AN INPUT, NOT A GATE (2026-09-05). [DRAFT-UNDER-TARGET] compared
     # real-rate runtime against a per-tier floor and warned below it. It was
