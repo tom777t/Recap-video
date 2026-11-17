@@ -31,8 +31,10 @@ to. This is where the personal tone comes from.
 Budget: each bit = setup once + at most 2 callbacks + payoff once.
 
 ### `## ANCHORS`
-5-8 scenes the recap is built to ARRIVE at - hook payoff, thesis, reveals,
-emotional peaks. These get multi-line dwell; everything else is compressed.
+The scenes the recap is built to ARRIVE at - hook payoff, thesis, reveals,
+emotional peaks. Name as many as THIS film really has (most films have 4-10);
+do not pad to a number or cut to one. An anchor gets room to land; the beats
+between anchors still tell the story - who does what and why - not a summary.
 Format, one per line:
 
     - **B13** | emotional peak | why it is load-bearing | evidence: "verbatim words from B13's `what` in the beat map"

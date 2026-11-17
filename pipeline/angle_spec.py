@@ -211,7 +211,7 @@ def require(pdir: Path) -> dict:
     spec = load(pdir)
     missing = []
     if not spec["anchors"]:
-        missing.append("## ANCHORS (5-8 lines of `- **B..** | kind | why`)")
+        missing.append("## ANCHORS (one line per anchor: `- **B..** | kind | why`)")
     if not spec["persona"].get("stance"):
         missing.append("## NARRATOR PERSONA with a `**Stance:**` line")
     if not spec["persona"].get("moves"):

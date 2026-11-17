@@ -78,8 +78,35 @@ def word_band(project: str) -> tuple:
     return int(mn / k * wpm), int(top / k * wpm)
 
 
+def _quotas() -> bool:
+    return bool(getattr(config, "STYLE_QUOTA_FLOORS", False))
+
+
 def thresholds_text() -> str:
     from pipeline import craft_gates as CG
+    if not _quotas():
+        return (
+            "HOW MANY LINES A BEAT GETS - decide it from what HAPPENS in the "
+            "beat, never to reach a proportion:\n"
+            "- a beat where the story CHANGES (someone decides, betrays, "
+            "teams up, wins, loses, learns a secret, or an object or alliance "
+            "changes hands) gets the lines it takes to say who did what and "
+            "why, for someone who has not seen the film\n"
+            "- an ANCHOR is where the recap arrives; give it room (usually "
+            f"{config.PACING_ANCHOR_MIN_LINES}+ lines) when it carries that "
+            "much story - a short anchor is flagged, not rejected\n"
+            "- a link beat that only moves people from A to B can be one line "
+            "or folded into the next beat with a cause word (so, because, to "
+            "find ...)\n"
+            "- a pure spectacle beat (a stunt, a chase with no change) may "
+            "play on footage (lines 0, footage true); an action beat whose "
+            "OUTCOME changes the story still needs the line that says it\n"
+            f"- every beat in coverage_policy.json 'mandatory' gets >= 1 line\n"
+            f"- a beat has 0-{LINES_MAX} lines; a line never carries more "
+            f"than its footage can hold (code caps it)\n"
+            f"- the title is a PREMISE with a verb, never '<film> (<year>)'\n"
+            f"- the hook opens with a sentence of <= {CG.BAR_HOOK_OPENER_WORDS} "
+            f"words and names the question it raises (hook_question)\n")
     return (
         "GATE THRESHOLDS (the draft is rejected if it misses any):\n"
         f"- every ANCHOR beat (angle.md ## ANCHORS) gets >= "
@@ -245,7 +272,10 @@ def repair_contour(plan: dict, pdir: Path) -> list:
     """Make the plan's counts pass [PACING-CONTOUR] in place; return the
     changes as readable strings ([] = nothing needed)."""
     beats = plan.get("beats") or []
-    if not beats:
+    if not beats or not _quotas():
+        # story mode: no count is moved by code. The plan's own line counts
+        # stand - moving lines to anchors to reach the top-20% share is what
+        # starved the connective beats (Furious 7: 61 of 95 beats at 1 line).
         return []
     groups, protect = _contour_facts(pdir)
     by = {b.get("beat"): b for b in beats}

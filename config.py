@@ -1036,6 +1036,9 @@ def ensure_project(name: str) -> Path:
 # from the reference basis by the 0.75 factor measured on our own draft. Do not
 # compare a beat-basis number to a reference-basis one.
 # --------------------------------------------------------------------------- #
+# OFF BY DEFAULT (owner, 17 Nov): the count, the top-20% share and the
+# one-line-run bars below are enforced only with STYLE_QUOTA_FLOORS True.
+# Story mode reports them, and a short anchor is a warning, not a rewrite.
 PACING_ANCHORS_MIN = 5
 PACING_ANCHORS_MAX = 8
 # An anchor that gets one line is not an anchor. The scenes viewers singled out

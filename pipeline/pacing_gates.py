@@ -331,9 +331,18 @@ def pacing_report(draft: dict, pdir: Path) -> dict:
     anchor_beats = {b for a in anchors for b in a["beats"]}
     by_beat = {r["beat"]: r for r in table}
 
+    # Contour QUOTAS (anchor count 5-8, anchor dwell as a hard bar, top-20%
+    # line share, one-line runs) are floors: with config.STYLE_QUOTA_FLOORS
+    # False (owner, 17 Nov) the plan decides lines per beat from what HAPPENS
+    # in the beat. The top-20% quota made code move lines off the connective
+    # beats (repair_contour) - on Furious 7, 61 of 95 beats ended at one line
+    # and the story links ("Shaw teams up with Jakande") were the ones cut.
+    # Dwell on an anchor stays as a WARNING; the numbers are still reported.
+    quotas = bool(getattr(config, "STYLE_QUOTA_FLOORS", False))
+
     # ---- anchor count ---------------------------------------------------- #
-    if not (config.PACING_ANCHORS_MIN <= len(anchors)
-            <= config.PACING_ANCHORS_MAX):
+    if quotas and not (config.PACING_ANCHORS_MIN <= len(anchors)
+                       <= config.PACING_ANCHORS_MAX):
         errors.append(
             f"[PACING-CONTOUR] angle.md names {len(anchors)} anchor(s); the "
             f"contract is {config.PACING_ANCHORS_MIN}-"
@@ -358,7 +367,7 @@ def pacing_report(draft: dict, pdir: Path) -> dict:
             f"at all: {', '.join(missing)}. An anchor the recap never reaches "
             f"is not an anchor.")
     if thin:
-        errors.append(
+        (errors if quotas else warns).append(
             f"[PACING-CONTOUR] {len(thin)} anchor(s) are below "
             f"{config.PACING_ANCHOR_MIN_LINES} narration lines: "
             + "; ".join(thin)
@@ -378,7 +387,7 @@ def pacing_report(draft: dict, pdir: Path) -> dict:
         stats["top20_line_share"] = round(share, 3)
         stats["one_line_beats"] = sum(1 for r in table
                                       if r["narrated"] == 1)
-        if share < config.PACING_TOP20_LINE_SHARE_MIN:
+        if quotas and share < config.PACING_TOP20_LINE_SHARE_MIN:
             errors.append(
                 f"[PACING-CONTOUR] the contour is FLAT: the top 20% of beats "
                 f"carry {share:.1%} of the narration lines, under the "
@@ -398,7 +407,7 @@ def pacing_report(draft: dict, pdir: Path) -> dict:
             else:
                 run = 0
         stats["longest_one_line_run"] = best
-        if best > config.PACING_ONE_LINE_RUN_MAX:
+        if quotas and best > config.PACING_ONE_LINE_RUN_MAX:
             errors.append(
                 f"[PACING-CONTOUR] {best} beats in a row get exactly one line "
                 f"(ending at {worst_at}); the calibrated maximum is "
@@ -445,7 +454,7 @@ def pacing_report(draft: dict, pdir: Path) -> dict:
             continue
         got = sum(by_beat.get(b, {}).get("narrated", 0) for b in land)
         if got < config.PACING_ANCHOR_MIN_LINES:
-            errors.append(
+            (errors if quotas else warns).append(
                 f"[HOOK-PAYOFF] \"{pr['clause']}\" lands on "
                 f"{'/'.join(land)} with only {got} narration line(s).")
 

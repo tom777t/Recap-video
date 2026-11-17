@@ -23,6 +23,11 @@ plan stops building lines to hit style proportions:
   GATES-PASS-STORY      a draft filled from story slots - plain story lines,
                         no asides, no loops - raises no style-floor finding
                         and passes the open / intro / transition contracts
+  CONTOUR-NOT-A-QUOTA   the shipped flat draft (top-20% share 0.32, a run of
+                        9 one-line beats) raises no contour ERROR; the numbers
+                        are still reported and a short anchor is a WARNING;
+                        repair_contour moves no line; the planner is told to
+                        count lines from what happens, not from a share
   LEGACY-RESTORES       STYLE_QUOTA_FLOORS True brings the old construction
                         back (planned reactions and loops)
 
@@ -218,6 +223,53 @@ def t_gates_pass():
                       f"contracts hold" if not loud else str(loud[:3]))
 
 
+def t_contour_not_a_quota():
+    import copy
+    import json
+    from pathlib import Path
+    import test_pacing as TP
+    import write_plan as WP
+    from pipeline import pacing_gates as PG
+    d = TP._flat()
+    r = PG.pacing_report(d, TP.PROJ)
+    bad = []
+    hard = [e for e in r["errors"] if e.startswith("[PACING-CONTOUR]")
+            and ("FLAT" in e or "in a row" in e or "contract is" in e
+                 or "are below" in e)]
+    if hard:
+        bad.append(f"contour quota still an error: {hard[0][:90]}")
+    st = r.get("stats") or {}
+    if "top20_line_share" not in st or "longest_one_line_run" not in st:
+        bad.append("the contour numbers are no longer reported")
+    # the plan: code moves nothing
+    plan, _ab, _sl = _layout()
+    before = [(b["beat"], b.get("lines"), b.get("footage"))
+              for b in plan["beats"]]
+    p2 = copy.deepcopy(plan)
+    ch = WP.repair_contour(p2, PDIR)
+    after = [(b["beat"], b.get("lines"), b.get("footage")) for b in p2["beats"]]
+    if ch or before != after:
+        bad.append(f"repair_contour changed {len(ch)} count(s)")
+    t = WP.thresholds_text()
+    if "top 20%" in t or "in a row" in t:
+        bad.append("the planner is still told the share / run quota")
+    if "what HAPPENS" not in t or "changes hands" not in t:
+        bad.append("the planner is not told to count from the story")
+    # legacy still enforces
+    prev = config.STYLE_QUOTA_FLOORS
+    config.STYLE_QUOTA_FLOORS = True
+    try:
+        rl = PG.pacing_report(d, TP.PROJ)
+    finally:
+        config.STYLE_QUOTA_FLOORS = prev
+    if not any("FLAT" in e for e in rl["errors"]):
+        bad.append("floors on no longer fails the flat contour")
+    return not bad, (f"flat draft (share {st.get('top20_line_share')}, run "
+                     f"{st.get('longest_one_line_run')}): reported, not "
+                     f"failed; repair_contour moves 0 lines; legacy still "
+                     f"fails it" if not bad else "; ".join(bad))
+
+
 def t_legacy_restores():
     _p, _ab, slots = _layout(floors=True)
     st = [s for s in slots if s["role"] not in ("hold", "film_speaks",
@@ -234,6 +286,7 @@ TESTS = [("NO-PLANNED-REACTIONS", t_no_planned_reactions),
          ("ASIDE-ALLOWED", t_aside_allowed),
          ("CAUSE-BRIDGES", t_cause_bridges),
          ("GATES-PASS-STORY", t_gates_pass),
+         ("CONTOUR-NOT-A-QUOTA", t_contour_not_a_quota),
          ("LEGACY-RESTORES", t_legacy_restores)]
 
 if __name__ == "__main__":

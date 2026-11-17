@@ -153,7 +153,16 @@ def test_shipped_draft_fails() -> tuple[bool, str]:
     if not FIX.exists():
         return False, f"the fixture {FIX.name} is missing"
     d = _flat()
-    p = pg.pacing_report(d, PROJ)
+    # The flat-contour bar is a QUOTA, enforced only with the legacy switch
+    # (config.STYLE_QUOTA_FLOORS; story mode reports the share and does not
+    # fail on it - tools/test_story_mode.py::CONTOUR-NOT-A-QUOTA). This test
+    # checks the instrument, so it runs it with the switch on.
+    _prev = getattr(config, "STYLE_QUOTA_FLOORS", False)
+    config.STYLE_QUOTA_FLOORS = True
+    try:
+        p = pg.pacing_report(d, PROJ)
+    finally:
+        config.STYLE_QUOTA_FLOORS = _prev
     c = cg.continuity_report(d, PROJ)
     blob = " ".join(p["errors"] + c["errors"])
     want = {
