@@ -393,10 +393,17 @@ def _build_clip(ff: str, source: Path, start: float, end: float,
     # Contiguity is the whole reason this is safe: the audio is still read as
     # one continuous stretch from `start`, so it stays in sync with the
     # pictures as long as each sub-window plays for about its own real length.
-    _segs = [(float(a), float(b)) for a, b in (split_segments or [])
-             if float(b) > float(a)]
+    # A segment may carry its own screen time as a third value (a JOINED
+    # line, pipeline/joined.py: piece i stays on screen until the voice
+    # reaches piece i+1). Without it every segment gets an equal share.
+    _segs = [(float(x[0]), float(x[1])) for x in (split_segments or [])
+             if float(x[1]) > float(x[0])]
+    _seg_shares = [float(x[2]) for x in (split_segments or [])
+                   if len(x) > 2 and float(x[1]) > float(x[0])]
+    if len(_seg_shares) != len(_segs):
+        _seg_shares = []
     if len(_segs) < 2:
-        _segs = []
+        _segs, _seg_shares = [], []
 
     src_in = ["-ss", f"{start:.3f}"]
     if setpts_factor > 1.0001 and shot_dur > 0:
@@ -487,7 +494,8 @@ def _build_clip(ff: str, source: Path, start: float, end: float,
         # short to register as a shot at all and defeats the point of splitting.
         vin, vparts, labels = [], [], []
         for _i, (_a, _b) in enumerate(_segs):
-            _share = clip_len / len(_segs)
+            _share = (_seg_shares[_i] if _seg_shares
+                      else clip_len / len(_segs))
             vin += ["-ss", f"{_a:.3f}", "-t", f"{_b - _a + 0.5:.3f}",
                     "-i", str(source)]
             _m = ""
@@ -1240,7 +1248,9 @@ def _clip_signature(source: Path, start: float, end: float, hold: float,
         f"{float(config.FILM_AUDIO_PRE_REVEAL_SEC):.2f}",
         # 2f: the sub-windows change the PICTURE, so a cached one-shot clip
         # must not be reused for a split line.
-        "split=" + ("|".join(f"{a:.2f}-{b:.2f}" for a, b in (split_segments or []))
+        "split=" + ("|".join(f"{x[0]:.2f}-{x[1]:.2f}"
+                             + (f"@{float(x[2]):.3f}" if len(x) > 2 else "")
+                             for x in (split_segments or []))
                     or "none"),
     ]
     return hashlib.sha1("|".join(parts).encode("utf-8")).hexdigest()[:20]
@@ -1807,6 +1817,9 @@ def render(project: str, draft: dict,
     from pipeline import anchor as _anc
     _anc_on = bool(getattr(config, "ANCHOR_TO_DIALOGUE", True))
     _anc_segs = _anc.load_segments(pdir) if _anc_on else []
+    from pipeline import joined as _joined
+    _join_ok: list = []          # (line id, pieces, how the voice was timed)
+    _join_fallback: list = []    # (line id, why the even split stood)
     _anc_next_cs: dict = {}
     _nxt = None
     for _l in reversed(draft["lines"]):
@@ -2069,7 +2082,10 @@ def render(project: str, draft: dict,
                     line_id=lid, narration_dur=_narr_need,
                     shot_dur=_shot_dur, capacity=_shot_dur * BINDING_SLOWDOWN_MAX)
             # ---- dialogue anchor: show the moment while it is narrated ----
-            if _anc_segs:
+            # (not for a JOINED line: each piece is already bound to the
+            # footage it tells, and the picture follows the voice through
+            # them - pipeline/joined.py)
+            if _anc_segs and not _joined.intact(ln):
                 _a = _anc.find_anchor(ln.get("narration", ""), _anc_segs,
                                       start, end)
                 if _a is not None:
@@ -2121,6 +2137,42 @@ def render(project: str, draft: dict,
         # ---- 2f: does this line's picture need splitting? ----------------
         _split = _split_points(end - start, lead + narr_dur + GAP, _cutlist,
                                start, end, censor_region=censor_region)
+        # ---- a JOINED line: the picture switches when the voice reaches
+        # each piece (owner, 17 Nov). Only while the narration still IS its
+        # pieces, only when no piece's footage is censored (a censor
+        # resolves per shot; one blur cannot follow three), and only when
+        # each piece's footage can fill its screen time - else the even
+        # split above stands, and the run says so.
+        if _joined.intact(ln) and not ln.get("pool"):
+            _ps = ln["parts"]
+            try:
+                _pw = [(parse_ts(p_["clip_start"]), parse_ts(p_["clip_end"]))
+                       for p_ in _ps]
+            except Exception:
+                _pw = []
+            _pcen = [censor_by_clip.get(_host_key(p_["clip_start"],
+                                                  p_["clip_end"]), "none")
+                     for p_ in _ps]
+            _preg = [region_by_clip.get(_host_key(p_["clip_start"],
+                                                  p_["clip_end"]))
+                     for p_ in _ps]
+            _why = ""
+            if len(_pw) != len(_ps):
+                _why = "a piece has no readable window"
+            elif any(c != "none" for c in _pcen) or any(_preg) \
+                    or censor != "none":
+                _why = "a piece's footage is censored"
+            else:
+                _offs, _how = _joined.piece_offsets(
+                    ln, Path(audio_path), narr_dur,
+                    cache=pdir / "_cache" / "joined_offsets.json")
+                _clen = max(lead + narr_dur + GAP, hold)
+                _sh, _why = _joined.shares(lead, _offs, _clen, _pw)
+                if _sh:
+                    _split = [(a_, b_, x_) for (a_, b_), x_ in zip(_pw, _sh)]
+                    _join_ok.append((lid, len(_ps), _how))
+            if _why:
+                _join_fallback.append((lid, _why))
         sig = _clip_signature(source, start, end, hold, lid, crop_top,
                               narr_dur, audio_path, censor, censor_region, exposure,
                               lead_in=lead, film_audio=(has_film_audio and lid in _fa_ids),
@@ -2172,12 +2224,18 @@ def render(project: str, draft: dict,
         _blurred = (censor != "none")
         if _split:
             _nsp = len(_split)
-            for _si, (_sa, _sb) in enumerate(_split):
-                _share = clip_len / max(1, _nsp)
+            # the screen time each sub-window really gets: its own (a JOINED
+            # line, timed to the voice) or an equal share (2f)
+            _shs = [float(x[2]) for x in _split if len(x) > 2]
+            if len(_shs) != _nsp:
+                _shs = [clip_len / max(1, _nsp)] * _nsp
+            _oa = cursor
+            for _si, _x in enumerate(_split):
+                _sa, _sb = float(_x[0]), float(_x[1])
                 used_footage.add(_sa, _sb, "clip (split)",
                                  blurred=_blurred, line_id=lid,
-                                 out_a=cursor + _si * _share,
-                                 out_b=cursor + (_si + 1) * _share)
+                                 out_a=_oa, out_b=_oa + _shs[_si])
+                _oa += _shs[_si]
         else:
             used_footage.add(start, end,
                              "pool clip" if ln.get("pool") else "clip",
@@ -2214,7 +2272,9 @@ def render(project: str, draft: dict,
         if _split:
             _sp = (" [dim]split %d: %s[/]"
                    % (len(_split),
-                      " | ".join(f"{a:.1f}-{b:.1f}" for a, b in _split)))
+                      " | ".join(f"{x[0]:.1f}-{x[1]:.1f}"
+                                 + (f" ({x[2]:.1f}s)" if len(x) > 2 else "")
+                                 for x in _split)))
         console.print(f"  line {lid:>3}: [{src_label:<5}] -> {clip_len:4.1f}s{held}{tag}{_sp}")
 
     if _clip_jobs:
@@ -2452,6 +2512,19 @@ def render(project: str, draft: dict,
     # where a line lands in the finished video was the .ass file, which stores
     # caption TEXT and no line id - so a QA note could only ever say "something
     # is off around minute 7" instead of "line 36 drifts".
+    # ---- joined-line report (pipeline/joined.py) ------------------------
+    if _join_ok or _join_fallback:
+        _how = {}
+        for _l, _n, _h in _join_ok:
+            _k = _h.split(" (")[0]
+            _how[_k] = _how.get(_k, 0) + 1
+        console.print(f"[JOIN] {len(_join_ok)} joined line(s) switch the "
+                      f"picture when the voice reaches each piece ("
+                      + ", ".join(f"{v} {k}" for k, v in _how.items())
+                      + ")" + (f"; {len(_join_fallback)} split evenly "
+                               f"instead:" if _join_fallback else "."))
+        for _l, _w in _join_fallback[:12]:
+            console.print(f"    line {_l:>3}: {_w}")
     # ---- dialogue-anchor report ------------------------------------------
     if _anc_on:
         if not _anc_segs:

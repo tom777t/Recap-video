@@ -513,6 +513,57 @@ def test_anchor_render() -> tuple[bool, str]:
         _teardown()
 
 
+def test_join_render() -> tuple[bool, str]:
+    """A JOINED line (one sentence over two slots, pipeline/joined.py) goes
+    through the real render: its clip is split at the pieces' own windows,
+    each piece on screen for its OWN time (the voice's, or each piece's
+    share of the words when no aligner can run), and the run reports it."""
+    import contextlib
+    import re as _re
+    from pipeline.render import render
+    from pipeline import intro as _intro
+    orig = _stub_intro_tts()
+    _restore_stems = _no_stems()
+    try:
+        pdir, draft = _setup()
+        p1 = "The pattern drifts left while the tone holds flat,"
+        p2 = ("until something in the signal starts to come apart and the "
+              "bars give way.")
+        ln3 = next(x for x in draft["lines"] if x["id"] == 3)
+        draft["lines"] = [x for x in draft["lines"] if x["id"] != 4]
+        ln3.update(clip_start="00:00:10.0", clip_end="00:00:28.0",
+                   narration=f"{p1} {p2}", join=["S1", "S2"], parts=[
+                       {"slot": "S1", "beat": "B01", "text": p1,
+                        "clip_start": "00:00:10.0", "clip_end": "00:00:18.0"},
+                       {"slot": "S2", "beat": "B02", "text": p2,
+                        "clip_start": "00:00:18.0", "clip_end": "00:00:28.0"}])
+        io.open(pdir / "draft.json", "w", encoding="utf-8").write(
+            json.dumps(draft))
+        narration = _narration_for(pdir, draft["lines"])
+        buf = io.StringIO()
+        with contextlib.redirect_stdout(buf):
+            render(PROJ, draft, narration, music=None, captions=False,
+                   keep_temp=False, force_clips=True)
+        out = buf.getvalue()
+        m = _re.search(r"line +3:.*?split 2: 10\.0-18\.0 \(([\d.]+)s\) \| "
+                       r"18\.0-28\.0 \(([\d.]+)s\)", out.replace("\n", " "))
+        if "[JOIN] 1 joined line(s)" not in out:
+            return False, "no [JOIN] report - the joined line was not timed"
+        if not m:
+            return False, "line 3 was not split at its pieces' windows"
+        a, b = float(m.group(1)), float(m.group(2))
+        # piece 2 has more words than piece 1, so it holds the screen longer
+        if not b > a:
+            return False, (f"pieces on screen {a}s / {b}s - not their own "
+                           f"times (piece 2 is the longer)")
+        return True, (f"line 3 split at its pieces: {a}s on 10-18, {b}s on "
+                      f"18-28; [JOIN] reported")
+    finally:
+        _intro._tts_line = orig
+        _restore_stems()
+        _teardown()
+
+
 TESTS = {
     "SMOKE":          test_smoke,
     "INTRO-OWNED":    test_intro_owned,
@@ -520,6 +571,7 @@ TESTS = {
     "CENSOR-UNUSED":  test_censor_unused,
     "CENSOR-BOUND":   test_censor_bound,
     "ANCHOR-RENDER":  test_anchor_render,
+    "JOIN-RENDER":    test_join_render,
 }
 
 if __name__ == "__main__":
