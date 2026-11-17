@@ -22,7 +22,13 @@ never put it in config.py or a .env.
          of each text - so the format can be checked without a key in chat)
 
 Writes projects/<p>/plot_ref/plotexplained.json (raw replies) and
-plotexplained.md (readable). One film = 1 details call + up to 3 sections
+plotexplained.md (readable) - ONLY when the reply is this film. A title and a
+year do not identify a film: on 17 Nov "Double Life" 2023 returned a
+Paramount thriller (Sharon, Mark, Larry) instead of the short drama (Natalie
+Quinn, Sebastian Klein). So the reply must name at least one character from
+the project's names.json; if it names none, it is saved as
+plotexplained_REJECTED.* and nothing else is kept. With no names.json the
+file is saved marked UNVERIFIED. One film = 1 details call + up to 3 sections
 (summary, ending, timeline) = at most 4 requests; the free tier is 100/month.
 """
 from __future__ import annotations
@@ -117,8 +123,8 @@ def shape(obj, depth: int = 0, key: str = "") -> list:
     pad = "  " * depth
     out = []
     if isinstance(obj, dict):
-        out.append(f"{pad}{key}{{}} keys: {', '.join(list(obj)[:15])}")
-        for k, v in list(obj.items())[:15]:
+        out.append(f"{pad}{key}{{}} keys: {', '.join(list(obj)[:40])}")
+        for k, v in list(obj.items())[:40]:
             out += shape(v, depth + 1, f"{k}: ")
     elif isinstance(obj, list):
         out.append(f"{pad}{key}[] {len(obj)} item(s)")
@@ -206,6 +212,44 @@ def fetch(title: str, year, slug: str | None, key: str, opener=None,
     return out
 
 
+_GENERIC = {"mother", "father", "brother", "sister", "wife", "husband",
+            "son", "daughter", "the", "man", "woman", "girl", "boy", "uncle",
+            "aunt", "friend", "boss", "doctor", "officer", "detective", "mr",
+            "mrs", "ms", "dr", "young", "old", "agent"}
+
+
+def name_tokens(pdir: Path) -> list:
+    """Character names from names.json, as whole names and as single names
+    of 4+ letters that are not role words ("Natalie's mother" -> Natalie)."""
+    try:
+        nj = json.loads((pdir / "names.json").read_text(encoding="utf-8-sig"))
+    except (OSError, ValueError):
+        return []
+    chars = [str(n.get("character") or "") for n in nj.get("names") or []]
+    chars += list((nj.get("aliases") or {}).keys())
+    toks = set()
+    for c in chars:
+        c = re.sub(r"['’]s\b", "", c).strip()
+        if not c:
+            continue
+        toks.add(c)
+        for w in re.findall(r"[A-Za-z][A-Za-z.'-]+", c):
+            if len(w) >= 4 and w.lower() not in _GENERIC:
+                toks.add(w)
+    return sorted(toks)
+
+
+def identity(ref: dict, pdir: Path) -> tuple[str, list]:
+    """("ok" | "mismatch" | "unverified", the character names it found)."""
+    toks = name_tokens(pdir)
+    if not toks:
+        return "unverified", []
+    pool = " ".join(texts(ref.get("details"))
+                    + [x for s in ref["sections"].values() for x in texts(s)])
+    hit = [t for t in toks if re.search(r"\b" + re.escape(t) + r"\b", pool)]
+    return ("ok" if hit else "mismatch"), hit
+
+
 def to_md(ref: dict, title: str) -> str:
     lines = [f"# {title} - plot reference (cross-check only)", "",
              f"Source: {ref['source']}, /{ref['slug']}, fetched "
@@ -252,17 +296,45 @@ def main(argv=None, opener=None) -> int:
     except RefError as e:
         print(f"fetch_plot_ref: {e}")
         return 2
+    state, hit = identity(ref, pdir)
+    ref["identity"] = {"state": state, "names_found": hit}
+    det = ref["details"].get("data", ref["details"]) \
+        if isinstance(ref["details"], dict) else {}
+    desc = " ".join(str(det.get("description") or "").split()[:14])
     od = pdir / "plot_ref"
     od.mkdir(parents=True, exist_ok=True)
+    md = to_md(ref, title or a.slug)
+    if state == "mismatch":
+        # never leave a wrong film where the plan would read it
+        for old in ("plotexplained.json", "plotexplained.md"):
+            try:
+                (od / old).unlink()
+            except OSError:
+                pass
+        (od / "plotexplained_REJECTED.json").write_text(
+            json.dumps(ref, ensure_ascii=False, indent=1), encoding="utf-8")
+        (od / "plotexplained_REJECTED.md").write_text(
+            "# REJECTED - a different film with the same title\n\n" + md,
+            encoding="utf-8")
+        print(f"fetch_plot_ref: /{ref['slug']} is NOT this film - its text "
+              f"names none of the characters in names.json. It says: "
+              f"\"{desc} ...\". Saved as plot_ref/plotexplained_REJECTED.md "
+              f"for reference only. If plotexplained.com has the right film "
+              f"under another URL, run again with --slug <that>.")
+        return 3
+    if state == "unverified":
+        md = ("> UNVERIFIED: no names.json to check that this is the right "
+              "film. Read the first paragraph before using it.\n\n" + md)
     (od / "plotexplained.json").write_text(
         json.dumps(ref, ensure_ascii=False, indent=1), encoding="utf-8")
-    md = to_md(ref, title or a.slug)
     (od / "plotexplained.md").write_text(md, encoding="utf-8")
     words = sum(len(x.split()) for s in ref["sections"].values()
                 for x in texts(s))
     print(f"fetch_plot_ref: {a.project} -> plot_ref/plotexplained.md "
           f"(/{ref['slug']}; sections {', '.join(ref['sections']) or 'none'}; "
-          f"{words} words; {ref['requests']} request(s))")
+          f"{words} words; {ref['requests']} request(s); "
+          + (f"names it: {', '.join(hit[:4])}" if state == "ok"
+             else "UNVERIFIED - no names.json") + ")")
     for m in ref["missing"]:
         print(f"  not fetched: {m}")
     return 0

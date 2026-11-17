@@ -13,6 +13,12 @@
                     timeline entry with its time, and says it is a
                     cross-check, never a source of sentences
   NO-KEY            no PLOT_API_KEY: a message that says how to set it
+  WRONG-FILM        same title and year, different film (the real case of
+                    17 Nov: "Double Life" 2023 returned a Paramount thriller
+                    about Sharon and Mark for the short drama about Natalie
+                    Quinn): nothing named plotexplained.md is left, the reply
+                    is kept as _REJECTED, exit 3
+  UNVERIFIED        no names.json: saved, marked UNVERIFIED
 
 Run:  python tools/test_fetch_plot_ref.py      (exit 0 = all pass)
 """
@@ -80,10 +86,21 @@ ROUTES = {
 }
 
 
-def _run(routes, env_key=KEY, extra=()):
+NAMES = {"names": [{"character": "Deckard Shaw", "actor": "Jason Statham"},
+                   {"character": "Mose Jakande", "actor": "Djimon Hounsou"},
+                   {"character": "Dom's sister", "actor": "Jordana Brewster"}]}
+
+
+def _run(routes, env_key=KEY, extra=(), names=NAMES, stale=False):
     tmp = Path(tempfile.mkdtemp())
     pdir = tmp / "furious72015"
     pdir.mkdir()
+    if names is not None:
+        (pdir / "names.json").write_text(json.dumps(names), encoding="utf-8")
+    if stale:
+        (pdir / "plot_ref").mkdir()
+        (pdir / "plot_ref" / "plotexplained.md").write_text("old wrong film",
+                                                            encoding="utf-8")
     (pdir / "film_facts.json").write_text(json.dumps(
         {"title": "Furious 7", "year": 2015}), encoding="utf-8")
     seen, out = [], io.StringIO()
@@ -114,7 +131,7 @@ def _run(routes, env_key=KEY, extra=()):
 def t_slug_fallback():
     rc, out, seen, files = _run(ROUTES)
     urls = [u.split("/v1", 1)[1] for u, _h in seen]
-    ok = (rc == 0 and urls[0] == "/movies/furious-7"
+    ok = (rc == 0 and "names it: " in out and urls[0] == "/movies/furious-7"
           and urls[1] == "/movies/furious-7-2015"
           and "/movies/furious-7-2015/content/ending" not in urls
           and len(urls) <= 5 and "plotexplained.md" in files)
@@ -170,12 +187,41 @@ def t_no_key():
                 else f"rc {rc}, out {out!r}, {len(seen)} request(s)")
 
 
+def t_wrong_film():
+    r = dict(ROUTES)
+    r["/movies/furious-7-2015"] = (200, {"data": {
+        "title": "Furious 7", "year": 2015, "description": "A grieving widow "
+        "discovers her husband's death was no accident.",
+        "available_content": ["ending"]}})
+    r["/movies/furious-7-2015/content/ending"] = (200, {"data": {
+        "type": "ending", "format": "markdown", "text": "The ending reveals "
+        "that Mark's murder was orchestrated by Larry, who was obsessed with "
+        "Sharon."}})
+    rc, out, _s, files = _run(r, stale=True)
+    ok = (rc == 3 and "plotexplained.md" not in files
+          and "plotexplained_REJECTED.md" in files and "NOT this film" in out
+          and "grieving widow" in out)
+    return ok, ("a different film under the same title is rejected, the "
+                "stale file removed, exit 3" if ok
+                else f"rc {rc}, files {sorted(files)}, out {out!r}")
+
+
+def t_unverified():
+    rc, out, _s, files = _run(ROUTES, names=None)
+    md = files.get("plotexplained.md", "")
+    ok = rc == 0 and md.startswith("> UNVERIFIED") and "UNVERIFIED" in out
+    return ok, ("no names.json: saved, marked UNVERIFIED" if ok
+                else f"rc {rc}, out {out!r}")
+
+
 TESTS = [("SLUG-FALLBACK", t_slug_fallback),
          ("KEY-NEVER-SHOWN", t_key_never_shown),
          ("KEY-REFUSED", t_key_refused),
          ("SECTION-MISSING", t_section_missing),
          ("READABLE-MD", t_readable_md),
-         ("NO-KEY", t_no_key)]
+         ("NO-KEY", t_no_key),
+         ("WRONG-FILM", t_wrong_film),
+         ("UNVERIFIED", t_unverified)]
 
 if __name__ == "__main__":
     fails = 0
