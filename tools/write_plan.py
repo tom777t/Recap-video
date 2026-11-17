@@ -146,8 +146,25 @@ PLAN_SCHEMA = {
             "required": ["beat", "lines", "footage", "hold_after",
                          "film_speaks", "why"],
             "additionalProperties": False}},
+        # the story's chain of causes and what passes from hand to hand
+        # (owner, 16-17 Nov): code makes every point land on a narrated
+        # line (repair_story_points) and tells that slot what to say
+        "spine": {"type": "array", "items": {"type": "object", "properties": {
+            "step": {"type": "string"}, "because": {"type": "string"},
+            "beats": {"type": "array", "items": {"type": "string"}}},
+            "required": ["step", "because", "beats"],
+            "additionalProperties": False}},
+        "holders": {"type": "array", "items": {"type": "object",
+            "properties": {
+                "what": {"type": "string"},
+                "changes": {"type": "array", "items": {"type": "object",
+                    "properties": {"beat": {"type": "string"},
+                                   "to": {"type": "string"}},
+                    "required": ["beat", "to"],
+                    "additionalProperties": False}}},
+            "required": ["what", "changes"], "additionalProperties": False}},
     },
-    "required": ["title", "hook", "acts", "beats"],
+    "required": ["title", "hook", "acts", "beats", "spine", "holders"],
     "additionalProperties": False,
 }
 
@@ -168,7 +185,74 @@ def plan_user(project: str, pdir: Path, tool, read) -> str:
         "# angle.md\n\n" + read(pdir / "angle.md"),
         "# coverage_policy.json\n\n" + read(pdir / "coverage_policy.json", True),
         "# beats_proposal.md\n\n" + read(pdir / "beats_proposal.md"),
-        "# reveals.json\n\n" + read(pdir / "reveals.json", True)])
+        "# reveals.json\n\n" + read(pdir / "reveals.json", True)]
+        + (["# plot.md (Wikipedia's Plot - WHO and WHY; the beat map says "
+            "WHERE)\n\n" + read(pdir / "plot.md")]
+           if (pdir / "plot.md").exists() else []))
+
+
+# --------------------------------------------------------------------------- #
+# the story spine and the holders: built into the plan, not graded after
+# --------------------------------------------------------------------------- #
+_NOT_NAMES = {"The", "A", "An", "He", "She", "They", "His", "Her", "Their",
+              "It", "Its", "And", "But", "So", "Then", "When", "After",
+              "Before", "With", "Now", "This", "That", "In", "On", "At",
+              "To", "Of", "For", "From", "By", "Back", "Mr", "Mrs", "Ms",
+              "Dr"}
+
+
+def name_keys(text: str) -> list:
+    """The proper names in a spine step or a holder change: the words a
+    line must contain to be heard as THAT event."""
+    out = []
+    for w in re.findall(r"[A-Z][\w'\u2019-]*", str(text or "")):
+        w = re.sub(r"['\u2019]s$", "", w)
+        if len(w) >= 3 and w not in _NOT_NAMES and w not in out:
+            out.append(w)
+    return out
+
+
+def story_points(plan: dict) -> dict:
+    """{beat: [{"say": text, "keys": [names]}]} - every spine step and every
+    holder change, on the beat where it happens. A step on several beats is
+    said on its first one."""
+    pts: dict = {}
+    for st in plan.get("spine") or []:
+        bs = [b for b in st.get("beats") or [] if b]
+        if not bs or not str(st.get("step") or "").strip():
+            continue
+        say = str(st["step"]).strip().rstrip(".")
+        if str(st.get("because") or "").strip():
+            say += f" (because {str(st['because']).strip().rstrip('.')})"
+        pts.setdefault(bs[0], []).append(
+            {"say": say, "keys": name_keys(st["step"])})
+    for h in plan.get("holders") or []:
+        what = str(h.get("what") or "").strip()
+        for c in h.get("changes") or []:
+            if not c.get("beat") or not what:
+                continue
+            to = str(c.get("to") or "").strip()
+            pts.setdefault(c["beat"], []).append(
+                {"say": f"{what} is now with {to}",
+                 "keys": name_keys(to) or name_keys(what)})
+    return pts
+
+
+def repair_story_points(plan: dict) -> list:
+    """A story point on a beat the plan gave 0 lines gets 1: the listener
+    must HEAR every step of the chain and every change of hands. This is the
+    fix for 'Afterwards, Dom watches the plant burn' after three minutes of
+    footage in which God's Eye was stolen. Returns the changes made."""
+    pts = story_points(plan)
+    ch = []
+    for b in plan.get("beats") or []:
+        if b.get("beat") in pts and int(b.get("lines") or 0) < 1:
+            b["lines"], b["footage"] = 1, False
+            b["why"] = (str(b.get("why") or "") + " [code: story point - "
+                        "must be said]").strip()
+            ch.append(f"{b['beat']}: 0 -> 1 line (story point: "
+                      f"{pts[b['beat']][0]['say'][:60]})")
+    return ch
 
 
 # --------------------------------------------------------------------------- #
@@ -396,6 +480,23 @@ def validate_plan(plan: dict, project: str, pdir: Path, ab: dict) -> list:
     unc = [m for m in mand if n_by.get(m, 0) < 1]
     if unc:
         v.append(f"mandatory beat(s) with no line: {unc[:12]}")
+    # story spine + holders (story mode): present, on real beats, said
+    if not _quotas():
+        if len(ids) >= 10 and not plan.get("spine"):
+            v.append("no story spine - list the chain of causes the recap "
+                     "must carry (spine)")
+        known = set(ids)
+        bad_ref = sorted({b for st in plan.get("spine") or []
+                          for b in st.get("beats") or [] if b not in known}
+                         | {c.get("beat") for h in plan.get("holders") or []
+                            for c in h.get("changes") or []
+                            if c.get("beat") not in known})
+        if bad_ref:
+            v.append(f"spine / holders name beats not in the plan: "
+                     f"{bad_ref[:8]}")
+        unsaid = [b for b in story_points(plan) if n_by.get(b, 0) < 1]
+        if unsaid:
+            v.append(f"story point(s) on a beat with no line: {unsaid[:8]}")
     # words in band
     lo, hi = word_band(project)
     tot = sum(int(a.get("word_budget") or 0) for a in plan.get("acts") or [])
@@ -467,6 +568,13 @@ def plan_for_act(plan: dict, beats: list, k: int) -> str:
         rows.append(f"- {bid}: {what}"
                     + (" - " + "; ".join(extra) if extra else "")
                     + (f"  ({b.get('why')})" if b.get("why") else ""))
+    pts = story_points(plan)
+    mine = [(bid, p_) for bid in beats for p_ in pts.get(bid, [])]
+    if mine:
+        rows.append("\nSTORY POINTS - say each one, plainly, on its beat "
+                    "(the listener must HEAR it; it is why the beat has a "
+                    "line):")
+        rows += [f"- {bid}: {p_['say']}" for bid, p_ in mine]
     return ("# THE PLAN FOR YOUR BEATS - follow it exactly\n\n"
             f"Word budget for this act: {budget} words.\n"
             "Line counts are NARRATED lines per beat; set `note` to the beat "

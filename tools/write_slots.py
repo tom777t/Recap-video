@@ -49,7 +49,7 @@ ROLES = ("open", "intro", "action", "quote", "reaction", "bridge", "outro",
 # Bumped whenever derive_slots changes what it builds: a plan.json whose slots
 # carry an older version is re-derived (write_api.cmd_draft), so a fix here
 # reaches a project that already has a plan without re-buying the plan.
-SLOTS_VERSION = 14
+SLOTS_VERSION = 15
 
 
 def story_mode() -> bool:
@@ -476,6 +476,23 @@ def _split(a: float, b: float, k: int, moms: list) -> list:
     return [(a + i * step, a + (i + 1) * step) for i in range(k)]
 
 
+def _mark_story_points(slots: list, plan: dict) -> None:
+    """Each spine step / holder change rides on the FIRST story slot of its
+    beat as `must_say` (+ the names that line must contain). The plan gave
+    the beat a line for it (write_plan.repair_story_points); this tells the
+    writer what that line is FOR."""
+    import write_plan as WP
+    pts = WP.story_points(plan)
+    done = set()
+    for s in slots:
+        b = s.get("beat")
+        if b in pts and b not in done and s["role"] not in (
+                "hold", "film_speaks", "open", "intro"):
+            s["must_say"] = "; ".join(p["say"] for p in pts[b])
+            s["must_keys"] = [p["keys"] for p in pts[b] if p["keys"]]
+            done.add(b)
+
+
 def derive_slots(plan: dict, project: str, pdir: Path, ab: dict) -> dict:
     """{"slots": [...], "problems": [...]} - deterministic from the plan."""
     from pipeline import craft_gates as CG
@@ -808,6 +825,7 @@ def derive_slots(plan: dict, project: str, pdir: Path, ab: dict) -> dict:
     _voice_budget(slots)
     _sad_budget(slots, pdir)
     _mark_after_skip(slots, order, by, project, rng)
+    _mark_story_points(slots, plan)
     for s in slots:
         if s["role"] == "hold":
             s["hold"] = round(max(HOLD_SEC[0], min(HOLD_SEC[1],
@@ -1020,7 +1038,9 @@ def slots_text(slots: list) -> str:
                "Angeles.\", \"Three years earlier, ...\")"
                if s.get("transition") else "")
             + (" | OPENS A LOOP (payload loop)" if s.get("opens_loop") else "")
-            + (f" | QUOTE: \"{s['quote']}\"" if s.get("quote") else ""))
+            + (f" | QUOTE: \"{s['quote']}\"" if s.get("quote") else "")
+            + (f" | MUST SAY (a story point - name who): {s['must_say']}"
+               if s.get("must_say") else ""))
     return "\n".join(rows)
 
 
@@ -1035,7 +1055,8 @@ STORY_RULES = """\
    never ENOUGH across something important you skipped: say what happened.
 3. When something important CHANGES HANDS - an object, an alliance, a
    secret, who is winning - say it in one plain sentence ("Jakande's men
-   take the laptop with God's Eye on it.").
+   take the laptop with God's Eye on it."). A slot marked MUST SAY carries
+   one of these story points: say it on THAT line, naming who.
 4. Tell the WHOLE story: every event the plot needs, in order. In an action
    scene, say what CHANGES the story (who is hurt, who holds what, who
    escapes); pure spectacle can play without words.
@@ -1067,7 +1088,9 @@ STORY_RULES = """\
    action its goal and its obstacle ("to stop her, only to watch the train
    pull out"); let one sentence carry actions that belong together; put the
    feeling inside the story line ("she begs", "he realises", "luckily")
-   instead of a separate comment; end the sentence on the new thing.
+   instead of a separate comment; at a reveal, put the surprise last.
+   These are tools, not a template - three lines opening the same way
+   sound like a machine.
 
 BAD -> GOOD (from our own past drafts):
 - "Mr. Nobody, who took a bullet meant for all of them, still holds the
@@ -1396,6 +1419,17 @@ def line_deviations(ln: dict, s: dict) -> list:
             ln.get("narration")):
         out.append(f"{s['slot']}: the quote \"{s.get('quote')}\" is not "
                    f"in the line verbatim")
+    # a story point must be HEARD as that event: the line names at least
+    # one of its people (or the object) - "the enemy of my enemy" with no
+    # name is not "Shaw teams up with Jakande"
+    for keys in s.get("must_keys") or []:
+        low = text.lower()
+        if not any(re.search(r"\b" + re.escape(k_.lower()) + r"\b", low)
+                   for k_ in keys):
+            out.append(f"{s['slot']} ({s['beat']}): must say "
+                       f"\"{s.get('must_say')}\" - name "
+                       f"{' / '.join(keys[:3])}")
+            break
     return out
 
 
@@ -1411,6 +1445,8 @@ def slot_tag(s: dict) -> str:
         r += f", {s['min_words']}-{s['max_words']} words"
     if s.get("quote"):
         r += f", keep verbatim: \"{s['quote']}\""
+    if s.get("must_say"):
+        r += f"; must say: {s['must_say']}"
     if s.get("after_skip"):
         r += f"; {skip_note(s)}"
     return r

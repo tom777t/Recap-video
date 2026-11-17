@@ -1133,7 +1133,7 @@ def cmd_plan(a, client) -> int:
         except ValueError:
             old = None
         if isinstance(old, dict):
-            fixed = WP.repair_contour(old, pdir)
+            fixed = WP.repair_contour(old, pdir) + WP.repair_story_points(old)
             if not WP.validate_plan(old, a.project, pdir, ab):
                 out.write_text(json.dumps(old, ensure_ascii=False, indent=1),
                                encoding="utf-8")
@@ -1154,6 +1154,12 @@ def cmd_plan(a, client) -> int:
         if obj is not None:
             # counts are arithmetic: code makes them pass the contour gate
             fixed = WP.repair_contour(obj, pdir)
+            sp = WP.repair_story_points(obj)
+            if sp:
+                print(f"plan: {len(sp)} story point(s) sat on a beat with no "
+                      f"line - code gave each one line:")
+                for c in sp[:12]:
+                    print(f"  - {c}")
             if fixed:
                 print(f"plan: code adjusted {len(fixed)} beat count(s) to fit "
                       f"[PACING-CONTOUR]:")
