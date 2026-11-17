@@ -39,6 +39,22 @@ Do **not** make a beat out of:
 - a reaction shot that belongs to the beat before it
 - two lines of the same conversation (fold them into one beat)
 
+## The film's plot (when it follows this prompt)
+
+For most films the Wikipedia **Plot** section follows this prompt. People
+wrote it, and it says who everyone is and why they act. The frames often
+cannot: a character who is never named on screen becomes "an older man in a
+grey suit", and a villain's helicopter gets given to the hero's ally.
+
+- **Who** someone is, who works with whom, and who says a line: follow the
+  Plot. Name the person in `what` and in `chars`.
+- **What happens in your chunk**: the frames and the speech decide. Never add
+  an event from the Plot that is not in your moments, and never move one in
+  time.
+- If the Plot and the frames truly disagree about who someone is, use the
+  Plot's name and say what the frames show ("Viktor, sitting at the table,
+  ...").
+
 ## The audio is translated
 
 If the film is not in English the transcript is machine translation. It tells

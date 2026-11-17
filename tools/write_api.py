@@ -374,12 +374,24 @@ CHUNK_SCHEMA = {
 }
 
 
+PLOT_NOTE = ("# THE FILM'S PLOT (English Wikipedia, written by people)\n\n"
+             "Use it for WHO someone is and WHY they act - name a person the "
+             "frames only describe, give a line to the right speaker, never "
+             "contradict it on who works with whom. The frames and the "
+             "speech still decide WHAT happens in your chunk: never add an "
+             "event from the Plot that is not in your moments.\n\n")
+
+
 def chunk_request(project: str, k: int, n: int) -> dict:
+    # plot.md (pipeline/plot_ref.py) joins the cached system prefix - shared
+    # by every chunk, so it costs one cache write per film
+    pp = config.project_dir(project) / "plot.md"
+    extra = [PLOT_NOTE + _read(pp)] if pp.exists() else None
     sysb = system_blocks(
         "beats", 'the JSON object {"chunk": K, "beats": [...], "reveals": '
         '"<your REVEALS report>", "set_pieces": "<your SET-PIECES report>"} '
         "- the file's content plus the two reports the instructions ask for "
-        "in your reply", ttl="1h")
+        "in your reply", extra=extra, ttl="1h")
     p = params("beats", sysb, _tool("beat_payload.py", project, k, n))
     p.setdefault("output_config", {})["format"] = {"type": "json_schema",
                                                    "schema": CHUNK_SCHEMA}
@@ -524,6 +536,16 @@ def cmd_beats(a, client) -> int:
     d.mkdir(exist_ok=True)
     bad = {}
     if todo:
+        from pipeline import plot_ref as PR
+        try:
+            _title = wiki_title(pdir, getattr(a, "wiki", None))
+        except WriteError:
+            _title = None                       # no Wikipedia URL: no plot
+        pr = PR.ensure_plot(pdir, _title)
+        print(f"beats: plot.md {pr['state']}"
+              + (f" ({pr['words']} words) - read next to the frames for who "
+                 f"is who" if pr["words"] else
+                 f" - {pr.get('why', '')}; the frames alone name people"))
         reqs = {f"chunk{k}": chunk_request(a.project, k, N_BEAT_CHUNKS)
                 for k in todo}
         got = batch(client, pdir, "beats", reqs, wait=not a.no_wait,
@@ -568,6 +590,22 @@ def cmd_beats(a, client) -> int:
               f"{len(obj.get('set_pieces') or [])} set-piece(s))")
     out = _tool("assemble_beats.py", a.project, "--out", "beats_proposal.md")
     print("beats: " + (out.strip().splitlines() or ["assembled"])[-1])
+    if (pdir / "plot.md").exists():
+        from pipeline import plot_ref as PR
+        try:
+            allb = [b for k in range(1, N_BEAT_CHUNKS + 1)
+                    if (d / f"chunk{k}.json").exists()
+                    for b in json.loads(_read(d / f"chunk{k}.json"))["beats"]]
+            nm = [x.get("character") for x in
+                  json.loads(_read(pdir / "names.json")).get("names") or []]
+            miss = PR.missing_names(_read(pdir / "plot.md"), allb, nm)
+        except (WriteError, ValueError, KeyError):
+            miss = []
+        if miss:
+            print("beats: [PLOT-NAMES] the Plot names "
+                  + ", ".join(f"{n} ({c}x)" for n, c in miss[:6])
+                  + " but no beat does - check who the unnamed people in "
+                    "the beat map are (report only)")
     return 0
 
 
