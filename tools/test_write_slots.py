@@ -33,6 +33,7 @@ from __future__ import annotations
 
 import io
 import json
+import re
 import shutil
 import sys
 from contextlib import redirect_stdout
@@ -316,7 +317,14 @@ def test_draft_slots():
         mine = [s for s in WS.slots_for_act(slots, k)
                 if s["role"] not in ("hold", "film_speaks")]
         rep = [_fill(s, i) for i, s in enumerate(mine)]
-        if k == 3 and len(p["messages"]) == 1:
+        u0 = p["messages"][0]["content"]
+        if "# FIX ROUND" in u0:
+            # the narrow slot fix: reply for exactly the slots it lists
+            sec = u0[u0.index("# THE SLOTS TO REWRITE"):
+                     u0.index("# THE ACT AS IT STANDS")]
+            want = set(re.findall(r"^- (S\d+) ", sec, re.M))
+            rep = [r_ for r_ in rep if r_["slot"] in want]
+        elif k == 3 and len(p["messages"]) == 1:
             rep = rep[1:]                      # misses its first slot
             rep[0]["narration"] = "Far too short."
         return TWP.msg({"act": k, "lines": rep})
@@ -346,7 +354,9 @@ def test_draft_slots():
         bad.append(f"slot feedback went to {retry}, want act3 once")
     else:
         fb = seen[len(ab)][1]["messages"][-1]["content"]
-        if "no line" not in fb or "does not follow its slots" not in fb:
+        # the narrow fix round (test_fix_round): only the deviating slots
+        if "no line" not in fb or "# FIX ROUND" not in fb \
+                or "# WHAT IS WRONG" not in fb:
             bad.append("the deviations were not fed back")
     a2 = json.loads((PDIR / "draft.json.d/act2.json").read_text())["lines"]
     s2 = {s["slot"]: s for s in WS.slots_for_act(slots, 2)}

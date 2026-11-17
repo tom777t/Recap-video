@@ -60,8 +60,9 @@ def _go():
     seen = {}
 
     def reply(cid, params):
-        seen["system"] = "\n".join(b["text"] for b in params["system"])
-        seen["user"] = params["messages"][0]["content"]
+        if "user" not in seen:            # the act request, not the fix
+            seen["system"] = "\n".join(b["text"] for b in params["system"])
+            seen["user"] = params["messages"][0]["content"]
         cur = json.loads((PDIR / "plan.json").read_text(encoding="utf-8"))
         mine = WS.slots_for_act(cur["slots"], k)
         rep = [TSM._fill(s, i) for i, s in enumerate(mine)

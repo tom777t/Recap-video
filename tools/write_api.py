@@ -980,6 +980,106 @@ def slot_feedback(devs: list) -> str:
               "line per slot.")
 
 
+FIX_REACH = 20.0      # seconds of footage either side of a slot to resend
+
+
+def payload_slice(payload: str, beats: set, spans: list,
+                  reach: float = FIX_REACH) -> str:
+    """The act payload cut down to what a few slots need: the header, the
+    BEATS rows of their beats, the moments within `reach` seconds of their
+    windows (with their SPEECH), and the speech rules. The whole payload is
+    ~70k tokens on a feature film; a slot fix needs a few hundred lines."""
+    def _sec(ts):
+        try:
+            h, m, x = str(ts).strip().split(":")
+            return int(h) * 3600 + int(m) * 60 + float(x)
+        except ValueError:
+            return None
+    out, keep_m, mode = [], False, "head"
+    for ln in payload.splitlines():
+        st = ln.strip()
+        if st.startswith("BEATS ("):
+            mode = "beats"
+            out.append(ln)
+            continue
+        if st.startswith("AVAILABLE MACHINE MOMENTS"):
+            mode = "moments"
+            out.append(ln)
+            continue
+        if st.startswith(("CONTEXT ONLY", "!!", "HOW TO USE THE SPEECH")):
+            mode = "tail" if st.startswith("HOW TO USE") else "skip"
+        if mode == "head" or mode == "tail":
+            out.append(ln)
+        elif mode == "beats":
+            if not st or any(re.search(rf"\b{re.escape(b)}\b", st)
+                             for b in beats):
+                out.append(ln)
+        elif mode == "moments":
+            m = re.match(r"\s+\S+ \| (\S+) -> (\S+) \|", ln)
+            if m:
+                a, z = _sec(m.group(1)), _sec(m.group(2))
+                keep_m = a is not None and z is not None and any(
+                    a < hi + reach and z > lo - reach for lo, hi in spans)
+                if keep_m:
+                    out.append(ln)
+            elif st.startswith("SPEECH") and keep_m:
+                out.append(ln)
+            elif not st.startswith("SPEECH") and not m:
+                out.append(ln)
+    return "\n".join(out)
+
+
+def slot_fix_params(project: str, pdir: Path, k: int, sysb: list,
+                    slots: list, plan: dict, lines: list, devs: list,
+                    payload: str | None = None) -> dict | None:
+    """The slot-fix round, NARROW: the act as it stands (one row a line), the
+    slots that deviate with exactly what is wrong, and only their footage and
+    speech. The reply carries only those slots; merge_revision keeps every
+    other line. On the Furious 7 trial the whole-act resend cost $0.20 for
+    two acts: 152k input tokens to fix a handful of lines. None when the
+    deviations name no slot (then the caller resends the whole act)."""
+    import write_slots as WS
+    mine = {x["slot"]: x for x in WS.slots_for_act(slots or [], k)}
+    ids = []
+    for d_ in devs:
+        for sid in re.findall(r"\bS\d{3,4}\b", str(d_)):
+            if sid in mine and sid not in ids:
+                ids.append(sid)
+    if not ids:
+        return None
+    tgt = [mine[i] for i in ids]
+    spans = []
+    for x in tgt:
+        a_, z_ = x.get("clip_start"), x.get("clip_end")
+        if a_ and z_:
+            spans.append((_pt_ts(a_), _pt_ts(z_)))
+    pay = payload if payload is not None else _tool("act_payload.py",
+                                                    project, k)
+    act_now = "\n".join(
+        f"- {l.get('slot') or '-'} {l.get('note') or ''}: "
+        f"{str(l.get('narration') or '').strip() or '(no narration)'}"
+        for l in lines)
+    user = "\n\n".join([
+        f"# FIX ROUND - act {k}: rewrite ONLY the {len(ids)} slot(s) below",
+        "Every other line of the act stays exactly as it is. Reply with the "
+        "JSON object {\"act\": " + str(k) + ", \"lines\": [...]} holding "
+        "ONLY these slots, one line each.",
+        "# WHAT IS WRONG\n\n" + "\n".join(f"- {d_}" for d_ in devs),
+        "# THE SLOTS TO REWRITE\n\n" + WS.slots_text(tgt),
+        "# THE ACT AS IT STANDS (context - do not reply for these)\n\n"
+        + act_now,
+        "# THE FOOTAGE AND SPEECH AROUND THESE SLOTS\n\n"
+        + payload_slice(pay, {x["beat"] for x in tgt}, spans),
+        WS.writer_brief(pdir, plan or {}, k)])
+    sch = act_schema(SLOT_LINE_FIELDS, SLOT_LINE_REQUIRED)
+    return with_format(params("draft", sysb, user), sch)
+
+
+def _pt_ts(ts) -> float:
+    h, m, x = str(ts).split(":")
+    return int(h) * 3600 + int(m) * 60 + float(x)
+
+
 def retry_params(p: dict, msg, errs: list, text: str | None = None) -> dict:
     """The same request with the rejected reply and its exact errors."""
     q = json.loads(json.dumps(p))
@@ -1335,8 +1435,12 @@ def cmd_draft(a, client) -> int:
                 if devs and k not in slot_fb and used < rounds:
                     sent_devs[k] = devs
                     slot_fb.add(k)
-                    retry[cid] = retry_params(p, got.get(cid), devs,
-                                              slot_feedback(devs))
+                    # narrow: only the deviating slots and their footage
+                    # (the whole-act resend re-paid ~70k tokens an act)
+                    retry[cid] = (slot_fix_params(
+                        a.project, pdir, k, sysb, slots, plan, lines_, devs)
+                        or retry_params(p, got.get(cid), devs,
+                                        slot_feedback(devs)))
                 elif devs:
                     print(f"  act{k}: {len(devs)} slot deviation(s) left for "
                           f"the gates: {'; '.join(devs[:3])}")

@@ -222,9 +222,13 @@ def main(argv=None, client=None) -> int:
             res[k] = {"lines": lines, "probs": probs, "devs": devs, "fix": ""}
             if (probs and obj is not None) or devs:
                 # the draft stage's own single fix round
-                fb = None if probs else W.slot_feedback(devs)
-                fixes[f"act{k}"] = W.retry_params(reqs[f"act{k}"], msg,
-                                                  probs or devs, fb)
+                # the same narrow fix the draft stage sends: only the
+                # deviating slots; a schema fault still resends the act
+                narrow = None if probs else W.slot_fix_params(
+                    a.project, pdir, k, sysb, slots, plan, lines, devs)
+                fixes[f"act{k}"] = narrow or W.retry_params(
+                    reqs[f"act{k}"], msg, probs or devs,
+                    None if probs else W.slot_feedback(devs))
         if fixes:
             got2 = W.batch(client, pdir, f"{tag}-fix", fixes, wait=True,
                            poll=a.poll)
