@@ -738,7 +738,7 @@ MUSIC_CUE_MIN_GAP_SEC = 20.0
 MUSIC_CUE_FROM_ARRIVAL = True
 # The channel's music library (tools/music_library.py, config/
 # music_library.json): how many cues per mood a project gets from it.
-MUSIC_LIBRARY_CUES_PER_MOOD = 2
+MUSIC_LIBRARY_CUES_PER_MOOD = 3    # a choice per placement, by scene
 MUSIC_CUE_HOLD_BEFORE_SEC = 2.0   # a hold ending this close before the run
 MUSIC_CUE_HOLD_REACH_SEC = 8.0    # or starting this soon after its first line
 # (The bed's swell inside a narration-silence hold is SILENCE_MUSIC_VOLUME below;

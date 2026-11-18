@@ -17,6 +17,15 @@ classified library (owner, 18 Nov 2026).
   OLD-KEPT         an existing music/cues/ is moved aside, not overwritten
   MISSING-SAID     a track absent from the library stops pick and names
                    `fetch`
+  DESCRIBED        every track says what it sounds like (desc_vi, sound),
+                   which scenes it fits (>= 4 scene words) and its energy
+  FITS-THE-FILM    a film whose draft is about car chases and the police
+                   gets the chase cue among its action cues; the cue
+                   descriptions are written next to the files (cues.json)
+  PLACED-BY-SCENE  at render, a tense run about waiting for a call gets the
+                   waiting cue and a run about sneaking in gets the sneaking
+                   one - not whichever the rotation reached; without
+                   cues.json the old rotation still runs
 
 Run:  python tools/test_music_library.py      (exit 0 = all pass)
 """
@@ -189,9 +198,86 @@ def t_missing():
         shutil.rmtree(tmp, ignore_errors=True)
 
 
+def t_described():
+    cat = ML.load()
+    bad = [t["title"] for t in cat["tracks"]
+           if not (t.get("desc_vi") and t.get("sound")
+                   and len(t.get("scenes") or []) >= 4
+                   and t.get("energy") in (1, 2, 3))]
+    return not bad, ("every track has a description, >= 4 scene words and "
+                     "an energy" if not bad else f"undescribed: {bad[:5]}")
+
+
+def t_fits_the_film():
+    import json
+    tmp = Path(tempfile.mkdtemp(prefix="ml_"))
+    try:
+        cat = ML.load()
+        lib = _lib(tmp, cat)
+        pdir = tmp / "fast"
+        pdir.mkdir()
+        (pdir / "draft.json").write_text(json.dumps({"lines": [
+            {"narration": "The chase starts on the road; the police close in "
+                          "and the getaway car takes the race downhill."}]}),
+            encoding="utf-8")
+        picked = ML.pick(cat, pdir, lib, per_mood=3, now=1.0)
+        acts = [t["title"] for k, t in picked.items() if k.startswith("action")]
+        meta = json.loads((pdir / "music" / "cues" / "cues.json").read_text(
+            encoding="utf-8"))
+        ok = ("Mistake the Getaway" in acts and len(meta) == len(picked)
+              and all(m.get("scenes") for m in meta.values()))
+        return ok, (f"action cues {acts}; cues.json describes all "
+                    f"{len(meta)}" if ok else f"{acts}; {len(meta)} described")
+    finally:
+        shutil.rmtree(tmp, ignore_errors=True)
+
+
+def t_placed_by_scene():
+    import json
+    tmp = Path(tempfile.mkdtemp(prefix="ml_"))
+    try:
+        cdir = tmp / "music" / "cues"
+        cdir.mkdir(parents=True)
+        for n in ("tense1.mp3", "tense2.mp3"):
+            (cdir / n).write_bytes(b"x")
+        cat = {t["title"]: t for t in ML.load()["tracks"]}
+        (cdir / "cues.json").write_text(json.dumps({
+            "tense1.mp3": cat["Satiate - only percussion"],
+            "tense2.mp3": cat["Crypto"]}), encoding="utf-8")
+        lines, tl = [], []
+        texts = ["They wait for the phone call.", "Still waiting, nervous.",
+                 "The deadline passes while they wait.",
+                 "Quiet line.", "Quiet line.", "Quiet line.",
+                 "Quiet line.", "Quiet line.",
+                 "They sneak in through the back.", "She tracks the guard.",
+                 "They move in and search the office."]
+        for i, t in enumerate(texts, 1):
+            tense = i <= 3 or i >= 9
+            lines.append({"id": i, "narration": t,
+                          "delivery": "tense" if tense else "normal"})
+            tl.append({"id": i, "start": (i - 1) * 10.0,
+                       "end": (i - 1) * 10.0 + 9.0})
+        cues = M.cue_files(tmp)
+        plan = M.plan_cues({"lines": lines}, tl, cues, [], [])
+        got = [p["file"].name for p in plan]
+        (cdir / "cues.json").unlink()
+        plain = [p["file"].name for p in M.plan_cues({"lines": lines}, tl,
+                                                     M.cue_files(tmp), [], [])]
+        ok = got == ["tense2.mp3", "tense1.mp3"] and plain == [
+            "tense1.mp3", "tense2.mp3"]
+        return ok, (f"waiting run -> Crypto, sneaking run -> Satiate "
+                    f"Percussion; without cues.json the rotation gives "
+                    f"{plain}" if ok else f"{got} / plain {plain}: "
+                    f"{[p['why'] for p in plan]}")
+    finally:
+        shutil.rmtree(tmp, ignore_errors=True)
+
+
 TESTS = [("CATALOGUE-SANE", t_catalogue), ("FETCH-URLS", t_fetch),
          ("PICK-FILLS", t_pick_fills), ("NO-REPEAT", t_no_repeat),
-         ("OLD-KEPT", t_old_kept), ("MISSING-SAID", t_missing)]
+         ("OLD-KEPT", t_old_kept), ("MISSING-SAID", t_missing),
+         ("DESCRIBED", t_described), ("FITS-THE-FILM", t_fits_the_film),
+         ("PLACED-BY-SCENE", t_placed_by_scene)]
 
 if __name__ == "__main__":
     fails = 0

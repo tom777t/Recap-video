@@ -16,8 +16,10 @@ no ending track (owner, 18 Nov).
           network cannot reach incompetech.com.
               python tools/music_library.py fetch
   pick    fill projects/<name>/music/cues/ from the library:
-          MUSIC_LIBRARY_CUES_PER_MOOD cues per mood (one reveal), the LEAST
-          RECENTLY USED tracks first so neighbouring videos do not repeat,
+          MUSIC_LIBRARY_CUES_PER_MOOD cues per mood (one reveal) - the ones
+          whose scene words the film's draft uses most, then the LEAST
+          RECENTLY USED so neighbouring videos do not repeat - with their
+          descriptions in music/cues/cues.json for the render to place them,
           and write music/CREDITS_cues.md with the line the YouTube description
           must carry. The bed and anything else in music/ are left alone; an
           existing music/cues/ is moved to music/cues_old_<time>/ first,
@@ -104,15 +106,34 @@ def _used(lib: Path) -> dict:
         return {}
 
 
-def choose(cat: dict, used: dict, per_mood: int) -> dict:
-    """{slot: track}. Least recently used first (never used = oldest),
-    catalogue order breaking ties, one file never in two slots."""
+def film_text(pdir: Path) -> str:
+    """The film's own words, to match tracks to: the draft's narration, else
+    the beats, else nothing."""
+    for name in ("draft.json", "beats.json"):
+        try:
+            d = json.loads((pdir / name).read_text(encoding="utf-8"))
+        except (OSError, ValueError):
+            continue
+        rows = d.get("lines") or d.get("beats") or []
+        return " ".join(str(r.get("narration") or r.get("what") or
+                            r.get("summary") or "") for r in rows
+                        if isinstance(r, dict))
+    return ""
+
+
+def choose(cat: dict, used: dict, per_mood: int, text: str = "") -> dict:
+    """{slot: track}. Per mood: the tracks whose scene words this film uses
+    most (when its draft exists), then the least recently used (never used =
+    oldest), catalogue order breaking ties; one file never in two slots."""
+    from pipeline.music import scene_score
     out, taken = {}, set()
 
     def lru(mood, n):
         pool = [t for t in cat["tracks"] if t["mood"] == mood
                 and t["file"] not in taken]
-        pool.sort(key=lambda t: used.get(t["file"], 0.0))
+        pool.sort(key=lambda t: (-scene_score(text, t.get("scenes"))[0]
+                                 if text else 0,
+                                 used.get(t["file"], 0.0)))
         return pool[:n]
     for slot, mood, n in [(m, m, per_mood) for m in MOODS] + \
             [("reveal", "reveal", 1)]:
@@ -144,7 +165,7 @@ def pick(cat: dict, pdir: Path, lib: Path = LIB, per_mood: int | None = None,
     per_mood = int(per_mood or getattr(config, "MUSIC_LIBRARY_CUES_PER_MOOD",
                                        2))
     used = _used(lib)
-    picked = choose(cat, used, per_mood)
+    picked = choose(cat, used, per_mood, film_text(pdir))
     missing = [t["file"] for t in picked.values()
                if not (lib / t["file"]).exists()]
     if missing:
@@ -158,8 +179,16 @@ def pick(cat: dict, pdir: Path, lib: Path = LIB, per_mood: int | None = None,
         shutil.move(str(cdir), str(old))
         print(f"  the old music/cues/ is kept as music/{old.name}/")
     cdir.mkdir(parents=True, exist_ok=True)
+    meta = {}
     for slot, t in picked.items():
         shutil.copy2(lib / t["file"], cdir / f"{slot}.mp3")
+        meta[f"{slot}.mp3"] = {k: t.get(k) for k in (
+            "title", "mood", "desc_vi", "sound", "scenes", "energy")}
+    # the descriptions travel with the files: the render reads them to give
+    # each placement the track that fits its scene (pipeline/music.py)
+    (cdir / "cues.json").write_text(json.dumps(meta, indent=1,
+                                               ensure_ascii=False),
+                                    encoding="utf-8")
     (mdir / "CREDITS_cues.md").write_text(credits_text(cat, picked, pdir.name),
                                      encoding="utf-8")
     (mdir / "library_pick.json").write_text(json.dumps(

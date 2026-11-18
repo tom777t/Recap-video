@@ -162,6 +162,34 @@ def _mood_of(tag: str) -> str | None:
     return config.MUSIC_CUE_MOOD_FOR_TAG.get(str(tag or "").strip())
 
 
+def cue_meta(cues: dict) -> dict:
+    """{file name: description} from music/cues/cues.json beside the cue
+    files (tools/music_library.py pick writes it), or {}."""
+    for files in (cues or {}).values():
+        for f in files:
+            try:
+                d = json.loads((Path(f).parent / "cues.json").read_text(
+                    encoding="utf-8"))
+                return d if isinstance(d, dict) else {}
+            except (OSError, ValueError):
+                return {}
+    return {}
+
+
+def scene_score(text: str, scenes: list) -> tuple:
+    """(score, matched words): how many of a track's scene words the text
+    uses. A word matches as a whole word or the start of one ("investigat"
+    matches "investigates", "chase" matches "chased")."""
+    import re
+    t = " " + re.sub(r"[^a-z0-9' ]+", " ", str(text or "").lower()) + " "
+    hits = []
+    for w in scenes or []:
+        w = str(w).lower().strip()
+        if w and re.search(r"\b" + re.escape(w), t):
+            hits.append(w)
+    return len(hits), hits
+
+
 def _entry_hold(run_start: float, run_end: float, holds: list):
     """Start of the hold a cue should enter in, or None: the first hold that
     ends at most MUSIC_CUE_HOLD_BEFORE_SEC before the run's first line, or
@@ -231,7 +259,8 @@ def plan_cues(draft: dict, timeline: list, cues: dict,
                 why += f"; enters in the hold at {hs:.1f}s"
                 rs = hs
             proposals.append({"mood": mood, "start": rs, "end": re_,
-                              "why": why})
+                              "why": why,
+                              "ids": [t.get("id") for t in run]})
         i = j
 
     # 2. holds after a sad/reveal line -> a cue fills the hold
@@ -244,12 +273,14 @@ def plan_cues(draft: dict, timeline: list, cues: dict,
         if ptag == "sad" and "sad" in cues:
             proposals.append({"mood": "sad", "start": float(hs),
                               "end": float(he),
-                              "why": f"hold after a sad line (L{prev[-1]['id']})"})
+                              "why": f"hold after a sad line (L{prev[-1]['id']})",
+                              "ids": [prev[-1]["id"]]})
         elif ptag == "reveal" and "sad" in cues:
             # after a reveal, a sad/soft cue lets it settle
             proposals.append({"mood": "sad", "start": float(hs),
                               "end": float(he),
-                              "why": f"hold after a reveal (L{prev[-1]['id']})"})
+                              "why": f"hold after a reveal (L{prev[-1]['id']})",
+                              "ids": [prev[-1]["id"]]})
 
     proposals.sort(key=lambda p: p["start"])
 
@@ -270,7 +301,40 @@ def plan_cues(draft: dict, timeline: list, cues: dict,
                              reverse=True)[:cap_by_avg],
                       key=lambda p: p["start"])
 
-    # 4. rotation: never the same file back to back WITHIN a mood
+    # 4. WHICH track. With the library's descriptions (music/cues/cues.json,
+    # written by tools/music_library.py pick), each placement gets the track
+    # whose scene words its own lines use most (owner, 18 Nov: "có cả phần
+    # miêu tả ... để biết chỗ nào phù hợp"): a chase gets the chase cue, a
+    # death the death cue. Fewest uses in this film breaks a tie, and the same
+    # file never plays twice in a row. Without descriptions: plain rotation.
+    text_by_id = {l.get("id"): str(l.get("narration") or "")
+                  for l in draft.get("lines", [])}
+    meta = cue_meta(cues)
+    if meta:
+        uses: dict[str, int] = {}
+        last: dict[str, Path] = {}
+        for p in kept:
+            files = list(cues[p["mood"]])
+            text = " ".join(text_by_id.get(i, "") for i in p.get("ids", []))
+
+            def rank(f, _t=text):
+                m = meta.get(f.name) or {}
+                sc, hits = scene_score(_t, m.get("scenes") or [])
+                return (-sc, uses.get(f.name, 0), files.index(f)), hits
+            ranked = sorted(files, key=lambda f: rank(f)[0])
+            if len(ranked) > 1 and last.get(p["mood"]) == ranked[0]:
+                ranked = ranked[1:] + ranked[:1]
+            f = ranked[0]
+            hits = rank(f)[1]
+            uses[f.name] = uses.get(f.name, 0) + 1
+            last[p["mood"]] = f
+            p["file"] = f
+            title = (meta.get(f.name) or {}).get("title", f.name)
+            p["why"] += (f"; {title} - its scenes match "
+                         f"{', '.join(hits[:4])}" if hits else
+                         f"; {title} - no scene word matched, least used")
+        return kept
+
     rot: dict[str, int] = {}
     last_file_for_mood: dict[str, Path] = {}
     for p in kept:

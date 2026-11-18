@@ -1,5 +1,5 @@
 {
- "_about": "Channel cue library (owner, 18 Nov 2026). Cues only - the channel has its own bed, and no ending track is used. All tracks by Kevin MacLeod (incompetech.com), CC BY 4.0. Chosen from the 1443-piece catalogue by feel/genre, then measured (loudness envelope, steadiness, length of the strong stretch, low/high band share) on the 170 best-matching candidates; picks are the steadiest full-bodied ones per mood, with podcast/quiz/western/medieval/comedy themes excluded. Where in each track a cue starts is decided per placement by pipeline/music.py best_start (its best stretch for that length). tools/music_library.py fetches and picks.",
+ "_about": "Channel cue library (owner, 18 Nov 2026). Cues only - the channel has its own bed, and no ending track is used. All tracks by Kevin MacLeod (incompetech.com), CC BY 4.0. Chosen from the 1443-piece catalogue by feel/genre, then measured (loudness envelope, steadiness, length of the strong stretch, low/high band share) on the 170 best-matching candidates; picks are the steadiest full-bodied ones per mood, with podcast/quiz/western/medieval/comedy themes excluded. Where in each track a cue starts is decided per placement by pipeline/music.py best_start (its best stretch for that length). tools/music_library.py fetches and picks. Each track carries desc_vi (what it sounds like, for the owner), sound, scenes (English words a narration about that kind of scene uses) and energy 1-3; pick prefers tracks whose scenes the film's draft mentions, and the render gives each cue placement the track whose scenes its own lines mention most.",
  "source": "incompetech.com",
  "author": "Kevin MacLeod",
  "license": "Creative Commons: By Attribution 4.0 License",
@@ -13,7 +13,23 @@
    "seconds": 268,
    "feel": "Action, Aggressive, Dark, Driving, Epic, Intense, Mysterious",
    "isrc": "USUAN1300025",
-   "keep": true
+   "keep": true,
+   "desc_vi": "Điện tử + bộ gõ, cơ khí, lớn dần (đỉnh ~1:46)",
+   "sound": "synths, percussion; mechanical, builds big",
+   "scenes": [
+    "heist",
+    "hack",
+    "hacker",
+    "computer",
+    "infiltrate",
+    "break in",
+    "countdown",
+    "machine",
+    "escape",
+    "plan",
+    "system"
+   ],
+   "energy": 3
   },
   {
    "mood": "action",
@@ -22,7 +38,22 @@
    "seconds": 192,
    "feel": "Action, Dark, Driving, Epic, Intense",
    "isrc": "USUAN1200094",
-   "keep": true
+   "keep": true,
+   "desc_vi": "Kèn đồng + dây thúc đều, không có giai điệu lấn át, nằm dưới giọng đọc rất tốt",
+   "sound": "brass and strings driving, no dominant melody",
+   "scenes": [
+    "pursuit",
+    "raid",
+    "assault",
+    "operation",
+    "mission",
+    "convoy",
+    "close in",
+    "closing in",
+    "drive",
+    "team"
+   ],
+   "energy": 2
   },
   {
    "mood": "action",
@@ -31,7 +62,24 @@
    "seconds": 123,
    "feel": "Action, Driving, Epic, Intense, Suspenseful",
    "isrc": "USUAN1100699",
-   "keep": true
+   "keep": true,
+   "desc_vi": "Rượt đuổi: kèn mở màn, trống đều, dây dâng lên",
+   "sound": "horn blasts over a steady kit; chase",
+   "scenes": [
+    "chase",
+    "getaway",
+    "car",
+    "race",
+    "pursuit",
+    "escape",
+    "police",
+    "cops",
+    "run",
+    "drive",
+    "speed",
+    "road"
+   ],
+   "energy": 3
   },
   {
    "mood": "action",
@@ -40,7 +88,22 @@
    "seconds": 165,
    "feel": "Action, Aggressive, Dark, Intense",
    "isrc": "USUAN1400039",
-   "keep": true
+   "keep": true,
+   "desc_vi": "Nhịp 7/4, kèn đồng dội, trống nện; đánh nhau, kẻ ác",
+   "sound": "blasting brass, pounding drums in 7/4",
+   "scenes": [
+    "fight",
+    "brawl",
+    "villain",
+    "attack",
+    "beat",
+    "punch",
+    "rage",
+    "explosion",
+    "explode",
+    "kill"
+   ],
+   "energy": 3
   },
   {
    "mood": "action",
@@ -49,7 +112,20 @@
    "seconds": 93,
    "feel": "Action, Dark, Driving, Epic, Intense",
    "isrc": "USUAN1100592",
-   "keep": true
+   "keep": true,
+   "desc_vi": "Giọng hát + hợp xướng + trống lớn, sử thi",
+   "sound": "solo voice, choir, giant percussion",
+   "scenes": [
+    "battle",
+    "war",
+    "legend",
+    "sacrifice",
+    "last stand",
+    "army",
+    "showdown",
+    "destiny"
+   ],
+   "energy": 3
   },
   {
    "mood": "action",
@@ -58,7 +134,21 @@
    "seconds": 327,
    "feel": "Dark, Epic, Action, Driving",
    "isrc": "USUAN1600014",
-   "keep": true
+   "keep": true,
+   "desc_vi": "Chiến đấu dài, màu Ai Cập, sa mạc",
+   "sound": "battle music with an Egyptian colour",
+   "scenes": [
+    "battle",
+    "desert",
+    "ancient",
+    "treasure",
+    "temple",
+    "sword",
+    "adventure",
+    "tomb",
+    "egypt"
+   ],
+   "energy": 3
   },
   {
    "mood": "action",
@@ -67,7 +157,20 @@
    "seconds": 153,
    "feel": "Action, Driving, Intense",
    "isrc": "USUAN1100815",
-   "keep": true
+   "keep": true,
+   "desc_vi": "Cảnh đấu kiểu Star Wars, đổi nhịp nhiều",
+   "sound": "orchestral duel, several changes of feel",
+   "scenes": [
+    "duel",
+    "fight",
+    "showdown",
+    "spaceship",
+    "battle",
+    "confrontation",
+    "face off",
+    "faces off"
+   ],
+   "energy": 3
   },
   {
    "mood": "action",
@@ -76,7 +179,22 @@
    "seconds": 105,
    "feel": "Action, Aggressive, Intense, Suspenseful",
    "isrc": "USUAN1100726",
-   "keep": true
+   "keep": true,
+   "desc_vi": "Trận chiến căng: kèn, trống bộ lạc, dây giật",
+   "sound": "horns, tribal drums, staccato strings",
+   "scenes": [
+    "siege",
+    "defend",
+    "defense",
+    "overwhelm",
+    "ambush",
+    "shootout",
+    "gunfight",
+    "outnumber",
+    "shoot",
+    "gun"
+   ],
+   "energy": 3
   },
   {
    "mood": "action",
@@ -85,7 +203,21 @@
    "seconds": 119,
    "feel": "Action, Epic, Intense, Unnerving",
    "isrc": "USUAN1100662",
-   "keep": true
+   "keep": true,
+   "desc_vi": "Bộ gõ khổng lồ + synth, nhanh",
+   "sound": "huge percussion and synths, fast",
+   "scenes": [
+    "monster",
+    "creature",
+    "horror",
+    "attack",
+    "panic",
+    "zombie",
+    "run",
+    "flee",
+    "hunt"
+   ],
+   "energy": 3
   },
   {
    "mood": "action",
@@ -94,7 +226,21 @@
    "seconds": 170,
    "feel": "Action, Aggressive, Dark, Driving, Epic, Intense, Suspenseful",
    "isrc": "USUAN1300037",
-   "keep": true
+   "keep": true,
+   "desc_vi": "Dàn nhạc lai, chậm rồi bùng nhanh dữ dội",
+   "sound": "hybrid orchestra, slow then furious",
+   "scenes": [
+    "final battle",
+    "climax",
+    "showdown",
+    "unstoppable",
+    "storm",
+    "destroy",
+    "destruction",
+    "villain",
+    "collapse"
+   ],
+   "energy": 3
   },
   {
    "mood": "tense",
@@ -103,7 +249,24 @@
    "seconds": 140,
    "feel": "Action, Dark, Epic, Intense, Mysterious, Suspenseful",
    "isrc": "USUAN1100850",
-   "keep": true
+   "keep": true,
+   "desc_vi": "Căng âm ỉ: marimba + bass; cảnh nào cũng thành căng",
+   "sound": "low-level intensity burn",
+   "scenes": [
+    "suspicion",
+    "suspect",
+    "investigate",
+    "investigation",
+    "stakeout",
+    "follow",
+    "plan",
+    "secret",
+    "lie",
+    "lies",
+    "watch",
+    "spy"
+   ],
+   "energy": 2
   },
   {
    "mood": "tense",
@@ -112,7 +275,22 @@
    "seconds": 204,
    "feel": "Dark, Eerie, Unnerving, Suspenseful",
    "isrc": "USUAN1600013",
-   "keep": true
+   "keep": true,
+   "desc_vi": "Chờ một điều không hay: sáo + synth trầm",
+   "sound": "moody waiting music",
+   "scenes": [
+    "wait",
+    "deal",
+    "drug",
+    "meeting",
+    "nervous",
+    "hide",
+    "phone",
+    "call",
+    "deadline",
+    "ransom"
+   ],
+   "energy": 1
   },
   {
    "mood": "tense",
@@ -121,7 +299,21 @@
    "seconds": 334,
    "feel": "Dark, Epic, Intense, Suspenseful, Unnerving",
    "isrc": "USUAN1200043",
-   "keep": true
+   "keep": true,
+   "desc_vi": "Trống dồn liên tục, kiểu phim bom tấn",
+   "sound": "relentless reserved drumming",
+   "scenes": [
+    "countdown",
+    "prepare",
+    "gear up",
+    "approach",
+    "mission",
+    "storm",
+    "threat",
+    "incoming",
+    "arrive"
+   ],
+   "energy": 2
   },
   {
    "mood": "tense",
@@ -130,7 +322,20 @@
    "seconds": 192,
    "feel": "Dark, Intense, Relaxed, Suspenseful, Unnerving",
    "isrc": "USUAN1200055",
-   "keep": true
+   "keep": true,
+   "desc_vi": "Dây + bộ gõ, không cho người xem nghỉ",
+   "sound": "strings and percussion that never let up",
+   "scenes": [
+    "obsess",
+    "dread",
+    "manipulate",
+    "psycholog",
+    "stalk",
+    "paranoi",
+    "trap",
+    "torment"
+   ],
+   "energy": 2
   },
   {
    "mood": "tense",
@@ -139,7 +344,20 @@
    "seconds": 192,
    "feel": "Dark, Mysterious, Unnerving",
    "isrc": "USUAN1200057",
-   "keep": true
+   "keep": true,
+   "desc_vi": "Bộ gõ, chuyển động âm ỉ",
+   "sound": "percussion, reserved motion",
+   "scenes": [
+    "sneak",
+    "infiltrate",
+    "search",
+    "track",
+    "move in",
+    "creep",
+    "break in",
+    "steal"
+   ],
+   "energy": 2
   },
   {
    "mood": "tense",
@@ -148,7 +366,21 @@
    "seconds": 352,
    "feel": "Dark, Eerie, Intense, Mysterious, Suspenseful, Unnerving",
    "isrc": "USUAN1200059",
-   "keep": true
+   "keep": true,
+   "desc_vi": "Synth drone lạ + bộ gõ phim",
+   "sound": "odd synth drone with a percussion driver",
+   "scenes": [
+    "experiment",
+    "lab",
+    "conspiracy",
+    "danger",
+    "killer",
+    "trap",
+    "unravel",
+    "virus",
+    "test"
+   ],
+   "energy": 2
   },
   {
    "mood": "tense",
@@ -157,7 +389,21 @@
    "seconds": 107,
    "feel": "Dark, Eerie, Epic, Intense, Suspenseful",
    "isrc": "USUAN1100428",
-   "keep": true
+   "keep": true,
+   "desc_vi": "Sáo/clarinet uốn lượn, có gì đang bò tới",
+   "sound": "winding winds, something approaching",
+   "scenes": [
+    "sneak",
+    "creep",
+    "jungle",
+    "journey",
+    "hunt",
+    "prey",
+    "lurk",
+    "stalk",
+    "path"
+   ],
+   "energy": 1
   },
   {
    "mood": "tense",
@@ -166,7 +412,21 @@
    "seconds": 272,
    "feel": "Suspenseful, Dark, Calming",
    "isrc": "USUAN1900018",
-   "keep": true
+   "keep": true,
+   "desc_vi": "Tiếng rền thấp, đe doạ vô hình",
+   "sound": "low rumble, an unseen ominous force",
+   "scenes": [
+    "ominous",
+    "threat",
+    "unseen",
+    "watch",
+    "silence",
+    "aftermath",
+    "wait",
+    "alone",
+    "empty"
+   ],
+   "energy": 1
   },
   {
    "mood": "tense",
@@ -175,7 +435,22 @@
    "seconds": 376,
    "feel": "Aggressive, Driving, Dark, Suspenseful",
    "isrc": "USUAN1600003",
-   "keep": true
+   "keep": true,
+   "desc_vi": "Nhạc chiến nhẹ, nói chồng lên được",
+   "sound": "tame battle music, made to talk over",
+   "scenes": [
+    "standoff",
+    "confront",
+    "army",
+    "march",
+    "defy",
+    "defiance",
+    "rebel",
+    "rebellion",
+    "gather",
+    "rally"
+   ],
+   "energy": 2
   },
   {
    "mood": "tense",
@@ -184,7 +459,20 @@
    "seconds": 79,
    "feel": "Dark, Intense, Suspenseful, Unnerving",
    "isrc": "USUAN1100804",
-   "keep": true
+   "keep": true,
+   "desc_vi": "Rất tối, nhiều không khí, hiệu ứng số",
+   "sound": "dark atmosphere, digital effects",
+   "scenes": [
+    "horror",
+    "monster",
+    "curse",
+    "dark",
+    "darkness",
+    "trapped",
+    "nightmare",
+    "possess"
+   ],
+   "energy": 2
   },
   {
    "mood": "mystery",
@@ -193,7 +481,21 @@
    "seconds": 199,
    "feel": "Dark, Eerie, Epic, Mysterious, Somber, Suspenseful",
    "isrc": "USUAN1100885",
-   "keep": true
+   "keep": true,
+   "desc_vi": "Tối, gần như hành khúc tang",
+   "sound": "dark, almost a death march",
+   "scenes": [
+    "death",
+    "murder",
+    "body",
+    "crime scene",
+    "funeral",
+    "guilt",
+    "doom",
+    "dead",
+    "corpse"
+   ],
+   "energy": 1
   },
   {
    "mood": "mystery",
@@ -202,7 +504,22 @@
    "seconds": 207,
    "feel": "Dark, Eerie, Relaxed",
    "isrc": "USUAN1500064",
-   "keep": true
+   "keep": true,
+   "desc_vi": "Mở cảnh phim tâm lý; hơi rợn mà ấm",
+   "sound": "earthy, slightly creepy thriller opener",
+   "scenes": [
+    "town",
+    "stranger",
+    "arrive",
+    "arrival",
+    "psycholog",
+    "secret",
+    "neighbor",
+    "neighbour",
+    "investigat",
+    "village"
+   ],
+   "energy": 1
   },
   {
    "mood": "mystery",
@@ -211,7 +528,21 @@
    "seconds": 156,
    "feel": "Eerie, Mysterious",
    "isrc": "USUAN1500038",
-   "keep": true
+   "keep": true,
+   "desc_vi": "Bí ẩn sci-fi / siêu nhiên, synth kiểu theremin",
+   "sound": "neo-retro sci-fi mystery",
+   "scenes": [
+    "alien",
+    "space",
+    "paranormal",
+    "experiment",
+    "technology",
+    "strange",
+    "signal",
+    "ufo",
+    "machine"
+   ],
+   "energy": 2
   },
   {
    "mood": "mystery",
@@ -220,7 +551,20 @@
    "seconds": 144,
    "feel": "Dark, Eerie, Mystical, Relaxed, Intense, Somber",
    "isrc": "USUAN1100178",
-   "keep": true
+   "keep": true,
+   "desc_vi": "Synth mượt, bộ gõ nhẹ",
+   "sound": "smooth synth line, minimal percussion",
+   "scenes": [
+    "clue",
+    "discover",
+    "memory",
+    "search",
+    "truth",
+    "hope",
+    "find",
+    "answer"
+   ],
+   "energy": 1
   },
   {
    "mood": "mystery",
@@ -229,7 +573,20 @@
    "seconds": 182,
    "feel": "Dark, Driving, Eerie, Mysterious, Mystical",
    "isrc": "USUAN1100353",
-   "keep": true
+   "keep": true,
+   "desc_vi": "Đất, sáo trầm, xylophone; có gì đó sai sai",
+   "sound": "earthy, unearthly, things amiss",
+   "scenes": [
+    "ritual",
+    "tribe",
+    "cult",
+    "forest",
+    "ancient",
+    "island",
+    "village",
+    "sacrifice"
+   ],
+   "energy": 2
   },
   {
    "mood": "mystery",
@@ -238,7 +595,20 @@
    "seconds": 230,
    "feel": "Mystical, Eerie, Mysterious, Calming, Dark",
    "isrc": "USUAN1500061",
-   "keep": true
+   "keep": true,
+   "desc_vi": "Rất nhiều reverb, rỗng và rợn",
+   "sound": "hollow, spooky, reverb-heavy",
+   "scenes": [
+    "dream",
+    "hallucinat",
+    "ghost",
+    "witch",
+    "haunt",
+    "trance",
+    "vision",
+    "spirit"
+   ],
+   "energy": 1
   },
   {
    "mood": "mystery",
@@ -247,7 +617,20 @@
    "seconds": 353,
    "feel": "Dark, Eerie, Intense, Mystical, Unnerving",
    "isrc": "USUAN1100251",
-   "keep": true
+   "keep": true,
+   "desc_vi": "Tối giản: hạc, bass, didgeridoo",
+   "sound": "minimalist",
+   "scenes": [
+    "puzzle",
+    "clue",
+    "piece together",
+    "research",
+    "decode",
+    "map",
+    "figure out",
+    "notice"
+   ],
+   "energy": 1
   },
   {
    "mood": "mystery",
@@ -256,7 +639,19 @@
    "seconds": 215,
    "feel": "Dark, Eerie, Mysterious, Mystical",
    "isrc": "USUAN1100525",
-   "keep": true
+   "keep": true,
+   "desc_vi": "Sáo + chuông + trống, huyền bí",
+   "sound": "flutes, bells and plodding drums",
+   "scenes": [
+    "magic",
+    "ancient",
+    "temple",
+    "prophecy",
+    "mystic",
+    "legend",
+    "relic"
+   ],
+   "energy": 1
   },
   {
    "mood": "mystery",
@@ -265,7 +660,20 @@
    "seconds": 260,
    "feel": "Mystical, Dark, Mysterious",
    "isrc": "USUAN1600044",
-   "keep": true
+   "keep": true,
+   "desc_vi": "Cello/violin + synth, lạc vào chỗ kỳ lạ",
+   "sound": "strings and synths, lost somewhere strange",
+   "scenes": [
+    "lost",
+    "forest",
+    "abduct",
+    "memory",
+    "otherworld",
+    "strange",
+    "wake",
+    "woods"
+   ],
+   "energy": 1
   },
   {
    "mood": "mystery",
@@ -274,7 +682,20 @@
    "seconds": 198,
    "feel": "Eerie, Dark, Driving",
    "isrc": "USUAN1700041",
-   "keep": true
+   "keep": true,
+   "desc_vi": "Bassoon + organ, tối và lặc lè",
+   "sound": "bassoons and organ, dark and lumbering",
+   "scenes": [
+    "villain",
+    "evil",
+    "lair",
+    "sinister",
+    "scheme",
+    "mansion",
+    "boss",
+    "master"
+   ],
+   "energy": 2
   },
   {
    "mood": "sad",
@@ -283,7 +704,22 @@
    "seconds": 227,
    "feel": "Somber, Dark",
    "isrc": "USUAN1500032",
-   "keep": true
+   "keep": true,
+   "desc_vi": "Dây trầm cho cảnh ai đó chết mà vẫn cần lời thoại",
+   "sound": "low strings for a death that still needs dialogue",
+   "scenes": [
+    "death",
+    "die",
+    "dies",
+    "dying",
+    "loss",
+    "goodbye",
+    "funeral",
+    "grief",
+    "hospital",
+    "last words"
+   ],
+   "energy": 1
   },
   {
    "mood": "sad",
@@ -292,7 +728,21 @@
    "seconds": 198,
    "feel": "Suspenseful, Dark, Somber",
    "isrc": "USUAN1700086",
-   "keep": true
+   "keep": true,
+   "desc_vi": "Piano điện + dây, buồn kiểu thành phố đêm",
+   "sound": "electric piano and strings, sad",
+   "scenes": [
+    "fall",
+    "shot",
+    "partner",
+    "defeat",
+    "fail",
+    "injured",
+    "wounded",
+    "night",
+    "arrested"
+   ],
+   "energy": 1
   },
   {
    "mood": "sad",
@@ -301,7 +751,21 @@
    "seconds": 184,
    "feel": "Somber, Relaxed, Mystical, Calming",
    "isrc": "USUAN1600018",
-   "keep": true
+   "keep": true,
+   "desc_vi": "Synth tương lai, cảnh đi trong mưa không lời",
+   "sound": "futuristic synths, walking alone",
+   "scenes": [
+    "alone",
+    "walk",
+    "reflect",
+    "lonely",
+    "aftermath",
+    "montage",
+    "city",
+    "rain",
+    "drift"
+   ],
+   "energy": 1
   },
   {
    "mood": "sad",
@@ -310,7 +774,20 @@
    "seconds": 184,
    "feel": "Dark, Mystical, Somber",
    "isrc": "USUAN1100448",
-   "keep": true
+   "keep": true,
+   "desc_vi": "Kèn gỗ + dây + hợp xướng, buồn nhẹ",
+   "sound": "winds, strings, choir, relaxed",
+   "scenes": [
+    "memory",
+    "past",
+    "regret",
+    "home",
+    "family",
+    "longing",
+    "remember",
+    "childhood"
+   ],
+   "energy": 1
   },
   {
    "mood": "sad",
@@ -319,7 +796,20 @@
    "seconds": 239,
    "feel": "Calming, Dark, Somber",
    "isrc": "USUAN1400047",
-   "keep": true
+   "keep": true,
+   "desc_vi": "Hạc + guitar, trầm tư",
+   "sound": "harp and guitar, contemplative",
+   "scenes": [
+    "contemplat",
+    "decide",
+    "decision",
+    "doubt",
+    "guilt",
+    "alone",
+    "quiet",
+    "think"
+   ],
+   "energy": 1
   },
   {
    "mood": "sad",
@@ -328,7 +818,19 @@
    "seconds": 236,
    "feel": "Calming, Mysterious, Mystical, Somber",
    "isrc": "USUAN1100633",
-   "keep": true
+   "keep": true,
+   "desc_vi": "Piano xử lý + giọng, mơ hồ",
+   "sound": "processed piano, synths, voice",
+   "scenes": [
+    "dream",
+    "loss",
+    "ending",
+    "let go",
+    "afterlife",
+    "farewell",
+    "peace"
+   ],
+   "energy": 1
   },
   {
    "mood": "sad",
@@ -337,7 +839,21 @@
    "seconds": 101,
    "feel": "Calming, Mystical, Somber",
    "isrc": "USUAN1200016",
-   "keep": true
+   "keep": true,
+   "desc_vi": "Đẹp, suy tư, nhân vật nhìn lại",
+   "sound": "beautiful, reflective",
+   "scenes": [
+    "reflect",
+    "beach",
+    "sea",
+    "shore",
+    "reunion",
+    "reunite",
+    "peace",
+    "realize",
+    "realise"
+   ],
+   "energy": 1
   },
   {
    "mood": "sad",
@@ -346,7 +862,20 @@
    "seconds": 210,
    "feel": "Calming, Somber, Unnerving",
    "isrc": "USUAN1100452",
-   "keep": true
+   "keep": true,
+   "desc_vi": "Sáo + kèn trầm rồi dây: một thời kết thúc",
+   "sound": "low brass then strings, an era ending",
+   "scenes": [
+    "end",
+    "fall",
+    "collapse",
+    "era",
+    "defeat",
+    "legacy",
+    "over",
+    "ruin"
+   ],
+   "energy": 1
   },
   {
    "mood": "sad",
@@ -355,7 +884,21 @@
    "seconds": 199,
    "feel": "Dark, Epic, Somber, Suspenseful",
    "isrc": "USUAN1100884",
-   "keep": true
+   "keep": true,
+   "desc_vi": "Kèn đồng trang nghiêm, buồn hùng tráng",
+   "sound": "solemn brass",
+   "scenes": [
+    "sacrifice",
+    "honor",
+    "honour",
+    "hero",
+    "march",
+    "mourn",
+    "fallen",
+    "soldier",
+    "war"
+   ],
+   "energy": 2
   },
   {
    "mood": "sad",
@@ -364,7 +907,20 @@
    "seconds": 182,
    "feel": "Dark, Epic, Uplifting, Somber",
    "isrc": "USUAN1300038",
-   "keep": true
+   "keep": true,
+   "desc_vi": "Cú đánh mạnh, dây kéo dài + sáo; hợp xướng dâng",
+   "sound": "a big hit, string drone, flute; choir rises",
+   "scenes": [
+    "betray",
+    "betrayal",
+    "secret",
+    "heartbreak",
+    "tragic",
+    "truth",
+    "confess",
+    "reveal"
+   ],
+   "energy": 1
   },
   {
    "mood": "reveal",
@@ -373,7 +929,17 @@
    "seconds": 15,
    "feel": "Epic, Intense, Uplifting",
    "isrc": "USUAN1300023",
-   "keep": true
+   "keep": true,
+   "desc_vi": "Sting 3 nốt cực lớn",
+   "sound": "giant three-note sting",
+   "scenes": [
+    "twist",
+    "discover",
+    "revelation",
+    "shock",
+    "reveal"
+   ],
+   "energy": 3
   },
   {
    "mood": "reveal",
@@ -382,7 +948,19 @@
    "seconds": 37,
    "feel": "Dark, Eerie, Epic, Intense, Unnerving",
    "isrc": "USUAN1100406",
-   "keep": true
+   "keep": true,
+   "desc_vi": "Nhỏ rồi lên kèn đồng fortissimo",
+   "sound": "quiet into fortissimo brass",
+   "scenes": [
+    "twist",
+    "realize",
+    "realise",
+    "plan",
+    "reveal",
+    "behind it all",
+    "mastermind"
+   ],
+   "energy": 3
   },
   {
    "mood": "reveal",
@@ -391,7 +969,18 @@
    "seconds": 25,
    "feel": "Dark, Eerie, Mysterious, Unnerving",
    "isrc": "USUAN1100364",
-   "keep": true
+   "keep": true,
+   "desc_vi": "Cồng + synth tối",
+   "sound": "gong and dark synths",
+   "scenes": [
+    "killer",
+    "evil",
+    "curse",
+    "dark truth",
+    "murderer",
+    "monster"
+   ],
+   "energy": 2
   },
   {
    "mood": "reveal",
@@ -400,7 +989,18 @@
    "seconds": 20,
    "feel": "Dark, Eerie, Mysterious, Unnerving",
    "isrc": "USUAN1100362",
-   "keep": true
+   "keep": true,
+   "desc_vi": "Bộ gõ + bass + synth, rợn",
+   "sound": "creepy percussion, bass, synth",
+   "scenes": [
+    "wrong",
+    "creepy",
+    "body",
+    "found",
+    "discover",
+    "strange"
+   ],
+   "energy": 2
   },
   {
    "mood": "reveal",
@@ -409,7 +1009,18 @@
    "seconds": 38,
    "feel": "Action, Intense, Unnerving",
    "isrc": "USUAN1100703",
-   "keep": true
+   "keep": true,
+   "desc_vi": "Dàn nhạc + điện tử điên loạn",
+   "sound": "manic symphonic electronica",
+   "scenes": [
+    "madness",
+    "chaos",
+    "breakdown",
+    "collapse",
+    "snap",
+    "insane"
+   ],
+   "energy": 3
   },
   {
    "mood": "reveal",
@@ -418,7 +1029,19 @@
    "seconds": 18,
    "feel": "Dark, Epic, Intense, Mysterious",
    "isrc": "USUAN1100491",
-   "keep": true
+   "keep": true,
+   "desc_vi": "Chủ đề ngắn, mạnh, chút hy vọng",
+   "sound": "short powerful theme with hope",
+   "scenes": [
+    "hero",
+    "rescue",
+    "save",
+    "comeback",
+    "arrive",
+    "hope",
+    "return"
+   ],
+   "energy": 2
   },
   {
    "mood": "reveal",
@@ -427,7 +1050,19 @@
    "seconds": 13,
    "feel": "Action, Aggressive, Dark, Driving, Epic",
    "isrc": "USUAN1100552",
-   "keep": true
+   "keep": true,
+   "desc_vi": "Dây trầm + kèn đồng, chốt mạnh",
+   "sound": "low strings and brass finale",
+   "scenes": [
+    "final",
+    "death",
+    "dies",
+    "villain",
+    "falls",
+    "end",
+    "killed"
+   ],
+   "energy": 3
   },
   {
    "mood": "reveal",
@@ -436,7 +1071,18 @@
    "seconds": 42,
    "feel": "Dark, Mysterious, Epic",
    "isrc": "USUAN1100334",
-   "keep": true
+   "keep": true,
+   "desc_vi": "Gió + dây cuộn tối, bùng chũm chọe",
+   "sound": "dark winds and strings breaking into cymbals",
+   "scenes": [
+    "ambush",
+    "trap",
+    "betray",
+    "attack",
+    "set up",
+    "double cross"
+   ],
+   "energy": 3
   }
  ]
 }
