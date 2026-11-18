@@ -15,6 +15,15 @@
     "what": "NOT-MEASURABLE - needs `payload` labels ...",
     "severity_source": "inferred"
   },
+  "ANCHOR": {
+    "severity": "warn",
+    "modules": [
+      "pipeline/render.py",
+      "recap.py"
+    ],
+    "what": "a line's picture is moved onto the shot where its named event happens (anchor step); reports a line whose anchor could not be checked",
+    "severity_source": "reviewed"
+  },
   "ANCHOR-CLEAN": {
     "severity": "error",
     "modules": [
@@ -421,6 +430,15 @@
     "what": "",
     "severity_source": "inferred"
   },
+  "FLOW": {
+    "severity": "report",
+    "modules": [
+      "pipeline/draft.py",
+      "pipeline/flow_stats.py"
+    ],
+    "what": "report only: word-flow statistics of the draft (words per sentence, folded events, purpose and feeling words) against the reference channel",
+    "severity_source": "reviewed"
+  },
   "FOOTAGE-DROPPED": {
     "severity": "error",
     "modules": [
@@ -477,6 +495,14 @@
     ],
     "what": "no <intro> line. The draft starts ...",
     "severity_source": "inferred"
+  },
+  "JOIN": {
+    "severity": "report",
+    "modules": [
+      "pipeline/render.py"
+    ],
+    "what": "report only: joined lines whose picture switches when the voice reaches each piece, and any that fell back to the even split, with why",
+    "severity_source": "reviewed"
   },
   "LOOP-CADENCE": {
     "severity": "error",
@@ -1002,7 +1028,8 @@
   "VOICE-CUES": {
     "severity": "error",
     "modules": [
-      "pipeline/render.py"
+      "pipeline/render.py",
+      "recap.py"
     ],
     "what": "the delivery mapping breaks the ...",
     "severity_source": "inferred"
@@ -1019,7 +1046,8 @@
     "severity": "error",
     "modules": [
       "pipeline/render.py",
-      "pipeline/voice_check.py"
+      "pipeline/voice_check.py",
+      "recap.py"
     ],
     "what": "- has the voice ...",
     "severity_source": "inferred"

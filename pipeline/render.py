@@ -452,9 +452,17 @@ def _build_clip(ff: str, source: Path, start: float, end: float,
         _atempo = ""
         if setpts_factor > 1.0001:
             _atempo = f"atempo={1.0/setpts_factor:.5f},"
-        _base_db = float(config.FILM_AUDIO_DB)
+        # dB RELATIVE TO THE NARRATOR, measured on this clip's own window
+        # of the film's track (pipeline/levels.py). A fixed -17 dB on a stem
+        # that swings from -50 to -13 dB RMS between clips was inaudible in
+        # most action clips and loud in one.
+        from pipeline import levels as _lv
+        _fa_path = film_src if film_src is not None else source
+        _base_db, _ = _lv.under_gain(_fa_path, start, clip_len / max(
+            1.0, setpts_factor))
         if pre_reveal:
-            _hi = float(config.FILM_AUDIO_PRE_REVEAL_DB)
+            _hi = _base_db + (float(config.FILM_AUDIO_PRE_REVEAL_DB)
+                              - float(config.FILM_AUDIO_DB))
             _sec = max(0.2, float(config.FILM_AUDIO_PRE_REVEAL_SEC))
             _from = max(0.0, clip_len - _sec)
             # linear ramp in dB over the last _sec seconds of the clip
@@ -666,10 +674,20 @@ def _build_silence_clip(ff: str, source: Path, start: float, end: float,
     if _use_film:
         # A hold keeps the film under a music swell; a <film_speaks> unit hands
         # the moment over entirely, so its audio sits at full level.
-        _lvl = (float(getattr(config, "FILM_SPEAKS_DB", 0.0)) if film_speaks
-                else float(config.FILM_AUDIO_HOLD_DB))
+        # Both are set AGAINST THE NARRATOR and measured on this window
+        # (pipeline/levels.py). FILM_SPEAKS_DB used to be 0 dB on the source,
+        # which left Furious 7's two units 10 and 15.5 dB under the voice -
+        # the film's dialogue sits where its mixer put it, not at full scale.
+        from pipeline import levels as _lv
+        if film_speaks:
+            _lvl, _ = _lv.speaks_gain(source, start, clip_len)
+        else:
+            _lvl, _ = _lv.hold_gain(film_src if film_src is not None
+                                    else source, start, clip_len)
+        # the limiter: a +15 dB lift on quiet dialogue must not let the
+        # gunshot two seconds later clip the clip file
         _hold_af = (
-            f"volume={_lvl}dB,"
+            f"volume={_lvl:.2f}dB,alimiter=limit=0.891:level=disabled,"
             f"apad=whole_dur={clip_len:.3f},"
             f"atrim=duration={clip_len:.3f},asetpts=PTS-STARTPTS,"
             f"aformat=sample_rates=48000:channel_layouts=stereo"
@@ -1240,6 +1258,9 @@ def _clip_signature(source: Path, start: float, end: float, hold: float,
         # rendered audio. Without these in the signature, a cached clip from
         # before this change would be reused silently and the render would come
         # out with narration-only audio while the log claimed success.
+        # every film gain is relative to the narrator and measured on the
+        # window, so the reference and the bounds belong in the key too
+        f"levels={_levels_sig()}",
         f"film={bool(film_audio)}:{bool(config.FILM_AUDIO_ENABLE)}:"
         f"{float(config.FILM_AUDIO_DB):.2f}:"
         f"{float(config.FILM_AUDIO_HOLD_DB):.2f}",
@@ -1254,6 +1275,16 @@ def _clip_signature(source: Path, start: float, end: float, hold: float,
                     or "none"),
     ]
     return hashlib.sha1("|".join(parts).encode("utf-8")).hexdigest()[:20]
+
+
+def _levels_voice() -> float:
+    from pipeline import levels as _lv
+    return round(_lv.music_target(), 1)
+
+
+def _levels_sig() -> str:
+    from pipeline import levels as _lv
+    return _lv.signature()
 
 
 def region_to_output(censor_region, src_w: int, src_h: int):
@@ -1543,6 +1574,11 @@ def render(project: str, draft: dict,
     # <film_speaks> unit. A missing separation is a STOP, not a silent fallback
     # to the un-separated mix - see config.FILM_AUDIO_REQUIRE_STEMS.
     film_stem = None
+    # THE REFERENCE every film and music level is set against: the narrator.
+    from pipeline import levels as _levels
+    _vref, _vhow = _levels.begin(pdir)
+    console.print(f"[cyan]Levels:[/] narrator at {_vref:.1f} LUFS ({_vhow}); "
+                  f"film and music are set in dB against it")
     if config.FILM_AUDIO_ENABLE and getattr(config, "FILM_AUDIO_USE_STEMS", False):
         from pipeline import stems as _stems
         film_stem, _snote = _stems.resolve(project)
@@ -1615,10 +1651,12 @@ def render(project: str, draft: dict,
                                f"dialogue will be audible)")
             console.print(
                 f"[cyan]Film audio:[/] {_src_label} mixed under the voice at "
-                f"{config.FILM_AUDIO_DB:.0f} dB "
+                f"{config.FILM_AUDIO_DB:.0f} dB against the narrator "
                 f"({config.FILM_AUDIO_HOLD_DB:.0f} dB inside holds, "
                 f"{config.FILM_AUDIO_PRE_REVEAL_DB:.0f} dB for "
-                f"{config.FILM_AUDIO_PRE_REVEAL_SEC:.1f}s before a reveal)")
+                f"{config.FILM_AUDIO_PRE_REVEAL_SEC:.1f}s before a reveal; "
+                f"film_speaks at {config.FILM_SPEAKS_DB:+.0f} dB), measured "
+                f"per clip window")
             if film_stem is not None:
                 console.print(
                     "[dim]    the original mix is read ONLY inside a "
@@ -2903,7 +2941,7 @@ def render(project: str, draft: dict,
                  numbers={"minimum lift required (dB)":
                           _ac.CUE_LIFT_MIN_DB,
                           "music normalised to (LUFS)":
-                          (config.MUSIC_NORMALIZE_LUFS
+                          (_levels_voice()
                            if getattr(config, 'MUSIC_NORMALIZE', True)
                            else None),
                           "cue level target (dB)":
@@ -2938,7 +2976,7 @@ def render(project: str, draft: dict,
             for _b in _cfind:
                 console.print(f"[red]    {_b}[/]")
             problems.append("music cues: " + "; ".join(_cfind))
-    # film_speaks: the film must be the loudest thing in its own unit.
+    # film_speaks: the film must be as loud as the narrator around it.
     # Taken from the render's OWN in-memory window list, not read back out of
     # the music plan file. The plan was only ever a convenient carrier, and
     # routing this through a file in _work/ meant a measurement that does not
@@ -2965,12 +3003,15 @@ def render(project: str, draft: dict,
                 f"vs music {max(_r['before_db'], _r['after_db']):+6.1f} dB"
                 f"  margin {_r['margin_db']:+5.1f} dB[/]")
         _rep.add("FILM-SPEAKS", _sok,
-                 (f"{len(_srows)} unit(s); margin over the music "
+                 (f"{len(_srows)} unit(s); against the recap either side "
                   + ", ".join(f"line {r.get('line_id')} "
                                f"{r['margin_db']:+.1f} dB"
                                for r in _srows)),
                  numbers={"minimum margin required (dB)":
                           _ac.FILM_SPEAKS_MARGIN_MIN_DB,
+                          "maximum margin (dB)":
+                          _ac.FILM_SPEAKS_MARGIN_MAX_DB,
+                          "narrator (LUFS)": _levels_voice(),
                           "music ducked by (dB)":
                           config.FILM_SPEAKS_MUSIC_DB,
                           "duck fade (s)":
@@ -2989,19 +3030,21 @@ def render(project: str, draft: dict,
                  findings=[{"at": r["final_at"],
                             "text": (f"film_speaks line "
                                      f"{r.get('line_id')} is only "
-                                     f"{r['margin_db']:+.1f} dB over the "
-                                     f"music (bar "
-                                     f"{_ac.FILM_SPEAKS_MARGIN_MIN_DB:.0f}"
+                                     f"{r['margin_db']:+.1f} dB against the "
+                                     f"recap either side (band "
+                                     f"{_ac.FILM_SPEAKS_MARGIN_MIN_DB:+.0f}"
+                                     f"..{_ac.FILM_SPEAKS_MARGIN_MAX_DB:+.0f}"
                                      f" dB)")}
                            for r in _srows
-                           if r["margin_db"]
-                           < _ac.FILM_SPEAKS_MARGIN_MIN_DB],
+                           if not (_ac.FILM_SPEAKS_MARGIN_MIN_DB
+                                   <= r["margin_db"]
+                                   <= _ac.FILM_SPEAKS_MARGIN_MAX_DB)],
                  fatal=False,
-                 why=("the shipped render measured +3.2 and +1.5 dB here "
-                      "and was described as 'only music', so the bar is "
-                      "sited against that, not against a rule of thumb"))
+                 why=("Furious 7 shipped at -5.9 and -15.8 dB here and the "
+                      "owner heard the film's dialogue as too quiet; a unit "
+                      "levelled to the narrator lands near 0"))
         if not _sok:
-            console.print("[red][FILM-SPEAKS][/] the film is not audible "
+            console.print("[red][FILM-SPEAKS][/] the film is not at the narrator's level "
                           "in its own unit:")
             for _b in _sfind:
                 console.print(f"[red]    {_b}[/]")

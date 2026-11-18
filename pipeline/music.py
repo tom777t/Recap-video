@@ -5,8 +5,10 @@ Music: one BED under the whole recap, with mood CUES layered on top.
 Replaces the per-unit mood-bed switching (2c). The design, in one place:
 
   BED    projects/<name>/music/bed.mp3 - a single track looped seamlessly
-         (crossfade at the loop point) under the ENTIRE recap, ducked ~-22 dB
-         under narration and RAISED in holds.
+         (crossfade at the loop point) under the ENTIRE recap, MUSIC_DUCK_DB
+         (-18) under the narrator and RAISED in holds. Every music file is
+         first normalised to the narrator's measured loudness
+         (pipeline/levels.py), so each dB number here is "under the voice".
   CUES   projects/<name>/music/cues/<mood>*.mp3 for tense/sad/action/mystery,
          1-3 files per mood, ROTATED so the same cue never repeats back to
          back. A cue is layered ON TOP of the bed and fires ONLY on a run of
@@ -50,6 +52,11 @@ import config
 console = Console()
 
 _AUDIO_EXTS = (".mp3", ".m4a", ".wav", ".ogg")
+
+
+def _lv_target() -> float:
+    from pipeline import levels as _lv
+    return round(float(_lv.music_target()), 1)
 
 
 def _db(x: float) -> float:
@@ -279,8 +286,12 @@ def normalized(ff: str, pdir: Path, src: Path,
     """
     if not getattr(config, "MUSIC_NORMALIZE", True):
         return src
-    target = float(getattr(config, "MUSIC_NORMALIZE_LUFS", -23.0)
-                   if target is None else target)
+    if target is None:
+        # the narrator's measured loudness (pipeline/levels.py), so every gain
+        # applied after this reads as "dB under the voice"
+        from pipeline import levels as _lv
+        target = _lv.music_target()
+    target = round(float(target), 1)
     try:
         stt = src.stat()
         key = f"{src.name}:{stt.st_size}:{int(stt.st_mtime)}:{target:.1f}"
@@ -412,12 +423,14 @@ def build_music_track(ff: str, pdir: Path, out: Path, total_dur: float,
     #
     # The mix architecture does not need changing to fix it. Give each cue a
     # RELATIVE gain of (cue duck - bed duck) here, and the single global duck
-    # then lands the bed at MUSIC_DUCK_DB and the cue at MUSIC_CUE_DUCK_DB:
-    #     bed  -22 dB          cue  -22 + 10 = -12 dB
-    #     action cue           -22 + 14 =  -8 dB
+    # then lands the bed at MUSIC_DUCK_DB and the cue at MUSIC_CUE_DUCK_DB.
+    # Since 18 Nov every file is normalised to the narrator first, so these
+    # read as dB under the voice:
+    #     bed  -18 dB          cue  -18 + 8 = -10 dB
+    #     action cue           -18 + 11 = -7 dB
     # It falls out correctly in holds too: the silence swell raises the whole
-    # track to SILENCE_MUSIC_VOLUME (about -10 dB), which puts a cue at roughly
-    # -0.5 dB - near full level, which is what a hold is for.
+    # track to SILENCE_MUSIC_VOLUME (about -9 dB), which puts a cue at roughly
+    # -1 dB - near full level, which is what a hold is for.
     _bed_duck = float(getattr(config, "MUSIC_DUCK_DB", -22.0))
     _cue_duck = float(getattr(config, "MUSIC_CUE_DUCK_DB", -12.0))
     _cue_duck_action = float(getattr(config, "MUSIC_CUE_DUCK_ACTION_DB", -8.0))
@@ -516,7 +529,7 @@ def build_music_track(ff: str, pdir: Path, out: Path, total_dur: float,
                         "file": Path(ending["file"]).name,
                         "line": ending.get("line")} if ending else None),
             "holds": [[float(a), float(b)] for a, b in hold_windows],
-            "normalize_lufs": (float(config.MUSIC_NORMALIZE_LUFS)
+            "normalize_lufs": (_lv_target()
                                if getattr(config, "MUSIC_NORMALIZE", True)
                                else None),
         }, indent=1), encoding="utf-8")
@@ -572,6 +585,10 @@ def resolve_music(ff: str, pdir: Path, work: Path, draft: dict, timeline: list,
     the bed so the cues still layer - dropping to "legacy single track" there
     silently threw away a populated music/cues/ directory.
     """
+    # Every path below hands render.py a file NORMALISED TO THE NARRATOR, so
+    # the one MUSIC_DUCK_DB it applies means the same thing whichever design
+    # is active. The bed-only and legacy paths used to return the raw file:
+    # at -18 dB a -11 LUFS bed would have sat 4 dB under the voice.
     bed = bed_file(pdir)
     cues = cue_files(pdir)
     # reveal stings live under 'reveal'; mood cues are the rest
@@ -627,7 +644,7 @@ def resolve_music(ff: str, pdir: Path, work: Path, draft: dict, timeline: list,
                 f"[yellow]Music design: LEGACY SINGLE TRACK[/] - {legacy.name}, "
                 f"no music/bed.* and no music/cues/*. Add music/bed.mp3 + "
                 f"music/cues/<mood>*.mp3 for the bed+cues design.")
-            return legacy, False, "legacy single track"
+            return normalized(ff, pdir, legacy), False, "legacy single track"
         else:
             console.print("[yellow]Music design: NONE[/] - no music/bed.*, no "
                           "music/cues/* and no music.* - rendering with NO music.")
@@ -638,7 +655,7 @@ def resolve_music(ff: str, pdir: Path, work: Path, draft: dict, timeline: list,
             "[cyan]Music design: BED ONLY[/] (no music/cues/<mood>*.* found). "
             "The bed runs under the whole recap, ducked under the voice and "
             "raised in holds. Add cue files for layered mood.")
-        return bed, False, "bed only"
+        return normalized(ff, pdir, bed), False, "bed only"
 
     plan = plan_cues(draft, timeline, cues, reveal_positions,
                      hold_windows) if mood_cues else []
@@ -653,7 +670,7 @@ def resolve_music(ff: str, pdir: Path, work: Path, draft: dict, timeline: list,
             "(need a run of >= "
             f"{config.MUSIC_CUE_MIN_RUN} same-mood lines or a hold after a "
             "sad/reveal line).")
-        return bed, False, "bed only (no cue earned)"
+        return normalized(ff, pdir, bed), False, "bed only (no cue earned)"
 
     out = work / "music_track.wav"
     ok = build_music_track(ff, pdir, out, total_dur, bed, plan,
@@ -661,7 +678,7 @@ def resolve_music(ff: str, pdir: Path, work: Path, draft: dict, timeline: list,
                            film_speaks_windows=film_speaks_windows,
                            ending=ending)
     if not ok:
-        return bed, False, "bed only (cue build failed)"
+        return normalized(ff, pdir, bed), False, "bed only (cue build failed)"
 
     _by_mood: dict[str, int] = {}
     if ending is not None:

@@ -270,13 +270,22 @@ def test_gates_catch() -> tuple[bool, str]:
                            "cue, it is more bed")
         if "more bed" not in " ".join(find):
             return False, f"reported as something else: {find}"
+        # a film_speaks unit 10 dB under the narration either side: caught;
+        # one at the narration's level: passes
+        _ff("-f", "lavfi", "-i", "sine=frequency=220:duration=30", "-af",
+            "volume='if(between(t,10,16),0.316,1.0)':eval=frame", "-ac", "2",
+            str(d / "quiet.wav"))
         ok2, find2, _ = ac.check_film_speaks_audible(
-            d / "flat.wav", [{"line_id": 7, "final_at": 10.0, "dur": 6.0}])
+            d / "quiet.wav", [{"line_id": 7, "final_at": 10.0, "dur": 6.0}])
         if ok2:
-            return False, ("a film_speaks unit no louder than the music "
+            return False, ("a film_speaks unit 10 dB under the narrator "
                            "around it passed")
-        if "loudest thing" not in " ".join(find2):
+        if "quieter than the narrator" not in " ".join(find2):
             return False, f"reported as something else: {find2}"
+        ok2b, find2b, _ = ac.check_film_speaks_audible(
+            d / "flat.wav", [{"line_id": 7, "final_at": 10.0, "dur": 6.0}])
+        if not ok2b:
+            return False, f"a unit at the narrator's level failed: {find2b}"
         # a real lift passes
         _ff("-f", "lavfi", "-i", "sine=frequency=220:duration=30", "-af",
             "volume='if(between(t,10,16),4.0,1.0)':eval=frame", "-ac", "2",
@@ -285,51 +294,46 @@ def test_gates_catch() -> tuple[bool, str]:
             d / "lift.wav", [{"at": 10.0, "dur": 6.0, "mood": "tense"}])
         if not ok3:
             return False, f"a real +12 dB lift was rejected: {find3}"
-        return True, (f"a cue at bed level and a drowned film_speaks unit are "
-                      f"both caught; a real "
+        return True, (f"a cue at bed level and a film_speaks unit 10 dB under "
+                      f"the narrator are both caught, a matched unit passes; "
+                      f"a real "
                       f"{rows3[0]['lift_db']:+.1f} dB lift passes")
 
 
 def test_bars_calibrated_to_defect() -> tuple[bool, str]:
     """The bars must reject the render that was actually complained about.
 
-    Measured on the shipped final.mp4 - the one described as "I heard only
-    music" and "cues not audible":
+    18 Nov: the film_speaks margin is measured against the NARRATED lines
+    either side, so it says whether the characters are as loud as the
+    narrator. Furious 7 shipped at -5.9 and -15.8 dB and the owner heard the
+    film's dialogue as too quiet ("thoại gốc tiếng vẫn hơi nhỏ"); both must
+    fail, and a unit levelled to the narrator (0 dB) must pass.
 
-        film_speaks line 110 at 3:01.2   margin +3.2 dB
-        film_speaks line 111 at 12:44.5  margin +1.5 dB
-        5 of 6 cues               lift +0.2 .. +3.4 dB
+    The October defect - a unit drowned by an UN-DUCKED music swell, which
+    measured +3.2 dB - is not something a loudness margin can see (the
+    loudness was there; it was music). It is guarded where it was caused:
+    FILM-SPEAKS-DUCKS and FILM-SPEAKS-NOT-HOLD pin the -20 dB duck inside
+    every unit.
 
-    A first version of FILM_SPEAKS_MARGIN_MIN_DB was 3.0, which line 110 would
-    have PASSED at +3.2 dB - a check calibrated to accept the very render it
-    was written to catch. That is the failure mode this case exists to
-    prevent: a threshold chosen from a general rule of thumb (~3 dB is "just
-    noticeably louder") rather than from the defect in front of me.
+    Cues are unchanged: 5 of 6 shipped cues lifted +0.2 .. +3.4 dB.
     """
-    worst_shipped_fs = 3.2
-    if float(ac.FILM_SPEAKS_MARGIN_MIN_DB) <= worst_shipped_fs:
-        return False, (f"FILM_SPEAKS_MARGIN_MIN_DB is "
-                       f"{ac.FILM_SPEAKS_MARGIN_MIN_DB:.1f} dB, which would "
-                       f"PASS the shipped unit that measured "
-                       f"{worst_shipped_fs:+.1f} dB and was inaudible")
-    # ...and it must still be reachable: the duck is -20 dB, so a bar above
-    # that could never be met.
-    duck = abs(float(config.FILM_SPEAKS_MUSIC_DB))
-    if float(ac.FILM_SPEAKS_MARGIN_MIN_DB) > duck:
-        return False, (f"the bar {ac.FILM_SPEAKS_MARGIN_MIN_DB:.1f} dB exceeds "
-                       f"the {duck:.0f} dB duck, so no render could ever "
-                       f"satisfy it")
-    best_shipped_cue = 3.4
-    if float(ac.CUE_LIFT_MIN_DB) > best_shipped_cue:
-        pass          # stricter than the shipped best is fine
+    shipped = (-5.9, -15.8)
+    lo, hi = (float(ac.FILM_SPEAKS_MARGIN_MIN_DB),
+              float(ac.FILM_SPEAKS_MARGIN_MAX_DB))
+    passed = [m for m in shipped if m >= lo]
+    if passed:
+        return False, (f"the floor {lo:+.1f} dB would PASS the shipped "
+                       f"Furious 7 unit(s) at {passed} dB, heard as too quiet")
+    if not (lo < 0.0 < hi):
+        return False, (f"a unit levelled to the narrator (0 dB) falls outside "
+                       f"the band {lo:+.1f}..{hi:+.1f} dB")
     if float(ac.CUE_LIFT_MIN_DB) <= 0.5:
         return False, (f"CUE_LIFT_MIN_DB is {ac.CUE_LIFT_MIN_DB:.1f} dB, which "
                        f"would pass the shipped cues that lifted +0.2 dB")
-    return True, (f"film_speaks bar {ac.FILM_SPEAKS_MARGIN_MIN_DB:.0f} dB "
-                  f"rejects the shipped {worst_shipped_fs:+.1f} dB unit and is "
-                  f"reachable inside the {duck:.0f} dB duck; cue bar "
-                  f"{ac.CUE_LIFT_MIN_DB:.0f} dB rejects the shipped +0.2 dB "
-                  f"lift")
+    return True, (f"film_speaks band {lo:+.0f}..{hi:+.0f} dB rejects the "
+                  f"shipped {shipped} dB units and passes a matched one; cue "
+                  f"bar {ac.CUE_LIFT_MIN_DB:.0f} dB rejects the shipped "
+                  f"+0.2 dB lift")
 
 
 TESTS = {

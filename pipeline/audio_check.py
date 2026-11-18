@@ -136,7 +136,8 @@ def stem_presence(final: Path, stem: Path, rows: list,
 
 def film_speaks_margin(final: Path, units: list,
                        ref_gap: float = 2.5) -> list:
-    """How much louder is a <film_speaks> unit than the music around it?
+    """How loud is a <film_speaks> unit against the recap either side of it
+    (the narrated lines before and after, over the bed)?
 
     `units` = [{"line_id", "final_at", "dur"}].
 
@@ -303,22 +304,24 @@ def check_film_audio_placement(final: Path, stem: Path, rows: list) -> tuple:
     return (not find), find, got, info
 
 
-# A <film_speaks> unit must measure clearly above the music around it.
+# A <film_speaks> unit must sound AS LOUD AS THE RECAP AROUND IT (18 Nov).
 #
-# CALIBRATED AGAINST THE DEFECT, which is the only honest way to site this bar.
-# Measured on the shipped final.mp4, the render that was described as "I heard
-# only music":
-#     line 110 at 3:01.2  film -17.5 dB vs music -20.8  margin +3.2 dB
-#     line 111 at 12:44.5 film -18.1 dB vs music -19.6  margin +1.5 dB
-# So +3.2 dB IS the inaudible case. A first version of this bar was 3.0 dB and
-# line 110 would have passed it - a check calibrated to accept the very render
-# it was written to catch. Dialogue needs far more headroom over music than the
-# ~3 dB "just noticeably louder" figure for a tone.
-#
-# With the music ducked by FILM_SPEAKS_MUSIC_DB (-20 dB) the achievable margin
-# is around +20 dB, so 10 dB is comfortably reachable and still well clear of
-# the measured failure.
-FILM_SPEAKS_MARGIN_MIN_DB = 10.0
+# The windows either side of a unit are the end of the line before it and the
+# start of the line after it - narration over the bed - so `margin_db` is the
+# film against the NARRATOR, not against music alone. The first bar here
+# (+10 dB) was sited on a render whose units were swamped by an un-ducked
+# swell; with the music now ducked FILM_SPEAKS_MUSIC_DB inside every unit,
+# the remaining failure is the one the owner heard on Furious 7: the film's
+# own dialogue left at its source level, measured at
+#     line 193  margin -5.9 dB      line 194  margin -15.8 dB
+# ("thoại gốc tiếng vẫn hơi nhỏ"). pipeline/levels.py now lifts each unit to
+# the narrator's measured loudness, so a unit lands near 0 dB here.
+#   under FILM_SPEAKS_MARGIN_MIN_DB: the characters are quieter than the
+#   narrator - the moment handed to the film is the hardest to hear
+#   over FILM_SPEAKS_MARGIN_MAX_DB: it jumps out of the video
+# Both of Furious 7's units fail the floor; a matched unit passes with room.
+FILM_SPEAKS_MARGIN_MIN_DB = -4.0
+FILM_SPEAKS_MARGIN_MAX_DB = 6.0
 # A cue must rise out of the bed audibly. 3 dB is the usual "just noticeably
 # louder" figure; the configured intent is +10 to +14 dB, and a control mix
 # measured +15.1 (tense) and +19.3 (action), so this bar fails only a cue that
@@ -336,10 +339,16 @@ def check_film_speaks_audible(final: Path, units: list) -> tuple:
                 f"film_speaks line {r.get('line_id')} at "
                 f"{r['final_at']:.1f}s measures {r['inside_db']:.1f} dB "
                 f"against {max(r['before_db'], r['after_db']):.1f} dB of "
-                f"music either side - a margin of {r['margin_db']:+.1f} dB, "
-                f"under the {FILM_SPEAKS_MARGIN_MIN_DB:.0f} dB bar. The unit "
-                f"hands the moment to the film, so the film has to be the "
-                f"loudest thing in it.")
+                f"recap either side - {r['margin_db']:+.1f} dB, under the "
+                f"{FILM_SPEAKS_MARGIN_MIN_DB:+.0f} dB floor. The characters "
+                f"are quieter than the narrator in the one moment handed to "
+                f"them.")
+        elif r["margin_db"] > FILM_SPEAKS_MARGIN_MAX_DB:
+            find.append(
+                f"film_speaks line {r.get('line_id')} at "
+                f"{r['final_at']:.1f}s is {r['margin_db']:+.1f} dB over the "
+                f"recap either side, past the {FILM_SPEAKS_MARGIN_MAX_DB:+.0f}"
+                f" dB ceiling - it jumps out of the video.")
     return (not find), find, rows
 
 

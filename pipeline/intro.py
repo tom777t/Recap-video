@@ -652,7 +652,7 @@ def _build_film_intro_segment(project: str, work: Path,
         if (pdir / cand).exists():
             bed = pdir / cand
             break
-    duck = 10.0 ** (float(getattr(config, "MUSIC_DUCK_DB", -22.0)) / 20.0)
+    duck = 10.0 ** (float(getattr(config, "INTRO_MUSIC_DUCK_DB", -22.0)) / 20.0)
 
     # RECORD IT, with its position on the finished timeline. Without out_a/
     # out_b this block's footage was untraceable, so a freeze inside it could
@@ -1237,7 +1237,7 @@ def build_intro(project: str, out_name: str = "intro_preview.mp4",
     nm, nh = len(slots), len(slots) + 1
     inputs += ["-i", str(music), "-i", str(hook_mp3)]
 
-    duck = 10.0 ** (float(getattr(config, "MUSIC_DUCK_DB", -22.0)) / 20.0)
+    duck = 10.0 ** (float(getattr(config, "INTRO_MUSIC_DUCK_DB", -22.0)) / 20.0)
     # full level until the drop, ducked under the hook from the drop on
     vexpr = (f"volume='if(lt(t,{drop:.3f}),1,{duck:.4f})':eval=frame")
     if _T and len(labels) > 1:
