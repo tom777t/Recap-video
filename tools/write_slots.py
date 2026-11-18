@@ -999,6 +999,14 @@ def slots_text(slots: list) -> str:
                         f"{s['clip_start']}-{s['clip_end']} (written by code "
                         f"- do not reply for it)")
             continue
+        if s["role"] == "open" and story_mode():
+            rows.append(
+                f"- {s['slot']} HOOK {s['clip_start']}-{s['clip_end']} | up "
+                f"to {s['max_words']} words"
+                + (" | the last hook line: end on a question or a plain "
+                   "statement, whichever the scene earns"
+                   if s.get("open_hook") else ""))
+            continue
         if s["role"] == "open":
             rows.append(
                 f"- {s['slot']} OPEN ({s.get('lever')} / OPEN-"
@@ -1256,6 +1264,24 @@ def _open_brief(plan: dict, k: int) -> str:
     lever, mode = opens[0].get("lever") or "THRILL", opens[0].get(
         "open_mode") or "A"
     closing = opens[-1].get("closing") or "question"
+    if story_mode():
+        # owner, 18 Nov: a short HOOK on an early scene, then the intro as
+        # usual (greeting, title + year, director, cast), then the story.
+        # No lever words, no question/stake rotation, no one-name rule.
+        return "\n".join([
+            f"- HOOK ({len(opens)} line(s), the OPEN slots, on the film's own "
+            f"EARLY scene): give a viewer a reason to stay. Choose what THIS "
+            f"scene really offers - what the moment MEANS for the people in "
+            f"it, something STRANGE in it, or the QUESTION it raises.",
+            "- Concrete and specific to this film: name the people with their "
+            "role, and say where (and when) we are within the first two "
+            "lines. It may end on a question or on a plain statement, "
+            "whichever the scene earns.",
+            "- Never a cliche (\"the truth was closer than anyone could "
+            "imagine\", \"nothing would ever be the same\", \"you won't "
+            "believe\"), never a hint at the twist or the ending, no "
+            "greeting or channel name - the intro slots that follow do that.",
+        ])
     lever_text = {
         "FEAR": "an ORDINARY detail done wrong (the clocks were striking "
                 "thirteen); never name the monster in the open; death only "
@@ -1373,7 +1399,7 @@ def line_deviations(ln: dict, s: dict) -> list:
         out.append(f"{s['slot']} (EVAL): uses I / you / a question / a "
                    f"stance adverb ({mk}) - a verdict without them")
     if s["role"] in ("open", "action", "bridge") and mk \
-            and not (story_mode() and s["role"] != "open") \
+            and not story_mode() \
             and not (s["role"] == "open" and s.get("open_hook")):
         # the open_hook slot's trailing question is the HOOK itself, not
         # a narrator marker - R3 requires it, the marker budget cannot
@@ -1381,7 +1407,7 @@ def line_deviations(ln: dict, s: dict) -> list:
         out.append(f"{s['slot']} ({s['role'].upper()}): uses I / you / a "
                    f"question / a stance adverb - those are budgeted to "
                    f"the VOICE slots")
-    if s["role"] == "open" and s.get("open_hook"):
+    if s["role"] == "open" and s.get("open_hook") and not story_mode():
         # the closing shape ROTATES (a question this video, a stated
         # stake the next) - whichever this slot carries, the words must
         # match it, or the rotation is decorative

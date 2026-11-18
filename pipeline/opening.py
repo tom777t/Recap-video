@@ -388,6 +388,14 @@ def choose(candidates: list, *, lever: str, lands: list,
 
     b_ok = best and best["score"] > 0 \
         and (best.get("pos") or 0.0) >= MIDPOINT
+    if b_ok and not getattr(config, "STYLE_QUOTA_FLOORS", False):
+        # STORY MODE (owner, 18 Nov): the hook is told on an EARLY scene and
+        # the story then runs forward - no flash-forward. The reference
+        # channels never open on a fragment of the middle, and the picker
+        # once chose the climax of Gone Girl, Parasite and Prisoners.
+        notes.append("OPEN-B off (story mode): the hook stays on an early "
+                     "scene; opening chronologically (OPEN-A)")
+        b_ok = False
     if b_ok and not lands:
         # not run is never a pass: say WHY there is no OPEN-B
         notes.append("OPEN-B not run: no reveal map - the spoiler guard "
@@ -412,10 +420,17 @@ def choose(candidates: list, *, lever: str, lands: list,
         opener, mode = best, "B"
     elif zone:
         opener, mode = zone[0], "A"
-    elif best and best["score"] > 0:
+    elif best and best["score"] > 0 and (
+            getattr(config, "STYLE_QUOTA_FLOORS", False)
+            or (best.get("pos") or 1.0) < MIDPOINT):
         # Charged beat in the mid band: OPEN-A on the best zone-less
-        # early candidate beats manufacturing a shock-first open.
+        # early candidate beats manufacturing a shock-first open. (Story
+        # mode never takes one past the midpoint: that would be a flash-
+        # forward under another name.)
         opener, mode = best, "A"
+    elif ranked and not getattr(config, "STYLE_QUOTA_FLOORS", False):
+        early = [r for r in ranked if (r.get("pos") or 1.0) < MIDPOINT]
+        opener, mode = (early[0] if early else None), "A"
     else:
         opener, mode = None, "A"
 

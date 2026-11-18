@@ -32,6 +32,24 @@ Cases - every rule tested in BOTH directions:
   OPEN-ANCHOR-B         OPEN-B's first line WITH an anchor warns, and the
                         story's own first line carries the anchor instead.
 
+  (The cases above that test OPEN-B, the one-name rule, the question/stake
+  rotation and the first-line anchor test the LEGACY contract and run with
+  config.STYLE_QUOTA_FLOORS on. Story mode - owner, 18 Nov: a hook on an
+  early scene, then the intro as usual - is tested below.)
+
+  STORY-EARLY-ONLY      the best candidate past the midpoint never becomes
+                        OPEN-B: the hook stays on an early scene, and a
+                        mid-film candidate is not taken in its place
+  STORY-OPEN-RELAXED    a hook may name two people with their roles, end
+                        on a plain statement, and use no lever word; a
+                        greeting in the open is still an error; a hook with
+                        no where/when in its first two lines is a WARNING,
+                        not a rewrite
+  STORY-HOOK-BRIEF      the writer is told: meaning / something strange /
+                        the question it raises, names with roles, where we
+                        are, no cliche, no twist - and no lever, rotation or
+                        one-name rule; its slots read HOOK, not OPEN (lever)
+
 Run:  python tools/test_opening.py
 """
 from __future__ import annotations
@@ -45,8 +63,21 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 if ROOT not in sys.path:
     sys.path.insert(0, ROOT)
 
+import config                                   # noqa: E402
 from pipeline import craft_gates as CG          # noqa: E402
 from pipeline import opening as OP              # noqa: E402
+
+
+def _legacy(fn):
+    """Run a test of the LEGACY open contract with the floors switch on."""
+    def run():
+        prev = getattr(config, "STYLE_QUOTA_FLOORS", False)
+        config.STYLE_QUOTA_FLOORS = True
+        try:
+            return fn()
+        finally:
+            config.STYLE_QUOTA_FLOORS = prev
+    return run
 
 GOOD_START, GOOD_END = 156.0, 226.0     # the approved Tokyo Drift zone
 
@@ -554,26 +585,110 @@ def test_open_calibration():
         f"{sum(1 for bm in bad_msgs if bm)}/5"
 
 
+def test_story_early_only():
+    cands = [
+        {"id": "late", "start": 4000.0, "end": 4030.0, "depicts": ["action"],
+         "action": "The house explodes and the wreck burns behind him "
+                   "as he drives", "chars": ["the driver"], "censor": "none"},
+        {"id": "mid", "start": 3300.0, "end": 3330.0, "depicts": ["action"],
+         "action": "A chase explodes through the market", "chars": [],
+         "censor": "none"},
+        {"id": "early", "start": 30.0, "end": 60.0, "depicts": ["setup"],
+         "action": "A man drives to work and parks", "chars": [],
+         "censor": "none"},
+    ]
+    pick = OP.choose(cands, lever="THRILL", lands=[5700.0],
+                     runtime_sec=6000.0)
+    op = (pick.get("opener") or {}).get("id")
+    ok = pick["open_mode"] == "A" and op == "early" and any(
+        "OPEN-B off" in n for n in pick["notes"])
+    return ok, f"mode {pick['open_mode']}, opener {op}, notes {pick['notes'][:1]}"
+
+
+def _errs_warns(d):
+    r = CG.craft_report(d)
+    return r["errors"], r["warns"]
+
+
+def test_story_open_relaxed():
+    hook = [
+        _open_line("In a quiet Pennsylvania town, two families share a "
+                   "Thanksgiving table, and Keller Dover, a carpenter, says "
+                   "grace."),
+        _open_line("By the evening, both little girls are gone, and "
+                   "Detective Loki has nothing but an RV and its silent "
+                   "driver.", payload="stake"),
+    ]
+    e, w = _errs_warns(_draft("A", hook + [_STORY_B]))
+    bad = [m for m in e if m.startswith(("[OPEN]", "[TRANSITION]"))]
+    greet = [dict(hook[0], narration="Hi guys, welcome back - in a quiet "
+                  "Pennsylvania town two families share a table.")] + hook[1:]
+    eg, _wg = _errs_warns(_draft("A", greet + [_STORY_B]))
+    noanc = [_open_line("Two little girls walk out of a warm house and "
+                        "never come back."), hook[1]]
+    noanc[1] = dict(noanc[1], narration="A carpenter and a detective will "
+                    "not stop looking for them.")
+    en, wn = _errs_warns(_draft("A", noanc + [_STORY_B]))
+    ok = (not bad and any("[OPEN]" in m for m in eg)
+          and not any(m.startswith("[TRANSITION]") for m in en)
+          and any(m.startswith("[TRANSITION]") for m in wn))
+    return ok, ("two names + a statement close + no lever word pass; a "
+                "greeting errors; no where/when warns" if ok
+                else f"relaxed {bad[:1]}; greet {eg[:1]}; noanchor e "
+                f"{[m for m in en if 'TRANS' in m][:1]} w {wn[:1]}")
+
+
+def test_story_hook_brief():
+    import importlib
+    sys.path.insert(0, os.path.join(ROOT, "tools"))
+    WS = importlib.import_module("write_slots")
+    plan = {"slots": [
+        {"slot": "S001", "act": 1, "role": "open", "beat": "OPEN",
+         "lever": "FEAR", "open_mode": "A", "closing": "question",
+         "clip_start": "00:00:30.000", "clip_end": "00:00:40.000",
+         "min_words": 3, "max_words": 30, "target": None},
+        {"slot": "S002", "act": 1, "role": "open", "beat": "OPEN",
+         "lever": "FEAR", "open_mode": "A", "closing": "question",
+         "open_hook": True, "clip_start": "00:00:40.000",
+         "clip_end": "00:00:50.000", "min_words": 3, "max_words": 30,
+         "target": None}]}
+    b = WS._open_brief(plan, 1)
+    rows = WS.slots_text(plan["slots"])
+    must = ("MEANS", "STRANGE", "QUESTION", "name the people with their "
+            "role", "where (and when)", "cliche", "twist")
+    never = ("lever", "OPEN-A", "one proper name", "CLOSE ON THE",
+             "ORDINARY detail")
+    miss = [m for m in must if m not in b]
+    bad = [n for n in never if n in b or n in rows]
+    ok = not miss and not bad and "HOOK" in rows
+    return ok, ("hook brief: meaning / strange / question, names, where, "
+                "no cliche, no twist; no lever, rotation or one-name rule"
+                if ok else f"missing {miss}; still says {bad}")
+
+
 TESTS = {
     "PICKER-CONTROLS": test_picker_controls,
-    "PICKER-MODE-B": test_picker_mode_b,
+    "PICKER-MODE-B": _legacy(test_picker_mode_b),
     "PICKER-NON-RESOLUTION": test_picker_non_resolution,
     "PICKER-ANTI": test_picker_anti,
     "SPOILER-OUTCOME": test_spoiler_outcome,
-    "SPOILER-CAP-AND-REVEALS": test_spoiler_cap_and_reveals,
+    "SPOILER-CAP-AND-REVEALS": _legacy(test_spoiler_cap_and_reveals),
     "CENSOR-NOT-OPENER": test_censor_not_opener,
     "OLD-CATALOGUE-UNTRUSTED": test_old_catalogue_untrusted,
     "LEVER-BOUNDARY": test_lever_boundary,
     "LEVERS-REAL-FILMS": test_levers_real_films,
     "SHAPE-ROTATION": test_shape_rotation,
     "KNOWN-BAD-REAL": test_known_bad_real_films,
-    "OPEN-GOOD": test_open_good,
-    "OPEN-GREETING": test_open_greeting,
-    "OPEN-NAMES": test_open_names,
-    "OPEN-QUESTION": test_open_question,
-    "OPEN-ANCHOR-A": test_open_anchor_a,
-    "OPEN-ANCHOR-B": test_open_anchor_b,
-    "OPEN-CALIBRATION": test_open_calibration,
+    "OPEN-GOOD": _legacy(test_open_good),
+    "OPEN-GREETING": _legacy(test_open_greeting),
+    "OPEN-NAMES": _legacy(test_open_names),
+    "OPEN-QUESTION": _legacy(test_open_question),
+    "OPEN-ANCHOR-A": _legacy(test_open_anchor_a),
+    "OPEN-ANCHOR-B": _legacy(test_open_anchor_b),
+    "OPEN-CALIBRATION": _legacy(test_open_calibration),
+    "STORY-EARLY-ONLY": test_story_early_only,
+    "STORY-OPEN-RELAXED": test_story_open_relaxed,
+    "STORY-HOOK-BRIEF": test_story_hook_brief,
 }
 
 

@@ -869,7 +869,20 @@ def craft_report(draft: dict) -> dict:
     _open = [ln for ln in lines if str(ln.get("note") or "").upper() == "OPEN"
              and _narr(ln)]
     _mode = str(draft.get("open_mode") or "").upper() or None
-    if _open and _mode != "B":
+    if _open and _mode != "B" and not _floors():
+        # STORY MODE (owner, 18 Nov): the open is a HOOK on an early scene -
+        # its meaning, something strange in it, or the question it raises -
+        # so it may open on that and give the where/when in its second line.
+        # Missing both is flagged, not sent back for a paid rewrite.
+        m["transition_line"] = _open[0].get("id")
+        if not any(_ANCHOR.match(_narr(l).strip()) or _ANCHOR.search(
+                _narr(l)) for l in _open[:2]):
+            warns.append(
+                f"[TRANSITION] the cold open's first two lines never say where "
+                f"or when we are (line {_open[0].get('id')}: "
+                f"{_narr(_open[0]).strip()[:60]!r}) - the viewer needs that "
+                f"before the intro block.")
+    elif _open and _mode != "B":
         _t = _narr(_open[0]).strip()
         m["transition_line"] = _open[0].get("id")
         if not _ANCHOR.match(_t):
@@ -932,71 +945,81 @@ def craft_report(draft: dict) -> dict:
                     f"[OPEN] the cold open says {_bhits[0]!r} - no "
                     f"greeting, no meta framing, no credits at 0:00; "
                     f"the open is the film's own moment")
-            if not str(_open[-1].get("hook_question") or "").strip():
+            if not _floors():
+                # STORY MODE (owner, 18 Nov): a hook can be the scene's
+                # meaning, something strange, or a question - it may end
+                # on a statement, name the people in it with their roles,
+                # and needs no lever words. The machinery below (question /
+                # stake rotation, one proper name, loop payload, lever) is
+                # the legacy contract.
+                m["open_names"] = len(_open_proper_names(
+                    _oblob, draft.get("_dir"))[0])
+            elif not str(_open[-1].get("hook_question") or "").strip():
                 errors.append(
                     f"[OPEN] line {_open[-1].get('id')} (the open's last "
                     f"line) carries no hook_question - the plan's question "
                     f"is what the whole video answers; losing it loses the "
                     f"loop the open promises.")
-            # the loop must be OPENED, and the close must match the
-            # rotating shape: a question this video, a stated stake the
-            # next - whichever the draft records
-            _closing = str(draft.get("closing_shape") or "question")
-            _last = _narr(_open[-1]).strip()
-            if str(_open[-1].get("payload") or "") != "loop":
-                errors.append(
-                    f"[OPEN] line {_open[-1].get('id')} (the open's last "
-                    f"line) does not carry payload `loop` - the close "
-                    f"opens the loop the video exists to answer, whatever "
-                    f"shape its words take")
-            if _closing == "stake":
-                if _last.endswith("?"):
+            if _floors():
+                # the loop must be OPENED, and the close must match the
+                # rotating shape: a question this video, a stated stake the
+                # next - whichever the draft records
+                _closing = str(draft.get("closing_shape") or "question")
+                _last = _narr(_open[-1]).strip()
+                if str(_open[-1].get("payload") or "") != "loop":
                     errors.append(
-                        f"[OPEN] line {_open[-1].get('id')} ends on a "
-                        f"question but this video's close is a STATED "
-                        f"STAKE - one plain sentence, the cost named, the "
-                        f"outcome withheld")
-                m["open_closing"] = "stake"
-            elif not _last.endswith("?"):
-                errors.append(
-                    f"[OPEN] line {_open[-1].get('id')} does not END on a "
-                    f"question and the draft's closing_shape is "
-                    f"'question' - the open's last sentence is the viewer's "
-                    f"own question, unanswered until the end "
-                    f"({_last[-60:]!r})")
-                m["open_closing"] = "question"
-            # proper names: the SAME exact names.json check the write
-            # stage runs (_open_proper_names, one function both places).
-            # Without a project dir the shape heuristic answers and the
-            # verdict drops to a warning - a hard error on a guess is
-            # the resolve loop the owner already paid for.
-            _pdir = draft.get("_dir")
-            _named, _exact = _open_proper_names(_oblob, _pdir)
-            m["open_names"] = len(_named)
-            m["open_names_exact"] = _exact
-            if len(_named) > 1:
-                msg = (f"[OPEN] the cold open names {len(_named)} "
-                       f"characters ({', '.join(_named[:4])}) - at most "
-                       f"ONE proper name survives a cold open; more is "
-                       f"a listings entry")
-                if _exact:
-                    errors.append(msg)
-                else:
-                    warns.append(msg + " (shape heuristic - no project "
-                                       "dir for the exact names check)")
-            # the lever must be VISIBLE in the open's first two lines
-            # (R4): the picker chose it, the writer must spend it
-            _lever = str(draft.get("lever") or "").upper()
-            from pipeline import opening as _OP
-            if _lever in _OP.LEVERS:
-                _head = " ".join(_narr(l) for l in _open[:2]).lower()
-                _hw = set(_OP._words(_head))
-                if not _OP._present(_OP._CANON.get(_lever, ()), _hw, _head) \
-                        and not _OP._present(sorted(_OP._CHARGE), _hw, _head):
-                    warns.append(
-                        f"[OPEN] the {_lever} lever is not visible in the "
-                        f"open's first two lines - the picker chose it, the "
-                        f"writer must spend it")
+                        f"[OPEN] line {_open[-1].get('id')} (the open's last "
+                        f"line) does not carry payload `loop` - the close "
+                        f"opens the loop the video exists to answer, whatever "
+                        f"shape its words take")
+                if _closing == "stake":
+                    if _last.endswith("?"):
+                        errors.append(
+                            f"[OPEN] line {_open[-1].get('id')} ends on a "
+                            f"question but this video's close is a STATED "
+                            f"STAKE - one plain sentence, the cost named, the "
+                            f"outcome withheld")
+                    m["open_closing"] = "stake"
+                elif not _last.endswith("?"):
+                    errors.append(
+                        f"[OPEN] line {_open[-1].get('id')} does not END on a "
+                        f"question and the draft's closing_shape is "
+                        f"'question' - the open's last sentence is the viewer's "
+                        f"own question, unanswered until the end "
+                        f"({_last[-60:]!r})")
+                    m["open_closing"] = "question"
+                # proper names: the SAME exact names.json check the write
+                # stage runs (_open_proper_names, one function both places).
+                # Without a project dir the shape heuristic answers and the
+                # verdict drops to a warning - a hard error on a guess is
+                # the resolve loop the owner already paid for.
+                _pdir = draft.get("_dir")
+                _named, _exact = _open_proper_names(_oblob, _pdir)
+                m["open_names"] = len(_named)
+                m["open_names_exact"] = _exact
+                if len(_named) > 1:
+                    msg = (f"[OPEN] the cold open names {len(_named)} "
+                           f"characters ({', '.join(_named[:4])}) - at most "
+                           f"ONE proper name survives a cold open; more is "
+                           f"a listings entry")
+                    if _exact:
+                        errors.append(msg)
+                    else:
+                        warns.append(msg + " (shape heuristic - no project "
+                                           "dir for the exact names check)")
+                # the lever must be VISIBLE in the open's first two lines
+                # (R4): the picker chose it, the writer must spend it
+                _lever = str(draft.get("lever") or "").upper()
+                from pipeline import opening as _OP
+                if _lever in _OP.LEVERS:
+                    _head = " ".join(_narr(l) for l in _open[:2]).lower()
+                    _hw = set(_OP._words(_head))
+                    if not _OP._present(_OP._CANON.get(_lever, ()), _hw, _head) \
+                            and not _OP._present(sorted(_OP._CHARGE), _hw, _head):
+                        warns.append(
+                            f"[OPEN] the {_lever} lever is not visible in the "
+                            f"open's first two lines - the picker chose it, the "
+                            f"writer must spend it")
 
     # ---- item 5: [INTRO-OUTRO] -------------------------------------------
     tags = [ln.get("delivery") for ln in lines]
