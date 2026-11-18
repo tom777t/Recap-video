@@ -31,6 +31,12 @@ module turns it into the gain that achieves it for THIS source window.
                   clamped, so a near-silent window is not dragged up into
                   separation noise and a blast is not left at full level
 
+Owner, 18 Nov, after reading the numbers: the film_speaks level is right;
+the stem under the narration, the bed and the ending sound right as they
+were. So only film_speaks is levelled by default; the stem
+(FILM_AUDIO_LEVEL_TO_VOICE) and the music (MUSIC_NORMALIZE_TO_VOICE) can
+be switched to the same rule, and are off.
+
 Nothing here changes WHERE the film or the music plays; render.py and
 music.py still decide that. This only decides how loud.
 """
@@ -183,13 +189,23 @@ def film_gain(path: Path, start: float, dur: float, rel_db: float,
     return round(min(float(hi), max(float(lo), g)), 2), m
 
 
+def _fixed() -> bool:
+    """The stem under narration and in holds keeps its written fixed gain
+    (FILM_AUDIO_LEVEL_TO_VOICE off - owner, 18 Nov: it sounds right)."""
+    return not getattr(config, "FILM_AUDIO_LEVEL_TO_VOICE", False)
+
+
 def under_gain(path, start, dur) -> tuple:
+    if _fixed():
+        return float(config.FILM_AUDIO_DB), None
     return film_gain(path, start, dur, config.FILM_AUDIO_DB,
                      config.FILM_AUDIO_GAIN_MIN_DB,
                      config.FILM_AUDIO_GAIN_MAX_DB)
 
 
 def hold_gain(path, start, dur) -> tuple:
+    if _fixed():
+        return float(config.FILM_AUDIO_HOLD_DB), None
     return film_gain(path, start, dur, config.FILM_AUDIO_HOLD_DB,
                      config.FILM_AUDIO_GAIN_MIN_DB,
                      config.FILM_AUDIO_GAIN_MAX_DB)
@@ -212,7 +228,8 @@ def music_target() -> float:
 
 def signature() -> str:
     """Everything that changes a film gain, for the clip cache key."""
-    return (f"lv{VERSION}:{voice():.2f}:{float(config.FILM_AUDIO_DB):.2f}:"
+    return (f"lv{VERSION}:{voice():.2f}:{int(not _fixed())}:"
+            f"{float(config.FILM_AUDIO_DB):.2f}:"
             f"{float(config.FILM_AUDIO_HOLD_DB):.2f}:"
             f"{float(config.FILM_SPEAKS_DB):.2f}:"
             f"{float(config.FILM_AUDIO_GAIN_MIN_DB):.1f}:"

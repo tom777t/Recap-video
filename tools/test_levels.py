@@ -14,17 +14,17 @@ See pipeline/levels.py.
   SPEAKS-AT-VOICE     a REAL hold clip built with film_speaks from a source
                       whose dialogue sits 15 dB under the narrator comes out
                       at the narrator's loudness (it used to stay 15 dB under)
-  UNDER-PER-WINDOW    under narration a loud window and a quiet one of the
-                      same stem get different gains: the loud one lands at
-                      FILM_AUDIO_DB under the voice, the quiet one is raised
-                      at most FILM_AUDIO_GAIN_MAX_DB
+  UNDER-PER-WINDOW    by default the stem keeps its fixed gains (owner, 18
+                      Nov: it sounds right); with FILM_AUDIO_LEVEL_TO_VOICE
+                      on, a loud window lands at FILM_AUDIO_DB under the
+                      voice and a quiet one is raised at most
+                      FILM_AUDIO_GAIN_MAX_DB
   SILENT-OR-UNREAD    a silent window or an unreadable file keeps the level as
                       written - nothing is dragged up out of the noise floor
-  MUSIC-TO-VOICE      music files are normalised to the narrator, so the
-                      bed-under-voice number is what the listener gets; the
-                      bed-only path hands render a normalised file too
-  NO-DOUBLE-DUCK      the final mix applies MUSIC_DUCK_DB once - no sidechain
-                      compressor ducking the bed a second time
+  MUSIC-TO-VOICE      by default music is normalised to the fixed -23 LUFS
+                      (owner: the bed and the ending sound right); with
+                      MUSIC_NORMALIZE_TO_VOICE on, to the narrator
+  BED-AS-BEFORE       the final mix ducks the bed exactly as before
   HOLD-LIMITED        a lifted hold / film_speaks clip runs through a limiter
   CACHE-KEY           a different narrator reference changes the clip cache key
                       (otherwise every cached clip keeps its old film level)
@@ -166,13 +166,26 @@ def t_under_per_window():
             "aformat=sample_rates=48000:channel_layouts=stereo",
             str(stem))
         v, _ = LV.begin(pdir)
-        g_loud, m_loud = LV.under_gain(stem, 0.5, 5.0)
-        g_quiet, m_quiet = LV.under_gain(stem, 6.5, 5.0)
+        d_under, _ = LV.under_gain(stem, 0.5, 5.0)
+        d_hold, _ = LV.hold_gain(stem, 0.5, 5.0)
+        if (d_under, d_hold) != (float(config.FILM_AUDIO_DB),
+                                 float(config.FILM_AUDIO_HOLD_DB)):
+            return False, (f"default changed the stem's fixed gains: "
+                           f"{d_under}/{d_hold}")
+        saved = config.FILM_AUDIO_LEVEL_TO_VOICE
+        config.FILM_AUDIO_LEVEL_TO_VOICE = True
+        try:
+            g_loud, m_loud = LV.under_gain(stem, 0.5, 5.0)
+            g_quiet, m_quiet = LV.under_gain(stem, 6.5, 5.0)
+        finally:
+            config.FILM_AUDIO_LEVEL_TO_VOICE = saved
         want = float(config.FILM_AUDIO_DB)
         cap = float(config.FILM_AUDIO_GAIN_MAX_DB)
         ok = (abs((m_loud + g_loud) - (v + want)) < 0.2
               and g_quiet == cap and m_quiet + g_quiet < v + want)
-        return ok, (f"loud window {m_loud:.1f} LUFS -> {g_loud:+.1f} dB, "
+        return ok, (f"default: fixed {d_under:+.0f}/{d_hold:+.0f} dB (owner, "
+                    f"18 Nov); switched on: loud window {m_loud:.1f} LUFS -> "
+                    f"{g_loud:+.1f} dB, "
                     f"at {want:+.0f} under the voice; quiet window "
                     f"{m_quiet:.1f} -> capped at {g_quiet:+.1f} dB" if ok
                     else f"voice {v}: loud {m_loud}/{g_loud}, quiet "
@@ -211,19 +224,20 @@ def t_music_to_voice():
         bed = pdir / "music" / "bed.wav"
         _tone(bed, 4.0, 8.0, 220)                 # louder than the voice
         v, _ = LV.begin(pdir)
-        n = M.normalized(config.ffmpeg(), pdir, bed)
-        got = LV.measure(n)
-        work = tmp / "_work"
-        work.mkdir()
-        track, prebuilt, note = M.resolve_music(
-            config.ffmpeg(), pdir, work, {"lines": []}, [], 30.0)
-        ok = (got is not None and abs(got - v) < 0.6
-              and track is not None and "_norm" in str(track)
-              and not prebuilt)
-        return ok, (f"bed normalised to {got:.1f} LUFS = the narrator "
-                    f"({v:.1f}); the bed-only path hands render the "
-                    f"normalised file ({note})" if ok else
-                    f"{got} vs {v}; {track} {prebuilt} {note}")
+        fixed = LV.measure(M.normalized(config.ffmpeg(), pdir, bed))
+        saved = config.MUSIC_NORMALIZE_TO_VOICE
+        config.MUSIC_NORMALIZE_TO_VOICE = True
+        try:
+            got = LV.measure(M.normalized(config.ffmpeg(), pdir, bed))
+        finally:
+            config.MUSIC_NORMALIZE_TO_VOICE = saved
+        want = float(config.MUSIC_NORMALIZE_LUFS)
+        ok = (fixed is not None and abs(fixed - want) < 0.6
+              and got is not None and abs(got - v) < 0.6)
+        return ok, (f"default: bed at {fixed:.1f} LUFS (the fixed "
+                    f"{want:.0f}, owner 18 Nov); switched on: {got:.1f} = the "
+                    f"narrator ({v:.1f})" if ok else
+                    f"default {fixed} vs {want}; on {got} vs {v}")
     finally:
         LV.end()
         shutil.rmtree(tmp, ignore_errors=True)
@@ -242,13 +256,14 @@ def t_no_double_duck():
         R._render_with_music(config.ffmpeg(), av, mus, None, 30.0,
                              tmp / "final.mp4", silence_windows=[(5, 9)])
         g = cap["cmd"][cap["cmd"].index("-filter_complex") + 1]
-        want = 10.0 ** (float(config.MUSIC_DUCK_DB) / 20.0)
-        ok = ("sidechaincompress" not in g and f"{want}" in g
-              and not config.MUSIC_DUCK)
-        return ok, (f"one duck: the bed at {config.MUSIC_DUCK_DB:+.0f} dB "
-                    f"under the narrator, no sidechain on top" if ok else
-                    f"sidechain present={('sidechaincompress' in g)}, "
-                    f"MUSIC_DUCK={config.MUSIC_DUCK}")
+        ok = (("sidechaincompress" in g) == bool(config.MUSIC_DUCK)
+              and config.MUSIC_DUCK_DB == -22.0)
+        return ok, (f"bed at {config.MUSIC_DUCK_DB:+.0f} dB, sidechain "
+                    f"{'on' if config.MUSIC_DUCK else 'off'} - as it was "
+                    f"(owner, 18 Nov: the bed sounds right)" if ok else
+                    f"sidechain in graph={('sidechaincompress' in g)}, "
+                    f"MUSIC_DUCK={config.MUSIC_DUCK}, "
+                    f"MUSIC_DUCK_DB={config.MUSIC_DUCK_DB}")
     finally:
         R._run = orig
         shutil.rmtree(tmp, ignore_errors=True)
@@ -303,7 +318,7 @@ TESTS = [("VOICE-REF", t_voice_ref), ("SPEAKS-AT-VOICE", t_speaks_at_voice),
          ("UNDER-PER-WINDOW", t_under_per_window),
          ("SILENT-OR-UNREAD", t_silent_or_unread),
          ("MUSIC-TO-VOICE", t_music_to_voice),
-         ("NO-DOUBLE-DUCK", t_no_double_duck),
+         ("BED-AS-BEFORE", t_no_double_duck),
          ("HOLD-LIMITED", t_hold_limited), ("CACHE-KEY", t_cache_key)]
 
 if __name__ == "__main__":

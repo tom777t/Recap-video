@@ -401,22 +401,16 @@ SHOWCASE_HOLD = 8.0        # default seconds for a big "showcase" action beat
 # Now the source audio is mixed in underneath the voice.
 # --------------------------------------------------------------------------- #
 FILM_AUDIO_ENABLE = True
-# 2026-11-18: EVERY FILM LEVEL IS dB RELATIVE TO THE NARRATOR (pipeline/
-# levels.py), measured per clip window, not a fixed gain on the source.
-# Measured on the shipped Furious 7 render: the stem sat at -35..-50 dB RMS
-# in most action clips, so "-17 dB" put the engines 27-42 dB under the voice
-# (inaudible), while one explosion at -13 dB came through loud. A fixed gain
-# on a source whose own level swings by 35 dB is not a level.
-FILM_AUDIO_DB = -16.0      # under narration: 16 dB under the voice
-FILM_AUDIO_HOLD_DB = -4.0  # inside a hold: the film carries it, just under the voice
+FILM_AUDIO_DB = -17.0      # under narration (-15..-20 is the band in the guides)
+FILM_AUDIO_HOLD_DB = -6.0  # inside a narration_silence hold: let the film carry it
 FILM_AUDIO_PRE_REVEAL_DB = -8.0   # raised in the seconds before a <reveal>
-# How far a window may be moved to reach its level. Measured over all 72
-# separated spans of Furious 7: at the old fixed -17 dB only 28 of them came
-# within 24 dB of the voice, and the loudest sat 10.5 dB under it, over the
-# narration's shoulder. Levelled with a +4 dB cap, 70 of 72 do and none is
-# louder than -16. The cap keeps a quiet ambience window quieter than an
-# action one (the quietest lands at -28) instead of dragging it up into
-# separation noise; a blast is brought down as far as it needs.
+# Set the stem against the NARRATOR per clip window (pipeline/levels.py)
+# instead of the fixed gains above? OFF (owner, 18 Nov: the film under the
+# narration sounds right as it is). Measured on Furious 7 for the record:
+# at the fixed -17 dB only 28 of 72 separated spans come within 24 dB of the
+# voice; levelled to -16 with a +4 dB cap, 70 of 72 would. When ON,
+# FILM_AUDIO_DB / _HOLD_DB / _PRE_REVEAL_DB read as dB against the narrator.
+FILM_AUDIO_LEVEL_TO_VOICE = False
 FILM_AUDIO_GAIN_MIN_DB = -30.0
 FILM_AUDIO_GAIN_MAX_DB = 4.0
 # Below this a window has nothing worth hearing: keep the written level.
@@ -707,18 +701,14 @@ MUSIC_CUE_FADE_SEC = 1.75        # fade a cue in/out (1.5-2s band, middle)
 # and the answer never changes for a file that has not changed.
 MUSIC_NORMALIZE_LUFS = -23.0      # only when MUSIC_NORMALIZE_TO_VOICE is off
 MUSIC_NORMALIZE = True
-# 2026-11-18: every music file is normalised to the NARRATOR's measured
-# loudness (pipeline/levels.py), so MUSIC_DUCK_DB, MUSIC_CUE_DUCK_DB and
-# MUSIC_ENDING_DB read directly as "dB under the voice". At a fixed -23 LUFS
-# against a -24.7 narrator, then -22 dB, then a ratio-8 sidechain, the bed sat
-# roughly 22-29 dB under the voice and pumped on every syllable - the
-# "nhạc nền quá mỏng" the owner heard.
-MUSIC_NORMALIZE_TO_VOICE = True
+# Normalise music to the narrator's measured loudness instead of the fixed
+# -23 LUFS? OFF (owner, 18 Nov: the bed and the ending sound right as they
+# are). The narrator measures -24.7 LUFS on Furious 7, so the fixed target is
+# 1.7 dB above it; every MUSIC_* number below is relative to -23 LUFS.
+MUSIC_NORMALIZE_TO_VOICE = False
 MUSIC_CUE_BED_DIP_DB = -12.0     # the bed dips this much WHILE a cue plays
-# 2026-11-18, now dB under the NARRATOR: the bed moved up to -18, so the cue
-# keeps an 8 dB lift over it (an event, not more bed) at -10, and -7 in action.
-MUSIC_CUE_DUCK_DB = -10.0        # a cue under narration - clearly above the bed
-MUSIC_CUE_DUCK_ACTION_DB = -7.0  # action runs: felt as much as heard
+MUSIC_CUE_DUCK_DB = -12.0        # a cue under narration - clearly above the bed
+MUSIC_CUE_DUCK_ACTION_DB = -8.0  # action runs: felt as much as heard
 # Inside a hold the narrator has stopped on purpose, so a cue plays at close to
 # full level - this is the one moment it can carry the beat by itself.
 MUSIC_CUE_HOLD_DB = -2.0
@@ -726,11 +716,9 @@ MUSIC_CUE_HOLD_DB = -2.0
 # cues closer than the floor.
 MUSIC_CUE_AVG_SPACING_SEC = 90.0
 # ENDING (music/ending.*, pipeline/music.py): one closing track from a chosen
-# line to the end. Above a cue under narration (-12) - it is the close - and,
-# like everything, swelled in holds (there it lands at about the voice's own
-# level). 2026-11-18: -10 -> -7, "nhạc kết yếu": with the old sidechain
-# it measured about 10 dB under the voice; now 7, and just over it in holds.
-MUSIC_ENDING_DB = -7.0
+# line to the end. A little above a cue under narration (-12) - it is the
+# close - and, like everything, swelled in holds.
+MUSIC_ENDING_DB = -10.0
 MUSIC_ENDING_BED_FADE_SEC = 2.0   # the bed fades out over this, before it
 MUSIC_ENDING_FADE_IN_SEC = 1.0
 MUSIC_ENDING_FADE_OUT_SEC = 3.0
@@ -747,13 +735,9 @@ MUSIC_MOOD_FOR_TAG = {
     "reveal": "neutral",       # the music DROPS before a reveal anyway
 }
 MUSIC_MOOD_MIN_SEC = 25.0   # do not switch beds more often than this
-# The bed under the voice, in dB UNDER THE NARRATOR (music is normalised to
-# the narrator's loudness first - MUSIC_NORMALIZE_TO_VOICE). 2026-11-18:
-# -22 on -23 LUFS plus a sidechain -> -18 against the voice, no sidechain.
-# For reference, the owner's own earlier calibration (MUSIC_VOLUME 0.15 on
-# un-normalised files, "0.13 too subtle, 0.18 too present") works out to
-# about 18 dB under the voice as well.
-MUSIC_DUCK_DB = -18.0
+# Ducking depth under the voice. The retention guides give 20-25 dB for
+# ordinary narration and 8-12 dB in action, where the bed should be felt.
+MUSIC_DUCK_DB = -22.0
 # The intro's own bed (pipeline/intro.py) reads the raw file, not the
 # voice-normalised one, so it keeps its old number under its own name.
 INTRO_MUSIC_DUCK_DB = -22.0
@@ -761,21 +745,12 @@ MUSIC_DUCK_ACTION_DB = -10.0
 # Cut the bed just before a reveal so the line lands into a hole.
 MUSIC_PRE_REVEAL_DROP_SEC = 1.5
 MUSIC_PRE_REVEAL_LEVEL = 0.02    # near-silence, not a hard zero (avoids a click)
-# The sidechain duck keyed on the narration. OFF since 2026-11-18: the bed
-# level under the voice is now planned (MUSIC_DUCK_DB against the measured
-# narrator), and a ratio-8 compressor on top ducked it a second time, by a
-# different amount on every syllable - audible as pumping, and the main
-# reason the bed sounded thin.
-MUSIC_DUCK = False
+MUSIC_DUCK = True          # duck music slightly whenever narration plays
 MUSIC_FADEOUT = 3.0        # fade music out over N seconds at the very end
 # Gap 3 silence shots: during a narration-free "silence" shot the music swells
 # from the ducked narration level up to this level, then fades back when the
 # next narration starts. SILENCE_FADE = the rise/fall transition (seconds).
-# 2026-11-18: 0.30 -> 0.36. Music is now normalised to the narrator, which
-# is 1.7 dB quieter than the old -23 LUFS target, so the same 0.30 would have
-# turned every hold down by that much - and holds were the one place the
-# music already worked. 0.36 (-8.9 dB) keeps the bed in a hold where it was.
-SILENCE_MUSIC_VOLUME = 0.36
+SILENCE_MUSIC_VOLUME = 0.30
 SILENCE_FADE = 0.5
 
 # DARK-scene exposure lift (render): default brightness lift applied to shots a
