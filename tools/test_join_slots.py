@@ -3,14 +3,18 @@
 
 Owner, 17 Nov: the slots cut every line to one short shot, so our sentences
 averaged 12 words against 16 for a binge-watched channel, and a chain of
-actions came out as two-word facts. A writer may now reply ONE line over 2-3
-slots in a row, with a '|' where each next slot's footage begins.
+actions came out as two-word facts. A writer may now reply ONE line over
+slots in a row - as many as one chain of actions runs over (owner, 18 Nov;
+JOIN_MAX is only a technical ceiling) - with a '|' where each next slot's
+footage begins.
+
+  JOIN-FOUR          four adjacent slots join (the old cap was 3)
 
   JOIN-BUILDS        a valid join becomes one line: narration without '|',
                      the window from the first slot's start to the last's
                      end, `parts` with each piece, its slot, window and caps
   JOIN-REFUSED       not adjacent / across a hold / wrong '|' count / an
-                     outro / more than 3 / starting at another slot -> a
+                     outro / more than JOIN_MAX (8) / starting at another slot -> a
                      plain line on its own slot ('|' removed) + the reason
   MERGE-CONSERVES    the act file has no line for a carried slot, and
                      [DRAFT-CONSERVATION] and the plan-count check count it
@@ -117,7 +121,7 @@ def t_join_refused():
     i0 = act.index(ss[0])
     cases = {
         "not adjacent": [ss[0]["slot"]] + [x["slot"] for x in act[i0 + 2:i0 + 3]],
-        "too many": [x["slot"] for x in act[i0:i0 + 4]],
+        "too many": [x["slot"] for x in act[i0:i0 + WS.JOIN_MAX + 1]],
         "not its own slot": [x["slot"] for x in ss[::-1]],
     }
     hold = next((i for i, x in enumerate(act) if x["role"] == "hold"
@@ -280,7 +284,22 @@ def t_schemas():
                 "join" if ok else f"ok {p_ok}; bad {p_bad}; join {has_join}")
 
 
-TESTS = [("JOIN-BUILDS", t_join_builds), ("JOIN-REFUSED", t_join_refused),
+def t_join_four():
+    _p, _sl, act = _act()
+    try:
+        ss = _pair(act, 4)
+    except AssertionError:
+        return False, "no run of 4 joinable slots in the fixture"
+    ln = {"slot": ss[0]["slot"], "join": [x["slot"] for x in ss],
+          "narration": " | ".join(["Sean drives on."] * 4),
+          "payload": "stake", "delivery": "normal"}
+    out, probs = WS.apply_join(ln, act)
+    ok = not probs and len(out.get("parts") or []) == 4
+    return ok, ("4 adjacent slots -> one line, 4 parts" if ok
+                else f"{probs}")
+
+
+TESTS = [("JOIN-BUILDS", t_join_builds), ("JOIN-FOUR", t_join_four), ("JOIN-REFUSED", t_join_refused),
          ("MERGE-CONSERVES", t_merge_conserves),
          ("CHECK-PER-PIECE", t_check_per_piece),
          ("CHECK-SLOTS", t_check_slots), ("REVISION-KEEPS", t_revision_keeps),

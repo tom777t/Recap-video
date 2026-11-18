@@ -1099,9 +1099,9 @@ STORY_RULES = """\
    instead of a separate comment; at a reveal, put the surprise last.
    These are tools, not a template - three lines opening the same way
    sound like a machine.
-13. One sentence may run across 2-3 slots IN A ROW when they tell one
-   chain of actions. Reply with ONE line: "slot" = the first slot, "join" =
-   the 2-3 slot ids in order, and a '|' in the narration where each next
+13. One line may run across slots IN A ROW (two or more) when they tell
+   ONE chain of actions. Reply with ONE line: "slot" = the first slot, "join"
+   = the slot ids in order, and a '|' in the narration where each next
    slot's footage begins ("So they turn her into the ball in a game of
    keep-away, | passing her from car to car while Dom goes after Shaw.").
    Each piece stays within its own slot's words and tells what that
@@ -1829,14 +1829,17 @@ def _intro_problems(blob: str, pdir: Path) -> list:
 
 
 # --------------------------------------------------------------------------- #
-# JOINED SLOTS (owner, 17 Nov): one sentence may run across 2-3 adjacent
+# JOINED SLOTS (owner, 17-18 Nov): one sentence may run across 2+ adjacent
 # slots - "So they turn Ramsey into the ball in a game of keep-away, |
 # passing her from car to car ..." - with a '|' where each next slot's
 # footage begins. The saved line keeps `parts` (each piece, its slot, window
 # and caps), so every later check reads the caps per piece, and the voice
 # stage and render can switch the picture when the voice reaches each piece.
 # --------------------------------------------------------------------------- #
-JOIN_MAX = 3
+# owner, 18 Nov: as many slots as ONE chain of actions runs over - 3 was
+# an arbitrary cap. 8 is only a technical ceiling: a longer run is a whole
+# scene, told better as several lines.
+JOIN_MAX = 8
 JOIN_GAP = 0.6           # seconds: joined footage must be continuous
 NO_JOIN = ("hold", "film_speaks", "open", "intro", "outro")
 
