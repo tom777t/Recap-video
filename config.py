@@ -719,10 +719,28 @@ MUSIC_CUE_AVG_SPACING_SEC = 90.0
 # line to the end. A little above a cue under narration (-12) - it is the
 # close - and, like everything, swelled in holds.
 MUSIC_ENDING_DB = -10.0
+# OFF (owner, 18 Nov: no ending track in the videos at all - the channel's
+# own bed carries the close). music/ending.* is ignored while this is off.
+MUSIC_ENDING_ENABLE = False
 MUSIC_ENDING_BED_FADE_SEC = 2.0   # the bed fades out over this, before it
 MUSIC_ENDING_FADE_IN_SEC = 1.0
 MUSIC_ENDING_FADE_OUT_SEC = 3.0
 MUSIC_CUE_MIN_GAP_SEC = 20.0
+# CUES THAT ARE HEARD (owner, 18 Nov: "nhạc điểm cue đúng là cần nâng").
+# Not louder - two changes to WHEN and FROM WHERE:
+#  - a cue plays from where its music has ARRIVED (pipeline/music.py
+#    entry_point), not from its soft opening: the Furious 7 cue files spend
+#    their first 4 s 2.3-5.6 dB under the rest of the track.
+#  - a cue enters in a hold the story already has, right before its run or
+#    early in it, so its first second is heard with nobody talking over it.
+#    No pause is added for the music: a fixed pause before every cue would
+#    turn into a formula the viewer hears.
+MUSIC_CUE_FROM_ARRIVAL = True
+# The channel's music library (tools/music_library.py, config/
+# music_library.json): how many cues per mood a project gets from it.
+MUSIC_LIBRARY_CUES_PER_MOOD = 2
+MUSIC_CUE_HOLD_BEFORE_SEC = 2.0   # a hold ending this close before the run
+MUSIC_CUE_HOLD_REACH_SEC = 8.0    # or starting this soon after its first line
 # (The bed's swell inside a narration-silence hold is SILENCE_MUSIC_VOLUME below;
 # a separate MUSIC_BED_HOLD_DB key duplicated it and was read by nothing.)
 

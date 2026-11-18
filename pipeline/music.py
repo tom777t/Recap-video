@@ -162,6 +162,21 @@ def _mood_of(tag: str) -> str | None:
     return config.MUSIC_CUE_MOOD_FOR_TAG.get(str(tag or "").strip())
 
 
+def _entry_hold(run_start: float, run_end: float, holds: list):
+    """Start of the hold a cue should enter in, or None: the first hold that
+    ends at most MUSIC_CUE_HOLD_BEFORE_SEC before the run's first line, or
+    starts within MUSIC_CUE_HOLD_REACH_SEC after it (and inside the run)."""
+    before = float(getattr(config, "MUSIC_CUE_HOLD_BEFORE_SEC", 2.0))
+    reach = float(getattr(config, "MUSIC_CUE_HOLD_REACH_SEC", 8.0))
+    for hs, he in sorted((float(a), float(b)) for a, b in holds or []):
+        if he <= hs:
+            continue
+        if run_start - before <= he and hs <= run_start + reach \
+                and hs < run_end:
+            return hs
+    return None
+
+
 def plan_cues(draft: dict, timeline: list, cues: dict,
               reveal_positions: list | None = None,
               hold_windows: list | None = None) -> list[dict]:
@@ -202,13 +217,21 @@ def plan_cues(draft: dict, timeline: list, cues: dict,
             j += 1
         run = ordered[i:j]
         if len(run) >= config.MUSIC_CUE_MIN_RUN:
-            proposals.append({
-                "mood": mood,
-                "start": float(run[0]["start"]),
-                "end": float(run[-1]["end"]),
-                "why": f"run of {len(run)} {mood} lines "
-                       f"(L{run[0]['id']}-L{run[-1]['id']})",
-            })
+            rs, re_ = float(run[0]["start"]), float(run[-1]["end"])
+            why = (f"run of {len(run)} {mood} lines "
+                   f"(L{run[0]['id']}-L{run[-1]['id']})")
+            # ENTER WHERE THE STORY ALREADY BREATHES (owner, 18 Nov). A cue
+            # that starts under the narrator is heard as nothing; one that
+            # starts in a hold is heard at once, then settles under the voice
+            # when it comes back. Only a hold the story already has - right
+            # before the run or early in it - so the entrance falls where the
+            # film paused, never a pause made for the music.
+            hs = _entry_hold(rs, re_, hold_windows)
+            if hs is not None:
+                why += f"; enters in the hold at {hs:.1f}s"
+                rs = hs
+            proposals.append({"mood": mood, "start": rs, "end": re_,
+                              "why": why})
         i = j
 
     # 2. holds after a sad/reveal line -> a cue fills the hold
@@ -261,6 +284,118 @@ def plan_cues(draft: dict, timeline: list, cues: dict,
         last_file_for_mood[p["mood"]] = f
         p["file"] = f
     return kept
+
+
+# --------------------------------------------------------------------------- #
+# Where in its track a cue starts: the BEST stretch (owner, 18 Nov)
+# --------------------------------------------------------------------------- #
+def _envelope(ff: str, src: Path, sr: int = 11025):
+    """(50 ms frame energies in dB, seconds) of `src`, mono, or None."""
+    import numpy as np
+    r = subprocess.run([ff, "-v", "error", "-i", str(src), "-ac", "1", "-ar",
+                        str(sr), "-f", "s16le", "-"], capture_output=True)
+    if r.returncode != 0 or not r.stdout:
+        return None
+    x = np.frombuffer(r.stdout, dtype=np.int16).astype(np.float32) / 32768.0
+    fr = int(sr * 0.05)
+    nf = len(x) // fr
+    if nf < 40:
+        return None
+    e = (x[:nf * fr].reshape(nf, fr) ** 2).mean(axis=1) + 1e-12
+    return 10.0 * np.log10(e), len(x) / sr
+
+
+def best_start(env_db, dur: float, need: float = 0.0) -> tuple:
+    """(seconds, why): where in the track a cue of `need` seconds should
+    start - its BEST stretch, not its first one (owner, 18 Nov: "phải ở
+    khúc mà nhạc hay ... lúc nào cũng bắt đầu từ khúc đầu thì hên xui").
+
+    A cue plays 10-25 seconds of a 2-6 minute piece. From 0 s that is the
+    part of the song written to lead INTO it - on the Furious 7 cue files
+    the first 4 s sit 2.3-5.6 dB under the track as a whole - and under the
+    narrator it was heard as nothing.
+
+    Every window of `need` seconds (20 when unknown) is scored by its
+    loudness, less half its spread: the fullest stretch that stays full,
+    which in cinematic writing is where the piece has arrived - the theme
+    stated with everything playing, the build, the hit - rather than one
+    loud hit inside a quiet passage. The start is then moved to the
+    strongest rise within 1.5 s, so the cue begins on a note (a phrase or a
+    bar starting), not in the middle of one.
+    """
+    import numpy as np
+    e = np.asarray(env_db, dtype=float)
+    nsec = len(e) // 20
+    win = int(max(4, round(need or 20.0)))
+    if nsec <= win + 1:
+        return 0.0, f"the track ({dur:.0f}s) is no longer than the cue"
+    lin = 10.0 ** (e[:nsec * 20] / 10.0)
+    sec = 10.0 * np.log10(lin.reshape(nsec, 20).mean(axis=1))
+    best, s_best = -1e9, 0
+    for st in range(0, nsec - win + 1):
+        w = sec[st:st + win]
+        score = (10.0 * np.log10((10.0 ** (w / 10.0)).mean())
+                 - 0.5 * float(w.std()))
+        if score > best + 1e-9:
+            best, s_best = score, st
+    lo = max(3, s_best * 20 - 30)
+    hi = min(len(e) - 1, s_best * 20 + 30, (nsec - win) * 20)
+    at, rise_best = s_best * 20, -1e9
+    for k in range(lo, max(lo + 1, hi)):
+        rise = e[k] - max(e[k - 3:k])
+        if rise > rise_best:
+            rise_best, at = rise, k
+    t = max(0.0, at * 0.05 - 0.05)
+    if t + need > dur:
+        t = max(0.0, dur - need)
+    head = 10.0 * np.log10((10.0 ** (sec[:win] / 10.0)).mean())
+    return round(t, 2), (f"best {win}s stretch starts at {t:.1f}s "
+                         f"({best + 0.0:.1f} dB score; the first {win}s "
+                         f"would be {head:.1f} dB)")
+
+
+def cue_entry(ff: str, pdir: Path, src: Path, need: float = 0.0) -> float:
+    """Seconds into `src` at which a cue of `need` seconds starts.
+
+    music/cue_starts.json {"<file name>": seconds} wins (a start the owner
+    chose by ear, or the library's); else best_start() on the file's own
+    envelope, cached next to the normalised files.
+    MUSIC_CUE_FROM_ARRIVAL False -> 0 (the old behaviour)."""
+    if not getattr(config, "MUSIC_CUE_FROM_ARRIVAL", True):
+        return 0.0
+    try:
+        chosen = json.loads((pdir / "music" / "cue_starts.json").read_text(
+            encoding="utf-8"))
+        if src.name in chosen:
+            return max(0.0, float(chosen[src.name]))
+    except (OSError, ValueError, TypeError):
+        pass
+    try:
+        stt = src.stat()
+    except OSError:
+        return 0.0
+    cache = pdir / "music" / "_norm" / "_envelopes.json"
+    key = f"{src.name}:{stt.st_size}:{int(stt.st_mtime)}"
+    try:
+        store = json.loads(cache.read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        store = {}
+    hit = store.get(key)
+    if not isinstance(hit, dict):
+        got = _envelope(ff, src)
+        if got is None:
+            return 0.0
+        env, dur = got
+        hit = {"dur": round(dur, 2), "env": [round(float(v), 1) for v in env]}
+        store[key] = hit
+        try:
+            cache.parent.mkdir(parents=True, exist_ok=True)
+            cache.write_text(json.dumps(store), encoding="utf-8")
+        except OSError:
+            pass
+    t, why = best_start(hit["env"], float(hit["dur"]), need)
+    console.print(f"[dim]  music: {src.name} - {why}[/]")
+    return t
 
 
 # --------------------------------------------------------------------------- #
@@ -439,6 +574,9 @@ def build_music_track(ff: str, pdir: Path, out: Path, total_dur: float,
         # than the gain differences below, so without this the +10 dB lift
         # landed anywhere from +2 to +17 dB in practice.
         inputs += ["-i", str(normalized(ff, pdir, Path(p["file"])))]
+        # play from where the music has ARRIVED, not from its soft opening
+        _from = cue_entry(ff, pdir, Path(p["file"]), need=cue_len)
+        p["from"] = _from
         delay_ms = int(max(0.0, p["start"]) * 1000)
         lbl = f"cue{k}"
         _target = (_cue_duck_action if str(p.get("mood")) == "action"
@@ -466,7 +604,8 @@ def build_music_track(ff: str, pdir: Path, out: Path, total_dur: float,
         # pad to full length
         parts.append(
             f"[{idx}:a]aformat=sample_rates=48000:channel_layouts=stereo,"
-            f"atrim=duration={cue_len:.3f},"
+            f"atrim=start={_from:.3f}:duration={cue_len:.3f},"
+            f"asetpts=PTS-STARTPTS,"
             f"afade=t=in:st=0:d={min(fade, cue_len/2):.2f},"
             f"afade=t=out:st={max(0.0, cue_len-fade):.2f}:d={min(fade, cue_len/2):.2f},"
             f"{_cvol},"
@@ -602,6 +741,13 @@ def resolve_music(ff: str, pdir: Path, work: Path, draft: dict, timeline: list,
     # ---- the ENDING track (music/ending.*) -------------------------------
     ending = None
     _ef = ending_file(pdir)
+    if _ef is not None and not getattr(config, "MUSIC_ENDING_ENABLE", False):
+        # owner, 18 Nov: "k cần nhạc kết trong vid luôn" - the bed (and its
+        # holds) carries the close. The file is left where it is.
+        console.print(f"[dim]Music: {_ef.name} present but the ending track "
+                      f"is OFF (MUSIC_ENDING_ENABLE) - the bed runs to the "
+                      f"end[/]")
+        _ef = None
     if _ef is not None:
         _st = ending_start(pdir, draft, timeline)
         if _st is not None:

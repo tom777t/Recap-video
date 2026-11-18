@@ -1,0 +1,442 @@
+{
+ "_about": "Channel cue library (owner, 18 Nov 2026). Cues only - the channel has its own bed, and no ending track is used. All tracks by Kevin MacLeod (incompetech.com), CC BY 4.0. Chosen from the 1443-piece catalogue by feel/genre, then measured (loudness envelope, steadiness, length of the strong stretch, low/high band share) on the 170 best-matching candidates; picks are the steadiest full-bodied ones per mood, with podcast/quiz/western/medieval/comedy themes excluded. Where in each track a cue starts is decided per placement by pipeline/music.py best_start (its best stretch for that length). tools/music_library.py fetches and picks.",
+ "source": "incompetech.com",
+ "author": "Kevin MacLeod",
+ "license": "Creative Commons: By Attribution 4.0 License",
+ "license_url": "http://creativecommons.org/licenses/by/4.0/",
+ "url_base": "https://incompetech.com/music/royalty-free/mp3-royaltyfree/",
+ "tracks": [
+  {
+   "mood": "action",
+   "title": "The Complex",
+   "file": "The Complex.mp3",
+   "seconds": 268,
+   "feel": "Action, Aggressive, Dark, Driving, Epic, Intense, Mysterious",
+   "isrc": "USUAN1300025",
+   "keep": true
+  },
+  {
+   "mood": "action",
+   "title": "The Descent",
+   "file": "The Descent.mp3",
+   "seconds": 192,
+   "feel": "Action, Dark, Driving, Epic, Intense",
+   "isrc": "USUAN1200094",
+   "keep": true
+  },
+  {
+   "mood": "action",
+   "title": "Mistake the Getaway",
+   "file": "Mistake the Getaway.mp3",
+   "seconds": 123,
+   "feel": "Action, Driving, Epic, Intense, Suspenseful",
+   "isrc": "USUAN1100699",
+   "keep": true
+  },
+  {
+   "mood": "action",
+   "title": "Volatile Reaction",
+   "file": "Volatile Reaction.mp3",
+   "seconds": 165,
+   "feel": "Action, Aggressive, Dark, Intense",
+   "isrc": "USUAN1400039",
+   "keep": true
+  },
+  {
+   "mood": "action",
+   "title": "Truth of the Legend",
+   "file": "Truth of the Legend.mp3",
+   "seconds": 93,
+   "feel": "Action, Dark, Driving, Epic, Intense",
+   "isrc": "USUAN1100592",
+   "keep": true
+  },
+  {
+   "mood": "action",
+   "title": "Curse of the Scarab",
+   "file": "Curse of the Scarab.mp3",
+   "seconds": 327,
+   "feel": "Dark, Epic, Action, Driving",
+   "isrc": "USUAN1600014",
+   "keep": true
+  },
+  {
+   "mood": "action",
+   "title": "Cortosis",
+   "file": "Cortosis.mp3",
+   "seconds": 153,
+   "feel": "Action, Driving, Intense",
+   "isrc": "USUAN1100815",
+   "keep": true
+  },
+  {
+   "mood": "action",
+   "title": "Failing Defense",
+   "file": "Failing Defense.mp3",
+   "seconds": 105,
+   "feel": "Action, Aggressive, Intense, Suspenseful",
+   "isrc": "USUAN1100726",
+   "keep": true
+  },
+  {
+   "mood": "action",
+   "title": "Ghostpocalypse - 7 Master",
+   "file": "Ghostpocalypse - 7 Master.mp3",
+   "seconds": 119,
+   "feel": "Action, Epic, Intense, Unnerving",
+   "isrc": "USUAN1100662",
+   "keep": true
+  },
+  {
+   "mood": "action",
+   "title": "Black Vortex",
+   "file": "Black Vortex.mp3",
+   "seconds": 170,
+   "feel": "Action, Aggressive, Dark, Driving, Epic, Intense, Suspenseful",
+   "isrc": "USUAN1300037",
+   "keep": true
+  },
+  {
+   "mood": "tense",
+   "title": "Constance",
+   "file": "Constance.mp3",
+   "seconds": 140,
+   "feel": "Action, Dark, Epic, Intense, Mysterious, Suspenseful",
+   "isrc": "USUAN1100850",
+   "keep": true
+  },
+  {
+   "mood": "tense",
+   "title": "Crypto",
+   "file": "Crypto.mp3",
+   "seconds": 204,
+   "feel": "Dark, Eerie, Unnerving, Suspenseful",
+   "isrc": "USUAN1600013",
+   "keep": true
+  },
+  {
+   "mood": "tense",
+   "title": "Stormfront",
+   "file": "Stormfront.mp3",
+   "seconds": 334,
+   "feel": "Dark, Epic, Intense, Suspenseful, Unnerving",
+   "isrc": "USUAN1200043",
+   "keep": true
+  },
+  {
+   "mood": "tense",
+   "title": "Satiate",
+   "file": "Satiate.mp3",
+   "seconds": 192,
+   "feel": "Dark, Intense, Relaxed, Suspenseful, Unnerving",
+   "isrc": "USUAN1200055",
+   "keep": true
+  },
+  {
+   "mood": "tense",
+   "title": "Satiate - only percussion",
+   "file": "Satiate Percussion.mp3",
+   "seconds": 192,
+   "feel": "Dark, Mysterious, Unnerving",
+   "isrc": "USUAN1200057",
+   "keep": true
+  },
+  {
+   "mood": "tense",
+   "title": "Controlled Chaos",
+   "file": "Controlled Chaos.mp3",
+   "seconds": 352,
+   "feel": "Dark, Eerie, Intense, Mysterious, Suspenseful, Unnerving",
+   "isrc": "USUAN1200059",
+   "keep": true
+  },
+  {
+   "mood": "tense",
+   "title": "Serpentine Trek",
+   "file": "Serpentine Trek.mp3",
+   "seconds": 107,
+   "feel": "Dark, Eerie, Epic, Intense, Suspenseful",
+   "isrc": "USUAN1100428",
+   "keep": true
+  },
+  {
+   "mood": "tense",
+   "title": "Stay the Course",
+   "file": "Stay the Course.mp3",
+   "seconds": 272,
+   "feel": "Suspenseful, Dark, Calming",
+   "isrc": "USUAN1900018",
+   "keep": true
+  },
+  {
+   "mood": "tense",
+   "title": "Clash Defiant",
+   "file": "Clash Defiant.mp3",
+   "seconds": 376,
+   "feel": "Aggressive, Driving, Dark, Suspenseful",
+   "isrc": "USUAN1600003",
+   "keep": true
+  },
+  {
+   "mood": "tense",
+   "title": "Medusa",
+   "file": "Medusa.mp3",
+   "seconds": 79,
+   "feel": "Dark, Intense, Suspenseful, Unnerving",
+   "isrc": "USUAN1100804",
+   "keep": true
+  },
+  {
+   "mood": "mystery",
+   "title": "Oppressive Gloom",
+   "file": "Oppressive Gloom.mp3",
+   "seconds": 199,
+   "feel": "Dark, Eerie, Epic, Mysterious, Somber, Suspenseful",
+   "isrc": "USUAN1100885",
+   "keep": true
+  },
+  {
+   "mood": "mystery",
+   "title": "Crowd Hammer",
+   "file": "Crowd Hammer.mp3",
+   "seconds": 207,
+   "feel": "Dark, Eerie, Relaxed",
+   "isrc": "USUAN1500064",
+   "keep": true
+  },
+  {
+   "mood": "mystery",
+   "title": "Phantom from Space",
+   "file": "Phantom from Space.mp3",
+   "seconds": 156,
+   "feel": "Eerie, Mysterious",
+   "isrc": "USUAN1500038",
+   "keep": true
+  },
+  {
+   "mood": "mystery",
+   "title": "Lasting Hope",
+   "file": "Lasting Hope.mp3",
+   "seconds": 144,
+   "feel": "Dark, Eerie, Mystical, Relaxed, Intense, Somber",
+   "isrc": "USUAN1100178",
+   "keep": true
+  },
+  {
+   "mood": "mystery",
+   "title": "Shamanistic",
+   "file": "Shamanistic.mp3",
+   "seconds": 182,
+   "feel": "Dark, Driving, Eerie, Mysterious, Mystical",
+   "isrc": "USUAN1100353",
+   "keep": true
+  },
+  {
+   "mood": "mystery",
+   "title": "Spellbound",
+   "file": "Spellbound.mp3",
+   "seconds": 230,
+   "feel": "Mystical, Eerie, Mysterious, Calming, Dark",
+   "isrc": "USUAN1500061",
+   "keep": true
+  },
+  {
+   "mood": "mystery",
+   "title": "Dragon and Toast",
+   "file": "Dragon and Toast.mp3",
+   "seconds": 353,
+   "feel": "Dark, Eerie, Intense, Mystical, Unnerving",
+   "isrc": "USUAN1100251",
+   "keep": true
+  },
+  {
+   "mood": "mystery",
+   "title": "Vulcan",
+   "file": "Vulcan.mp3",
+   "seconds": 215,
+   "feel": "Dark, Eerie, Mysterious, Mystical",
+   "isrc": "USUAN1100525",
+   "keep": true
+  },
+  {
+   "mood": "mystery",
+   "title": "Magic Forest",
+   "file": "Magic Forest.mp3",
+   "seconds": 260,
+   "feel": "Mystical, Dark, Mysterious",
+   "isrc": "USUAN1600044",
+   "keep": true
+  },
+  {
+   "mood": "mystery",
+   "title": "Wretched Destroyer",
+   "file": "Wretched Destroyer.mp3",
+   "seconds": 198,
+   "feel": "Eerie, Dark, Driving",
+   "isrc": "USUAN1700041",
+   "keep": true
+  },
+  {
+   "mood": "sad",
+   "title": "Lost Time",
+   "file": "Lost Time.mp3",
+   "seconds": 227,
+   "feel": "Somber, Dark",
+   "isrc": "USUAN1500032",
+   "keep": true
+  },
+  {
+   "mood": "sad",
+   "title": "Man Down",
+   "file": "Man Down.mp3",
+   "seconds": 198,
+   "feel": "Suspenseful, Dark, Somber",
+   "isrc": "USUAN1700086",
+   "keep": true
+  },
+  {
+   "mood": "sad",
+   "title": "Floating Cities",
+   "file": "Floating Cities.mp3",
+   "seconds": 184,
+   "feel": "Somber, Relaxed, Mystical, Calming",
+   "isrc": "USUAN1600018",
+   "keep": true
+  },
+  {
+   "mood": "sad",
+   "title": "Myst",
+   "file": "Myst.mp3",
+   "seconds": 184,
+   "feel": "Dark, Mystical, Somber",
+   "isrc": "USUAN1100448",
+   "keep": true
+  },
+  {
+   "mood": "sad",
+   "title": "Anguish",
+   "file": "Anguish.mp3",
+   "seconds": 239,
+   "feel": "Calming, Dark, Somber",
+   "isrc": "USUAN1400047",
+   "keep": true
+  },
+  {
+   "mood": "sad",
+   "title": "Shores of Avalon",
+   "file": "Shores of Avalon.mp3",
+   "seconds": 236,
+   "feel": "Calming, Mysterious, Mystical, Somber",
+   "isrc": "USUAN1100633",
+   "keep": true
+  },
+  {
+   "mood": "sad",
+   "title": "On the Shore",
+   "file": "On the Shore.mp3",
+   "seconds": 101,
+   "feel": "Calming, Mystical, Somber",
+   "isrc": "USUAN1200016",
+   "keep": true
+  },
+  {
+   "mood": "sad",
+   "title": "End of the Era",
+   "file": "End of the Era.mp3",
+   "seconds": 210,
+   "feel": "Calming, Somber, Unnerving",
+   "isrc": "USUAN1100452",
+   "keep": true
+  },
+  {
+   "mood": "sad",
+   "title": "Crusade",
+   "file": "Crusade.mp3",
+   "seconds": 199,
+   "feel": "Dark, Epic, Somber, Suspenseful",
+   "isrc": "USUAN1100884",
+   "keep": true
+  },
+  {
+   "mood": "sad",
+   "title": "Tempting Secrets",
+   "file": "Tempting Secrets.mp3",
+   "seconds": 182,
+   "feel": "Dark, Epic, Uplifting, Somber",
+   "isrc": "USUAN1300038",
+   "keep": true
+  },
+  {
+   "mood": "reveal",
+   "title": "Discovery Hit",
+   "file": "Discovery Hit.mp3",
+   "seconds": 15,
+   "feel": "Epic, Intense, Uplifting",
+   "isrc": "USUAN1300023",
+   "keep": true
+  },
+  {
+   "mood": "reveal",
+   "title": "Epic Unease",
+   "file": "Epic Unease.mp3",
+   "seconds": 37,
+   "feel": "Dark, Eerie, Epic, Intense, Unnerving",
+   "isrc": "USUAN1100406",
+   "keep": true
+  },
+  {
+   "mood": "reveal",
+   "title": "Darkness Speaks",
+   "file": "Darkness Speaks.mp3",
+   "seconds": 25,
+   "feel": "Dark, Eerie, Mysterious, Unnerving",
+   "isrc": "USUAN1100364",
+   "keep": true
+  },
+  {
+   "mood": "reveal",
+   "title": "Eyes Gone Wrong",
+   "file": "Eyes Gone Wrong.mp3",
+   "seconds": 20,
+   "feel": "Dark, Eerie, Mysterious, Unnerving",
+   "isrc": "USUAN1100362",
+   "keep": true
+  },
+  {
+   "mood": "reveal",
+   "title": "Split In Synapse",
+   "file": "Split In Synapse.mp3",
+   "seconds": 38,
+   "feel": "Action, Intense, Unnerving",
+   "isrc": "USUAN1100703",
+   "keep": true
+  },
+  {
+   "mood": "reveal",
+   "title": "Hero Theme",
+   "file": "Hero Theme.mp3",
+   "seconds": 18,
+   "feel": "Dark, Epic, Intense, Mysterious",
+   "isrc": "USUAN1100491",
+   "keep": true
+  },
+  {
+   "mood": "reveal",
+   "title": "Danse Macabre - Low Strings Finale",
+   "file": "Danse Macabre - Low Strings Finale.mp3",
+   "seconds": 13,
+   "feel": "Action, Aggressive, Dark, Driving, Epic",
+   "isrc": "USUAN1100552",
+   "keep": true
+  },
+  {
+   "mood": "reveal",
+   "title": "Ambush",
+   "file": "Ambush.mp3",
+   "seconds": 42,
+   "feel": "Dark, Mysterious, Epic",
+   "isrc": "USUAN1100334",
+   "keep": true
+  }
+ ]
+}

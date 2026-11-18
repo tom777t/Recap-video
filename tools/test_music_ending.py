@@ -14,6 +14,10 @@ Synthetic tones (no film media): the bed is a 220 Hz tone, the ending an
   CUES-STOP                a cue that would start after the ending is dropped,
                            one running into it is cut at the start
   ENDING-ONLY              no bed at all: silence, then the ending
+  OFF-BY-DEFAULT           owner, 18 Nov: no ending track in the videos -
+                           with MUSIC_ENDING_ENABLE at its default an
+                           ending.* file is present and NOT placed; the bed
+                           runs to the end (the cases above switch it on)
 
 Run:  python tools/test_music_ending.py      (exit 0 = all pass; SKIP without
       ffmpeg / numpy)
@@ -63,7 +67,29 @@ def main() -> int:
         print("test_music_ending: SKIP (ffmpeg / numpy missing)")
         return 0
     from pipeline import music as M
+    import config
     cases = []
+    default_on = bool(getattr(config, "MUSIC_ENDING_ENABLE", False))
+    with tempfile.TemporaryDirectory() as td:
+        pdir = Path(td)
+        (pdir / "music").mkdir()
+        _tone(ff, pdir / "music" / "bed.wav", 220, 30)
+        _tone(ff, pdir / "music" / "ending.wav", 880, 30)
+        (pdir / "_work").mkdir()
+        d0 = {"lines": [{"id": 1}, {"id": 2, "film_speaks_seconds": 3.0},
+                        {"id": 3}]}
+        t0 = [{"id": 1, "start": 0.0, "end": 8.0},
+              {"id": 2, "start": 8.0, "end": 11.0},
+              {"id": 3, "start": 11.0, "end": 24.0}]
+        o0, _p0, n0 = M.resolve_music(ff, pdir, pdir / "_work", d0, t0, 24.0)
+        e_late = _band(o0, 16, 21, 880)
+        b_late = _band(o0, 16, 21, 220)
+        ok0 = (not default_on and "ending" not in n0
+               and b_late > 10 * max(e_late, 1e-9))
+        cases.append(("OFF-BY-DEFAULT", ok0,
+                      f"default {default_on}; 16-21 s bed {b_late:.4f} / "
+                      f"ending {e_late:.5f} ({n0})"))
+    config.MUSIC_ENDING_ENABLE = True
     with tempfile.TemporaryDirectory() as td:
         pdir = Path(td)
         (pdir / "music").mkdir()

@@ -93,3 +93,6 @@ projects/*
 !projects/tokyodrift2006/
 
 channel/
+
+# the channel music library (tools/music_library.py fetch) - audio, not code
+music_library/
