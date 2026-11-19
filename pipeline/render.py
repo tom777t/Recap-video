@@ -2458,6 +2458,11 @@ def render(project: str, draft: dict,
     # render.py then sidechains that single track under the voice, exactly as it
     # mixed a mood bed. Every fallback rung is printed by resolve_music.
     from pipeline import music as _music
+    # The CUES come from the channel's library when the project has none
+    # (owner, 19 Nov: the bed is the owner's choice, the cues are picked);
+    # pipeline/music_library.py ensure_cues fetches and picks, never raises.
+    from pipeline import music_library as _mlib
+    console.print(f"[cyan]Music:[/] cues - {_mlib.ensure_cues(pdir)}")
     # `music` is whatever the CALLER supplied (--music download, or recap.py's
     # auto-discovered music.mp3). It is handed over as the LEGACY candidate
     # only: projects/<name>/music/ takes precedence, and if there is no bed but

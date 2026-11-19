@@ -22,6 +22,10 @@ classified library (owner, 18 Nov 2026).
   FITS-THE-FILM    a film whose draft is about car chases and the police
                    gets the chase cue among its action cues; the cue
                    descriptions are written next to the files (cues.json)
+  AUTO-PICK        a project with no cues gets them from the library by
+                   itself (fetching what the library lacks); one that has
+                   cues is left alone; a failed fetch leaves it without cues
+                   and says why, never raises; the bed is never touched
   PLACED-BY-SCENE  at render, a tense run about waiting for a call gets the
                    waiting cue and a run about sneaking in gets the sneaking
                    one - not whichever the rotation reached; without
@@ -273,10 +277,60 @@ def t_placed_by_scene():
         shutil.rmtree(tmp, ignore_errors=True)
 
 
+def t_auto_pick():
+    tmp = Path(tempfile.mkdtemp(prefix="ml_"))
+    try:
+        cat = ML.load()
+        lib = tmp / "lib"
+        lib.mkdir()
+        pdir = tmp / "film"
+        (pdir / "music").mkdir(parents=True)
+        (pdir / "music" / "bed.mp3").write_bytes(b"own bed")
+        calls = []
+        real_fetch = ML.fetch
+
+        def fake_fetch(c, l, opener=None):
+            calls.append(len(c["tracks"]))
+            for t in c["tracks"]:
+                (l / t["file"]).write_bytes(b"x" * 20_000)
+            return [t["file"] for t in c["tracks"]], [], []
+        import pipeline.music_library as PML
+        PML.fetch = fake_fetch
+        try:
+            note1 = PML.ensure_cues(pdir, lib, say=lambda *_: None)
+            n1 = len(list((pdir / "music" / "cues").glob("*.mp3")))
+            note2 = PML.ensure_cues(pdir, lib, say=lambda *_: None)
+
+            def broken(c, l, opener=None):
+                return [], [], [("x.mp3", "connection refused")]
+            PML.fetch = broken
+            empty = tmp / "film2"
+            empty.mkdir()
+            note3 = PML.ensure_cues(empty, tmp / "lib_empty",
+                                    say=lambda *_: None)
+        finally:
+            PML.fetch = real_fetch
+        selftest = tmp / "_smoke_render"
+        (selftest / "music").mkdir(parents=True)
+        note4 = PML.ensure_cues(selftest, lib, say=lambda *_: None)
+        ok = ("self-test" in note4 and not (selftest / "music" / "cues")
+              .exists() and
+              n1 == 13 and calls == [13] and "picked" in note1
+              and "already" in note2 and "no cues" in note3
+              and (pdir / "music" / "bed.mp3").read_bytes() == b"own bed")
+        return ok, (f"empty project -> {n1} cues (fetched {calls[0]}); "
+                    f"second run: {note2}; failed fetch: {note3[:50]}; bed "
+                    f"untouched" if ok else f"{n1} {calls} | {note1} | "
+                    f"{note2} | {note3}")
+    finally:
+        shutil.rmtree(tmp, ignore_errors=True)
+
+
 TESTS = [("CATALOGUE-SANE", t_catalogue), ("FETCH-URLS", t_fetch),
          ("PICK-FILLS", t_pick_fills), ("NO-REPEAT", t_no_repeat),
          ("OLD-KEPT", t_old_kept), ("MISSING-SAID", t_missing),
          ("DESCRIBED", t_described), ("FITS-THE-FILM", t_fits_the_film),
+         ("AUTO-PICK", t_auto_pick),
          ("PLACED-BY-SCENE", t_placed_by_scene)]
 
 if __name__ == "__main__":
