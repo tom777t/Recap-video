@@ -277,6 +277,8 @@ def _build_clip(ff: str, source: Path, start: float, end: float,
     crop = ""
     if crop_top and 0.0 < crop_top < 0.5:
         crop = f"crop=iw:ih*{1.0-crop_top:.3f}:0:ih*{crop_top:.3f},"
+    # burned-in subtitles: cut (or black out) before anything else
+    crop = _subs_prefix() + crop
 
     # Má»©c 1 mild slow-motion: stretch the footage (setpts) to fill the window
     # BEFORE the fps resample, so motion stays smooth instead of freezing.
@@ -613,6 +615,7 @@ def _build_silence_clip(ff: str, source: Path, start: float, end: float,
     crop = ""
     if crop_top and 0.0 < crop_top < 0.5:
         crop = f"crop=iw:ih*{1.0-crop_top:.3f}:0:ih*{crop_top:.3f},"
+    crop = _subs_prefix() + crop       # burned-in subtitles, first
     expo = ""
     if exposure and exposure > 0.001:
         e = min(0.5, float(exposure))
@@ -787,7 +790,8 @@ def _build_montage_clip(ff: str, source: Path, segments: list[tuple[float, float
         motion = (f",zoompan=z='{zexpr}':d=1:x='iw/2-(iw/zoom/2)':"
                   f"y='ih/2-(ih/zoom/2)':s={w}x{h}:fps={fps}") if config.MOTION_ENABLE else ""
         vparts.append(
-            f"[{i}:v]scale={w}:{h}:force_original_aspect_ratio=decrease:flags={_SCALER},"
+            f"[{i}:v]{_subs_prefix()}"
+            f"scale={w}:{h}:force_original_aspect_ratio=decrease:flags={_SCALER},"
             f"pad={w}:{h}:(ow-iw)/2:(oh-ih)/2:black,setsar=1,fps={fps}{motion},"
             f"tpad=stop_mode=clone:stop_duration="
             f"{min(seg_len, float(config.MAX_FREEZE_SEC)):.3f},"
@@ -1261,6 +1265,7 @@ def _clip_signature(source: Path, start: float, end: float, hold: float,
         # every film gain is relative to the narrator and measured on the
         # window, so the reference and the bounds belong in the key too
         f"levels={_levels_sig()}",
+        f"subs={_subs_sig()}",
         f"film={bool(film_audio)}:{bool(config.FILM_AUDIO_ENABLE)}:"
         f"{float(config.FILM_AUDIO_DB):.2f}:"
         f"{float(config.FILM_AUDIO_HOLD_DB):.2f}",
@@ -1275,6 +1280,16 @@ def _clip_signature(source: Path, start: float, end: float, hold: float,
                     or "none"),
     ]
     return hashlib.sha1("|".join(parts).encode("utf-8")).hexdigest()[:20]
+
+
+def _subs_prefix() -> str:
+    from pipeline import subcover as _sc
+    return _sc.prefix()
+
+
+def _subs_sig() -> str:
+    from pipeline import subcover as _sc
+    return _sc.signature()
 
 
 def _levels_voice() -> float:
@@ -1316,6 +1331,15 @@ def region_to_output(censor_region, src_w: int, src_h: int):
         x, y = int(censor_region.x), int(censor_region.y)
         w, h = int(censor_region.width), int(censor_region.height)
     else:
+        # burned-in subtitles cropped away: the box moves into the kept frame
+        from pipeline import subcover as _sc
+        _x, _y, _w, _h, sw, sh = _sc.map_region(
+            int(censor_region.x), int(censor_region.y),
+            int(censor_region.width), int(censor_region.height), sw, sh)
+
+        class _R:
+            x, y, width, height = _x, _y, _w, _h
+        censor_region = _R
         f = min(W / sw, H / sh)
         ox = (W - sw * f) / 2.0
         oy = (H - sh * f) / 2.0
@@ -1577,6 +1601,18 @@ def render(project: str, draft: dict,
     # THE REFERENCE every film and music level is set against: the narrator.
     from pipeline import levels as _levels
     _vref, _vhow = _levels.begin(pdir)
+    # BURNED-IN SUBTITLES (owner, 19 Nov): find them once, hide them in every
+    # frame read from the film (pipeline/subcover.py)
+    from pipeline import subcover as _subcover
+    _sb = _subcover.begin(pdir, pdir / "source.mp4")
+    if _sb.get("found"):
+        console.print(f"[cyan]Subtitles:[/] burned-in subtitles at rows "
+                      f"{_sb['y0']}-{_sb['y1']} of {_sb['src_h']} - "
+                      f"{config.SUBTITLE_COVER} -> "
+                      f"{_subcover.prefix().rstrip(',') or 'nothing'} "
+                      f"({_sb['why']}; edit subtitle_band.json to change)")
+    else:
+        console.print(f"[dim]Subtitles: none covered ({_sb.get('why')})[/]")
     console.print(f"[cyan]Levels:[/] narrator at {_vref:.1f} LUFS ({_vhow}); "
                   f"film and music are set in dB against it")
     if config.FILM_AUDIO_ENABLE and getattr(config, "FILM_AUDIO_USE_STEMS", False):

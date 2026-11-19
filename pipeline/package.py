@@ -88,7 +88,9 @@ def make_thumbnail(project: str, at: str, headline: str,
             f"borderw=6:bordercolor=black:shadowcolor=black@0.8:shadowx=3:shadowy=3"
         )
 
+    from pipeline import subcover as _sc
     vf = (
+        _sc.prefix(config.project_dir(project)) +
         "scale=1280:720:force_original_aspect_ratio=increase,crop=1280:720,"
         "eq=contrast=1.18:saturation=1.35:brightness=-0.04,"
         "vignette=PI/5,"

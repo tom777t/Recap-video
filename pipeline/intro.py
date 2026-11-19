@@ -672,7 +672,9 @@ def _build_film_intro_segment(project: str, work: Path,
     # decrease + pad (letterbox), and pins the scaler to
     # config.VIDEO_SCALER; intro.py pinned it nowhere, so the whole opening was
     # resampled with ffmpeg's default bicubic while the story used lanczos.
-    vf = (f"scale={w}:{h}:force_original_aspect_ratio=decrease:"
+    from pipeline import subcover as _sc
+    vf = (f"{_sc.prefix(pdir)}"
+          f"scale={w}:{h}:force_original_aspect_ratio=decrease:"
           f"flags={config.VIDEO_SCALER},"
           f"pad={w}:{h}:(ow-iw)/2:(oh-ih)/2:black,setsar=1,fps={fps}")
     if bed is not None:
@@ -804,7 +806,9 @@ def build_mid_segment(project: str, work: Path, cursor: float = 0.0):
                    out_a=float(cursor), out_b=float(cursor) + vis_len)
 
     w, h, fps = config.OUTPUT_WIDTH, config.OUTPUT_HEIGHT, config.OUTPUT_FPS
-    vf = (f"scale={w}:{h}:force_original_aspect_ratio=decrease:"
+    from pipeline import subcover as _sc
+    vf = (f"{_sc.prefix(config.project_dir(project))}"
+          f"scale={w}:{h}:force_original_aspect_ratio=decrease:"
           f"flags={config.VIDEO_SCALER},"
           f"pad={w}:{h}:(ow-iw)/2:(oh-ih)/2:black,setsar=1,fps={fps}")
     from pipeline.render import _body_keyframes
@@ -905,7 +909,7 @@ def _intro_cache_key(project: str) -> str:
     _feed("angle.md", (pdir / "angle.md").read_bytes()
           if (pdir / "angle.md").exists() else b"-")
     for name in ("reveals.json", "shots.json", "film_facts.json", "names.json",
-                 "intro_music.mp3", "music.mp3"):
+                 "intro_music.mp3", "music.mp3", "subtitle_band.json"):
         p = pdir / name
         _feed(name, p.read_bytes() if p.exists() else b"-")
     for p in sorted((pdir / "music").glob("*.*")) if (pdir / "music").exists() else []:
@@ -917,7 +921,7 @@ def _intro_cache_key(project: str) -> str:
                      if k.isupper()})
     here = Path(__file__).resolve().parent
     for mod in ("intro.py", "intro_style.py", "footage.py", "encoder.py",
-                "censor.py", "music.py"):
+                "censor.py", "music.py", "subcover.py"):
         mp = here / mod
         _feed("code/" + mod, mp.read_bytes() if mp.exists() else b"-")
     return h.hexdigest()[:20]
@@ -1211,8 +1215,10 @@ def build_intro(project: str, out_name: str = "intro_preview.mp4",
                   else f"if(eq(on,0),{1.0+z:.4f},max(zoom-{z/tf:.6f},1.0))")
             motion = (f",zoompan=z='{ze}':d=1:x='iw/2-(iw/zoom/2)':"
                       f"y='ih/2-(ih/zoom/2)':s={w}x{h}:fps={fps}")
+        from pipeline import subcover as _sc
         parts.append(
-            f"[{i}:v]scale={w}:{h}:force_original_aspect_ratio=decrease:"
+            f"[{i}:v]{_sc.prefix(config.project_dir(project))}"
+            f"scale={w}:{h}:force_original_aspect_ratio=decrease:"
             f"flags={config.VIDEO_SCALER},"
             f"pad={w}:{h}:(ow-iw)/2:(oh-ih)/2:black,setsar=1,fps={fps}{motion},"
             # CAPPED, like every tpad in render.py. This is a backstop only -

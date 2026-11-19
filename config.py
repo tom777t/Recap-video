@@ -1634,3 +1634,21 @@ WRITE_EFFORT = {
     "angle": "medium", "draft": "medium", "filmspeaks": "low",
     "review": "medium", "plan": "medium", "resolve": "medium",
 }
+
+
+# --------------------------------------------------------------------------- #
+# BURNED-IN SUBTITLES (owner, 19 Nov: the next downloads carry subtitles in
+# the picture). pipeline/subcover.py finds the band once per film (saved to
+# projects/<name>/subtitle_band.json - edit it, or write {"found": false}, to
+# overrule) and hides it in every frame read from the film.
+#   "auto"  - cover only what was found, by cropping (the default)
+#   "crop"  - keep the picture above the band (and drop letterbox bars, so it
+#             is centred again); a subtitle in the black bar costs no picture
+#   "black" - paint the band black, the frame keeps its size
+#   "off"   - leave the film as it is
+SUBTITLE_COVER = "auto"
+SUBTITLE_PROBES = 120        # frames sampled across the film
+SUBTITLE_BRIGHT = 175        # a text pixel is at least this bright (0-255)
+SUBTITLE_EDGE = 60           # ...and this much brighter than both sides
+SUBTITLE_ROW_SHARE = 0.025   # a row 'carries text' when this share is text
+SUBTITLE_MIN_FREQ = 0.06     # a band row carries text in >= this many frames
