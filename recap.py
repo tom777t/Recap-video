@@ -78,12 +78,11 @@ def cmd_ingest(args):
                insecure_ssl=args.insecure_ssl, translate=args.translate)
     script_in = prepare_scripting(args.project)
 
-    console.print("\n[bold]Next: the review checkpoint.[/]")
-    console.print(f"  1. Open: {script_in}")
-    console.print(f"  2. Ask OpenCode to write the recap script into:")
-    console.print(f"       {config.project_dir(args.project) / 'draft.json'}")
-    console.print(f"     (how to tell it: prompts/story_guide.md; line format: tools/draft_prompt.md)")
-    console.print(f"  3. Run: python recap.py draft --project {args.project}")
+    console.print("\n[bold]Ingest done.[/] Transcript for reading: "
+                  f"{script_in}")
+    console.print(f"  Next: .\\run.ps1 -Project {args.project} -From frames "
+                  f"(run.ps1 carries on by itself; the draft is written "
+                  f"through the API by write_api, not by hand)")
 
 
 def cmd_frames(args):
