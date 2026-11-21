@@ -28,18 +28,37 @@ def load_cast(pdir):
     try:
         _nj = json.load(io.open(os.path.join(str(pdir), 'names.json'),
                                 encoding='utf-8-sig'))
-        return [str(e.get('character', '')) for e in (_nj.get('names') or [])
-                if e.get('character')]
+        rows = [e for e in (_nj.get('names') or []) if e.get('character')]
+        cast = Cast(str(e.get('character', '')) for e in rows)
+        # a character who claims another's identity (names.json poses_as,
+        # 21 Nov): the tagger must name her by who she IS, not by the name
+        # the other characters call her
+        cast.posing = [(str(e['character']), str(e.get('actor') or ''),
+                        list(e['poses_as'])) for e in rows
+                       if e.get('poses_as')]
+        return cast
     except Exception:
         return []
 
 
+class Cast(list):
+    """The cast names, plus .posing: [(character, actor, [claimed names])]."""
+    posing: list = []
+
+
 def cast_lines(cast):
     if cast:
-        return ['CAST (use these exact spellings in `chars` when you can identify '
-                'someone): ' + ', '.join(cast),
-                'If you cannot tell who a person is, use a short stable description '
-                'instead - never guess a name off the list.']
+        out = ['CAST (use these exact spellings in `chars` when you can '
+               'identify someone): ' + ', '.join(cast),
+               'If you cannot tell who a person is, use a short stable '
+               'description instead - never guess a name off the list.']
+        for who, actor, claimed in getattr(cast, 'posing', []) or []:
+            out.append(f'POSING: {who}' + (f' ({actor})' if actor else '') +
+                       f' presents herself/himself as {" / ".join(claimed)}. '
+                       f'Tag this person as {who} even where others call '
+                       f'them {claimed[0]}; {claimed[0]} is a different '
+                       f'person.')
+        return out
     return ['!! NO names.json - `chars` will hold descriptions only, and every '
             'later speech claim will be unauditable. Build names.json from the '
             'film\'s Wikipedia cast list BEFORE tagging.']

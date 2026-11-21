@@ -80,6 +80,29 @@ def _clean_actor(s: str) -> str:
     return re.sub(r"\s+", " ", s).strip()
 
 
+_QUOTED = re.compile(r'^\s*["\u201c]([^"\u201c\u201d]+)["\u201d]\s*$')
+
+
+def _posing_names(character: str):
+    """(names this person POSES AS, the rest of the line).
+
+    'Janice Man as "Li Muzi" / Jane' (Lost in the Stars, 21 Nov): a name
+    wholly inside quotes is the identity the character CLAIMS - she presents
+    herself as Li Muzi - while the next line, 'Kay Huang as Li Muzi', is the
+    real Li Muzi. Read as a plain alias it gave Li Muzi to Janice Man and then
+    dropped Kay Huang's line as a duplicate: the impostor became the wife and
+    the wife vanished from names.json. A quoted part only counts as posing
+    when the line ALSO names who the person really is; a line that is only a
+    quoted name keeps it as the character."""
+    parts = [p.strip() for p in re.split(r"\s*/\s*", character) if p.strip()]
+    posing = [m.group(1).strip() for m in (_QUOTED.match(p) for p in parts)
+              if m]
+    rest = [p for p in parts if not _QUOTED.match(p)]
+    if not posing or not rest:
+        return [], character
+    return posing, " / ".join(rest)
+
+
 def _split_aliases(character: str):
     """One actor, several character names.
 
@@ -499,12 +522,13 @@ def fetch_cast(page: str):
         # versions) keeps both - which one a given frame shows is a judgement
         actor = " / ".join(dict.fromkeys(people))
         alias = " / ".join(dict.fromkeys(nicknames)) or None
+        posing, character = _posing_names(character)
         for name in _split_aliases(character):
             key = name.lower()
             if key in seen or not _looks_like_a_character(name):
                 continue
             seen.add(key)
-            out.append((actor, name, alias))
+            out.append((actor, name, alias, posing))
     if out:
         return out, "", rejected, "list"
 
@@ -561,12 +585,16 @@ def build(project: str, page: str, write: bool = True):
             existing = []
 
     entries = []
-    for a, c, alias in cast:
+    for a, c, alias, *more in cast:
         e = {"character": c, "actor": a}
         if alias:
             # Optional key. Consumers read "character"/"actor"; this rides
             # alongside so the nickname is not thrown away.
             e["actor_alias"] = alias
+        posing = more[0] if more else []
+        if posing:
+            # the identity this character claims - never their own name
+            e["poses_as"] = list(posing)
         entries.append(e)
     known = {e["character"].lower() for e in entries}
 

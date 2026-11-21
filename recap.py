@@ -119,7 +119,10 @@ def cmd_names(args):
     print(f"{len(entries)} name(s), {len(with_actor)} with an actor:\n")
     for e in entries:
         actor = e.get("actor")
-        print(f"  {e['character']:<34}{actor or '(no actor - kept from the old file)'}")
+        pose = (f"   (poses as {', '.join(e['poses_as'])})"
+                if e.get("poses_as") else "")
+        print(f"  {e['character']:<34}"
+              f"{actor or '(no actor - kept from the old file)'}{pose}")
     print()
     if args.dry_run:
         print("--dry-run: nothing written.")
