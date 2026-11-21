@@ -579,6 +579,64 @@ def test_effort_set():
     return True, f"draft effort {eff}; all-thinking truncation named"
 
 
+def test_reveals_repair():
+    """21 Nov, Lost in the Stars: the reveals reply was 'not a JSON object',
+    the stage failed and nothing of the paid reply was kept. Now the reply
+    is saved, and the model is asked ONCE more, in the same cached
+    conversation, for the object alone."""
+    _setup()
+    (PDIR / "reveals.json").unlink(missing_ok=True)
+    shutil.rmtree(PDIR / "_failed_replies", ignore_errors=True)
+
+    def syn(p, n):
+        if n == 1:
+            return msg(text="I weighed the landing at {01:10:00} first, then "
+                            "settled later. The reveals are as discussed.")
+        return msg(_j(SRC / "reveals.json") | {"landing_notes": "checked"})
+    c = Client(syn, lambda cid, p: msg({}))
+    rc, out = _run(c, "beats", "--project", PROJ)
+    kept = list((PDIR / "_failed_replies").glob("reveals-*.txt")) \
+        if (PDIR / "_failed_replies").exists() else []
+    last = c.calls[-1]["messages"][-1]["content"][0]["text"] \
+        if c.calls else ""
+    ok = (rc == 0 and (PDIR / "reveals.json").exists() and len(c.calls) == 2
+          and kept and "weighed the landing" in kept[0].read_text(
+              encoding="utf-8") and "ONLY the JSON object" in last)
+    return ok, ("prose reply kept in _failed_replies, asked once more, "
+                "reveals.json written" if ok else
+                f"rc {rc}, calls {len(c.calls)}, kept {kept}: {out[-300:]}")
+
+
+def test_wiki_title_brackets():
+    """names.json _source 'https://en.wikipedia.org/wiki/Lost_in_the_Stars_
+    (2022_film)' was cut at its ')' and Wikipedia was asked for 'Lost in the
+    Stars (2022 film' - the beats ran without the Plot."""
+    import write_api as wa
+    tmp = PDIR / "_wt"
+    tmp.mkdir(parents=True, exist_ok=True)
+    got = []
+    for src in ("https://en.wikipedia.org/wiki/Lost_in_the_Stars_(2022_film)",
+                "(from https://en.wikipedia.org/wiki/Furious_7)",
+                "https://en.wikipedia.org/wiki/Se7en"):
+        (tmp / "names.json").write_text(json.dumps({"_source": src}),
+                                        encoding="utf-8")
+        got.append(wa.wiki_title(tmp, None).rsplit("/", 1)[-1])
+    shutil.rmtree(tmp, ignore_errors=True)
+    ok = got == ["Lost_in_the_Stars_(2022_film)", "Furious_7", "Se7en"]
+    return ok, (f"titles {got}" if ok else f"got {got}")
+
+
+def test_parse_in_prose():
+    """The JSON object is found inside prose that itself holds braces, and
+    a trailing comma does not lose the reply."""
+    a = TB.parse_reply('Window {start, end} first. {"reveals": [], '
+                       '"set_pieces": [1]} end')
+    b = TB.parse_reply('{"reveals": [1, 2,],}')
+    ok = a == {"reveals": [], "set_pieces": [1]} and b == {"reveals": [1, 2]} \
+        and TB.parse_reply("no object here") is None
+    return ok, (f"{a} / {b}" if ok else f"{a} / {b}")
+
+
 TESTS = {
     "BEATS":       test_beats,
     "BEAT-KIND-SCHEMA": test_beat_kind_schema,
@@ -596,6 +654,9 @@ TESTS = {
     "LEDGER":      test_ledger,
     "RUNPS1-WIRED": test_runps1_wired,
     "MISSING-KEY": test_missing_key,
+    "REVEALS-REPAIR": test_reveals_repair,
+    "WIKI-BRACKETS": test_wiki_title_brackets,
+    "PARSE-IN-PROSE": test_parse_in_prose,
 }
 
 if __name__ == "__main__":

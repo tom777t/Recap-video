@@ -358,6 +358,11 @@ def reply_text(message) -> str:
 
 
 def parse_reply(text: str):
+    """The JSON object in a reply. Tried in order: the whole text (code fence
+    stripped); first '{' to last '}'; then EVERY object that decodes from a
+    '{' onwards, keeping the largest - a reply that says "the window {a, b}
+    was considered" before its object made the first-to-last cut start in
+    the prose. Last, the same with trailing commas removed."""
     t = (text or "").strip()
     t = re.sub(r"^```(?:json)?\s*|\s*```$", "", t)
     try:
@@ -369,6 +374,19 @@ def parse_reply(text: str):
                 return json.loads(t[a:b + 1])
             except Exception:
                 pass
+    for src in (t, re.sub(r",(\s*[}\]])", r"\1", t)):
+        dec, best, i = json.JSONDecoder(), None, src.find("{")
+        while 0 <= i < len(src):
+            try:
+                obj, end = dec.raw_decode(src, i)
+                if isinstance(obj, dict) and (best is None
+                                              or end - i > best[0]):
+                    best = (end - i, obj)
+            except ValueError:
+                pass
+            i = src.find("{", i + 1)
+        if best:
+            return best[1]
     return None
 
 

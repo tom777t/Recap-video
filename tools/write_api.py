@@ -315,7 +315,24 @@ class BatchRunning(Exception):
     pass
 
 
-def _json_reply(msg, stage: str):
+def _save_failed(pdir, stage: str, text: str) -> str:
+    """Keep a reply that could not be read: it was paid for, and it is the
+    only evidence of what went wrong (21 Nov: the Lost in the Stars reveals
+    reply was "not a JSON object" and nothing of it was kept)."""
+    if pdir is None:
+        return ""
+    import time as _t
+    try:
+        d = Path(pdir) / "_failed_replies"
+        d.mkdir(exist_ok=True)
+        f = d / f"{stage}-{_t.strftime('%Y%m%d-%H%M%S')}.txt"
+        f.write_text(str(text or ""), encoding="utf-8")
+        return f" - the reply is kept in {f}"
+    except OSError:
+        return ""
+
+
+def _json_reply(msg, stage: str, pdir=None):
     if msg is None:
         return None, "the request failed in the batch"
     if TB._get(msg, "stop_reason") == "max_tokens":
@@ -328,7 +345,8 @@ def _json_reply(msg, stage: str):
         return None, f"reply truncated at max_tokens={MAX_TOKENS[stage]}"
     obj = TB.parse_reply(TB.reply_text(msg))
     if not isinstance(obj, dict):
-        return None, "reply is not a JSON object"
+        return None, ("reply is not a JSON object"
+                      + _save_failed(pdir, stage, TB.reply_text(msg)))
     return obj, None
 
 
@@ -450,15 +468,33 @@ def reveals_pass(client, project: str, pdir: Path, notes: str) -> dict:
     p["tools"] = [SPEECH_TOOL]
     limit = int(config.WRITE_REVEALS_MAX_TOOL_CALLS)
     used = 0
+    repaired = False
     while True:
         msg = call(client, pdir, "reveals", p)
         uses = [b for b in (TB._get(msg, "content") or [])
                 if TB._get(b, "type") == "tool_use"]
         if not uses:
-            obj, why = _json_reply(msg, "reveals")
-            if obj is None:
+            obj, why = _json_reply(msg, "reveals", pdir)
+            if obj is not None:
+                return obj
+            # ONE repair turn: the whole tool conversation is a cached
+            # prefix, so asking for the object again costs a fraction of
+            # starting over - and starting over is what a hard fail forced.
+            if repaired or "not a JSON object" not in why:
                 raise WriteError(f"reveals: {why}")
-            return obj
+            repaired = True
+            print(f"reveals: {why}; asking once more for the JSON object")
+            _echo = [x for x in (_block(b) for b in TB._get(msg, "content"))
+                     if x is not None]
+            p["messages"] += [
+                {"role": "assistant", "content": _echo or [
+                    {"type": "text", "text": "(no text)"}]},
+                {"role": "user", "content": [{"type": "text", "text": (
+                    "That reply was not a JSON object. Reply with ONLY the "
+                    "JSON object {\"reveals\": [...], \"set_pieces\": "
+                    "[...], \"landing_notes\": \"...\"} - no prose before "
+                    "or after it, no code fence.")}]}]
+            continue
         results = []
         for u in uses:
             used += 1
@@ -535,23 +571,30 @@ def cmd_beats(a, client) -> int:
     d = pdir / "beats.json.d"
     d.mkdir(exist_ok=True)
     bad = {}
+    # plot.md is fetched whenever beats runs, not only with chunks to write:
+    # the plan reads it too, and a run whose chunks were written without it
+    # (a failed fetch) must still get it for the stages after
+    from pipeline import plot_ref as PR
+    try:
+        _title = wiki_title(pdir, getattr(a, "wiki", None))
+    except WriteError:
+        _title = None                           # no Wikipedia URL: no plot
+    pr = PR.ensure_plot(pdir, _title)
+    print(f"beats: plot.md {pr['state']}"
+          + (f" ({pr['words']} words) - read next to the frames for who "
+             f"is who" if pr["words"] else
+             f" - {pr.get('why', '')}; the frames alone name people"))
+    if not todo and pr["state"] == "wrote":
+        print("beats: NOTE - the beat chunks were written WITHOUT the Plot. "
+              "To rebuild them with it, delete beats.json.d\\chunk*.json "
+              "and run beats again (the beats batch is billed again)")
     if todo:
-        from pipeline import plot_ref as PR
-        try:
-            _title = wiki_title(pdir, getattr(a, "wiki", None))
-        except WriteError:
-            _title = None                       # no Wikipedia URL: no plot
-        pr = PR.ensure_plot(pdir, _title)
-        print(f"beats: plot.md {pr['state']}"
-              + (f" ({pr['words']} words) - read next to the frames for who "
-                 f"is who" if pr["words"] else
-                 f" - {pr.get('why', '')}; the frames alone name people"))
         reqs = {f"chunk{k}": chunk_request(a.project, k, N_BEAT_CHUNKS)
                 for k in todo}
         got = batch(client, pdir, "beats", reqs, wait=not a.no_wait,
                     poll=a.poll)
         for k in todo:
-            obj, why = _json_reply(got.get(f"chunk{k}"), "beats")
+            obj, why = _json_reply(got.get(f"chunk{k}"), "beats", pdir)
             probs = [why] if obj is None else check_chunk(obj, k)
             if probs:
                 bad[k] = probs
@@ -619,11 +662,18 @@ def wiki_title(pdir: Path, arg: str | None) -> str:
         src = json.loads(_read(pdir / "names.json")).get("_source", "")
     except (WriteError, ValueError):
         src = ""
-    m = re.search(r"https?://en\.wikipedia\.org/wiki/[^\s)'\"]+", src)
+    # The page name may carry its own brackets - "Lost_in_the_Stars_(2022_
+    # film)" - so a ")" ends the URL only when it closes a "(" from outside
+    # it. Cutting at the first ")" asked Wikipedia for "Lost in the Stars
+    # (2022 film" (21 Nov) and the beats ran without the Plot.
+    m = re.search(r"https?://en\.wikipedia\.org/wiki/[^\s'\"<>]+", src)
     if not m:
         raise WriteError("no --wiki given and names.json names no Wikipedia "
                          "URL - pass --wiki \"<Title (film)>\"")
-    return m.group(0)
+    url = m.group(0)
+    while url.endswith(")") and url.count(")") > url.count("("):
+        url = url[:-1]
+    return url
 
 
 def compact_wikitext(t: str) -> str:
@@ -652,7 +702,7 @@ def cmd_facts(a, client) -> int:
             + _read(pdir / "reveals.json", True))
     for attempt in (1, 2):
         msg = call(client, pdir, "facts", params("facts", sysb, user))
-        obj, why = _json_reply(msg, "facts")
+        obj, why = _json_reply(msg, "facts", pdir)
         miss = [] if obj is None else [f for f in FACT_FIELDS if f not in obj]
         if obj is not None and not miss:
             # [FILM-INTRO] enforces a withheld entry only through its `ban`
@@ -757,7 +807,7 @@ def cmd_angle(a, client) -> int:
     p = angle_request(pdir)
     for attempt in (1, 2):
         msg = call(client, pdir, "angle", p, note=f"attempt {attempt}")
-        obj, why = _json_reply(msg, "angle")
+        obj, why = _json_reply(msg, "angle", pdir)
         if obj is None or not str(obj.get("angle_md") or "").strip() \
                 or not isinstance(obj.get("coverage_policy"), dict):
             why = why or "reply lacks angle_md / coverage_policy"
@@ -1254,7 +1304,7 @@ def cmd_plan(a, client) -> int:
         "type": "json_schema", "schema": WP.PLAN_SCHEMA}
     for attempt in (1, 2):
         msg = call(client, pdir, "plan", p, note=f"attempt {attempt}")
-        obj, why = _json_reply(msg, "plan")
+        obj, why = _json_reply(msg, "plan", pdir)
         if obj is not None:
             # counts are arithmetic: code makes them pass the contour gate
             fixed = WP.repair_contour(obj, pdir)
@@ -1392,7 +1442,7 @@ def cmd_draft(a, client) -> int:
             retry = {}
             for cid, p in pending.items():
                 k = int(cid[3:])
-                obj, why = _json_reply(got.get(cid), "draft")
+                obj, why = _json_reply(got.get(cid), "draft", pdir)
                 probs = [why] if obj is None else check_act(obj, k, slots,
                                                             plan)
                 if probs:
@@ -1514,7 +1564,7 @@ def cmd_draft(a, client) -> int:
                     wait=not a.no_wait, poll=a.poll)
         for cid, msg in got.items():
             k = int(cid[3:])
-            obj, why = _json_reply(msg, "draft")
+            obj, why = _json_reply(msg, "draft", pdir)
             probs = [why] if obj is None else check_act(obj, k, slots, plan)
             if probs:
                 print(f"  act{k}: round {rnd} reply NOT saved "
@@ -1741,14 +1791,14 @@ def cmd_resolve(a, client) -> int:
         from pipeline import line_rules as LR
         proposed: dict = {}
         for cid_, msg_ in got.items():
-            o_, _w = _json_reply(msg_, "resolve")
+            o_, _w = _json_reply(msg_, "resolve", pdir)
             for ln_ in (o_ or {}).get("lines") or []:
                 t_ = " ".join(str(ln_.get("narration") or "").split())
                 if t_ and str(ln_.get("id")) in by_id:
                     proposed[str(ln_.get("id"))] = t_
         for cid, msg in got.items():
             k = int(cid[3:])
-            obj, why = _json_reply(msg, "resolve")
+            obj, why = _json_reply(msg, "resolve", pdir)
             if obj is None:
                 rejects.append(f"act{k}: {why}")
                 continue
@@ -1883,7 +1933,8 @@ def cmd_filmspeaks(a, client) -> int:
             raise WriteError("no film_speaks_candidates.json - run "
                              "tools/film_speaks_candidates.py first")
         obj, why = _json_reply(call(client, pdir, "filmspeaks",
-                                    filmspeaks_request(pdir)), "filmspeaks")
+                                    filmspeaks_request(pdir)), "filmspeaks",
+                                pdir)
         if obj is None or not isinstance(obj.get("selected"), list):
             print(f"filmspeaks: {why or 'no selected list'} - nothing written")
             return 2
