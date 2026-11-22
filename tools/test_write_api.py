@@ -669,6 +669,37 @@ def test_reveals_stuck():
                 if ok else f"rc {rc}, calls {len(c.calls)}: {out[-400:]}")
 
 
+def test_reveals_wrong_object():
+    """22 Nov: the reveals reply decoded to an object WITHOUT a reveals list
+    (one reveal's own {...}) and the stage ended 'no reveals list' with the
+    reply thrown away. Now it is kept, repaired once, then asked fresh with
+    the reveals schema attached."""
+    _setup()
+    (PDIR / "reveals.json").unlink(missing_ok=True)
+    shutil.rmtree(PDIR / "_failed_replies", ignore_errors=True)
+    one = {"land": "01:10:00", "type": "A", "fact": "x", "hold": ["y"]}
+
+    def syn(p, n):
+        if "tools" in p:
+            return msg(text='Here: {"reveals": [' + json.dumps(one) +
+                            ', broken "json" ]}')
+        return msg(_j(SRC / "reveals.json") | {"landing_notes": "from beats"})
+    c = Client(syn, lambda cid, p: msg({}))
+    rc, out = _run(c, "beats", "--project", PROJ)
+    last = c.calls[-1] if c.calls else {}
+    fmt = ((last.get("output_config") or {}).get("format") or {})
+    kept = list((PDIR / "_failed_replies").glob("reveals-*.txt")) \
+        if (PDIR / "_failed_replies").exists() else []
+    ok = (rc == 0 and (PDIR / "reveals.json").exists() and len(c.calls) == 3
+          and fmt.get("type") == "json_schema"
+          and "reveals" in fmt.get("schema", {}).get("required", [])
+          and kept and "broken" in kept[0].read_text(encoding="utf-8"))
+    return ok, ("wrong object kept, repaired, then schema-bound fresh "
+                "request used" if ok else
+                f"rc {rc}, calls {len(c.calls)}, fmt {fmt.get('type')}, "
+                f"kept {len(kept)}: {out[-300:]}")
+
+
 TESTS = {
     "BEATS":       test_beats,
     "BEAT-KIND-SCHEMA": test_beat_kind_schema,
@@ -690,6 +721,7 @@ TESTS = {
     "WIKI-BRACKETS": test_wiki_title_brackets,
     "PARSE-IN-PROSE": test_parse_in_prose,
     "REVEALS-STUCK": test_reveals_stuck,
+    "REVEALS-WRONG-OBJ": test_reveals_wrong_object,
 }
 
 if __name__ == "__main__":

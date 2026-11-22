@@ -468,6 +468,30 @@ SPEECH_TOOL = {
 }
 
 
+REVEALS_SCHEMA = {
+    "type": "object",
+    "properties": {
+        "reveals": {"type": "array", "items": {
+            "type": "object",
+            "properties": {
+                "land": {"type": "string"}, "type": {"type": "string"},
+                "fact": {"type": "string"},
+                "hold": {"type": "array", "items": {"type": "string"}}},
+            "required": ["land", "type", "fact", "hold"],
+            "additionalProperties": False}},
+        "set_pieces": {"type": "array", "items": {
+            "type": "object",
+            "properties": {
+                "name": {"type": "string"}, "start": {"type": "string"},
+                "end": {"type": "string"}, "verified": {"type": "string"},
+                "keep": {"type": "boolean"}},
+            "required": ["name", "start", "end", "verified", "keep"],
+            "additionalProperties": False}},
+        "landing_notes": {"type": "string"}},
+    "required": ["reveals", "set_pieces", "landing_notes"],
+    "additionalProperties": False}
+
+
 def reveals_pass(client, project: str, pdir: Path, notes: str) -> dict:
     """Tool loop: the model calls speech_at as the prompt tells it to."""
     sysb = system_blocks(
@@ -489,6 +513,15 @@ def reveals_pass(client, project: str, pdir: Path, notes: str) -> dict:
                 if TB._get(b, "type") == "tool_use"]
         if not uses:
             obj, why = _json_reply(msg, "reveals", pdir)
+            if obj is not None and not isinstance(obj.get("reveals"), list):
+                # 22 Nov: a 2666-token reply decoded to an object with no
+                # reveals list - most likely one reveal's own {...} picked
+                # out of a reply whose outer JSON did not decode. Treated as
+                # unreadable: kept, and repaired like one.
+                why = ("reply is not a JSON object with a reveals list "
+                       f"({_shape(msg)})" + _save_failed(
+                           pdir, "reveals", TB.reply_text(msg)))
+                obj = None
             if obj is not None:
                 return obj
             # ONE repair turn: the whole tool conversation is a cached
@@ -508,6 +541,10 @@ def reveals_pass(client, project: str, pdir: Path, notes: str) -> dict:
                     "for this request. Settle each reveal's landing from the "
                     "beat map's timestamps and say so in landing_notes. "
                     "Reply with ONLY the JSON object.")}])
+                # schema-bound: this reply is valid JSON with a reveals list
+                # by construction, so this last attempt cannot fail the way
+                # the free-text ones did
+                with_format(p2, REVEALS_SCHEMA)
                 msg2 = call(client, pdir, "reveals", p2, note="no-tool retry")
                 obj2, why2 = _json_reply(msg2, "reveals", pdir)
                 if obj2 is not None:
