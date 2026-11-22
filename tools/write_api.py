@@ -1305,6 +1305,38 @@ def runtime_findings(project: str, errs: list) -> list:
     return out
 
 
+def story_point_findings(project: str) -> list:
+    """A slot's story point (a spine step, a change of hands) that its line
+    does not say, as a finding on that line. The writer is told once at
+    draft time; after that nothing checked it, so a point moved by a later
+    layout (a reveal it states had not landed yet) was never written: Lost
+    in the Stars told "Chen Mai is Shen Man" nowhere - "Shen Man leads.",
+    "Chen Mai, unmasked." - and a viewer met Shen Man without knowing who
+    she was."""
+    import write_slots as WS
+    pdir = config.project_dir(project)
+    try:
+        draft = json.loads(_read(pdir / "draft.json"))
+    except (OSError, ValueError, SystemExit):
+        return []
+    owner = act_of_lines(pdir)
+    by_id = {str(l["id"]): l for l in draft.get("lines") or []}
+    out = []
+    for lid, sl in slots_of_lines(pdir, owner).items():
+        ln = by_id.get(lid)
+        if ln is None or not sl.get("must_keys"):
+            continue
+        miss = [m for m in WS.line_deviations(ln, sl) if "must say" in m]
+        if miss:
+            out.append({"artifact": None, "kind": "gate", "gate": True,
+                        "ids": [lid], "text": (
+                f"[STORY-POINT] line {lid} carries a step of the story the "
+                f"viewer must HEAR, and does not say it: "
+                f"\"{sl.get('must_say')}\". Say it plainly, as an event, "
+                f"naming who - keep what the footage shows")})
+    return out
+
+
 def run_gates(project: str) -> tuple:
     """(exit code, [finding strings]) from `recap.py draft`, unwrapped."""
     env = dict(os.environ, COLUMNS="100000", PYTHONIOENCODING="utf-8")
@@ -1797,7 +1829,7 @@ def gate_findings(project: str, wide: list | None = None) -> list:
     errors that name NO line go into `wide` (if given): resolve cannot route
     them, and must not call the draft clean while they stand."""
     _rc, errs = run_gates(project)
-    out = runtime_findings(project, errs)
+    out = runtime_findings(project, errs) + story_point_findings(project)
     for e in errs:
         if any(e.startswith(f"[{g}]") for g in REVIEW_GATES + ("SAME-POINT",)):
             continue
@@ -1903,6 +1935,14 @@ def sync_holds(project: str, pdir: Path) -> list:
             FL._rederive(project, pdir)
         except Exception as e:                       # never stop resolve
             print(f"resolve: slots not re-derived ({type(e).__name__}: {e})")
+    try:
+        moved = WS.remark_points(project, pdir)
+        if moved:
+            print(f"resolve: story points re-placed on {len(moved)} slot(s) "
+                  f"(a point may not name a twist before it lands): "
+                  f"{moved[:8]}")
+    except Exception as e:                           # never stop resolve
+        print(f"resolve: story points not re-placed ({type(e).__name__})")
     try:
         draft = json.loads(_read(pdir / "draft.json"))
     except (OSError, ValueError):

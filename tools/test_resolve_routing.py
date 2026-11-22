@@ -119,8 +119,117 @@ def test_act_scale() -> tuple[bool, str]:
                        if not bad else "; ".join(bad))
 
 
+def _beats_project(pd: Path) -> None:
+    (pd / "names.json").write_text(json.dumps({"names": [
+        {"character": "He Fei", "actor": "Zhu Yilong"},
+        {"character": "Chen Mai", "actor": "Ni Ni"},
+        {"character": "Shen Man", "actor": "Ni Ni"},
+        {"character": "Li Muzi", "actor": "Kay Huang"}]}))
+    (pd / "beats_proposal.md").write_text(
+        "B01 | 00:00:48 | He Fei reports Muzi missing | He Fei | dialogue\n"
+        "B20 | 00:19:15 | He Fei meets the lawyer | He Fei, Chen Mai | "
+        "dialogue\n"
+        "B102 | 01:30:48 | He Fei names the lighthouse | He Fei, Chen Mai | "
+        "dialogue\n"
+        "B115 | 01:38:44 | the troupe faces him | Shen Man | reveal\n"
+        "B116 | 01:38:52 | flashback | Shen Man, Li Muzi | emotion\n",
+        encoding="utf-8")
+
+
+def test_hidden_identity() -> tuple[bool, str]:
+    """Two names, one actor (Chen Mai / Shen Man): the later one is a secret
+    until the beat map first shows it. A point naming it earlier moves after
+    that beat; a point naming the first identity, or Muzi - talked about
+    long before she is seen - stays."""
+    pd = Path(config.project_dir(PROJ))
+    shutil.rmtree(pd, ignore_errors=True)
+    pd.mkdir(parents=True)
+    try:
+        _beats_project(pd)
+        hid = WS._hidden_names(PROJ)
+        bad = []
+        if hid != [(5924.0, ["Shen Man"])]:
+            bad.append(f"hidden {hid}")
+        mk = lambda sid, beat, ts, mw: {   # noqa: E731
+            "slot": sid, "beat": beat, "role": "action", "clip_start": ts,
+            "clip_end": ts, "max_words": mw}
+        plan = {"slots": [mk("S1", "B01", "00:00:48.000", 20),
+                          mk("S2", "B102", "01:30:48.000", 15),
+                          mk("S3", "B115", "01:38:44.000", 4),
+                          mk("S4", "B116", "01:38:52.800", 16)],
+                "spine": [{"step": "He Fei reports Muzi missing",
+                           "beats": ["B01"]},
+                          {"step": "He Fei names the lighthouse",
+                           "beats": ["B102"]}],
+                "holders": [{"what": "Muzi's location", "changes": [
+                    {"beat": "B102", "to": "Shen Man and the troupe"}]}]}
+        (pd / "plan.json").write_text(json.dumps(plan))
+        got = WS.remark_points(PROJ, pd)
+        sl = {x["slot"]: x for x in json.loads(
+            (pd / "plan.json").read_text())["slots"]}
+        if "Muzi" not in str(sl["S1"].get("must_say")):
+            bad.append("the B01 point naming Muzi moved")
+        if "Shen Man" in str(sl["S2"].get("must_say")) or \
+                "lighthouse" not in str(sl["S2"].get("must_say")):
+            bad.append(f"S2: {sl['S2'].get('must_say')}")
+        if "Shen Man" not in str(sl["S4"].get("must_say")):
+            bad.append(f"S4 (first roomy slot after B115): "
+                       f"{sl['S4'].get('must_say')}")
+        if WS.remark_points(PROJ, pd):
+            bad.append("a second re-place changed something again")
+        if sorted(got) != ["S1", "S2", "S4"]:
+            bad.append(f"changed {got}")
+        return (not bad), ("Shen Man hidden until B115; the holder point "
+                           "naming her moves to B116; Muzi / lighthouse "
+                           "points stay; idempotent"
+                           if not bad else "; ".join(bad))
+    finally:
+        shutil.rmtree(pd, ignore_errors=True)
+
+
+def test_story_point_finding() -> tuple[bool, str]:
+    """A slot's point its line does not say becomes a [STORY-POINT] finding
+    on that line; a line that names who does not."""
+    pd = Path(config.project_dir(PROJ))
+    shutil.rmtree(pd, ignore_errors=True)
+    (pd / "draft.json.d").mkdir(parents=True)
+    try:
+        slots = [{"slot": "S1", "act": 1, "beat": "B116", "role": "action",
+                  "clip_start": "01:38:52.800", "clip_end": "01:39:01.400",
+                  "min_words": 3, "max_words": 30, "band": "free",
+                  "anchor": False, "peak": False,
+                  "must_say": "Chen Mai is Shen Man",
+                  "must_keys": [["Shen Man"]]},
+                 {"slot": "S2", "act": 1, "beat": "B117", "role": "action",
+                  "clip_start": "01:39:10.000", "clip_end": "01:39:20.000",
+                  "min_words": 3, "max_words": 30, "band": "free",
+                  "anchor": False, "peak": False,
+                  "must_say": "Muzi saves her", "must_keys": [["Muzi"]]}]
+        (pd / "plan.json").write_text(json.dumps(
+            {"slots": slots, "slots_version": WS.SLOTS_VERSION}))
+        act = [{"id": 1001, "slot": "S1", "note": "B116",
+                "narration": "In a flashback, a schoolgirl is bullied.",
+                "clip_start": "01:38:52.800", "clip_end": "01:39:01.400"},
+               {"id": 1002, "slot": "S2", "note": "B117",
+                "narration": "Muzi tends her wounds on the rooftop.",
+                "clip_start": "01:39:10.000", "clip_end": "01:39:20.000"}]
+        (pd / "draft.json.d" / "act1.json").write_text(
+            json.dumps({"act": 1, "lines": act}))
+        (pd / "draft.json").write_text(json.dumps({"lines": [
+            dict(act[0], id=221), dict(act[1], id=222)]}))
+        got = W.story_point_findings(PROJ)
+        ok = [f["ids"] for f in got] == [["221"]] and \
+            "[STORY-POINT]" in got[0]["text"]
+        return ok, ("line 221 (point unsaid) flagged; 222 (names Muzi) not"
+                    if ok else f"got {[(f['ids'], f['text'][:80]) for f in got]}")
+    finally:
+        shutil.rmtree(pd, ignore_errors=True)
+
+
 TESTS = {"AUDIT-ROWS": test_audit_rows, "RUNTIME-PER-ACT": test_runtime,
-         "ACT-BUDGET-SCALE": test_act_scale}
+         "ACT-BUDGET-SCALE": test_act_scale,
+         "HIDDEN-IDENTITY": test_hidden_identity,
+         "STORY-POINT-FINDING": test_story_point_finding}
 
 if __name__ == "__main__":
     bad = 0

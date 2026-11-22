@@ -49,7 +49,7 @@ ROLES = ("open", "intro", "action", "quote", "reaction", "bridge", "outro",
 # Bumped whenever derive_slots changes what it builds: a plan.json whose slots
 # carry an older version is re-derived (write_api.cmd_draft), so a fix here
 # reaches a project that already has a plan without re-buying the plan.
-SLOTS_VERSION = 19     # 19: a point stating a reveal waits for it (18: budget, 17: holds)
+SLOTS_VERSION = 20     # 20: no more lines than a beat holds sentences (19: reveal points, 18: budget, 17: holds)
 
 
 def story_mode() -> bool:
@@ -117,6 +117,7 @@ HOLD_SEC = (2.5, 5.0)            # a planned hold (>= craft_gates.BAR_SILENCE_MI
 TOL = 2                          # words either side of a band before it is a deviation
 REACTION_MIN_WORDS = 9           # a reaction slot whose footage holds fewer is a bridge
 MIN_WINDOW = 1.5                 # seconds; a narrower slot window is not bindable
+LINE_MIN_SEC = 3.5               # footage one narrated line needs to be a sentence
 
 
 def _ts(sec: float) -> str:
@@ -499,6 +500,97 @@ def _states(text: str, term: str) -> bool:
                            for i in range(len(t) - len(n) + 1))
 
 
+def _hidden_names(project: str) -> list:
+    """[(time, [name])] for a SECOND identity of one person: two characters
+    in names.json played by the same actor (Lost in the Stars: the lawyer
+    Chen Mai and Shen Man, both Ni Ni). The name the beat map shows later is
+    a secret until then - a story point that names it earlier spoils who
+    she is ("Muzi's location is now with Shen Man and the troupe" at B102,
+    before the B115 unmasking). Treated like a reveal landing at the beat
+    where that name first appears."""
+    from pipeline import catalogue as CAT
+    from pipeline.draft import parse_ts
+    try:
+        names = json.loads((config.project_dir(project) / "names.json")
+                           .read_text(encoding="utf-8-sig")).get("names") or []
+        beats = CAT.parse_beats(project).get("beats") or []
+    except Exception:
+        return []
+    by_actor: dict = {}
+    for n in names:
+        a = str(n.get("actor") or "").strip().lower()
+        if a and n.get("character"):
+            by_actor.setdefault(a, []).append(str(n["character"]))
+    first: dict = {}
+    for b in beats:
+        try:
+            t = parse_ts(b.get("ts") or b.get("time"))
+        except Exception:
+            continue
+        for c in b.get("chars") or []:
+            first.setdefault(str(c).lower(), t)
+    out = []
+    for chars in by_actor.values():
+        seen = [(first[c.lower()], c) for c in chars if c.lower() in first]
+        if len(chars) < 2 or len(seen) < 2:
+            continue
+        seen.sort()
+        out += [(t, [c]) for t, c in seen[1:] if t > seen[0][0]]
+    return out
+
+
+def reveal_marks(project: str) -> list:
+    """[(land_sec, terms)]: the reveal map's landings and the hidden second
+    identities - what a story point must not state before its time."""
+    try:
+        from pipeline.draft import parse_reveal_map
+        rv = [(r["land_sec"], list(r.get("holds") or []))
+              for r in parse_reveal_map(project)
+              if r.get("land_sec") not in (None, float("inf"))]
+    except Exception:
+        rv = []
+    return rv + _hidden_names(project)
+
+
+def remark_points(project: str, pdir: Path) -> list:
+    """Re-place the story points on plan.json's EXISTING slots (the layout
+    itself untouched) - for a written draft whose slots a newer layout may
+    not re-derive (that would move lines). Returns the slots whose point
+    changed; plan.json is rewritten only then."""
+    from pipeline.draft import parse_ts
+    p = Path(pdir) / "plan.json"
+    try:
+        plan = json.loads(p.read_text(encoding="utf-8-sig"))
+    except (OSError, ValueError):
+        return []
+    slots = plan.get("slots") or []
+    if not slots:
+        return []
+    work = []
+    for x in slots:
+        y = {k: v for k, v in x.items() if k not in ("must_say", "must_keys")}
+        try:
+            y["a"] = parse_ts(x["clip_start"]) if x.get("clip_start") else None
+        except Exception:
+            y["a"] = None
+        work.append(y)
+    _mark_story_points(work, plan, reveal_marks(project))
+    changed = []
+    for x, y in zip(slots, work):
+        if (x.get("must_say") or None, x.get("must_keys") or None) != (
+                y.get("must_say") or None, y.get("must_keys") or None):
+            changed.append(x.get("slot"))
+            for k in ("must_say", "must_keys"):
+                if y.get(k):
+                    x[k] = y[k]
+                else:
+                    x.pop(k, None)
+    if changed:
+        p.write_text(json.dumps(plan, ensure_ascii=False, indent=1),
+                     encoding="utf-8")
+    return changed
+
+
 def _mark_story_points(slots: list, plan: dict,
                        reveals: list | None = None) -> None:
     """Each spine step / holder change rides on the FIRST story slot of its
@@ -533,8 +625,11 @@ def _mark_story_points(slots: list, plan: dict,
                          and x["a"] >= land - 0.5]
                 # the first one with room to say it (B115's 1.6 s slots
                 # hold four words; the point needs a sentence)
-                to = next((x for x in after if (x.get("max_words") or 0)
-                           >= POINT_MIN_WORDS), after[0] if after else s)
+                roomy = [x for x in after
+                         if (x.get("max_words") or 0) >= POINT_MIN_WORDS]
+                # one point per line where the footage allows
+                to = next((x for x in roomy if not x.get("must_say")),
+                          roomy[0] if roomy else (after[0] if after else s))
             to["must_say"] = "; ".join(
                 [x for x in [to.get("must_say"), p["say"]] if x])
             if p["keys"]:
@@ -568,6 +663,18 @@ def derive_slots(plan: dict, project: str, pdir: Path, ab: dict) -> dict:
             continue
         inbeat = [s for s in segs if lo <= s[0] < hi
                   and QUOTE_WORDS[0] <= _wc(s[2]) <= QUOTE_WORDS[1]]
+        # no more lines than the beat's footage holds sentences: Lost in the
+        # Stars B115 (8.9 s) was planned 4 lines + a hold - four 1.6 s slots
+        # the writer filled with "Shen Man leads." / "Chen Mai, unmasked." /
+        # "He Fei, exposed." / "Nowhere to run." and the film's main twist
+        # was never said in a sentence
+        room = (hi - lo) - (HOLD_SEC[0] if b.get("hold_after") else 0.0)
+        fit = max(1, int(room // LINE_MIN_SEC))
+        if n > fit:
+            problems.append(f"{bid}: {n} line(s) planned on {hi - lo:.1f}s "
+                            f"of footage - {fit} slot(s), so each line has "
+                            f"room for a sentence")
+            n = fit
         roles = _roles(n, bool(inbeat))
         if bid in not_last and roles and roles[-1] == "reaction":
             roles[-1] = "action"
@@ -880,14 +987,7 @@ def derive_slots(plan: dict, project: str, pdir: Path, ab: dict) -> dict:
     _voice_budget(slots)
     _sad_budget(slots, pdir)
     _mark_after_skip(slots, order, by, project, rng)
-    try:
-        from pipeline.draft import parse_reveal_map
-        _rv = [(r["land_sec"], list(r.get("holds") or []))
-               for r in parse_reveal_map(project)
-               if r.get("land_sec") not in (None, float("inf"))]
-    except Exception:
-        _rv = []
-    _mark_story_points(slots, plan, _rv)
+    _mark_story_points(slots, plan, reveal_marks(project))
     _size_holds(slots)
     # ids, and the windows as timestamps; no two windows overlap by
     # construction (contiguous splits of disjoint beats, only ever trimmed)

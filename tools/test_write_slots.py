@@ -1018,6 +1018,42 @@ def test_point_after_reveal():
                        if not bad else "; ".join(bad))
 
 
+def test_beat_room():
+    """Lost in the Stars B115: 8.9 s planned 4 lines + a hold gave four
+    1.6 s slots and four fragments ("Shen Man leads.", "Chen Mai,
+    unmasked.") - the main twist never said as a sentence. A beat gets no
+    more narrated slots than its footage holds LINE_MIN_SEC sentences."""
+    import copy
+    plan, ab, slots = _layout()
+    plan = copy.deepcopy(plan)
+    dur = {}
+    for x in slots:
+        if x.get("beat") and x.get("clip_start") and x.get("clip_end"):
+            a, z = WS._pt(x["clip_start"]), WS._pt(x["clip_end"])
+            lo, hi = dur.get(x["beat"], (a, z))
+            dur[x["beat"]] = (min(lo, a), max(hi, z))
+    for b in plan["beats"]:
+        b["lines"] = 9
+    WS._prev_open_shapes, keep = (lambda: []), WS._prev_open_shapes
+    try:
+        r = WS.derive_slots(plan, PROJ, PDIR, ab)
+    finally:
+        WS._prev_open_shapes = keep
+    bad = []
+    for x in [y for y in _narrated(r["slots"]) if y["role"] not in (
+            "open", "intro", "outro") and y.get("clip_start")
+            and y.get("clip_end")]:
+        w = WS._pt(x["clip_end"]) - WS._pt(x["clip_start"])
+        if w < WS.LINE_MIN_SEC - 0.6 and not x.get("join"):
+            bad.append(f"{x['slot']} ({x['beat']}) {w:.1f}s")
+    capped = [p_ for p_ in r["problems"] if "room for a sentence" in p_]
+    if not capped:
+        bad.append("no beat was capped although every beat asked 9 lines")
+    return (not bad), (f"9 lines asked per beat: {len(capped)} beat(s) "
+                       f"capped, no narrated slot under a sentence's footage"
+                       if not bad else "; ".join(bad[:6]))
+
+
 TESTS = {
     "SLOT-LAYOUT":           test_slot_layout,
     "WINDOWS-BY-CODE":       test_windows_by_code,
@@ -1029,6 +1065,7 @@ TESTS = {
     "REWRITE-KEEPS-OLD-FAULT": test_rewrite_keeps_old_fault,
     "HOLD-NO-OVERLAP":       test_hold_no_overlap,
     "POINT-AFTER-REVEAL":    test_point_after_reveal,
+    "BEAT-ROOM":             test_beat_room,
     "DRAFT-CONSERVATION":    test_draft_conservation,
     "SEQUENCE-RULES":        test_sequence_rules,
     "REVIEW-DEFECTS":        test_review_defects,
