@@ -170,6 +170,9 @@ def production_voice_key() -> str:
     return "(unknown)_default"
 
 
+_STALE_SAID: set = set()
+
+
 def production_profile() -> VoiceProfile:
     """Calibrated profile for the production voice, else the config fallback.
 
@@ -192,6 +195,9 @@ def production_profile() -> VoiceProfile:
             # not this voice's rates any more. Fall back to the single config
             # baseline rather than budgeting against a narrator that no longer
             # exists, and say so: a silent stale profile is worse than none.
+            if (key, got) in _STALE_SAID:
+                return default_profile()
+            _STALE_SAID.add((key, got))     # once per run, not per line
             from rich.console import Console
             Console().print(
                 "[yellow]Voice profile is STALE:[/] it was measured under a "

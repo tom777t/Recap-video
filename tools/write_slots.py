@@ -49,7 +49,7 @@ ROLES = ("open", "intro", "action", "quote", "reaction", "bridge", "outro",
 # Bumped whenever derive_slots changes what it builds: a plan.json whose slots
 # carry an older version is re-derived (write_api.cmd_draft), so a fix here
 # reaches a project that already has a plan without re-buying the plan.
-SLOTS_VERSION = 16
+SLOTS_VERSION = 17     # 17: a short hold no longer grows over the next window
 
 
 def story_mode() -> bool:
@@ -826,11 +826,7 @@ def derive_slots(plan: dict, project: str, pdir: Path, ab: dict) -> dict:
     _sad_budget(slots, pdir)
     _mark_after_skip(slots, order, by, project, rng)
     _mark_story_points(slots, plan)
-    for s in slots:
-        if s["role"] == "hold":
-            s["hold"] = round(max(HOLD_SEC[0], min(HOLD_SEC[1],
-                                                   s["z"] - s["a"])), 2)
-            s["z"] = round(s["a"] + s["hold"], 3)
+    _size_holds(slots)
     # ids, and the windows as timestamps; no two windows overlap by
     # construction (contiguous splits of disjoint beats, only ever trimmed)
     for i, s in enumerate(slots, 1):
@@ -855,6 +851,59 @@ def derive_slots(plan: dict, project: str, pdir: Path, ab: dict) -> dict:
             "open_len": ((opening or {}).get("shape") or {}).get("n_lines"),
             "closing_shape": ((opening or {}).get("shape") or
                               {}).get("closing")}
+
+
+def _size_holds(slots: list) -> None:
+    """A hold's length: its window clamped to HOLD_SEC. A window SHORTER
+    than the minimum used to be stretched past its end - into the next
+    line's footage (Lost in the Stars: hold 220 grew to 5930.4-5932.9 over
+    line 221 at 5932.375, [WINDOW-OVERLAP]). The hold may grow only into
+    footage no other slot holds: forward up to the next window, then back
+    to the previous one, then out of the start of the narrated window after
+    it while that keeps what its line needs; else it keeps what fits."""
+    from pipeline.preflight import budget_words
+    wins = sorted((x["a"], x["z"], id(x)) for x in slots
+                  if x.get("a") is not None and x.get("z") is not None)
+    for s in slots:
+        if s["role"] != "hold" or s.get("a") is None:
+            continue
+        a, z = s["a"], s["z"]
+        want = max(HOLD_SEC[0], min(HOLD_SEC[1], z - a))
+        nxt = min([w[0] for w in wins if w[2] != id(s) and w[0] >= a - 1e-6
+                   and w[0] < a + want + 1e-6] or [a + want])
+        prv = max([w[1] for w in wins if w[2] != id(s) and w[1] <= a + 1e-6]
+                  or [a - want])
+        z = min(a + want, nxt)
+        if z - a < want:
+            a = max(prv, z - want)
+        if z - a < want - 1e-3:
+            # still short (a beat of 3.6 s holding a line AND a hold): take
+            # the rest from the START of the narrated window right after it,
+            # if that window keeps the footage its shortest line needs - and
+            # cap that line's words to what is left
+            for n in slots:
+                if (n is s or n.get("a") is None or abs(n["a"] - z) > 1e-3
+                        or n["role"] in ("hold", "film_speaks", "intro")):
+                    continue
+                keep = max(MIN_WINDOW, _secs(n.get("min_words") or 3))
+                take = min(want - (z - a), (n["z"] - n["a"]) - keep)
+                if take > 0.05:
+                    n["a"] = round(n["a"] + take, 3)
+                    z += take
+                    if n.get("max_words") is not None:
+                        n["max_words"] = int(max(1, min(
+                            n["max_words"], budget_words(n["z"] - n["a"]))))
+                        n["min_words"] = int(min(n.get("min_words") or 1,
+                                                 n["max_words"]))
+                        if n.get("target") is not None:
+                            n["target"] = min(n["target"], n["max_words"])
+                    wins = [(n["a"], n["z"], id(n)) if w[2] == id(n) else w
+                            for w in wins]
+                break
+        s["a"], s["z"] = round(a, 3), round(z, 3)
+        s["hold"] = round(z - a, 2)
+        wins = [(s["a"], s["z"], id(s)) if w[2] == id(s) else w
+                for w in wins]
 
 
 _SENT = re.compile(r"[A-Z\"'][^.?!]*[.?!]")
@@ -1530,8 +1579,28 @@ def new_deviations(old: dict, new: dict, s: dict) -> list:
     return out
 
 
+def second_try(refused, key, still: list) -> bool:
+    """May a rewrite that keeps its line's old fault be taken? Not the first
+    time - it goes back, saying what is still wrong (a 'fix' that keeps the
+    fault is not a fix). The SECOND time the same fault comes back, yes: the
+    rewrite is no worse than the line, and refusing it for ever froze every
+    OTHER fix to that line (Lost in the Stars line 103: three rounds removed
+    a reviewer's unsupported claim, all refused because the slot still came
+    after a skip; the finding never closed and the draft halted). The fault
+    stays reported for the gates. `refused` is the caller's {key: kinds}
+    across rounds; None = never take one (the old rule)."""
+    if refused is None:
+        return False
+    kinds = {_kind(m) for m in still}
+    if kinds <= set(refused.get(key) or ()):
+        return True
+    refused[key] = set(refused.get(key) or ()) | kinds
+    return False
+
+
 def merge_revision(prev: list, reply: list, slots: list, k: int,
-                   allow_labels: bool = False) -> tuple:
+                   allow_labels: bool = False,
+                   refused: dict | None = None) -> tuple:
     """A revision of an act, applied SLOT BY SLOT onto the act it revises.
     A slot the reply leaves out keeps its line; a rewrite that adds a
     deviation from its slot (or keeps the line's own role fault) is not
@@ -1595,11 +1664,17 @@ def merge_revision(prev: list, reply: list, slots: list, k: int,
             rep = rep2
         cand = {f: v for f, v in rep.items() if f in fields + ("parts",)}
         cand = code_labels(dict(l, **cand), s)
-        broke = new_deviations(l, cand, s) + unfixed_deviations(l, cand, s)
+        broke = new_deviations(l, cand, s)
+        still = unfixed_deviations(l, cand, s)
+        if still and not broke and not second_try(refused, sid, still):
+            broke = still
         if broke:
             notes.append(f"{sid}: rewrite not taken - {'; '.join(broke)}")
             out.append(l)
         else:
+            if still:
+                notes.append(f"{sid}: rewrite taken on the second try, "
+                             f"still: {'; '.join(still)}")
             out.append(cand)
     if restored:
         notes.append(f"restored {len(restored)} line(s) the act had lost: "
@@ -1616,9 +1691,10 @@ def _length_only(m: str) -> bool:
 
 def unfixed_deviations(old: dict, new: dict, s: dict) -> list:
     """A rewrite of a line that had a role deviation (not heard, reads as
-    commentary, a marker it may not carry, a missing quote) must clear it:
-    a 'fix' that keeps the fault is not a fix. Length deviations may stay -
-    the footage, not the writer, set that band."""
+    commentary, a marker it may not carry, a missing quote, an unbridged
+    skip) should clear it: a 'fix' that keeps the fault is not a fix - the
+    first time (second_try says when it is taken anyway). Length deviations
+    may stay - the footage, not the writer, set that band."""
     had = {_kind(m) for m in line_deviations(old, s) if not _length_only(m)}
     return [m for m in line_deviations(new, s)
             if not _length_only(m) and _kind(m) in had]
@@ -1812,8 +1888,9 @@ def _intro_problems(blob: str, pdir: Path) -> list:
     need = {"title": str(f.get("title", "")).split(":")[-1].strip(),
             "year": str(f.get("year", "")),
             "director": str(f.get("director", ""))}
+    from pipeline.craft_gates import fact_stated
     for k_, v in need.items():
-        if v and v.lower() not in low:
+        if v and not fact_stated(k_, v, low):
             out.append(f"INTRO: never states the {k_} ({v!r})")
     named = [c for c in f.get("cast") or []
              if str(c.get("actor", "")).lower() in low]

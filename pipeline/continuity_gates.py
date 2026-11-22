@@ -31,6 +31,22 @@ def _narr(ln: dict) -> str:
     return str(ln.get("narration") or "").strip()
 
 
+def _is_open(ln: dict) -> bool:
+    """A line of the cold open (the hook before the intro)."""
+    return (str(ln.get("note") or "").upper() in ("OPEN", "HOOK")
+            or ln.get("delivery") == "hook")
+
+
+_QUOTED = re.compile(r'"[^"]*"|\u201c[^\u201d]*\u201d')
+
+
+def _outside_quotes(text: str) -> str:
+    """The narrator's own words: quoted speech blanked out. A character
+    saying "she kept saying ..." is the film's line, not a claim the
+    narrator makes about a habit."""
+    return _QUOTED.sub(" ", text or "")
+
+
 def _lines(draft: dict) -> list:
     """The draft's line records, skipping anything that is not one.
 
@@ -70,12 +86,17 @@ def backward_clips(draft: dict, max_back_sec: float = 0.0) -> list:
     stepping from 01:33:57 to 01:33:51.
 
     A deliberate jump back is legitimate when the draft says so (a callback
-    marked with `callback_beat`), so that is the one exemption.
+    marked with `callback_beat`). The cold open is the other: it shows a
+    moment from later in the film and the story then goes back to the start
+    ("Back to the start: ..."), so the open's footage is never the place the
+    story must move forward from.
     """
     out = []
     prev = None
     for ln in _lines(draft):
         if ln.get("pool") or ln.get("montage"):
+            continue
+        if _is_open(ln):
             continue
         a = _ts(ln.get("clip_start"))
         if a is None:
@@ -333,7 +354,7 @@ def habitual_claims(draft: dict, pdir: Path) -> list:
         t = _narr(ln)
         if not t:
             continue
-        m = _HABITUAL.search(t)
+        m = _HABITUAL.search(_outside_quotes(t))
         if not m:
             continue
         cite = str(ln.get("callback_beat") or "").strip().upper()

@@ -1498,6 +1498,7 @@ def cmd_draft(a, client) -> int:
         return 0
     rounds = int(config.WRITE_DRAFT_FEEDBACK_ROUNDS)
     used = 0
+    refused_slots: dict = {}    # act -> {slot: faults a rewrite kept}
     if todo:
         pending = {f"act{k}": act_request(
             a.project, pdir, k, sysb,
@@ -1543,7 +1544,8 @@ def cmd_draft(a, client) -> int:
                         # the deviations sent back may be about labels
                         # (ACTION-STAKE's "payload stake"): let the fix in
                         allow_labels=any("payload" in x for x in
-                                         sent_devs.get(k, [])))
+                                         sent_devs.get(k, [])),
+                        refused=refused_slots.setdefault(k, {}))
                     for n_ in notes_[:4]:
                         print(f"  act{k}: {n_}")
                 else:
@@ -1651,7 +1653,8 @@ def cmd_draft(a, client) -> int:
                            if isinstance(l, dict)],
                     WS.slots_for_act(slots, k), k,
                     allow_labels=any(g in str(fb.get(k) or "")
-                                     for g in LABEL_FINDINGS))
+                                     for g in LABEL_FINDINGS),
+                    refused=refused_slots.setdefault(k, {}))
                 for n_ in notes[:6]:
                     print(f"  act{k}: {n_}")
                 (d / f"act{k}.json").write_text(json.dumps(
@@ -1785,6 +1788,118 @@ def write_back(pdir: Path, draft: dict, by_id: dict, owner: dict,
             WP.write_artifact(p, entries.get(art, []), resign)
 
 
+def sync_holds(project: str, pdir: Path) -> list:
+    """Holds are code's lines: their window and length come from their slot.
+    When the slot layout moved on (SLOTS_VERSION), re-derive it - conserving,
+    tools/fix_line refuses a re-derive that moves a slot - and put every
+    hold line back on its slot's window, in draft.json AND the act files.
+    Without this a layout fix (a hold that ran over the next line's footage,
+    [WINDOW-OVERLAP]) never reached a draft that was already written: no
+    reviser may edit a window. Returns the line ids changed."""
+    import write_slots as WS
+    if not (pdir / "plan.json").exists() or not (
+            pdir / "draft.json").exists():
+        return []                       # not a slot-written draft
+    try:
+        plan = json.loads(_read(pdir / "plan.json"))
+    except (OSError, ValueError):
+        return []
+    if plan.get("slots") and plan.get("slots_version") != WS.SLOTS_VERSION:
+        try:
+            import fix_line as FL
+            FL._rederive(project, pdir)
+        except Exception as e:                       # never stop resolve
+            print(f"resolve: slots not re-derived ({type(e).__name__}: {e})")
+    try:
+        draft = json.loads(_read(pdir / "draft.json"))
+    except (OSError, ValueError):
+        return []
+    owner = act_of_lines(pdir)
+    by_id = {str(l["id"]): l for l in draft.get("lines") or []}
+    edits = {}
+    from apply_film_speaks import _fits, _win
+    for lid, sl in slots_of_lines(pdir, owner).items():
+        ln = by_id.get(lid)
+        if ln is None:
+            continue
+        if sl.get("role") == "hold" and not str(
+                ln.get("narration") or "").strip():
+            want = {"clip_start": sl.get("clip_start"),
+                    "clip_end": sl.get("clip_end"),
+                    "narration_silence_seconds": sl.get("hold")}
+        elif (sl.get("role") not in ("hold", "film_speaks", "intro")
+              and not ln.get("parts") and not ln.get("montage")
+              and ln.get("film_speaks_seconds") is None):
+            # a narrated line whose slot was TRIMMED (a hold took the start
+            # of its window): follow the trim when the words still fit
+            w, sw = _win(ln), _win(sl)
+            if not w or not sw or sw == w or sw[0] < w[0] - 1e-3 \
+                    or sw[1] > w[1] + 1e-3 or not _fits(ln, *sw):
+                continue
+            want = {"clip_start": sl.get("clip_start"),
+                    "clip_end": sl.get("clip_end")}
+        else:
+            continue
+        fe = {k: v for k, v in want.items()
+              if v is not None and ln.get(k) != v}
+        if fe:
+            edits[lid] = fe
+    # never into another line's footage: a hold whose neighbour could not
+    # follow the trim (its words would not fit) keeps its old window
+    from pipeline.draft import parse_ts as _pts
+
+    def _after(lid_):
+        ln_ = dict(by_id[lid_], **edits.get(lid_, {}))
+        try:
+            return _pts(ln_["clip_start"]), _pts(ln_["clip_end"])
+        except Exception:
+            return None
+    for lid in [x for x in edits if "narration_silence_seconds" in edits[x]
+                or not str(by_id[x].get("narration") or "").strip()]:
+        w = _after(lid)
+        if w and any(o and min(w[1], o[1]) - max(w[0], o[0]) > 1e-3
+                     for o in (_after(x) for x in by_id if x != lid)):
+            edits.pop(lid)
+    if edits:
+        write_back(pdir, draft, by_id, owner, edits, {}, {})
+        print(f"resolve: {len(edits)} line(s) put back on their slot's "
+              f"window (holds, and lines a hold trimmed): "
+              f"{sorted(edits, key=lambda x: int(x))[:10]}")
+    return sorted(edits)
+
+
+def fix_windows_in_draft(project: str, pdir: Path, measure=None) -> list:
+    """[UNWATCHABLE-FOOTAGE], mechanically, on a draft past the review
+    stage: write_plan.fix_unwatchable on draft.json's lines, each move saved
+    through write_back (draft.json AND the act file). The draft stage's own
+    pass (_fix_windows) never ran again once resolve took over, so a window
+    no reviser may edit - the outro on the end credits - stayed an error
+    every round. Returns the ids moved."""
+    import copy
+    import write_plan as WP
+    try:
+        draft = json.loads(_read(pdir / "draft.json"))
+    except (OSError, ValueError, SystemExit):
+        return []
+    lines = copy.deepcopy(draft.get("lines") or [])
+    done = WP.fix_unwatchable(project, lines, measure=measure)
+    for m in done:
+        print(f"resolve: UNWATCHABLE-FOOTAGE {m}")
+    by_id = {str(l["id"]): l for l in draft["lines"]}
+    edits = {}
+    for new in lines:
+        old = by_id.get(str(new.get("id")))
+        if old is None:
+            continue
+        fe = {k: new[k] for k in ("clip_start", "clip_end")
+              if new.get(k) != old.get(k)}
+        if fe:
+            edits[str(new["id"])] = fe
+    if edits:
+        write_back(pdir, draft, by_id, act_of_lines(pdir), edits, {}, {})
+    return sorted(edits, key=lambda x: int(x))
+
+
 def cmd_resolve(a, client) -> int:
     import write_plan as WP
     import write_slots as WS
@@ -1793,6 +1908,9 @@ def cmd_resolve(a, client) -> int:
     d = pdir / "draft.json.d"
     rounds = int(config.WRITE_RESOLVE_ROUNDS)
     carry: dict = {}
+    refused: dict = {}          # line id -> faults a rewrite kept (second_try)
+    sync_holds(a.project, pdir)
+    fix_windows_in_draft(a.project, pdir)
     for rnd in range(1, rounds + 2):
         draft = json.loads(_read(pdir / "draft.json"))
         finds = WP.open_findings(pdir, draft)
@@ -1902,8 +2020,17 @@ def cmd_resolve(a, client) -> int:
                     new = WS.code_labels(new, sl)
                     fe = {f: new[f] for f in EDIT_FIELDS
                           if f in new and new[f] != by_id[lid].get(f)}
-                    broke = (WS.new_deviations(by_id[lid], new, sl)
-                             + WS.unfixed_deviations(by_id[lid], new, sl))
+                    broke = WS.new_deviations(by_id[lid], new, sl)
+                    still = WS.unfixed_deviations(by_id[lid], new, sl)
+                    if still and not broke:
+                        if WS.second_try(refused, lid, still):
+                            # no worse than the line it replaces, and the
+                            # fault came back once already: saved, and the
+                            # fault it kept goes back to the next round
+                            carry.setdefault(k, []).extend(
+                                f"line {lid}: {b}" for b in still)
+                        else:
+                            broke = still
                     if broke:
                         carry.setdefault(k, []).extend(
                             f"line {lid}: {b}" for b in broke)

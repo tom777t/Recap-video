@@ -1014,6 +1014,71 @@ def _legacy(fn):
     return run
 
 
+def test_persona_few_labels() -> tuple[bool, str]:
+    """Lost in the Stars: 2 of 259 lines labelled judgment, both by CODE
+    (a reaction slot and the outro); the classifier missed the outro's "That
+    is not weakness, it is betrayal, and he deserves no pity" and the draft
+    halted on "label inflation" at 0 of 2. The verdict forms are heard now,
+    and one or two unconfirmed labels warn; three or more still fail."""
+    for t in ("That is not weakness, it is betrayal.",
+              "He deserves no pity."):
+        if not pg.classify_judgment(t)[0]:
+            return False, f"verdict not heard: {t!r}"
+    if pg.classify_judgment(_PG_P)[0]:
+        return False, "a plain line now reads as judgment"
+    units = [("P", f"B{i:02d}") for i in range(1, 9)]
+    d = _mkdraft(units)
+    for i in (2, 5):
+        d["lines"][i]["payload"] = "judgment"     # labelled, not classified
+    rep = pg.pacing_report(d, PROJ)
+    err = [e for e in rep["errors"] if "label inflation" in e]
+    warn = [w for w in rep.get("warns") or [] if "label inflation" in str(w)]
+    if err or not warn:
+        return False, (f"2 unconfirmed labels: errors {len(err)}, warnings "
+                       f"{len(warn)} (want 0 / 1)")
+    d["lines"][6]["payload"] = "judgment"
+    rep = pg.pacing_report(d, PROJ)
+    if not [e for e in rep["errors"] if "label inflation" in e]:
+        return False, "3 unconfirmed labels no longer fail"
+    return True, ("verdicts heard; 2 unconfirmed labels warn, 3 fail")
+
+
+def test_audit_per_film() -> tuple[bool, str]:
+    """The only audit in docs/ is Tokyo Drift's; on any other film every
+    anchor beat was "not mentioned in the independent audit" - an error no
+    run could clear (Lost in the Stars). The audit is looked up for THIS
+    film: projects/<name>/angle_audit.md, or the docs one when it is about
+    this angle. None -> a warning; an own audit that misses a beat -> error."""
+    import tempfile
+    import shutil
+    tmp = Path(tempfile.mkdtemp(prefix="recap_audit_"))
+    real = pg.ROOT_DOCS
+    try:
+        if pg.audit_for(PROJ, angle_spec.require(PROJ)) is None:
+            return False, "the docs audit is not found for its own film"
+        pg.ROOT_DOCS = tmp                    # a film nobody audited
+        pd = tmp / "proj"
+        shutil.copytree(PROJ, pd)
+        (pd / "angle_audit.md").unlink(missing_ok=True)
+        rep = pg.pacing_report(_flat(), pd)
+        err = [e for e in rep["errors"] if "independent audit" in e]
+        warn = [w for w in rep.get("warns") or []
+                if "independent audit" in str(w)]
+        if err or not warn:
+            return False, (f"no audit of this film: errors {err[:1]}, "
+                           f"warnings {len(warn)} (want none / one)")
+        (pd / "angle_audit.md").write_text("# audit\nnothing here\n",
+                                           encoding="utf-8")
+        rep = pg.pacing_report(_flat(), pd)
+        if not [e for e in rep["errors"] if "independent audit" in e]:
+            return False, "an own audit that covers nothing passed"
+        return True, ("docs audit used for its film; none for this film -> "
+                      "warning; an own audit missing beats -> error")
+    finally:
+        pg.ROOT_DOCS = real
+        shutil.rmtree(tmp, ignore_errors=True)
+
+
 TESTS = {
     "CONTROL-ON-DISK":          test_control_on_disk,
     "TOP20-IS-THE-ROBUST-ONE":  test_top20_is_the_robust_one,
@@ -1029,6 +1094,8 @@ TESTS = {
     "ANCHOR-EVIDENCE-REQUIRED": test_anchor_evidence_required,
     "AUDIT-COVERS-MAPPINGS":    test_audit_covers_mappings,
     "JUDGMENT-AGREEMENT":       test_judgment_agreement,
+    "PERSONA-FEW-LABELS":       test_persona_few_labels,
+    "AUDIT-PER-FILM":           test_audit_per_film,
     "CLASSIFIER-CORRECTED":     test_classifier_corrected,
     "PERSONA-CEILING":          _legacy(test_persona_ceiling),
     "PERSONA-RUN":              test_persona_run,

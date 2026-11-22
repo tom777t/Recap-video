@@ -803,6 +803,39 @@ def _ts(sec: float) -> str:
     return f"{int(h):02d}:{int(m):02d}:{s:06.3f}"
 
 
+def _free_windows(ln: dict, lo: float, hi: float, a: float, b: float,
+                  taken: list, fits) -> list:
+    """Windows of the length `ln` needs inside the free gaps of [lo, hi]
+    (`taken`: (a, b, _) spans no window may touch), the gaps nearest the
+    line's old window [a, b] first; each gap gives the window at its end
+    and at its start."""
+    need = None
+    w = 0.5
+    while w <= max(1.0, hi - lo):
+        if fits(ln, 0.0, w):
+            need = w
+            break
+        w += 0.25
+    if need is None:
+        return []
+    need = round(need + 0.5, 3)       # a beat of air after the last word
+    spans = sorted((max(lo, x[0]), min(hi, x[1])) for x in taken
+                   if x[1] > lo and x[0] < hi)
+    gaps, cur = [], lo
+    for x0, x1 in spans:
+        if x0 > cur:
+            gaps.append((cur, x0))
+        cur = max(cur, x1)
+    if hi > cur:
+        gaps.append((cur, hi))
+    gaps = [g for g in gaps if g[1] - g[0] >= need - 1e-6]
+    gaps.sort(key=lambda g: min(abs(g[1] - a), abs(g[0] - b)))
+    out = []
+    for g0, g1 in gaps:
+        out += [(round(g1 - need, 3), g1), (g0, round(g0 + need, 3))]
+    return out
+
+
 def fix_unwatchable(project: str, lines: list, measure=None) -> list:
     """Move each bound window that lands on black / a text card, in place.
 
@@ -859,6 +892,13 @@ def fix_unwatchable(project: str, lines: list, measure=None) -> list:
         L = b - a
         cands = [(a, sa), (sb, b), (sa - L, sa), (sb, sb + L)]
         occupied = _others(lines, {ln.get("id")})
+        # A window that is nearly ALL bad (the outro bound to 2.5 min of end
+        # credits, Lost in the Stars line 259) has no clean part and its own
+        # length fits nowhere. Then: the free footage of the beat, nearest
+        # first, cut to the length the narration needs.
+        cands += _free_windows(ln, lo, hi, a, b, occupied + [
+            (x[0], x[1], None) for x in bad] + [
+            (fa, fb, None) for fa, fb in flagged], _fits)
         ok = None
         for ca, cb in cands:
             if cb - ca < 0.5 or ca < lo - 1e-6 or cb > hi + 1e-6:

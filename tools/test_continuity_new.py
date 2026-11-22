@@ -513,6 +513,47 @@ def test_gate_never_raises() -> tuple[bool, str]:
                   "no raise anywhere, and both cannot-verify paths say so")
 
 
+def test_claim_in_quotes() -> tuple[bool, str]:
+    """A habit phrase inside quoted speech is the film's line, not the
+    narrator's claim (Lost in the Stars line 42: he repeats a rumour,
+    "She kept saying that something's wrong ...")."""
+    p = _project()
+    q = ('Testing her, he repeats a rumor: "She kept saying that '
+         'something\'s wrong with my friend\'s spirit."')
+    curly = "He reads it aloud: \u201cHe kept lying to her.\u201d"
+    out = cg.habitual_claims({"lines": [_line(1, q), _line(2, curly)]}, p)
+    if out:
+        return False, f"quoted speech reported: {out}"
+    mixed = 'He kept lying, and she said "fine".'
+    if not cg.habitual_claims({"lines": [_line(1, mixed)]}, p):
+        return False, "a habit claim outside the quotes went unreported"
+    return True, "quotes ignored (straight and curly); own words still checked"
+
+
+def test_backward_after_open() -> tuple[bool, str]:
+    """The cold open shows a later moment; the story's return to the start
+    is not a backward clip. A real step back after that still is."""
+    def L(i, a, **kw):
+        return {"id": i, "narration": "x", "clip_start": a,
+                "clip_end": a, **kw}
+    d = {"lines": [L(1, "00:13:17.125", note="OPEN"),
+                   L(2, "00:13:20.597", note="OPEN"),
+                   {"id": 3, "narration": "intro", "delivery": "intro"},
+                   L(4, "00:00:48.000", note="B01"),
+                   L(5, "00:01:03.800", note="B01")]}
+    if cg.backward_clips(d):
+        return False, f"return to the start reported: {cg.backward_clips(d)}"
+    d["lines"].append(L(6, "00:00:50.000", note="B02"))
+    got = [x["line_id"] for x in cg.backward_clips(d)]
+    if got != [6]:
+        return False, f"a real step back after the open: expected [6], {got}"
+    h = {"lines": [L(1, "00:40:00.000", delivery="hook", note="X"),
+                   L(2, "00:01:00.000", note="B01")]}
+    if cg.backward_clips(h):
+        return False, "a delivery=hook line still counts as the story's past"
+    return True, "open/hook lines skipped; later steps back still caught"
+
+
 TESTS = {
     "CLAIM-CITATION":        test_claim_citation,
     "CLAIM-PHRASES":         test_claim_phrases,
@@ -522,6 +563,8 @@ TESTS = {
     "NAME-AT-REVEAL-SCOPE":  test_name_at_reveal_scope,
     "NAME-AT-REVEAL-REAL":   test_name_at_reveal_real,
     "GATE-NEVER-RAISES":     test_gate_never_raises,
+    "CLAIM-IN-QUOTES":       test_claim_in_quotes,
+    "BACKWARD-AFTER-OPEN":   test_backward_after_open,
 }
 
 if __name__ == "__main__":

@@ -1211,6 +1211,9 @@ PERSONA_ANCHOR_CLEAN_LINES_MIN = 1
 # fails on the SHARE above and not on this. A writer who tags 40 lines
 # judgment to clear the share would drop this to ~30% and fail here instead.
 PERSONA_JUDGMENT_AGREEMENT_MIN = 0.60
+# ...and only an ERROR when at least this many labels go unconfirmed: one or
+# two misses is the classifier's own error rate, not inflation (a warning).
+PERSONA_INFLATION_MIN_UNCONFIRMED = 3
 #
 # A DECISION, NOT A MEASUREMENT - and the references say so. Persona-move rate
 # (direct address, first person, questions to the viewer, stance adverbs)

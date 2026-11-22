@@ -875,6 +875,109 @@ def test_open_shape_rotation():
                      else "; ".join(bad))
 
 
+def test_rewrite_keeps_old_fault():
+    """Lost in the Stars line 103: the slot comes after an unbridged skip.
+    Three resolve rounds rewrote the line to drop a reviewer's unsupported
+    claim, and every rewrite was refused because the slot STILL came after
+    the skip - so the finding never closed and the draft halted. A rewrite
+    that keeps the old fault goes back once; the second time it is taken
+    (the kept fault reported); a rewrite that ADDS a fault is refused."""
+    import copy
+    plan, ab, slots = _layout()
+    cand = [x for x in slots if x["role"] in ("action", "stake")
+            and x.get("max_words") and x["max_words"] >= 14
+            and not x.get("after_skip")]
+    if not cand:
+        return False, "no slot to try it on"
+    s = copy.deepcopy(cand[0])
+    s.update(after_skip=True, skipped=["B54", "B55", "B56"], skip_secs=106,
+             skip_what=["B54: she tells him to calm down"],
+             skip_time_ok=False)
+    k = s["act"]
+    base = _fill(dict(s, after_skip=False), 0)
+    body = "she hurries him into a red pickup and drives off fast"
+    old = dict(base, id=103, slot=s["slot"],
+               narration=f"Chen Mai nods, and {body}, with others trailing.")
+    had = [m for m in WS.line_deviations(old, s) if "SKIP" in m]
+    if not had:
+        return False, ("the fixture line is not flagged as after a skip: "
+                       f"{WS.line_deviations(old, s)}")
+    new = dict(old, narration=f"Chen Mai nods, and {body}.")
+    refused = {}
+    out, notes = WS.merge_revision([old], [new], [s], k, refused=refused)
+    got = [l for l in out if l.get("slot") == s["slot"]]
+    if not got or got[0]["narration"] != old["narration"]:
+        return False, f"first try taken although it keeps the fault: {notes}"
+    out, notes = WS.merge_revision([old], [new], [s], k, refused=refused)
+    got = [l for l in out if l.get("slot") == s["slot"]]
+    if not got or got[0]["narration"] != new["narration"]:
+        return False, f"second try still refused (the deadlock): {notes}"
+    if not any("still" in n and "SKIP" in n for n in notes):
+        return False, f"the kept fault is not reported: {notes}"
+    out, _ = WS.merge_revision([old], [new], [s], k)
+    if [l for l in out if l.get("slot") == s["slot"]][0]["narration"] \
+            != old["narration"]:
+        return False, "without a round memory a kept fault was taken"
+    worse = dict(old, narration="That is not weakness, it is a betrayal "
+                                "and he deserves no pity at all.")
+    if WS.new_deviations(old, worse, s):
+        out2, notes2 = WS.merge_revision([old], [worse], [s], k)
+        g2 = [l for l in out2 if l.get("slot") == s["slot"]]
+        if g2[0]["narration"] != old["narration"]:
+            return False, "a rewrite adding a fault was taken"
+    return True, ("a rewrite keeping the slot's old skip fault goes back "
+                  "once, is taken the second time (fault reported); one "
+                  "adding a fault is refused")
+
+
+def test_hold_no_overlap():
+    """Lost in the Stars hold 220: a 1.975 s window was stretched to the
+    2.5 s minimum, past its end and over line 221 ([WINDOW-OVERLAP]). A
+    short hold grows only into free footage - back toward the previous
+    window - and never over a neighbour."""
+    mk = lambda r, a, z: {"role": r, "a": a, "z": z}
+    prev, hold, nxt = (mk("action", 5920.0, 5928.0),
+                       mk("hold", 5930.4, 5932.375),
+                       mk("action", 5932.375, 5941.458))
+    WS._size_holds([prev, hold, nxt])
+    bad = []
+    if hold["z"] > nxt["a"] + 1e-6:
+        bad.append(f"runs into the next line ({hold['z']} > {nxt['a']})")
+    if abs(hold["hold"] - WS.HOLD_SEC[0]) > 0.01:
+        bad.append(f"hold {hold['hold']}s, not the {WS.HOLD_SEC[0]}s minimum "
+                   f"(free footage was there before it)")
+    if hold["a"] < prev["z"] - 1e-6:
+        bad.append("ran back over the previous line")
+    # Lost in the Stars B115: 3.6 s holding a 4-word line and the hold;
+    # the next line's window (9 s for 21 words) gives up its first 0.5 s
+    tight = [mk("action", 5928.8, 5930.4), mk("hold", 5930.4, 5932.375),
+             dict(mk("action", 5932.375, 5941.458), min_words=3,
+                  max_words=34)]
+    WS._size_holds(tight)
+    h, n = tight[1], tight[2]
+    if abs(h["hold"] - WS.HOLD_SEC[0]) > 0.01 or h["z"] > n["a"] + 1e-6 \
+            or h["a"] < 5930.4 - 1e-6:
+        bad.append(f"boxed-in hold not given its minimum from the next "
+                   f"window: {h['a']}-{h['z']} next {n['a']}")
+    from pipeline.preflight import budget_words
+    if n["max_words"] > budget_words(n["z"] - n["a"]):
+        bad.append("the shortened line kept more words than it can hold")
+    boxed = [mk("action", 10.0, 11.5), mk("hold", 11.5, 13.0),
+             dict(mk("action", 13.0, 14.6), min_words=3, max_words=4)]
+    WS._size_holds(boxed)
+    if boxed[1]["a"] < 11.5 - 1e-6 or boxed[1]["z"] > boxed[2]["a"] + 1e-6 \
+            or boxed[2]["z"] - boxed[2]["a"] < WS.MIN_WINDOW - 1e-6:
+        bad.append(f"a short neighbour was cut under its minimum: {boxed}")
+    long_ = [mk("hold", 0.0, 9.0)]
+    WS._size_holds(long_)
+    if long_[0]["hold"] != WS.HOLD_SEC[1]:
+        bad.append(f"long window not capped: {long_[0]['hold']}")
+    return (not bad), ("short hold grows back into free footage, then out "
+                       "of a long next window, never over a neighbour; a "
+                       "short neighbour keeps its minimum; long capped"
+                       if not bad else "; ".join(bad))
+
+
 TESTS = {
     "SLOT-LAYOUT":           test_slot_layout,
     "WINDOWS-BY-CODE":       test_windows_by_code,
@@ -883,6 +986,8 @@ TESTS = {
     "DRAFT-SLOTS":           test_draft_slots,
     "COUNTS-FOLLOWED":       test_counts_followed,
     "REVISION-KEEPS-SLOTS":  test_revision_keeps_slots,
+    "REWRITE-KEEPS-OLD-FAULT": test_rewrite_keeps_old_fault,
+    "HOLD-NO-OVERLAP":       test_hold_no_overlap,
     "DRAFT-CONSERVATION":    test_draft_conservation,
     "SEQUENCE-RULES":        test_sequence_rules,
     "REVIEW-DEFECTS":        test_review_defects,

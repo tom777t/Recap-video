@@ -49,6 +49,38 @@ BAR_SILENCE_WARN = 12.0      # item 11  (HUMAN co mot don 20.0s)
 BAR_SILENCE_COUNT = (3, 6)   # item 11
 BAR_ACTION_STAKE_EVERY = 4   # item 7
 
+
+_TITLE_WORDS = {"officer", "detective", "inspector", "sergeant", "captain",
+                "agent", "doctor", "dr", "lawyer", "judge", "mr", "mrs", "ms",
+                "miss", "professor", "chief", "lieutenant", "general"}
+
+
+def crew_names(value) -> list:
+    """The people in a crew field: "Cui Rui, Liu Xiang", "A and B", "A & B",
+    or a list. A film with two directors is stated as "Directed by Cui Rui
+    and Liu Xiang", which never contains the field's literal text."""
+    if not value:
+        return []
+    items = value if isinstance(value, (list, tuple)) else [value]
+    out = []
+    for it in items:
+        for part in re.split(r"\s*(?:,|;|/|&|\band\b)\s*", str(it)):
+            part = part.strip()
+            if part:
+                out.append(part)
+    return out
+
+
+def fact_stated(kind: str, value, low: str) -> bool:
+    """Is a required film_facts element said in `low` (lowercased text)?
+    Crew fields are satisfied when EVERY person is named, in any order and
+    joined any way."""
+    if kind in ("director", "writer", "composer"):
+        names = crew_names(value)
+        return bool(names) and all(n.lower() in low for n in names)
+    return str(value).lower() in low
+
+
 def _floors() -> bool:
     """config.STYLE_QUOTA_FLOORS: the minimum-proportion style bars (SD,
     long-sentence share, punch share, judgment count, loop cadence). Off by
@@ -813,7 +845,7 @@ def craft_report(draft: dict) -> dict:
                 "director": str(_facts.get("director", "")),
             }
             for _k, _v in _need.items():
-                if _v and _v.lower() not in _low:
+                if _v and not fact_stated(_k, _v, _low):
                     errors.append(
                         f"[FILM-INTRO] the block never states the {_k} "
                         f"({_v!r}). Required: channel greeting, title and "
@@ -845,12 +877,16 @@ def craft_report(draft: dict) -> dict:
                     # title, not a person. Anything contained in the title,
                     # or in a crew name, is not an unsourced person.
                     _tl = str(_facts.get("title", "")).lower()
+                    _crew = {n.lower() for _f in ("director", "writer",
+                                                  "composer", "studio")
+                             for n in crew_names(_facts.get(_f))}
+                    _first, _rest = _cand.split(" ", 1)
+                    if _first.lower() in _TITLE_WORDS and any(
+                            _rest.lower() in str(c.get("role", "")).lower()
+                            for c in _facts.get("cast", [])):
+                        continue    # "Officer Zheng" = rank + a role's name
                     if (_cand.lower() not in _tl
-                            and _cand.lower() not in (
-                                str(_facts.get("director", "")).lower(),
-                                str(_facts.get("writer", "")).lower(),
-                                str(_facts.get("composer", "")).lower(),
-                                str(_facts.get("studio", "")).lower())):
+                            and _cand.lower() not in _crew):
                         warns.append(
                             f"[FILM-INTRO] {_cand!r} reads like a person's "
                             f"name and is not in film_facts.json. The FACT "

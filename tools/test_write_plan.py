@@ -396,8 +396,13 @@ def test_resolve_slot_bound():
          "a rewrite that fits its slot IS saved"),
         (t["4"].get("payload") == "stake",
          "an echoed payload nobody asked about is ignored"),
-        (t["3"]["narration"].startswith("That's the whole race"),
-         "a 'fix' that keeps the line's fault (still commentary) is not taken"),
+        ("line 3 NOT saved" in out,
+         "a 'fix' that keeps the line's fault (still commentary) goes back "
+         "the first time"),
+        (len(c.batches) > 1 and t["3"]["narration"].startswith(
+            "That's the whole night"),
+         "the same kept fault the second time is taken (Lost in the Stars "
+         "line 103: refusing it for ever froze the line's other fixes)"),
         ("NOW WRONG: reads as commentary" in first,
          "the reviser sees what is wrong with the line now"),
         ("[REACTION EVAL, 1-30 words]" in first
@@ -609,6 +614,46 @@ def test_runps1_halt():
                 "the command - the subagent round text is never reached")
 
 
+def test_unwatchable_credits():
+    """Lost in the Stars line 259: the outro was bound to 115:08-117:40,
+    two and a half minutes of end credits with black between the cards.
+    No part of that window is clean and its length fits nowhere, so the old
+    candidates all failed ("no clean window inside its beat"). The beat's
+    free footage before the credits - after the last line's scene - is
+    where it goes, at the length its narration needs."""
+    outro = ("Muzi gave him chance after chance, and he repaid her with a "
+             "cage for her and their child. That is not weakness, it is "
+             "betrayal, and he deserves no pity.")
+    lines = [
+        {"id": 258, "note": "B131", "narration": "She walks out.",
+         "clip_start": "01:53:49.667", "clip_end": "01:54:09.402"},
+        {"id": 259, "note": "B131", "narration": outro, "delivery": "outro",
+         "clip_start": "01:55:08.958", "clip_end": "01:57:40.000"},
+    ]
+    def measure(a, b):
+        return ([(max(a, 6908.96), min(b, 7059.96), ["black"])]
+                if a < 7060 and b > 6908.96 else [])
+    import write_plan as _wp
+    from pipeline import draft as D
+    from pipeline.draft import parse_ts
+    real_bt, real_rm = D.beat_times, D.parse_reveal_map
+    D.beat_times = lambda p: {"ordered": [("B130", 6700.0),
+                                          ("B131", 6829.0)]}
+    D.parse_reveal_map = lambda p: [{"id": "R4", "land_sec": 6790.0}]
+    try:
+        acts = _wp.fix_unwatchable(PROJ, lines, measure=measure)
+    finally:
+        D.beat_times, D.parse_reveal_map = real_bt, real_rm
+    a, b = parse_ts(lines[1]["clip_start"]), parse_ts(lines[1]["clip_end"])
+    from apply_film_speaks import _fits
+    ok = (6849.402 - 1e-3 <= a and b <= 6908.96 + 1e-3 and _fits(
+        lines[1], a, b) and b - a < 40 and lines[0]["clip_start"] ==
+        "01:53:49.667" and any("moved to" in x for x in acts))
+    return ok, (f"outro moved to {a:.1f}-{b:.1f}s: after line 258, before "
+                f"the credits, {b - a:.1f}s for its words" if ok else
+                f"outro at {a:.1f}-{b:.1f}; {acts}")
+
+
 TESTS = {
     "PLAN-VALIDATES":    test_plan_validates,
     "CONTOUR-REPAIR":    test_contour_repair,
@@ -620,6 +665,7 @@ TESTS = {
     "FIX-LINE":          test_fix_line,
     "RESOLVE-STOPS":     test_resolve_stops,
     "UNWATCHABLE-FIX":   test_unwatchable_fix,
+    "UNWATCHABLE-CREDITS": test_unwatchable_credits,
     "RUNPS1-HALT":       test_runps1_halt,
 }
 
