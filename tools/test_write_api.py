@@ -637,6 +637,38 @@ def test_parse_in_prose():
     return ok, (f"{a} / {b}" if ok else f"{a} / {b}")
 
 
+def test_reveals_stuck():
+    """Lost in the Stars, 22 Nov: the reveals conversation came back EMPTY
+    (0 output tokens) after the tool result and again after the repair
+    turn. The reply's shape is now named, and one fresh request without
+    the tool is made; its object is used."""
+    _setup()
+    (PDIR / "reveals.json").unlink(missing_ok=True)
+
+    def empty():
+        m = msg(text="")
+        m.content = []
+        m.usage.output_tokens = 0
+        return m
+
+    def syn(p, n):
+        if n == 1:
+            return msg(blocks=[NS(type="tool_use", id="tu1", name="speech_at",
+                                  input={"start": "01:10:00",
+                                         "end": "01:12:00"})])
+        if "tools" in p:
+            return empty()
+        return msg(_j(SRC / "reveals.json") | {"landing_notes": "from beats"})
+    c = Client(syn, lambda cid, p: msg({}))
+    rc, out = _run(c, "beats", "--project", PROJ)
+    last = c.calls[-1] if c.calls else {}
+    ok = (rc == 0 and (PDIR / "reveals.json").exists() and len(c.calls) == 4
+          and "tools" not in last and "stop_reason=end_turn" in out
+          and "output_tokens=0" in out and "without the speech_at" in out)
+    return ok, ("empty twice -> shape named, fresh no-tool request used"
+                if ok else f"rc {rc}, calls {len(c.calls)}: {out[-400:]}")
+
+
 TESTS = {
     "BEATS":       test_beats,
     "BEAT-KIND-SCHEMA": test_beat_kind_schema,
@@ -657,6 +689,7 @@ TESTS = {
     "REVEALS-REPAIR": test_reveals_repair,
     "WIKI-BRACKETS": test_wiki_title_brackets,
     "PARSE-IN-PROSE": test_parse_in_prose,
+    "REVEALS-STUCK": test_reveals_stuck,
 }
 
 if __name__ == "__main__":

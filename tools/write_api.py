@@ -345,9 +345,23 @@ def _json_reply(msg, stage: str, pdir=None):
         return None, f"reply truncated at max_tokens={MAX_TOKENS[stage]}"
     obj = TB.parse_reply(TB.reply_text(msg))
     if not isinstance(obj, dict):
-        return None, ("reply is not a JSON object"
-                      + _save_failed(pdir, stage, TB.reply_text(msg)))
+        text = str(TB.reply_text(msg) or "")
+        shape = _shape(msg)
+        return None, (("reply is EMPTY" if not text.strip() else
+                       "reply is not a JSON object") + f" ({shape})"
+                      + _save_failed(pdir, stage, text or f"(empty) {shape}"))
     return obj, None
+
+
+def _shape(msg) -> str:
+    """stop_reason, block types and output tokens of a reply: what an empty
+    reply was (21-22 Nov: the Lost in the Stars reveals replies came back
+    with 0 output tokens twice, and nothing said why)."""
+    u = TB._get(msg, "usage")
+    out = TB._get(u, "output_tokens") if u is not None else None
+    types = [str(TB._get(b, "type")) for b in (TB._get(msg, "content") or [])]
+    return (f"stop_reason={TB._get(msg, 'stop_reason')}, blocks={types}, "
+            f"output_tokens={out}")
 
 
 # --------------------------------------------------------------------------- #
@@ -480,8 +494,26 @@ def reveals_pass(client, project: str, pdir: Path, notes: str) -> dict:
             # ONE repair turn: the whole tool conversation is a cached
             # prefix, so asking for the object again costs a fraction of
             # starting over - and starting over is what a hard fail forced.
-            if repaired or "not a JSON object" not in why:
-                raise WriteError(f"reveals: {why}")
+            if repaired or ("not a JSON object" not in why
+                            and "EMPTY" not in why):
+                # The conversation itself is stuck (twice empty on Lost in
+                # the Stars, 0 output tokens each): one fresh request
+                # WITHOUT the tool - the beat map and the readers' notes
+                # are enough to name the reveals; speech_at only refines
+                # where each lands.
+                print(f"reveals: {why}; one fresh request without the "
+                      f"speech_at tool")
+                p2 = params("reveals", sysb, [{"type": "text", "text": (
+                    user + "\n\n# NOTE\nThe speech_at tool is not available "
+                    "for this request. Settle each reveal's landing from the "
+                    "beat map's timestamps and say so in landing_notes. "
+                    "Reply with ONLY the JSON object.")}])
+                msg2 = call(client, pdir, "reveals", p2, note="no-tool retry")
+                obj2, why2 = _json_reply(msg2, "reveals", pdir)
+                if obj2 is not None:
+                    return obj2
+                raise WriteError(f"reveals: {why}; then without the tool: "
+                                 f"{why2}")
             repaired = True
             print(f"reveals: {why}; asking once more for the JSON object")
             _echo = [x for x in (_block(b) for b in TB._get(msg, "content"))
