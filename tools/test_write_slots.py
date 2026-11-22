@@ -978,6 +978,46 @@ def test_hold_no_overlap():
                        if not bad else "; ".join(bad))
 
 
+def test_point_after_reveal():
+    """Lost in the Stars B113: the plan's step "He escapes and finds the
+    hospital is a set; Chen Mai is Shen Man" rode on 01:36:47, before both
+    reveals landed (01:37:31, 01:38:44). The slot told the writer to spoil
+    them and [REVEAL-TIMING] then refused every fix. A point that states a
+    reveal goes to the first story slot after the landing with room for a
+    sentence; a point that only shares words with a hold term stays."""
+    mk = lambda sid, beat, a, mw, role="action": {   # noqa: E731
+        "slot": sid, "beat": beat, "a": a, "z": a + 5, "role": role,
+        "max_words": mw}
+    slots = [mk("S1", "B113", 5807.0, 19), mk("S2", "B113", 5830.0, 15),
+             mk("S3", "B113", 5851.8, 0, "hold"), mk("S4", "B115", 5924.0, 4),
+             mk("S5", "B116", 5932.8, 16), mk("S6", "B40", 2379.0, 20)]
+    slots.sort(key=lambda x: x["a"])
+    plan = {"spine": [
+        {"step": "He escapes and finds the hospital is a set; Chen Mai is "
+                 "Shen Man", "beats": ["B113"]},
+        {"step": "Chen Mai sends him to dinner so the impostor shows her "
+                 "hand", "beats": ["B40"]}]}
+    rv = [(5851.0, ["the hospital was a set"]),
+          (5924.0, ["Chen Mai is Shen Man", "Chen Mai is an impostor"])]
+    WS._mark_story_points(slots, plan, rv)
+    by = {x["slot"]: x for x in slots}
+    bad = []
+    if by["S1"].get("must_say"):
+        bad.append(f"S1 still must say: {by['S1']['must_say']}")
+    if "Shen Man" not in str(by["S5"].get("must_say")):
+        bad.append(f"not on S5 (first slot after 01:38:44 with room): "
+                   f"{ {k: v.get('must_say') for k, v in by.items()} }")
+    if by["S4"].get("must_say"):
+        bad.append("put on a 4-word slot")
+    if "impostor" not in str(by["S6"].get("must_say")):
+        bad.append("a point merely sharing words with a hold term moved")
+    if not WS._states("the hospital is a set", "the hospital was a set"):
+        bad.append("copula forms not alike")
+    return (not bad), ("the reveal-stating point waits for its landing, on "
+                       "the first slot with room; others stay"
+                       if not bad else "; ".join(bad))
+
+
 TESTS = {
     "SLOT-LAYOUT":           test_slot_layout,
     "WINDOWS-BY-CODE":       test_windows_by_code,
@@ -988,6 +1028,7 @@ TESTS = {
     "REVISION-KEEPS-SLOTS":  test_revision_keeps_slots,
     "REWRITE-KEEPS-OLD-FAULT": test_rewrite_keeps_old_fault,
     "HOLD-NO-OVERLAP":       test_hold_no_overlap,
+    "POINT-AFTER-REVEAL":    test_point_after_reveal,
     "DRAFT-CONSERVATION":    test_draft_conservation,
     "SEQUENCE-RULES":        test_sequence_rules,
     "REVIEW-DEFECTS":        test_review_defects,

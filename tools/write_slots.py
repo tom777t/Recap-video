@@ -49,7 +49,7 @@ ROLES = ("open", "intro", "action", "quote", "reaction", "bridge", "outro",
 # Bumped whenever derive_slots changes what it builds: a plan.json whose slots
 # carry an older version is re-derived (write_api.cmd_draft), so a fix here
 # reaches a project that already has a plan without re-buying the plan.
-SLOTS_VERSION = 18     # 18: story slots share the act's word budget (17: holds)
+SLOTS_VERSION = 19     # 19: a point stating a reveal waits for it (18: budget, 17: holds)
 
 
 def story_mode() -> bool:
@@ -476,21 +476,69 @@ def _split(a: float, b: float, k: int, moms: list) -> list:
     return [(a + i * step, a + (i + 1) * step) for i in range(k)]
 
 
-def _mark_story_points(slots: list, plan: dict) -> None:
+POINT_MIN_WORDS = 12     # a story point moved past a reveal needs a sentence
+_COPULA = {"is": "be", "was": "be", "are": "be", "were": "be", "'s": "be"}
+
+
+def _toks(text: str) -> list:
+    out = []
+    for w in re.findall(r"[a-z0-9]+|'s", str(text).lower()):
+        if w in ("the", "a", "an"):
+            continue
+        out.append(_COPULA.get(w, w))
+    return out
+
+
+def _states(text: str, term: str) -> bool:
+    """Does `text` state the protected `term` - the term's words in order,
+    articles dropped and any form of the copula alike ("the hospital is a
+    set" states "the hospital was a set"; "Chen Mai ... the impostor" does
+    not state "Chen Mai is an impostor")?"""
+    t, n = _toks(text), _toks(term)
+    return bool(n) and any(t[i:i + len(n)] == n
+                           for i in range(len(t) - len(n) + 1))
+
+
+def _mark_story_points(slots: list, plan: dict,
+                       reveals: list | None = None) -> None:
     """Each spine step / holder change rides on the FIRST story slot of its
-    beat as `must_say` (+ the names that line must contain). The plan gave
+    beat as `must_say` (+ the names that line must contain) - or, when it
+    states a reveal (`reveals`: [(land_sec, hold terms)]), on the first story
+    slot after that reveal lands. The plan gave
     the beat a line for it (write_plan.repair_story_points); this tells the
     writer what that line is FOR."""
     import write_plan as WP
     pts = WP.story_points(plan)
+    story = [s for s in slots if s["role"] not in (
+        "hold", "film_speaks", "open", "intro")]
     done = set()
-    for s in slots:
+    for s in story:
         b = s.get("beat")
-        if b in pts and b not in done and s["role"] not in (
-                "hold", "film_speaks", "open", "intro"):
-            s["must_say"] = "; ".join(p["say"] for p in pts[b])
-            s["must_keys"] = [p["keys"] for p in pts[b] if p["keys"]]
-            done.add(b)
+        if b not in pts or b in done:
+            continue
+        done.add(b)
+        for p in pts[b]:
+            # a point that STATES a reveal is said once the reveal has
+            # landed: on the first story line at or after its landing
+            # (Lost in the Stars B113: "...the hospital is a set; Chen Mai is
+            # Shen Man" sat on 01:36:47, before both reveals - the slot made
+            # the writer spoil them, and REVEAL-TIMING then refused the fix)
+            land = max([t for t, holds in (reveals or [])
+                        if t > (s.get("a") or 0) + 0.5
+                        and any(_states(p["say"], h) for h in holds)]
+                       or [None], key=lambda x: -1 if x is None else x)
+            to = s
+            if land is not None:
+                after = [x for x in story if x.get("a") is not None
+                         and x["a"] >= land - 0.5]
+                # the first one with room to say it (B115's 1.6 s slots
+                # hold four words; the point needs a sentence)
+                to = next((x for x in after if (x.get("max_words") or 0)
+                           >= POINT_MIN_WORDS), after[0] if after else s)
+            to["must_say"] = "; ".join(
+                [x for x in [to.get("must_say"), p["say"]] if x])
+            if p["keys"]:
+                to.setdefault("must_keys", []).append(p["keys"])
 
 
 def derive_slots(plan: dict, project: str, pdir: Path, ab: dict) -> dict:
@@ -832,7 +880,14 @@ def derive_slots(plan: dict, project: str, pdir: Path, ab: dict) -> dict:
     _voice_budget(slots)
     _sad_budget(slots, pdir)
     _mark_after_skip(slots, order, by, project, rng)
-    _mark_story_points(slots, plan)
+    try:
+        from pipeline.draft import parse_reveal_map
+        _rv = [(r["land_sec"], list(r.get("holds") or []))
+               for r in parse_reveal_map(project)
+               if r.get("land_sec") not in (None, float("inf"))]
+    except Exception:
+        _rv = []
+    _mark_story_points(slots, plan, _rv)
     _size_holds(slots)
     # ids, and the windows as timestamps; no two windows overlap by
     # construction (contiguous splits of disjoint beats, only ever trimmed)
