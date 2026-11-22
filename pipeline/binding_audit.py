@@ -75,10 +75,15 @@ def _norm(s: str) -> str:
 
 
 def binding_audit(draft: Draft, shots: dict, pool_families: dict, names: set,
-                  resolver: Optional[dict] = None) -> "BindingResult":
+                  resolver: Optional[dict] = None,
+                  beat_chars: Optional[dict] = None) -> "BindingResult":
     """resolver: {variant: character} (schemas.load_name_resolver) - so a
-    tag that names the ACTOR or a nickname counts as that character."""
+    tag that names the ACTOR or a nickname counts as that character.
+    beat_chars: {line id: [who the beat map places in that line's beat]} -
+    a second, independent account of who is on screen (catalogue.
+    parse_beats; draft.Line carries no beat, so the caller maps it)."""
     resolver = resolver or {}
+    beat_chars = beat_chars or {}
 
     def _who(x) -> str:
         n = _norm(x)
@@ -87,6 +92,11 @@ def binding_audit(draft: Draft, shots: dict, pool_families: dict, names: set,
         return resolver.get(n, resolver.get(k, n))
 
     names = {_who(n) for n in names} | set(resolver.values())
+    # every character the tagger EVER named in this film: a character it
+    # never names (Lost in the Stars: Chen Mai, a lead, in 0 of 507 shots -
+    # it wrote "Jane" or a description for her) cannot be shown absent by
+    # the tags, only not confirmed
+    tagged = {_who(c) for sh in shots.values() for c in (sh.chars or [])}
     issues: list[BindingIssue] = []
     verified_match = 0
     verified_mismatch = 0
@@ -217,6 +227,21 @@ def binding_audit(draft: Draft, shots: dict, pool_families: dict, names: set,
                     footage_depicts=sorted(agg_depicts)))
                 verified_mismatch += 1
                 continue
+            if not subj_is_char and _norm(subj) in agg_chars:
+                # a described speaker ("the police officer in black uniform")
+                # that the tags describe on screen in the same words
+                speaker_verified += 1
+                continue
+            if not subj_is_char and (not agg_chars or any(
+                    c not in names for c in agg_chars)):
+                # a description against untagged or described faces: not
+                # confirmed, not shown wrong
+                issues.append(BindingIssue(
+                    ln.id, "UNVERIFIED", ln.narration, ctype, subj, footage,
+                    footage_chars=sorted(agg_chars),
+                    footage_depicts=sorted(agg_depicts)))
+                unverified += 1
+                continue
             if not subj_is_char:
                 # subject is not in names.json - cannot be matched against chars
                 issues.append(BindingIssue(
@@ -225,11 +250,27 @@ def binding_audit(draft: Draft, shots: dict, pool_families: dict, names: set,
                     footage_depicts=sorted(agg_depicts)))
                 verified_mismatch += 1
                 continue
-            if _norm(subj) not in agg_chars and any(
-                    c not in names for c in agg_chars):
+            if _norm(subj) not in agg_chars and (
+                    not agg_chars or _norm(subj) not in tagged
+                    or any(c not in names for c in agg_chars)):
                 # someone on screen is a description the tagger could not
-                # name ("the bald man in the black tank top" - who IS Dom):
-                # absence is not shown, only not confirmed
+                # name ("the bald man in the black tank top" - who IS Dom),
+                # no face is tagged at all, or the tagger never names this
+                # character anywhere: absence is not shown, only not confirmed
+                issues.append(BindingIssue(
+                    ln.id, "UNVERIFIED", ln.narration, ctype, subj, footage,
+                    footage_chars=sorted(agg_chars),
+                    footage_depicts=sorted(agg_depicts)))
+                unverified += 1
+                continue
+            _bc = {_who(c) for c in beat_chars.get(ln.id, [])}
+            if _norm(subj) not in agg_chars and _norm(subj) in _bc and any(
+                    c in names and c not in _bc for c in agg_chars):
+                # the beat map puts the speaker in this beat and NOT the
+                # named person the tags put on screen: the two accounts of
+                # who is in the picture disagree (Lost in the Stars: the
+                # lawyer Chen Mai tagged "Jane" in B31 and B40 - the beat map
+                # has He Fei and Chen Mai). Absence is not shown.
                 issues.append(BindingIssue(
                     ln.id, "UNVERIFIED", ln.narration, ctype, subj, footage,
                     footage_chars=sorted(agg_chars),

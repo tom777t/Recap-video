@@ -2662,8 +2662,20 @@ def _run_phase1_audits(project, pdir):
                       f"partial catalogue)")
     names = schemas.load_names(project)
     cov = coverage_audit(d, skel) if skel is not None else []
+    try:
+        from pipeline.catalogue import parse_beats as _pb
+        _bch = {b["id"]: list(b.get("chars") or [])
+                for b in _pb(project).get("beats") or []}
+        _raw = json.loads((config.project_dir(project) / "draft.json")
+                          .read_text(encoding="utf-8-sig"))
+        _beat_chars = {int(l["id"]): _bch.get(str(l.get("note") or ""), [])
+                       for l in _raw.get("lines") or []
+                       if str(l.get("id", "")).isdigit()}
+    except Exception:
+        _beat_chars = {}
     bind = binding_audit(d, shots_by_id, pool_families, names,
-                         schemas.load_name_resolver(project))
+                         schemas.load_name_resolver(project),
+                         beat_chars=_beat_chars)
     cont = continuity_check(d, shots_by_id)
     tag_issues = tag_audit(shots_by_id)
 

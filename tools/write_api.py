@@ -1213,6 +1213,98 @@ def retry_params(p: dict, msg, errs: list, text: str | None = None) -> dict:
     return q
 
 
+def audit_line_findings(out: str) -> list:
+    """The Phase-1 audit's hard items that name a line, as findings resolve
+    can route. It printed them only to the console and summed them up as
+    "Audit failed hard: ..." - a draft-wide error no reviser was ever sent
+    (Lost in the Stars: 10 [VOICE-VISUAL] lines and 2 early reveals, after
+    three resolve rounds that changed nothing)."""
+    rows = out.splitlines()
+    finds = []
+    for i, ln in enumerate(rows):
+        m = re.match(r"\s+x line (\d+) \[(\w+)\] claim=(\w+)\(subject "
+                     r"([^)]*)\)", ln)
+        if m:
+            on = next((re.search(r"chars=(\[.*\])", r).group(1)
+                       for r in rows[i + 1:i + 4]
+                       if "footage:" in r and "chars=" in r), "[]")
+            finds.append(
+                f"[VOICE-VISUAL] line {m.group(1)}: its claim is "
+                f"{m.group(3)} by {m.group(4)}, but its footage shows "
+                f"{on} ({m.group(2)}). The picture is fixed: say what it "
+                f"shows - who is SEEN - and set `claim` to that person and "
+                f"what they do; or, if the speaker IS on screen under "
+                f"another name, use that name in `claim`")
+        m = re.match(r'\s+(R\d+): "(.+)" in line (\d+) \(~[\d.]+ min\) '
+                     r"lands before (\S+)", ln)
+        if m:
+            finds.append(
+                f"[REVEAL-TIMING] line {m.group(3)} gives away {m.group(1)} "
+                f'("{m.group(2)}") before it lands at {m.group(4)}. Keep '
+                f"what the line shows; drop the giveaway - the reveal "
+                f"belongs to its own beat, and saying it early spoils it")
+    return finds
+
+
+def runtime_findings(project: str, errs: list) -> list:
+    """[RUNTIME-BAND] blocks the whole draft and names no line: as one
+    finding per act over its plan word budget, naming that act's lines that
+    run over their slot (or all its narrated lines), with how many words to
+    cut. Without it resolve stopped on "draft-wide gate error(s) name no
+    line" with the video three minutes over the ceiling."""
+    if not any("[RUNTIME-BAND]" in e and ("BLOCK" in e or "ceiling" in e)
+               for e in errs):
+        return []
+    import write_plan as WP
+    import write_slots as WS
+    pdir = config.project_dir(project)
+    try:
+        plan = json.loads(_read(pdir / "plan.json"))
+        draft = json.loads(_read(pdir / "draft.json"))
+    except (OSError, ValueError, SystemExit):
+        return []
+    budgets = {int(a["act"]): int(a.get("word_budget") or 0)
+               for a in plan.get("acts") or []}
+    owner = act_of_lines(pdir)
+    slot_of = slots_of_lines(pdir, owner)
+    _lo, top = WP.word_band(project)
+    lines = [l for l in draft.get("lines") or []
+             if str(l.get("narration") or "").strip()]
+    total = sum(len(str(l["narration"]).split()) for l in lines)
+    by_act: dict = {}
+    for l in lines:
+        k = owner.get(l["id"], (None,))[0]
+        if k is not None:
+            by_act.setdefault(k, []).append(l)
+    over = {k: sum(len(str(l["narration"]).split()) for l in ls)
+            - budgets.get(k, 0) for k, ls in by_act.items()}
+    need = max(total - int((top or total) * 0.95),
+               sum(v for v in over.values() if v > 0))
+    pos = {k: v for k, v in over.items() if v > 0} or {
+        k: sum(len(str(l["narration"]).split()) for l in ls)
+        for k, ls in by_act.items()}
+    out = []
+    for k, v in sorted(pos.items()):
+        cut = int(round(need * v / max(1, sum(pos.values()))))
+        if cut < 5:
+            continue
+        ls = by_act[k]
+        ids = [str(l["id"]) for l in ls if str(l["id"]) in slot_of and any(
+            "words, the slot is" in m for m in WS.line_deviations(
+                l, slot_of[str(l["id"])]))] or [str(l["id"]) for l in ls]
+        have = sum(len(str(l["narration"]).split()) for l in ls)
+        out.append({"artifact": None, "kind": "gate", "gate": True,
+                    "ids": ids, "text": (
+            f"[RUNTIME-BAND] the video runs over its {getattr(config, 'RECAP_RUNTIME_MAX_MINUTES', 19):.0f}-minute "
+            f"ceiling. This act has {have} words against a budget of "
+            f"{budgets.get(k, '?')}: cut about {cut} words across the lines "
+            f"named here (each line's slot gives its word range). Cut "
+            f"connective tissue - travel, restated setup, who-says-what "
+            f"padding - keep every event, name and quote; do not merge or "
+            f"drop a line")})
+    return out
+
+
 def run_gates(project: str) -> tuple:
     """(exit code, [finding strings]) from `recap.py draft`, unwrapped."""
     env = dict(os.environ, COLUMNS="100000", PYTHONIOENCODING="utf-8")
@@ -1241,6 +1333,7 @@ def run_gates(project: str) -> tuple:
                              f"{m_.group(2).strip()} - the narration is "
                              f"longer than its footage and the picture would "
                              f"freeze: say it in fewer words")
+    finds += audit_line_findings(out)
     for ln in out.splitlines():
         if ln.startswith("draft.json has problems:"):
             on = True
@@ -1704,7 +1797,7 @@ def gate_findings(project: str, wide: list | None = None) -> list:
     errors that name NO line go into `wide` (if given): resolve cannot route
     them, and must not call the draft clean while they stand."""
     _rc, errs = run_gates(project)
-    out = []
+    out = runtime_findings(project, errs)
     for e in errs:
         if any(e.startswith(f"[{g}]") for g in REVIEW_GATES + ("SAME-POINT",)):
             continue
@@ -1830,11 +1923,14 @@ def sync_holds(project: str, pdir: Path) -> list:
         elif (sl.get("role") not in ("hold", "film_speaks", "intro")
               and not ln.get("parts") and not ln.get("montage")
               and ln.get("film_speaks_seconds") is None):
-            # a narrated line whose slot was TRIMMED (a hold took the start
-            # of its window): follow the trim when the words still fit
+            # a narrated line whose slot lost the START of its window to a
+            # hold: follow it when the words still fit. Only that - a slot
+            # whose END moved (a new word budget trims windows) leaves the
+            # written line's picture alone
             w, sw = _win(ln), _win(sl)
-            if not w or not sw or sw == w or sw[0] < w[0] - 1e-3 \
-                    or sw[1] > w[1] + 1e-3 or not _fits(ln, *sw):
+            if not w or not sw or not (sw[0] > w[0] + 1e-3
+                                       and abs(sw[1] - w[1]) < 1e-3) \
+                    or not _fits(ln, *sw):
                 continue
             want = {"clip_start": sl.get("clip_start"),
                     "clip_end": sl.get("clip_end")}
@@ -2000,7 +2096,12 @@ def cmd_resolve(a, client) -> int:
                     keep.append(ln)             # apply_resolution rejects it
                     continue
                 sl = slot_of.get(lid)
-                fields = EDIT_FIELDS
+                # the claim says who the footage shows; a reviser may set it
+                # only where a [VOICE-VISUAL] finding says it is wrong
+                extra = ("claim",) if any(
+                    "[VOICE-VISUAL]" in f["text"] for f in groups[k]
+                    if lid in f["ids"]) else ()
+                fields = EDIT_FIELDS + extra
                 if sl is not None and not any(
                         any(g in f["text"] for g in LABEL_FINDINGS)
                         for f in groups[k] if lid in f["ids"]):
@@ -2008,9 +2109,22 @@ def cmd_resolve(a, client) -> int:
                     # rewrites, rest share 25% -> 39%) relabels lines it was
                     # only asked to reword; labels change only for a finding
                     # ABOUT labels
-                    fields = ("narration_silence_seconds",)
+                    fields = ("narration_silence_seconds",) + extra
                 fe = {f: ln[f] for f in fields
                       if f in ln and ln[f] != by_id[lid].get(f)}
+                if isinstance(fe.get("claim"), dict):
+                    # who / what, never whether the picture is checked: a
+                    # reviser must not switch the audit off for its line
+                    fe["claim"] = dict(
+                        {k_: v_ for k_, v_ in fe["claim"].items()
+                         if k_ in ("type", "subject")},
+                        **({"requires_visual": by_id[lid]["claim"][
+                            "requires_visual"]} if isinstance(
+                            by_id[lid].get("claim"), dict) and
+                            "requires_visual" in by_id[lid]["claim"]
+                            else {}))
+                elif "claim" in fe:
+                    fe.pop("claim")
                 new = dict(by_id[lid], **fe)
                 if "narration" in ln:
                     new["narration"] = " ".join(str(ln["narration"]).split())
@@ -2018,7 +2132,7 @@ def cmd_resolve(a, client) -> int:
                     # the slot binds a rewrite exactly as it bound the first
                     # write: code's labels, and no NEW deviation from it
                     new = WS.code_labels(new, sl)
-                    fe = {f: new[f] for f in EDIT_FIELDS
+                    fe = {f: new[f] for f in EDIT_FIELDS + extra
                           if f in new and new[f] != by_id[lid].get(f)}
                     broke = WS.new_deviations(by_id[lid], new, sl)
                     still = WS.unfixed_deviations(by_id[lid], new, sl)

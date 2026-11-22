@@ -49,7 +49,7 @@ ROLES = ("open", "intro", "action", "quote", "reaction", "bridge", "outro",
 # Bumped whenever derive_slots changes what it builds: a plan.json whose slots
 # carry an older version is re-derived (write_api.cmd_draft), so a fix here
 # reaches a project that already has a plan without re-buying the plan.
-SLOTS_VERSION = 17     # 17: a short hold no longer grows over the next window
+SLOTS_VERSION = 18     # 18: story slots share the act's word budget (17: holds)
 
 
 def story_mode() -> bool:
@@ -738,6 +738,7 @@ def derive_slots(plan: dict, project: str, pdir: Path, ab: dict) -> dict:
     j = 0          # the cycle counts STORY lines; the open slots carry theirs
     _open_bands = (((opening or {}).get("shape") or {}).get("bands")
                    or ("medium", "short", "medium"))
+    scale = _act_scale(narrated, plan) if story_mode() else {}
     for i, s in enumerate(narrated):
         if s["role"] == "open":
             n_open = sum(1 for x in narrated[:i] if x["role"] == "open")
@@ -746,6 +747,12 @@ def derive_slots(plan: dict, project: str, pdir: Path, ab: dict) -> dict:
             # capacity only: as many words as the footage holds, as few as
             # the story needs. No cycle, no debt, no punch / sweep shape.
             cap = budget_words(s["z"] - s["a"])
+            if s["act"] in scale:
+                full = min(BANDS["free"][1], cap)
+                cap = int(full * scale[s["act"]])
+                if s["role"] == "quote":
+                    # the quote and its attribution still fit
+                    cap = min(full, max(cap, _wc(s.get("quote")) + 2))
             s["band"] = "free"
             s["max_words"] = int(max(1, min(BANDS["free"][1], cap)))
             s["min_words"] = int(min(BANDS["free"][0], s["max_words"]))
@@ -851,6 +858,41 @@ def derive_slots(plan: dict, project: str, pdir: Path, ab: dict) -> dict:
             "open_len": ((opening or {}).get("shape") or {}).get("n_lines"),
             "closing_shape": ((opening or {}).get("shape") or
                               {}).get("closing")}
+
+
+def _act_scale(narrated: list, plan: dict) -> dict:
+    """{act: factor} that shrinks story slots' word capacity so the act's
+    slots together hold its plan word budget, not their footage's capacity.
+
+    Story mode gave each slot as many words as its footage holds; Lost in the
+    Stars' 225 slots held 7,691 words against a plan of 3,550, the writers
+    wrote 4,436 (every act over its budget, 7-45%), and [RUNTIME-BAND]
+    blocked the draft at 22.1 finished minutes. Built right instead: the
+    act's budget, less what its intro / outro / open slots carry, is shared
+    over the rest in proportion to their footage (a quote keeps room for
+    itself). Never above 1 - a budget bigger than the footage is the
+    footage's limit."""
+    from pipeline.preflight import budget_words
+    budgets = {int(a["act"]): int(a.get("word_budget") or 0)
+               for a in plan.get("acts") or []
+               if str(a.get("act", "")).isdigit()}
+    caps: dict = {}
+    fixed: dict = {}
+    for s in narrated:
+        k = s.get("act")
+        if s["role"] in ("open", "intro", "outro"):
+            fixed[k] = fixed.get(k, 0) + {"intro": INTRO_WORDS[1],
+                                          "outro": OUTRO_WORDS[1]}.get(
+                s["role"], BANDS["medium"][1])
+        else:
+            caps[k] = caps.get(k, 0) + min(BANDS["free"][1], budget_words(
+                s["z"] - s["a"]))
+    out = {}
+    for k, c in caps.items():
+        b = budgets.get(k)
+        if b and c > 0:
+            out[k] = max(0.2, min(1.0, (b - fixed.get(k, 0)) / c))
+    return out
 
 
 def _size_holds(slots: list) -> None:

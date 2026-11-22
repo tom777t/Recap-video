@@ -51,12 +51,20 @@ def _names():
          "actor": "Ludacris"},
         {"character": "Roman Pearce", "actor": "Tyrese Gibson"},
         {"character": "Letty Ortiz", "actor": "Michelle Rodriguez"},
+        {"character": "Li Muzi", "actor": "Kay Huang"},
     ]}), encoding="utf-8")
     return schemas.load_names(PROJ), schemas.load_name_resolver(PROJ)
 
 
-def _run(chars_by_shot, subject, start="00:00:10.000", end="00:00:20.000"):
+def _run(chars_by_shot, subject, start="00:00:10.000", end="00:00:20.000",
+         elsewhere=(), beat_chars=None):
+    """`elsewhere`: chars of shots far outside the line's window - who the
+    tagger names somewhere in the film."""
     shots = {}
+    for j, ch in enumerate(elsewhere):
+        sid = f"clip:00:10:{j:02d}.000"
+        shots[sid] = Shot(id=sid, source="shots", time_start=600.0 + j,
+                          time_end=600.5 + j, chars=ch, depicts=["dialogue"])
     t = 10.0
     for i, ch in enumerate(chars_by_shot):
         sid = f"clip:00:00:{int(t):02d}.000"
@@ -66,16 +74,60 @@ def _run(chars_by_shot, subject, start="00:00:10.000", end="00:00:20.000"):
     ln = Line(id=1, narration="He says it.", clip_start=start, clip_end=end,
               claim=Claim(type="speech", subject=subject))
     names, res = _names()
-    r = binding_audit(Draft(project=PROJ, lines=[ln]), shots, {}, names, res)
+    r = binding_audit(Draft(project=PROJ, lines=[ln]), shots, {}, names, res,
+                      beat_chars=beat_chars)
     return r
 
 
 def main() -> int:
     cases = []
-    r = _run([["dominic toretto"], ["roman pearce"]], "Letty Ortiz")
+    r = _run([["dominic toretto"], ["roman pearce"]], "Letty Ortiz",
+             elsewhere=[["letty ortiz"]])
     cases.append(("KNOWN-BAD-STILL-CAUGHT",
                   [i.issue for i in r.issues] == ["SPEAKER_ABSENT"],
                   f"all named, Letty absent -> {[i.issue for i in r.issues]}"))
+    # Lost in the Stars: the tagger never named Chen Mai (0 of 507 shots) -
+    # it wrote another woman's name for her; the tags cannot show her absent
+    r = _run([["dominic toretto"], ["roman pearce"]], "Letty Ortiz")
+    cases.append(("NEVER-TAGGED-UNVERIFIED",
+                  [i.issue for i in r.issues] == ["UNVERIFIED"]
+                  and r.verified_mismatch == 0,
+                  f"a speaker the tagger never names -> "
+                  f"{[i.issue for i in r.issues]}"))
+    r = _run([[]], "Letty Ortiz", end="00:00:14.000",
+             elsewhere=[["letty ortiz"]])
+    cases.append(("NO-FACE-UNVERIFIED",
+                  [i.issue for i in r.issues] == ["UNVERIFIED"],
+                  f"no face tagged in the window -> "
+                  f"{[i.issue for i in r.issues]}"))
+    r = _run([["the police officer in black uniform", "dominic toretto"]],
+             "the police officer in black uniform", end="00:00:14.000")
+    r2 = _run([["the man in the grey shirt"]], "the woman in the red dress",
+              end="00:00:14.000")
+    cases.append(("DESCRIBED-SPEAKER",
+                  not r.issues and r.speaker_verified == 1
+                  and [i.issue for i in r2.issues] == ["UNVERIFIED"],
+                  f"described speaker on screen -> {[i.issue for i in r.issues]}"
+                  f"; against another description -> "
+                  f"{[i.issue for i in r2.issues]}"))
+    # Lost in the Stars B31: the beat map has He Fei and Chen Mai; the tags
+    # say "He Fei, Jane" - the lawyer named as another woman
+    r = _run([["dominic toretto", "roman pearce"]], "Letty Ortiz",
+             elsewhere=[["letty ortiz"]],
+             beat_chars={1: ["Dominic Toretto", "Letty Ortiz"]})
+    r2 = _run([["dominic toretto", "roman pearce"]], "Letty Ortiz",
+              elsewhere=[["letty ortiz"]],
+              beat_chars={1: ["Dominic Toretto", "Roman Pearce"]})
+    cases.append(("BEAT-MAP-DISAGREES",
+                  [i.issue for i in r.issues] == ["UNVERIFIED"]
+                  and [i.issue for i in r2.issues] == ["SPEAKER_ABSENT"],
+                  f"tags name someone the beat map does not place here -> "
+                  f"{[i.issue for i in r.issues]}; both accounts agree she "
+                  f"is not there -> {[i.issue for i in r2.issues]}"))
+    r = _run([["li muzi"]], "Muzi", end="00:00:14.000")
+    cases.append(("GIVEN-NAME-RESOLVES",
+                  not r.issues and r.speaker_verified == 1,
+                  f"'Muzi' for Li Muzi -> {[i.issue for i in r.issues]}"))
     r = _run([["roman pearce"], ["letty ortiz"]], "Letty Ortiz")
     cases.append(("LATER-SHOT-COUNTS", not r.issues and r.speaker_verified == 1,
                   f"Letty in the 2nd shot of the window -> issues "

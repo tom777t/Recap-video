@@ -17,3 +17,13 @@ change them. A rewrite that breaks its slot is NOT saved and comes back to you.
 
 A finding whose kind is `gate` comes from the draft's own checks, not from a
 reader: fix the lines it names. It needs no response entry.
+
+- `[RUNTIME-BAND]`: the video is too long. Shorten the named lines to their
+  slot's word range and cut about the number of words it asks, from
+  connective tissue; keep every event, name and quote.
+- `[VOICE-VISUAL]`: the line's `claim` says someone is seen or heard who is
+  not in its footage. Return the line with a corrected `claim` (type and
+  subject: who the picture shows), rewording it if needed. Only on such a
+  finding may `claim` change.
+- `[REVEAL-TIMING]`: the line names a twist before its beat. Keep what it
+  shows, drop the giveaway.

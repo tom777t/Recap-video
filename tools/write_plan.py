@@ -671,7 +671,9 @@ RESOLVE_SCHEMA = {
         "lines": {"type": "array", "items": {"type": "object", "properties": {
             "id": {"type": "integer"}, "narration": {"type": "string"},
             "delivery": {"type": "string"}, "payload": {"type": "string"},
-            "narration_silence_seconds": {"type": "number"}},
+            "narration_silence_seconds": {"type": "number"},
+            # only taken for a line a [VOICE-VISUAL] finding names
+            "claim": {"type": "object"}},
             "required": ["id", "narration"], "additionalProperties": False}},
         "responses": {"type": "array", "items": {"type": "object",
                                                   "properties": {

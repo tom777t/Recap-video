@@ -733,6 +733,11 @@ def load_name_resolver(project: str) -> dict:
         for al in aliases:
             add(al, canon)
         first.setdefault(canon.split()[0], set()).add(canon) if canon else None
+        # the GIVEN name of a surname-first name: narration says "Muzi" for
+        # Li Muzi as it says "Brian" for Brian O'Conner (Lost in the Stars:
+        # four speech lines "unnamed"). Same rule - only when unique.
+        if canon and len(canon.split()) >= 2:
+            first.setdefault(canon.split()[-1], set()).add(canon)
     for f, cs in first.items():
         if len(cs) == 1 and len(f) > 3:
             add(f, next(iter(cs)))

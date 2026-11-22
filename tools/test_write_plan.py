@@ -654,6 +654,68 @@ def test_unwatchable_credits():
                 f"outro at {a:.1f}-{b:.1f}; {acts}")
 
 
+def test_resolve_claim_only_on_voice_visual():
+    """Lost in the Stars line 76: a speech claim whose speaker is not in the
+    footage ([VOICE-VISUAL]) - the reviser could reword the line but not the
+    claim, so no round could fix it. Resolve now takes a new claim (type and
+    subject) for a line a [VOICE-VISUAL] finding names, never its
+    requires_visual, and ignores a claim on any other line."""
+    _resolve_fixture()
+    d = PDIR / "draft.json.d"
+    act = _j(d / "act1.json")
+    for ln in act["lines"]:
+        ln["claim"] = {"type": "speech", "subject": "Letty Ortiz",
+                       "requires_visual": True}
+    (d / "act1.json").write_text(json.dumps(act))
+    W._assemble(PROJ)
+    _resolve_fixture_artifacts()
+    real = W.gate_findings
+    rounds = []
+
+    def fake(project, wide=None):
+        rounds.append(1)
+        return [{"artifact": None, "kind": "gate", "gate": True, "ids": ["3"],
+                 "text": "[VOICE-VISUAL] line 3: its claim is speech by "
+                         "letty ortiz, but its footage shows ['dominic "
+                         "toretto'] (SPEAKER_ABSENT)."}] if len(rounds) == 1 \
+            else []
+    W.gate_findings = fake
+
+    def reply(cid, p):
+        body = p["messages"][0]["content"]
+        keys = [x.split(" | ")[0] for x in
+                body.split("# OPEN FINDINGS")[1].strip().splitlines()
+                if x.startswith("F")]
+        new_claim = {"type": "action", "subject": "Dominic Toretto",
+                     "requires_visual": False}
+        return msg({"lines": [
+            {"id": 3, "narration": "Dom floors it down the empty street.",
+             "claim": new_claim},
+            {"id": 4, "narration": "The race is set for midnight now.",
+             "claim": new_claim}],
+            "responses": [{"key": k, "status": "ANSWERED",
+                           "text": "the line already names who and where, "
+                                   "so the reading does not hold"}
+                          for k in keys]})
+    try:
+        c = Client(None, reply)
+        rc, out = _run(c, "resolve", "--project", PROJ)
+    finally:
+        W.gate_findings = real
+    t = {str(l["id"]): l for l in _j(PDIR / "draft.json")["lines"]}
+    a1 = {l["id"]: l for l in _j(d / "act1.json")["lines"]}
+    c3, c4 = t["3"].get("claim") or {}, t["4"].get("claim") or {}
+    ok = (c3.get("type") == "action" and c3.get("subject") == "Dominic Toretto"
+          and c3.get("requires_visual") is True
+          and c4.get("type") == "speech" and c4.get("subject") == "Letty Ortiz"
+          and t["4"]["narration"].startswith("The race is set")
+          and any((l.get("claim") or {}).get("subject") == "Dominic Toretto"
+                  for l in a1.values()))
+    return ok, (f"line 3 claim -> {c3} (requires_visual kept); line 4 "
+                f"(no VOICE-VISUAL finding) keeps {c4}" if ok else
+                f"rc {rc}; line 3 {c3}; line 4 {c4}\n{out[-1500:]}")
+
+
 TESTS = {
     "PLAN-VALIDATES":    test_plan_validates,
     "CONTOUR-REPAIR":    test_contour_repair,
@@ -666,6 +728,7 @@ TESTS = {
     "RESOLVE-STOPS":     test_resolve_stops,
     "UNWATCHABLE-FIX":   test_unwatchable_fix,
     "UNWATCHABLE-CREDITS": test_unwatchable_credits,
+    "RESOLVE-CLAIM-VOICE-VISUAL": test_resolve_claim_only_on_voice_visual,
     "RUNPS1-HALT":       test_runps1_halt,
 }
 
