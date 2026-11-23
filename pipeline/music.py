@@ -82,6 +82,29 @@ def bed_file(pdir: Path) -> Path | None:
     return None
 
 
+def plan_note(pdir: Path) -> tuple:
+    """(level, text): what the render will do for music, said BEFORE it runs.
+
+    It used to say "rendering VOICE-ONLY (no background music)" whenever the
+    project's music/ folder was empty - but the render then picks the cues
+    from the channel library itself (music_library.ensure_cues), so the line
+    was wrong exactly when the library was going to do its job (Lost in the
+    Stars). The bed is the owner's choice and is never picked."""
+    import config as _c
+    bed = bed_file(pdir) or legacy_music(pdir)
+    cues = cue_files(pdir)
+    auto = bool(getattr(_c, "MUSIC_LIBRARY_AUTO", True))
+    if not cues and not auto and not bed and not ending_file(pdir):
+        return ("warn", "No music: no bed, no cues, MUSIC_LIBRARY_AUTO off "
+                        "- rendering VOICE-ONLY.")
+    parts = [f"bed {bed.name}" if bed else
+             f"NO BED - put your own at {Path(pdir).name}/music/bed.mp3 "
+             f"(the library never picks a bed)",
+             f"{sum(len(v) for v in cues.values())} cue(s) in music/cues"
+             if cues else "cues picked from the channel library by the render"]
+    return ("warn" if not bed else "info", "Music: " + "; ".join(parts) + ".")
+
+
 def legacy_music(pdir: Path) -> Path | None:
     for ext in _AUDIO_EXTS:
         p = pdir / f"music{ext}"

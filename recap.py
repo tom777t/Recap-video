@@ -505,14 +505,9 @@ def cmd_render(args):
             # when none of them is there either (Furious 7: this line said
             # VOICE-ONLY over a full music/ folder)
             from pipeline import music as _m
-            if (_m.bed_file(pdir) or _m.cue_files(pdir)
-                    or _m.ending_file(pdir)):
-                console.print("[dim]Music: music/ folder found (bed / cues / "
-                              "ending) - the render mixes it.[/]")
-            else:
-                console.print("[yellow]No --music, no music.* and no music/ "
-                              "folder in the project dir - rendering "
-                              "VOICE-ONLY (no background music).[/]")
+            _lvl, _txt = _m.plan_note(pdir)
+            console.print(f"[yellow]{_txt}[/]" if _lvl == "warn"
+                          else f"[dim]{_txt}[/]")
 
     # captions: default from config (OFF), opt in with --captions, off with
     # --no-captions (explicit override wins).

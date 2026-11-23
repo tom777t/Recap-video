@@ -326,12 +326,35 @@ def t_auto_pick():
         shutil.rmtree(tmp, ignore_errors=True)
 
 
+def t_plan_note():
+    """Lost in the Stars: "rendering VOICE-ONLY (no background music)" was
+    printed for an empty music/ folder - and the render then picked its cues
+    from the library. The note now says what will happen: cues from the
+    library, and the bed missing (the owner's own, never picked)."""
+    from pipeline import music as MU
+    tmp = Path(tempfile.mkdtemp(prefix="mn_"))
+    try:
+        pdir = tmp / "film"
+        pdir.mkdir()
+        lvl, txt = MU.plan_note(pdir)
+        ok1 = (lvl == "warn" and "VOICE-ONLY" not in txt and "library" in txt
+               and "NO BED" in txt)
+        (pdir / "music").mkdir()
+        (pdir / "music" / "bed.mp3").write_bytes(b"x")
+        lvl2, txt2 = MU.plan_note(pdir)
+        ok2 = lvl2 == "info" and "bed bed.mp3" in txt2
+        return ok1 and ok2, (f"empty: {txt[:90]} | with bed: {txt2[:60]}")
+    finally:
+        shutil.rmtree(tmp, ignore_errors=True)
+
+
 TESTS = [("CATALOGUE-SANE", t_catalogue), ("FETCH-URLS", t_fetch),
          ("PICK-FILLS", t_pick_fills), ("NO-REPEAT", t_no_repeat),
          ("OLD-KEPT", t_old_kept), ("MISSING-SAID", t_missing),
          ("DESCRIBED", t_described), ("FITS-THE-FILM", t_fits_the_film),
          ("AUTO-PICK", t_auto_pick),
-         ("PLACED-BY-SCENE", t_placed_by_scene)]
+         ("PLACED-BY-SCENE", t_placed_by_scene),
+         ("PLAN-NOTE", t_plan_note)]
 
 if __name__ == "__main__":
     fails = 0
