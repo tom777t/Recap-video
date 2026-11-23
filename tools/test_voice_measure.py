@@ -11,6 +11,9 @@ audio the stage had just made. calibration.ensure_measured does it there.
   VALID-KEPT    a valid profile is not re-measured
   TOO-FEW       fewer than VOICE_AUTO_MEASURE_MIN lines -> not measured
   BUMP-EXCLUDED rate-bumped lines and film-speaks units are not samples
+  MEASURE-FIRST recap.py measures before any voice check reads the profile
+                (Lost in the Stars: measured, then VOICE-CUES still said "no
+                measured voice profile" - it had run first)
 
     python tools/test_voice_measure.py
 """
@@ -90,6 +93,15 @@ def main() -> int:
         C._STALE_SAID.clear()
         shutil.rmtree(pdir, ignore_errors=True)
         shutil.rmtree(tmp, ignore_errors=True)
+    # every voice check reads the profile: it is measured before the first
+    src = (ROOT / "recap.py").read_text(encoding="utf-8")
+    body = src[src.index("def _voice_ok("):]
+    body = body[:body.index("\n    narration = _synth()")]
+    order = [body.find(x) for x in ("_measure_profile()", "audit_cues(",
+                                    "rate_drift(")]
+    res.append(("MEASURE-FIRST", -1 not in order and order == sorted(order),
+                "the voice stage measures before VOICE-CUES and RATE-DRIFT "
+                "read the profile"))
     bad = 0
     for name, ok, msg in res:
         print(f'{"PASS" if ok else "FAIL"}  {name:<14} {msg}')

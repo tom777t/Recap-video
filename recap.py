@@ -327,6 +327,10 @@ def cmd_voice(args):
         together at this stage and the render only assembles."""
         from pipeline import voice_check as _vc
         problems = []
+        # FIRST: every check below reads the voice profile (VOICE-CUES too -
+        # Lost in the Stars measured it, then was still told "no measured
+        # voice profile" by the cue audit that had already run)
+        _measure_profile()
         try:
             from pipeline.tts import DEFAULT_PROVIDER
             from pipeline.tts_providers import all_providers
@@ -337,7 +341,6 @@ def cmd_voice(args):
                              + _vc.rate_band_violations(_prov)]
         except Exception as e:      # an empty list is the PASS value
             problems.append(f"[VOICE-CUES] could not run: {e}")
-        _measure_profile()
         _ok, _msg = _vc.rate_drift()
         if not _ok:
             problems.append(f"[VOICE-RATE-DRIFT] {_msg}")
