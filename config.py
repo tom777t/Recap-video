@@ -1562,6 +1562,10 @@ REVIEW_API_MODEL = "claude-sonnet-5-5"
 # (tools/review_api.reread) before the draft is called clean; its findings
 # go back to resolve. Lines rewritten after the review were re-signed unread.
 REREAD_AFTER_RESOLVE = True
+# The voice stage measures the voice profile on its own fresh narration when
+# none is valid (a delivery-mapping change voids it); rate_drift then judges.
+VOICE_AUTO_MEASURE = True
+VOICE_AUTO_MEASURE_MIN = 30
 
 # --- WRITE_MODEL_*: the writing stages through the API (tools/write_api.py) --
 # One key per stage so a cheaper or stronger model can be tried per stage and

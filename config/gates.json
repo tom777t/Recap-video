@@ -1042,6 +1042,14 @@
     "what": "",
     "severity_source": "inferred"
   },
+  "VOICE-PROFILE": {
+    "severity": "report",
+    "modules": [
+      "recap.py"
+    ],
+    "what": "voice stage measured a void voice profile on its own fresh narration (calibration.ensure_measured); VOICE-RATE-DRIFT then judges it",
+    "severity_source": "set"
+  },
   "VOICE-RATE-DRIFT": {
     "severity": "error",
     "modules": [

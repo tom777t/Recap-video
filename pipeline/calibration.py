@@ -447,6 +447,39 @@ def calibrate(project: str, voice_key: str, ffprobe: Optional[str] = None,
     return stats
 
 
+def ensure_measured(project: str, draft: dict, pdir, ffprobe=None):
+    """No valid production profile (a delivery-mapping change voids it on
+    purpose) -> measure it on the project's narration, which the voice stage
+    has just synthesized for the current text. That is the re-measurement
+    [VOICE-RATE-DRIFT] asks for, with the audio in hand: Lost in the Stars
+    stopped at the voice stage with 214 fresh lines on disk, told to run
+    `python -m pipeline.calibration` by hand. The measured pace is then JUDGED
+    by voice_check.rate_drift like any other - measuring is not passing.
+    Lines with a rate_bump, film-speaks units and lines without audio are
+    left out; fewer than VOICE_AUTO_MEASURE_MIN usable lines -> not measured.
+    Returns calibrate()'s stats, {"skipped": why}, or None (nothing to do)."""
+    if not getattr(config, "VOICE_AUTO_MEASURE", True):
+        return None
+    if production_profile().is_measured:
+        return None
+    ids = {l["id"] for l in draft.get("lines") or []
+           if str(l.get("narration") or "").strip()
+           and not l.get("rate_bump")
+           and l.get("film_speaks_seconds") is None
+           and (Path(pdir) / "narration" / f"line_{l['id']:03d}.mp3").exists()}
+    need = int(getattr(config, "VOICE_AUTO_MEASURE_MIN", 30))
+    if len(ids) < need:
+        return {"skipped": f"{len(ids)} line(s) with fresh audio - fewer "
+                           f"than {need}, the voice profile stays unmeasured"}
+    try:
+        st = calibrate(project, production_voice_key(), ffprobe=ffprobe,
+                       only_ids=ids)
+    except Exception as e:
+        return {"skipped": f"not measured: {e}"}
+    _STALE_SAID.clear()
+    return st
+
+
 def _find_ffprobe() -> str:
     cand = getattr(config, "FFPROBE_PATH", None)
     if cand and os.path.exists(cand):

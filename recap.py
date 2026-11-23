@@ -40,6 +40,7 @@ from __future__ import annotations
 
 import argparse
 import sys
+from pathlib import Path
 
 # UTF-8 ON STDOUT BEFORE ANYTHING PRINTS.
 #
@@ -305,6 +306,17 @@ def cmd_voice(args):
         stale = _pf.stale_audio(d, pdir)
         return _pf.capacity_findings(d, narration, ffp, skip_ids=stale)
 
+    def _measure_profile() -> None:
+        from pipeline import calibration as _cal
+        st = _cal.ensure_measured(args.project, _reload(), pdir, ffprobe=ffp)
+        if st and st.get("skipped"):
+            console.print(f"[yellow][VOICE-PROFILE] {st['skipped']}[/]")
+        elif st:
+            console.print(
+                f"[green][VOICE-PROFILE][/] measured on {st['samples']} "
+                f"line(s) of this narration: {st['words_per_sec'] * 60:.0f} "
+                f"WPM, written to config/voice_profiles.json")
+
     def _voice_ok(narration) -> bool:
         """The render's three ONE-NARRATOR checks, run HERE and ALL of them.
 
@@ -325,6 +337,7 @@ def cmd_voice(args):
                              + _vc.rate_band_violations(_prov)]
         except Exception as e:      # an empty list is the PASS value
             problems.append(f"[VOICE-CUES] could not run: {e}")
+        _measure_profile()
         _ok, _msg = _vc.rate_drift()
         if not _ok:
             problems.append(f"[VOICE-RATE-DRIFT] {_msg}")
