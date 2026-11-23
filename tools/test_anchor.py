@@ -158,11 +158,44 @@ def t_render_shares():
         else f"missing in render.py: {miss}"
 
 
+def t_rebind_no_overlap():
+    """Lost in the Stars: --apply moved line 18 onto 435.4 s while line 17's
+    WINDOW ran to 437.2 s (only its spoken part ended earlier), and the voice
+    stage stopped on [WINDOW-OVERLAP]. A rebind keeps clear of every other
+    window - a longer one before, a hold after."""
+    pdir = _scratch("_selftest_anchor_rb2", [
+        {"id": 2, "narration": "He waits by the gate.",
+         "clip_start": "00:02:00.000", "clip_end": "00:02:19.500"},
+        {"id": 3, "narration": '"We will take the house and everything."',
+         "clip_start": "00:02:06.000", "clip_end": "00:02:12.000"},
+        {"id": 5, "narration": "", "narration_silence_seconds": 2.0,
+         "clip_start": "00:02:25.000", "clip_end": "00:02:27.000"},
+        {"id": 4, "narration": "The car pulls away.",
+         "clip_start": "00:02:40.000", "clip_end": "00:02:50.000"}])
+    try:
+        code, out = _run("--project", "_selftest_anchor_rb2", "--apply")
+        d = json.loads((pdir / "draft.json").read_text(encoding="utf-8"))
+    finally:
+        shutil.rmtree(pdir, ignore_errors=True)
+    def sec(x):
+        return sum(float(v) * k for v, k in zip(x.split(":"), (3600, 60, 1)))
+    w = {x["id"]: (sec(x["clip_start"]), sec(x["clip_end"]))
+         for x in d["lines"]}
+    s3, e3 = w[3]
+    clash = [i for i in (2, 5, 4) if min(e3, w[i][1]) - max(s3, w[i][0])
+             > 1e-3]
+    ok = "REBOUND 1" in out and s3 <= 140.5 <= e3 and not clash
+    return ok, (f"line 3 rebound to {s3:.1f}-{e3:.1f}s, clear of line 2's "
+                f"window (to 139.5) and the hold (145-147)" if ok else
+                f"line 3 {s3:.1f}-{e3:.1f}, overlaps {clash}; {out[-300:]}")
+
+
 TESTS = [("QUOTE-FOUND", t_quote), ("PARA-FOUND", t_para),
          ("NO-DIALOGUE", t_no_dialogue), ("PLACE-INSIDE", t_place_inside),
          ("PLACE-NEIGHBOURS", t_place_neighbours),
          ("PLACE-UNREACHABLE", t_unreachable),
          ("REPORT-STATES", t_report_states), ("REBIND", t_rebind),
+         ("REBIND-NO-OVERLAP", t_rebind_no_overlap),
          ("RENDER-SHARES", t_render_shares)]
 
 if __name__ == "__main__":

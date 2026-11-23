@@ -69,6 +69,13 @@ def analyse(pdir: Path, before: bool = False, rebind: bool = False) -> dict:
     gap = float(getattr(config, "GAP_BETWEEN_LINES", 0.18))
     lines = [ln for ln in draft["lines"] if ln.get("clip_start")
              and not ln.get("pool") and ln.get("narration")]
+    # EVERY bound window - holds and film-speaks units too: a rebind may not
+    # touch any of them. Bounding by the previous line's SHOWN end let line
+    # 18 of Lost in the Stars move onto 435.4 s while line 17's window ran
+    # to 437.2 s ([WINDOW-OVERLAP] at the voice stage).
+    wins = {id(x): (_ts(x["clip_start"]), _ts(x["clip_end"]))
+            for x in draft["lines"]
+            if x.get("clip_start") and x.get("clip_end") and not x.get("pool")}
     rows, prev_end = [], None
     for k, ln in enumerate(lines):
         cs, ce = _ts(ln["clip_start"]), _ts(ln["clip_end"])
@@ -89,13 +96,18 @@ def analyse(pdir: Path, before: bool = False, rebind: bool = False) -> dict:
                     state, start = "MOVED", ns
                 else:
                     state = "OFF"
-                    if rebind and abs(a[0] - (cs + ce) / 2) <= \
-                            REBIND_REACH + (ce - cs) / 2:
+                    others = [w for i_, w in wins.items() if i_ != id(ln)]
+                    inside = any(s_ < a[0] < e_ for s_, e_ in others)
+                    if rebind and not inside and abs(a[0] - (cs + ce) / 2) \
+                            <= REBIND_REACH + (ce - cs) / 2:
                         # a new window around the moment, as long as the
-                        # old one (but at least `need`), between neighbours
-                        lo = max(prev_end or 0.0, a[0] - REBIND_REACH)
-                        hi = min(nxt if nxt is not None else 1e9,
-                                 a[0] + REBIND_REACH)
+                        # old one (but at least `need`), in the free footage
+                        # between the other lines' windows
+                        lo = max([prev_end or 0.0, a[0] - REBIND_REACH]
+                                 + [e_ for s_, e_ in others if e_ <= a[0]])
+                        hi = min([nxt if nxt is not None else 1e9,
+                                  a[0] + REBIND_REACH]
+                                 + [s_ for s_, e_ in others if s_ >= a[0]])
                         L = max(need, min(ce - cs, hi - lo))
                         ns2 = A.place(lo, min(hi, lo + 10 * L), a[0], need,
                                       lead_in, nd, lo=lo, hi=hi)
@@ -103,6 +115,8 @@ def analyse(pdir: Path, before: bool = False, rebind: bool = False) -> dict:
                             ncs = ns2
                             nce = min(hi, max(ns2 + need, ns2 + min(L, ce - cs)))
                             ln["clip_start"], ln["clip_end"] = _hms(ncs), _hms(nce)
+                            wins[id(ln)] = (_ts(ln["clip_start"]),
+                                            _ts(ln["clip_end"]))
                             ln.setdefault("anchor_rebound", {
                                 "from": [_hms(cs), _hms(ce)],
                                 "moment": round(a[0], 2), "kind": a[1]})
