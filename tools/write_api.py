@@ -1235,9 +1235,15 @@ def audit_line_findings(out: str) -> list:
                 f"shows - who is SEEN - and set `claim` to that person and "
                 f"what they do; or, if the speaker IS on screen under "
                 f"another name, use that name in `claim`")
-        m = re.match(r'\s+(R\d+): "(.+)" in line (\d+) \(~[\d.]+ min\) '
-                     r"lands before (\S+)", ln)
-        if m:
+        m = re.match(r'\s+(R\d+|IDENTITY): "(.+)" in line (\d+) '
+                     r"\(~[\d.]+ min\) lands before (\S+)", ln)
+        if m and m.group(1) == "IDENTITY":
+            finds.append(
+                f"[REVEAL-TIMING] line {m.group(3)} names \"{m.group(2)}\" - "
+                f"a secret identity the film only unmasks at {m.group(4)}. "
+                f"Until then the viewer knows this person by another name or "
+                f"not at all: say what the line shows without that name")
+        elif m:
             finds.append(
                 f"[REVEAL-TIMING] line {m.group(3)} gives away {m.group(1)} "
                 f'("{m.group(2)}") before it lands at {m.group(4)}. Keep '
@@ -1332,8 +1338,10 @@ def story_point_findings(project: str) -> list:
                         "ids": [lid], "text": (
                 f"[STORY-POINT] line {lid} carries a step of the story the "
                 f"viewer must HEAR, and does not say it: "
-                f"\"{sl.get('must_say')}\". Say it plainly, as an event, "
-                f"naming who - keep what the footage shows")})
+                f"\"{sl.get('must_say')}\". Tell it as the narrator would - "
+                f"one or two plain sentences, naming who, tied to what the "
+                f"footage shows. Do not paste the point or join clauses with "
+                f"semicolons")})
     return out
 
 

@@ -2361,6 +2361,48 @@ def exception_key(reveal_id, beat_id, narration) -> str:
     return f"{reveal_id} {beat_id or '?'} {h8}"
 
 
+def hidden_identities(project) -> list:
+    """[{"id", "land_ref", "land_sec", "holds"}] in parse_reveal_map's shape,
+    one per SECOND identity of a person: two characters in names.json played
+    by the same actor (Lost in the Stars: the lawyer Chen Mai and Shen Man,
+    both Ni Ni). The name the beat map shows later is a secret until that
+    beat - narration that says it earlier gives away who she is ("Now Shen
+    Man and her troupe know where Muzi vanished" at 01:30, eight minutes
+    before the unmasking)."""
+    import json as _json
+    try:
+        from pipeline import catalogue as _cat
+        names = _json.loads((config.project_dir(project) / "names.json")
+                            .read_text(encoding="utf-8-sig")).get("names") or []
+        beats = _cat.parse_beats(project).get("beats") or []
+    except Exception:
+        return []
+    by_actor: dict = {}
+    for n in names:
+        a = str(n.get("actor") or "").strip().lower()
+        if a and n.get("character"):
+            by_actor.setdefault(a, []).append(str(n["character"]))
+    first: dict = {}
+    for b in beats:
+        try:
+            t = parse_ts(b.get("ts") or b.get("time"))
+        except Exception:
+            continue
+        for c in b.get("chars") or []:
+            first.setdefault(str(c).lower(), (t, b.get("ts") or b.get("time")))
+    out = []
+    for chars in by_actor.values():
+        seen = sorted((first[c.lower()][0], first[c.lower()][1], c)
+                      for c in chars if c.lower() in first)
+        if len(chars) < 2 or len(seen) < 2:
+            continue
+        for t, ref, c in seen[1:]:
+            if t > seen[0][0]:
+                out.append({"id": "IDENTITY", "land_ref": str(ref),
+                            "land_sec": t, "holds": [c]})
+    return out
+
+
 def reveal_timing_check(project, d) -> list:
     """REVEAL-TIMING: flag any protected reveal term spoken in narration BEFORE
     its landing time. Returns a list of hits:
@@ -2369,7 +2411,7 @@ def reveal_timing_check(project, d) -> list:
     (returns []) when there is no reveal-map block.
     """
     import re as _re
-    reveals = parse_reveal_map(project)
+    reveals = list(parse_reveal_map(project)) + hidden_identities(project)
     if not reveals:
         return []
     # precompile a word-boundary, case-insensitive matcher per term

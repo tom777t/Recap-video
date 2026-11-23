@@ -501,42 +501,15 @@ def _states(text: str, term: str) -> bool:
 
 
 def _hidden_names(project: str) -> list:
-    """[(time, [name])] for a SECOND identity of one person: two characters
-    in names.json played by the same actor (Lost in the Stars: the lawyer
-    Chen Mai and Shen Man, both Ni Ni). The name the beat map shows later is
-    a secret until then - a story point that names it earlier spoils who
-    she is ("Muzi's location is now with Shen Man and the troupe" at B102,
-    before the B115 unmasking). Treated like a reveal landing at the beat
-    where that name first appears."""
-    from pipeline import catalogue as CAT
-    from pipeline.draft import parse_ts
+    """[(time, [name])] for a second identity of one person - a secret until
+    the beat map first shows it (pipeline.draft.hidden_identities). A story
+    point naming it waits like a reveal."""
     try:
-        names = json.loads((config.project_dir(project) / "names.json")
-                           .read_text(encoding="utf-8-sig")).get("names") or []
-        beats = CAT.parse_beats(project).get("beats") or []
+        from pipeline.draft import hidden_identities
+        return [(h["land_sec"], list(h["holds"]))
+                for h in hidden_identities(project)]
     except Exception:
         return []
-    by_actor: dict = {}
-    for n in names:
-        a = str(n.get("actor") or "").strip().lower()
-        if a and n.get("character"):
-            by_actor.setdefault(a, []).append(str(n["character"]))
-    first: dict = {}
-    for b in beats:
-        try:
-            t = parse_ts(b.get("ts") or b.get("time"))
-        except Exception:
-            continue
-        for c in b.get("chars") or []:
-            first.setdefault(str(c).lower(), t)
-    out = []
-    for chars in by_actor.values():
-        seen = [(first[c.lower()], c) for c in chars if c.lower() in first]
-        if len(chars) < 2 or len(seen) < 2:
-            continue
-        seen.sort()
-        out += [(t, [c]) for t, c in seen[1:] if t > seen[0][0]]
-    return out
 
 
 def reveal_marks(project: str) -> list:

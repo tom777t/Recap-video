@@ -226,10 +226,48 @@ def test_story_point_finding() -> tuple[bool, str]:
         shutil.rmtree(pd, ignore_errors=True)
 
 
+def test_identity_timing() -> tuple[bool, str]:
+    """Narration that names the secret identity before the unmasking is an
+    early reveal (Lost in the Stars line 189, 01:30:57: "Now Shen Man and
+    her troupe know where Muzi vanished"); the first identity, and the name
+    after the unmasking, are not. The audit row reaches resolve."""
+    from types import SimpleNamespace as NS
+    from pipeline import draft as D
+    pd = Path(config.project_dir(PROJ))
+    shutil.rmtree(pd, ignore_errors=True)
+    pd.mkdir(parents=True)
+    try:
+        _beats_project(pd)
+        L = lambda i, ts, t: NS(id=i, narration=t, clip_start=ts,  # noqa
+                                note="B102")
+        d = NS(lines=[L(189, "01:30:57.600",
+                        "Now Shen Man and her troupe know where Muzi is."),
+                      L(190, "01:31:10.000", "Chen Mai leans in."),
+                      L(222, "01:39:01.458", "Chen Mai is Shen Man.")])
+        hits = D.reveal_timing_check(PROJ, d)
+        got = [(h["reveal_id"], h["line_id"], h["term"]) for h in hits]
+        bad = []
+        if got != [("IDENTITY", 189, "Shen Man")]:
+            bad.append(f"hits {got}")
+        row = ('    IDENTITY: "Shen Man" in line 189 (~91.0 min) lands '
+               'before 01:38:44')
+        f = W.audit_line_findings(row)
+        if len(f) != 1 or W.finding_ids(f[0]) != {189} or \
+                "secret identity" not in f[0]:
+            bad.append(f"finding {f}")
+        return (not bad), ("line 189 naming Shen Man before B115 is an early "
+                           "reveal, routed to its line; Chen Mai / after the "
+                           "unmasking are clean" if not bad else
+                           "; ".join(bad))
+    finally:
+        shutil.rmtree(pd, ignore_errors=True)
+
+
 TESTS = {"AUDIT-ROWS": test_audit_rows, "RUNTIME-PER-ACT": test_runtime,
          "ACT-BUDGET-SCALE": test_act_scale,
          "HIDDEN-IDENTITY": test_hidden_identity,
-         "STORY-POINT-FINDING": test_story_point_finding}
+         "STORY-POINT-FINDING": test_story_point_finding,
+         "IDENTITY-TIMING": test_identity_timing}
 
 if __name__ == "__main__":
     bad = 0
