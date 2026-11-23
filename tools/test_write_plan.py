@@ -716,6 +716,61 @@ def test_resolve_claim_only_on_voice_visual():
                 f"rc {rc}; line 3 {c3}; line 4 {c4}\n{out[-1500:]}")
 
 
+def test_resolve_reread():
+    """Lines resolve rewrites are re-signed with no reader seeing them (Lost
+    in the Stars: "Chen Mai is Shen Man; the hospital was staged." went
+    straight into the script). Before calling the draft clean, one fresh
+    reader reads the rewritten lines in place; its finding becomes an open
+    review.md finding, and resolve takes one more round to close it. The
+    reader runs once per resolve."""
+    _resolve_fixture()
+    texts = {2: "Brian lines up beside Dom at the start.",
+             3: "Brian steps into Dom's garage.",
+             4: "Dom watches the street race from the curb.",
+             8: "Brian drives off; the race; the garage."}
+    nb = []
+
+    def reply(cid, p):
+        nb.append(1)
+        body = p["messages"][0]["content"]
+        keys = [x.split(" | ")[0] for x in
+                body.split("# OPEN FINDINGS")[1].strip().splitlines()
+                if x.startswith("F")]
+        if len(nb) == 1:
+            lines = [{"id": i, "narration": t} for i, t in texts.items()]
+        else:
+            lines = [{"id": 8, "narration": "Brian drives off into the night."}]
+        return msg({"lines": lines, "responses": [
+            {"key": k, "status": "RESOLVED", "text": "rewritten"}
+            for k in keys]})
+
+    def sync(p, n):
+        return msg({"checked": "the marked lines", "findings": [
+            {"kind": "notes", "ids": [8],
+             "text": "three facts glued with semicolons, not a sentence"}]})
+    c = Client(sync, reply)
+    # about the READER loop: the fixture's own gate findings held out (as in
+    # RESOLVE-CLOSES)
+    real_gf = W.gate_findings
+    W.gate_findings = lambda project, wide=None: []
+    try:
+        rc, out = _run(c, "resolve", "--project", PROJ)
+    finally:
+        W.gate_findings = real_gf
+    t = {str(l["id"]): l for l in _j(PDIR / "draft.json")["lines"]}
+    rv = (PDIR / "review.md").read_text(encoding="utf-8")
+    shown = c.calls[0]["messages"][0]["content"] if c.calls else ""
+    ok = (rc == 0 and len(c.calls) == 1 and ">> [8]" in shown
+          and "   [1]" in shown and "reread-notes" in rv
+          and t["8"]["narration"] == "Brian drives off into the night."
+          and len(c.batches) == 2)
+    return ok, ("rewritten lines read in place once; the reader's finding "
+                "went back to resolve and was fixed in one more round" if ok
+                else f"rc {rc}, reads {len(c.calls)}, batches "
+                     f"{len(c.batches)}, line 8 {t['8']['narration']!r}\n"
+                     f"{out[-1200:]}")
+
+
 TESTS = {
     "PLAN-VALIDATES":    test_plan_validates,
     "CONTOUR-REPAIR":    test_contour_repair,
@@ -729,6 +784,7 @@ TESTS = {
     "UNWATCHABLE-FIX":   test_unwatchable_fix,
     "UNWATCHABLE-CREDITS": test_unwatchable_credits,
     "RESOLVE-CLAIM-VOICE-VISUAL": test_resolve_claim_only_on_voice_visual,
+    "RESOLVE-REREAD":    test_resolve_reread,
     "RUNPS1-HALT":       test_runps1_halt,
 }
 

@@ -1558,6 +1558,10 @@ TAG_ESCALATE_MODEL = "claude-sonnet-5-5"
 # Cold read, independent review and ending read, each one FRESH request that
 # did not write the draft. Judgment work on a whole draft, so the strong model.
 REVIEW_API_MODEL = "claude-sonnet-5-5"
+# After resolve has rewritten lines, one fresh reader reads them in place
+# (tools/review_api.reread) before the draft is called clean; its findings
+# go back to resolve. Lines rewritten after the review were re-signed unread.
+REREAD_AFTER_RESOLVE = True
 
 # --- WRITE_MODEL_*: the writing stages through the API (tools/write_api.py) --
 # One key per stage so a cheaper or stronger model can be tried per stage and

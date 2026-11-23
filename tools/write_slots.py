@@ -478,6 +478,7 @@ def _split(a: float, b: float, k: int, moms: list) -> list:
 
 
 POINT_MIN_WORDS = 12     # a story point moved past a reveal needs a sentence
+SCALE_FLOOR_WORDS = 6    # the act-budget scale never leaves a slot fewer words
 _COPULA = {"is": "be", "was": "be", "are": "be", "were": "be", "'s": "be"}
 
 
@@ -877,7 +878,10 @@ def derive_slots(plan: dict, project: str, pdir: Path, ab: dict) -> dict:
             cap = budget_words(s["z"] - s["a"])
             if s["act"] in scale:
                 full = min(BANDS["free"][1], cap)
-                cap = int(full * scale[s["act"]])
+                # never under a short sentence: Lost in the Stars' 1.6 s
+                # slots were scaled to ONE word each
+                cap = max(int(full * scale[s["act"]]),
+                          min(full, SCALE_FLOOR_WORDS))
                 if s["role"] == "quote":
                     # the quote and its attribution still fit
                     cap = min(full, max(cap, _wc(s.get("quote")) + 2))
@@ -2150,6 +2154,28 @@ def apply_join(ln: dict, act_slots: list) -> tuple:
     out.update(narration=" ".join(chunks), parts=parts,
                clip_start=ss[0]["clip_start"], clip_end=ss[-1]["clip_end"])
     return out, []
+
+
+POINT_NEARBY = 6        # lines back a story point may already have been said
+
+
+def said_nearby(lines: list, lid, keys_list: list,
+                back: int = POINT_NEARBY) -> bool:
+    """Is every story point of a slot (its must_keys) already said by one of
+    the `back` narrated lines just before line `lid`? A point moved after a
+    reveal lands on the first roomy slot, but the unmasking itself may tell
+    it a line earlier (Lost in the Stars: the joined 216-219 "...is really
+    Shen Man, Muzi's oldest friend, who staged it all" - then lines 221-222
+    need not say it again over the flashback)."""
+    ids = [str(l.get("id")) for l in lines]
+    if str(lid) not in ids or not keys_list:
+        return False
+    i = ids.index(str(lid))
+    prev = [l for l in lines[max(0, i - back * 2):i]
+            if str(l.get("narration") or "").strip()][-back:]
+    text = " " + " ".join(str(l["narration"]) for l in prev).lower() + " "
+    return all(any(f" {str(k).lower()}" in text for k in keys)
+               for keys in keys_list if keys)
 
 
 def joined_slots(lines: list) -> set:

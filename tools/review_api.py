@@ -133,6 +133,78 @@ Use the kinds: attribution, callback, ending.
 """
 
 
+REREAD_CHECKLIST = """\
+You are reading lines of a film-recap narration that were REWRITTEN after
+the draft had been reviewed. Nobody has read the new wording yet. The whole
+narration is below so you hear each line in its place; the rewritten lines
+are marked >>. Judge ONLY the marked lines, as a viewer hears them once:
+
+  1. NOTES, NOT NARRATION - a line that reads like a plan or a list pasted
+     in: clauses joined by semicolons, two unrelated facts glued together,
+     a line that tells instead of narrating what is on screen.
+  2. FRAGMENT - a line with no sentence in it ("Chen Mai, unmasked."), or a
+     twist told in pieces nobody can put together.
+  3. WHO AND WHAT - a name the viewer has not met yet, or cannot place; a
+     pronoun with no clear owner; something referred to as known that was
+     never said.
+  4. DOES NOT FOLLOW - the line contradicts, repeats or breaks the flow of
+     the lines around it.
+
+Use the kinds: notes, fragment, who-what, flow. A marked line that is fine
+gets no finding.
+"""
+
+
+def reread(project: str, ids: list, client=None) -> tuple:
+    """(findings filed, cost). Lines changed AFTER the review (resolve's
+    rewrites, a film-speaks neighbour) are re-signed with no reader ever
+    seeing them - Lost in the Stars: "Chen Mai is Shen Man; the hospital was
+    staged." went straight into the script. One fresh reader reads the
+    marked lines in place; its findings are appended to review.md as
+    FINDING rows (kind reread-<kind>), open until resolved like any other."""
+    pdir = config.project_dir(project)
+    draft = _load_draft(pdir)
+    want = {RA._norm_id(i) for i in ids}
+    shown = [ln for ln in draft["lines"] if isinstance(ln, dict)
+             and str(ln.get("narration") or "").strip()]
+    marked = [RA._norm_id(ln.get("id")) for ln in shown
+              if RA._norm_id(ln.get("id")) in want]
+    if not marked:
+        return 0, 0.0
+    body = [f"{'>>' if RA._norm_id(ln.get('id')) in want else '  '} "
+            f"[{ln.get('id')}] {' '.join(str(ln['narration']).split())}"
+            for ln in shown]
+    model = config.REVIEW_API_MODEL
+    params = {"model": model, "max_tokens": MAX_TOKENS,
+              "system": [{"type": "text",
+                          "text": REREAD_CHECKLIST + "\n\n" + JSON_NOTE}],
+              "messages": [{"role": "user", "content": "\n".join(body)}]}
+    _eff = dict(getattr(config, "WRITE_EFFORT", {})).get("review", "medium")
+    params["output_config"] = {"effort": _eff}
+    if TB.USE_STRUCTURED_OUTPUT:
+        params["output_config"]["format"] = {"type": "json_schema",
+                                             "schema": SCHEMA}
+    client = client or _client()
+    msg = TB.create_message(client, **params)
+    u = TB.usage_of(msg)
+    cost = TB.cost_usd(model, u)
+    TB.ledger_append(pdir, "review:reread", model, u, batch=False)
+    obj = TB.parse_reply(TB.reply_text(msg))
+    findings, probs = validate_reply(obj, set(marked))
+    for p_ in probs:
+        print(f"reread: note: {p_}")
+    findings = [f for f in findings if f["ids"]]
+    if findings:
+        import write_plan as WP
+        WP.write_artifact(pdir / "review.md", [
+            f"FINDING | reread-{f['kind']} | {','.join(f['ids'])} | "
+            f"{f['text']}" for f in findings], {})
+    print(f"reread: {len(marked)} rewritten line(s) read in place - "
+          f"{len(findings)} finding(s)"
+          + (f", ${cost:.4f}" if cost is not None else ""))
+    return len(findings), cost
+
+
 class ReviewApiError(Exception):
     pass
 

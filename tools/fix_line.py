@@ -4,6 +4,7 @@
     python tools/fix_line.py --project P --line 40 --text "New line." [--note "..."]
     python tools/fix_line.py --project P --line 40 --show
     python tools/fix_line.py --project P --line 109 --claim narration
+    python tools/fix_line.py --project P --line 216 --join 219 --text "A | B | C | D"
     python tools/fix_line.py --project P --relabel
 
 When resolve stops with a finding it could not close, the fix is often one
@@ -80,6 +81,10 @@ def main(argv=None) -> int:
     ap.add_argument("--not-dialogue", action="store_true",
                     help="the line's quote is a song / PA / TV, not a "
                          "character: never quote it; re-derive the slots")
+    ap.add_argument("--join", type=int, metavar="LAST",
+                    help="say lines --line .. LAST as ONE line (--text, a "
+                         "'|' where each next line's footage begins): the "
+                         "short lines become parts of the first")
     ap.add_argument("--claim", choices=("narration",),
                     help="make the line a narration claim (no speaker on "
                          "screen required); text unchanged unless --text")
@@ -106,6 +111,11 @@ def main(argv=None) -> int:
 
     if a.hold is not None:
         return _set_hold(a, pdir, draft, by_id, owner, lid, old)
+
+    if a.join is not None:
+        if not a.text:
+            ap.error("--join needs --text")
+        return _join(a, pdir, draft, by_id, owner, lid)
 
     if a.not_dialogue:
         if sl is None or not sl.get("quote"):
@@ -188,6 +198,9 @@ def main(argv=None) -> int:
         new = WS.code_labels(new, sl)
         broke = WS.new_deviations(old, new, sl) + \
             WS.unfixed_deviations(old, new, sl)
+        if WS.said_nearby(draft["lines"], lid, sl.get("must_keys") or []):
+            # its story point is told by a line just before it
+            broke = [b for b in broke if "must say" not in b]
         if broke:
             print("fix_line: NOT saved - the text does not fit the line's slot:")
             for b in broke:
@@ -223,6 +236,115 @@ def main(argv=None) -> int:
     return _guarded_save(a.project, pdir, draft, by_id, owner, lid, edits,
                          changes, entries, before, rc0, snap,
                          f"{len(finds)} finding(s) closed RESOLVED.")
+
+
+def _join(a, pdir: Path, draft: dict, by_id: dict, owner: dict,
+          lid: str) -> int:
+    """--join: lines --line .. --join said as ONE line over their slots.
+
+    Lost in the Stars' unmasking was four 1.6 s slots ("Shen Man leads." /
+    "Chen Mai, unmasked." / "He Fei, exposed." / "Nowhere to run."): no
+    sentence fits one of them, and the twist was never said. Joined, the
+    four footages carry one sentence. The same rules as a writer's join
+    (write_slots.apply_join: next to each other, continuous footage, no
+    hold / quote-unit / skip inside), each piece within what ITS footage
+    can be read in (preflight.budget_words - the render's contract), the
+    story points of every part still said. The later lines leave draft.json
+    and the act file (their slots are carried in `parts`, so the draft
+    still conserves every planned line); the gates run before and after,
+    and any new error undoes everything byte for byte."""
+    import write_api as W
+    import write_slots as WS
+    from pipeline.preflight import budget_words
+    ids = [str(l["id"]) for l in draft["lines"]]
+    last = str(a.join)
+    if last not in by_id or ids.index(last) <= ids.index(lid):
+        print(f"fix_line: --join {last} must be a line after {lid}")
+        return 2
+    run = ids[ids.index(lid):ids.index(last) + 1]
+    slots_of = W.slots_of_lines(pdir, owner)
+    acts = {owner.get(int(i), (None,))[0] for i in run}
+    if len(acts) != 1 or None in acts or any(i not in slots_of for i in run):
+        print(f"fix_line: NOT joined - lines {run} are not all slot lines "
+              f"of one act")
+        return 2
+    k = acts.pop()
+    plan = json.loads((pdir / "plan.json").read_text(encoding="utf-8-sig"))
+    act_slots = [x for x in plan.get("slots") or [] if x.get("act") == k]
+    first = by_id[lid]
+    ln = dict(first, narration=" ".join(a.text.split()),
+              slot=slots_of[lid]["slot"],
+              join=[slots_of[i]["slot"] for i in run])
+    joined, probs = WS.apply_join(ln, act_slots)
+    if probs:
+        print("fix_line: NOT joined - " + "; ".join(probs))
+        return 2
+    bad = []
+    for p_ in joined["parts"]:
+        cap = budget_words(WS._pt(p_["clip_end"]) - WS._pt(p_["clip_start"]))
+        n = len(str(p_["text"]).split())
+        if n > cap:
+            bad.append(f"{p_['slot']}: \"{p_['text']}\" is {n} words, its "
+                       f"footage reads {cap}")
+    low = " " + joined["narration"].lower() + " "
+    for p_ in joined["parts"]:
+        for keys in p_.get("must_keys") or []:
+            if keys and not any(f" {str(x).lower()}" in low for x in keys):
+                bad.append(f"{p_['slot']} must say \"{p_.get('must_say')}\" "
+                           f"- name {' / '.join(keys)}")
+    from pipeline import line_rules as LR
+    bad += LR.problems(pdir, draft["lines"], lid, joined["narration"])
+    if bad:
+        print("fix_line: NOT joined:")
+        for b in bad:
+            print(f"  - {b}")
+        return 2
+    print("fix_line: checking the draft gates before saving ...")
+    rc0, before = W.run_gates(a.project)
+    snap = _snapshot(pdir)
+    try:
+        gone = set(run[1:])
+        draft["lines"] = [dict(joined) if str(l["id"]) == lid else l
+                          for l in draft["lines"] if str(l["id"]) not in gone]
+        own = {owner[int(i)][1] for i in run}
+        own_first = owner[int(lid)][1]
+        d = pdir / "draft.json.d"
+        for f in sorted(d.glob("act*.json")):
+            o = json.loads(f.read_text(encoding="utf-8-sig"))
+            if not any(x.get("id") in own for x in o.get("lines") or []):
+                continue
+            keep = []
+            for x in o.get("lines") or []:
+                if x.get("id") == own_first:
+                    keep.append(dict(joined, id=own_first))
+                elif x.get("id") not in own:
+                    keep.append(x)
+            o["lines"] = keep
+            f.write_text(json.dumps(o, ensure_ascii=False, indent=2),
+                         encoding="utf-8")
+        (pdir / "draft.json").write_text(json.dumps(
+            draft, ensure_ascii=False, indent=2), encoding="utf-8")
+        by2 = {str(l["id"]): l for l in draft["lines"]}
+        W.write_back(pdir, draft, by2, W.act_of_lines(pdir), {},
+                     {lid: joined["narration"]}, {})
+        rc, errs = W.run_gates(a.project)
+    except BaseException:
+        _restore(snap)
+        raise
+    broke = [e for e in _new_errors(before, errs, lid)] + [
+        e for e in errs if "[DRAFT-CONSERVATION]" in e and e not in before]
+    if broke or (rc not in (0, rc0) and not errs):
+        _restore(snap)
+        print("fix_line: NOT joined - the draft gates find new error(s):")
+        for e in (broke or [f"gates exited {rc}"])[:6]:
+            print(f"  - {e[:220]}")
+        print("draft, act file and review artifacts are as they were")
+        return 2
+    print(f"fix_line: lines {', '.join(run)} joined into line {lid}: "
+          f"\"{joined['narration']}\"")
+    print("fix_line: draft gates clean" if not errs else
+          f"fix_line: {len(errs)} hard error(s) left (none new)")
+    return 0
 
 
 HOLD_MAX = 30.0          # schemas: the long-silence limit

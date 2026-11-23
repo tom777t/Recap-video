@@ -1333,6 +1333,9 @@ def story_point_findings(project: str) -> list:
         if ln is None or not sl.get("must_keys"):
             continue
         miss = [m for m in WS.line_deviations(ln, sl) if "must say" in m]
+        if miss and WS.said_nearby(draft.get("lines") or [], lid,
+                                   sl.get("must_keys") or []):
+            continue                    # told by a line just before it
         if miss:
             out.append({"artifact": None, "kind": "gate", "gate": True,
                         "ids": [lid], "text": (
@@ -2055,7 +2058,12 @@ def cmd_resolve(a, client) -> int:
     refused: dict = {}          # line id -> faults a rewrite kept (second_try)
     sync_holds(a.project, pdir)
     fix_windows_in_draft(a.project, pdir)
-    for rnd in range(1, rounds + 2):
+    start_text = {str(l["id"]): " ".join(str(l.get("narration") or "").split())
+                  for l in json.loads(_read(pdir / "draft.json"))["lines"]}
+    reread_done = False
+    rnd = 0
+    while True:
+        rnd += 1
         draft = json.loads(_read(pdir / "draft.json"))
         finds = WP.open_findings(pdir, draft)
         # the draft's own gates are findings too, IN THE SAME ROUND: a fix
@@ -2068,6 +2076,27 @@ def cmd_resolve(a, client) -> int:
         for i, f in enumerate(gate_findings(a.project, wide), 1):
             f["key"] = f"G{i}"
             finds.append(f)
+        if not finds and not wide and not reread_done and getattr(
+                config, "REREAD_AFTER_RESOLVE", True):
+            # every line this run rewrote, read in place by a fresh reader
+            # before the draft is called clean (they were re-signed unread)
+            reread_done = True
+            changed = [i for i, l in ((str(l["id"]), l)
+                                      for l in draft["lines"])
+                       if str(l.get("narration") or "").strip() and
+                       " ".join(str(l["narration"]).split())
+                       != start_text.get(i)]
+            if changed:
+                import review_api as RV
+                try:
+                    n, _c = RV.reread(a.project, changed,
+                                      client=client)
+                except Exception as e:          # never stop resolve
+                    print(f"resolve: reread not run ({type(e).__name__}: "
+                          f"{e})")
+                    n = 0
+                if n:
+                    finds = WP.open_findings(pdir, draft)
         if not finds:
             if wide:
                 # not clean: draft-wide errors name no line, so no reviser
@@ -2079,7 +2108,7 @@ def cmd_resolve(a, client) -> int:
                 return 2
             print("resolve: no open review finding, draft gates clean")
             return 0
-        if rnd > rounds:
+        if rnd > rounds + (1 if reread_done else 0):
             print(f"resolve: {rounds} round(s) done; STOPPING with "
                   f"{len(finds)} finding(s) still open:")
             for f in finds:
