@@ -21,6 +21,10 @@ with replacement narration for the line BEFORE (sets it up) and the line AFTER
      its window is extended BACKWARDS, never into another line's footage. A
      line that starts inside the quote is moved to start where it ends, and
      extended forwards the same way.
+  1b. Lines strictly between the named before and after lines are the ones
+     the quote REPLACES (they paraphrase it, or sit on its footage): they are
+     cut, and the unit carries their slots (`film_speaks_covers`) so the
+     draft still conserves every planned line.
   3. The before/after replacement texts are applied to the unit's actual
      neighbours. The selection names them by line id; when that id is NOT the
      neighbour (the draft was rewritten after the selection was made) the text
@@ -47,6 +51,49 @@ if ROOT not in sys.path:
 
 SPAN_TOL = 0.05          # seconds: same span
 MAX_EXTEND = 120.0       # never search further than this for room
+MAX_CUT = 6              # lines a quote may replace between its neighbours
+
+
+def _cut_between(lines: list, unit: dict, pk: dict) -> tuple:
+    """The lines the quote REPLACES: those strictly between the selection's
+    named before and after lines (Lost in the Stars: "the quote also
+    replaces lines 167-171, which paraphrase it ... so those lines must be
+    cut" - the applier had no way to cut, shrank lines 168-171 to negative
+    windows over the quote, and refused both texts because the unit's
+    neighbours were not the named ones). Only when both named lines exist,
+    the before line comes first, at most MAX_CUT lie between, none of them is
+    another unit, and every one starts inside the before line .. the end of
+    the after line. Returns (cut lines, why-not or "")."""
+    ids = {str(ln.get("id")): i for i, ln in enumerate(lines)}
+    b = str(((pk.get("before") or {}).get("line_id")))
+    a = str(((pk.get("after") or {}).get("line_id")))
+    if b not in ids or a not in ids:
+        return [], ""
+    bi, ai = ids[b], ids[a]
+    if ai <= bi + 1:
+        return [], ""
+    mid = [ln for ln in lines[bi + 1:ai] if ln is not unit]
+    if not mid:
+        return [], ""
+    if len(mid) > MAX_CUT:
+        return [], (f"{len(mid)} lines lie between the named before ({b}) and "
+                    f"after ({a}) lines - more than {MAX_CUT}, not cut")
+    wb, wa, wu = _win(lines[bi]), _win(lines[ai]), _win(unit)
+    if not (wb and wa and wu):
+        return [], ""
+    # the named pair must frame THIS quote in the film, closely: a stale
+    # selection naming lines from an older draft cuts nothing
+    if not (wb[0] - 1e-6 <= wu[0] and wu[1] <= wa[1] + 1e-6) or \
+            (wa[0] - wb[1]) > (wu[1] - wu[0]) + 30.0:
+        return [], ""
+    for ln in mid:
+        if ln.get("film_speaks_seconds") is not None:
+            return [], f"line {ln.get('id')} between them is another unit"
+        w = _win(ln)
+        if w and not (wb[1] - 1e-3 <= w[0] and w[1] <= wa[0] + 1e-3):
+            return [], (f"line {ln.get('id')} between them is not between "
+                        f"them in the film")
+    return mid, ""
 
 
 def _ts(sec: float) -> str:
@@ -185,6 +232,33 @@ def apply(draft: dict, selection: dict, by_position: bool = False) -> tuple:
                 unit[dst_k] = pk[src_k]
         u_a, u_b = _win(unit)
 
+        # ---- 1b. the lines the quote replaces -----------------------------
+        cut, why_not = _cut_between(lines, unit, pk)
+        if why_not:
+            findings.append(f"{tag}: {why_not}")
+        if cut:
+            covers = list(unit.get("film_speaks_covers") or [])
+            for ln in cut:
+                for sl in [ln.get("slot")] + [
+                        x.get("slot") for x in (ln.get("parts") or [])[1:]
+                        if isinstance(x, dict)]:
+                    if sl and sl not in covers:
+                        covers.append(sl)
+                lines.remove(ln)
+            if covers:
+                unit["film_speaks_covers"] = covers
+            ui0 = next(i for i, ln in enumerate(lines) if ln is unit)
+            bi = next(i for i, ln in enumerate(lines) if str(ln.get("id"))
+                      == str(pk["before"]["line_id"]))
+            if ui0 != bi + 1:                    # sit between the named pair
+                lines.remove(unit)
+                lines.insert(bi + 1, unit)
+            actions.append(
+                f"{tag}: line(s) {', '.join(str(ln.get('id')) for ln in cut)}"
+                f" cut - the quote replaces them (the selection named "
+                f"{pk['before']['line_id']} before, {pk['after']['line_id']} "
+                f"after); their slot(s) {covers} are said by the unit")
+
         # ---- 3. neighbour texts (before windows: capacity uses new text) --
         ui = next(i for i, ln in enumerate(lines) if ln is unit)
         retexted: set = set()
@@ -224,6 +298,13 @@ def apply(draft: dict, selection: dict, by_position: bool = False) -> tuple:
             a, b = w
             overlaps = b > u_a + 1e-6 and a < u_b - 1e-6
             if not overlaps and id(ln) not in retexted:
+                continue
+            if overlaps and a >= u_a - 1e-6 and b <= u_b + 1e-6:
+                findings.append(
+                    f"{tag}: line {ln.get('id')} lies wholly inside the "
+                    f"quote's footage ({_ts(a)}-{_ts(b)}) - name it between "
+                    f"the before and after lines so it is cut, or drop the "
+                    f"pick")
                 continue
             if overlaps and a < u_a - 1e-6:
                 b, side = u_a, "back"                    # host: end at quote

@@ -95,6 +95,10 @@ def conservation_problems(project: str, draft: dict) -> list:
         for p in (ln.get("parts") or [])[1:]:
             if isinstance(p, dict) and p.get("slot"):
                 have.setdefault(str(p["slot"]), []).append(ln.get("id"))
+        # a film-speaks unit that REPLACES lines (apply_film_speaks): the
+        # film says them, in its own voice - conserved, not lost
+        for sl in ln.get("film_speaks_covers") or []:
+            have.setdefault(str(sl), []).append(ln.get("id"))
     miss = [k for k in want if k not in have]
     if miss:
         beats = sorted({want[k].get("beat") for k in miss},

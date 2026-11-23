@@ -226,11 +226,69 @@ def test_by_position():
         shutil.rmtree(pdir, ignore_errors=True)
 
 
+def test_cut_between():
+    """Lost in the Stars pick 2: a 14.9 s quote over lines 167-171 (they
+    paraphrase it), the selection naming 165 before and 172 after. The lines
+    between are cut, the unit carries their slots, both texts are applied
+    and no window goes negative. A pair that does not frame the quote cuts
+    nothing."""
+    T = lambda s_: afs._ts(s_)              # noqa: E731
+    def L(i, a, b, t, **kw):
+        return dict({"id": i, "slot": f"S{i}", "narration": t,
+                     "clip_start": T(a), "clip_end": T(b)}, **kw)
+    lines = [L(165, 5049.667, 5066.333, "He Fei breaks, eyes wet."),
+             L(166, 5066.333, 5071.333, "", narration_silence_seconds=5.0),
+             L(167, 5083.0, 5086.4, "A rental form."),
+             L(168, 5086.4, 5089.8, "She asks if Muzi went missing?"),
+             L(169, 5089.8, 5093.2, "He rented one."),
+             L(170, 5093.2, 5096.6, "He planned beach fireworks."),
+             L(171, 5096.6, 5100.0, "", narration_silence_seconds=3.4),
+             L(172, 5100.083, 5119.818, "In flashback, he books the spot.")]
+    sel = {"selected": [{"start": 5085.32, "end": 5100.2, "quote": "q",
+                         "before": {"line_id": 165, "new_narration":
+                                    "He Fei breaks; she slides a paper over."},
+                         "after": {"line_id": 172, "new_narration":
+                                   "Two sets of gear. One was his."}}]}
+    d = {"lines": [dict(x) for x in lines]}
+    acts, finds = afs.apply(d, sel)
+    ids = [x["id"] for x in d["lines"]]
+    unit = [x for x in d["lines"] if x.get("film_speaks_seconds")]
+    bad = []
+    if ids[:1] != [165] or ids[2:] != [172] or len(ids) != 3:
+        bad.append(f"order {ids}")
+    if not unit or unit[0].get("film_speaks_covers") != [
+            "S166", "S167", "S168", "S169", "S170", "S171"]:
+        bad.append(f"covers {unit[0].get('film_speaks_covers') if unit else None}")
+    by = {x["id"]: x for x in d["lines"]}
+    if not by[165]["narration"].startswith("He Fei breaks; she") or \
+            not by[172]["narration"].startswith("Two sets"):
+        bad.append("neighbour texts not applied")
+    for x in d["lines"]:
+        w = afs._win(x)
+        if w and w[1] < w[0]:
+            bad.append(f"line {x['id']} negative window")
+    if finds:
+        bad.append(f"findings {finds}")
+    # a pair that does not frame the quote: nothing cut
+    d2 = {"lines": [dict(x) for x in lines]}
+    sel2 = {"selected": [dict(sel["selected"][0],
+                              before={"line_id": 168, "new_narration": "x"},
+                              after={"line_id": 172, "new_narration": "y"})]}
+    afs.apply(d2, sel2)
+    if len([x for x in d2["lines"] if not x.get("film_speaks_seconds")]) < 6:
+        bad.append("a pair that does not frame the quote cut lines")
+    from pipeline import draft as D
+    return (not bad), ("lines 166-171 cut and conserved on the unit; texts "
+                       "applied; no negative window; a non-framing pair "
+                       "cuts nothing" if not bad else "; ".join(bad))
+
+
 TESTS = {
     "STALE-IDS-REFUSED":  test_stale_ids_refused,
     "HOST-ENDS-AT-QUOTE": test_host_ends_at_quote,
     "HOST-EXTENDS-BACK":  test_host_extends_back,
     "BY-POSITION":        test_by_position,
+    "CUT-BETWEEN":        test_cut_between,
 }
 
 if __name__ == "__main__":

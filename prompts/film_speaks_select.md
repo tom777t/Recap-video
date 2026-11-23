@@ -83,6 +83,10 @@ A hand-over only works if it is framed. For each pick, specify:
 Give the exact replacement text for both, with the same word budget as the line
 it replaces (capacity is bound to the shot).
 
+Name as BEFORE and AFTER the lines that stay. **Every line between them is cut**
+- the quote replaces it. Use that when lines paraphrase the quote or sit on its
+footage (at most 6); otherwise name the lines right next to the quote.
+
 ## Output
 
 Write `projects/<project>/film_speaks_selection.json`:

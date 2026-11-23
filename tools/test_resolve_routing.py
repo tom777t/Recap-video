@@ -263,11 +263,37 @@ def test_identity_timing() -> tuple[bool, str]:
         shutil.rmtree(pd, ignore_errors=True)
 
 
+def test_covers_conserved() -> tuple[bool, str]:
+    """A film-speaks unit that replaces lines carries their slots: the draft
+    still conserves every planned line; without the covers it does not."""
+    from pipeline import draft as D
+    pd = Path(config.project_dir(PROJ))
+    shutil.rmtree(pd, ignore_errors=True)
+    pd.mkdir(parents=True)
+    try:
+        (pd / "plan.json").write_text(json.dumps({"slots": [
+            {"slot": "S1", "role": "action", "beat": "B01"},
+            {"slot": "S2", "role": "action", "beat": "B02"},
+            {"slot": "S3", "role": "action", "beat": "B03"}]}))
+        d = {"lines": [{"id": 1, "slot": "S1", "narration": "a"},
+                       {"id": 9, "narration": "", "film_speaks_seconds": 5.0,
+                        "film_speaks_covers": ["S2"]},
+                       {"id": 3, "slot": "S3", "narration": "c"}]}
+        ok1 = D.conservation_problems(PROJ, d) == []
+        d["lines"][1].pop("film_speaks_covers")
+        ok2 = bool(D.conservation_problems(PROJ, d))
+        return ok1 and ok2, ("covered slot conserved; uncovered cut reported"
+                             if ok1 and ok2 else f"covered {ok1}, bare {ok2}")
+    finally:
+        shutil.rmtree(pd, ignore_errors=True)
+
+
 TESTS = {"AUDIT-ROWS": test_audit_rows, "RUNTIME-PER-ACT": test_runtime,
          "ACT-BUDGET-SCALE": test_act_scale,
          "HIDDEN-IDENTITY": test_hidden_identity,
          "STORY-POINT-FINDING": test_story_point_finding,
-         "IDENTITY-TIMING": test_identity_timing}
+         "IDENTITY-TIMING": test_identity_timing,
+         "COVERS-CONSERVED": test_covers_conserved}
 
 if __name__ == "__main__":
     bad = 0
