@@ -1489,6 +1489,11 @@ def render(project: str, draft: dict,
     except Exception:
         pass
 
+    def _censor_over(a: float, b: float, key) -> tuple:
+        """(level, region) for footage [a, b): pipeline.censor.span_censor."""
+        return _censor.span_censor(a, b, key, censor_by_clip, region_by_clip,
+                                   _CensorRegion)
+
     def _host_key(cs, ce):
         """Exact shot key if it exists, else the shot window containing cs."""
         k = (cs, ce)
@@ -1993,8 +1998,9 @@ def render(project: str, draft: dict,
             cout = work / f"clip_{lid:03d}.mp4"
             start = parse_ts(ln["clip_start"])
             end = parse_ts(ln["clip_end"])
-            censor = censor_by_clip.get(_skey, "none")
-            censor_region = region_by_clip.get(_skey)
+            censor, censor_region = _censor_over(
+                start, max(end, start + sil_secs), _host_key(*_skey)
+                if _skey not in censor_by_clip else _skey)
             exposure = exposure_by_clip.get(_skey, 0.0)
             sig = _clip_signature(source, start, end, 0.0, lid, crop_top,
                                   0.0, source, censor, censor_region,
@@ -2187,8 +2193,12 @@ def render(project: str, draft: dict,
         # line has no exact key, and defaulting to "none" is a silent failure
         # that ships uncensored footage.
         _hkey = _host_key(ln.get("clip_start"), ln.get("clip_end"))
-        censor = censor_by_clip.get(_hkey, "none")
-        censor_region = region_by_clip.get(_hkey)  # None -> whole-frame blur
+        try:
+            censor, censor_region = _censor_over(
+                parse_ts(ln["clip_start"]), parse_ts(ln["clip_end"]), _hkey)
+        except Exception:
+            censor = censor_by_clip.get(_hkey, "none")
+            censor_region = region_by_clip.get(_hkey)  # None -> full frame
         # NOTE: exposure_lift still resolves by EXACT key and carries the same
         # defect - an A3-anchored line inside a DARK shot does not get lifted.
         # Left unchanged here deliberately: it alters the picture of every dark

@@ -303,3 +303,43 @@ def report(result: dict, used: UsedFootage) -> bool:
                       "publish unblurred flagged content.[/]")
         return False
     return True
+
+
+_RANK = {"none": 0, "blur_light": 1, "blur": 2, "blur_heavy": 3}
+
+
+def span_censor(a: float, b: float, key, levels: dict, regions: dict,
+                make_region) -> tuple:
+    """(level, region) for source footage [a, b) shown by one clip: the host
+    shot's flag (`key`), raised to the strongest flagged shot the span
+    REACHES. Resolving by the host shot alone missed a flagged shot a clip
+    runs into: Lost in the Stars' hold 220 starts 2 s before the bullying
+    shot (blood on a child's uniform) and plays 0.4 s of it, and the render's
+    audit found it unblurred. The regions of every reached shot are joined
+    into one box; a reached flag with no region means the whole frame.
+    `levels`/`regions`: {(clip_start, clip_end): level / region}."""
+    from pipeline.draft import parse_ts
+    lv = levels.get(key, "none")
+    regs = [regions.get(key)] if lv != "none" else []
+    for kk, klv in levels.items():
+        if kk == key or str(klv or "none") == "none":
+            continue
+        try:
+            fa, fb = parse_ts(kk[0]), parse_ts(kk[1])
+        except Exception:
+            continue
+        if min(b, fb) - max(a, fa) <= 0.05:
+            continue
+        if _RANK.get(klv, 1) > _RANK.get(lv, 0):
+            lv = klv
+        regs.append(regions.get(kk))
+    if lv == "none":
+        return "none", None
+    if not regs or any(r is None for r in regs):
+        return lv, None
+    if len(regs) == 1:
+        return lv, regs[0]
+    x0, y0 = min(r.x for r in regs), min(r.y for r in regs)
+    x1 = max(r.x + r.width for r in regs)
+    y1 = max(r.y + r.height for r in regs)
+    return lv, make_region(x=x0, y=y0, width=x1 - x0, height=y1 - y0)
