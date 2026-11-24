@@ -126,8 +126,12 @@ def _lead_for(narr_dur: float, shot_dur: float, extra: float = 0.0) -> float:
     return max(0.0, min(want, room))
 
 
+from pipeline.ffcmd import CMD_MAX, short_cmd, fit as _fit_cmd  # noqa: E402,F401
+from pipeline.ffcmd import ff_major as _ff_major  # noqa: E402,F401
+
+
 def _run(cmd: list[str], desc: str):
-    proc = subprocess.run(cmd, capture_output=True, text=True)
+    proc = subprocess.run(_fit_cmd(cmd), capture_output=True, text=True)
     if proc.returncode != 0:
         console.print(f"[red]ffmpeg failed during: {desc}[/]")
         console.print(proc.stderr[-2500:])
@@ -1032,7 +1036,7 @@ def _position_offsets(ff: str, final: Path, timeline: list, narration: list,
         if t is not None:
             cmd += ["-t", f"{t:.3f}"]
         cmd += ["-vn", "-ac", "1", "-ar", str(sr), "-f", "s16le", "-"]
-        raw = subprocess.run(cmd, capture_output=True).stdout
+        raw = subprocess.run(_fit_cmd(cmd), capture_output=True).stdout
         return np.frombuffer(raw, np.int16).astype(np.float32) / 32768.0
 
     def envelope(x):

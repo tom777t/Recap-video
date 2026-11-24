@@ -776,7 +776,8 @@ def build_music_track(ff: str, pdir: Path, out: Path, total_dur: float,
     cmd = [ff, "-y", *inputs, "-filter_complex", graph,
            "-map", "[mixout]", "-t", f"{total_dur:.3f}",
            "-c:a", "pcm_s16le", str(out)]
-    r = subprocess.run(cmd, capture_output=True, text=True)
+    from pipeline.ffcmd import fit
+    r = subprocess.run(fit(cmd), capture_output=True, text=True)
     if r.returncode != 0 or not out.exists():
         console.print("[yellow]Music:[/] bed+cues build failed; "
                       "falling back to the plain bed.")

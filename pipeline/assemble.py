@@ -79,7 +79,8 @@ class AssemblyError(Exception):
 
 
 def _run(cmd: list[str], what: str) -> None:
-    r = subprocess.run(cmd, capture_output=True, text=True)
+    from pipeline.ffcmd import fit
+    r = subprocess.run(fit(cmd), capture_output=True, text=True)
     if r.returncode != 0:
         console.print(f"[red]{what} failed[/]")
         console.print((r.stderr or "")[-700:])

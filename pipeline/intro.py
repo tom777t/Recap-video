@@ -26,6 +26,7 @@ import json
 import re
 import math
 import subprocess
+from pipeline.ffcmd import fit as _fit_cmd
 import sys
 from pathlib import Path
 
@@ -705,7 +706,7 @@ def _build_film_intro_segment(project: str, work: Path,
                "-map", "[v]", "-map", "[a]", "-t", f"{fi_dur+0.3:.3f}",
                *_encoder.video_args("final"), *_encoder.audio_args(),
                str(out)]
-    r = subprocess.run(cmd, capture_output=True, text=True)
+    r = subprocess.run(_fit_cmd(cmd), capture_output=True, text=True)
     if r.returncode != 0 or not out.exists():
         console.print("[yellow]Film-intro:[/] segment build failed; opening "
                       "will be montage+hook only.")
@@ -825,7 +826,7 @@ def build_mid_segment(project: str, work: Path, cursor: float = 0.0):
            *_encoder.video_args("final", keyframe_frames=_body_keyframes(total)),
            *_encoder.audio_args(),
            str(out)]
-    r = subprocess.run(cmd, capture_output=True, text=True)
+    r = subprocess.run(_fit_cmd(cmd), capture_output=True, text=True)
     if r.returncode != 0 or not out.exists():
         console.print("[yellow]Film-intro:[/] mid segment build failed.")
         console.print((r.stderr or "")[-400:])
@@ -1027,7 +1028,7 @@ def prepend_to_final(project: str, final: Path) -> float:
     cmd = [ff, "-y", "-f", "concat", "-safe", "0", "-i", str(lst),
            "-c:v", "copy", "-c:a", "aac", "-b:a", "192k", "-ar", "48000",
            "-ac", "2", str(tmp)]
-    r = subprocess.run(cmd, capture_output=True, text=True)
+    r = subprocess.run(_fit_cmd(cmd), capture_output=True, text=True)
 
     # DID THE JOIN ACTUALLY WORK? A non-zero exit is the easy case. The
     # dangerous case is exit 0 with a broken file: the concat demuxer will
@@ -1069,7 +1070,7 @@ def prepend_to_final(project: str, final: Path) -> float:
                "-map", "[v]", "-map", "[a]",
                *_encoder.video_args("final"), *_encoder.audio_args(),
                str(tmp)]
-        r = subprocess.run(cmd, capture_output=True, text=True)
+        r = subprocess.run(_fit_cmd(cmd), capture_output=True, text=True)
     if r.returncode != 0 or not tmp.exists():
         console.print("[yellow]Intro block built but could not be joined to "
                       "the film; leaving final.mp4 without it.[/]")
@@ -1275,7 +1276,7 @@ def build_intro(project: str, out_name: str = "intro_preview.mp4",
     cmd = [ff, "-y", *inputs, "-filter_complex", graph,
            "-map", "[v]", "-map", "[a]", "-t", f"{total:.3f}",
            *_encoder.video_args("final"), *_encoder.audio_args(), str(out)]
-    r = subprocess.run(cmd, capture_output=True, text=True)
+    r = subprocess.run(_fit_cmd(cmd), capture_output=True, text=True)
     if r.returncode != 0:
         console.print("[red]Intro montage: ffmpeg failed[/]")
         console.print((r.stderr or "")[-1200:])
