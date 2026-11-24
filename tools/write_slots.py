@@ -49,7 +49,7 @@ ROLES = ("open", "intro", "action", "quote", "reaction", "bridge", "outro",
 # Bumped whenever derive_slots changes what it builds: a plan.json whose slots
 # carry an older version is re-derived (write_api.cmd_draft), so a fix here
 # reaches a project that already has a plan without re-buying the plan.
-SLOTS_VERSION = 20     # 20: no more lines than a beat holds sentences (19: reveal points, 18: budget, 17: holds)
+SLOTS_VERSION = 21     # 21: holds beyond HOLDS_MAX are 2 s breaths (20: room, 19: reveal points, 18: budget, 17: holds)
 
 
 def story_mode() -> bool:
@@ -965,6 +965,12 @@ def derive_slots(plan: dict, project: str, pdir: Path, ab: dict) -> dict:
     _sad_budget(slots, pdir)
     _mark_after_skip(slots, order, by, project, rng)
     _mark_story_points(slots, plan, reveal_marks(project))
+    _breaths = breath_holds(slots, lands)
+    if _breaths:
+        problems.append(f"holds: {len(_breaths)} of the plan's holds are "
+                        f"{BREATH_SEC:.0f}s breaths - only {HOLDS_MAX} earn "
+                        f"a full silence (beats {', '.join(_breaths[:8])}"
+                        f"{' ...' if len(_breaths) > 8 else ''})")
     _size_holds(slots)
     # ids, and the windows as timestamps; no two windows overlap by
     # construction (contiguous splits of disjoint beats, only ever trimmed)
@@ -1027,6 +1033,50 @@ def _act_scale(narrated: list, plan: dict) -> dict:
     return out
 
 
+HOLDS_MAX = int(getattr(config, "RECAP_HOLDS_MAX", 6))
+BREATH_SEC = float(getattr(config, "RECAP_BREATH_SEC", 2.0))
+
+
+def hold_rank(slots: list, i: int, lands: list) -> int:
+    """How much hold i earns its silence (0 best): right after a reveal
+    lands; after a narrated line on an anchor / peak beat; after a line;
+    a footage-only beat."""
+    x = slots[i]
+    after_line = i > 0 and slots[i - 1].get("beat") == x.get("beat") and \
+        slots[i - 1].get("role") not in ("hold", "film_speaks")
+    if any(x["a"] - 30.0 <= t <= x["a"] + 1.0 for t in lands):
+        return 0                    # a reveal landed in the last 30 s
+    if after_line and (x.get("anchor") or x.get("peak")):
+        return 1
+    return 2 if after_line else 3
+
+
+def breath_holds(slots: list, lands: list) -> list:
+    """Only the HOLDS_MAX holds that earn their silence keep it; the others
+    become BREATHS of BREATH_SEC - the footage is still shown, so the beat
+    is still on screen and its rhythm and bridging stay, but it is not five
+    seconds of silence.
+
+    Why so many: the plan makes every footage-only beat a hold, and
+    [PACING-CONTOUR] asks for exactly that ("drop some to footage - a silent
+    beat is a change of rhythm"), while [SILENCE-UNIT] expects 3-6 silences
+    and nothing capped them. Lost in the Stars got 32 x 5 s = 2.6 min of
+    silence and rendered at 21.7 min against a 19-min ceiling. Marks the
+    breaths (`breath`: True) and returns their beat ids."""
+    holds = [i for i, x in enumerate(slots) if x.get("role") == "hold"
+             and x.get("a") is not None]
+    if len(holds) <= HOLDS_MAX:
+        return []
+    keep = set(sorted(holds, key=lambda i: (hold_rank(slots, i, lands),
+                                            slots[i]["a"]))[:HOLDS_MAX])
+    out = []
+    for i in holds:
+        if i not in keep:
+            slots[i]["breath"] = True
+            out.append(slots[i].get("beat"))
+    return out
+
+
 def _size_holds(slots: list) -> None:
     """A hold's length: its window clamped to HOLD_SEC. A window SHORTER
     than the minimum used to be stretched past its end - into the next
@@ -1042,7 +1092,8 @@ def _size_holds(slots: list) -> None:
         if s["role"] != "hold" or s.get("a") is None:
             continue
         a, z = s["a"], s["z"]
-        want = max(HOLD_SEC[0], min(HOLD_SEC[1], z - a))
+        want = (BREATH_SEC if s.get("breath") else
+                max(HOLD_SEC[0], min(HOLD_SEC[1], z - a)))
         nxt = min([w[0] for w in wins if w[2] != id(s) and w[0] >= a - 1e-6
                    and w[0] < a + want + 1e-6] or [a + want])
         prv = max([w[1] for w in wins if w[2] != id(s) and w[1] <= a + 1e-6]

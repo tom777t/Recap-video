@@ -1566,6 +1566,11 @@ REREAD_AFTER_RESOLVE = True
 # none is valid (a delivery-mapping change voids it); rate_drift then judges.
 VOICE_AUTO_MEASURE = True
 VOICE_AUTO_MEASURE_MIN = 30
+# Silent holds: only this many keep a full silence ([SILENCE-UNIT] expects
+# 3-6); the rest of the plan's holds are short breaths (footage still shown).
+# Lost in the Stars had 32 x 5 s and rendered at 21.7 min.
+RECAP_HOLDS_MAX = 6
+RECAP_BREATH_SEC = 2.0
 
 # --- WRITE_MODEL_*: the writing stages through the API (tools/write_api.py) --
 # One key per stage so a cheaper or stronger model can be tried per stage and

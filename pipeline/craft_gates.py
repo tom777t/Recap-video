@@ -1279,6 +1279,12 @@ def craft_report(draft: dict) -> dict:
                 f"(warning above {BAR_SILENCE_WARN:.0f}s). The human "
                 f"reference does hold 20.0s once, so this is not an error - "
                 f"but silence with no movement is a retention risk.")
+    # a BREATH (write_slots: a hold beyond RECAP_HOLDS_MAX, RECAP_BREATH_SEC
+    # long) keeps a beat's footage on screen; it is rhythm, not a silence
+    # unit - counted and judged as one it would be every footage-only beat
+    import config as _cfgb
+    _breath = float(getattr(_cfgb, "RECAP_BREATH_SEC", 2.0)) + 0.01
+    sil = [(lid, secs) for lid, secs in sil if secs > _breath]
     if stats_ok:
         lo, hi = BAR_SILENCE_COUNT
         if not (lo <= len(sil) <= hi):

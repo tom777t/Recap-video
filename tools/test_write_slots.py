@@ -1054,6 +1054,59 @@ def test_beat_room():
                        if not bad else "; ".join(bad[:6]))
 
 
+def test_holds_breathe():
+    """Lost in the Stars: 32 holds x 5 s (every footage-only beat, every
+    hold_after) - 2.6 min of silence, 21.7 min rendered. Only HOLDS_MAX keep
+    a full silence; the rest are BREATH_SEC breaths that still show their
+    footage, so no beat leaves the screen."""
+    import copy
+    plan, ab, slots = _layout()
+    plan = copy.deepcopy(plan)
+    for b in plan["beats"]:
+        b["hold_after"] = True
+    WS._prev_open_shapes, keep = (lambda: []), WS._prev_open_shapes
+    try:
+        r = WS.derive_slots(plan, PROJ, PDIR, ab)
+    finally:
+        WS._prev_open_shapes = keep
+    holds = [x for x in r["slots"] if x["role"] == "hold"]
+    full = [x for x in holds if not x.get("breath")]
+    br = [x for x in holds if x.get("breath")]
+    bad = []
+    if len(holds) <= WS.HOLDS_MAX:
+        bad.append(f"fixture made only {len(holds)} holds")
+    if len(full) > WS.HOLDS_MAX:
+        bad.append(f"{len(full)} full holds > {WS.HOLDS_MAX}")
+    if any(abs(float(x["hold"]) - WS.BREATH_SEC) > 0.01 for x in br):
+        bad.append(f"breaths not {WS.BREATH_SEC}s: "
+                   f"{sorted({x['hold'] for x in br})}")
+    if not any("breaths" in p_ for p_ in r["problems"]):
+        bad.append("the layout does not say so")
+    # the rank: a hold 10 s after a reveal lands beats an anchor hold
+    sl = [{"beat": "B1", "role": "action", "a": 90.0},
+          {"beat": "B1", "role": "hold", "a": 100.0},
+          {"beat": "B2", "role": "action", "a": 200.0, "anchor": True},
+          {"beat": "B2", "role": "hold", "a": 210.0, "anchor": True},
+          {"beat": "B3", "role": "hold", "a": 300.0}]
+    rk = [WS.hold_rank(sl, i, [92.0]) for i in (1, 3, 4)]
+    if rk != [0, 1, 3]:
+        bad.append(f"ranks {rk} (want reveal 0, anchor 1, footage-only 3)")
+    if WS.hold_rank(sl, 1, [130.0]) == 0:
+        bad.append("a reveal landing AFTER the hold ranked it first")
+    from pipeline import craft_gates as CG
+    ln = [{"id": i, "narration": "He runs to the car and drives off.",
+           "delivery": "tense"} if i % 2 else
+          {"id": i, "narration": "", "narration_silence_seconds":
+           WS.BREATH_SEC if i > 12 else 5.0} for i in range(1, 101)]
+    rep = CG.craft_report({"lines": ln, "_dir": str(PDIR)})
+    cnt = [w for w in rep.get("warns") or [] if "silence unit(s);" in str(w)]
+    if cnt:
+        bad.append(f"breaths counted as silence units: {cnt[0][:80]}")
+    return (not bad), (f"{len(holds)} holds planned: {len(full)} full, "
+                       f"{len(br)} breaths of {WS.BREATH_SEC}s"
+                       if not bad else "; ".join(bad))
+
+
 TESTS = {
     "SLOT-LAYOUT":           test_slot_layout,
     "WINDOWS-BY-CODE":       test_windows_by_code,
@@ -1066,6 +1119,7 @@ TESTS = {
     "HOLD-NO-OVERLAP":       test_hold_no_overlap,
     "POINT-AFTER-REVEAL":    test_point_after_reveal,
     "BEAT-ROOM":             test_beat_room,
+    "HOLDS-BREATHE":         test_holds_breathe,
     "DRAFT-CONSERVATION":    test_draft_conservation,
     "SEQUENCE-RULES":        test_sequence_rules,
     "REVIEW-DEFECTS":        test_review_defects,
