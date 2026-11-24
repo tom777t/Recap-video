@@ -31,6 +31,14 @@ Cases
   MULTI-SHOT-EXTENSION fit_narration may extend a window across a cut into the
                        following shots, bounded by the next bound line, a
                        reveal landing and the source duration.
+  SHOWN-IS-PLAYED      a clip records the footage it PLAYS (start..start+clip
+                       length), not its whole window, so a freeze is traced to
+                       the right source span (Lost in the Stars, 24 Nov)
+  STILL-SHARE          a source still for half the span is the film holding
+                       still; a moving source is not; the bar is config's
+  INTRO-BLOCK-AVOIDS   the film-intro facts block avoids story-bound windows,
+                       flagged shots and shots with nobody in them (licence
+                       cards, logos, title sequences, credits)
 
 Run:  python tools/test_motion.py
 """
@@ -631,6 +639,117 @@ def test_footprint_shared() -> tuple[bool, str]:
                   "pipeline/footprint.py")
 
 
+def test_shown_is_played() -> tuple[bool, str]:
+    """A story clip's record is the footage it plays, and a freeze maps to
+    the right source second through it."""
+    from pipeline import render as R
+    from pipeline import motion_check as mc
+    if R.shown_end(256.5, 276.3, 5.4) != 256.5 + 5.4:
+        return False, "a 5.4s clip on a 19.8s window recorded the window"
+    if R.shown_end(100.0, 104.0, 4.6) != 104.0:
+        return False, "a slowed clip (clip longer than window) lost its end"
+    # the Lost in the Stars case: freeze 0.92-1.49s into a 5.43s clip of a
+    # 19.7s window. Played-span record -> source ~1.2s in; the old window
+    # record sent the probe ~4.4s in.
+    rec = [{"a": 256.542, "b": R.shown_end(256.542, 276.277, 5.43),
+            "out_a": 64.18, "out_b": 64.18 + 5.43, "line_id": 12}]
+    span = mc._to_source({"start": 65.10, "end": 65.67, "dur": 0.57}, rec)
+    mid = (span[0] + span[1]) / 2 - 256.542
+    if abs(mid - 1.2) > 0.05:
+        return False, f"freeze traced {mid:.2f}s into the window, not 1.2s"
+    src = io.open(os.path.join(ROOT, "pipeline", "render.py"),
+                  encoding="utf-8").read()
+    if "used_footage.add(start, shown_end(start, end, clip_len)" not in src:
+        return False, "the story clip record does not use shown_end"
+    if "_hold_end = float(start) + float(clip_len)" not in src:
+        return False, "a hold records more than the clip_len it plays"
+    return True, ("a clip records start..start+clip length; a freeze 1s in "
+                  "is looked up 1.2s into the source window, not 4.4s")
+
+
+def test_still_share() -> tuple[bool, str]:
+    """Half-still source span -> excused; moving -> not; bar from config."""
+    from pipeline import motion_check as mc
+    ff = config.ffmpeg()
+    TMP.mkdir(parents=True, exist_ok=True)
+    try:
+        mv = TMP / "mv.mp4"
+        st = TMP / "st.mp4"
+        _ff("-f", "lavfi", "-i", "testsrc=size=320x180:rate=24:duration=2",
+            "-c:v", "libx264", "-preset", "ultrafast", "-crf", "18",
+            "-pix_fmt", "yuv420p", str(mv))
+        _ff("-f", "lavfi", "-i", "color=c=gray:size=320x180:rate=24:duration=2",
+            "-c:v", "libx264", "-preset", "ultrafast", "-crf", "18",
+            "-pix_fmt", "yuv420p", str(st))
+        half = TMP / "half.mp4"
+        lst = TMP / "h.txt"
+        lst.write_text(f"file '{mv.as_posix()}'\noutpoint 1.0\n"
+                       f"file '{st.as_posix()}'\noutpoint 0.3\n"
+                       f"file '{mv.as_posix()}'\n", encoding="utf-8")
+        _ff("-f", "concat", "-safe", "0", "-i", str(lst),
+            "-c:v", "libx264", "-preset", "ultrafast", "-crf", "18",
+            "-pix_fmt", "yuv420p", str(half))
+        # 0.7-1.3s: 0.3s moving-into-still... the still part is 1.0-1.3
+        got_half = mc.source_has_motion(ff, half, 0.72, 1.32)
+        got_mv = mc.source_has_motion(ff, mv, 0.7, 1.3)
+        bar = getattr(config, "FREEZE_SOURCE_STILL_FRAC", None)
+        if bar is None or not (0.1 < bar < 0.6):
+            return False, f"FREEZE_SOURCE_STILL_FRAC missing or off: {bar}"
+        if got_half is not False:
+            return False, ("a span still for half its length was called "
+                           "moving - the film holding still is reported")
+        if got_mv is not True:
+            return False, "moving footage was excused"
+        return True, (f"half-still span excused, moving span not "
+                      f"(bar {bar:.2f} from config)")
+    finally:
+        shutil.rmtree(TMP, ignore_errors=True)
+
+
+def test_intro_block_avoids() -> tuple[bool, str]:
+    """The facts block avoids story-bound windows as well as flagged shots."""
+    from pipeline import intro as I
+    from pipeline import censor as C
+    import tempfile
+    saved = (I.bound_windows, C.flagged_shots, config.project_dir)
+    tmp = Path(tempfile.mkdtemp(prefix="introavoid_"))
+    try:
+        # Lost in the Stars' opening, as its catalogue describes it
+        (tmp / "shots.json").write_text(json.dumps({"shots": [
+            {"clip_start": "00:00:00.000", "clip_end": "00:00:26.708",
+             "chars": [], "action": "Opening title sequence"},
+            {"clip_start": "00:00:26.708", "clip_end": "00:00:48.875",
+             "chars": [], "action": "Black screen with production credits"},
+            {"clip_start": "00:00:48.875", "clip_end": "00:01:07.500",
+             "chars": ["the man in the grey-green shirt"],
+             "action": "In a station doorway the man pleads"}]}),
+            encoding="utf-8")
+        I.bound_windows = lambda project: [(47.2, 52.0), (50.1, 57.0)]
+        C.flagged_shots = lambda pdir: [{"a": 10.0, "b": 12.0}]
+        config.project_dir = lambda project: tmp
+        got = I.block_avoid("x")
+    finally:
+        I.bound_windows, C.flagged_shots, config.project_dir = saved
+        shutil.rmtree(tmp, ignore_errors=True)
+    for want, why in (((47.2, 52.0), "a story window"),
+                      ((10.0, 12.0), "a flagged shot"),
+                      ((0.0, 26.708), "the title sequence (nobody on screen)"),
+                      ((26.708, 48.875), "the credits (nobody on screen)")):
+        if want not in got:
+            return False, f"block_avoid does not avoid {why}: {got}"
+    if any(a >= 48.875 and b <= 67.5 for a, b in got if (a, b) != (50.1, 57.0)
+           and (a, b) != (47.2, 52.0)):
+        return False, f"a scene with a character in it was avoided: {got}"
+    src = io.open(os.path.join(ROOT, "pipeline", "intro.py"),
+                  encoding="utf-8").read()
+    n = src.count("_avoid = block_avoid(project)")
+    if n != 2:
+        return False, (f"{n} of the 2 facts-block builders use block_avoid - "
+                       f"one still avoids only flagged shots")
+    return True, ("both facts-block builders avoid story windows, flagged "
+                  "shots, and logo / title / credit shots with nobody in them")
+
+
 TESTS = {
     "SLOWDOWN-CAPPED":      test_slowdown_capped,
     "INTRO-EXTENDS-NOT-PADS": test_intro_extends_not_pads,
@@ -648,6 +767,9 @@ TESTS = {
     "REUSE-USES-SHOWN":     test_reuse_uses_shown,
     "HOLD-WINDOW-HONEST":   test_hold_window_honest,
     "MULTI-SHOT-EXTENSION": test_multi_shot_extension,
+    "SHOWN-IS-PLAYED":      test_shown_is_played,
+    "STILL-SHARE":          test_still_share,
+    "INTRO-BLOCK-AVOIDS":   test_intro_block_avoids,
 }
 
 if __name__ == "__main__":

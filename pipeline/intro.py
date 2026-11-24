@@ -293,6 +293,57 @@ def bound_windows(project: str) -> list:
     return sorted(out)
 
 
+def block_avoid(project: str) -> list:
+    """Spans the film-intro facts block (greeting, title, leads) must not
+    show: flagged shots, every window the story is bound to, and catalogued
+    shots with nobody in them (logos, licence cards, title cards, credits).
+
+    The block chooses its own footage, like the montage, so it is the one
+    that moves. It used to avoid only flagged shots: on Lost in the Stars it
+    played source 47-57s, which line 6 and the film_speaks unit 260 also
+    show, and MOTION-CHECK stopped the render on the repeated footage.
+    """
+    from pipeline import censor as _censor
+    pdir = config.project_dir(project)
+    out = [(float(f["a"]), float(f["b"]))
+           for f in (_censor.flagged_shots(pdir) or [])]
+    out += [(float(a), float(b)) for a, b in bound_windows(project)]
+    out += no_one_on_screen(project)
+    return sorted(out)
+
+
+def no_one_on_screen(project: str) -> list:
+    """Catalogued shots with no character in them, as [(a, b)].
+
+    A film opens on non-film: censor licence cards, studio logos, title
+    sequences, credits over black. None of it is black, so the black test
+    lets it through - Lost in the Stars' first 49s are the China Film
+    Administration licence card, a logo, the title sequence and credits,
+    and a facts block barred from the story's windows chose 0.00s, the
+    licence card. The catalogue already says which shots have nobody in
+    them; a greeting is laid over a scene with people in it.
+    """
+    pdir = config.project_dir(project)
+    for cand in ("shots.json", "shots_machine.json"):
+        f = pdir / cand
+        if not f.exists():
+            continue
+        try:
+            shots = json.loads(f.read_text(encoding="utf-8-sig"))["shots"]
+        except Exception:
+            return []
+        out = []
+        for sh in shots:
+            if sh.get("chars"):
+                continue
+            try:
+                out.append((_pt(sh["clip_start"]), _pt(sh["clip_end"])))
+            except Exception:
+                continue
+        return out
+    return []
+
+
 def usable_moments(project: str, limit_sec: float) -> list:
     """[{a, b, shot}] catalogued moments the montage MAY use: long enough,
     strictly before `limit_sec` (the first reveal's landing), never flagged
@@ -625,13 +676,15 @@ def _build_film_intro_segment(project: str, work: Path,
 
     from pipeline import censor as _censor
     from pipeline import footage as _footage
-    _flagged = _censor.flagged_shots(pdir)
-    _avoid = [(float(f["a"]), float(f["b"])) for f in (_flagged or [])]
+    _avoid = block_avoid(project)
     # Search the film's opening stretch, not the whole film: this block is "the
     # film's opening" by design. Bounded so the scan stays a few seconds.
     _search_hi = min(_hi, 600.0)
     vis_start, _why = _footage.watchable_start(
         src, vis_len, 0.0, _search_hi, avoid=_avoid)
+    if vis_start is None and _hi > _search_hi:
+        vis_start, _why = _footage.watchable_start(
+            src, vis_len, 0.0, _hi, avoid=_avoid)
     if vis_start is None:
         console.print(f"[yellow]Film-intro:[/] {_why} - skipping the "
                       f"intro-facts block rather than opening the film on "
@@ -788,10 +841,14 @@ def build_mid_segment(project: str, work: Path, cursor: float = 0.0):
     _hi = max(1.0, land - 1.0)
     if vis_len > _hi:
         vis_len = max(3.0, _hi)
-    _flagged = _censor.flagged_shots(pdir)
-    _avoid = [(float(f["a"]), float(f["b"])) for f in (_flagged or [])]
+    _avoid = block_avoid(project)
     vis_start, _why = _footage.watchable_start(
         src, vis_len, 0.0, min(_hi, 600.0), avoid=_avoid)
+    if vis_start is None and _hi > 600.0:
+        # the story uses most of the opening; look in the rest of the
+        # pre-reveal stretch before giving up on the greeting
+        vis_start, _why = _footage.watchable_start(
+            src, vis_len, 0.0, _hi, avoid=_avoid)
     if vis_start is None:
         console.print(f"[yellow]Film-intro:[/] {_why} - facts block "
                       f"skipped rather than showing black or flagged "

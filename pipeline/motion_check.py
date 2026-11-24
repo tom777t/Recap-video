@@ -223,9 +223,10 @@ def source_has_motion(ff: str, source: Path, a: float, b: float,
     log = r.stderr or ""
     if "freeze_start" not in log:
         return True                   # no freeze found in the source: it moved
-    # The source froze too. Treat it as static only if the frozen stretch
-    # covers most of the span - a brief clone inside otherwise moving footage
-    # is still moving footage.
+    # The source froze too. Treat it as static when the frozen stretch covers
+    # FREEZE_SOURCE_STILL_FRAC of the span (see config for the measurement
+    # it is sited on) - a brief clone inside otherwise moving footage is
+    # still moving footage.
     #
     # An UNTERMINATED freeze has to be counted. When the picture is still
     # frozen as the probed span ends, ffmpeg prints freeze_start with no
@@ -241,7 +242,8 @@ def source_has_motion(ff: str, source: Path, a: float, b: float,
         # the last freeze never ended: it runs to the end of the span
         frozen += max(0.0, span - (starts[-1] - a if starts[-1] > a
                                    else starts[-1]))
-    return frozen < span * 0.6
+    return frozen < span * float(getattr(config, "FREEZE_SOURCE_STILL_FRAC",
+                                         0.35))
 
 
 def check(ff: str, final: Path, draft: dict, shown: list | None = None,

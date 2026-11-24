@@ -580,6 +580,16 @@ CAPACITY_MARGIN_FRACTION = 0.03
 # freeze can also come from the source itself or from a filter-graph mistake.
 FREEZE_FAIL_SEC = 0.50          # any frozen stretch longer than this fails
 FREEZE_NOISE_DB = -62           # freezedetect sensitivity
+# A freeze in the finished file is the FILM holding still - not a defect -
+# when the SOURCE is frozen over at least this share of the same span. The
+# encode flattens the grain of a near-still shot, so the finished file reads
+# as frozen a little longer than its source does at the same noise floor.
+# Sited on Lost in the Stars (24 Nov): 45 random 0.57s spans of its story
+# footage measure 0.00 (42 of them) or >= 0.80 - moving footage, where a
+# render freeze would show, never measures between - while the seven freezes
+# the render reported, traced to the right source span, measure 0.44-0.98:
+# slow, still shots in a slow film. The old 0.60 bar sat inside that group.
+FREEZE_SOURCE_STILL_FRAC = 0.35
 # Two windows count as reuse when they overlap by more than this. Shot windows
 # are authored by hand and routinely abut by a frame or two.
 FOOTAGE_REUSE_MIN_OVERLAP_SEC = 0.40

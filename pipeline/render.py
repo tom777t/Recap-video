@@ -90,6 +90,25 @@ def intro_owned(ln: dict) -> bool:
     return any(ln.get(k) for k in INTRO_OWNED)
 
 
+def shown_end(start: float, end: float, clip_len: float) -> float:
+    """Where a story clip's footage really stops in the source.
+
+    A clip plays its window from `start` at 1x for clip_len seconds; only
+    when the voice outruns the window is the window slowed to fill it. So a
+    5.4s line on a 19.7s window shows [start, start+5.4), not the window.
+    Recording the whole window sent MOTION-CHECK to the wrong place: it maps
+    a freeze back to the source proportionally across the record, so on Lost
+    in the Stars a freeze 0.9s into line 12 was looked up 3.3s into the
+    window, in footage that moved, and a shot the film holds still was
+    reported as a render freeze. The reuse check and the censor audit read
+    the same record and were counting footage nobody saw.
+    """
+    start, end, clip_len = float(start), float(end), float(clip_len)
+    if end <= start or clip_len >= end - start:
+        return end
+    return start + clip_len
+
+
 def _lead_for(narr_dur: float, shot_dur: float, extra: float = 0.0) -> float:
     """Per-line lead-in, CLAMPED to what the shot can actually carry.
 
@@ -2051,7 +2070,7 @@ def render(project: str, draft: dict,
             # end) here meant the censor audit never looked at the footage a
             # long hold actually reaches, so a flagged shot just after a hold's
             # window could play unblurred. Record what is really on screen.
-            _hold_end = max(float(end), float(start) + float(clip_len))
+            _hold_end = float(start) + float(clip_len)
             used_footage.add(start, _hold_end, "hold/film_speaks clip",
                              blurred=(censor != "none"), line_id=lid,
                              out_a=cursor, out_b=cursor + clip_len)
@@ -2325,7 +2344,7 @@ def render(project: str, draft: dict,
                                  out_a=_oa, out_b=_oa + _shs[_si])
                 _oa += _shs[_si]
         else:
-            used_footage.add(start, end,
+            used_footage.add(start, shown_end(start, end, clip_len),
                              "pool clip" if ln.get("pool") else "clip",
                              blurred=_blurred, line_id=lid,
                              out_a=cursor, out_b=cursor + clip_len)
