@@ -488,6 +488,99 @@ def cue_entry(ff: str, pdir: Path, src: Path, need: float = 0.0) -> float:
 # --------------------------------------------------------------------------- #
 # Building the one track
 # --------------------------------------------------------------------------- #
+def bed_silences(ff: str, src: Path, min_sec: float | None = None,
+                 floor_db: float | None = None) -> list:
+    """[(start, end)] stretches of silence in `src` at least min_sec long."""
+    import re as _re
+    min_sec = float(min_sec if min_sec is not None else
+                    getattr(config, "MUSIC_BED_MAX_SILENCE_SEC", 3.0))
+    floor_db = float(floor_db if floor_db is not None else
+                     getattr(config, "MUSIC_BED_SILENCE_DB", -60.0))
+    r = subprocess.run([ff, "-hide_banner", "-nostats", "-i", str(src),
+                        "-af", f"silencedetect=n={floor_db}dB:d={min_sec}",
+                        "-f", "null", "-"], capture_output=True, text=True)
+    log = r.stderr or ""
+    starts = [float(x) for x in _re.findall(r"silence_start:\s*([-\d.]+)", log)]
+    ends = [float(x) for x in _re.findall(r"silence_end:\s*([-\d.]+)", log)]
+    out = []
+    for i, a in enumerate(starts):
+        b = ends[i] if i < len(ends) else None
+        if b is None:                  # silent to the end of the file
+            b = _duration(ff, src) or a
+        out.append((max(0.0, a), b))
+    return out
+
+
+def _duration(ff: str, src: Path) -> float | None:
+    try:
+        r = subprocess.run([config.ffprobe(), "-v", "error", "-show_entries",
+                            "format=duration", "-of", "csv=p=0", str(src)],
+                           capture_output=True, text=True)
+        return float(r.stdout.strip())
+    except Exception:
+        return None
+
+
+def playable_bed(ff: str, pdir: Path, src: Path | None) -> Path | None:
+    """The owner's bed with its long silences taken out, so the loop is music.
+
+    The bed is looped under the whole video. Lost in the Stars' bed.mp3 was
+    16:00 long but held music only for its first 5:35 - the rest was digital
+    silence (-91 dB) - so the 20-minute video had a bed from 0:00-5:35, NONE
+    from 5:35 to 16:00, and the bed again when the file looped. A silence
+    longer than MUSIC_BED_MAX_SILENCE_SEC is not part of a bed; it is cut,
+    keeping a short tail so the music's own decay is not clipped. The owner's
+    file is never changed and nothing is picked for them: the cut copy is
+    cached in music/_norm/, and the render says what it skipped.
+    """
+    if src is None:
+        return None
+    src = Path(src)
+    sil = bed_silences(ff, src)
+    if not sil:
+        return src
+    keep_tail = 0.5
+    cuts = [(a + keep_tail, b) for a, b in sil if b - a > keep_tail + 0.05]
+    if not cuts:
+        return src
+    try:
+        stt = src.stat()
+        key = f"playable:{src.name}:{stt.st_size}:{int(stt.st_mtime)}"
+    except OSError:
+        return src
+    import hashlib
+    h = hashlib.sha1(key.encode("utf-8")).hexdigest()[:16]
+    ndir = pdir / "music" / "_norm"
+    ndir.mkdir(parents=True, exist_ok=True)
+    outp = ndir / f"bed_{h}.wav"
+    total = _duration(ff, src) or 0.0
+    cut_sec = sum(b - a for a, b in cuts)
+    music_sec = max(0.0, total - cut_sec)
+
+    def _mmss(x):
+        return f"{int(x // 60)}:{int(x % 60):02d}"
+    where = ", ".join(f"{_mmss(a)}-{_mmss(b)}" for a, b in sil)
+    if music_sec < 5.0:
+        console.print(f"[yellow]Music: {src.name} is silent ({where}) - "
+                      f"rendering with no bed under the voice.[/]")
+        return None
+    if not outp.exists():
+        expr = "+".join(f"between(t,{a:.3f},{b:.3f})" for a, b in cuts)
+        r = subprocess.run(
+            [ff, "-y", "-v", "error", "-i", str(src), "-af",
+             f"aselect='not({expr})',asetpts=N/SR/TB,"
+             f"aformat=sample_rates=48000:channel_layouts=stereo",
+             "-c:a", "pcm_s16le", str(outp)], capture_output=True, text=True)
+        if r.returncode != 0 or not outp.exists():
+            console.print(f"[yellow]Music: could not cut the silence out of "
+                          f"{src.name} ({where}); looping it as it is.[/]")
+            return src
+    console.print(f"[yellow]Music: {src.name} has {cut_sec:.0f}s of silence "
+                  f"({where}) - skipped, so the bed loops its "
+                  f"{_mmss(music_sec)} of music instead of going quiet.[/]")
+    return outp
+
+
 def normalized(ff: str, pdir: Path, src: Path,
                target: float | None = None) -> Path:
     """`src` loudness-normalised to a common level, cached. Returns a path.
@@ -808,7 +901,7 @@ def resolve_music(ff: str, pdir: Path, work: Path, draft: dict, timeline: list,
     the bed so the cues still layer - dropping to "legacy single track" there
     silently threw away a populated music/cues/ directory.
     """
-    bed = bed_file(pdir)
+    bed = playable_bed(ff, pdir, bed_file(pdir))
     cues = cue_files(pdir)
     # reveal stings live under 'reveal'; mood cues are the rest
     mood_cues = {m: f for m, f in cues.items() if m != "reveal"}

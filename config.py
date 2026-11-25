@@ -710,6 +710,12 @@ MUSIC_CUE_FADE_SEC = 1.75        # fade a cue in/out (1.5-2s band, middle)
 # Cached per file (size+mtime+target), because measuring is a second per file
 # and the answer never changes for a file that has not changed.
 MUSIC_NORMALIZE_LUFS = -23.0      # only when MUSIC_NORMALIZE_TO_VOICE is off
+# The owner's bed is looped under the whole video; a stretch of silence in it
+# longer than this is cut before the loop (pipeline/music.playable_bed). Lost
+# in the Stars' bed.mp3 was 16:00 with music for 5:35 and digital silence
+# after, so the middle ten minutes of the video had no bed.
+MUSIC_BED_MAX_SILENCE_SEC = 3.0
+MUSIC_BED_SILENCE_DB = -60.0
 MUSIC_NORMALIZE = True
 # Normalise music to the narrator's measured loudness instead of the fixed
 # -23 LUFS? OFF (owner, 18 Nov: the bed and the ending sound right as they
