@@ -1637,7 +1637,8 @@ def render(project: str, draft: dict,
         console.print(f"[cyan]Subtitles:[/] burned-in subtitles at rows "
                       f"{_sb['y0']}-{_sb['y1']} of {_sb['src_h']} - "
                       f"{config.SUBTITLE_COVER} -> "
-                      f"{_subcover.prefix().rstrip(',') or 'nothing'} "
+                      f"{_subcover.cover(_sb) or 'nothing'} "
+                      f"({_subcover.signature()}) "
                       f"({_sb['why']}; edit subtitle_band.json to change)")
     else:
         console.print(f"[dim]Subtitles: none covered ({_sb.get('why')})[/]")

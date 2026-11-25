@@ -19,7 +19,15 @@ to do with the narration, on top of the channel's captions.
                written.
   prefix()     the ffmpeg filter that goes first in every chain reading the
                film:
-                 crop  (default) - keep the picture down to the top of the
+                 blur  (default when the subtitles sit IN the picture) - blur
+                       the band where it is; the frame keeps its size and
+                       nothing is cut. Owner, 25 Nov, on Lost in the Stars:
+                       "mình kêu làm mờ chứ có phải cắt đen như v đâu, chỉ
+                       mờ một khoảng ở caption th" - the crop had cut the
+                       bottom 114 rows of a 1920x816 picture and the letterbox
+                       grew to fill them.
+                 crop  (default when the subtitles sit in the black BAR
+                       under the picture) - keep the picture down to the top of the
                        subtitle band; with a letterbox, also drop the bars, so
                        the result is centred again by the usual scale + pad. A
                        subtitle that sits in the black bar costs no picture
@@ -29,8 +37,9 @@ to do with the narration, on top of the channel's captions.
   map_region() a censor box drawn on a SOURCE frame, moved into the cropped
                frame (render.region_to_output then maps it as before).
 
-SUBTITLE_COVER: "auto" (detect; cover only what was found), "crop" / "black"
-(same, forcing the mode), "off".
+SUBTITLE_COVER: "auto" (detect; cover only what was found: blur in the
+picture, crop in the bar), "blur" / "crop" / "black" (same, forcing the
+mode), "off".
 """
 from __future__ import annotations
 
@@ -40,13 +49,41 @@ from pathlib import Path
 
 import config
 
-VERSION = 1
+VERSION = 2
 _STATE: dict = {"pdir": None, "band": None}
+_N = [0]
 
 
 def _mode() -> str:
     m = str(getattr(config, "SUBTITLE_COVER", "auto")).lower()
-    return m if m in ("auto", "crop", "black", "off") else "auto"
+    return m if m in ("auto", "blur", "crop", "black", "off") else "auto"
+
+
+def in_bar(b: dict) -> bool:
+    """The band sits in the black bar under the picture: unlit rows lie
+    between the bottom of the picture and the band."""
+    ct, cb = (b.get("content") or [0, int(b.get("src_h") or 0)])[:2]
+    return int(cb) < int(b["y0"]) - 1
+
+
+def cover(b: dict | None) -> str:
+    """How this band is hidden: "blur", "crop" or "black" ("" for none)."""
+    if not b:
+        return ""
+    m = _mode()
+    if m == "auto":
+        return "crop" if in_bar(b) else "blur"
+    return m
+
+
+def blur_box(b: dict) -> tuple:
+    """(y, h, sigma): the band on even rows (4:2:0 chroma), and a blur
+    strong enough that no letter survives (about a fifth of its height)."""
+    h_src = int(b.get("src_h") or 0) or 10 ** 6
+    y = int(b["y0"]) // 2 * 2
+    hh = (int(b["y1"]) - y + 1) // 2 * 2
+    hh = max(2, min(hh, (h_src - y) // 2 * 2))
+    return y, hh, max(6.0, round(hh * 0.18, 1))
 
 
 def _probe(path: Path) -> tuple:
@@ -249,7 +286,7 @@ def _band_for(pdir: Path | None) -> dict | None:
 def rect(pdir: Path | None = None):
     """(x, y, w, h) of the source kept by a crop, or None."""
     b = _band_for(pdir)
-    if not b or _mode() == "black":
+    if cover(b) != "crop":
         return None
     w, h = int(b["src_w"]), int(b["src_h"])
     ct, cb = (b.get("content") or [0, h])[:2]
@@ -268,9 +305,17 @@ def prefix(pdir: Path | None = None) -> str:
     b = _band_for(pdir)
     if not b:
         return ""
-    if _mode() == "black":
+    how = cover(b)
+    if how == "black":
         y0, y1 = int(b["y0"]), int(b["y1"])
         return (f"drawbox=x=0:y={y0}:w=iw:h={y1 - y0}:color=black:t=fill,")
+    if how == "blur":
+        y, hh, sigma = blur_box(b)
+        _N[0] += 1
+        k = f"scb{_N[0]}"       # labels unique per use: one graph may read
+        return (f"split=2[{k}a][{k}b];"         # the film several times
+                f"[{k}b]crop=iw:{hh}:0:{y},gblur=sigma={sigma}:steps=3[{k}c];"
+                f"[{k}a][{k}c]overlay=0:{y},")
     r = rect(pdir)
     if not r:
         return ""
@@ -292,7 +337,17 @@ def map_region(x: int, y: int, w: int, h: int, src_w: int, src_h: int,
 
 
 def signature(pdir: Path | None = None) -> str:
-    return f"sc{VERSION}:{_mode()}:{prefix(pdir)}"
+    """What the cover does, for cache keys - never prefix() itself, whose
+    blur labels are numbered per use."""
+    b = _band_for(pdir)
+    how = cover(b)
+    if not how:
+        return f"sc{VERSION}:none"
+    if how == "blur":
+        return f"sc{VERSION}:blur:{blur_box(b)}"
+    if how == "black":
+        return f"sc{VERSION}:black:{b['y0']}:{b['y1']}"
+    return f"sc{VERSION}:crop:{rect(pdir)}"
 
 
 if __name__ == "__main__":
@@ -307,6 +362,7 @@ if __name__ == "__main__":
         (_pd / "subtitle_band.json").unlink(missing_ok=True)
     _b = begin(_pd)
     print(json.dumps(_b, indent=1))
-    print(f"cover: {prefix().rstrip(',') or 'nothing'} "
+    print(f"cover: {cover(_band_for(None)) or 'nothing'} "
+          f"{prefix().rstrip(',')} "
           f"(SUBTITLE_COVER={_mode()}; edit {_pd / 'subtitle_band.json'} "
           f"to change)")

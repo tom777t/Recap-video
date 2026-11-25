@@ -18,6 +18,11 @@ and white outlined subtitle lines that come and go.
   CROP-HIDES        a REAL clip built from the subtitled film: at a moment
                     with a subtitle on screen, the bottom of the output
                     carries no text; the crop keeps the picture centred
+  BLUR-HIDES        the default for a band IN the picture (owner, 25 Nov:
+                    blur the caption strip, do not cut to black): a REAL clip
+                    shows no text, keeps every picture row (letterbox no
+                    taller than with no cover) and the band is not black
+  AUTO-CHOOSES      auto blurs a band in the picture, crops one in the bar
   BAR-COSTS-NOTHING subtitles in the bar: the crop is exactly the picture,
                     no picture row lost
   BLACK-MODE        SUBTITLE_COVER "black" paints the band, frame size kept
@@ -128,10 +133,80 @@ def _frame(path: Path, t: float, w: int = 1920, h: int = 1080):
     return np.frombuffer(r.stdout[:w * h], np.uint8).reshape(h, w)
 
 
+def _clip_from(pd, mode: str):
+    """Build a real clip from the subtitled film under one cover mode;
+    returns (band, output path)."""
+    from pipeline import render as R
+    saved_c = config.SUBTITLE_COVER
+    config.SUBTITLE_COVER = mode
+    band = SC.begin(pd, pd / "source.mp4")
+    out = pd / f"clip_{mode}.mp4"
+    aud = pd / "n.wav"
+    subprocess.run([config.ffmpeg(), "-v", "error", "-y", "-f", "lavfi",
+                    "-i", "sine=f=440:d=3", str(aud)], check=True)
+    saved = config.MOTION_ENABLE
+    config.MOTION_ENABLE = False
+    try:
+        R._build_clip(config.ffmpeg(), pd / "source.mp4", 5.5, 9.5, aud, 3.0,
+                      out, 1, 0.0, 0.0, "none", None, 0.0, film_audio=False,
+                      src_wh=(1280, 720))
+    finally:
+        config.MOTION_ENABLE = saved
+        config.SUBTITLE_COVER = saved_c
+        SC.end()
+    return band, out
+
+
+def t_blur_hides():
+    import numpy as np
+    pd = _pdir("picture")
+    (pd / "subtitle_band.json").unlink(missing_ok=True)
+    band, out = _clip_from(pd, "auto")
+    _b2, plain = _clip_from(pd, "off")
+    g = _frame(out, 1.0)                        # source t=6.5: subtitle on
+    gp = _frame(plain, 1.0)
+    lit = np.where(g.mean(axis=1) > 8)[0]
+    litp = np.where(gp.mean(axis=1) > 8)[0]
+    rows = SC.text_rows(g)
+    # the band in output rows: source 1280x720 -> 1920x1080 is x1.5
+    y0, y1 = int(band["y0"] * 1.5), int(band["y1"] * 1.5)
+    text_band = float(rows[y0:y1].max())
+    text_plain = float(SC.text_rows(gp)[y0:y1].max())
+    same_rows = abs(int(lit[0]) - int(litp[0])) <= 2 and \
+        abs(int(lit[-1]) - int(litp[-1])) <= 2
+    band_lit = float(g[y0:y1].mean()) > 8
+    ok = (band.get("found") and SC.cover(band) == "blur"
+          and text_plain >= 0.025 and text_band < 0.025 and same_rows
+          and band_lit)
+    return ok, (f"blur: band rows {y0}-{y1} text {text_plain:.3f} -> "
+                f"{text_band:.3f}; picture rows {lit[0]}-{lit[-1]} as with "
+                f"no cover ({litp[0]}-{litp[-1]}); band not black" if ok else
+                f"cover {SC.cover(band)} text {text_plain:.3f}->"
+                f"{text_band:.3f} rows {lit[0]}-{lit[-1]} vs "
+                f"{litp[0]}-{litp[-1]} band lit {band_lit}")
+
+
+def t_auto_chooses():
+    pic = {"found": True, "y0": 702, "y1": 801, "src_w": 1920,
+           "src_h": 816, "content": [0, 702]}       # Lost in the Stars
+    bar = {"found": True, "y0": 645, "y1": 690, "src_w": 1280,
+           "src_h": 720, "content": [88, 632]}      # subtitles in the bar
+    saved = config.SUBTITLE_COVER
+    config.SUBTITLE_COVER = "auto"
+    try:
+        a, b = SC.cover(pic), SC.cover(bar)
+    finally:
+        config.SUBTITLE_COVER = saved
+    ok = a == "blur" and b == "crop"
+    return ok, f"in the picture -> {a}; in the bar -> {b}"
+
+
 def t_crop_hides():
     from pipeline import render as R
     pd = _pdir("picture")
     (pd / "subtitle_band.json").unlink(missing_ok=True)
+    _saved_cov = config.SUBTITLE_COVER
+    config.SUBTITLE_COVER = "crop"
     band = SC.begin(pd, pd / "source.mp4")
     out = pd / "clip.mp4"
     aud = pd / "n.wav"
@@ -146,6 +221,7 @@ def t_crop_hides():
     finally:
         config.MOTION_ENABLE = saved
         SC.end()
+        config.SUBTITLE_COVER = _saved_cov
     import numpy as np
     g = _frame(out, 1.0)                        # source t=6.5: subtitle on
     rows = SC.text_rows(g)
@@ -154,7 +230,7 @@ def t_crop_hides():
     centred = abs(top - (1079 - bot)) <= 4
     text_low = float(rows[int(1080 * 0.6):].max())
     ok = band.get("found") and text_low < 0.025 and centred
-    return ok, (f"crop {SC.prefix(pd).rstrip(',')}: no text in the lower "
+    return ok, (f"crop: no text in the lower "
                 f"40% of the output (max row share {text_low:.3f}), picture "
                 f"rows {top}-{bot}, centred" if ok else
                 f"band {band}, text {text_low:.3f}, rows {top}-{bot}")
@@ -192,6 +268,8 @@ def t_black_mode():
 
 def t_hand_edit_wins():
     pd = _pdir("picture", {"found": False, "why": "owner: no subtitles"})
+    _saved_cov = config.SUBTITLE_COVER
+    config.SUBTITLE_COVER = "crop"
     try:
         b1 = SC.begin(pd)
         p1 = SC.prefix()
@@ -203,6 +281,7 @@ def t_hand_edit_wins():
         p2 = SC.prefix()
     finally:
         SC.end()
+        config.SUBTITLE_COVER = _saved_cov
         (pd / "subtitle_band.json").unlink(missing_ok=True)
     ok = not b1["found"] and p1 == "" and p2 == "crop=1280:312:0:88,"
     return ok, ("found:false -> nothing covered; moved rows -> "
@@ -217,6 +296,8 @@ def t_cache_and_censor():
     a = pd / "n.wav"
     a.write_bytes(b"x" * 64)
     args = (pd / "source.mp4", 5.0, 9.0, 0.0, 1, 0.0, 3.0, a)
+    _saved_cov = config.SUBTITLE_COVER
+    config.SUBTITLE_COVER = "crop"
     try:
         k_off = R._clip_signature(*args)
         SC.begin(pd)
@@ -225,14 +306,29 @@ def t_cache_and_censor():
         class Box:
             x, y, width, height = 100, 300, 200, 100     # source pixels
         x, y, w, h = R.region_to_output(Box, 1280, 720)
+        config.SUBTITLE_COVER = "blur"
+        k_blur = R._clip_signature(*args)
+        k_blur2 = R._clip_signature(*args)
+        bx = R.region_to_output(Box, 1280, 720)
     finally:
         SC.end()
+        config.SUBTITLE_COVER = _saved_cov
         (pd / "subtitle_band.json").unlink(missing_ok=True)
     # kept frame: rows 88-550 (462 tall) -> scale 1080/462 is capped by the
     # width: f = min(1920/1280, 1080/462) = 1.5; y = (300-88)*1.5 + pad
     f = min(1920 / 1280, 1080 / 462)
     want_y = round((300 - 88) * f + (1080 - 462 * f) / 2)
-    ok = k_off != k_on and abs(y - want_y) <= 1 and abs(h - 150) <= 1
+    # under blur nothing is cut: the box maps as on the uncovered frame
+    f0 = min(1920 / 1280, 1080 / 720)
+    blur_y = round(300 * f0 + (1080 - 720 * f0) / 2)
+    ok = (k_off != k_on and abs(y - want_y) <= 1 and abs(h - 150) <= 1
+          and k_blur == k_blur2 and k_blur not in (k_on, k_off)
+          and abs(bx[1] - blur_y) <= 1)
+    if not ok:
+        return False, (f"crop box y={y} (want {want_y}); blur keys stable="
+                       f"{k_blur == k_blur2} distinct="
+                       f"{k_blur not in (k_on, k_off)}; blur box y={bx[1]} "
+                       f"(want {blur_y})")
     return ok, (f"cache key changes; censor box at output y={y} "
                 f"(expected {want_y})" if ok else
                 f"keys equal={k_off == k_on}, box {x},{y},{w},{h} vs "
@@ -243,6 +339,7 @@ TESTS = [("FIND-IN-PICTURE", t_find_in_picture),
          ("FIND-IN-BAR", t_find_in_bar), ("NO-SUBTITLES", t_no_subtitles),
          ("NOT-A-SIGN", t_not_a_sign), ("CROP-HIDES", t_crop_hides),
          ("BAR-COSTS-NOTHING", t_bar_costs_nothing),
+         ("BLUR-HIDES", t_blur_hides), ("AUTO-CHOOSES", t_auto_chooses),
          ("BLACK-MODE", t_black_mode), ("HAND-EDIT-WINS", t_hand_edit_wins),
          ("CACHE-AND-CENSOR", t_cache_and_censor)]
 

@@ -1676,7 +1676,10 @@ WRITE_EFFORT = {
 # the picture). pipeline/subcover.py finds the band once per film (saved to
 # projects/<name>/subtitle_band.json - edit it, or write {"found": false}, to
 # overrule) and hides it in every frame read from the film.
-#   "auto"  - cover only what was found, by cropping (the default)
+#   "auto"  - cover only what was found: BLUR a band inside the picture, crop
+#             one in the black bar (the default). Owner, 25 Nov: blur the
+#             caption strip, do not cut the picture to black.
+#   "blur"  - blur the band in place, the frame keeps its size
 #   "crop"  - keep the picture above the band (and drop letterbox bars, so it
 #             is centred again); a subtitle in the black bar costs no picture
 #   "black" - paint the band black, the frame keeps its size
