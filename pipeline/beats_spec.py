@@ -32,10 +32,14 @@ from pathlib import Path
 
 
 def load_beats(pdir: Path) -> dict:
-    """{beat_id: {"ts", "what", "chars", "kind"}} from beats_proposal.md.
+    """{beat_id: {"ts", "what", "chars", "kind", "frame"}} from
+    beats_proposal.md.
 
     Format is pipe-delimited:
-        B47 | 00:41:27 | <what happens> | <characters> | <kind>
+        B47 | 00:41:27 | <what happens> | <characters> | <kind> [| <frame>]
+
+    `frame` (now / past / imagined - pipeline/time_frame.py) is None when the
+    map has no sixth column: tools/frame_beats.py has not run on it.
     """
     for name in ("beats_proposal.md", "beats_proposal_machine.md"):
         p = Path(pdir) / name
@@ -56,6 +60,8 @@ def load_beats(pdir: Path) -> dict:
             "what": parts[2] if len(parts) > 2 else "",
             "chars": parts[3] if len(parts) > 3 else "",
             "kind": parts[4] if len(parts) > 4 else "",
+            "frame": (parts[5].lower() if len(parts) > 5 and parts[5].lower()
+                      in ("now", "past", "imagined") else None),
         }
     return out
 

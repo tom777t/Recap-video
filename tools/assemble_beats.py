@@ -109,9 +109,24 @@ def main() -> int:
     L.append("")
     L.append("KEY: id | ts | what happens | chars | kind")
     L.append("")
+    # frames (now / past / imagined) survive a re-assembly: tools/
+    # frame_beats.py keeps them by timestamp in beat_frames.json
+    fj = pdir / "beat_frames.json"
+    frames = {}
+    if fj.exists():
+        try:
+            frames = json.load(io.open(fj, encoding="utf-8"))
+        except Exception as e:
+            problems.append(f"beat_frames.json: {e}")
+    if frames:
+        L[-2] = ("KEY: id | ts | what happens | chars | kind | frame "
+                 "(now / past / imagined: when or whether it happens)")
     for i, b in enumerate(beats, 1):
         ch = ", ".join(b["chars"]) if b["chars"] else "(none)"
-        L.append(f"B{i:02d} | {hms(b['t'])} | {b['what']} | {ch} | {b['kind']}")
+        row = f"B{i:02d} | {hms(b['t'])} | {b['what']} | {ch} | {b['kind']}"
+        if frames:
+            row += f" | {frames.get(hms(b['t']), 'now')}"
+        L.append(row)
     L.append("")
 
     L.append("```reveal-map")

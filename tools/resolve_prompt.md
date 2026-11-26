@@ -27,3 +27,8 @@ reader: fix the lines it names. It needs no response entry.
   finding may `claim` change.
 - `[REVEAL-TIMING]`: the line names a twist before its beat. Keep what it
   shows, drop the giveaway.
+- `[TIME-FRAME]`: the picture moves between the film's present, the past
+  and something imagined, and the listener is not told. Add the few words
+  that say it ("Years earlier, ...", "In his dream, ...", "Back in the
+  cell, ..."), keeping the line's event and length. When the finding says
+  the footage AFTER the line opens in silence, the line announces it.

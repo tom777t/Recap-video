@@ -702,6 +702,26 @@ def cmd_beats(a, client) -> int:
               f"{len(obj.get('set_pieces') or [])} set-piece(s))")
     out = _tool("assemble_beats.py", a.project, "--out", "beats_proposal.md")
     print("beats: " + (out.strip().splitlines() or ["assembled"])[-1])
+    if not (pdir / "beat_frames.json").exists():
+        # when or whether each beat happens (now / past / imagined), so the
+        # narrator can say when the picture leaves the present - owner,
+        # 26 Nov, Lost in the Stars: "người xem dễ lộn ... quá khứ hiện tại"
+        import frame_beats as FB
+        try:
+            rows = FB.beat_rows(_read(pdir / "beats_proposal.md"))
+            fp = FB.request(pdir)
+            msg = call(client, pdir, "frames", fp)
+            fobj = TB.parse_reply(TB.reply_text(msg))
+            frames, fprobs = FB.frames_from_reply(fobj, rows)
+            (pdir / "beat_frames.json").write_text(
+                json.dumps(frames, indent=1), encoding="utf-8")
+            FB.apply(pdir, frames)
+            print(f"beats: frames - {len(frames)} of {len(rows)} beat(s) "
+                  f"are the past or imagined"
+                  + (f" ({'; '.join(fprobs[:2])})" if fprobs else ""))
+        except Exception as e:            # report, never block the beats
+            print(f"beats: frames not marked ({type(e).__name__}: {e}) - "
+                  f"run python tools/frame_beats.py {a.project}")
     if (pdir / "plot.md").exists():
         from pipeline import plot_ref as PR
         try:
@@ -1311,6 +1331,31 @@ def runtime_findings(project: str, errs: list) -> list:
     return out
 
 
+def time_frame_findings(project: str) -> list:
+    """A change between the film's present, the past and something imagined
+    that no line tells the listener about (pipeline/time_frame.py). Needs
+    the beat map's frame column (tools/frame_beats.py); without it the
+    check is not made, and says so once."""
+    from pipeline import beats_spec as BS
+    from pipeline import time_frame as TF
+    pdir = config.project_dir(project)
+    beats = BS.load_beats(pdir)
+    if not beats or not any(b.get("frame") for b in beats.values()):
+        if beats:
+            print(f"[TIME-FRAME] not checked - the beat map has no frame "
+                  f"column; run python tools/frame_beats.py {project}")
+        return []
+    try:
+        draft = json.loads(_read(pdir / "draft.json"))
+    except (OSError, ValueError, SystemExit):
+        return []
+    breath = float(getattr(config, "RECAP_BREATH_SEC", 2.0))
+    return [{"artifact": None, "kind": "gate", "gate": True,
+             "ids": [str(p["id"])], "text": TF.finding_text(p)}
+            for p in TF.switch_problems(draft.get("lines") or [], beats,
+                                        breath)]
+
+
 def story_point_findings(project: str) -> list:
     """A slot's story point (a spine step, a change of hands) that its line
     does not say, as a finding on that line. The writer is told once at
@@ -1840,7 +1885,8 @@ def gate_findings(project: str, wide: list | None = None) -> list:
     errors that name NO line go into `wide` (if given): resolve cannot route
     them, and must not call the draft clean while they stand."""
     _rc, errs = run_gates(project)
-    out = runtime_findings(project, errs) + story_point_findings(project)
+    out = (runtime_findings(project, errs) + story_point_findings(project)
+           + time_frame_findings(project))
     for e in errs:
         if any(e.startswith(f"[{g}]") for g in REVIEW_GATES + ("SAME-POINT",)):
             continue

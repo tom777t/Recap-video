@@ -66,6 +66,19 @@ Without slots, a line also carries `id`, `note` (its beat id), `clip_start`,
 - `callback_beat`: a line that refers back to an earlier event, or claims a
   habit, names the beat that shows it (story guide, the Facts section).
 
+## Present, past, imagined
+
+A beat line in the beat map can end with its **frame**: `now` (the film's
+present), `past` (a flashback, a memory shown on screen, a past someone
+recounts while the film shows it) or `imagined` (a dream, a vision, a false
+version shown as if it happened). The listener cannot see the film's own
+cues - the colour, the younger faces, the dissolve - so **say it when the
+picture changes frame, and say it again when it comes back**: "Years
+earlier, ...", "In his dream, ...", "He remembers the night ...", "Back in
+the cell, ...", "He wakes." Tell the past in the past tense. When a beat in
+another frame opens on a hold, the line BEFORE the hold says where we are
+going. `[TIME-FRAME]` checks this.
+
 ## Hook, intro, outro
 
 - The **hook and the title are written at the plan stage**. Do not write a

@@ -38,6 +38,7 @@ from __future__ import annotations
 
 import io
 import json
+import re
 import os
 import shutil
 import sys
@@ -64,6 +65,10 @@ def _setup():
     shutil.rmtree(PDIR, ignore_errors=True)
     shutil.copytree(SRC, PDIR, ignore=shutil.ignore_patterns(
         "narration", "frames", "*.mp4", "*.wav", "_*"))
+    # the beats stage marks frames once (tools/frame_beats.py) when there is
+    # no beat_frames.json; tests that count the REVEALS calls start with
+    # one, and BEATS-MARKS-FRAMES removes it
+    (PDIR / "beat_frames.json").write_text("{}", encoding="utf-8")
 
 
 def _schema_clean(lines):
@@ -607,6 +612,40 @@ def test_reveals_repair():
                 f"rc {rc}, calls {len(c.calls)}, kept {kept}: {out[-300:]}")
 
 
+def test_beats_marks_frames():
+    """The beats stage marks each beat now / past / imagined once, after
+    the map is assembled (owner, 26 Nov: viewers mix up past and present),
+    and writes the sixth column; a failed frames call does not fail the
+    beats."""
+    _setup()
+    (PDIR / "beat_frames.json").unlink()
+    first = None
+    bp = (PDIR / "beats_proposal.md")
+    for raw in bp.read_text(encoding="utf-8-sig").splitlines():
+        if re.match(r"^\s*B\d+\s*\|", raw):
+            first = raw.split("|")[0].strip()
+            break
+
+    def syn(p, n):
+        sysx = " ".join(b.get("text", "") for b in p.get("system") or [])
+        if "which frame it is in" in sysx:
+            return msg({"frames": [{"beat": first, "frame": "past",
+                                    "why": "a memory"}]})
+        return msg(_j(SRC / "reveals.json") | {"landing_notes": "x"})
+    c = Client(syn, lambda cid, p: msg({}))
+    rc, out = _run(c, "beats", "--project", PROJ)
+    txt = bp.read_text(encoding="utf-8-sig")
+    rows = [r for r in txt.splitlines() if re.match(r"^\s*B\d+\s*\|", r)]
+    fj = PDIR / "beat_frames.json"
+    ok = (rc == 0 and fj.exists() and rows
+          and rows[0].rstrip().endswith("| past")
+          and all(r.rstrip().endswith(("| now", "| past")) for r in rows))
+    return ok, (f"{first} marked past, every other beat now; column on "
+                f"{len(rows)} beat lines" if ok else
+                f"rc {rc} frames file {fj.exists()} first row "
+                f"{rows[:1]}: {out[-300:]}")
+
+
 def test_wiki_title_brackets():
     """names.json _source 'https://en.wikipedia.org/wiki/Lost_in_the_Stars_
     (2022_film)' was cut at its ')' and Wikipedia was asked for 'Lost in the
@@ -718,6 +757,7 @@ TESTS = {
     "RUNPS1-WIRED": test_runps1_wired,
     "MISSING-KEY": test_missing_key,
     "REVEALS-REPAIR": test_reveals_repair,
+    "BEATS-MARKS-FRAMES": test_beats_marks_frames,
     "WIKI-BRACKETS": test_wiki_title_brackets,
     "PARSE-IN-PROSE": test_parse_in_prose,
     "REVEALS-STUCK": test_reveals_stuck,
