@@ -81,7 +81,7 @@ def concat(parts: list[Path], out: Path) -> None:
         [config.ffmpeg(), "-y", "-hide_banner", "-loglevel", "error",
          "-f", "concat", "-safe", "0", "-i", str(lst),
          "-c:a", "libmp3lame", "-b:a", "192k", "-ar", "44100", str(out)],
-        capture_output=True, text=True)
+        capture_output=True, text=True, encoding="utf-8", errors="replace")
     lst.unlink(missing_ok=True)
     if r.returncode != 0:
         raise RuntimeError(f"concat failed: {(r.stderr or '')[-300:]}")

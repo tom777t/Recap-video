@@ -49,7 +49,7 @@ _probe_cache: dict | None = None
 # --------------------------------------------------------------------------- #
 def _listed(ff: str) -> bool:
     r = subprocess.run([ff, "-hide_banner", "-encoders"],
-                       capture_output=True, text=True)
+                       capture_output=True, text=True, encoding="utf-8", errors="replace")
     return "h264_qsv" in (r.stdout or "")
 
 
@@ -75,7 +75,7 @@ def probe_qsv(ff: str | None = None, force: bool = False) -> dict:
             [ff, "-hide_banner", "-loglevel", "error", "-y",
              "-f", "lavfi", "-i", "testsrc2=s=640x360:r=30:d=0.34",
              "-c:v", "h264_qsv", "-global_quality", "25",
-             str(out)], capture_output=True, text=True)
+             str(out)], capture_output=True, text=True, encoding="utf-8", errors="replace")
         ok = r.returncode == 0 and out.exists() and out.stat().st_size > 0
         why = ("probe encode succeeded" if ok else
                f"probe encode failed: {(r.stderr or '').strip()[-200:]}")

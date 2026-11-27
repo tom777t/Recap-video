@@ -25,7 +25,7 @@ def dur(p):
     r = subprocess.run([config.ffprobe(), "-v", "error", "-show_entries",
                         "format=duration", "-of",
                         "default=noprint_wrappers=1:nokey=1", str(p)],
-                       capture_output=True, text=True)
+                       capture_output=True, text=True, encoding="utf-8", errors="replace")
     try:
         return float(r.stdout.strip())
     except ValueError:

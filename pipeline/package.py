@@ -27,7 +27,7 @@ FONT = "C\\:/Windows/Fonts/arialbd.ttf"  # Arial Bold
 
 
 def _run(cmd: list[str], desc: str):
-    proc = subprocess.run(cmd, capture_output=True, text=True)
+    proc = subprocess.run(cmd, capture_output=True, text=True, encoding="utf-8", errors="replace")
     if proc.returncode != 0:
         console.print(f"[red]ffmpeg failed: {desc}[/]")
         console.print(proc.stderr[-1500:])

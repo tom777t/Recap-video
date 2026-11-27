@@ -29,7 +29,7 @@ def _probe_duration(source: Path) -> float:
     out = subprocess.run(
         [fp, "-v", "error", "-show_entries", "format=duration",
          "-of", "default=noprint_wrappers=1:nokey=1", str(source)],
-        capture_output=True, text=True)
+        capture_output=True, text=True, encoding="utf-8", errors="replace")
     try:
         return float(out.stdout.strip())
     except ValueError:
@@ -37,7 +37,7 @@ def _probe_duration(source: Path) -> float:
 
 
 def _run(cmd: list[str], desc: str):
-    proc = subprocess.run(cmd, capture_output=True, text=True)
+    proc = subprocess.run(cmd, capture_output=True, text=True, encoding="utf-8", errors="replace")
     if proc.returncode != 0:
         console.print(f"[red]ffmpeg failed: {desc}[/]")
         console.print(proc.stderr[-1500:])

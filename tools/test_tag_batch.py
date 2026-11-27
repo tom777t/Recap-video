@@ -575,7 +575,42 @@ def t_derive_clips(spans):
     return probs
 
 
+def t_wait_limit(spans) -> list:
+    """collect --wait --max-wait gives up (exit 3) instead of waiting for
+    ever; run.ps1 uses it so a run waits for a batch, then continues."""
+    probs = []
+    st_p = PDIR / T.STATE_FILE
+    keep = st_p.read_text(encoding="utf-8") if st_p.exists() else None
+    fake = FakeClient()
+    fake.messages.batches.status = "in_progress"      # never ends
+    T.CLIENT_FACTORY = lambda: fake
+    os.environ[T.KEY_ENV] = SENTINEL
+    try:
+        st_p.write_text(json.dumps({"batches": [{
+            "id": "msgbatch_wait", "model": config.TAG_MODEL,
+            "custom_ids": {"span-01": "sp01"}, "status": "submitted"}]}),
+            encoding="utf-8")
+        import time as _t
+        t0 = _t.time()
+        code, txt = _run(["collect", "--project", PROJ, "--wait",
+                          "--poll", "1", "--max-wait", "0.03"])
+        el = _t.time() - t0
+        if code != 3:
+            probs.append(f"exit {code}, want 3 (still running)")
+        if el > 20:
+            probs.append(f"waited {el:.0f}s past a 2 s limit")
+        if "stopped waiting" not in txt:
+            probs.append("does not say it stopped waiting")
+    finally:
+        if keep is None:
+            st_p.unlink(missing_ok=True)
+        else:
+            st_p.write_text(keep, encoding="utf-8")
+    return probs
+
+
 TESTS = {
+    "WAIT-LIMIT": t_wait_limit,
     "REQUEST-BUILD": t_request_build,
     "IMAGE-DOWNSCALE": t_image_downscale,
     "TODO-PARITY": t_todo_parity,

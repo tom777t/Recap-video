@@ -17,90 +17,74 @@
     "inworld-Warren_default": {
       "voice_id": "Warren",
       "rate_adjustment": "",
-      "words_per_sec": 3.456,
-      "words_per_sec_conservative": 3.316,
-      "syllables_per_sec": 4.432,
+      "words_per_sec": 3.267,
+      "words_per_sec_conservative": 3.053,
+      "syllables_per_sec": 4.38,
       "by_tag": {
         "action": {
-          "samples": 2,
-          "words_per_sec": 3.406,
-          "words_per_sec_mean": 3.406,
-          "words_per_sec_std": 0.055,
-          "words_per_sec_conservative": 3.351,
-          "words_per_sec_slowest": 3.351
-        },
-        "hook": {
-          "samples": 1,
-          "words_per_sec": 3.608,
-          "words_per_sec_mean": 3.608,
-          "words_per_sec_std": 0.0,
-          "words_per_sec_conservative": 3.608,
-          "words_per_sec_slowest": 3.608
+          "samples": 16,
+          "words_per_sec": 3.155,
+          "words_per_sec_mean": 3.139,
+          "words_per_sec_std": 0.323,
+          "words_per_sec_conservative": 2.816,
+          "words_per_sec_slowest": 2.497
         },
         "intro": {
           "samples": 2,
-          "words_per_sec": 3.505,
-          "words_per_sec_mean": 3.515,
-          "words_per_sec_std": 0.097,
-          "words_per_sec_conservative": 3.418,
-          "words_per_sec_slowest": 3.418
+          "words_per_sec": 2.851,
+          "words_per_sec_mean": 2.804,
+          "words_per_sec_std": 0.114,
+          "words_per_sec_conservative": 2.69,
+          "words_per_sec_slowest": 2.69
         },
         "mystery": {
-          "samples": 2,
-          "words_per_sec": 3.099,
-          "words_per_sec_mean": 3.078,
-          "words_per_sec_std": 0.371,
-          "words_per_sec_conservative": 2.707,
-          "words_per_sec_slowest": 2.707
+          "samples": 25,
+          "words_per_sec": 3.482,
+          "words_per_sec_mean": 3.486,
+          "words_per_sec_std": 0.303,
+          "words_per_sec_conservative": 3.183,
+          "words_per_sec_slowest": 3.008
         },
         "normal": {
-          "samples": 2,
-          "words_per_sec": 3.502,
-          "words_per_sec_mean": 3.505,
-          "words_per_sec_std": 0.1,
-          "words_per_sec_conservative": 3.405,
-          "words_per_sec_slowest": 3.405
+          "samples": 62,
+          "words_per_sec": 3.278,
+          "words_per_sec_mean": 3.265,
+          "words_per_sec_std": 0.372,
+          "words_per_sec_conservative": 2.893,
+          "words_per_sec_slowest": 2.552
         },
         "outro": {
           "samples": 1,
-          "words_per_sec": 3.538,
-          "words_per_sec_mean": 3.538,
+          "words_per_sec": 3.071,
+          "words_per_sec_mean": 3.071,
           "words_per_sec_std": 0.0,
-          "words_per_sec_conservative": 3.538,
-          "words_per_sec_slowest": 3.538
+          "words_per_sec_conservative": 3.071,
+          "words_per_sec_slowest": 3.071
         },
         "reveal": {
-          "samples": 2,
-          "words_per_sec": 3.376,
-          "words_per_sec_mean": 3.389,
-          "words_per_sec_std": 0.308,
-          "words_per_sec_conservative": 3.08,
-          "words_per_sec_slowest": 3.08
-        },
-        "sad": {
-          "samples": 2,
-          "words_per_sec": 3.48,
-          "words_per_sec_mean": 3.483,
-          "words_per_sec_std": 0.04,
-          "words_per_sec_conservative": 3.442,
-          "words_per_sec_slowest": 3.442
+          "samples": 26,
+          "words_per_sec": 3.256,
+          "words_per_sec_mean": 3.275,
+          "words_per_sec_std": 0.355,
+          "words_per_sec_conservative": 2.92,
+          "words_per_sec_slowest": 2.806
         },
         "tense": {
-          "samples": 2,
-          "words_per_sec": 3.502,
-          "words_per_sec_mean": 3.502,
-          "words_per_sec_std": 0.033,
-          "words_per_sec_conservative": 3.469,
-          "words_per_sec_slowest": 3.469
+          "samples": 85,
+          "words_per_sec": 3.246,
+          "words_per_sec_mean": 3.192,
+          "words_per_sec_std": 0.42,
+          "words_per_sec_conservative": 2.772,
+          "words_per_sec_slowest": 1.973
         }
       },
-      "mapping_signature": "a8a99b16bc4d5d78",
+      "mapping_signature": "2b19e3610b05a429",
       "pause_overhead_sec": 0.18,
-      "measured_from": "tokyodrift2006 (live-mapping sample)",
-      "measured_samples": 16,
-      "measured_total_words": 517,
-      "measured_total_speaking_sec": 149.6,
-      "measured_utc": "2026-10-29T20:31:58Z"
+      "measured_from": "lostinthestars2023",
+      "measured_samples": 217,
+      "measured_total_words": 3336,
+      "measured_total_speaking_sec": 1021.1,
+      "measured_utc": "2026-11-23T21:31:26Z"
     }
   }
 }

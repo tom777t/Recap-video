@@ -72,7 +72,7 @@ def measure(path: Path, start: float | None = None,
         cmd += ["-t", f"{float(dur):.3f}"]
     cmd += ["-i", str(path), "-vn", "-af", "ebur128", "-f", "null", "-"]
     try:
-        r = subprocess.run(cmd, capture_output=True, text=True, timeout=120)
+        r = subprocess.run(cmd, capture_output=True, text=True, encoding="utf-8", errors="replace", timeout=120)
     except (OSError, subprocess.SubprocessError):
         return None
     if r.returncode != 0:

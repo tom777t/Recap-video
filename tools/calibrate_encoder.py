@@ -41,7 +41,7 @@ SWEEP = (18, 20, 22, 23, 24, 25, 26, 28)
 
 
 def _run(cmd: list[str]) -> subprocess.CompletedProcess:
-    return subprocess.run(cmd, capture_output=True, text=True)
+    return subprocess.run(cmd, capture_output=True, text=True, encoding="utf-8", errors="replace")
 
 
 def _vmaf(ff: str, ref: Path, dist: Path) -> float | None:
@@ -60,7 +60,7 @@ def _vmaf(ff: str, ref: Path, dist: Path) -> float | None:
            (f"[0:v]setpts=PTS-STARTPTS[d];[1:v]setpts=PTS-STARTPTS[r];"
             f"[d][r]libvmaf=log_fmt=json:log_path={log.name}"),
            "-f", "null", "-"]
-    r = subprocess.run(cmd, capture_output=True, text=True, cwd=str(log.parent))
+    r = subprocess.run(cmd, capture_output=True, text=True, encoding="utf-8", errors="replace", cwd=str(log.parent))
     if r.returncode != 0:
         print(f"    VMAF failed: {(r.stderr or '')[-200:]}")
         return None
@@ -103,7 +103,7 @@ def main() -> int:
     dur = float(subprocess.run(
         [config.ffprobe(), "-v", "error", "-show_entries", "format=duration",
          "-of", "default=nw=1:nk=1", str(src)],
-        capture_output=True, text=True).stdout.strip() or 0.0)
+        capture_output=True, text=True, encoding="utf-8", errors="replace").stdout.strip() or 0.0)
     ss = max(0.0, dur / 2.0)
     w, h = int(config.OUTPUT_WIDTH), int(config.OUTPUT_HEIGHT)
     vf = (f"scale={w}:{h}:force_original_aspect_ratio=decrease:"

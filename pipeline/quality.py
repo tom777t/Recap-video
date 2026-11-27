@@ -76,7 +76,7 @@ def _probe_raw(ffprobe: str, path: Path) -> dict:
          "stream=width,height,r_frame_rate,codec_name,pix_fmt",
          "-show_entries", "format=bit_rate,duration",
          "-of", "default=noprint_wrappers=1", str(path)],
-        capture_output=True, text=True)
+        capture_output=True, text=True, encoding="utf-8", errors="replace")
     for line in (r.stdout or "").splitlines():
         if "=" in line:
             k, v = line.split("=", 1)

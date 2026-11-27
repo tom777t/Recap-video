@@ -23,7 +23,7 @@ Measured basis for the default tolerance (Shutter Island, 62 hand boundaries vs
 87% already land within 3s, so snapping does not distort an existing catalogue -
 it only pulls in the 13% that drifted.
 
-Scanning a 2h film takes ~11 minutes, so the result is cached in
+Scanning a 2h film takes ~10 minutes, so the result is cached in
 projects/<p>/_cuts.json and reused. Cache format matches the one written by the
 diagnostic scripts, so an existing cache is picked up as-is.
 """
@@ -58,12 +58,103 @@ def load_cuts(project: str):
         return None
 
 
+def _probe(src: Path):
+    import subprocess
+    r = subprocess.run([config.ffprobe(), "-v", "error", "-select_streams",
+                        "v:0", "-show_entries",
+                        "stream=width,height,r_frame_rate,nb_frames:"
+                        "format=duration", "-of", "json", str(src)],
+                       capture_output=True, text=True, encoding="utf-8",
+                       errors="replace")
+    d = json.loads(r.stdout or "{}")
+    s = (d.get("streams") or [{}])[0]
+    num, den = str(s.get("r_frame_rate") or "24/1").split("/")
+    fps = float(num) / float(den or 1)
+    dur = float((d.get("format") or {}).get("duration") or 0)
+    return int(s["width"]), int(s["height"]), fps, dur
+
+
+def ffmpeg_cuts(src: Path, threshold: float = DEFAULT_THRESHOLD,
+                min_scene_len: int = DEFAULT_MIN_SCENE, progress: bool = True):
+    """Cut times from PySceneDetect's own ContentDetector, fed frames that
+    ffmpeg decodes (multi-threaded) and scales down while decoding.
+
+    Lost in the Stars, 20 Nov: the OpenCV-decoded scan ran at 15 frames/s on
+    the owner's PC - 3 h 10 min for a 2 h film, against ~11 min (260 fps)
+    for the same code on Linux. The detector is not the slow part, the
+    decode is. The frames are scaled by PySceneDetect's own auto-downscale
+    rule (width // 256), so the detector sees what it saw before: on the
+    film's first 10 minutes this finds 130 of PySceneDetect's 134 cuts to
+    the frame and the rest within 0.5 s (the snap tolerance is 3 s).
+    """
+    import subprocess
+    import time
+    import inspect
+    import numpy as np
+    from scenedetect.detectors import ContentDetector
+    try:
+        from scenedetect import FrameTimecode
+    except ImportError:                                   # older releases
+        from scenedetect.frame_timecode import FrameTimecode
+    W, H, fps, dur = _probe(src)
+    k = max(1, W // 256)
+    w, h = max(2, W // k), max(2, H // k)
+    det = ContentDetector(threshold=threshold, min_scene_len=min_scene_len)
+    takes_tc = "timecode" in inspect.signature(det.process_frame).parameters
+    from pipeline.ffcmd import fit
+    p = subprocess.Popen(fit([config.ffmpeg(), "-v", "error", "-threads",
+                              "0", "-i", str(src), "-map", "0:v:0", "-an",
+                              "-sn", "-vf", f"scale={w}:{h}:flags=bilinear",
+                              "-pix_fmt", "bgr24", "-f", "rawvideo", "-"]),
+                         stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+                         bufsize=10 ** 7)
+    n = w * h * 3
+    i, marks, t0, shown = 0, [0.0], time.time(), -1
+    total = max(1, int(dur * fps))
+    while True:
+        b = p.stdout.read(n)
+        if len(b) < n:
+            break
+        frame = np.frombuffer(b, np.uint8).reshape(h, w, 3)
+        out = det.process_frame(FrameTimecode(i, fps) if takes_tc else i,
+                                frame)
+        for c in out or []:
+            sec = getattr(c, "seconds", None)
+            if sec is None:
+                sec = (c.get_seconds() if hasattr(c, "get_seconds")
+                       else float(c) / fps)
+            marks.append(round(float(sec), 3))
+        i += 1
+        pct = i * 20 // total
+        if progress and pct != shown:
+            shown = pct
+            el = time.time() - t0
+            rate = i / el if el > 0 else 0
+            left = (total - i) / rate if rate > 0 else 0
+            print(f"  cuts: {min(100, pct * 5):3d}%  {len(marks) - 1} cut(s)"
+                  f"  {rate:.0f} frames/s  ~{left / 60:.0f} min left",
+                  flush=True)
+    err = p.stderr.read().decode("utf-8", "replace") if p.stderr else ""
+    p.wait()
+    if p.returncode != 0 or i == 0:
+        raise RuntimeError(f"ffmpeg decode failed (rc {p.returncode}): "
+                           f"{err[-300:]}")
+    marks.append(round(i / fps, 3))
+    el = time.time() - t0
+    if progress:
+        print(f"  cuts: {len(marks) - 2} cut(s) in {i} frames, "
+              f"{el / 60:.1f} min ({i / max(el, 1e-6):.0f} frames/s)")
+    return sorted(set(marks))
+
+
 def detect_cuts(project: str, threshold: float = DEFAULT_THRESHOLD,
                 min_scene_len: int = DEFAULT_MIN_SCENE, progress: bool = True):
     """Scan source.mp4 and cache the cut list. Returns the cuts, or None.
 
     Raises nothing - a missing source or a missing scenedetect install is a
     normal answer here, reported by the caller rather than crashing a run.
+    ffmpeg decodes (ffmpeg_cuts); PySceneDetect's own OpenCV reader is the
+    fallback when that fails.
     """
     src = config.project_dir(project) / "source.mp4"
     if not src.exists():
@@ -73,6 +164,17 @@ def detect_cuts(project: str, threshold: float = DEFAULT_THRESHOLD,
         from scenedetect.detectors import ContentDetector
     except ImportError:
         return None
+
+    try:
+        cuts = ffmpeg_cuts(src, threshold, min_scene_len, progress)
+        json.dump({"threshold": threshold, "min_scene_len": min_scene_len,
+                   "decoder": "ffmpeg", "cuts": cuts},
+                  io.open(cache_path(project), "w", encoding="utf-8"))
+        return cuts
+    except Exception as e:
+        print(f"  cuts: the ffmpeg reader failed ({type(e).__name__}: "
+              f"{str(e)[:200]}) - falling back to PySceneDetect's own "
+              f"reader, which can be much slower")
 
     video = open_video(str(src))
     sm = SceneManager()

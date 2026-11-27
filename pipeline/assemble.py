@@ -67,7 +67,7 @@ def _frames(p: Path) -> int:
         [config.ffprobe(), "-v", "error", "-select_streams", "v:0",
          "-count_packets", "-show_entries", "stream=nb_read_packets",
          "-of", "default=nw=1:nk=1", str(p)],
-        capture_output=True, text=True)
+        capture_output=True, text=True, encoding="utf-8", errors="replace")
     try:
         return int((r.stdout or "0").strip())
     except ValueError:
@@ -80,7 +80,7 @@ class AssemblyError(Exception):
 
 def _run(cmd: list[str], what: str) -> None:
     from pipeline.ffcmd import fit
-    r = subprocess.run(fit(cmd), capture_output=True, text=True)
+    r = subprocess.run(fit(cmd), capture_output=True, text=True, encoding="utf-8", errors="replace")
     if r.returncode != 0:
         console.print(f"[red]{what} failed[/]")
         console.print((r.stderr or "")[-700:])
@@ -91,14 +91,14 @@ def _dur(p: Path, stream: str = "v:0") -> float:
     r = subprocess.run(
         [config.ffprobe(), "-v", "error", "-select_streams", stream,
          "-show_entries", "stream=duration", "-of", "default=nw=1:nk=1",
-         str(p)], capture_output=True, text=True)
+         str(p)], capture_output=True, text=True, encoding="utf-8", errors="replace")
     try:
         return float((r.stdout or "").strip().splitlines()[0])
     except Exception:
         r2 = subprocess.run(
             [config.ffprobe(), "-v", "error", "-show_entries",
              "format=duration", "-of", "default=nw=1:nk=1", str(p)],
-            capture_output=True, text=True)
+            capture_output=True, text=True, encoding="utf-8", errors="replace")
         try:
             return float((r2.stdout or "").strip())
         except ValueError:
@@ -123,7 +123,7 @@ def keyframe_indices(p: Path) -> set[int]:
     r = subprocess.run(
         [config.ffprobe(), "-v", "error", "-select_streams", "v:0",
          "-show_entries", "frame=key_frame", "-of", "csv=p=0", str(p)],
-        capture_output=True, text=True)
+        capture_output=True, text=True, encoding="utf-8", errors="replace")
     out: set[int] = set()
     for i, line in enumerate(
             l for l in (r.stdout or "").splitlines() if l.strip()):

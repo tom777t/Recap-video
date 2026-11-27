@@ -50,7 +50,7 @@ def _ffprobe_dur(p: Path) -> float | None:
     r = subprocess.run(
         [config.ffprobe(), "-v", "error", "-show_entries", "format=duration",
          "-of", "default=nw=1:nk=1", str(p)],
-        capture_output=True, text=True)
+        capture_output=True, text=True, encoding="utf-8", errors="replace")
     try:
         return round(float(r.stdout.strip()), 2)
     except ValueError:

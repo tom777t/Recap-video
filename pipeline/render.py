@@ -150,7 +150,7 @@ from pipeline.ffcmd import ff_major as _ff_major  # noqa: E402,F401
 
 
 def _run(cmd: list[str], desc: str):
-    proc = subprocess.run(_fit_cmd(cmd), capture_output=True, text=True)
+    proc = subprocess.run(_fit_cmd(cmd), capture_output=True, text=True, encoding="utf-8", errors="replace")
     if proc.returncode != 0:
         console.print(f"[red]ffmpeg failed during: {desc}[/]")
         console.print(proc.stderr[-2500:])
@@ -211,7 +211,7 @@ def _audio_dur(ff_probe: str, path: Path) -> float:
     out = subprocess.run(
         [ff_probe, "-v", "error", "-show_entries", "format=duration",
          "-of", "default=noprint_wrappers=1:nokey=1", str(path)],
-        capture_output=True, text=True)
+        capture_output=True, text=True, encoding="utf-8", errors="replace")
     try:
         return float(out.stdout.strip())
     except ValueError:
@@ -1684,7 +1684,7 @@ def render(project: str, draft: dict,
                 [ffp, "-v", "error", "-select_streams", "a:0",
                  "-show_entries", "stream=codec_type",
                  "-of", "default=noprint_wrappers=1:nokey=1", str(source)],
-                capture_output=True, text=True)
+                capture_output=True, text=True, encoding="utf-8", errors="replace")
             has_film_audio = ("audio" in (_pr.stdout or ""))
         except Exception as _e:                            # pragma: no cover
             has_film_audio = False
@@ -2819,7 +2819,7 @@ def render(project: str, draft: dict,
         _src_dur = float(subprocess.run(
             [ffp, "-v", "error", "-show_entries", "format=duration",
              "-of", "default=nw=1:nk=1", str(source)],
-            capture_output=True, text=True).stdout.strip())
+            capture_output=True, text=True, encoding="utf-8", errors="replace").stdout.strip())
     except (ValueError, AttributeError):
         _src_dur = 0.0
     _out_dur = float(total_dur) + float(intro_offset)

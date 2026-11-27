@@ -84,7 +84,7 @@ def audio_duration(path: Path) -> float:
     out = subprocess.run(
         [config.ffprobe(), "-v", "error", "-show_entries", "format=duration",
          "-of", "default=noprint_wrappers=1:nokey=1", str(path)],
-        capture_output=True, text=True)
+        capture_output=True, text=True, encoding="utf-8", errors="replace")
     try:
         return float(out.stdout.strip())
     except ValueError:

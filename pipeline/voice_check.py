@@ -116,7 +116,7 @@ def speech_seconds(path, ffmpeg: str | None = None,
         [ff, "-hide_banner", "-nostats", "-i", str(p),
          "-af", f"silencedetect=noise={SILENCE_THRESHOLD_DB}dB:"
                 f"d={SILENCE_MIN_SEC}",
-         "-f", "null", "-"], capture_output=True, text=True)
+         "-f", "null", "-"], capture_output=True, text=True, encoding="utf-8", errors="replace")
     log = r.stderr or ""
     m = re.search(r"Duration: (\d+):(\d+):([\d.]+)", log)
     if not m:

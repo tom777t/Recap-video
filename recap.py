@@ -105,7 +105,7 @@ def cmd_names(args):
                                                   write=not args.dry_run)
     if err:
         print(f"could not build names.json: {err}")
-        return
+        sys.exit(1)
     for r in rejected:
         print(f"  [skipped - not a name] {r}")
     if rejected:
@@ -159,7 +159,7 @@ def cmd_cuts(args):
         print(f"{len(existing)} cuts already cached in _cuts.json "
               f"(use --rescan to redo the ~11 minute scan)")
         return
-    print("scanning source.mp4 for scene cuts (a 2h film takes ~11 minutes)...")
+    print("scanning source.mp4 for scene cuts (a 2h film takes ~10 minutes; progress below)...")
     got = cutsmod.detect_cuts(args.project, threshold=args.threshold)
     if got is None:
         print("could not scan: source.mp4 missing, or scenedetect not installed "

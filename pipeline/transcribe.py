@@ -82,7 +82,7 @@ def _extract_audio(source: Path) -> Path:
         "-c:a", "pcm_s16le", str(wav),
     ]
     console.print("Extracting 16kHz mono audio for transcription...")
-    proc = subprocess.run(cmd, capture_output=True, text=True)
+    proc = subprocess.run(cmd, capture_output=True, text=True, encoding="utf-8", errors="replace")
     if proc.returncode != 0:
         console.print("[red]ffmpeg audio extraction failed:[/]")
         console.print(proc.stderr[-1500:])
@@ -95,7 +95,7 @@ def _probe_duration(source: Path) -> float:
     out = subprocess.run(
         [fp, "-v", "error", "-show_entries", "format=duration",
          "-of", "default=noprint_wrappers=1:nokey=1", str(source)],
-        capture_output=True, text=True,
+        capture_output=True, text=True, encoding="utf-8", errors="replace",
     )
     try:
         return float(out.stdout.strip())

@@ -47,7 +47,7 @@ from pipeline import audio_check as ac  # noqa: E402
 
 def _ff(*a) -> int:
     r = subprocess.run([config.ffmpeg(), "-y", "-hide_banner", "-loglevel",
-                        "error", *a], capture_output=True, text=True)
+                        "error", *a], capture_output=True, text=True, encoding="utf-8", errors="replace")
     return r.returncode
 
 

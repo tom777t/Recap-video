@@ -72,7 +72,7 @@ def _shots(draft) -> dict:
 def _onsets(final: Path) -> list[float]:
     r = subprocess.run([config.ffmpeg(), "-hide_banner", "-i", str(final),
                         "-af", "silencedetect=n=-35dB:d=0.25", "-f", "null", "-"],
-                       capture_output=True, text=True)
+                       capture_output=True, text=True, encoding="utf-8", errors="replace")
     return [float(x) for x in re.findall(r"silence_end: ([\d.]+)", r.stderr)]
 
 

@@ -759,7 +759,7 @@ def _build_film_intro_segment(project: str, work: Path,
                "-map", "[v]", "-map", "[a]", "-t", f"{fi_dur+0.3:.3f}",
                *_encoder.video_args("final"), *_encoder.audio_args(),
                str(out)]
-    r = subprocess.run(_fit_cmd(cmd), capture_output=True, text=True)
+    r = subprocess.run(_fit_cmd(cmd), capture_output=True, text=True, encoding="utf-8", errors="replace")
     if r.returncode != 0 or not out.exists():
         console.print("[yellow]Film-intro:[/] segment build failed; opening "
                       "will be montage+hook only.")
@@ -777,7 +777,7 @@ def _concat_audio(ff: str, parts: list, out: Path) -> None:
                    encoding="utf-8")
     subprocess.run([ff, "-y", "-f", "concat", "-safe", "0", "-i", str(lst),
                     "-c:a", "libmp3lame", "-b:a", "192k", str(out)],
-                   capture_output=True, text=True)
+                   capture_output=True, text=True, encoding="utf-8", errors="replace")
 
 
 def build_mid_segment(project: str, work: Path, cursor: float = 0.0):
@@ -883,7 +883,7 @@ def build_mid_segment(project: str, work: Path, cursor: float = 0.0):
            *_encoder.video_args("final", keyframe_frames=_body_keyframes(total)),
            *_encoder.audio_args(),
            str(out)]
-    r = subprocess.run(_fit_cmd(cmd), capture_output=True, text=True)
+    r = subprocess.run(_fit_cmd(cmd), capture_output=True, text=True, encoding="utf-8", errors="replace")
     if r.returncode != 0 or not out.exists():
         console.print("[yellow]Film-intro:[/] mid segment build failed.")
         console.print((r.stderr or "")[-400:])
@@ -896,7 +896,7 @@ def build_mid_segment(project: str, work: Path, cursor: float = 0.0):
 def _audio_dur(ff: str, p: Path) -> float:
     r = subprocess.run(
         [config.ffprobe(), "-v", "error", "-show_entries", "format=duration",
-         "-of", "default=nw=1:nk=1", str(p)], capture_output=True, text=True)
+         "-of", "default=nw=1:nk=1", str(p)], capture_output=True, text=True, encoding="utf-8", errors="replace")
     try:
         return float((r.stdout or "0").strip())
     except ValueError:
@@ -911,7 +911,7 @@ def _measured_dur(p) -> float:
     _pr = subprocess.run(
         [config.ffprobe(), "-v", "error", "-show_entries",
          "format=duration", "-of", "default=nw=1:nk=1", str(p)],
-        capture_output=True, text=True)
+        capture_output=True, text=True, encoding="utf-8", errors="replace")
     try:
         v = float((_pr.stdout or "").strip())
     except ValueError:
@@ -1085,7 +1085,7 @@ def prepend_to_final(project: str, final: Path) -> float:
     cmd = [ff, "-y", "-f", "concat", "-safe", "0", "-i", str(lst),
            "-c:v", "copy", "-c:a", "aac", "-b:a", "192k", "-ar", "48000",
            "-ac", "2", str(tmp)]
-    r = subprocess.run(_fit_cmd(cmd), capture_output=True, text=True)
+    r = subprocess.run(_fit_cmd(cmd), capture_output=True, text=True, encoding="utf-8", errors="replace")
 
     # DID THE JOIN ACTUALLY WORK? A non-zero exit is the easy case. The
     # dangerous case is exit 0 with a broken file: the concat demuxer will
@@ -1127,7 +1127,7 @@ def prepend_to_final(project: str, final: Path) -> float:
                "-map", "[v]", "-map", "[a]",
                *_encoder.video_args("final"), *_encoder.audio_args(),
                str(tmp)]
-        r = subprocess.run(_fit_cmd(cmd), capture_output=True, text=True)
+        r = subprocess.run(_fit_cmd(cmd), capture_output=True, text=True, encoding="utf-8", errors="replace")
     if r.returncode != 0 or not tmp.exists():
         console.print("[yellow]Intro block built but could not be joined to "
                       "the film; leaving final.mp4 without it.[/]")
@@ -1229,7 +1229,7 @@ def build_intro(project: str, out_name: str = "intro_preview.mp4",
         _r = _sp.run([config.ffprobe(), "-v", "error", "-show_entries",
                       "format=duration", "-of", "default=nw=1:nk=1",
                       str(config.project_dir(project) / "source.mp4")],
-                     capture_output=True, text=True)
+                     capture_output=True, text=True, encoding="utf-8", errors="replace")
         _src_dur = float((_r.stdout or "0").strip())
     except Exception:
         _src_dur = 0.0
@@ -1333,7 +1333,7 @@ def build_intro(project: str, out_name: str = "intro_preview.mp4",
     cmd = [ff, "-y", *inputs, "-filter_complex", graph,
            "-map", "[v]", "-map", "[a]", "-t", f"{total:.3f}",
            *_encoder.video_args("final"), *_encoder.audio_args(), str(out)]
-    r = subprocess.run(_fit_cmd(cmd), capture_output=True, text=True)
+    r = subprocess.run(_fit_cmd(cmd), capture_output=True, text=True, encoding="utf-8", errors="replace")
     if r.returncode != 0:
         console.print("[red]Intro montage: ffmpeg failed[/]")
         console.print((r.stderr or "")[-1200:])

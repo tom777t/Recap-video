@@ -55,7 +55,7 @@ def _audio_dur(ffprobe: str, p: Path) -> float | None:
         r = subprocess.run(
             [ffprobe, "-v", "error", "-show_entries", "format=duration",
              "-of", "default=noprint_wrappers=1:nokey=1", str(p)],
-            capture_output=True, text=True)
+            capture_output=True, text=True, encoding="utf-8", errors="replace")
     except OSError:
         return None
     try:

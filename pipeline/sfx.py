@@ -23,7 +23,7 @@ SFX_DIR = config.ROOT / "assets" / "sfx"
 
 
 def _run(cmd: list[str]):
-    subprocess.run(cmd, capture_output=True, text=True)
+    subprocess.run(cmd, capture_output=True, text=True, encoding="utf-8", errors="replace")
 
 
 def _gen(ff: str, name: str, dur: float, afilter: str, src: str) -> Path:

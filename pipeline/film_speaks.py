@@ -314,7 +314,7 @@ def act_of(sec: float, bounds: list) -> int:
 def _mean_db(ff: str, path: Path) -> float:
     r = subprocess.run(
         [ff, "-hide_banner", "-i", str(path), "-af", "volumedetect",
-         "-f", "null", "-"], capture_output=True, text=True)
+         "-f", "null", "-"], capture_output=True, text=True, encoding="utf-8", errors="replace")
     for line in (r.stderr or "").splitlines():
         if "mean_volume" in line:
             try:

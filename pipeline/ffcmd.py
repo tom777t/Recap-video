@@ -27,7 +27,7 @@ def ff_major(ff: str) -> int:
     if ff not in _MAJOR:
         try:
             out = subprocess.run([ff, "-version"], capture_output=True,
-                                 text=True, timeout=20).stdout
+                                 text=True, encoding="utf-8", errors="replace", timeout=20).stdout
             m = re.search(r"ffmpeg version n?(\d+)", out)
             _MAJOR[ff] = int(m.group(1)) if m else 0
         except Exception:

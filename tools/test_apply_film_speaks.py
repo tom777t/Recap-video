@@ -54,6 +54,20 @@ def _setup() -> Path:
     d = _load(dst / "draft.json")
     d["title"] = str(d.get("title")) + " (apply fixture)"   # not [TITLE-MATCH]
     _save(dst / "draft.json", d)
+    # The shipped selection's texts were written when the repo's voice
+    # profile was stale (3.46 words/s); the measured voice reads 3.27 and a
+    # 50-word line no longer fits its 13.6 s window - a capacity finding,
+    # not what these tests are about. Cap them at 36 words.
+    sp = dst / "film_speaks_selection.json"
+    sel = _load(sp)
+    for pk in sel.get("selected") or []:
+        for side in ("before", "after"):
+            t = str((pk.get(side) or {}).get("new_narration") or "")
+            w = t.split()
+            if len(w) > 36:
+                pk[side]["new_narration"] = " ".join(w[:36]).rstrip(",;:") \
+                    + ("" if w[35].endswith((".", "!", "?")) else ".")
+    _save(sp, sel)
     return dst
 
 

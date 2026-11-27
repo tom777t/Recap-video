@@ -61,7 +61,7 @@ def freezes(ff: str, final: Path, noise_db: float | None = None,
     cmd = [ff, "-hide_banner", "-nostats", "-i", str(final),
            "-vf", freeze_filter(noise_db, min_sec),
            "-map", "0:v:0", "-f", "null", "-"]
-    r = subprocess.run(cmd, capture_output=True, text=True)
+    r = subprocess.run(cmd, capture_output=True, text=True, encoding="utf-8", errors="replace")
     return parse_freezes(r.stderr or "")
 
 
@@ -217,7 +217,7 @@ def source_has_motion(ff: str, source: Path, a: float, b: float,
          "-i", str(source),
          "-vf", f"freezedetect=n={noise}dB:d={min(span * 0.6, 0.2):.3f}",
          "-map", "0:v:0", "-f", "null", "-"],
-        capture_output=True, text=True)
+        capture_output=True, text=True, encoding="utf-8", errors="replace")
     if r.returncode != 0:
         return None
     log = r.stderr or ""

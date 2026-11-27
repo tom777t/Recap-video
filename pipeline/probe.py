@@ -74,7 +74,7 @@ def _ffprobe(*args: str) -> str:
     if key is not None and key in _MEMO:
         return _MEMO[key]
     r = subprocess.run([config.ffprobe(), "-v", "error", *args],
-                       capture_output=True, text=True)
+                       capture_output=True, text=True, encoding="utf-8", errors="replace")
     out = r.stdout or ""
     if (key is not None and r.returncode == 0
             and _file_key(args[-1]) == fk):
@@ -253,7 +253,7 @@ def freezes(path: Path, noise_db: int | None = None,
     cmd = [config.ffmpeg(), "-hide_banner", "-nostats", "-i", str(path),
            "-vf", f"freezedetect=n={noise_db}dB:d={min_sec}",
            "-map", "0:v:0", "-f", "null", "-"]
-    r = subprocess.run(cmd, capture_output=True, text=True)
+    r = subprocess.run(cmd, capture_output=True, text=True, encoding="utf-8", errors="replace")
     out = []
     start = None
     for ln in (r.stderr or "").splitlines():

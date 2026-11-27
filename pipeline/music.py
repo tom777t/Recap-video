@@ -64,7 +64,7 @@ def _db(x: float) -> float:
 def _dur(ff: str, p: Path) -> float:
     r = subprocess.run(
         [config.ffprobe(), "-v", "error", "-show_entries", "format=duration",
-         "-of", "default=nw=1:nk=1", str(p)], capture_output=True, text=True)
+         "-of", "default=nw=1:nk=1", str(p)], capture_output=True, text=True, encoding="utf-8", errors="replace")
     try:
         return float((r.stdout or "0").strip())
     except ValueError:
@@ -498,7 +498,7 @@ def bed_silences(ff: str, src: Path, min_sec: float | None = None,
                      getattr(config, "MUSIC_BED_SILENCE_DB", -60.0))
     r = subprocess.run([ff, "-hide_banner", "-nostats", "-i", str(src),
                         "-af", f"silencedetect=n={floor_db}dB:d={min_sec}",
-                        "-f", "null", "-"], capture_output=True, text=True)
+                        "-f", "null", "-"], capture_output=True, text=True, encoding="utf-8", errors="replace")
     log = r.stderr or ""
     starts = [float(x) for x in _re.findall(r"silence_start:\s*([-\d.]+)", log)]
     ends = [float(x) for x in _re.findall(r"silence_end:\s*([-\d.]+)", log)]
@@ -515,7 +515,7 @@ def _duration(ff: str, src: Path) -> float | None:
     try:
         r = subprocess.run([config.ffprobe(), "-v", "error", "-show_entries",
                             "format=duration", "-of", "csv=p=0", str(src)],
-                           capture_output=True, text=True)
+                           capture_output=True, text=True, encoding="utf-8", errors="replace")
         return float(r.stdout.strip())
     except Exception:
         return None
@@ -570,7 +570,7 @@ def playable_bed(ff: str, pdir: Path, src: Path | None) -> Path | None:
             [ff, "-y", "-v", "error", "-i", str(src), "-af",
              f"aselect='not({expr})',asetpts=N/SR/TB,"
              f"aformat=sample_rates=48000:channel_layouts=stereo",
-             "-c:a", "pcm_s16le", str(outp)], capture_output=True, text=True)
+             "-c:a", "pcm_s16le", str(outp)], capture_output=True, text=True, encoding="utf-8", errors="replace")
         if r.returncode != 0 or not outp.exists():
             console.print(f"[yellow]Music: could not cut the silence out of "
                           f"{src.name} ({where}); looping it as it is.[/]")
@@ -630,7 +630,7 @@ def normalized(ff: str, pdir: Path, src: Path,
         [ff, "-y", "-v", "error", "-i", str(src),
          "-af", (f"volume={gain:+.2f}dB,"
                  f"aformat=sample_rates=48000:channel_layouts=stereo"),
-         "-c:a", "pcm_s16le", str(outp)], capture_output=True, text=True)
+         "-c:a", "pcm_s16le", str(outp)], capture_output=True, text=True, encoding="utf-8", errors="replace")
     if r.returncode != 0 or not outp.exists():
         console.print(f"[yellow]Music:[/] normalising {src.name} failed; "
                       f"using it as-is.")
@@ -870,7 +870,7 @@ def build_music_track(ff: str, pdir: Path, out: Path, total_dur: float,
            "-map", "[mixout]", "-t", f"{total_dur:.3f}",
            "-c:a", "pcm_s16le", str(out)]
     from pipeline.ffcmd import fit
-    r = subprocess.run(fit(cmd), capture_output=True, text=True)
+    r = subprocess.run(fit(cmd), capture_output=True, text=True, encoding="utf-8", errors="replace")
     if r.returncode != 0 or not out.exists():
         console.print("[yellow]Music:[/] bed+cues build failed; "
                       "falling back to the plain bed.")

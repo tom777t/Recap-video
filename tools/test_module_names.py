@@ -69,8 +69,36 @@ def main() -> int:
         ctl = bool(problems_rel(t))
     print(f'{"PASS" if ctl else "FAIL"}  CONTROL             a module calling '
           f"Path() without importing it is caught")
+    # every undefined name, not only the watched standard ones (pyflakes,
+    # when installed: pip install pyflakes)
+    try:
+        from pyflakes import api as _pf, reporter as _rep
+    except ImportError:
+        _pf = None
+    und = []
+    if _pf is not None:
+        import io as _io
+
+        class _R(_rep.Reporter):
+            def __init__(self):
+                super().__init__(_io.StringIO(), _io.StringIO())
+
+            def flake(self, m):
+                if type(m).__name__ in ("UndefinedName", "UndefinedLocal",
+                                        "UndefinedExport"):
+                    und.append(str(m))
+        r = _R()
+        for f in files:
+            if not f.name.startswith("test_"):
+                _pf.checkPath(str(f), r)
+        print(f'{"PASS" if not und else "FAIL"}  NO-UNDEFINED-NAME  '
+              + ("pyflakes: no undefined name in production code" if not und
+                 else "\n  " + "\n  ".join(und[:20])))
+    else:
+        print("SKIP  NO-UNDEFINED-NAME  pyflakes not installed "
+              "(pip install pyflakes)")
     print("-" * 60)
-    n = (not ok) + (not ctl)
+    n = (not ok) + (not ctl) + bool(und)
     print("test_module_names: all pass" if not n else
           f"test_module_names: {n} FAILURE(S)")
     return 1 if n else 0

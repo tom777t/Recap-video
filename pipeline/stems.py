@@ -281,7 +281,7 @@ def _run_demucs(wav: Path, outdir: Path, jobs: int) -> Path | None:
     cmd = [_sys.executable, "-m", "demucs.separate",
            "--two-stems", "vocals", "-n", DEMUCS_MODEL, "-j", str(jobs),
            "-o", str(outdir), "--filename", "{stem}.{ext}", str(wav)]
-    r = subprocess.run(cmd, capture_output=True, text=True)
+    r = subprocess.run(cmd, capture_output=True, text=True, encoding="utf-8", errors="replace")
     if r.returncode != 0:
         console.print(f"[yellow]Stems:[/] demucs exited {r.returncode}: "
                       f"{(r.stderr or r.stdout or '')[-300:]}")
@@ -312,7 +312,7 @@ def _assemble(ff: str, parts: list, total_dur: float, out: Path) -> bool:
                      "-f", "lavfi", "-i",
                      "anullsrc=channel_layout=stereo:sample_rate=44100",
                      "-t", f"{a - cursor:.3f}", "-c:a", "pcm_s16le", str(sil)],
-                    capture_output=True, text=True)
+                    capture_output=True, text=True, encoding="utf-8", errors="replace")
                 if r.returncode != 0:
                     return False
                 order.append(sil)
@@ -325,7 +325,7 @@ def _assemble(ff: str, parts: list, total_dur: float, out: Path) -> bool:
                  "-f", "lavfi", "-i",
                  "anullsrc=channel_layout=stereo:sample_rate=44100",
                  "-t", f"{total_dur - cursor:.3f}", "-c:a", "pcm_s16le",
-                 str(sil)], capture_output=True, text=True)
+                 str(sil)], capture_output=True, text=True, encoding="utf-8", errors="replace")
             order.append(sil)
 
         lst = tmpd / "list.txt"
@@ -335,7 +335,7 @@ def _assemble(ff: str, parts: list, total_dur: float, out: Path) -> bool:
             [ff, "-y", "-hide_banner", "-loglevel", "error",
              "-f", "concat", "-safe", "0", "-i", str(lst),
              "-ar", "44100", "-ac", "2", "-c:a", "pcm_s16le", str(out)],
-            capture_output=True, text=True)
+            capture_output=True, text=True, encoding="utf-8", errors="replace")
         if r.returncode != 0:
             console.print(f"[yellow]Stems:[/] assembly failed: "
                           f"{(r.stderr or '')[-250:]}")
@@ -430,7 +430,7 @@ def separate(project: str, force: bool = False) -> Path | None:
         r = subprocess.run(
             [ff, "-y", "-hide_banner", "-loglevel", "error", "-i", str(source),
              "-vn", "-ac", "2", "-ar", "44100", "-c:a", "pcm_s16le", str(wav)],
-            capture_output=True, text=True)
+            capture_output=True, text=True, encoding="utf-8", errors="replace")
         if r.returncode != 0 or not wav.exists():
             console.print(f"[yellow]Stems:[/] could not extract audio: "
                           f"{(r.stderr or '')[-200:]}")
@@ -441,7 +441,7 @@ def separate(project: str, force: bool = False) -> Path | None:
         r = subprocess.run(
             [config.ffprobe(), "-v", "error", "-show_entries",
              "format=duration", "-of", "default=nw=1:nk=1", str(p)],
-            capture_output=True, text=True)
+            capture_output=True, text=True, encoding="utf-8", errors="replace")
         try:
             return float((r.stdout or "0").strip())
         except ValueError:
@@ -501,7 +501,7 @@ def separate(project: str, force: bool = False) -> Path | None:
             [ff, "-y", "-hide_banner", "-loglevel", "error",
              "-ss", f"{a:.3f}", "-t", f"{b - a:.3f}", "-i", str(wav),
              "-ac", "2", "-ar", "44100", "-c:a", "pcm_s16le", str(seg)],
-            capture_output=True, text=True)
+            capture_output=True, text=True, encoding="utf-8", errors="replace")
         if r.returncode != 0 or not seg.exists():
             console.print(f"[yellow]Stems:[/] could not cut span {i}.")
             return None
@@ -576,7 +576,7 @@ def separate_span(project: str, a: float, b: float
         [ff, "-y", "-hide_banner", "-loglevel", "error",
          "-ss", f"{a:.3f}", "-t", f"{max(0.5, b - a):.3f}", "-i", str(source),
          "-vn", "-ac", "2", "-ar", "44100", "-c:a", "pcm_s16le", str(seg)],
-        capture_output=True, text=True)
+        capture_output=True, text=True, encoding="utf-8", errors="replace")
     if r.returncode != 0 or not seg.exists():
         return None, None
     outdir = work / f"out_{a:.2f}_{b:.2f}"

@@ -90,7 +90,7 @@ def _probe(path: Path) -> tuple:
     r = subprocess.run([config.ffprobe(), "-v", "error", "-select_streams",
                         "v:0", "-show_entries",
                         "stream=width,height:format=duration", "-of",
-                        "json", str(path)], capture_output=True, text=True)
+                        "json", str(path)], capture_output=True, text=True, encoding="utf-8", errors="replace")
     try:
         d = json.loads(r.stdout or "{}")
         s = d["streams"][0]

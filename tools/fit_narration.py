@@ -711,7 +711,7 @@ def main() -> int:
         import subprocess as _sp
         _r = _sp.run([config.ffprobe(), "-v", "error", "-show_entries",
                       "format=duration", "-of", "default=nw=1:nk=1",
-                      str(pdir / "source.mp4")], capture_output=True, text=True)
+                      str(pdir / "source.mp4")], capture_output=True, text=True, encoding="utf-8", errors="replace")
         _src_dur = float((_r.stdout or "0").strip())
     except Exception:
         _src_dur = 0.0

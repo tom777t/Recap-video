@@ -66,7 +66,7 @@ def lufs(path: Path, start: float, dur: float) -> float | None:
            "-ss", f"{max(0.0, start):.3f}", "-t", f"{dur:.3f}",
            "-i", str(path), "-vn", "-af", "ebur128=framelog=verbose",
            "-f", "null", "-"]
-    r = subprocess.run(cmd, capture_output=True, text=True)
+    r = subprocess.run(cmd, capture_output=True, text=True, encoding="utf-8", errors="replace")
     best = None
     for m in re.finditer(r"I:\s*(-?\d+(?:\.\d+)?)\s*LUFS", r.stderr or ""):
         best = float(m.group(1))
@@ -371,7 +371,7 @@ def integrated(path: Path) -> float | None:
     """Integrated loudness of a whole file, in LUFS."""
     cmd = [config.ffmpeg(), "-hide_banner", "-nostats", "-i", str(path),
            "-vn", "-af", "ebur128=framelog=verbose", "-f", "null", "-"]
-    r = subprocess.run(cmd, capture_output=True, text=True)
+    r = subprocess.run(cmd, capture_output=True, text=True, encoding="utf-8", errors="replace")
     best = None
     for m in re.finditer(r"I:\s*(-?\d+(?:\.\d+)?)\s*LUFS", r.stderr or ""):
         best = float(m.group(1))

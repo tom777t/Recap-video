@@ -12,7 +12,7 @@
     giai nguon, sao luu truoc khi render) thi phai nho moi lam.
 
 .EXAMPLE
-    .\run.ps1 -Source "D:\Downloads\phim.mp4" -Project badgenius2017 -Translate
+    .\run.ps1 -Source "D:\Downloads\phim.mp4" -Project badgenius2017 -Wiki "Bad Genius" -Translate
     .\run.ps1 -Project badgenius2017 -From draft
     .\run.ps1 -Project badgenius2017 -From filmspeaks
 #>
@@ -25,6 +25,11 @@ param(
                  'beats', 'angle', 'draft', 'filmspeaks', 'voice', 'render', 'verify')]
     [string]$From = 'ingest',
     [switch]$Translate,
+    # Ten trang Wikipedia cua phim (vd "Lost in the Stars (2022 film)"). Co
+    # thi buoc NAMES tu chay, khong dung lai hoi. Luu vao wiki_title.txt.
+    [string]$Wiki,
+    # Cho batch API toi da bao nhieu phut truoc khi dung (kiem moi phut).
+    [int]$WaitMin = 90,
     [string]$Model = 'medium',
     [switch]$Force
 )
@@ -67,6 +72,26 @@ function Recap {
     return $code
 }
 
+# Chay lai mot buoc API cho toi khi batch xong (exit 3 = batch dang chay),
+# toi da $WaitMin phut. 27 Nov: Lost in the Stars dung o TAG / BEAT / DRAFT
+# chi vi batch chua xong, va moi lan phai go lai lenh bang tay.
+function Run-Waiting {
+    param([string[]]$PyArgs, [string]$What)
+    $t0 = Get-Date
+    while ($true) {
+        & python @PyArgs | Out-Host
+        $c = $LASTEXITCODE
+        if ($c -ne 3) { return $c }
+        $m = ((Get-Date) - $t0).TotalMinutes
+        if ($m -ge $WaitMin) {
+            Warn "$What - batch van chua xong sau $([int]$m) phut"
+            return 3
+        }
+        Write-Host "  $What - batch dang chay, doi 60s ($([int]$m)/$WaitMin phut)..." -ForegroundColor DarkGray
+        Start-Sleep -Seconds 60
+    }
+}
+
 function Need-File ($path, $hint) {
     if (-not (Test-Path $path)) {
         Bad "thieu $path"
@@ -102,6 +127,26 @@ if (Get-Command git -ErrorAction SilentlyContinue) {
         Warn "CANH BAO: code chua len GitHub - $($dirty.Count) file code dang sua chua commit, $ahead commit chua push."
         Warn "  (git status de xem; KHONG push du lieu phim trong projects\ - .gitignore da chan san)"
     }
+}
+
+# Khoa API: lay tu bien moi truong User cua Windows neu cua so nay chua co
+# (dung cach chu du an van lam). Khong bao gio in khoa ra man hinh.
+foreach ($k in @('ANTHROPIC_API_KEY', 'PLOT_API_KEY')) {
+    if (-not [Environment]::GetEnvironmentVariable($k, 'Process')) {
+        $v = [Environment]::GetEnvironmentVariable($k, 'User')
+        if ($v) { [Environment]::SetEnvironmentVariable($k, $v, 'Process') }
+    }
+}
+# Chu Python in ra man hinh luon la UTF-8: ten phim tieng Trung/Thai/Viet
+# khong lam vo lenh print tren console cp1252.
+$env:PYTHONIOENCODING = 'utf-8:replace'
+
+# Kiem tra may TRUOC khi chay: ffmpeg du moi, du thu vien, co khoa, du o
+# dia. Loi o day dung ngay phut dau, khong phai ba tieng sau.
+& python tools\preflight_env.py --project $Project | Out-Host
+if ($LASTEXITCODE -ne 0) {
+    Bad "PREFLIGHT: sua cac dong FAIL o tren roi chay lai (khong co gi bi thay doi)"
+    exit 1
 }
 
 # --------------------------------------------------------------------------- #
@@ -237,8 +282,29 @@ if (Should 'names') {
         $n = python -c "import json,io,sys;print(len(json.load(io.open(sys.argv[1],encoding='utf-8-sig')).get('names') or []))" "$Pdir\names.json"
         Ok "names.json da co ($n nhan vat)"
     }
+    elseif ($Wiki -or (Test-Path "$Pdir\wiki_title.txt")) {
+        # 27 Nov: phim Lost in the Stars dung o day chi de hoi ten trang
+        # Wikipedia. Dua -Wiki ngay lenh dau tien thi buoc nay tu chay.
+        if (-not $Wiki) { $Wiki = (Get-Content "$Pdir\wiki_title.txt" -Raw).Trim() }
+        Set-Content -Path "$Pdir\wiki_title.txt" -Value $Wiki -Encoding UTF8
+        $code = Recap @('names', '--project', $Project, '--wiki', $Wiki)
+        if ($code -ne 0 -or -not (Test-Path "$Pdir\names.json")) {
+            Halt "NAMES - khong lay duoc danh sach dien vien tu '$Wiki'" @(
+                "Kiem tra ten trang Wikipedia (dung y nhu tren en.wikipedia.org),"
+                "roi chay lai voi -Wiki ""<ten dung>"":"
+                "  .\run.ps1 -Project $Project -From names -Wiki ""<Ten phim (film)>"""
+            ) ".\run.ps1 -Project $Project -From names -Wiki ""<Ten phim (film)>"""
+            exit 0
+        }
+        Ok "names.json tu Wikipedia '$Wiki' - xem danh sach o tren"
+    }
     else {
         Halt "NAMES - can danh sach dien vien tu WIKIPEDIA" @(
+            "Nhanh nhat: chay lai voi ten trang Wikipedia, buoc nay tu chay:"
+            "  .\run.ps1 -Project $Project -From names -Wiki ""<Ten phim (film)>"""
+            "(lan sau dua -Wiki ngay tu lenh dau tien thi khong dung o day)"
+            ""
+            "Hoac tu tay:"
             "Chay:"
             "  python recap.py names --project $Project --wiki ""<Ten phim (film)>"" --dry-run"
             "roi bo --dry-run khi ket qua dung."
@@ -309,15 +375,14 @@ if (Should 'tags') {
     if ($todo -and $todo -ne 'NONE' -and -not $Force -and $env:ANTHROPIC_API_KEY) {
         $st = python tools\tag_batch.py status --project $Project
         if ($st -eq 'PENDING') {
-            Write-Host "  > python tools\tag_batch.py collect --project $Project" -ForegroundColor DarkGray
-            & python tools\tag_batch.py collect --project $Project | Out-Host
+            Write-Host "  > python tools\tag_batch.py collect --project $Project --wait" -ForegroundColor DarkGray
+            & python tools\tag_batch.py collect --project $Project --wait --max-wait $WaitMin | Out-Host
             $code = $LASTEXITCODE
             if ($code -eq 3) {
-                Halt "TAG SPANS - batch API chua xong" @(
+                Halt "TAG SPANS - batch API chua xong sau $WaitMin phut" @(
                     "Batch da gui, dang chay phia Anthropic (vai phut toi vai gio)."
-                    "Thu ve bang tay, doi toi khi xong:"
-                    "  python tools\tag_batch.py collect --project $Project --wait"
-                    "roi chay lai lenh duoi. Hoac chay lai thang lenh duoi luc nao cung duoc."
+                    "Chay lai lenh duoi luc nao cung duoc (no se doi tiep), hoac"
+                    "cho lau hon voi -WaitMin 240."
                 ) ".\run.ps1 -Project $Project -From tags"
                 exit 0
             }
@@ -330,18 +395,28 @@ if (Should 'tags') {
         if ($st -eq 'NEW') {
             Write-Host "  > python tools\tag_batch.py submit --project $Project" -ForegroundColor DarkGray
             & python tools\tag_batch.py submit --project $Project | Out-Host
-            if ($LASTEXITCODE -eq 0) {
-                Halt "TAG SPANS - da gui batch API" @(
-                    "Model: config.TAG_MODEL. Id batch ghi trong $Pdir\tag_batch.json."
-                    "Batch chay bat dong bo. Thu ve (doi toi khi xong):"
-                    "  python tools\tag_batch.py collect --project $Project --wait"
-                    ""
-                    "Span nao van hong sau khi thu ve se duoc liet ke va chuyen"
-                    "sang duong subagent o lan chay tiep theo."
-                ) ".\run.ps1 -Project $Project -From tags"
-                exit 0
+            $sub = $LASTEXITCODE
+            if ($sub -eq 0) {
+                # cho batch xong ngay tai day roi di tiep, khong dung lai
+                Write-Host "  > python tools\tag_batch.py collect --project $Project --wait" -ForegroundColor DarkGray
+                & python tools\tag_batch.py collect --project $Project --wait --max-wait $WaitMin | Out-Host
+                $code = $LASTEXITCODE
+                if ($code -eq 1) { Bad "tag_batch collect that bai - doc loi o tren"; exit 1 }
+                if ($code -eq 3) {
+                    Halt "TAG SPANS - batch API chua xong sau $WaitMin phut" @(
+                        "Model: config.TAG_MODEL. Id batch ghi trong $Pdir\tag_batch.json."
+                        "Batch van dang chay phia Anthropic. Chay lai lenh duoi luc nao"
+                        "cung duoc (no se doi tiep), hoac cho lau hon voi -WaitMin 240."
+                        ""
+                        "Span nao van hong sau khi thu ve se duoc liet ke va chuyen"
+                        "sang duong subagent o lan chay tiep theo."
+                    ) ".\run.ps1 -Project $Project -From tags"
+                    exit 0
+                }
             }
-            Warn "tag_batch submit that bai - dung duong subagent"
+            else {
+                Warn "tag_batch submit that bai - dung duong subagent"
+            }
         }
         $todo = python tools\check_stage.py $Project tags-todo
     }
@@ -400,11 +475,10 @@ if (Should 'beats') {
     if (-not (Test-Path "$Pdir\beats_proposal.md") -and $env:ANTHROPIC_API_KEY) {
         # Co key: 8 chunk (mot batch) + vong reveals qua API thay vi dung lai.
         Say "   beat map qua API (tools\write_api.py beats)"
-        & python tools\write_api.py beats --project $Project | Out-Host
-        $wc = $LASTEXITCODE
+        $wc = Run-Waiting @('tools\write_api.py', 'beats', '--project', $Project) "beat map"
         if ($wc -eq 3) {
-            Halt "BEAT MAP - batch API chua xong" @(
-                "Batch da gui; chay lai sau vai phut de lay ket qua."
+            Halt "BEAT MAP - batch API chua xong sau $WaitMin phut" @(
+                "Batch da gui; chay lai lenh duoi (no se doi tiep), hoac -WaitMin 240."
             ) ".\run.ps1 -Project $Project -From beats"
             exit 0
         }
@@ -567,11 +641,10 @@ if (Should 'draft') {
         # API. exit 2 = con finding (da liet ke) - di tiep, gate ben duoi
         # va checkpoint nguoi se thay chung.
         Say "   draft qua API (tools\write_api.py draft)"
-        & python tools\write_api.py draft --project $Project | Out-Host
-        $wc = $LASTEXITCODE
+        $wc = Run-Waiting @('tools\write_api.py', 'draft', '--project', $Project) "draft"
         if ($wc -eq 3) {
-            Halt "DRAFT - batch API chua xong" @(
-                "Batch da gui; chay lai sau vai phut de lay ket qua."
+            Halt "DRAFT - batch API chua xong sau $WaitMin phut" @(
+                "Batch da gui; chay lai lenh duoi (no se doi tiep), hoac -WaitMin 240."
             ) ".\run.ps1 -Project $Project -From draft"
             exit 0
         }

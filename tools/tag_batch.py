@@ -805,6 +805,8 @@ def cmd_collect(a) -> int:
         print("no uncollected batch")
         return 0
     client = CLIENT_FACTORY()
+    t0 = time.time()
+    limit = float(getattr(a, "max_wait", 0) or 0) * 60.0
     while True:
         running = []
         for b in pend:
@@ -816,7 +818,10 @@ def cmd_collect(a) -> int:
                                f"succeeded {_get(rc, 'succeeded', '?')})")
         if not running or not a.wait:
             break
-        print("waiting: " + "; ".join(running))
+        if limit and time.time() - t0 >= limit:
+            print(f"stopped waiting after {limit / 60:.0f} min")
+            break
+        print("waiting: " + "; ".join(running), flush=True)
         time.sleep(a.poll)
     if running:
         print("batch not finished yet:\n  " + "\n  ".join(running))
@@ -945,6 +950,9 @@ def main(argv=None) -> int:
     p.add_argument("--project", required=True)
     p.add_argument("--wait", action="store_true")
     p.add_argument("--poll", type=int, default=60)
+    p.add_argument("--max-wait", type=float, default=0,
+                   help="with --wait: give up after this many minutes "
+                        "(0 = no limit)")
     p.add_argument("--no-escalate", dest="escalate", action="store_false")
     p = sub.add_parser("status")
     p.add_argument("--project", required=True)

@@ -122,7 +122,7 @@ def _duration(path: Path) -> float:
     r = subprocess.run(
         [config.ffprobe(), "-v", "error", "-select_streams", "v:0",
          "-show_entries", "stream=duration", "-of", "default=nw=1:nk=1",
-         str(path)], capture_output=True, text=True)
+         str(path)], capture_output=True, text=True, encoding="utf-8", errors="replace")
     try:
         return float((r.stdout or "0").strip().splitlines()[0])
     except (ValueError, IndexError):
@@ -133,7 +133,7 @@ def _dimensions(path: Path) -> tuple:
     r = subprocess.run(
         [config.ffprobe(), "-v", "error", "-select_streams", "v:0",
          "-show_entries", "stream=width,height", "-of", "csv=p=0",
-         str(path)], capture_output=True, text=True)
+         str(path)], capture_output=True, text=True, encoding="utf-8", errors="replace")
     try:
         w, h = (r.stdout or "").strip().splitlines()[0].split(",")[:2]
         return int(w), int(h)

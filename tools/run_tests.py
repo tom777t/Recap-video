@@ -104,9 +104,9 @@ def changed_files(base: str | None) -> list[str]:
     """Files changed vs `base` (default: HEAD), plus untracked files."""
     ref = base or "HEAD"
     out = subprocess.run(["git", "diff", "--name-only", ref], cwd=ROOT,
-                         capture_output=True, text=True).stdout.split()
+                         capture_output=True, text=True, encoding="utf-8", errors="replace").stdout.split()
     out += subprocess.run(["git", "ls-files", "--others", "--exclude-standard"],
-                          cwd=ROOT, capture_output=True, text=True).stdout.split()
+                          cwd=ROOT, capture_output=True, text=True, encoding="utf-8", errors="replace").stdout.split()
     return sorted({p.replace("\\", "/") for p in out})
 
 
