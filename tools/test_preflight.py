@@ -448,11 +448,10 @@ def test_writer_budget_matches_render() -> tuple[bool, str]:
     # target is fine if it was measured under the mapping in force.
     from pipeline.calibration import mapping_signature, production_voice_key
     import json as _json
-    prof_path = Path(ROOT) / "config" / "voice_profiles.json"
-    if not prof_path.exists():
-        return False, "no voice_profiles.json - the writer has no measurement"
-    meta = (_json.loads(prof_path.read_text(encoding="utf-8-sig"))
-            .get("profiles", {}).get(production_voice_key(), {}))
+    from pipeline.calibration import profiles_blob
+    meta = profiles_blob().get("profiles", {}).get(production_voice_key(), {})
+    if not meta:
+        return False, "no voice profile - the writer has no measurement"
     if meta.get("mapping_signature") != mapping_signature():
         return False, ("the writer's rate was measured under a DIFFERENT "
                        "delivery mapping - that is how 185 WPM survived a "

@@ -747,10 +747,10 @@ def test_profile_measures_on_target() -> tuple[bool, str]:
     word budget 12% too generous while reporting success.
     """
     import json
-    p = Path(ROOT) / "config" / "voice_profiles.json"
-    if not p.exists():
-        return False, "config/voice_profiles.json is missing"
-    prof = json.loads(p.read_text(encoding="utf-8")).get("profiles") or {}
+    from pipeline.calibration import profiles_blob
+    prof = profiles_blob().get("profiles") or {}
+    if not prof:
+        return False, "no voice profile (config/voice_profiles*.json)"
     live = None
     for k, v in prof.items():
         if str(v.get("voice_id")) == "Warren":

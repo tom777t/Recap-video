@@ -48,9 +48,10 @@ def main() -> int:
     shutil.rmtree(pdir, ignore_errors=True)
     (pdir / "narration").mkdir(parents=True)
     tmp = Path(tempfile.mkdtemp(prefix="vprof_"))
-    saved = (C._PROFILES_PATH, C.production_voice_key)
+    saved = (C._PROFILES_PATH, C.production_voice_key, C._LOCAL_PATH)
     key = "testvoice_default"
     C._PROFILES_PATH = tmp / "voice_profiles.json"
+    C._LOCAL_PATH = tmp / "voice_profiles.local.json"
     C.production_voice_key = lambda: key
     res = []
     try:
@@ -77,19 +78,29 @@ def main() -> int:
                     and prof.is_measured and 170 <= wpm <= 190,
                     f"profile {'valid' if prof.is_measured else 'void'}, "
                     f"{wpm:.0f} WPM (narration: 180)"))
+        tracked_after = C._PROFILES_PATH.read_text()
+        local = json.loads(C._LOCAL_PATH.read_text()) \
+            if C._LOCAL_PATH.exists() else {}
+        res.append(("LOCAL-ONLY", '"mapping_signature": "old"' in
+                    tracked_after.replace(" ", "").replace('":"', '": "')
+                    and key in (local.get("profiles") or {}),
+                    "the measure is written to voice_profiles.local.json; "
+                    "the tracked file is untouched, so git pull never "
+                    "meets a local change"))
         res.append(("BUMP-EXCLUDED", bool(st) and st.get("samples") == 40,
                     f"{(st or {}).get('samples')} samples of 40 clean lines"))
         res.append(("VALID-KEPT", C.ensure_measured(PROJ, draft, pdir) is None,
                     "a valid profile is left alone"))
         C._PROFILES_PATH.write_text(json.dumps({"profiles": {key: {
             "words_per_sec": 2.0, "mapping_signature": "old"}}}))
+        C._LOCAL_PATH.unlink(missing_ok=True)     # this machine: no measure
         few = {"lines": lines[:10]}
         st2 = C.ensure_measured(PROJ, few, pdir)
         res.append(("TOO-FEW", bool(st2) and "fewer than" in st2.get(
             "skipped", "") and not C.production_profile().is_measured,
                     (st2 or {}).get("skipped", "measured")))
     finally:
-        C._PROFILES_PATH, C.production_voice_key = saved
+        C._PROFILES_PATH, C.production_voice_key, C._LOCAL_PATH = saved
         C._STALE_SAID.clear()
         shutil.rmtree(pdir, ignore_errors=True)
         shutil.rmtree(tmp, ignore_errors=True)

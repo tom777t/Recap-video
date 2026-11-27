@@ -335,16 +335,7 @@ def write_profile(project: str, per_tag: int = 3) -> dict:
             "measured_utc": _dt.datetime.now(_dt.timezone.utc)
                                .strftime("%Y-%m-%dT%H:%M:%SZ"),
         }
-        path = Path(ROOT) / "config" / "voice_profiles.json"
-        path.parent.mkdir(parents=True, exist_ok=True)
-        try:
-            blob = json.loads(path.read_text(encoding="utf-8-sig"))
-        except Exception:
-            blob = {}
-        blob.setdefault("profiles", {})
-        blob["profiles"][cal.production_voice_key()] = meta
-        path.write_text(json.dumps(blob, ensure_ascii=False, indent=2),
-                        encoding="utf-8")
+        cal.write_local_profile(cal.production_voice_key(), meta)
         console.print(f"[green]Wrote the voice profile[/] - "
                       f"{meta['measured_samples']} sample(s), "
                       f"{agg * 60:.1f} WPM aggregate, "
@@ -366,7 +357,7 @@ def main() -> int:
                     help="write the solved rate into config.py")
     ap.add_argument("--write-profile", action="store_true",
                     help="synthesize a sample at the LIVE mapping and write "
-                         "config/voice_profiles.json, signed with the current "
+                         "config/voice_profiles.local.json, signed with the current "
                          "mapping. Seeds the profile that [VOICE-RATE-DRIFT] "
                          "requires after a mapping change.")
     ap.add_argument("--solve-per-tag", action="store_true",

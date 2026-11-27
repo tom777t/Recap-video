@@ -38,7 +38,7 @@ CUTS = [3.0, 5.5, 9.0, 11.0]          # seconds, at 24 fps: frames 72,132,...
 def _film(path: Path) -> None:
     srcs = ["testsrc2=size=640x272:rate=24", "mandelbrot=size=640x272:rate=24",
             "smptebars=size=640x272:rate=24", "rgbtestsrc=size=640x272:rate=24",
-            "cellauto=size=640x272:rate=24"]
+            "color=c=0xd07020:size=640x272:rate=24"]
     edges = [0.0] + CUTS + [13.0]
     ins = []
     for i, s in enumerate(srcs):

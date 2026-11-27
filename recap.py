@@ -315,7 +315,7 @@ def cmd_voice(args):
             console.print(
                 f"[green][VOICE-PROFILE][/] measured on {st['samples']} "
                 f"line(s) of this narration: {st['words_per_sec'] * 60:.0f} "
-                f"WPM, written to config/voice_profiles.json")
+                f"WPM, written to config/voice_profiles.local.json")
 
     def _voice_ok(narration) -> bool:
         """The render's three ONE-NARRATOR checks, run HERE and ALL of them.

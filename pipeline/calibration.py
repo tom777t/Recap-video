@@ -30,6 +30,46 @@ from typing import Optional
 import config
 
 _PROFILES_PATH = Path(__file__).resolve().parent.parent / "config" / "voice_profiles.json"
+# What THIS machine measured. Not in git (.gitignore): every measure used to
+# rewrite the tracked voice_profiles.json, so the owner's checkout always had
+# a local change to it and `git pull` refused to update ("Your local changes
+# to the following files would be overwritten by merge") - 27 Nov, even
+# when the two files were byte-identical. Read on top of the tracked file,
+# key by key; every measurement is written here.
+_LOCAL_PATH = _PROFILES_PATH.with_name("voice_profiles.local.json")
+
+
+def _read_blob(path: Path) -> dict:
+    try:
+        return json.loads(path.read_text(encoding="utf-8-sig"))
+    except Exception:
+        return {}
+
+
+def profiles_blob() -> dict:
+    """The tracked profiles with this machine's measurements laid over them,
+    key by key."""
+    blob = _read_blob(_PROFILES_PATH) if _PROFILES_PATH.exists() else {}
+    merged = dict(blob.get("profiles") or {})
+    if _LOCAL_PATH.exists():
+        merged.update((_read_blob(_LOCAL_PATH).get("profiles") or {}))
+    out = dict(blob)
+    out["profiles"] = merged
+    return out
+
+
+def write_local_profile(voice_key: str, meta: dict) -> Path:
+    """Record one measured profile for this machine (never the tracked
+    file)."""
+    _LOCAL_PATH.parent.mkdir(parents=True, exist_ok=True)
+    blob = _read_blob(_LOCAL_PATH) if _LOCAL_PATH.exists() else {}
+    blob.setdefault("_comment", "Voice profiles measured on THIS machine "
+                    "(pipeline/calibration.py). Not in git; read on top of "
+                    "voice_profiles.json.")
+    blob.setdefault("profiles", {})[voice_key] = meta
+    _LOCAL_PATH.write_text(json.dumps(blob, ensure_ascii=False, indent=2),
+                           encoding="utf-8")
+    return _LOCAL_PATH
 
 
 @dataclass
@@ -226,13 +266,7 @@ def production_profile() -> VoiceProfile:
 
 
 def _load_all() -> dict:
-    if not _PROFILES_PATH.exists():
-        return {}
-    try:
-        data = json.loads(_PROFILES_PATH.read_text(encoding="utf-8-sig"))
-        return data.get("profiles", {})
-    except Exception:
-        return {}
+    return profiles_blob().get("profiles", {})
 
 
 def load_profile(voice_id: str, rate: str = "+22%") -> Optional[VoiceProfile]:
@@ -413,16 +447,10 @@ def calibrate(project: str, voice_key: str, ffprobe: Optional[str] = None,
     # con so 3.5 w/s nam trong file la do go tay tu bao gio khong ai biet, va
     # no lech 6% so voi phep do that. Mot cong cu quang cao mot tac dung no
     # khong lam la te hon khong co cong cu.
-    _PROFILES_PATH.parent.mkdir(parents=True, exist_ok=True)
-    try:
-        blob = json.loads(_PROFILES_PATH.read_text(encoding="utf-8-sig"))
-    except Exception:
-        blob = {}
-    blob.setdefault("profiles", {})
     voice_id = voice_key.rsplit("_", 1)[0]
     rate = voice_key.rsplit("_", 1)[1] if "_" in voice_key else ""
-    prev = blob["profiles"].get(voice_key, {})
-    blob["profiles"][voice_key] = {
+    prev = profiles_blob()["profiles"].get(voice_key, {})
+    meta = {
         "voice_id": prev.get("voice_id", voice_id),
         "rate_adjustment": prev.get("rate_adjustment", rate),
         "words_per_sec": stats["words_per_sec"],
@@ -440,9 +468,7 @@ def calibrate(project: str, voice_key: str, ffprobe: Optional[str] = None,
         "measured_utc": _dt.datetime.now(_dt.timezone.utc)
                            .strftime("%Y-%m-%dT%H:%M:%SZ"),
     }
-    _PROFILES_PATH.write_text(
-        json.dumps(blob, ensure_ascii=False, indent=2), encoding="utf-8")
-    stats["written_to"] = str(_PROFILES_PATH)
+    stats["written_to"] = str(write_local_profile(voice_key, meta))
     stats["previous_words_per_sec"] = prev.get("words_per_sec")
     return stats
 

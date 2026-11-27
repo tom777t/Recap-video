@@ -96,3 +96,6 @@ channel/
 
 # the channel music library (tools/music_library.py fetch) - audio, not code
 music_library/
+
+# voice profiles measured on this machine (pipeline/calibration.py)
+config/voice_profiles.local.json
